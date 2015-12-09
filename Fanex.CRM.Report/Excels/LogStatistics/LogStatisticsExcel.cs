@@ -4,32 +4,32 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Excels.LogStatistic
+namespace Fanex.CRM.Report.Excels.LogStatistics
 {
     using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Models.LogStatistic;
+    using Fanex.CRM.Report.Models.LogStatistics;
     using Fanex.CRM.Report.Resources;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    public class LogStatisticExcel : BaseExcel
+    public class LogStatisticsExcel : BaseExcel
     {
-        private readonly LogStatisticViewModel _logStatisticReport;
+        private readonly LogStatisticsViewModel _logStatisticsReport;
 
-        public LogStatisticExcel(LogStatisticViewModel logStatisticReport, string excelFileName)
+        public LogStatisticsExcel(LogStatisticsViewModel logStatisticsReport, string excelFileName)
             : base(excelFileName)
         {
-            _logStatisticReport = logStatisticReport;
+            _logStatisticsReport = logStatisticsReport;
         }
 
         public override void BuildWorkBook()
         {
-            int totalDataColumns = _logStatisticReport.GrandTotalOfCommunicationCount.Count + _logStatisticReport.ProductColumns.Count();
+            int totalDataColumns = _logStatisticsReport.GrandTotalOfCommunicationCount.Count + _logStatisticsReport.ProductColumns.Count();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
@@ -41,7 +41,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
             };
 
             SetColumnsWidth(exportExcelInfo);
-            GenerateTitle(exportExcelInfo, _logStatisticReport.Name);
+            GenerateTitle(exportExcelInfo, _logStatisticsReport.Name);
 
             GenerateHeader(exportExcelInfo);
             GenerateBodyData(exportExcelInfo);
@@ -78,10 +78,10 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
             int currentRowIndex = exportExcelInfo.CurrentRow;
             int currentColumnIndex = exportExcelInfo.StartColumn;
 
-            var productColumns = _logStatisticReport.ProductColumns;
+            var productColumns = _logStatisticsReport.ProductColumns;
             int productColumnsCount = productColumns.Count();
 
-            var communicationColumns = _logStatisticReport.CommunicationColumns;
+            var communicationColumns = _logStatisticsReport.CommunicationColumns;
             int communicationColumnsCount = communicationColumns.Count();
 
             var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
@@ -129,7 +129,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
             var subCategoryTextStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             var subCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);            
             
-            var mainCategories = _logStatisticReport.MainCategories;
+            var mainCategories = _logStatisticsReport.MainCategories;
             foreach (var mainCategory in mainCategories)
             {
                 GenerateRowValue(exportExcelInfo, mainCategory, mainCategoryTextStyle, mainCategorynumberStyle);
@@ -149,17 +149,17 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
             var footerValueStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
             footerValueStyle.Alignment = HorizontalAlignment.Center;
 
-            var granTotal = new LogStatisticBaseModel
+            var granTotal = new LogStatisticsBaseModel
             {
                 Name = Labels.GrandTotal,
-                ListOfCommunicationCount = _logStatisticReport.GrandTotalOfCommunicationCount,
-                ListOfCommunicationSumByProduct = _logStatisticReport.GrandTotalOfCommunicationSumByProduct              
+                ListOfCommunicationCount = _logStatisticsReport.GrandTotalOfCommunicationCount,
+                ListOfCommunicationSumByProduct = _logStatisticsReport.GrandTotalOfCommunicationSumByProduct              
             };
 
             GenerateRowValue(exportExcelInfo, granTotal, footerTextStyle, footerValueStyle);
         }
 
-        private void GenerateRowValue(ExportExcelInfo exportExcelInfo, LogStatisticBaseModel category, ICellStyle textStyle, ICellStyle numberStyle)
+        private void GenerateRowValue(ExportExcelInfo exportExcelInfo, LogStatisticsBaseModel category, ICellStyle textStyle, ICellStyle numberStyle)
         {
             exportExcelInfo.ResetCurrentColumn();
 
@@ -174,7 +174,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
             var listOfCommunicationSumByProduct = category.ListOfCommunicationSumByProduct;
             var listOfNumberCommunicationCount = category.ListOfCommunicationCount;
 
-            int communicationColumnsCount = _logStatisticReport.CommunicationColumns.Count();
+            int communicationColumnsCount = _logStatisticsReport.CommunicationColumns.Count();
             int currentCommunicationIndex = 0;
             foreach (var communicationSumByProduct in listOfCommunicationSumByProduct)
             {

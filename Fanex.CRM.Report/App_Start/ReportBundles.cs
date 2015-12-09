@@ -29,7 +29,7 @@ namespace Fanex.CRM.Report
             RegisterFeedbackStatisticBundles(bundles);
             RegisterFeedbackStatisticDetailBundles(bundles);
 
-            RegisterLogStatisticBundles(bundles);
+            RegisterLogStatisticsBundles(bundles);
         }
 
         /// <summary>
@@ -188,28 +188,29 @@ namespace Fanex.CRM.Report
         /// Registers the log statistics bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterLogStatisticBundles(BundleCollection bundles)
+        private static void RegisterLogStatisticsBundles(BundleCollection bundles)
         {
             AddAndInclude(
                 bundles,
-                "~/bundles/Report/LogStatisticStyles",
+                "~/bundles/Report/LogStatisticsStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css");
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
 
-            bundles.Add(new ScriptBundle("~/bundles/Report/LogStatisticScripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Report/LogStatisticsScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/LogStatistic/Scripts/LogStatisticApplication.js",
-                "~/Areas/Report/LogStatistic/Scripts/LogStatisticService.js",
-                "~/Areas/Report/LogStatistic/Scripts/LogStatisticOptions.js",
-                "~/Areas/Report/LogStatistic/Scripts/LogStatisticInitialPickers.js",
-                "~/Areas/Report/LogStatistic/Scripts/LogStatisticController.js",
-                "~/Areas/Report/LogStatistic/Scripts/Directives/*.js"));
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsApplication.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsService.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsOptions.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsInitialPickers.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsController.js",
+                "~/Areas/Report/LogStatistics/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(

@@ -4,17 +4,17 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.LogStatistic
+namespace Fanex.CRM.Report.Models.LogStatistics
 {
     using System.Collections.Generic;
 
-    public class LogStatisticMainCategory : LogStatisticBaseModel
+    public class LogStatisticsMainCategory : LogStatisticsBaseModel
     {
-        public LogStatisticMainCategory()
+        public LogStatisticsMainCategory()
         {
-            SubCategories = new List<LogStatisticBaseModel>();
+            SubCategories = new List<LogStatisticsBaseModel>();
         }
 
-        public IEnumerable<LogStatisticBaseModel> SubCategories { get; set; }
+        public IEnumerable<LogStatisticsBaseModel> SubCategories { get; set; }
     }
 }

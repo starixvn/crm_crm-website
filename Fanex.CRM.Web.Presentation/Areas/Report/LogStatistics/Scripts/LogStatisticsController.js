@@ -8,8 +8,8 @@
     currentDate */
     /* jshint camelcase: false */
     /* jshint unused: vars */
-    angular.module('log-statistic-application').controller('logStatisticController', ['$scope', 'LogStatisticService', '$uiBlockerService',
-    function ($scope, logStatisticService, $uiBlockerService) {
+    angular.module('log-statistics-application').controller('logStatisticsController', ['$scope', 'LogStatisticsService', '$uiBlockerService',
+    function ($scope, logStatisticsService, $uiBlockerService) {
         $scope.allSettings = null;
 
         $scope.productOptions = null;
@@ -26,7 +26,16 @@
             CommunicationIds: ''
         };
 
+        $scope.detailReportCriteria = {
+            FromDate: new Date(currentDate),
+            ToDate: new Date(currentDate),
+            PageIndex: 1,
+            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+            IsPagingCallBack: false
+        };
+
         $scope.ibcReportOptions = {
+            Type: 0,
             DataList: null,
             IsResize: false,
             IsUpdateGrid: false,
@@ -34,10 +43,17 @@
         };
 
         $scope.licenseeReportOptions = {
+            Type: 1,
             DataList: null,
             IsResize: false,
             IsUpdateGrid: false,
             IsExpand: false
+        };
+
+        $scope.detailReportOptions = {
+            DataList: null,
+            IsResize: false,
+            IsUpdateGrid: false
         };
 
         $scope.downloadFileOptions = null;
@@ -161,7 +177,7 @@
 
         $scope.getAllSetting = function () {
             var params = {};
-            logStatisticService.getAllSetting()
+            logStatisticsService.getAllSetting()
                     .then(function (data) {
                         $scope.communicationToolOptions.DataList = data.Result.CommunicationToolList;
                         $scope.categoryOptions.DataList = data.Result.MainCategoryList;
@@ -179,7 +195,7 @@
                 CommunicationId: $scope.searchCriteria.CommunicationIds
             };
 
-            logStatisticService.getMainReport(getReportCriteria)
+            logStatisticsService.getMainReport(getReportCriteria)
                     .then(function (data) {
                         $scope.ibcReportOptions.DataList = data.Result.IBCReport;
                         $scope.ibcReportOptions.IsUpdateGrid = true;
@@ -215,7 +231,7 @@
         $scope.viewDetail = function (siteType) {
             $uiBlockerService.blockUI();
             $scope.searchCriteria.SiteType = siteType;
-            var getDetailReportCriteria = {
+            $scope.detailReportCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 SiteType: siteType,
@@ -224,9 +240,9 @@
                 IsPagingCallBack: false
             };
 
-            logStatisticService.getDetailReport(getDetailReportCriteria)
+            logStatisticsService.getDetailReport($scope.detailReportCriteria)
                 .then(function (data) {
-                    $scope.detailReportOptions.DataList = data.Result.IBCReport;
+                    $scope.detailReportOptions.DataList = data.Result;
                     $scope.detailReportOptions.IsUpdateGrid = true;
 
                     $uiBlockerService.unblockUI();
@@ -236,39 +252,60 @@
                 });
         };
 
-        $scope.exportIBCReport = function () {
+        $scope.pagingReportDetail = function (pageIndex, pageSize) {
+            $uiBlockerService.blockUI();
+            $scope.detailReportCriteria = {
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                SiteType: $scope.searchCriteria.SiteType,
+                PageIndex: pageIndex + 1,
+                PageSize: pageSize,
+                IsPagingCallBack: true
+            };
+
+            logStatisticsService.getDetailReport($scope.detailReportCriteria)
+                .then(function (data) {
+                    $scope.detailReportOptions.DataList = data.Result;
+                    $scope.detailReportOptions.IsUpdateGrid = true;
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
+        $scope.exportReport = function (reportType) {
             var getReportCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ProductId: $scope.searchCriteria.ProductIds,
                 MainCategoryId: $scope.searchCriteria.CategoryIds,
                 CommunicationId: $scope.searchCriteria.CommunicationIds,
-                SiteType: 0
+                SiteType: reportType
             };
             $scope.downloadFileOptions = {
-                URL: window.rootUrl + "LogStatistic/ExportReport",
+                URL: window.rootUrl + "LogStatistics/ExportReport",
                 Params: getReportCriteria
             };
 
             $scope.$apply();
         };
 
-        $scope.exportLicenseeReport = function () {
-            var getReportCriteria = {
+        $scope.exportReportDetail = function () {
+            var reportDetailCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ProductId: $scope.searchCriteria.ProductIds,
-                MainCategoryId: $scope.searchCriteria.CategoryIds,
-                CommunicationId: $scope.searchCriteria.CommunicationIds,
-                SiteType: 1
+                SiteType: $scope.searchCriteria.SiteType,
+                IsPagingCallBack: false,
+                IsGetFullReport: true
             };
             $scope.downloadFileOptions = {
-                URL: window.rootUrl + "LogStatistic/ExportReport",
-                Params: getReportCriteria
+                URL: window.rootUrl + "LogStatistics/ExportReportDetail",
+                Params: reportDetailCriteria
             };
 
             $scope.$apply();
-        };
+        }
 
         angular.element(document).ready(function () {
             registerOptions($scope);

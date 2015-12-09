@@ -3,15 +3,15 @@
 @using Fanex.CRM.Common.Helpers;
 @{ string clientDate = DateTimeUtilize.CurrentClientTime().ToShortFormatedDate(); }
 <!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="log-statistic-application">
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="log-statistics-application">
 <head>
     <title>@Labels.CasinoDailyStatistics_Report</title>
     @RazorHelper.RenderStyles("~/site/common",
-                            "~/bundles/Report/LogStatisticStyles",
+                            "~/bundles/Report/LogStatisticsStyles",
                             "~/Styles/FanexMultipleSelect")
 </head>
 <body>
-    <div class="main container" data-ng-controller="logStatisticController">
+    <div class="main container" data-ng-controller="logStatisticsController">
         <div class="filter-frm one-row">
             <form data-ng-submit="getCasinoDailySummary()" novalidate>
                 <div class="row row-item">
@@ -87,10 +87,38 @@
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Grand_Total: '@Labels.Grand_Total',
             Complaints_Enquiries: '@Labels.Complaints_Enquiries',
-            ViewDetail: '@Labels.ViewDetail',
-            ViewChart: '@Labels.ViewChart',
             ProductCollapseExpand: '@Labels.ProductCollapseExpand',
             DailyStatisticsReport_ChartSuffix: '@Labels.DailyStatisticsReport_ChartSuffix',
+
+            Date: '@Labels.Date',
+            Start_Time: '@Labels.Start_Time',
+            End_Time: '@Labels.End_Time',
+            Duration: '@Labels.Duration',
+            Customer: '@Labels.Customer',
+            Site: '@Labels.Site',
+            Type_Of_Contact: '@Labels.Type_Of_Contact',
+            Symbol_Extension: '@Labels.Symbol_Extension',
+            Role: '@Labels.Role',
+            Contact: '@Labels.ContactInfo',
+            MSN: '@Labels.MSN',
+            Skype: '@Labels.Skype',
+            Email: '@Labels.Email',
+            Phone: '@Labels.Phone',
+            Mobile: '@Labels.Mobile',
+            Product: '@Labels.Product',
+            Country: '@Labels.Country',
+            Category: '@Labels.Category',
+            Subcategory: '@Labels.SubCategory',
+            Solution: '@Labels.Solution',
+            Status: '@Labels.Status',
+            Response: '@Labels.Response',
+            Handle_By: '@Labels.Handle_By',
+            Creation_Time: '@Labels.Creation_Time',
+            Detail: '@Labels.Detail',
+
+            ViewDetail: '@Labels.ViewDetail',
+            ViewChart: '@Labels.ViewChart',
+            GoBack: '@Labels.GoBack'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
@@ -99,6 +127,6 @@
         "~/Scripts/AngularJSLibrary",      
         "~/Scripts/FanexMultipleSelect",
         "~/CRM/DownLoadFile/Scripts",
-        "~/bundles/Report/LogStatisticScripts")
+        "~/bundles/Report/LogStatisticsScripts")
 </body>
 </html>

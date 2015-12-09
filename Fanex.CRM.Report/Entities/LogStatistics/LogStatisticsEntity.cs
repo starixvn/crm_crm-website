@@ -4,11 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Entities.LogStatistic
+namespace Fanex.CRM.Report.Entities.LogStatistics
 {
     using System;
 
-    public class LogStatisticEntity
+    public class LogStatisticsEntity
     {
         public int MainCategoryId { get; set; }
 

@@ -4,20 +4,20 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.LogStatistic
+namespace Fanex.CRM.Report.Models.LogStatistics
 {
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Models;
 
-    public class LogStatisticViewModel : BaseModel
+    public class LogStatisticsViewModel : BaseModel
     {
-        public LogStatisticViewModel()
+        public LogStatisticsViewModel()
         {
-            MainCategories = new List<LogStatisticMainCategory>();
+            MainCategories = new List<LogStatisticsMainCategory>();
         }
 
-        public IEnumerable<LogStatisticMainCategory> MainCategories { get; set; }
+        public IEnumerable<LogStatisticsMainCategory> MainCategories { get; set; }
 
         public IEnumerable<BaseModel> ProductColumns { get; set; }
 

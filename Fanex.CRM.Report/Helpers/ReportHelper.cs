@@ -15,10 +15,10 @@ namespace Fanex.CRM.Report.Helpers
         {
             switch (siteType)
             {
-                case (int)LogStatisticReportType.IBC:
+                case (int)LogStatisticsReportType.IBC:
                     return Labels.IBC;
 
-                case (int)LogStatisticReportType.Licensee:
+                case (int)LogStatisticsReportType.Licensee:
                     return Labels.Licensee;
 
                 default:

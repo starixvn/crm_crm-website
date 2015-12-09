@@ -1,6 +1,6 @@
 ﻿(function () {
     function registerPickerForLogStatistic() {
-        var logStatisticRegister = new RegisterTemplate(angular.module('log-statistic-application'));
+        var logStatisticRegister = new RegisterTemplate(angular.module('log-statistics-application'));
 
         logStatisticRegister.registerDatePicker();
         logStatisticRegister.registerDownloadFile();

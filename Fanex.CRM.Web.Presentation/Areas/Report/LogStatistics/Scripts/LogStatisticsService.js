@@ -1,21 +1,21 @@
 ﻿(function () {
     'use strict';
     /* global casinoDailyApplication */
-    angular.module('log-statistic-application').factory('LogStatisticService', ['$http', '$q', function ($http, $q) {
+    angular.module('log-statistics-application').factory('LogStatisticsService', ['$http', '$q', function ($http, $q) {
         var serviceInstance = {};
 
         serviceInstance.getAllSetting = function (params) {
-            var url = window.rootUrl + "LogStatistic/GetAllSettings";
+            var url = window.rootUrl + "LogStatistics/GetAllSettings";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
         serviceInstance.getMainReport = function (params) {
-            var url = window.rootUrl + "LogStatistic/GetMainReport";
+            var url = window.rootUrl + "LogStatistics/GetMainReport";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
         serviceInstance.getDetailReport = function (params) {
-            var url = window.rootUrl + "LogStatistic/GetDetailReport";
+            var url = window.rootUrl + "LogStatistics/GetReportDetail";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 

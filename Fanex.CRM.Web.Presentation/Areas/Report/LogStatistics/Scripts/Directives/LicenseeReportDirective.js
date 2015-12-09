@@ -4,7 +4,7 @@
     reportDirectiveHelper */
     /* jshint unused: vars,
     camelcase: false */
-    angular.module('log-statistic-application').directive('tableLicenseeReportContainer', function () {
+    angular.module('log-statistics-application').directive('tableLicenseeReportContainer', function () {
         var selfScope;
         var cachedTable;
         var cachedReport;
@@ -23,7 +23,7 @@
             var gridOptions = reportDirectiveHelper.getGridOptions(report, scope.licenseeReportOptions.IsExpand);
             gridOptions.gridHeight = $(window).height() - 200 - $("#table-ibc-report").height();
             gridOptions.titleInfo.exportExcelFunction = function () {
-                selfScope.exportLicenseeReport();
+                selfScope.exportReport(selfScope.licenseeReportOptions.Type);
             };
 
             cachedGridOptions = gridOptions;
@@ -40,7 +40,7 @@
             });
 
             element.find(".btnViewDetail").click(function () {
-                scope.viewDetail(crmConstants.Enums.Site.Licensee);
+                scope.viewDetail(selfScope.licenseeReportOptions.Type);
             });
             element.find(".btnExpansion").click(function () {
                 scope.toggleExpansionForLicenseeReport();

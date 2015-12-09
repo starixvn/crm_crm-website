@@ -4,12 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.LogStatistic
+namespace Fanex.CRM.Report.Models.LogStatistics
 {
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
 
-    public class SettingForLogStatistic
+    public class SettingForLogStatistics
     {
         public dynamic ProductList { get; set; }
 

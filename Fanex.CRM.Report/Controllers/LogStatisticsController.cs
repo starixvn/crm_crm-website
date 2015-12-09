@@ -14,41 +14,40 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Report.Criteria.LogStatistic;
+    using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Enums;
-    using Fanex.CRM.Report.Excels.LogStatistic;
-    using Fanex.CRM.Report.Models.LogStatistic;
-    using Fanex.CRM.Report.Services.LogStatistic;
+    using Fanex.CRM.Report.Excels.LogStatistics;
+    using Fanex.CRM.Report.Models.LogStatistics;
+    using Fanex.CRM.Report.Services.LogStatistics;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    public class LogStatisticController : BaseController
+    public class LogStatisticsController : BaseController
     {
         private readonly ISettingService _serviceSetting;
-        private readonly ILogStatisticService _logStatisticService;
+        private readonly ILogStatisticsService _logStatisticsService;
 
-        public LogStatisticController()
+        public LogStatisticsController()
             : this(null, null)
         { 
         }
 
-        public LogStatisticController(
-            ILogStatisticService logStatisticService,
-            ISettingService serviceSetting)
+        public LogStatisticsController(
+            ILogStatisticsService logStatisticsService, ISettingService serviceSetting)
         {
-            _logStatisticService = logStatisticService ?? new LogStatisticService();
+            _logStatisticsService = logStatisticsService ?? new LogStatisticsService();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.LogStatistic, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
-            return View("~/Areas/Report/LogStatistic/Index.cshtml");
+            return View("~/Areas/Report/LogStatistics/Index.cshtml");
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistic, Policy = Constant.Policy.Read)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
             var productSettings = new List<int>() { 8000, 8001, 8003, 8009, 8010, 8013, 8014 };
@@ -70,7 +69,7 @@ namespace Fanex.CRM.Report.Controllers
                     Name = p.Name
                 });
 
-            var allSetting = new SettingForLogStatistic
+            var allSetting = new SettingForLogStatistics
             {
                 CommunicationToolList = communicationTools,
                 MainCategoryList = mainCategories,
@@ -81,12 +80,12 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistic, Policy = Constant.Policy.Read)]
-        public ActionResult GetMainReport(LogStatisticCriteria criteria)
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
+        public ActionResult GetMainReport(LogStatisticsCriteria criteria)
         {
             return Json(new
             {
-                IBCReport = _logStatisticService.GetReportData(new LogStatisticCriteria
+                IBCReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
                 {
                     ProductId = criteria.ProductId,
                     MainCategoryId = criteria.MainCategoryId,
@@ -95,10 +94,10 @@ namespace Fanex.CRM.Report.Controllers
                     ToDate = criteria.ToDate,
                     ProductType = (int)ProductType.Detail,
                     CategoryType = (int)CategoryType.SubCategory,
-                    SiteType = (int)LogStatisticReportType.IBC
+                    SiteType = (int)LogStatisticsReportType.IBC
                 }),
 
-                LicenseeReport = _logStatisticService.GetReportData(new LogStatisticCriteria
+                LicenseeReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
                 {
                     ProductId = criteria.ProductId,
                     MainCategoryId = criteria.MainCategoryId,
@@ -107,22 +106,40 @@ namespace Fanex.CRM.Report.Controllers
                     ToDate = criteria.ToDate,
                     ProductType = (int)ProductType.Detail,
                     CategoryType = (int)CategoryType.SubCategory,
-                    SiteType = (int)LogStatisticReportType.Licensee
+                    SiteType = (int)LogStatisticsReportType.Licensee
                 })
             });
         }
 
-        public void ExportReport(LogStatisticCriteria criteria)
+        [HttpPost]
+        public ActionResult GetReportDetail(LogStatisticsReportDetailCriteria criteria)
+        {
+            var jsonResult = Json(_logStatisticsService.GetReportDetail(criteria));
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        public void ExportReport(LogStatisticsCriteria criteria)
         {
             criteria.ProductType = (int)ProductType.Detail;
             criteria.CategoryType = (int)CategoryType.SubCategory;
 
-            var report = _logStatisticService.GetReportData(criteria);
+            var report = _logStatisticsService.GetReportData(criteria);
 
             var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
 
-            LogStatisticExcel logStatisticExcel = new LogStatisticExcel(report, excelFileName);
+            LogStatisticsExcel logStatisticExcel = new LogStatisticsExcel(report, excelFileName);
             logStatisticExcel.BuildWorkBook();
+        }
+
+        public void ExportReportDetail(LogStatisticsReportDetailCriteria criteria)
+        {
+            var reportDetail = _logStatisticsService.GetReportDetail(criteria);
+
+            var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
+
+            LogStatisticsReportDetailExcel reportDetailExcel = new LogStatisticsReportDetailExcel(reportDetail, excelFileName);
+            reportDetailExcel.BuildWorkBook();
         }
     }
 }

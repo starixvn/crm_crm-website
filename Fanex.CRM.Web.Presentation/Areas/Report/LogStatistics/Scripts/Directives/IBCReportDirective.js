@@ -4,7 +4,7 @@
     reportDirectiveHelper */
     /* jshint unused: vars,
     camelcase: false */
-    angular.module('log-statistic-application').directive('tableIbcReportContainer', function () {
+    angular.module('log-statistics-application').directive('tableIbcReportContainer', function () {
         var selfScope;
         var cachedTable;
         var cachedReport;
@@ -23,7 +23,7 @@
             var gridOptions = reportDirectiveHelper.getGridOptions(report, scope.ibcReportOptions.IsExpand);
             gridOptions.gridHeight = ($(window).height() - 200) / 2;
             gridOptions.titleInfo.exportExcelFunction = function () {
-                selfScope.exportIBCReport();
+                selfScope.exportReport(selfScope.ibcReportOptions.Type);
             };
 
             cachedGridOptions = gridOptions;
@@ -39,7 +39,7 @@
             });
 
             element.find(".btnViewDetail").click(function () {
-                scope.viewDetail(crmConstants.Enums.Site.IBC);
+                scope.viewDetail(selfScope.ibcReportOptions.Type);
             });
             element.find(".btnExpansion").click(function () {
                 scope.toggleExpansionForIBCReport();
