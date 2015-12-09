@@ -177,7 +177,7 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        public IEnumerable<Setting> GetAllTitles()
+        public IEnumerable<Setting> GetAllTitles(bool hasItemAll = false)
         {
             var cache = CacheService.Get<IEnumerable<Setting>>(GetAllTitleSessionKey);
             if (cache != null)
@@ -189,9 +189,22 @@ namespace Fanex.CRM.Setting.Services
             {
                 SettingName = SettingTypeConstants.Title,
                 ParentId = 0
-            });
+            }).ToList();
 
             CacheService.Set(GetAllTitleSessionKey, allTitles);
+
+            if (hasItemAll)
+            {
+                allTitles.Insert(
+                    0,
+                    new Setting
+                    {
+                        Value = Labels.All,
+                        Id = TitleConstants.All,
+                        DisplayOrder = 0
+                    });
+            }
+
             return allTitles;
         }
 

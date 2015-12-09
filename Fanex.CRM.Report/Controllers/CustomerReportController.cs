@@ -50,7 +50,7 @@ namespace Fanex.CRM.Report.Controllers
             var allSetting = new
             {
                 SiteList = _settingService.GetAllSites(),
-                TitleList = _settingService.GetAllTitles(),
+                TitleList = _settingService.GetAllTitles(true),
                 CountryList = _settingService.GetAllCountries(),
                 LanguageList = _settingService.GetAllLanguages(),
                 CustomerTypeList = _settingService.GetAllCustomerTypes(),

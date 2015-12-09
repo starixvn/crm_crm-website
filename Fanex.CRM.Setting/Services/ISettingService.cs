@@ -26,7 +26,7 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<BaseModel> GetAllSiteWithGroup();
 
-        IEnumerable<Setting> GetAllTitles();
+        IEnumerable<Setting> GetAllTitles(bool hasItemAll = false);
 
         IEnumerable<Country> GetAllCountries();
 
