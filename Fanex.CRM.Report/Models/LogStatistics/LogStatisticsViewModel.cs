@@ -58,10 +58,5 @@ namespace Fanex.CRM.Report.Models.LogStatistics
                 return sumOfCommunicationsByProduct;
             }
         }
-
-        public int GrandTotalAllCommunications
-        {
-            get { return MainCategories.Sum(mainCategory => mainCategory.TotalCommunications); }
-        }
     }
 }

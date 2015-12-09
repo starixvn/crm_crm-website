@@ -68,18 +68,6 @@
 
         self.getGridOptionWhenExpanding = function (report, gridOptions, groupHeaders, headers) {
             self.createReportHeader(groupHeaders, headers, report.ProductColumns, report.CommunicationColumns);
-            groupHeaders.push({
-                HeaderText: viewResources.Grand_Total,
-                Name: "GrandTotal",
-                MergeRowNumber: 2
-            });
-            headers.push({
-                HeaderText: viewResources.Grand_Total,
-                Width: 100,
-                Name: "GrandTotal",
-                HeaderAlign: "center",
-                CellAlign: "center"
-            });
 
             var bodyData = [];
             self.createReportBodyWhenExpanding(report, bodyData);
@@ -110,8 +98,7 @@
             var grandTotal = {
                 Name: viewResources.Grand_Total,
                 ListOfCommunicationCount: report.GrandTotalOfCommunicationCount,
-                ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct,
-                TotalCommunications: report.GrandTotalAllCommunications
+                ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct
             };
             footerData.push({
                 Columns: self.getRowValueWhenExpanding(grandTotal, report.ProductColumns, report.CommunicationColumns)
@@ -134,15 +121,11 @@
                 }
 
                 dataDetail.push({
-                    Name: product.Id + "_ColCommunicationTool_GrandTotal",
-                    Value: numeral(currentRow.ListOfCommunicationSumByProduct[i]).format(crmConstants.Enums.FormatConstant.IntNumber)
+                    Name: product.Id + "_ColCommunicationTool_Total",
+                    Value: numeral(currentRow.ListOfCommunicationSumByProduct[i]).format(crmConstants.Enums.FormatConstant.IntNumber),
+                    TdClass: 'product-total'
                 });
             }
-
-            dataDetail.push({
-                Name: "GrandTotal",
-                Value: numeral(currentRow.TotalCommunications).format(crmConstants.Enums.FormatConstant.IntNumber)
-            });
 
             return dataDetail;
         };
@@ -180,8 +163,7 @@
             var grandTotal = {
                 Name: viewResources.Grand_Total,
                 ListOfCommunicationCount: report.GrandTotalOfCommunicationCount,
-                ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct,
-                TotalCommunications: report.GrandTotalAllCommunications
+                ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct
             };
             footerData.push({
                 Columns: self.getRowValueWhenCollapse(grandTotal, report.ProductColumns, report.CommunicationColumns)
@@ -212,8 +194,9 @@
             }
 
             dataDetail.push({
-                Name: "0_ColCommunicationTool_GrandTotal",
-                Value: numeral(grandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
+                Name: "0_ColCommunicationTool_Total",
+                Value: numeral(grandTotal).format(crmConstants.Enums.FormatConstant.IntNumber),
+                TdClass: 'product-total'
             });
 
             return dataDetail;
@@ -231,9 +214,9 @@
                 self.createCommunicationHeader(headers, product, communicationColumns);
 
                 headers.push({
-                    HeaderText: viewResources.Grand_Total,
+                    HeaderText: viewResources.Total,
                     Width: 120,
-                    Name: product.Id + "_ColCommunicationTool_GrandTotal",
+                    Name: product.Id + "_ColCommunicationTool_Total",
                     HeaderAlign: "center",
                     CellAlign: "center"
                 });

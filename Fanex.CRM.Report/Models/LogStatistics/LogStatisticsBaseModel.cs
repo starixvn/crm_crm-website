@@ -20,13 +20,5 @@ namespace Fanex.CRM.Report.Models.LogStatistics
         public List<int> ListOfCommunicationCount { get; set; }
 
         public List<int> ListOfCommunicationSumByProduct { get; set; }
-
-        public int TotalCommunications
-        {
-            get
-            {
-                return ListOfCommunicationCount.Sum();
-            }
-        }
     }
 }

@@ -235,6 +235,9 @@
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 SiteType: siteType,
+                ProductId: $scope.searchCriteria.ProductIds,
+                MainCategoryId: $scope.searchCriteria.CategoryIds,
+                CommunicationId: $scope.searchCriteria.CommunicationIds,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
                 IsPagingCallBack: false
@@ -258,6 +261,9 @@
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 SiteType: $scope.searchCriteria.SiteType,
+                ProductId: $scope.searchCriteria.ProductIds,
+                MainCategoryId: $scope.searchCriteria.CategoryIds,
+                CommunicationId: $scope.searchCriteria.CommunicationIds,
                 PageIndex: pageIndex + 1,
                 PageSize: pageSize,
                 IsPagingCallBack: true
@@ -296,6 +302,9 @@
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 SiteType: $scope.searchCriteria.SiteType,
+                ProductId: $scope.searchCriteria.ProductIds,
+                MainCategoryId: $scope.searchCriteria.CategoryIds,
+                CommunicationId: $scope.searchCriteria.CommunicationIds,
                 IsPagingCallBack: false,
                 IsGetFullReport: true
             };

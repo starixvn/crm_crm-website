@@ -37,7 +37,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
-                MaxColumnIndex = totalDataColumns + 1
+                MaxColumnIndex = totalDataColumns
             };
 
             SetColumnsWidth(exportExcelInfo);
@@ -105,12 +105,9 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                     currentColumnIndex++;
                 }
 
-                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, Labels.GrandTotal, headerStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, Labels.Total, headerStyle);
                 currentColumnIndex++;
             }
-
-            CellRangeAddress gandTotalCellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex + 1, currentColumnIndex, currentColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, gandTotalCellRangeAddress, Labels.GrandTotal, headerStyle);
 
             exportExcelInfo.CurrentRow = currentRowIndex + 2;
         }
@@ -188,8 +185,6 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 NpoiExcelExtensions.RenderCell(row, currentColumnIndex, communicationSumByProduct, numberStyle);
                 currentColumnIndex++;
             }
-
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex, category.TotalCommunications, numberStyle);
 
             exportExcelInfo.CurrentRow++;
         }
