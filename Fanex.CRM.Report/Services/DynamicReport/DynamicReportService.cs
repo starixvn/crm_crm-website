@@ -281,8 +281,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public void ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
             criteria.IsGetFullReport = true;
             var dynamicReport = GetDynamicReport(criteria);
 
