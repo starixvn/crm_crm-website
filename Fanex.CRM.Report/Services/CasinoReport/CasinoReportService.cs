@@ -49,11 +49,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         public CasinoDailySummary GetCasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
+            var title = string.Format(Labels.CasinoDailySummaryTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
             criteria.ReportType = CasinoDailyType;
             var data = _casinoReportRepository.GetCasinoDailySummary(criteria);
-            data.Title = string.Format(Labels.CasinoDailySummaryTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            data.Title = title;
             return data;
         }
 
