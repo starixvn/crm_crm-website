@@ -21,8 +21,8 @@
         <div class="filter-frm one-row">
             <form data-ng-submit="getCasinoDailySummary()" novalidate>
                 <div class="row row-item">
-                    <div class="item col-xs-5 col-sm-5 col-md-5">
-                        <label class="col-xs-2 col-sm-2 col-md-2" for="products">@Labels.Product</label>
+                    <div class="item product-item">
+                        <label for="products">@Labels.Product</label>
                         <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList" style="min-width: 160px;">
                             <select id="product">
                             </select>
@@ -34,13 +34,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item item col-xs-2 col-sm-2 col-md-2">
+                    <div class="item item">
                         <label for="fromDate">@Labels.From</label>
                         <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                             <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                         </div>
                     </div>
-                    <div class="item item col-xs-2 col-sm-2 col-md-2">
+                    <div class="item">
                         <label for="toDate">@Labels.To</label>
                         <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                             <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
@@ -49,8 +49,8 @@
                 </div>
 
                 <div class="row row-item">
-                    <div class="item col-xs-5 col-sm-5 col-md-5">
-                        <label class="col-xs-2 col-sm-2 col-md-2" for="main-category">@Labels.Main_Category</label>
+                    <div class="item">
+                        <label class="" for="main-category">@Labels.Main_Category</label>
                         <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList" style="min-width: 300px;">
                             <select id="category">
                             </select>
@@ -62,9 +62,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item col-xs-4 col-sm-4 col-md-4">
-                        <label class="col-xs-4 col-sm-4 col-md-4" for="communication-tool">@Labels.CommunicationType</label>
-                        <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"  style="min-width: 207px;">
+                    <div class="item">
+                        <label class="first-column" for="communication-tool">@Labels.CommunicationType</label>
+                        <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"  style="min-width: 170px;">
                             <select id="communication-tool">
                             </select>
 
