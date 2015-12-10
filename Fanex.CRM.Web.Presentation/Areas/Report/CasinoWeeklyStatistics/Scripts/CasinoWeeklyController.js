@@ -8,6 +8,8 @@
     /* jshint camelcase: false */
     angular.module('report-casinoweekly-application').controller('casinoweeklyController', ['$scope', 'CasinoWeeklyService', '$uiBlockerService',
     function ($scope, casinoWeeklyService, $uiBlockerService) {
+        var _lastSubmitData;
+
         $scope.fromDate = fromDate;
         $scope.toDate = toDate;
         $scope.weeklySummary;
@@ -29,7 +31,11 @@
             $uiBlockerService.blockUI();
             $scope.showSummary = true;
             $scope.weeklyDetail = null;
-            casinoWeeklyService.getCasinoWeeklySummary($scope.fromDate, $scope.toDate)
+            _lastSubmitData = {
+                fromDate: $scope.fromDate,
+                toDate: $scope.toDate
+            };
+            casinoWeeklyService.getCasinoWeeklySummary(_lastSubmitData)
                 .then(function (data) {
                     $scope.weeklySummary = data.Result;
                     $uiBlockerService.unblockUI();
@@ -66,7 +72,7 @@
             $scope.showSummary = false;
             $uiBlockerService.blockUI();
             casinoWeeklyService.getCasinoWeeklyDetail(
-                $scope.fromDate, $scope.toDate, page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
+                _lastSubmitData.fromDate, _lastSubmitData.toDate, page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
                 .then(function (data) {
                     $scope.weeklyDetail = data.Result;
                     $uiBlockerService.unblockUI();
@@ -79,7 +85,7 @@
         $scope.exportCasinoWeeklySummaryExcel = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'CasinoReport/ExportCasinoWeeklySummary',
-                Params: { fromDate: $scope.fromDate, toDate: $scope.toDate }
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
@@ -88,7 +94,7 @@
         $scope.exportCasinoWeeklyDetail = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'CasinoReport/ExportCasinoWeeklyDetail',
-                Params: { fromDate: $scope.fromDate, toDate: $scope.toDate }
+                Params: _lastSubmitData
             };
 
             $scope.$apply();

@@ -15,6 +15,7 @@
         $scope,
         $uiBlockerService,
         weeklyStatisticsReportService) {
+        var _lastSubmitData;
         $scope.searchCriteria = {
             FromDate: new Date(currentDate),
             ToDate: new Date(currentDate)
@@ -36,12 +37,12 @@
         };
         $scope.getWeeklyStatisticsReport = function () {
             $uiBlockerService.blockUI();
-            var getReportCriteria = {
+            _lastSubmitData = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
             };
 
-            weeklyStatisticsReportService.getWeeklyStatisticsReport(getReportCriteria)
+            weeklyStatisticsReportService.getWeeklyStatisticsReport(_lastSubmitData)
                 .then(function (data) {
                     $scope.ibcReportOptions.DataList = data.Result.IBCReport;
                     $scope.ibcReportOptions.IsUpdateGrid = true;
@@ -55,25 +56,17 @@
                 });
         };
         $scope.exportIBCReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "WeeklyStatisticsReport/ExportIbcReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
         };
         $scope.exportLicenseeReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "WeeklyStatisticsReport/ExportLicenseeReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
@@ -82,8 +75,8 @@
             $uiBlockerService.blockUI();
             $scope.searchCriteria.SiteType = siteType;
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: siteType,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -103,8 +96,8 @@
         $scope.pagingDetailReport = function (pageIndex, pageSize) {
             $uiBlockerService.blockUI();
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.searchCriteria.SiteType,
                 PageIndex: pageIndex + 1,
                 PageSize: pageSize,
@@ -123,8 +116,8 @@
         };
         $scope.exportDetailReport = function () {
             var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.getDetailReportCriteria.SiteType,
                 IsPagingCallBack: false,
                 IsGetFullReport: true

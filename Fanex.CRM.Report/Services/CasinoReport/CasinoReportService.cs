@@ -103,13 +103,13 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             var titleFormat = criteria.ReportType == CasinoWeeklyType ?
                 Labels.CasinoWeeklyDetailTitle :
                 Labels.CasinoDailyDetailTitle;
+            var title = string.Format(titleFormat, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
 
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
             var casinoDailyDetails = _casinoReportRepository.GetCasinoDetails(criteria);
-            var title = string.Format(titleFormat, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-
+            
             int totalItems = casinoDailyDetails.Count();
             if (totalItems > 0)
             {
@@ -151,7 +151,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
             GenerateCasinoDetailTitle(exportExcelInfo, data.Title.ToUpper());
             GenerateCasinoDetailHeader(exportExcelInfo);
-            if (data.CasinoDetails.Count() == 0)
+            if (data.CasinoDetails == null || data.CasinoDetails.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -168,11 +168,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         public CasinoWeeklySummary GetCasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
+            var title = string.Format(Labels.CasinoWeeklySummaryTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
             criteria.ReportType = CasinoWeeklyType;
             var data = _casinoReportRepository.GetCasinoWeeklySummary(criteria);
-            data.Title = string.Format(Labels.CasinoWeeklySummaryTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            data.Title = title;
             return data;
         }
 
@@ -215,12 +216,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         public CasinoDetail GetCasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
         {
+            var title = string.Format(Labels.CasinoWeeklyDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
             var data = _casinoReportRepository.GetCasinoDetails(criteria);
 
-            var title = string.Format(Labels.CasinoWeeklyDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
             int totalItems = data.Count();
             if (totalItems > 0)
             {

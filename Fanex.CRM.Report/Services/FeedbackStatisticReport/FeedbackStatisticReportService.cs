@@ -13,20 +13,17 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.CRM.Report.Repositories.FeedbackStatisticReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -63,13 +60,14 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The Feedback statistic object.</returns>
         public FeedbackStatistic GetFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
+            var title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
             var report = _feedbackStatisticRepository.GetFeedbackStatistic(criteria);
-            report.Title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            report.Title = title;
 
-            // pagination.
             report.TotalItems = report.FeedbackCategories.Count;
             if (report.TotalItems > 0 && !criteria.ExportExcel)
             {
@@ -131,6 +129,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The Feedback statistic detail report.</returns>
         public FeedbackStatisticDetail FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
+            var title = string.Format(Labels.FeedbackStatisticDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
@@ -145,7 +144,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
             return new FeedbackStatisticDetail
             {
-                Title = string.Format(Labels.FeedbackStatisticDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate()),
+                Title = title,
                 TotalItems = totalItems,
                 Feedbacks = feedbacks
             };
@@ -455,7 +454,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
-        #endregion
+        #endregion Excel - Feedback statistic
 
         #region Excel - Feedback statistic detail
 
@@ -617,6 +616,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 CRMHorizontalAlignment.Left);
         }
 
-        #endregion
+        #endregion Excel - Feedback statistic detail
     }
 }

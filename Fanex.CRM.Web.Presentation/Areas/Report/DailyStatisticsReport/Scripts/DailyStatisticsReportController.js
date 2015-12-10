@@ -73,8 +73,8 @@
             $uiBlockerService.blockUI();
             $scope.searchCriteria.SiteType = siteType;
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: siteType,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -94,8 +94,8 @@
         $scope.pagingDetailReport = function (pageIndex, pageSize) {
             $uiBlockerService.blockUI();
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.searchCriteria.SiteType,
                 PageIndex: pageIndex + 1,
                 PageSize: pageSize,
@@ -114,8 +114,8 @@
         };
         $scope.exportDetailReport = function () {
             var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.getDetailReportCriteria.SiteType,
                 IsPagingCallBack: false,
                 IsGetFullReport: true
