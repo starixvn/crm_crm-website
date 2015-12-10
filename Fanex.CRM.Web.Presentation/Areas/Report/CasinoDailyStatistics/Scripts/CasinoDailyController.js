@@ -9,6 +9,8 @@
     /* jshint camelcase: false */
     angular.module('report-casinodaily-application').controller('casinoDailyController', ['$scope', 'CasinoDailyService', '$uiBlockerService',
     function ($scope, casinoDailyService, $uiBlockerService) {
+        var _lastSubmitData;
+
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.searchCriteria = {
@@ -86,7 +88,8 @@
             $uiBlockerService.blockUI();
             $scope.showSummary = true;
             $scope.dailyDetail = null;
-            casinoDailyService.getCasinoDailySummary($scope.searchCriteria.FromDate, $scope.searchCriteria.ToDate)
+            _lastSubmitData = { fromDate: $scope.searchCriteria.FromDate, toDate: $scope.searchCriteria.ToDate };
+            casinoDailyService.getCasinoDailySummary(_lastSubmitData)
                 .then(function (data) {
                     $scope.dailySummary = data.Result;
                     $uiBlockerService.unblockUI();
@@ -128,7 +131,7 @@
         $scope.exportCasinoDailySummary = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'CasinoReport/ExportCasinoDailySummary',
-                Params: { fromDate: $scope.searchCriteria.FromDate, toDate: $scope.searchCriteria.ToDate }
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
@@ -137,7 +140,7 @@
         $scope.exportCasinoDailyDetail = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'CasinoReport/ExportCasinoDailyDetail',
-                Params: { fromDate: $scope.searchCriteria.FromDate, toDate: $scope.searchCriteria.ToDate }
+                Params: _lastSubmitData
             };
 
             $scope.$apply();

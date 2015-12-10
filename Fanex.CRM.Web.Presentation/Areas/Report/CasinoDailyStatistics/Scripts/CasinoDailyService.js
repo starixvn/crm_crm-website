@@ -3,9 +3,9 @@
     angular.module('report-casinodaily-application').factory('CasinoDailyService', ['$http', '$q', function ($http, $q) {
         var serviceInstance = {};
 
-        serviceInstance.getCasinoDailySummary = function (fromDate, toDate) {
+        serviceInstance.getCasinoDailySummary = function (params) {
             var deferred = $q.defer();
-            $http.get(window.rootUrl + 'CasinoReport/CasinoDailySummary?fromDate=' + fromDate + '&toDate=' + toDate)
+            $http.get(window.rootUrl + 'CasinoReport/CasinoDailySummary?' + $.param(params))
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

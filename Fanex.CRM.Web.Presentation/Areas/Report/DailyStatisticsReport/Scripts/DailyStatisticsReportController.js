@@ -11,10 +11,9 @@
     unused: vars */
     angular.module('report-dailystatistics-application').controller('dailyStatisticsReportController',
     ['$scope', '$uiBlockerService', 'dailyStatisticsReportService',
-    function (
-        $scope,
-        $uiBlockerService,
-        dailyStatisticsReportService) {
+    function ($scope, $uiBlockerService, dailyStatisticsReportService) {
+        var _lastSubmitData;
+
         $scope.searchCriteria = {
             FromDate: new Date(currentDate),
             ToDate: new Date(currentDate)
@@ -36,12 +35,12 @@
         };
         $scope.getDailyStatisticsReport = function () {
             $uiBlockerService.blockUI();
-            var getReportCriteria = {
+            _lastSubmitData = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
             };
 
-            dailyStatisticsReportService.getDailyStatisticsReport(getReportCriteria)
+            dailyStatisticsReportService.getDailyStatisticsReport(_lastSubmitData)
                 .then(function (data) {
                     $scope.ibcReportOptions.DataList = data.Result.IBCReport;
                     $scope.ibcReportOptions.IsUpdateGrid = true;
@@ -55,25 +54,17 @@
                 });
         };
         $scope.exportIBCReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "DailyStatisticsReport/ExportIbcReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
         };
         $scope.exportLicenseeReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "DailyStatisticsReport/ExportLicenseeReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();

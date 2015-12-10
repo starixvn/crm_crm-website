@@ -6,6 +6,8 @@
     updateFeedbackResources,
     feedbackId,
     hasReviewFeedbackPermission,
+    isShowDeletedStatus,
+    isDeletedFeedbackView,
     orgLengt:true */
     /* jshint camelcase: false */
     angular.module('feedbacks-updatecustomerfeedback-application').controller('updateCustomerFeedbackController',

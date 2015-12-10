@@ -12,6 +12,8 @@
     angular.module('feedback-statistic-application')
         .controller('feedbackStatisticController', ['$scope', 'FeedbackStatisticService', '$uiBlockerService', 'alertBoxService',
     function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) {
+        var _lastSubmitData;
+
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.searchCriteria = {
@@ -135,7 +137,7 @@
             }
 
             $uiBlockerService.blockUI();
-            var criteria = {
+            _lastSubmitData = {
                 SelectionType: $scope.setting.Id,
                 FromDate: $scope.searchCriteria.FromDate,
                 ToDate: $scope.searchCriteria.ToDate,
@@ -144,9 +146,8 @@
                 PageIndex: page || 0,
                 PageSize: size || sharedScriptManager.cachedData.defaultItemsPerPage
             };
-            criteria.FromCache = criteria.PageIndex !== 0;
 
-            feedbackStatisticService.getFeedbackStatistic(criteria)
+            feedbackStatisticService.getFeedbackStatistic(_lastSubmitData)
             .then(function (data) {
                 $scope.feedbackStatistic = data.Result;
                 if (!$scope.feedbackStatistic || $scope.feedbackStatistic.TotalItems === 0) {
@@ -188,14 +189,7 @@
         $scope.exportFeedbackStatistic = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'FeedbackStatisticReport/ExportFeedbackStatistic',
-                Params: {
-                    SelectionType: $scope.setting.Id,
-                    FromDate: $scope.searchCriteria.FromDate,
-                    ToDate: $scope.searchCriteria.ToDate,
-                    FromDuration: $scope.getDurationTimeString($scope.fromDuration),
-                    ToDuration: $scope.getDurationTimeString($scope.toDuration),
-                    FromCache: true
-                }
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
@@ -214,7 +208,6 @@
                 PageIndex: page || 0,
                 PageSize: size || sharedScriptManager.cachedData.defaultItemsPerPage
             };
-            criteria.FromCache = criteria.PageIndex !== 0;
 
             var popupWidth = $(parent.document).width() - 100;
             if (mainCategoryId !== 0 || subCategoryId !== 0 || valueId !== 0) {

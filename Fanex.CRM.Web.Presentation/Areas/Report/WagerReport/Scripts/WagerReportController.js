@@ -8,6 +8,8 @@
     angular.module('report-wagerreport-application')
         .controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
 function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) {
+    var _submitData;
+
     $scope.years = [];
     $scope.year = 0;
     $scope.defaultFocusOptions = null;
@@ -61,7 +63,8 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
 
     $scope.getWagerReport = function () {
         $uiBlockerService.blockUI();
-        wagerReportService.getWagerReport($scope.year.id)
+        _submitData = { year: $scope.year.id };
+        wagerReportService.getWagerReport(_submitData.year)
             .then(function (data) {
                 $scope.wagerReport = data.Result;
                 $uiBlockerService.unblockUI();
@@ -75,7 +78,7 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
     $scope.exportWagerReportExcel = function () {
         $scope.downloadFileOptions = {
             URL: window.rootUrl + 'WagerReport/ExportWagerReportExcel',
-            Params: { year: $scope.year.id }
+            Params: _submitData
         };
 
         $scope.$apply();

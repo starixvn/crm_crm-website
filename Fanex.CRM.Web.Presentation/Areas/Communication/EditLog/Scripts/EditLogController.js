@@ -10,6 +10,7 @@
     hasReviewPermission,
     isOldRelatedCustomer,
     getRelatedCustomerLength,
+    isDeletedStatus,
     moment */
     /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').controller('editLogController', ['$scope', '$http', '$editLogService',

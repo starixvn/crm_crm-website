@@ -81,15 +81,6 @@
             });
         }
         $scope.exportInformHeadlines = function () {
-
-            _searchCriteria = {
-                UserName: $scope.username,
-                TitleId: $scope.titleId,
-                StatusId: $scope.selectedStatuses.toString(),
-                PageIndex: 1,
-                ItemsPerPage: 10000
-            };
-
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'InformHeadline/ExportContactInforms',
                 Params: _searchCriteria

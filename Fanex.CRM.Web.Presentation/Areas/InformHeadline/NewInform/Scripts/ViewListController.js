@@ -57,16 +57,16 @@
         }
 
         function isFilterValid() {
-            if ($scope.selectedCurrencies.length <= 0) {
+            if (!_searchCriteria.Currency) {
                 $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
                 return false;
-            } else if ($scope.selectedPositions.length <= 0) {
+            } else if (!_searchCriteria.Level) {
                 $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
                 return false;
-            } else if ($scope.selectedSites.length <= 0) {
+            } else if (!_searchCriteria.Site) {
                 $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
                 return false;
-            } else if (getAccountType() === 0) {
+            } else if (_searchCriteria.TypeAccount === 0) {
                 $scope.messageResultOptions = new MessageResult("Direct Account is required.", true, false);
                 return false;
             }
@@ -99,9 +99,7 @@
         }
 
         $scope.exportInformHeadlines = function () {
-            refreshSearchCriteria();
-
-            if (isFilterValid() === false) {
+           if (isFilterValid() === false) {
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);
