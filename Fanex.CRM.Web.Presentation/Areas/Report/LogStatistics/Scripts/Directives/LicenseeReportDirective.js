@@ -42,7 +42,7 @@
             element.find(".btnViewDetail").click(function () {
                 scope.viewDetail(selfScope.licenseeReportOptions.Type);
             });
-            element.find(".btnExpansion").click(function () {
+            element.find(".btnHorizontal").click(function () {
                 scope.toggleExpansionForLicenseeReport();
             });
         }

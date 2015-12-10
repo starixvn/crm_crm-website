@@ -358,6 +358,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose a communication type.
+        /// </summary>
+        public static string CommunicationFilter_Required {
+            get {
+                return ResourceManager.GetString("CommunicationFilter_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication Type.
+        /// </summary>
+        public static string CommunicationType {
+            get {
+                return ResourceManager.GetString("CommunicationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Complaints/Enquiries.
         /// </summary>
         public static string Complaints_Enquiries {
@@ -1159,6 +1177,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose a category.
+        /// </summary>
+        public static string MainCategoryFilter_Required {
+            get {
+                return ResourceManager.GetString("MainCategoryFilter_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MAR.
         /// </summary>
         public static string MAR {
@@ -1443,6 +1470,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string ProductCollapseExpand {
             get {
                 return ResourceManager.GetString("ProductCollapseExpand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a product.
+        /// </summary>
+        public static string ProductFilter_Required {
+            get {
+                return ResourceManager.GetString("ProductFilter_Required", resourceCulture);
             }
         }
         

@@ -843,4 +843,20 @@
   <data name="ProductCollapseExpand" xml:space="preserve">
     <value>Product Collapse/Expand</value>
   </data>
+  <data name="CommunicationFilter_Required" xml:space="preserve">
+    <value>Please choose a communication type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>Communication Type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="MainCategoryFilter_Required" xml:space="preserve">
+    <value>Please choose a category</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="ProductFilter_Required" xml:space="preserve">
+    <value>Please choose a product</value>
+    <comment>#46902</comment>
+  </data>
 </root>

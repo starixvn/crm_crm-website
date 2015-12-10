@@ -685,6 +685,8 @@
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\ico-horizontal-collapse.png" />
+    <Content Include="Content\site\Images\ico-horizontal-expand.png" />
     <Content Include="Content\site\Images\icn_edit.png" />
     <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />

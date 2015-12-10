@@ -83,32 +83,45 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetMainReport(LogStatisticsCriteria criteria)
         {
-            return Json(new
+            if (IsValidData(criteria))
             {
-                IBCReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
+                return Json(new
                 {
-                    ProductId = criteria.ProductId,
-                    MainCategoryId = criteria.MainCategoryId,
-                    CommunicationId = criteria.CommunicationId,
-                    FromDate = criteria.FromDate,
-                    ToDate = criteria.ToDate,
-                    ProductType = (int)ProductType.Detail,
-                    CategoryType = (int)CategoryType.SubCategory,
-                    SiteType = (int)LogStatisticsReportType.IBC
-                }),
+                    Success = true,
+                    IBCReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
+                    {
+                        ProductId = criteria.ProductId,
+                        MainCategoryId = criteria.MainCategoryId,
+                        CommunicationId = criteria.CommunicationId,
+                        FromDate = criteria.FromDate,
+                        ToDate = criteria.ToDate,
+                        ProductType = (int)ProductType.Detail,
+                        CategoryType = (int)CategoryType.SubCategory,
+                        SiteType = (int)LogStatisticsReportType.IBC
+                    }),
 
-                LicenseeReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
-                {
-                    ProductId = criteria.ProductId,
-                    MainCategoryId = criteria.MainCategoryId,
-                    CommunicationId = criteria.CommunicationId,
-                    FromDate = criteria.FromDate,
-                    ToDate = criteria.ToDate,
-                    ProductType = (int)ProductType.Detail,
-                    CategoryType = (int)CategoryType.SubCategory,
-                    SiteType = (int)LogStatisticsReportType.Licensee
-                })
-            });
+                    LicenseeReport = _logStatisticsService.GetReportData(new LogStatisticsCriteria
+                    {
+                        ProductId = criteria.ProductId,
+                        MainCategoryId = criteria.MainCategoryId,
+                        CommunicationId = criteria.CommunicationId,
+                        FromDate = criteria.FromDate,
+                        ToDate = criteria.ToDate,
+                        ProductType = (int)ProductType.Detail,
+                        CategoryType = (int)CategoryType.SubCategory,
+                        SiteType = (int)LogStatisticsReportType.Licensee
+                    })
+                });
+            }
+
+            return Json(new { Success = false });
+        }
+
+        private bool IsValidData(LogStatisticsCriteria criteria)
+        {
+            return !(criteria.ProductId == string.Empty ||
+                    criteria.MainCategoryId == string.Empty ||
+                    criteria.CommunicationId == string.Empty);
         }
 
         [HttpPost]

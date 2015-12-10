@@ -41,7 +41,7 @@
             element.find(".btnViewDetail").click(function () {
                 scope.viewDetail(selfScope.ibcReportOptions.Type);
             });
-            element.find(".btnExpansion").click(function () {
+            element.find(".btnHorizontal").click(function () {
                 scope.toggleExpansionForIBCReport();
             });
         }

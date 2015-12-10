@@ -29,9 +29,15 @@
             }
         ];
 
-            var horizontalExpansion = '<input class="btnExpansion " type="button" title="' + viewResources.ProductCollapseExpand + '" />';
+            var horizontalButtonClassName = isExpand ? 'horizontal-collapse' : 'horizontal-expand';
+            var horizontalExpansion = '<input class="btnHorizontal ' + horizontalButtonClassName + '" type="button" title="' + viewResources.ProductCollapseExpand + '" />';
             var viewChartIcon = '<input class="btnCharting " type="button" title="' + viewResources.ViewChart + '" />';
             var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + viewResources.ViewDetail + '" />';
+
+            var productLength = report.ProductColumns.length;
+            var customButtons = productLength > 1 ?
+                                    horizontalExpansion + viewChartIcon + viewDetailIcon :
+                                    viewChartIcon + viewDetailIcon;
 
             var gridOptions = {
                 customizeHeader: true,
@@ -41,7 +47,7 @@
                     showExcelButton: true,
                     exportExcelFunction: null,
                     showCollapseExpandButton: true,
-                    customButtons: horizontalExpansion + viewChartIcon + viewDetailIcon
+                    customButtons: customButtons
                 },
                 numberOfFrozenColumn: 1,
                 fullWidth: true,
@@ -57,7 +63,7 @@
                 showFooter: true
             };
 
-            if (isExpand) {
+            if (isExpand || productLength == 1) {
                 self.getGridOptionWhenExpanding(report, gridOptions, groupHeaders, headers);
             } else {
                 self.getGridOptionWhenCollapsing(report, gridOptions, groupHeaders, headers);
@@ -131,7 +137,7 @@
         };
 
         self.getGridOptionWhenCollapsing = function (report, gridOptions, groupHeaders, headers) {
-            var productHeaderGroup = [{ Id: 0, Name: viewResources.All_Products.toUpperCase() }];
+            var productHeaderGroup = [{ Id: 0, Name: viewResources.All_Products.toUpperCase()}];
             self.createReportHeader(groupHeaders, headers, productHeaderGroup, report.CommunicationColumns);
 
             var bodyData = [];

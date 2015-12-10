@@ -206,6 +206,7 @@
     <Compile Include="Enums\LogStatisticsReportType.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsExcel.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsReportDetailExcel.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FieldHelper.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />
     <Compile Include="Models\LogStatistics\LogStatisticsBaseModel.cs" />
