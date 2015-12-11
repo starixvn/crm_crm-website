@@ -17,7 +17,16 @@
                             "~/Styles/FanexMultipleSelect")
 </head>
 <body>
-    <div class="main container" data-ng-controller="logStatisticsController">     
+    <div class="main container" data-ng-controller="logStatisticsController">  
+        <div class="row" data-ng-show="isDisableSubmitButton">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="alertboxerr">
+                    <div data-ng-bind="errorMessage">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="filter-frm one-row">
             <form data-ng-submit="getCasinoDailySummary()" novalidate>
                 <div class="row row-item">
@@ -26,12 +35,6 @@
                         <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList" style="min-width: 160px;">
                             <select id="product">
                             </select>
-
-                            <div class="display-none alertboxerr" id="productFilterErrorMessage">
-                                <div>
-                                    @Labels.ProductFilter_Required
-                                </div>                              
-                            </div>
                         </div>
                     </div>
                     <div class="item item">
@@ -54,12 +57,6 @@
                         <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList" style="min-width: 300px;">
                             <select id="category">
                             </select>
-
-                            <div class="display-none alertboxerr" id="categoryFilterErrorMessage">
-                                <div>
-                                    @Labels.MainCategoryFilter_Required
-                                </div>                             
-                            </div>
                         </div>
                     </div>
                     <div class="item">
@@ -67,16 +64,10 @@
                         <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"  style="min-width: 170px;">
                             <select id="communication-tool">
                             </select>
-
-                            <div class="display-none alertboxerr"  id="communicationFilterErrorMessage">
-                                <div>
-                                    @Labels.CommunicationFilter_Required
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="item">
-                        <button class="btn" data-ng-click="getLogStatisticReport();" data-ng-disabled="disableSubmitButton" >
+                        <button class="btn" data-ng-click="getLogStatisticReport();" data-ng-disabled="isDisableSubmitButton" >
                             <span class="hotkey">S</span>ubmit</button>
                     </div>
                 </div>
@@ -145,7 +136,11 @@
 
             ViewDetail: '@Labels.ViewDetail',
             ViewChart: '@Labels.ViewChart',
-            GoBack: '@Labels.GoBack'
+            GoBack: '@Labels.GoBack',
+
+            ProductFilterRequired: '@Labels.ProductFilter_Required',
+            MainCategoryFilterRequired: '@Labels.MainCategoryFilter_Required',
+            CommunicationFilterRequired: '@Labels.CommunicationFilter_Required'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts",

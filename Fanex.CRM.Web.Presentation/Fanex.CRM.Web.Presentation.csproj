@@ -537,8 +537,6 @@
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDetailDirective.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\LicenseeReportDirective.js" />
-    <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsInitialPickers.js" />
-    <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsOptions.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsApplication.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsController.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsService.js" />

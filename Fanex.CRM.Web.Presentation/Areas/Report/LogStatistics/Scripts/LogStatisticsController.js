@@ -12,7 +12,8 @@
     function ($scope, logStatisticsService, $uiBlockerService, $timeout) {
         $scope.allSettings = null;
 
-        $scope.disableSubmitButton = false;
+        $scope.errorMessage = '';
+        $scope.isDisableSubmitButton = false;
 
         $scope.productOptions = null;
         $scope.categoryOptions = null;
@@ -151,9 +152,7 @@
         }
         $scope.updateSelectedProduct = function (productIdList) {
             $scope.searchCriteria.ProductIds = productIdList;
-
-            var productFilterErrorMessage = angular.element(document.querySelector('#productFilterErrorMessage'));
-            $scope.checkSelectedItem(productFilterErrorMessage, $scope.searchCriteria.ProductIds);
+            $scope.checkSelectedItem();
         };
 
         $scope.initMainCategoryMultiSelectPickers = function () {
@@ -169,9 +168,7 @@
         }
         $scope.updateSelectedCategory = function (categoryIdList) {
             $scope.searchCriteria.CategoryIds = categoryIdList;
-
-            var categoryFilterErrorMessage = angular.element(document.querySelector('#categoryFilterErrorMessage'));
-            $scope.checkSelectedItem(categoryFilterErrorMessage, $scope.searchCriteria.CategoryIds);
+            $scope.checkSelectedItem();
         };
 
         $scope.initCommunicationMultiSelectPickers = function () {
@@ -187,21 +184,24 @@
         };
         $scope.updateSelectedCommunicationTool = function (communicationIdList) {
             $scope.searchCriteria.CommunicationIds = communicationIdList;
-
-            var communicationFilterErrorMessage = angular.element(document.querySelector('#communicationFilterErrorMessage'));
-            $scope.checkSelectedItem(communicationFilterErrorMessage, $scope.searchCriteria.CommunicationIds);
+            $scope.checkSelectedItem();
         };
 
-        $scope.checkSelectedItem = function (errorMessageElement, selectedData) {
-            var isIdListEmpty = selectedData === '';
-            var displayClass = isIdListEmpty ? '' : 'display-none';
-            errorMessageElement.removeClass('display-none');
-            errorMessageElement.addClass(displayClass);
-
+        $scope.checkSelectedItem = function (selectedData) {
             $timeout(function () {
-                $scope.disableSubmitButton = $scope.searchCriteria.ProductIds === '' ||
+                $scope.isDisableSubmitButton = $scope.searchCriteria.ProductIds === '' ||
                                                 $scope.searchCriteria.CategoryIds === '' ||
                                                 $scope.searchCriteria.CommunicationIds === '';
+
+                if ($scope.searchCriteria.ProductIds === '') {
+                    $scope.errorMessage = viewResources.ProductFilterRequired;
+                }
+                else if ($scope.searchCriteria.CategoryIds === '') {
+                    $scope.errorMessage = viewResources.MainCategoryFilterRequired;
+                }
+                else if ($scope.searchCriteria.CommunicationIds === '') {
+                    $scope.errorMessage = viewResources.CommunicationFilterRequired;
+                }
             });
         };
 
@@ -262,14 +262,14 @@
 
         $scope.viewDetail = function (siteType) {
             $uiBlockerService.blockUI();
-            $scope.searchCriteria.SiteType = siteType;
+            $scope.cachedSearchCriteria.SiteType = siteType;
             $scope.detailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: $scope.cachedSearchCriteria.FromDate,
+                ToDate: $scope.cachedSearchCriteria.ToDate,
                 SiteType: siteType,
-                ProductId: $scope.searchCriteria.ProductIds,
-                MainCategoryId: $scope.searchCriteria.CategoryIds,
-                CommunicationId: $scope.searchCriteria.CommunicationIds,
+                ProductId: $scope.cachedSearchCriteria.ProductId,
+                MainCategoryId: $scope.cachedSearchCriteria.MainCategoryId,
+                CommunicationId: $scope.cachedSearchCriteria.CommunicationId,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
                 IsPagingCallBack: false

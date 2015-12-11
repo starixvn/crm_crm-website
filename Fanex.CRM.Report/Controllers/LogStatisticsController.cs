@@ -50,20 +50,17 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
-            var productSettings = new List<int>() { 8000, 8001, 8003, 8009, 8010, 8013, 8014 };
-            var communicationSettings = new List<int>() { 1000, 1001, 1003, 1006, 1007 };
-            var mainCategorySettings = new List<int>() { 3000, 3001, 3003, 3008, 3009 };
-            var products = _serviceSetting.AllProduct().Where(p => productSettings.Contains(p.Id)).Select(p => new
+            var products = _serviceSetting.AllProduct().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Value
                 });
-            var communicationTools = _serviceSetting.AllCommunicationTool().Where(p => communicationSettings.Contains(p.Id)).Select(p => new
+            var communicationTools = _serviceSetting.AllCommunicationTool().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name
                 });
-            var mainCategories = _serviceSetting.AllMainCategory().Where(p => mainCategorySettings.Contains(p.Id)).Select(p => new
+            var mainCategories = _serviceSetting.AllMainCategory().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name
@@ -83,7 +80,7 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetMainReport(LogStatisticsCriteria criteria)
         {
-            if (IsValidData(criteria))
+            if (criteria.IsValid())
             {
                 return Json(new
                 {
@@ -117,13 +114,6 @@ namespace Fanex.CRM.Report.Controllers
             return Json(new { Success = false });
         }
 
-        private bool IsValidData(LogStatisticsCriteria criteria)
-        {
-            return !(criteria.ProductId == string.Empty ||
-                    criteria.MainCategoryId == string.Empty ||
-                    criteria.CommunicationId == string.Empty);
-        }
-
         [HttpPost]
         public ActionResult GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
@@ -137,7 +127,11 @@ namespace Fanex.CRM.Report.Controllers
             criteria.ProductType = (int)ProductType.Detail;
             criteria.CategoryType = (int)CategoryType.SubCategory;
 
-            var report = _logStatisticsService.GetReportData(criteria);
+            var report = new LogStatisticsViewModel();
+            if (criteria.IsValid())
+            {
+                report = _logStatisticsService.GetReportData(criteria);
+            }
 
             var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
 

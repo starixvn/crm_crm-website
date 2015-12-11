@@ -34,7 +34,9 @@ namespace Fanex.CRM.Report.Criteria.LogStatistics
 
         public override bool IsValid()
         {
-            return true;
+            return ProductId != string.Empty &&
+                    MainCategoryId != string.Empty &&
+                    CommunicationId != string.Empty;
         }
     }
 }
