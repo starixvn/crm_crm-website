@@ -28,7 +28,7 @@
         </div>
 
         <div class="filter-frm one-row">
-            <form data-ng-submit="getCasinoDailySummary()" novalidate>
+            <form novalidate>
                 <div class="row row-item">
                     <div class="item product-item">
                         <label for="products">@Labels.Product</label>
@@ -94,7 +94,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_CasinoDailyStatistics';
         window.rootUrl = '@Url.Content("~")';
         var firstDayOfWeek = new Date('@firstDayOfWeek');
         var currentDate = new Date('@clientDate');
