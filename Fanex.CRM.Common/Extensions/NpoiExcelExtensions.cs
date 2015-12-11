@@ -44,6 +44,7 @@ namespace Fanex.CRM.Common.Extensions
         public static readonly Color NoteInformationCellColor = Color.FromArgb(181, 196, 208);
         public static readonly Color BorderColor = Color.Gray;
         public static readonly Color GroupBackgroundColor = Color.FromArgb(215, 215, 215);
+        public static readonly Color TotalColumnBackgroundColor = Color.FromArgb(240, 237, 196);
 
         public static readonly short HeaderTitleColorIndex = (short)HSSFColor.Pink.Index;
         public static readonly short BorderColorIndex = (short)HSSFColor.Grey80Percent.Index;
@@ -58,6 +59,7 @@ namespace Fanex.CRM.Common.Extensions
         public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.White.Index;
         public static readonly short PendingStatusColorIndex = (short)HSSFColor.LightYellow.Index;
         public static readonly short CloseStatusColorIndex = (short)HSSFColor.Grey25Percent.Index;
+        public static readonly short TotalColumnBackgroundIndex = (short)HSSFColor.Yellow.Index;
 
         private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";
@@ -88,6 +90,11 @@ namespace Fanex.CRM.Common.Extensions
         public static void SetGrandTotalSeparatorColorIndex(ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
+        }
+
+        public static void SetTotalColumnBackgroundColorIndex(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, TotalColumnBackgroundColor, TotalColumnBackgroundIndex);
         }
 
         /// <summary>

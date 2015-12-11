@@ -117,24 +117,30 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             int currentRowIndex = exportExcelInfo.CurrentRow;
             int currentColumnIndex = exportExcelInfo.StartColumn;
 
+            NpoiExcelExtensions.SetTotalColumnBackgroundColorIndex(exportExcelInfo);
+
             var mainCategoryTextStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var mainCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);            
+            var mainCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var mainCategoryTotalCellStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            
             var font = exportExcelInfo.ExcelFile.CreateFont();
-            SetStyleForMainCategory(font, mainCategoryTextStyle);
-            SetStyleForMainCategory(font, mainCategorynumberStyle);
+            SetFontStyleForMainCategory(font, mainCategoryTextStyle);
+            SetFontStyleForMainCategory(font, mainCategorynumberStyle);
+            SetFontStyleForMainCategory(font, mainCategoryTotalCellStyle);
 
             var subCategoryTextStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var subCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);            
-            
+            var subCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var subCategoryTotalCellStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+
             var mainCategories = _logStatisticsReport.MainCategories;
             foreach (var mainCategory in mainCategories)
             {
-                GenerateRowValue(exportExcelInfo, mainCategory, mainCategoryTextStyle, mainCategorynumberStyle);
+                GenerateRowValue(exportExcelInfo, mainCategory, mainCategoryTextStyle, mainCategorynumberStyle, mainCategoryTotalCellStyle);
 
                 var subCategories = mainCategory.SubCategories;
                 foreach (var subCategory in subCategories)
                 {
-                    GenerateRowValue(exportExcelInfo, subCategory, subCategoryTextStyle, subCategorynumberStyle);
+                    GenerateRowValue(exportExcelInfo, subCategory, subCategoryTextStyle, subCategorynumberStyle, subCategoryTotalCellStyle);
                 }
             }
         }
@@ -144,6 +150,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
             var footerTextStyle = NpoiExcelExtensions.TextStyleGrandTotal(exportExcelInfo.ExcelFile);
             var footerValueStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
+
             footerValueStyle.Alignment = HorizontalAlignment.Center;
 
             var granTotal = new LogStatisticsBaseModel
@@ -153,10 +160,10 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 ListOfCommunicationSumByProduct = _logStatisticsReport.GrandTotalOfCommunicationSumByProduct              
             };
 
-            GenerateRowValue(exportExcelInfo, granTotal, footerTextStyle, footerValueStyle);
+            GenerateRowValue(exportExcelInfo, granTotal, footerTextStyle, footerValueStyle, footerValueStyle);
         }
 
-        private void GenerateRowValue(ExportExcelInfo exportExcelInfo, LogStatisticsBaseModel category, ICellStyle textStyle, ICellStyle numberStyle)
+        private void GenerateRowValue(ExportExcelInfo exportExcelInfo, LogStatisticsBaseModel category, ICellStyle textStyle, ICellStyle numberStyle, ICellStyle totalCellStyle)
         {
             exportExcelInfo.ResetCurrentColumn();
 
@@ -182,14 +189,14 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                     currentColumnIndex++;
                 }
 
-                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, communicationSumByProduct, numberStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, communicationSumByProduct, totalCellStyle);
                 currentColumnIndex++;
             }
 
             exportExcelInfo.CurrentRow++;
         }
 
-        private void SetStyleForMainCategory(IFont font, ICellStyle cellStyle)
+        private void SetFontStyleForMainCategory(IFont font, ICellStyle cellStyle)
         {
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
