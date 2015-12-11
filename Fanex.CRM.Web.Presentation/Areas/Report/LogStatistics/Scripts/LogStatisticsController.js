@@ -116,12 +116,13 @@
                 YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
             };
             $scope.updateToDatePicker();
-
+        };
+        $scope.registerHotKey = function () {
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
-                Id: 'Report_LogStatistic'
+                Id: 'Report_LogStatistics'
             });
-        }
+        };
         $scope.updateFromDatePicker = function (isOnApply) {
             $scope.fromDateOptions.IsRerenderPicker = true;
             if (!isOnApply) {
@@ -334,6 +335,8 @@
 
         angular.element(document).ready(function () {
             $scope.initController();
+
+            $scope.registerHotKey();
         });
     } ]);
 })();
