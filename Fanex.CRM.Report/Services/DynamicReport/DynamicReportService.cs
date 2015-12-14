@@ -95,7 +95,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             if (notApplyItem == null)
             {
                 products.Insert(
-                    0, 
+                    0,
                     new Setting
                 {
                     Id = SettingConstants.NotApply,
@@ -136,7 +136,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             var data = _serviceSetting.GetAllResponses().ToList();
             data.Insert(
-                0, 
+                0,
                 new Setting
             {
                 Id = SettingConstants.NotApply,
@@ -150,7 +150,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             var data = _serviceSetting.GetAllRoles().ToList();
             data.Insert(
-                0, 
+                0,
                 new Setting
             {
                 Id = SettingConstants.NotApply,
@@ -168,7 +168,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             if (item == null)
             {
                 rawData.Insert(
-                    0, 
+                    0,
                     new Setting
                 {
                     Id = SettingConstants.NotApply,
@@ -281,6 +281,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public void ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
+            string reportName = string.Format(
+                 Labels.DynamicReport_ExcelTitle,
+                 SettingService.GetPeriodTypeName(criteria.ReportType),
+                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
             criteria.IsGetFullReport = true;
             var dynamicReport = GetDynamicReport(criteria);
 
@@ -295,11 +301,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             SetStatusColorIndex(ref exportExcelInfo);
             ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
-            string reportName = string.Format(
-                 Labels.DynamicReport_ExcelTitle,
-                 SettingService.GetPeriodTypeName(criteria.ReportType),
-                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
 
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
@@ -313,15 +314,19 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 case PeriodTypeConstants.Daily:
                     dynamicReport = GetDynamicReportByDaily(rawData, criteria);
                     break;
+
                 case PeriodTypeConstants.Weekly:
                     dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
                     break;
+
                 case PeriodTypeConstants.Monthly:
                     dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
                     break;
+
                 case PeriodTypeConstants.Yearly:
                     dynamicReport = GetDynamicReportByYearly(rawData, criteria);
                     break;
+
                 default:
                     throw new ArgumentException("Invalid report type.");
             }

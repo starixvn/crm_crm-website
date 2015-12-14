@@ -83,6 +83,8 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="criteria">The criteria.</param>
         public void ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
+            string excelFileName = string.Format(Labels.FeedbackStatisticExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
+
             criteria.ExportExcel = true;
             FeedbackStatistic report = GetFeedbackStatistic(criteria);
 
@@ -92,7 +94,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 maxColumnIndex += report.Usernames.Count;
             }
 
-            string excelFileName = string.Format(Labels.FeedbackStatisticExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
@@ -156,10 +157,11 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="criteria">The criteria.</param>
         public void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
+            string excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
+
             criteria.ExportExcel = true;
             FeedbackStatisticDetail report = FeedbackStatisticDetail(criteria);
 
-            string excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {

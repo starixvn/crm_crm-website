@@ -60,6 +60,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         public void ExportCasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
+            var excelFileName = string.Format(Labels.CasinoSummaryExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             var data = GetCasinoDailySummary(criteria);
             int maxColumnIndex = 0;
             if (data.CategoryCasinoGroups.Count > 0)
@@ -68,7 +69,6 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 maxColumnIndex *= data.CategoryCasinoGroups[0].CasinoGroups[0].Communications.Count;
             }
 
-            var excelFileName = string.Format(Labels.CasinoSummaryExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             var workbook = new HSSFWorkbook();
             var exportExcelInfo = new ExportExcelInfo
             {
@@ -131,13 +131,15 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         public void ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
             criteria.FullReport = true;
-            var data = GetCasinoDailyDetail(criteria);
 
-            int maxColumnIndex = 19;
             string excelFileName = string.Format(
                 criteria.ReportType == CasinoWeeklyType ? Labels.CasinoWeeklyExcelName : Labels.CasinoDetailExcelName,
                 FormatReportDate(criteria.FromDate),
                 FormatReportDate(criteria.ToDate));
+
+            var data = GetCasinoDailyDetail(criteria);
+
+            int maxColumnIndex = 19;
             var workbook = new HSSFWorkbook();
             var exportExcelInfo = new ExportExcelInfo
             {
@@ -179,12 +181,13 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         public void ExportCasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
+            var excelFileName = string.Format(Labels.CasinoSummaryExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
+
             var data = GetCasinoWeeklySummary(criteria);
 
             int maxColumnIndex = data.GameTypes.Count;
             maxColumnIndex++; // Grand Total column.
 
-            var excelFileName = string.Format(Labels.CasinoSummaryExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             var workbook = new HSSFWorkbook();
             var exportExcelInfo = new ExportExcelInfo
             {

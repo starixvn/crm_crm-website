@@ -101,6 +101,12 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         /// <param name="criteria">The criteria.</param>
         public void ExportMainReport(GetMainReportCriteria criteria)
         {
+            string reportName = string.Format(
+                 GetMainReportTitle(),
+                 SiteHelper.GetSiteTypeName(criteria.SiteType),
+                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
+                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+
             var report = GetMainReport(criteria);
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
@@ -113,11 +119,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.CreateSheet(GetMainReportSheetName());
             ExportMainReportHeader(report, exportExcelInfo);
             ExportMainReportBody(report, exportExcelInfo);
-            string reportName = string.Format(
-                 GetMainReportTitle(),
-                 SiteHelper.GetSiteTypeName(criteria.SiteType),
-                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
-                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+ 
             NpoiExcelExtensions.ResponseStreamExcel(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.StandardizeExcelReportName(reportName));
@@ -130,6 +132,12 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
+            string reportName = string.Format(
+                GetMainReportTitle(),
+                SiteHelper.GetSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+
             var report = DetailReport(criteria);
             var exportExcelInfo = new ExportExcelInfo
             {
@@ -138,11 +146,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             };
 
             ExportDetailReportBody(report, exportExcelInfo);
-            string reportName = string.Format(
-                GetMainReportTitle(),
-                SiteHelper.GetSiteTypeName(criteria.SiteType),
-                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
-                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+            
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
         }
 

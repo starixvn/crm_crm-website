@@ -13,7 +13,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -147,7 +146,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// Gets the statistic report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report.</returns>      
+        /// <returns>The statistic report.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -178,6 +177,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                         countryDictionary,
                         criteria);
                     break;
+
                 case PeriodTypeConstants.Monthly:
                     statisticReport = GetStatisticReportByMonthly(
                         rawData,
@@ -185,6 +185,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                         countryDictionary,
                         criteria);
                     break;
+
                 default:
                     throw new ArgumentException("Invalid ReportType");
             }
@@ -207,10 +208,16 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         }
 
         public void ExportStatisticReport(GetStatisticReportCriteria criteria)
-        {            
+        {
+            string reportName = string.Format(
+                 Labels.StatisticReport_ExcelTitle,
+                 SettingService.GetPeriodTypeName(criteria.ReportType),
+                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
             criteria.IsGetFullReport = true;
             var statisticReport = StatisticReport(criteria);
-            
+
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
@@ -227,11 +234,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             };
 
             ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
-            string reportName = string.Format(
-                 Labels.StatisticReport_ExcelTitle,
-                 SettingService.GetPeriodTypeName(criteria.ReportType),
-                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
 
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
