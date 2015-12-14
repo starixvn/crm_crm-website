@@ -541,6 +541,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     ? string.Format("\nReviewed by {0} on {1}", feedback.ReviewerName, feedback.SolveDateString)
                     : string.Empty;
                 row = exportExcelInfo.Worksheet.CreateRow(currentRow);
+                row.Height = 1200;
                 NpoiExcelExtensions.RenderCell(
                     row,
                     currentColumn,
