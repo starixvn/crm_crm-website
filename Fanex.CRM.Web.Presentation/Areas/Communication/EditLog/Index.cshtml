@@ -261,24 +261,6 @@
             </div>
             <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
         </div>
-        <div class="row panel-group last">
-            <div class="row title" data-ng-class="!hasReviewPermission || !communicationLog.IsReviewed ? 'border-bottom-none' : ''">
-                <label for="review">
-                    @Labels.Reviewed</label>
-                <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
-                    data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
-                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !oldCommunicationLog.IsReviewed }"
-                    data-ng-bind="getReviewedInfo();">
-                </label>
-            </div>
-            <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
-                @Html.Raw(Model.Review)
-            </div>
-            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !communicationLog.IsReviewed}">
-                <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container>
-                </div>
-            </div>
-        </div>
         @if (hasHostCreateUpdatePermission)
         {
             <div class="row">
