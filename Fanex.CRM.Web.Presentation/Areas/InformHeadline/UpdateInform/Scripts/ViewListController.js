@@ -208,6 +208,7 @@
                 });
         };
         $scope.updateInforms = function () {
+            refreshSearchCriteria();
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
@@ -238,7 +239,7 @@
                     setTimeout(function () {
                         parent.ClosePopup();
                     }, sharedScriptManager.cachedData.alertSuccessTime);
-                    $uiBlockerService.unblockUI();                  
+                    $uiBlockerService.unblockUI();
                 },
                 function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
