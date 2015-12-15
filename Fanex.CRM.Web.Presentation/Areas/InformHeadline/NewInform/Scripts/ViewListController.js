@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    /* global MessageResult, 
+    /* global MessageResult,
     hotKeyManager,
     sharedScriptManager,
     viewResources, Site */
@@ -99,7 +99,7 @@
         }
 
         $scope.exportInformHeadlines = function () {
-           if (isFilterValid() === false) {
+            if (isFilterValid() === false) {
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);
@@ -132,9 +132,9 @@
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
-
         };
         $scope.insertInforms = function () {
+            refreshSearchCriteria();
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
@@ -188,7 +188,7 @@
                 handleUpdateFailed);
         };
 
-        // New inform cases popup        
+        // New inform cases popup
         $scope.updateInformHeadlines = function (titleId, status) {
             $uiBlockerService.blockUI();
 
