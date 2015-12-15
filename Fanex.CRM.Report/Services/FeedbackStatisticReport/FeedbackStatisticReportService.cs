@@ -37,6 +37,10 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         private readonly IFeedbackStatisticReportRepository _feedbackStatisticRepository;
         private readonly ISettingService _settingService;
 
+        private ICellStyle _feedbackDetailTextStyle;
+        private ICellStyle _feedbackDetailPendingTextStyle;
+        private ICellStyle _feedbackDetailClosedTextStyle;
+
         public FeedbackStatisticReportService()
             : this(null, null)
         {
@@ -532,10 +536,11 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             IRow row;
             string reviewer;
             string feedbackPattern = "{0}\nFeedback date {1}\nBy {2} on {3}\nSolving Duration: {4}{5}";
+            InitializeTextStyles(exportExcelInfo.ExcelFile);
             foreach (var feedback in feedbacks)
             {
                 currentColumn = exportExcelInfo.StartColumn;
-                textCellStyle = FeedbackDetailTextStyle(exportExcelInfo.ExcelFile, feedback.Status);
+                textCellStyle = GetFeedbackDetailTextStyle(feedback.Status);
 
                 reviewer = !string.IsNullOrWhiteSpace(feedback.ReviewerName)
                     ? string.Format("\nReviewed by {0} on {1}", feedback.ReviewerName, feedback.SolveDateString)
@@ -572,51 +577,46 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="workbook">The workbook.</param>
         /// <param name="status">The status.</param>
         /// <returns>The cell style of Feedback detail.</returns>
-        private ICellStyle FeedbackDetailTextStyle(HSSFWorkbook workbook, string status)
+        private ICellStyle GetFeedbackDetailTextStyle(string status)
         {
             ICellStyle textCellStyle;
             if (string.Equals(status, "closed", StringComparison.OrdinalIgnoreCase))
             {
-                textCellStyle = FeedbackDetailClosedTextStyle(workbook);
+                textCellStyle = _feedbackDetailClosedTextStyle;
             }
             else if (string.Equals(status, "pending", StringComparison.OrdinalIgnoreCase))
             {
-                textCellStyle = FeedbackDetailPendingTextStyle(workbook);
+                textCellStyle = _feedbackDetailPendingTextStyle;
             }
             else
             {
-                textCellStyle = FeedbackDetailTextStyle(workbook);
+                textCellStyle = _feedbackDetailTextStyle;
             }
 
-            textCellStyle.WrapText = true;
             return textCellStyle;
         }
 
-        private ICellStyle FeedbackDetailTextStyle(HSSFWorkbook workbook)
+        private void InitializeTextStyles(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetTextStyle(
+            _feedbackDetailTextStyle = NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-        }
-
-        private ICellStyle FeedbackDetailPendingTextStyle(HSSFWorkbook workbook)
-        {
-            return NpoiExcelExtensions.GetTextStyle(
-                workbook,
-                NpoiExcelExtensions.PendingStatusColorIndex,
-                false,
-                CRMHorizontalAlignment.Left);
-        }
-
-        private ICellStyle FeedbackDetailClosedTextStyle(HSSFWorkbook workbook)
-        {
-            return NpoiExcelExtensions.GetTextStyle(
+            _feedbackDetailPendingTextStyle = NpoiExcelExtensions.GetTextStyle(
+                  workbook,
+                  NpoiExcelExtensions.PendingStatusColorIndex,
+                  false,
+                  CRMHorizontalAlignment.Left);
+            _feedbackDetailClosedTextStyle = NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.CloseStatusColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
+
+            _feedbackDetailTextStyle.WrapText = true;
+            _feedbackDetailPendingTextStyle.WrapText = true;
+            _feedbackDetailClosedTextStyle.WrapText = true;
         }
 
         #endregion Excel - Feedback statistic detail
