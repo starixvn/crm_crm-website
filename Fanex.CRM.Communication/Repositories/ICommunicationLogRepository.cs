@@ -17,13 +17,13 @@ namespace Fanex.CRM.Communication.Repositories
 
     public interface ICommunicationLogRepository
     {
-        List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+        IEnumerable<BaseCommunicationLog> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
 
-        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria);
     }

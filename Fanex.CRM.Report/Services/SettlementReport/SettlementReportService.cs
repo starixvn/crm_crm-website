@@ -33,9 +33,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
     /// </summary>
     public class SettlementReportService : ServiceBase, ISettlementReportService
     {
-        private readonly string _settlementReportSessionKey = "Fanex.CRM.Report.SettlementReport.SettlementReportSessionKey_" +
-            (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-
         /// <summary>
         /// Gets the settlement report.
         /// </summary>
@@ -46,49 +43,31 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             Justification = "Reviewed. Suppression is OK here.")]
         public SettlementReportInfo GetSettlementReport(GetSettlementReportCriteria criteria)
         {
-            try
+            var rawData = GetDynamicData<SettlementReportEntity>(criteria).ToList();
+            var countryList = rawData
+               .Select(settlementReportEntity => new Country
+               {
+                   Id = settlementReportEntity.CountryId,
+                   Name = settlementReportEntity.CountryName
+               })
+               .OrderBy(country => country.Id)
+               .ToList();
+            var countryDictionary = GetCountryDictionary(countryList);
+            var settlementReport = MappingDataSettlementReport(rawData, countryDictionary, criteria);
+
+            settlementReport.TotalChildReports = settlementReport.ChildReports.Count;
+            settlementReport.ChartInfo = GetChartInfo(settlementReport);
+
+            return new SettlementReportInfo
             {
-                SettlementReportInfo settlementReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    settlementReport = (SettlementReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _settlementReportSessionKey);
-                }
-
-                if (settlementReport == null)
-                {
-                    var rawData = GetDynamicData<SettlementReportEntity>(criteria).ToList();
-                    var countryList = rawData
-                       .Select(settlementReportEntity => new CountryInfo
-                       {
-                           Id = settlementReportEntity.CountryId,
-                           Name = settlementReportEntity.CountryName
-                       })
-                       .OrderBy(country => country.Id)
-                       .ToList();
-                    var countryDictionary = GetCountryDictionary(countryList);
-                    settlementReport = MappingDataSettlementReport(rawData, countryDictionary, criteria);
-
-                    settlementReport.TotalChildReports = settlementReport.ChildReports.Count;
-                    settlementReport.ChartInfo = GetChartInfo(settlementReport);
-                    SessionExtension.AddSession(HttpContext.Current.Session, _settlementReportSessionKey, settlementReport);
-                }
-
-                return new SettlementReportInfo
-                {
-                    Name = settlementReport.Name,
-                    ChildReports = criteria.IsGetFullReport ?
-                        settlementReport.ChildReports :
-                        GetPagingLogList(criteria, settlementReport.ChildReports),
-                    Total = settlementReport.Total,
-                    TotalChildReports = settlementReport.TotalChildReports,
-                    ChartInfo = settlementReport.ChartInfo
-                };
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                Name = settlementReport.Name,
+                ChildReports = criteria.IsGetFullReport ?
+                    settlementReport.ChildReports :
+                    GetPagingLogList(criteria, settlementReport.ChildReports),
+                Total = settlementReport.Total,
+                TotalChildReports = settlementReport.TotalChildReports,
+                ChartInfo = settlementReport.ChartInfo
+            };
         }
 
         /// <summary>
@@ -97,43 +76,20 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// <param name="criteria">The criteria.</param>
         public void ExportSettlementReport(GetSettlementReportCriteria criteria)
         {
-            try
+            criteria.IsGetFullReport = true;
+            var settlementReport = GetSettlementReport(criteria);
+            
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
-                SettlementReportInfo settlementReport = (SettlementReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _settlementReportSessionKey);
-                criteria.IsGetFullReport = true;
-                if (settlementReport == null)
-                {
-                    settlementReport = GetSettlementReport(criteria);
-                }
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = 3
+            };
 
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = 3
-                };
-
-                ExportSettlementReportBody(ref exportExcelInfo, criteria, settlementReport);
-                string reportName = string.Format(Labels.SettlementReport_ExcelTitle, criteria.Year);
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            ExportSettlementReportBody(ref exportExcelInfo, criteria, settlementReport);
+            string reportName = string.Format(Labels.SettlementReport_ExcelTitle, criteria.Year);
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
-        /// <summary>
-        /// Gets the paging log list.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="settlementReportList">The settlement report list.</param>
-        /// <returns>
-        /// The paging log list.
-        /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private List<SettlementReportInfo> GetPagingLogList(
             GetSettlementReportCriteria criteria,
             List<SettlementReportInfo> settlementReportList)
@@ -143,12 +99,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 .ToList();
         }
 
-        /// <summary>
-        /// Gets the country dictionary.
-        /// </summary>
-        /// <param name="countryList">The country list.</param>
-        /// <returns>The country dictionary.</returns>
-        private Dictionary<int, int> GetCountryDictionary(List<CountryInfo> countryList)
+        private Dictionary<int, int> GetCountryDictionary(List<Country> countryList)
         {
             Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
@@ -167,13 +118,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             return countryDictionary;
         }
 
-        /// <summary>
-        /// Gets the dummy country list.
-        /// </summary>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <returns>
-        /// The dummy country list.
-        /// </returns>
         private List<SettlementReportInfo> GetDummyCountryList(Dictionary<int, int> countryDictionary)
         {
             List<SettlementReportInfo> dummyCountries = new List<SettlementReportInfo>();
@@ -218,8 +162,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 }
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData == null || rawData.Count == 0)
             {
                 return settlementReport;
             }
@@ -395,7 +338,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             SettlementReportInfo settlementReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
 

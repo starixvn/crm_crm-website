@@ -1,16 +1,15 @@
-﻿"use strict";
-/* global viewListApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions */
+    /* jshint camelcase: false */
 
-viewListApplication.controller('viewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+    angular.module('addmintool-settingmanagement-application').controller('viewListController',
+    ['$scope', '$uiBlockerService', 'viewListService',
+    function ($scope, $uiBlockerService, viewListService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.getSettingRelationsParams = {
             MainSetting: null
@@ -29,7 +28,7 @@ viewListApplication.controller('viewListController',
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -44,7 +43,7 @@ viewListApplication.controller('viewListController',
                     $scope.settingManagementView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.settingManagementView = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -77,7 +76,7 @@ viewListApplication.controller('viewListController',
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
                 window.rootUrl + "SettingManagement/OpenInsertSubSettingView?" + $.param({
-                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType 
+                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
                 }),
                 viewResources.Insert_New_Setting,
                 480,
@@ -207,3 +206,4 @@ viewListApplication.controller('viewListController',
             $scope.setFocus();
         });
     } ]);
+})();

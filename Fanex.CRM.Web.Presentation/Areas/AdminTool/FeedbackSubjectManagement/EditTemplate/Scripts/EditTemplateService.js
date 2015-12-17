@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global editTemplateApplication,
-sharedScriptManager */
-editTemplateApplication.factory('editTemplateService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-feedbacksubjectmanagement-edittemplate').factory('editTemplateService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -16,3 +16,4 @@ editTemplateApplication.factory('editTemplateService',
 
         return serviceInstance;
     } ]);
+})();

@@ -1,45 +1,44 @@
-﻿"use strict";
-/* global editLogApplication, 
-communicationLog,
-viewResources,
-hotKeyManager,
-sharedScriptManager,
-currentUsername */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-editLogApplication.directive('remarkEditorContainer', function () {
-    var editorId = "remarkeditorbox";
+﻿(function () {
+    "use strict";
+    /* global communicationLog,
+    viewResources,
+    hotKeyManager,
+    sharedScriptManager,
+    currentUsername */
+    /* jshint camelcase: false */
+    angular.module('communicationlog-edit-application').directive('remarkEditorContainer', function () {
+        var editorId = "remarkeditorbox";
 
-    function renderRemarkEditor(scope, element, attrs) {
-        var remark = communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
+        function renderRemarkEditor(scope, element) {
+            var remark = communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
             communicationLog.Remark.substring(0, communicationLog.Remark.length - 1) + "&nbsp;" :
             communicationLog.Remark;
 
-        var editorHTML =
+            var editorHTML =
             '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
                 sharedScriptManager.encodeHtml(remark) +
             '</textarea>';
 
-        element.html(editorHTML);
-        var editor = element.find("#" + editorId);
-        editor.htmlarea({
-            changeEvent: function () {
-                scope.updateRemark(editor.htmlarea("toHtmlString"));
-            },
-            keyUpEvent: function (eventObject) {
-                hotKeyManager.keyUp(eventObject);
-            },
-            keyDownEvent: function (eventObject) {
-                return hotKeyManager.documentKeyDown(eventObject);
-            },
-            blurEvent: function () {
-                return hotKeyManager.documentBlur();
-            },
-            clickEvent: function () {
-                $("#startTime").datepicker("hide");
-                $("#endTime").datepicker("hide");
-            },
-            toolbar: [
+            element.html(editorHTML);
+            var editor = element.find("#" + editorId);
+            editor.htmlarea({
+                changeEvent: function () {
+                    scope.updateRemark(editor.htmlarea("toHtmlString"));
+                },
+                keyUpEvent: function (eventObject) {
+                    hotKeyManager.keyUp(eventObject);
+                },
+                keyDownEvent: function (eventObject) {
+                    return hotKeyManager.documentKeyDown(eventObject);
+                },
+                blurEvent: function () {
+                    return hotKeyManager.documentBlur();
+                },
+                clickEvent: function () {
+                    $("#startTime").datepicker("hide");
+                    $("#endTime").datepicker("hide");
+                },
+                toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
                 ["orderedlist", "unorderedlist"],
@@ -52,6 +51,7 @@ editLogApplication.directive('remarkEditorContainer', function () {
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
+                        /* jshint unused: false */
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
@@ -59,17 +59,19 @@ editLogApplication.directive('remarkEditorContainer', function () {
                     }
                 }]
            ]
-        });
-
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                renderRemarkEditor(scope, element, attrs);
             });
+
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderRemarkEditor(scope, element);
+                });
+            }
+        };
+    });
+})();

@@ -4,20 +4,20 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Edit_Communication_Log;
+
     var customerId = Model;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-insert-application">
-<head>
-    <title>@Labels.Insert_Communication_Log </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Areas/Communication/InsertLogStyles")
-</head>
-<body>
+}
+<div data-ng-app="communicationlog-insert-application">
     <div class="main popup container insertlogcontroller" data-ng-controller="insertLogController">
         <div class="row form-group">
             <div class="row row-item" data-ng-show="isShowResultMessage">
@@ -34,7 +34,7 @@
                         @Labels.Start_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
-                    onselect="onStartTimeChanged();" data-ng-model="communicationLog.StartTime" datetimepicker />
+                        onselect="onStartTimeChanged();" data-ng-model="communicationLog.StartTime" datetimepicker />
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="ext">
@@ -50,8 +50,8 @@
                     <label for="endTime">
                         @Labels.End_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="endTime" class="txtcalendar textbox timepicker"
-                        readonly data-ng-model="communicationLog.EndTime" datetimepicker />
+                    <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="communicationLog.EndTime"
+                        datetimepicker />
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="country">
@@ -237,9 +237,9 @@
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/TimePicker")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
@@ -277,7 +277,6 @@
             Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',
             Communication_Log_EmptySolution: '@Labels.Communication_Log_EmptySolution',
             Confirm_Ignore_InsertCommunication_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertCommunication_Changes)'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

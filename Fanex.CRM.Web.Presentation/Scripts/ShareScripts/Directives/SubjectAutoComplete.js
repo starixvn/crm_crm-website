@@ -2,16 +2,10 @@
 /* global directiveManager: true,
 jlinq,
 keyboardManager */
-/* jshint unused: vars */
-/* jshint camelcase: false */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerSubjectAutoComplete = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
         function isOptionReady(options) {
             return options !== null &&
                 options !== undefined;

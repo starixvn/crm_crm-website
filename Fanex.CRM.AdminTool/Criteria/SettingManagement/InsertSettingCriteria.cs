@@ -21,7 +21,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
     /// </summary>
     public class InsertSettingCriteria : CriteriaBase
     {
-        public SettingInfo NewSetting { get; set; }
+        public Setting NewSetting { get; set; }
 
         [SpParam(SqlParamName = "creatorid")]
         public int CreatorId
@@ -46,7 +46,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
         {
             get
             {
-                return IPHelper.ClientIP();
+                return IPHelper.ClientIP;
             }
         }
 

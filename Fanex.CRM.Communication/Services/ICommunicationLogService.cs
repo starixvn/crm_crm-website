@@ -18,13 +18,13 @@ namespace Fanex.CRM.Communication.Services
 
     public interface ICommunicationLogService
     {
-        List<SettingInfo> AllStatusForEdit { get; }
+        IList<Setting> AllStatusForEdit { get; }
 
-        List<SettingInfo> AllStatusForInsert { get; }
+        IList<Setting> AllStatusForInsert { get; }
 
         CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
-        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 

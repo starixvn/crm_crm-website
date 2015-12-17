@@ -3,20 +3,19 @@
 @using Fanex.CRM.Dashboard.Models;
 @using Fanex.CRM.Infrastructure.Extensions;
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.Verify_Customer_Info;
+
     var jsonCustomerInfo = JsonConvert.SerializeObject(Model);
     var hasCreateUpdateFeedbackPermission = (bool)ViewBag.HasCreateUpdateFeedbackPermission;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-verifyflag-application">
-<head>
-    <title>@Labels.Verify_Customer_Info </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Areas/Dashboard/VerifyFlagStyles")
-</head>
-<body>
+}
+<div data-ng-app="dashboard-verifyflag-application">
     <div class="main popup container" data-ng-controller="verifyFlagController">
         <div class="row row-item" data-ng-show="isShowResultMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -91,8 +90,8 @@
         }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Areas/Dashboard/VerifyFlagScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -101,11 +100,10 @@
         Confirm_Ignore_EditVerifyFlag_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditVerifyFlag_Changes)'
         };
 
-        verifyFlagApplication.factory('$bootstrappedData', function () {
+        angular.module('dashboard-verifyflag-application').factory('$bootstrappedData', function () {
             return {
                 customerInfo: @Html.Raw(jsonCustomerInfo)
             };
         });
     </script>
-</body>
-</html>
+}

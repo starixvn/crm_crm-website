@@ -1,36 +1,35 @@
-﻿"use strict";
-/* global insertLogApplication,
-viewResources,
-hotKeyManager,
-sharedScriptManager,
-currentUsername */
-insertLogApplication.directive('solutionEditorContainer', function () {
-    var editorId = "solutioneditorbox";
-    function renderEditor(scope, element, attrs) {
-        /* jshint unused: vars */
-        var solution = scope.communicationLog ? scope.communicationLog.Solution : '';
-        var editorHTML =
+﻿(function () {
+    "use strict";
+    /* global viewResources,
+    hotKeyManager,
+    sharedScriptManager,
+    currentUsername */
+    angular.module('communicationlog-insert-application').directive('solutionEditorContainer', function () {
+        var editorId = "solutioneditorbox";
+        function renderEditor(scope, element) {
+            var solution = scope.communicationLog ? scope.communicationLog.Solution : '';
+            var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
             sharedScriptManager.encodeHtml(solution) +
         '</textarea>';
 
-        element.html(editorHTML);
-        var editor = element.find("#" + editorId);
-        /* jshint camelcase: false */
-        editor.htmlarea({
-            changeEvent: function () {
-                scope.updateSolution(editor.htmlarea("toHtmlString"));
-            },
-            keyUpEvent: function (eventObject) {
-                hotKeyManager.keyUp(eventObject);
-            },
-            keyDownEvent: function (eventObject) {
-                return hotKeyManager.documentKeyDown(eventObject);
-            },
-            blurEvent: function () {
-                return hotKeyManager.documentBlur();
-            },
-            toolbar: [
+            element.html(editorHTML);
+            var editor = element.find("#" + editorId);
+            /* jshint camelcase: false */
+            editor.htmlarea({
+                changeEvent: function () {
+                    scope.updateSolution(editor.htmlarea("toHtmlString"));
+                },
+                keyUpEvent: function (eventObject) {
+                    hotKeyManager.keyUp(eventObject);
+                },
+                keyDownEvent: function (eventObject) {
+                    return hotKeyManager.documentKeyDown(eventObject);
+                },
+                blurEvent: function () {
+                    return hotKeyManager.documentBlur();
+                },
+                toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
                 ["orderedlist", "unorderedlist"],
@@ -43,7 +42,7 @@ insertLogApplication.directive('solutionEditorContainer', function () {
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
-                        /* jshint unused: vars */
+                        /* jshint unused: false */
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
@@ -51,17 +50,18 @@ insertLogApplication.directive('solutionEditorContainer', function () {
                     }
                 }]
            ]
-        });
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                renderEditor(scope, element, attrs);
             });
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderEditor(scope, element);
+                });
+            }
+        };
+    });
+})();

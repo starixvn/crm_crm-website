@@ -1,100 +1,99 @@
-﻿'use strict';
-/* global manageFBApplication,
-manageFeedbackResources,
-sharedScriptManager,
-moment,
-crmConstants,
-currentDate,
-yesterday,
-currentTime,
-username,
-isGuest */
-/* jshint camelcase: false */
-/* jshint unused: vars */
-manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
+﻿(function () {
+    "use strict";
+    /* global manageFeedbackResources,
+    sharedScriptManager,
+    moment,
+    crmConstants,
+    currentDate,
+    yesterday,
+    currentTime,
+    username,
+    isGuest */
+    /* jshint camelcase: false */
+    angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
     $scope, manageFBService, $uiBlockerService) {
-    $scope.fromDateOptions = null;
-    $scope.toDateOptions = null;
-    $scope.subCategoryOptions = null;
-    $scope.mainCategoryOptions = null;
-    $scope.searchCriteria = {
-        FeedbackId: '',
-        FromDate: yesterday,
-        ToDate: currentTime,
-        Username: username,
-        IsGuest: null,
-        IsReviewed: null,
-        Response: null,
-        MainCategory: null,
-        SubCategory: null,
-        Communication: null,
-        Status: null,
-        Handler: null,
-        PageIndex: 0,
-        ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
-    };
-
-    $scope.initDatePicker = function () {
-        $scope.fromDateOptions = {
-            CurrentDate: currentDate,
-            InitDate: yesterday,
-            MaxDate: currentDate,
-            IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateFromDate
+        $scope.fromDateOptions = null;
+        $scope.toDateOptions = null;
+        $scope.subCategoryOptions = null;
+        $scope.mainCategoryOptions = null;
+        $scope.searchCriteria = {
+            FeedbackId: '',
+            FromDate: yesterday,
+            ToDate: currentTime,
+            Username: username,
+            IsGuest: null,
+            IsReviewed: null,
+            Response: null,
+            MainCategory: null,
+            SubCategory: null,
+            Communication: null,
+            Status: null,
+            Handler: null,
+            PageIndex: 0,
+            ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
 
-        $scope.toDateOptions = {
-            CurrentDate: currentDate,
-            InitDate: currentDate,
-            MaxDate: currentDate,
-            IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateToDate
+        $scope.initDatePicker = function () {
+            $scope.fromDateOptions = {
+                CurrentDate: currentDate,
+                InitDate: yesterday,
+                MaxDate: currentDate,
+                IsRerenderPicker: false,
+                OnChangeDateEvent: $scope.updateFromDate
+            };
+
+            $scope.toDateOptions = {
+                CurrentDate: currentDate,
+                InitDate: currentDate,
+                MaxDate: currentDate,
+                IsRerenderPicker: false,
+                OnChangeDateEvent: $scope.updateToDate
+            };
+
+            $scope.updateFromDatePicker();
+            $scope.updateToDatePicker();
         };
 
-        $scope.updateFromDatePicker();
-        $scope.updateToDatePicker();
-    };
+        $scope.updateFromDatePicker = function (isOnApply) {
+            $scope.fromDateOptions.IsRerenderPicker = true;
+            if (!isOnApply) {
+                $scope.$apply();
+            }
+        };
 
-    $scope.updateFromDatePicker = function (isOnApply) {
-        $scope.fromDateOptions.IsRerenderPicker = true;
-        if (!isOnApply) {
+        $scope.updateToDatePicker = function (isOnApply) {
+            $scope.toDateOptions.IsRerenderPicker = true;
+            if (!isOnApply) {
+                $scope.$apply();
+            }
+        };
+
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.toDateOptions.MinDate = selectedDate;
+            $scope.updateToDatePicker(true);
+        };
+
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.fromDateOptions.MaxDate = selectedDate;
+            $scope.updateFromDatePicker(true);
+        };
+
+        $scope.updateSelectedMainCategory = function (mainCategory) {
+            $scope.searchCriteria.MainCategory = mainCategory;
+            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
+            $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
             $scope.$apply();
-        }
-    };
+        };
 
-    $scope.updateToDatePicker = function (isOnApply) {
-        $scope.toDateOptions.IsRerenderPicker = true;
-        if (!isOnApply) {
+        $scope.updateSelectedSubCategory = function (subCategory) {
+            $scope.searchCriteria.SubCategory = subCategory;
             $scope.$apply();
-        }
-    };
+        };
 
-    $scope.updateFromDate = function (selectedDate) {
-        $scope.searchCriteria.FromDate = selectedDate;
-        $scope.toDateOptions.MinDate = selectedDate;
-        $scope.updateToDatePicker(true);
-    };
-
-    $scope.updateToDate = function (selectedDate) {
-        $scope.searchCriteria.ToDate = selectedDate;
-        $scope.fromDateOptions.MaxDate = selectedDate;
-        $scope.updateFromDatePicker(true);
-    };
-
-    $scope.updateSelectedMainCategory = function (mainCategory) {
-        $scope.searchCriteria.MainCategory = mainCategory;
-        $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-        $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
-        $scope.$apply();
-    };
-
-    $scope.updateSelectedSubCategory = function (subCategory) {
-        $scope.searchCriteria.SubCategory = subCategory;
-        $scope.$apply();
-    };
-
-    $scope.getAllSetting = function () {
-        manageFBService.getAllSetting()
+        $scope.getAllSetting = function () {
+            manageFBService.getAllSetting()
             .then(function (data) {
                 var settings = data.Result;
                 $scope.customerTypes = settings.CustomerType;
@@ -132,57 +131,58 @@ manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFee
 
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
-    };
-
-    $scope.filterManageFeedback = function () {
-        $scope.searchCriteria.PageIndex = 0; // always reset PageIndex when submit form.
-        $scope.searchManageFeedback();
-    };
-
-    $scope.searchManageFeedback = function () {
-        $uiBlockerService.blockUI();
-        var criteria = {
-            FeedbackId: $scope.searchCriteria.FeedbackId,
-            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            Username: $scope.searchCriteria.Username,
-            IsGuest: $scope.searchCriteria.IsGuest.Id,
-            CommunicationId: $scope.searchCriteria.Communication.Id,
-            MainCategoryId: $scope.searchCriteria.MainCategory.Id,
-            SubCategoryId: $scope.searchCriteria.SubCategory.Id,
-            StatusId: $scope.searchCriteria.Status.Id,
-            IsReviewed: $scope.searchCriteria.IsReviewed.Id,
-            ResponseId: $scope.searchCriteria.Response.Id,
-            HandledBy: $scope.searchCriteria.Handler,
-            PageIndex: $scope.searchCriteria.PageIndex + 1,
-            ItemsPerPage: $scope.searchCriteria.ItemsPerPage
         };
-        manageFBService.searchManageFeedback(criteria)
+
+        $scope.filterManageFeedback = function () {
+            $scope.searchCriteria.PageIndex = 0; // always reset PageIndex when submit form.
+            $scope.searchManageFeedback();
+        };
+
+        $scope.searchManageFeedback = function () {
+            $uiBlockerService.blockUI();
+            var criteria = {
+                FeedbackId: $scope.searchCriteria.FeedbackId,
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                Username: $scope.searchCriteria.Username,
+                IsGuest: $scope.searchCriteria.IsGuest.Id,
+                CommunicationId: $scope.searchCriteria.Communication.Id,
+                MainCategoryId: $scope.searchCriteria.MainCategory.Id,
+                SubCategoryId: $scope.searchCriteria.SubCategory.Id,
+                StatusId: $scope.searchCriteria.Status.Id,
+                IsReviewed: $scope.searchCriteria.IsReviewed.Id,
+                ResponseId: $scope.searchCriteria.Response.Id,
+                HandledBy: $scope.searchCriteria.Handler,
+                PageIndex: $scope.searchCriteria.PageIndex + 1,
+                ItemsPerPage: $scope.searchCriteria.ItemsPerPage
+            };
+            manageFBService.searchManageFeedback(criteria)
             .then(function (data) {
                 $scope.report = data.Result;
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
-    };
+        };
 
-    $scope.openEditFeedbackPopup = function (id) {
-        var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
-        var maxWidthOfPopUp = 987;
-        var maxHeightOfPopUp = $(parent.document).height();
-        parent.OpenPopup(url, manageFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
-            $scope.searchManageFeedback();
+        $scope.openEditFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
+            var maxWidthOfPopUp = 987;
+            var maxHeightOfPopUp = $(parent.document).height();
+            parent.OpenPopup(url, manageFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
+                $scope.searchManageFeedback();
+            });
+        };
+
+        angular.element(document).ready(function () {
+            $uiBlockerService.blockUI();
+
+            $scope.initDatePicker();
+            $scope.getAllSetting();
         });
-    };
-
-    angular.element(document).ready(function () {
-        $uiBlockerService.blockUI();
-
-        $scope.initDatePicker();
-        $scope.getAllSetting();
-    });
-} ]);
+    } ]);
+})();

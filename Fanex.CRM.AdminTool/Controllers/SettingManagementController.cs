@@ -13,11 +13,11 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
 
@@ -55,7 +55,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
-                 new SettingInfo
+                 new Setting
                 {
                     SettingType = settingType
                 });
@@ -69,7 +69,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Index.cshtml",
-                new SettingInfo
+                new Setting
                 {
                     SettingType = settingType,
                     Id = settingId,
@@ -92,7 +92,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
-            var result = _settingManagementService.MainSetting;
+            var result = _settingManagementService.GetMainSettings();
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -101,7 +101,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult ParentSetting()
         {
-            var result = _settingManagementService.ParentSetting;
+            var result = _settingManagementService.GetParentSettings();
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

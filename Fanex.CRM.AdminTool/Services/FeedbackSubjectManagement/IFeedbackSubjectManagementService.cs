@@ -20,7 +20,7 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
 
         Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria);
 
-        FeedbackSubjectTemplateInfo FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria);
+        FeedbackSubjectTemplate GetFeedbackSubjectTemplate(FeedbackSubjectTemplateByIdCriteria criteria);
 
         Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria);
 

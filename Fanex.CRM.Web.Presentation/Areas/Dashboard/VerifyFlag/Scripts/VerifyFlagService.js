@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global verifyFlagApplication */
-verifyFlagApplication.factory('$verifyFlagService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('dashboard-verifyflag-application').factory('$verifyFlagService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.updateCustomerVerifyFlag = function (selectedCriteria) {
@@ -27,3 +27,4 @@ verifyFlagApplication.factory('$verifyFlagService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

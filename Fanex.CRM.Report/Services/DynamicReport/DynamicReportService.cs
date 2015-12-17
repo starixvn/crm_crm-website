@@ -14,21 +14,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.DynamicReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
     using NPOI.HSSF.UserModel;
@@ -47,12 +43,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         private readonly short _pendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
 
-        private readonly string _dynamicReportSessionKey = "Fanex.CRM.Report.DynamicReport.DynamicReportSessionKey_" +
-           (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
+        private readonly IDynamicReportRepository _dynamicReportRepository;
 
-        private IDynamicReportRepository _dynamicReportRepository;
-
-        private ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
 
         public DynamicReportService()
             : this(null, null)
@@ -67,443 +60,290 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all period type.
-        /// </summary>
-        /// <returns>All period type.</returns>
-        public List<SettingInfo> AllPeriodType()
+        public IEnumerable<Setting> GetAllPeriodTypes()
         {
-            try
+            var types = new List<Setting>();
+            types.Add(new Setting
             {
-                var allPeriodType = new List<SettingInfo>();
-                allPeriodType.Add(new SettingInfo
-                {
-                    Id = PeriodTypeConstants.Daily,
-                    Name = Labels.Daily
-                });
-                allPeriodType.Add(new SettingInfo
-                {
-                    Id = PeriodTypeConstants.Weekly,
-                    Name = Labels.Weekly
-                });
-                allPeriodType.Add(new SettingInfo
-                {
-                    Id = PeriodTypeConstants.Monthly,
-                    Name = Labels.Monthly
-                });
-                allPeriodType.Add(new SettingInfo
-                {
-                    Id = PeriodTypeConstants.Yearly,
-                    Name = Labels.Yearly
-                });
+                Id = PeriodTypeConstants.Daily,
+                Name = Labels.Daily
+            });
+            types.Add(new Setting
+            {
+                Id = PeriodTypeConstants.Weekly,
+                Name = Labels.Weekly
+            });
+            types.Add(new Setting
+            {
+                Id = PeriodTypeConstants.Monthly,
+                Name = Labels.Monthly
+            });
+            types.Add(new Setting
+            {
+                Id = PeriodTypeConstants.Yearly,
+                Name = Labels.Yearly
+            });
 
-                return allPeriodType;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return types;
         }
 
-        /// <summary>
-        /// Gets all product.
-        /// </summary>
-        /// <returns>All product.</returns>      
-        public List<SettingInfo> AllProduct()
+        public IEnumerable<Setting> GetAllProducts()
         {
-            try
+            var products = _serviceSetting.GetAllProducts().ToList();
+            var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+
+            if (notApplyItem == null)
             {
-                var allProduct = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllProduct();
-                allProduct.Add(new SettingInfo
+                products.Insert(
+                    0,
+                    new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
                 });
-
-                foreach (var rawProduct in rawData)
-                {
-                    var product = rawProduct;
-                    if (rawProduct.Id == SettingConstants.NotApply)
-                    {
-                        continue;
-                    }
-
-                    allProduct.Add(product);
-                }
-
-                return allProduct;
             }
-            catch (Exception ex)
+            else
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                notApplyItem.Value = Labels.All;
             }
+
+            return products;
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public List<SiteInfo> AllSite()
+        public IEnumerable<SiteInfo> GetAllSites()
         {
-            try
-            {
-                var allSite = _serviceSetting.AllSite();
-                return allSite;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllSites();
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>All status.</returns>
-        public List<SettingInfo> AllStatus()
+        public IEnumerable<Setting> GetAllStatuses()
         {
-            try
-            {
-                var rawData = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
-                    .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+            var rawData = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
+                .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-                rawData.Insert(
-                    0, 
-                    new SettingInfo
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.All
-                    });
-
-                return rawData;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all response.
-        /// </summary>
-        /// <returns>All response.</returns>
-        public List<SettingInfo> AllResponse()
-        {
-            try
-            {
-                var allResponse = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllResponse();
-                allResponse.Add(new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.All
-                });
-
-                foreach (var rawResponse in rawData)
-                {
-                    allResponse.Add(rawResponse);
-                }
-
-                return allResponse;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all role.
-        /// </summary>
-        /// <returns>All role value.</returns>
-        public List<SettingInfo> AllRole()
-        {
-            try
-            {
-                var allRole = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllRole();
-                allRole.Add(new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.All
-                });
-
-                foreach (var rawRole in rawData)
-                {
-                    allRole.Add(rawRole);
-                }
-
-                return allRole;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all communication tool.
-        /// </summary>
-        /// <returns>All communication tool.</returns>
-        public List<SettingInfo> AllCommunicationTool()
-        {
-            try
-            {
-                var allCommunicationTool = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllCommunicationTool();
-                allCommunicationTool.Add(new SettingInfo
+            rawData.Insert(
+                0,
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All
                 });
 
-                foreach (var rawCommunicationTool in rawData)
-                {
-                    if (rawCommunicationTool.Id == CommunicationToolConstants.NotApply)
-                    {
-                        continue;
-                    }
-
-                    allCommunicationTool.Add(rawCommunicationTool);
-                }
-
-                return allCommunicationTool;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return rawData;
         }
 
-        /// <summary>
-        /// Gets all main category.
-        /// </summary>
-        /// <returns>All main category.</returns>
-        public List<SettingInfo> AllMainCategory()
+        public IEnumerable<Setting> GetAllResponses()
         {
-            try
+            var data = _serviceSetting.GetAllResponses().ToList();
+            data.Insert(
+                0,
+                new Setting
             {
-                var allMainCategory = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllMainCategory();
-                var allSubSettingOption = new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.All,
-                };
+                Id = SettingConstants.NotApply,
+                Value = Labels.All
+            });
 
-                allMainCategory.Add(new SettingInfo
+            return data;
+        }
+
+        public IEnumerable<Setting> GetAllRoles()
+        {
+            var data = _serviceSetting.GetAllRoles().ToList();
+            data.Insert(
+                0,
+                new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Value = Labels.All
+            });
+
+            return data;
+        }
+
+        public IEnumerable<Setting> GetAllCommunicationTools()
+        {
+            var rawData = _serviceSetting.GetAllCommunicationTools().ToList();
+            var item = rawData.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+
+            if (item == null)
+            {
+                rawData.Insert(
+                    0,
+                    new Setting
                 {
                     Id = SettingConstants.NotApply,
-                    Name = Labels.All,
-                    ChildSettings = new List<SettingInfo>
+                    Name = Labels.All
+                });
+            }
+            else
+            {
+                item.Name = Labels.All;
+            }
+
+            return rawData;
+        }
+
+        public IEnumerable<Setting> GetAllMainCategories()
+        {
+            var allMainCategory = new List<Setting>();
+            var rawData = _serviceSetting.GetAllMainCategories();
+            var allSubSettingOption = new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.All,
+            };
+
+            allMainCategory.Add(new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.All,
+                ChildSettings = new List<Setting>
                     {
                        allSubSettingOption
                     }
-                });
+            });
 
-                foreach (var rawMainCategory in rawData)
-                {
-                    rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
-                    allMainCategory.Add(rawMainCategory);
-                }
-
-                return allMainCategory;
-            }
-            catch (Exception ex)
+            foreach (var rawMainCategory in rawData)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
+                allMainCategory.Add(rawMainCategory);
             }
+
+            return allMainCategory;
         }
 
-        /// <summary>
-        /// Gets all extension.
-        /// </summary>
-        /// <returns>All extension.</returns>
-        public List<SettingInfo> AllExtension()
+        public IEnumerable<Setting> GetAllExtensions()
         {
-            try
+            var extensions = new List<Setting>();
+            var rawData = _serviceSetting.GetAllExtensions();
+            extensions.Add(new Setting
             {
-                var allExtension = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllExtension();
-                allExtension.Add(new SettingInfo
-                {
-                    Id = ExtensionConstants.NotApply,
-                    Value = Labels.All
-                });
+                Id = ExtensionConstants.NotApply,
+                Value = Labels.All
+            });
 
-                foreach (var rawExtension in rawData)
+            foreach (var rawExtension in rawData)
+            {
+                if (rawExtension.Id == ExtensionConstants.NotApply)
                 {
-                    if (rawExtension.Id == ExtensionConstants.NotApply)
-                    {
-                        continue;
-                    }
-
-                    allExtension.Add(rawExtension);
+                    continue;
                 }
 
-                return allExtension;
+                extensions.Add(rawExtension);
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            return extensions;
         }
 
-        /// <summary>
-        /// Gets the dynamic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report.</returns>      
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var dynamicReport = GetDynamicReportData(criteria);
+
+            var chartInfo = new DynamicReportInfo
             {
-                DynamicReportInfo dynamicReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    dynamicReport = (DynamicReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _dynamicReportSessionKey);
-                }
+                Id = dynamicReport.Id,
+                Name = dynamicReport.Name,
+                ShortName = dynamicReport.ShortName,
+                TotalChildReports = dynamicReport.TotalChildReports,
+                ChildReports = new List<DynamicReportInfo>()
+            };
 
-                if (dynamicReport == null)
-                {
-                    criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                    criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                    var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
-                    switch (criteria.ReportType)
-                    {
-                        case PeriodTypeConstants.Daily:
-                            dynamicReport = GetDynamicReportByDaily(rawData, criteria);
-                            break;
-                        case PeriodTypeConstants.Weekly:
-                            dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
-                            break;
-                        case PeriodTypeConstants.Monthly:
-                            dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
-                            break;
-                        case PeriodTypeConstants.Yearly:
-                            dynamicReport = GetDynamicReportByYearly(rawData, criteria);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    dynamicReport.ReportTypeId = criteria.ReportType;
-                    dynamicReport.TotalChildReports = rawData.Count;
-                    SessionExtension.AddSession(HttpContext.Current.Session, _dynamicReportSessionKey, dynamicReport);
-                }
-
-                var chartInfo = new DynamicReportInfo
-                {
-                    Id = dynamicReport.Id,
-                    Name = dynamicReport.Name,
-                    ShortName = dynamicReport.ShortName,
-                    TotalChildReports = dynamicReport.TotalChildReports,
-                    ChildReports = new List<DynamicReportInfo>()
-                };
-
-                var childReportLength = dynamicReport.ChildReports.Count;
-                for (var periodIndex = 0; periodIndex < childReportLength; periodIndex++)
-                {
-                    var periodReport = dynamicReport.ChildReports[periodIndex];
-                    chartInfo.ChildReports.Add(new DynamicReportInfo
-                    {
-                        Id = periodReport.Id,
-                        Name = periodReport.Name,
-                        ShortName = periodReport.ShortName,
-                        TotalChildReports = periodReport.TotalChildReports
-                    });
-                }
-
-                return new DynamicReportInfo
-                {
-                    Id = dynamicReport.Id,
-                    Name = dynamicReport.Name,
-                    ShortName = dynamicReport.ShortName,
-                    ChildReports = criteria.IsGetFullReport ?
-                       dynamicReport.ChildReports :
-                       GetPagingLogList(criteria, dynamicReport.ChildReports),
-                    TotalChildReports = dynamicReport.TotalChildReports,
-                    ChartInfo = chartInfo
-                };
-            }
-            catch (Exception ex)
+            var childReportLength = dynamicReport.ChildReports.Count;
+            for (var periodIndex = 0; periodIndex < childReportLength; periodIndex++)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                var periodReport = dynamicReport.ChildReports[periodIndex];
+                chartInfo.ChildReports.Add(new DynamicReportInfo
+                {
+                    Id = periodReport.Id,
+                    Name = periodReport.Name,
+                    ShortName = periodReport.ShortName,
+                    TotalChildReports = periodReport.TotalChildReports
+                });
             }
+
+            return new DynamicReportInfo
+            {
+                Id = dynamicReport.Id,
+                Name = dynamicReport.Name,
+                ShortName = dynamicReport.ShortName,
+                ChildReports = criteria.IsGetFullReport ?
+                   dynamicReport.ChildReports :
+                   GetPagingLogList(criteria, dynamicReport.ChildReports),
+                TotalChildReports = dynamicReport.TotalChildReports,
+                ChartInfo = chartInfo
+            };
         }
 
-        /// <summary>
-        /// Exports the dynamic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            try
+            string reportName = string.Format(
+                 Labels.DynamicReport_ExcelTitle,
+                 SettingService.GetPeriodTypeName(criteria.ReportType),
+                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
+            criteria.IsGetFullReport = true;
+            var dynamicReport = GetDynamicReport(criteria);
+
+            var exportExcelInfo = new ExportExcelInfo
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                DynamicReportInfo dynamicReport = CacheService.Get<DynamicReportInfo>(_dynamicReportSessionKey);
-                criteria.IsGetFullReport = true;
-                if (dynamicReport == null)
-                {
-                    dynamicReport = GetDynamicReport(criteria);
-                }
+                ExcelFile = new HSSFWorkbook(),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = 9
+            };
 
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = 9
-                };
+            SetStatusColorIndex(ref exportExcelInfo);
+            ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
 
-                SetStatusColorIndex(ref exportExcelInfo);
-                ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
-                string reportName = string.Format(
-                     Labels.DynamicReport_ExcelTitle,
-                     SettingService.GetPeriodTypeName(criteria.ReportType),
-                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
-        /// <summary>
-        /// Gets the dynamic report by yearly.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report by yearly.</returns>
+        private DynamicReportInfo GetDynamicReportData(GetDynamicReportCriteria criteria)
+        {
+            var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
+            DynamicReportInfo dynamicReport;
+            switch (criteria.ReportType)
+            {
+                case PeriodTypeConstants.Daily:
+                    dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                    break;
+
+                case PeriodTypeConstants.Weekly:
+                    dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
+                    break;
+
+                case PeriodTypeConstants.Monthly:
+                    dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
+                    break;
+
+                case PeriodTypeConstants.Yearly:
+                    dynamicReport = GetDynamicReportByYearly(rawData, criteria);
+                    break;
+
+                default:
+                    throw new ArgumentException("Invalid report type.");
+            }
+
+            dynamicReport.ReportTypeId = criteria.ReportType;
+            dynamicReport.TotalChildReports = rawData.Count();
+            return dynamicReport;
+        }
+
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByYearly(
-            List<DynamicReportInfo> rawData,
+            IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
         {
-            DynamicReportInfo dynamicReport = new DynamicReportInfo
+            var dynamicReport = new DynamicReportInfo
             {
                 Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).Year.ToString(),
                 ChildReports = new List<DynamicReportInfo>(),
@@ -518,8 +358,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData.Count() == 0)
             {
                 return dynamicReport;
             }
@@ -558,20 +397,14 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        /// <summary>
-        /// Gets the dynamic report by monthly.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report by monthly.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByMonthly(
-            List<DynamicReportInfo> rawData,
+            IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
         {
-            DynamicReportInfo dynamicReport = new DynamicReportInfo
+            var dynamicReport = new DynamicReportInfo
             {
                 Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToMonthYear(),
                 ChildReports = new List<DynamicReportInfo>(),
@@ -586,8 +419,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData.Count() == 0)
             {
                 return dynamicReport;
             }
@@ -626,14 +458,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        /// <summary>
-        /// Gets the dynamic report by weekly.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report by weekly.</returns>
         private DynamicReportInfo GetDynamicReportByWeekly(
-            List<DynamicReportInfo> rawData,
+            IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
         {
             DynamicReportInfo dynamicReport = new DynamicReportInfo
@@ -650,7 +476,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null || rawData.Count == 0)
+            if (rawData.Count() == 0)
             {
                 return dynamicReport;
             }
@@ -663,14 +489,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        /// <summary>
-        /// Gets the dynamic report by daily.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report by daily.</returns>
         private DynamicReportInfo GetDynamicReportByDaily(
-            List<DynamicReportInfo> rawData,
+            IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
         {
             DynamicReportInfo dynamicReport = new DynamicReportInfo
@@ -687,7 +507,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null || rawData.Count == 0)
+            if (rawData.Count() == 0)
             {
                 return dynamicReport;
             }
@@ -697,12 +517,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        /// <summary>
-        /// Exports the dynamic report header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReport">The dynamic report.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -712,7 +526,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             DynamicReportInfo dynamicReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
@@ -800,7 +614,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
             var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
             NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
-            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.TextStyle(
+            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
                 true,

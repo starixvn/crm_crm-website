@@ -27,7 +27,7 @@ namespace Fanex.CRM.Report.Helpers
         /// The contact information.
         /// </returns>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Need Review.")]
-        public static string GenerateContactInfo(BaseCustomerInfo customerInfo)
+        public static string GenerateContactInfo(BaseCustomer customerInfo)
         {
             string pattern = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}";
 

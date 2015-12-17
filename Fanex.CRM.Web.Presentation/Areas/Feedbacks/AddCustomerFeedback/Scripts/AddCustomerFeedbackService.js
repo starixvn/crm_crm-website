@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global addCustomerFeedbackApplication,
-sharedScriptManager */
-addCustomerFeedbackApplication.factory('addCustomerFeedbackService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('feedbacks-addcustomerfeedback-application').factory('addCustomerFeedbackService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -28,3 +28,4 @@ addCustomerFeedbackApplication.factory('addCustomerFeedbackService',
 
         return serviceInstance;
     } ]);
+})();

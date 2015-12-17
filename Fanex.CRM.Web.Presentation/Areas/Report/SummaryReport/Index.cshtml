@@ -2,16 +2,17 @@
 @using Fanex.CRM.Report.Models;
 @using Fanex.CRM.Report.Models.SummaryReport;
 @using Fanex.CRM.Infrastructure.Extensions;
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-summaryreport-application">
-<head>
-    <title>@Labels.SummaryReport</title>
-    @RazorHelper.RenderStyles("~/site/common",
-        "~/Areas/Report/SummaryReportStyles",
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.SummaryReport;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Report/SummaryReportStyles",
         "~/Content/site/ResultMessageStyles",
         "~/Styles/FanexMultipleSelect")
-</head>
-<body>
+}
+<div data-ng-app="report-summaryreport-application">
     <div class="container main" data-ng-controller="summaryReportController">
         <div class="result-message-container display-none">
         </div>
@@ -53,14 +54,14 @@
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-"~/Scripts/FanexGridV2/NumeralScripts",
-"~/Scripts/FanexGridScripts",
-"~/Scripts/FanexMultipleSelect",
-"~/Scripts/AngularJSLibrary",
-"~/CRM/DownLoadFile/Scripts",
-"~/Areas/Report/SummaryReportScripts",
-"~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts",
+    "~/Scripts/FanexGridScripts",
+    "~/Scripts/FanexMultipleSelect",
+    "~/CRM/DownLoadFile/Scripts",
+    "~/Areas/Report/SummaryReportScripts",
+    "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         parent.document.title = '@Resources.Language.Title_Report_SummaryReport';
@@ -73,5 +74,4 @@
             No_category_found: '@Labels.No_category_found'
         };
     </script>
-</body>
-</html>
+}

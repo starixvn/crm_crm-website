@@ -1,18 +1,17 @@
-﻿"use strict";
-/* global insertSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-crmConstants */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    crmConstants */
+    /* jshint camelcase: false */
 
-insertSettingApplication.controller('insertSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'insertSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, insertSettingService) {
+    angular.module('addmintool-settingmanagement-insertnewsetting-application').controller('insertSettingController',
+    ['$scope', '$uiBlockerService', 'insertSettingService',
+    function ($scope, $uiBlockerService, insertSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.insertSettingParams = {
             NewSetting: {
@@ -36,7 +35,7 @@ insertSettingApplication.controller('insertSettingController',
                     $scope.parentSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -69,7 +68,7 @@ insertSettingApplication.controller('insertSettingController',
                     $scope.showInsertResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -149,3 +148,4 @@ insertSettingApplication.controller('insertSettingController',
             });
         });
     } ]);
+})();

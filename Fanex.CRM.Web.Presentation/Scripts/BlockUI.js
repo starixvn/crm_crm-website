@@ -1,5 +1,7 @@
-﻿function BlockUI(msg) {
-    if (msg == null || msg == "") {
+﻿"use strict";
+/* exported BlockUI, UnBlockUI, PTUnBlockUI */
+function BlockUI(msg) {
+    if (msg == null || msg === "") {
         jQuery.blockUI({
             message: '<table class="blockUI"><tr><td class="tdloading"></td></tr></table>',
             fadeIn: 0,

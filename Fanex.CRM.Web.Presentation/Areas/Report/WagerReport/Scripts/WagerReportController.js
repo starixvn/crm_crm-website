@@ -1,12 +1,15 @@
-﻿'use strict';
-/* global wagerReportApplication,
-sharedScriptManager,
-hotKeyManager,
-minReportDate,
-currentDate */
-/* jshint camelcase: false */
-wagerReportApplication.controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    hotKeyManager,
+    minReportDate,
+    currentDate */
+    /* jshint camelcase: false */
+    angular.module('report-wagerreport-application')
+        .controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
 function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) {
+    var _submitData;
+
     $scope.years = [];
     $scope.year = 0;
     $scope.defaultFocusOptions = null;
@@ -60,13 +63,13 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
 
     $scope.getWagerReport = function () {
         $uiBlockerService.blockUI();
-        wagerReportService.getWagerReport($scope.year.id)
+        _submitData = { year: $scope.year.id };
+        wagerReportService.getWagerReport(_submitData.year)
             .then(function (data) {
                 $scope.wagerReport = data.Result;
                 $uiBlockerService.unblockUI();
             },
             function (data) {
-                /* jshint unused: vars */
                 sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
                 $uiBlockerService.unblockUI();
             });
@@ -75,9 +78,9 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
     $scope.exportWagerReportExcel = function () {
         $scope.downloadFileOptions = {
             URL: window.rootUrl + 'WagerReport/ExportWagerReportExcel',
-            Params: { year: $scope.year.id }
+            Params: _submitData
         };
-        
+
         $scope.$apply();
     };
 
@@ -86,4 +89,5 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
         $uiBlockerService.unblockUI();
         $scope.initController();
     });
-} ]);    
+} ]);
+})();

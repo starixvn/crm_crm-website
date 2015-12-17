@@ -4,19 +4,19 @@
 @using Fanex.NAP.Core.Business;
 @model int
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_SpecialRemarkTab;
+
     var serverModel = JsonConvert.SerializeObject(Model);
     var canUpdate = (Constant.Policy)ViewBag.CustomerInfoPolicy == Constant.Policy.Host;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
-<head>
-    <title>@Resources.Language.Title_SpecialRemarkTab</title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Areas/Remark/RemarkStyles")
-</head>
-<body>
+}
+<div data-ng-app="remark-application">
     <div class="container main" data-ng-controller="remarkController">
         <div alert-box-container>
         </div>
@@ -93,7 +93,9 @@
         }
     </div>
     <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/Remark/RemarkScripts")
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Areas/Remark/RemarkScripts")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
     @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/RemarkApplication.js")
@@ -115,5 +117,4 @@
             RemarkPlaceHolder: '@Labels.RemarkPlaceHolder'
         };
     </script>
-</body>
-</html>
+}

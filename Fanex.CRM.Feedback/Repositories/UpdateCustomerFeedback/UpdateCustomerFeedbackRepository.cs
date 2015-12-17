@@ -83,7 +83,7 @@ namespace Fanex.CRM.Feedback.Repositories
                 Name = Converter.ToString2(reader["Username"]),
                 FirstName = Converter.ToString2(reader["FirstName"]),
                 LastName = Converter.ToString2(reader["LastName"]),
-                FaxInfo = new FaxInfo
+                FaxInfo = new Fax
                 {
                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                     AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
@@ -185,9 +185,9 @@ namespace Fanex.CRM.Feedback.Repositories
             return feedback;
         }
 
-        private PhoneInfo PhoneInfo(IDataReader reader, string fieldName)
+        private Phone PhoneInfo(IDataReader reader, string fieldName)
         {
-            return new PhoneInfo
+            return new Phone
             {
                 CountryCode = Converter.ToString2(reader[fieldName + "CountryCode"]),
                 AreaCode = Converter.ToString2(reader[fieldName + "AreaCode"]),

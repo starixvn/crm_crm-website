@@ -1,33 +1,32 @@
-﻿"use strict";
-/* global insertLogApplication */
-insertLogApplication.directive('dropdownExtension', function () {
-    function renderDropdown(scope, element, attrs) {
-        /* jshint unused: vars */
-        if (scope.extensionList) {
-            var dropdown = element.find("#ext");
-            dropdown.empty();
-            /* jshint camelcase: false */
-            var extensionListLength = scope.extensionList.length;
-            for (var i = 0; i < extensionListLength; i++) {
-                var extension = scope.extensionList[i];
-                dropdown.append(
+﻿(function () {
+    "use strict";
+    angular.module('communicationlog-insert-application').directive('dropdownExtension', function () {
+        function renderDropdown(scope, element) {
+            if (scope.extensionList) {
+                var dropdown = element.find("#ext");
+                dropdown.empty();
+                var extensionListLength = scope.extensionList.length;
+                for (var i = 0; i < extensionListLength; i++) {
+                    var extension = scope.extensionList[i];
+                    dropdown.append(
                     '<option value="' + extension.Id + '">' + extension.Value + '</option>');
+                }
+
+                element.change(function () {
+                    scope.updateSelectedExtension(dropdown.find('option:selected').val());
+                });
             }
-
-            element.change(function () {
-                scope.updateSelectedExtension(dropdown.find('option:selected').val());
-            });
         }
-    }
 
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                renderDropdown(scope, element, attrs);
-            });
-        }
-    };
-});
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderDropdown(scope, element);
+                });
+            }
+        };
+    });
+})();

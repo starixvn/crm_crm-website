@@ -1,16 +1,15 @@
-﻿"use strict";
-/* global viewListApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions */
+    /* jshint camelcase: false */
 
-viewListApplication.controller('viewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+    angular.module('addmintool-settingrelation-application').controller('viewListController',
+    ['$scope', '$uiBlockerService', 'viewListService',
+    function ($scope, $uiBlockerService, viewListService) {
         $scope.getSettingRelationsParams = {
             MainSetting: null
         };
@@ -28,7 +27,7 @@ viewListApplication.controller('viewListController',
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -44,7 +43,7 @@ viewListApplication.controller('viewListController',
                     $scope.settingRelationView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.settingRelationView = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -107,3 +106,4 @@ viewListApplication.controller('viewListController',
             $scope.setFocus();
         });
     } ]);
+})();

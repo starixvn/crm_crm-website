@@ -11,14 +11,14 @@
 namespace Fanex.CRM.AdminTool.Controllers
 {
     using System.Web.Mvc;
-using Fanex.CRM.AdminTool.Criteria.SettingRelation;
-using Fanex.CRM.AdminTool.Services.SettingRelation;
-using Fanex.CRM.Common.Constants;
-using Fanex.CRM.Common.Controllers;
-using Fanex.CRM.Common.Enumerations;
-using Fanex.CRM.Common.Models;
-using Fanex.CRM.Common.Services;
-using Fanex.NAP.Core.Business;
+    using Fanex.CRM.AdminTool.Criteria.SettingRelation;
+    using Fanex.CRM.AdminTool.Services.SettingRelation;
+    using Fanex.CRM.Common.Attributes;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Setting Relation Controller.
@@ -48,7 +48,7 @@ using Fanex.NAP.Core.Business;
         {
             return View(
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Index.cshtml",
-                new SettingInfo
+                new Setting
                 {
                     Id = settingId,
                     Value = settingValue,
@@ -60,7 +60,7 @@ using Fanex.NAP.Core.Business;
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
-            var result = _settingRelationService.MainSetting;
+            var result = _settingRelationService.GetMainSettings();
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -69,7 +69,7 @@ using Fanex.NAP.Core.Business;
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
-            var result = _settingRelationService.SettingByType(criteria);
+            var result = _settingRelationService.GetSettingByTypes(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -78,7 +78,7 @@ using Fanex.NAP.Core.Business;
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
-            var result = _settingRelationService.GetMainSettingForAddRelation(criteria);
+            var result = _settingRelationService.GetMainSettingForAddRelations(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -96,7 +96,7 @@ using Fanex.NAP.Core.Business;
         [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Host)]
         public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
-            var result = _settingRelationService.AddSettingRelations(criteria);
+            var result = _settingRelationService.GetAddSettingRelations(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

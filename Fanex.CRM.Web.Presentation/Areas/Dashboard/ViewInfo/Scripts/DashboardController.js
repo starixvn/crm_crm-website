@@ -1,10 +1,10 @@
-﻿"use strict";
-/* global dashboardApplication,
-customerId,
-hotKeyManager,
-viewResources,
-crmConstants */
-dashboardApplication.controller('dashboardController', ['$scope',
+﻿(function () {
+    "use strict";
+    /* global customerId,
+    hotKeyManager,
+    viewResources,
+    crmConstants */
+    angular.module('dashboard-application').controller('dashboardController', ['$scope',
     '$http',
     '$dashboardService',
     function ($scope,
@@ -63,8 +63,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     $scope.customerInfo = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.isLoadedCustomerInfo = true;
                     $scope.completedLoadDashboard();
                 });
@@ -80,8 +79,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     $scope.customerRemarks = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.isLoadedCustomerRemarks = true;
                     $scope.completedLoadDashboard();
                 });
@@ -97,8 +95,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     $scope.redemptionLogs = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.isLoadedRedemptionLogs = true;
                     $scope.completedLoadDashboard();
                 });
@@ -114,8 +111,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     $scope.communicationLogs = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.isLoadedCommunicationLogs = true;
                     $scope.completedLoadDashboard();
                 });
@@ -345,7 +341,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
             });
         };
 
-        $scope.getRemarkText = function (index) { 
+        $scope.getRemarkText = function (index) {
             var customerRemark = this.remark ? this.remark.replace(/\r/g, '<br/>').replace(/\n/g, '<br/>') : '';
             return (index + 1) + '. ' + customerRemark;
         };
@@ -355,3 +351,4 @@ dashboardApplication.controller('dashboardController', ['$scope',
             $scope.setFocus();
         });
     } ]);
+})();

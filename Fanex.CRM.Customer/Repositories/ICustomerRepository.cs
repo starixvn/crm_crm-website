@@ -18,18 +18,16 @@ namespace Fanex.CRM.Customer.Repositories
     {
         CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria);
 
-        List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
+        IEnumerable<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
 
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
 
-        BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
+        Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
 
-        IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
+        IEnumerable<string> GetCustomersByUsername(CustomerSuggestionCriteria criteria);
 
-        List<RelatedCustomerSuggestion> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria);
+        IEnumerable<RelatedCustomerSuggestion> GetRelatedCustomerAutoSuggestions(RelatedCustomerAutoSuggestionCriteria criteria);
 
-        List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
-
-        IEnumerable<string> CustomerAutoSuggestion(CustomerAutoSuggestionCriteria criteria);
+        IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
     }
 }

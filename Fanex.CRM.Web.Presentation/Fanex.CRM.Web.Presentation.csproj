@@ -20,7 +20,7 @@
     <SccAuxPath>http://10.18.200.210:8080</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
-    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Areas\|\Scripts\|\Views\</JSLintSkip>
+    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Scripts\|\Views\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -73,8 +73,8 @@
       <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data, Version=0.5.404.62, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.0.5.404.62\lib\net40\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -226,12 +226,11 @@
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogService.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogController.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogApplication.js" />
-    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
-    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\ActionLogDirectiveManager.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
-    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
-    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
@@ -875,7 +874,6 @@
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
-    <Content Include="Scripts\ShareScripts\Directives\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DateTimePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DefaultFocus.js" />
@@ -1353,9 +1351,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_BaseLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\NewInform\Index.cshtml" />

@@ -1,6 +1,5 @@
 ﻿"use strict";
-/* jshint unused: vars,
-camelcase: false */
+/* jshint camelcase: false */
 /* global hotKeyManager */
 /* exported registerHotkeyFunctions */
 function registerHotkeyFunctions($scope) {

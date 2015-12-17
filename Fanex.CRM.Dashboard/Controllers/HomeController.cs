@@ -9,10 +9,13 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Model;
 
     /// <summary>
     /// Home Controller.
@@ -63,11 +66,13 @@ namespace Fanex.CRM.Dashboard.Controllers
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 
-            if (AppSession.RedirectLink != null && 
-                !string.IsNullOrEmpty(AppSession.RedirectLink))
+            ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
+
+            if (AppSession.RedirectionLink != null && 
+                !string.IsNullOrEmpty(AppSession.RedirectionLink))
             {
-                ViewBag.RedirectUrl = AppSession.RedirectLink;
-                AppSession.RedirectLink = null;
+                ViewBag.RedirectUrl = AppSession.RedirectionLink;
+                AppSession.RedirectionLink = null;
             }
 
             return View("~/Views/Home/Default.cshtml");
@@ -76,12 +81,12 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            ViewBag.MenuItemList = CurrentSession.MenuItemList;
-            return PartialView("~/Views/Home/_Menu.cshtml");
+            return PartialView("~/Views/Home/_Menu.cshtml", CurrentSession.MenuItemList);
         }
 
         public PartialViewResult GettingDashboardMenu()
         {
+            ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 

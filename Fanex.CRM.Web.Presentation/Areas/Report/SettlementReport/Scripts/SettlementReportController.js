@@ -1,20 +1,17 @@
-﻿"use strict";
-/* global settlementReportApplication,
-currentDate: true,
-sharedScriptManager,
-hotKeyManager,
-minReportDate */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-settlementReportApplication.controller('settlementReportController', [
+﻿(function () {
+    "use strict";
+    /* global currentDate: true,
+    sharedScriptManager,
+    hotKeyManager,
+    minReportDate */
+    /* jshint camelcase: false */
+    angular.module('report-settlementreport-application').controller('settlementReportController', [
     '$scope',
-    '$http',
     'settlementReportService',
     '$uiBlockerService',
     '$resultMessageService',
     function (
         $scope,
-        $http,
         settlementReportService,
         $uiBlockerService,
         $resultMessageService) {
@@ -81,7 +78,7 @@ settlementReportApplication.controller('settlementReportController', [
             $scope.fromYearOptions.IsRerenderPicker = true;
             $scope.$apply();
         };
-        $scope.updateFromYear = function (fromYear, isAlreadyApply) {
+        $scope.updateFromYear = function (fromYear) {
             var selectedDate = new Date(fromYear, 0, 1);
             var selectedYear = fromYear;
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
@@ -161,3 +158,4 @@ settlementReportApplication.controller('settlementReportController', [
             $scope.initController();
         });
     } ]);
+})();

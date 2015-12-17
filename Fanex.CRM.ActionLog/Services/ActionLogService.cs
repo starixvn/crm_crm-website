@@ -27,13 +27,7 @@ namespace Fanex.CRM.ActionLog.Services
     /// </summary>
     public class ActionLogService : IActionLogService
     {
-        private const string ActivityLogKey = "Fanex.CRM.ActionLog.ActivityLog";
-        private const string SettingLogKey = "Fanex.CRM.ActionLog.SettingLog";
-
         private readonly IActionLogRepository _actionLogRepository;
-        private readonly IDictionary<string, string> _settingHash;
-        private readonly IDictionary<string, bool> _actionLogKeyHash;
-        private readonly IDictionary<string, string[]> _actionLogBoolValueHash;
 
         public ActionLogService()
             : this(null)
@@ -43,9 +37,6 @@ namespace Fanex.CRM.ActionLog.Services
         public ActionLogService(IActionLogRepository actionLogRepository)
         {
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
-            _settingHash = CacheManager.AllSettings;
-            _actionLogKeyHash = AppSetting.ActionLogKey;
-            _actionLogBoolValueHash = AppSetting.ActionLogBoolValue;
         }
 
         #region Activity Log
@@ -55,36 +46,19 @@ namespace Fanex.CRM.ActionLog.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The activity log list with paging.</returns>
-        public PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria)
+        public PagedList<ActionLog> GetActivityLogs(GetActivityLogCriteria criteria)
         {
-            try
-            {
-                var activityLogs = (IList<ActivityLog>)SessionExtension.GetSession(HttpContext.Current.Session, ActivityLogKey);
-                if (criteria.PageIndex == 0 || activityLogs == null)
-                {
-                    // Exclude rows whose OldValues = NewValues = NULL/Empty.
-                    activityLogs = _actionLogRepository.GetActivityLogs(criteria)
-                        .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase))
-                        .ToList();
-                    if (activityLogs != null && activityLogs.Count > 0)
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, ActivityLogKey, activityLogs);
-                    }
-                }
+            // Exclude rows whose OldValues = NewValues = NULL/Empty.
+            var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
+                .Where(x => !string.Equals(x.OldValues, x.NewValues, StringComparison.OrdinalIgnoreCase));
 
-                PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
-                foreach (var log in paginationActivityLogs)
-                {
-                    FilterOldNewResults(log);
-                }
-
-                return paginationActivityLogs;
-            }
-            catch (Exception ex)
+            var paginationActivityLogs = new PagedList<ActionLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
+            foreach (var log in paginationActivityLogs)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                FilterOldNewResults(log);
             }
+
+            return paginationActivityLogs;
         }
 
         #endregion
@@ -98,34 +72,17 @@ namespace Fanex.CRM.ActionLog.Services
         /// <returns>The setting log list with paging.</returns>
         public PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria)
         {
-            try
-            {
-                var settingLogs = (IList<SettingLog>)SessionExtension.GetSession(HttpContext.Current.Session, SettingLogKey);
-                if (criteria.PageIndex == 0 || settingLogs == null)
-                {
-                    // Exclude rows whose OldValues = NewValues = NULL/Empty.
-                    settingLogs = _actionLogRepository.GetSettingLogs(criteria)
-                        .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase))
-                        .ToList();
-                    if (settingLogs != null && settingLogs.Count > 0)
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, SettingLogKey, settingLogs);
-                    }
-                }
+            // Exclude rows whose OldValues = NewValues = NULL/Empty.
+            var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
+                .Where(x => !string.Equals(x.OldValues, x.NewValues, StringComparison.OrdinalIgnoreCase));
 
-                PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
-                foreach (var log in paginationSettingLogs)
-                {
-                    FilterOldNewResults(log);
-                }
-
-                return paginationSettingLogs;
-            }
-            catch (Exception ex)
+            var paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
+            foreach (var log in paginationSettingLogs)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                FilterOldNewResults(log);
             }
+
+            return paginationSettingLogs;
         }
 
         #endregion
@@ -134,7 +91,7 @@ namespace Fanex.CRM.ActionLog.Services
         /// Filters the old and new results.
         /// </summary>
         /// <param name="log">The log parameter.</param>
-        private void FilterOldNewResults(ActionLog log)
+        private static void FilterOldNewResults(ActionLog log)
         {
             string oldValue = log.OldValues, newValue = log.NewValues;
             if (string.Equals(oldValue, newValue, StringComparison.OrdinalIgnoreCase))
@@ -142,39 +99,27 @@ namespace Fanex.CRM.ActionLog.Services
                 return;
             }
 
-            IDictionary<string, string> oldResults = null, newResults = null;
-            if (!string.IsNullOrWhiteSpace(oldValue))
-            {
-                oldResults = ParseXMLString(oldValue);
-            }
+            var oldResults = ParseXMLString(oldValue);
+            var newResults = ParseXMLString(newValue);
 
-            if (!string.IsNullOrWhiteSpace(newValue))
-            {
-                newResults = ParseXMLString(newValue);
-            }
-
-            string fieldName;
-            int oldCount = oldResults == null ? 0 : oldResults.Count;
-            int newCount = newResults == null ? 0 : newResults.Count;
-            if (oldCount == 0)
+            if (oldResults.Count == 0)
             {
                 foreach (string key in newResults.Keys)
                 {
-                    fieldName = key;
+                    var fieldName = key;
                     log.NewValuesList.Add(GetSettingValue(key, newResults[key], ref fieldName));
                     log.FieldNames.Add(fieldName);
                 }
             }
-            else if (oldCount == newCount)
+            else if (oldResults.Count == newResults.Count)
             {
-                string oldString, newString;
                 foreach (string key in newResults.Keys)
                 {
-                    oldString = oldResults.ContainsKey(key) ? oldResults[key] : string.Empty;
-                    newString = newResults[key];
+                    var oldString = oldResults.ContainsKey(key) ? oldResults[key] : string.Empty;
+                    var newString = newResults[key];
                     if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
                     {
-                        fieldName = key;
+                        var fieldName = key;
                         log.OldValuesList.Add(GetSettingValue(key, oldString, ref fieldName));
                         log.NewValuesList.Add(GetSettingValue(key, newString, ref fieldName));
                         log.FieldNames.Add(fieldName);
@@ -188,12 +133,18 @@ namespace Fanex.CRM.ActionLog.Services
         /// </summary>
         /// <param name="xml">The XML string.</param>
         /// <returns>The hash result.</returns>
-        private IDictionary<string, string> ParseXMLString(string xml)
+        private static IDictionary<string, string> ParseXMLString(string xml)
         {
-            XmlDocument document = new XmlDocument();
+            var results = new Dictionary<string, string>();
+
+            if (string.IsNullOrWhiteSpace(xml))
+            {
+                return results;
+            }
+
+            var document = new XmlDocument();
             document.LoadXml(xml);
 
-            IDictionary<string, string> results = new Dictionary<string, string>();
             foreach (XmlNode node in document.ChildNodes[0].ChildNodes)
             {
                 if (!results.ContainsKey(node.Name))
@@ -218,13 +169,13 @@ namespace Fanex.CRM.ActionLog.Services
         /// <returns>
         /// The value of key.
         /// </returns>
-        private string GetSettingValue(string key, string value, ref string fieldName)
+        private static string GetSettingValue(string key, string value, ref string fieldName)
         {
             string keyUpper = key.ToUpperInvariant();
 
             // Convert bit value (1/0) to Yes/No.
             string[] boolValues;
-            if (_actionLogBoolValueHash.TryGetValue(keyUpper, out boolValues))
+            if (AppSetting.ActionLogBoolValue.TryGetValue(keyUpper, out boolValues))
             {
                 int index;
                 if (int.TryParse(value, out index) && index < 2)
@@ -234,7 +185,7 @@ namespace Fanex.CRM.ActionLog.Services
             }
 
             // Value isn't in Setting hash.
-            if (!_actionLogKeyHash.ContainsKey(keyUpper))
+            if (!AppSetting.ActionLogKey.ContainsKey(keyUpper))
             {
                 return value;
             }
@@ -256,7 +207,7 @@ namespace Fanex.CRM.ActionLog.Services
         /// <param name="key">The key parameter.</param>
         /// <param name="settingType">Type of the setting.</param>
         /// <returns>The value of key.</returns>
-        private string GetSettingValue(string key, string settingType)
+        private static string GetSettingValue(string key, string settingType)
         {
             if (string.Equals(key, "0", StringComparison.OrdinalIgnoreCase))
             {
@@ -264,7 +215,7 @@ namespace Fanex.CRM.ActionLog.Services
             }
 
             string settingValue;
-            if (!_settingHash.TryGetValue(key + settingType.ToUpperInvariant(), out settingValue))
+            if (!CacheManager.AllSettings.TryGetValue(key + settingType.ToUpperInvariant(), out settingValue))
             {
                 settingValue = key;
             }
@@ -280,9 +231,9 @@ namespace Fanex.CRM.ActionLog.Services
         /// <returns>
         /// The value from hash.
         /// </returns>
-        private string GetMultipleSettingValue(string value, string settingType)
+        private static string GetMultipleSettingValue(string value, string settingType)
         {
-            var valueList = value.Split(new char[] { ',' });
+            var valueList = value.Split(',');
 
             int keyCount = valueList.Length;
             for (int i = 0; i < keyCount; i++)

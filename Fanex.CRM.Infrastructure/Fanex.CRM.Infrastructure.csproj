@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DNAide">
-      <HintPath>..\Dependency\DNAide.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
       <Private>True</Private>
@@ -84,7 +81,6 @@
     <Compile Include="Constants\RequestHeaderTypeConstants.cs" />
     <Compile Include="Constants\SortDirectionConstants.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
-    <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Helpers\LogExtensions.cs" />
     <Compile Include="Helpers\SystemTime.cs" />
@@ -102,8 +98,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Services\HandleAjaxErrorAttribute.cs" />
-    <Compile Include="Services\JsonWithoutNullField.cs" />
+    <Compile Include="Attributes\HandleAjaxErrorAttribute.cs" />
+    <Compile Include="ActionResults\JsonWithoutNullField.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">

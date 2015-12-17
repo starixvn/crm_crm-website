@@ -13,6 +13,7 @@ namespace Fanex.CRM.Customer.Repositories
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
@@ -20,21 +21,16 @@ namespace Fanex.CRM.Customer.Repositories
     /// <summary>
     /// Base Customer Repository.
     /// </summary>
-    public class BaseCustomerRepository
+    public class BaseCustomerRepository : BaseRepository
     {
-        /// <summary>
-        /// Mappings the information when get customer information by username.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Customer information.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        public CustomerInfo MappingDataFromSqlToCustomerInfoObject(IDataReader reader)
+        public CustomerInfo ReadCustomerBasicInformation(IDataReader reader)
         {
             var customer = new CustomerInfo
             {
-                Title = new SettingInfo
+                Title = new Setting
                 {
                     Id = Converter.ToInt(reader["TitleID"]),
                     Name = string.Empty
@@ -43,13 +39,13 @@ namespace Fanex.CRM.Customer.Repositories
                 FirstName = Converter.ToString2(reader["FirstName"]),
                 LastName = Converter.ToString2(reader["LastName"]),
                 Email = Converter.ToString2(reader["Email"]),
-                FaxInfo = new FaxInfo
+                FaxInfo = new Fax
                 {
                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                     AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
                     FaxNumber = Converter.ToString2(reader["Fax"])
                 },
-                MobilePhone = PhoneInfo(reader, "MobilePhone"),
+                MobilePhone = ReadPhoneInfo(reader, "MobilePhone"),
                 Skype = Converter.ToString2(reader["Skype"]),
                 MSN = Converter.ToString2(reader["msn"]),
                 Id = Converter.ToInt(reader["CustId"]),
@@ -62,7 +58,7 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },
-                BankInfo = new BankInfo
+                BankInfo = new Bank
                 {
                     Name = Converter.ToString2(reader["Wire_BankName"]),
                     SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"]),
@@ -123,21 +119,21 @@ namespace Fanex.CRM.Customer.Repositories
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
                 AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
                 PhoneNumber = Converter.ToString2(reader["Phone"])
             });
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
                 AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
                 PhoneNumber = Converter.ToString2(reader["Phone2"])
             });
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
                 AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
@@ -147,9 +143,9 @@ namespace Fanex.CRM.Customer.Repositories
             return customer;
         }
 
-        private PhoneInfo PhoneInfo(IDataReader reader, string fieldName)
+        private Phone ReadPhoneInfo(IDataReader reader, string fieldName)
         {
-            return new PhoneInfo
+            return new Phone
             {
                 CountryCode = Converter.ToString2(reader[fieldName + "CountryCode"]),
                 AreaCode = Converter.ToString2(reader[fieldName + "AreaCode"]),

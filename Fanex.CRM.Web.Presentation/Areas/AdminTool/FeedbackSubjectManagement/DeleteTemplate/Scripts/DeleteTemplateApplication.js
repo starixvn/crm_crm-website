@@ -1,5 +1,7 @@
 ﻿/* global sharedScriptManager */
-/* exported deleteTemplateApplication */
-var deleteTemplateApplication = angular.module('addmintool-feedbacksubjectmanagement-deletetemplate',
-    ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(deleteTemplateApplication);
+(function () {
+    "use strict";
+    angular.module('addmintool-feedbacksubjectmanagement-deletetemplate',
+        ['$uiBlockerApplication', '$resultMessageApplication']);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('addmintool-feedbacksubjectmanagement-deletetemplate'));
+})();

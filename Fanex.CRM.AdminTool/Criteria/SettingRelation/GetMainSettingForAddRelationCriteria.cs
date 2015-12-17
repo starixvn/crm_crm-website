@@ -18,7 +18,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     /// </summary>
     public class GetMainSettingForAddRelationCriteria : CriteriaBase
     {
-        public SettingInfo MainSetting { get; set; }
+        public Setting MainSetting { get; set; }
 
         public override bool IsValid()
         {

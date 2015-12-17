@@ -1,10 +1,10 @@
-"use strict";
-/* global customerApplication,
-customerManager, 
-hotKeyManager,
-keyboardManager,
-viewResources */
-customerApplication.controller('customerController', ['$scope', '$http', '$customerService',
+(function () {
+    "use strict";
+    /* global customerManager, 
+    hotKeyManager,
+    keyboardManager,
+    viewResources */
+    angular.module('customer-application').controller('customerController', ['$scope', '$http', '$customerService',
     function ($scope,
         $http,
         $customerService) {
@@ -85,8 +85,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
 
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },
-        function (data) {
-            /* jshint unused: vars */
+        function () {
             $scope.unblockUI();
         });
         };
@@ -106,8 +105,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
             $scope.unblockUI();
         },
-        function (data) {
-            /* jshint unused: vars */
+        function () {
             $scope.unblockUI();
         });
         };
@@ -159,7 +157,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 return;
             }
 
-            $scope.manageFeedbackAfterCheckChanging();    
+            $scope.manageFeedbackAfterCheckChanging();
         };
         $scope.manageFeedbackAfterCheckChanging = function () {
             var url = '../Feedbacks/ManageFeedback?' + $.param({
@@ -194,8 +192,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                     parent.homeManager.CachedData.isChangingDataLeftPanel = false;
                     $scope.unblockUI();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.unblockUI();
                 });
         };
@@ -303,3 +300,4 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             });
         });
     } ]);
+})();

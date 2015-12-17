@@ -1,14 +1,12 @@
-﻿"use strict";
-/* global deleteSettingApplication,
-sharedScriptManager,
-MessageResult,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    settingInfo */
 
-deleteSettingApplication.controller('deleteSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'deleteSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, deleteSettingService) {
+    angular.module('addmintool-settingmanagement-deletesetting').controller('deleteSettingController',
+    ['$scope', '$uiBlockerService', 'deleteSettingService',
+    function ($scope, $uiBlockerService, deleteSettingService) {
         $scope.deleteParams = {
             OldSetting: settingInfo
         };
@@ -23,7 +21,7 @@ deleteSettingApplication.controller('deleteSettingController',
                     $scope.showDeleteResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -48,3 +46,4 @@ deleteSettingApplication.controller('deleteSettingController',
             $scope.initController();
         });
     } ]);
+})();

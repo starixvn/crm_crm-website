@@ -1,4 +1,8 @@
-﻿var WeekPickerManager = function () {
+﻿"use strict";
+/* globals crmConstants */
+/* jshint unused: false, 
+camelcase: false */
+var WeekPickerManager = function () {
     this.DATE_FORMAT_STRING = "dd M yy";
     this.MonthNames = ["Jan", "Feb", "Mar", "Apr",
                        "May", "Jun", "Jul", "Aug",
@@ -26,7 +30,7 @@
             var displayYear = defaults.date.getFullYear();
             var selectCurrentWeek = function () {
                 window.setTimeout(function () {
-                    $calendar.find('.ui-datepicker-current-day a').addClass('ui-state-active')
+                    $calendar.find('.ui-datepicker-current-day a').addClass('ui-state-active');
                 }, 1);
             };
 
@@ -68,40 +72,38 @@
                     $this.weekpicker("hide");
                 }
 
-                //if (defaults.startDate == date) {
                 $calendar.datepicker('setDate', defaults.startDate);
-                //}
                 displayYear = defaults.startDate.getFullYear();
                 selectCurrentWeek();
             };
 
-            if (typeof options == "string") {
-                if (options == "hide") {
+            if (typeof options === "string") {
+                if (options === "hide") {
                     $calendar.fadeOut("fast");
                 }
-                else if (options == "show") {
+                else if (options === "show") {
                     if ($calendar.is(":visible")) {
                         return;
                     }
 
                     $calendar.show();
                 }
-                else if (options == "onSelect") {
+                else if (options === "onSelect") {
                     if (!defaults.selectHandlers) {
                         defaults.selectHandlers = [];
                     }
 
                     defaults.selectHandlers.push(func);
                 }
-                else if (options == "getDates") {
+                else if (options === "getDates") {
                     return {
                         start: defaults.startDate,
-                        end: defaults.endDate.compareTo(new Date(maxDate)) == 1 ? maxDate : defaults.endDate
+                        end: defaults.endDate.compareTo(new Date(maxDate)) === 1 ? maxDate : defaults.endDate
                     };
                 }
-                else if (options == "setDate") {
+                else if (options === "setDate") {
                     selectWeek(func);
-                } else if (options == "updateInitDate") {
+                } else if (options === "updateInitDate") {
                     selectWeek(defaults.date);
                 }
             }
@@ -111,7 +113,6 @@
 
                 $this.addClass("datepicker hasDatepicker");
                 $this.after("<div class='weekcalendar'></div>");
-                //<img style='position: relative;margin-top: 1px' class='ui-datepicker-trigger' src='" + $("#currentDomain").val() + "/App_Themes/" + currentTheme + "/Images/calendar1.gif' alt='' title=''>
                 $calendar = $this.next();
                 $calendar.css({ "position": "absolute", "z-index": 1000, "margin-top": offset.top, "float": "left" });
                 var ishover = false;
@@ -151,18 +152,18 @@
                 var show = function () {
                     ishover = true;
                     $this.weekpicker("show");
-                }
+                };
 
                 $calendar.hide();
                 $this.width(144).mousedown(show);
 
                 var enterEvent = function enter() {
                     ishover = true;
-                }
+                };
 
                 var leaveEvent = function leave() {
                     ishover = false;
-                }
+                };
 
                 $calendar.mouseenter(enterEvent).mouseleave(leaveEvent);
                 $this.mouseenter(enterEvent).mouseleave(leaveEvent);
@@ -184,24 +185,22 @@
                 // set initial value    
                 selectWeek(defaults.date);
             }
-        }
+        };
 
-        if ($('.weekpicker').length > 0) {
-            $('.weekpicker').each(function () {
-                $(this).weekpicker({
-                    date: new Date($(this).attr('data-value')),
-                    minDate: new Date($(this).attr('data-mindate')),
-                    maxDate: new Date($(this).attr('data-maxdate'))
-                });
+        $('.weekpicker').each(function () {
+            $(this).weekpicker({
+                date: new Date($(this).attr('data-value')),
+                minDate: new Date($(this).attr('data-mindate')),
+                maxDate: new Date($(this).attr('data-maxdate'))
             });
-        }
+        });
 
         $('.weekcalendar table.ui-datepicker-calendar tr').die().live({
             mousemove: function () {
-                $(this).find('td a').addClass('ui-state-hover');
+                $(this).find('a').addClass('ui-state-hover');
             },
             mouseleave: function () {
-                $(this).find('td a').removeClass('ui-state-hover');
+                $(this).find('a').removeClass('ui-state-hover');
             }
         });
     };

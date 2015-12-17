@@ -18,7 +18,7 @@ namespace Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement
     /// </summary>
     public class FeedbackSubjectTemplateView : BaseModel
     {
-        public List<FeedbackSubjectTemplateInfo> Templates { get; set; }
+        public List<FeedbackSubjectTemplate> Templates { get; set; }
 
         public int TotalTemplates { get; set; }
     }

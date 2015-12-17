@@ -1,52 +1,52 @@
-﻿"use strict";
-/* global editLogApplication, 
-crmConstants,
-viewResources */
-editLogApplication.directive('dropdownSite', function () {
-    function renderDropdown(scope, element, attrs) {
-        /* jshint unused: vars */
-        if (scope.siteList) {
-            var dropdown = element.find("#site");
-            dropdown.empty();
-            var optionHtml =
-                '<option value="' + crmConstants.Enums.Site.NotApply +'"' +
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    viewResources */
+    angular.module('communicationlog-edit-application').directive('dropdownSite', function () {
+        function renderDropdown(scope, element) {
+            if (scope.siteList) {
+                var dropdown = element.find("#site");
+                dropdown.empty();
+                var optionHtml =
+                '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
                      (crmConstants.Enums.Site.NotApply === scope.communicationLog.CommunicationTool.Id ?
                         ' selected="selected"' :
                         '') +
                 '>' + viewResources.Select + '</option>';
 
-            var siteGroupLength = scope.siteList.length;
-            for (var i = 0; i < siteGroupLength; i++) {
-                var siteGroup = scope.siteList[i];
-                optionHtml += '<optgroup label="' + siteGroup.Name +
+                var siteGroupLength = scope.siteList.length;
+                for (var i = 0; i < siteGroupLength; i++) {
+                    var siteGroup = scope.siteList[i];
+                    optionHtml += '<optgroup label="' + siteGroup.Name +
                     '" value="' + siteGroup.Id + '">';
-                var siteLength = siteGroup.ChildSites.length;
-                for (var j = 0; j < siteLength; j++) {
-                    var site = siteGroup.ChildSites[j];
-                    optionHtml += '<option value="' + site.Id + '"' +
+                    var siteLength = siteGroup.ChildSites.length;
+                    for (var j = 0; j < siteLength; j++) {
+                        var site = siteGroup.ChildSites[j];
+                        optionHtml += '<option value="' + site.Id + '"' +
                         (site.Id === scope.communicationLog.SiteInfo.Id ?
                         ' selected="selected"' :
                         '') +
                         '>' + site.Name + '</option>';
+                    }
+
+                    optionHtml += '</optgroup>';
                 }
 
-                optionHtml += '</optgroup>';
+                dropdown.append(optionHtml);
+                element.change(function () {
+                    scope.updateSelectedSite(dropdown.find('option:selected').val());
+                });
             }
-
-            dropdown.append(optionHtml);
-            element.change(function () {
-                scope.updateSelectedSite(dropdown.find('option:selected').val());
-            });
         }
-    }
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                renderDropdown(scope, element, attrs);
-            });
-        }
-    };
-});
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderDropdown(scope, element);
+                });
+            }
+        };
+    });
+})();

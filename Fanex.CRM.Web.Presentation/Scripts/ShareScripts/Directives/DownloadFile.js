@@ -1,14 +1,20 @@
 ﻿"use strict";
-/* global directiveManager: true,
-sharedScriptManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 var directiveManager = directiveManager || {};
 directiveManager.registerDownloadFile = function (angularApplication, registerParams) {
+    var downloadFileRegisterParams = {
+        PlugInName: 'downloadFileContainer',
+        OptionName: 'downloadFileOptions',
+        RestrictType: 'C'
+    };
+    if (registerParams == null) {
+        registerParams = downloadFileRegisterParams;
+    }
     angularApplication.directive(registerParams.PlugInName, function () {
         function downloadFile(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
-            if (options === undefined ||
-                options === null) {
+            if (!options) {
                 return;
             }
 
@@ -31,5 +37,5 @@ directiveManager.registerDownloadFile = function (angularApplication, registerPa
                 });
             }
         };
-    })
+    });
 };

@@ -1,15 +1,16 @@
-﻿"use strict";
-/* global dashboardApplication,
-sharedScriptManager */
-/* jshint unused: vars */
-dashboardApplication.directive("rawHtmlDirective", function () {
-    return {
-        restrict: "C",
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngText, function (newVal, oldVal) {
-                element.html(sharedScriptManager.decodeHtml(newVal));
-            });
-        }
-    };
-});
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('dashboard-application').directive("rawHtmlDirective", function () {
+        return {
+            restrict: "C",
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngText, function (newVal, oldVal) {
+                    /* jshint unused: false */
+                    element.html(sharedScriptManager.decodeHtml(newVal));
+                });
+            }
+        };
+    });
+})();

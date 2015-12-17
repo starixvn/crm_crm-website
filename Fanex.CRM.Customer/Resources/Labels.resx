@@ -327,20 +327,8 @@
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
-  <data name="UpdateInformHeadlines" xml:space="preserve">
-    <value>Update Inform Headlines</value>
-  </data>
   <data name="Headline" xml:space="preserve">
     <value>Headline</value>
-  </data>
-  <data name="InformHeadlines" xml:space="preserve">
-    <value>InformHeadlines</value>
-  </data>
-  <data name="InformHeadline_TitleEmpty" xml:space="preserve">
-    <value>New case is mandatory!</value>
-  </data>
-  <data name="Confirm_Ignore_UpdateInforms_Changes" xml:space="preserve">
-    <value>There are some changes on New Inform Headline form! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
@@ -393,26 +381,11 @@
   <data name="NewCase" xml:space="preserve">
     <value>New Case</value>
   </data>
-  <data name="InformHeadlinesStatisticExcelName" xml:space="preserve">
-    <value>Inform_Headlines_Statistic</value>
-  </data>
-  <data name="InformHeadlinesStatisticName" xml:space="preserve">
-    <value>Inform Headlines Statistic</value>
-  </data>
   <data name="CreateTitleSuccess" xml:space="preserve">
     <value>Insert new case successfully!</value>
   </data>
   <data name="UpdateInforms_TitleEmpty" xml:space="preserve">
     <value>Title is mandatory!</value>
-  </data>
-  <data name="NewInformHeadlines" xml:space="preserve">
-    <value>New Inform Headlines</value>
-  </data>
-  <data name="InformHeadline_NoDataChanged" xml:space="preserve">
-    <value>There is no change!</value>
-  </data>
-  <data name="InformHeadline_NoStatusFound" xml:space="preserve">
-    <value>Please select at least one Status!</value>
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this function!</value>
@@ -428,15 +401,6 @@
   </data>
   <data name="ProductStatus" xml:space="preserve">
     <value>Product Status</value>
-  </data>
-  <data name="Confirm_Export_InformStatus" xml:space="preserve">
-    <value>There are changes on New Inform Headline form?&lt;br/&gt;&lt;br/&gt;Click &lt;b&gt;Yes&lt;/b&gt; to save then export data.&lt;br/&gt;Click &lt;b&gt;No&lt;/b&gt; to export data without saving.</value>
-  </data>
-  <data name="InformHeadlinesStatusExcelName" xml:space="preserve">
-    <value>Inform_Headlines_Status</value>
-  </data>
-  <data name="InformHeadlinesStatusName" xml:space="preserve">
-    <value>Inform Headlines Status</value>
   </data>
   <data name="NoHeadlinesToInform" xml:space="preserve">
     <value>No. headlines to inform</value>
@@ -470,18 +434,6 @@
   </data>
   <data name="NoOfHeadlinesToInform" xml:space="preserve">
     <value>No. Of Headlines To Inform</value>
-  </data>
-  <data name="Title_InformHeadlines" xml:space="preserve">
-    <value>CRM System - Inform Headlines</value>
-  </data>
-  <data name="InformHeadline_NoCurrencyFound" xml:space="preserve">
-    <value>Please select at least one Currency!</value>
-  </data>
-  <data name="InformHeadline_NoPositionFound" xml:space="preserve">
-    <value>Please select at least one Position!</value>
-  </data>
-  <data name="InformHeadline_NoSiteFound" xml:space="preserve">
-    <value>Please select at least one Site!</value>
   </data>
   <data name="NonLive" xml:space="preserve">
     <value>Non-Live</value>

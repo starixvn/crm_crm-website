@@ -1,14 +1,11 @@
 ﻿/*global hotKeyManager*/
 "use strict";
-/* global informHeadlineApplication,
-sharedScriptManager,
+/* global sharedScriptManager,
 viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
 
-informHeadlineApplication.controller('ViewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+angular.module('informHeadlineApplication').controller('ViewListController',
+    ['$scope', '$uiBlockerService', 'viewListService',
+    function ($scope, $uiBlockerService, viewListService) {
 
         var POPUP_WIDTH = 1200, POPUP_HEIGHT = 800;
 
@@ -44,7 +41,7 @@ informHeadlineApplication.controller('ViewListController',
                     $scope.listData = data.Result.Items;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $uiBlockerService.unblockUI();
                 });

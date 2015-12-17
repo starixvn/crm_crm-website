@@ -1,11 +1,10 @@
-﻿'use strict';
-/* jshint unused: vars */
-/* jshint camelcase: false */
-/* global createInformHeadlinelApplication,
-hotKeyManager,
-crmConstants,
-createInformResource */
-createInformHeadlinelApplication.controller('createInformHeadlineTitleController',
+﻿(function () {
+    "use strict";
+    /* jshint camelcase: false */
+    /* global hotKeyManager,
+    crmConstants,
+    createInformResource */
+    angular.module('customer-informheadline-create').controller('createInformHeadlineTitleController',
     ['$scope',
     'createInformHeadlineTitleService',
     '$uiBlockerService',
@@ -33,7 +32,7 @@ createInformHeadlinelApplication.controller('createInformHeadlineTitleController
                         parent.ClosePopup();
                     }
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -49,3 +48,4 @@ createInformHeadlinelApplication.controller('createInformHeadlineTitleController
             });
         });
     } ]);
+})();

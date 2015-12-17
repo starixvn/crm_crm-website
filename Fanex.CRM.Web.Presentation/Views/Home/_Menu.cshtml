@@ -1,7 +1,8 @@
 ﻿@using Fanex.NAP.Core.Model
 @using System.Linq
+@model IList<MenuItem>
 @{
-    var allMenuItemList = ViewBag.MenuItemList != null ? ViewBag.MenuItemList as List<MenuItem> : new List<MenuItem>();
+    var allMenuItemList = Model ?? new List<MenuItem>();
     var lvl0MenuItemList = allMenuItemList.Where(m => m.Parent == null).OrderBy(m => m.DisplayOrder).ToList();
 }
 @functions {
@@ -18,14 +19,14 @@
         }
     }
 
-    public List<MenuItem> GetSubMenuList(MenuItem menuItem, List<MenuItem> allMenuItemList)
+    public IList<MenuItem> GetSubMenuList(MenuItem menuItem, IList<MenuItem> allMenuItemList)
     {
         return allMenuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
                  .OrderBy(x => x.DisplayOrder)
                  .ToList();
     }
 
-    public bool IsIgnoreMenu(MenuItem menuItem, List<MenuItem> subMenuItemList)
+    public bool IsIgnoreMenu(MenuItem menuItem, IList<MenuItem> subMenuItemList)
     {
         return subMenuItemList.Count == 0 &&
             (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url));
@@ -40,7 +41,7 @@
         var onclickEvent = "menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);";    
     @RenderMenuLink(onclickEvent, @menuItem.Name);
 }
-@helper RenderLeafMenu(MenuItem menuItem, int menuLevel, List<MenuItem> parentMenuList)
+@helper RenderLeafMenu(MenuItem menuItem, int menuLevel, IList<MenuItem> parentMenuList)
     {
         var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');"; 
        
@@ -53,10 +54,10 @@
 }
 @helper RenderMenuWithSubMenu(
     MenuItem menuItem,
-    List<MenuItem> allMenuItemList,
-    List<MenuItem> subMenuItemList,
+    IList<MenuItem> allMenuItemList,
+    IList<MenuItem> subMenuItemList,
     string menuClassName,
-    List<MenuItem> parentMenuList,
+    IList<MenuItem> parentMenuList,
     int menuLevel)
     {
         var className = menuClassName + " list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
@@ -74,9 +75,9 @@
 }
 @helper RenderMenu(
     MenuItem menuItem,
-    List<MenuItem> allMenuItemList,
+    IList<MenuItem> allMenuItemList,
     string menuClassName,
-    List<MenuItem> parentMenuList,
+    IList<MenuItem> parentMenuList,
     int menuLevel)
     {  
         var subMenuItemList = GetSubMenuList(menuItem, allMenuItemList);
@@ -104,10 +105,10 @@
         menuLevel);
 }
 @helper RenderMenuList(
-    List<MenuItem> menuItemList,
-    List<MenuItem> allMenuItemList,
+    IList<MenuItem> menuItemList,
+    IList<MenuItem> allMenuItemList,
     int menuLevel,
-    List<MenuItem> parentMenuList)
+    IList<MenuItem> parentMenuList)
     {   
         var hasLargeMenu = menuItemList.Count >= 8; 
         for (int i = 0; i < menuItemList.Count; i++)

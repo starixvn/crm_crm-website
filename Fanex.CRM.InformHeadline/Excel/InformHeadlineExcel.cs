@@ -9,6 +9,7 @@ namespace Fanex.CRM.InformHeadline.Excel
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
@@ -44,9 +45,9 @@ namespace Fanex.CRM.InformHeadline.Excel
         private readonly Color _openedStatusColor = Color.FromArgb(240, 237, 196);
         private readonly Color _closedStatusColor = Color.FromArgb(242, 242, 242);
 
-        private IList<InformHeadline> _data;
+        private IEnumerable<InformHeadline> _data;
 
-        public InformHeadlineExcel(IList<InformHeadline> data, string excelFileName)
+        public InformHeadlineExcel(IEnumerable<InformHeadline> data, string excelFileName)
             : base(excelFileName)
         {
             _data = data;
@@ -69,7 +70,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count == 0)
+            if (_data.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -94,7 +95,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
             
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });            
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });            
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -107,7 +108,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
@@ -126,7 +127,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="informs">The weekly categories.</param>
-        private void GenerateBody(ExportExcelInfo exportExcelInfo, IList<InformHeadline> informs)
+        private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<InformHeadline> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;
@@ -161,16 +162,16 @@ namespace Fanex.CRM.InformHeadline.Excel
 
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Title), leftAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientCreatedDate), leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total, centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total.ToString(IntegerFormat), centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Status, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoReply, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference, centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoReply.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference.ToString(IntegerFormat), centerAlignStyle);
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;
@@ -181,7 +182,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
                 false,

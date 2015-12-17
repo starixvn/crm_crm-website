@@ -1,18 +1,22 @@
 ﻿@using Fanex.CRM.Common.Services;
 @using System.Web.Optimization;
-
 @helper RenderScripts(params string[] links)
-    {        
-        var version = AppSetting.ResourceVersion;        
-        links = links.Select(x => x + "?v=" + version).ToArray();                
-        
-        @Scripts.Render(links)        
+{
+    if (!AppSetting.IsLocalTest)
+    {
+        var version = AppSetting.ResourceVersion;
+        links = links.Select(x => x + "?v=" + version).ToArray();
     }
 
+    @Scripts.Render(links)
+}
 @helper RenderStyles(params string[] links)
-    {        
-        var version = AppSetting.ResourceVersion;        
-        links = links.Select(x => x + "?v=" + version).ToArray();                
-        
-        @Styles.Render(links)        
+{
+    if (!AppSetting.IsLocalTest)
+    {
+        var version = AppSetting.ResourceVersion;
+        links = links.Select(x => x + "?v=" + version).ToArray();
     }
+
+    @Styles.Render(links)
+}

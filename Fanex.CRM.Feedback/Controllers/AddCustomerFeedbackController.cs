@@ -12,7 +12,6 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
@@ -55,11 +54,11 @@ namespace Fanex.CRM.Feedback.Controllers
         /// Gets all setting for edit.
         /// </summary>
         /// <returns>All setting for edit.</returns>
-        [HttpPost]        
+        [HttpPost]
         public ActionResult AllSettingToAddCustomerFeedback()
         {
             var allSetting = AllSettingToAddFeedback();
-            allSetting.RoleList = ServiceSetting.AllRole();
+            allSetting.RoleList = ServiceSetting.GetAllRoles();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
@@ -73,14 +72,13 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public JsonResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            Result insertResult = CheckAddCustomerFeedbackPermission();
+            var insertResult = CheckAddCustomerFeedbackPermission();
             if (insertResult.Code == ErrorCodeConstants.NoneError)
             {
                 insertResult = _feedbackService.AddCustomerFeedback(criteria);
             }
 
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 
         private Result CheckAddCustomerFeedbackPermission()

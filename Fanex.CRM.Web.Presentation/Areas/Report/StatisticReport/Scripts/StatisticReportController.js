@@ -1,24 +1,21 @@
-﻿"use strict";
-/* global statisticReportApplication,
-initFromDate: true,
-currentDate: true,
-sharedScriptManager,
-hotKeyManager,
-crmConstants,
-minReportDate,
-moment,
-viewResources */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-statisticReportApplication.controller('statisticReportController', [
+﻿(function () {
+    "use strict";
+    /* global initFromDate: true,
+    currentDate: true,
+    sharedScriptManager,
+    hotKeyManager,
+    crmConstants,
+    minReportDate,
+    moment,
+    viewResources */
+    /* jshint camelcase: false */
+    angular.module('report-statisticreport-application').controller('statisticReportController', [
     '$scope',
-    '$http',
     'statisticReportService',
     '$uiBlockerService',
     '$resultMessageService',
     function (
         $scope,
-        $http,
         statisticReportService,
         $uiBlockerService,
         $resultMessageService) {
@@ -82,7 +79,7 @@ statisticReportApplication.controller('statisticReportController', [
                     var allSetting = data.Result;
                     $scope.completedLoadFilterInfo(allSetting);
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo(null);
                 });
         };
@@ -232,12 +229,12 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.searchCriteria.FromDate = new Date(initFromDate);
             $scope.searchCriteria.ToDate = new Date(currentDate);
 
-            var defaultPagingSize =  sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
+            var defaultPagingSize = sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
             switch (reportTypeId) {
                 case crmConstants.Enums.PeriodType.Daily:
                     $scope.fromDateOptions.IsRerenderPicker = true;
                     $scope.toDateOptions.IsRerenderPicker = true;
-                    defaultPagingSize =  7;
+                    defaultPagingSize = 7;
                     break;
                 case crmConstants.Enums.PeriodType.Monthly:
                     $scope.fromMonthOptions.IsRerenderPicker = true;
@@ -388,6 +385,7 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.$apply();
         };
         $scope.validateParams = function (searchCriteria) {
+            /* jshint unused: false */
             if ($scope.searchCriteria.MainCategory.Id === crmConstants.Enums.MainCategory.NotApply) {
                 $scope.isSuccess = false;
                 $scope.isShowResultMessage = true;
@@ -476,3 +474,4 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.initController();
         });
     } ]);
+})();

@@ -12,11 +12,9 @@ namespace Fanex.CRM.Setting.Repositories
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Setting.Repositories;
     using Fanex.Data;
     using Fanex.Data.Repository;
 
@@ -25,549 +23,321 @@ namespace Fanex.CRM.Setting.Repositories
     /// </summary>
     public class SettingRepository : ISettingRepository
     {
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All setting.</returns>
-        public List<SettingInfo> GetAllSetting(GetAllSettingCriteria criteria)
+        public IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria)
         {
-            var allsetting = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    if (reader != null)
+                    var settings = new List<Setting>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        settings.Add(new Setting
                         {
-                            allsetting.Add(new SettingInfo
-                            {
-                                Id = Converter.ToInt(reader["settingid"], 0),
-                                SettingType = Converter.ToString2(reader["settingname"]),
-                                Value = Converter.ToString2(reader["settingvalue"]),
-                                DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
-                            });
-                        }
+                            Id = Converter.ToInt(reader["settingid"], 0),
+                            SettingType = Converter.ToString2(reader["settingname"]),
+                            Value = Converter.ToString2(reader["settingvalue"]),
+                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
+                        });
                     }
+
+                    return settings;
                 }
             }
-
-            return allsetting;
         }
 
-        /// <summary>
-        /// Gets the setting relation by name.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The setting relation by name.</returns>
-        public List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
+        public IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria)
         {
-            var allSetting = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["SettingId"]),
-                                Value = Converter.ToString2(reader["SettingValue"]),
-                                IsSubSetting = Converter.ToInt(reader["IsSub"]) == 1,
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
-                            };
-
-                            allSetting.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allSetting;
-        }
-
-        /// <summary>
-        /// Gets all country.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All country.</returns>
-        public List<CountryInfo> GetAllCountry(GetAllCountryCriteria criteria)
-        {
-            var allSetting = new List<CountryInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new CountryInfo()
-                            {
-                                Id = Converter.ToInt(reader["CountryID"]),
-                                Name = Converter.ToString2(reader["CountryName"]),
-                                CountryCode = Converter.ToInt(reader["CountryCode"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["isActive"])
-                            };
-
-                            allSetting.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allSetting;
-        }
-
-        /// <summary>
-        /// Gets all setting relation.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All setting relation.</returns>
-        public List<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria)
-        {
-            var settingRelations = new List<SettingInfo>();
-            using (var obj = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = obj.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var settingInfo = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["SettingID"]),
-                                ParentId = Converter.ToInt(reader["ParentId"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
-                            };
-
-                            settingRelations.Add(settingInfo);
-                        }
-                    }
-                }
-            }
-
-            return settingRelations;
-        }
-
-        /// <summary>
-        /// Gets all language.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All language.</returns>
-        public List<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria)
-        {
-            var allLanguage = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["LanguageId"]),
-                                Name = Converter.ToString2(reader["Name"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["IsActive"])
-                            };
-
-                            allLanguage.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allLanguage;
-        }
-
-        /// <summary>
-        /// Gets all communication tool.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All communication tool.</returns>
-        public List<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria)
-        {
-            var allCommunicationTool = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["CommunicationId"]),
-                                Name = Converter.ToString2(reader["Name"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["IsActive"])
-                            };
-
-                            allCommunicationTool.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allCommunicationTool;
-        }
-
-        /// <summary>
-        /// Gets all main category.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All main category.</returns>
-        public List<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
-        {
-            var allMainCategory = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["MainCategoryId"]),
-                                Name = Converter.ToString2(reader["Name"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["IsActive"])
-                            };
-
-                            allMainCategory.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allMainCategory;
-        }
-
-        /// <summary>
-        /// Gets all sub category.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All sub category.</returns>
-        public List<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
-        {
-            var allSubCategory = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["SubCategoryId"]),
-                                Name = Converter.ToString2(reader["Name"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["IsActive"])
-                            };
-
-                            allSubCategory.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allSubCategory;
-        }
-
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All sub Status.</returns>
-        public List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
-        {
-            var allStatus = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var settings = new List<Setting>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        var setting = new Setting()
                         {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["StatusId"]),
-                                Name = Converter.ToString2(reader["Name"])
-                            };
+                            Id = Converter.ToInt(reader["SettingId"]),
+                            Value = Converter.ToString2(reader["SettingValue"]),
+                            IsSubSetting = Converter.ToInt(reader["IsSub"]) == 1,
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
+                        };
 
-                            allStatus.Add(setting);
-                        }
+                        settings.Add(setting);
                     }
+
+                    return settings;
                 }
             }
-
-            return allStatus;
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All sub Status.</returns>
-        public IList<Status> GetStatuses(GetAllStatusCriteria criteria)
+        public IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria)
         {
-            var result = new List<Status>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var settings = new List<Country>();
+                    while (reader.Read())
+                    {
+                        var setting = new Country()
+                        {
+                            Id = Converter.ToInt(reader["CountryID"]),
+                            Name = Converter.ToString2(reader["CountryName"]),
+                            CountryCode = Converter.ToInt(reader["CountryCode"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["isActive"])
+                        };
+
+                        settings.Add(setting);
+                    }
+
+                    return settings;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var settingRelations = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var settingInfo = new Setting()
+                        {
+                            Id = Converter.ToInt(reader["SettingID"]),
+                            ParentId = Converter.ToInt(reader["ParentId"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
+                        };
+
+                        settingRelations.Add(settingInfo);
+                    }
+
+                    return settingRelations;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllLanguages(GetAllLanguageCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var allLanguage = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var setting = new Setting()
+                        {
+                            Id = Converter.ToInt(reader["LanguageId"]),
+                            Name = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
+                        };
+
+                        allLanguage.Add(setting);
+                    }
+
+                    return allLanguage;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var allCommunicationTool = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var setting = new Setting()
+                        {
+                            Id = Converter.ToInt(reader["CommunicationId"]),
+                            Name = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
+                        };
+
+                        allCommunicationTool.Add(setting);
+                    }
+
+                    return allCommunicationTool;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var allMainCategory = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var setting = new Setting()
+                        {
+                            Id = Converter.ToInt(reader["MainCategoryId"]),
+                            Name = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
+                        };
+
+                        allMainCategory.Add(setting);
+                    }
+
+                    return allMainCategory;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    var allSubCategory = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var setting = new Setting()
+                        {
+                            ParentId = Converter.ToInt(reader["MainCategoryID"]),
+                            Id = Converter.ToInt(reader["SubCategoryId"]),
+                            Name = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
+                        };
+
+                        allSubCategory.Add(setting);
+                    }
+
+                    return allSubCategory;
+                }
+            }
+        }
+
+        public IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    var allStatus = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        var setting = new Setting()
+                        {
+                            Id = Converter.ToInt(reader["StatusId"]),
+                            Name = Converter.ToString2(reader["Name"])
+                        };
+
+                        allStatus.Add(setting);
+                    }
+
+                    return allStatus;
+                }
+            }
+        }
+
+        public IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria)
+        {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<Status>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {
-                    result.Add(item);
-                }
-
-                return result;
+                return db.Query<Status>(criteria.GetSpParams());
             }
         }
 
-        /// <summary>
-        /// Gets the feedback subject template by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template by identifier.</returns>
-        public List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
+        public IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
         {
-            List<FeedbackTemplate> feedbackSubjectTemplate = new List<FeedbackTemplate>();
             using (var obj = new ObjectDb(criteria.GetSettingKey(), 500))
             {
-                obj.AssignParamValues(criteria.GetSpParams());
-                using (var reader = obj.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var feedbackTemplate = new FeedbackTemplate()
-                            {
-                                TemplateId = Converter.ToInt(reader["templateID"]),
-                                Subject = Converter.ToString2(reader["subject"])
-                            };
-
-                            feedbackSubjectTemplate.Add(feedbackTemplate);
-                        }
-                    }
-                }
+                return obj.Query<FeedbackTemplate>(criteria.GetSpParams());
             }
-
-            return feedbackSubjectTemplate;
         }
 
-        /// <summary>
-        /// Gets all log actions.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The log actions list.</returns>
-        public List<SettingInfo> GetAllLogAction(ICriteria criteria)
+        public IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
-            var actions = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            actions.Add(new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["ActionID"]),
-                                Name = Converter.ToString2(reader["ActionName"])
-                            });
-                        }
-                    }
-                }
-            }
-
-            return actions;
+            return ReadBaseModels(criteria, "ActionID", "ActionName", false);
         }
 
-        /// <summary>
-        /// Gets all status inform headline.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The BaseModel list.</returns>
-        public List<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        public IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
         {
-            var status = new List<BaseModel>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new BaseModel
-                            {
-                                Id = Converter.ToInt(reader["InformStatusId"]),
-                                Name = Converter.ToString2(reader["Name"])
-                            };
-
-                            status.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return status;
+            return ReadBaseModels(criteria, "InformStatusId", "Name");
         }
 
-        /// <summary>
-        /// Gets all bet type.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All bet type.</returns>
-        public List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria)
+        public IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria)
         {
-            var allBetType = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new SettingInfo()
-                            {
-                                Id = Converter.ToInt(reader["BetTypeId"]),
-                                Name = Converter.ToString2(reader["Name"]),
-                                DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                                IsActive = Converter.ToBool(reader["IsActive"])
-                            };
-
-                            allBetType.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allBetType;
-        }
-
-        /// <summary>
-        /// Gets all currency redemption.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The BaseModel list.</returns>
-        public List<BaseModel> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
-        {
-            var allCurrency = new List<BaseModel>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var setting = new BaseModel()
-                            {
-                                Id = Converter.ToInt(reader["CurrencyId"]),
-                                Name = Converter.ToString2(reader["Currency"])
-                            };
-
-                            allCurrency.Add(setting);
-                        }
-                    }
-                }
-            }
-
-            return allCurrency;
-        }
-
-        /// <summary>
-        /// Gets the type of all licensee.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// The Licensee Type list.
-        /// </returns>
-        public List<BaseModel> GetAllLicenseeType(GetAllLicenseeTypeCriteria criteria)
-        {
-            var licenseeTypes = new List<BaseModel>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = db.ExecuteReader())
-                {
+                    var allBetType = new List<Setting>();
                     while (reader.Read())
                     {
-                        licenseeTypes.Add(new BaseModel 
-                        { 
-                            Id = Converter.ToInt(reader["LicenseeType"]),
-                            Name = Converter.ToString2(reader["Licensee"])
-                        });    
-                    }
-                }
-            }
-
-            return licenseeTypes;
-        }
-
-        /// <summary>
-        /// Gets all currency.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The currency list.</returns>
-        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria)
-        {
-            var currencies = new List<BaseModel>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    while (reader.Read())
-                    {
-                        currencies.Add(new BaseModel
+                        var setting = new Setting()
                         {
-                            Id = Converter.ToInt(reader["CurrencyId"]),
-                            Name = Converter.ToString2(reader["Currency"])
-                        });
-                    }
-                }
-            }
+                            Id = Converter.ToInt(reader["BetTypeId"]),
+                            Name = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
+                        };
 
-            return currencies;
+                        allBetType.Add(setting);
+                    }
+
+                    return allBetType;
+                }
+            }            
         }
 
-        /// <summary>
-        /// Get stations.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>List of station.</returns>
-        public List<Station> GetStations(GetStationsCriteria criteria)
+        public IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
-            var result = new List<Station>();
+            return ReadBaseModels(criteria, "CurrencyId", "Currency");
+        }
+
+        public IEnumerable<BaseModel> GetAllLicenseeTypes(GetAllLicenseeTypeCriteria criteria)
+        {
+            return ReadBaseModels(criteria, "LicenseeType", "Licensee");
+        }
+
+        public IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria)
+        {
+            return ReadBaseModels(criteria, "CurrencyId", "Currency");
+        }
+
+        public IEnumerable<Station> GetStations(GetStationsCriteria criteria)
+        {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<Station>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {
-                    result.Add(item);
-                }
+                return db.Query<Station>(criteria.GetSpParams());
+            }
+        }
 
-                return result;
+        private static IEnumerable<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(hasParams ? criteria.GetSpParams() : null))
+                {
+                    var list = new List<BaseModel>();
+                    while (reader.Read())
+                    {
+                        list.Add(new BaseModel
+                        {
+                            Id = Converter.ToInt(reader[keyColumn]),
+                            Name = Converter.ToString2(reader[nameColumn])
+                        });
+                    }
+
+                    return list;
+                }
             }
         }
     }

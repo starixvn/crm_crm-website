@@ -2,18 +2,19 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Setting_Logs;
+
     var currentDate = DateTimeUtilize.CurrentClientTime();
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="settinglog-application">
-<head>
-    <title>@Labels.Setting_Logs </title>
-    @RazorHelper.RenderStyles("~/site/common", "~/Areas/ActionLog/SettingLogStyles")
-</head>
-<body>
-<div class="container main" data-ng-controller="settingLogController">
-    <div class="row filter-frm one-row redemption-filter">
-        <form data-ng-submit="searchSettingLogs()">
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/ActionLog/SettingLogStyles")
+}
+<div data-ng-app="settinglog-application">
+    <div class="container main" data-ng-controller="settingLogController">
+        <div class="row filter-frm one-row redemption-filter">
+            <form data-ng-submit="searchSettingLogs()">
             <div class="item">
                 <label for="username">@Labels.Handler</label>
                 <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
@@ -36,36 +37,37 @@
                 </select>
             </div>
             <div class="item">
-                <button class="btn"><span class="hotkey">S</span>ubmit</button>
+                <button class="btn">
+                    <span class="hotkey">S</span>ubmit</button>
             </div>
-        </form>
-    </div>
-    <div class="row">
-        <div data-ng-model="settingLogs" table-setting-logs-container>
-            <div id="table-setting-logs" class="freegrid display-none">
+            </form>
+        </div>
+        <div class="row">
+            <div data-ng-model="settingLogs" table-setting-logs-container>
+                <div id="table-setting-logs" class="freegrid display-none">
+                </div>
             </div>
         </div>
     </div>
-</div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/SettingLogScripts")
-    <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
-        window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@currentDate.ToShortFormatedDate()';
-        var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';
-        var settingLogResources = {
-            All: '@Labels.All',
-            LogTime: '@Labels.LogTime',
-            EditedBy: '@Labels.EditedBy',
-            Action: '@Labels.Action',
-            Entity: '@Labels.Entity',
-            EntityId: '@Labels.EntityId',
-            FieldName: '@Labels.FieldName',
-            OldValue: '@Labels.OldValue',
-            NewValue: '@Labels.NewValue',
-            Setting_Logs: '@Labels.Setting_Logs'
-        };
-        $('#username').focus();
-    </script>
-</body>
-</html>
+    @section Scripts {
+        @RazorHelper.RenderScripts("~/Areas/ActionLog/SettingLogScripts")
+        <script type="text/javascript">
+            parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
+            window.rootUrl = '@Url.Content("~")';
+            var currentDate = '@currentDate.ToShortFormatedDate()';
+            var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';
+            var settingLogResources = {
+                All: '@Labels.All',
+                LogTime: '@Labels.LogTime',
+                EditedBy: '@Labels.EditedBy',
+                Action: '@Labels.Action',
+                Entity: '@Labels.Entity',
+                EntityId: '@Labels.EntityId',
+                FieldName: '@Labels.FieldName',
+                OldValue: '@Labels.OldValue',
+                NewValue: '@Labels.NewValue',
+                Setting_Logs: '@Labels.Setting_Logs'
+            };
+            $('#username').focus();
+        </script>
+    }

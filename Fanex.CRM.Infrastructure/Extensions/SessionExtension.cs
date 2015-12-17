@@ -9,10 +9,10 @@
 
 namespace Fanex.CRM.Infrastructure.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Web;
     using System.Web.SessionState;
-    using DNAide.Core;
 
     /// <summary>
     /// Session Extension.
@@ -28,7 +28,7 @@ namespace Fanex.CRM.Infrastructure.Extensions
 
         public static int OnlineUserId
         {
-            get { return CastAide.AsInt32(HttpContext.Current.Session["useronlineid"]); }
+            get { return Convert.ToInt32(HttpContext.Current.Session["useronlineid"]); }
 
             set { HttpContext.Current.Session["useronlineid"] = value; }
         }
@@ -41,6 +41,11 @@ namespace Fanex.CRM.Infrastructure.Extensions
         public static void AddSession(HttpSessionState sessionState, string key, object value)
         {
             sessionState[key] = value;
+        }
+
+        public static void DeleteSession(HttpSessionState sessionState, string key)
+        {
+            sessionState[key] = null;
         }
     }
 }

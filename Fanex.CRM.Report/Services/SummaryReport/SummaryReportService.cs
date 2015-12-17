@@ -36,7 +36,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
     /// </summary>
     public class SummaryReportService : ISummaryReportService
     {
-        private const string SummaryReportSessionKey = "Fanex.CRM.Report.SummaryReport.SummaryReportSessionKey_{0}";
         private readonly ISummaryReportRepository _summaryRepository;
         private readonly ISettingService _settingServices;
 
@@ -59,14 +58,14 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         {
             var minReportDate = AppSetting.MinReportDate.Year;
             var currentYear = DateTimeUtilize.CurrentClientTime().Year;
-            var yearRange = new List<SettingInfo>();
+            var yearRange = new List<Setting>();
             for (int i = minReportDate; i <= currentYear; i++)
             {
-                yearRange.Add(new SettingInfo { Id = i, Value = i.ToString() });
+                yearRange.Add(new Setting { Id = i, Value = i.ToString() });
             }
 
-            var siteTypes = _settingServices.AllSiteType();
-            var categories = _settingServices.AllMainCategory();
+            var siteTypes = _settingServices.GetAllSiteTypes();
+            var categories = _settingServices.GetAllMainCategories();
             return new
             {
                 YearRange = yearRange,
@@ -75,82 +74,46 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             };
         }
 
-        /// <summary>
-        /// Gets the summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The SummaryReportModel object.</returns>
         public SummaryReportModel GetSummaryReport(GetSummaryReportCriteria criteria)
         {
-            SummaryReportModel report = null;
-            string sessionKey = string.Format(SummaryReportSessionKey, criteria.Year);
-            try
-            {
-                report = criteria.IsCached
-                ? (SummaryReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
-                : null;
-                if (report == null)
-                {
-                    report = ParseSummaryReport(criteria);
-                    report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
-                    //// Add to session.
-                    SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
-                }
+            var report = ParseSummaryReport(criteria);
+            report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
 
-                return report;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return report;
         }
 
-        /// <summary>
-        /// Exports the summary report excel.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportSummaryReportExcel(GetSummaryReportCriteria criteria)
         {
-            criteria.IsCached = true;
             SummaryReportModel report = GetSummaryReport(criteria);
             string excelFileName = string.Format(Labels.SummaryReportExcelName, criteria.Year);
 
-            try
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
-                HSSFWorkbook workbook = new HSSFWorkbook();
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = workbook,
-                    Worksheet = workbook.CreateSheet(excelFileName),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = report.Months.Count
-                };
+                ExcelFile = workbook,
+                Worksheet = workbook.CreateSheet(excelFileName),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = report.Months.Count
+            };
 
-                ExportTitle(ref exportExcelInfo, report.ReportTitle);
-                ExportHeader(ref exportExcelInfo, report.Months);
-                if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
-                {
-                    NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
-                }
-                else
-                {
-                    NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
-                    NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-
-                    ExportBody(ref exportExcelInfo, report.CategorySummaries);
-                    ExportFooter(ref exportExcelInfo, report.GrandTotals);
-                }
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
-            }
-            catch (Exception ex)
+            ExportTitle(ref exportExcelInfo, report.ReportTitle);
+            ExportHeader(ref exportExcelInfo, report.Months);
+            if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
+            else
+            {
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
+
+                ExportBody(ref exportExcelInfo, report.CategorySummaries);
+                ExportFooter(ref exportExcelInfo, report.GrandTotals);
+            }
+
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
         /// <summary>
@@ -264,7 +227,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             columnWidths.AddRange(Enumerable.Repeat(80, 12));
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -277,7 +240,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Categories, headerStyle);
             currentColumn++;
@@ -417,7 +380,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
@@ -432,7 +395,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
-            ICellStyle cellStyle = NpoiExcelExtensions.IntNumberStyle(
+            ICellStyle cellStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.GroupBackgroundColorIndex,
             true,
@@ -451,7 +414,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
             workbook,
             NpoiExcelExtensions.GrandTotalRowColorIndex,
             true,
@@ -461,7 +424,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
             workbook,
             NpoiExcelExtensions.BackgroundColorIndex,
             false,
@@ -470,7 +433,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.BackgroundColorIndex,
             false,
@@ -479,7 +442,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.GrandTotalRowColorIndex,
             true,

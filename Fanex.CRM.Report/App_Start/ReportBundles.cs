@@ -142,9 +142,6 @@ namespace Fanex.CRM.Report
             AddAndInclude(
                 bundles,
                 "~/bundles/Report/FeedbackStatisticStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/Report/FeedbackStatistics/Styles/styles.less");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/FeedbackStatisticScripts").Include(

@@ -19,11 +19,6 @@ namespace Fanex.CRM.Report.Repositories.WagerReport
     /// </summary>
     public class WagerReportRepository : IWagerReportRepository
     {
-        /// <summary>
-        /// Gets the wager report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>WagerReport model.</returns>
         public IEnumerable<WagerRawData> GetWagerReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))

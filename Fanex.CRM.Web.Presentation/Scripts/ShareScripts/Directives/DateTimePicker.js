@@ -3,17 +3,11 @@
 crmConstants,
 sharedScriptManager,
 moment */
-/* jshint unused: vars */
+/* jshint unused: false */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
 directiveManager.registerDateTimePicker = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-
         var isSettingDate = false;
         var oldValue = null;
         var selfOptions = null;
@@ -78,7 +72,7 @@ directiveManager.registerDateTimePicker = function (angularApplication, register
                 amPM :
                 crmConstants.Enums.DateTime.AM;
             if (hour >= 12) {
-                crmConstants.Enums.DateTime.PM;
+                amPM = crmConstants.Enums.DateTime.PM;
             }
 
             var newDate = new Date(sharedScriptManager.stringFormat(

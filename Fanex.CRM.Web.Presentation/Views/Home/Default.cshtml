@@ -3,21 +3,12 @@
 }
 @using Fanex.CRM.Infrastructure.Extensions
 @using Fanex.CRM.Infrastructure.Resources
-@using Fanex.CRM.Customer.Criteria
-@using Fanex.CRM.Customer.Services
 @using Fanex.CRM.Common.Helpers;
-@using Fanex.CRM.Common.Services;
+@using Fanex.CRM.Common.Models;
 @using Fanex.NAP.Core.Business;
 @{
-    string userSearched = string.Empty;
-    bool isGuest = false;
+    var customer = (ViewBag.CurrentCustomer as SearchedCustomer) ?? new SearchedCustomer();
 
-    GetCustomerInfoByUsernameCriteria getCustomerInfoByUsernameCriteria = new CustomerService().GetCustomerInfoByUsernameCriteria;
-    if (getCustomerInfoByUsernameCriteria != null)
-    {
-        userSearched = getCustomerInfoByUsernameCriteria.Username;
-        isGuest = getCustomerInfoByUsernameCriteria.IsGuest;
-    }
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
@@ -31,55 +22,48 @@
 		 @RazorHelper.RenderScripts("~/Scripts/Chart/ChartJs/excanvas.js")
 	<![endif]-->
 }
-<body>
-    @*<div id="fullsize" class="fullsize">
-    </div>*@
-    <div class="container crm-container">
-        <div class="row header">
-            <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
-                <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
+<div class="container crm-container">
+    <div class="row header">
+        <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
+            <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
                     title="@Resources.Language.Home"
                     onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);"
                     href="javascript:;" />
-                <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
-                </span>
-            </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 rightHeader">
-                <div class="row">
-                    <div class="col-xs-8 col-sm-8 col-md-8">
-                        @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4">
-                        @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
-                        <div class="login-info pull-right">
-                            @Labels.Welcome
-                            <span class="txt-username">@ViewBag.AccUsername</span>
-                        </div>
+            <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
+            </span>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 rightHeader">
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8">
+                    @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
+                    <div class="login-info pull-right">
+                        @Labels.Welcome
+                        <span class="txt-username">@ViewBag.AccUsername</span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
-                <div class="text-search col-xs-9 col-sm-9 col-md-9">
-                    @if (hasCreateOrUpdateFeedbackPermission)
-                    {
+                @if (hasCreateOrUpdateFeedbackPermission)
+                {
+                    <div class="text-search col-xs-9 col-sm-9 col-md-9">
                         <input id="txtuserName" type="text" class="inputSearch font-style-italic"
                         value="@Resources.Language.Default_SearchTextbox"
                         name="txtuserName"
                         autocomplete="off" tabindex="2" />
                         <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
-                    }
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
-                    @if (hasCreateOrUpdateFeedbackPermission)
-                    {
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                         <label>
                             <input id="isGuest" type="checkbox" tabindex="3" />
                             @Labels.Guest
                         </label>
-                    }
-                </div>
+                    </div>
+                }
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
                 <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
@@ -92,23 +76,25 @@
                 </div>
             </div>
         </div>
-        <div class="row contentbox">
-            <div class="col-xs-3 col-sm-3 col-md-3 leftcontent">
-                <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="BlankPage"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
-                    allowtransparency="true"></iframe>
-            </div>
-            <div id="rightcontent" class="col-xs-9 col-sm-9 col-md-9 rightcontent">
-                <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
-                    allowtransparency="true"></iframe>
-            </div>
+    </div>
+    <div class="row contentbox">
+        <div class="col-xs-3 col-sm-3 col-md-3 leftcontent">
+            <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="BlankPage"
+                marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
+                allowtransparency="true"></iframe>
+        </div>
+        <div id="rightcontent" class="col-xs-9 col-sm-9 col-md-9 rightcontent">
+            <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
+                marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
+                allowtransparency="true"></iframe>
         </div>
     </div>
-    <div id="divErrorPoup" class="selector" style="display: none;">
-    </div>
-    <div id="div-resultpopup" class="selector display-none">
-    </div>
+</div>
+<div id="divErrorPoup" class="selector" style="display: none;">
+</div>
+<div id="div-resultpopup" class="selector display-none">
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
                             "~/Scripts/json2.js",
                             "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -130,13 +116,17 @@
     @RazorHelper.RenderScripts("~/Views/Home/Dashboard/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var userSearch = '@userSearched';
-        var isGuestSearch = '@isGuest';
+        var userSearch = '@customer.Name';
+        var isGuestSearch = '@customer.IsGuest';
         var accUrlDefault = '@Fanex.CRM.Common.Services.AppSetting.LoginLink';
         var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
         var redirectUrl = '@redirectUrl';
-
+        @if(Fanex.CRM.Common.Services.AppSetting.IsLocalTest == false)
+        {
+        <text>
         setInterval('udpateOnlineStatus()', 20000);
+        </text>
+        }
     </script>
-</body>
+}

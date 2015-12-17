@@ -19,7 +19,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
 
@@ -28,8 +27,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
     /// </summary>
     public class SettingRelationService : ISettingRelationService
     {
-        private const string AllSettingSessionKey = "Fanex.CRM.AdminTool.Services.SettingRelation.GetAllSettingSessionKey";
-
         private const string AllSettingRelationSessionKey = "Fanex.CRM.AdminTool.Services.SettingRelation.GetAllSettingRelationSessionKey";
 
         private ISettingRelationRepository _settingRelationRepository;
@@ -49,145 +46,82 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             _settingService = settingService ?? new SettingService();
         }
 
-        public List<SettingInfo> MainSetting
+        public IEnumerable<Setting> GetMainSettings()
         {
-            get
-            {
-            return _settingService.MainSetting();
-            }
+            return _settingService.GetMainSettings();
         }
 
-        /// <summary>
-        /// Gets the setting by type.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The setting by type.</returns>
-        public List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
+        public IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria)
         {
-            try
-            {
-                var allSettings = _settingService.AllSetting();
-                var result = allSettings
-                    .Where(s => s.SettingType == criteria.MainSetting.SettingType)
-                    .Select(s => s)
-                    .ToList();
+            var allSettings = _settingService.GetAllSettings();
+            var result = allSettings
+                .Where(s => s.SettingType == criteria.MainSetting.SettingType)
+                .OrderBy(s => s.DisplayOrder)
+                .ToList();
 
-                result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id));
-                return result.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id).ToList());
+            return result;
         }
 
-        /// <summary>
-        /// Gets the main setting for add relation.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main setting for add relation.</returns>
-        public List<SettingInfo> GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
+        public IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
         {
-            try
-            {
-                var mainSetting = MainSetting;
-                return mainSetting
-                    .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
-                    .Select(s => s)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            var mainSetting = GetMainSettings();
+            return mainSetting
+                .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
+                .ToList();
         }
 
-        /// <summary>
-        /// Gets the main setting relations.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main setting relations.</returns>
-        public List<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<Setting> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
-            try
-            {
-                return _settingRelationRepository.MainSettingRelations(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingRelationRepository.GetMainSettingRelations(criteria);
         }
 
-        /// <summary>
-        /// Adds the setting relations.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Add result.</returns>
-        public Result AddSettingRelations(AddSettingRelationsCriteria criteria)
+        public Result GetAddSettingRelations(AddSettingRelationsCriteria criteria)
         {
-            try
+            var result = _settingRelationRepository.AddSettingRelations(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                var addResult = _settingRelationRepository.AddSettingRelations(criteria);
-                if (addResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    addResult.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
-                    CacheService.Delete(AllSettingSessionKey);
-                    CacheService.Delete(AllSettingRelationSessionKey);
-                    _settingService.ResetAllCache();
-                }
+                result.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
+                CacheService.Delete(AllSettingRelationSessionKey);
+                _settingService.ClearCache();
+            }
 
-                return addResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        private List<SettingInfo> AllSettingRelation()
+        private IEnumerable<Setting> GetAllSettingRelations()
         {
-            var allSettingRelation = CacheService.Get<List<SettingInfo>>(AllSettingRelationSessionKey);
-            if (allSettingRelation == null)
+            var settingRelations = CacheService.Get<IEnumerable<Setting>>(AllSettingRelationSessionKey);
+            if (settingRelations == null)
             {
-                allSettingRelation = _settingRelationRepository.AllSettingRelation(new GetAllSettingRelationCriteria());
-                CacheService.Set(AllSettingRelationSessionKey, allSettingRelation);
+                settingRelations = _settingRelationRepository.GetAllSettingRelations(new GetAllSettingRelationCriteria());
+                CacheService.Set(AllSettingRelationSessionKey, settingRelations);
             }
 
-            return allSettingRelation;
+            return settingRelations;
         }
 
-        /// <summary>
-        /// Gets the setting by parent identifier.
-        /// </summary>
-        /// <param name="parentId">The parent identifier.</param>
-        /// <returns>The setting by parent identifier.</returns>
-        private List<SettingInfo> GetSettingByParentId(int parentId)
+        private IEnumerable<Setting> GetSettingByParentId(int parentId)
         {
-            var allSettingRelation = AllSettingRelation();
-            var allSettings = _settingService.AllSetting();
+            var allSettingRelations = GetAllSettingRelations();
+            var allSettings = _settingService.GetAllSettings();
 
-            var settingIds = allSettingRelation
+            var settingIds = allSettingRelations
                 .Where(r => r.ParentId == parentId)
                 .Select(s => new { s.Id, s.DisplayOrder });
 
-            var query = allSettings.AsQueryable().Join(
+            var query = allSettings.Join(
                 settingIds,
                 setting => setting.Id,
                 parent => parent.Id,
                 (setting, parent) =>
-                    new SettingInfo
+                    new Setting
                     {
                         Id = setting.Id,
                         DisplayOrder = parent.DisplayOrder,
                         Value = setting.Value,
                         SettingType = setting.SettingType
                     })
-                    .ToList()
                     .OrderBy(s => s.DisplayOrder);
 
             return query.ToList();

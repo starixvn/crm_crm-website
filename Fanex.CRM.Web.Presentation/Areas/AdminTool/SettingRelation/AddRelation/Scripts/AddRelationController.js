@@ -1,18 +1,17 @@
-﻿"use strict";
-/* global addRelationApplication,
-sharedScriptManager,
-MessageResult,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-mainSetting */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    mainSetting */
+    /* jshint camelcase: false */
 
-addRelationApplication.controller('addRelationController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addRelationService',
-    function ($scope, $uiBlockerService, $resultMessageService, addRelationService) {
+    angular.module('addmintool-settingrelation-addrelation-application').controller('addRelationController',
+    ['$scope', '$uiBlockerService', 'addRelationService',
+    function ($scope, $uiBlockerService, addRelationService) {
         $scope.getMainSettingRelationsParams = {
             ParentId: mainSetting.Id,
             MainSetting: mainSetting
@@ -37,7 +36,7 @@ addRelationApplication.controller('addRelationController',
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -57,7 +56,7 @@ addRelationApplication.controller('addRelationController',
                     $scope.addSettingRelationsParams.SubSettings = $scope.mainSettingRelationView;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.mainSettingRelationView = null;
                     $scope.oldMainSettingRelationView = angular.copy($scope.mainSettingRelationView);
                     $uiBlockerService.unblockUI();
@@ -88,7 +87,7 @@ addRelationApplication.controller('addRelationController',
                     $scope.showAddResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -150,3 +149,4 @@ addRelationApplication.controller('addRelationController',
             $scope.setFocus();
         });
     } ]);
+})();

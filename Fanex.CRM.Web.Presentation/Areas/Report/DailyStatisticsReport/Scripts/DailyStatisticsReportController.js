@@ -1,22 +1,19 @@
-﻿"use strict";
-/* global dailyStatisticsReportApplication,
-crmConstants,
-currentDate,
-moment,
-sharedScriptManager,
-registerUpdateFunctions,
-registerOptions,
-registerHotkeyFunctions */
-/* jshint camelcase: false,
-unused: vars */
-dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
-    ['$scope', '$http', '$uiBlockerService', '$resultMessageService', 'dailyStatisticsReportService',
-    function (
-        $scope,
-        $http,
-        $uiBlockerService,
-        $resultMessageService,
-        dailyStatisticsReportService) {
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    currentDate,
+    moment,
+    sharedScriptManager,
+    registerUpdateFunctions,
+    registerOptions,
+    registerHotkeyFunctions */
+    /* jshint camelcase: false,
+    unused: vars */
+    angular.module('report-dailystatistics-application').controller('dailyStatisticsReportController',
+    ['$scope', '$uiBlockerService', 'dailyStatisticsReportService',
+    function ($scope, $uiBlockerService, dailyStatisticsReportService) {
+        var _lastSubmitData;
+
         $scope.searchCriteria = {
             FromDate: new Date(currentDate),
             ToDate: new Date(currentDate)
@@ -38,12 +35,12 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
         };
         $scope.getDailyStatisticsReport = function () {
             $uiBlockerService.blockUI();
-            var getReportCriteria = {
+            _lastSubmitData = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
             };
 
-            dailyStatisticsReportService.getDailyStatisticsReport(getReportCriteria)
+            dailyStatisticsReportService.getDailyStatisticsReport(_lastSubmitData)
                 .then(function (data) {
                     $scope.ibcReportOptions.DataList = data.Result.IBCReport;
                     $scope.ibcReportOptions.IsUpdateGrid = true;
@@ -52,30 +49,22 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
                     $scope.licenseeReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
         $scope.exportIBCReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "DailyStatisticsReport/ExportIbcReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
         };
         $scope.exportLicenseeReport = function () {
-            var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
-            };
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "DailyStatisticsReport/ExportLicenseeReport",
-                Params: getReportCriteria
+                Params: _lastSubmitData
             };
 
             $scope.$apply();
@@ -84,8 +73,8 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
             $uiBlockerService.blockUI();
             $scope.searchCriteria.SiteType = siteType;
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: siteType,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -98,15 +87,15 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
         $scope.pagingDetailReport = function (pageIndex, pageSize) {
             $uiBlockerService.blockUI();
             $scope.getDetailReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.searchCriteria.SiteType,
                 PageIndex: pageIndex + 1,
                 PageSize: pageSize,
@@ -119,14 +108,14 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
         $scope.exportDetailReport = function () {
             var getReportCriteria = {
-                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDate: _lastSubmitData.FromDate,
+                ToDate: _lastSubmitData.ToDate,
                 SiteType: $scope.getDetailReportCriteria.SiteType,
                 IsPagingCallBack: false,
                 IsGetFullReport: true
@@ -151,3 +140,4 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
             $uiBlockerService.unblockUI();
         });
     } ]);
+})();

@@ -15,138 +15,79 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     /// <summary>
     /// Feedback Subject Management Repository.
     /// </summary>
-    public class FeedbackSubjectManagementRepository : IFeedbackSubjectManagementRepository
+    public class FeedbackSubjectManagementRepository : BaseRepository, IFeedbackSubjectManagementRepository
     {
-        /// <summary>
-        /// Searches the feedback subject template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject templates.</returns>
-        public List<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
+        public IEnumerable<FeedbackSubjectTemplate> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
-            List<FeedbackSubjectTemplateInfo> result = new List<FeedbackSubjectTemplateInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new FeedbackSubjectTemplateInfo
+                    var result = new List<FeedbackSubjectTemplate>();
+                    while (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["templateID"]),
-                        TemplateContent = Converter.ToString2(reader["subject"])
-                    });
+                        var templateContent = Converter.ToString2(reader["subject"]);
+                        if (IsCorrectTemplate(templateContent, criteria.Subject))
+                        {
+                            result.Add(new FeedbackSubjectTemplate
+                            {
+                                Id = Converter.ToInt(reader["templateID"]),
+                                TemplateContent = templateContent
+                            });
+                        }
+                    }
+
+                    return result;
                 }
             }
-
-            return result.Where(template => IsCorrectTemplate(template, criteria)).ToList();
         }
 
-        /// <summary>
-        /// Deletes the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Delete result.</returns>
         public Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
         {
-            Result deleteResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                deleteResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return deleteResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Gets the feedback subject template by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template by identifier.</returns>
-        public FeedbackSubjectTemplateInfo FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
+        public FeedbackSubjectTemplate GetFeedbackSubjectTemplate(FeedbackSubjectTemplateByIdCriteria criteria)
         {
-            List<FeedbackSubjectTemplateInfo> result = new List<FeedbackSubjectTemplateInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new FeedbackSubjectTemplateInfo
+                    if (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["templateID"]),
-                        TemplateContent = Converter.ToString2(reader["subject"])
-                    });
+                        return new FeedbackSubjectTemplate
+                        {
+                            Id = Converter.ToInt(reader["templateID"]),
+                            TemplateContent = Converter.ToString2(reader["subject"])
+                        };
+                    }
+
+                    return null;
                 }
             }
-
-            return result.FirstOrDefault();
         }
 
-        /// <summary>
-        /// Edits the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Edit result.</returns>
         public Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
-            Result editResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                editResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return editResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Inserts the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         public Result InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
-            Result insertResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                insertResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return insertResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        private bool IsCorrectTemplate(FeedbackSubjectTemplateInfo template, SearchFeedbackSubjectTemplateCriteria criteria)
+        private bool IsCorrectTemplate(string templateContent, string subject)
         {
-            return string.IsNullOrEmpty(criteria.Subject) ||
-                 template.TemplateContent.ToLower().Contains(criteria.Subject.Trim().ToLower());
+            return string.IsNullOrEmpty(subject) ||
+                 templateContent.ToLower().Contains(subject.Trim().ToLower());
         }
     }
 }

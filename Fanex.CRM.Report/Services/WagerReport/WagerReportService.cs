@@ -9,15 +9,11 @@
 
 namespace Fanex.CRM.Report.Services.WagerReport
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;
@@ -32,7 +28,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
     /// </summary>
     public class WagerReportService : IWagerReportService
     {
-        private const string WagerReportSessionKey = "Fanex.CRM.Report.WagerReport.WagerReportSessionKey_{0}";
         private readonly IWagerReportRepository _wagerRepository;
 
         public WagerReportService()
@@ -52,32 +47,10 @@ namespace Fanex.CRM.Report.Services.WagerReport
         /// <returns>WagerReport model.</returns>
         public WagerReportModel GetWagerReport(GetWagerReportCriteria criteria)
         {
-            WagerReportModel report;
-            string sessionKey = string.Format(WagerReportSessionKey, criteria.Year);
-            try
-            {
-                report = criteria.IsCached
-                    ? (WagerReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
-                    : null;
-                if (report == null)
-                {
-                    report = ParseWagerReport(criteria);
-                    report.ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year);
+            var report = ParseWagerReport(criteria);
+            report.ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year);
 
-                    // Add to session.
-                    if (report != null)
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
-                    }
-                }
-
-                return report;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return report;
         }
 
         /// <summary>
@@ -86,7 +59,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
         /// <param name="criteria">The criteria.</param>
         public void ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
-            criteria.IsCached = true;
             WagerReportModel report = GetWagerReport(criteria);
             string excelFileName = string.Format(Labels.WagerReportExcelName, criteria.Year);
 
@@ -130,7 +102,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
             Wager wager = null;
             WagerByMonth wagerByMonth = null;
             IList<WagerByMonth> wagerByMonths = new List<WagerByMonth>();
-            IDictionary<string, Wager> grandTotalHash = new Dictionary<string, Wager> 
+            IDictionary<string, Wager> grandTotalHash = new Dictionary<string, Wager>
             {
                 { Labels.Accept, new Wager { Name = Labels.Accept, Amount = 0 } },
                 { Labels.Reject, new Wager { Name = Labels.Reject, Amount = 0 } },
@@ -195,7 +167,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
             var columnWidths = new List<int>() { 200, 200, 200, 200 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -207,7 +179,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
             currentColumn++;
@@ -331,7 +303,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 GetRowColorIndex(),
                 true,
@@ -340,7 +312,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -350,7 +322,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 GetRowColorIndex(),
                 false,
@@ -359,7 +331,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -369,7 +341,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetAmountCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 GetRowColorIndex(),
                 false,
@@ -378,7 +350,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -388,7 +360,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 GetRowColorIndex(),
                 true,
@@ -397,7 +369,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -405,6 +377,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
-        #endregion
+        #endregion Export excel helper
     }
 }

@@ -35,7 +35,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllSite()
         {
-            var allSite = _settingServiceInstance.AllSite();
+            var allSite = _settingServiceInstance.GetAllSites();
             var jsonResult = Json(allSite, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -43,7 +43,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllTitle()
         {
-            var allTitle = _settingServiceInstance.AllTitle();
+            var allTitle = _settingServiceInstance.GetAllTitles();
             var jsonResult = Json(allTitle, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -51,7 +51,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllCountry()
         {
-            var allCountry = _settingServiceInstance.AllCountry();
+            var allCountry = _settingServiceInstance.GetAllCountries();
             var jsonResult = Json(allCountry, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllLanguage()
         {
-            var allLanguage = _settingServiceInstance.AllLanguage();
+            var allLanguage = _settingServiceInstance.GetAllLanguages();
             var jsonResult = Json(allLanguage, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -67,7 +67,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllExtension()
         {
-            var allExtension = _settingServiceInstance.AllExtension();
+            var allExtension = _settingServiceInstance.GetAllExtensions();
             var jsonResult = Json(allExtension, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -75,14 +75,14 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllCommunicationTool()
         {
-            var allCommunicationTool = _settingServiceInstance.AllCommunicationTool();
+            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTools();
             return Json(allCommunicationTool, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllMainCategory()
         {
-            var allCategory = _settingServiceInstance.AllMainCategory();
+            var allCategory = _settingServiceInstance.GetAllMainCategories();
             var jsonResult = Json(allCategory, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -90,7 +90,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllProduct()
         {
-            var allProduct = _settingServiceInstance.AllProduct();
+            var allProduct = _settingServiceInstance.GetAllProducts();
             var jsonResult = Json(allProduct, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -98,7 +98,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllStatus()
         {
-            var allStatus = _settingServiceInstance.AllStatus(ViewTypeConstants.All);
+            var allStatus = _settingServiceInstance.GetAllStatuses(ViewTypeConstants.All);
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -106,7 +106,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllRole()
         {
-            var allRole = _settingServiceInstance.AllRole();
+            var allRole = _settingServiceInstance.GetAllRoles();
             var jsonResult = Json(allRole, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -114,7 +114,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllResponse()
         {
-            var allResponse = _settingServiceInstance.AllResponse();
+            var allResponse = _settingServiceInstance.GetAllResponses();
             var jsonResult = Json(allResponse, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -130,7 +130,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
-            var feedbackSubjectTemplateByPagingIndex = _settingServiceInstance.FeedbackSubjectTemplateByPagingIndex(criteria);
+            var feedbackSubjectTemplateByPagingIndex = _settingServiceInstance.GetFeedbackSubjectTemplateByPagingIndex(criteria);
             var jsonResult = Json(feedbackSubjectTemplateByPagingIndex, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -138,7 +138,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpGet]
         public JsonResult GetAllLogAction(GetActionCriteria criteria)
         {
-            var actions = _settingServiceInstance.AllLogAction(criteria);
+            var actions = _settingServiceInstance.GetAllLogActions(criteria);
             return Json(actions, JsonRequestBehavior.AllowGet);
         }
     }

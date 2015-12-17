@@ -1,44 +1,45 @@
-﻿"use strict";
-/* global addCustomerFeedbackApplication,
-RegisterTemplate,
-directiveManager */
-function addCustomerFeedbackRegisterPicker() {
-    var addCustomerFeedbackRegister = new RegisterTemplate(addCustomerFeedbackApplication);
-    addCustomerFeedbackRegister.registerTitlePicker();
-    addCustomerFeedbackRegister.registerSitePicker();
-    addCustomerFeedbackRegister.registerDatePicker();
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate,
+    directiveManager */
+    function addCustomerFeedbackRegisterPicker() {
+        var addCustomerFeedbackRegister = new RegisterTemplate(angular.module('feedbacks-addcustomerfeedback-application'));
+        addCustomerFeedbackRegister.registerTitlePicker();
+        addCustomerFeedbackRegister.registerSitePicker();
+        addCustomerFeedbackRegister.registerDatePicker();
 
-    addCustomerFeedbackRegister.registerCommunicationToolPicker();
-    addCustomerFeedbackRegister.registerProductPicker();
-    addCustomerFeedbackRegister.registerLanguagePicker();
-    addCustomerFeedbackRegister.registerResponsePicker();
+        addCustomerFeedbackRegister.registerCommunicationToolPicker();
+        addCustomerFeedbackRegister.registerProductPicker();
+        addCustomerFeedbackRegister.registerLanguagePicker();
+        addCustomerFeedbackRegister.registerResponsePicker();
 
-    addCustomerFeedbackRegister.registerMainCategoryPicker();
-    addCustomerFeedbackRegister.registerBetTypePicker();
-    addCustomerFeedbackRegister.registerStatusPicker();
+        addCustomerFeedbackRegister.registerMainCategoryPicker();
+        addCustomerFeedbackRegister.registerBetTypePicker();
+        addCustomerFeedbackRegister.registerStatusPicker();
 
-    addCustomerFeedbackRegister.registerExtensionPicker();
-    addCustomerFeedbackRegister.registerSubCategoryPicker();
-    addCustomerFeedbackRegister.registerCountryPicker();
-    addCustomerFeedbackRegister.registerRolePicker();
+        addCustomerFeedbackRegister.registerExtensionPicker();
+        addCustomerFeedbackRegister.registerSubCategoryPicker();
+        addCustomerFeedbackRegister.registerCountryPicker();
+        addCustomerFeedbackRegister.registerRolePicker();
 
-    addCustomerFeedbackRegister.registerSubjectAutoComplete();
-    addCustomerFeedbackRegister.registerDescriptionHtml();
-    addCustomerFeedbackRegister.registerSolutionHtml();
-    addCustomerFeedbackRegister.registerRawHtmlDirective();
-    addCustomerFeedbackRegister.registerTipsyDirective();
-    addCustomerFeedbackRegister.registerRelatedCustomerDirective();
-    addCustomerFeedbackRegister.registerDefaultFocus();
-    addCustomerFeedbackRegister.registerLicenseeTypePicker();
+        addCustomerFeedbackRegister.registerSubjectAutoComplete();
+        addCustomerFeedbackRegister.registerDescriptionHtml();
+        addCustomerFeedbackRegister.registerSolutionHtml();
+        addCustomerFeedbackRegister.registerRawHtmlDirective();
+        addCustomerFeedbackRegister.registerTipsyDirective();
+        addCustomerFeedbackRegister.registerRelatedCustomerDirective();
+        addCustomerFeedbackRegister.registerDefaultFocus();
+        addCustomerFeedbackRegister.registerLicenseeTypePicker();
 
-    var birthdayRegisterParams = {
-        PlugInName: 'datePickerContainer',
-        OptionName: 'birthdayOptions',
-        PickerId: 'birthdayInfo',
-        RestrictType: 'C'
-    };
+        var birthdayRegisterParams = {
+            PlugInName: 'datePickerContainer',
+            OptionName: 'birthdayOptions',
+            PickerId: 'birthdayInfo',
+            RestrictType: 'C'
+        };
 
-    directiveManager.registerDatePickerContainer(addCustomerFeedbackApplication, birthdayRegisterParams);
-}
+        directiveManager.registerDatePickerContainer(angular.module('feedbacks-addcustomerfeedback-application'), birthdayRegisterParams);
+    }
 
-addCustomerFeedbackRegisterPicker();
+    addCustomerFeedbackRegisterPicker();
+})();

@@ -3,13 +3,15 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Services;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-wagerreport-application">
-<head>
-    <title>@Labels.WagerReport</title>
-    @RazorHelper.RenderStyles("~/site/common", "~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.WagerReport;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
+}
+<div data-ng-app="report-wagerreport-application">
     <div class="container main" data-ng-controller="wagerReportController">
         <div class="result-message-container display-none">
         </div>
@@ -36,8 +38,9 @@
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/FanexGridV2/NumeralScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts",
@@ -55,7 +58,6 @@
             Amount: '@Labels.Amount',
             Total: '@Labels.Total',
             GrandTotal: '@Labels.GrandTotal'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

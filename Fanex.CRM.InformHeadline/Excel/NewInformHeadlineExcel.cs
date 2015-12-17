@@ -45,11 +45,11 @@ namespace Fanex.CRM.InformHeadline.Excel
         
         private readonly IInformHeadlineService _informService;
 
-        private IList<InformStatus> _informStatuses;
+        private IEnumerable<InformStatus> _informStatuses;
         private string _informHeadlineTitle;
-        private IList<NewInform> _data;
+        private IEnumerable<NewInform> _data;
 
-        public NewInformHeadlineExcel(string informHeadlineTitle, IList<NewInform> data, string excelFileName)
+        public NewInformHeadlineExcel(string informHeadlineTitle, IEnumerable<NewInform> data, string excelFileName)
             : base(excelFileName)
         {
             _informHeadlineTitle = informHeadlineTitle;
@@ -75,7 +75,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count == 0)
+            if (_data == null || _data.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -99,14 +99,14 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
             GenerateInformHeadlineTitle(exportExcelInfo, _informHeadlineTitle);
         }
 
         private void GenerateInformHeadlineTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow, 
                 exportExcelInfo.CurrentRow + 1, 
@@ -125,7 +125,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
@@ -144,7 +144,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="informs">The weekly categories.</param>
-        private void GenerateBody(ExportExcelInfo exportExcelInfo, IList<NewInform> informs)
+        private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<NewInform> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;
@@ -194,7 +194,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
                 false,

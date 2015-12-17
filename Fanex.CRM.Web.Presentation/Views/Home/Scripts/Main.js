@@ -32,7 +32,7 @@ function openConfirmPopup() {
         modal: true,
         title: 'Alert',
         close: function (event, ui) {
-            /*jshint unused: vars */
+            /* jshint unused: false */
             top.location.href = accUrlDefault;
         },
         buttons: [
@@ -67,7 +67,7 @@ function KeyPress(e) {
                 position: { my: "left+5 top+108", at: "left top" }, //
                 title: 'Alert',
                 close: function (event, ui) {
-                    /*jshint unused: vars */
+                    /* jshint unused: false */
                 },
                 buttons: [{
                     text: "OK",

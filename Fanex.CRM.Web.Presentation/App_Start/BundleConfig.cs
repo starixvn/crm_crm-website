@@ -14,7 +14,6 @@ namespace Fanex.CRM.Web.View.AppStart
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
     using Fanex.CRM.AdminTool;
-    using Fanex.CRM.Customer.BundleConfigs;
     using Fanex.CRM.Feedback.Bundles;
     using Fanex.CRM.InformHeadline;
     using Fanex.CRM.Report;
@@ -52,7 +51,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/showhidepopup.js",
                 "~/Scripts/dialogbox.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
+            bundles.Add(new ScriptBundle("~/Scripts/CommonScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
                 "~/Scripts/jquery-ui-1.8.14.custom.js",
@@ -131,7 +130,6 @@ namespace Fanex.CRM.Web.View.AppStart
 
             AdminToolBundles.RegisterBundles(bundles);
             InformHeadlineBundles.RegisterBundles(bundles);
-            InformHeadlinesBundles.RegisterAll(bundles);
 
             RegisterBundles_FanexGrid(bundles);
         }
@@ -344,6 +342,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/FanexGridV2/moment.js",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/ActionLog/Common/Scripts/*.js",
+                "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
                 "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogApplication.js",
                 "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogService.js",
                 "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogController.js",
@@ -368,6 +368,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/FanexGridV2/moment.js",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/ActionLog/Common/Scripts/*.js",
+                "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
                 "~/Areas/ActionLog/SettingLog/Scripts/SettingLogApplication.js",
                 "~/Areas/ActionLog/SettingLog/Scripts/SettingLogService.js",
                 "~/Areas/ActionLog/SettingLog/Scripts/SettingLogController.js",

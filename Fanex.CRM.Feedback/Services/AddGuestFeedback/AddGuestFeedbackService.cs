@@ -37,28 +37,15 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
             _addGuestFeedbackRepository = addGuestFeedbackRepository ?? new AddGuestFeedbackRepository();
         }
 
-        /// <summary>
-        /// Adds the customer feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Add result.</returns>
         public Result AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
-            try
+            var result = _addGuestFeedbackRepository.AddGuestFeedback(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                var addResult = _addGuestFeedbackRepository.AddGuestFeedback(criteria);
-                if (addResult != null && addResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    addResult.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;
-                }
+                result.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;
+            }
 
-                return addResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿'use strict';
-/* global createInformHeadlinelApplication */
-createInformHeadlinelApplication.factory('createInformHeadlineTitleService', ['$http', '$q',
- function ($http, $q) {
-     var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('customer-informheadline-create').factory('createInformHeadlineTitleService', ['$http', '$q',
+    function ($http, $q) {
+        var serviceInstance = {};
 
-     serviceInstance.createTitle = function (criteria) {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + 'InformHeadlines/CreateTitle', criteria)
+        serviceInstance.createTitle = function (criteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + 'InformHeadlines/CreateTitle', criteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -23,8 +23,9 @@ createInformHeadlinelApplication.factory('createInformHeadlineTitleService', ['$
                  });
              });
 
-         return deferred.promise;
-     };
+            return deferred.promise;
+        };
 
-     return serviceInstance;
- } ]);
+        return serviceInstance;
+    } ]);
+})();

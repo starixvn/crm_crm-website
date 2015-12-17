@@ -92,322 +92,199 @@ namespace Fanex.CRM.Setting.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The setting by identifier.</returns>
-        public SettingInfo SettingById(GetSettingByIdCriteria criteria)
+        public Setting GetSettingById(GetSettingByIdCriteria criteria)
         {
-            try
+            var allSettings = GetAllSettings();
+            var setting = allSettings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
+            if (setting == null)
             {
-                SettingInfo setting = null;
-                var settings = AllSetting();
-                setting = settings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
-                if (setting == null)
+                setting = new Setting()
                 {
-                    setting = new SettingInfo()
-                    {
-                        Value = Labels.Symbol_NotApply
-                    };
-                }
+                    Value = Labels.Symbol_NotApply
+                };
+            }
 
-                return setting;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return setting;
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
-        public List<SettingInfo> AllSetting()
+        public IEnumerable<Setting> GetAllSettings()
         {
-            try
+            var allSettings = CacheService.Get<IEnumerable<Setting>>(GetAllSettingSessionKey);
+            if (allSettings == null)
             {
-                List<SettingInfo> allSetting = CacheService.Get<List<SettingInfo>>(GetAllSettingSessionKey);
-                if (allSetting == null)
-                {
-                    allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
-                    CacheService.Set(GetAllSettingSessionKey, allSetting);
-                }
+                allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
+                CacheService.Set(GetAllSettingSessionKey, allSettings);
+            }
 
-                return allSetting;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return allSettings;
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <param name="criteria">Get all site criteria.</param>
-        /// <returns>All site value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public List<SiteInfo> AllSite(GetAllSiteCriteria criteria = null)
+        public IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null)
         {
-            try
+            var cache = CacheService.Get<IEnumerable<SiteInfo>>(GetAllSiteSessionKey);
+            if (cache != null)
             {
-                var allSite = new List<SiteInfo>();
-                allSite = CacheService.Get<List<SiteInfo>>(GetAllSiteSessionKey);
-                if (allSite != null)
-                {
-                    return allSite;
-                }
+                return cache;
+            }
 
-                allSite = new List<SiteInfo>();
-                var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
-                var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
-                foreach (var rawDataGroup in rawDataGroups)
+            var allSites = new List<SiteInfo>();
+            var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
+            var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
+            foreach (var rawDataGroup in rawDataGroups)
+            {
+                var siteGroup = new SiteInfo
                 {
-                    var siteGroup = new SiteInfo
+                    Id = rawDataGroup.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
+                    Name = rawDataGroup.Key ? Labels.Licensee : Labels.Credit,
+                    ChildSites = new List<SiteInfo>()
+                };
+
+                foreach (var rawDataSetting in rawDataGroup)
+                {
+                    var newSite = new SiteInfo()
                     {
-                        Id = rawDataGroup.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
-                        Name = rawDataGroup.Key ? Labels.Licensee : Labels.Credit,
-                        ChildSites = new List<SiteInfo>()
+                        Name = rawDataSetting.Name,
+                        Id = rawDataSetting.Id
                     };
 
-                    foreach (var rawDataSetting in rawDataGroup)
+                    siteGroup.ChildSites.Add(newSite);
+                }
+
+                allSites.Add(siteGroup);
+            }
+
+            CacheService.Set(GetAllSiteSessionKey, allSites);
+            return allSites;
+        }
+
+        public IEnumerable<BaseModel> GetAllSiteWithGroup()
+        {
+            var cache = CacheService.Get<IEnumerable<BaseModel>>(GetAllSiteWithGroupSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var sites = new List<BaseModel>();
+            var rawdata = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
+            foreach (var item in rawdata)
+            {
+                var group = item.IsLicensee ? Labels.Licensee : Labels.Credit;
+                sites.Add(new BaseModel { Id = item.Id, Name = item.Name, AliasName = group });
+            }
+
+            CacheService.Set(GetAllSiteWithGroupSessionKey, sites);
+            return sites;
+        }
+
+        public IEnumerable<Setting> GetAllTitles(bool hasItemAll = false)
+        {
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllTitleSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var allTitles = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.Title,
+                ParentId = 0
+            }).ToList();
+
+            CacheService.Set(GetAllTitleSessionKey, allTitles);
+
+            if (hasItemAll)
+            {
+                allTitles.Insert(
+                    0,
+                    new Setting
                     {
-                        var newSite = new SiteInfo()
-                        {
-                            Name = rawDataSetting.Name,
-                            Id = rawDataSetting.Id
-                        };
-
-                        siteGroup.ChildSites.Add(newSite);
-                    }
-
-                    allSite.Add(siteGroup);
-                }
-
-                CacheService.Set(GetAllSiteSessionKey, allSite);
-                return allSite;
+                        Value = Labels.All,
+                        Id = TitleConstants.All,
+                        DisplayOrder = 0
+                    });
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            return allTitles;
         }
 
-        /// <summary>
-        /// Gets all site with group.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public IList<BaseModel> AllSiteWithGroup()
+        public IEnumerable<Country> GetAllCountries()
         {
-            try
+            var allCountry = CacheService.Get<IEnumerable<Country>>(GetAllCountrySessionKey);
+            if (allCountry != null)
             {
-                string key = GetAllSiteWithGroupSessionKey;
-                var sites = CacheService.Get<IList<BaseModel>>(key);
-                if (sites == null)
-                {
-                    string group;
-                    sites = new List<BaseModel>();
-                    var rawdata = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
-                    foreach (var item in rawdata)
-                    {
-                        group = item.IsLicensee ? Labels.Licensee : Labels.Credit;
-                        sites.Add(new BaseModel { Id = item.Id, Name = item.Name, AliasName = group });
-                    }
-
-                    CacheService.Set(key, sites);
-                }
-
-                return sites;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all title.
-        /// </summary>
-        /// <returns>All title.</returns>
-        public List<SettingInfo> AllTitle()
-        {
-            try
-            {
-                var allTitle = new List<SettingInfo>();
-                allTitle = CacheService.Get<List<SettingInfo>>(GetAllTitleSessionKey);
-                if (allTitle != null)
-                {
-                    return allTitle;
-                }
-
-                allTitle = new List<SettingInfo>();
-                allTitle = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Title,
-                    ParentId = 0
-                });
-
-                CacheService.Set(GetAllTitleSessionKey, allTitle);
-                return allTitle;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all country.
-        /// </summary>
-        /// <returns>All country.</returns>
-        public List<CountryInfo> AllCountry()
-        {
-            try
-            {
-                var allCountry = new List<CountryInfo>();
-                allCountry = CacheService.Get<List<CountryInfo>>(GetAllCountrySessionKey);
-                if (allCountry != null)
-                {
-                    return allCountry;
-                }
-
-                allCountry = _settingRepositoryInstance.GetAllCountry(new GetAllCountryCriteria());
-                CacheService.Set(GetAllCountrySessionKey, allCountry);
                 return allCountry;
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            allCountry = _settingRepositoryInstance.GetAllCountries(new GetAllCountryCriteria());
+            CacheService.Set(GetAllCountrySessionKey, allCountry);
+            return allCountry;
         }
 
-        /// <summary>
-        /// Gets all language.
-        /// </summary>
-        /// <returns>All language.</returns>
-        public List<SettingInfo> AllLanguage()
+        public IEnumerable<Setting> GetAllLanguages()
         {
-            try
+            var allLanguages = CacheService.Get<IEnumerable<Setting>>(GetAllLanguageSessionKey);
+            if (allLanguages != null)
             {
-                var allLanguage = new List<SettingInfo>();
-                allLanguage = CacheService.Get<List<SettingInfo>>(GetAllLanguageSessionKey);
-                if (allLanguage != null)
-                {
-                    return allLanguage;
-                }
+                return allLanguages;
+            }
 
-                allLanguage = _settingRepositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
-                CacheService.Set(GetAllLanguageSessionKey, allLanguage);
-                return allLanguage;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            allLanguages = _settingRepositoryInstance.GetAllLanguages(new GetAllLanguageCriteria());
+            CacheService.Set(GetAllLanguageSessionKey, allLanguages);
+            return allLanguages;
         }
 
-        /// <summary>
-        /// Gets all extension.
-        /// </summary>
-        /// <returns>All extension.</returns>
-        public List<SettingInfo> AllExtension()
+        public IEnumerable<Setting> GetAllExtensions()
         {
-            try
+            var allExtensions = CacheService.Get<IEnumerable<Setting>>(GetAllExtensionSessionKey);
+            if (allExtensions != null)
             {
-                var allExtension = new List<SettingInfo>();
-                allExtension = CacheService.Get<List<SettingInfo>>(GetAllExtensionSessionKey);
-                if (allExtension != null)
-                {
-                    return allExtension;
-                }
-
-                allExtension = new List<SettingInfo>();
-                allExtension = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Extension,
-                    ParentId = 0
-                });
-
-                CacheService.Set(GetAllExtensionSessionKey, allExtension);
-                return allExtension;
+                return allExtensions;
             }
-            catch (Exception ex)
+
+            allExtensions = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                SettingName = SettingTypeConstants.Extension,
+                ParentId = 0
+            });
+
+            CacheService.Set(GetAllExtensionSessionKey, allExtensions);
+            return allExtensions;
         }
 
-        /// <summary>
-        /// Gets all communication tool.
-        /// </summary>
-        /// <returns>All communication tool.</returns>
-        public List<SettingInfo> AllCommunicationTool()
+        public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            try
+            var tools = CacheService.Get<IEnumerable<Setting>>(GetAllCommunicationToolSessionKey);
+            if (tools != null)
             {
-                var allCommunicationTool = new List<SettingInfo>();
-                allCommunicationTool = CacheService.Get<List<SettingInfo>>(GetAllCommunicationToolSessionKey);
-                if (allCommunicationTool != null)
-                {
-                    return allCommunicationTool;
-                }
-
-                allCommunicationTool = _settingRepositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
-                allCommunicationTool = allCommunicationTool.OrderBy(s => s.DisplayOrder).ToList();
-                CacheService.Set(GetAllCommunicationToolSessionKey, allCommunicationTool);
-
-                return allCommunicationTool;
+                return tools;
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
+            tools = tools.OrderBy(s => s.DisplayOrder).ToList();
+            CacheService.Set(GetAllCommunicationToolSessionKey, tools);
+
+            return tools;
         }
 
-        /// <summary>
-        /// Gets all main category.
-        /// </summary>
-        /// <returns>All main category.</returns>
-        public List<SettingInfo> AllMainCategory()
+        public IEnumerable<Setting> GetAllMainCategories()
         {
-            try
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllMainCategorySessionKey);
+            if (cache != null)
             {
-                var allMainCategory = new List<SettingInfo>();
-                allMainCategory = CacheService.Get<List<SettingInfo>>(GetAllMainCategorySessionKey);
-                if (allMainCategory != null)
-                {
-                    return allMainCategory;
-                }
-
-                allMainCategory = new List<SettingInfo>();
-                var rawData = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
-                foreach (var data in rawData)
-                {
-                    data.ChildSettings = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
-                    {
-                        ParentId = data.Id
-                    });
-
-                    data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
-                    allMainCategory.Add(data);
-                }
-
-                CacheService.Set(GetAllMainCategorySessionKey, allMainCategory);
-                return allMainCategory;
+                return cache;
             }
-            catch (Exception ex)
+            
+            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+
+            foreach (var category in mainCategories)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                category.ChildSettings = subCategories.Where(x => x.ParentId == category.Id).OrderBy(s => s.DisplayOrder).ToList();
             }
+
+            CacheService.Set(GetAllMainCategorySessionKey, mainCategories);
+            return mainCategories;
         }
 
         /// <summary>
@@ -417,57 +294,48 @@ namespace Fanex.CRM.Setting.Services
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public List<SettingInfo> AllProduct()
+        public IEnumerable<Setting> GetAllProducts()
         {
-            try
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllProductSessionKey);
+            if (cache != null)
             {
-                var allProduct = new List<SettingInfo>();
-                allProduct = CacheService.Get<List<SettingInfo>>(GetAllProductSessionKey);
-                if (allProduct != null)
-                {
-                    return allProduct;
-                }
-
-                allProduct = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Product,
-                    ParentId = 0
-                });
-
-                var notApplySetting = new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.Symbol_NotApply
-                };
-
-                allProduct.Add(new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.Symbol_NotApply,
-                    ChildSettings = new List<SettingInfo> { notApplySetting }
-                });
-
-                foreach (var data in rawData)
-                {
-                    data.ChildSettings = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
-                    {
-                        ParentId = data.Id
-                    });
-
-                    data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
-                    data.ChildSettings.Insert(0, notApplySetting);
-                    allProduct.Add(data);
-                }
-
-                CacheService.Set(GetAllProductSessionKey, allProduct);
-                return allProduct;
+                return cache;
             }
-            catch (Exception ex)
+
+            var allProducts = new List<Setting>();
+            var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                SettingName = SettingTypeConstants.Product,
+                ParentId = 0
+            });
+
+            var notApplySetting = new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.Symbol_NotApply
+            };
+
+            allProducts.Add(new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Value = Labels.Symbol_NotApply,
+                ChildSettings = new List<Setting> { notApplySetting }
+            });
+
+            foreach (var data in rawData)
+            {
+                data.ChildSettings = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
+                {
+                    ParentId = data.Id
+                }).ToList();
+
+                data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
+                data.ChildSettings.Insert(0, notApplySetting);
+                allProducts.Add(data);
             }
+
+            CacheService.Set(GetAllProductSessionKey, allProducts);
+            return allProducts;
         }
 
         /// <summary>
@@ -477,7 +345,7 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>
         /// All status.
         /// </returns>
-        public List<SettingInfo> AllStatus(int statusType)
+        public IEnumerable<Setting> GetAllStatuses(int statusType)
         {
             string key = GetAllStatusSessionKey;
             if (statusType == ViewTypeConstants.CommunicationTool)
@@ -489,26 +357,18 @@ namespace Fanex.CRM.Setting.Services
                 key = GetAllStatusRedemption;
             }
 
-            try
+            var allStatus = CacheService.Get<IEnumerable<Setting>>(key);
+            if (allStatus != null)
             {
-                var allStatus = CacheService.Get<List<SettingInfo>>(key);
-                if (allStatus != null)
-                {
-                    return allStatus;
-                }
-
-                allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType))
-                    .OrderBy(s => s.DisplayOrder)
-                    .ToList();
-                CacheService.Set(key, allStatus);
-
                 return allStatus;
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType))
+                .OrderBy(s => s.DisplayOrder)
+                .ToList();
+            CacheService.Set(key, allStatus);
+
+            return allStatus;
         }
 
         /// <summary>
@@ -518,30 +378,22 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>
         /// All status.
         /// </returns>
-        public IList<Status> GetInformHeadlineStatuses()
+        public IEnumerable<Status> GetInformHeadlineStatuses()
         {
             string key = GetInformHeadlineStatusesSessionKey;
 
-            try
+            var allStatus = CacheService.Get<IEnumerable<Status>>(key);
+            if (allStatus != null)
             {
-                var allStatus = CacheService.Get<IList<Status>>(key);
-                if (allStatus != null)
-                {
-                    return allStatus;
-                }
-
-                allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
-                    .OrderBy(s => s.DisplayOrder)
-                    .ToList();
-                CacheService.Set(key, allStatus);
-
                 return allStatus;
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
+                .OrderBy(s => s.DisplayOrder)
+                .ToList();
+            CacheService.Set(key, allStatus);
+
+            return allStatus;
         }
 
         /// <summary>
@@ -549,183 +401,118 @@ namespace Fanex.CRM.Setting.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Setting Info List.</returns>
-        public List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
+        public IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
             string key = GetAllCurrencyRedemptionSessionKey;
-            try
+            var currencies = CacheService.Get<IEnumerable<BaseModel>>(key);
+            if (currencies == null)
             {
-                var currencies = CacheService.Get<List<BaseModel>>(key);
-                if (currencies == null)
-                {
-                    currencies = _settingRepositoryInstance.GetAllCurrencyRedemption(criteria);
-                    CacheService.Set(key, currencies);
-                }
+                currencies = _settingRepositoryInstance.GetAllCurrencyRedemptions(criteria);
+                CacheService.Set(key, currencies);
+            }
 
-                return currencies;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return currencies;
         }
 
-        /// <summary>
-        /// Gets all role.
-        /// </summary>
-        /// <returns>All role value.</returns>
-        public List<SettingInfo> AllRole()
+        public IEnumerable<Setting> GetAllRoles()
         {
-            try
+            var allRole = CacheService.Get<IEnumerable<Setting>>(GetAllRoleSessionKey);
+            if (allRole != null)
             {
-                var allRole = CacheService.Get<List<SettingInfo>>(GetAllRoleSessionKey);
-                if (allRole != null)
-                {
-                    return allRole;
-                }
-
-                allRole = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Role,
-                    ParentId = 0
-                });
-
-                allRole = rawData;
-                CacheService.Set(GetAllRoleSessionKey, allRole);
                 return allRole;
             }
-            catch (Exception ex)
+
+            allRole = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                SettingName = SettingTypeConstants.Role,
+                ParentId = 0
+            });
+
+            CacheService.Set(GetAllRoleSessionKey, allRole);
+            return allRole;
         }
 
-        /// <summary>
-        /// Gets all response.
-        /// </summary>
-        /// <returns>All response.</returns>
-        public List<SettingInfo> AllResponse()
+        public IEnumerable<Setting> GetAllResponses()
         {
-            try
+            var allResponse = CacheService.Get<IEnumerable<Setting>>(GetAllResponseSessionKey);
+            if (allResponse != null)
             {
-                var allResponse = new List<SettingInfo>();
-                allResponse = CacheService.Get<List<SettingInfo>>(GetAllResponseSessionKey);
-                if (allResponse != null)
-                {
-                    return allResponse;
-                }
-
-                allResponse = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Response,
-                    ParentId = 0
-                });
-
-                allResponse = rawData;
-                CacheService.Set(GetAllResponseSessionKey, allResponse);
                 return allResponse;
             }
-            catch (Exception ex)
+
+            allResponse = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                SettingName = SettingTypeConstants.Response,
+                ParentId = 0
+            });
+
+            CacheService.Set(GetAllResponseSessionKey, allResponse);
+            return allResponse;
         }
 
-        /// <summary>
-        /// Gets all customer type.
-        /// </summary>
-        /// <returns>All customer type.</returns>
-        public List<SettingInfo> AllCustomerType()
+        public IEnumerable<Setting> GetAllCustomerTypes()
         {
-            try
+            var allCustomerType = new List<Setting>();
+            allCustomerType.Add(new Setting
             {
-                var allCustomerType = new List<SettingInfo>();
-                allCustomerType.Add(new SettingInfo
-                {
-                    Id = CustomerTypeConstants.All,
-                    Value = Labels.All
-                });
+                Id = CustomerTypeConstants.All,
+                Value = Labels.All
+            });
 
-                allCustomerType.Add(new SettingInfo
-                {
-                    Id = CustomerTypeConstants.Customer,
-                    Value = Labels.Customer
-                });
-
-                allCustomerType.Add(new SettingInfo
-                {
-                    Id = CustomerTypeConstants.Guest,
-                    Value = Labels.Guest
-                });
-
-                return allCustomerType;
-            }
-            catch (Exception ex)
+            allCustomerType.Add(new Setting
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                Id = CustomerTypeConstants.Customer,
+                Value = Labels.Customer
+            });
+
+            allCustomerType.Add(new Setting
+            {
+                Id = CustomerTypeConstants.Guest,
+                Value = Labels.Guest
+            });
+
+            return allCustomerType;
         }
 
-        /// <summary>
-        /// Gets all VIP type.
-        /// </summary>
-        /// <returns>All VIP type.</returns>
-        public List<SettingInfo> AllVIPType()
+        public IEnumerable<Setting> GetAllVIPTypes()
         {
-            try
+            var allVIPType = new List<Setting>();
+            allVIPType.Add(new Setting
             {
-                var allVIPType = new List<SettingInfo>();
-                allVIPType.Add(new SettingInfo
-                {
-                    Id = VIPTypeConstants.All,
-                    Value = Labels.All
-                });
+                Id = VIPTypeConstants.All,
+                Value = Labels.All
+            });
 
-                allVIPType.Add(new SettingInfo
-                {
-                    Id = VIPTypeConstants.Yes,
-                    Value = Labels.Yes
-                });
-
-                allVIPType.Add(new SettingInfo
-                {
-                    Id = VIPTypeConstants.No,
-                    Value = Labels.No
-                });
-
-                return allVIPType;
-            }
-            catch (Exception ex)
+            allVIPType.Add(new Setting
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                Id = VIPTypeConstants.Yes,
+                Value = Labels.Yes
+            });
+
+            allVIPType.Add(new Setting
+            {
+                Id = VIPTypeConstants.No,
+                Value = Labels.No
+            });
+
+            return allVIPType;
         }
 
-        /// <summary>
-        /// Gets the type of all headline.
-        /// </summary>
-        /// <returns>The list of headline type.</returns>
-        public List<SettingInfo> AllHeadlineType()
+        public IEnumerable<Setting> AllHeadlineType()
         {
-            return new List<SettingInfo>() 
+            return new List<Setting>() 
             { 
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.All,
                     Value = Labels.All
                 },
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.Yes,
                     Value = Labels.Yes
                 },
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.No,
                     Value = Labels.No
@@ -733,38 +520,26 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
-        /// <summary>
-        /// Gets all licensee types.
-        /// </summary>
-        /// <returns>The all licensee types.</returns>
-        public List<BaseModel> AllLicenseeType()
+        public IEnumerable<BaseModel> GetAllLicenseeTypes()
         {
             string key = GetAllLicenseeTypeSessionKey;
-            try
+            var cache = CacheService.Get<IEnumerable<BaseModel>>(key);
+            if (cache != null)
             {
-                var licenseeTypes = CacheService.Get<List<BaseModel>>(key);
-                if (licenseeTypes != null)
+                return cache;
+            }
+
+            var licenseeTypes = _settingRepositoryInstance.GetAllLicenseeTypes(new GetAllLicenseeTypeCriteria()).ToList();
+            licenseeTypes.Insert(
+                0,
+                new BaseModel
                 {
-                    return licenseeTypes;
-                }
+                    Id = SettingConstants.NotApply,
+                    Name = Labels.Symbol_NotApply
+                });
 
-                licenseeTypes = _settingRepositoryInstance.GetAllLicenseeType(new GetAllLicenseeTypeCriteria());
-                licenseeTypes.Insert(
-                    0,
-                    new BaseModel
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.Symbol_NotApply
-                    });
-
-                CacheService.Set(key, licenseeTypes);
-                return licenseeTypes;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            CacheService.Set(key, licenseeTypes);
+            return licenseeTypes;
         }
 
         /// <summary>
@@ -773,188 +548,128 @@ namespace Fanex.CRM.Setting.Services
         /// <param name="criteria">The criteria.</param>
         /// <param name="hasDefaultOption">Has N/A option or not.</param>
         /// <returns>The currency list.</returns>
-        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
+        public IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
         {
             string key = GetAllCurrencySessionKey;
-            try
+            var cache = CacheService.Get<IEnumerable<BaseModel>>(key);
+            if (cache != null)
             {
-                var currencies = CacheService.Get<List<BaseModel>>(key);
-                if (currencies == null)
-                {
-                    currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
-                    CacheService.Set(key, currencies);
-                }
-
-                if (hasDefaultOption)
-                {
-                    currencies.Insert(
-                        0,
-                        new BaseModel
-                        {
-                            Id = SettingConstants.NotApply,
-                            Name = Labels.Symbol_NotApply
-                        });
-                }
-
-                return currencies;
+                return cache;
             }
-            catch (Exception ex)
+
+            var currencies = _settingRepositoryInstance.GetAllCurrencies(criteria).ToList();
+            CacheService.Set(key, currencies);
+
+            if (hasDefaultOption)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                currencies.Insert(
+                    0,
+                    new BaseModel
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.Symbol_NotApply
+                    });
             }
+
+            return currencies;
         }
 
         /// <summary>
         /// Gets the sub setting by parent identifier.
         /// </summary>
         /// <param name="parentSetting">The parent setting.</param>
-        /// <param name="allSettingRelation">All setting relation.</param>
-        /// <param name="allSetting">All setting.</param>
+        /// <param name="allSettingRelations">All setting relation.</param>
+        /// <param name="allSettings">All setting.</param>
         /// <returns>The sub setting by parent identifier.</returns>
-        public List<SettingInfo> GetSubSettingByParentId(
+        public IEnumerable<Setting> GetSubSettingsByParentId(
             BaseModel parentSetting,
-            List<SettingInfo> allSettingRelation,
-            List<SettingInfo> allSetting)
+            IEnumerable<Setting> allSettingRelations,
+            IEnumerable<Setting> allSettings)
         {
-            try
+            var subSettings = new List<Setting>();
+            if (allSettingRelations == null || !allSettingRelations.Any())
             {
-                List<SettingInfo> subSettings = new List<SettingInfo>();
-                if (allSettingRelation == null || !allSettingRelation.Any())
-                {
-                    return subSettings;
-                }
-
-                foreach (var settingRelation in allSettingRelation)
-                {
-                    if (settingRelation.ParentId == parentSetting.Id)
-                    {
-                        for (var i = 0; i < allSetting.Count; i++)
-                        {
-                            var setting = allSetting[i];
-                            if (setting.Id == settingRelation.Id)
-                            {
-                                subSettings.Add(new SettingInfo
-                                {
-                                    Id = setting.Id,
-                                    DisplayOrder = setting.DisplayOrder,
-                                    Value = setting.Value,
-                                    SettingType = setting.SettingType,
-                                    ParentId = parentSetting.Id,
-                                    IsSubSetting = true
-                                });
-                            }
-                        }
-                    }
-                }
-
-                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
                 return subSettings;
             }
-            catch (Exception ex)
+
+            foreach (var settingRelation in allSettingRelations)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                if (settingRelation.ParentId == parentSetting.Id)
+                {
+                    var settings = allSettings
+                        .Where(x => x.Id == settingRelation.Id)
+                        .Select(x => new Setting
+                            {
+                                Id = x.Id,
+                                DisplayOrder = x.DisplayOrder,
+                                Value = x.Value,
+                                SettingType = x.SettingType,
+                                ParentId = parentSetting.Id,
+                                IsSubSetting = true
+                            });
+                    
+                    subSettings.AddRange(settings);
+                }
             }
+
+            subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
+            return subSettings;
         }
 
-        /// <summary>
-        /// Gets the number of feedback subject template.
-        /// </summary>
-        /// <returns>The number of feedback subject template.</returns>
         public int NumberOfFeedbackSubjectTemplate()
         {
-            try
-            {
-                var feedbackTemplates = GetFeedbackSubjectTemplates();
-                return feedbackTemplates.Count;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            var feedbackTemplates = GetFeedbackSubjectTemplates();
+            return feedbackTemplates.Count();
         }
 
-        /// <summary>
-        /// Gets the feedback subject template by paging index.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template by paging index.</returns>
-        public List<FeedbackTemplate> FeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
+        public IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
-            try
+            var result = new List<FeedbackTemplate>();
+            int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
+            var feedbackTemplates = CacheService.Get<IEnumerable<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
+
+            if (feedbackTemplates == null)
             {
-                var result = new List<FeedbackTemplate>();
-                int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
-                var feedbackTemplates = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
-
-                if (feedbackTemplates == null)
-                {
-                    feedbackTemplates = GetFeedbackSubjectTemplates();
-                }
-
-                if (feedbackTemplates != null && feedbackTemplates.Count > 0)
-                {
-                    result = feedbackTemplates
-                        .Skip((criteria.PagingIndex - 1) * multipleNum)
-                        .Take(criteria.PagingIndex * multipleNum).ToList();
-                }
-
-                return result;
+                feedbackTemplates = GetFeedbackSubjectTemplates();
             }
-            catch (Exception ex)
+
+            if (feedbackTemplates != null && feedbackTemplates.Count() > 0)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result = feedbackTemplates
+                    .Skip((criteria.PagingIndex - 1) * multipleNum)
+                    .Take(criteria.PagingIndex * multipleNum).ToList();
             }
+
+            return result;
         }
 
-        /// <summary>
-        /// Gets all log actions.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The log actions list.</returns>
-        public List<SettingInfo> AllLogAction(GetActionCriteria criteria)
+        public IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
-            try
+            string cachedKey = criteria.ActionType == SettingConstants.ActivityLog
+                ? GetAllActivityLogActionKey
+                : GetAllSettingLogActionKey;
+            var actions = CacheService.Get<IEnumerable<BaseModel>>(cachedKey);
+            if (actions != null)
             {
-                List<SettingInfo> actions = null;
-                string cachedKey = criteria.ActionType == SettingConstants.ActivityLog
-                    ? GetAllActivityLogActionKey
-                    : GetAllSettingLogActionKey;
-                actions = CacheService.Get<List<SettingInfo>>(cachedKey);
-                if (actions != null)
-                {
-                    return actions;
-                }
-
-                actions = _settingRepositoryInstance.GetAllLogAction(criteria);
-                CacheService.Set(cachedKey, actions);
                 return actions;
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            actions = _settingRepositoryInstance.GetAllLogActions(criteria);
+            CacheService.Set(cachedKey, actions);
+            return actions;
         }
 
-        public List<SettingInfo> AllSiteType()
+        public IEnumerable<Setting> GetAllSiteTypes()
         {
-            return new List<SettingInfo>()
+            return new List<Setting>()
             {
-                new SettingInfo { Id = SiteConstants.All, Value = Labels.All },
-                new SettingInfo { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
-                new SettingInfo { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
+                new Setting { Id = SiteConstants.All, Value = Labels.All },
+                new Setting { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
+                new Setting { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
             };
         }
 
-        /// <summary>
-        /// Gets all inform headline settings.
-        /// </summary>
-        /// <returns>The Inform Headline Setting object.</returns>
-        public InformHeadlineSetting AllInformHeadlineSettings()
+        public InformHeadlineSetting GetAllInformHeadlineSettings()
         {
             try
             {
@@ -977,15 +692,15 @@ namespace Fanex.CRM.Setting.Services
                 {
                     Status = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
                     Position = roles,
-                    Currency = GetAllCurrency(new GetAllCurrencyCriteria()),
-                    Site = AllSite()[0].ChildSites.Select(s => new BaseModel { Id = s.Id, Name = s.Name }).ToList(),
+                    Currency = GetAllCurrencies(new GetAllCurrencyCriteria()),
+                    Site = GetAllSites().ElementAt(0).ChildSites.Select(s => new BaseModel { Id = s.Id, Name = s.Name }).ToList(),
                     ProductStatus = new List<BaseModel>() 
                     {
                         new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },
                         new BaseModel { Id = HeadlineProductStatusConstants.Enable, Name = Labels.Enable },
                         new BaseModel { Id = HeadlineProductStatusConstants.Disable, Name = Labels.Disable }
                     },
-                    Extensions = AllExtension()
+                    Extensions = GetAllExtensions()
                 };
 
                 CacheService.Set(cachedKey, settings);
@@ -998,11 +713,7 @@ namespace Fanex.CRM.Setting.Services
             }
         }
 
-        /// <summary>
-        /// Gets the type of the feedback statistic filter.
-        /// </summary>
-        /// <returns>The Feedback statistic filter type list.</returns>
-        public BaseModel[] FeedbackStatisticFilterTypeList()
+        public BaseModel[] GetFeedbackStatisticFilterTypes()
         {
             return new BaseModel[]
             {
@@ -1019,117 +730,54 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
-        /// <summary>
-        /// Resets all cache.
-        /// </summary>
-        public void ResetAllCache()
+        public void ClearCache()
         {
-            try
-            {
-                CacheService.Delete();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            CacheService.Clear();
         }
 
-        /// <summary>
-        /// Gets the main setting list.
-        /// </summary>
-        /// <returns>
-        /// The main setting list.
-        /// </returns>
-        public List<SettingInfo> MainSetting()
+        public IEnumerable<Setting> GetMainSettings()
         {
-            try
+            var allSettings = GetAllSettings();
+            var settingGroups = allSettings
+                .GroupBy(x => new { Type = x.SettingType })
+                .Select(group => new { group.Key, Count = group.Count() });
+            var settingGroupByType = new List<Setting>();
+            foreach (var s in settingGroups)
             {
-                var allSettings = AllSetting();
-                var settingGroups = allSettings
-                    .GroupBy(x => new { Type = x.SettingType })
-                    .Select(group => new { group.Key, Count = group.Count() });
-                var settingGroupByType = new List<SettingInfo>();
-                foreach (var s in settingGroups)
-                {
-                    GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
-                }
+                GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
+            }
 
-                return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
         }
 
-        /// <summary>
-        /// Get stations.
-        /// </summary>
-        /// <returns>List of stations.</returns>
-        public List<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
-            try
-            {
-                return _settingRepositoryInstance.GetStations(new GetStationsCriteria());
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingRepositoryInstance.GetStations(new GetStationsCriteria());
         }
 
-        private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
+        private void GetSubSetting(string key, IList<Setting> settingList, IEnumerable<Setting> allSettings)
         {
-            var subList = allSetting.Where(s => s.SettingType == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
-            var setting = new SettingInfo { SettingType = key, ChildSettings = subList };
+            var subList = allSettings.Where(s => s.SettingType == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
+            var setting = new Setting { SettingType = key, ChildSettings = subList };
             settingList.Add(setting);
         }
 
-        /// <summary>
-        /// Gets the setting relation by name.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The setting relation by name.</returns>
-        private List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
+        private IEnumerable<Setting> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
         {
-            try
-            {
-                var settingRelations = new List<SettingInfo>();
-                settingRelations = _settingRepositoryInstance.GetSettingRelationByName(criteria);
-                if (settingRelations != null)
-                {
-                    settingRelations = settingRelations.OrderBy(setting => setting.DisplayOrder).ToList();
-                }
+            var settingRelations = _settingRepositoryInstance.GetSettingRelations(criteria);
 
-                return settingRelations;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return settingRelations.OrderBy(setting => setting.DisplayOrder).ToList();
         }
 
-        private List<FeedbackTemplate> GetFeedbackSubjectTemplates()
+        private IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplates()
         {
-            try
+            var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
             {
-                var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
-                {
-                    TemplateId = 0
-                });
+                TemplateId = 0
+            });
 
-                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
-                return feedbackTemplates;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
+            return feedbackTemplates;
         }
     }
 }

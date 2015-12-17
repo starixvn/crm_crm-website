@@ -1,11 +1,12 @@
-﻿"use strict";
-/* global wagerReportApplication,
-RegisterTemplate */
-function wagerReportRegisterPicker() {
-    var wagerReportRegister = new RegisterTemplate(wagerReportApplication);
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function wagerReportRegisterPicker() {
+        var wagerReportRegister = new RegisterTemplate(angular.module('report-wagerreport-application'));
 
-    wagerReportRegister.registerDefaultFocus();
-    wagerReportRegister.registerDownloadFile();
-}
+        wagerReportRegister.registerDefaultFocus();
+        wagerReportRegister.registerDownloadFile();
+    }
 
-wagerReportRegisterPicker();
+    wagerReportRegisterPicker();
+})();

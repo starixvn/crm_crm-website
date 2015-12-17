@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global newInformApplication,
-sharedScriptManager */
-newInformApplication.factory('newInformService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('newInformApplication').factory('newInformService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -32,3 +32,4 @@ newInformApplication.factory('newInformService',
 
         return serviceInstance;
     } ]);
+})();

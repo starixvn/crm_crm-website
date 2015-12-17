@@ -1,18 +1,17 @@
-﻿"use strict";
-/* global editSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    settingInfo */
+    /* jshint camelcase: false */
 
-editSettingApplication.controller('editSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'editSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, editSettingService) {
+    angular.module('admintool-settingmanagement-editsetting-application').controller('editSettingController',
+    ['$scope', '$uiBlockerService', 'editSettingService',
+    function ($scope, $uiBlockerService, editSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.editSettingParams = {
             OldSetting: angular.copy(settingInfo),
@@ -40,7 +39,7 @@ editSettingApplication.controller('editSettingController',
                     $scope.showEditResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -119,3 +118,4 @@ editSettingApplication.controller('editSettingController',
             });
         });
     } ]);
+})();

@@ -7,555 +7,561 @@
 @using Fanex.CRM.Common.Services;
 @model CustomerInfo
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_AddFeedback;
+
     var customerId = Model.Id;
     var customerName = Model.Name;
 }
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedbacks-addcustomerfeedback-application">
-<head>
-    <title>@Resources.Language.Title_AddFeedback </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
     @RazorHelper.RenderStyles("~/Scripts/InputBox/style.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles")
-</head>
-<body data-ng-controller="addCustomerFeedbackController">
-    <div class="container main">
-        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="messageResultOptions.Message">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row panel-group" data-ng-class=" isShowCustomerDetailBox ? '': 'consecutive-container-before'">
-            <div class="row title hand" data-ng-click="showHideCustomerDetailBox();">
-                <b><span id="label-customername" data-ng-bind="customerInfo.Name"></span></b>
-            </div>
-            <div class="cust-info row content" data-ng-show="isShowCustomerDetailBox">
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="ddltitle">@Language.Title</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8 title-picker-container" data-ng-model="titleOptions.DataList">
-                            <select id="title" tabindex="2">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="birthdayInfo">@Language.Birthday</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8 date-picker-container" data-ng-model="birthdayOptions.IsRerenderPicker">
-                            <input type="text" class="textbox timepicker txtcalendar" id="birthdayInfo" tabindex="5" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="refCodes2Info">@Language.RefCodes2</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="refCodes2Info" tabindex="8" data-ng-model="customerInfo.BettingCode[1]" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="customerInfo.IsVIP" />@Language.VIP</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
-                                <input type="checkbox" id="chkIsOverrideCrmInfo" tabindex="12" data-ng-model="addCustomerFeedbackParams.OverrideCRMInfo" />
-                                @Language.OverwriteCRMInfo</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="firstNameInfo">@Language.FirstName</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="firstNameInfo" tabindex="3" data-ng-model="customerInfo.FirstName" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="passportInfo">@Language.PassportNumber</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="passportInfo" tabindex="6" data-ng-model="customerInfo.Passport.Name" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="bettingCodeInfo">@Language.BettingCode</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="bettingCodeInfo" data-ng-model="customerInfo.BettingCode[0]"
-                                tabindex="9" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="lastNameInfo">@Language.LastName</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="lastNameInfo" tabindex="4" data-ng-model="customerInfo.LastName" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="ddlsite">@Language.Site</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8 site-picker-container" data-ng-model="siteOptions.DataList">
-                            <select id="site" class="dropdown-siteinfo" tabindex="7">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4 ">
-                            <label for="licensee-type">
-                                @Labels.Licensee_Type</label></div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <select id="licensee-type" tabindex="10" data-ng-model="customerInfo.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id">
-                            </select>
+}
+<div data-ng-app="feedbacks-addcustomerfeedback-application">
+    <div data-ng-controller="addCustomerFeedbackController">
+        <div class="container main">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="separate row" data-ng-show="isShowCustomerDetailBox">
-                <hr style="" />
-            </div>
-            <div class="communication row content" data-ng-show="isShowCustomerDetailBox">
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="contact1Info">@Language.ContactNumber1</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox code-country" id="contact1InfoCountry" tabindex="12"
-                                data-ng-model="customerInfo.PhoneInfo[0].CountryCode" />
-                            <input type="text" class="textbox code-area" id="contact1InfoArea" tabindex="13" data-ng-model="customerInfo.PhoneInfo[0].AreaCode" />
-                            <input type="text" class="textbox phone" id="contact1InfoPhone" tabindex="14" data-ng-model="customerInfo.PhoneInfo[0].PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="faxInfo">@Language.Fax</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox code-country" id="faxInfoCountry" tabindex="21"
-                                data-ng-model="customerInfo.FaxInfo.CountryCode" />
-                            <input type="text" class="textbox code-area" id="faxInfoArea" tabindex="22" data-ng-model="customerInfo.FaxInfo.AreaCode" />
-                            <input type="text" class="textbox phone" id="faxInfoFax" tabindex="23" data-ng-model="customerInfo.FaxInfo.FaxNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="pic2NameInfo">
-                                @Labels.PIC_2</label></div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox pic-name" id="pic2NameInfo" tabindex="29" data-ng-model="customerInfo.PersonalInfoContacts[1].Name" />
-                            <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[1].Phone"
-                                tabindex="30" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="skypeInfo">@Language.Skype</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="skypeInfo" tabindex="35" data-ng-model="customerInfo.Skype" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="weChatInfo">@Labels.WeChat</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="weChatInfo" tabindex="38" data-ng-model="customerInfo.WeChat" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="yahoo">@Labels.Yahoo</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="yahoo" tabindex="41" data-ng-model="customerInfo.Yahoo" />
-                        </div>
-                    </div>
-                </div>   
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="contact2Info">@Language.ContactNumber2</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox code-country" id="contact2InfoCountry" tabindex="15"
-                                data-ng-model="customerInfo.PhoneInfo[1].CountryCode" />
-                            <input type="text" class="textbox code-area" id="contact2InfoArea" tabindex="16" data-ng-model="customerInfo.PhoneInfo[1].AreaCode" />
-                            <input type="text" class="textbox phone" id="contact2InfoPhone" tabindex="17" data-ng-model="customerInfo.PhoneInfo[1].PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="mobileInfo">@Language.Mobile</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox code-country" id="mobileInfoCountry" tabindex="24"
-                                data-ng-model="customerInfo.MobilePhone.CountryCode" />
-                            <input type="text" class="textbox code-area" id="mobileInfoArea" tabindex="25" data-ng-model="customerInfo.MobilePhone.AreaCode" />
-                            <input type="text" class="textbox phone" id="mobileInfoPhone" tabindex="26" data-ng-model="customerInfo.MobilePhone.PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="pic3NameInfo">
-                                @Labels.PIC_3</label></div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox pic-name" id="pic3NameInfo" tabindex="31" data-ng-model="customerInfo.PersonalInfoContacts[2].Name" />
-                            <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[2].Phone"
-                                tabindex="32" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="emailInfo">@Language.Email</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="emailInfo" tabindex="36" data-ng-model="customerInfo.Email" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="whatsAppInfo">@Labels.WhatsApp</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="whatsAppInfo" tabindex="39" data-ng-model="customerInfo.WhatsApp" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="qq">@Labels.QQ</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="qq" tabindex="42" data-ng-model="customerInfo.QQ" />
-                        </div>
-                    </div>
+            <div class="row panel-group" data-ng-class=" isShowCustomerDetailBox ? '': 'consecutive-container-before'">
+                <div class="row title hand" data-ng-click="showHideCustomerDetailBox();">
+                    <b><span id="label-customername" data-ng-bind="customerInfo.Name"></span></b>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4">
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="contact3Info">@Language.ContactNumber3</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox code-country" id="contact3InfoCountry" tabindex="18"
-                                data-ng-model="customerInfo.PhoneInfo[2].CountryCode" />
-                            <input type="text" class="textbox code-area" id="contact3InfoArea" tabindex="19"
-                                data-ng-model="customerInfo.PhoneInfo[2].AreaCode" />
-                            <input type="text" class="textbox phone" id="contact3InfoPhone" tabindex="20" data-ng-model="customerInfo.PhoneInfo[2].PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="pic1NameInfo">
-                                @Labels.PIC_1</label></div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox pic-name" id="pic1NameInfo" tabindex="27" data-ng-model="customerInfo.PersonalInfoContacts[0].Name" />
-                            <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[0].Phone"
-                                tabindex="28" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="pic4NameInfo">
-                                @Labels.PIC_4</label></div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox pic-name" id="pic4NameInfo" tabindex="33" data-ng-model="customerInfo.PersonalInfoContacts[3].Name" />
-                            <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[3].Phone"
-                                tabindex="34" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="msnInfo">@Language.MSN</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="msnInfo" tabindex="37" data-ng-model="customerInfo.MSN" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="lineInfo">@Labels.Line</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="lineInfo" tabindex="40" data-ng-model="customerInfo.Line" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="bbm">@Labels.BBM</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="bbm" tabindex="43" data-ng-model="customerInfo.BBM" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row panel-group" data-ng-class="isShowFeedbackDetailBox ? '': 'consecutive-container-before'">
-            <div class="row title hand" data-ng-click="showHideFeedbackDetailBox();">
-                @Labels.Details
-            </div>
-            <div class="FeedbackDetail row content" data-ng-show="isShowFeedbackDetailBox">
-                <div class="row ">
-                    <div class="col-md-4">
+                <div class="cust-info row content" data-ng-show="isShowCustomerDetailBox">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="startTime">@Language.FeedbackDate</label>
+                                <label for="ddltitle">@Language.Title</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 title-picker-container" data-ng-model="titleOptions.DataList">
+                                <select id="title" tabindex="2">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="birthdayInfo">@Language.Birthday</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 date-picker-container" data-ng-model="birthdayOptions.IsRerenderPicker">
+                                <input type="text" class="textbox timepicker txtcalendar" id="birthdayInfo" tabindex="5" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="refCodes2Info">@Language.RefCodes2</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60" readonly
-                                    onselect="onStartTimeChanged();" data-ng-model="addCustomerFeedbackParams.StartTime" datetimepicker />
+                                <input type="text" class="textbox" id="refCodes2Info" tabindex="8" data-ng-model="customerInfo.BettingCode[1]" />
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlcommunication">@Language.Communication</label>
-                                @Html.Raw(Language.RequiredFieldTemplate)
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
-                                <select id="communication-tool" tabindex="63">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlproduct">@Language.Product</label>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 product-picker-container" data-ng-model="productOptions.DataList">
-                                <select id="product" tabindex="66">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddllanguage">@Language._Language</label>
-                                @Html.Raw(Language.RequiredFieldTemplate)
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 language-picker-container" data-ng-model="languageOptions.DataList">
-                                <select id="language" tabindex="69">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlresponse">@Language.Response</label>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
-                                <select id="response" tabindex="72">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="endTime">@Language.ResolutionTime</label>
+                                <label for="isVIP" class="labelforcheckbox checkbox">
+                                    <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="customerInfo.IsVIP" />@Language.VIP</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                <input type="text" id="endTime" class="txtcalendar textbox timepicker" tabindex="61"
-                                    readonly data-ng-model="addCustomerFeedbackParams.EndTime" datetimepicker />
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlcategory">@Language.Category</label>
-                                @Html.Raw(Language.RequiredFieldTemplate)
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                                <select id="main-category" tabindex="64">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="bettype">@Language.BetType</label>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
-                                <select id="bettype" tabindex="67">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlstatus">@Language.Status</label>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
-                                <select id="status" tabindex="70">
-                                </select>
+                                <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
+                                    <input type="checkbox" id="chkIsOverrideCrmInfo" tabindex="12" data-ng-model="addCustomerFeedbackParams.OverrideCRMInfo" />
+                                    @Language.OverwriteCRMInfo</label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlcsextension">@Language.CSExtension</label>
+                                <label for="firstNameInfo">@Language.FirstName</label>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 extension-picker-container" data-ng-model="extensionOptions.DataList">
-                                <select id="extension" tabindex="62">
-                                </select>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="firstNameInfo" tabindex="3" data-ng-model="customerInfo.FirstName" />
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlsubcategory">@Language.SubCategory</label>
-                                @Html.Raw(Language.RequiredFieldTemplate)
+                                <label for="passportInfo">@Language.PassportNumber</label>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
-                                <select id="sub-category" tabindex="65">
-                                </select>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="passportInfo" tabindex="6" data-ng-model="customerInfo.Passport.Name" />
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlcountry">@Language.country</label>
+                                <label for="bettingCodeInfo">@Language.BettingCode</label>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
-                                <select id="country" tabindex="68">
-                                </select>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="bettingCodeInfo" data-ng-model="customerInfo.BettingCode[0]"
+                                    tabindex="9" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="lastNameInfo">@Language.LastName</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="lastNameInfo" tabindex="4" data-ng-model="customerInfo.LastName" />
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="ddlrole">@Language.Role</label>
+                                <label for="ddlsite">@Language.Site</label>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8  role-picker-container" data-ng-model="roleOptions.DataList">
-                                <select id="role" name="D3" tabindex="71">
+                            <div class="col-xs-8 col-sm-8 col-md-8 site-picker-container" data-ng-model="siteOptions.DataList">
+                                <select id="site" class="dropdown-siteinfo" tabindex="7">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4 ">
+                                <label for="licensee-type">
+                                    @Labels.Licensee_Type</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <select id="licensee-type" tabindex="10" data-ng-model="customerInfo.LicenseeType"
+                                    data-ng-options="s.Name for s in licenseeTypes track by s.Id">
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="row item">
-                        <div class="col-xs-3 col-sm-2 col-md-2">
-                            <label class="labelforcheckbox checkbox">
-                                <input type="checkbox" id="chkisrelated" data-ng-click="checkIsRelated();" data-ng-model="addCustomerFeedbackParams.HasRelated"
-                                    tabindex="78" />
-                                @Language.IsRelatedCustomer
-                            </label>
+                <div class="separate row" data-ng-show="isShowCustomerDetailBox">
+                    <hr style="" />
+                </div>
+                <div class="communication row content" data-ng-show="isShowCustomerDetailBox">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="contact1Info">@Language.ContactNumber1</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox code-country" id="contact1InfoCountry" tabindex="12"
+                                    data-ng-model="customerInfo.PhoneInfo[0].CountryCode" />
+                                <input type="text" class="textbox code-area" id="contact1InfoArea" tabindex="13"
+                                    data-ng-model="customerInfo.PhoneInfo[0].AreaCode" />
+                                <input type="text" class="textbox phone" id="contact1InfoPhone" tabindex="14" data-ng-model="customerInfo.PhoneInfo[0].PhoneNumber" />
+                            </div>
                         </div>
-                        <div class="col-xs-9 col-sm-10 col-md-10">
-                            <div class="row">
-                                <div class="col-xs-11 col-sm-11 col-md-11 related-customer-directive-container" data-ng-model="relatedCustomerOptions.IsUpdate">
-                                    <input type="button" value="  " id="btnRelatedHelp"
-                                        class="btnHelp pull-left tipsy-directive" 
-                                        title="@Labels.Related_Help" 
-                                        data-ng-model="tipsyOptions.IsUpdateTip" />
-                                    <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="faxInfo">@Language.Fax</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox code-country" id="faxInfoCountry" tabindex="21"
+                                    data-ng-model="customerInfo.FaxInfo.CountryCode" />
+                                <input type="text" class="textbox code-area" id="faxInfoArea" tabindex="22" data-ng-model="customerInfo.FaxInfo.AreaCode" />
+                                <input type="text" class="textbox phone" id="faxInfoFax" tabindex="23" data-ng-model="customerInfo.FaxInfo.FaxNumber" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="pic2NameInfo">
+                                    @Labels.PIC_2</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox pic-name" id="pic2NameInfo" tabindex="29" data-ng-model="customerInfo.PersonalInfoContacts[1].Name" />
+                                <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[1].Phone"
+                                    tabindex="30" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="skypeInfo">@Language.Skype</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="skypeInfo" tabindex="35" data-ng-model="customerInfo.Skype" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="weChatInfo">@Labels.WeChat</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="weChatInfo" tabindex="38" data-ng-model="customerInfo.WeChat" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="yahoo">@Labels.Yahoo</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="yahoo" tabindex="41" data-ng-model="customerInfo.Yahoo" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="contact2Info">@Language.ContactNumber2</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox code-country" id="contact2InfoCountry" tabindex="15"
+                                    data-ng-model="customerInfo.PhoneInfo[1].CountryCode" />
+                                <input type="text" class="textbox code-area" id="contact2InfoArea" tabindex="16"
+                                    data-ng-model="customerInfo.PhoneInfo[1].AreaCode" />
+                                <input type="text" class="textbox phone" id="contact2InfoPhone" tabindex="17" data-ng-model="customerInfo.PhoneInfo[1].PhoneNumber" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="mobileInfo">@Language.Mobile</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox code-country" id="mobileInfoCountry" tabindex="24"
+                                    data-ng-model="customerInfo.MobilePhone.CountryCode" />
+                                <input type="text" class="textbox code-area" id="mobileInfoArea" tabindex="25" data-ng-model="customerInfo.MobilePhone.AreaCode" />
+                                <input type="text" class="textbox phone" id="mobileInfoPhone" tabindex="26" data-ng-model="customerInfo.MobilePhone.PhoneNumber" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="pic3NameInfo">
+                                    @Labels.PIC_3</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox pic-name" id="pic3NameInfo" tabindex="31" data-ng-model="customerInfo.PersonalInfoContacts[2].Name" />
+                                <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[2].Phone"
+                                    tabindex="32" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="emailInfo">@Language.Email</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="emailInfo" tabindex="36" data-ng-model="customerInfo.Email" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="whatsAppInfo">@Labels.WhatsApp</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="whatsAppInfo" tabindex="39" data-ng-model="customerInfo.WhatsApp" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="qq">@Labels.QQ</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="qq" tabindex="42" data-ng-model="customerInfo.QQ" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="contact3Info">@Language.ContactNumber3</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox code-country" id="contact3InfoCountry" tabindex="18"
+                                    data-ng-model="customerInfo.PhoneInfo[2].CountryCode" />
+                                <input type="text" class="textbox code-area" id="contact3InfoArea" tabindex="19"
+                                    data-ng-model="customerInfo.PhoneInfo[2].AreaCode" />
+                                <input type="text" class="textbox phone" id="contact3InfoPhone" tabindex="20" data-ng-model="customerInfo.PhoneInfo[2].PhoneNumber" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="pic1NameInfo">
+                                    @Labels.PIC_1</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox pic-name" id="pic1NameInfo" tabindex="27" data-ng-model="customerInfo.PersonalInfoContacts[0].Name" />
+                                <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[0].Phone"
+                                    tabindex="28" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="pic4NameInfo">
+                                    @Labels.PIC_4</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox pic-name" id="pic4NameInfo" tabindex="33" data-ng-model="customerInfo.PersonalInfoContacts[3].Name" />
+                                <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[3].Phone"
+                                    tabindex="34" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="msnInfo">@Language.MSN</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="msnInfo" tabindex="37" data-ng-model="customerInfo.MSN" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="lineInfo">@Labels.Line</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="lineInfo" tabindex="40" data-ng-model="customerInfo.Line" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label for="bbm">@Labels.BBM</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="textbox" id="bbm" tabindex="43" data-ng-model="customerInfo.BBM" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row panel-group" data-ng-class="isShowFeedbackDetailBox ? '': 'consecutive-container-before'">
+                <div class="row title hand" data-ng-click="showHideFeedbackDetailBox();">
+                    @Labels.Details
+                </div>
+                <div class="FeedbackDetail row content" data-ng-show="isShowFeedbackDetailBox">
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="startTime">@Language.FeedbackDate</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60"
+                                        readonly onselect="onStartTimeChanged();" data-ng-model="addCustomerFeedbackParams.StartTime"
+                                        datetimepicker />
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcommunication">@Language.Communication</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                                    <select id="communication-tool" tabindex="63">
                                     </select>
                                 </div>
-                                <div class="col-xs-1 col-sm-1 col-md-1">
-                                    <button id="btnverify" class="btn pull-right" data-ng-click="verifyUserName();" disabled
-                                        tabindex="79">
-                                        V<span class="hotkey">e</span>rify</button>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlproduct">@Language.Product</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 product-picker-container" data-ng-model="productOptions.DataList">
+                                    <select id="product" tabindex="66">
+                                    </select>
                                 </div>
                             </div>
-                            <div id="ColorGuide" class="row display-none colorGuide">
-                                <div class="col-sm-2 col-md-2 relate-customer">
-                                    @Language.Customer</div>
-                                <div class="col-sm-2 col-md-2 relate-guest">
-                                    @Language.Guest</div>
-                                <div class="col-sm-2 col-md-2 relate-invalid">
-                                    @Language.Invalid</div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddllanguage">@Language._Language</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 language-picker-container" data-ng-model="languageOptions.DataList">
+                                    <select id="language" tabindex="69">
+                                    </select>
+                                </div>
                             </div>
-                            <div id="trRelatedInfo" class="row display-none relatedFeedback">
-                                <table id="related">
-                                </table>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Language.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
+                                    <select id="response" tabindex="72">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="endTime">@Language.ResolutionTime</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input type="text" id="endTime" class="txtcalendar textbox timepicker" tabindex="61"
+                                        readonly data-ng-model="addCustomerFeedbackParams.EndTime" datetimepicker />
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcategory">@Language.Category</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                                    <select id="main-category" tabindex="64">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="bettype">@Language.BetType</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
+                                    <select id="bettype" tabindex="67">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlstatus">@Language.Status</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
+                                    <select id="status" tabindex="70">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcsextension">@Language.CSExtension</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 extension-picker-container" data-ng-model="extensionOptions.DataList">
+                                    <select id="extension" tabindex="62">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlsubcategory">@Language.SubCategory</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                                    <select id="sub-category" tabindex="65">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcountry">@Language.country</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
+                                    <select id="country" tabindex="68">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlrole">@Language.Role</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8  role-picker-container" data-ng-model="roleOptions.DataList">
+                                    <select id="role" name="D3" tabindex="71">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="row item">
-                        <div class="col-xs-3 col-sm-2 col-md-2 lblSubject">
-                            <label for="txtsubject">
-                                @Language.Subject
-                            </label>
-                            @Html.Raw(Language.RequiredFieldTemplate)
+                    <div class="row">
+                        <div class="row item">
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="labelforcheckbox checkbox">
+                                    <input type="checkbox" id="chkisrelated" data-ng-click="checkIsRelated();" data-ng-model="addCustomerFeedbackParams.HasRelated"
+                                        tabindex="78" />
+                                    @Language.IsRelatedCustomer
+                                </label>
+                            </div>
+                            <div class="col-xs-9 col-sm-10 col-md-10">
+                                <div class="row">
+                                    <div class="col-xs-11 col-sm-11 col-md-11 related-customer-directive-container" data-ng-model="relatedCustomerOptions.IsUpdate">
+                                        <input type="button" value="  " id="btnRelatedHelp"
+                                        class="btnHelp pull-left tipsy-directive"
+                                        title="@Labels.Related_Help"
+                                        data-ng-model="tipsyOptions.IsUpdateTip" />
+                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-1 col-sm-1 col-md-1">
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyUserName();" disabled
+                                            tabindex="79">
+                                            V<span class="hotkey">e</span>rify</button>
+                                    </div>
+                                </div>
+                                <div id="ColorGuide" class="row display-none colorGuide">
+                                    <div class="col-sm-2 col-md-2 relate-customer">
+                                        @Language.Customer</div>
+                                    <div class="col-sm-2 col-md-2 relate-guest">
+                                        @Language.Guest</div>
+                                    <div class="col-sm-2 col-md-2 relate-invalid">
+                                        @Language.Invalid</div>
+                                </div>
+                                <div id="trRelatedInfo" class="row display-none relatedFeedback">
+                                    <table id="related">
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xs-9 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
-                            <input type="text" id="subject" class="textbox subject-auto-complete txtSubject"
-                                autocomplete="off" tabindex="80" data-ng-model="subjectOptions.Subject" />
+                    </div>
+                    <div class="row">
+                        <div class="row item">
+                            <div class="col-xs-3 col-sm-2 col-md-2 lblSubject">
+                                <label for="txtsubject">
+                                    @Language.Subject
+                                </label>
+                                @Html.Raw(Language.RequiredFieldTemplate)
+                            </div>
+                            <div class="col-xs-9 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                                <input type="text" id="subject" class="textbox subject-auto-complete txtSubject"
+                                    autocomplete="off" tabindex="80" data-ng-model="subjectOptions.Subject" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row panel-group" data-ng-class="isShowDescriptionBox ? '' : 'consecutive-container-before'">
-            <div class="row title">
-                <div class="pull-left hand" data-ng-click="isShowDescriptionBox = !isShowDescriptionBox;">
-                    @Labels.Description @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                </div>
-                <div class="pull-right">
-                    <input type="button" class="btnreview " value="@Language.Preview" id="btndesreview" data-ng-click="showDescriptionPreview();" 
+            <div class="row panel-group" data-ng-class="isShowDescriptionBox ? '' : 'consecutive-container-before'">
+                <div class="row title">
+                    <div class="pull-left hand" data-ng-click="isShowDescriptionBox = !isShowDescriptionBox;">
+                        @Labels.Description @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </div>
+                    <div class="pull-right">
+                        <input type="button" class="btnreview " value="@Language.Preview" id="btndesreview" data-ng-click="showDescriptionPreview();"
                         data-ng-class="isShowDescriptionPreview ? 'hidden' : '' " />
-                    <input type="button" class="btnedit hidden" value="@Language.Edit" id="btndesedit" data-ng-click="showDescriptionEditor();"
+                        <input type="button" class="btnedit hidden" value="@Language.Edit" id="btndesedit" data-ng-click="showDescriptionEditor();"
                         data-ng-class="isShowDescriptionPreview ? '' : 'hidden' " />
-                </div>
-            </div>
-            <div class="FeedbackDescription row content" data-ng-class="isShowDescriptionBox ? '' : 'hide'">
-                <div class="editerwrapper" id="descriptionwrapper">
-                    <div id="previewboxdes" class="preview raw-html-directive" data-ng-class="isShowDescriptionPreview ? '' : 'hidden' "
-                        data-ng-model="descriptionOptions.SelectedText">
-                    </div>
-                    <div id="descriptioneditorboxcontainer" class="description-editor-container" data-ng-model="descriptionOptions.SelectedText"
-                        data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row panel-group last" data-ng-class="isShowSolutionBox ? '' : 'consecutive-container-before'">
-            <div class="row title">
-                <div class="pull-left hand" data-ng-click="isShowSolutionBox = !isShowSolutionBox;">
-                    @Labels.Solution @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                <div class="FeedbackDescription row content" data-ng-class="isShowDescriptionBox ? '' : 'hide'">
+                    <div class="editerwrapper" id="descriptionwrapper">
+                        <div id="previewboxdes" class="preview raw-html-directive" data-ng-class="isShowDescriptionPreview ? '' : 'hidden' "
+                            data-ng-model="descriptionOptions.SelectedText">
+                        </div>
+                        <div id="descriptioneditorboxcontainer" class="description-editor-container" data-ng-model="descriptionOptions.SelectedText"
+                            data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
+                        </div>
+                    </div>
                 </div>
-                <div class="pull-right">
-                    <input type="button" class="btnreview " value="@Language.Preview" id="btnsolreview" data-ng-click="showSolutionPreview();"
+            </div>
+            <div class="row panel-group last" data-ng-class="isShowSolutionBox ? '' : 'consecutive-container-before'">
+                <div class="row title">
+                    <div class="pull-left hand" data-ng-click="isShowSolutionBox = !isShowSolutionBox;">
+                        @Labels.Solution @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </div>
+                    <div class="pull-right">
+                        <input type="button" class="btnreview " value="@Language.Preview" id="btnsolreview" data-ng-click="showSolutionPreview();"
                         data-ng-class="isShowSolutionPreview ? 'hidden' : '' " />
-                    <input type="button" class="btnedit" value="@Language.Edit" 
+                        <input type="button" class="btnedit" value="@Language.Edit"
                         id="btnsoledit" data-ng-click="showSolutionEditor();"
                         data-ng-class="isShowSolutionPreview ? '' : 'hidden' " />
-                </div>
-            </div>
-            <div class="FeedbackSolution row content" data-ng-class="isShowSolutionBox ? '' : 'hide'">
-                <div class="editerwrapper" id="solutionwrapper">
-                    <div id="previewboxsol" class="preview raw-html-directive" data-ng-class="isShowSolutionPreview ? '' : 'hidden' "
-                        data-ng-model="solutionOptions.SelectedText">
-                    </div>
-                    <div id="solutioneditorboxcontainer" class="solution-editor-container" data-ng-model="solutionOptions.SelectedText"
-                        data-ng-class="isShowSolutionPreview ? 'hidden' : '' ">
                     </div>
                 </div>
+                <div class="FeedbackSolution row content" data-ng-class="isShowSolutionBox ? '' : 'hide'">
+                    <div class="editerwrapper" id="solutionwrapper">
+                        <div id="previewboxsol" class="preview raw-html-directive" data-ng-class="isShowSolutionPreview ? '' : 'hidden' "
+                            data-ng-model="solutionOptions.SelectedText">
+                        </div>
+                        <div id="solutioneditorboxcontainer" class="solution-editor-container" data-ng-model="solutionOptions.SelectedText"
+                            data-ng-class="isShowSolutionPreview ? 'hidden' : '' ">
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row btn-group">
+                <button class="btn" data-ng-click="addFeedback();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
-        <div class="row btn-group">
-            <button class="btn" data-ng-click="addFeedback();">
-                <span class="hotkey">S</span>ave</button>
-        </div>
-        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
@@ -575,15 +581,15 @@
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var currentUsername = "@AppSession.CurrentUser.Username";
-        var viewResources = { 
+        var viewResources = {
             All: '@Labels.All',
             Select: '@Labels.Select',
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Helper_RelatedInputMessage: '@Labels.Helper_RelatedInputMessage',
             Confirm_Ignore_Feedback_AddCustomerFeedback: '@Html.Raw(Resources.Language.Confirm_Ignore_Feedback_AddCustomerFeedback)',
-            
+
             ErrorFeedbackResolutionTime: '@Labels.Error_FeedbackResolutionTime',
-            NoSubcategoryError: '@Labels.NoSubcategoryError',            
+            NoSubcategoryError: '@Labels.NoSubcategoryError',
             Error_NACommmunicationTool: '@Labels.Error_NACommmunicationTool',
             Error_NAMainCategory: '@Labels.Error_NAMainCategory',
             Error_NASubCategory: '@Labels.Error_NASubCategory',
@@ -594,5 +600,4 @@
             Error_VerifyRelatedCustomer: '@Labels.Error_VerifyRelatedCustomer'
      };
     </script>
-</body>
-</html>
+}

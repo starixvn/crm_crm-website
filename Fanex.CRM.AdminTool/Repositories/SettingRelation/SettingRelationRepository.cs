@@ -14,90 +14,63 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     /// <summary>
     /// Setting Relation Repository.
     /// </summary>
-    public class SettingRelationRepository : ISettingRelationRepository
+    public class SettingRelationRepository : BaseRepository, ISettingRelationRepository
     {
-        /// <summary>
-        /// Gets all setting relation.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All setting relation.</returns>
-        public List<SettingInfo> AllSettingRelation(GetAllSettingRelationCriteria criteria)
+        public IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
         {
-            List<SettingInfo> result = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new SettingInfo
+                    var result = new List<Setting>();
+                    while (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["settingid"], 0),
-                        ParentId = Converter.ToInt(reader["parentid"], 0),
-                        DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
-                    });
+                        result.Add(new Setting
+                        {
+                            Id = Converter.ToInt(reader["settingid"], 0),
+                            ParentId = Converter.ToInt(reader["parentid"], 0),
+                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
+                        });
+                    }
+
+                    return result;
                 }
             }
-
-            return result;
         }
 
-        /// <summary>
-        /// Gets the main setting relations.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main setting relations.</returns>
-        public List<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<Setting> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
-            List<SettingInfo> result = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new SettingInfo
+                    var result = new List<Setting>();
+                    while (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["settingid"], 0),
-                        Value = Converter.ToString2(reader["settingvalue"]),
-                        IsSubSetting = Converter.ToInt(reader["issub"], 0) == 1,
-                        DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
-                    });
+                        result.Add(new Setting
+                        {
+                            Id = Converter.ToInt(reader["settingid"], 0),
+                            Value = Converter.ToString2(reader["settingvalue"]),
+                            IsSubSetting = Converter.ToInt(reader["issub"], 0) == 1,
+                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
+                        });
+                    }
+
+                    return result;
                 }
             }
-
-            return result;
         }
 
-        /// <summary>
-        /// Adds the setting relations.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Add result.</returns>
         public Result AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
-            Result addResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                addResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return addResult;
+            return ExecuteNonQuery(criteria);
         }
     }
 }

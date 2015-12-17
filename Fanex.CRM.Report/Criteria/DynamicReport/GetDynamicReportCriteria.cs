@@ -69,9 +69,6 @@ namespace Fanex.CRM.Report.Criteria.DynamicReport
         public int PageSize { get; set; }
 
         [SpParam(Ignored = true)]
-        public bool IsGetFromCached { get; set; }
-
-        [SpParam(Ignored = true)]
         public bool IsGetFullReport { get; set; }
 
         public override string GetSettingKey()

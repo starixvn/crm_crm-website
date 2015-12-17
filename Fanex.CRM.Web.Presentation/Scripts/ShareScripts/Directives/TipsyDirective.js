@@ -1,7 +1,6 @@
 ﻿"use strict";
-/* global directiveManager: true,
-sharedScriptManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 var directiveManager = directiveManager || {};
 directiveManager.registerTipsyDirective = function (angularApplication, registerParams) {
     function isOptionReady(options) {
@@ -29,5 +28,5 @@ directiveManager.registerTipsyDirective = function (angularApplication, register
                 });
             }
         };
-    })
+    });
 };

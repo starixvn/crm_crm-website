@@ -43,72 +43,42 @@ namespace Fanex.CRM.Customer.Services
             _settingService = settingService ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets the customer information detail by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer information detail by identifier.</returns>
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            CustomerInfo customerInfo = null;
-            try
+            var customerInfo = _customerRepositoryInstance.GetCustomerInfoDetailById(criteria);
+            if (customerInfo != null)
             {
-                var rawData = _customerRepositoryInstance.GetCustomerInfoDetailById(criteria);
-                customerInfo = rawData;
-                if (customerInfo != null)
+                customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
+                var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                 {
-                    customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                    var siteSetting = _settingService.SettingById(new GetSettingByIdCriteria
-                    {
-                        SettingId = customerInfo.SiteSetting.Id
-                    });
-                    customerInfo.SiteSetting.Name = siteSetting.Value;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                    SettingId = customerInfo.SiteSetting.Id
+                });
+                customerInfo.SiteSetting.Name = siteSetting.Value;
             }
 
             return customerInfo;
         }
 
-        /// <summary>
-        /// Updates the customer information detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
-        public BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
+        public Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            BaseModel updateResult = null;
-            try
+            var updateResult = _customerRepositoryInstance.UpdateCustomerInfoDetail(criteria);
+            if (updateResult.Code == ErrorCodeConstants.NoneError)
             {
-                updateResult = _customerRepositoryInstance.UpdateCustomerInfoDetail(criteria);
-                if (updateResult != null &&
-                    updateResult.Id == ErrorCodeConstants.NoneError)
-                {
-                    updateResult.Name = Labels.CustomerInfo_UpdateSuccess;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                updateResult.Message = Labels.CustomerInfo_UpdateSuccess;
             }
 
             return updateResult;
         }
 
-        public dynamic AllSettings()
+        public dynamic GetAllSettings()
         {
             return new
             {
-                Titles = _settingService.AllTitle(),
-                Languages = _settingService.AllLanguage(),
-                Sites = _settingService.AllSite(),
-                LicenseeTypes = _settingService.AllLicenseeType(),
-                Countries = _settingService.AllCountry()
+                Titles = _settingService.GetAllTitles(),
+                Languages = _settingService.GetAllLanguages(),
+                Sites = _settingService.GetAllSites(),
+                LicenseeTypes = _settingService.GetAllLicenseeTypes(),
+                Countries = _settingService.GetAllCountries()
             };
         }
     }

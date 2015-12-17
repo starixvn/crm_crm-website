@@ -11,7 +11,7 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -28,9 +28,9 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    return ParseFeedbackStatistic(reader);
+                    return ReadFeedbackStatistic(reader);
                 }
             }
         }
@@ -43,30 +43,19 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
             }    
         }
 
-        /// <summary>
-        /// Parses the feedback statistic.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The Feedback statistic report.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private FeedbackStatistic ParseFeedbackStatistic(IDataReader reader)
+        private static FeedbackStatistic ReadFeedbackStatistic(IDataReader reader)
         {
-            IList<BaseModel> usernames = new List<BaseModel>();
-            int fieldCount = reader.FieldCount;
-            for (int i = 4; i < fieldCount; i++)
+            var userNames = new List<BaseModel>();
+            for (int i = 4; i < reader.FieldCount; i++)
             {
-                usernames.Add(new BaseModel { Name = reader.GetName(i) });
+                userNames.Add(new BaseModel { Name = reader.GetName(i) });
             }
 
-            int usernamesLeng = usernames.Count;
-            int[] grandTotals = new int[usernamesLeng];
-            FeedbackStatistic report = new FeedbackStatistic { Usernames = usernames, FeedbackCategories = new List<FeedbackCategory>(), GrandTotals = grandTotals };
-            int resolve;
+            var userNamesCount = userNames.Count;
+            var grandTotals = new int[userNamesCount];
+            var report = new FeedbackStatistic { Usernames = userNames, FeedbackCategories = new List<FeedbackCategory>(), GrandTotals = grandTotals };
             int previousCategory = 0, categoryId = 0;
             FeedbackCategory feedbackCategory = null;
-            FeedbackSubcategory feedbackSubcategory;
             while (reader.Read())
             {
                 categoryId = Converter.ToInt(reader["MainCategoryId"]);
@@ -78,22 +67,22 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
                         Id = Converter.ToInt(reader["MainCategoryId"]),
                         Name = Converter.ToString2(reader["MainCategory"]),
                         FeedbackSubcategories = new List<FeedbackSubcategory>(),
-                        SubTotal = InitializeSubTotal(usernamesLeng)
+                        SubTotal = InitializeSubTotal(userNamesCount)
                     };
 
                     report.FeedbackCategories.Add(feedbackCategory);
                 }
 
-                feedbackSubcategory = new FeedbackSubcategory 
+                var feedbackSubcategory = new FeedbackSubcategory 
                 {
                     Id = Converter.ToInt(reader["SubCategoryId"]),
                     Name = Converter.ToString2(reader["SubCategory"]),
                     Resolves = new List<int>(),
                 };
 
-                for (int i = 0; i < usernamesLeng; i++)
+                for (int i = 0; i < userNamesCount; i++)
                 {
-                    resolve = Converter.ToInt(reader[usernames[i].Name]);
+                    var resolve = Converter.ToInt(reader[userNames[i].Name]);
                     feedbackSubcategory.Resolves.Add(resolve);
                     feedbackCategory.SubTotal.Resolves[i] += resolve;
                     grandTotals[i] += resolve;
@@ -114,14 +103,9 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
             return report;
         }
 
-        private FeedbackSubcategory InitializeSubTotal(int usernamesLen)
+        private static FeedbackSubcategory InitializeSubTotal(int length)
         {
-            IList<int> resolves = new List<int>();
-            for (int i = 0; i < usernamesLen; i++)
-            {
-                resolves.Add(0);    
-            }
-
+            var resolves = Enumerable.Repeat(0, length).ToList();
             return new FeedbackSubcategory { Resolves = resolves };
         }
     }

@@ -25,75 +25,49 @@ namespace Fanex.CRM.Customer.Repositories
     /// </summary>
     public class CustomerDetailRepository : BaseCustomerRepository, ICustomerDetailRepository
     {
-        /// <summary>
-        /// Gets the customer information detail by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer information detail by identifier.</returns>
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            CustomerInfo customer = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    if (reader != null)
+                    CustomerInfo customer = null;
+
+                    if (reader.Read())
+                    {
+                        customer = ReadCustomer(reader);
+                    }
+
+                    if (customer != null && reader.NextResult())
                     {
                         while (reader.Read())
                         {
-                            MappingInfo_GetCustomerInfoDetailById(reader, ref customer);
+                            customer.Languages.Add(new BaseModel
+                            {
+                                Id = Converter.ToInt(reader["LanguageID"])
+                            });
                         }
                     }
 
-                    if (reader.NextResult())
-                    {
-                        while (reader.Read())
-                        {
-                            MappingLanguages_GetCustomerInfoDetailById(reader, ref customer);
-                        }
-                    }
+                    return customer;
                 }
             }
-
-            return customer;
         }
 
-        /// <summary>
-        /// Updates the customer information detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
-        public BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
+        public Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            BaseModel updateResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.ExecuteNonQuery(criteria.GetSpParams());
-                var outputParams = objectDB.GetOuputParams();
-                updateResult = new BaseModel
-                {
-                    Id = Converter.ToInt(outputParams["errcode"]),
-                    Name = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return updateResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Mappings the information get customer information detail by identifier.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="customer">The customer.</param>
-        private void MappingInfo_GetCustomerInfoDetailById(IDataReader reader, ref CustomerInfo customer)
+        private CustomerInfo ReadCustomer(IDataReader reader)
         {
-            customer = MappingDataFromSqlToCustomerInfoObject(reader);
+            var customer = ReadCustomerBasicInformation(reader);
             customer.BirthDayString = reader["BirthDay"] != DBNull.Value ?
                 Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate() :
                 string.Empty;
             customer.BankInfo.HolderName = Converter.ToString2(reader["AccountHolderName"]);
-            customer.BankInfo.AddressInfo = new AddressInfo
+            customer.BankInfo.AddressInfo = new Address
             {
                 LineList = new List<string> 
                 {
@@ -105,7 +79,7 @@ namespace Fanex.CRM.Customer.Repositories
                 City = Converter.ToString2(reader["BankCity"]),
                 State = Converter.ToString2(reader["BankState"]),
                 PostCode = Converter.ToString2(reader["BankCode"]),
-                Country = new CountryInfo
+                Country = new Country
                 {
                     Id = Converter.ToInt(reader["BankCountryID"])
                 }
@@ -119,7 +93,7 @@ namespace Fanex.CRM.Customer.Repositories
                 Name = Converter.ToString2(reader["Passport"])
             };
 
-            customer.AddressInfo = new AddressInfo
+            customer.AddressInfo = new Address
             {
                 LineList = new List<string>
                 {
@@ -130,29 +104,13 @@ namespace Fanex.CRM.Customer.Repositories
                 City = Converter.ToString2(reader["City"]),
                 State = Converter.ToString2(reader["State"]),
                 PostCode = Converter.ToString2(reader["PostCode"]),
-                Country = new CountryInfo
+                Country = new Country
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 }
             };
-        }
 
-        /// <summary>
-        /// Mappings the languages when get customer information by username.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="customer">The customer.</param>
-        private void MappingLanguages_GetCustomerInfoDetailById(IDataReader reader, ref CustomerInfo customer)
-        {
-            if (customer == null)
-            {
-                return;
-            }
-
-            customer.Languages.Add(new BaseModel
-            {
-                Id = Converter.ToInt(reader["LanguageID"])
-            });
+            return customer;
         }
     }
 }

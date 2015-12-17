@@ -12,7 +12,6 @@ namespace Fanex.CRM.Common.Services
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using DNAide.Core;
 
     /// <summary>
     /// Application Setting.
@@ -24,32 +23,32 @@ namespace Fanex.CRM.Common.Services
 
         public static string ResourceVersion
         {
-            get { return CastAide.AsString(ConfigurationManager.AppSettings["resourceVersion"]); }
+            get { return ConfigurationManager.AppSettings["resourceVersion"]; }
         }
 
         public static bool IsLocalTest
         {
-            get { return CastAide.AsString(ConfigurationManager.AppSettings["isLocalTest"]) == "1"; }
+            get { return ConfigurationManager.AppSettings["isLocalTest"] == "1"; }
         }
 
         public static int ServerId
         {
-            get { return CastAide.AsInt32(ConfigurationManager.AppSettings["serverid"]); }
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["serverid"]); }
         }
 
         public static string LoginLink
         {
-            get { return CastAide.AsString(ConfigurationManager.AppSettings["loginUrl"]); }
+            get { return ConfigurationManager.AppSettings["loginUrl"]; }
         }
 
         public static int TimeSpan
         {
-            get { return CastAide.AsInt32(ConfigurationManager.AppSettings["timeSpan"]); }
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["timeSpan"]); }
         }
 
         public static DateTime MinReportDate
         {
-            get { return CastAide.AsDateTime(ConfigurationManager.AppSettings["minReportDate"]); }
+            get { return Convert.ToDateTime(ConfigurationManager.AppSettings["minReportDate"]); }
         }
 
         public static List<string> NotAuthenticateAction
@@ -120,6 +119,16 @@ namespace Fanex.CRM.Common.Services
 
                 return actionLogBoolValueHash;
             }
+        }
+
+        public static string PiwikSiteId
+        {
+            get { return ConfigurationManager.AppSettings["PiwikSiteId"]; }
+        }
+
+        public static string Environment
+        {
+            get { return ConfigurationManager.AppSettings["Environment"]; }
         }
     }
 }

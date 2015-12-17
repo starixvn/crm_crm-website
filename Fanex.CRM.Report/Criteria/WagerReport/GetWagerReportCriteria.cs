@@ -25,10 +25,7 @@ namespace Fanex.CRM.Report.Criteria.WagerReport
             {
                 return AppSetting.TimeSpan * -1;
             }
-        } 
-
-        [SpParam(Ignored = true)]
-        public bool IsCached { get; set; }
+        }
 
         public override string GetSettingKey()
         {

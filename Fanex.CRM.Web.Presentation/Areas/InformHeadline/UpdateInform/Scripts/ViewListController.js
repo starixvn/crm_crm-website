@@ -1,15 +1,13 @@
-"use strict";
-/* global updateInformApplication,
-MessageResult,
-sharedScriptManager,
-hotKeyManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+(function () {
+    "use strict";
+    /* global MessageResult,
+    sharedScriptManager,
+    hotKeyManager,
+    viewResources, Site */
 
-updateInformApplication.controller('UpdateInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
+    angular.module('updateInformApplication').controller('UpdateInformController',
+    ['$scope', '$uiBlockerService', '$timeout', 'updateInformService',
+    function ($scope, $uiBlockerService, $timeout, updateInformService) {
 
         var HEADLINE_ACCOUNT_TYPE = 1;
         var DIRECT_ACCOUNT_TYPE = 2;
@@ -55,7 +53,7 @@ updateInformApplication.controller('UpdateInformController',
                     $scope.titleDetail.Title = decodeHtml($scope.titleDetail.Title);
                     getAllSettings();
                 },
-                function (data) {
+                function () {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -97,19 +95,20 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function isFilterValid() {
-            if ($scope.selectedCurrencies.length <= 0) {
+            if (!_searchCriteria.Currency) {
                 $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
                 return false;
-            } else if ($scope.selectedPositions.length <= 0) {
+            } else if (!_searchCriteria.Level) {
                 $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
                 return false;
-            } else if ($scope.selectedSites.length <= 0) {
+            } else if (!_searchCriteria.Site) {
                 $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
                 return false;
-            } else if (getAccountType() === 0) {
+            } else if (_searchCriteria.TypeAccount === 0) {
                 $scope.messageResultOptions = new MessageResult("Direct Account is required.", true, false);
                 return false;
             }
+
             return true;
         }
 
@@ -135,13 +134,13 @@ updateInformApplication.controller('UpdateInformController',
 
                 $timeout($scope.getInforms, 2000);
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
 
         function refreshSearchCriteria() {
-                _searchCriteria = {
+            _searchCriteria = {
                 TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
@@ -172,8 +171,6 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         $scope.exportInformHeadlines = function () {
-            refreshSearchCriteria();
-
             if (isFilterValid() === false) {
                 return;
             } else {
@@ -204,13 +201,14 @@ updateInformApplication.controller('UpdateInformController',
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
         };
         $scope.updateInforms = function () {
+            refreshSearchCriteria();
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
@@ -235,7 +233,7 @@ updateInformApplication.controller('UpdateInformController',
             _searchCriteria.ChangeFilter = isFilterChanged();
 
             updateInformService.updateInforms(_searchCriteria)
-                .then(function (data) {
+                .then(function () {
                     $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
                     setTimeout(function () {
@@ -243,7 +241,7 @@ updateInformApplication.controller('UpdateInformController',
                     }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
@@ -287,3 +285,4 @@ updateInformApplication.controller('UpdateInformController',
             initController();
         });
     } ]);
+})();

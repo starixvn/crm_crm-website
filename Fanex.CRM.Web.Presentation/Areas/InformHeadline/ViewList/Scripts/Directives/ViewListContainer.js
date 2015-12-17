@@ -1,14 +1,14 @@
 ﻿"use strict";
-/* global informHeadlineApplication,
-crmConstants,
+/* global crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-informHeadlineApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+angular.module('informHeadlineApplication').directive('informHeadlineListContainer', ['$document', function ($document) {
+    var INT_FORMAT = "0,00";
     var selfScope;
     var listData;
 
-    function renderListData(scope, element, attrs) {
+    function renderListData(scope, element) {
         selfScope = scope;
         listData = scope.listData;
 
@@ -51,19 +51,31 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
 
         var gridOptions = {
             columns: [
-                    { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Title, Width: 250, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
-                    { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
-                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.KeptForReference, Width: 100, Name: "KeptForReference", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", 
+                        HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Title, Width: 250, Name: "Title", 
+                        HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+                    { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", 
+                        HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.Status, Width: 100, Name: "Status", 
+                        HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.KeptForReference, Width: 100, Name: "KeptForReference", 
+                        HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT }
                 ],
             showTitle: true,
             titleInfo: {
@@ -88,7 +100,7 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
             columnsNeedHide: rowsCount === 0 || scope.searchPolicy === "Host" ? null : [0]
         };
 
-        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);            
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
     }
 
     return {
@@ -96,7 +108,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
-                renderListData(scope, element, attrs);
+                /* jshint unused: false */
+                renderListData(scope, element);
             });
 
             var $table = element.find("#inform-headline-list");

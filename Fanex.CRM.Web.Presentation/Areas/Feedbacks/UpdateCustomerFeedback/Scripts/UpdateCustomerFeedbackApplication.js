@@ -1,4 +1,6 @@
-﻿/* exported updateCustomerFeedbackApplication */
-/* global sharedScriptManager */
-var updateCustomerFeedbackApplication = angular.module('feedbacks-updatecustomerfeedback-application', ['$uiBlockerApplication', 'alertBoxApplication']);
-sharedScriptManager.setNoCachingHttpRequest(updateCustomerFeedbackApplication);
+﻿/* global sharedScriptManager */
+(function () {
+    "use strict";
+    angular.module('feedbacks-updatecustomerfeedback-application', ['$uiBlockerApplication', 'alertBoxApplication']);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('feedbacks-updatecustomerfeedback-application'));
+})();

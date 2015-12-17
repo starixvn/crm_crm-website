@@ -1,10 +1,13 @@
 ﻿"use strict";
 /* global directiveManager: true,
 sharedScriptManager */
-/* jshint unused: vars */
+/* jshint unused: false,
+camelcase: false,
+newcap: false */
 /* Must refer to: 
 ~/Scripts/common.js
 */
+/*exported orgLengt, orgArrUser, trim */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
@@ -65,11 +68,11 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             isInit = false;
         }
 
-        if (!isInit && options.Action === "checkIsRelated") {
+        if (options.Action === "checkIsRelated") {
             checkIsRelated(scope, element, attrs, options);
         }
 
-        if (!isInit && options.IsUpdate && options.Action === "verifyUserName") {
+        if (options.IsUpdate && options.Action === "verifyUserName") {
             verifyUserName(scope, element, attrs, options);
         }
 
@@ -80,7 +83,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
     }
     function checkIsRelated(scope, element, attrs, options) {
         if (options.HasRelated) {
-            $("#typeCust").removeAttr("disabled");
+            $("#typeCust").removeProp("disabled");
 
             var arrUser;
             $('#txtrelatedcustomer').each(function () {
@@ -88,7 +91,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             });
 
             if (arrUser != null && arrUser.length > 0) {
-                $("#btnverify").removeAttr("disabled");
+                $("#btnverify").removeProp("disabled");
             }
             $("#lblverify").removeClass("hidden");
             if ($("#related").text().trim().length > 0) {
@@ -97,8 +100,8 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             }
         }
         else {
-            $("#typeCust").attr("disabled", "disabled");
-            $("#btnverify").attr("disabled", "disabled");
+            $("#typeCust").prop("disabled", true);
+            $("#btnverify").prop("disabled", true);
             $("#lblverify").addClass("hidden");
             $("#ColorGuide").addClass("hidden");
             $("#trRelatedInfo").addClass("hidden");
@@ -138,9 +141,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             userId += userIdList.join(",");
         }
 
-        $('#txtrelatedcustomer option').each(function (i, option) {
-            $(option).remove();
-        });
+        $('#txtrelatedcustomer option').remove();
 
         $('#holder li').each(function (i, option) {
             if (this.id !== 'txtrelatedcustomer_annoninput') {
@@ -220,39 +221,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
 
         return html;
     };
-    var checkContainsValue = function (a, e) {
-        for (var j = 0; j < a.length; j++) {
-            if ($.trim(a[j].toLowerCase()) === $.trim(e.toLowerCase())) {
-                return true;
-            }
-        }
 
-        return false;
-    };
-    var checkDuplicateRelated = function () {
-        var arrUser = [];
-        var userName = "";
-        $('#txtrelatedcustomer option').each(function (i, option) {
-            arrUser[i] = $(option).text();
-        });
-
-        userName = arrUser.join(",");
-        var relatedVal = arrUser;
-        var dups = [];
-        var items = [];
-        if (relatedVal) {
-            for (var j = 0; j < relatedVal.length; j++) {
-                if (!checkContainsValue(items, relatedVal[j])) {
-                    items.push(relatedVal[j]);
-                }
-                else {
-                    dups.push(relatedVal[j]);
-                }
-            }
-
-            return dups;
-        }
-    };
     var deleteRelatedCust = function (custId) {
         $("#" + custId).parent().remove();
         userList.splice(userIdList.indexOf(custId), 1);
@@ -286,7 +255,6 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
         var arrUser = [];
         var userName = "";
         $('#related td').each(function (i, td) {
-            /* jshint unused: vars */
             arrUser[i] = this.id;
         });
         userName = arrUser.join(",");

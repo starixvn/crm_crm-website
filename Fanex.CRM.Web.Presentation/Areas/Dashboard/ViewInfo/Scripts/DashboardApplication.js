@@ -1,2 +1,4 @@
-﻿/* exported dashboardApplication */
-var dashboardApplication = angular.module('dashboard-application', ['ngSanitize']);
+﻿(function () {
+    "use strict";
+    angular.module('dashboard-application', ['ngSanitize']);
+})();

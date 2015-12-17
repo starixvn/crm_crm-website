@@ -16,13 +16,13 @@ namespace Fanex.CRM.Dashboard.Repositories
 
     public interface IDashboardRepository
     {
-        List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria);
+        IEnumerable<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria);
 
         CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria);
 
-        List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria);
+        IEnumerable<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria);
 
-        List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria);
+        IEnumerable<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria);
 
         Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria);
     }

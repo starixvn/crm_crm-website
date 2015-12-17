@@ -1,19 +1,18 @@
-﻿"use strict";
-/* global insertSubSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-crmConstants,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    crmConstants,
+    settingInfo */
+    /* jshint camelcase: false */
 
-insertSubSettingApplication.controller('insertSubSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'insertSubSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, insertSubSettingService) {
+    angular.module('addmintool-settingmanagement-insertsubsetting-application').controller('insertSubSettingController',
+    ['$scope', '$uiBlockerService', 'insertSubSettingService',
+    function ($scope, $uiBlockerService, insertSubSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.insertSettingParams = {
             NewSetting: {
@@ -37,7 +36,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
                     $scope.parentSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -70,7 +69,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
                     $scope.showInsertResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -149,3 +148,4 @@ insertSubSettingApplication.controller('insertSubSettingController',
             });
         });
     } ]);
+})();

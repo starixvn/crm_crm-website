@@ -11,10 +11,10 @@ namespace Fanex.CRM.Communication.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
@@ -28,7 +28,7 @@ namespace Fanex.CRM.Communication.Controllers
     /// Communication Log Controller.
     /// </summary>
     public class CommunicationLogController : BaseController
-    {        
+    {
         private readonly ICommunicationLogService _communicationServiceLog;
         private readonly bool hasHostCreateUpdateFeedbackPermission;
 
@@ -80,17 +80,17 @@ namespace Fanex.CRM.Communication.Controllers
 
             var allSetting = new
             {
-                ExtensionList = _serviceSetting.AllExtension(),
-                CountryList = _serviceSetting.AllCountry(),
-                CommunicationToolList = _serviceSetting.AllCommunicationTool(),
-                LanguageList = _serviceSetting.AllLanguage(),
-                MainCategoryList = _serviceSetting.AllMainCategory(),
-                ProductList = _serviceSetting.AllProduct(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.AllSite(),
-                RoleList = _serviceSetting.AllRole(),
-                ResponseList = _serviceSetting.AllResponse(),
-                LicenseeType = _serviceSetting.AllLicenseeType()
+                SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -109,17 +109,17 @@ namespace Fanex.CRM.Communication.Controllers
         {
             var allSetting = new
             {
-                ExtensionList = _serviceSetting.AllExtension(),
-                CountryList = _serviceSetting.AllCountry(),
-                CommunicationToolList = _serviceSetting.AllCommunicationTool(),
-                LanguageList = _serviceSetting.AllLanguage(),
-                MainCategoryList = _serviceSetting.AllMainCategory(),
-                ProductList = _serviceSetting.AllProduct(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
-                SiteList = _serviceSetting.AllSite(),
-                RoleList = _serviceSetting.AllRole(),
-                ResponseList = _serviceSetting.AllResponse(),
-                LicenseeType = _serviceSetting.AllLicenseeType(),
+                SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
                 DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId })
             };
 
@@ -136,13 +136,12 @@ namespace Fanex.CRM.Communication.Controllers
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(logs, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logRunningNumber)
-        {                  
+        {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
             {
                 RunningNumber = logRunningNumber
@@ -182,11 +181,6 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/ViewDetailById/Index.cshtml", logInfo);
         }
 
-        /// <summary>
-        /// Updates the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update Result.</returns>
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
@@ -197,8 +191,7 @@ namespace Fanex.CRM.Communication.Controllers
                 updateResult = _communicationServiceLog.UpdateLog(criteria);
             }
 
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
         private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
@@ -215,7 +208,7 @@ namespace Fanex.CRM.Communication.Controllers
                 return new Result(permissionError, Labels.Communication_Logs_NoDeletePermission);
             }
 
-            if (!HasHostPermission(FunctionPermissions.ReviewFeedback) && 
+            if (!HasHostPermission(FunctionPermissions.ReviewFeedback) &&
                 criteria.UpdateReviewedMode != UpdateReviewedModeConstants.NotChange)
             {
                 return new Result(permissionError, Labels.Communication_Logs_NoReviewPermission);
@@ -234,8 +227,7 @@ namespace Fanex.CRM.Communication.Controllers
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             Result insertResult = _communicationServiceLog.InsertLog(criteria);
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]

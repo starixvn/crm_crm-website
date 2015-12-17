@@ -11,7 +11,6 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -25,44 +24,24 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
     /// </summary>
     public class DynamicReportRepository : IDynamicReportRepository
     {
-        /// <summary>
-        /// Gets the dynamic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The dynamic report.</returns>
-        public List<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria)
+        public IEnumerable<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            List<DynamicReportInfo> communicationList = new List<DynamicReportInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var communications = new List<DynamicReportInfo>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var communication = MappingDataFromSqlToCommunicationInfoObject(reader);
-                            communicationList.Add(communication);
-                        }
+                        communications.Add(ReadDynamicReportInfo(reader));
                     }
+
+                    return communications;
                 }
             }
-
-            return communicationList;
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>
-        /// Log Info Object.
-        /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private DynamicReportInfo MappingDataFromSqlToCommunicationInfoObject(IDataReader reader)
+        private DynamicReportInfo ReadDynamicReportInfo(IDataReader reader)
         {
             var durationTime = Converter.ToString2(reader["Duration"]);
             var durationTimeArray = durationTime.Split(':');
@@ -73,8 +52,8 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                 {
                     FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"]))
                 },
-                MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo

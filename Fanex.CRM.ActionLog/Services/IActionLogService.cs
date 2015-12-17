@@ -18,7 +18,7 @@ namespace Fanex.CRM.ActionLog.Services
     /// </summary>
     public interface IActionLogService
     {
-        PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria);
+        PagedList<ActionLog> GetActivityLogs(GetActivityLogCriteria criteria);
 
         PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria);
     }

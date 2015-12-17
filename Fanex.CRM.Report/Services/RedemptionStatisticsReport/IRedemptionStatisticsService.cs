@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
     public interface IRedemptionStatisticsService
     {
-        List<SettingInfo> AllStatus();
+        List<Setting> AllStatus();
 
         List<BaseModel> AllCurrencyRedemption();
 

@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global settlementReportApplication */
-settlementReportApplication.factory('settlementReportService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('report-settlementreport-application').factory('settlementReportService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getSettlementReport = function (getReportCriteria) {
@@ -27,3 +27,4 @@ settlementReportApplication.factory('settlementReportService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

@@ -49,15 +49,15 @@ namespace Fanex.CRM.Report.Controllers
         {
             var allSetting = new
             {
-                PeriodTypeList = _dynamicReportService.AllPeriodType(),
-                ProductList = _dynamicReportService.AllProduct(),
-                SiteList = _dynamicReportService.AllSite(),
-                StatusList = _dynamicReportService.AllStatus(),
-                ResponseList = _dynamicReportService.AllResponse(),
-                RoleList = _dynamicReportService.AllRole(),
-                CommunicationToolList = _dynamicReportService.AllCommunicationTool(),
-                MainCategoryList = _dynamicReportService.AllMainCategory(),
-                ExtensionList = _dynamicReportService.AllExtension()
+                PeriodTypeList = _dynamicReportService.GetAllPeriodTypes(),
+                ProductList = _dynamicReportService.GetAllProducts(),
+                SiteList = _dynamicReportService.GetAllSites(),
+                StatusList = _dynamicReportService.GetAllStatuses(),
+                ResponseList = _dynamicReportService.GetAllResponses(),
+                RoleList = _dynamicReportService.GetAllRoles(),
+                CommunicationToolList = _dynamicReportService.GetAllCommunicationTools(),
+                MainCategoryList = _dynamicReportService.GetAllMainCategories(),
+                ExtensionList = _dynamicReportService.GetAllExtensions()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

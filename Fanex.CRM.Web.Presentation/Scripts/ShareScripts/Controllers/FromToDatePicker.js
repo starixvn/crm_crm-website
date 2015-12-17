@@ -2,7 +2,6 @@
 /* global sharedControllerManager: true,
 currentDate,
 initFromDate */
-/* jshint unused: vars */
 
 var sharedControllerManager = sharedControllerManager || {};
 sharedControllerManager.registerDatePicker = function ($scope) {

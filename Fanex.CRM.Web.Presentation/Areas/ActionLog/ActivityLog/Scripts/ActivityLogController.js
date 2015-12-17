@@ -1,84 +1,85 @@
-﻿"use strict";
-/* global activityLogApplication, 
-customerId, 
-hotKeyManager,
-sharedScriptManager,
-activityLogResources,
-currentDate,
-crmConstants,
-initFromDate,
-moment */
-activityLogApplication.controller('activityLogController', ['$scope', '$activityLogService', function (
-    $scope,
-    $activityLogService) {
-    $scope.searchCriteria = {
-        CustomerId: customerId,
-        FromDate: initFromDate,
-        ToDate: new Date(currentDate),
-        MinToDate: new Date(initFromDate),
-        MaxFromDate: new Date(currentDate),
-        Username: '',
-        Action: null
-    };
-    $scope.totalItems = 0;
-    $scope.activityLogs = [];
-    $scope.actions = [];
-    $scope.isUpdatingDate = false;
-    $scope.isSearched = false;
+﻿(function () {
+    "use strict";
+    /* global 
+    customerId, 
+    hotKeyManager,
+    sharedScriptManager,
+    activityLogResources,
+    currentDate,
+    crmConstants,
+    initFromDate,
+    moment */
 
-    $scope.initController = function () {
-        $scope.getActions();
-        hotKeyManager.CachedData.ActiveDocumentManager.push({
-            Value: $scope,
-            Id: 'ActivityLogs'
-        });
-    };
+    angular.module('activitylog-application').controller('activityLogController',
+    ['$scope', '$activityLogService',
+    function ($scope, $activityLogService) {
+        $scope.searchCriteria = {
+            CustomerId: customerId,
+            FromDate: initFromDate,
+            ToDate: new Date(currentDate),
+            MinToDate: new Date(initFromDate),
+            MaxFromDate: new Date(currentDate),
+            Username: '',
+            Action: null
+        };
+        $scope.totalItems = 0;
+        $scope.activityLogs = [];
+        $scope.actions = [];
+        $scope.isUpdatingDate = false;
+        $scope.isSearched = false;
 
-    /* jshint camelcase: false */
-    $scope.invokeHotKey_CtrlS = function () {
-        $scope.searchActivityLogs();
-    };
+        $scope.initController = function () {
+            $scope.getActions();
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: 'ActivityLogs'
+            });
+        };
 
-    /* for datetime picker: fromdate and todate */
-    $scope.updateFromDate = function (selectedDate) {
-        $scope.searchCriteria.FromDate = selectedDate;
-        $scope.searchCriteria.MinToDate = selectedDate;
-    };
+        /* jshint camelcase: false */
+        $scope.invokeHotKey_CtrlS = function () {
+            $scope.searchActivityLogs();
+        };
 
-    $scope.updateToDate = function (selectedDate) {
-        $scope.searchCriteria.ToDate = selectedDate;
-        $scope.searchCriteria.MaxFromDate = selectedDate;
-    };
+        /* for datetime picker: fromdate and todate */
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.searchCriteria.MinToDate = selectedDate;
+        };
 
-    $scope.getActions = function () {
-        $scope.blockUI();
-        $activityLogService.getActions()
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.searchCriteria.MaxFromDate = selectedDate;
+        };
+
+        $scope.getActions = function () {
+            $scope.blockUI();
+            $activityLogService.getActions()
             .then(function (data) {
                 $scope.actions = data.Result;
                 $scope.actions.unshift({ Id: crmConstants.Enums.Action.All, Name: activityLogResources.All });
                 $scope.searchCriteria.Action = $scope.actions[0];
                 $scope.unblockUI();
             },
-            function (data) {
-                /* jshint unused: vars */
+            function () {
                 $scope.unblockUI();
             });
-    };
-
-    $scope.searchActivityLogs = function (pageIndex, itemsPerPage) {
-        $scope.blockUI();
-        $scope.searchCriteria.PageIndex = pageIndex ? pageIndex : 0;
-        $scope.searchCriteria.ItemsPerPage = itemsPerPage ? itemsPerPage : sharedScriptManager.cachedData.defaultItemsPerPage;
-        var searchLogsCriteria = {
-            CustomerId: $scope.searchCriteria.CustomerId,
-            Username: $scope.searchCriteria.Username,
-            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            ActionId: $scope.searchCriteria.Action.Id,
-            PageIndex: $scope.searchCriteria.PageIndex,
-            ItemsPerPage: $scope.searchCriteria.ItemsPerPage
         };
-        $activityLogService.getActivityLogs(searchLogsCriteria)
+
+        $scope.searchActivityLogs = function (pageIndex, itemsPerPage) {
+            $scope.blockUI();
+            $scope.searchCriteria.PageIndex = pageIndex ? pageIndex : 0;
+            $scope.searchCriteria.ItemsPerPage = itemsPerPage ? itemsPerPage : sharedScriptManager.cachedData.defaultItemsPerPage;
+            var searchLogsCriteria = {
+                CustomerId: $scope.searchCriteria.CustomerId,
+                Username: $scope.searchCriteria.Username,
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ActionId: $scope.searchCriteria.Action.Id,
+                PageIndex: $scope.searchCriteria.PageIndex,
+                ItemsPerPage: $scope.searchCriteria.ItemsPerPage
+            };
+            $activityLogService.getActivityLogs(searchLogsCriteria)
             .then(function (data) {
                 var result = data.Result;
                 $scope.totalItems = result.TotalItems;
@@ -86,35 +87,35 @@ activityLogApplication.controller('activityLogController', ['$scope', '$activity
                 $scope.isSearched = true;
                 $scope.unblockUI();
             },
-            function (data) {
-                /* jshint unused: vars */
+            function () {
                 $scope.isSearched = true;
                 $scope.unblockUI();
             });
-    };
+        };
 
-    /* block and unblock UI functions */
-    $scope.unblockUI = function () {
-        try {
-            parent.$.unblockUI();
-        } catch (e) {
-        }
+        /* block and unblock UI functions */
+        $scope.unblockUI = function () {
+            try {
+                parent.$.unblockUI();
+            } catch (e) {
+            }
 
-        hotKeyManager.CachedData.isBlockingUI = false;
-    };
-    $scope.blockUI = function () {
-        hotKeyManager.CachedData.isBlockingUI = true;
-        try {
-            parent.BlockUI();
-        } catch (e) {
-        }
-    };
+            hotKeyManager.CachedData.isBlockingUI = false;
+        };
+        $scope.blockUI = function () {
+            hotKeyManager.CachedData.isBlockingUI = true;
+            try {
+                parent.BlockUI();
+            } catch (e) {
+            }
+        };
 
-    $scope.replaceLineBreak = function (text) {
-        return text ? text.replace(/\r/g, '<br />') : '';
-    };
+        $scope.replaceLineBreak = function (text) {
+            return text ? text.replace(/\r/g, '<br />') : '';
+        };
 
-    angular.element(document).ready(function () {
-        $scope.initController();
-    });
-} ]);
+        angular.element(document).ready(function () {
+            $scope.initController();
+        });
+    } ]);
+})();

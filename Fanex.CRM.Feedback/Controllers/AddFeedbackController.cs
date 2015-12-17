@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -48,11 +49,7 @@ namespace Fanex.CRM.Feedback.Controllers
             bool hasCreateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             if (hasCreateFeedbackPermission)
             {
-                var deleteStatus = settings.StatusList.Find(s => s.Name == "Deleted");
-                if (deleteStatus != null)
-                {
-                    settings.StatusList.Remove(deleteStatus);
-                }
+                settings.StatusList = settings.StatusList.Where(s => !s.Name.Equals("Deleted", System.StringComparison.OrdinalIgnoreCase));
             }
 
             return Json(settings, JsonRequestBehavior.AllowGet);
@@ -64,42 +61,42 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
-            var languageList = ServiceSetting.AllLanguage();
-            languageList.Insert(
+            var languages = ServiceSetting.GetAllLanguages().ToList();
+            languages.Insert(
                 0,
-                new SettingInfo
+                new Setting
                 {
                     Id = 0,
                     Name = Labels.Symbol_NA
                 });
 
-            var countryList = ServiceSetting.AllCountry();
-            countryList.Insert(
+            var countries = ServiceSetting.GetAllCountries().ToList();
+            countries.Insert(
                 0,
-                new CountryInfo
+                new Country
                 {
                     Id = 0,
                     Name = Labels.Symbol_NA
                 });
 
-            var statusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+            var statusList = ServiceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                                         .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
-            var allSetting = new AllSettingToAddFeedback
+            var settings = new AllSettingToAddFeedback
             {
-                ExtensionList = ServiceSetting.AllExtension(),
-                CountryList = countryList,
-                CommunicationToolList = ServiceSetting.AllCommunicationTool(),
-                LanguageList = languageList,
-                MainCategoryList = ServiceSetting.AllMainCategory(),
-                ProductList = ServiceSetting.AllProduct(),
-                SiteList = ServiceSetting.AllSite(),
-                ResponseList = ServiceSetting.AllResponse(),
+                ExtensionList = ServiceSetting.GetAllExtensions(),
+                CountryList = countries,
+                CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
+                LanguageList = languages,
+                MainCategoryList = ServiceSetting.GetAllMainCategories(),
+                ProductList = ServiceSetting.GetAllProducts(),
+                SiteList = ServiceSetting.GetAllSites(),
+                ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
-                TitleList = ServiceSetting.AllTitle(),
-                LicenseeType = ServiceSetting.AllLicenseeType()
+                TitleList = ServiceSetting.GetAllTitles(),
+                LicenseeType = ServiceSetting.GetAllLicenseeTypes()
             };
 
-            return allSetting;
+            return settings;
         }
     }
 }

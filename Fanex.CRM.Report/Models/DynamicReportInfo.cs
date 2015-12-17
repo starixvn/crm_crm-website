@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Models
     /// Dynamic Report Information.
     /// </summary>
     [Serializable]
-    public class DynamicReportInfo : BaseCommunicationLogInfo
+    public class DynamicReportInfo : BaseCommunicationLog
     {
         public string Id { get; set; }
 

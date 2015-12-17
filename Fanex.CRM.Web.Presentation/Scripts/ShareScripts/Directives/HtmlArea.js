@@ -1,32 +1,23 @@
 ﻿"use strict";
-/* global directiveManager: true */
-/* jshint unused: vars */
+/* global directiveManager: true,
+sharedScriptManager,
+hotKeyManager,
+currentUsername */
+/* jshint unused: false */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
 directiveManager.registerHtmlArea = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-        function isOptionReady(options) {
-            return options !== null &&
-                options !== undefined;
-        }
-
         var editorId = registerParams.PickerId;
         function renderRemarkEditor(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (!isOptionReady(options)) {
+            if (!options) {
                 return;
             }
 
             var selectedText = options.SelectedText;
-            if (selectedText && selectedText !== "") {
-                selectedText = selectedText.indexOf(" ", selectedText.length - 1) !== -1 ?
-                    selectedText.substring(0, selectedText.length - 1) + "&nbsp;" :
-                    selectedText;
+            if (selectedText) {
+                selectedText = selectedText.replace(/\s$/, "&nbsp;");
             }
 
             var editorHTML =

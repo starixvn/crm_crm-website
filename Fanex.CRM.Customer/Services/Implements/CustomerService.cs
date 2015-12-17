@@ -9,17 +9,15 @@
 
 namespace Fanex.CRM.Customer.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Web;
+    using System.Linq;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
@@ -29,10 +27,7 @@ namespace Fanex.CRM.Customer.Services
     /// </summary>
     public class CustomerService : ICustomerService
     {
-        private const string GetCustomerInfoByUsernameSessionKey =
-            "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
-
-        private readonly ICustomerRepository _customerRepositoryInstance;
+        private readonly ICustomerRepository _customerRepository;
 
         private readonly ISettingService _settingService;
 
@@ -45,208 +40,96 @@ namespace Fanex.CRM.Customer.Services
             ICustomerRepository customerRepositoryInstance,
             ISettingService settingService)
         {
-            _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerRepository();
+            _customerRepository = customerRepositoryInstance ?? new CustomerRepository();
             _settingService = settingService ?? new SettingService();
         }
 
-        public GetCustomerInfoByUsernameCriteria GetCustomerInfoByUsernameCriteria
-        {
-            get
-            {
-                return (GetCustomerInfoByUsernameCriteria)SessionExtension.GetSession(
-                    HttpContext.Current.Session,
-                    GetCustomerInfoByUsernameSessionKey);
-            }
-        }
-
-        /// <summary>
-        /// Gets the customer information by username.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer information by username.</returns>
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            CustomerInfo customerInfo = null;
-
-            try
+            var customerInfo = _customerRepository.GetCustomerInfoByUsername(criteria);
+            if (customerInfo != null)
             {
-                var rawData = _customerRepositoryInstance.GetCustomerInfoByUsername(criteria);
-                customerInfo = rawData;
-                if (customerInfo != null)
+                customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
+                var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                 {
-                    customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                    var siteSetting = _settingService.SettingById(new GetSettingByIdCriteria
+                    SettingId = customerInfo.SiteSetting.Id
+                });
+                customerInfo.SiteSetting.Name = siteSetting.Value;
+                if (!criteria.IsGuest)
+                {
+                    customerInfo.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
                     {
-                        SettingId = customerInfo.SiteSetting.Id
+                        CustomerId = customerInfo.Id
                     });
-                    customerInfo.SiteSetting.Name = siteSetting.Value;
-                    if (!criteria.IsGuest)
-                    {
-                        customerInfo.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
-                        {
-                            CustomerId = customerInfo.Id
-                        });
-                    }
+                }
 
-                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
-                }
-                else
+                AppSession.CurrentCustomer = new SearchedCustomer
                 {
-                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, null);
-                }
+                    Name = criteria.Username,
+                    IsGuest = criteria.IsGuest
+                };                
             }
-            catch (Exception ex)
+            else
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                AppSession.CurrentCustomer = null;
             }
 
             return customerInfo;
         }
 
-        /// <summary>
-        /// Gets the up line information of user.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The up line information of user.</returns>
-        public List<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        public IEnumerable<BaseCustomer> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            List<BaseCustomerInfo> uplineInfoResult = new List<BaseCustomerInfo>();
-            try
-            {
-                var rawData = _customerRepositoryInstance.GetUplineInfoOfUser(criteria);
-                for (var i = 0; i < rawData.Count; i++)
-                {
-                    var uplineInfo = rawData[i];
-                    if (criteria.CustomerId == uplineInfo.Id)
-                    {
-                        continue;
-                    }
+            var uplineInfoResult = new List<BaseCustomer>();
 
-                    uplineInfo.Role.Name = RoleSettingService.GetRoleName(uplineInfo.Role.Id);
-                    uplineInfoResult.Add(uplineInfo);
-                }
-            }
-            catch (Exception ex)
+            var rawData = _customerRepository.GetUplineInfoOfUser(criteria);
+            foreach (var item in rawData)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                if (criteria.CustomerId == item.Id)
+                {
+                    continue;
+                }
+
+                item.Role.Name = RoleSettingService.GetRoleName(item.Role.Id);
+                uplineInfoResult.Add(item);
             }
 
             return uplineInfoResult;
         }
 
-        /// <summary>
-        /// Updates the customer information.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
-        public BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
+        public Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
-            var updateResult = new BaseModel();
-            try
+            var result = _customerRepository.UpdateCustomerInfo(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                updateResult = _customerRepositoryInstance.UpdateCustomerInfo(criteria);
-                if (updateResult != null &&
-                    updateResult.Id == ErrorCodeConstants.NoneError)
-                {
-                    updateResult.Name = Labels.CustomerInfo_UpdateSuccess;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result.Message = Labels.CustomerInfo_UpdateSuccess;
             }
 
-            return updateResult;
+            return result;
         }
 
-        /// <summary>
-        /// Queries the customer by username.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of Customer.</returns>
-        public IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
+        public IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
         {
-            try
-            {
-                return _customerRepositoryInstance.QueryCustomerByUsername(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _customerRepository.GetCustomersByUsername(criteria);
         }
 
-        /// <summary>
-        /// Updates the customer suggestion.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            var updateResult = false;
-            try
-            {
-                updateResult = _customerRepositoryInstance.UpdateCustomerSuggestion(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return updateResult;
+            return _customerRepository.UpdateCustomerSuggestion(criteria);
         }
 
-        /// <summary>
-        /// Suggests related customer.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Related customers.</returns>
-        public List<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
+        public IEnumerable<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
         {
-            try
+            var customers = _customerRepository.GetRelatedCustomerAutoSuggestions(criteria);
+            return customers.Select(x => new
             {
-                var dtoResult = new List<dynamic>();
-                var customerList = _customerRepositoryInstance.RelatedCustomerAutoSuggestion(criteria);
-                for (var i = 0; i < customerList.Count; i++)
-                {
-                    var customer = customerList[i];
-                    dtoResult.Add(new
-                    {
-                        key = customer.Key,
-                        value = customer.Value
-                    });
-                }
-
-                return dtoResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                key = x.Key,
+                value = x.Value
+            });
         }
 
-        /// <summary>
-        /// Verifies the username.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Verified customer information.</returns>
-        public List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            try
-            {
-                return _customerRepositoryInstance.VerifyUsername(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _customerRepository.VerifyUsername(criteria);
         }
     }
 }

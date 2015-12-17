@@ -1,11 +1,11 @@
-﻿"use strict";
-/* global activityLogApplication */
-activityLogApplication.factory('$activityLogService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('activitylog-application').factory('$activityLogService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getActions = function () {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'Setting/GetAllLogAction?ActionType=1')
+        serviceInstance.getActions = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'Setting/GetAllLogAction?ActionType=1')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,12 +22,12 @@ activityLogApplication.factory('$activityLogService', ['$http', '$q', function (
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getActivityLogs = function (activityLogCriteria) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + 'ActionLog/GetActivityLog', activityLogCriteria)
+        serviceInstance.getActivityLogs = function (activityLogCriteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + 'ActionLog/GetActivityLog', activityLogCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -44,8 +44,9 @@ activityLogApplication.factory('$activityLogService', ['$http', '$q', function (
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-}]);
+        return serviceInstance;
+    } ]);
+})();

@@ -13,7 +13,6 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.DynamicReport;
@@ -79,9 +78,10 @@ namespace Fanex.CRM.Report.Controllers
         [HttpGet]
         public ActionResult ExportSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
+            var excelFileName = this.GetSummaryFileName(criteria);
             criteria.Subject = criteria.Subject ?? string.Empty;
 
-            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), this.GetSummaryFileName(criteria));
+            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), excelFileName);
 
             return new EmptyResult();
         }

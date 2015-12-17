@@ -1,15 +1,17 @@
 ﻿@using Fanex.CRM.Report.Resources
 @model Fanex.CRM.Report.Criteria.FeedbackStatisticReport.GetFeedbackStatisticDetailCriteria
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_Report_FeedbackStatistics;
+    
     var criteria = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-statistic-detail-application">
-<head>
-    <title>@Resources.Language.Title_Report_FeedbackStatistics</title>
-    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/FeedbackStatisticDetailStyles")
-</head>
-<body data-ng-controller="feedbackStatisticDetailController">
+@section Styles{
+@RazorHelper.RenderStyles("~/bundles/Report/FeedbackStatisticDetailStyles")
+}
+<div data-ng-app="feedback-statistic-detail-application">
+<div data-ng-controller="feedbackStatisticDetailController">
     <div class="main container">
         <div class="row">
             <div table-feedback-statistic-detail-container data-ng-model="feedbackStatisticDetail">
@@ -19,9 +21,15 @@
         <div class="download-file-container hide" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0"></iframe>
         </div>
-    </div>
-   
-   <script type="text/javascript">
+    </div>  
+</div>
+</div>
+@section Scripts {
+@RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/bundles/Report/FeedbackStatisticDetailScripts")
+
+        <script type="text/javascript">
        window.rootUrl = '@Url.Content("~")';
        var criteria = @Html.Raw(criteria);
        var feedbackStatisticDetailResources = {
@@ -33,10 +41,4 @@
             RelatedCustomer: '@Labels.RelatedCustomer'
         };
    </script>
-   @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/FanexGridScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/CRM/DownLoadFile/Scripts",
-        "~/bundles/Report/FeedbackStatisticDetailScripts")
-</body>
-</html>
+}

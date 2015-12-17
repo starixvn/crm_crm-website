@@ -1,4 +1,6 @@
 ﻿/* global sharedScriptManager */
-/* exported addGuestFeedbackApplication */
-var addGuestFeedbackApplication = angular.module('feedbacks-addguestfeedback-application', ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(addGuestFeedbackApplication);
+(function () {
+    "use strict";
+    angular.module('feedbacks-addguestfeedback-application', ['$uiBlockerApplication', '$resultMessageApplication']);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('feedbacks-addguestfeedback-application'));
+})();

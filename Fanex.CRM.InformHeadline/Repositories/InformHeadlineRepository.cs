@@ -10,6 +10,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
     using System.Data;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -18,39 +19,19 @@ namespace Fanex.CRM.InformHeadline.Repositories
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class InformHeadlineRepository : IInformHeadlineRepository
+    public class InformHeadlineRepository : BaseRepository, IInformHeadlineRepository
     {
-        /// <summary>
-        /// Get informs data.
-        /// </summary>
-        /// <param name="criteria">Get inform criteria.</param>
-        /// <returns>List of informs.</returns>
-        public IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
+        public IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
         {            
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<InformHeadline>(criteria.GetSpParams()).ToList();
+                return db.Query<InformHeadline>(criteria.GetSpParams());
             }
         }
 
-        /// <summary>
-        /// Update inform status.
-        /// </summary>
-        /// <param name="criteria">Criteria data.</param>
-        /// <returns>Result object.</returns>
         public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                return new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
+            return ExecuteNonQuery(criteria);
         }
 
         /// <summary>
@@ -58,11 +39,11 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Get new informs criteria.</param>
         /// <returns>List of new informs.</returns>
-        public IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
+        public IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<NewInform>(criteria.GetSpParams()).ToList();                
+                return db.Query<NewInform>(criteria.GetSpParams());               
             }
         }
 
@@ -71,11 +52,11 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
         /// <returns>List of status.</returns>
-        public IList<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria)
+        public IEnumerable<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<InformStatus>(criteria.GetSpParams()).ToList();                
+                return db.Query<InformStatus>(criteria.GetSpParams());               
             }
         }
 
@@ -86,17 +67,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <returns>Result object.</returns>
         public Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                return new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
+            return ExecuteNonQuery(criteria);            
         }
 
         /// <summary>
@@ -128,17 +99,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <returns>Result object.</returns>
         public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                return new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
+            return ExecuteNonQuery(criteria);
         }
 
         /// <summary>
@@ -146,11 +107,11 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Get update informs criteria.</param>
         /// <returns>List of update informs.</returns>
-        public IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
+        public IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<UpdateInform>(criteria.GetSpParams()).ToList();                
+                return db.Query<UpdateInform>(criteria.GetSpParams());             
             }
         }
 
@@ -162,12 +123,12 @@ namespace Fanex.CRM.InformHeadline.Repositories
             }
         }
 
-        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
+        public IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
         {
             criteria.UserName = criteria.UserName ?? string.Empty;
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<UpdateInform>(criteria.GetSpParams()).ToList();
+                return db.Query<UpdateInform>(criteria.GetSpParams());
             }
         }
     }

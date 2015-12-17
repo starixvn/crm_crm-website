@@ -1,14 +1,12 @@
-﻿"use strict";
-/* global deleteTemplateApplication,
-sharedScriptManager,
-MessageResult,
-templateId */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    templateId */
 
-deleteTemplateApplication.controller('deleteTemplateController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'deleteTemplateService',
-    function ($scope, $uiBlockerService, $resultMessageService, deleteTemplateService) {
+    angular.module('addmintool-feedbacksubjectmanagement-deletetemplate')
+    .controller('deleteTemplateController', ['$scope', '$uiBlockerService', 'deleteTemplateService',
+    function ($scope, $uiBlockerService, deleteTemplateService) {
         $scope.messageResultOptions = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
@@ -20,7 +18,7 @@ deleteTemplateApplication.controller('deleteTemplateController',
                     $scope.showDeleteResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -45,3 +43,4 @@ deleteTemplateApplication.controller('deleteTemplateController',
             $scope.initController();
         });
     } ]);
+})();

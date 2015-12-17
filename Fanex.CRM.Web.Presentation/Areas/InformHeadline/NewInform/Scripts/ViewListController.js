@@ -1,14 +1,13 @@
-"use strict";
-/* global newInformApplication,
-MessageResult, 
-sharedScriptManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+(function () {
+    "use strict";
+    /* global MessageResult,
+    hotKeyManager,
+    sharedScriptManager,
+    viewResources, Site */
 
-newInformApplication.controller('NewInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'newInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, newInformService) {
+    angular.module('newInformApplication').controller('NewInformController',
+    ['$scope', '$uiBlockerService', 'newInformService',
+    function ($scope, $uiBlockerService, newInformService) {
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
@@ -52,22 +51,22 @@ newInformApplication.controller('NewInformController',
                 $scope.stations = allSetting.Stations;
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
 
         function isFilterValid() {
-            if ($scope.selectedCurrencies.length <= 0) {
+            if (!_searchCriteria.Currency) {
                 $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
                 return false;
-            } else if ($scope.selectedPositions.length <= 0) {
+            } else if (!_searchCriteria.Level) {
                 $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
                 return false;
-            } else if ($scope.selectedSites.length <= 0) {
+            } else if (!_searchCriteria.Site) {
                 $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
                 return false;
-            } else if (getAccountType() === 0) {
+            } else if (_searchCriteria.TypeAccount === 0) {
                 $scope.messageResultOptions = new MessageResult("Direct Account is required.", true, false);
                 return false;
             }
@@ -100,8 +99,6 @@ newInformApplication.controller('NewInformController',
         }
 
         $scope.exportInformHeadlines = function () {
-            refreshSearchCriteria();
-
             if (isFilterValid() === false) {
                 return;
             } else {
@@ -130,14 +127,14 @@ newInformApplication.controller('NewInformController',
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
-
         };
         $scope.insertInforms = function () {
+            refreshSearchCriteria();
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
@@ -161,7 +158,7 @@ newInformApplication.controller('NewInformController',
             _searchCriteria.Informs = items;
 
             newInformService.insertInforms(_searchCriteria)
-                .then(function (data) {
+                .then(function () {
                     $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Add new case successfully!", true, true);
                     setTimeout(function () {
@@ -169,7 +166,7 @@ newInformApplication.controller('NewInformController',
                     }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Add new case failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
@@ -191,7 +188,7 @@ newInformApplication.controller('NewInformController',
                 handleUpdateFailed);
         };
 
-        // New inform cases popup        
+        // New inform cases popup
         $scope.updateInformHeadlines = function (titleId, status) {
             $uiBlockerService.blockUI();
 
@@ -213,3 +210,4 @@ newInformApplication.controller('NewInformController',
             initController();
         });
     } ]);
+})();

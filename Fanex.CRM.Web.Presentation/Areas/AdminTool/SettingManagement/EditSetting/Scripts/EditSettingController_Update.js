@@ -1,9 +1,9 @@
-﻿"use strict";
-/* jshint unused: vars,
-camelcase: false */
-/* exported registerUpdateFunctions */
-function registerUpdateFunctions($scope) {
-    $scope.completeSetFocus = function () {
-        $scope.isSetFocus = false;
+﻿(function () {
+    "use strict";
+    /* exported registerUpdateFunctions */
+    window.registerUpdateFunctions = function ($scope) {
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
     };
-}
+})();

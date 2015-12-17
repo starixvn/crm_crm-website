@@ -45,7 +45,7 @@ namespace Fanex.CRM.Dashboard.Criteria
         {
             get
             {
-                return IPHelper.ClientIP();
+                return IPHelper.ClientIP;
             }
         }
 

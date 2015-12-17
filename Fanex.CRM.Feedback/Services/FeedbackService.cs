@@ -21,10 +21,8 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
 
@@ -33,9 +31,6 @@ namespace Fanex.CRM.Feedback.Services
     /// </summary>
     public class FeedbackService : IFeedbackService
     {
-        // Session keys.
-        private const string DeletedFeedbackSessionKey = "Fanex.CRM.Feedback.Services.DeletedFeedback";
-
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
 
@@ -50,7 +45,7 @@ namespace Fanex.CRM.Feedback.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public IList<BaseModel> GetTop
+        public IEnumerable<BaseModel> GetTopItems
         {
             get
             {
@@ -69,43 +64,27 @@ namespace Fanex.CRM.Feedback.Services
         /// Gets all setting.
         /// </summary>
         /// <returns>The all setting object.</returns>
-        public dynamic AllSetting()
+        public dynamic GetAllSettings()
         {
             return new
             {
-                CustomerType = GetCustomerType(),
-                Review = GetReview(),
+                CustomerType = GetCustomerTypes(),
+                Review = GetReviews(),
                 CustomerResponse = GetCustomerResponse(),
-                MainCategory = GetMainCategory(),
-                Communication = GetCommunication(),
+                MainCategory = GetMainCategories(),
+                Communication = GetCommunicationTools(),
                 Status = GetStatus()
             };
         }
 
-        /// <summary>
-        /// Gets the manager feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of ManagerFeedback object.</returns>
-        public IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria)
+        public IEnumerable<FeedbackDetail> GetManageFeedbacks(ManageFeedbackCriteria criteria)
         {
-            IList<FeedbackDetail> feebacks = null;
-            try
-            {
-                feebacks = _feedbackRepository.GetManagerFeedback(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return feebacks;
+            return _feedbackRepository.GetManagerFeedbacks(criteria);
         }
 
-        public IList<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
         {
-            return GetDeletedFeedback(criteria);
+            return GetDeletedFeedbacks(criteria);
         }
 
         /// <summary>
@@ -113,35 +92,14 @@ namespace Fanex.CRM.Feedback.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list of deleted feedback.</returns>
-        public IList<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
         {
-            string key = DeletedFeedbackSessionKey;
-            
-            IList<DeletedFeedback> feedbacks = null;
-            if (criteria.FromCache)
-            {
-                feedbacks = (IList<DeletedFeedback>)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
-
-            if (feedbacks == null)
-            {
-                // Get data from DB.
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
-                {
-                    feedbacks = GetDeletedFeedback(criteria);
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
-            }
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var feedbacks = GetDeletedFeedbacks(criteria);
 
             // pagination.
-            int totalItems = feedbacks.Count;
+            int totalItems = feedbacks.Count();
             if (totalItems > 0)
             {
                 feedbacks = feedbacks.Skip(criteria.PageSize * (criteria.PageIndex - 1)).Take(criteria.PageSize).ToList();
@@ -151,16 +109,11 @@ namespace Fanex.CRM.Feedback.Services
             return feedbacks;
         }
 
-        /// <summary>
-        /// Gets the deleted feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of deleted feedback.</returns>
-        private IList<DeletedFeedback> GetDeletedFeedback(ICriteria criteria)
+        private IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.AllMainCategory();
+            var categoies = _serviceSetting.GetAllMainCategories();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
@@ -177,18 +130,16 @@ namespace Fanex.CRM.Feedback.Services
                 }
             }
 
-            var statusList = _serviceSetting.AllStatus(ViewTypeConstants.All);
+            var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
 
-            IList<DeletedFeedback> feedbacks = new List<DeletedFeedback>();
-            var rawdata = _feedbackRepository.GetDeletedFeedback(criteria);
-            foreach (var feedback in rawdata)
+            var feedbacks = _feedbackRepository.GetDeletedFeedbacks(criteria);
+            foreach (var feedback in feedbacks)
             {
                 feedback.MainCategory = categoryHash[feedback.MainCategoryId];
                 feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
-                feedbacks.Add(feedback);
             }
 
             return feedbacks;
@@ -196,36 +147,32 @@ namespace Fanex.CRM.Feedback.Services
 
         #region Setting helper methods
 
-        private IList<SettingInfo> GetCustomerType()
+        private IEnumerable<Setting> GetCustomerTypes()
         {
-            return new List<SettingInfo>
+            return new List<Setting>
             {
-                new SettingInfo { Id = -1, Name = Labels.All },
-                new SettingInfo { Id = 0, Name = Labels.Customer },
-                new SettingInfo { Id = 1, Name = Labels.Guest }
+                new Setting { Id = -1, Name = Labels.All },
+                new Setting { Id = 0, Name = Labels.Customer },
+                new Setting { Id = 1, Name = Labels.Guest }
             };
         }
 
-        private IList<SettingInfo> GetReview()
+        private IEnumerable<Setting> GetReviews()
         {
-            return new List<SettingInfo>
+            return new List<Setting>
             {
-                new SettingInfo { Id = 0, Name = Labels.All },
-                new SettingInfo { Id = -1, Name = Labels.NotReviewed },
-                new SettingInfo { Id = 1, Name = Labels.Reviewed }
+                new Setting { Id = 0, Name = Labels.All },
+                new Setting { Id = -1, Name = Labels.NotReviewed },
+                new Setting { Id = 1, Name = Labels.Reviewed }
             };
         }
 
-        /// <summary>
-        /// Gets the customer response.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetCustomerResponse()
+        private IEnumerable<Setting> GetCustomerResponse()
         {
-            var response = _serviceSetting.AllResponse();
+            var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
-                new SettingInfo 
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
@@ -234,66 +181,54 @@ namespace Fanex.CRM.Feedback.Services
             return response;
         }
 
-        /// <summary>
-        /// Gets the main category.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetMainCategory()
+        private IEnumerable<Setting> GetMainCategories()
         {
-            var allSubSettingOption = new SettingInfo
+            var allSubSettingOption = new Setting
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.All,
             };
 
-            var mainCategory = new List<SettingInfo>() 
+            var mainCategories = new List<Setting>() 
             {
-                new SettingInfo
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                         allSubSettingOption
                     }
                 }
             };
 
-            var rawData = _serviceSetting.AllMainCategory();
+            var rawData = _serviceSetting.GetAllMainCategories();
             foreach (var rawMainCategory in rawData)
             {
                 rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
-                mainCategory.Add(rawMainCategory);
+                mainCategories.Add(rawMainCategory);
             }
 
-            return mainCategory;
+            return mainCategories;
         }
 
-        /// <summary>
-        /// Gets the communication.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetCommunication()
+        private IEnumerable<Setting> GetCommunicationTools()
         {
-            var communication = _serviceSetting.AllCommunicationTool()
+            var tools = _serviceSetting.GetAllCommunicationTools()
                 .Where(r => r.Id != CommunicationToolConstants.NotApply)
                 .ToList();
-            communication.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
-            return communication;
+            return tools;
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetStatus()
+        private IEnumerable<Setting> GetStatus()
         {
-            var status = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+            var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            status.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            status.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
             return status;
         }
 

@@ -1,14 +1,9 @@
 ﻿"use strict";
-/* global directiveManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerToggleElement = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
         var cachedData = {
             Options: null,
             Picker: null
@@ -16,13 +11,14 @@ directiveManager.registerToggleElement = function (angularApplication, registerP
 
         function bindingEvent(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
+            if (!options) {
+                return;
+            }
+
             cachedData.Options = options;
             cachedData.Picker = registerParams.PickerId ?
                 element.find("#" + registerParams.PickerId) :
-                element;
-            if (options === null) {
-                return;
-            }
+                element;            
 
             showHideEvent();
             if (cachedData.Options.OnChangeEvent &&
@@ -40,11 +36,7 @@ directiveManager.registerToggleElement = function (angularApplication, registerP
             }
 
             if (cachedData.Options.IsHideBorderBottom) {
-                if (cachedData.Options.IsShowTargetElement) {
-                    cachedData.Picker.removeClass("border-bottom-none");
-                } else {
-                    cachedData.Picker.addClass("border-bottom-none");
-                }
+                cachedData.Picker.toggleClass("border-bottom-none", !cachedData.Options.IsShowTargetElement);
             }
 
             var activeElement = $(cachedData.Options.ActiveElement);
@@ -67,10 +59,6 @@ directiveManager.registerToggleElement = function (angularApplication, registerP
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     if (cachedData.Options === null) {
                         bindingEvent(scope, element, attrs);
-                    }
-
-                    if (cachedData.Options === null) {
-                        return;
                     }
 
                     showHideEvent();

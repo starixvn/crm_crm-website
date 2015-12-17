@@ -1,15 +1,14 @@
-﻿"use strict";
-/* global registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-feedbackSubjectManagementApplication,
-sharedScriptManager,
-viewResources */
-/* jshint unused: vars,
-camelcase: false */
-feedbackSubjectManagementApplication.controller('feedbackSubjectManagementController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'feedbackSubjectManagementService',
-    function ($scope, $uiBlockerService, $resultMessageService, feedbackSubjectManagementService) {
+﻿(function () {
+    "use strict";
+    /* global registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    sharedScriptManager,
+    viewResources */
+    /* jshint camelcase: false */
+    angular.module('addmintool-feedbacksubjectmanagement-application').controller('feedbackSubjectManagementController',
+    ['$scope', '$uiBlockerService', 'feedbackSubjectManagementService',
+    function ($scope, $uiBlockerService, feedbackSubjectManagementService) {
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
         $scope.isLoadedFeedbackSubjectTemplate = false;
@@ -42,7 +41,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -60,7 +59,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -97,7 +96,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.feedbackSubjectTemplateView = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -115,7 +114,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -190,7 +189,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -241,3 +240,4 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
             $scope.setFocus();
         });
     } ]);
+})();

@@ -12,7 +12,7 @@ angular.module('$resultMessageApplication', [])
             $rootScope.$broadcast('resultMessage-showMessage');
         };
 
-        this.closeMessage = function (resultMessageOptions) {
+        this.closeMessage = function () {
             $rootScope.$broadcast('resultMessage-closeMessage');
         };
     } ])
@@ -23,9 +23,7 @@ angular.module('$resultMessageApplication', [])
             function showMessage(scope, element, attrs) {
                 var messageType = $resultMessageService.resultMessageOptions.messageType;
                 var message = $resultMessageService.resultMessageOptions.message;
-                element.removeClass("error")
-                    .removeClass("success")
-                    .removeClass("warning")
+                element.removeClass("error success warning")
                     .empty()
                     .text(message)
                     .removeClass("display-none");
@@ -46,7 +44,6 @@ angular.module('$resultMessageApplication', [])
                         element.addClass("error")
                             .append(buttonClose);
 
-                        element.addClass("error");
                         element.find("#button-closemessage").click(function () {
                             closeMessage(scope, element, attrs);
                         });

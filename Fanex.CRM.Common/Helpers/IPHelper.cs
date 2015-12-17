@@ -16,9 +16,12 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public static class IPHelper
     {
-        public static string ClientIP()
+        public static string ClientIP
         {
-            return HttpContext.Current.Request.UserHostAddress;
+            get
+            {
+                return HttpContext.Current.Request.UserHostAddress;
+            }
         }
     }
 }

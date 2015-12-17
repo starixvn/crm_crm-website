@@ -155,37 +155,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BundleConfigs\InformHeadlinesBundles.cs" />
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
-    <Compile Include="Controllers\InformHeadlinesController.cs" />
     <Compile Include="Criteria\CustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\CustomerSuggestionCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Criteria\RelatedCustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
     <Compile Include="Criteria\VerifyRelatedCustomerCriteria.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
-    <Compile Include="Models\InformHeadlines\InformHeadline.cs" />
-    <Compile Include="Models\InformHeadlines\InformHeadlineStatistic.cs" />
-    <Compile Include="Models\InformHeadlines\InformHeadlineStatus.cs" />
     <Compile Include="Models\RelatedCustomerSuggestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseCustomerRepository.cs" />
     <Compile Include="Repositories\CustomerDetailRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
-    <Compile Include="Repositories\InformHeadlineRepository.cs" />
     <Compile Include="Repositories\ICustomerDetailRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
-    <Compile Include="Repositories\IInformHeadlineRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -193,10 +182,8 @@
     </Compile>
     <Compile Include="Services\Implements\CustomerDetailService.cs" />
     <Compile Include="Services\Implements\CustomerService.cs" />
-    <Compile Include="Services\Implements\InformHeadlineService.cs" />
     <Compile Include="Services\Interfaces\ICustomerDetailService.cs" />
     <Compile Include="Services\Interfaces\ICustomerService.cs" />
-    <Compile Include="Services\Interfaces\IInformHeadlineService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

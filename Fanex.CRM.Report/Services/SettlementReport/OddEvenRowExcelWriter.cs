@@ -36,19 +36,19 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 NpoiExcelExtensions.EvenRowColorIndex :
                 NpoiExcelExtensions.BackgroundColorIndex;
 
-            _intStyle = NpoiExcelExtensions.IntNumberStyle(
+            _intStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
                CRMHorizontalAlignment.Right);
-            _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
+            _centerIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Center);
 
-            _textStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            _textStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
     /// </summary>
     public class DeleteSettingCriteria : UpdateCriteria
     {
-        public SettingInfo OldSetting { get; set; }
+        public Setting OldSetting { get; set; }
 
         [SpParam(SqlParamName = "creatorid")]
         public int CreatorId

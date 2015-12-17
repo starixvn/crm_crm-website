@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global updateInformApplication,
-sharedScriptManager */
-updateInformApplication.factory('updateInformService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('updateInformApplication').factory('updateInformService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -37,3 +37,4 @@ updateInformApplication.factory('updateInformService',
 
         return serviceInstance;
     } ]);
+})();

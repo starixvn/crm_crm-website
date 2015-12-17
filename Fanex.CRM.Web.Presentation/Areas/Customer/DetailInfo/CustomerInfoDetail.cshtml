@@ -6,18 +6,17 @@
 @using Fanex.NAP.Core.Business;
 @model CustomerInfo
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_DetailTab;
+
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customerdetail-application">
-<head>
-    <title>@Resources.Language.Title_DetailTab </title>
-    @RazorHelper.RenderStyles("~/site/common")
-    @RazorHelper.RenderScripts("~/scripts/respond")
+@section Styles{
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")    
-</head>
-<body>
+}
+<div data-ng-app="customerdetail-application">
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
             <div class="row title group-header" data-ng-class="isShowPersonalInfo ? '' : 'border-bottom-none'"
@@ -29,8 +28,7 @@
                             <label for="customerinfodetail-titleoptions">
                                 @Labels.Title</label></div>
                         <div class="col-md-9" data-ng-model="titleList" dropdown-title-container>
-                            <select id="customerinfodetail-titleoptions" tabindex="1" default-focus
-                                data-ng-issetfocus="isSetFocus">
+                            <select id="customerinfodetail-titleoptions" tabindex="1" default-focus data-ng-issetfocus="isSetFocus">
                             </select>
                         </div>
                     </div>
@@ -56,8 +54,8 @@
                             <label for="customerinfodetail-licenseeTypeoptions">
                                 @Labels.LicenseeType</label></div>
                         <div class="col-md-9">
-                            <select id="customerinfodetail-licenseeTypeoptions" tabindex="10"
-                                data-ng-model="customerDetail.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id">
+                            <select id="customerinfodetail-licenseeTypeoptions" tabindex="10" data-ng-model="customerDetail.LicenseeType"
+                                data-ng-options="s.Name for s in licenseeTypes track by s.Id">
                             </select>
                         </div>
                     </div>
@@ -268,8 +266,7 @@
                             <label for="qq">
                                 @Labels.QQ</label></div>
                         <div class="col-md-9">
-                            <input type="text" class="textbox" id="qq" data-ng-model="customerDetail.QQ"
-                                tabindex="45" />
+                            <input type="text" class="textbox" id="qq" data-ng-model="customerDetail.QQ" tabindex="45" />
                         </div>
                     </div>
                 </div>
@@ -314,8 +311,7 @@
                             <label for="msn">
                                 @Labels.MSN</label></div>
                         <div class="col-md-9">
-                            <input id="msn" type="text" class="textbox" data-ng-model="customerDetail.MSN"
-                                tabindex="40" />
+                            <input id="msn" type="text" class="textbox" data-ng-model="customerDetail.MSN" tabindex="40" />
                         </div>
                     </div>
                     <div class="row item">
@@ -332,8 +328,7 @@
                             <label for="bbm">
                                 @Labels.BBM</label></div>
                         <div class="col-md-9">
-                            <input id="bbm" type="text" class="textbox" data-ng-model="customerDetail.BBM"
-                                tabindex="46" />
+                            <input id="bbm" type="text" class="textbox" data-ng-model="customerDetail.BBM" tabindex="46" />
                         </div>
                     </div>
                 </div>
@@ -501,17 +496,17 @@
     </div>
     <div id="div-customerinfodetail-resultpopup" class="selector display-none">
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
     @RazorHelper.RenderScripts("~/Areas/DetailCustomerInfo/Scripts")
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         parent.document.title = document.title;
-        window.rootUrl = '@Url.Content("~")'; 
+        window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
-        var viewResources = { 
+        var viewResources = {
             OK: 'OK',
             Select: '@Labels.Select',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
@@ -520,8 +515,7 @@
             No_languages_found: '@Labels.No_languages_found',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
-          }; 
-        var customerDetail = @Html.Raw(jsonCustomerDetail); 
+          };
+        var customerDetail = @Html.Raw(jsonCustomerDetail);
     </script>
-</body>
-</html>
+}

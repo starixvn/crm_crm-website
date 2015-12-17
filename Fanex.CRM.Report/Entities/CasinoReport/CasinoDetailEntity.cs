@@ -97,7 +97,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
         {
             get
             {
-                BaseCustomerInfo customer = new BaseCustomerInfo
+                BaseCustomer customer = new BaseCustomer
                 {
                     Skype = Skype,
                     Email = Email,
@@ -108,13 +108,13 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
                     Yahoo = Yahoo,
                     QQ = QQ,
                     BBM = Bbm,
-                    FaxInfo = new FaxInfo { AreaCode = FaxAreaCode, CountryCode = FaxCountryCode, FaxNumber = Fax },
-                    MobilePhone = new PhoneInfo { AreaCode = MobilePhoneAreaCode, CountryCode = MobilePhoneCountryCode, PhoneNumber = MobilePhone }
+                    FaxInfo = new Fax { AreaCode = FaxAreaCode, CountryCode = FaxCountryCode, FaxNumber = Fax },
+                    MobilePhone = new Phone { AreaCode = MobilePhoneAreaCode, CountryCode = MobilePhoneCountryCode, PhoneNumber = MobilePhone }
                 };
 
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = PhoneAreaCode, CountryCode = PhoneCountryCode, PhoneNumber = Phone });
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone2AreaCode, CountryCode = Phone2CountryCode, PhoneNumber = Phone2 });
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone3AreaCode, CountryCode = Phone3CountryCode, PhoneNumber = Phone3 });
+                customer.PhoneInfo.Add(new Phone { AreaCode = PhoneAreaCode, CountryCode = PhoneCountryCode, PhoneNumber = Phone });
+                customer.PhoneInfo.Add(new Phone { AreaCode = Phone2AreaCode, CountryCode = Phone2CountryCode, PhoneNumber = Phone2 });
+                customer.PhoneInfo.Add(new Phone { AreaCode = Phone3AreaCode, CountryCode = Phone3CountryCode, PhoneNumber = Phone3 });
 
                 customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC1Name, Phone = PIC1 });
                 customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC2Name, Phone = PIC2 });

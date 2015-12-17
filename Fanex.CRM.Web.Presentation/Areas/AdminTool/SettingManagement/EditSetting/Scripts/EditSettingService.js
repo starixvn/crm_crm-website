@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global editSettingApplication,
-sharedScriptManager */
-editSettingApplication.factory('editSettingService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('admintool-settingmanagement-editsetting-application').factory('editSettingService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -12,3 +12,4 @@ editSettingApplication.factory('editSettingService',
 
         return serviceInstance;
     } ]);
+})();

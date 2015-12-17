@@ -2,22 +2,22 @@
 @using Fanex.CRM.ActionLog.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
-
 @model int
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_ActivityLogTab;
+
     var customerId = JsonConvert.SerializeObject(Model);
     var currentDate = DateTimeUtilize.CurrentClientTime();
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="activitylog-application">
-<head>
-    <title>@Resources.Language.Title_ActivityLogTab</title>
-    @RazorHelper.RenderStyles("~/site/common", "~/Areas/ActionLog/ActivityLogStyles")
-</head>
-<body>
-<div class="container main" data-ng-controller="activityLogController">
-    <div class="row filter-frm one-row redemption-filter">
-        <form data-ng-submit="searchActivityLogs()">
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/ActionLog/ActivityLogStyles")
+}
+<div data-ng-app="activitylog-application">
+    <div class="container main" data-ng-controller="activityLogController">
+        <div class="row filter-frm one-row redemption-filter">
+            <form data-ng-submit="searchActivityLogs()">
             <div class="item">
                 <label for="username">@Labels.Handler</label>
                 <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
@@ -40,18 +40,21 @@
                 </select>
             </div>
             <div class="item">
-                <button class="btn"><span class="hotkey">S</span>ubmit</button>
+                <button class="btn">
+                    <span class="hotkey">S</span>ubmit</button>
             </div>
-        </form>
-    </div>
-    <div class="row">
-        <div data-ng-model="activityLogs" table-activity-logs-container>
-            <div id="table-activity-logs" class="freegrid display-none">
+            </form>
+        </div>
+        <div class="row">
+            <div data-ng-model="activityLogs" table-activity-logs-container>
+                <div id="table-activity-logs" class="freegrid display-none">
+                </div>
             </div>
         </div>
     </div>
 </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/ActivityLogScripts")
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Areas/ActionLog/ActivityLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
@@ -68,7 +71,6 @@
             NewValue: '@Labels.NewValue',
             Customer_Activity_Logs: '@Labels.Customer_Activity_Logs'
         };
-        $('#username').focus(); 
+        $('#username').focus();
     </script>
-</body>
-</html>
+}

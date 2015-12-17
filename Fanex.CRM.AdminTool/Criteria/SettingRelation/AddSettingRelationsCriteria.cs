@@ -26,7 +26,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 
         public string SettingName { get; set; }
 
-        public List<SettingInfo> SubSettings { get; set; }
+        public List<Setting> SubSettings { get; set; }
 
         public int CreatorId
         {
@@ -48,7 +48,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
         {
             get
             {
-                return IPHelper.ClientIP();
+                return IPHelper.ClientIP;
             }
         }
 

@@ -22,7 +22,7 @@ namespace Fanex.CRM.Common.Helpers
         /// </summary>
         /// <param name="siteType">Type of the site.</param>
         /// <returns>The name of the site type.</returns>
-        public static string SiteTypeName(int siteType)
+        public static string GetSiteTypeName(int siteType)
         {
             switch (siteType)
             {

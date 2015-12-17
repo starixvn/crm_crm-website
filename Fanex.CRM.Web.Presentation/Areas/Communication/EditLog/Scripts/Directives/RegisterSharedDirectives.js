@@ -1,9 +1,10 @@
-﻿"use strict";
-/* global editLogApplication,
-RegisterTemplate */
-function editCommunicationLogRegisterPicker() {
-    var editCommunicationLogRegister = new RegisterTemplate(editLogApplication);
-    editCommunicationLogRegister.registerLicenseeTypePicker();
-}
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function editCommunicationLogRegisterPicker() {
+        var editCommunicationLogRegister = new RegisterTemplate(angular.module('communicationlog-edit-application'));
+        editCommunicationLogRegister.registerLicenseeTypePicker();
+    }
 
-editCommunicationLogRegisterPicker();
+    editCommunicationLogRegisterPicker();
+})();

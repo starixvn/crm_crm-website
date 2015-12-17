@@ -17,11 +17,11 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
 
     public interface IFeedbackSubjectManagementRepository
     {
-        List<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria);
+        IEnumerable<FeedbackSubjectTemplate> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria);
 
         Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria);
 
-        FeedbackSubjectTemplateInfo FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria);
+        FeedbackSubjectTemplate GetFeedbackSubjectTemplate(FeedbackSubjectTemplateByIdCriteria criteria);
 
         Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria);
 

@@ -1,19 +1,17 @@
 ﻿@using Fanex.CRM.Customer.Resources;
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
     bool canCreateTitle = (bool)ViewBag.CanCreateTitle;
     int canUpdateStatus = (bool)ViewBag.CanUpdateStatus ? 1 : 0;
 }
-
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-informheadline-statistic">
-<head>
-    <title></title>
-    @RazorHelper.RenderStyles("~/site/common",
-        "~/Areas/Customer/InformHeadlines/InformStatisticStyle")
-</head>
-<body>
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Customer/InformHeadlines/InformStatisticStyle")
+}
+<div data-ng-app="customer-informheadline-statistic">
     <div class="container main" data-ng-controller="informHeadlineStatisticController">
-        <div class="row display-none" alert-box-container></div>
+        <div class="row display-none" alert-box-container>
+        </div>
         <div class="row" data-ng-model="statistic" table-inform-statistic-container>
             <div id="table-inform-statistic" class="freegrid display-none">
             </div>
@@ -21,7 +19,8 @@
         @if (canCreateTitle)
         {
             <div class="row">
-                <button class="btn btn-save" data-ng-click="openCreateTitle()">N<span class="hotkey">e</span>w Case</button>
+                <button class="btn btn-save" data-ng-click="openCreateTitle()">
+                    N<span class="hotkey">e</span>w Case</button>
             </div>
         }
         <div class="row download-file-container" data-ng-model="downloadFileOptions">
@@ -29,10 +28,9 @@
         </div>
         <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/Scripts/FanexGridV2/NumeralScripts",
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/PopUp",
         "~/CRM/DownLoadFile/Scripts",
@@ -59,7 +57,6 @@
             NewInformHeadlines: '@Labels.NewInformHeadlines',
             UpdateInformHeadlines:'@Labels.UpdateInformHeadlines',
             Confirm_Ignore_UpdateInforms_Changes: '@Html.Raw(Labels.Confirm_Ignore_UpdateInforms_Changes)'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

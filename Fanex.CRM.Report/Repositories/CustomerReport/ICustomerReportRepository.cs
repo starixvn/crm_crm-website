@@ -15,6 +15,6 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
 
     public interface ICustomerReportRepository
     {
-        List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria);
+        IEnumerable<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria);
     }
 }

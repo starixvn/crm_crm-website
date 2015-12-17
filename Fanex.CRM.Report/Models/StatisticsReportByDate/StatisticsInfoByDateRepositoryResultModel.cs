@@ -20,8 +20,8 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     [Serializable]
     public class StatisticsInfoByDateRepositoryResultModel
     {
-        public List<StatisticByDateEntity> RawData { get; set; }
+        public IList<StatisticByDateEntity> RawData { get; set; }
 
-        public List<BaseModel> CommunicationTools { get; set; }
+        public IList<BaseModel> CommunicationTools { get; set; }
     }
 }

@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Common.Helpers
 {
     using System;
-    using DNAide.Core;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
 
@@ -19,7 +18,7 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public class DateTimeUtilize
     {
-        private static string[] monthName =
+        private static readonly string[] MonthName =
                                     {
                                         "January",
                                         "February", 
@@ -49,7 +48,7 @@ namespace Fanex.CRM.Common.Helpers
 
         public static string GetMonthName(int month)
         {
-            return DateTimeUtilize.monthName[month - 1];
+            return DateTimeUtilize.MonthName[month - 1];
         }
 
         #region Convert time client <->server
@@ -74,21 +73,21 @@ namespace Fanex.CRM.Common.Helpers
         public static string ChangeTimeZoneToClient(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var client = CastAide.AsDateTime(time);
+            var client = Convert.ToDateTime(time);
             return client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
         }
 
         public static string ChangeTimeZoneToClientDate(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var client = CastAide.AsDateTime(time);
+            var client = Convert.ToDateTime(time);
             return client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy");
         }
 
         public static string ChangeTimeZoneToClientTime(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var client = CastAide.AsDateTime(time);
+            var client = Convert.ToDateTime(time);
             return client.Add(timeSpan._timeSpan).ToString("hh:mm tt");
         }
 
@@ -100,7 +99,7 @@ namespace Fanex.CRM.Common.Helpers
 
         public static string ChangeTimeZoneToServer(string time)
         {
-            var client = CastAide.AsDateTime(time);
+            var client = Convert.ToDateTime(time);
             DateTimeUtilize timeSpan = new DateTimeUtilize();
 
             return client.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
@@ -118,7 +117,7 @@ namespace Fanex.CRM.Common.Helpers
 
         public static string ChangeTimeToServerForReportBegin(string time)
         {
-            var server = CastAide.AsDateTime(time);
+            var server = Convert.ToDateTime(time);
             return ChangeTimeToServerForReportBegin(server);
         }
 
@@ -131,7 +130,7 @@ namespace Fanex.CRM.Common.Helpers
 
         public static string ChangeTimeToServerForReportEnd(string time)
         {
-            var server = CastAide.AsDateTime(time);
+            var server = Convert.ToDateTime(time);
             return ChangeTimeToServerForReportEnd(server);
         }
 

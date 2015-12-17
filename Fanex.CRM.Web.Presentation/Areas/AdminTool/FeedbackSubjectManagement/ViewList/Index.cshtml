@@ -1,10 +1,11 @@
 ﻿﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-feedbacksubjectmanagement-application">
-<head>
-    <title>@Labels.Title_AdminTool_FeedbackSubjectManagement </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Title_AdminTool_FeedbackSubjectManagement;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/InputBox/style.css")
@@ -12,45 +13,47 @@
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles")
-</head>
-<body class="feedbackSubjectManagementController" data-ng-controller="feedbackSubjectManagementController">
-    <div class="container main">
-        <div class="row filter-frm one-row subjectTemplate">
-            <div class="item afterButton subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
-                <input id="subject" name="txt-template-subject" type="text" class="textbox txt-search subject-auto-complete"
-                    autocomplete="off" data-ng-model="subjectOptions.Subject" />
+}
+<div data-ng-app="addmintool-feedbacksubjectmanagement-application">
+    <div class="feedbackSubjectManagementController" data-ng-controller="feedbackSubjectManagementController">
+        <div class="container main">
+            <div class="row filter-frm one-row subjectTemplate">
+                <div class="item afterButton subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                    <input id="subject" name="txt-template-subject" type="text" class="textbox txt-search subject-auto-complete"
+                        autocomplete="off" data-ng-model="subjectOptions.Subject" />
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-search" class="btn pull-left btn-update " data-ng-click="searchTemplate();">
+                        <span class="hotkey">S</span>earch
+                    </button>
+                </div>
+                <div class="item">
+                    <button id="btn-insert-setting" class="btn pull-left btn-update " data-ng-click="showInsertPopup();">
+                        <span class="hotkey">I</span>nsert New Feedback Subject
+                    </button>
+                </div>
             </div>
-            <div class="item afterButton">
-                <button id="btn-search" class="btn pull-left btn-update " data-ng-click="searchTemplate();">
-                    <span class="hotkey">S</span>earch
-                </button>
-            </div>
-            <div class="item">
-                <button id="btn-insert-setting" class="btn pull-left btn-update " data-ng-click="showInsertPopup();">
-                    <span class="hotkey">I</span>nsert New Feedback Subject
-                </button>
-            </div>
-        </div>
-        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="messageResultOptions.Message">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="feedback-template-list-container" class="feedback-template-list-container"
-                data-ng-model="feedbackSubjectTemplateView">
-                <div id="feedback-template-list" class="freegrid display-none">
+            <div class="row">
+                <div id="feedback-template-list-container" class="feedback-template-list-container"
+                    data-ng-model="feedbackSubjectTemplateView">
+                    <div id="feedback-template-list" class="freegrid display-none">
+                    </div>
                 </div>
             </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
-        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
@@ -74,5 +77,4 @@
             Insert_Feedback_Subject_Template: '@Labels.Insert_New_Feedback_Subject_Template'
         };
     </script>
-</body>
-</html>
+}

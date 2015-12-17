@@ -3,9 +3,6 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
 
 namespace Fanex.CRM.Report.Controllers
 {
@@ -14,6 +11,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Repositories.CustomerReport;
+    using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -23,16 +21,18 @@ namespace Fanex.CRM.Report.Controllers
     [NapAuth(FunctionKey = FunctionPermissions.CustomerReport, Policy = Constant.Policy.Read)]
     public class CustomerReportController : BaseController
     {
-        private ICustomerReportService _customerReportService;
+        private readonly ICustomerReportService _customerReportService;
+        private readonly ISettingService _settingService;
 
         public CustomerReportController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public CustomerReportController(ICustomerReportService customerReportService)
+        public CustomerReportController(ICustomerReportService customerReportService, ISettingService settingService)
         {
             _customerReportService = customerReportService ?? new CustomerReportService();
+            _settingService = settingService ?? new SettingService();
         }
 
         public ActionResult Index()
@@ -49,12 +49,12 @@ namespace Fanex.CRM.Report.Controllers
         {
             var allSetting = new
             {
-                SiteList = _customerReportService.AllSite(),
-                TitleList = _customerReportService.AllTitle(),
-                CountryList = _customerReportService.AllCountry(),
-                LanguageList = _customerReportService.AllLanguage(),
-                CustomerTypeList = _customerReportService.AllCustomerType(),
-                VIPTypeList = _customerReportService.AllVIPType()
+                SiteList = _settingService.GetAllSites(),
+                TitleList = _settingService.GetAllTitles(true),
+                CountryList = _settingService.GetAllCountries(),
+                LanguageList = _settingService.GetAllLanguages(),
+                CustomerTypeList = _settingService.GetAllCustomerTypes(),
+                VIPTypeList = _settingService.GetAllVIPTypes()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -63,7 +63,7 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            var customerReport = _customerReportService.CustomerReport(criteria);
+            var customerReport = _customerReportService.GetCustomerReport(criteria);
             var jsonResult = Json(customerReport, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

@@ -1,11 +1,11 @@
-﻿"use strict";
-/* global editLogApplication */
-editLogApplication.factory('$editLogService', ['$http', '$q', 
-function ($http, $q) {
-    var serviceInstance = {};   
-    serviceInstance.getAllStatus = function () {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "Redemption/AllStatusEdit", null)
+﻿(function () {
+    "use strict";
+    angular.module('redemption-editlog-application').factory('$editLogService', ['$http', '$q',
+    function ($http, $q) {
+        var serviceInstance = {};
+        serviceInstance.getAllStatus = function () {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Redemption/AllStatusEdit", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,11 +22,11 @@ function ($http, $q) {
                  });
              });
 
-        return deferred.promise;
-    };
-    serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate", null)
+            return deferred.promise;
+        };
+        serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -43,11 +43,11 @@ function ($http, $q) {
                  });
              });
 
-        return deferred.promise;
-    };
-    serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "Setting/GetFeedbackSubjectTemplateByPagingIndex", pagingInfo)
+            return deferred.promise;
+        };
+        serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Setting/GetFeedbackSubjectTemplateByPagingIndex", pagingInfo)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -64,11 +64,11 @@ function ($http, $q) {
                  });
              });
 
-        return deferred.promise;
-    };
-    serviceInstance.updateLog = function (updateLogCriteria) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "Redemption/UpdateLog", updateLogCriteria)
+            return deferred.promise;
+        };
+        serviceInstance.updateLog = function (updateLogCriteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Redemption/UpdateLog", updateLogCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -85,7 +85,8 @@ function ($http, $q) {
                  });
              });
 
-        return deferred.promise;
-    };
-    return serviceInstance;
-}]);
+            return deferred.promise;
+        };
+        return serviceInstance;
+    } ]);
+})();

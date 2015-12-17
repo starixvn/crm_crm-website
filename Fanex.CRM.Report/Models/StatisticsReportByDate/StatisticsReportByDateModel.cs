@@ -19,6 +19,6 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     [Serializable]
     public class StatisticsReportByDateModel : CategoryIssuesInfo
     {
-        public List<BaseModel> CommunicationTools { get; set; }
+        public IList<BaseModel> CommunicationTools { get; set; }
     }
 }

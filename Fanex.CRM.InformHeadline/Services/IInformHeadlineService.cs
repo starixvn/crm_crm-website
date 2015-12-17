@@ -19,7 +19,7 @@ namespace Fanex.CRM.InformHeadline.Services
     /// </summary>
     public interface IInformHeadlineService
     {
-        IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
+        IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
         InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
 
@@ -31,13 +31,13 @@ namespace Fanex.CRM.InformHeadline.Services
 
         Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
-        IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
+        IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
 
         dynamic GetNewInformSettings();
 
         dynamic GetContactInformSettings();
 
-        IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
+        IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
 
         TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);
 
@@ -47,12 +47,12 @@ namespace Fanex.CRM.InformHeadline.Services
 
         Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
 
-        IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
+        IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
 
-        IList<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false);
+        IEnumerable<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false);
 
-        IList<Status> GetProductStatuses();
+        IEnumerable<Status> GetProductStatuses();
 
-        IList<Station> GetStations();
+        IEnumerable<Station> GetStations();
     }
 }

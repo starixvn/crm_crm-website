@@ -1,4 +1,4 @@
-﻿/* global sharedScriptManager */
-/* exported dynamicReportApplication */
-var redemptionStatisticsApplication = angular.module('report-redemption-statistics-application', ['alertBoxApplication']);
-sharedScriptManager.setNoCachingHttpRequest(redemptionStatisticsApplication);
+﻿(function () {
+    "use strict";
+    angular.module('report-redemption-statistics-application', ['alertBoxApplication']);
+})();

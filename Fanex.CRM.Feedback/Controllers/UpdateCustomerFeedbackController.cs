@@ -124,7 +124,7 @@ namespace Fanex.CRM.Feedback.Controllers
             }
 
             if (!HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host) &&
-                criteria.UpdateReviewMode != (int)RevewMode.NotUpdate)
+                criteria.UpdateReviewMode != (int)ReviewMode.NotUpdate)
             {
                 return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
             }

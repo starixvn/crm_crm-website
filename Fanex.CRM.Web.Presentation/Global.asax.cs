@@ -9,10 +9,13 @@
 
 namespace Fanex.CRM.Web.View
 {
+    using System;
+    using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
     using Fanex.CRM.Web.View.AppStart;
+    using Fanex.Logging;
 
     /// <summary>
     /// MVC Application.
@@ -58,6 +61,40 @@ namespace Fanex.CRM.Web.View
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
+        }
+
+        /// <summary>
+        /// Application Error.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event Arguments.</param>
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError().GetBaseException();
+            if (exception is HttpAntiForgeryException)
+            {
+                return;
+            }
+
+            var httpException = exception as HttpException;
+            if (httpException != null && httpException.GetHttpCode() == 404)
+            {
+                return;
+            }
+
+            string message = exception.Message +
+                             "\r\nSOURCE: " + exception.Source +
+                             "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
+                             "\r\nFORM: " + string.Join("~", Request.Form) +
+                             "\r\nUrl: " + Request.RawUrl +
+                             "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
+                             "\r\nTARGETSITE: " + exception.TargetSite +
+                             "\r\nSTACKTRACE: " + exception.StackTrace +
+                             "\r\nBrowser:" + Request.Browser.Type.ToString() +
+                             "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
+                             "\r\nAgent:" + Request.UserAgent.ToString();
+
+            LogService.Error("CRM " + Environment.NewLine + message);
         }
     }
 }

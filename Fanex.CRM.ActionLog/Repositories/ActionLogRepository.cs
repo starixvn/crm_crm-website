@@ -29,35 +29,13 @@ namespace Fanex.CRM.ActionLog.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The activity log list.</returns>
-        public IList<ActivityLog> GetActivityLogs(GetActionLogCriteria criteria)
+        public IEnumerable<ActionLog> GetActivityLogs(GetActionLogCriteria criteria)
         {
             criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-
-                    IList<ActivityLog> activityLogs = new List<ActivityLog>();
-                    while (reader.Read())
-                    {
-                        activityLogs.Add(new ActivityLog
-                        {
-                            // No need to convert ClientDatetime, we'll do it in Model.
-                            LogDate = Converter.ToDateTime(reader["LogDate"]),
-                            Username = Converter.ToString2(reader["Username"]),
-                            OldValues = Converter.ToString2(reader["OldValues"]),
-                            NewValues = Converter.ToString2(reader["NewValues"]),
-                            ActionName = Converter.ToString2(reader["ActionName"])
-                        });
-                    }
-
-                    return activityLogs;
-                }
+                return objectDB.Query<ActionLog>(criteria.GetSpParams());
             }
         }
 
@@ -70,37 +48,13 @@ namespace Fanex.CRM.ActionLog.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The setting log list.</returns>
-        public IList<SettingLog> GetSettingLogs(GetActionLogCriteria criteria)
+        public IEnumerable<SettingLog> GetSettingLogs(GetActionLogCriteria criteria)
         {
             criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-
-                    IList<SettingLog> settingLogs = new List<SettingLog>();
-                    while (reader.Read())
-                    {
-                        settingLogs.Add(new SettingLog
-                        {
-                            // No need to convert ClientDatetime, we'll do it in Model.
-                            LogDate = Converter.ToDateTime(reader["LogDate"]),
-                            Username = Converter.ToString2(reader["Username"]),
-                            OldValues = Converter.ToString2(reader["OldValues"]),
-                            NewValues = Converter.ToString2(reader["NewValues"]),
-                            ActionName = Converter.ToString2(reader["ActionName"]),
-                            Entity = Converter.ToString2(reader["Entity"]),
-                            Id = Converter.ToInt(reader["ID"])
-                        });
-                    }
-
-                    return settingLogs;
-                }
+                return objectDB.Query<SettingLog>(criteria.GetSpParams());
             }
         }
 

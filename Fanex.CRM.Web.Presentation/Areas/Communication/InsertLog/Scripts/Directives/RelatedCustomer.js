@@ -1,15 +1,14 @@
 ﻿"use strict";
-/* global insertLogApplication,
-sharedScriptManager
- */
-/* exported orgArrUser, 
+/* global sharedScriptManager
+*/
+/* exported orgArrUser,
 trim,
 verifyRelatedCustomer,
-checkDuplicateRelated,
 getRelatedCustomer,
 deleteRelatedCust,
 getRelatedCustomerLength,
 deleteAllInValidCustomers */
+
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
@@ -19,33 +18,33 @@ var renderRelated = function (row) {
     if (!row) {
         return;
     }
-    
+
     var html;
     if (row && row.Id !== 0) {
         if (row.Id > 0) {
             html = '<tr>\
-                        <td id =' + row.Id + ' value= ' + row.Name + ' >\
-                                <a rel="friend" class="txt-customer">\
-                                    <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
-                         </td>\
-                     </tr>';
+                    <td id =' + row.Id + ' value= ' + row.Name + ' >\
+                            <a rel="friend" class="txt-customer">\
+                                <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
+                        </td>\
+                    </tr>';
         }
         else {
             html = '<tr>\
-                        <td id =' + row.Id + ' value= ' + row.Name + ' >\
-                                <a rel="friend" class="txt-guest">\
-                                    <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
-                        </td>\
-                    </tr>';
+                    <td id =' + row.Id + ' value= ' + row.Name + ' >\
+                            <a rel="friend" class="txt-guest">\
+                                <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
+                    </td>\
+                </tr>';
         }
     }
     else {
         html = '<tr class="invalidcustomers">\
-                    <td id =' + row.Id + ' value= ' + row.Name + ' >\
-                            <a rel="friend" class="txt-invalid">\
-                                <span onclick="deleteAllInValidCustomers();" class="icon-del"></span>' + row.Name + '</a>\
-                    </td>\
-                </tr>';
+                <td id =' + row.Id + ' value= ' + row.Name + ' >\
+                        <a rel="friend" class="txt-invalid">\
+                            <span onclick="deleteAllInValidCustomers();" class="icon-del"></span>' + row.Name + '</a>\
+                </td>\
+            </tr>';
     }
 
     return html;
@@ -93,10 +92,77 @@ var completedVerifyRelatedCustomer = function (rs) {
         $("#related-container").removeClass("display-none");
     }
 };
-insertLogApplication.directive('relatedCustomerContainer', function () {
 
-    function bindingRelatedCustomerEvent(scope, element, attrs) {
-        /* jshint unused: vars */
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+var verifyRelatedCustomer = function (scope) {
+    var arrUser = [];
+    var userName = "";
+    $('#txtrelatedcustomer option').each(function (i, option) {
+        arrUser[i] = $(option).text();
+    });
+
+    userName = arrUser.join(",");
+    if (userName !== "") {
+        scope.BlockUI();
+        sharedScriptManager.CallAjax(self,
+        window.rootUrl + "CustomerSetting/VerifyUsername",
+        { UserName: userName },
+        completedVerifyRelatedCustomer,
+        null,
+        scope.unblockUI);
+    }
+};
+
+var getRelatedCustomer = function () {
+    var arrUser = [];
+    var userName = "";
+    $('#related td').each(function (i, td) {
+        /* jshint unused: false */
+        arrUser[i] = this.id;
+    });
+    userName = arrUser.join(",");
+    return userName;
+};
+var deleteRelatedCust = function (custId) {
+    $("#" + custId).parent().remove();
+    userList.splice(userIdList.indexOf(custId), 1);
+    userIdList.splice(userIdList.indexOf(custId), 1);
+};
+
+var getRelatedCustomerLength = function () {
+    return ($(".related-customer-container #holder > li").length - 1) +
+        ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
+};
+
+var deleteAllInValidCustomers = function () {
+    var length = arrCust.length;
+    var arrCustPos = [];
+    var arrHtmlPos = [];
+    var userIdListPos = [];
+
+    $('.invalidcustomers').remove();
+    for (var i = 0; i < length; i++) {
+        if (parseInt(arrCust[i]) !== 0) {
+            arrCustPos.push(arrCust[i]);
+            arrHtmlPos.push(userList[i]);
+            userIdListPos.push(userIdList[i]);
+        }
+    }
+
+    userList = [];
+    userList = arrHtmlPos;
+
+    arrCust = [];
+    arrCust = arrCustPos;
+
+    userIdList = [];
+    userIdList = userIdListPos;
+};
+
+angular.module('communicationlog-insert-application').directive('relatedCustomerContainer', function () {
+    function bindingRelatedCustomerEvent(scope, element) {
         var relatedTo = element.find("#txtrelatedcustomer");
         relatedTo.fcbkcomplete({
             /* jshint camelcase: false */
@@ -145,109 +211,8 @@ insertLogApplication.directive('relatedCustomerContainer', function () {
     return {
         restrict: 'A',
         scope: true,
-        link: function (scope, element, attrs) {
-            bindingRelatedCustomerEvent(scope, element, attrs);
+        link: function (scope, element) {
+            bindingRelatedCustomerEvent(scope, element);
         }
     };
 });
-
-function trim(str) {
-    return str.replace(/(^\s*)|(\s*$)/g, "");
-}
-var verifyRelatedCustomer = function (scope) {
-    var arrUser = [];
-    var userName = "";
-    $('#txtrelatedcustomer option').each(function (i, option) {
-        arrUser[i] = $(option).text();
-    });
-
-    userName = arrUser.join(",");
-    if (userName !== "") {
-        scope.BlockUI();
-        sharedScriptManager.CallAjax(self,
-            window.rootUrl + "CustomerSetting/VerifyUsername",
-            { UserName: userName },
-            completedVerifyRelatedCustomer,
-            null,
-            scope.unblockUI);
-    }
-};
-
-var checkContainsValue = function (a, e) {
-    for (var j = 0; j < a.length; j++) {
-        if ($.trim(a[j].toLowerCase()) === $.trim(e.toLowerCase())) {
-            return true;
-        }
-    }
-
-    return false;
-};
-var checkDuplicateRelated = function () {
-    var arrUser = [];
-    var userName = "";
-    $('#txtrelatedcustomer option').each(function (i, option) {
-        arrUser[i] = $(option).text();
-    });
-
-    userName = arrUser.join(",");
-    var relatedVal = arrUser;
-    var dups = [];
-    var items = [];
-    if (relatedVal) {
-        for (var j = 0; j < relatedVal.length; j++) {
-            if (!checkContainsValue(items, relatedVal[j])) {
-                items.push(relatedVal[j]);
-            }
-            else {
-                dups.push(relatedVal[j]);
-            }
-        }
-
-        return dups;
-    }
-};
-var getRelatedCustomer = function () {
-    var arrUser = [];
-    var userName = "";
-    $('#related td').each(function (i, td) {
-        /* jshint unused: vars */
-        arrUser[i] = this.id;
-    });
-    userName = arrUser.join(",");
-    return userName;
-};
-var deleteRelatedCust = function (custId) {
-    $("#" + custId).parent().remove();
-    userList.splice(userIdList.indexOf(custId), 1);
-    userIdList.splice(userIdList.indexOf(custId), 1);
-};
-
-var getRelatedCustomerLength = function () {
-    return ($(".related-customer-container #holder > li").length - 1) +
-           ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
-};
-
-var deleteAllInValidCustomers = function () {
-    var length = arrCust.length;
-    var arrCustPos = [];
-    var arrHtmlPos = [];
-    var userIdListPos = [];
-
-    $('.invalidcustomers').remove();
-    for (var i = 0; i < length; i++) {
-        if (parseInt(arrCust[i]) !== 0) {
-            arrCustPos.push(arrCust[i]);
-            arrHtmlPos.push(userList[i]);
-            userIdListPos.push(userIdList[i]);
-        }
-    }
-
-    userList = [];
-    userList = arrHtmlPos;
-
-    arrCust = [];
-    arrCust = arrCustPos;
-
-    userIdList = [];
-    userIdList = userIdListPos;
-};

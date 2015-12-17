@@ -12,7 +12,7 @@ namespace Fanex.CRM.Remark.Repositories
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
@@ -22,67 +22,41 @@ namespace Fanex.CRM.Remark.Repositories
     /// <summary>
     /// Remark repository class.
     /// </summary>
-    public class RemarkRepository : IRemarkRepository
+    public class RemarkRepository : BaseRepository, IRemarkRepository
     {
         #region IRemarkRepository Members
 
-        /// <summary>
-        /// Gets the remarks.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Remark objects list.</returns>
         public Remarks GetRemarks(ICriteria criteria)
         {
-            IList<string> specialRemarks = new List<string>();
-            IList<string> remarks = new List<string>();
-
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
-                    {
-                        string remark = null;
-                        while (reader.Read())
+                    var specialRemarks = new List<string>();
+                    var remarks = new List<string>();
+
+                    while (reader.Read())
+                    {                        
+                        var remark = Converter.ToString2(reader["Remark"])
+                            .Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "<br/>");
+                        if (Converter.ToBool(reader["IsSpecial"]))
                         {
-                            // Old editor is textarea
-                            // New editor is wysiwyg html editor
-                            // So, we MUST replace like below to make sure that remarks HISTORY are displayed properly.
-                            remark = Converter.ToString2(reader["Remark"])
-                                .Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "<br/>");
-                            if (Converter.ToBool(reader["IsSpecial"]))
-                            {
-                                specialRemarks.Add(remark);
-                            }
-                            else
-                            {
-                                remarks.Add(remark);
-                            }
+                            specialRemarks.Add(remark);
+                        }
+                        else
+                        {
+                            remarks.Add(remark);
                         }
                     }
+
+                    return new Remarks { SpecialRemarks = specialRemarks, NormalRemarks = remarks };
                 }
             }
-
-            return new Remarks { SpecialRemarks = specialRemarks, NormalRemarks = remarks };
         }
 
-        /// <summary>
-        /// Updates the remarks.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result object.</returns>
         public Result UpdateRemarks(UpdateRemarkCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.ExecuteNonQuery(criteria.GetSpParams());
-                var outputParams = objectDB.GetOuputParams();
-                return new Result
-                {
-                    Code = Converter.ToInt(outputParams["ErrCode"]),
-                    Message = Converter.ToString2(outputParams["ErrMsg"])
-                };
-            }
+            return ExecuteNonQuery(criteria);            
         }
 
         #endregion

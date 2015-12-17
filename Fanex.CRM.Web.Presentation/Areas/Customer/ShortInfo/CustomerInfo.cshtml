@@ -3,228 +3,228 @@
 @using Fanex.NAP.Core.Business;
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
-<head>
-    <title>@Labels.Customer_Info </title>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/site/common")
     @RazorHelper.RenderStyles("~/Areas/ShortCustomerInfo/Styles")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
-    @{
-        var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
-    }
-</head>
-<body class="leftPanel">
-    <div id="divContent" class="container left-container customerinfo-container display-none"
-        data-ng-controller="customerController">
-        <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo track by $index">
-            <div class="row item">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="uplineInfo.Role.Name">
+}
+<div data-ng-app="customer-application">
+    <div class="leftPanel">
+        <div id="divContent" class="container left-container customerinfo-container display-none"
+            data-ng-controller="customerController">
+            <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo track by $index">
+                <div class="row item">
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="uplineInfo.Role.Name">
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
+                        <a data-ng-href="#" tabindex="{{ $index + 1 }}" data-ng-click="searchUplineInfo(uplineInfo.Name)"
+                            data-ng-bind="uplineInfo.Name"></a>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="uplineInfo.Status">
+                    </div>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
-                    <a data-ng-href="#" tabindex="{{ $index + 1 }}" data-ng-click="searchUplineInfo(uplineInfo.Name)"
-                        data-ng-bind="uplineInfo.Name"></a>
+            </div>
+            <div class="row item current">
+                <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="customer.Role.Name">
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="uplineInfo.Status">
+                <div class="col-xs-6 col-sm-6 col-md-6 text-lef username" data-ng-bind="customer.Name">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="customer.Status">
                 </div>
             </div>
-        </div>
-        <div class="row item current">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="customer.Role.Name">
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 text-lef username" data-ng-bind="customer.Name">
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="customer.Status">
-            </div>
-        </div>
-        <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member || 
+            <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member ||
             customer.Role.Id == @RoleIdConstants.CRMMember">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left">
-                @Labels.Danger</div>
-            <div class="col-xs-9 col-sm-9 col-md-9">
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
-                        @Labels.Orginal</div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                        @Labels.NonLive</div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">
-                        @Labels.Other_sports</div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
-                        <span class="lv{{ customer.OriginalDangerLevel }}">{{ customer.OriginalDangerLevel !=
-                            0 ? ('@Labels.Lvl ' + customer.OriginalDangerLevel) : '@Labels.None' }}</span></div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                        <span class="lv{{ customer.ABTDangerLevel }}">{{ customer.ABTDangerLevel != 0 ? ('@Labels.Lvl
-                            ' + customer.ABTDangerLevel) : '@Labels.None' }}</span></div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">
-                        <span class="lv{{ customer.OtherSportsDangerLevel }}">{{ customer.OtherSportsDangerLevel
-                            != 0 ? ('@Labels.Lvl ' + customer.OtherSportsDangerLevel) : '@Labels.None' }}</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <label for="customerinfo-siteoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Site</label>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <select id="customerinfo-siteoptions" tabindex="4" data-ng-keyup="textBoxKeyUp($event);">
-                </select>
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <label for="customerinfo-countryoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Country</label>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <select id="customerinfo-countryoptions" tabindex="5" data-ng-keyup="textBoxKeyUp($event);">
-                </select>
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <label for="firstname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.First_Name</label>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input id="firstname" type="text" class="textbox" data-ng-model="customer.FirstName"
-                    data-ng-keyup="textBoxKeyUp($event);" tabindex="6" />
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <label for="lastname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Last_Name</label>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input id="lastname" type="text" class="textbox" data-ng-model="customer.LastName"
-                    data-ng-keyup="textBoxKeyUp($event);" tabindex="7" />
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Nick_Name</div>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <div class="text" data-ng-bind="customer.NickName">
-                </div>
-            </div>
-        </div>
-        <div class="row item no-border-bg">
-            <label class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Language</label>
-            <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <select id="customerinfo-languageoptions">
-                </select>
-            </div>
-        </div>
-        <div class="row item no-border-bg" data-ng-show="customer.HeadLine">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                &nbsp;</div>
-            <div class="col-xs-5 col-sm-4 col-md-4">
-                <label for="headline" class="labelforcheckbox checkbox">
-                    <input id="headline" type="checkbox" data-ng-model="customer.HeadLine" disabled />
-                    @Labels.Headline</label></div>
-        </div>
-        <div class="row item title text-left communicationtool-header" data-ng-click="isShowCommunicationTool=!isShowCommunicationTool">
-            @Labels.Communication_Tool
-        </div>
-        <div data-ng-show="isShowCommunicationTool">
-            <div class="customer-phoneinfo-container" data-ng-repeat="phoneInfo in customer.PhoneInfo">
-                <div class="row item no-border-bg">
-                    <label for="phone{{ $index + 1 }}" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                        @Labels.Phone {{ $index + 1 }}</label>
-                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input id="phone{{ $index + 1 }}" type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode"
-                            data-ng-keyup="textBoxKeyUp($event);" />
-                        <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" data-ng-keyup="textBoxKeyUp($event);" />
-                        <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" data-ng-keyup="textBoxKeyUp($event);" />
-                    </div>
-                </div>
-            </div>
-            <div class="row item no-border-bg">
-                <label for="mobile" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Mobile</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input id="mobile" type="text" class="textbox code-country" data-ng-model="customer.MobilePhone.CountryCode"
-                        data-ng-keyup="textBoxKeyUp($event);" />
-                    <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode"
-                        data-ng-keyup="textBoxKeyUp($event);" />
-                    <input type="text" class="textbox phone" data-ng-model="customer.MobilePhone.PhoneNumber"
-                        data-ng-keyup="textBoxKeyUp($event);" />
-                </div>
-            </div>
-            <div class="row item no-border-bg">
-                <label for="email" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Email</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input id="email" type="text" class="textbox" data-ng-model="customer.Email" data-ng-keyup="textBoxKeyUp($event);" />
-                </div>
-            </div>
-            <div class="row item no-border-bg">
-                <label for="msn" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.MSN</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input id="msn" type="text" class="textbox" data-ng-model="customer.MSN" data-ng-keyup="textBoxKeyUp($event);" />
-                </div>
-            </div>
-            <div class="row item no-border-bg">
-                <label for="skype" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Skype</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input id="skype" type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
-                </div>
-            </div>
-            <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContacts track by $index">
-                <div class="row item no-border-bg">
-                    <label for="pic{{ $index + 1 }}Name" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                        @Labels.PIC {{ $index + 1 }}</label>
-                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input id="pic{{ $index + 1 }}Name" type="text" class="textbox pic-name" data-ng-model="customer.PersonalInfoContacts[$index].Name"
-                            data-ng-keyup="textBoxKeyUp($event);" />
-                        <input type="text" class="textbox phone" data-ng-model="customer.PersonalInfoContacts[$index].Phone"
-                            data-ng-change="editPersonalInfo(this);" data-ng-keyup="textBoxKeyUp($event);" />
-                    </div>
-                </div>
-            </div>
-            <div class="row item no-border-bg">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left">
-                </div>
-                @if (customerInfoPolicy == Constant.Policy.Host)
-                {
-                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();" default-focus
-                            data-ng-model="isSetFocus">
-                            <span class="hotkey">U</span>pdate</button>
+                    @Labels.Danger</div>
+                <div class="col-xs-9 col-sm-9 col-md-9">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                            @Labels.Orginal</div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                            @Labels.NonLive</div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 text-left">
+                            @Labels.Other_sports</div>
                     </div>
-                }
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                            <span class="lv{{ customer.OriginalDangerLevel }}">{{ customer.OriginalDangerLevel !=
+                                0 ? ('@Labels.Lvl ' + customer.OriginalDangerLevel) : '@Labels.None' }}</span></div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                            <span class="lv{{ customer.ABTDangerLevel }}">{{ customer.ABTDangerLevel != 0 ? ('@Labels.Lvl
+                                ' + customer.ABTDangerLevel) : '@Labels.None' }}</span></div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 text-left">
+                            <span class="lv{{ customer.OtherSportsDangerLevel }}">{{ customer.OtherSportsDangerLevel
+                                != 0 ? ('@Labels.Lvl ' + customer.OtherSportsDangerLevel) : '@Labels.None' }}</span></div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row item title text-left detail-header" data-ng-click="isShowDetail=!isShowDetail">
-            @Labels.Detail
-        </div>
-        <div data-ng-show="isShowDetail">
             <div class="row item no-border-bg">
-                <ul class="list-unstyled list-menu pull-left">
-                    <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
+                <label for="customerinfo-siteoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Site</label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <select id="customerinfo-siteoptions" tabindex="4" data-ng-keyup="textBoxKeyUp($event);">
+                    </select>
+                </div>
+            </div>
+            <div class="row item no-border-bg">
+                <label for="customerinfo-countryoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Country</label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <select id="customerinfo-countryoptions" tabindex="5" data-ng-keyup="textBoxKeyUp($event);">
+                    </select>
+                </div>
+            </div>
+            <div class="row item no-border-bg">
+                <label for="firstname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.First_Name</label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <input id="firstname" type="text" class="textbox" data-ng-model="customer.FirstName"
+                        data-ng-keyup="textBoxKeyUp($event);" tabindex="6" />
+                </div>
+            </div>
+            <div class="row item no-border-bg">
+                <label for="lastname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Last_Name</label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <input id="lastname" type="text" class="textbox" data-ng-model="customer.LastName"
+                        data-ng-keyup="textBoxKeyUp($event);" tabindex="7" />
+                </div>
+            </div>
+            <div class="row item no-border-bg">
+                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Nick_Name</div>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <div class="text" data-ng-bind="customer.NickName">
+                    </div>
+                </div>
+            </div>
+            <div class="row item no-border-bg">
+                <label class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Language</label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <select id="customerinfo-languageoptions">
+                    </select>
+                </div>
+            </div>
+            <div class="row item no-border-bg" data-ng-show="customer.HeadLine">
+                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    &nbsp;</div>
+                <div class="col-xs-5 col-sm-4 col-md-4">
+                    <label for="headline" class="labelforcheckbox checkbox">
+                        <input id="headline" type="checkbox" data-ng-model="customer.HeadLine" disabled />
+                        @Labels.Headline</label></div>
+            </div>
+            <div class="row item title text-left communicationtool-header" data-ng-click="isShowCommunicationTool=!isShowCommunicationTool">
+                @Labels.Communication_Tool
+            </div>
+            <div data-ng-show="isShowCommunicationTool">
+                <div class="customer-phoneinfo-container" data-ng-repeat="phoneInfo in customer.PhoneInfo">
+                    <div class="row item no-border-bg">
+                        <label for="phone{{ $index + 1 }}" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                            @Labels.Phone {{ $index + 1 }}</label>
+                        <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                            <input id="phone{{ $index + 1 }}" type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode"
+                                data-ng-keyup="textBoxKeyUp($event);" />
+                            <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" data-ng-keyup="textBoxKeyUp($event);" />
+                            <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" data-ng-keyup="textBoxKeyUp($event);" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row item no-border-bg">
+                    <label for="mobile" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.Mobile</label>
+                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                        <input id="mobile" type="text" class="textbox code-country" data-ng-model="customer.MobilePhone.CountryCode"
+                            data-ng-keyup="textBoxKeyUp($event);" />
+                        <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode"
+                            data-ng-keyup="textBoxKeyUp($event);" />
+                        <input type="text" class="textbox phone" data-ng-model="customer.MobilePhone.PhoneNumber"
+                            data-ng-keyup="textBoxKeyUp($event);" />
+                    </div>
+                </div>
+                <div class="row item no-border-bg">
+                    <label for="email" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.Email</label>
+                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                        <input id="email" type="text" class="textbox" data-ng-model="customer.Email" data-ng-keyup="textBoxKeyUp($event);" />
+                    </div>
+                </div>
+                <div class="row item no-border-bg">
+                    <label for="msn" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.MSN</label>
+                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                        <input id="msn" type="text" class="textbox" data-ng-model="customer.MSN" data-ng-keyup="textBoxKeyUp($event);" />
+                    </div>
+                </div>
+                <div class="row item no-border-bg">
+                    <label for="skype" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.Skype</label>
+                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                        <input id="skype" type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
+                    </div>
+                </div>
+                <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContacts track by $index">
+                    <div class="row item no-border-bg">
+                        <label for="pic{{ $index + 1 }}Name" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                            @Labels.PIC {{ $index + 1 }}</label>
+                        <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                            <input id="pic{{ $index + 1 }}Name" type="text" class="textbox pic-name" data-ng-model="customer.PersonalInfoContacts[$index].Name"
+                                data-ng-keyup="textBoxKeyUp($event);" />
+                            <input type="text" class="textbox phone" data-ng-model="customer.PersonalInfoContacts[$index].Phone"
+                                data-ng-change="editPersonalInfo(this);" data-ng-keyup="textBoxKeyUp($event);" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row item no-border-bg">
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                    </div>
                     @if (customerInfoPolicy == Constant.Policy.Host)
-                    { 
-                        <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
+                {
+                        <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                            <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();" default-focus
+                                data-ng-model="isSetFocus">
+                                <span class="hotkey">U</span>pdate</button>
+                        </div>
+                }
+                </div>
+            </div>
+            <div class="row item title text-left detail-header" data-ng-click="isShowDetail=!isShowDetail">
+                @Labels.Detail
+            </div>
+            <div data-ng-show="isShowDetail">
+                <div class="row item no-border-bg">
+                    <ul class="list-unstyled list-menu pull-left">
+                        <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
+                        @if (customerInfoPolicy == Constant.Policy.Host)
+                    {
+                            <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
                     }
-                </ul>
-                <ul class="list-unstyled list-menu pull-left no-margin">
-                    <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
-                        @Labels.Latest_Feedback</a></li>
-                    <li><a data-ng-href="#" data-ng-click="manageFeedback();">
-                        @Labels.Manage_Feedback</a></li>
-                </ul>
+                    </ul>
+                    <ul class="list-unstyled list-menu pull-left no-margin">
+                        <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
+                            @Labels.Latest_Feedback</a></li>
+                        <li><a data-ng-href="#" data-ng-click="manageFeedback();">
+                            @Labels.Manage_Feedback</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
     @RazorHelper.RenderScripts("~/Areas/ShortCustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
-        var viewResources = {             
+        var viewResources = {
             Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

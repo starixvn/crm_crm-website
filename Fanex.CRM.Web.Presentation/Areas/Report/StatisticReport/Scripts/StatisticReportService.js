@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global statisticReportApplication */
-statisticReportApplication.factory('statisticReportService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('report-statisticreport-application').factory('statisticReportService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
@@ -49,3 +49,4 @@ statisticReportApplication.factory('statisticReportService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

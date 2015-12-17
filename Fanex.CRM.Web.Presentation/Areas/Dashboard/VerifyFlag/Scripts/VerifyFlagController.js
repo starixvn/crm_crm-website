@@ -1,11 +1,11 @@
-﻿"use strict";
-/* global verifyFlagApplication,
-hotKeyManager,
-viewResources,
-crmConstants,
-numeral,
-sharedScriptManager */
-verifyFlagApplication.controller('verifyFlagController', ['$scope',
+﻿(function () {
+    "use strict";
+    /* global hotKeyManager,
+    viewResources,
+    crmConstants,
+    numeral,
+    sharedScriptManager */
+    angular.module('dashboard-verifyflag-application').controller('verifyFlagController', ['$scope',
     '$http',
     '$verifyFlagService',
     '$bootstrappedData',
@@ -37,8 +37,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
                     var updateResult = data.Result;
                     $scope.completedUpdate(updateResult);
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function () {
                     $scope.unblockUI();
                 });
         };
@@ -134,3 +133,4 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
             });
         });
     } ]);
+})();

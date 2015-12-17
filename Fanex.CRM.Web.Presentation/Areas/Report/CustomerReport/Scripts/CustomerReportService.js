@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global customerReportApplication */
-customerReportApplication.factory('$customerReportService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('report-customerreport-application').factory('$customerReportService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
@@ -50,3 +50,4 @@ customerReportApplication.factory('$customerReportService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

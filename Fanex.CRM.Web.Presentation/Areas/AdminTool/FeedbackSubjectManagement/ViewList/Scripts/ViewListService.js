@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global feedbackSubjectManagementApplication,
-sharedScriptManager */
-feedbackSubjectManagementApplication.factory('feedbackSubjectManagementService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-feedbacksubjectmanagement-application').factory('feedbackSubjectManagementService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -20,3 +20,4 @@ feedbackSubjectManagementApplication.factory('feedbackSubjectManagementService',
 
         return serviceInstance;
     } ]);
+})();

@@ -1,23 +1,24 @@
-﻿"use strict";
-/* global registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-addGuestFeedbackApplication,
-crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
-/* jshint unused: vars,
-camelcase: false */
-function MessageResult(message, isShowMessage, isSuccess) {
-    this.Message = message;
-    this.IsShowMessage = isShowMessage;
-    this.IsSuccess = isSuccess;
-}
+﻿(function () {
+    "use strict";
+    /* global 
+    MessageResult,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    crmConstants,
+    sharedScriptManager,
+    viewResources,
+    moment */
+    /* jshint camelcase: false */
+    window.MessageResult = function (message, isShowMessage, isSuccess) {
+        this.Message = message;
+        this.IsShowMessage = isShowMessage;
+        this.IsSuccess = isSuccess;
+    };
 
-addGuestFeedbackApplication.controller('addGuestFeedbackController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addGuestFeedbackService',
-    function ($scope, $uiBlockerService, $resultMessageService, addGuestFeedbackService) {
+    angular.module('feedbacks-addguestfeedback-application').controller('addGuestFeedbackController',
+    ['$scope', '$uiBlockerService', 'addGuestFeedbackService',
+    function ($scope, $uiBlockerService, addGuestFeedbackService) {
         $scope.customerInfo = {
             Name: '',
             Title: {
@@ -104,7 +105,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                     $scope.allSettings = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.isLoadedAllSettings = true;
                     $scope.completedLoadFilterInfo();
                 });
@@ -172,7 +173,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -190,7 +191,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -239,7 +240,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                     var addResult = data.Result;
                     $scope.showAddResult(addResult);
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -420,4 +421,4 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.registerHotKey();
         });
     } ]);
-
+})();

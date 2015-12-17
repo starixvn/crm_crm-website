@@ -1,23 +1,24 @@
-"use strict";
-/* global registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-addCustomerFeedbackApplication,
-crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
-/* jshint unused: vars,
-camelcase: false */
-function MessageResult(message, isShowMessage, isSuccess) {
-    this.Message = message;
-    this.IsShowMessage = isShowMessage;
-    this.IsSuccess = isSuccess;
-}
+(function () {
+    "use strict";
+    /* global 
+    MessageResult,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    crmConstants,
+    sharedScriptManager,
+    viewResources,
+    moment */
+    /* jshint camelcase: false */
+    window.MessageResult = function (message, isShowMessage, isSuccess) {
+        this.Message = message;
+        this.IsShowMessage = isShowMessage;
+        this.IsSuccess = isSuccess;
+    };
 
-addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addCustomerFeedbackService',
-    function ($scope, $uiBlockerService, $resultMessageService, addCustomerFeedbackService) {
+    angular.module('feedbacks-addcustomerfeedback-application').controller('addCustomerFeedbackController',
+    ['$scope', '$uiBlockerService', 'addCustomerFeedbackService',
+    function ($scope, $uiBlockerService, addCustomerFeedbackService) {
         $scope.customerInfo = {
             Id: parent.homeManager.CachedData.currentCustomer.Id,
             Name: parent.homeManager.CachedData.currentCustomer.Name
@@ -69,7 +70,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                     $scope.allSettings = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.isLoadedAllSettings = true;
                     $scope.completedLoadFilterInfo();
                 });
@@ -87,7 +88,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                     $scope.customerInfo = customerInfo;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.isLoadedCustomerInfo = true;
                     $scope.completedLoadFilterInfo();
                 });
@@ -171,7 +172,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -189,7 +190,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -238,7 +239,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                     var addResult = data.Result;
                     $scope.showAddResult(addResult);
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -409,4 +410,5 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.registerHotKey();
         });
     } ]);
+})();
 

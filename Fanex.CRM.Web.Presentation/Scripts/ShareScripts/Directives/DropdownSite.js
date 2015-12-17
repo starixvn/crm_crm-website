@@ -1,33 +1,18 @@
 ﻿"use strict";
-/* global directiveManager,
-crmConstants,
-viewResources */
-/* jshint unused: vars */
+/* global directiveManager: true,
+crmConstants */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerDropdownSiteContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-
-        //        var defaultOption = {
-        //            DataList: null,
-        //            OnChangeEvent: null,
-        //            IsIncludeNA: null,
-        //        };
-
         var dataList = [];
-        function hasNoData(options) {
-            return options === null ||
-                options === undefined ||
-                options.DataList === null;
+        function hasData(options) {
+            return (options && options.DataList);
         }
 
         function renderDropdown(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (hasNoData(options)) {
+            if (!hasData(options)) {
                 return;
             }
 
@@ -71,7 +56,7 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
 
         function getSelectedItem(scope, selectedId) {
             var options = scope[registerParams.OptionName];
-            if (hasNoData(options)) {
+            if (!hasData(options)) {
                 return;
             }
 
@@ -106,7 +91,6 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    /* jshint unused: vars */
                     renderDropdown(scope, element, attrs);
                 });
             }

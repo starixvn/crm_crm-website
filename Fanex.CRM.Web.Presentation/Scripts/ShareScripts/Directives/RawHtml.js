@@ -1,7 +1,6 @@
 ﻿"use strict";
-/* global directiveManager: true,
-sharedScriptManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 var directiveManager = directiveManager || {};
 directiveManager.registerRawHtmlDirective = function (angularApplication, registerParams) {
     angularApplication.directive("rawHtmlDirective", function () {
@@ -14,5 +13,5 @@ directiveManager.registerRawHtmlDirective = function (angularApplication, regist
                 });
             }
         };
-    })
+    });
 };

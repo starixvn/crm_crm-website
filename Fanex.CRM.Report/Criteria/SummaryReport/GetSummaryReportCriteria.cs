@@ -32,9 +32,6 @@ namespace Fanex.CRM.Report.Criteria.SummaryReport
         [SpParam(Ignored = true)]
         public string Categories { get; set; }
 
-        [SpParam(Ignored = true)]
-        public bool IsCached { get; set; }
-
         public override string GetSettingKey()
         {
             return "Report_SummaryReport_GetReport";

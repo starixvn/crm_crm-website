@@ -1,13 +1,14 @@
-﻿'use strict';
-/* global updateCustomerFeedbackApplication, sharedScriptManager */
-updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$http', '$q', function ($http, $q) {
-    var DELETED_STATUS_ID = 11004;
+﻿/*global sharedScriptManager*/
+(function () {
+    "use strict";
+    angular.module('feedbacks-updatecustomerfeedback-application').factory('UpdateCustomerFeedbackService', ['$http', '$q', function ($http, $q) {
+        var DELETED_STATUS_ID = 11004;
 
-    var serviceInstance = {};
+		var serviceInstance = {};
 
-    serviceInstance.getSettings = function () {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'UpdateCustomerFeedback/AllSettings')
+        serviceInstance.getSettings = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'UpdateCustomerFeedback/AllSettings')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -24,12 +25,12 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getFeedback = function (id) {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'UpdateCustomerFeedback/GetFeedback?id=' + id)
+        serviceInstance.getFeedback = function (id) {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'UpdateCustomerFeedback/GetFeedback?id=' + id)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -46,23 +47,23 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
-        var url = window.rootUrl + 'Setting/NumberOfFeedbackSubjectTemplate';
-        return sharedScriptManager.registerAngularService($http, $q, url, null);
-    };
+        serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
+            var url = window.rootUrl + 'Setting/NumberOfFeedbackSubjectTemplate';
+            return sharedScriptManager.registerAngularService($http, $q, url, null);
+        };
 
-    serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {
-        var url = window.rootUrl + 'Setting/GetFeedbackSubjectTemplateByPagingIndex';
-        return sharedScriptManager.registerAngularService($http, $q, url, pagingInfo);
-    };
+        serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {
+            var url = window.rootUrl + 'Setting/GetFeedbackSubjectTemplateByPagingIndex';
+            return sharedScriptManager.registerAngularService($http, $q, url, pagingInfo);
+        };
 
-    serviceInstance.verifyUsernames = function (username) {
-        var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
-        return sharedScriptManager.registerAngularService($http, $q, url, username);
-    };
+        serviceInstance.verifyUsernames = function (username) {
+            var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
+            return sharedScriptManager.registerAngularService($http, $q, url, username);
+        };
 
     serviceInstance.updateFeedback = function (criteria, isDeletedFeedbackView) {
         var url = window.rootUrl + 'UpdateCustomerFeedback/UpdateFeedback';
@@ -84,3 +85,4 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
 
     return serviceInstance;
 } ]);
+})();

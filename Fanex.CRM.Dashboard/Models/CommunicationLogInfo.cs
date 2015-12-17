@@ -16,7 +16,7 @@ namespace Fanex.CRM.Dashboard.Models
     /// Communication Log Information.
     /// </summary>
     [Serializable]
-    public class CommunicationLogInfo : BaseCommunicationLogInfo
+    public class CommunicationLogInfo : BaseCommunicationLog
     {
         public new DateTime StartTime { get; set; }
 

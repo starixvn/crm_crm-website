@@ -46,8 +46,5 @@ namespace Fanex.CRM.Infrastructure.Models
                 return endIndex > 0 ? endIndex : 0;
             }
         }
-
-        [SpParam(Ignored = true)]
-        public bool IsPagingCallBack { get; set; }
     }
 }

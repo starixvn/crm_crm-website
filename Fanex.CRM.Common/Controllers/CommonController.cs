@@ -45,18 +45,17 @@ namespace Fanex.CRM.Common.Controllers
             var previousHttpMethod = string.IsNullOrEmpty(AppSession.CurrentHttpMethod) ?
                 HttpMethodConstants.Get :
                 AppSession.CurrentHttpMethod;
-            switch (previousHttpMethod)
+            if (previousHttpMethod == HttpMethodConstants.Get)
             {
-                case HttpMethodConstants.Get:
-                    return View("~/Views/Common/AccessDenied.cshtml");
-                default:
-                    var errorInfo = new Result
-                    {
-                        Code = ErrorCodeConstants.NoPermission,
-                        Message = Labels.NoPermission
-                    };
-                    return Json(errorInfo, JsonRequestBehavior.AllowGet);
+                return View("~/Views/Common/AccessDenied.cshtml");
             }
+
+            var errorInfo = new Result
+            {
+                Code = ErrorCodeConstants.NoPermission,
+                Message = Labels.NoPermission
+            };
+            return Json(errorInfo, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ErrorPage()
@@ -70,8 +69,7 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var isCheckUM = NapSettings.Settings.EnableCheckUM;
-            if (!isCheckUM)
+            if (!NapSettings.Settings.EnableCheckUM)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }

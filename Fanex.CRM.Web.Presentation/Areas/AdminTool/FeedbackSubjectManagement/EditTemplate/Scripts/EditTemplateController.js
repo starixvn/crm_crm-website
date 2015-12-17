@@ -1,16 +1,15 @@
-﻿"use strict";
-/* global editTemplateApplication,
-sharedScriptManager,
-MessageResult,
-templateId,
-viewResources,
-hotKeyManager */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    templateId,
+    viewResources,
+    hotKeyManager */
+    /* jshint camelcase: false */
 
-editTemplateApplication.controller('editTemplateController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'editTemplateService',
-    function ($scope, $uiBlockerService, $resultMessageService, editTemplateService) {
+    angular.module('addmintool-feedbacksubjectmanagement-edittemplate').controller('editTemplateController',
+    ['$scope', '$uiBlockerService', 'editTemplateService',
+    function ($scope, $uiBlockerService, editTemplateService) {
         $scope.messageResultOptions = null;
         $scope.isSetFocus = false;
         $scope.feedbackSubjectTemplate = {
@@ -34,7 +33,7 @@ editTemplateApplication.controller('editTemplateController',
                     $scope.showEditResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -47,7 +46,7 @@ editTemplateApplication.controller('editTemplateController',
                     $scope.updateChangeFlag();
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -124,3 +123,4 @@ editTemplateApplication.controller('editTemplateController',
             });
         });
     } ]);
+})();

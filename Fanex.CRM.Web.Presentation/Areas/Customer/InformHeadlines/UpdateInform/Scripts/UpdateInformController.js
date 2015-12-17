@@ -1,13 +1,12 @@
-﻿'use strict';
-/* jshint unused: vars */
-/* jshint camelcase: false */
-/* global updateInformHeadlineApplication,
-updateInformResources,
-sharedScriptManager,
-hotKeyManager,
-crmConstants,
-titleId */
-updateInformHeadlineApplication.controller('updateInformHeadlineController',
+﻿(function () {
+    "use strict";
+    /* jshint camelcase: false */
+    /* global updateInformResources,
+    sharedScriptManager,
+    hotKeyManager,
+    crmConstants,
+    titleId */
+    angular.module('customer-informheadline-update').controller('updateInformHeadlineController',
     ['$scope',
     'updateInformHeadlineService',
     '$uiBlockerService',
@@ -104,7 +103,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                     $scope.extensions = settings.Result.Extensions;
                     $scope.getInforms(0, $scope.defaultItemPerPage);
                 },
-                function (settings) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -150,7 +149,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
 
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -192,6 +191,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             // filter updated informs
             $uiBlockerService.blockUI();
             var updatedInforms = $.grep($scope.informs, function (item, i) {
+                /* jshint unused: false */
                 return item.IsChanged;
             });
             var updateCriteria = {
@@ -231,7 +231,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                     // reload parent form (Inform Statistic)
                     parent.homeManager.CachedData.shouldReloadView = true;
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -274,7 +274,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         };
 
         $scope.exportInformsExcel = function () {
-            var params = { 
+            var params = {
                 TitleId: $scope.titleId,
                 Status: $scope.selectedStatusIds,
                 Position: $scope.selectedPositionIds,
@@ -330,6 +330,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             });
 
             $scope.$watch('title', function (newValue, oldValue) {
+                /* jshint unused: false */
                 $scope.isTitleChanged = newValue !== $scope.oldTitle;
                 parent.homeManager.CachedData.isChangingDataPopUp = $scope.isDataChanged();
             });
@@ -350,3 +351,4 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             });
         });
     } ]);
+})();

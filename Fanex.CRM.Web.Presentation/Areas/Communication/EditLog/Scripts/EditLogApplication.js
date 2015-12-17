@@ -1,4 +1,6 @@
 ﻿/* global sharedScriptManager */
-/* exported editLogApplication  */
-var editLogApplication = angular.module('communicationlog-edit-application', []);
-sharedScriptManager.setNoCachingHttpRequest(editLogApplication);
+(function () {
+    "use strict";
+    angular.module('communicationlog-edit-application', []);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('communicationlog-edit-application'));
+})();

@@ -1,51 +1,50 @@
-﻿"use strict";
-/* global dailyStatisticsReportApplication,
-crmConstants,
-viewResources,
-sharedScriptManager */
-/* jshint unused: vars,
-camelcase: false */
-dailyStatisticsReportApplication.directive('tableDetailReportContainer', function () {
-    var selfScope;
-    var cachedTable;
-    var cachedReport;
-    var cachedGridOptions;
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    viewResources,
+    sharedScriptManager */
+    /* jshint camelcase: false */
+    angular.module('report-dailystatistics-application').directive('tableDetailReportContainer', function () {
+        var selfScope;
+        var cachedTable;
+        var cachedReport;
+        var cachedGridOptions;
 
-    function renderReport(scope, element, attrs) {
-        if (scope.detailReportOptions.DataList === null) {
-            return;
+        function renderReport(scope, element) {
+            if (scope.detailReportOptions.DataList === null) {
+                return;
+            }
+
+            selfScope = scope;
+            var tableReport = element.find("#table-detail-report");
+            cachedTable = tableReport;
+            var report = scope.detailReportOptions.DataList;
+            cachedReport = report;
+            var gridOptions = getGridOptions(report);
+            cachedGridOptions = gridOptions;
+            element.removeClass(crmConstants.Enums.CssClass.DisplayNone);
+            tableReport.empty().fanexGrid(gridOptions);
+
+            $(".table-ibc-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
+            $(".table-licensee-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
+            element.find(".btnGoBack").click(function () {
+                backToMainReport(element);
+            });
+            element.find(".back-main-report").click(function () {
+                backToMainReport(element);
+            });
         }
 
-        selfScope = scope;
-        var tableReport = element.find("#table-detail-report");
-        cachedTable = tableReport;
-        var report = scope.detailReportOptions.DataList;
-        cachedReport = report;
-        var gridOptions = getGridOptions(report);
-        cachedGridOptions = gridOptions;
-        element.removeClass(crmConstants.Enums.CssClass.DisplayNone);
-        tableReport.empty().fanexGrid(gridOptions);
+        function getGridOptions(report) {
+            var bodyData = [];
+            var footerData = [];
+            var childReportLength = report ? report.ChildReports.length : 0;
+            if (childReportLength > 0) {
+                for (var i = 0; i < childReportLength; i++) {
+                    var info = report.ChildReports[i];
 
-        $(".table-ibc-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
-        $(".table-licensee-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
-        element.find(".btnGoBack").click(function () {
-            backToMainReport(element);
-        });
-        element.find(".back-main-report").click(function () {
-            backToMainReport(element);
-        });
-    }
-
-    function getGridOptions(report) {
-        var bodyData = [];
-        var footerData = [];
-        var childReportLength = report ? report.ChildReports.length : 0;
-        if (childReportLength > 0) {
-            for (var i = 0; i < childReportLength; i++) {
-                var info = report.ChildReports[i];
-
-                bodyData.push({
-                    Columns: [{ Name: "ColDate", Value: info.StartDateString },
+                    bodyData.push({
+                        Columns: [{ Name: "ColDate", Value: info.StartDateString },
                     { Name: "ColStartTime", Value: info.StartTime },
                     { Name: "ColEndTime", Value: info.ResolutionTimeString },
                     {
@@ -71,14 +70,14 @@ dailyStatisticsReportApplication.directive('tableDetailReportContainer', functio
                     { Name: "ColResponse", Value: info.Response.Name },
                     { Name: "ColHandler", Value: info.Handler },
                     { Name: "ColCreationTime", Value: info.CreationTimeString}]
-                });
+                    });
+                }
             }
-        }
 
-        var breadcrumb = report ? report.Name : "";
-        var backIcon = '<input class="btnGoBack" type="button" title="' + viewResources.GoBack + '" />';
-        var gridOptions = {
-            columns: [{ HeaderText: viewResources.Date, Width: 80, Name: "ColDate", HeaderAlign: "center", CellAlign: "center" },
+            var breadcrumb = report ? report.Name : "";
+            var backIcon = '<input class="btnGoBack" type="button" title="' + viewResources.GoBack + '" />';
+            var gridOptions = {
+                columns: [{ HeaderText: viewResources.Date, Width: 80, Name: "ColDate", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Start_Time, Width: 60, Name: "ColStartTime", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.End_Time, Width: 60, Name: "ColEndTime", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
@@ -98,65 +97,67 @@ dailyStatisticsReportApplication.directive('tableDetailReportContainer', functio
                 { HeaderText: viewResources.Response, Width: 60, Name: "ColResponse", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handle_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Creation_Time, Width: 80, Name: "ColCreationTime", HeaderAlign: "center", CellAlign: "center"}],
-            showTitle: true,
-            titleInfo: {
-                text: breadcrumb,
-                showExcelButton: true,
-                exportExcelFunction: function () {
-                    selfScope.exportDetailReport();
+                showTitle: true,
+                titleInfo: {
+                    text: breadcrumb,
+                    showExcelButton: true,
+                    exportExcelFunction: function () {
+                        selfScope.exportDetailReport();
+                    },
+                    customButtons: backIcon,
+                    showButtonsWhenNoData: true
                 },
-                customButtons: backIcon,
-                showButtonsWhenNoData: true
-            },
-            bodyRows: bodyData,
-            footerRows: footerData,
-            numberOfFrozenColumn: 5,
-            fullWidth: true,
-            fullHeight: true,
-            gridExpandHeight: 200,
-            showDistinctRow: false,
-            showHighlightRow: true,
-            headerColumnHeight: 29,
-            bodyRowHeight: 29,
-            autoFixFrozenRowHeight: true,
-            showPager: true,
-            customPager: true,
-            pagerOption: {
-                itemsPerPage: selfScope.getDetailReportCriteria.PageSize,
-                currentPage: selfScope.getDetailReportCriteria.PageIndex - 1,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: report ? report.TotalChildReports : 0,
-                pagerSelectCallBack: rerenderAfterPaged
+                bodyRows: bodyData,
+                footerRows: footerData,
+                numberOfFrozenColumn: 5,
+                fullWidth: true,
+                fullHeight: true,
+                gridExpandHeight: 200,
+                showDistinctRow: false,
+                showHighlightRow: true,
+                headerColumnHeight: 29,
+                bodyRowHeight: 29,
+                autoFixFrozenRowHeight: true,
+                showPager: true,
+                customPager: true,
+                pagerOption: {
+                    itemsPerPage: selfScope.getDetailReportCriteria.PageSize,
+                    currentPage: selfScope.getDetailReportCriteria.PageIndex - 1,
+                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    totalItem: report ? report.TotalChildReports : 0,
+                    pagerSelectCallBack: rerenderAfterPaged
+                }
+            };
+
+            return gridOptions;
+        }
+
+        function backToMainReport(element) {
+            element.addClass(crmConstants.Enums.CssClass.DisplayNone);
+            $(".table-ibc-report-container").removeClass(crmConstants.Enums.CssClass.DisplayNone);
+            $(".table-licensee-report-container").removeClass(crmConstants.Enums.CssClass.DisplayNone);
+        }
+
+        function rerenderAfterPaged(page_index, itemsPerPage) {
+            selfScope.pagingDetailReport(page_index, itemsPerPage);
+            return false;
+        }
+
+        return {
+            restrict: 'C',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    /* jshint unused: false */
+                    if (!scope.detailReportOptions ||
+                    !scope.detailReportOptions.IsUpdateGrid) {
+                        return;
+                    }
+
+                    renderReport(scope, element);
+                    scope.detailReportOptions.IsUpdateGrid = false;
+                });
             }
         };
-
-        return gridOptions;
-    }
-
-    function backToMainReport(element) {
-        element.addClass(crmConstants.Enums.CssClass.DisplayNone);
-        $(".table-ibc-report-container").removeClass(crmConstants.Enums.CssClass.DisplayNone);
-        $(".table-licensee-report-container").removeClass(crmConstants.Enums.CssClass.DisplayNone);
-    }
-
-    function rerenderAfterPaged(page_index, itemsPerPage, jq) {
-        selfScope.pagingDetailReport(page_index, itemsPerPage);
-        return false;
-    }
-
-    return {
-        restrict: 'C',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (oldval, newval) {
-                if (!scope.detailReportOptions ||
-                    !scope.detailReportOptions.IsUpdateGrid) {
-                    return;
-                }
-
-                renderReport(scope, element, attrs);
-                scope.detailReportOptions.IsUpdateGrid = false;
-            });
-        }
-    };
-});
+    });
+})();

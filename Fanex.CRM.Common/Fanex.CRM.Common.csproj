@@ -37,9 +37,6 @@
       <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Couchbase.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DNAide">
-      <HintPath>..\Dependency\DNAide.dll</HintPath>
-    </Reference>
     <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
       <Private>True</Private>
@@ -156,7 +153,7 @@
     <Compile Include="Enumerations\AuthenticationType.cs" />
     <Compile Include="Enumerations\CRMStatus.cs" />
     <Compile Include="Enumerations\ReportType.cs" />
-    <Compile Include="Enumerations\RevewMode.cs" />
+    <Compile Include="Enumerations\ReviewMode.cs" />
     <Compile Include="Excel\BaseExcel.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\NpoiExcelExtensions.cs" />
@@ -167,18 +164,19 @@
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
-    <Compile Include="Models\AddressInfo.cs" />
-    <Compile Include="Models\BankInfo.cs" />
-    <Compile Include="Models\BaseCustomerInfo.cs" />
-    <Compile Include="Models\BaseCommunicationLogInfo.cs" />
-    <Compile Include="Models\CountryInfo.cs" />
-    <Compile Include="Models\FaxInfo.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Bank.cs" />
+    <Compile Include="Models\BaseCustomer.cs" />
+    <Compile Include="Models\BaseCommunicationLog.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Fax.cs" />
     <Compile Include="Models\FeedbackDetail.cs" />
     <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
     <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PersonalInfoContact.cs" />
-    <Compile Include="Models\PhoneInfo.cs" />
-    <Compile Include="Models\SettingInfo.cs" />
+    <Compile Include="Models\Phone.cs" />
+    <Compile Include="Models\SearchedCustomer.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -189,12 +187,12 @@
     </Compile>
     <Compile Include="Services\AppSession.cs" />
     <Compile Include="Services\AppSetting.cs" />
-    <Compile Include="Services\AuthenticateAction.cs" />
+    <Compile Include="Attributes\AuthenticateAction.cs" />
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\CRMAuthAttribute.cs" />
-    <Compile Include="Services\AjaxNapAuthAttribute.cs" />
+    <Compile Include="Attributes\CRMAuthAttribute.cs" />
+    <Compile Include="Attributes\AjaxNapAuthAttribute.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
     <Compile Include="Services\PermissionService.cs" />

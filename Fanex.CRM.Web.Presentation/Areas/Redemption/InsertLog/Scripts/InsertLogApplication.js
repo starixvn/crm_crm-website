@@ -1,4 +1,6 @@
 ﻿/* global sharedScriptManager */
-/* exported insertLogApplication */
-var insertLogApplication = angular.module('redemption-insertlog-application', []);
-sharedScriptManager.setNoCachingHttpRequest(insertLogApplication);
+(function () {
+    "use strict";
+    angular.module('redemption-insertlog-application', []);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('redemption-insertlog-application'));
+})();

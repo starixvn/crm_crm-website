@@ -46,160 +46,78 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        private List<BaseModel> RedemptionCurrencies
+        private IEnumerable<BaseModel> GetRedemptionCurrencies()
         {
-            get
-            {
-                var currencies = _serviceSetting.AllCurrencyRedemption(new GetAllCurrencyRedemptionCriteria());
-                currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.Symbol_NotApply });
+            var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria()).ToList();
+            currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.Symbol_NotApply });
 
-                return currencies;
-            }
+            return currencies;
         }
 
-        /// <summary>
-        /// Gets the logs by customer identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var logs = _logRepositoryInstance.GetLogsByCustomerId(criteria);
+            var customerInfo = new CustomerLogInfo
             {
-                CustomerLogInfo customerInfo = null;
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                var rawData = _logRepositoryInstance.GetLogsByCustomerId(criteria);
-                customerInfo = new CustomerLogInfo
-                {
-                    CustomerId = criteria.CustomerId,
-                    Logs = rawData
-                };
+                CustomerId = criteria.CustomerId,
+                Logs = logs
+            };
 
-                return customerInfo;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return customerInfo;
         }
 
-        /// <summary>
-        /// Gets the logs by identify.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by running number.</returns>
         public LogInfo GetLogById(GetLogByIdCriteria criteria)
         {
-            try
-            {
-                return _logRepositoryInstance.GetLogById(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _logRepositoryInstance.GetLogById(criteria);
         }
 
-        /// <summary>
-        /// Updates the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            try
+            criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
+            var result = _logRepositoryInstance.UpdateLog(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                Result updateResult = null;
-                criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
-                updateResult = _logRepositoryInstance.UpdateLog(criteria);
-                if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    updateResult.Message = Labels.Redemption_Log_UpdateSuccess;
-                }
+                result.Message = Labels.Redemption_Log_UpdateSuccess;
+            }
 
-                return updateResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// Inserts the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            try
+            criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
+            var result = _logRepositoryInstance.InsertLog(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                Result insertResult = null;
-                criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
-                insertResult = _logRepositoryInstance.InsertLog(criteria);
-                if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    insertResult.Message = Labels.Redemption_Log_InsertSuccess;
-                }
+                result.Message = Labels.Redemption_Log_InsertSuccess;
+            }
 
-                return insertResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// Gets all status for inserting.
-        /// </summary>
-        /// <returns>All status.</returns>
-        public dynamic AllSettingsInsert()
+        public dynamic GetAllSettingsInsert()
         {
-            try
+            var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption)
+                .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            return new
             {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption)
-                    .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-                return new
-                {
-                    StatusList = statusList,
-                    Currencies = RedemptionCurrencies
-                };
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                StatusList = statusList,
+                Currencies = GetRedemptionCurrencies()
+            };
         }
 
-        /// <summary>
-        /// Gets all status for editing.
-        /// </summary>
-        /// <returns>All status.</returns>
-        public dynamic AllSettingsEdit()
+        public dynamic GetAllSettingsEdit()
         {
-            try
-            {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
+            var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption);
 
-                return new
-                {
-                    StatusList = statusList,
-                    Currencies = RedemptionCurrencies
-                };
-            }
-            catch (Exception ex)
+            return new
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                StatusList = statusList,
+                Currencies = GetRedemptionCurrencies()
+            };
         }
     }
 }

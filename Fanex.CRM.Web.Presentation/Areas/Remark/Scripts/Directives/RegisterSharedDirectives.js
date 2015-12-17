@@ -1,9 +1,10 @@
-﻿"use strict";
-/* global remarkApplication,
-RegisterTemplate */
-function remarkRegisterPicker() {
-    var remarkRegister = new RegisterTemplate(remarkApplication);
-    remarkRegister.registerRawHtmlDirective();
-}
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function remarkRegisterPicker() {
+        var remarkRegister = new RegisterTemplate(angular.module('remark-application'));
+        remarkRegister.registerRawHtmlDirective();
+    }
 
-remarkRegisterPicker();
+    remarkRegisterPicker();
+})();

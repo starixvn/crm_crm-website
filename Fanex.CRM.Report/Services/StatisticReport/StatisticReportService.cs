@@ -13,7 +13,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -38,9 +37,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     /// </summary>
     public class StatisticReportService : ServiceBase, IStatisticReportService
     {
-        private readonly string _statisticReportSessionKey = "Fanex.CRM.Report.StatisticReport.StatisticReportSessionKey_" +
-            (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-
         private readonly ISettingService _serviceSetting;
         private readonly IStatisticReportRepository _statisticReportRepository;
 
@@ -59,18 +55,18 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// Gets all period type.
         /// </summary>
         /// <returns>All period type.</returns>
-        public List<SettingInfo> AllPeriodType()
+        public List<Setting> AllPeriodType()
         {
             try
             {
-                var allPeriodType = new List<SettingInfo>();
-                allPeriodType.Add(new SettingInfo
+                var allPeriodType = new List<Setting>();
+                allPeriodType.Add(new Setting
                 {
                     Id = PeriodTypeConstants.Daily,
                     Name = Labels.Daily
                 });
 
-                allPeriodType.Add(new SettingInfo
+                allPeriodType.Add(new Setting
                 {
                     Id = PeriodTypeConstants.Monthly,
                     Name = Labels.Monthly
@@ -92,39 +88,39 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public List<SettingInfo> AllMainCategory()
+        public List<Setting> AllMainCategory()
         {
             try
             {
-                var allMainCategory = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllMainCategory();
-                var allSubSettingOption = new SettingInfo
+                var allMainCategory = new List<Setting>();
+                var rawData = _serviceSetting.GetAllMainCategories();
+                var allSubSettingOption = new Setting
                 {
                     Id = SettingConstants.AllSetting,
                     Name = Labels.All,
                 };
 
-                var remindSubSettingOption = new SettingInfo
+                var remindSubSettingOption = new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.Please_choose_one,
                 };
 
-                allMainCategory.Add(new SettingInfo
+                allMainCategory.Add(new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.Please_choose_one,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                        remindSubSettingOption
                     }
                 });
 
-                allMainCategory.Add(new SettingInfo
+                allMainCategory.Add(new Setting
                 {
                     Id = SettingConstants.AllSetting,
                     Name = Labels.All,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                        allSubSettingOption
                     }
@@ -150,126 +146,96 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// Gets the statistic report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report.</returns>      
+        /// <returns>The statistic report.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public StatisticReportInfo StatisticReport(GetStatisticReportCriteria criteria)
         {
-            try
+            StatisticReportInfo statisticReport;
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var rawData = _statisticReportRepository.GetStatisticReport(criteria);
+
+            var countryList = rawData
+                .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
+                .Select(group => new Country
+                {
+                    Id = group.First().CountryId,
+                    Name = group.First().CountryId == SettingConstants.NotApply ?
+                        Labels.Symbol_NotApply :
+                        group.First().CountryName
+                })
+                .ToList();
+            var countryDictionary = GetCountryDictionary(countryList);
+            switch (criteria.ReportType)
             {
-                StatisticReportInfo statisticReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    statisticReport = (StatisticReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _statisticReportSessionKey);
-                }
+                case PeriodTypeConstants.Daily:
+                    statisticReport = GetStatisticReportByDaily(
+                        rawData,
+                        countryList,
+                        countryDictionary,
+                        criteria);
+                    break;
 
-                if (statisticReport == null)
-                {
-                    criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                    criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                    var rawData = _statisticReportRepository.GetStatisticReport(criteria);
+                case PeriodTypeConstants.Monthly:
+                    statisticReport = GetStatisticReportByMonthly(
+                        rawData,
+                        countryList,
+                        countryDictionary,
+                        criteria);
+                    break;
 
-                    var countryList = rawData
-                        .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
-                        .Select(group => new CountryInfo
-                        {
-                            Id = group.First().CountryId,
-                            Name = group.First().CountryId == SettingConstants.NotApply ?
-                                Labels.Symbol_NotApply :
-                                group.First().CountryName
-                        })
-                        .ToList();
-                    var countryDictionary = GetCountryDictionary(countryList);
-                    switch (criteria.ReportType)
-                    {
-                        case PeriodTypeConstants.Daily:
-                            statisticReport = GetStatisticReportByDaily(
-                                rawData,
-                                countryList,
-                                countryDictionary,
-                                criteria);
-                            break;
-                        case PeriodTypeConstants.Monthly:
-                            statisticReport = GetStatisticReportByMonthly(
-                                rawData,
-                                countryList,
-                                countryDictionary,
-                                criteria);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    statisticReport.ReportTypeId = criteria.ReportType;
-                    statisticReport.TotalChildReports = statisticReport.ChildReports.Count;
-                    statisticReport.ChartInfo = GetChartInfo(statisticReport, countryDictionary);
-                    SessionExtension.AddSession(HttpContext.Current.Session, _statisticReportSessionKey, statisticReport);
-                }
-
-                return new StatisticReportInfo
-                {
-                    Name = statisticReport.Name,
-                    ShortName = statisticReport.ShortName,
-                    ChildReports = criteria.IsGetFullReport ?
-                        statisticReport.ChildReports :
-                        GetPagingLogList(criteria, statisticReport.ChildReports),
-                    Total = statisticReport.Total,
-                    TotalChildReports = statisticReport.TotalChildReports,
-                    ChartInfo = statisticReport.ChartInfo
-                };
+                default:
+                    throw new ArgumentException("Invalid ReportType");
             }
-            catch (Exception ex)
+
+            statisticReport.ReportTypeId = criteria.ReportType;
+            statisticReport.TotalChildReports = statisticReport.ChildReports.Count;
+            statisticReport.ChartInfo = GetChartInfo(statisticReport, countryDictionary);
+
+            return new StatisticReportInfo
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                Name = statisticReport.Name,
+                ShortName = statisticReport.ShortName,
+                ChildReports = criteria.IsGetFullReport ?
+                    statisticReport.ChildReports :
+                    GetPagingLogList(criteria, statisticReport.ChildReports),
+                Total = statisticReport.Total,
+                TotalChildReports = statisticReport.TotalChildReports,
+                ChartInfo = statisticReport.ChartInfo
+            };
         }
 
-        /// <summary>
-        /// Exports the statistic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportStatisticReport(GetStatisticReportCriteria criteria)
         {
-            try
+            string reportName = string.Format(
+                 Labels.StatisticReport_ExcelTitle,
+                 SettingService.GetPeriodTypeName(criteria.ReportType),
+                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
+            criteria.IsGetFullReport = true;
+            var statisticReport = StatisticReport(criteria);
+
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
-                StatisticReportInfo statisticReport = CacheService.Get<StatisticReportInfo>(_statisticReportSessionKey);
-                criteria.IsGetFullReport = true;
-                if (statisticReport == null)
-                {
-                    statisticReport = StatisticReport(criteria);
-                }
+                ExcelFile = new HSSFWorkbook(),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = statisticReport != null &&
+                    statisticReport.ChildReports.Count > 0 &&
+                    statisticReport.ChildReports[0].ChildReports.Count > 0 ?
+                    2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
+                    2
+            };
 
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = statisticReport != null &&
-                        statisticReport.ChildReports.Count > 0 &&
-                        statisticReport.ChildReports[0].ChildReports.Count > 0 ?
-                        2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
-                        2
-                };
+            ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
 
-                ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
-                string reportName = string.Format(
-                     Labels.StatisticReport_ExcelTitle,
-                     SettingService.GetPeriodTypeName(criteria.ReportType),
-                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
         /// <summary>
@@ -286,9 +252,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByMonthly(
-            List<StatisticReportEntity> rawData,
-            List<CountryInfo> countryList,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> rawData,
+            IList<Country> countryList,
+            IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
@@ -376,9 +342,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByDaily(
-            List<StatisticReportEntity> rawData,
-            List<CountryInfo> countryList,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> rawData,
+            IList<Country> countryList,
+            IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
@@ -397,7 +363,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 }
             };
 
-            if (rawData == null || !rawData.Any())
+            if (!rawData.Any())
             {
                 return statisticReport;
             }
@@ -450,23 +416,18 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private List<StatisticReportInfo> GetPagingLogList(
+        private IList<StatisticReportInfo> GetPagingLogList(
             GetStatisticReportCriteria criteria,
-            List<StatisticReportInfo> statisticReportList)
+            IList<StatisticReportInfo> statisticReportList)
         {
             return statisticReportList.Skip(criteria.PageSize * criteria.PageIndex)
                 .Take(criteria.PageSize)
                 .ToList();
         }
 
-        /// <summary>
-        /// Gets the country dictionary.
-        /// </summary>
-        /// <param name="countryList">The country list.</param>
-        /// <returns>The country dictionary.</returns>
-        private Dictionary<int, int> GetCountryDictionary(List<CountryInfo> countryList)
+        private IDictionary<int, int> GetCountryDictionary(IList<Country> countryList)
         {
-            Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
+            var countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
             var currentCountryIndex = 0;
             for (var i = 0; i < countryLength; i++)
@@ -493,12 +454,12 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <returns>
         /// The dummy country list.
         /// </returns>
-        private List<StatisticReportInfo> GetDummyCountryList(
+        private IList<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
-            List<CountryInfo> countryList,
+            IList<Country> countryList,
             bool isGrandTotal)
         {
-            List<StatisticReportInfo> dummyCountries = new List<StatisticReportInfo>();
+            var dummyCountries = new List<StatisticReportInfo>();
             for (var i = 0; i < countryLength; i++)
             {
                 dummyCountries.Add(new StatisticReportInfo
@@ -510,18 +471,10 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return dummyCountries;
         }
 
-        /// <summary>
-        /// Gets the chart information.
-        /// </summary>
-        /// <param name="statisticReport">The statistic report.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <returns>
-        /// The chart information.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, Dictionary<int, int> countryDictionary)
+        private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, IDictionary<int, int> countryDictionary)
         {
             var chartInfo = new StatisticReportInfo
             {
@@ -597,7 +550,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
 
             var countryLength = statisticReport.Total.ChildReports.Count;
-            List<CountryInfo> countryList = new List<CountryInfo>();
+            List<Country> countryList = new List<Country>();
             for (var k = 0; k < countryLength; k++)
             {
                 var reportByCountryInfo = statisticReport.Total.ChildReports[k];
@@ -656,11 +609,11 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport,
-            List<CountryInfo> countryList)
+            IList<Country> countryList)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle leftHeaderStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);
@@ -717,8 +670,8 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <param name="statisticReport">The statistic report.</param>
         /// <param name="dateReport">The date report.</param>
         private void GetTimeReport(
-            List<StatisticReportEntity> timeGroup,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> timeGroup,
+            IDictionary<int, int> countryDictionary,
             ref StatisticReportInfo timeReport,
             ref StatisticReportInfo statisticReport,
             ref StatisticReportInfo dateReport)

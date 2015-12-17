@@ -22,35 +22,23 @@ namespace Fanex.CRM.Common.Controllers
     /// TODO: Update summary.
     /// </summary>
     public class BaseController : Controller
-    {
-        private readonly ICurrentContext _currentContext;
-
-        private readonly ICurrentSession _currentSession;
-
-        private readonly IServiceContext _serviceContext;
-
-        private readonly string _environment = NapSettings.Settings.Environment;
-
-        private readonly int _siteId = NapSettings.Settings.SiteId;
-
-        private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
-
-        private IPermissionService _permissionService = null;
+    {        
+        private IPermissionService _permissionService;
 
         public BaseController()
         {
-            this._currentContext = new CurrentContext();
-            ViewBag.Session = this._currentSession = new CurrentSession();
-            this._serviceContext = new ServiceContext
+            this.CurrentContext = new CurrentContext();
+            ViewBag.Session = this.CurrentSession = new CurrentSession();
+            this.ServiceContext = new ServiceContext
             {
-                UserId = this._currentSession.UserId,
-                SiteId = this._siteId,
-                Ip = this._currentContext.IP
+                UserId = this.CurrentSession.UserId,
+                SiteId = this.SiteId,
+                Ip = this.CurrentContext.IP
             };
 
             ViewFlags = new ViewFlags
             {
-                IsLive = this._environment.Equals(Constant.LIVE),
+                IsLive = this.Environment.Equals(Constant.LIVE),
                 HasEditRight = false
             };
         }
@@ -65,7 +53,7 @@ namespace Fanex.CRM.Common.Controllers
         {
             get
             {
-                return this._issiteLogin;
+                return NapSettings.Settings.EnableDirectLogin;
             }
         }
 
@@ -92,28 +80,31 @@ namespace Fanex.CRM.Common.Controllers
         }
 
         protected ICurrentContext CurrentContext
-        { 
-            get { return _currentContext; }
+        {
+            get;
+            private set;
         }
 
         protected ICurrentSession CurrentSession
         {
-            get { return _currentSession; }
+            get;
+            private set;
         }
 
         protected IServiceContext ServiceContext
         {
-            get { return _serviceContext; }
+            get;
+            private set;
         }
 
         protected string Environment
         {
-            get { return _environment; }
+            get { return NapSettings.Settings.Environment; }
         }
 
         protected int SiteId
         {
-            get { return _siteId; }
+            get { return NapSettings.Settings.SiteId; }
         }
 
         /// <summary>

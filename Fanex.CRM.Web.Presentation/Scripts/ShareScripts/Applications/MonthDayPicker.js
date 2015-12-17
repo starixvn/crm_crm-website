@@ -1,6 +1,6 @@
 ﻿"use strict";
-/* jshint unused: vars */
-angular.module('$monthDayPickerApplication', [])
+/* jshint unused: false */
+angular.module('monthDayPickerApplication', [])
      .service('$monthDayPickerService', ['$rootScope', function ($rootScope) {
          var pickerOptions = {
              plugInId: null,

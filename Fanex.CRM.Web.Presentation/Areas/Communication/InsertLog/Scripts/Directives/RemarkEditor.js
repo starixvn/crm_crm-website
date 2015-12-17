@@ -1,38 +1,37 @@
-﻿"use strict";
-/* global insertLogApplication,
-viewResources,
-hotKeyManager,
-sharedScriptManager,
-currentUsername */
-insertLogApplication.directive('remarkEditorContainer', function () {
-    var editorId = "remarkeditorbox";
-    function renderRemarkEditor(scope, element, attrs) {
-        /* jshint unused: vars */
-        var remark = scope.communicationLog.Remark.indexOf(" ", scope.communicationLog.Remark.length - 1) !== -1 ?
+﻿(function () {
+    "use strict";
+    /* global viewResources,
+    hotKeyManager,
+    sharedScriptManager,
+    currentUsername */
+    angular.module('communicationlog-insert-application').directive('remarkEditorContainer', function () {
+        var editorId = "remarkeditorbox";
+        function renderRemarkEditor(scope, element) {
+            var remark = scope.communicationLog.Remark.indexOf(" ", scope.communicationLog.Remark.length - 1) !== -1 ?
             scope.communicationLog.Remark.substring(0, scope.communicationLog.Remark.length - 1) + "&nbsp;" :
             scope.communicationLog.Remark;
-        var editorHTML =
+            var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
              sharedScriptManager.encodeHtml(remark) +
         '</textarea>';
 
-        element.html(editorHTML);
-        var editor = element.find("#" + editorId);
-        /* jshint camelcase: false */
-        editor.htmlarea({
-            changeEvent: function () {
-                scope.updateRemark(editor.htmlarea("toHtmlString"));
-            },
-            keyUpEvent: function (eventObject) {
-                hotKeyManager.keyUp(eventObject);
-            },
-            keyDownEvent: function (eventObject) {
-                return hotKeyManager.documentKeyDown(eventObject);
-            },
-            blurEvent: function () {
-                return hotKeyManager.documentBlur();
-            },
-            toolbar: [
+            element.html(editorHTML);
+            var editor = element.find("#" + editorId);
+            /* jshint camelcase: false */
+            editor.htmlarea({
+                changeEvent: function () {
+                    scope.updateRemark(editor.htmlarea("toHtmlString"));
+                },
+                keyUpEvent: function (eventObject) {
+                    hotKeyManager.keyUp(eventObject);
+                },
+                keyDownEvent: function (eventObject) {
+                    return hotKeyManager.documentKeyDown(eventObject);
+                },
+                blurEvent: function () {
+                    return hotKeyManager.documentBlur();
+                },
+                toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
                 ["orderedlist", "unorderedlist"],
@@ -45,7 +44,7 @@ insertLogApplication.directive('remarkEditorContainer', function () {
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
-                        /* jshint unused: vars */
+                        /* jshint unused: false */
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
@@ -53,17 +52,18 @@ insertLogApplication.directive('remarkEditorContainer', function () {
                     }
                 }]
            ]
-        });
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                renderRemarkEditor(scope, element, attrs);
             });
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderRemarkEditor(scope, element);
+                });
+            }
+        };
+    });
+})();

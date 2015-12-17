@@ -13,21 +13,13 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.CRM.Report.Resources;
-    using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Setting.Services;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
@@ -36,234 +28,66 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     /// </summary>
     public class CustomerReportService : ICustomerReportService
     {
-        private readonly string _customerReportSessionKey = "Fanex.CRM.Report.CustomerReport.CustomerReportSessionKey_" +
-            (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-
-        private ICustomerReportRepository _customerReportRepository;
-
-        private ISettingService _serviceSetting;
+        private readonly ICustomerReportRepository _customerReportRepository;
 
         public CustomerReportService()
-            : this(null, null)
+            : this(null)
         {
         }
 
         public CustomerReportService(
-            ICustomerReportRepository customerReportRepository,
-            ISettingService serviceSetting)
+            ICustomerReportRepository customerReportRepository)
         {
             _customerReportRepository = customerReportRepository ?? new CustomerReportRepository();
-            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets the customer report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer report.</returns>
-        public CustomerReportInfo CustomerReport(GetCustomerReportCriteria criteria)
+        public CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            try
+            var customerReport = new CustomerReportInfo();
+            customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria).ToList();
+            customerReport.TotalCustomer = customerReport.CustomerList.Count;
+
+            if (criteria.IsSortReport &&
+                !string.IsNullOrEmpty(criteria.SortField) &&
+                !string.IsNullOrEmpty(criteria.SortDirection))
             {
-                CustomerReportInfo customerReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    customerReport = (CustomerReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _customerReportSessionKey);
-                }
-
-                if (customerReport == null)
-                {
-                    customerReport = new CustomerReportInfo();
-                    customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
-                    customerReport.TotalCustomer = customerReport.CustomerList.Count;
-                }
-
-                if (criteria.IsSortReport &&
-                    !string.IsNullOrEmpty(criteria.SortField) &&
-                    !string.IsNullOrEmpty(criteria.SortDirection))
-                {
-                    customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
-                }
-
-                if (customerReport != null)
-                {
-                    SessionExtension.AddSession(HttpContext.Current.Session, _customerReportSessionKey, customerReport);
-                }
-
-                return new CustomerReportInfo
-                {
-                    CustomerList = criteria.IsGetFullReport ?
-                        customerReport.CustomerList :
-                        customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
-                           .Take(criteria.PageSize)
-                           .ToList(),
-                    TotalCustomer = customerReport.TotalCustomer
-                };
+                customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
             }
-            catch (Exception ex)
+
+            return new CustomerReportInfo
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                CustomerList = criteria.IsGetFullReport ?
+                    customerReport.CustomerList :
+                    customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
+                       .Take(criteria.PageSize)
+                       .ToList(),
+                TotalCustomer = customerReport.TotalCustomer
+            };
         }
 
-        /// <summary>
-        /// Exports the customer report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportCustomerReport(GetCustomerReportCriteria criteria)
         {
-            try
+            criteria.IsGetFullReport = true;
+            var customerReport = GetCustomerReport(criteria);
+            
+            var exportExcelInfo = new ExportExcelInfo
             {
-                criteria.IsGetFullReport = true;
-                CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(_customerReportSessionKey);
-                if (customerReport == null)
-                {
-                    customerReport = CustomerReport(criteria);
-                }
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = 11
+            };
 
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = 11
-                };
-
-                ExportCustomerReportBody(ref exportExcelInfo, customerReport);
-                string reportName = Labels.CustomerReport_Title;
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            ExportCustomerReportBody(ref exportExcelInfo, customerReport);
+            string reportName = Labels.CustomerReport_Title;
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public List<SiteInfo> AllSite()
-        {
-            try
-            {
-                return _serviceSetting.AllSite();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all title.
-        /// </summary>
-        /// <returns>All title.</returns>
-        public List<SettingInfo> AllTitle()
-        {
-            try
-            {
-                var allTitle = _serviceSetting.AllTitle();
-                allTitle.Insert(
-                    0,
-                    new SettingInfo
-                    {
-                        Value = Labels.All,
-                        Id = TitleConstants.All,
-                        DisplayOrder = 0
-                    });
-
-                return allTitle;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all country.
-        /// </summary>
-        /// <returns>All country.</returns>
-        public List<CountryInfo> AllCountry()
-        {
-            try
-            {
-                var allCountry = _serviceSetting.AllCountry();
-                return allCountry;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all language.
-        /// </summary>
-        /// <returns>All language.</returns>
-        public List<SettingInfo> AllLanguage()
-        {
-            try
-            {
-                return _serviceSetting.AllLanguage();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all customer type.
-        /// </summary>
-        /// <returns>All customer type.</returns>
-        public List<SettingInfo> AllCustomerType()
-        {
-            try
-            {
-                return _serviceSetting.AllCustomerType();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all VIP type.
-        /// </summary>
-        /// <returns>All VIP type.</returns>
-        public List<SettingInfo> AllVIPType()
-        {
-            try
-            {
-                var allVIPType = _serviceSetting.AllVIPType();
-                return allVIPType;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Exports the customer report header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
+        private static void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
@@ -316,17 +140,12 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the dynamic report body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="customerReport">The customer report.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportCustomerReportBody(ref ExportExcelInfo exportExcelInfo, CustomerReportInfo customerReport)
+        private static void ExportCustomerReportBody(ref ExportExcelInfo exportExcelInfo, CustomerReportInfo customerReport)
         {
-            if (customerReport == null || customerReport.CustomerList.Count == 0)
+            if (customerReport.CustomerList.Count == 0)
             {
                 exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
@@ -340,23 +159,23 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             IRow row;
             int currentColumn;
             var reportLength = customerReport.CustomerList.Count;
-            var textStyle = NpoiExcelExtensions.TextStyle(
+            var textStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            var centerTextStyle = NpoiExcelExtensions.TextStyle(
+            var centerTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Center);
 
-            var evenRowTextStyle = NpoiExcelExtensions.TextStyle(
+            var evenRowTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            var evenRowCenterTextStyle = NpoiExcelExtensions.TextStyle(
+            var evenRowCenterTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
@@ -411,7 +230,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportCustomerReportRow(
+        private static void ExportCustomerReportRow(
             ref ExportExcelInfo exportExcelInfo,
             ref IRow row,
             ref int currentColumn,
@@ -454,7 +273,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         /// <param name="customerList">The customer list.</param>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Sorted Customer List.</returns>
-        private List<CustomerInfo> SortCustomerList(
+        private static List<CustomerInfo> SortCustomerList(
             List<CustomerInfo> customerList,
             GetCustomerReportCriteria criteria)
         {
@@ -471,16 +290,10 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             return customerList;
         }
 
-        /// <summary>
-        /// Sorts the customer list by ascending.
-        /// </summary>
-        /// <param name="customerList">The customer list.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Sorted Customer List.</returns>
         [SuppressMessage("Microsoft.Maintainability",
             "CA1502:AvoidExcessiveComplexity",
             Justification = "Reviewed. Suppression is OK here.")]
-        private List<CustomerInfo> SortCustomerListByAscending(
+        private static List<CustomerInfo> SortCustomerListByAscending(
             List<CustomerInfo> customerList,
             GetCustomerReportCriteria criteria)
         {
@@ -524,16 +337,10 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             return sortedCustomerList;
         }
 
-        /// <summary>
-        /// Sorts the customer list by descending.
-        /// </summary>
-        /// <param name="customerList">The customer list.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Sorted Customer List.</returns>
         [SuppressMessage("Microsoft.Maintainability",
             "CA1502:AvoidExcessiveComplexity",
             Justification = "Reviewed. Suppression is OK here.")]
-        private List<CustomerInfo> SortCustomerListByDescending(
+        private static List<CustomerInfo> SortCustomerListByDescending(
             List<CustomerInfo> customerList,
             GetCustomerReportCriteria criteria)
         {
@@ -576,7 +383,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             return sortedCustomerList;
         }
 
-        private string GetCustomerLanguages(CustomerInfo customerInfo)
+        private static string GetCustomerLanguages(CustomerInfo customerInfo)
         {
             return string.Join(", ", customerInfo.Languages.Select(language => language.Name));
         }

@@ -23,7 +23,7 @@ namespace Fanex.CRM.Common.Helpers
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The string without HTML tag.</returns>
-        public static string ReplaceHtmlTag(string value)
+        public static string RemoveHtmlTags(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

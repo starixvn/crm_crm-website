@@ -48,13 +48,13 @@ namespace Fanex.CRM.Feedback.Services
         /// </returns>
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
         {
-            var countries = _settingService.AllCountry();
-            countries.Insert(0, new CountryInfo { Id = 0, Name = Labels.Symbol_NA });
+            var countries = _settingService.GetAllCountries().ToList();
+            countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
 
-            var languages = _settingService.AllLanguage();
-            languages.Insert(0, new SettingInfo { Id = 0, Name = Labels.Symbol_NA });
+            var languages = _settingService.GetAllLanguages().ToList();
+            languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA });
 
-            var statusRawData = _settingService.AllStatus(ViewTypeConstants.CommunicationTool);
+            var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
             if (!hasDeleteFeedbackPermission)
             {
                 var deletedStatus = statusRawData.SingleOrDefault(s => string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
@@ -66,18 +66,18 @@ namespace Fanex.CRM.Feedback.Services
 
             return new
             {
-                Titles = _settingService.AllTitle(),
-                Sites = _settingService.AllSiteWithGroup(),
-                Extensions = _settingService.AllExtension(),
-                Communications = _settingService.AllCommunicationTool(),
-                Categories = _settingService.AllMainCategory(),
-                Products = _settingService.AllProduct(),
+                Titles = _settingService.GetAllTitles(),
+                Sites = _settingService.GetAllSiteWithGroup(),
+                Extensions = _settingService.GetAllExtensions(),
+                Communications = _settingService.GetAllCommunicationTools(),
+                Categories = _settingService.GetAllMainCategories(),
+                Products = _settingService.GetAllProducts(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusRawData,
-                Roles = _settingService.AllRole(),
-                Responses = _settingService.AllResponse(),
-                LicenseeTypes = _settingService.AllLicenseeType()
+                Roles = _settingService.GetAllRoles(),
+                Responses = _settingService.GetAllResponses(),
+                LicenseeTypes = _settingService.GetAllLicenseeTypes()
             };
         }
 

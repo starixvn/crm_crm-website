@@ -55,14 +55,13 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public JsonResult AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
-            Result insertResult = CheckAddCustomerFeedbackPermission(criteria);
-            if (insertResult.Code == ErrorCodeConstants.NoneError)
+            var result = CheckAddCustomerFeedbackPermission(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                insertResult = _feedbackService.AddGuestFeedback(criteria);
+                result = _feedbackService.AddGuestFeedback(criteria);
             }
 
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

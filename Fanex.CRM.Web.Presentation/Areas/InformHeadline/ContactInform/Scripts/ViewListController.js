@@ -1,15 +1,13 @@
-﻿"use strict";
-/* global contactInformApplication,
-MessageResult,
-sharedScriptManager,
-hotKeyManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global MessageResult,
+    sharedScriptManager,
+    hotKeyManager,
+    viewResources, Site */
 
-contactInformApplication.controller('ContactInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
+    angular.module('contactInformApplication').controller('ContactInformController',
+    ['$scope', '$uiBlockerService', '$timeout', 'updateInformService',
+    function ($scope, $uiBlockerService, $timeout, updateInformService) {
 
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
@@ -50,7 +48,7 @@ contactInformApplication.controller('ContactInformController',
                     $scope.titleDetail = data.Result;
                     getSettings();
                 },
-                function (data) {
+                function () {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -58,7 +56,7 @@ contactInformApplication.controller('ContactInformController',
 
         function createStatusDropdownSettings(sourceData) {
             $scope.statusDropdownSettings = {
-                sourceData: sourceData               
+                sourceData: sourceData
             };
         }
 
@@ -78,20 +76,11 @@ contactInformApplication.controller('ContactInformController',
 
                 $timeout($scope.getInforms, 1000);
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
         $scope.exportInformHeadlines = function () {
-
-            _searchCriteria = {
-                UserName: $scope.username,
-                TitleId: $scope.titleId,
-                StatusId: $scope.selectedStatuses.toString(),
-                PageIndex: 1,
-                ItemsPerPage: 10000
-            };
-
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'InformHeadline/ExportContactInforms',
                 Params: _searchCriteria
@@ -115,7 +104,7 @@ contactInformApplication.controller('ContactInformController',
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
@@ -151,7 +140,7 @@ contactInformApplication.controller('ContactInformController',
                     Informs: items
                 })
                 .then(saveSuccessCallback,
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
@@ -196,3 +185,4 @@ contactInformApplication.controller('ContactInformController',
             initController();
         });
     } ]);
+})();
