@@ -1,13 +1,12 @@
-﻿(function () {
-    'use strict';
-    /* global casinoDailyApplication,
-    hotKeyManager,
-    sharedScriptManager,
-    crmConstants,
-    moment,
-    currentDate */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
+﻿"use strict";
+/* global crmConstants,
+sharedScriptManager, hotKeyManager,
+currentDate,
+moment, 
+viewResources, currentDate, firstDayOfWeek */
+/* jshint camelcase: false,
+unused: vars */
+(function () {
     angular.module('log-statistics-application').controller('logStatisticsController', ['$scope', 'LogStatisticsService', '$uiBlockerService', '$timeout',
     function ($scope, logStatisticsService, $uiBlockerService, $timeout) {
         $scope.allSettings = null;
@@ -150,7 +149,7 @@
                 NoneSelectedText: viewResources.Symbol_NotApply,
                 NumberOfItemShowShortText: 2
             };
-        }
+        };
         $scope.updateSelectedProduct = function (productIdList) {
             $scope.searchCriteria.ProductIds = productIdList;
             $scope.checkSelectedItem();
@@ -166,7 +165,7 @@
                 NoneSelectedText: viewResources.Symbol_NotApply,
                 NumberOfItemShowShortText: 0
             };
-        }
+        };
         $scope.updateSelectedCategory = function (categoryIdList) {
             $scope.searchCriteria.CategoryIds = categoryIdList;
             $scope.checkSelectedItem();
@@ -188,7 +187,7 @@
             $scope.checkSelectedItem();
         };
 
-        $scope.checkSelectedItem = function (selectedData) {
+        $scope.checkSelectedItem = function () {
             $timeout(function () {
                 $scope.isDisableSubmitButton = $scope.searchCriteria.ProductIds === '' ||
                                                 $scope.searchCriteria.CategoryIds === '' ||
@@ -208,7 +207,7 @@
 
         $scope.getAllSetting = function () {
             var params = {};
-            logStatisticsService.getAllSetting()
+            logStatisticsService.getAllSetting(params)
                     .then(function (data) {
                         $scope.communicationToolOptions.DataList = data.Result.CommunicationToolList;
                         $scope.categoryOptions.DataList = data.Result.MainCategoryList;
@@ -238,7 +237,7 @@
 
                         $uiBlockerService.unblockUI();
                     },
-                    function (data) {
+                    function () {
                         $uiBlockerService.unblockUI();
                     });
         };
@@ -283,7 +282,7 @@
 
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -301,7 +300,7 @@
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -327,7 +326,7 @@
             };
 
             $scope.$apply();
-        }
+        };
 
         $scope.invokeHotKey_CtrlS = function () {
             $scope.getLogStatisticReport();

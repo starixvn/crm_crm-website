@@ -2,97 +2,99 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Report.Helpers;
-@{ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Log_Statistics_Report;
+
     var currentClientTime = DateTimeUtilize.CurrentClientTime();
     string clientDate = currentClientTime.ToShortFormatedDate();
 
     var firstDayOfWeek = DateTimeHelper.GetFirstDayOfWeek(currentClientTime).ToShortFormatedDate();
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="log-statistics-application">
-<head>
-    <title></title>
+@section Styles{
     @RazorHelper.RenderStyles("~/site/common",
                             "~/bundles/Report/LogStatisticsStyles",
                             "~/Styles/FanexMultipleSelect")
-</head>
-<body>
-    <div class="main container" data-ng-controller="logStatisticsController">  
-        <div class="row" data-ng-show="isDisableSubmitButton">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="alertboxerr">
-                    <div data-ng-bind="errorMessage">
-                    </div>
+}
+<div data-ng-app="log-statistics-application">
+<div class="main container" data-ng-controller="logStatisticsController">
+    <div class="row" data-ng-show="isDisableSubmitButton">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="alertboxerr">
+                <div data-ng-bind="errorMessage">
                 </div>
             </div>
-        </div>
-
-        <div class="filter-frm one-row">
-            <form novalidate>
-                <div class="row row-item">
-                    <div class="item product-item">
-                        <label for="products">@Labels.Product</label>
-                        <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList" style="min-width: 160px;">
-                            <select id="product">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item item">
-                        <label for="fromDate">@Labels.From</label>
-                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label for="toDate">@Labels.To</label>
-                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-item">
-                    <div class="item">
-                        <label class="" for="main-category">@Labels.Main_Category</label>
-                        <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList" style="min-width: 300px;">
-                            <select id="category">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label class="first-column" for="communication-tool">@Labels.CommunicationType</label>
-                        <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"  style="min-width: 170px;">
-                            <select id="communication-tool">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <button class="btn" data-ng-click="getLogStatisticReport();" data-ng-disabled="isDisableSubmitButton" >
-                            <span class="hotkey">S</span>ubmit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div>
-            <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
-                <div id="table-ibc-report" class="freegrid  table-ibc-report">
-                </div>
-            </div>
-            <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
-                <div id="table-licensee-report" class="freegrid table-licensee-report">
-                </div>
-            </div>
-            <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
-                <div id="table-detail-report" class="freegrid table-detail-report">
-                </div>
-            </div>
-        </div>
-
-        <div class="download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
+    <div class="filter-frm one-row">
+        <form novalidate>
+        <div class="row row-item">
+            <div class="item product-item">
+                <label for="products">@Labels.Product</label>
+                <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList"
+                    style="min-width: 160px;">
+                    <select id="product">
+                    </select>
+                </div>
+            </div>
+            <div class="item item">
+                <label for="fromDate">@Labels.From</label>
+                <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                    <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="toDate">@Labels.To</label>
+                <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                    <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label class="" for="main-category">@Labels.Main_Category</label>
+                <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList"
+                    style="min-width: 300px;">
+                    <select id="category">
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <label class="first-column" for="communication-tool">@Labels.CommunicationType</label>
+                <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"
+                    style="min-width: 170px;">
+                    <select id="communication-tool">
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <button class="btn" data-ng-click="getLogStatisticReport();" data-ng-disabled="isDisableSubmitButton">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div>
+        <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
+            <div id="table-ibc-report" class="freegrid  table-ibc-report">
+            </div>
+        </div>
+        <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
+            <div id="table-licensee-report" class="freegrid table-licensee-report">
+            </div>
+        </div>
+        <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
+            <div id="table-detail-report" class="freegrid table-detail-report">
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+</div>
+</div>
+@section Scripts {
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var firstDayOfWeek = new Date('@firstDayOfWeek');
@@ -142,12 +144,9 @@
             CommunicationFilterRequired: '@Labels.CommunicationFilter_Required'
         };
     </script>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/FanexGridScripts",
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
         "~/Scripts/FanexGridV2/NumeralScripts",
-        "~/Scripts/AngularJSLibrary",      
         "~/Scripts/FanexMultipleSelect",
         "~/CRM/DownLoadFile/Scripts",
         "~/bundles/Report/LogStatisticsScripts")
-</body>
-</html>
+}

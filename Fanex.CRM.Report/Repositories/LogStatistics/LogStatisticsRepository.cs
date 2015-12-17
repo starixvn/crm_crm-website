@@ -7,12 +7,12 @@
 namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
     using System.Collections.Generic;
+    using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
-    using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
@@ -51,25 +51,25 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         Remark = Converter.ToString2(reader["Description"]),
                         Solution = Converter.ToString2(reader["Solution"]),
                         Username = Converter.ToString2(reader["UserName"]),
-                        SiteInfo = new SettingInfo { Name = Converter.ToString2(reader["SiteName"]) },
-                        Product = new SettingInfo { Name = Converter.ToString2(reader["Product"]) },
-                        Extension = new SettingInfo { Name = Converter.ToString2(reader["Station"]) },
-                        Country = new CountryInfo { Name = Converter.ToString2(reader["CountryName"]) },
-                        MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                        SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                        SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
+                        Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
+                        Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
+                        Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
+                        MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                        SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                         StatusName = Converter.ToString2(reader["Status"]),
-                        Response = new SettingInfo { Name = Converter.ToString2(reader["Response"]) },
+                        Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                         Handler = Converter.ToString2(reader["CreatorName"]),
                         CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                         Role = Converter.ToString2(reader["Role"]),
-                        CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
-                        Fax = new FaxInfo
+                        CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
+                        Fax = new Fax
                         {
                             CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                             AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
                             FaxNumber = Converter.ToString2(reader["Fax"])
                         },
-                        MobilePhone = new PhoneInfo
+                        MobilePhone = new Phone
                         {
                             CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
                             AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
@@ -86,51 +86,39 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         Bbm = Converter.ToString2(reader["BBM"])
                     };
 
-                    statisticsDetail.Phones.Add(new PhoneInfo
-                    {
-                        CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
-                        AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone"])
-                    });
-                    statisticsDetail.Phones.Add(new PhoneInfo
-                    {
-                        CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
-                        AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone2"])
-                    });
-                    statisticsDetail.Phones.Add(new PhoneInfo
-                    {
-                        CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
-                        AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone3"])
-                    });
+                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
+                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));
+                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone3"));
 
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC1Name"]),
-                        Phone = Converter.ToString2(reader["PIC1"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC2Name"]),
-                        Phone = Converter.ToString2(reader["PIC2"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC3Name"]),
-                        Phone = Converter.ToString2(reader["PIC3"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC4Name"]),
-                        Phone = Converter.ToString2(reader["PIC4"])
-                    });
+                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC1"));
+                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC2"));
+                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
+                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
 
                     result.Add(statisticsDetail);
                 }
             }
 
             return result;
+        }
+
+        private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, string prefix)
+        {
+            return new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader[prefix + "Name"]),
+                Phone = Converter.ToString2(reader[prefix])
+            };
+        }
+
+        private static Phone ReadPhoneInfo(IDataReader reader, string prefix)
+        {
+            return new Phone
+            {
+                CountryCode = Converter.ToString2(reader[prefix + "CountryCode"]),
+                AreaCode = Converter.ToString2(reader[prefix + "AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader[prefix])
+            };
         }
     }
 }

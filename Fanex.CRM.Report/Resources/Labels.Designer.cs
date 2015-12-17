@@ -1159,6 +1159,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log Statistics Report.
+        /// </summary>
+        public static string Log_Statistics_Report {
+            get {
+                return ResourceManager.GetString("Log_Statistics_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Daily Log Statistics | {1} - {2}.
         /// </summary>
         public static string LogStatisticsReport_Title {

@@ -2,7 +2,7 @@
     "use strict";
     /* global crmConstants,
     reportDirectiveHelper */
-    /* jshint unused: vars,
+    /* jshint unused: false,
     camelcase: false */
     angular.module('log-statistics-application').directive('tableIbcReportContainer', function () {
         var selfScope;
@@ -61,5 +61,5 @@
                 });
             }
         };
-    })
+    });
 })();

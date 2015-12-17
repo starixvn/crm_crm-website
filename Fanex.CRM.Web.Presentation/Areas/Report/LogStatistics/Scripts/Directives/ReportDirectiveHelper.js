@@ -5,9 +5,9 @@
     crmConstants,
     numeral */
     /* jshint camelcase: false,
-    unused: vars */
+    unused: false */
     /* exported reportDirectiveHelper */
-
+    /*jslint maxlen: 200 */
     var ReportDirectiveHelper = function () {
         var self = this;
         self.getGridOptions = function (report, isExpand) {
@@ -63,7 +63,7 @@
                 showFooter: true
             };
 
-            if (isExpand || productLength == 1) {
+            if (isExpand || productLength === 1) {
                 self.getGridOptionWhenExpanding(report, gridOptions, groupHeaders, headers);
             } else {
                 self.getGridOptionWhenCollapsing(report, gridOptions, groupHeaders, headers);
@@ -156,11 +156,11 @@
                 var subCategories = mainCategory.SubCategories;
                 var subCategoryRows = [];
                 for (var j = 0; j < subCategories.length; j++) {
-                    subCategoryRows.push({ Columns: self.getRowValueWhenCollapse(subCategories[j], report.ProductColumns, report.CommunicationColumns) });
+                    subCategoryRows.push({ Columns: self.getRowValueWhenCollapse(subCategories[j], report.CommunicationColumns) });
                 }
 
                 bodyData.push({
-                    Columns: self.getRowValueWhenCollapse(mainCategory, report.ProductColumns, report.CommunicationColumns),
+                    Columns: self.getRowValueWhenCollapse(mainCategory, report.CommunicationColumns),
                     SubRows: subCategoryRows
                 });
             }
@@ -172,10 +172,10 @@
                 ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct
             };
             footerData.push({
-                Columns: self.getRowValueWhenCollapse(grandTotal, report.ProductColumns, report.CommunicationColumns)
+                Columns: self.getRowValueWhenCollapse(grandTotal, report.CommunicationColumns)
             });
         };
-        self.getRowValueWhenCollapse = function (currentRow, productColumns, communicationColumns) {
+        self.getRowValueWhenCollapse = function (currentRow, communicationColumns) {
             var dataDetail = [{ Name: "ColComplaints_Enquiries", Value: currentRow.Name}];
 
             var listOfcommunicationSum = [];
@@ -238,7 +238,7 @@
                     CellAlign: "center"
                 });
             }
-        }
+        };
         self.setDataForGridOptions = function (gridOptions, groupHeaders, headers, bodyData, footerData) {
             gridOptions.groupHeaderRows = [{ Columns: groupHeaders}];
             gridOptions.columns = headers;

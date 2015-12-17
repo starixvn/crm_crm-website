@@ -65,7 +65,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             int currentRowIndex = exportExcelInfo.CurrentRow;
 
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle titleStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle titleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
             exportExcelInfo.RenderHeaderTitle(title, titleStyle);
             currentRowIndex += 2;
 
@@ -84,7 +84,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             var communicationColumns = _logStatisticsReport.CommunicationColumns;
             int communicationColumnsCount = communicationColumns.Count();
 
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
             CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex + 1, currentColumnIndex, currentColumnIndex);
@@ -119,18 +119,18 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
             NpoiExcelExtensions.SetTotalColumnBackgroundColorIndex(exportExcelInfo);
 
-            var mainCategoryTextStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var mainCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var mainCategoryTotalCellStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var mainCategoryTextStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var mainCategorynumberStyle = NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var mainCategoryTotalCellStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
             
             var font = exportExcelInfo.ExcelFile.CreateFont();
             SetFontStyleForMainCategory(font, mainCategoryTextStyle);
             SetFontStyleForMainCategory(font, mainCategorynumberStyle);
             SetFontStyleForMainCategory(font, mainCategoryTotalCellStyle);
 
-            var subCategoryTextStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var subCategorynumberStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var subCategoryTotalCellStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var subCategoryTextStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var subCategorynumberStyle = NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var subCategoryTotalCellStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
 
             var mainCategories = _logStatisticsReport.MainCategories;
             foreach (var mainCategory in mainCategories)
@@ -148,8 +148,8 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
         private void GenerateFooterData(ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-            var footerTextStyle = NpoiExcelExtensions.TextStyleGrandTotal(exportExcelInfo.ExcelFile);
-            var footerValueStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var footerTextStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var footerValueStyle = NpoiExcelExtensions.GetIntegerNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
 
             footerValueStyle.Alignment = HorizontalAlignment.Center;
 

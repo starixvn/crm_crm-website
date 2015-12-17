@@ -1,4 +1,6 @@
-﻿(function () {
+﻿/* global RegisterTemplate */
+(function () {
+    "use strict";
     function registerPickerForLogStatistic() {
         var logStatisticRegister = new RegisterTemplate(angular.module('log-statistics-application'));
 

@@ -4,7 +4,7 @@
     crmConstants,
     viewResources,
     sharedScriptManager */
-    /* jshint unused: vars,
+    /* jshint unused: false,
     camelcase: false */
     angular.module('log-statistics-application').directive('tableDetailReportContainer', function () {
         var selfScope;
@@ -12,7 +12,7 @@
         var cachedReport;
         var cachedGridOptions;
 
-        function renderReport(scope, element, attrs) {
+        function renderReport(scope, element) {
             if (scope.detailReportOptions.DataList === null) {
                 return;
             }
@@ -155,7 +155,7 @@
                         return;
                     }
 
-                    renderReport(scope, element, attrs);
+                    renderReport(scope, element);
                     scope.detailReportOptions.IsUpdateGrid = false;
                 });
             }

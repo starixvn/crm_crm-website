@@ -10,6 +10,7 @@ namespace Fanex.CRM.Report.Controllers
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -50,17 +51,17 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
-            var products = _serviceSetting.AllProduct().Select(p => new
+            var products = _serviceSetting.GetAllProducts().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Value
                 });
-            var communicationTools = _serviceSetting.AllCommunicationTool().Select(p => new
+            var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name
                 });
-            var mainCategories = _serviceSetting.AllMainCategory().Select(p => new
+            var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name

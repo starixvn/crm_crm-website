@@ -859,4 +859,7 @@
     <value>Please choose a product</value>
     <comment>#46902</comment>
   </data>
+  <data name="Log_Statistics_Report" xml:space="preserve">
+    <value>Log Statistics Report</value>
+  </data>
 </root>
