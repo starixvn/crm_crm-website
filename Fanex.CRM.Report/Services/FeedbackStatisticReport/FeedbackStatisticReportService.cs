@@ -176,8 +176,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 MaxColumnIndex = 5
             };
 
-            GenerateFeedbackStatisticDetailTitle(exportExcelInfo, report.Title);
-            GenerateFeedbackStatisticDetailHeader(exportExcelInfo);
             if (report == null || report.TotalItems == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
@@ -202,6 +200,10 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     {
                         endIndex = totalRow;
                     }
+
+                    exportExcelInfo.CurrentRow = 0;
+                    GenerateFeedbackStatisticDetailTitle(exportExcelInfo, report.Title);
+                    GenerateFeedbackStatisticDetailHeader(exportExcelInfo);
 
                     GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks, startIndex, endIndex);
                 }
