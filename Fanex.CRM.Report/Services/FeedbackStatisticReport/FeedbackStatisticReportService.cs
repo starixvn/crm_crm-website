@@ -170,7 +170,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = workbook,
-                Worksheet = workbook.CreateSheet(Labels.FeedbackStatisticDetailSheetName),
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
@@ -185,7 +184,27 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             }
             else
             {
-                GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks);
+                var totalRow = report.TotalItems;
+                var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+                var extraSheet = totalRow % maxRowPerSheet != 0 ? 1 : 0;
+                var numberOfSheet = (totalRow / maxRowPerSheet) + extraSheet;
+
+                for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+                {
+                    var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", Labels.FeedbackStatisticDetailSheetName, sheetIndex + 1) :
+                    Labels.FeedbackStatisticDetailSheetName;
+                    exportExcelInfo.CreateSheet(sheetName);
+
+                    var startIndex = sheetIndex * maxRowPerSheet;
+                    var endIndex = startIndex + maxRowPerSheet;
+                    if (endIndex > totalRow)
+                    {
+                        endIndex = totalRow;
+                    }
+
+                    GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks, startIndex, endIndex);
+                }
             }
 
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
@@ -527,7 +546,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="feedbacks">The feedbacks.</param>
-        private void GenerateFeedbackStatisticDetailBody(ExportExcelInfo exportExcelInfo, IList<FeedbackDetail> feedbacks)
+        private void GenerateFeedbackStatisticDetailBody(ExportExcelInfo exportExcelInfo, IList<FeedbackDetail> feedbacks, int startIndex, int endIndex)
         {
             int currentColumn;
             int currentRow = exportExcelInfo.CurrentRow;
@@ -537,34 +556,35 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             string reviewer;
             string feedbackPattern = "{0}\nFeedback date {1}\nBy {2} on {3}\nSolving Duration: {4}{5}";
             InitializeTextStyles(exportExcelInfo.ExcelFile);
-            foreach (var feedback in feedbacks)
+
+            for (int i = startIndex; i < endIndex; i++)
             {
                 currentColumn = exportExcelInfo.StartColumn;
-                textCellStyle = GetFeedbackDetailTextStyle(feedback.Status);
+                textCellStyle = GetFeedbackDetailTextStyle(feedbacks[i].Status);
 
-                reviewer = !string.IsNullOrWhiteSpace(feedback.ReviewerName)
-                    ? string.Format("\nReviewed by {0} on {1}", feedback.ReviewerName, feedback.SolveDateString)
+                reviewer = !string.IsNullOrWhiteSpace(feedbacks[i].ReviewerName)
+                    ? string.Format("\nReviewed by {0} on {1}", feedbacks[i].ReviewerName, feedbacks[i].SolveDateString)
                     : string.Empty;
                 row = exportExcelInfo.Worksheet.CreateRow(currentRow);
                 row.Height = 1200;
                 NpoiExcelExtensions.RenderCell(
                     row,
                     currentColumn,
-                    string.Format(feedbackPattern, feedback.Subject, feedback.FeedbackDateString, feedback.CreatorName, feedback.CreateDateString, feedback.DurationTime, reviewer),
-                    textCellStyle);
+                    string.Format(feedbackPattern, feedbacks[i].Subject, feedbacks[i].FeedbackDateString, feedbacks[i].CreatorName, feedbacks[i].CreateDateString, feedbacks[i].DurationTime, reviewer),
+                                    textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Username, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].Username, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.MainCategory, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].MainCategory, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.SubCategory, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].SubCategory, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Status, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].Status, textCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(
                     row,
                     currentColumn,
-                    feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer,
+                    feedbacks[i].IsRelated ? feedbacks[i].Username : feedbacks[i].RelatedCustomer,
                     textCellStyle);
 
                 currentRow++;
