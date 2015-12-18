@@ -583,6 +583,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted By.
+        /// </summary>
+        public static string DeletedBy {
+            get {
+                return ResourceManager.GetString("DeletedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted Feedback Statistics.
+        /// </summary>
+        public static string DeletedFeedbackStatistics {
+            get {
+                return ResourceManager.GetString("DeletedFeedbackStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Complaints/Enquiries.
         /// </summary>
         public static string Description {

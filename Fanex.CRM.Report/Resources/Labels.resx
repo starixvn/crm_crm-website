@@ -862,4 +862,12 @@
   <data name="Log_Statistics_Report" xml:space="preserve">
     <value>Log Statistics Report</value>
   </data>
+  <data name="DeletedFeedbackStatistics" xml:space="preserve">
+    <value>Deleted Feedback Statistics</value>
+    <comment>#40843</comment>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>Deleted By</value>
+    <comment>#40843</comment>
+  </data>
 </root>
