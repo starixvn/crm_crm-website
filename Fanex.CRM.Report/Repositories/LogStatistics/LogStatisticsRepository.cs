@@ -21,16 +21,11 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
     {
         public IEnumerable<LogStatisticsEntity> GetReportData(LogStatisticsCriteria criteria)
         {
-            var result = new List<LogStatisticsEntity>();
-
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDb.AssignParamValues(criteria.GetSpParams());
-
-                result = objectDb.Query<LogStatisticsEntity>(criteria.GetSpParams()).ToList();
+                return objectDb.Query<LogStatisticsEntity>(criteria.GetSpParams());
             }
 
-            return result;
         }
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -41,61 +36,63 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
             var result = new List<StatisticsDetailbyDateModel>();
             using (var objDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                var reader = objDb.ExecuteReader(criteria.GetSpParams());
-                while (reader.Read())
+                using (var reader = objDb.ExecuteReader(criteria.GetSpParams()))
                 {
-                    StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
+                    while (reader.Read())
                     {
-                        StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
-                        ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
-                        Remark = Converter.ToString2(reader["Description"]),
-                        Solution = Converter.ToString2(reader["Solution"]),
-                        Username = Converter.ToString2(reader["UserName"]),
-                        SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
-                        Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
-                        Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
-                        Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
-                        MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                        SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
-                        StatusName = Converter.ToString2(reader["Status"]),
-                        Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
-                        Handler = Converter.ToString2(reader["CreatorName"]),
-                        CreationTime = Converter.ToDateTime(reader["CreateDate"]),
-                        Role = Converter.ToString2(reader["Role"]),
-                        CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
-                        Fax = new Fax
+                        StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
                         {
-                            CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
-                            AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
-                            FaxNumber = Converter.ToString2(reader["Fax"])
-                        },
-                        MobilePhone = new Phone
-                        {
-                            CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
-                            AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
-                            PhoneNumber = Converter.ToString2(reader["MobilePhone"])
-                        },
-                        MSN = Converter.ToString2(reader["MSN"]),
-                        Skype = Converter.ToString2(reader["Skype"]),
-                        Email = Converter.ToString2(reader["Email"]),
-                        WhatsApp = Converter.ToString2(reader["WhatsApp"]),
-                        Line = Converter.ToString2(reader["Line"]),
-                        WEChat = Converter.ToString2(reader["WeChat"]),
-                        Yahoo = Converter.ToString2(reader["Yahoo"]),
-                        QQ = Converter.ToString2(reader["QQ"]),
-                        Bbm = Converter.ToString2(reader["BBM"])
-                    };
+                            StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
+                            ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
+                            Remark = Converter.ToString2(reader["Description"]),
+                            Solution = Converter.ToString2(reader["Solution"]),
+                            Username = Converter.ToString2(reader["UserName"]),
+                            SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
+                            Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
+                            Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
+                            Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
+                            MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                            SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
+                            StatusName = Converter.ToString2(reader["Status"]),
+                            Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
+                            Handler = Converter.ToString2(reader["CreatorName"]),
+                            CreationTime = Converter.ToDateTime(reader["CreateDate"]),
+                            Role = Converter.ToString2(reader["Role"]),
+                            CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
+                            Fax = new Fax
+                            {
+                                CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
+                                AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
+                                FaxNumber = Converter.ToString2(reader["Fax"])
+                            },
+                            MobilePhone = new Phone
+                            {
+                                CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
+                                AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
+                                PhoneNumber = Converter.ToString2(reader["MobilePhone"])
+                            },
+                            MSN = Converter.ToString2(reader["MSN"]),
+                            Skype = Converter.ToString2(reader["Skype"]),
+                            Email = Converter.ToString2(reader["Email"]),
+                            WhatsApp = Converter.ToString2(reader["WhatsApp"]),
+                            Line = Converter.ToString2(reader["Line"]),
+                            WEChat = Converter.ToString2(reader["WeChat"]),
+                            Yahoo = Converter.ToString2(reader["Yahoo"]),
+                            QQ = Converter.ToString2(reader["QQ"]),
+                            Bbm = Converter.ToString2(reader["BBM"])
+                        };
 
-                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
-                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));
-                    statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone3"));
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone3"));
 
-                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC1"));
-                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC2"));
-                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
-                    statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC1"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC2"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
 
-                    result.Add(statisticsDetail);
+                        result.Add(statisticsDetail);
+                    }
                 }
             }
 

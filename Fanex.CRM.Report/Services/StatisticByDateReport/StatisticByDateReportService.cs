@@ -457,11 +457,12 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ICellStyle textStyle,
             ICellStyle centerTextStyle)
         {
-            var duration = string.Format(
+            var duration = info.Duration;
+            var durationText = string.Format(
                 "{0}:{1}:{2}",
-                info.Duration.Days.ToString("00"),
-                info.Duration.Hours.ToString("00"),
-                info.Duration.Minutes.ToString("00"));
+                duration.Days.ToString("00"),
+                duration.Hours.ToString("00"),
+                duration.Minutes.ToString("00"));
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
