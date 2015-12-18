@@ -327,9 +327,6 @@
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
-  <data name="Headline" xml:space="preserve">
-    <value>Headline</value>
-  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
@@ -348,9 +345,6 @@
   <data name="No_status_found" xml:space="preserve">
     <value>No status found.</value>
   </data>
-  <data name="UpdateInformsSuccess" xml:space="preserve">
-    <value>Update inform successfully!</value>
-  </data>
   <data name="CreatedTime" xml:space="preserve">
     <value>Created Time</value>
   </data>
@@ -359,33 +353,6 @@
   </data>
   <data name="InternalAccount" xml:space="preserve">
     <value>Internal Account</value>
-  </data>
-  <data name="NeverTouch" xml:space="preserve">
-    <value>Never Touch</value>
-  </data>
-  <data name="NoNeedToCall" xml:space="preserve">
-    <value>No Need To Call</value>
-  </data>
-  <data name="NoOfHeadlines" xml:space="preserve">
-    <value>No. Of Headlines</value>
-  </data>
-  <data name="NoReply" xml:space="preserve">
-    <value>No Reply</value>
-  </data>
-  <data name="RequestCallback" xml:space="preserve">
-    <value>Request Call Back</value>
-  </data>
-  <data name="Uncontactable" xml:space="preserve">
-    <value>Uncontactable</value>
-  </data>
-  <data name="NewCase" xml:space="preserve">
-    <value>New Case</value>
-  </data>
-  <data name="CreateTitleSuccess" xml:space="preserve">
-    <value>Insert new case successfully!</value>
-  </data>
-  <data name="UpdateInforms_TitleEmpty" xml:space="preserve">
-    <value>Title is mandatory!</value>
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this function!</value>
@@ -401,9 +368,6 @@
   </data>
   <data name="ProductStatus" xml:space="preserve">
     <value>Product Status</value>
-  </data>
-  <data name="NoHeadlinesToInform" xml:space="preserve">
-    <value>No. headlines to inform</value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
@@ -431,9 +395,6 @@
   </data>
   <data name="LicenseeType" xml:space="preserve">
     <value>Licensee Type</value>
-  </data>
-  <data name="NoOfHeadlinesToInform" xml:space="preserve">
-    <value>No. Of Headlines To Inform</value>
   </data>
   <data name="NonLive" xml:space="preserve">
     <value>Non-Live</value>

@@ -378,20 +378,6 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\Directives\InformStatisticContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticService.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -600,10 +586,6 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
@@ -1227,7 +1209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
