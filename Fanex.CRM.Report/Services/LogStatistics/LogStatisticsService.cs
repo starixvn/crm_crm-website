@@ -12,7 +12,6 @@ namespace Fanex.CRM.Report.Services.LogStatistics
     using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Entities.LogStatistics;
@@ -38,40 +37,32 @@ namespace Fanex.CRM.Report.Services.LogStatistics
 
         public LogStatisticsViewModel GetReportData(LogStatisticsCriteria criteria)
         {
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+
+            var repositoryResult = _logStatisticsRepository.GetReportData(criteria);
+
+            var reportTitle = string.Format(
+                Labels.LogStatisticsReport_Title,
+                ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+
+            var logStatistic = new LogStatisticsViewModel
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                Id = 1,
+                Name = reportTitle,
+                CommunicationColumns = GetCommunicationColumns(repositoryResult),
+                ProductColumns = GetProductColumns(repositoryResult)
+            };
 
-                var repositoryResult = _logStatisticsRepository.GetReportData(criteria);
+            int productLength = logStatistic.ProductColumns.Count();
+            int communicationLength = logStatistic.CommunicationColumns.Count();
 
-                var reportTitle = string.Format(
-                    Labels.LogStatisticsReport_Title,
-                    ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+            logStatistic.MainCategories = GetMainCategories(repositoryResult, productLength, communicationLength);
+            SumTotalCommunicationForMainCategory(logStatistic.MainCategories);
 
-                var logStatistic = new LogStatisticsViewModel
-                {
-                    Id = 1,
-                    Name = reportTitle,
-                    CommunicationColumns = GetCommunicationColumns(repositoryResult),
-                    ProductColumns = GetProductColumns(repositoryResult)
-                };
-
-                int productLength = logStatistic.ProductColumns.Count();
-                int communicationLength = logStatistic.CommunicationColumns.Count();
-
-                logStatistic.MainCategories = GetMainCategories(repositoryResult, productLength, communicationLength);
-                SumTotalCommunicationForMainCategory(logStatistic.MainCategories);
-
-                return logStatistic;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return logStatistic;
         }
 
         #region GetReportData private methods
@@ -79,17 +70,12 @@ namespace Fanex.CRM.Report.Services.LogStatistics
         private IEnumerable<LogStatisticsMainCategory> GetMainCategories(
             IEnumerable<LogStatisticsEntity> repositoryData, int productLength, int communicationLength)
         {
-            var dataGroupByMainCategory = repositoryData.GroupBy(data =>
-                     new
-                     {
-                         MainCategoryId = data.MainCategoryId,
-                         MainCategory = data.MainCategory
-                     });
+            var dataGroupByMainCategory = repositoryData.GroupBy(data => data.MainCategoryId);
 
             return dataGroupByMainCategory.Select(reportData => new LogStatisticsMainCategory
             {
-                Id = reportData.Key.MainCategoryId,
-                Name = reportData.Key.MainCategory,
+                Id = reportData.Key,
+                Name = reportData.First().MainCategory,
                 SubCategories = GetSubCategories(reportData),
                 ListOfCommunicationSumByProduct = Enumerable.Repeat(0, productLength).ToList(),
                 ListOfCommunicationCount = Enumerable.Repeat(0, productLength * communicationLength).ToList()
@@ -97,41 +83,33 @@ namespace Fanex.CRM.Report.Services.LogStatistics
         }
 
         private IEnumerable<LogStatisticsBaseModel> GetSubCategories(
-            IGrouping<dynamic, LogStatisticsEntity> mainCategoryGroup)
+            IGrouping<int, LogStatisticsEntity> mainCategoryGroup)
         {
-            var dataGroupBySubCategory = mainCategoryGroup.GroupBy(s => new { s.SubCategoryId, s.SubCategory });
+            var dataGroupBySubCategory = mainCategoryGroup.GroupBy(s => s.SubCategoryId);
 
             return dataGroupBySubCategory.Select(data => new LogStatisticsBaseModel
             {
-                Id = data.Key.SubCategoryId,
-                Name = data.Key.SubCategory,
+                Id = data.Key,
+                Name = data.First().SubCategory,
                 ListOfCommunicationSumByProduct = GetSumOfCommunicationByProductForSubCategory(data),
                 ListOfCommunicationCount = GetNumberOfCommunicationForSubCategory(data)
             }).ToList();
         }
 
         private List<int> GetSumOfCommunicationByProductForSubCategory(
-            IGrouping<dynamic, LogStatisticsEntity> subCategoryGroup)
+            IGrouping<int, LogStatisticsEntity> subCategoryGroup)
         {
-            var communicatonToolGroup = subCategoryGroup.GroupBy(data =>
-                    new
-                    {
-                        ProductId = data.ProductId,
-                    }).ToList();
+            var communicatonToolGroup = subCategoryGroup.GroupBy(data => data.ProductId).ToList();
 
-            return communicatonToolGroup.ToList().Select(data => data.Sum(p => p.Total)).ToList();
+            return communicatonToolGroup.Select(data => data.Sum(p => p.Total)).ToList();
         }
 
         private List<int> GetNumberOfCommunicationForSubCategory(
-            IGrouping<dynamic, LogStatisticsEntity> subCategoryGroup)
+            IGrouping<int, LogStatisticsEntity> subCategoryGroup)
         {
             List<int> numberOfCommunication = new List<int>();
 
-            var communicatonToolGroup = subCategoryGroup.GroupBy(data =>
-                    new
-                    {
-                        ProductId = data.ProductId,
-                    }).ToList();
+            var communicatonToolGroup = subCategoryGroup.GroupBy(data => data.ProductId).ToList();
 
             foreach (var data in communicatonToolGroup)
             {
@@ -174,34 +152,24 @@ namespace Fanex.CRM.Report.Services.LogStatistics
         private List<BaseModel> GetCommunicationColumns(
             IEnumerable<LogStatisticsEntity> repositoryData)
         {
-            var communicatonToolGroup = repositoryData.GroupBy(data =>
-                    new
-                    {
-                        Id = data.CommunicationId,
-                        Name = data.Communication
-                    }).ToList();
+            var communicatonToolGroup = repositoryData.GroupBy(data => data.CommunicationId).ToList();
 
             return communicatonToolGroup.Select(item => new BaseModel
             {
-                Id = item.Key.Id,
-                Name = item.Key.Name
+                Id = item.Key,
+                Name = item.First().Communication
             }).ToList();
         }
 
         private List<BaseModel> GetProductColumns(
             IEnumerable<LogStatisticsEntity> repositoryData)
         {
-            var productGroup = repositoryData.GroupBy(data =>
-                    new
-                    {
-                        Id = data.ProductId,
-                        Name = data.Product
-                    }).ToList();
+            var productGroup = repositoryData.GroupBy(data => data.ProductId).ToList();
 
             return productGroup.Select(item => new BaseModel
             {
-                Id = item.Key.Id,
-                Name = item.Key.Name
+                Id = item.Key,
+                Name = item.First().Product
             }).ToList();
         }
 
@@ -212,87 +180,28 @@ namespace Fanex.CRM.Report.Services.LogStatistics
             Justification = "Reviewed. Suppression is OK here.")]
         public StatisticsDetailReportByDateModel GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            List<StatisticsDetailbyDateModel> reportDetailData = _logStatisticsRepository.GetReportDetail(criteria).ToList();
+
+            var reportTitle = string.Format(
+                Labels.DailyStatisticsReport_DetailTitle,
+                ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+            var result = new StatisticsDetailReportByDateModel
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                List<StatisticsDetailbyDateModel> reportDetailData = _logStatisticsRepository.GetReportDetail(criteria).ToList();
+                Name = reportTitle,
+                ChildReports = new List<StatisticsDetailbyDateModel>(),
+                StartChildIndex = criteria.StartIndex,
+                TotalChildReports = reportDetailData.Count
+            };
 
-                var reportTitle = string.Format(
-                    Labels.DailyStatisticsReport_DetailTitle,
-                    ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
-                var result = new StatisticsDetailReportByDateModel
-                {
-                    Name = reportTitle,
-                    ChildReports = new List<StatisticsDetailbyDateModel>(),
-                    StartChildIndex = criteria.StartIndex,
-                    TotalChildReports = reportDetailData.Count
-                };
+            result.ChildReports = criteria.IsGetFullReport ?
+                reportDetailData :
+                reportDetailData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
 
-                List<StatisticsDetailbyDateModel> pagingData = criteria.IsGetFullReport ?
-                    reportDetailData :
-                    reportDetailData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
-                foreach (var data in pagingData)
-                {
-                    var feedbackDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.StartDate);
-                    var resolutionDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.ResolutionTime);
-                    var timeSpan = resolutionDate - feedbackDate;
-
-                    var detailInfo = new StatisticsDetailbyDateModel
-                    {
-                        Remark = data.Remark,
-                        Solution = data.Solution,
-                        StartDateString = feedbackDate.ToShortFormatedDate(),
-                        StartTime = feedbackDate.ToHourMinuteMiddayTypeFormated(),
-                        Duration = new TimeInfo
-                        {
-                            Days = timeSpan.Days,
-                            Hours = timeSpan.Hours,
-                            Minutes = timeSpan.Minutes
-                        },
-                        Username = data.Username,
-                        SiteInfo = data.SiteInfo,
-                        Product = data.Product,
-                        Extension = data.Extension,
-                        Country = data.Country,
-                        MainCategory = data.MainCategory,
-                        SubCategory = data.SubCategory,
-                        StatusName = data.StatusName,
-                        Response = data.Response,
-                        Handler = data.Handler,
-                        CreationTime = data.CreationTime,
-                        CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(data.CreationTime),
-                        ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated(),
-
-                        Role = data.Role,
-                        CommunicationTool = data.CommunicationTool,
-                        Phones = data.Phones,
-                        PICs = data.PICs,
-                        Fax = data.Fax,
-                        MobilePhone = data.MobilePhone,
-                        MSN = data.MSN,
-                        Skype = data.Skype,
-                        Email = data.Email,
-                        Bbm = data.Bbm,
-                        WhatsApp = data.WhatsApp,
-                        Line = data.Line,
-                        WEChat = data.WEChat,
-                        Yahoo = data.Yahoo,
-                        QQ = data.QQ
-                    };
-
-                    result.ChildReports.Add(detailInfo);
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
     }
 }

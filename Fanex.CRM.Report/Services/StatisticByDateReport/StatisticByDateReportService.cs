@@ -178,16 +178,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 var resolutionDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(item.ResolutionTime);
                 var timeSpan = resolutionDate - feedbackDate;
 
-                item.StartDateString = feedbackDate.ToShortFormatedDate();
-                item.StartTime = feedbackDate.ToHourMinuteMiddayTypeFormated();
-                item.Duration = new TimeInfo
-                {
-                    Days = timeSpan.Days,
-                    Hours = timeSpan.Hours,
-                    Minutes = timeSpan.Minutes
-                };
-                item.CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(item.CreationTime);
-                item.ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated();
                 result.ChildReports.Add(item);
             }
 
