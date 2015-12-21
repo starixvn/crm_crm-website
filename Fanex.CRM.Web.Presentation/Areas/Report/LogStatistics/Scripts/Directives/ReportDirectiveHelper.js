@@ -55,7 +55,7 @@
                 gridExpandHeight: 0,
                 showDistinctRow: false,
                 showHighlightRow: false,
-                headerColumnHeight: 29,
+                headerColumnHeight: 35,
                 bodyRowHeight: 29,
                 showTree: true,
                 treeParentPaddingLeft: 5,
