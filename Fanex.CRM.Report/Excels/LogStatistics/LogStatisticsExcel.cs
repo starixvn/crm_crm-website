@@ -29,7 +29,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
         public override void BuildWorkBook()
         {
-            int totalDataColumns = _logStatisticsReport.GrandTotalOfCommunicationCount.Count + _logStatisticsReport.ProductColumns.Count();
+            int totalDataColumns = _logStatisticsReport.GrandTotalOfCommunicationCount.Count() + _logStatisticsReport.ProductColumns.Count();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
@@ -184,7 +184,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             {
                 for (int i = 0; i < communicationColumnsCount; i++)
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumnIndex, listOfNumberCommunicationCount[currentCommunicationIndex], numberStyle);
+                    NpoiExcelExtensions.RenderCell(row, currentColumnIndex, listOfNumberCommunicationCount.ElementAt(currentCommunicationIndex), numberStyle);
                     currentCommunicationIndex++;
                     currentColumnIndex++;
                 }

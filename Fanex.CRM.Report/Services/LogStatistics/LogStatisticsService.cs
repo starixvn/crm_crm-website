@@ -132,21 +132,29 @@ namespace Fanex.CRM.Report.Services.LogStatistics
         }
 
         private void SumCommunicationCountForMainCategory(
-            LogStatisticsBaseModel mainCategory, List<int> numBerOfCommunicationBySubCategory)
+            LogStatisticsBaseModel mainCategory, IEnumerable<int> numBerOfCommunicationBySubCategory)
         {
-            for (int i = 0; i < numBerOfCommunicationBySubCategory.Count; i++)
+            var totalNumBerOfCommunicationBySubCategory = numBerOfCommunicationBySubCategory.Count();
+            var listOfCommunicationCount = mainCategory.ListOfCommunicationCount.ToList();
+            for (int i = 0; i < totalNumBerOfCommunicationBySubCategory; i++)
             {
-                mainCategory.ListOfCommunicationCount[i] += numBerOfCommunicationBySubCategory[i];
+                listOfCommunicationCount[i] += numBerOfCommunicationBySubCategory.ElementAt(i);
             }
+
+            mainCategory.ListOfCommunicationCount = listOfCommunicationCount;
         }
 
         private void SumCommunicationCountByProductForMainCategory(
-            LogStatisticsBaseModel mainCategory, List<int> sumOfCommunicationBySubCategory)
+            LogStatisticsBaseModel mainCategory, IEnumerable<int> sumOfCommunicationBySubCategory)
         {
-            for (int i = 0; i < sumOfCommunicationBySubCategory.Count; i++)
+            var totalSumOfCommunicationBySubCategory = sumOfCommunicationBySubCategory.Count();
+            var listOfCommunicationCount = mainCategory.ListOfCommunicationSumByProduct.ToList();
+            for (int i = 0; i < totalSumOfCommunicationBySubCategory; i++)
             {
-                mainCategory.ListOfCommunicationSumByProduct[i] += sumOfCommunicationBySubCategory[i];
+                listOfCommunicationCount[i] += sumOfCommunicationBySubCategory.ElementAt(i);
             }
+
+            mainCategory.ListOfCommunicationSumByProduct = listOfCommunicationCount;
         }
 
         private List<BaseModel> GetCommunicationColumns(
@@ -180,15 +188,16 @@ namespace Fanex.CRM.Report.Services.LogStatistics
             Justification = "Reviewed. Suppression is OK here.")]
         public StatisticsDetailReportByDateModel GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-            List<StatisticsDetailbyDateModel> reportDetailData = _logStatisticsRepository.GetReportDetail(criteria).ToList();
-
             var reportTitle = string.Format(
                 Labels.DailyStatisticsReport_DetailTitle,
                 ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            List<StatisticsDetailbyDateModel> reportDetailData = _logStatisticsRepository.GetReportDetail(criteria).ToList();
+
             var result = new StatisticsDetailReportByDateModel
             {
                 Name = reportTitle,

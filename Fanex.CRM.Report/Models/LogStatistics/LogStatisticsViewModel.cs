@@ -23,7 +23,7 @@ namespace Fanex.CRM.Report.Models.LogStatistics
 
         public IEnumerable<BaseModel> CommunicationColumns { get; set; }
 
-        public List<int> GrandTotalOfCommunicationCount
+        public IEnumerable<int> GrandTotalOfCommunicationCount
         {
             get
             {
@@ -31,9 +31,11 @@ namespace Fanex.CRM.Report.Models.LogStatistics
                         Enumerable.Repeat(0, ProductColumns.Count() * CommunicationColumns.Count()).ToList();
                 foreach (var mainCategory in MainCategories)
                 {
-                    for (int i = 0; i < mainCategory.ListOfCommunicationCount.Count; i++)
+                    var totalListOfCommunications = mainCategory.ListOfCommunicationCount.Count();
+                    var listOfCommunicationCount = mainCategory.ListOfCommunicationCount;
+                    for (int i = 0; i < totalListOfCommunications; i++)
                     {
-                        sumOfCommunications[i] += mainCategory.ListOfCommunicationCount[i];
+                        sumOfCommunications[i] += listOfCommunicationCount.ElementAt(i);
                     }
                 }
 
@@ -41,7 +43,7 @@ namespace Fanex.CRM.Report.Models.LogStatistics
             }
         }
 
-        public List<int> GrandTotalOfCommunicationSumByProduct
+        public IEnumerable<int> GrandTotalOfCommunicationSumByProduct
         {
             get
             {
@@ -49,9 +51,11 @@ namespace Fanex.CRM.Report.Models.LogStatistics
                         Enumerable.Repeat(0, ProductColumns.Count()).ToList();
                 foreach (var mainCategory in MainCategories)
                 {
-                    for (int i = 0; i < mainCategory.ListOfCommunicationSumByProduct.Count; i++)
+                    var totalListOfCommunicationSumByProduct = mainCategory.ListOfCommunicationSumByProduct.Count();
+                    var listOfCommunicationSumByProduct = mainCategory.ListOfCommunicationSumByProduct;
+                    for (int i = 0; i < totalListOfCommunicationSumByProduct; i++)
                     {
-                        sumOfCommunicationsByProduct[i] += mainCategory.ListOfCommunicationSumByProduct[i];
+                        sumOfCommunicationsByProduct[i] += listOfCommunicationSumByProduct.ElementAt(i);
                     }
                 }
 

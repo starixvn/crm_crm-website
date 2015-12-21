@@ -29,7 +29,8 @@
             cachedGridOptions = gridOptions;
             element.removeClass(crmConstants.Enums.CssClass.DisplayNone);
             $(".table-detail-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
-            tableIBCReport.empty().fanexGrid(gridOptions);
+            tableIBCReport.fanexGrid(gridOptions);
+            
             bindEvents(scope, element);
         }
 

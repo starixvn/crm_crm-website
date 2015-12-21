@@ -47,6 +47,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         private readonly ISettingService _serviceSetting;
 
+        private ICellStyle periodGroupTitleStyle;
+
         public DynamicReportService()
             : this(null, null)
         {
@@ -611,24 +613,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 return;
             }
 
-            var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
-            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
-            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                periodGroupBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Left);
-            var font = exportExcelInfo.ExcelFile.CreateFont();
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
-            font.Color = (short)HSSFColor.Blue.Index;
-            font.Boldweight = (short)FontBoldWeight.Bold;
-            periodGroupTitleStyle.SetFont(font);
-            NpoiExcelExtensions.SetBorderToCell(periodGroupTitleStyle);
+            InitPeriodGroupTitleStyle(exportExcelInfo);
 
             CellRangeAddress cellRangeAddress;
-            var childReportLength = dynamicReport.ChildReports.Count;
 
             var normalRowWriter = new CommunicationLogRowExcelWriter(
                 exportExcelInfo,
@@ -643,9 +630,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo,
                 _pendingBackgroundColorIndex);
 
+            var totalPeriodGroupTitle = dynamicReport.ChildReports.Count;
+            var totalItems = dynamicReport.TotalChildReports + totalPeriodGroupTitle;
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
-            var numberOfSheet = (childReportLength / maxRowPerSheet) +
-                (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (totalItems / maxRowPerSheet) +
+                (totalItems % maxRowPerSheet != 0 ? 1 : 0);
+
+            var mainCategoryCount = dynamicReport.ChildReports.Count;
+
+            var currentIndexOfMainCategory = 0;
+            var currentIndexOfDetailItem = 0;
+            var currentExportedItemCount = 0;
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
@@ -655,9 +650,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
                 exportExcelInfo.CurrentRow = 0;
                 ExportDynamicReportHeader(ref exportExcelInfo, criteria, dynamicReport);
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
-                for (var i = startIndex; i < endIndex && i < childReportLength; i++)
+
+                currentExportedItemCount = 0;
+
+                for (var i = currentIndexOfMainCategory; i < mainCategoryCount && currentExportedItemCount < maxRowPerSheet; i++)
                 {
                     var periodReport = dynamicReport.ChildReports[i];
                     var childsLength = periodReport.ChildReports.Count;
@@ -675,7 +671,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                         string.Format("{0} [{1}]", periodReport.Name, childsLength),
                         periodGroupTitleStyle);
                     exportExcelInfo.CurrentRow += 2;
-                    for (var j = 0; j < childsLength; j++)
+                    currentExportedItemCount++;
+
+                    for (var j = currentIndexOfDetailItem; j < childsLength && currentExportedItemCount <= maxRowPerSheet; j++)
                     {
                         exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                         exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
@@ -698,9 +696,37 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                         {
                             normalRowWriter.WriteRow(exportExcelInfo, info, j);
                         }
+
+                        currentIndexOfDetailItem++;
+                        currentExportedItemCount++;
+                    }
+
+                    if (currentIndexOfDetailItem == childsLength)
+                    {
+                        currentIndexOfDetailItem = 0;
+                        currentIndexOfMainCategory++;
                     }
                 }
             }
+        }
+
+        private void InitPeriodGroupTitleStyle(ExportExcelInfo exportExcelInfo)
+        {
+            var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
+            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
+            periodGroupTitleStyle = NpoiExcelExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                periodGroupBackgroundColorIndex,
+                true,
+                CRMHorizontalAlignment.Left);
+            var font = exportExcelInfo.ExcelFile.CreateFont();
+            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
+            font.FontName = NpoiExcelExtensions.FontName;
+            font.Color = (short)HSSFColor.Blue.Index;
+            font.Boldweight = (short)FontBoldWeight.Bold;
+            periodGroupTitleStyle.SetFont(font);
+            NpoiExcelExtensions.SetBorderToCell(periodGroupTitleStyle);
         }
 
         /// <summary>

@@ -25,7 +25,6 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
             {
                 return objectDb.Query<LogStatisticsEntity>(criteria.GetSpParams());
             }
-
         }
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
