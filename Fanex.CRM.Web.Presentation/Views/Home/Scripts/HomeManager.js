@@ -119,7 +119,7 @@ var HomeManager = function () {
             inputValue = self.CachedData.ViewResources.DefaultSearchCustomer;
         }
 
-        self.DOMElements.TextboxUsername.val($.URLDecode(inputValue));
+        self.DOMElements.TextboxUsername.val(inputValue);
         if (self.DOMElements.TextboxUsername.val() ===
             self.CachedData.ViewResources.DefaultSearchCustomer) {
             if (!self.DOMElements.TextboxUsername.hasClass("font-style-italic")) {

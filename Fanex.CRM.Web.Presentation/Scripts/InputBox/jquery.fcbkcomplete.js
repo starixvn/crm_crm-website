@@ -674,11 +674,11 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
 
             var cache = {
                 'search': function (text, callback) {
-                    text = $.URLDecode(text).toLowerCase();
+                    text = xssDisplay(text).toLowerCase();
                     var temp = new Array();
                     var regex = new RegExp(text, "gi");
                     $.each(element.data("cache"), function (i, _elem) {
-                        if (typeof _elem.search === 'function') {
+                        if (typeof _elem === 'string') {
 
                             //                            if (_elem.search(regex) != -1) {
                             //                                temp.push({ 'key': i, 'value': _elem });
@@ -687,7 +687,6 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                             if (_elem.toLowerCase().indexOf(text) != -1) {
                                 temp.push({ 'key': i, 'value': _elem });
                             }
-
                         }
                     });
                     return temp;
