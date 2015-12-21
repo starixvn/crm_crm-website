@@ -22,7 +22,7 @@
             <form novalidate>
             <div class="row row-item">
                 <div class="item">
-                    <label for="handler">@Labels.Handler</label>
+                    <label class="handler-label" for="handler">@Labels.Handler</label>
                     <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler"/>
                 </div>
                 <div class="item">
@@ -52,7 +52,7 @@
         </div>
         <div>
             <div data-ng-model="reportOptions.IsUpdateGrid" class="table-deleted-feedback-statistics-report-container">
-                <div id="deleted-feedback-statistics-report" class="freegrid display-none">
+                <div id="deleted-feedback-statistics-report" class="freegrid">
                 </div>
             </div>
         </div>

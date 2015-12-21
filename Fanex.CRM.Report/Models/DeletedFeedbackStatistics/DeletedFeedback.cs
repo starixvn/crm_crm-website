@@ -7,6 +7,7 @@
 namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 {
     using System;
+    using Fanex.CRM.Infrastructure.Extensions;
 
     public class DeletedFeedback
     {
@@ -14,7 +15,7 @@ namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 
         public string CreateDateString 
         {
-            get { return CreateDate.ToShortDateString(); }
+            get { return CreateDate.ToShortFormatedDate(); }
         }
 
         public string Handler { get; set; }

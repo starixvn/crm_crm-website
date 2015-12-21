@@ -222,7 +222,8 @@ namespace Fanex.CRM.Report
                 "~/bundles/Report/DeletedFeedbackStatisticsStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css");
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/DeletedFeedbackStatistics/Styles/deletedFeedbackStatistics.less");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/DeletedFeedbackStatisticsScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",

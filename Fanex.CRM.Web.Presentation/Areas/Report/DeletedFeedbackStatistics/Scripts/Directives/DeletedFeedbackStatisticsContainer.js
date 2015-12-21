@@ -15,14 +15,14 @@ moment */
                 tableHeaders = getTableHeader();
             }
             var bodyData = getDataRow(report);
-            var footerData = {
+            var footerData = [{
                 Columns: [{
                     Name: "Date",
                     Value: sharedScriptManager.stringFormat("{0} ({1})",
                             [viewResources.Grand_Total, report.GrandTotal]),
                     MergeColNumber: 7
                 }]
-            };
+            }];
 
             var gridOptions = {
                 columns: tableHeaders,
@@ -103,11 +103,11 @@ moment */
                             },
                             {
                                 Name: "Feedback",
-                                Value: deletedFeedback.Subject
+                                Value: getFeedbackCellContent(deletedFeedback.FeedbackId, deletedFeedback.Subject)
                             },
                             {
                                 Name: "Category",
-                                Value: deletedFeedback.MainCategory + "<br/>" + deletedFeedback.SubCategory
+                                Value: getCategoryCellContent(deletedFeedback.MainCategory, deletedFeedback.SubCategory)
                             },
                             {
                                 Name: "Customer",
@@ -117,7 +117,8 @@ moment */
                                 Name: "RelatedCustomer",
                                 Value: deletedFeedback.RelatedCustomer
                             }
-                        ]
+                        ],
+                        CssClass: 'lnkViewFeedbackDetail-row'
                     };
 
                     currentRow.SubRows.push(subRow);
@@ -129,6 +130,16 @@ moment */
             return bodyData;
         }
 
+        function getFeedbackCellContent(feedbackId, subject) {
+            return '<a href="javascript:;" class="lnkFeedback" data-id="' + feedbackId + '">' +
+                    '<span class="b">' + subject + '</span></a>';
+        }
+
+        function getCategoryCellContent(mainCategory, subCategory) {
+            return '<div class="main-category">' + mainCategory + '</div>' +
+                    '<span class="sub-category">' + subCategory + '</span>';
+        }
+
         function renderReport(scope, element) {
             if (scope.reportOptions.DataList === null) {
                 return;
@@ -138,7 +149,22 @@ moment */
             var tableReport = element.find("#deleted-feedback-statistics-report");
             var reportData = scope.reportOptions.DataList;
             var gridOptions = getGripOtions(reportData);
-            tableReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+            tableReport.fanexGrid(gridOptions);
+            bindEvents(scope, element);
+        }
+
+        function bindEvents(scope, element) {
+            element.find(".lnkFeedback").click(function () {
+                var feedbackId = $(this).attr('data-id');
+                scope.openDetailFeedbackPopup(feedbackId);
+            });
+
+            var tableReport = element.find("#deleted-feedback-statistics-report");
+            var viewLogRows = tableReport.find(".lnkViewFeedbackDetail-row");
+            viewLogRows.dblclick(function () {
+                var feedbackId = $(this).find('.lnkFeedback').attr('data-id');
+                scope.openDetailFeedbackPopup(feedbackId);
+            });
         }
 
         return {

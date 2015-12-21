@@ -1,4 +1,6 @@
-﻿/*Global crmConstants*/
+﻿/*Global crmConstants,
+currentDate, fromDateDefault, toDateDefault
+*/
 (function () {
     "use strict";
     angular.module('deleted-feedback-statistics-application')
@@ -96,13 +98,33 @@
             DeletedFeedbackStatisticsService.getReport($scope.cachedSearchCriteria)
                     .then(function (data) {
                         $scope.reportOptions.DataList = data.Result.ReportData;
-                        $scope.reportOptions.IsUpdateGrid = true; ;
+                        $scope.reportOptions.IsUpdateGrid = true;
 
                         $uiBlockerService.unblockUI();
                     },
                     function () {
                         $uiBlockerService.unblockUI();
                     });
+        };
+
+        $scope.openDetailFeedbackPopup = function (id) {
+            var url = window.rootUrl + "CommunicationLog/ViewDetailById?" + $.param({
+                logId: id
+            });
+
+            parent.OpenPopup(
+            url,
+            "Feedback Detail",
+            $(parent.document).width() - 300,
+            $(parent.document).height() - 50,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            null,
+            { my: "center top+50", at: "center top" },
+            null);
         };
 
         angular.element(document).ready(function () {
