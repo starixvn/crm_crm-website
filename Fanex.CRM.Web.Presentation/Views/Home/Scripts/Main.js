@@ -7,8 +7,7 @@ homeManager,
 redirectUrl */
 
 /* exported accid, timerId, autosearch,
-isGuest, gotoURL, KeyPress, downup, onBlur,
-onFocus, udpateOnlineStatus */
+isGuest, gotoURL, KeyPress, downup, udpateOnlineStatus */
 
 var accid = "sa"; //use for write and read cookie
 var timerId = "";
@@ -104,33 +103,6 @@ function downup() {
         $('#btndownup').removeClass('downup');
         showLogo = true;
         mainBox = 74;
-    }
-}
-
-function onBlur() {
-    var inputValue = 'Search...';
-    var oldName = userName;
-    var newName = $('#txtuserName').val();
-
-    if (oldName !== '' && newName !== '') {
-        inputValue = newName;
-    }
-    else if (oldName !== '' && newName === '') {
-        inputValue = oldName;
-    }
-    else if (newName !== '') {
-        inputValue = newName;
-    }
-    else {
-        inputValue = 'Search...';
-    }
-
-    $('#txtuserName').val($.URLDecode(inputValue));
-}
-
-function onFocus() {
-    if ($('#txtuserName').val() === 'Search...') {
-        $('#txtuserName').val('');
     }
 }
 
