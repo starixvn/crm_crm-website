@@ -12,7 +12,10 @@
                     { HeaderText: latestFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
                 showTitle: true,
-                titleInfo: { text: title },
+                titleInfo: {
+                    text: title,
+                    showExcelButton: true
+                },
                 showFooter: false,
                 fullWidth: true,
                 fullHeight: true,
@@ -53,8 +56,12 @@
             var feedbacks = report.Feedbacks;
             var bodyData = getGridBody(feedbacks);
 
-            gridOptions = gridOptions || getGridOptions(report.Title);
+            gridOptions = gridOptions || getGridOptions(scope, report.Title);
             gridOptions.bodyRows = bodyData;
+            gridOptions.titleInfo.exportExcelFunction = function () {
+                scope.exportReport();
+            };
+
             tableLatestFeedback = element.find('#table-latest-feedback');
             tableLatestFeedback
             .empty()

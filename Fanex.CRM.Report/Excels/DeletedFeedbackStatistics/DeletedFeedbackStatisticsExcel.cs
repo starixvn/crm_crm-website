@@ -12,9 +12,9 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Resources;
+    using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using NPOI.HSSF.Util;
 
     public class DeletedFeedbackStatisticsExcel : BaseExcel
     {
