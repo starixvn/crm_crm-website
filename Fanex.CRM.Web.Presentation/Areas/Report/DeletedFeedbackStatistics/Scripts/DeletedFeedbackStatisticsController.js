@@ -1,11 +1,12 @@
-﻿/*Global crmConstants,
-currentDate, fromDateDefault, toDateDefault
-*/
+﻿/* global crmConstants, 
+sharedScriptManager,
+moment,currentDate, fromDateDefault, toDateDefault */
+/* jshint camelcase: false */
 (function () {
     "use strict";
     angular.module('deleted-feedback-statistics-application')
-    .controller('deletedFeedbackStatisticsController', ['$scope', 'DeletedFeedbackStatisticsService', '$uiBlockerService', '$timeout',
-    function ($scope, DeletedFeedbackStatisticsService, $uiBlockerService, $timeout) {
+    .controller('deletedFeedbackStatisticsController', ['$scope', 'DeletedFeedbackStatisticsService', '$uiBlockerService',
+    function ($scope, DeletedFeedbackStatisticsService, $uiBlockerService) {
         $scope.reportOptions = {
             DataList: null,
             IsUpdateGrid: false

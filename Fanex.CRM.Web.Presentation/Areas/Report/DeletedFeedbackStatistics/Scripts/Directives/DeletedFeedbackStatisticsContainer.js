@@ -1,7 +1,5 @@
-﻿/* global crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
+﻿/* global sharedScriptManager,
+viewResources */
 /* jshint camelcase: false */
 (function () {
     "use strict";

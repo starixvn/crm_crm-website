@@ -1,4 +1,5 @@
-﻿(function () {
+﻿/*global sharedScriptManager*/
+(function () {
     "use strict";
     angular.module('deleted-feedback-statistics-application')
     .factory('DeletedFeedbackStatisticsService', ['$http', '$q', function ($http, $q) {

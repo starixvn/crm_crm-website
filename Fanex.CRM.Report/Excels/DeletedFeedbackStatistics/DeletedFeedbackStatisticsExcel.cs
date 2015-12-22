@@ -100,7 +100,6 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
         private void GenerateRowValue(ExportExcelInfo exportExcelInfo, DeletedFeedback deletedFeedback, ICellStyle textStyle, ICellStyle numberStyle, ICellStyle totalCellStyle)
         {
-
         }
     }
 }
