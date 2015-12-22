@@ -201,14 +201,9 @@ namespace Fanex.CRM.Report.Services.LogStatistics
             var result = new StatisticsDetailReportByDateModel
             {
                 Name = reportTitle,
-                ChildReports = new List<StatisticsDetailbyDateModel>(),
-                StartChildIndex = criteria.StartIndex,
-                TotalChildReports = reportDetailData.Count
+                ChildReports = reportDetailData,
+                TotalChildReports = criteria.TotalRows
             };
-
-            result.ChildReports = criteria.IsGetFullReport ?
-                reportDetailData :
-                reportDetailData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
 
             return result;
         }

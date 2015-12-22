@@ -93,6 +93,9 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         result.Add(statisticsDetail);
                     }
                 }
+
+                var outputParams = objDb.GetOuputParams();
+                criteria.TotalRows = (int)outputParams["totalrows"];
             }
 
             return result;

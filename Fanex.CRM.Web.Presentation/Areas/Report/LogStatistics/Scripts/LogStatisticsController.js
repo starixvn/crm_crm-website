@@ -39,8 +39,7 @@ unused: vars */
             FromDate: '',
             ToDate: '',
             PageIndex: 1,
-            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            IsPagingCallBack: false
+            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
         };
 
         $scope.ibcReportOptions = {
@@ -271,8 +270,7 @@ unused: vars */
                 MainCategoryId: $scope.cachedSearchCriteria.MainCategoryId,
                 CommunicationId: $scope.cachedSearchCriteria.CommunicationId,
                 PageIndex: 1,
-                PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-                IsPagingCallBack: false
+                PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
             };
 
             logStatisticsService.getDetailReport($scope.detailReportCriteria)
@@ -292,7 +290,6 @@ unused: vars */
 
             $scope.detailReportCriteria.PageIndex = pageIndex + 1;
             $scope.detailReportCriteria.PageSize = pageSize;
-            $scope.detailReportCriteria.IsPagingCallBack = true;
 
             logStatisticsService.getDetailReport($scope.detailReportCriteria)
                 .then(function (data) {
@@ -317,9 +314,6 @@ unused: vars */
         };
 
         $scope.exportReportDetail = function () {
-            $scope.detailReportCriteria.IsPagingCallBack = false;
-            $scope.detailReportCriteria.IsGetFullReport = true;
-
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "LogStatistics/ExportReportDetail",
                 Params: $scope.detailReportCriteria

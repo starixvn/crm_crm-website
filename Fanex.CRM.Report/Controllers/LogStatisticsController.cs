@@ -142,6 +142,8 @@ namespace Fanex.CRM.Report.Controllers
 
         public void ExportReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
+            criteria.PageIndex = 0;
+            criteria.PageSize = 0;
             var reportDetail = _logStatisticsService.GetReportDetail(criteria);
 
             var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
