@@ -13,7 +13,9 @@ namespace Fanex.CRM.Feedback.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Feedback.Criteria;
+    using Fanex.CRM.Feedback.Excels;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Feedback.ViewModels;
@@ -112,6 +114,14 @@ namespace Fanex.CRM.Feedback.Controllers
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
             var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalItems };
             return Json(report, JsonRequestBehavior.DenyGet);
+        }
+
+        public void ExportFeedbacks(ManageFeedbackCriteria criteria)
+        {
+            var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
+
+            BaseExcel managerFeedbackExcel = new FeedbackExcel(feedbacks, Labels.Feedback);
+            managerFeedbackExcel.BuildWorkBook();
         }
     }
 }
