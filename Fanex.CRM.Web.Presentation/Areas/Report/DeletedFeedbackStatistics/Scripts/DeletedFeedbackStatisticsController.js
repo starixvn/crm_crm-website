@@ -128,6 +128,15 @@ moment,currentDate, fromDateDefault, toDateDefault */
             null);
         };
 
+        $scope.exportReport = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "DeletedFeedbackStatistics/ExportReport",
+                Params: $scope.cachedSearchCriteria
+            };
+
+            $scope.$apply();
+        };
+
         angular.element(document).ready(function () {
             $scope.initController();
         });

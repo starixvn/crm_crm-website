@@ -6,11 +6,14 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
+    using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics;
+    using Fanex.CRM.Report.Excels.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Services.DeletedFeedbackStatistics;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
@@ -43,6 +46,15 @@ namespace Fanex.CRM.Report.Controllers
             {
                 ReportData = _deletedFeedbackStatisticsService.GetReport(criteria)
             });
+        }
+
+        public void ExportReport(DeletedFeedbackStatisticsCriteria criteria)
+        {
+            var report = _deletedFeedbackStatisticsService.GetReport(criteria);
+
+            var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
+            BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName);
+            deletedFeedbackStatisticsExcel.BuildWorkBook();
         }
     }
 }
