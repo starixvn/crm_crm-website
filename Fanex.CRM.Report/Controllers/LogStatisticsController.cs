@@ -6,15 +6,12 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Enums;
     using Fanex.CRM.Report.Excels.LogStatistics;

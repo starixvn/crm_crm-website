@@ -6,7 +6,6 @@
 
 namespace Fanex.CRM.Report.Services.LogStatistics
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -37,20 +36,18 @@ namespace Fanex.CRM.Report.Services.LogStatistics
 
         public LogStatisticsViewModel GetReportData(LogStatisticsCriteria criteria)
         {
+            var reportTitle = string.Format(
+               Labels.LogStatisticsReport_Title,
+               ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
+               DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+               DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-
             var repositoryResult = _logStatisticsRepository.GetReportData(criteria);
-
-            var reportTitle = string.Format(
-                Labels.LogStatisticsReport_Title,
-                ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
-                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
 
             var logStatistic = new LogStatisticsViewModel
             {
-                Id = 1,
                 Name = reportTitle,
                 CommunicationColumns = GetCommunicationColumns(repositoryResult),
                 ProductColumns = GetProductColumns(repositoryResult)
@@ -181,7 +178,7 @@ namespace Fanex.CRM.Report.Services.LogStatistics
             }).ToList();
         }
 
-        #endregion
+        #endregion GetReportData private methods
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",

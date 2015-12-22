@@ -151,9 +151,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Criteria\UpdateCriteria.cs" />
     <Compile Include="Enumerations\AuthenticationType.cs" />
-    <Compile Include="Enumerations\CategoryType.cs" />
     <Compile Include="Enumerations\CRMStatus.cs" />
-    <Compile Include="Enumerations\ProductType.cs" />
     <Compile Include="Enumerations\ReportType.cs" />
     <Compile Include="Enumerations\ReviewMode.cs" />
     <Compile Include="Excel\BaseExcel.cs" />

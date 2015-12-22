@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Common.Enumerations
+namespace Fanex.CRM.Report.Enums
 {
     public enum ProductType
     {

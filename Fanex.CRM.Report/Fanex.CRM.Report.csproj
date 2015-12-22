@@ -203,7 +203,9 @@
     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
+    <Compile Include="Enums\CategoryType.cs" />
     <Compile Include="Enums\LogStatisticsReportType.cs" />
+    <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsExcel.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsReportDetailExcel.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
