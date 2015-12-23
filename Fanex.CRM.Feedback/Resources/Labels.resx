@@ -450,4 +450,7 @@
   <data name="Yahoo" xml:space="preserve">
     <value>Yahoo</value>
   </data>
+  <data name="DeletedFeedbackTitle" xml:space="preserve">
+    <value>Deleted Feedback</value>
+  </data>
 </root>

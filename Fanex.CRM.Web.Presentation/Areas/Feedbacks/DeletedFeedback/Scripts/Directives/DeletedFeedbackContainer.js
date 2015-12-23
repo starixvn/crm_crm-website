@@ -24,7 +24,14 @@
                     { HeaderText: deletedFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: deletedFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: deletedFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
-                showTitle: false,
+                showTitle: true,
+                titleInfo: {
+                    text: deletedFeedbackResources.DeletedFeedbackTitle,
+                    showExcelButton: true,
+                    exportExcelFunction: function () {
+                        scope.exportFeedbackExcel();
+                    }
+                },
                 bodyRows: bodyData,
                 showFooter: false,
                 numberOfFrozenColumn: 1,

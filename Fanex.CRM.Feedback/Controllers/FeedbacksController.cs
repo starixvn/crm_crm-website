@@ -116,12 +116,20 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 
-        public void ExportFeedbacks(ManageFeedbackCriteria criteria)
+        public void ExportManageFeedbacks(ManageFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
 
-            BaseExcel managerFeedbackExcel = new FeedbackExcel(feedbacks, Labels.Feedback);
-            managerFeedbackExcel.BuildWorkBook();
+            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, Labels.Feedback);
+            manageFeedbackExcel.BuildWorkBook();
+        }
+
+        public void ExportDeletedFeedbacks(DeletedFeedbackCriteria criteria)
+        {
+            var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
+
+            BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);
+            deletedFeedbackExcel.BuildWorkBook();
         }
     }
 }

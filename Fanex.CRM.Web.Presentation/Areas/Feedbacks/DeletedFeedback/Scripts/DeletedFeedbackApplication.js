@@ -7,4 +7,5 @@
     deletedFBRegister.registerDatePicker();
     deletedFBRegister.registerMainCategoryPicker();
     deletedFBRegister.registerSubCategoryPicker();
+    deletedFBRegister.registerDownloadFile();
 })();

@@ -84,10 +84,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
     </div>
 </div>
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+        "~/CRM/DownLoadFile/Scripts",
         "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts")
     <script language="javascript" type="text/javascript">
         parent.document.title = document.title;
@@ -108,7 +113,8 @@
             Category: '@Labels.Category',
             Status: '@Labels.Status',
             RelatedCustomer: '@Labels.RelatedCustomer',
-            UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle'
+            UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle',
+            DeletedFeedbackTitle: '@Labels.DeletedFeedbackTitle'
         };
     </script>
 }

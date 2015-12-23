@@ -197,7 +197,7 @@
                 ItemsPerPage: $scope.searchCriteria.ItemsPerPage
             };
             $scope.downloadFileOptions = {
-                URL: window.rootUrl + "Feedbacks/ExportFeedbacks",
+                URL: window.rootUrl + "Feedbacks/ExportManageFeedbacks",
                 Params: criteria
             };
 

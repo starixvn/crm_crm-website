@@ -190,6 +190,30 @@
         });
     };
 
+    $scope.exportFeedbackExcel = function () {
+        var criteria = {
+            FeedbackId: $scope.searchCriteria.FeedbackId,
+            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            Username: $scope.searchCriteria.Username,
+            IsGuest: $scope.searchCriteria.IsGuest.Id,
+            CommunicationId: $scope.searchCriteria.Communication.Id,
+            MainCategoryId: $scope.searchCriteria.MainCategory.Id,
+            SubCategoryId: $scope.searchCriteria.SubCategory.Id,
+            IsReviewed: $scope.searchCriteria.IsReviewed.Id,
+            ResponseId: $scope.searchCriteria.Response.Id,
+            HandledBy: $scope.searchCriteria.Handler,
+            PageIndex: $scope.searchCriteria.PageIndex + 1,
+            PageSize: $scope.searchCriteria.ItemsPerPage
+        };
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + "Feedbacks/ExportDeletedFeedbacks",
+            Params: criteria
+        };
+
+        $scope.$apply();
+    };
+
         angular.element(document).ready(function () {
             $uiBlockerService.blockUI();
 
