@@ -52,7 +52,7 @@
         </div>
         <div>
             <div data-ng-model="reportOptions.IsUpdateGrid" class="table-deleted-feedback-statistics-report-container">
-                <div id="deleted-feedback-statistics-report" class="freegrid">
+                <div id="deleted-feedback-statistics-report" class="freegrid display-none">
                 </div>
             </div>
         </div>
@@ -79,7 +79,8 @@
             Feedback: '@Labels.Feedback',
             Category: '@Labels.Category',
             Customer: '@Labels.Customer',
-            RelatedCustomer: '@Labels.RelatedCustomer'
+            RelatedCustomer: '@Labels.RelatedCustomer',
+            FeedbackDetail: '@Labels.FeedbackDetail'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",

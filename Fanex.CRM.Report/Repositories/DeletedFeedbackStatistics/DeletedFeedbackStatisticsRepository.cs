@@ -16,14 +16,10 @@ namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
     {
         public IEnumerable<DeletedFeedback> GetDeletedFeedbacks(DeletedFeedbackStatisticsCriteria criteria)
         {
-            var deletedFeedbacks = new List<DeletedFeedback>();
-
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                deletedFeedbacks = objectDb.Query<DeletedFeedback>(criteria.GetSpParams()).ToList();
+                return objectDb.Query<DeletedFeedback>(criteria.GetSpParams());
             }
-
-            return deletedFeedbacks;
         }
     }
 }

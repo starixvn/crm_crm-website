@@ -84,7 +84,7 @@ namespace Fanex.CRM.Feedback.Services
 
         public IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
         {
-            return GetDeletedFeedbacks(criteria);
+            return GetFeedbacks(criteria);
         }
 
         /// <summary>
@@ -96,7 +96,12 @@ namespace Fanex.CRM.Feedback.Services
         {
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-            var feedbacks = GetDeletedFeedbacks(criteria);
+            var feedbacks = GetFeedbacks(criteria);
+
+            if (criteria.IsExportExcel)
+            {
+                return feedbacks;
+            }
 
             // pagination.
             int totalItems = feedbacks.Count();
@@ -109,7 +114,7 @@ namespace Fanex.CRM.Feedback.Services
             return feedbacks;
         }
 
-        private IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria)
+        private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();

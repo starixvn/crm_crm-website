@@ -28,6 +28,20 @@
             ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
 
+        $scope.cachedCriteria = {
+            FromDate: yesterday,
+            ToDate: currentTime,
+            Username: '',
+            IsGuest: null,
+            IsReviewed: null,
+            Response: null,
+            MainCategory: null,
+            SubCategory: null,
+            Communication: null,
+            PageIndex: 0,
+            ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
+        };
+
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
                 CurrentDate: currentDate,
@@ -154,7 +168,7 @@
 
         $scope.searchDeletedFeedback = function () {
             $uiBlockerService.blockUI();
-            var criteria = {
+            $scope.cachedCriteria = {
                 FeedbackId: $scope.searchCriteria.FeedbackId,
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -169,9 +183,9 @@
                 PageIndex: $scope.searchCriteria.PageIndex + 1,
                 PageSize: $scope.searchCriteria.ItemsPerPage
             };
-            criteria.FromCache = criteria.PageIndex !== 1;
+            $scope.cachedCriteria.FromCache = $scope.cachedCriteria.PageIndex !== 1;
 
-            deletedFBService.searchDeletedFeedback(criteria)
+            deletedFBService.searchDeletedFeedback($scope.cachedCriteria)
             .then(function (data) {
                 $scope.report = data.Result;
                 $uiBlockerService.unblockUI();
@@ -191,24 +205,9 @@
     };
 
     $scope.exportFeedbackExcel = function () {
-        var criteria = {
-            FeedbackId: $scope.searchCriteria.FeedbackId,
-            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-            Username: $scope.searchCriteria.Username,
-            IsGuest: $scope.searchCriteria.IsGuest.Id,
-            CommunicationId: $scope.searchCriteria.Communication.Id,
-            MainCategoryId: $scope.searchCriteria.MainCategory.Id,
-            SubCategoryId: $scope.searchCriteria.SubCategory.Id,
-            IsReviewed: $scope.searchCriteria.IsReviewed.Id,
-            ResponseId: $scope.searchCriteria.Response.Id,
-            HandledBy: $scope.searchCriteria.Handler,
-            PageIndex: $scope.searchCriteria.PageIndex + 1,
-            PageSize: $scope.searchCriteria.ItemsPerPage
-        };
         $scope.downloadFileOptions = {
             URL: window.rootUrl + "Feedbacks/ExportDeletedFeedbacks",
-            Params: criteria
+            Params: $scope.cachedCriteria
         };
 
         $scope.$apply();

@@ -439,6 +439,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From {0}.
+        /// </summary>
+        public static string FromCustomer {
+            get {
+                return ResourceManager.GetString("FromCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From Date.
         /// </summary>
         public static string FromDate {

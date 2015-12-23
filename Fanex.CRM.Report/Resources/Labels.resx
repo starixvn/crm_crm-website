@@ -870,4 +870,7 @@
     <value>Deleted By</value>
     <comment>#40843</comment>
   </data>
+  <data name="FeedbackDetail" xml:space="preserve">
+    <value>Feedback Detail</value>
+  </data>
 </root>

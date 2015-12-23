@@ -138,6 +138,7 @@ namespace Fanex.CRM.Feedback.Bundles
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
                 "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackApplication.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackController.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",

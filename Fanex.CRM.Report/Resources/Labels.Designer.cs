@@ -808,6 +808,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feedback Detail.
+        /// </summary>
+        public static string FeedbackDetail {
+            get {
+                return ResourceManager.GetString("FeedbackDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feedback(s).
         /// </summary>
         public static string Feedbacks {

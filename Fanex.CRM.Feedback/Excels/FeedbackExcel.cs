@@ -9,6 +9,8 @@ namespace Fanex.CRM.Feedback.Excels
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
@@ -21,123 +23,156 @@ namespace Fanex.CRM.Feedback.Excels
     /// </summary>
     public class FeedbackExcel : BaseExcel
     {
-        private readonly short _closedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
-        private readonly short _checkedBackgroundColorIndex = (short)HSSFColor.LightOrange.Index;
-        private readonly short _pendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
-
         private string _title;
         private IEnumerable<FeedbackDetail> _feedbacks;
-        private ExportExcelInfo exportExcelInfo;
 
-        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string excelFileName)
-            : base(excelFileName)
+        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string title, int columnsCount = 5)
+            : base(Regex.Replace(title, @"\W+", "_"))
         {
             _feedbacks = feedbacks;
-            _title = excelFileName;
-            exportExcelInfo = new ExportExcelInfo
+            _title = title;
+            ExportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
-                Worksheet = WorkBook.CreateSheet(ExcelFileName),
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
-                MaxColumnIndex = 4
+                MaxColumnIndex = columnsCount - 1
             };
 
             SetStatusColorIndex();
         }
 
+        public ExportExcelInfo ExportExcelInfo { get; private set; }
+
+        public FeedbackRowExcelWriter NormalRowWriter { get; set; }
+
+        public FeedbackRowExcelWriter ClosedRowWriter { get; set; }
+
+        public FeedbackRowExcelWriter CheckedRowWriter { get; set; }
+
+        public FeedbackRowExcelWriter PendingRowWriter { get; set; }
+
+        protected readonly short ClosedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
+        protected readonly short CheckedBackgroundColorIndex = (short)HSSFColor.LightOrange.Index;
+        protected readonly short PendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
+
         public override void BuildWorkBook()
         {
-            SetColumnsWidth();
-            GenerateTitle();
-
-            GenerateHeader();
             GenerateBodyData();
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
+            NpoiExcelExtensions.ResponseStreamExcel(ExportExcelInfo.ExcelFile, ExcelFileName);
         }
 
-        private void SetColumnsWidth()
+        protected virtual void SetColumnsWidth()
         {
-            exportExcelInfo.ResetCurrentColumn();
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 400);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 350);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 100);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 200);
+            ExportExcelInfo.ResetCurrentColumn();
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 400);
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 150);
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 350);
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 100);
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 200);
         }
 
         private void GenerateTitle()
         {
-            int currentRowIndex = exportExcelInfo.CurrentRow;
+            int currentRowIndex = ExportExcelInfo.CurrentRow;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var titleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            exportExcelInfo.RenderHeaderTitle(_title, titleStyle);
+            NpoiExcelExtensions.SetHeaderColorIndex(ExportExcelInfo);
+            var titleStyle = NpoiExcelExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ExportExcelInfo.RenderHeaderTitle(_title, titleStyle);
             currentRowIndex += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRowIndex);
-            exportExcelInfo.CurrentRow = currentRowIndex + 1;
+            NpoiExcelExtensions.RenderEmptyRow(ExportExcelInfo, currentRowIndex);
+            ExportExcelInfo.CurrentRow = currentRowIndex + 1;
         }
 
-        private void GenerateHeader()
+        protected virtual void GenerateHeader()
         {
-            int currentColumnIndex = exportExcelInfo.StartColumn;
+            int currentColumnIndex = ExportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
-            var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            var row = ExportExcelInfo.Worksheet.CreateRow(ExportExcelInfo.CurrentRow);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
 
-            exportExcelInfo.CurrentRow++;
+            ExportExcelInfo.CurrentRow++;
+        }
+
+        protected virtual void InitWriter()
+        {
+            NormalRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, NpoiExcelExtensions.BackgroundColorIndex);
+            ClosedRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, ClosedBackgroundColorIndex);
+            CheckedRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, CheckedBackgroundColorIndex);
+            PendingRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, PendingBackgroundColorIndex);
         }
 
         private void GenerateBodyData()
         {
-            var normalRowWriter = new FeedbackRowExcelWriter(exportExcelInfo, NpoiExcelExtensions.BackgroundColorIndex);
-            var closedRowWriter = new FeedbackRowExcelWriter(exportExcelInfo, _closedBackgroundColorIndex);
-            var checkedRowWriter = new FeedbackRowExcelWriter(exportExcelInfo, _checkedBackgroundColorIndex);
-            var pendingRowWriter = new FeedbackRowExcelWriter(exportExcelInfo, _pendingBackgroundColorIndex);
+            InitWriter();
+            var totalRows = _feedbacks.Count();
+            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var numberOfSheet = (totalRows / maxRowPerSheet) + (totalRows % maxRowPerSheet != 0 ? 1 : 0);
 
-            foreach (var feedback in _feedbacks)
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
-                if (string.Equals(feedback.Status, Labels.Closed, StringComparison.OrdinalIgnoreCase))
+                var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", ExcelFileName, sheetIndex + 1) :
+                    ExcelFileName;
+                ExportExcelInfo.CreateSheet(sheetName);
+
+                ExportExcelInfo.CurrentRow = 0;
+                CreateSheetHeader();
+
+                var startIndex = sheetIndex * maxRowPerSheet;
+                var endIndex = startIndex + maxRowPerSheet;               
+                for (var i = startIndex; i < endIndex && i < totalRows; i++)
                 {
-                    closedRowWriter.WriteRow(exportExcelInfo, feedback);
-                }
-                else if (string.Equals(feedback.Status, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(feedback.Status, Labels.Solved, StringComparison.OrdinalIgnoreCase))
-                {
-                    checkedRowWriter.WriteRow(exportExcelInfo, feedback);
-                }
-                else if (string.Equals(feedback.Status, Labels.Pending, StringComparison.OrdinalIgnoreCase))
-                {
-                    pendingRowWriter.WriteRow(exportExcelInfo, feedback);
-                }
-                else
-                {
-                    normalRowWriter.WriteRow(exportExcelInfo, feedback);
+                    var feedback = _feedbacks.ElementAt(i);
+                    if (string.Equals(feedback.Status, Labels.Closed, StringComparison.OrdinalIgnoreCase))
+                    {
+                        ClosedRowWriter.WriteRow(ExportExcelInfo, feedback);
+                    }
+                    else if (string.Equals(feedback.Status, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(feedback.Status, Labels.Solved, StringComparison.OrdinalIgnoreCase))
+                    {
+                        CheckedRowWriter.WriteRow(ExportExcelInfo, feedback);
+                    }
+                    else if (string.Equals(feedback.Status, Labels.Pending, StringComparison.OrdinalIgnoreCase))
+                    {
+                        PendingRowWriter.WriteRow(ExportExcelInfo, feedback);
+                    }
+                    else
+                    {
+                        NormalRowWriter.WriteRow(ExportExcelInfo, feedback);
+                    }
                 }
             }
+        }
+
+        private void CreateSheetHeader()
+        {
+            SetColumnsWidth();
+            GenerateTitle();
+            GenerateHeader();
         }
 
         private void SetStatusColorIndex()
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, closedBackgroundColor, _closedBackgroundColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(ExportExcelInfo, closedBackgroundColor, ClosedBackgroundColorIndex);
 
             var checkedBackgroundColor = Color.FromArgb(242, 242, 242);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, checkedBackgroundColor, _checkedBackgroundColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(ExportExcelInfo, checkedBackgroundColor, CheckedBackgroundColorIndex);
 
             var pendingBackgroundColor = Color.FromArgb(240, 237, 196);
             NpoiExcelExtensions.SetColorAtIndex(
-                exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
+                ExportExcelInfo, pendingBackgroundColor, PendingBackgroundColorIndex);
         }
     }
 }

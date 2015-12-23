@@ -43,6 +43,8 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public int TotalItems { get; set; }
 
+        public bool IsExportExcel { get; set; }
+
         public override string GetSettingKey()
         {
             return "FeedbackGetDeleted";

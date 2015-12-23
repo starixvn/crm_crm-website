@@ -16,6 +16,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Excels;
+    using Fanex.CRM.Feedback.Excels.LatestFeedback;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Feedback.ViewModels;
@@ -88,13 +89,15 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
+            var fromCustomerText = criteria.CustId != 0 ?
+                                    string.Format(Labels.FromCustomer, criteria.Username) :
+                                    string.Empty;
+            var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
+
             return Json(
                 new
                 {
-                    Title = string.Format(
-                        Labels.LatestFeedbackReportTitle,
-                        criteria.Top,
-                        criteria.CustId != 0 ? ("From " + criteria.Username) : string.Empty),
+                    Title = title.Trim(),
                     Feedbacks = feedbacks
                 },
                 JsonRequestBehavior.AllowGet);
@@ -116,16 +119,35 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 
+        public void ExportLatestFeedbacks(LatestFeedbackCriteria criteria)
+        {
+            var fromCustomerText = criteria.CustId != 0 ?
+                                    string.Format(Labels.FromCustomer, criteria.Username) :
+                                    string.Empty;
+            var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
+            var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
+
+            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim());
+            latestFeedbackExcel.BuildWorkBook();
+        }
+
         public void ExportManageFeedbacks(ManageFeedbackCriteria criteria)
         {
+            criteria.PageIndex = 0;
             var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
 
-            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, Labels.Feedback);
+            var fromCustomerText = string.IsNullOrEmpty(criteria.Username) ?
+                                    string.Empty :
+                                    string.Format(Labels.FromCustomer, criteria.Username);
+            var title = Labels.Feedback + " " + fromCustomerText;
+
+            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, title.Trim());
             manageFeedbackExcel.BuildWorkBook();
         }
 
         public void ExportDeletedFeedbacks(DeletedFeedbackCriteria criteria)
         {
+            criteria.IsExportExcel = true;
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
 
             BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);

@@ -1,5 +1,6 @@
 ﻿/* global crmConstants, 
 sharedScriptManager,
+viewResources,
 moment,currentDate, fromDateDefault, toDateDefault */
 /* jshint camelcase: false */
 (function () {
@@ -115,7 +116,7 @@ moment,currentDate, fromDateDefault, toDateDefault */
 
             parent.OpenPopup(
             url,
-            "Feedback Detail",
+            viewResources.FeedbackDetail,
             $(parent.document).width() - 300,
             $(parent.document).height() - 50,
             true,

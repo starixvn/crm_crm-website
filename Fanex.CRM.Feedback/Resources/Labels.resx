@@ -453,4 +453,7 @@
   <data name="DeletedFeedbackTitle" xml:space="preserve">
     <value>Deleted Feedback</value>
   </data>
+  <data name="FromCustomer" xml:space="preserve">
+    <value>From {0}</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿/* global sharedScriptManager,
+crmConstants,
 viewResources */
 /* jshint camelcase: false */
 (function () {
@@ -147,7 +148,7 @@ viewResources */
             var tableReport = element.find("#deleted-feedback-statistics-report");
             var reportData = scope.reportOptions.DataList;
             var gridOptions = getGripOtions(reportData);
-            tableReport.fanexGrid(gridOptions);
+            tableReport.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             bindEvents(scope, element);
         }
 

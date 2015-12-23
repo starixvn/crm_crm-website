@@ -4,7 +4,7 @@
     sharedScriptManager */
     angular.module('feedback-latest-application').directive('tableLatestFeedbackContainer', function () {
         var gridOptions, tableLatestFeedback;
-        function getGridOptions(title) {
+        function getGridOptions() {
             return {
                 columns: [
                     { HeaderText: latestFeedbackResources.Feedback, Width: 450, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
@@ -13,7 +13,6 @@
                     { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
                 showTitle: true,
                 titleInfo: {
-                    text: title,
                     showExcelButton: true
                 },
                 showFooter: false,
@@ -56,10 +55,11 @@
             var feedbacks = report.Feedbacks;
             var bodyData = getGridBody(feedbacks);
 
-            gridOptions = gridOptions || getGridOptions(scope, report.Title);
+            gridOptions = gridOptions || getGridOptions();
             gridOptions.bodyRows = bodyData;
+            gridOptions.titleInfo.text = report.Title;
             gridOptions.titleInfo.exportExcelFunction = function () {
-                scope.exportReport();
+                scope.exportFeedbackExcel();
             };
 
             tableLatestFeedback = element.find('#table-latest-feedback');

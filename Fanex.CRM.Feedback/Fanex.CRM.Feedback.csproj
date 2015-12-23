@@ -180,6 +180,8 @@
     <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
     <Compile Include="Excels\FeedbackExcel.cs" />
     <Compile Include="Excels\FeedbackRowExcelWriter.cs" />
+    <Compile Include="Excels\LatestFeedback\LatestFeedbackExcel.cs" />
+    <Compile Include="Excels\LatestFeedback\LatestFeedbackRowExcelWriter.cs" />
     <Compile Include="Models\AllSettingToAddFeedback.cs" />
     <Compile Include="Models\CustomerFeedback.cs" />
     <Compile Include="Models\DeletedFeedback.cs" />

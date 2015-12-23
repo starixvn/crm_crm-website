@@ -19,7 +19,6 @@ namespace Fanex.CRM.Feedback.Excels
     public class FeedbackRowExcelWriter
     {
         private ExportExcelInfo _exportExcelInfo;
-        private ICellStyle _cellStyle;
 
         public FeedbackRowExcelWriter(ExportExcelInfo exportExcelInfo, short rowBackgroundColorIndex)
         {
@@ -33,7 +32,9 @@ namespace Fanex.CRM.Feedback.Excels
             _cellStyle.WrapText = true;
         }
 
-        public void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback)
+        public ICellStyle _cellStyle { get; private set; }
+
+        public virtual void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback)
         {
             int columnIndex = exportExcelInfo.StartColumn;
             var feedbackRow = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -53,7 +54,7 @@ namespace Fanex.CRM.Feedback.Excels
             exportExcelInfo.CurrentRow++;
         }
 
-        private string GetFeedbackCellValue(FeedbackDetail feedback)
+        protected string GetFeedbackCellValue(FeedbackDetail feedback)
         {
             var cellValue = string.Format(
                 "{0}\n{1}\n{2}\n{3}", 
@@ -71,7 +72,7 @@ namespace Fanex.CRM.Feedback.Excels
             return cellValue;
         }
 
-        private string GetCategoryCellValue(FeedbackDetail feedback)
+        protected string GetCategoryCellValue(FeedbackDetail feedback)
         {
             return string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
         }
