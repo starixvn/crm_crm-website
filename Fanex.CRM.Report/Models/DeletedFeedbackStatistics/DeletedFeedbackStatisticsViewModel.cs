@@ -13,21 +13,12 @@ namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class DeletedFeedbackStatisticsViewModel : BaseModel
+    public class DeletedFeedbackStatisticsViewModel
     {
-        public DeletedFeedbackStatisticsViewModel()
-        {
-            DeletedFeedbackByHandlers = new List<DeletedFeedbackByHandler>();
-        }
+        public string Name { get; set; }
 
         public IEnumerable<DeletedFeedbackByHandler> DeletedFeedbackByHandlers { get; set; }
 
-        public int GrandTotal
-        {
-            get
-            {
-                return DeletedFeedbackByHandlers.Sum(p => p.GrandTotal);
-            }
-        }
+        public int GrandTotal { get; set; }
     }
 }

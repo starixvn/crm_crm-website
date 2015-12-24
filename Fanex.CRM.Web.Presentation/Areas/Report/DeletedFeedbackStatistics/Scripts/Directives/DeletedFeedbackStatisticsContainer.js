@@ -66,23 +66,24 @@ viewResources */
         function getDataRow(report) {
             var bodyData = [];
             var deletedFeedbackStatisticsList = report.DeletedFeedbackByHandlers;
+
             var totalItems = deletedFeedbackStatisticsList.length;
 
             var i, j;
             for (i = 0; i < totalItems; i++) {
                 var groupedHandler = deletedFeedbackStatisticsList[i];
+                var deletedFeedbackList = groupedHandler.DeletedFeedbacks;
+                var totalDeletedFeedbacks = deletedFeedbackList.length;
+
                 var currentRow = {
                     Columns: [{
                         Name: "Date",
                         Value: sharedScriptManager.stringFormat("{0} ({1})",
-                            [groupedHandler.Handler, groupedHandler.GrandTotal]),
+                            [groupedHandler.Handler, totalDeletedFeedbacks]),
                         MergeColNumber: 7
                     }],
                     SubRows: []
                 };
-
-                var deletedFeedbackList = groupedHandler.DeletedFeedbacks;
-                var totalDeletedFeedbacks = deletedFeedbackList.length;
 
                 for (j = 0; j < totalDeletedFeedbacks; j++) {
                     var deletedFeedback = deletedFeedbackList[j];

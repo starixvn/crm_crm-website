@@ -31,21 +31,21 @@ namespace Fanex.CRM.Report.Services.DeletedFeedbackStatistics
 
         public DeletedFeedbackStatisticsViewModel GetReport(DeletedFeedbackStatisticsCriteria criteria)
         {
-            var report = new DeletedFeedbackStatisticsViewModel { Name = Labels.DeletedFeedbackStatistics };
-
             var deletedFeedbacks = _deletedFeedbackStatisticsRepository.GetDeletedFeedbacks(criteria);
 
             var deletedFeedbackByHandler = deletedFeedbacks.GroupBy(p => p.Handler);
 
-            report.DeletedFeedbackByHandlers = deletedFeedbackByHandler.Select(p =>
+            return new DeletedFeedbackStatisticsViewModel
+            {
+                Name = Labels.DeletedFeedbackStatistics,
+                GrandTotal = deletedFeedbacks.Count(),
+                DeletedFeedbackByHandlers = deletedFeedbackByHandler.Select(p =>
                     new DeletedFeedbackByHandler
                     {
                         Handler = p.Key,
-                        DeletedFeedbacks = p,
-                        GrandTotal = p.Count()
-                    });
-
-            return report;
+                        DeletedFeedbacks = p
+                    })
+            };
         }
     }
 }

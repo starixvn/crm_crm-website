@@ -10,15 +10,8 @@ namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 
     public class DeletedFeedbackByHandler
     {
-        public DeletedFeedbackByHandler()
-        {
-            DeletedFeedbacks = new List<DeletedFeedback>();
-        }
-
         public string Handler { get; set; }
 
         public IEnumerable<DeletedFeedback> DeletedFeedbacks { get; set; }
-
-        public int GrandTotal { get; set; }
     }
 }
