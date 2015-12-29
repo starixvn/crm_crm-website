@@ -55,11 +55,12 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             var numberOfSheet = (childReportLength / maxRowPerSheet) +
                 (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
 
+            var generalSheetName = GetSheetname();
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
-                    string.Format("{0} - {1}", ExcelFileName, sheetIndex + 1) :
-                    ExcelFileName;
+                    string.Format("{0} - {1}", generalSheetName, sheetIndex + 1) :
+                    generalSheetName;
                 exportExcelInfo.CreateSheet(sheetName);
 
                 exportExcelInfo.CurrentRow = 0;
@@ -160,6 +161,12 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
                 centerTextStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        private string GetSheetname()
+        {
+            var reportType = ExcelFileName.Split('_')[0];
+            return reportType + "_Detail";
         }
     }
 }
