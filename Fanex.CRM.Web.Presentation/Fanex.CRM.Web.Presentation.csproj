@@ -963,7 +963,9 @@
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config" />
     <Content Include="Content\site\customizeFanexGridV2.less" />
