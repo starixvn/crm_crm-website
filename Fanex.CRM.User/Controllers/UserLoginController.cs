@@ -2,7 +2,7 @@
 // <copyright file="UserLoginController.cs" company="Nexcel Solutions Vietnam">
 // TODO: Update copyright text.
 // </copyright>
-// ----------------------------------------------------------------------- 
+// -----------------------------------------------------------------------
 
 namespace Fanex.CRM.User.Controllers
 {
@@ -172,7 +172,7 @@ namespace Fanex.CRM.User.Controllers
             }
             else
             {
-                // Form token can be used only one time                
+                // Form token can be used only one time
                 ClearToken();
 
                 var group = user.Group == null ? null : _napGroupService.GetById(user.Group.Id);
@@ -339,12 +339,7 @@ namespace Fanex.CRM.User.Controllers
         {
             try
             {
-                _userNapService.UserLogOut(new LogOutUserCriteria
-                {
-                    OnUserId = _napCurrentSession.OnUserId
-                });
-
-                ClearingLoginCookie();
+                DoSignOut();
             }
             catch (Exception exception)
             {
@@ -371,7 +366,7 @@ namespace Fanex.CRM.User.Controllers
             {
                 if (_maintenanceService.GetDowntimeInfo().IsDowntime)
                 {
-                    ClearingLoginCookie();
+                    DoSignOut();
                     return Json(new { ErrCode = 3, ErrMsg = "UM" });
                 }
             }
@@ -379,7 +374,7 @@ namespace Fanex.CRM.User.Controllers
             var siteStatus = _napSiteService.GetStatusById(this.SiteId);
             if (!siteStatus)
             {
-                ClearingLoginCookie();
+                DoSignOut();
                 return Json(new { ErrCode = 2, ErrMsg = "Site is invalid" });
             }
 
@@ -442,18 +437,14 @@ namespace Fanex.CRM.User.Controllers
             {
                 OnUserId = _napCurrentSession.OnUserId
             });
-            FormsAuthentication.SignOut();
+            Session.Clear();
+            Session.Abandon();
             _napCurrentSession.ClearAll();
-        }
-
-        private void ClearingLoginCookie()
-        {
-            System.Web.HttpContext.Current.Session.Clear();
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
             {
                 Expires = DateTime.Now.AddDays(-1)
             };
-            System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+            Response.Cookies.Add(cookie);
             FormsAuthentication.SignOut();
         }
 
@@ -494,7 +485,7 @@ namespace Fanex.CRM.User.Controllers
             // delete token session
             Session.Remove(FormTokenName);
 
-            // delete token cookie 
+            // delete token cookie
             if (Request.Cookies[FormTokenName] != null)
             {
                 HttpCookie tokenCookie = new HttpCookie(FormTokenName);
