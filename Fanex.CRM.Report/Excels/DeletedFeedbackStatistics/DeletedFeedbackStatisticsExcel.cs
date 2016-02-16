@@ -21,14 +21,14 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
     {
         private readonly DeletedFeedbackStatisticsViewModel _deletedFeedbackStatisticsReport;
 
-        private ExportExcelInfo exportExcelInfo;
+        private ExportExcelInfo _exportExcelInfo;
 
         public DeletedFeedbackStatisticsExcel(DeletedFeedbackStatisticsViewModel deletedFeedbackStatisticsReport, string excelFileName)
             : base(excelFileName)
         {
             _deletedFeedbackStatisticsReport = deletedFeedbackStatisticsReport;
 
-            exportExcelInfo = new ExportExcelInfo
+            _exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
                 Worksheet = WorkBook.CreateSheet(ExcelFileName),
@@ -48,42 +48,42 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
             GenerateBodyData();
             GenerateFooterData();
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
+            NpoiExcelExtensions.ResponseStreamExcel(_exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
         private void SetColumnsWidth()
         {
-            exportExcelInfo.ResetCurrentColumn();
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 350);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 150);
+            _exportExcelInfo.ResetCurrentColumn();
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 150);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 150);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 150);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 350);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 280);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 150);
+            _exportExcelInfo.SetColumnWidthByFontWidth(_exportExcelInfo.CurrentColumn++, 150);
         }
 
         private void GenerateTitle(string title)
         {
-            int currentRowIndex = exportExcelInfo.CurrentRow;
+            int currentRowIndex = _exportExcelInfo.CurrentRow;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var titleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            exportExcelInfo.RenderHeaderTitle(title, titleStyle);
+            NpoiExcelExtensions.SetHeaderColorIndex(_exportExcelInfo);
+            var titleStyle = NpoiExcelExtensions.GetHeaderStyle(_exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            _exportExcelInfo.RenderHeaderTitle(title, titleStyle);
             currentRowIndex += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRowIndex);
-            exportExcelInfo.CurrentRow = currentRowIndex + 1;
+            NpoiExcelExtensions.RenderEmptyRow(_exportExcelInfo, currentRowIndex);
+            _exportExcelInfo.CurrentRow = currentRowIndex + 1;
         }
 
         private void GenerateHeader()
         {
-            int currentColumnIndex = exportExcelInfo.StartColumn;
+            int currentColumnIndex = _exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(_exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
-            var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            var row = _exportExcelInfo.Worksheet.CreateRow(_exportExcelInfo.CurrentRow);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Date, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Handler, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.DeletedBy, headerStyle);
@@ -92,53 +92,53 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
 
-            exportExcelInfo.CurrentRow++;
+            _exportExcelInfo.CurrentRow++;
         }
 
         private void GenerateBodyData()
         {
-            var currentRowIndex = exportExcelInfo.CurrentRow;
+            var currentRowIndex = _exportExcelInfo.CurrentRow;
             int currentColumnIndex;
 
-            NpoiExcelExtensions.SetGroupBackgroundColorIndex(exportExcelInfo);
+            NpoiExcelExtensions.SetGroupBackgroundColorIndex(_exportExcelInfo);
             var groupStyle = GetGroupedHandlerStyle();
             
-            var feedbackInfoStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var feedbackStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
 
             var feedbackGroups = _deletedFeedbackStatisticsReport.DeletedFeedbackByHandlers;
             foreach (var group in feedbackGroups)
             {
                 var groupedHandlerRowValue = string.Format("{0} ({1})", group.Handler, group.DeletedFeedbacks.Count());
-                var cellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex, 0, exportExcelInfo.MaxColumnIndex);
-                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, groupedHandlerRowValue, groupStyle);
+                var cellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex, 0, _exportExcelInfo.MaxColumnIndex);
+                NpoiExcelExtensions.RenderMergedCells(_exportExcelInfo, cellRangeAddress, groupedHandlerRowValue, groupStyle);
                 currentRowIndex++;
 
                 foreach (var feedback in group.DeletedFeedbacks)
                 {
-                    currentColumnIndex = exportExcelInfo.StartColumn;
-                    var feedbackRow = exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
+                    currentColumnIndex = _exportExcelInfo.StartColumn;
+                    var feedbackRow = _exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
                     feedbackRow.Height = 500;
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackInfoStyle);
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackInfoStyle);
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Deletor, feedbackInfoStyle);
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Subject, feedbackInfoStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Deletor, feedbackStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Subject, feedbackStyle);
 
                     var categoryCellValue = string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, categoryCellValue, feedbackInfoStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, categoryCellValue, feedbackStyle);
 
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Customer, feedbackInfoStyle);
-                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.RelatedCustomer, feedbackInfoStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Customer, feedbackStyle);
+                    NpoiExcelExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.RelatedCustomer, feedbackStyle);
                     currentRowIndex++;
                 }
 
-                exportExcelInfo.CurrentRow = currentRowIndex;
+                _exportExcelInfo.CurrentRow = currentRowIndex;
             }
         }
 
         private ICellStyle GetGroupedHandlerStyle()
         {
-            var cellStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var font = exportExcelInfo.ExcelFile.CreateFont();
+            var cellStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var font = _exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
             font.Color = (short)HSSFColor.Blue.Index;
@@ -151,12 +151,12 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
         private void GenerateFooterData()
         {
-            var currentRowIndex = exportExcelInfo.CurrentRow;
-            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-            var footerStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var currentRowIndex = _exportExcelInfo.CurrentRow;
+            NpoiExcelExtensions.SetGrandTotalColorIndex(_exportExcelInfo);
+            var footerStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(_exportExcelInfo.ExcelFile);
             var grandTotalCellValue = string.Format("{0} ({1})", Labels.Grand_Total, _deletedFeedbackStatisticsReport.GrandTotal);
-            var cellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex, 0, exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, grandTotalCellValue, footerStyle);
+            var cellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex, 0, _exportExcelInfo.MaxColumnIndex);
+            NpoiExcelExtensions.RenderMergedCells(_exportExcelInfo, cellRangeAddress, grandTotalCellValue, footerStyle);
         }
     }
 }

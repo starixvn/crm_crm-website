@@ -161,13 +161,13 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="criteria">The criteria.</param>
         public void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            string excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
+            var excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
 
             criteria.ExportExcel = true;
-            FeedbackStatisticDetail report = FeedbackStatisticDetail(criteria);
+            var report = FeedbackStatisticDetail(criteria);
 
-            HSSFWorkbook workbook = new HSSFWorkbook();
-            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
+            var workbook = new HSSFWorkbook();
+            var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = workbook,
                 StartRow = 0,
@@ -204,7 +204,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     exportExcelInfo.CurrentRow = 0;
                     GenerateFeedbackStatisticDetailTitle(exportExcelInfo, report.Title);
                     GenerateFeedbackStatisticDetailHeader(exportExcelInfo);
-
                     GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks, startIndex, endIndex);
                 }
             }
@@ -550,43 +549,45 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="feedbacks">The feedbacks.</param>
         private void GenerateFeedbackStatisticDetailBody(ExportExcelInfo exportExcelInfo, IList<FeedbackDetail> feedbacks, int startIndex, int endIndex)
         {
+            const string FeedbackPattern = "{0}\nFeedback date {1}\nBy {2} on {3}\nSolving Duration: {4}{5}";
             int currentColumn;
             int currentRow = exportExcelInfo.CurrentRow;
             ICellStyle textCellStyle;
-
             IRow row;
             string reviewer;
-            string feedbackPattern = "{0}\nFeedback date {1}\nBy {2} on {3}\nSolving Duration: {4}{5}";
+            
             InitializeTextStyles(exportExcelInfo.ExcelFile);
 
             for (int i = startIndex; i < endIndex; i++)
             {
+                var feedback = feedbacks[i];
                 currentColumn = exportExcelInfo.StartColumn;
-                textCellStyle = GetFeedbackDetailTextStyle(feedbacks[i].Status);
+                textCellStyle = GetFeedbackDetailTextStyle(feedback.Status);
 
-                reviewer = !string.IsNullOrWhiteSpace(feedbacks[i].ReviewerName)
-                    ? string.Format("\nReviewed by {0} on {1}", feedbacks[i].ReviewerName, feedbacks[i].SolveDateString)
+                reviewer = !string.IsNullOrWhiteSpace(feedback.ReviewerName)
+                    ? string.Format("\nReviewed by {0} on {1}", feedback.ReviewerName, feedback.SolveDateString)
                     : string.Empty;
                 row = exportExcelInfo.Worksheet.CreateRow(currentRow);
                 row.Height = 1200;
+                
                 NpoiExcelExtensions.RenderCell(
                     row,
                     currentColumn,
-                    string.Format(feedbackPattern, feedbacks[i].Subject, feedbacks[i].FeedbackDateString, feedbacks[i].CreatorName, feedbacks[i].CreateDateString, feedbacks[i].DurationTime, reviewer),
+                    string.Format(FeedbackPattern, feedback.Subject, feedback.FeedbackDateString, feedback.CreatorName, feedback.CreateDateString, feedback.DurationTime, reviewer),
                                     textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].Username, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Username, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].MainCategory, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.MainCategory, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].SubCategory, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.SubCategory, textCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, feedbacks[i].Status, textCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Status, textCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(
                     row,
                     currentColumn,
-                    feedbacks[i].IsRelated ? feedbacks[i].Username : feedbacks[i].RelatedCustomer,
+                    feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer,
                     textCellStyle);
 
                 currentRow++;

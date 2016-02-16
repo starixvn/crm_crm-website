@@ -157,6 +157,7 @@
     <Compile Include="Excel\BaseExcel.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\NpoiExcelExtensions.cs" />
+    <Compile Include="Extensions\HashtableExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Helpers\ChartHelper.cs" />
     <Compile Include="Helpers\ArgumentChecker.cs" />

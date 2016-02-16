@@ -8,11 +8,11 @@
     /// </summary>
     public class CssRewriteUrlTransformWrapper : IItemTransform
     {
-        private CssRewriteUrlTransform cssTransform;
+        private CssRewriteUrlTransform _cssTransform;
 
         public CssRewriteUrlTransformWrapper()
         {
-            this.cssTransform = new CssRewriteUrlTransform();
+            this._cssTransform = new CssRewriteUrlTransform();
         }
 
         /// <summary>
@@ -23,7 +23,7 @@
         /// <returns>Url Transform Object.</returns>
         public string Process(string includedVirtualPath, string input)
         {
-            return this.cssTransform.Process("~" + VirtualPathUtility.ToAbsolute(includedVirtualPath), input);
+            return this._cssTransform.Process("~" + VirtualPathUtility.ToAbsolute(includedVirtualPath), input);
         }
     }
 }

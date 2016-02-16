@@ -75,7 +75,6 @@ namespace Fanex.CRM.Customer.Repositories
                     Converter.ToString2(reader["BankLine2"]),
                     Converter.ToString2(reader["BankLine3"]),
                 },
-
                 City = Converter.ToString2(reader["BankCity"]),
                 State = Converter.ToString2(reader["BankState"]),
                 PostCode = Converter.ToString2(reader["BankCode"]),
