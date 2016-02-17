@@ -412,6 +412,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Headline.
+        /// </summary>
+        public static string Headline {
+            get {
+                return ResourceManager.GetString("Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home Address.
         /// </summary>
         public static string Home_Address {

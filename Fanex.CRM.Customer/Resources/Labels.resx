@@ -399,4 +399,7 @@
   <data name="NonLive" xml:space="preserve">
     <value>Non-Live</value>
   </data>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
 </root>
