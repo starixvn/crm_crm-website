@@ -60,10 +60,10 @@ namespace Fanex.CRM.Common.Services
             ICellStyle headerStyle)
         {
             var cellRangeAddress = exportExcelInfo.GetCellRangeBySpanning(1);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
         }
     }

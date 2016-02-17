@@ -246,7 +246,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             FanexExcel result = new FanexExcel(gridOption);
             result.SetColorAtIndex(
                 GrandTotalRowColor.Index,
-                new short[] { NpoiExcelExtensions.GrandTotalRowColor.R, NpoiExcelExtensions.GrandTotalRowColor.G, NpoiExcelExtensions.GrandTotalRowColor.B });
+                new short[] { NpoiExtensions.GrandTotalRowColor.R, NpoiExtensions.GrandTotalRowColor.G, NpoiExtensions.GrandTotalRowColor.B });
 
             var workbook = result.ToExcel2003(Labels.RedemptionStatisticsSheetName);
             var footerFont = result.GetFooterCellStyles.General.Center.Style.GetFont(workbook);

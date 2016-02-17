@@ -41,17 +41,17 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
             GenerateReportDetail(exportExcelInfo);
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
         private void GenerateReportDetail(ExportExcelInfo exportExcelInfo)
         {
             var textStyle =
-                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             var centerTextStyle =
-                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var childReportLength = _logStatisticsReportDetail.ChildReports.Count;
-            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
             var numberOfSheet = (childReportLength / maxRowPerSheet) +
                 (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
 
@@ -76,9 +76,9 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
         private void GenerateTitle(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            var leftTitleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var leftTitleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             leftTitleStyle.Alignment = HorizontalAlignment.Left;
 
             exportExcelInfo.ResetCurrentColumn();
@@ -116,10 +116,10 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
         public void GenerateHeaderTitle(ExportExcelInfo exportExcelInfo, string reportTitle, ICellStyle headerStyle)
         {
             CellRangeAddress cellRangeAddress = exportExcelInfo.GetCellRangeBySpanning(1);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
         }
 

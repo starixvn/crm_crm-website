@@ -87,7 +87,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
 
             ExportSettlementReportBody(ref exportExcelInfo, criteria, settlementReport);
             string reportName = string.Format(Labels.SettlementReport_ExcelTitle, criteria.Year);
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
         private List<SettlementReportInfo> GetPagingLogList(
@@ -275,18 +275,18 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             {
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.SettlementReport_SheetName);
                 ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
-                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
             var monthReportLength = settlementReport.ChildReports.Count;
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
-            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
+            NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
             var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
             var firstGrandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, true);
             var grandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, false);
-            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
             var numberOfSheet = (monthReportLength / maxRowPerSheet) +
                 (monthReportLength % maxRowPerSheet != 0 ? 1 : 0);
             int countryReportLength;
@@ -337,16 +337,16 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
 
             var currentColumn = exportExcelInfo.StartColumn;
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExtensions.FontWidth);
 
             string reportTitle = settlementReport != null ?
                 settlementReport.Name :
@@ -355,13 +355,13 @@ namespace Fanex.CRM.Report.Services.SettlementReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Country, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Country, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow++;
         }

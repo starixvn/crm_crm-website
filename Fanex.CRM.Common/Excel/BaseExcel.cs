@@ -40,7 +40,7 @@ namespace Fanex.CRM.Common.Excel
 
         public virtual void ResponseStreamExcel()
         {          
-            NpoiExcelExtensions.ResponseStreamExcel(WorkBook, _excelFileName);
+            NpoiExtensions.ResponseStreamExcel(WorkBook, _excelFileName);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Fanex.CRM.Common.Extensions
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public static class NpoiExcelExtensions
+    public static class NpoiExtensions
     {
         public const int FontWidth = 30;
         public const int FontHeight = 20;
@@ -69,32 +69,32 @@ namespace Fanex.CRM.Common.Extensions
 
         public static void SetHeaderColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, HeaderTitleColor, HeaderTitleColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, HeaderTitleColor, HeaderTitleColorIndex);
         }
 
         public static void SetSubTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, SubTotalRowColor, SubTotalRowColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, SubTotalRowColor, SubTotalRowColorIndex);
         }
 
         public static void SetTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, TotalRowColor, TotalRowColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, TotalRowColor, TotalRowColorIndex);
         }
 
         public static void SetGrandTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalRowColor, GrandTotalRowColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalRowColor, GrandTotalRowColorIndex);
         }
 
         public static void SetGrandTotalSeparatorColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
         }
 
         public static void SetTotalColumnBackgroundColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, TotalColumnBackgroundColor, TotalColumnBackgroundIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, TotalColumnBackgroundColor, TotalColumnBackgroundIndex);
         }
 
         /// <summary>
@@ -183,8 +183,8 @@ namespace Fanex.CRM.Common.Extensions
         {
             var decimalNumberStyle = excelFile.CreateCellStyle();
             IFont font = excelFile.CreateFont();
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
+            font.FontHeightInPoints = NpoiExtensions.FontSize;
+            font.FontName = NpoiExtensions.FontName;
 
             if (isBold)
             {
@@ -292,7 +292,7 @@ namespace Fanex.CRM.Common.Extensions
                 currentRow,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
 
             RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
@@ -487,7 +487,7 @@ namespace Fanex.CRM.Common.Extensions
 
         public static void SetGroupBackgroundColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
         }
 
         /// <summary>
@@ -502,7 +502,7 @@ namespace Fanex.CRM.Common.Extensions
                 rowIndex,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 

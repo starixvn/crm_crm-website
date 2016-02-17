@@ -29,13 +29,13 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
             feedbackRow.Height = 1200;
 
             var feedbackCellValue = GetFeedbackCellValue(feedback);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
 
             var categoryCellValue = GetCategoryCellValue(feedback);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
 
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
 
             exportExcelInfo.CurrentRow++;
         }

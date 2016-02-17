@@ -47,7 +47,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             GenerateBodyData(exportExcelInfo);
             GenerateFooterData(exportExcelInfo);
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
         private void SetColumnsWidth(ExportExcelInfo exportExcelInfo)
@@ -64,12 +64,12 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
         {
             int currentRowIndex = exportExcelInfo.CurrentRow;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle titleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
+            ICellStyle titleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
             exportExcelInfo.RenderHeaderTitle(title, titleStyle);
             currentRowIndex += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRowIndex);
+            NpoiExtensions.RenderEmptyRow(exportExcelInfo, currentRowIndex);
             exportExcelInfo.CurrentRow = currentRowIndex + 1;
         }
 
@@ -84,11 +84,11 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             var communicationColumns = _logStatisticsReport.CommunicationColumns;
             int communicationColumnsCount = communicationColumns.Count();
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
             CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(currentRowIndex, currentRowIndex + 1, currentColumnIndex, currentColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, categoryCellRangeAddress, Labels.Categories, headerStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, categoryCellRangeAddress, Labels.Categories, headerStyle);
             currentColumnIndex++;
 
             var row = exportExcelInfo.Worksheet.CreateRow(currentRowIndex + 1);
@@ -97,59 +97,59 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             for (int i = 0; i < productColumnsCount; i++)
             {
                 var cellProductTitleRange = new CellRangeAddress(currentRowIndex, currentRowIndex, currentColumnIndex, currentColumnIndex + step - 1);
-                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellProductTitleRange, productColumns.ElementAt(i).Name, headerStyle);
+                NpoiExtensions.RenderMergedCells(exportExcelInfo, cellProductTitleRange, productColumns.ElementAt(i).Name, headerStyle);
 
                 for (int j = 0; j < communicationColumnsCount; j++)
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumnIndex, communicationColumns.ElementAt(j).Name, headerStyle);
+                    NpoiExtensions.RenderCell(row, currentColumnIndex, communicationColumns.ElementAt(j).Name, headerStyle);
                     currentColumnIndex++;
                 }
 
-                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, Labels.Total, headerStyle);
+                NpoiExtensions.RenderCell(row, currentColumnIndex, Labels.Total, headerStyle);
                 currentColumnIndex++;
             }
 
             exportExcelInfo.CurrentRow = currentRowIndex + 2;
         }
 
-        private void GenerateBodyData(ExportExcelInfo exportExcelInfo)
+        private void GenerateBodyData(ExportExcelInfo excelInfo)
         {
-            int currentRowIndex = exportExcelInfo.CurrentRow;
-            int currentColumnIndex = exportExcelInfo.StartColumn;
+            int currentRowIndex = excelInfo.CurrentRow;
+            int currentColumnIndex = excelInfo.StartColumn;
 
-            NpoiExcelExtensions.SetTotalColumnBackgroundColorIndex(exportExcelInfo);
+            NpoiExtensions.SetTotalColumnBackgroundColorIndex(excelInfo);
 
-            var mainCategoryTextStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var mainCategorynumberStyle = NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var mainCategoryTotalCellStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var mainTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var mainNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var mainTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
             
-            var font = exportExcelInfo.ExcelFile.CreateFont();
-            SetFontStyleForMainCategory(font, mainCategoryTextStyle);
-            SetFontStyleForMainCategory(font, mainCategorynumberStyle);
-            SetFontStyleForMainCategory(font, mainCategoryTotalCellStyle);
+            var font = excelInfo.ExcelFile.CreateFont();
+            SetFontStyleForMainCategory(font, mainTextStyle);
+            SetFontStyleForMainCategory(font, mainNumberStyle);
+            SetFontStyleForMainCategory(font, mainTotalCellStyle);
 
-            var subCategoryTextStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var subCategorynumberStyle = NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var subCategoryTotalCellStyle = NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var subTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var subNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var subTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
 
             var mainCategories = _logStatisticsReport.MainCategories;
             foreach (var mainCategory in mainCategories)
             {
-                GenerateRowValue(exportExcelInfo, mainCategory, mainCategoryTextStyle, mainCategorynumberStyle, mainCategoryTotalCellStyle);
+                GenerateRowValue(excelInfo, mainCategory, mainTextStyle, mainNumberStyle, mainTotalCellStyle);
 
                 var subCategories = mainCategory.SubCategories;
                 foreach (var subCategory in subCategories)
                 {
-                    GenerateRowValue(exportExcelInfo, subCategory, subCategoryTextStyle, subCategorynumberStyle, subCategoryTotalCellStyle);
+                    GenerateRowValue(excelInfo, subCategory, subTextStyle, subNumberStyle, subTotalCellStyle);
                 }
             }
         }
 
         private void GenerateFooterData(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-            var footerTextStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(exportExcelInfo.ExcelFile);
-            var footerValueStyle = NpoiExcelExtensions.GetIntegerNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
+            NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
+            var footerTextStyle = NpoiExtensions.GetTextStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var footerValueStyle = NpoiExtensions.GetIntegerNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
 
             footerValueStyle.Alignment = HorizontalAlignment.Center;
 
@@ -163,16 +163,21 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             GenerateRowValue(exportExcelInfo, granTotal, footerTextStyle, footerValueStyle, footerValueStyle);
         }
 
-        private void GenerateRowValue(ExportExcelInfo exportExcelInfo, LogStatisticsBaseModel category, ICellStyle textStyle, ICellStyle numberStyle, ICellStyle totalCellStyle)
+        private void GenerateRowValue(
+            ExportExcelInfo excelInfo, 
+            LogStatisticsBaseModel category, 
+            ICellStyle textStyle, 
+            ICellStyle numberStyle, 
+            ICellStyle totalCellStyle)
         {
-            exportExcelInfo.ResetCurrentColumn();
+            excelInfo.ResetCurrentColumn();
 
-            NpoiExcelExtensions.SetGroupBackgroundColorIndex(exportExcelInfo);
+            NpoiExtensions.SetGroupBackgroundColorIndex(excelInfo);
 
-            int currentColumnIndex = exportExcelInfo.StartColumn;
-            var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            int currentColumnIndex = excelInfo.StartColumn;
+            var row = excelInfo.Worksheet.CreateRow(excelInfo.CurrentRow);
 
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex, category.Name, textStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex, category.Name, textStyle);
             currentColumnIndex++;
 
             var listOfCommunicationSumByProduct = category.ListOfCommunicationSumByProduct;
@@ -184,22 +189,22 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             {
                 for (int i = 0; i < communicationColumnsCount; i++)
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumnIndex, listOfNumberCommunicationCount.ElementAt(currentCommunicationIndex), numberStyle);
+                    NpoiExtensions.RenderCell(row, currentColumnIndex, listOfNumberCommunicationCount.ElementAt(currentCommunicationIndex), numberStyle);
                     currentCommunicationIndex++;
                     currentColumnIndex++;
                 }
 
-                NpoiExcelExtensions.RenderCell(row, currentColumnIndex, communicationSumByProduct, totalCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumnIndex, communicationSumByProduct, totalCellStyle);
                 currentColumnIndex++;
             }
 
-            exportExcelInfo.CurrentRow++;
+            excelInfo.CurrentRow++;
         }
 
         private void SetFontStyleForMainCategory(IFont font, ICellStyle cellStyle)
         {
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
+            font.FontHeightInPoints = NpoiExtensions.FontSize;
+            font.FontName = NpoiExtensions.FontName;
             font.Color = (short)HSSFColor.Blue.Index;
             font.Boldweight = (short)FontBoldWeight.Bold;
 

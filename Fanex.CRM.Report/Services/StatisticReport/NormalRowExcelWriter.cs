@@ -32,20 +32,20 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         public NormalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = NpoiExcelExtensions.BackgroundColorIndex;
+            _rowBackgroundColorIndex = NpoiExtensions.BackgroundColorIndex;
 
-            _intStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            _intStyle = NpoiExtensions.GetIntegerNumberStyle(
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
                CRMHorizontalAlignment.Right);
-            _boldIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            _boldIntStyle = NpoiExtensions.GetIntegerNumberStyle(
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                true,
                CRMHorizontalAlignment.Right);
-            _textStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            _textStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            _centerTextStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                     exportExcelInfo.CurrentRow + groupInfo.ChildReports.Count - 1,
                     currentColumn,
                     currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(
+                NpoiExtensions.RenderMergedCells(
                     exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.ShortName,
@@ -83,7 +83,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
 
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, info.ShortName, _centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.ShortName, _centerTextStyle);
             currentColumn++;
             var countryLength = info.ChildReports.Count;
             for (var i = 0; i < countryLength; i++)
@@ -91,17 +91,17 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 var countryReport = info.ChildReports[i];
                 if (countryReport.HasData)
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, _intStyle);
+                    NpoiExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, _intStyle);
                     currentColumn++;
                 }
                 else
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumn, string.Empty, _textStyle);
+                    NpoiExtensions.RenderCell(row, currentColumn, string.Empty, _textStyle);
                     currentColumn++;
                 }
             }
 
-            NpoiExcelExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _boldIntStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _boldIntStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow += 1;
         }

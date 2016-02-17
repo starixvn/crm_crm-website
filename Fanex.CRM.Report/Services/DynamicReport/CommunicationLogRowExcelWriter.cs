@@ -35,17 +35,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             _exportExcelInfo = exportExcelInfo;
 
-            _textStyle = NpoiExcelExtensions.GetTextStyle(
+            _textStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            _centerIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            _centerIntStyle = NpoiExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Center);
-            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(
+            _centerTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
@@ -68,7 +68,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, infoIndex + 1, _centerIntStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, infoIndex + 1, _centerIntStyle);
             exportExcelInfo.CurrentColumn++;
 
             cellRangeAddress = new CellRangeAddress(
@@ -76,7 +76,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.RunningNumber,
@@ -88,7 +88,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.PeriodRange.FromDate.ToShortFormatedDate() + "\n" + info.PeriodRange.FromDate.ToLongTimeString(),
@@ -100,7 +100,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.MainCategory.Name + "\n" + info.SubCategory.Name,
@@ -112,7 +112,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.Subject,
@@ -124,7 +124,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.StatusName,
@@ -136,7 +136,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 string.Format(Labels.Format_Duration, info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds),
@@ -148,7 +148,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.Username,
@@ -160,7 +160,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.Handler,
@@ -172,7 +172,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 info.Reviewer,

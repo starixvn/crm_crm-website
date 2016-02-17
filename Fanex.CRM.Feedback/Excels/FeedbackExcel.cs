@@ -61,7 +61,7 @@ namespace Fanex.CRM.Feedback.Excels
         {
             GenerateBodyData();
 
-            NpoiExcelExtensions.ResponseStreamExcel(ExportExcelInfo.ExcelFile, ExcelFileName);
+            NpoiExtensions.ResponseStreamExcel(ExportExcelInfo.ExcelFile, ExcelFileName);
         }
 
         protected virtual void SetColumnsWidth()
@@ -78,12 +78,12 @@ namespace Fanex.CRM.Feedback.Excels
         {
             int currentRowIndex = ExportExcelInfo.CurrentRow;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(ExportExcelInfo);
-            var titleStyle = NpoiExcelExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
+            NpoiExtensions.SetHeaderColorIndex(ExportExcelInfo);
+            var titleStyle = NpoiExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
             ExportExcelInfo.RenderHeaderTitle(_title, titleStyle);
             currentRowIndex += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ExportExcelInfo, currentRowIndex);
+            NpoiExtensions.RenderEmptyRow(ExportExcelInfo, currentRowIndex);
             ExportExcelInfo.CurrentRow = currentRowIndex + 1;
         }
 
@@ -91,22 +91,22 @@ namespace Fanex.CRM.Feedback.Excels
         {
             int currentColumnIndex = ExportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
             var row = ExportExcelInfo.Worksheet.CreateRow(ExportExcelInfo.CurrentRow);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
 
             ExportExcelInfo.CurrentRow++;
         }
 
         protected virtual void InitWriter()
         {
-            NormalRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, NpoiExcelExtensions.BackgroundColorIndex);
+            NormalRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, NpoiExtensions.BackgroundColorIndex);
             ClosedRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, ClosedBackgroundColorIndex);
             CheckedRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, CheckedBackgroundColorIndex);
             PendingRowWriter = new FeedbackRowExcelWriter(ExportExcelInfo, PendingBackgroundColorIndex);
@@ -116,7 +116,7 @@ namespace Fanex.CRM.Feedback.Excels
         {
             InitWriter();
             var totalRows = _feedbacks.Count();
-            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
             var numberOfSheet = (totalRows / maxRowPerSheet) + (totalRows % maxRowPerSheet != 0 ? 1 : 0);
 
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
@@ -165,13 +165,13 @@ namespace Fanex.CRM.Feedback.Excels
         private void SetStatusColorIndex()
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
-            NpoiExcelExtensions.SetColorAtIndex(ExportExcelInfo, closedBackgroundColor, ClosedBackgroundColorIndex);
+            NpoiExtensions.SetColorAtIndex(ExportExcelInfo, closedBackgroundColor, ClosedBackgroundColorIndex);
 
             var checkedBackgroundColor = Color.FromArgb(242, 242, 242);
-            NpoiExcelExtensions.SetColorAtIndex(ExportExcelInfo, checkedBackgroundColor, CheckedBackgroundColorIndex);
+            NpoiExtensions.SetColorAtIndex(ExportExcelInfo, checkedBackgroundColor, CheckedBackgroundColorIndex);
 
             var pendingBackgroundColor = Color.FromArgb(240, 237, 196);
-            NpoiExcelExtensions.SetColorAtIndex(
+            NpoiExtensions.SetColorAtIndex(
                 ExportExcelInfo, pendingBackgroundColor, PendingBackgroundColorIndex);
         }
     }

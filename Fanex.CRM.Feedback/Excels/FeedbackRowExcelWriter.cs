@@ -24,7 +24,7 @@ namespace Fanex.CRM.Feedback.Excels
         {
             _exportExcelInfo = exportExcelInfo;
 
-            _cellStyle = NpoiExcelExtensions.GetTextStyle(
+            _cellStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
@@ -41,15 +41,15 @@ namespace Fanex.CRM.Feedback.Excels
             feedbackRow.Height = 1200;
 
             var feedbackCellValue = GetFeedbackCellValue(feedback);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
 
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
 
             var categoryCellValue = GetCategoryCellValue(feedback);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
 
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
-            NpoiExcelExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
 
             exportExcelInfo.CurrentRow++;
         }

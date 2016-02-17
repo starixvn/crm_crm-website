@@ -32,20 +32,20 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         public TotalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = NpoiExcelExtensions.TotalRowColorIndex;
+            _rowBackgroundColorIndex = NpoiExtensions.TotalRowColorIndex;
 
-            IntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            IntStyle = NpoiExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
                 CRMHorizontalAlignment.Right);
 
-            TextStyle = NpoiExcelExtensions.GetTextStyle(
+            TextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
                 CRMHorizontalAlignment.Left);
-            CenterTextStyle = NpoiExcelExtensions.GetTextStyle(
+            CenterTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
@@ -70,20 +70,20 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         {
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             var currentColumn = exportExcelInfo.CurrentColumn;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, info.ShortName, TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.ShortName, TextStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, string.Empty, CenterTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, string.Empty, CenterTextStyle);
             currentColumn++;
 
             var countryLength = info.ChildReports.Count;
             for (var i = 0; i < countryLength; i++)
             {
                 var countryReport = info.ChildReports[i];
-                NpoiExcelExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, IntStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, IntStyle);
                 currentColumn++;
             }
 
-            NpoiExcelExtensions.RenderCell(row, currentColumn, (int)info.NumberOfIssues, IntStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, (int)info.NumberOfIssues, IntStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow += 1;
         }

@@ -41,7 +41,7 @@ namespace Fanex.CRM.Common.Models.Npoi
 
         public void SetColumnWidthByFontWidth(int columnIndex, int width)
         {
-            Worksheet.SetColumnWidth(columnIndex, width * NpoiExcelExtensions.FontWidth);
+            Worksheet.SetColumnWidth(columnIndex, width * NpoiExtensions.FontWidth);
         }
 
         public void InitColumnWidthByFontWidth(List<int> columnWidths)
@@ -50,7 +50,7 @@ namespace Fanex.CRM.Common.Models.Npoi
             var columnLength = columnWidths.Count;
             for (var i = 0; i < columnLength; i++)
             {
-                Worksheet.SetColumnWidth(columnIndex++, columnWidths[i] * NpoiExcelExtensions.FontWidth);
+                Worksheet.SetColumnWidth(columnIndex++, columnWidths[i] * NpoiExtensions.FontWidth);
             }
         }
 
@@ -67,8 +67,8 @@ namespace Fanex.CRM.Common.Models.Npoi
         public void RenderCell(object cellValue, ICellStyle cellStyle)
         {
             ICell cell = Row.GetCell(CurrentColumn) ?? Row.CreateCell(CurrentColumn);
-            NpoiExcelExtensions.SetCellValue(cell, cellValue);
-            cellStyle.VerticalAlignment = NpoiExcelExtensions.MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            NpoiExtensions.SetCellValue(cell, cellValue);
+            cellStyle.VerticalAlignment = NpoiExtensions.MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             CurrentColumn += 1;
         }
@@ -92,10 +92,10 @@ namespace Fanex.CRM.Common.Models.Npoi
         {
             var exportExcelInfo = this;
             var cellRangeAddress = new CellRangeAddress(CurrentRow, CurrentRow + 1, StartColumn, MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, CurrentRow);
+            NpoiExtensions.RenderEmptyRow(exportExcelInfo, CurrentRow);
             CurrentRow++;
         }
 

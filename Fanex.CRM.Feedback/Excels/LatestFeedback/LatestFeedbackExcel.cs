@@ -37,21 +37,21 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
         {
             int currentColumnIndex = ExportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExtensions.GetHeaderStyle(ExportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
 
             var row = ExportExcelInfo.Worksheet.CreateRow(ExportExcelInfo.CurrentRow);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
 
             ExportExcelInfo.CurrentRow++;
         }
 
         protected override void InitWriter()
         {
-            NormalRowWriter = new LatestFeedbackRowExcelWriter(ExportExcelInfo, NpoiExcelExtensions.BackgroundColorIndex);
+            NormalRowWriter = new LatestFeedbackRowExcelWriter(ExportExcelInfo, NpoiExtensions.BackgroundColorIndex);
             ClosedRowWriter = new LatestFeedbackRowExcelWriter(ExportExcelInfo, ClosedBackgroundColorIndex);
             CheckedRowWriter = new LatestFeedbackRowExcelWriter(ExportExcelInfo, CheckedBackgroundColorIndex);
             PendingRowWriter = new LatestFeedbackRowExcelWriter(ExportExcelInfo, PendingBackgroundColorIndex);
