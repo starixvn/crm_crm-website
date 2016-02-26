@@ -5,7 +5,7 @@
 <#@ output extension=".txt" #>
 <#
 string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.CRM.Web.Presentation\";
-var environments = new string[] { "DEV", "LOCAL", "backupMNL", "Master", "UAT", "UATSIT", "PRO" };
+var environments = new string[] { "DEV", "LOCAL", "backupMNL", "Master", "UATSandBox", "UAT", "UATSIT", "PRO" };
 foreach(var environment in environments)
 {
  using(var transform = new Microsoft.Web.XmlTransform.XmlTransformation( projectPath + "Configurations\\WebConfigTransforms\\" + environment + ".config"))
@@ -13,7 +13,7 @@ foreach(var environment in environments)
  var document = new XmlDocument();
  document.Load(projectPath + "Web.config");
  transform.Apply(document);
- document.Save(projectPath + "Configurations\\" + environment + ".Web.config");
+ document.Save(projectPath + "Configurations\\Web." + environment + ".config");
  }
 }
 #>
