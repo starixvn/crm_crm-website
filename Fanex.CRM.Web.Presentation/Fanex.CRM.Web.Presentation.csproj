@@ -641,45 +641,45 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+    <Content Include="Configurations\SpNameConfig\DBCRM.BACKUPMNL.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.LOCAL.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.MASTER.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.PRO.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.SIT.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DBCRM.txt</LastGenOutput>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.UAT.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRM.xml">
+      <DependentUpon>DBCRM.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\DBCRMConfig.xml" />
+    <Content Include="Configurations\SpNameConfig\DBCRMOriginal.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName\DBACC.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName\DBCRM.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName\DBNAP.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName\DBONUSER.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName\DBPOLICY.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -1400,10 +1400,6 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Index.cshtml" />
-    <None Include="Areas\Report\CasinoDailyStatisticsEnhancement\Styles\casinodaily.less" />
-    <Content Include="Areas\Report\LogStatistic\Index.cshtml" />
-    <None Include="Areas\Report\LogStatistic\Styles\casinodaily.less" />
     <Content Include="Areas\Report\LogStatistics\Index.cshtml" />
     <Content Include="Areas\Report\LogStatistics\Styles\logstatistics.less" />
   </ItemGroup>
@@ -1412,6 +1408,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Report\DeletedFeedbackStatistics\Styles\deletedFeedbackStatistics.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\SpNameConfig\SpNameHelper.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

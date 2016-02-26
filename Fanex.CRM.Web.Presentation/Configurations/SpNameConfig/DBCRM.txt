@@ -1,0 +1,11 @@
+﻿
+
+// Generated helper templates
+// Generated items
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.MASTER.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.BACKUPMNL.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.PRO.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.SIT.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.UAT.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.LOCAL.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRM.xml

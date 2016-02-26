@@ -65,7 +65,7 @@
     <Setting Key="Setting_SettingInfo_GetAllCommunicationTool" SpName="Acc_CRM_CommunicationToolList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllMainCategory" SpName="Acc_CRM_MainCategoryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllSubCategory" SpName="Acc_CRM_SubCategoryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllBetType" SpName="Acc_CRM_BetTypeList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="CustomerFeedback">
@@ -83,14 +83,14 @@
     <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="SiteID" ObjectProperty="Id" />
       <Mapping DataField="SiteName" ObjectProperty="Name" />
     </Setting>
     <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    
+    <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+
   </Function>
 
   <Function Name="Remark">
@@ -121,34 +121,36 @@
     <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatistic" SpName="Acc_CRM_Rpt_DailyStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatisticDetail" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />  </Function>
+    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
 
   <Function Name="Inform Headline">
     <Setting Key="Customer_InformHeadline_StatusList" SpName="Acc_CRM_InformHeadlineStatusList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
-    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="Currency" ObjectProperty="Currencies" />
       <Mapping DataField="Site" ObjectProperty="Sites" />
       <Mapping DataField="Position" ObjectProperty="Positions" />
     </Setting>
-    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />
       <Mapping DataField="CustID_New" ObjectProperty="NewCustId" />
       <Mapping DataField="Username_Old" ObjectProperty="OldUserName" />
       <Mapping DataField="Username_New" ObjectProperty="NewUserName" />
       <Mapping DataField="Cases" ObjectProperty="Case" />
     </Setting>
-    <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
+    <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>
+		
