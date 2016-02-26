@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
+  <Function Name="Others DB">
+    <Setting Key="UserInfoSel" SpName="Acc_UserInfoSel" DbName="DBACC.bodb02.bodbAdminNet" />
+    <Setting Key="UserOnlineUpdate" SpName="Acc_Recheckin" DbName="DBONUSER.ON_USER.bodbAdminNet" />
+    <Setting Key="FileNameSelByCustID" SpName="Acc_Con_FileNameSelByCustID" DbName="DBPOLICY.bodb02.bodbAdminNet" />
+    <Setting Key="MenuSelByCustID" SpName="Acc_MenuSelByCustID" DbName="DBPOLICY.bodb02.bodbAdminNet" />
+  </Function>
+  
   <Function Name="Customer">
     <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -153,4 +160,3 @@
     <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>
-		

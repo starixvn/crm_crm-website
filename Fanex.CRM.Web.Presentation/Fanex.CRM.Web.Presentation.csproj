@@ -641,45 +641,39 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
-    <Content Include="Configurations\SpNameConfig\DBCRM.BACKUPMNL.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.LOCAL.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.MASTER.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.PRO.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.SIT.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\SpName.SIT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBCRM.txt</LastGenOutput>
+    <Content Include="Configurations\SpNameConfig\SpName.UAT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.txt">
+    <Content Include="Configurations\SpNameConfig\SpName.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpName.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBCRM.tt</DependentUpon>
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.UAT.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
+    <Content Include="Configurations\SpNameConfig\_SpName.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_SpName.txt</LastGenOutput>
     </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRM.xml">
-      <DependentUpon>DBCRM.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\DBCRMConfig.xml" />
-    <Content Include="Configurations\SpNameConfig\DBCRMOriginal.xml" />
-    <Content Include="Configurations\SpNameConfig\SpName\DBACC.xml" />
-    <Content Include="Configurations\SpNameConfig\SpName\DBCRM.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName\DBNAP.xml" />
-    <Content Include="Configurations\SpNameConfig\SpName\DBONUSER.xml" />
-    <Content Include="Configurations\SpNameConfig\SpName\DBPOLICY.xml" />
+    <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
+    <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
+    <Content Include="Configurations\SpNameConfig\DBNAP_Include.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />

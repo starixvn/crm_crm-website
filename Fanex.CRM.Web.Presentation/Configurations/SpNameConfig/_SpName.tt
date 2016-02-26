@@ -10,7 +10,7 @@
     foreach(var site in sites)
     {        
 		var x = site.SiteEnvironment.ToString();
-        var fileName = x == "DEV" ? "DBCRM.xml" : string.Format("DBCRM.{0}.xml", site.SiteEnvironment);
+        var fileName = x == "DEV" ? "SpName.xml" : string.Format("SpName.{0}.xml", site.SiteEnvironment);
         manager.StartNewFile(fileName);
 		#>
 <#=site.GenerateSpName(allSpName, listOfConfig)#>

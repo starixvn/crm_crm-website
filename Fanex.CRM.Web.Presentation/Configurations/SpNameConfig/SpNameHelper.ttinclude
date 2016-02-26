@@ -1,4 +1,5 @@
 ﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ import namespace="System.Xml.Linq" #>
 <#
     SiteInfo.Host = Host;
 #>
@@ -86,12 +87,23 @@
 	{
 		public static string GetAllSpName()
         {
-            return System.IO.File.ReadAllText(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRMOriginal.xml");
-        }	
+			// Append DBNAP_Include.xml.
+			var originalXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpNameOriginal.xml");
+            var appendedXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBNAP_Include.xml");
+            originalXml.Root.Add(appendedXml.Root.Elements());
 
+			StringBuilder builder = new StringBuilder();
+			using (TextWriter writer = new StringWriter(builder))
+			{
+				originalXml.Save(writer); // Use Save() to keep XML Encoding Tag.
+			}
+
+			return builder.ToString();
+        }
+		
 		public static IList<SpNameConfig> GetListOfConfig()
 		{
-			var document = System.Xml.Linq.XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBCRMConfig.xml");
+			var document = System.Xml.Linq.XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\_SpNameConfig.xml");
 			var elements = document.Root.Elements("SpNameConfig");
 			var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
 				
