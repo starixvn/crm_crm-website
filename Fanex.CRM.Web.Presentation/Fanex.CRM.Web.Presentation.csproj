@@ -641,6 +641,27 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Configurations\SpName.BACKUPMNL.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.LOCAL.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.MASTER.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.PRO.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.SIT.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.UAT.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpName.xml">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
@@ -674,6 +695,15 @@
     <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
     <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
     <Content Include="Configurations\SpNameConfig\DBNAP_Include.xml" />
+    <Content Include="Configurations\Web.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.config.txt</LastGenOutput>
+    </Content>
+    <Content Include="Configurations\Web.config.txt">
+      <DependentUpon>Web.config.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -1375,7 +1405,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\backupMNL.ConnectionStrings.config" />
-    <Content Include="Configurations\backupMNL.Web.config" />
     <Content Include="Configurations\backupMNL.Web.Setting.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1411,6 +1440,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\WebConfigTransforms\backupMNL.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\backupMNL.Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\LOCAL.Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
