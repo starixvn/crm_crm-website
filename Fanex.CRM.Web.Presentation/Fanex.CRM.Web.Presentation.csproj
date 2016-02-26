@@ -949,31 +949,31 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config">
+    <Content Include="Configurations\dev.ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config">
+    <Content Include="Configurations\dev.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
+    <Content Include="Configurations\dev.Web.Setting.config" />
+    <Content Include="Configurations\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\Master.Web.config" />
+    <Content Include="Configurations\Master.Web.Setting.config" />
+    <Content Include="Configurations\PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\PRO.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
+    <Content Include="Configurations\PRO.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
+    <Content Include="Configurations\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\UAT.Web.config" />
+    <Content Include="Configurations\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config" />
+    <Content Include="Configurations\UATSandBox.Web.config" />
+    <Content Include="Configurations\UATSandBox.Web.Setting.config" />
     <Content Include="Content\site\customizeFanexGridV2.less" />
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
@@ -982,10 +982,7 @@
     <Content Include="Content\site\reportgrid.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\Local.Web.Setting.config" />
     <Content Include="Scripts\Vendors\jqueryui\jquery-ui.min.js" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Areas\User\LogIn\Scripts\LogInManager.js" />
@@ -1342,7 +1339,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
+    <Content Include="Configurations\UATSandBox.ConnectionStrings.config" />
     <Content Include="Views\Common\ErrorPage.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
   </ItemGroup>
@@ -1380,18 +1377,18 @@
     <Content Include="Areas\InformHeadline\ContactInform\Styles\ViewList.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.Setting.config" />
+    <Content Include="Configurations\backupMNL.ConnectionStrings.config" />
+    <Content Include="Configurations\backupMNL.Web.config" />
+    <Content Include="Configurations\backupMNL.Web.Setting.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.Web.Setting.config" />
+    <Content Include="Configurations\UATSIT.Web.Setting.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.ConnectionStrings.config" />
+    <Content Include="Configurations\UATSIT.ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.Web.config" />
+    <Content Include="Configurations\UATSIT.Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Report\LogStatistics\Index.cshtml" />
@@ -1411,6 +1408,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\LOCAL.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\backupMNL.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
