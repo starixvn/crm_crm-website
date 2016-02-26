@@ -985,7 +985,6 @@
     <Content Include="Configurations\dev.Web.Setting.config" />
     <Content Include="Configurations\Local.ConnectionStrings.config" />
     <Content Include="Configurations\Master.ConnectionStrings.config" />
-    <Content Include="Configurations\Master.Web.config" />
     <Content Include="Configurations\Master.Web.Setting.config" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <Content Include="Configurations\PRO.Web.config">
@@ -995,7 +994,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\UAT.Web.config" />
     <Content Include="Configurations\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1414,9 +1412,6 @@
     <Content Include="Configurations\UATSIT.ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\UATSIT.Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Report\LogStatistics\Index.cshtml" />
     <Content Include="Areas\Report\LogStatistics\Styles\logstatistics.less" />
   </ItemGroup>
@@ -1446,6 +1441,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\LOCAL.Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\DEV.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\Master.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\DEV.Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\UAT.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\UATSIT.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\PRO.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
