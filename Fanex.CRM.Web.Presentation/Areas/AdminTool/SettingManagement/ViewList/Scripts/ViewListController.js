@@ -194,8 +194,7 @@
             }
 
             $scope.$apply();
-            $scope.getSettingRelationsParams.MainSetting = null;
-            $scope.getMainSetting();
+            $scope.getSettingRelations();
         };
         angular.element(document).ready(function () {
             registerOptions($scope);
