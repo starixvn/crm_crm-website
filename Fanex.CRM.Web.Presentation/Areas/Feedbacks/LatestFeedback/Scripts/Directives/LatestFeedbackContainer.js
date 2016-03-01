@@ -18,7 +18,7 @@
                 showFooter: false,
                 fullWidth: true,
                 fullHeight: true,
-                gridExpandHeight: 80,
+                gridExpandHeight: 90,
                 showDistinctRow: false,
                 showHighlightRow: false,
                 headerColumnHeight: 29

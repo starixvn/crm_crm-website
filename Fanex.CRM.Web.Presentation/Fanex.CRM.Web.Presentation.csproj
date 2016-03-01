@@ -261,7 +261,6 @@
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateController.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateService.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListContainer.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController.js" />

@@ -39,7 +39,7 @@
                 autoFixFrozenRowHeight: true,
                 fullWidth: true,
                 fullHeight: true,
-                gridExpandHeight: 190,
+                gridExpandHeight: 210,
                 showDistinctRow: false,
                 showHighlightRow: false,
                 headerColumnHeight: 29,

@@ -13,9 +13,7 @@
         };
 
         function getGridHeight() {
-            return cachedData.scope.isShowFilter ?
-220 + crmConstants.MarginBottomPage :
-50 + crmConstants.MarginBottomPage;
+            return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
         }
 
         function getCustomerLanguages(customer) {
