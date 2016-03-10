@@ -156,9 +156,6 @@
   <data name="Delete_Feedback_Subject_Template" xml:space="preserve">
     <value>Delete Feedback Subject Template</value>
   </data>
-  <data name="Delete_Setting" xml:space="preserve">
-    <value>Delete Setting</value>
-  </data>
   <data name="Display_Order" xml:space="preserve">
     <value>Display Order</value>
   </data>
@@ -244,9 +241,6 @@
   </data>
   <data name="SettingManagement_DeleteSettingSuccess" xml:space="preserve">
     <value>Delete setting successful!</value>
-  </data>
-  <data name="SettingManagement_DeleteSetting_Message" xml:space="preserve">
-    <value>Are you sure you want to delete Setting {0} {1}?</value>
   </data>
   <data name="SettingManagement_EditSetting_EditSuccess" xml:space="preserve">
     <value>Update Setting successfully!</value>

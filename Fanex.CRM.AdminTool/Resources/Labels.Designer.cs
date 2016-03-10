@@ -169,15 +169,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Setting.
-        /// </summary>
-        public static string Delete_Setting {
-            get {
-                return ResourceManager.GetString("Delete_Setting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Display Order.
         /// </summary>
         public static string Display_Order {
@@ -453,15 +444,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string SettingManagement_DeactiveSetting_Message {
             get {
                 return ResourceManager.GetString("SettingManagement_DeactiveSetting_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete Setting {0} {1}?.
-        /// </summary>
-        public static string SettingManagement_DeleteSetting_Message {
-            get {
-                return ResourceManager.GetString("SettingManagement_DeleteSetting_Message", resourceCulture);
             }
         }
         
