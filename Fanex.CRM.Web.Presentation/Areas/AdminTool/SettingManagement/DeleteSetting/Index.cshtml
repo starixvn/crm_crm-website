@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="row">
-                @string.Format(Labels.SettingManagement_DeleteSetting_Message, Model.SettingType, Model.Value)
+                @ViewBag.Message
             </div>
             <div class="row btn-group">
                 <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="deleteSetting();">@Labels.Ok
@@ -44,7 +44,8 @@
         {
             Id: @Model.Id,
             SettingType: '@Model.SettingType',
-            Value: '@Model.Value'
+            Value: '@Model.Value',
+            IsActive: '@Model.IsActive'
         };
     </script>
 }

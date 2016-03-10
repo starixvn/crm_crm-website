@@ -92,14 +92,16 @@
         };
         $scope.deleteSetting = function (settingInfo) {
             parent.homeManager.CachedData.shouldReloadView = false;
+            var title = settingInfo.IsActive === true ? viewResources.DeactiveSetting : viewResources.ActiveSetting;
             parent.OpenPopup(
                 window.rootUrl + "SettingManagement/OpenDeleteSettingView?" +
                     $.param({
                         settingId: settingInfo.Id,
                         settingType: settingInfo.SettingType,
-                        settingValue: settingInfo.Value
+                        settingValue: settingInfo.Value,
+                        isActive: settingInfo.IsActive
                     }),
-                viewResources.Delete_Setting,
+                title,
                 380,
                 150,
                 true,

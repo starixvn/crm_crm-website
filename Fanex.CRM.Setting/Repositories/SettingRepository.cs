@@ -37,7 +37,8 @@ namespace Fanex.CRM.Setting.Repositories
                             Id = Converter.ToInt(reader["settingid"], 0),
                             SettingType = Converter.ToString2(reader["settingname"]),
                             Value = Converter.ToString2(reader["settingvalue"]),
-                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
+                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0),
+                            IsActive = Converter.ToBool(reader["isactive"])
                         });
                     }
 
