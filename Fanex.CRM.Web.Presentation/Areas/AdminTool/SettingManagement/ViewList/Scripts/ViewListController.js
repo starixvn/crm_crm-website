@@ -150,8 +150,7 @@
             }
 
             $scope.$apply();
-            $scope.getSettingRelationsParams.MainSetting = null;
-            $scope.getMainSetting();
+            $scope.getSettingRelations();
         };
         $scope.beforeCloseDeleteView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&
@@ -172,8 +171,7 @@
             }
 
             $scope.$apply();
-            $scope.getSettingRelationsParams.MainSetting = null;
-            $scope.getMainSetting();
+            $scope.getSettingRelations();
         };
         $scope.beforeCloseEditView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&

@@ -45,6 +45,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
             param.Add("ip", IP);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
+            param.Add("isactive", OldSetting.IsActive);
             return param;
         }
 
