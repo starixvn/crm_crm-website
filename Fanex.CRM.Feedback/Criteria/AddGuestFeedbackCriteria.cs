@@ -34,6 +34,8 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public Setting Product { get; set; }
 
+        public Setting SubProduct { get; set; }
+
         public Setting Language { get; set; }
 
         public Setting Response { get; set; }
@@ -160,6 +162,7 @@ namespace Fanex.CRM.Feedback.Criteria
             param.Add("maincategoryid", MainCategory.Id);
             param.Add("subcategoryid", SubCategory.Id);
             param.Add("productid", Product.Id);
+            param.Add("subproductid", SubProduct.Id);
             param.Add("bettypeid", BetType.Id);
             param.Add("countryid", Country.Id);
             param.Add("languageid", Language.Id);

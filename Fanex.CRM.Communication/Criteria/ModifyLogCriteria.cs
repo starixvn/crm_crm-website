@@ -57,6 +57,9 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "productid")]
         public int ProductId { get; set; }
 
+        [SpParam(SqlParamName = "subproductid")]
+        public int SubProductId { get; set; }
+
         [SpParam(SqlParamName = "bettypeid")]
         public int BetTypeId { get; set; }
 

@@ -456,4 +456,8 @@
   <data name="FromCustomer" xml:space="preserve">
     <value>From {0}</value>
   </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-product</value>
+    <comment>#50691</comment>
+  </data>
 </root>

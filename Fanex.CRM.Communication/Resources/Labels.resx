@@ -327,4 +327,8 @@
   <data name="Communication_Logs_NoUpdatePermission" xml:space="preserve">
     <value>You don't have update permission!</value>
   </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-product</value>
+    <comment>#50691</comment>
+  </data>
 </root>

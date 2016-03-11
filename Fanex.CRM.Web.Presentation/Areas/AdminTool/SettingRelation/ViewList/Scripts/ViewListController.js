@@ -95,7 +95,7 @@
             }
 
             $scope.$apply();
-            $scope.getMainSetting();
+            $scope.getSettingRelations();
         };
         angular.element(document).ready(function () {
             registerOptions($scope);

@@ -955,6 +955,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub-product.
+        /// </summary>
+        internal static string SubProduct {
+            get {
+                return ResourceManager.GetString("SubProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
         internal static string Time {

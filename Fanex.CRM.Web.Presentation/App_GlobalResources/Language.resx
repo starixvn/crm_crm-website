@@ -525,4 +525,8 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Title_Report_RedemptionStatistics" xml:space="preserve">
     <value>CRM System - Redemption Statistics Report</value>
   </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-product</value>
+    <comment>#50691</comment>
+  </data>
 </root>
