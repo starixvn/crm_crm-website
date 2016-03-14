@@ -24,7 +24,7 @@ namespace Fanex.CRM.Setting.Criteria
 
         public override string GetSettingKey()
         {
-            return "Setting_SettingInfo_GetRelationBySettingName";
+            return "Acc_CRM_SettingGetRelationBySettingName";
         }
 
         public override bool IsValid()
