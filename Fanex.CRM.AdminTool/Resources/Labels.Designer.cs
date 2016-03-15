@@ -79,6 +79,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active setting successful!.
+        /// </summary>
+        public static string ActiveSettingSuccessMessage {
+            get {
+                return ResourceManager.GetString("ActiveSettingSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -147,6 +156,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Deactive_Setting {
             get {
                 return ResourceManager.GetString("Deactive_Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactive setting successful!.
+        /// </summary>
+        public static string DeactiveSettingSuccessMessage {
+            get {
+                return ResourceManager.GetString("DeactiveSettingSuccessMessage", resourceCulture);
             }
         }
         
@@ -444,15 +462,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string SettingManagement_DeactiveSetting_Message {
             get {
                 return ResourceManager.GetString("SettingManagement_DeactiveSetting_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete setting successful!.
-        /// </summary>
-        public static string SettingManagement_DeleteSettingSuccess {
-            get {
-                return ResourceManager.GetString("SettingManagement_DeleteSettingSuccess", resourceCulture);
             }
         }
         

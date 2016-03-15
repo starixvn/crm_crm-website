@@ -121,6 +121,10 @@
     <value>Active</value>
     <comment>#50270</comment>
   </data>
+  <data name="ActiveSettingSuccessMessage" xml:space="preserve">
+    <value>Active setting successful!</value>
+    <comment>#50270</comment>
+  </data>
   <data name="Active_Setting" xml:space="preserve">
     <value>Active Setting</value>
     <comment>#50270</comment>
@@ -145,6 +149,10 @@
   </data>
   <data name="Confirm_Ignore_InsertTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="DeactiveSettingSuccessMessage" xml:space="preserve">
+    <value>Deactive setting successful!</value>
+    <comment>#50270</comment>
   </data>
   <data name="Deactive_Setting" xml:space="preserve">
     <value>Deactive Setting</value>
@@ -238,9 +246,6 @@
   <data name="SettingManagement_DeactiveSetting_Message" xml:space="preserve">
     <value>Are you sure you want to deactive Setting {0} {1}?</value>
     <comment>#50270</comment>
-  </data>
-  <data name="SettingManagement_DeleteSettingSuccess" xml:space="preserve">
-    <value>Delete setting successful!</value>
   </data>
   <data name="SettingManagement_EditSetting_EditSuccess" xml:space="preserve">
     <value>Update Setting successfully!</value>

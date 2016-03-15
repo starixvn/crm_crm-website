@@ -98,7 +98,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
             if (result.Code == ErrorCodeConstants.NoneError)
             {
-                result.Message = Labels.SettingManagement_DeleteSettingSuccess;
+                result.Message = criteria.OldSetting.IsActive ?
+                    Labels.DeactiveSettingSuccessMessage : Labels.ActiveSettingSuccessMessage;
                 _settingService.ClearCache();
             }
 
