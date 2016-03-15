@@ -82,8 +82,45 @@ namespace Fanex.CRM.Feedback.Services
         }
 
         public CustomerFeedback GetFeedbackById(GetFeedbackByIdCriteria criteria)
+        {           
+            var feedback = _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
+
+            UpdateSettingNameForFeedback(feedback);
+
+            return feedback;
+        }
+
+        private void UpdateSettingNameForFeedback(CustomerFeedback feedback)
         {
-            return _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
+            var settings = _settingService.GetAllSettings();
+            var settingTypes = settings.Select(s => s.SettingType).Distinct();
+
+            feedback.CustomerInfo.Title.Name = settings.First(s => s.Id == feedback.CustomerInfo.Title.Id).Value;
+
+            feedback.CustomerInfo.SiteSetting.Name = settings.First(s => s.Id == feedback.CustomerInfo.SiteSetting.Id).Value;
+            feedback.CustomerInfo.SiteSetting.AliasName = settings.First(s => s.Id == feedback.CustomerInfo.SiteSetting.Id).AliasName;
+
+            var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
+            feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? null : licenseeType.Value;
+
+            var communication = settings.FirstOrDefault(s => s.Id == feedback.Communication.Id);
+            feedback.Communication.Name = communication == null ? null : communication.Value;
+
+            var product = settings.FirstOrDefault(s => s.Id == feedback.Product.Id);
+            feedback.Product.Name = product == null ? null : product.Value;
+
+            var language = settings.FirstOrDefault(s => s.Id == feedback.Language.Id);
+            feedback.Language.Name = language == null ? null : language.Value;
+
+            var bettype = settings.FirstOrDefault(s => s.Id == feedback.BetType.Id);
+            feedback.BetType.Name = bettype == null ? null : bettype.Value;           
+
+            feedback.Response.Name = settings.First(s => s.Id == feedback.Response.Id).Value;
+            feedback.Category.Name = settings.First(s => s.Id == feedback.Category.Id).Value;
+            feedback.Status.Name = settings.First(s => s.Id == feedback.Status.Id).Value;
+            feedback.Extension.Name = settings.First(s => s.Id == feedback.Extension.Id).Value;
+            feedback.Role.Name = settings.First(s => s.Id == feedback.Role.Id).Value;
+            feedback.SubCategory.Name = settings.First(s => s.Id == feedback.SubCategory.Id).Value;                      
         }
 
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)

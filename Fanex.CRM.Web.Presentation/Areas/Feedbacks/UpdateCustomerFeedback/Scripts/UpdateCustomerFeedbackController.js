@@ -206,14 +206,11 @@
                             }
                         });
 
-                        angular.forEach($scope.settings.Categories, function (category, index) {
-                            /* jshint unused: false */
-                            if (category.Id === $scope.feedback.Category.Id) {
-                                $scope.subcategories = category.ChildSettings;
-                            }
-                        });
+                        $scope.getSubcategories();
 
                         $scope.initRelatedCustomer();
+
+                        $scope.updateAllSettingsForFeedback();
 
                         $uiBlockerService.unblockUI();
                     },
@@ -226,6 +223,65 @@
             });
         };
 
+        $scope.getSubcategories = function () {
+            angular.forEach($scope.settings.Categories, function (category, index) {
+                /* jshint unused: false */
+                if (category.Id === $scope.feedback.Category.Id) {
+                    $scope.subcategories = category.ChildSettings;
+                }
+            });
+        };
+
+        $scope.updateAllSettingsForFeedback = function () {
+            $scope.updateFeedbackSetting($scope.feedback.Extension, $scope.settings.Extensions);
+            $scope.updateFeedbackSetting($scope.feedback.Communication, $scope.settings.Communications);
+
+            if (!$scope.hasSetting($scope.feedback.Category.Id, $scope.settings.Categories)) {
+                $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);
+                $scope.getSubcategories();
+            }
+            
+            $scope.updateFeedbackSetting($scope.feedback.SubCategory, $scope.getSubCategoriesByCategory($scope.feedback.Category.Id));
+            $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
+            $scope.updateFeedbackSetting($scope.feedback.BetType, $scope.bettypes);
+            $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
+            $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
+            $scope.updateFeedbackSetting($scope.feedback.Role, $scope.settings.Roles);
+            $scope.updateFeedbackSetting($scope.feedback.Response, $scope.settings.Responses);
+
+            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
+            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
+        };
+
+        $scope.updateFeedbackSetting = function (setting, dataList) {
+            if (!$scope.hasSetting(setting.Id, dataList)) {
+                dataList.push({
+                    Id: setting.Id,
+                    Name: setting.Name,
+                    Value: setting.Name
+                });
+            }
+        };
+
+        $scope.hasSetting = function (settingId, dataList) {
+            for (var i = 0; i < dataList.length; i++) {
+                if (settingId == dataList[i].Id) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        $scope.getSubCategoriesByCategory = function (categoryId) {
+            var categories = $scope.settings.Categories;
+            for (var i = 0; i < categories.length; i++) {
+                if ($scope.hasSetting(categoryId, categories)) {
+                    return categories[i].ChildSettings;
+                }
+            }
+        }
+       
         $scope.categoryChanged = function () {
             $scope.subcategories = $scope.feedback.Category.ChildSettings;
             if ($scope.subcategories.length === 0) {
