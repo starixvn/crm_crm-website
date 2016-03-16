@@ -101,8 +101,8 @@ namespace Fanex.CRM.Communication.Services
             var product = settings.FirstOrDefault(s => s.Id == log.Product.Id);
             log.Product.Name = product == null ? null : product.Value;
 
-            var language = settings.FirstOrDefault(s => s.Id == log.LanguageId);
-            //log.Language.Name = language == null ? null : language.Value;
+            var language = settings.FirstOrDefault(s => s.Id == log.Language.Id);
+            log.Language.Name = language == null ? null : language.Value;
 
             var bettype = settings.FirstOrDefault(s => s.Id == log.BetType.Id);
             log.BetType.Name = bettype == null ? null : bettype.Value;

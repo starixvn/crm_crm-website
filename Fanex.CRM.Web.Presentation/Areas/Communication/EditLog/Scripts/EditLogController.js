@@ -240,7 +240,7 @@
         };
         $scope.updateSelectedLanguage = function (languageId) {
             languageId = parseInt(languageId);
-            $scope.communicationLog.LanguageId = languageId;
+            $scope.communicationLog.Language.Id = languageId;
             $scope.$apply();
             $scope.updateChangeFlag();
         };
@@ -470,7 +470,7 @@
                 FeedbackId: $scope.communicationLog.RunningNumber,
                 CustomerId: $scope.communicationLog.CustomerId,
                 RelatedCustomerId: relatedCustomer,
-                LanguageId: $scope.communicationLog.LanguageId,
+                LanguageId: $scope.communicationLog.Language.Id,
                 CountryId: $scope.communicationLog.Country.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -533,7 +533,7 @@
             if ($scope.communicationLog.RunningNumber !== $scope.oldCommunicationLog.RunningNumber ||
             $scope.communicationLog.CustomerId !== $scope.oldCommunicationLog.CustomerId ||
             $scope.communicationLog.RelatedCustomerId !== $scope.oldCommunicationLog.RelatedCustomerId ||
-            $scope.communicationLog.LanguageId !== $scope.oldCommunicationLog.LanguageId ||
+            $scope.communicationLog.Language.Id !== $scope.oldCommunicationLog.Language.Id ||
             $scope.communicationLog.Country.Id !== $scope.oldCommunicationLog.Country.Id ||
             $scope.communicationLog.LicenseeType.Id !== $scope.oldCommunicationLog.LicenseeType.Id ||
 
@@ -686,7 +686,7 @@
             $scope.updateLogSetting($scope.communicationLog.Product, settings.ProductList);
             $scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.ProductList, $scope.communicationLog.Product.Id);
 
-            //$scope.updateLogSetting($scope.communicationLog.Language, settings.Languages);
+            $scope.updateLogSetting($scope.communicationLog.Language, settings.LanguageList);
             $scope.updateLogSetting($scope.communicationLog.Status, settings.StatusList);
             $scope.updateLogSetting($scope.communicationLog.RoleInfo, settings.RoleList);
             $scope.updateLogSetting($scope.communicationLog.Response, settings.ResponseList);

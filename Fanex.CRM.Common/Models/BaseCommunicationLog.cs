@@ -52,7 +52,7 @@ namespace Fanex.CRM.Common.Models
 
         public Setting CommunicationTool { get; set; }
 
-        public int LanguageId { get; set; }
+        public Setting Language { get; set; }
 
         public Setting Product { get; set; }
 

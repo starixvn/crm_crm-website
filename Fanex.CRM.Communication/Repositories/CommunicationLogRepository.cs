@@ -171,7 +171,10 @@ namespace Fanex.CRM.Communication.Repositories
                 {
                     Id = Converter.ToInt(reader["CommunicationID"])
                 },
-                LanguageId = Converter.ToInt(reader["LanguageID"]),
+                Language = new Setting
+                {
+                    Id = Converter.ToInt(reader["LanguageID"])
+                },
                 Product = new Setting
                 {
                     Id = Converter.ToInt(reader["ProductID"])
