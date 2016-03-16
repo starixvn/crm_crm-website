@@ -118,12 +118,12 @@ namespace Fanex.CRM.Feedback.Services
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.GetAllMainCategories();
+            var categoies = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
                 {
-                    categoryHash.Add(category.Id, category.Name);
+                    categoryHash.Add(category.Id, category.Value);
                 }
 
                 foreach (var subcategory in category.ChildSettings)

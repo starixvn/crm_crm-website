@@ -38,6 +38,8 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Setting> GetAllMainCategories();
 
+        IEnumerable<Setting> GetAllMainCategoriesFromAllSettings();
+
         IEnumerable<Setting> GetAllProducts();
 
         IEnumerable<Setting> GetAllStatuses(int statusType);

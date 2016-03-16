@@ -95,10 +95,12 @@ namespace Fanex.CRM.Feedback.Services
             var settings = _settingService.GetAllSettings();
             var settingTypes = settings.Select(s => s.SettingType).Distinct();
 
-            feedback.CustomerInfo.Title.Name = settings.First(s => s.Id == feedback.CustomerInfo.Title.Id).Value;
+            var title = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.Title.Id);
+            feedback.CustomerInfo.Title.Name = title == null ? null : title.Value;
 
-            feedback.CustomerInfo.SiteSetting.Name = settings.First(s => s.Id == feedback.CustomerInfo.SiteSetting.Id).Value;
-            feedback.CustomerInfo.SiteSetting.AliasName = settings.First(s => s.Id == feedback.CustomerInfo.SiteSetting.Id).AliasName;
+            var site = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.SiteSetting.Id);
+            feedback.CustomerInfo.SiteSetting.Name = site == null ? null : site.Value;
+            feedback.CustomerInfo.SiteSetting.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
             feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? null : licenseeType.Value;

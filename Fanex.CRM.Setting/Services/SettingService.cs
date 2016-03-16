@@ -40,6 +40,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllExtensionSessionKey = "Fanex.CRM.Setting.GetAllExtensionSessionKey";
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
         public const string GetAllMainCategorySessionKey = "Fanex.CRM.Setting.GetAllMainCategorySessionKey";
+        public const string GetAllMainCategoryFromAllSettingsSessionKey = "Fanex.CRM.Setting.GetAllMainCategoryFromAllSettingsSessionKey";
         public const string GetAllProductSessionKey = "Fanex.CRM.Setting.GetAllProductSessionKey";
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
         public const string GetAllStatusCommunicationTool = "Fanex.CRM.Setting.GetAllStatusCommunicationToolSessionKey";
@@ -284,6 +285,26 @@ namespace Fanex.CRM.Setting.Services
             }
 
             CacheService.Set(GetAllMainCategorySessionKey, mainCategories);
+            return mainCategories;
+        }
+
+        public IEnumerable<Setting> GetAllMainCategoriesFromAllSettings()
+        {
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllMainCategoryFromAllSettingsSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var mainCategories = GetAllSettings().Where(s => s.SettingType.Equals(SettingTypeConstants.MainCategory));
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+
+            foreach (var category in mainCategories)
+            {
+                category.ChildSettings = subCategories.Where(x => x.ParentId == category.Id).OrderBy(s => s.DisplayOrder).ToList();
+            }
+
+            CacheService.Set(GetAllMainCategoryFromAllSettingsSessionKey, mainCategories);
             return mainCategories;
         }
 

@@ -199,12 +199,7 @@
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
 
-                        angular.forEach($scope.settings.Products, function (product, index) {
-                            /* jshint unused: false */
-                            if (product.Id === $scope.feedback.Product.Id) {
-                                $scope.bettypes = product.ChildSettings;
-                            }
-                        });
+                        $scope.getBettypes();
 
                         $scope.getSubcategories();
 
@@ -223,6 +218,15 @@
             });
         };
 
+        $scope.getBettypes = function () {
+            angular.forEach($scope.settings.Products, function (product, index) {
+                /* jshint unused: false */
+                if (product.Id === $scope.feedback.Product.Id) {
+                    $scope.bettypes = product.ChildSettings;
+                }
+            });
+        };
+
         $scope.getSubcategories = function () {
             angular.forEach($scope.settings.Categories, function (category, index) {
                 /* jshint unused: false */
@@ -236,14 +240,14 @@
             $scope.updateFeedbackSetting($scope.feedback.Extension, $scope.settings.Extensions);
             $scope.updateFeedbackSetting($scope.feedback.Communication, $scope.settings.Communications);
 
-            if (!$scope.hasSetting($scope.feedback.Category.Id, $scope.settings.Categories)) {
-                $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);
-                $scope.getSubcategories();
-            }
-            
+            $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
             $scope.updateFeedbackSetting($scope.feedback.SubCategory, $scope.getSubCategoriesByCategory($scope.feedback.Category.Id));
+            $scope.getSubcategories();
+
             $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
-            $scope.updateFeedbackSetting($scope.feedback.BetType, $scope.bettypes);
+            $scope.updateFeedbackSetting($scope.feedback.BetType, $scope.getBetTypesByProduct($scope.feedback.Product.Id));
+            $scope.getBettypes();
+
             $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
             $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
             $scope.updateFeedbackSetting($scope.feedback.Role, $scope.settings.Roles);
@@ -276,8 +280,23 @@
         $scope.getSubCategoriesByCategory = function (categoryId) {
             var categories = $scope.settings.Categories;
             for (var i = 0; i < categories.length; i++) {
-                if ($scope.hasSetting(categoryId, categories)) {
+                if (categoryId === categories[i].Id) {
+                    var childSettings = categories[i].ChildSettings;
+                    categories[i].ChildSettings = childSettings ? childSettings : [];
+
                     return categories[i].ChildSettings;
+                }
+            }
+        }
+
+        $scope.getBetTypesByProduct = function (productId) {
+            var products = $scope.settings.Products;
+            for (var i = 0; i < products.length; i++) {
+                if (productId === products[i].Id) {
+                    var bettypes = products[i].ChildSettings;
+                    products[i].ChildSettings = bettypes ? bettypes : [];
+
+                    return products[i].ChildSettings;
                 }
             }
         }
