@@ -93,7 +93,6 @@ namespace Fanex.CRM.Feedback.Services
         private void UpdateSettingNameForFeedback(CustomerFeedback feedback)
         {
             var settings = _settingService.GetAllSettings();
-            var settingTypes = settings.Select(s => s.SettingType).Distinct();
 
             var title = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.Title.Id);
             feedback.CustomerInfo.Title.Name = title == null ? null : title.Value;
