@@ -199,13 +199,13 @@
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
 
+                        $scope.updateAllSettingsForFeedback();
+
                         $scope.getBettypes();
 
                         $scope.getSubcategories();
 
-                        $scope.initRelatedCustomer();
-
-                        $scope.updateAllSettingsForFeedback();
+                        $scope.initRelatedCustomer();                       
 
                         $uiBlockerService.unblockUI();
                     },
@@ -241,12 +241,10 @@
             $scope.updateFeedbackSetting($scope.feedback.Communication, $scope.settings.Communications);
 
             $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
-            $scope.updateFeedbackSetting($scope.feedback.SubCategory, $scope.getSubCategoriesByCategory($scope.feedback.Category.Id));
-            $scope.getSubcategories();
+            $scope.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
 
             $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
-            $scope.updateFeedbackSetting($scope.feedback.BetType, $scope.getBetTypesByProduct($scope.feedback.Product.Id));
-            $scope.getBettypes();
+            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.settings.Products, $scope.feedback.Product.Id);
 
             $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
             $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
@@ -277,26 +275,24 @@
             return false;
         };
 
-        $scope.getSubCategoriesByCategory = function (categoryId) {
-            var categories = $scope.settings.Categories;
-            for (var i = 0; i < categories.length; i++) {
-                if (categoryId === categories[i].Id) {
-                    var childSettings = categories[i].ChildSettings;
-                    categories[i].ChildSettings = childSettings ? childSettings : [];
+        $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
+            for (var i = 0; i < parentList.length; i++) {
+                var parent = parentList[i];
+                if (parentId === parent.Id) {
+                    if (!parent.ChildSettings) {
+                        parent.ChildSettings = [];
+                    }
 
-                    return categories[i].ChildSettings;
-                }
-            }
-        }
+                    var childSettings = parent.ChildSettings;
 
-        $scope.getBetTypesByProduct = function (productId) {
-            var products = $scope.settings.Products;
-            for (var i = 0; i < products.length; i++) {
-                if (productId === products[i].Id) {
-                    var bettypes = products[i].ChildSettings;
-                    products[i].ChildSettings = bettypes ? bettypes : [];
+                    if (!$scope.hasSetting(setting.Id, childSettings)) {
+                        childSettings.push({
+                            Id: setting.Id,
+                            Name: setting.Name
+                        });
 
-                    return products[i].ChildSettings;
+                        break;
+                    }
                 }
             }
         }
