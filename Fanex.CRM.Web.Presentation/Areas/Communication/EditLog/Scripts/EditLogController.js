@@ -681,7 +681,7 @@
             $scope.updateLogSetting($scope.communicationLog.CommunicationTool, settings.CommunicationToolList);
 
             $scope.updateLogSetting($scope.communicationLog.MainCategory, settings.MainCategoryList);
-            $scope.updateLogSetting($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
+            $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
 
             $scope.updateLogSetting($scope.communicationLog.Product, settings.ProductList);
             $scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.ProductList, $scope.communicationLog.Product.Id);
@@ -734,7 +734,7 @@
                     }
                 }
             }
-        }
+        };
 
         $scope.getReviewedInfo = function () {
             return sharedScriptManager.stringFormat(

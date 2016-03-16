@@ -295,7 +295,7 @@
                     }
                 }
             }
-        }
+        };
        
         $scope.categoryChanged = function () {
             $scope.subcategories = $scope.feedback.Category.ChildSettings;

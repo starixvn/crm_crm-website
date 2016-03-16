@@ -100,7 +100,7 @@
             $scope.languageOptions = {
                 DataList: [],
                 OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.LanguageId
+                SelectedId: $scope.communicationLog.Language.Id
             };
             $scope.betTypeOptions = {
                 DataList: [],
@@ -262,6 +262,8 @@
             .then(function (data) {
                 var allSetting = data.Result;
 
+                $scope.updateAllSettingsForLog(allSetting);
+
                 $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
@@ -292,6 +294,67 @@
                 $scope.completedLoadFilterInfo();
             });
         };
+
+        $scope.updateAllSettingsForLog = function (settings) {
+            $scope.updateLogSetting($scope.communicationLog.Extension, settings.ExtensionList);
+            $scope.updateLogSetting($scope.communicationLog.CommunicationTool, settings.CommunicationToolList);
+
+            $scope.updateLogSetting($scope.communicationLog.MainCategory, settings.MainCategoryList);
+            $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
+
+            $scope.updateLogSetting($scope.communicationLog.Product, settings.ProductList);
+            $scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.ProductList, $scope.communicationLog.Product.Id);
+
+            $scope.updateLogSetting($scope.communicationLog.Language, settings.LanguageList);
+            $scope.updateLogSetting($scope.communicationLog.Status, settings.StatusList);
+            $scope.updateLogSetting($scope.communicationLog.RoleInfo, settings.RoleList);
+            $scope.updateLogSetting($scope.communicationLog.Response, settings.ResponseList);
+
+            $scope.updateLogSetting($scope.communicationLog.LicenseeType, settings.LicenseeType);
+        };
+
+        $scope.updateLogSetting = function (setting, dataList) {
+            if (!$scope.hasSetting(setting.Id, dataList)) {
+                dataList.push({
+                    Id: setting.Id,
+                    Name: setting.Name,
+                    Value: setting.Name
+                });
+            }
+        };
+
+        $scope.hasSetting = function (settingId, dataList) {
+            for (var i = 0; i < dataList.length; i++) {
+                if (settingId == dataList[i].Id) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
+            for (var i = 0; i < parentList.length; i++) {
+                var parent = parentList[i];
+                if (parentId === parent.Id) {
+                    if (!parent.ChildSettings) {
+                        parent.ChildSettings = [];
+                    }
+
+                    var childSettings = parent.ChildSettings;
+
+                    if (!$scope.hasSetting(setting.Id, childSettings)) {
+                        childSettings.push({
+                            Id: setting.Id,
+                            Name: setting.Name
+                        });
+
+                        break;
+                    }
+                }
+            }
+        };
+
         $scope.getReviewedInfo = function () {
             return sharedScriptManager.stringFormat(
             viewResources.ReviewedInformation,
