@@ -20,6 +20,20 @@
         dynamicReportRegister.registerDefaultFocus();
         dynamicReportRegister.registerDownloadFile();
         dynamicReportRegister.registerSubjectAutoComplete();
+
+        var parentProductRegisterOptions = {
+            PlugInName: 'dropdownParentProduct',
+            OptionName: 'parentProductOptions',
+            PickerId: 'parentProduct',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('report-dynamicreport-application'), parentProductRegisterOptions);
     }
 
     dynamicReportRegisterPicker();

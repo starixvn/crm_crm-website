@@ -112,6 +112,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return products;
         }
 
+        public IEnumerable<Setting> GetAllParentProducts()
+        {
+            return _serviceSetting.GetAllParentProducts();
+        }
+
         public IEnumerable<SiteInfo> GetAllSites()
         {
             return _serviceSetting.GetAllSites();

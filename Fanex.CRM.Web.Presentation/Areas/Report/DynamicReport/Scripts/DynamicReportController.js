@@ -28,6 +28,10 @@
         $scope.toMonthOptions = null;
         $scope.fromYearOptions = null;
         $scope.toYearOptions = null;
+        $scope.parentProductOptions = {
+            DataList: [],
+            OnChangeEvent: null
+        };
         $scope.productOptions = null;
         $scope.siteOptions = null;
         $scope.statusOptions = null;
@@ -257,6 +261,7 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.reportTypeOptions.DataList = allSetting.PeriodTypeList;
+                $scope.parentProductOptions.DataList = allSetting.ParentProductList;
                 $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;

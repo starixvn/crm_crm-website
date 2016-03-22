@@ -29,6 +29,20 @@
         addGuestFeedbackRegister.registerDefaultFocus();
         addGuestFeedbackRegister.registerLicenseeTypePicker();
 
+        var parentProductRegisterOptions = {
+            PlugInName: 'dropdownParentProduct',
+            OptionName: 'parentProductOptions',
+            PickerId: 'parentProduct',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('feedbacks-addguestfeedback-application'), parentProductRegisterOptions);
+
         var birthdayRegisterParams = {
             PlugInName: 'datePickerContainer',
             OptionName: 'birthdayOptions',
