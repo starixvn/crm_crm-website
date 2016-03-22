@@ -114,18 +114,18 @@
                             @Labels.Product
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-product data-ng-model="productList">
-                        <select id="product">
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-parent-product data-ng-model="parentProductList">
+                        <select id="parentProduct">
                         </select>
                     </div>
+
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                        <label for="betType">
-                            @Labels.Bet_Type
+                        <label for="subProduct">
+                            @Labels.SubProduct
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-bet-type data-ng-model="betTypeList">
-                        <select id="betType">
-                        </select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-sub-product data-ng-model="productList">
+                        <select id="subProduct"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -137,13 +137,12 @@
                         </select>
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                        <label for="site">
-                            @Labels.Site
+                        <label for="betType">
+                            @Labels.Bet_Type
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
-                        <select id="site">
-                        </select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-bet-type data-ng-model="betTypeList">
+                        <select id="betType"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -155,12 +154,12 @@
                         </select>
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                        <label for="response">
-                            @Labels.Response</label>
+                        <label for="site">
+                            @Labels.Site
+                        </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                        <select id="response">
-                        </select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
+                        <select id="site"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -170,6 +169,15 @@
                     <div class="col-xs-3 col-sm-3 col-md-3 licensee-type-picker-container" data-ng-model="licenseeTypeOptions.DataList">
                         <select id="licensee-type">
                         </select>
+                    </div>
+
+                    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                        <label for="response">
+                            @Labels.Response
+                        </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                        <select id="response"></select>
                     </div>
                 </div>
                 <div class="row row-item">

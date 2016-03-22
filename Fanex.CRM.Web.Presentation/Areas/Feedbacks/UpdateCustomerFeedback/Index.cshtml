@@ -328,31 +328,30 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlproduct">@Labels.Product</label>
+                                    <label for="ddlparentProduct">@Labels.Product</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlproduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.Products track by s.Id"
-                                        data-ng-change="productChanged()">
+                                    <select id="ddlparentProduct" tabindex="66" data-ng-model="feedback.ParentProduct" data-ng-options="s.Value for s in settings.ParentProducts track by s.Id"
+                                        data-ng-change="parentProductChanged()">
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddllanguage">@Labels.Language</label>
-                                    @Html.Raw(Labels.RequiredFieldTemplate)
+                                    <label for="ddlcountry">@Labels.Country</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddllanguage" tabindex="69" data-ng-model="feedback.Language" data-ng-options="s.Name for s in settings.Languages track by s.Id">
-                                    </select>
+                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settings.Countries track by s.Id"></select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Labels.Response</label>
+                                    <label for="ddlrole">@Labels.Role</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id">
-                                    </select>
+                                    <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settings.Roles track by s.Id"></select>
                                 </div>
                             </div>
                         </div>
@@ -379,20 +378,30 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlbettype">@Labels.BetType</label>
+                                    <label for="ddlproduct">@Labels.SubProduct</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlbettype" tabindex="67" data-ng-model="feedback.BetType" data-ng-options="s.Name for s in bettypes track by s.Id">
-                                    </select>
+                                    <select id="ddlproduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.Products track by s.Id"
+                                            data-ng-change="productChanged()"></select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlstatus">@Labels.Status</label>
+                                    <label for="ddllanguage">@Labels.Language</label>
+                                    @Html.Raw(Labels.RequiredFieldTemplate)
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id">
-                                    </select>
+                                    <select id="ddllanguage" tabindex="69" data-ng-model="feedback.Language" data-ng-options="s.Name for s in settings.Languages track by s.Id"></select>
+                                </div>
+                            </div>
+
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Labels.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
                                 </div>
                             </div>
                         </div>
@@ -418,20 +427,19 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlcountry">@Labels.Country</label>
+                                    <label for="ddlbettype">@Labels.BetType</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settings.Countries track by s.Id">
-                                    </select>
+                                    <select id="ddlbettype" tabindex="67" data-ng-model="feedback.BetType" data-ng-options="s.Name for s in bettypes track by s.Id"></select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlrole">@Labels.Role</label>
+                                    <label for="ddlstatus">@Labels.Status</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settings.Roles track by s.Id">
-                                    </select>
+                                    <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id"></select>
                                 </div>
                             </div>
                         </div>

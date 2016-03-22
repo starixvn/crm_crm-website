@@ -1,9 +1,9 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-insert-application').directive('dropdownProduct', function () {
+    angular.module('communicationlog-insert-application').directive('dropdownSubProduct', function () {
         function renderDropdown(scope, element) {
             if (scope.extensionList) {
-                var dropdown = element.find("#product");
+                var dropdown = element.find("#subProduct");
                 dropdown.empty();
                 var productListLength = scope.productList.length;
                 for (var i = 0; i < productListLength; i++) {

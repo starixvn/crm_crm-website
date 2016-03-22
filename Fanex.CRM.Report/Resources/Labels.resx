@@ -873,4 +873,8 @@
   <data name="FeedbackDetail" xml:space="preserve">
     <value>Feedback Detail</value>
   </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-product</value>
+    <comment>#50691</comment>
+  </data>
 </root>

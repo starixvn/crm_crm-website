@@ -1933,6 +1933,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub-product.
+        /// </summary>
+        public static string SubProduct {
+            get {
+                return ResourceManager.GetString("SubProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sub Total.
         /// </summary>
         public static string SubTotal {

@@ -7,8 +7,8 @@
             var productRegisterParams = {
                 PlugInName: 'productPickerContainer',
                 OptionName: 'productOptions',
-                PickerId: 'product',
-                RestrictType: 'C',
+                PickerId: 'subProduct',
+                RestrictType: 'A',
 
                 DataPropertyName: {
                     Id: "Id",

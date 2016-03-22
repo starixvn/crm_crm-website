@@ -346,30 +346,30 @@
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlproduct">@Language.Product</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 product-picker-container" data-ng-model="productOptions.DataList">
-                                    <select id="product" tabindex="66">
+                                <div class="col-xs-8 col-sm-8 col-md-8 parent-product-picker-container" data-ng-model="parentProductOptions.DataList">
+                                    <select id="parentProduct" tabindex="66">
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddllanguage">@Language._Language</label>
-                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                    <label for="ddlcountry">@Language.country</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 language-picker-container" data-ng-model="languageOptions.DataList">
-                                    <select id="language" tabindex="69">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
+                                    <select id="country" tabindex="68"></select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Language.Response</label>
+                                    <label for="ddlrole">@Language.Role</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
-                                    <select id="response" tabindex="72">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8  role-picker-container" data-ng-model="roleOptions.DataList">
+                                    <select id="role" name="D3" tabindex="71"></select>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-md-4">
                             <div class="row item">
@@ -393,20 +393,29 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="bettype">@Language.BetType</label>
+                                    <label for="ddlproduct">@Language.SubProduct</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
-                                    <select id="bettype" tabindex="67">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8 product-picker-container" data-ng-model="productOptions.DataList">
+                                    <select id="product" tabindex="66"></select>
                                 </div>
                             </div>
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlstatus">@Language.Status</label>
+                                    <label for="ddllanguage">@Language._Language</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
-                                    <select id="status" tabindex="70">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8 language-picker-container" data-ng-model="languageOptions.DataList">
+                                    <select id="language" tabindex="69"></select>
+                                </div>
+                            </div>
+
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Language.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
+                                    <select id="response" tabindex="72"></select>
                                 </div>
                             </div>
                         </div>
@@ -432,22 +441,22 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlcountry">@Language.country</label>
+                                    <label for="bettype">@Language.BetType</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
-                                    <select id="country" tabindex="68">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
+                                    <select id="bettype" tabindex="67"></select>
                                 </div>
                             </div>
+                            
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlrole">@Language.Role</label>
+                                    <label for="ddlstatus">@Language.Status</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8  role-picker-container" data-ng-model="roleOptions.DataList">
-                                    <select id="role" name="D3" tabindex="71">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
+                                    <select id="status" tabindex="70"></select>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="row">
