@@ -77,5 +77,7 @@ namespace Fanex.CRM.Setting.Services
         IEnumerable<Setting> GetMainSettings();
 
         IEnumerable<Station> GetStations();
+
+        IEnumerable<Setting> GetAllParentProducts();
     }
 }

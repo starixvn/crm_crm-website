@@ -359,6 +359,38 @@ namespace Fanex.CRM.Setting.Services
             return allProducts;
         }
 
+        public IEnumerable<Setting> GetAllParentProducts()
+        {
+            var allProducts = new List<Setting>();
+            var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.ParentProduct,
+                ParentId = 0
+            });
+
+            var notApplySetting = new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.Symbol_NotApply
+            };
+
+            allProducts.Add(new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Value = Labels.Symbol_NotApply,
+                ChildSettings = new List<Setting> { notApplySetting }
+            });
+
+            var allBetTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
+
+            foreach (var parentProduct in parentProducts)
+            {
+                allProducts.Add(parentProduct);
+            }
+
+            return allProducts;
+        }
+
         /// <summary>
         /// Gets all status.
         /// </summary>

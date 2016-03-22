@@ -241,6 +241,22 @@
             directiveManager.registerDateTimePicker(angular.module('communicationlog-viewdetailbyid-application'), endTimeRegisterParams);
         }
 
+        function registerParentProductDirective() {
+            var parentProductRegisterOptions = {
+                PlugInName: 'dropdownParentProduct',
+                OptionName: 'parentProductOptions',
+                PickerId: 'parentProduct',
+                RestrictType: 'A',
+
+                DataPropertyName: {
+                    Id: "Id",
+                    Name: "Value"
+                }
+            };
+
+            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), parentProductRegisterOptions);
+        }
+
         registerProductPicker();
         registerSitePicker();
         registerStatusPicker();
@@ -259,6 +275,7 @@
         registerSubjectAutoComplete();
         registerStartTimePicker();
         registerEndTimePicker();
+        registerParentProductDirective();
 
         var viewDetailByIdRegister = new RegisterTemplate(angular.module('communicationlog-viewdetailbyid-application'));
         viewDetailByIdRegister.registerLicenseeTypePicker();

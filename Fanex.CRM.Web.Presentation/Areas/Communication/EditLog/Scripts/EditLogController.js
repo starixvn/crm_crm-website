@@ -24,6 +24,10 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
+        $scope.parentProductOptions = {
+            DataList: [],
+            OnChangeEvent: null
+        };
         $scope.productList = null;
         $scope.betTypeList = null;
         $scope.statusList = null;
@@ -658,6 +662,7 @@
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
+                $scope.parentProductOptions.DataList = allSetting.ParentProductList;
                 $scope.productList = allSetting.ProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;

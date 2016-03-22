@@ -287,7 +287,8 @@ namespace Fanex.CRM.Setting.Repositories
                             Id = Converter.ToInt(reader["BetTypeId"]),
                             Name = Converter.ToString2(reader["Name"]),
                             DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                            IsActive = Converter.ToBool(reader["IsActive"])
+                            IsActive = Converter.ToBool(reader["IsActive"]),
+                            ParentId = Converter.ToInt(reader["ProductID"])
                         };
 
                         allBetType.Add(setting);

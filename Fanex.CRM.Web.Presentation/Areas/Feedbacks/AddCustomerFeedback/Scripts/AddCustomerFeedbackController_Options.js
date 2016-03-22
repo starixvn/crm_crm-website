@@ -12,6 +12,10 @@
         $scope.siteOptions = null;
         $scope.birthdayOptions = null;
         $scope.communicationToolOptions = null;
+        $scope.parentProductOptions = {
+            DataList: [],
+            OnChangeEvent: null
+        };
         $scope.productOptions = null;
         $scope.responseOptions = null;
         $scope.languageOptions = null;

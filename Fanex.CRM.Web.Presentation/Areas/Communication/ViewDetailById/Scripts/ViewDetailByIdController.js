@@ -16,6 +16,10 @@
         $scope.hasReviewPermission = hasReviewPermission;
         $scope.IsUpdatingTime = false;
 
+        $scope.parentProductOptions = {
+            DataList: [],
+            OnChangeEvent: null
+        };
         $scope.productOptions = null;
         $scope.siteOptions = null;
         $scope.statusOptions = null;
@@ -264,6 +268,7 @@
 
                 $scope.updateAllSettingsForLog(allSetting);
 
+                $scope.parentProductOptions.DataList = allSetting.ParentProductList;
                 $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;

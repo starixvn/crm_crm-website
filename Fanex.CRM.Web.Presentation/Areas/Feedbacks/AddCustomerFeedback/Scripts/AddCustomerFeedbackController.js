@@ -114,6 +114,7 @@
 
             $scope.titleOptions.DataList = $scope.allSettings.TitleList;
             $scope.communicationToolOptions.DataList = $scope.allSettings.CommunicationToolList;
+            $scope.parentProductOptions.DataList = $scope.allSettings.ParentProductList;
             $scope.productOptions.DataList = $scope.allSettings.ProductList;
             $scope.responseOptions.DataList = $scope.allSettings.ResponseList;
             $scope.languageOptions.DataList = $scope.allSettings.LanguageList;

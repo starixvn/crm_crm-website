@@ -82,6 +82,10 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
+        $scope.parentProductOptions = {
+            DataList: [],
+            OnChangeEvent: null
+        };
         $scope.productList = null;
         $scope.betTypeList = null;
         $scope.statusList = null;
@@ -105,7 +109,7 @@
 
         $scope.isUpdatingTime = false;
         $scope.initController = function () {
-            $scope.getAllSettingForEdit($scope.customerInfo.Id);
+            $scope.getAllSettingForInsert($scope.customerInfo.Id);
             $scope.getNumberOfFeedbackSubjectTemplate();
         };
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
@@ -673,10 +677,10 @@
                 $scope.isSetFocus = true;
             });
         };
-        $scope.getAllSettingForEdit = function (custId) {
+        $scope.getAllSettingForInsert = function (custId) {
             $scope.BlockUI();
             $scope.isLoadedAllSite = false;
-            $insertLogService.getAllSettingForEdit(custId)
+            $insertLogService.getAllSettingForInsert(custId)
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.extensionList = allSetting.ExtensionList;
@@ -684,6 +688,7 @@
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
+                $scope.parentProductOptions.DataList = allSetting.ParentProductList;
                 $scope.productList = allSetting.ProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
