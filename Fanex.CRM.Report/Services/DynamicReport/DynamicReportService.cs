@@ -91,7 +91,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Setting> GetAllProducts()
         {
-            var products = _serviceSetting.GetAllProducts().ToList();
+            var products = _serviceSetting.GetAllSubProducts().ToList();
             var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (notApplyItem == null)
@@ -114,7 +114,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Setting> GetAllParentProducts()
         {
-            return _serviceSetting.GetAllParentProducts();
+            return _serviceSetting.GetAllProducts();
         }
 
         public IEnumerable<SiteInfo> GetAllSites()

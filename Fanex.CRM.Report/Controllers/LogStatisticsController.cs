@@ -48,7 +48,7 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
-            var products = _serviceSetting.GetAllProducts().Select(p => new
+            var products = _serviceSetting.GetAllSubProducts().Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Value

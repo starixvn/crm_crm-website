@@ -71,7 +71,7 @@ namespace Fanex.CRM.Feedback.Services
                 Extensions = _settingService.GetAllExtensions(),
                 Communications = _settingService.GetAllCommunicationTools(),
                 Categories = _settingService.GetAllMainCategories(),
-                Products = _settingService.GetAllProducts(),
+                Products = _settingService.GetAllSubProducts(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusRawData,

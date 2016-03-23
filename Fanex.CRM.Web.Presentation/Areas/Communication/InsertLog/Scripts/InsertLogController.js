@@ -82,11 +82,7 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
-        $scope.parentProductOptions = {
-            DataList: [],
-            OnChangeEvent: null
-        };
-        $scope.productList = null;
+        
         $scope.betTypeList = null;
         $scope.statusList = null;
         $scope.siteList = null;
@@ -161,7 +157,7 @@
             }
 
             $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
-            $scope.betTypeList = $scope.productList[0].ChildSettings;
+            $scope.betTypeList = $scope.subProductOptions.DataList[0].ChildSettings;
 
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
@@ -363,29 +359,16 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedProduct = function (productId) {
-            productId = parseInt(productId);
-            var productInfo;
-            var productListLength = $scope.productList.length;
-            for (var i = 0; i < productListLength; i++) {
-                var product = $scope.productList[i];
-                if (product.Id === productId) {
-                    productInfo = product;
-                    break;
-                }
-            }
-
-            if (productInfo) {
-                $scope.communicationLog.Product = productInfo;
-                $scope.betTypeList = productInfo.ChildSettings;
-                $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
-                $scope.betTypeList[0] :
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.Product = subProduct;
+            $scope.betTypeList = subProduct.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
+            $scope.betTypeList[0] :
                 {
                     Id: crmConstants.Enums.BetType.NotApply
                 };
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
+            $scope.$apply();
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedBetType = function (betTypeId) {
             betTypeId = parseInt(betTypeId);
@@ -688,8 +671,8 @@
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
-                $scope.parentProductOptions.DataList = allSetting.ParentProductList;
-                $scope.productList = allSetting.ProductList;
+                $scope.productOptions.DataList = allSetting.ProductList;
+                $scope.subProductOptions.DataList = allSetting.SubProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
@@ -711,6 +694,7 @@
             });
 
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
+            registerOptions($scope);
             $scope.initController();
             $scope.setFocus();
             hotKeyManager.CachedData.ActiveDocumentManager.push({

@@ -40,7 +40,7 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Setting> GetAllMainCategoriesFromAllSettings();
 
-        IEnumerable<Setting> GetAllProducts();
+        IEnumerable<Setting> GetAllSubProducts();
 
         IEnumerable<Setting> GetAllStatuses(int statusType);
 
@@ -78,6 +78,6 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Station> GetStations();
 
-        IEnumerable<Setting> GetAllParentProducts();
+        IEnumerable<Setting> GetAllProducts();
     }
 }

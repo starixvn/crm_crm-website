@@ -370,6 +370,7 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogApplication.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogOption.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />

@@ -90,7 +90,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllProduct()
         {
-            var allProduct = _settingServiceInstance.GetAllProducts();
+            var allProduct = _settingServiceInstance.GetAllSubProducts();
             var jsonResult = Json(allProduct, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

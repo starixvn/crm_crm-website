@@ -225,8 +225,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
-                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",              
                 "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(

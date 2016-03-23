@@ -86,8 +86,8 @@ namespace Fanex.CRM.Communication.Controllers
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ParentProductList = _serviceSetting.GetAllParentProducts(),
-                ProductList = _serviceSetting.GetAllProducts(),
+                ParentProductList = _serviceSetting.GetAllProducts(),
+                ProductList = _serviceSetting.GetAllSubProducts(),
                 StatusList = statusList,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -109,8 +109,6 @@ namespace Fanex.CRM.Communication.Controllers
         [HttpPost]
         public ActionResult AllSettingForInsert(int custId)
         {
-            var parentProducts = _serviceSetting.GetAllParentProducts();
-
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
@@ -118,8 +116,8 @@ namespace Fanex.CRM.Communication.Controllers
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ParentProductList = _serviceSetting.GetAllParentProducts(),
-                ProductList = _serviceSetting.GetAllProducts(),             
+                ProductList = _serviceSetting.GetAllProducts(),
+                SubProductList = _serviceSetting.GetAllSubProducts(),           
                 StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),

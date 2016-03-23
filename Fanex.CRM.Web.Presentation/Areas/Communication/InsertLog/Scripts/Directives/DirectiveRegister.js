@@ -1,13 +1,16 @@
 ﻿(function () {
+    "use strict";
+
     function registerDirectives() {
-        addParentProductDirective();
+        registerProductDirective();
+        registerSubProductDirective();
     }
 
-    function addParentProductDirective() {
-        var parentProductRegisterOptions = {
-            PlugInName: 'dropdownParentProduct',
-            OptionName: 'parentProductOptions',
-            PickerId: 'parentProduct',
+    function registerProductDirective() {
+        var productRegisterOptions = {
+            PlugInName: 'dropdownProduct',
+            OptionName: 'productOptions',
+            PickerId: 'product',
             RestrictType: 'A',
 
             DataPropertyName: {
@@ -16,7 +19,23 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('communicationlog-insert-application'), parentProductRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('communicationlog-insert-application'), productRegisterOptions);
+    }
+
+    function registerSubProductDirective() {
+        var subProductRegisterOptions = {
+            PlugInName: 'dropdownSubProduct',
+            OptionName: 'subProductOptions',
+            PickerId: 'subProduct',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('communicationlog-insert-application'), subProductRegisterOptions);
     }
 
     registerDirectives();

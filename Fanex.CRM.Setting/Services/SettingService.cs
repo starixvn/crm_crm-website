@@ -41,7 +41,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
         public const string GetAllMainCategorySessionKey = "Fanex.CRM.Setting.GetAllMainCategorySessionKey";
         public const string GetAllMainCategoryFromAllSettingsSessionKey = "Fanex.CRM.Setting.GetAllMainCategoryFromAllSettingsSessionKey";
-        public const string GetAllProductSessionKey = "Fanex.CRM.Setting.GetAllProductSessionKey";
+        public const string GetAllSubProductSessionKey = "Fanex.CRM.Setting.GetAllSubProductSessionKey";
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
         public const string GetAllStatusCommunicationTool = "Fanex.CRM.Setting.GetAllStatusCommunicationToolSessionKey";
         public const string GetAllStatusRedemption = "Fanex.CRM.Setting.GetAllStatusRedemptionSessionKey";
@@ -315,16 +315,16 @@ namespace Fanex.CRM.Setting.Services
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IEnumerable<Setting> GetAllProducts()
+        public IEnumerable<Setting> GetAllSubProducts()
         {
-            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllProductSessionKey);
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllSubProductSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var allProducts = new List<Setting>();
-            var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            var products = new List<Setting>();
+            var subProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Product,
                 ParentId = 0
@@ -336,14 +336,14 @@ namespace Fanex.CRM.Setting.Services
                 Name = Labels.Symbol_NotApply
             };
 
-            allProducts.Add(new Setting
+            products.Add(new Setting
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.Symbol_NotApply,
                 ChildSettings = new List<Setting> { notApplySetting }
             });
 
-            foreach (var data in rawData)
+            foreach (var data in subProducts)
             {
                 data.ChildSettings = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
                 {
@@ -352,16 +352,16 @@ namespace Fanex.CRM.Setting.Services
 
                 data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
                 data.ChildSettings.Insert(0, notApplySetting);
-                allProducts.Add(data);
+                products.Add(data);
             }
 
-            CacheService.Set(GetAllProductSessionKey, allProducts);
-            return allProducts;
+            CacheService.Set(GetAllSubProductSessionKey, products);
+            return products;
         }
 
-        public IEnumerable<Setting> GetAllParentProducts()
+        public IEnumerable<Setting> GetAllProducts()
         {
-            var allProducts = new List<Setting>();
+            var products = new List<Setting>();
             var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.ParentProduct,
@@ -374,7 +374,7 @@ namespace Fanex.CRM.Setting.Services
                 Name = Labels.Symbol_NotApply
             };
 
-            allProducts.Add(new Setting
+            products.Add(new Setting
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.Symbol_NotApply,
@@ -385,10 +385,10 @@ namespace Fanex.CRM.Setting.Services
 
             foreach (var parentProduct in parentProducts)
             {
-                allProducts.Add(parentProduct);
+                products.Add(parentProduct);
             }
 
-            return allProducts;
+            return products;
         }
 
         /// <summary>
