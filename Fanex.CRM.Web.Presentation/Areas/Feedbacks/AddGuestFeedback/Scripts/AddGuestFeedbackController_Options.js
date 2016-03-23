@@ -126,7 +126,7 @@
             $scope.productOptions = {
                 DataList: [],
                 SelectedId: null,
-                OnChangeEvent: null
+                OnChangeEvent: $scope.updateSelectedProduct
             };
             $scope.subProductOptions = {
                 DataList: [],

@@ -299,6 +299,30 @@ namespace Fanex.CRM.Setting.Repositories
             }            
         }
 
+        public IEnumerable<Setting> GetSubProducts(SubProductCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var subProducts = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        subProducts.Add(new Setting()
+                        {
+                            Id = Converter.ToInt(reader["SubProductID"]),
+                            Value = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"]),
+                            ParentId = Converter.ToInt(reader["ProductID"])
+                        });
+                    }
+
+                    return subProducts;
+                }
+            }
+        }
+
         public IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
             return ReadBaseModels(criteria, "CurrencyId", "Currency");

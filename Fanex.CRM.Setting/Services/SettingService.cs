@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Setting.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -22,6 +18,10 @@ namespace Fanex.CRM.Setting.Services
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories;
     using Fanex.CRM.Setting.Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Setting Service.
@@ -77,12 +77,16 @@ namespace Fanex.CRM.Setting.Services
             {
                 case PeriodTypeConstants.Daily:
                     return Labels.Daily;
+
                 case PeriodTypeConstants.Weekly:
                     return Labels.Weekly;
+
                 case PeriodTypeConstants.Monthly:
                     return Labels.Monthly;
+
                 case PeriodTypeConstants.Yearly:
                     return Labels.Yearly;
+
                 default:
                     return string.Empty;
             }
@@ -275,7 +279,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 return cache;
             }
-            
+
             var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
             var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
 
@@ -308,6 +312,43 @@ namespace Fanex.CRM.Setting.Services
             return mainCategories;
         }
 
+        public IEnumerable<Setting> GetAllProducts()
+        {
+            var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.ParentProduct,
+                ParentId = 0
+            }).ToList();
+
+            var notApplySetting = new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.Symbol_NotApply,
+                Value = Labels.Symbol_NotApply
+            };
+
+            parentProducts.Insert(0, new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Value = Labels.Symbol_NotApply
+            });
+
+            var subProducts = GetAllSubProducts();
+
+            foreach (var parentProduct in parentProducts)
+            {
+                var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
+                parentProduct.ChildSettings = subProductByProduct;
+
+                if(parentProduct.Id != SettingConstants.NotApply)
+                {
+                    parentProduct.ChildSettings.Insert(0, notApplySetting);
+                }               
+            }           
+
+            return parentProducts;
+        }
+
         /// <summary>
         /// Gets all product.
         /// </summary>
@@ -324,11 +365,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             var products = new List<Setting>();
-            var subProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-            {
-                SettingName = SettingTypeConstants.Product,
-                ParentId = 0
-            });
+            var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria());
 
             var notApplySetting = new Setting
             {
@@ -343,12 +380,10 @@ namespace Fanex.CRM.Setting.Services
                 ChildSettings = new List<Setting> { notApplySetting }
             });
 
+            var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
             foreach (var data in subProducts)
             {
-                data.ChildSettings = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
-                {
-                    ParentId = data.Id
-                }).ToList();
+                data.ChildSettings = betTypes.Where(s => s.ParentId == data.Id).ToList();
 
                 data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
                 data.ChildSettings.Insert(0, notApplySetting);
@@ -356,38 +391,6 @@ namespace Fanex.CRM.Setting.Services
             }
 
             CacheService.Set(GetAllSubProductSessionKey, products);
-            return products;
-        }
-
-        public IEnumerable<Setting> GetAllProducts()
-        {
-            var products = new List<Setting>();
-            var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-            {
-                SettingName = SettingTypeConstants.ParentProduct,
-                ParentId = 0
-            });
-
-            var notApplySetting = new Setting
-            {
-                Id = SettingConstants.NotApply,
-                Name = Labels.Symbol_NotApply
-            };
-
-            products.Add(new Setting
-            {
-                Id = SettingConstants.NotApply,
-                Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<Setting> { notApplySetting }
-            });
-
-            var allBetTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
-
-            foreach (var parentProduct in parentProducts)
-            {
-                products.Add(parentProduct);
-            }
-
             return products;
         }
 
@@ -553,8 +556,8 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> AllHeadlineType()
         {
-            return new List<Setting>() 
-            { 
+            return new List<Setting>()
+            {
                 new Setting
                 {
                     Id = HeadlineTypeConstants.All,
@@ -652,15 +655,15 @@ namespace Fanex.CRM.Setting.Services
                     var settings = allSettings
                         .Where(x => x.Id == settingRelation.Id)
                         .Select(x => new Setting
-                            {
-                                Id = x.Id,
-                                DisplayOrder = x.DisplayOrder,
-                                Value = x.Value,
-                                SettingType = x.SettingType,
-                                ParentId = parentSetting.Id,
-                                IsSubSetting = true
-                            });
-                    
+                        {
+                            Id = x.Id,
+                            DisplayOrder = x.DisplayOrder,
+                            Value = x.Value,
+                            SettingType = x.SettingType,
+                            ParentId = parentSetting.Id,
+                            IsSubSetting = true
+                        });
+
                     subSettings.AddRange(settings);
                 }
             }
@@ -733,7 +736,7 @@ namespace Fanex.CRM.Setting.Services
                     return settings;
                 }
 
-                var roles = new List<BaseModel> 
+                var roles = new List<BaseModel>
                 {
                     new BaseModel { Id = RoleIdConstants.Member, Name = Labels.Member },
                     new BaseModel { Id = RoleIdConstants.Agent, Name = Labels.Agent },
@@ -747,7 +750,7 @@ namespace Fanex.CRM.Setting.Services
                     Position = roles,
                     Currency = GetAllCurrencies(new GetAllCurrencyCriteria()),
                     Site = GetAllSites().ElementAt(0).ChildSites.Select(s => new BaseModel { Id = s.Id, Name = s.Name }).ToList(),
-                    ProductStatus = new List<BaseModel>() 
+                    ProductStatus = new List<BaseModel>()
                     {
                         new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },
                         new BaseModel { Id = HeadlineProductStatusConstants.Enable, Name = Labels.Enable },

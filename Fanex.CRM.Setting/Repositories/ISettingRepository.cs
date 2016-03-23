@@ -53,5 +53,7 @@ namespace Fanex.CRM.Setting.Repositories
         IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
         IEnumerable<Station> GetStations(GetStationsCriteria criteria);
+
+        IEnumerable<Setting> GetSubProducts(SubProductCriteria criteria);
     }
 }
