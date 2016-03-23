@@ -119,8 +119,8 @@
             $scope.birthdayOptions.IsRerenderPicker = true;
             $scope.titleOptions.DataList = $scope.allSettings.TitleList;
             $scope.communicationToolOptions.DataList = $scope.allSettings.CommunicationToolList;
-            $scope.parentProductOptions.DataList = $scope.allSettings.ParentProductList;
             $scope.productOptions.DataList = $scope.allSettings.ProductList;
+            $scope.subProductOptions.DataList = $scope.allSettings.SubProductList;
             $scope.responseOptions.DataList = $scope.allSettings.ResponseList;
             $scope.languageOptions.DataList = $scope.allSettings.LanguageList;
             $scope.mainCategoryOptions.DataList = $scope.allSettings.MainCategoryList;
@@ -143,7 +143,7 @@
             $scope.solutionOptions.SelectedText = '';
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
-            $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
             $scope.updateSelectedResponse($scope.responseOptions.DataList[0]);
 
             $scope.updateSelectedMainCategory($scope.mainCategoryOptions.DataList[0]);

@@ -10,11 +10,11 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
-    using System;
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Deleted feedback model.
@@ -32,9 +32,9 @@ namespace Fanex.CRM.Feedback.Models
 
         public IEnumerable<Setting> MainCategoryList { get; set; }
 
-        public IEnumerable<Setting> ParentProductList { get; set; }   
-
         public IEnumerable<Setting> ProductList { get; set; }
+
+        public IEnumerable<Setting> SubProductList { get; set; }
 
         public IEnumerable<SiteInfo> SiteList { get; set; }
 

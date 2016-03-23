@@ -36,9 +36,9 @@
             $scope.updateRemarkPrefix();
             $scope.safeApply();
         };
-        $scope.updateSelectedProduct = function (product) {
-            $scope.addCustomerFeedbackParams.Product = product;
-            $scope.betTypeOptions.DataList = product.ChildSettings;
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.addCustomerFeedbackParams.Product = subProduct;
+            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
         };
         $scope.updateSelectedLanguage = function (language) {

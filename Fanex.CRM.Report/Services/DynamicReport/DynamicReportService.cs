@@ -89,14 +89,14 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return types;
         }
 
-        public IEnumerable<Setting> GetAllProducts()
+        public IEnumerable<Setting> GetAllSubProducts()
         {
-            var products = _serviceSetting.GetAllSubProducts().ToList();
-            var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+            var subProducts = _serviceSetting.GetAllSubProducts().ToList();
+            var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (notApplyItem == null)
             {
-                products.Insert(
+                subProducts.Insert(
                     0,
                     new Setting
                 {
@@ -109,12 +109,30 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 notApplyItem.Value = Labels.All;
             }
 
-            return products;
+            return subProducts;
         }
 
-        public IEnumerable<Setting> GetAllParentProducts()
+        public IEnumerable<Setting> GetAllProducts()
         {
-            return _serviceSetting.GetAllProducts();
+            var products = _serviceSetting.GetAllProducts().ToList();
+            var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+
+            if (notApplyItem == null)
+            {
+                products.Insert(
+                    0,
+                    new Setting
+                    {
+                        Id = SettingConstants.NotApply,
+                        Value = Labels.All
+                    });
+            }
+            else
+            {
+                notApplyItem.Value = Labels.All;
+            }
+
+            return products;
         }
 
         public IEnumerable<SiteInfo> GetAllSites()

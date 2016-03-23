@@ -374,6 +374,7 @@
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RelatedCustomer.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdOption.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdApplication.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdController.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdService.js" />
@@ -536,6 +537,7 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportOption.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDetailDirective.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\LicenseeReportDirective.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsApplication.js" />

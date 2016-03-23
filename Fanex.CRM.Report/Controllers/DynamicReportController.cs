@@ -50,8 +50,8 @@ namespace Fanex.CRM.Report.Controllers
             var allSetting = new
             {
                 PeriodTypeList = _dynamicReportService.GetAllPeriodTypes(),
-                ParentProductList = _dynamicReportService.GetAllParentProducts(),
                 ProductList = _dynamicReportService.GetAllProducts(),
+                SubProductList = _dynamicReportService.GetAllSubProducts(),
                 SiteList = _dynamicReportService.GetAllSites(),
                 StatusList = _dynamicReportService.GetAllStatuses(),
                 ResponseList = _dynamicReportService.GetAllResponses(),

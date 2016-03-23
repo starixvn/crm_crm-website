@@ -3,10 +3,26 @@
     /* global directiveManager, RegisterTemplate, crmConstants */
 
     function viewDetailByIdApplicationRegisterPicker() {
-        function registerProductPicker() {
-            var productRegisterParams = {
-                PlugInName: 'productPickerContainer',
+        function registerProductDirective() {
+            var productRegisterOptions = {
+                PlugInName: 'dropdownProduct',
                 OptionName: 'productOptions',
+                PickerId: 'product',
+                RestrictType: 'A',
+
+                DataPropertyName: {
+                    Id: "Id",
+                    Name: "Value"
+                }
+            };
+
+            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), productRegisterOptions);
+        }
+
+        function registerSubProductDirective() {
+            var subProductRegisterOptions = {
+                PlugInName: 'dropdownSubProduct',
+                OptionName: 'subProductOptions',
                 PickerId: 'subProduct',
                 RestrictType: 'A',
 
@@ -16,8 +32,9 @@
                 }
             };
 
-            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), productRegisterParams);
+            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), subProductRegisterOptions);
         }
+
         function registerSitePicker() {
             var siteRegisterParams = {
                 PlugInName: 'sitePickerContainer',
@@ -241,23 +258,8 @@
             directiveManager.registerDateTimePicker(angular.module('communicationlog-viewdetailbyid-application'), endTimeRegisterParams);
         }
 
-        function registerParentProductDirective() {
-            var parentProductRegisterOptions = {
-                PlugInName: 'dropdownParentProduct',
-                OptionName: 'parentProductOptions',
-                PickerId: 'parentProduct',
-                RestrictType: 'A',
-
-                DataPropertyName: {
-                    Id: "Id",
-                    Name: "Value"
-                }
-            };
-
-            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), parentProductRegisterOptions);
-        }
-
-        registerProductPicker();
+        registerProductDirective();
+        registerSubProductDirective();
         registerSitePicker();
         registerStatusPicker();
         registerResponsePicker();
@@ -274,8 +276,7 @@
         registerReviewEditorPicker();
         registerSubjectAutoComplete();
         registerStartTimePicker();
-        registerEndTimePicker();
-        registerParentProductDirective();
+        registerEndTimePicker();       
 
         var viewDetailByIdRegister = new RegisterTemplate(angular.module('communicationlog-viewdetailbyid-application'));
         viewDetailByIdRegister.registerLicenseeTypePicker();

@@ -12,13 +12,11 @@
         $scope.siteOptions = null;
         $scope.birthdayOptions = null;
         $scope.communicationToolOptions = null;
-        $scope.parentProductOptions = {
-            DataList: [],
-            OnChangeEvent: null
-        };
-        $scope.productOptions = null;
         $scope.responseOptions = null;
         $scope.languageOptions = null;
+
+        $scope.productOptions = null;
+        $scope.subProductOptions = null;
 
         $scope.mainCategoryOptions = null;
         $scope.betTypeOptions = null;
@@ -75,10 +73,6 @@
             $scope.communicationToolOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCommunicationTool
-            };
-            $scope.productOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedProduct
             };
             $scope.responseOptions = {
                 DataList: [],
@@ -140,6 +134,17 @@
                 IsUpdate: true,
                 CompleteUpdate: $scope.completeUpdateRelatedCustomer,
                 OnChangeEvent: $scope.updateRelatedCustomer
+            };
+
+            $scope.productOptions = {
+                DataList: [],
+                SelectedId: null,
+                OnChangeEvent: null
+            };
+            $scope.subProductOptions = {
+                DataList: [],
+                SelectedId: null,
+                OnChangeEvent: $scope.updateSelectedSubProduct
             };
         };
     };

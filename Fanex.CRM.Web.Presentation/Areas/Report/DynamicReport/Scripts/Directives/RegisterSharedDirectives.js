@@ -21,10 +21,10 @@
         dynamicReportRegister.registerDownloadFile();
         dynamicReportRegister.registerSubjectAutoComplete();
 
-        var parentProductRegisterOptions = {
-            PlugInName: 'dropdownParentProduct',
-            OptionName: 'parentProductOptions',
-            PickerId: 'parentProduct',
+        var productRegisterOptions = {
+            PlugInName: 'dropdownProduct',
+            OptionName: 'productOptions',
+            PickerId: 'product',
             RestrictType: 'A',
 
             DataPropertyName: {
@@ -33,7 +33,21 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('report-dynamicreport-application'), parentProductRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('report-dynamicreport-application'), productRegisterOptions);
+
+        var subProductRegisterOptions = {
+            PlugInName: 'dropdownSubProduct',
+            OptionName: 'subProductOptions',
+            PickerId: 'subProduct',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('report-dynamicreport-application'), subProductRegisterOptions);
     }
 
     dynamicReportRegisterPicker();

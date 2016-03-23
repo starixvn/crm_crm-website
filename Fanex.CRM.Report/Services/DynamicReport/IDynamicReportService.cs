@@ -19,9 +19,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     {
         IEnumerable<Setting> GetAllPeriodTypes();
 
-        IEnumerable<Setting> GetAllParentProducts();
-
         IEnumerable<Setting> GetAllProducts();
+
+        IEnumerable<Setting> GetAllSubProducts();
 
         IEnumerable<SiteInfo> GetAllSites();
 

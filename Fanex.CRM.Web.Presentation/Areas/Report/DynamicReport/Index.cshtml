@@ -114,17 +114,17 @@
                         <select id="response" class="selReponse">
                         </select>
                     </div>
-                    <div class="item" dropdown-parent-product data-ng-model="parentProductOptions.DataList">
-                        <label for="parentProduct" class="width-80">
+                    <div class="item" dropdown-product data-ng-model="productOptions.DataList">
+                        <label for="product" class="width-80">
                             @Labels.Product</label>
-                        <select id="parentProduct" class="selParentProduct">
+                        <select id="product" class="selParentProduct">
                         </select>
                     </div>
-                    <div class="item product-picker-container" data-ng-model="productOptions.DataList">
-                        <label for="product" class="width-80">
+                    <div class="item" dropdown-sub-product data-ng-model="subProductOptions.DataList">
+                        <label for="subProduct" class="width-80">
                             @Labels.SubProduct
                         </label>
-                        <select id="product" class="selProduct"></select>
+                        <select id="subProduct" class="selProduct"></select>
                     </div>
                     <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
                         <label for="site" class="width-110">

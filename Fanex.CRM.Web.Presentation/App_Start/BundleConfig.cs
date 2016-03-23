@@ -251,6 +251,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdOption.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdController.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/Directives/*.js"));
@@ -443,6 +444,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
+                "~/Areas/Report/DynamicReport/Scripts/DynamicReportOption.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
                 "~/Areas/Report/DynamicReport/Scripts/Directives/*.js"));
