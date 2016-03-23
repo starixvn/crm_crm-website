@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -23,6 +21,8 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Linq;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Communication Log Controller.
@@ -86,8 +86,8 @@ namespace Fanex.CRM.Communication.Controllers
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ParentProductList = _serviceSetting.GetAllProducts(),
-                ProductList = _serviceSetting.GetAllSubProducts(),
+                ProductList = _serviceSetting.GetAllProducts(),
+                SubProductList = _serviceSetting.GetAllSubProducts(),
                 StatusList = statusList,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -117,7 +117,7 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
-                SubProductList = _serviceSetting.GetAllSubProducts(),           
+                SubProductList = _serviceSetting.GetAllSubProducts(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),

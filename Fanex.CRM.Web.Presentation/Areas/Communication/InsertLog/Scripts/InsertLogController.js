@@ -359,17 +359,7 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.communicationLog.Product = subProduct;
-            $scope.betTypeList = subProduct.ChildSettings;
-            $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
-            $scope.betTypeList[0] :
-                {
-                    Id: crmConstants.Enums.BetType.NotApply
-                };
-            $scope.$apply();
-            $scope.updateChangeFlag();
-        };
+        
         $scope.updateSelectedBetType = function (betTypeId) {
             betTypeId = parseInt(betTypeId);
             var betTypeInfo;

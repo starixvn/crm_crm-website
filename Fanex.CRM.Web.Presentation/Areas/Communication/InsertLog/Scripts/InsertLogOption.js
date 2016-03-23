@@ -2,6 +2,18 @@
     "use strict";
 
     window.registerOptions = function ($scope) {
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.Product = subProduct;
+            $scope.betTypeList = subProduct.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
+            $scope.betTypeList[0] :
+                {
+                    Id: crmConstants.Enums.BetType.NotApply
+                };
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        };
+
         $scope.productOptions = {
             DataList: [],
             OnChangeEvent: null
@@ -9,6 +21,6 @@
         $scope.subProductOptions = {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedSubProduct
-        };
+        };        
     }
 })();
