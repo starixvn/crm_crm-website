@@ -219,10 +219,10 @@
         };
 
         $scope.getBettypes = function () {
-            angular.forEach($scope.settings.Products, function (product, index) {
+            angular.forEach($scope.settings.SubProducts, function (subProduct, index) {
                 /* jshint unused: false */
-                if (product.Id === $scope.feedback.Product.Id) {
-                    $scope.bettypes = product.ChildSettings;
+                if (subProduct.Id === $scope.feedback.Product.Id) {
+                    $scope.bettypes = subProduct.ChildSettings;
                 }
             });
         };
@@ -243,8 +243,8 @@
             $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
             $scope.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
 
-            $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
-            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.settings.Products, $scope.feedback.Product.Id);
+            $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.SubProducts);
+            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.settings.SubProducts, $scope.feedback.Product.Id);
 
             $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
             $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
@@ -308,7 +308,7 @@
             }
         };
 
-        $scope.productChanged = function () {
+        $scope.subProductChanged = function () {
             $scope.bettypes = $scope.feedback.Product.ChildSettings;
             if ($scope.bettypes.length === 0) {
                 $scope.errorMessage(updateFeedbackResources.NoBettypeError.replace('{0}', '[' + $scope.feedback.Product.Value + ']'));

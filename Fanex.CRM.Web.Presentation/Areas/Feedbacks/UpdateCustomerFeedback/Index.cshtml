@@ -328,11 +328,11 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlparentProduct">@Labels.Product</label>
+                                    <label for="ddlProduct">@Labels.Product</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlparentProduct" tabindex="66" data-ng-model="feedback.ParentProduct" data-ng-options="s.Value for s in settings.ParentProducts track by s.Id"
-                                        data-ng-change="parentProductChanged()">
+                                    <select id="ddlProduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.Products track by s.Id"
+                                        data-ng-change="productChanged()">
                                     </select>
                                 </div>
                             </div>
@@ -378,11 +378,11 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlproduct">@Labels.SubProduct</label>
+                                    <label for="ddlSubProduct">@Labels.SubProduct</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlproduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.Products track by s.Id"
-                                            data-ng-change="productChanged()"></select>
+                                    <select id="ddlSubProduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.SubProducts track by s.Id"
+                                            data-ng-change="subProductChanged()"></select>
                                 </div>
                             </div>
 
