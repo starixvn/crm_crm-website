@@ -37,14 +37,17 @@
         };
         $scope.updateSelectedProduct = function (product) {
             //$scope.addGuestFeedbackParams.Product = product;          
-            $scope.$apply(function () {
-                $scope.subProductOptions.DataList = null;
-                $scope.subProductOptions.DataList = product.ChildSettings;
-            });
-            //$scope.safeApply();
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.betTypeOptions.DataList = $scope.subProductOptions.DataList[0].ChildSettings;
+            $scope.safeApply();
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.addGuestFeedbackParams.Product = subProduct;
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
             $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
         };

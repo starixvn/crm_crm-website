@@ -314,6 +314,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllProducts()
         {
+            var products = new List<Setting>();
             var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.ParentProduct,
@@ -327,28 +328,25 @@ namespace Fanex.CRM.Setting.Services
                 Value = Labels.Symbol_NotApply
             };
 
-            parentProducts.Insert(
-                0,
-                new Setting
-                {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.Symbol_NotApply
-                });
-
             var subProducts = GetAllSubProducts();
+
+            products.Add(new Setting
+            {
+                Id = SettingConstants.NotApply,
+                Value = Labels.Symbol_NotApply,
+                ChildSettings = new List<Setting> { notApplySetting }
+            });
 
             foreach (var parentProduct in parentProducts)
             {
                 var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
                 parentProduct.ChildSettings = subProductByProduct;
+                parentProduct.ChildSettings.Insert(0, notApplySetting);
 
-                if (parentProduct.Id != SettingConstants.NotApply)
-                {
-                    parentProduct.ChildSettings.Insert(0, notApplySetting);
-                }              
+                products.Add(parentProduct);
             }           
 
-            return parentProducts;
+            return products;
         }
 
         /// <summary>
