@@ -44,6 +44,10 @@
                 Id: 0,
                 Value: ''
             },
+            SubProduct: {
+                Id: 0,
+                Value: ''
+            },
             BetType: {
                 Id: 0,
                 Value: ''
@@ -176,6 +180,10 @@
                 Id: crmConstants.Enums.Product.NotApply
             };
 
+            $scope.communicationLog.SubProduct = {
+                Id: crmConstants.Enums.SubProduct.NotApply
+            };
+
             $scope.communicationLog.BetType = {
                 Id: crmConstants.Enums.BetType.NotApply
             };
@@ -234,6 +242,8 @@
             $scope.verifyRelatedCustomer();
         };
         $scope.updateSelectedProduct = function (product) {
+            $scope.communicationLog.Product = product;
+
             $scope.subProductOptions.DataList = product.ChildSettings;
             $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
             $scope.safeApply();
@@ -241,7 +251,7 @@
         };
 
         $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.communicationLog.Product = subProduct;
+            $scope.communicationLog.SubProduct = subProduct;
             if (!subProduct.ChildSettings) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
                 subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
@@ -529,6 +539,7 @@
                 SiteId: $scope.communicationLog.SiteInfo.Id,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
+                SubProductId: $scope.communicationLog.SubProduct.Id,
                 BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
@@ -587,6 +598,7 @@
             $scope.communicationLog.SiteInfo.Id !== $scope.oldCommunicationLog.SiteInfo.Id ||
             $scope.communicationLog.RoleInfo.Id !== $scope.oldCommunicationLog.RoleInfo.Id ||
             $scope.communicationLog.Product.Id !== $scope.oldCommunicationLog.Product.Id ||
+            $scope.communicationLog.SubProduct.Id !== $scope.oldCommunicationLog.SubProduct.Id ||
             $scope.communicationLog.BetType.Id !== $scope.oldCommunicationLog.BetType.Id ||
             $scope.communicationLog.Response.Id !== $scope.oldCommunicationLog.Response.Id ||
             $scope.communicationLog.Status.Id !== $scope.oldCommunicationLog.Status.Id ||
