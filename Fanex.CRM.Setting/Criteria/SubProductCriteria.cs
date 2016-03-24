@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Setting.Criteria
 {
     using Fanex.Data.Repository;
+
     public class SubProductCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "ProductID")]

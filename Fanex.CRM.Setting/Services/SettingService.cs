@@ -327,11 +327,13 @@ namespace Fanex.CRM.Setting.Services
                 Value = Labels.Symbol_NotApply
             };
 
-            parentProducts.Insert(0, new Setting
-            {
-                Id = SettingConstants.NotApply,
-                Value = Labels.Symbol_NotApply
-            });
+            parentProducts.Insert(
+                0,
+                new Setting
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.Symbol_NotApply
+                });
 
             var subProducts = GetAllSubProducts();
 
@@ -340,10 +342,10 @@ namespace Fanex.CRM.Setting.Services
                 var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
                 parentProduct.ChildSettings = subProductByProduct;
 
-                if(parentProduct.Id != SettingConstants.NotApply)
+                if (parentProduct.Id != SettingConstants.NotApply)
                 {
                     parentProduct.ChildSettings.Insert(0, notApplySetting);
-                }               
+                }              
             }           
 
             return parentProducts;
