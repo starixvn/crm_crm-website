@@ -165,6 +165,7 @@ namespace Fanex.CRM.Feedback.Repositories
                 Category = new BaseModel { Id = Converter.ToInt(reader["MainCategoryId"]) },
                 SubCategory = new BaseModel { Id = Converter.ToInt(reader["SubcategoryId"]) },
                 Product = new BaseModel { Id = Converter.ToInt(reader["ProductId"]) },
+                SubProduct = new BaseModel { Id = Converter.ToInt(reader["SubProductId"]) },
                 BetType = new BaseModel { Id = Converter.ToInt(reader["BettypeId"]) },
                 Country = new BaseModel { Id = Converter.ToInt(reader["CountryId"]) },
                 Language = new BaseModel { Id = Converter.ToInt(reader["LanguageId"]) },

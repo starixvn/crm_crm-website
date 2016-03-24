@@ -50,6 +50,10 @@ var CRMConstants = function () {
             NotApply: 0
         },
 
+        SubProduct: {
+            NotApply: 0
+        },
+
         BetType: {
             NotApply: 0
         },

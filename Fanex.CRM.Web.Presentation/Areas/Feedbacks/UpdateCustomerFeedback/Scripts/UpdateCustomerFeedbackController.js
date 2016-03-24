@@ -17,6 +17,9 @@
         $scope.reviewedBy = '';
         $scope.relatedCustomers = [];
         $scope.hasReviewPermission = hasReviewFeedbackPermission === 'True';
+        $scope.bettypes = null;
+        $scope.subProducts = null;
+
         var oldReview;
         $scope.panelManager = {
             customer: false,
@@ -199,9 +202,10 @@
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
 
-                        $scope.updateAllSettingsForFeedback();
-
+                        $scope.getSubProducts();
                         $scope.getBettypes();
+
+                        $scope.updateAllSettingsForFeedback();
 
                         $scope.getSubcategories();
 
@@ -218,13 +222,29 @@
             });
         };
 
-        $scope.getBettypes = function () {
-            angular.forEach($scope.settings.SubProducts, function (subProduct, index) {
+        $scope.getSubProducts = function () {
+            angular.forEach($scope.settings.Products, function (product, index) {
                 /* jshint unused: false */
-                if (subProduct.Id === $scope.feedback.Product.Id) {
+                if (product.Id === $scope.feedback.Product.Id) {
+                    $scope.subProducts = product.ChildSettings;
+                }
+            });
+
+            if (!$scope.subProducts) {
+                $scope.subProducts = $scope.settings.Products[0].ChildSettings;
+            }
+        };
+        $scope.getBettypes = function () {
+            angular.forEach($scope.subProducts, function (subProduct, index) {
+                /* jshint unused: false */
+                if (subProduct.Id === $scope.feedback.SubProduct.Id) {
                     $scope.bettypes = subProduct.ChildSettings;
                 }
             });
+
+            if (!$scope.bettypes) {
+                $scope.bettypes = $scope.subProducts[0].ChildSettings;
+            }
         };
 
         $scope.getSubcategories = function () {
@@ -243,8 +263,11 @@
             $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
             $scope.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
 
-            $scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.SubProducts);
-            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.settings.SubProducts, $scope.feedback.Product.Id);
+            //$scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
+            //$scope.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, $scope.feedback.Product.Id);
+
+            //$scope.updateFeedbackSetting($scope.feedback.SubProduct, $scope.subProducts);
+            //$scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
 
             $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
             $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
@@ -276,26 +299,29 @@
         };
 
         $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            for (var i = 0; i < parentList.length; i++) {
-                var parent = parentList[i];
+            var childSettings = $scope.getChildSetting(parentId, parentList);
+
+            if (!$scope.hasSetting(setting.Id, childSettings)) {
+                childSettings.push({
+                    Id: setting.Id,
+                    Name: setting.Name
+                });
+            }
+        };
+
+        $scope.getChildSetting = function (parentId, parentDataList) {
+            for (var i = 0; i < parentDataList.length; i++) {
+                var parent = parentDataList[i];
+
                 if (parentId === parent.Id) {
                     if (!parent.ChildSettings) {
                         parent.ChildSettings = [];
                     }
 
-                    var childSettings = parent.ChildSettings;
-
-                    if (!$scope.hasSetting(setting.Id, childSettings)) {
-                        childSettings.push({
-                            Id: setting.Id,
-                            Name: setting.Name
-                        });
-
-                        break;
-                    }
+                    return parent.ChildSettings;
                 }
             }
-        };
+        }
        
         $scope.categoryChanged = function () {
             $scope.subcategories = $scope.feedback.Category.ChildSettings;
@@ -308,8 +334,21 @@
             }
         };
 
+        $scope.productChanged = function () {
+            $scope.subProducts = $scope.getChildSetting($scope.feedback.Product.Id, $scope.settings.Products);
+            $scope.feedback.SubProduct = $scope.subProducts[0];
+            $scope.subProductChanged();
+        };
+
         $scope.subProductChanged = function () {
-            $scope.bettypes = $scope.feedback.Product.ChildSettings;
+            var childSettings = $scope.getChildSetting($scope.feedback.SubProduct.Id, $scope.subProducts);
+            if (!childSettings || childSettings.length === 0) {
+                var notApplySetting = $scope.subProducts[0];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.bettypes = childSettings;
+
             if ($scope.bettypes.length === 0) {
                 $scope.errorMessage(updateFeedbackResources.NoBettypeError.replace('{0}', '[' + $scope.feedback.Product.Value + ']'));
             }

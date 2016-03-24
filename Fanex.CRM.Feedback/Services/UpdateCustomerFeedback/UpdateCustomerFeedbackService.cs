@@ -72,7 +72,6 @@ namespace Fanex.CRM.Feedback.Services
                 Communications = _settingService.GetAllCommunicationTools(),
                 Categories = _settingService.GetAllMainCategories(),
                 Products = _settingService.GetAllProducts(),
-                SubProducts = _settingService.GetAllSubProducts(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusRawData,
@@ -110,6 +109,9 @@ namespace Fanex.CRM.Feedback.Services
 
             var product = settings.FirstOrDefault(s => s.Id == feedback.Product.Id);
             feedback.Product.Name = product == null ? null : product.Value;
+
+            var subProduct = settings.FirstOrDefault(s => s.Id == feedback.SubProduct.Id);
+            feedback.SubProduct.Name = subProduct == null ? null : subProduct.Value;
 
             var language = settings.FirstOrDefault(s => s.Id == feedback.Language.Id);
             feedback.Language.Name = language == null ? null : language.Value;

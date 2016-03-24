@@ -37,6 +37,8 @@ namespace Fanex.CRM.Feedback.Models
 
         public BaseModel Product { get; set; }
 
+        public BaseModel SubProduct { get; set; }
+
         public BaseModel BetType { get; set; }
 
         public BaseModel Country { get; set; }
