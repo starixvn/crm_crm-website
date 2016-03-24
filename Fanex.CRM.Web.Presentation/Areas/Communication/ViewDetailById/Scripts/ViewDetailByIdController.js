@@ -123,25 +123,40 @@
                 }
             }
 
-            var subProducts = $scope.subProductOptions.DataList;
-            if (subProducts !== null) {
-                var productId = communicationLog.Product.Id;
-                $scope.subProductOptions.SelectedId = productId;
+            var product = $scope.getSettingById($scope.productOptions.SelectedId, $scope.productOptions.DataList);
+            product = product || $scope.productOptions.DataList[1]; //Add fake data to test
+            $scope.updateSelectedProduct(product);
+        };
 
-                var productInfo;
-                for (i = 0; i < subProducts.length; i++) {
-                    var product = subProducts[i];
-                    if (product.Id === productId) {
-                        productInfo = product;
-                        break;
-                    }
-                }
+        $scope.updateSelectedProduct = function (product) {
+            $scope.subProductOptions.DataList = product.ChildSettings;
 
-                if (productInfo) {
-                    $scope.betTypeOptions.DataList = productInfo.ChildSettings;
+            var subProduct = $scope.getSettingById($scope.subProductOptions.SelectedId, $scope.subProductOptions.DataList);
+            subProduct = subProduct || $scope.subProductOptions.DataList[1]; //Add fake data to test
+            $scope.updateSelectedSubProduct(subProduct);
+        };
+
+        
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
+        };
+
+        $scope.getSettingById = function (settingId, dataList) {
+            for (var i = 0; i < dataList.length; i++) {
+                var setting = dataList[i];
+
+                if (setting.Id === settingId) {
+                    return setting;
                 }
             }
-        };
+
+            return null;
+        }
 
         $scope.unblockUI = function () {
             try {
@@ -203,8 +218,8 @@
             $scope.updateLogSetting($scope.communicationLog.MainCategory, settings.MainCategoryList);
             $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
 
-            $scope.updateLogSetting($scope.communicationLog.Product, settings.SubProductList);
-            $scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.SubProductList, $scope.communicationLog.Product.Id);
+            //$scope.updateLogSetting($scope.communicationLog.Product, settings.SubProductList);
+            //$scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.SubProductList, $scope.communicationLog.Product.Id);
 
             $scope.updateLogSetting($scope.communicationLog.Language, settings.LanguageList);
             $scope.updateLogSetting($scope.communicationLog.Status, settings.StatusList);
