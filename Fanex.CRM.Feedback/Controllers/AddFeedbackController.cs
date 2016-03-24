@@ -89,7 +89,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 LanguageList = languages,
                 MainCategoryList = ServiceSetting.GetAllMainCategories(),
                 ProductList = ServiceSetting.GetAllProducts(),
-                SubProductList = ServiceSetting.GetAllSubProducts(),
                 SiteList = ServiceSetting.GetAllSites(),
                 ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,

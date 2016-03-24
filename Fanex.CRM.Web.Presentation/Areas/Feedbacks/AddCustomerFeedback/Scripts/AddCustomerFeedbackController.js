@@ -115,7 +115,6 @@
             $scope.titleOptions.DataList = $scope.allSettings.TitleList;
             $scope.communicationToolOptions.DataList = $scope.allSettings.CommunicationToolList;
             $scope.productOptions.DataList = $scope.allSettings.ProductList;
-            $scope.subProductOptions.DataList = $scope.allSettings.SubProductList;
             $scope.responseOptions.DataList = $scope.allSettings.ResponseList;
             $scope.languageOptions.DataList = $scope.allSettings.LanguageList;
             $scope.mainCategoryOptions.DataList = $scope.allSettings.MainCategoryList;
@@ -139,8 +138,11 @@
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
 
+            var firstProduct = $scope.productOptions.DataList[0];
+            $scope.updateSelectedProduct(firstProduct);
+            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
+
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
-            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
             $scope.updateSelectedLanguage(defaultLanguage);
             $scope.updateSelectedResponse($scope.responseOptions.DataList[0]);
 
