@@ -123,27 +123,21 @@
                 }
             }
 
-            var product = $scope.getSettingById($scope.productOptions.SelectedId, $scope.productOptions.DataList);
-            product = product || $scope.productOptions.DataList[1]; //Add fake data to test
-            $scope.updateSelectedProduct(product);
+            $scope.updateSelectedProduct($scope.communicationLog.Product);
         };
 
         $scope.updateSelectedProduct = function (product) {
-            $scope.subProductOptions.DataList = product.ChildSettings;
-
-            var subProduct = $scope.getSettingById($scope.subProductOptions.SelectedId, $scope.subProductOptions.DataList);
-            subProduct = subProduct || $scope.subProductOptions.DataList[1]; //Add fake data to test
-            $scope.updateSelectedSubProduct(subProduct);
+            $scope.subProductOptions.DataList = $scope.getChildSettings(product.Id, $scope.productOptions.DataList);
+            $scope.updateSelectedSubProduct($scope.communicationLog.SubProduct);
         };
-
-        
         $scope.updateSelectedSubProduct = function (subProduct) {
-            if (!subProduct.ChildSettings) {
+            var childSettings = $scope.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
+            if (!childSettings) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
-                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
             }
 
-            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
+            $scope.betTypeOptions.DataList = childSettings;
         };
 
         $scope.getSettingById = function (settingId, dataList) {
@@ -250,23 +244,26 @@
         };
 
         $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            for (var i = 0; i < parentList.length; i++) {
-                var parent = parentList[i];
+            var childSettings = $scope.getChildSettings(parentId, parentList);
+
+            if (!$scope.hasSetting(setting.Id, childSettings)) {
+                childSettings.push({
+                    Id: setting.Id,
+                    Name: setting.Name
+                });
+            }
+        };
+
+        $scope.getChildSettings = function (parentId, parentDataList) {
+            for (var i = 0; i < parentDataList.length; i++) {
+                var parent = parentDataList[i];
+
                 if (parentId === parent.Id) {
                     if (!parent.ChildSettings) {
                         parent.ChildSettings = [];
                     }
 
-                    var childSettings = parent.ChildSettings;
-
-                    if (!$scope.hasSetting(setting.Id, childSettings)) {
-                        childSettings.push({
-                            Id: setting.Id,
-                            Name: setting.Name
-                        });
-
-                        break;
-                    }
+                    return parent.ChildSettings;
                 }
             }
         };
