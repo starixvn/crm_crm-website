@@ -156,9 +156,11 @@
                 return;
             }
 
-            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
-            $scope.betTypeList = $scope.subProductOptions.DataList[0].ChildSettings;
+            var firstProduct = $scope.productOptions.DataList[0];
+            $scope.updateSelectedProduct(firstProduct);
+            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
 
+            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;           
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
             endtime.setMinutes(endtime.getMinutes() + 1);
@@ -231,6 +233,26 @@
         $scope.invokeHotKey_CtrlE = function () {
             $scope.verifyRelatedCustomer();
         };
+        $scope.updateSelectedProduct = function (product) {
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+            $scope.safeApply();
+            $scope.updateChangeFlag();
+        };
+
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.Product = subProduct;
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeList = subProduct.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        };
+
         $scope.updateStartTime = function (selectedTime) {
             $scope.communicationLog.StartTime = selectedTime;
             if (new Date($scope.communicationLog.EndTime) <= selectedTime) {
@@ -662,7 +684,6 @@
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
                 $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.subProductOptions.DataList = allSetting.SubProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
