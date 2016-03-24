@@ -243,7 +243,8 @@
             });
 
             if (!$scope.bettypes) {
-                $scope.bettypes = $scope.subProducts[0].ChildSettings;
+                var notApplySetting = $scope.subProducts[0];
+                $scope.bettypes = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
             }
         };
 
@@ -451,31 +452,37 @@
                 }
             }
 
-        feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
-        feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
-            .then(function (data) {
-                var result = data.Result;
-                if (result && result.Code === 0) {
-                    alertBoxService.show({
-                        type: crmConstants.Enums.MessageType.Success,
-                        message: updateFeedbackResources.UpdateFeedbackSuccessfully,
-                        callback: function () {
-                            parent.ClosePopup();
-                            if (feedback.OverrideCRMInfo) {
-                                parent.leftPanelManager.loadLeftPanel(feedback.CustomerInfo.Name, true);
+            feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
+            $scope.assignIdForParam(feedback);
+            feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
+                .then(function (data) {
+                    var result = data.Result;
+                    if (result && result.Code === 0) {
+                        alertBoxService.show({
+                            type: crmConstants.Enums.MessageType.Success,
+                            message: updateFeedbackResources.UpdateFeedbackSuccessfully,
+                            callback: function () {
+                                parent.ClosePopup();
+                                if (feedback.OverrideCRMInfo) {
+                                    parent.leftPanelManager.loadLeftPanel(feedback.CustomerInfo.Name, true);
+                                }
                             }
-                        }
-                    });
-                }
-                else {
-                    $scope.errorMessage(result.Code ? result.Message : 'Oppss... An error occurred while processing your request.');
-                }
+                        });
+                    }
+                    else {
+                        $scope.errorMessage(result.Code ? result.Message : 'Oppss... An error occurred while processing your request.');
+                    }
 
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                    $uiBlockerService.unblockUI();
+                },
+                function () {
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
+        $scope.assignIdForParam = function (feedback) {
+            feedback.Product = { Id: feedback.Product.Id };
+            feedback.SubProduct = { Id: feedback.SubProduct.Id };
         };
 
         $scope.errorMessage = function (error) {

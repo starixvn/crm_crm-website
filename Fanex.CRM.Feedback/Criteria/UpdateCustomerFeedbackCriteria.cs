@@ -105,6 +105,7 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "maincategoryid", Category.Id },
                 { "subcategoryid", SubCategory.Id },
                 { "productid", Product.Id },
+                { "subproductid", SubProduct.Id },
                 { "bettypeid", BetType.Id },
                 { "countryid", Country.Id },
                 { "languageid", Language.Id },
