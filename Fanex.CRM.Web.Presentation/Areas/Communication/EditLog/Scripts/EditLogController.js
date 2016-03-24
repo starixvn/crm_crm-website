@@ -129,7 +129,7 @@
                 }
             }
 
-            $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
+            $scope.updateSelectedProduct($scope.communicationLog.Product);
 
             $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -147,23 +147,24 @@
         };
 
         $scope.updateSelectedProduct = function (product) {
-            $scope.communicationLog.Product = product;
+            $scope.communicationLog.Product.Id = product.Id;
 
-            $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+            $scope.subProductOptions.DataList = $scope.getChildSettings(product.Id, $scope.productOptions.DataList);
+            $scope.updateSelectedSubProduct($scope.communicationLog.SubProduct);
             $scope.safeApply();
             $scope.updateChangeFlag();
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.communicationLog.SubProduct = subProduct;
-            if (!subProduct.ChildSettings) {
+            $scope.communicationLog.SubProduct.Id = subProduct.Id;
+
+            var childSettings = $scope.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
+            if (!childSettings) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
-                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
             }
 
-            $scope.betTypeList = subProduct.ChildSettings;
-            $scope.communicationLog.BetType = $scope.betTypeList[0];
-            $scope.$apply();
+            $scope.betTypeList = childSettings;
+            $scope.safeApply();
             $scope.updateChangeFlag();
         };
         $scope.updateStartTime = function (selectedTime) {
@@ -463,6 +464,7 @@
                 SiteId: $scope.communicationLog.SiteInfo.Id,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
+                SubProductId: $scope.communicationLog.SubProduct.Id,
                 BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
@@ -696,23 +698,26 @@
         };
 
         $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            for (var i = 0; i < parentList.length; i++) {
-                var parent = parentList[i];
+            var childSettings = $scope.getChildSettings(parentId, parentList);
+
+            if (!$scope.hasSetting(setting.Id, childSettings)) {
+                childSettings.push({
+                    Id: setting.Id,
+                    Name: setting.Name
+                });
+            }
+        };
+
+        $scope.getChildSettings = function (parentId, parentDataList) {
+            for (var i = 0; i < parentDataList.length; i++) {
+                var parent = parentDataList[i];
+
                 if (parentId === parent.Id) {
                     if (!parent.ChildSettings) {
                         parent.ChildSettings = [];
                     }
 
-                    var childSettings = parent.ChildSettings;
-
-                    if (!$scope.hasSetting(setting.Id, childSettings)) {
-                        childSettings.push({
-                            Id: setting.Id,
-                            Name: setting.Name
-                        });
-
-                        break;
-                    }
+                    return parent.ChildSettings;
                 }
             }
         };

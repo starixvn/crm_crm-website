@@ -300,7 +300,7 @@
         };
 
         $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            var childSettings = $scope.getChildSetting(parentId, parentList);
+            var childSettings = $scope.getChildSettings(parentId, parentList);
 
             if (!$scope.hasSetting(setting.Id, childSettings)) {
                 childSettings.push({
@@ -310,7 +310,7 @@
             }
         };
 
-        $scope.getChildSetting = function (parentId, parentDataList) {
+        $scope.getChildSettings = function (parentId, parentDataList) {
             for (var i = 0; i < parentDataList.length; i++) {
                 var parent = parentDataList[i];
 
@@ -322,7 +322,7 @@
                     return parent.ChildSettings;
                 }
             }
-        }
+        };
        
         $scope.categoryChanged = function () {
             $scope.subcategories = $scope.feedback.Category.ChildSettings;
@@ -336,13 +336,13 @@
         };
 
         $scope.productChanged = function () {
-            $scope.subProducts = $scope.getChildSetting($scope.feedback.Product.Id, $scope.settings.Products);
+            $scope.subProducts = $scope.getChildSettings($scope.feedback.Product.Id, $scope.settings.Products);
             $scope.feedback.SubProduct = $scope.subProducts[0];
             $scope.subProductChanged();
         };
 
         $scope.subProductChanged = function () {
-            var childSettings = $scope.getChildSetting($scope.feedback.SubProduct.Id, $scope.subProducts);
+            var childSettings = $scope.getChildSettings($scope.feedback.SubProduct.Id, $scope.subProducts);
             if (!childSettings || childSettings.length === 0) {
                 var notApplySetting = $scope.subProducts[0];
                 childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];

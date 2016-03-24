@@ -4,12 +4,12 @@
     window.registerOptions = function ($scope) {
         $scope.productOptions = {
             DataList: [],
-            SelectedId: null,
+            SelectedId: $scope.communicationLog.Product.Id,
             OnChangeEvent: $scope.updateSelectedProduct
         };
         $scope.subProductOptions = {
             DataList: [],
-            SelectedId: null,
+            SelectedId: $scope.communicationLog.SubProduct.Id,
             OnChangeEvent: $scope.updateSelectedSubProduct
         };
     }
