@@ -29,6 +29,9 @@ namespace Fanex.CRM.Report.Criteria.DynamicReport
         [SpParam(SqlParamName = "productid")]
         public int ProductId { get; set; }
 
+        [SpParam(SqlParamName = "subproductid")]
+        public int SubProductId { get; set; }
+
         [SpParam(SqlParamName = "siteid")]
         public int SiteId { get; set; }
 

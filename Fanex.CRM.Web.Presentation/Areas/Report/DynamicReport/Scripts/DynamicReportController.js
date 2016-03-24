@@ -53,6 +53,7 @@
             ToDate: new Date(currentDate),
 
             Product: null,
+            SubProduct: null,
             Site: null,
             Status: null,
             Response: null,
@@ -104,8 +105,10 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.reportTypeOptions.DataList = allSetting.PeriodTypeList;
+
                 $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.subProductOptions.DataList = allSetting.SubProductList;
+                $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
+
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
@@ -439,8 +442,15 @@
             $scope.searchCriteria.Status = status;
             $scope.$apply();
         };
+        $scope.updateSelectedProduct = function (product) {
+            $scope.searchCriteria.Product = { Id: product.Id };
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.subProductOptions.DataList[0].Value = viewResources.All;
+
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
         $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.searchCriteria.Product = subProduct;
+            $scope.searchCriteria.SubProduct = { Id: subProduct.Id };
             $scope.$apply();
         };
         $scope.updateSelectedResponse = function (response) {
@@ -481,6 +491,7 @@
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
 
                 ProductId: $scope.searchCriteria.Product.Id,
+                SubProductId: $scope.searchCriteria.SubProduct.Id,
                 SiteId: $scope.searchCriteria.Site.Id,
                 StatusId: $scope.searchCriteria.Status.Id,
                 ResponseId: $scope.searchCriteria.Response.Id,

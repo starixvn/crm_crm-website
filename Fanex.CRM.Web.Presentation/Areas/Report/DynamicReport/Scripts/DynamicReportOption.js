@@ -8,7 +8,7 @@
     window.registerOptions = function ($scope) {
         $scope.productOptions = {
             DataList: [],
-            OnChangeEvent: null
+            OnChangeEvent: $scope.updateSelectedProduct
         };
         $scope.subProductOptions = {
             DataList: [],

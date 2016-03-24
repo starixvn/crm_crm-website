@@ -51,7 +51,6 @@ namespace Fanex.CRM.Report.Controllers
             {
                 PeriodTypeList = _dynamicReportService.GetAllPeriodTypes(),
                 ProductList = _dynamicReportService.GetAllProducts(),
-                SubProductList = _dynamicReportService.GetAllSubProducts(),
                 SiteList = _dynamicReportService.GetAllSites(),
                 StatusList = _dynamicReportService.GetAllStatuses(),
                 ResponseList = _dynamicReportService.GetAllResponses(),
