@@ -129,24 +129,7 @@
                 }
             }
 
-            var subProducts = $scope.subProductOptions.DataList;
-            if (subProducts !== null) {
-                var productId = communicationLog.Product.Id;
-                $scope.subProductOptions.SelectedId = productId;
-
-                var productInfo;
-                for (i = 0; i < subProducts.length; i++) {
-                    var product = subProducts[i];
-                    if (product.Id === productId) {
-                        productInfo = product;
-                        break;
-                    }
-                }
-
-                if (productInfo) {                  
-                    $scope.betTypeList = productInfo.ChildSettings;
-                }
-            }
+            $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
 
             $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -161,6 +144,27 @@
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlE = function () {
             $scope.verifyRelatedCustomer();
+        };
+
+        $scope.updateSelectedProduct = function (product) {
+            $scope.communicationLog.Product = product;
+
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+            $scope.safeApply();
+            $scope.updateChangeFlag();
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.SubProduct = subProduct;
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeList = subProduct.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.$apply();
+            $scope.updateChangeFlag();
         };
         $scope.updateStartTime = function (selectedTime) {
             $scope.communicationLog.StartTime = selectedTime;
@@ -636,7 +640,6 @@
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
                 $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.subProductOptions.DataList = allSetting.SubProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
@@ -661,8 +664,8 @@
             $scope.updateLogSetting($scope.communicationLog.MainCategory, settings.MainCategoryList);
             $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
 
-            $scope.updateLogSetting($scope.communicationLog.Product, settings.SubProductList);
-            $scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.SubProductList, $scope.communicationLog.Product.Id);
+            //$scope.updateLogSetting($scope.communicationLog.Product, settings.SubProductList);
+            //$scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.SubProductList, $scope.communicationLog.Product.Id);
 
             $scope.updateLogSetting($scope.communicationLog.Language, settings.LanguageList);
             $scope.updateLogSetting($scope.communicationLog.Status, settings.StatusList);

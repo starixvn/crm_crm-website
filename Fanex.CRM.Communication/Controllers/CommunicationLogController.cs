@@ -87,7 +87,6 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
-                SubProductList = _serviceSetting.GetAllSubProducts(),
                 StatusList = statusList,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),

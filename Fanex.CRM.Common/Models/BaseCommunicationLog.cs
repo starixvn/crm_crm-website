@@ -56,6 +56,8 @@ namespace Fanex.CRM.Common.Models
 
         public Setting Product { get; set; }
 
+        public Setting SubProduct { get; set; }
+
         public Setting BetType { get; set; }
 
         public Setting Status { get; set; }
