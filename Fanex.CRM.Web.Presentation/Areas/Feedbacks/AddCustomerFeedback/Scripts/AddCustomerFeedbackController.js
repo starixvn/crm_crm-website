@@ -361,6 +361,7 @@
 
                 $scope.oldParams.CommunicationTool.Id === $scope.addCustomerFeedbackParams.CommunicationTool.Id &&
                 $scope.oldParams.Product.Id === $scope.addCustomerFeedbackParams.Product.Id &&
+                $scope.oldParams.SubProduct.Id === $scope.addCustomerFeedbackParams.SubProduct.Id &&
                 $scope.oldParams.Language.Id === $scope.addCustomerFeedbackParams.Language.Id &&
                 $scope.oldParams.Response.Id === $scope.addCustomerFeedbackParams.Response.Id &&
                 $scope.oldParams.MainCategory.Id === $scope.addCustomerFeedbackParams.MainCategory.Id &&

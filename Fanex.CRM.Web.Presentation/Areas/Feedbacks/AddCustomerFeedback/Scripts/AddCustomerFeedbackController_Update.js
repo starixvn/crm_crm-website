@@ -37,12 +37,14 @@
             $scope.safeApply();
         };
         $scope.updateSelectedProduct = function (product) {
+            $scope.addCustomerFeedbackParams.Product = { Id: product.Id };
             $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.betTypeOptions.DataList = $scope.subProductOptions.DataList[0].ChildSettings;
+
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
             $scope.safeApply();
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.addCustomerFeedbackParams.Product = subProduct;
+            $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };;
             if (!subProduct.ChildSettings) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
                 subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
