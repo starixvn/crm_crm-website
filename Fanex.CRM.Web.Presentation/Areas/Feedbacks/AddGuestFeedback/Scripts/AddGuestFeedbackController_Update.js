@@ -36,13 +36,13 @@
             $scope.safeApply();
         };
         $scope.updateSelectedProduct = function (product) {
-            //$scope.addGuestFeedbackParams.Product = product;          
+            $scope.addGuestFeedbackParams.Product = { Id: product.Id };
             $scope.subProductOptions.DataList = product.ChildSettings;
             $scope.betTypeOptions.DataList = $scope.subProductOptions.DataList[0].ChildSettings;
             $scope.safeApply();
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.addGuestFeedbackParams.Product = subProduct;
+            $scope.addGuestFeedbackParams.SubProduct = { Id: subProduct.Id };
             if (!subProduct.ChildSettings) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
                 subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
