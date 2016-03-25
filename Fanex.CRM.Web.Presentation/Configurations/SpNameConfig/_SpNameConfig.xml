@@ -2,4 +2,34 @@
 <Root>
   <SpNameConfig Environment="UAT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Acc_CRM_CustomerSel" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SettingSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SettingDel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubjectTemplateSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_DynamicFeedback" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_FeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_DailyStatistics" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackSelTop" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackSelTopByCustId" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackSelByDate" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackGetLatest" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubProductList" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
