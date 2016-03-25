@@ -201,11 +201,11 @@
                             SelectedText: $scope.feedback.Review,
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
+                       
+                        $scope.updateAllSettingsForFeedback();
 
                         $scope.getSubProducts();
                         $scope.getBettypes();
-
-                        $scope.updateAllSettingsForFeedback();
 
                         $scope.getSubcategories();
 
@@ -264,11 +264,7 @@
             $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
             $scope.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
 
-            //$scope.updateFeedbackSetting($scope.feedback.Product, $scope.settings.Products);
-            //$scope.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, $scope.feedback.Product.Id);
-
-            //$scope.updateFeedbackSetting($scope.feedback.SubProduct, $scope.subProducts);
-            //$scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
+            $scope.updateProductSettings();
 
             $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
             $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
@@ -277,6 +273,14 @@
 
             $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
             $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
+        };
+
+        $scope.updateProductSettings = function () {
+            var product = $scope.feedback.Product;
+            $scope.updateFeedbackSetting(product, $scope.settings.Products);
+            $scope.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, product.Id);
+            $scope.subProducts = $scope.getChildSettings(product.Id, $scope.settings.Products);
+            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
         };
 
         $scope.updateFeedbackSetting = function (setting, dataList) {
@@ -305,7 +309,8 @@
             if (!$scope.hasSetting(setting.Id, childSettings)) {
                 childSettings.push({
                     Id: setting.Id,
-                    Name: setting.Name
+                    Name: setting.Name,
+                    Value: setting.Name
                 });
             }
         };

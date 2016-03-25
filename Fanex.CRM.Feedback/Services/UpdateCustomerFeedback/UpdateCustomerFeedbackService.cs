@@ -102,7 +102,7 @@ namespace Fanex.CRM.Feedback.Services
             feedback.CustomerInfo.SiteSetting.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
-            feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? null : licenseeType.Value;
+            feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NA : licenseeType.Value;
 
             var communication = settings.FirstOrDefault(s => s.Id == feedback.Communication.Id);
             feedback.Communication.Name = communication == null ? null : communication.Value;
@@ -111,13 +111,13 @@ namespace Fanex.CRM.Feedback.Services
             feedback.Product.Name = product == null ? null : product.Value;
 
             var subProduct = settings.FirstOrDefault(s => s.Id == feedback.SubProduct.Id);
-            feedback.SubProduct.Name = subProduct == null ? null : subProduct.Value;
+            feedback.SubProduct.Name = subProduct == null ? Labels.Symbol_NA : subProduct.Value;
 
             var language = settings.FirstOrDefault(s => s.Id == feedback.Language.Id);
-            feedback.Language.Name = language == null ? null : language.Value;
+            feedback.Language.Name = language == null ? Labels.Symbol_NA : language.Value;
 
             var bettype = settings.FirstOrDefault(s => s.Id == feedback.BetType.Id);
-            feedback.BetType.Name = bettype == null ? null : bettype.Value;           
+            feedback.BetType.Name = bettype == null ? Labels.Symbol_NA : bettype.Value;           
 
             feedback.Response.Name = settings.First(s => s.Id == feedback.Response.Id).Value;
             feedback.Category.Name = settings.First(s => s.Id == feedback.Category.Id).Value;
