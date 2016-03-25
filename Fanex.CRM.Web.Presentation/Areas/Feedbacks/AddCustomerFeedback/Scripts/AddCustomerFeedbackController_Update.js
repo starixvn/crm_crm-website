@@ -41,7 +41,6 @@
             $scope.subProductOptions.DataList = product.ChildSettings;
 
             $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
-            $scope.safeApply();
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };

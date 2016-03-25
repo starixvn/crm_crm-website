@@ -38,8 +38,7 @@
         $scope.updateSelectedProduct = function (product) {
             $scope.addGuestFeedbackParams.Product = { Id: product.Id };
             $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.betTypeOptions.DataList = $scope.subProductOptions.DataList[0].ChildSettings;
-            $scope.safeApply();
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.addGuestFeedbackParams.SubProduct = { Id: subProduct.Id };
