@@ -92,23 +92,27 @@ namespace Fanex.CRM.Communication.Services
         {
             var settings = _serviceSetting.GetAllSettings();
 
+            var site = settings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
+            log.SiteInfo.Name = site == null ? null : site.Value;
+            log.SiteInfo.AliasName = site == null ? null : site.AliasName;
+
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);
-            log.LicenseeType.Name = licenseeType == null ? null : licenseeType.Value;
+            log.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NotApply : licenseeType.Value;
 
             var communication = settings.FirstOrDefault(s => s.Id == log.CommunicationTool.Id);
             log.CommunicationTool.Name = communication == null ? null : communication.Value;
 
             var product = settings.FirstOrDefault(s => s.Id == log.Product.Id);
-            log.Product.Name = product == null ? null : product.Value;
+            log.Product.Name = product == null ? Labels.Symbol_NotApply : product.Value;
 
             var subProduct = settings.FirstOrDefault(s => s.Id == log.SubProduct.Id);
-            log.SubProduct.Name = subProduct == null ? null : subProduct.Value;
+            log.SubProduct.Name = subProduct == null ? Labels.Symbol_NotApply : subProduct.Value;
 
             var language = settings.FirstOrDefault(s => s.Id == log.Language.Id);
-            log.Language.Name = language == null ? null : language.Value;
+            log.Language.Name = language == null ? Labels.Symbol_NotApply : language.Value;
 
             var bettype = settings.FirstOrDefault(s => s.Id == log.BetType.Id);
-            log.BetType.Name = bettype == null ? null : bettype.Value;
+            log.BetType.Name = bettype == null ? Labels.Symbol_NotApply : bettype.Value;
 
             log.Response.Name = settings.First(s => s.Id == log.Response.Id).Value;
             log.MainCategory.Name = settings.First(s => s.Id == log.MainCategory.Id).Value;
