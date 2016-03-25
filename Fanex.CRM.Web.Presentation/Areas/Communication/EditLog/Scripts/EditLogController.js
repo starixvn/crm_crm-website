@@ -676,6 +676,7 @@
             $scope.updateLogSetting($scope.communicationLog.RoleInfo, $scope.roleList);
             $scope.updateLogSetting($scope.communicationLog.Response, $scope.responseList);
 
+            $scope.updateSiteSettings();
             $scope.updateLogSetting($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 
@@ -690,6 +691,24 @@
             subProductList = $scope.getChildSettings(product.Id, productList);
             $scope.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
         };
+
+        $scope.updateSiteSettings = function () {
+            var currentSite = $scope.communicationLog.SiteInfo;
+            var groupSiteLength = $scope.siteList.length;
+
+            for (var i = 0; i < groupSiteLength; i++) {
+                var childSites = $scope.siteList[i].ChildSites;
+                
+                for (var j = 0; j < childSites.length; j++) {
+                    var site = childSites[j];
+                    if ($scope.hasSetting(currentSite.Id, childSites)) {
+                        return;
+                    }
+                }
+            }
+
+            $scope.siteList.splice(0, 0, { Id: currentSite.Id, Name: currentSite.Name });
+        }
 
         $scope.updateLogSetting = function (setting, dataList) {
             if (!$scope.hasSetting(setting.Id, dataList)) {

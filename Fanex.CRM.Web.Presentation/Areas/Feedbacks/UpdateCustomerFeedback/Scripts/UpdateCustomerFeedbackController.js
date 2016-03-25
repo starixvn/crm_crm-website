@@ -273,6 +273,7 @@
 
             $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
             $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
+            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.SiteSetting, $scope.settings.Sites);
         };
 
         $scope.updateProductSettings = function () {

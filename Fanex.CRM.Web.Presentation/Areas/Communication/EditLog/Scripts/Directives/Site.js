@@ -15,21 +15,30 @@
                 '>' + viewResources.Select + '</option>';
 
                 var siteGroupLength = scope.siteList.length;
+
                 for (var i = 0; i < siteGroupLength; i++) {
                     var siteGroup = scope.siteList[i];
-                    optionHtml += '<optgroup label="' + siteGroup.Name +
-                    '" value="' + siteGroup.Id + '">';
-                    var siteLength = siteGroup.ChildSites.length;
-                    for (var j = 0; j < siteLength; j++) {
-                        var site = siteGroup.ChildSites[j];
-                        optionHtml += '<option value="' + site.Id + '"' +
-                        (site.Id === scope.communicationLog.SiteInfo.Id ?
-                        ' selected="selected"' :
-                        '') +
-                        '>' + site.Name + '</option>';
+                    var siteLength = siteGroup.ChildSites ? siteGroup.ChildSites.length : 0;
+                    if (siteLength === 0) {
+                        optionHtml +=
+                        '<option value="' + siteGroup.Id + '" selected="selected"' +
+                        '>' + siteGroup.Name + '</option>';
                     }
+                    else {
+                        optionHtml += '<optgroup label="' + siteGroup.Name +
+                        '" value="' + siteGroup.Id + '">';
 
-                    optionHtml += '</optgroup>';
+
+                        for (var j = 0; j < siteLength; j++) {
+                            var site = siteGroup.ChildSites[j];
+                            optionHtml += '<option value="' + site.Id + '"' +
+                            (site.Id === scope.communicationLog.SiteInfo.Id ?
+                            ' selected="selected"' :
+                            '') +
+                            '>' + site.Name + '</option>';
+                        }
+                        optionHtml += '</optgroup>';
+                    }
                 }
 
                 dropdown.append(optionHtml);
