@@ -169,9 +169,7 @@
             $scope.isLoadedAllSite = false;
             $viewDetailByIdService.getAllSetting()
             .then(function (data) {
-                var allSetting = data.Result;
-
-                $scope.updateAllSettingsForLog(allSetting);
+                var allSetting = data.Result;                
 
                 $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.subProductOptions.DataList = allSetting.SubProductList;
@@ -198,6 +196,8 @@
                 };
 
                 $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
+
+                $scope.updateAllSettingsForLog(allSetting);
                 $scope.completedLoadFilterInfo();
             },
             function () {
@@ -205,22 +205,33 @@
             });
         };
 
-        $scope.updateAllSettingsForLog = function (settings) {
-            $scope.updateLogSetting($scope.communicationLog.Extension, settings.ExtensionList);
-            $scope.updateLogSetting($scope.communicationLog.CommunicationTool, settings.CommunicationToolList);
+        $scope.updateAllSettingsForLog = function () {
+            $scope.updateLogSetting($scope.communicationLog.Extension, $scope.extensionOptions.DataList);
+            $scope.updateLogSetting($scope.communicationLog.CommunicationTool, $scope.communicationToolOptions.DataList);
 
-            $scope.updateLogSetting($scope.communicationLog.MainCategory, settings.MainCategoryList);
-            $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, settings.MainCategoryList, $scope.communicationLog.MainCategory.Id);
+            $scope.updateLogSetting($scope.communicationLog.MainCategory, $scope.mainCategoryOptions.DataList);
+            $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryOptions.DataList, $scope.communicationLog.MainCategory.Id);
 
-            //$scope.updateLogSetting($scope.communicationLog.Product, settings.SubProductList);
-            //$scope.updateInActiveChildSettings($scope.communicationLog.BetType, settings.SubProductList, $scope.communicationLog.Product.Id);
+            $scope.updateProductSettings();
 
-            $scope.updateLogSetting($scope.communicationLog.Language, settings.LanguageList);
-            $scope.updateLogSetting($scope.communicationLog.Status, settings.StatusList);
-            $scope.updateLogSetting($scope.communicationLog.RoleInfo, settings.RoleList);
-            $scope.updateLogSetting($scope.communicationLog.Response, settings.ResponseList);
+            $scope.updateLogSetting($scope.communicationLog.Language, $scope.languageOptions.DataList);
+            $scope.updateLogSetting($scope.communicationLog.Status, $scope.statusOptions.DataList);
+            $scope.updateLogSetting($scope.communicationLog.RoleInfo, $scope.roleOptions.DataList);
+            $scope.updateLogSetting($scope.communicationLog.Response, $scope.responseOptions.DataList);
 
-            $scope.updateLogSetting($scope.communicationLog.LicenseeType, settings.LicenseeType);
+            $scope.updateLogSetting($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
+        };
+
+        $scope.updateProductSettings = function () {
+            var product = $scope.communicationLog.Product;
+            var productList = $scope.productOptions.DataList;
+            $scope.updateLogSetting(product, productList);
+
+            var subProduct = $scope.communicationLog.SubProduct;
+            var subProductList = $scope.subProductOptions.DataList;
+            $scope.updateInActiveChildSettings(subProduct, productList, product.Id);
+            subProductList = $scope.getChildSettings(product.Id, productList);
+            $scope.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
         };
 
         $scope.updateLogSetting = function (setting, dataList) {
@@ -249,7 +260,8 @@
             if (!$scope.hasSetting(setting.Id, childSettings)) {
                 childSettings.push({
                     Id: setting.Id,
-                    Name: setting.Name
+                    Name: setting.Name,
+                    Value: setting.Name
                 });
             }
         };
