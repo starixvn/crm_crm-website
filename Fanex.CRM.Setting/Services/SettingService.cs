@@ -41,6 +41,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
         public const string GetAllMainCategorySessionKey = "Fanex.CRM.Setting.GetAllMainCategorySessionKey";
         public const string GetAllMainCategoryFromAllSettingsSessionKey = "Fanex.CRM.Setting.GetAllMainCategoryFromAllSettingsSessionKey";
+        public const string GetAllProductSessionKey = "Fanex.CRM.Setting.GetAllProductSessionKey";
         public const string GetAllSubProductSessionKey = "Fanex.CRM.Setting.GetAllSubProductSessionKey";
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
         public const string GetAllStatusCommunicationTool = "Fanex.CRM.Setting.GetAllStatusCommunicationToolSessionKey";
@@ -314,6 +315,12 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllProducts()
         {
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllProductSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
             var products = new List<Setting>();
             var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
@@ -344,7 +351,9 @@ namespace Fanex.CRM.Setting.Services
                 parentProduct.ChildSettings.Insert(0, notApplySetting);
 
                 products.Add(parentProduct);
-            }           
+            }
+
+            CacheService.Set(GetAllProductSessionKey, products);
 
             return products;
         }

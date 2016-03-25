@@ -28,7 +28,6 @@
                         optionHtml += '<optgroup label="' + siteGroup.Name +
                         '" value="' + siteGroup.Id + '">';
 
-
                         for (var j = 0; j < siteLength; j++) {
                             var site = siteGroup.ChildSites[j];
                             optionHtml += '<option value="' + site.Id + '"' +
