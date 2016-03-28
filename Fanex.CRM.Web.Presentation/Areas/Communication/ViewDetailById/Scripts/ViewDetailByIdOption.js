@@ -13,14 +13,6 @@
             OnChangeEvent: null
         };
 
-        $scope.siteOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            AllText: viewResources.Select,
-            IsIncludeNA: true,
-            SelectedId: $scope.communicationLog.SiteInfo.Id
-        };
-
         $scope.statusOptions = {
             DataList: [],
             OnChangeEvent: null,

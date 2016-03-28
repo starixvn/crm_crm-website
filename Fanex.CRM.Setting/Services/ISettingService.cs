@@ -24,7 +24,7 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
 
-        IEnumerable<BaseModel> GetAllSiteWithGroup();
+        IEnumerable<SiteSetting> GetAllSiteWithGroup();
 
         IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false);
 

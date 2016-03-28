@@ -16,7 +16,6 @@
         $scope.hasReviewPermission = hasReviewPermission;
         $scope.IsUpdatingTime = false;
 
-        $scope.siteOptions = null;
         $scope.statusOptions = null;
         $scope.responseOptions = null;
         $scope.roleOptions = null;
@@ -173,7 +172,7 @@
 
                 $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.subProductOptions.DataList = allSetting.SubProductList;
-                $scope.siteOptions.DataList = allSetting.SiteList;
+                $scope.siteList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
                 $scope.roleOptions.DataList = allSetting.RoleList;
@@ -219,6 +218,7 @@
             $scope.updateLogSetting($scope.communicationLog.RoleInfo, $scope.roleOptions.DataList);
             $scope.updateLogSetting($scope.communicationLog.Response, $scope.responseOptions.DataList);
 
+            $scope.updateLogSetting($scope.communicationLog.SiteInfo, $scope.siteList);
             $scope.updateLogSetting($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 
@@ -239,7 +239,8 @@
                 dataList.push({
                     Id: setting.Id,
                     Name: setting.Name,
-                    Value: setting.Name
+                    Value: setting.Name,
+                    AliasName: setting.AliasName ? setting.AliasName : ""
                 });
             }
         };

@@ -312,37 +312,6 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedSite = function (siteId) {
-            siteId = parseInt(siteId);
-            var siteInfo;
-            var siteGroupLength = $scope.siteList.length;
-            for (var i = 0; i < siteGroupLength; i++) {
-                var siteGroup = $scope.siteList[i];
-                var siteLength = siteGroup.ChildSites.length;
-                for (var j = 0; j < siteLength; j++) {
-                    var site = siteGroup.ChildSites[j];
-                    if (site.Id === siteId) {
-                        siteInfo = site;
-                        break;
-                    }
-                }
-
-                if (siteInfo) {
-                    break;
-                }
-            }
-
-            if (siteInfo) {
-                $scope.communicationLog.SiteInfo = siteInfo;
-            } else {
-                $scope.communicationLog.SiteInfo = {
-                    Id: crmConstants.Enums.Site.NotApply,
-                    Value: viewResources.Select
-                };
-            }
-
-            $scope.updateChangeFlag();
-        };
         $scope.updateSelectedStatus = function (statusId) {
             statusId = parseInt(statusId);
             var statusInfo;
@@ -676,7 +645,7 @@
             $scope.updateLogSetting($scope.communicationLog.RoleInfo, $scope.roleList);
             $scope.updateLogSetting($scope.communicationLog.Response, $scope.responseList);
 
-            $scope.updateSiteSettings();
+            $scope.updateLogSetting($scope.communicationLog.SiteInfo, $scope.siteList);
             $scope.updateLogSetting($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 
@@ -692,30 +661,13 @@
             $scope.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
         };
 
-        $scope.updateSiteSettings = function () {
-            var currentSite = $scope.communicationLog.SiteInfo;
-            var groupSiteLength = $scope.siteList.length;
-
-            for (var i = 0; i < groupSiteLength; i++) {
-                var childSites = $scope.siteList[i].ChildSites;
-                
-                for (var j = 0; j < childSites.length; j++) {
-                    var site = childSites[j];
-                    if ($scope.hasSetting(currentSite.Id, childSites)) {
-                        return;
-                    }
-                }
-            }
-
-            $scope.siteList.splice(0, 0, { Id: currentSite.Id, Name: currentSite.Name });
-        }
-
         $scope.updateLogSetting = function (setting, dataList) {
             if (!$scope.hasSetting(setting.Id, dataList)) {
                 dataList.push({
                     Id: setting.Id,
                     Name: setting.Name,
-                    Value: setting.Name
+                    Value: setting.Name,
+                    AliasName: setting.AliasName ? setting.AliasName : ""
                 });
             }
         };

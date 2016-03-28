@@ -134,7 +134,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             var allSites = new List<SiteInfo>();
-            var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
+            var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria()).Where(s => s.IsActive);
             var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
             foreach (var rawDataGroup in rawDataGroups)
             {
@@ -163,20 +163,26 @@ namespace Fanex.CRM.Setting.Services
             return allSites;
         }
 
-        public IEnumerable<BaseModel> GetAllSiteWithGroup()
+        public IEnumerable<SiteSetting> GetAllSiteWithGroup()
         {
-            var cache = CacheService.Get<IEnumerable<BaseModel>>(GetAllSiteWithGroupSessionKey);
+            var cache = CacheService.Get<IEnumerable<SiteSetting>>(GetAllSiteWithGroupSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var sites = new List<BaseModel>();
+            var sites = new List<SiteSetting>();
             var rawdata = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
             foreach (var item in rawdata)
             {
                 var group = item.IsLicensee ? Labels.Licensee : Labels.Credit;
-                sites.Add(new BaseModel { Id = item.Id, Name = item.Name, AliasName = group });
+                sites.Add(new SiteSetting
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    AliasName = group,
+                    IsActive = item.IsActive
+                });
             }
 
             CacheService.Set(GetAllSiteWithGroupSessionKey, sites);

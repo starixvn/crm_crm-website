@@ -138,6 +138,7 @@
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
     <Compile Include="Criteria\SubProductCriteria.cs" />
+    <Compile Include="Models\SiteSetting.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\FeedbackTemplate.cs" />

@@ -91,9 +91,10 @@ namespace Fanex.CRM.Communication.Services
         private void UpdateSettingNameForLog(BaseCommunicationLog log)
         {
             var settings = _serviceSetting.GetAllSettings();
+            var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => !s.IsActive);
 
-            var site = settings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
-            log.SiteInfo.Name = site == null ? null : site.Value;
+            var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
+            log.SiteInfo.Name = site == null ? null : site.Name;
             log.SiteInfo.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);

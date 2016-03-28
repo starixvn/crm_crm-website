@@ -146,8 +146,11 @@
                             @Labels.Site
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 site-picker-container" data-ng-model="siteOptions.DataList">
-                        <select id="site" disabled="disabled"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <select id="site" disabled="disabled" data-ng-model="communicationLog.SiteInfo"
+                                data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
+                            <option value="">-- @Labels.Select --</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row row-item item">

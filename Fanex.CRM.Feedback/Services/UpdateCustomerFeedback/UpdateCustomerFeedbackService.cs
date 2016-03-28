@@ -67,7 +67,7 @@ namespace Fanex.CRM.Feedback.Services
             return new
             {
                 Titles = _settingService.GetAllTitles(),
-                Sites = _settingService.GetAllSiteWithGroup(),
+                Sites = _settingService.GetAllSiteWithGroup().Where(s => s.IsActive),
                 Extensions = _settingService.GetAllExtensions(),
                 Communications = _settingService.GetAllCommunicationTools(),
                 Categories = _settingService.GetAllMainCategories(),
@@ -93,12 +93,13 @@ namespace Fanex.CRM.Feedback.Services
         private void UpdateSettingNameForFeedback(CustomerFeedback feedback)
         {
             var settings = _settingService.GetAllSettings();
+            var siteSettings = _settingService.GetAllSiteWithGroup().Where(s => !s.IsActive);
 
             var title = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.Title.Id);
             feedback.CustomerInfo.Title.Name = title == null ? null : title.Value;
 
-            var site = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.SiteSetting.Id);
-            feedback.CustomerInfo.SiteSetting.Name = site == null ? null : site.Value;
+            var site = siteSettings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.SiteSetting.Id);
+            feedback.CustomerInfo.SiteSetting.Name = site == null ? null : site.Name;
             feedback.CustomerInfo.SiteSetting.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);

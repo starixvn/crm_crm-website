@@ -332,7 +332,6 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Role.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Site.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SolutionEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Status.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubCategory.js" />

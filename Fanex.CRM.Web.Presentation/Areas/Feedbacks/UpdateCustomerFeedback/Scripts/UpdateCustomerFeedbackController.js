@@ -289,7 +289,8 @@
                 dataList.push({
                     Id: setting.Id,
                     Name: setting.Name,
-                    Value: setting.Name
+                    Value: setting.Name,
+                    AliasName: setting.AliasName ? setting.AliasName : ""
                 });
             }
         };

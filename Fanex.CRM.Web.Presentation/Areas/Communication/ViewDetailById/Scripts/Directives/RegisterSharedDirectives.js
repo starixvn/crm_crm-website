@@ -35,16 +35,6 @@
             directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), subProductRegisterOptions);
         }
 
-        function registerSitePicker() {
-            var siteRegisterParams = {
-                PlugInName: 'sitePickerContainer',
-                OptionName: 'siteOptions',
-                PickerId: 'site',
-                RestrictType: 'C',
-            };
-
-            directiveManager.registerDropdownSiteContainer(angular.module('communicationlog-viewdetailbyid-application'), siteRegisterParams);
-        }
         function registerStatusPicker() {
             var statusRegisterParams = {
                 PlugInName: 'statusPickerContainer',
@@ -260,7 +250,6 @@
 
         registerProductDirective();
         registerSubProductDirective();
-        registerSitePicker();
         registerStatusPicker();
         registerResponsePicker();
         registerRolePicker();

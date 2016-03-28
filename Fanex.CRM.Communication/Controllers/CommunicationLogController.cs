@@ -88,7 +88,7 @@ namespace Fanex.CRM.Communication.Controllers
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes()

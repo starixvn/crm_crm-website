@@ -157,8 +157,11 @@
                             @Labels.Site
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
-                        <select id="site"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <select id="site" data-ng-model="communicationLog.SiteInfo"
+                                data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
+                            <option value="">-- @Labels.Select --</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row row-item">
