@@ -257,7 +257,7 @@
 
             $scope.betTypeList = subProduct.ChildSettings;
             $scope.communicationLog.BetType = $scope.betTypeList[0];
-            $scope.$apply();
+            $scope.safeApply();
             $scope.updateChangeFlag();
         };
 

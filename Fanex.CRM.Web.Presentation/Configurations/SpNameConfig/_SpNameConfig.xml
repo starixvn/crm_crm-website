@@ -32,4 +32,5 @@
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubProductList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SiteSel" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
