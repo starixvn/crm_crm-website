@@ -200,6 +200,8 @@
     <Compile Include="Models\PersonalInfoContact.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\SearchedCustomer.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SettingRelation.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

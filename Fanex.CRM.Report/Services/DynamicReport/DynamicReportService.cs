@@ -89,7 +89,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return types;
         }
 
-        public IEnumerable<Setting> GetAllSubProducts()
+        public IEnumerable<Product> GetAllSubProducts()
         {
             var subProducts = _serviceSetting.GetAllSubProducts().ToList();
             var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
@@ -98,8 +98,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 subProducts.Insert(
                     0,
-                    new Setting
-                {
+                    new Product
+                    {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
                 });
@@ -112,7 +112,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return subProducts;
         }
 
-        public IEnumerable<Setting> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             var products = _serviceSetting.GetAllProducts().ToList();
             var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
@@ -121,7 +121,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 products.Insert(
                     0,
-                    new Setting
+                    new Product
                     {
                         Id = SettingConstants.NotApply,
                         Value = Labels.All
@@ -157,13 +157,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return rawData;
         }
 
-        public IEnumerable<Setting> GetAllResponses()
+        public IEnumerable<SettingRelation> GetAllResponses()
         {
             var data = _serviceSetting.GetAllResponses().ToList();
             data.Insert(
                 0,
-                new Setting
-            {
+                new SettingRelation
+                {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
             });
@@ -171,13 +171,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return data;
         }
 
-        public IEnumerable<Setting> GetAllRoles()
+        public IEnumerable<SettingRelation> GetAllRoles()
         {
             var data = _serviceSetting.GetAllRoles().ToList();
             data.Insert(
                 0,
-                new Setting
-            {
+                new SettingRelation
+                {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
             });
@@ -237,11 +237,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return allMainCategory;
         }
 
-        public IEnumerable<Setting> GetAllExtensions()
+        public IEnumerable<SettingRelation> GetAllExtensions()
         {
-            var extensions = new List<Setting>();
+            var extensions = new List<SettingRelation>();
             var rawData = _serviceSetting.GetAllExtensions();
-            extensions.Add(new Setting
+            extensions.Add(new SettingRelation
             {
                 Id = ExtensionConstants.NotApply,
                 Value = Labels.All

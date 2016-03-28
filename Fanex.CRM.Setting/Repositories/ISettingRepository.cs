@@ -20,7 +20,7 @@ namespace Fanex.CRM.Setting.Repositories
     {
         IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria);
 
-        IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria);
+        IEnumerable<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new();
 
         IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria);
 
@@ -42,7 +42,7 @@ namespace Fanex.CRM.Setting.Repositories
 
         IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
-        IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria);
+        IEnumerable<Product> GetAllBetType(GetAllBetTypeCriteria criteria);
 
         IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
 
@@ -54,6 +54,6 @@ namespace Fanex.CRM.Setting.Repositories
 
         IEnumerable<Station> GetStations(GetStationsCriteria criteria);
 
-        IEnumerable<Setting> GetSubProducts(SubProductCriteria criteria);
+        IEnumerable<Product> GetSubProducts(SubProductCriteria criteria);
     }
 }

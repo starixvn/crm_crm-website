@@ -172,12 +172,12 @@ namespace Fanex.CRM.Feedback.Services
             };
         }
 
-        private IEnumerable<Setting> GetCustomerResponse()
+        private IEnumerable<SettingRelation> GetCustomerResponse()
         {
             var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
-                new Setting
+                new SettingRelation
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All

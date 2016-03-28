@@ -183,15 +183,15 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        public IEnumerable<Setting> GetAllTitles(bool hasItemAll = false)
+        public IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false)
         {
-            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllTitleSessionKey);
+            var cache = CacheService.Get<IEnumerable<SettingRelation>>(GetAllTitleSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var allTitles = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            var allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Title,
                 ParentId = 0
@@ -203,7 +203,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 allTitles.Insert(
                     0,
-                    new Setting
+                    new SettingRelation
                     {
                         Value = Labels.All,
                         Id = TitleConstants.All,
@@ -240,15 +240,15 @@ namespace Fanex.CRM.Setting.Services
             return allLanguages;
         }
 
-        public IEnumerable<Setting> GetAllExtensions()
+        public IEnumerable<SettingRelation> GetAllExtensions()
         {
-            var allExtensions = CacheService.Get<IEnumerable<Setting>>(GetAllExtensionSessionKey);
+            var allExtensions = CacheService.Get<IEnumerable<SettingRelation>>(GetAllExtensionSessionKey);
             if (allExtensions != null)
             {
                 return allExtensions;
             }
 
-            allExtensions = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            allExtensions = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Extension,
                 ParentId = 0
@@ -313,22 +313,22 @@ namespace Fanex.CRM.Setting.Services
             return mainCategories;
         }
 
-        public IEnumerable<Setting> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
-            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllProductSessionKey);
+            var cache = CacheService.Get<IEnumerable<Product>>(GetAllProductSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var products = new List<Setting>();
-            var parentProducts = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            var products = new List<Product>();
+            var parentProducts = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.ParentProduct,
                 ParentId = 0
             }).ToList();
 
-            var notApplySetting = new Setting
+            var notApplySetting = new Product
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.Symbol_NotApply,
@@ -337,18 +337,18 @@ namespace Fanex.CRM.Setting.Services
 
             var subProducts = GetAllSubProducts();
 
-            products.Add(new Setting
+            products.Add(new Product
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<Setting> { notApplySetting }
+                ChildSettings = new List<Product> { notApplySetting }
             });
 
             foreach (var parentProduct in parentProducts)
             {
                 var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
+                subProductByProduct.Insert(0, notApplySetting);
                 parentProduct.ChildSettings = subProductByProduct;
-                parentProduct.ChildSettings.Insert(0, notApplySetting);
 
                 products.Add(parentProduct);
             }
@@ -365,37 +365,37 @@ namespace Fanex.CRM.Setting.Services
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IEnumerable<Setting> GetAllSubProducts()
+        public IEnumerable<Product> GetAllSubProducts()
         {
-            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllSubProductSessionKey);
+            var cache = CacheService.Get<IEnumerable<Product>>(GetAllSubProductSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var products = new List<Setting>();
+            var products = new List<Product>();
             var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria());
 
-            var notApplySetting = new Setting
+            var notApplySetting = new Product
             {
                 Id = SettingConstants.NotApply,
-                Name = Labels.Symbol_NotApply
+                Name = Labels.Symbol_NotApply,
+                Value = Labels.Symbol_NotApply
             };
 
-            products.Add(new Setting
+            products.Add(new Product
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<Setting> { notApplySetting }
+                ChildSettings = new List<Product> { notApplySetting }
             });
 
             var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
             foreach (var data in subProducts)
             {
-                data.ChildSettings = betTypes.Where(s => s.ParentId == data.Id).ToList();
-
-                data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
-                data.ChildSettings.Insert(0, notApplySetting);
+                var childSettings = betTypes.Where(s => s.ParentId == data.Id).OrderBy(s => s.DisplayOrder).ToList();
+                childSettings.Insert(0, notApplySetting);
+                data.ChildSettings = childSettings;
                 products.Add(data);
             }
 
@@ -479,15 +479,15 @@ namespace Fanex.CRM.Setting.Services
             return currencies;
         }
 
-        public IEnumerable<Setting> GetAllRoles()
+        public IEnumerable<SettingRelation> GetAllRoles()
         {
-            var allRole = CacheService.Get<IEnumerable<Setting>>(GetAllRoleSessionKey);
+            var allRole = CacheService.Get<IEnumerable<SettingRelation>>(GetAllRoleSessionKey);
             if (allRole != null)
             {
                 return allRole;
             }
 
-            allRole = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            allRole = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Role,
                 ParentId = 0
@@ -497,15 +497,15 @@ namespace Fanex.CRM.Setting.Services
             return allRole;
         }
 
-        public IEnumerable<Setting> GetAllResponses()
+        public IEnumerable<SettingRelation> GetAllResponses()
         {
-            var allResponse = CacheService.Get<IEnumerable<Setting>>(GetAllResponseSessionKey);
+            var allResponse = CacheService.Get<IEnumerable<SettingRelation>>(GetAllResponseSessionKey);
             if (allResponse != null)
             {
                 return allResponse;
             }
 
-            allResponse = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            allResponse = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Response,
                 ParentId = 0
@@ -827,9 +827,9 @@ namespace Fanex.CRM.Setting.Services
             settingList.Add(setting);
         }
 
-        private IEnumerable<Setting> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
+        private IEnumerable<T> GetSettingRelationByName<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
-            var settingRelations = _settingRepositoryInstance.GetSettingRelations(criteria);
+            var settingRelations = _settingRepositoryInstance.GetSettingRelations<T>(criteria);
 
             return settingRelations.OrderBy(setting => setting.DisplayOrder).ToList();
         }

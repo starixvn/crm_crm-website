@@ -30,6 +30,6 @@ namespace Fanex.CRM.Setting.Models
 
         public IEnumerable<BaseModel> ProductStatus { get; set; }
 
-        public IEnumerable<Setting> Extensions { get; set; }
+        public IEnumerable<SettingRelation> Extensions { get; set; }
     }
 }

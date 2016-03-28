@@ -47,16 +47,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria)
+        public IEnumerable<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var settings = new List<Setting>();
+                    var settings = new List<T>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new T()
                         {
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
@@ -272,17 +272,17 @@ namespace Fanex.CRM.Setting.Repositories
             return ReadBaseModels(criteria, "InformStatusId", "Name");
         }
 
-        public IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria)
+        public IEnumerable<Product> GetAllBetType(GetAllBetTypeCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allBetType = new List<Setting>();
+                    var allBetType = new List<Product>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Product()
                         {
                             Id = Converter.ToInt(reader["BetTypeId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -299,16 +299,16 @@ namespace Fanex.CRM.Setting.Repositories
             }            
         }
 
-        public IEnumerable<Setting> GetSubProducts(SubProductCriteria criteria)
+        public IEnumerable<Product> GetSubProducts(SubProductCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var subProducts = new List<Setting>();
+                    var subProducts = new List<Product>();
                     while (reader.Read())
                     {
-                        subProducts.Add(new Setting()
+                        subProducts.Add(new Product()
                         {
                             Id = Converter.ToInt(reader["SubProductID"]),
                             Value = Converter.ToString2(reader["Name"]),

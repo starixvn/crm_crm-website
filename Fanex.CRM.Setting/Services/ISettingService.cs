@@ -26,13 +26,13 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<BaseModel> GetAllSiteWithGroup();
 
-        IEnumerable<Setting> GetAllTitles(bool hasItemAll = false);
+        IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false);
 
         IEnumerable<Country> GetAllCountries();
 
         IEnumerable<Setting> GetAllLanguages();
 
-        IEnumerable<Setting> GetAllExtensions();
+        IEnumerable<SettingRelation> GetAllExtensions();
 
         IEnumerable<Setting> GetAllCommunicationTools();
 
@@ -40,7 +40,7 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Setting> GetAllMainCategoriesFromAllSettings();
 
-        IEnumerable<Setting> GetAllSubProducts();
+        IEnumerable<Product> GetAllSubProducts();
 
         IEnumerable<Setting> GetAllStatuses(int statusType);
 
@@ -48,9 +48,9 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
-        IEnumerable<Setting> GetAllRoles();
+        IEnumerable<SettingRelation> GetAllRoles();
 
-        IEnumerable<Setting> GetAllResponses();
+        IEnumerable<SettingRelation> GetAllResponses();
 
         IEnumerable<Setting> GetAllCustomerTypes();
 
@@ -78,6 +78,6 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Station> GetStations();
 
-        IEnumerable<Setting> GetAllProducts();
+        IEnumerable<Product> GetAllProducts();
     }
 }
