@@ -95,6 +95,7 @@ namespace Fanex.CRM.Communication.Services
 
             var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
             log.SiteInfo.Name = site == null ? null : site.Name;
+            log.SiteInfo.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);
             log.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NotApply : licenseeType.Value;

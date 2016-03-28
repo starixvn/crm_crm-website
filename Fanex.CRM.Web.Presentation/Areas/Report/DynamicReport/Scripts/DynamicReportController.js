@@ -449,9 +449,11 @@
 
             $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
         };
-        $scope.updateSelectedSubProduct = function (subProduct) {
+        $scope.updateSelectedSubProduct = function (subProduct) {          
             $scope.searchCriteria.SubProduct = { Id: subProduct.Id };
-            $scope.$apply();
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
         };
         $scope.updateSelectedResponse = function (response) {
             $scope.searchCriteria.Response = response;
