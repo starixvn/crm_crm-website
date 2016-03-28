@@ -416,7 +416,7 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>
         /// All status.
         /// </returns>
-        public IEnumerable<Setting> GetAllStatuses(int statusType)
+        public IEnumerable<BaseModel> GetAllStatuses(int statusType)
         {
             string key = GetAllStatusSessionKey;
             if (statusType == ViewTypeConstants.CommunicationTool)
@@ -428,15 +428,13 @@ namespace Fanex.CRM.Setting.Services
                 key = GetAllStatusRedemption;
             }
 
-            var allStatus = CacheService.Get<IEnumerable<Setting>>(key);
+            var allStatus = CacheService.Get<IEnumerable<BaseModel>>(key);
             if (allStatus != null)
             {
                 return allStatus;
             }
 
-            allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType))
-                .OrderBy(s => s.DisplayOrder)
-                .ToList();
+            allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType));
             CacheService.Set(key, allStatus);
 
             return allStatus;
@@ -676,7 +674,7 @@ namespace Fanex.CRM.Setting.Services
                             Value = x.Value,
                             SettingType = x.SettingType,
                             ParentId = parentSetting.Id,
-                            IsSubSetting = true
+                            IsChild = true
                         });
 
                     subSettings.AddRange(settings);

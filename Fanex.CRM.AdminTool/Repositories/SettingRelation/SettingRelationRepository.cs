@@ -45,20 +45,20 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
             }
         }
 
-        public IEnumerable<Setting> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<SettingRelation> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var result = new List<Setting>();
+                    var result = new List<SettingRelation>();
                     while (reader.Read())
                     {
-                        result.Add(new Setting
+                        result.Add(new SettingRelation
                         {
                             Id = Converter.ToInt(reader["settingid"], 0),
                             Value = Converter.ToString2(reader["settingvalue"]),
-                            IsSubSetting = Converter.ToInt(reader["issub"], 0) == 1,
+                            IsChild = Converter.ToInt(reader["issub"], 0) == 1,
                             DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
                         });
                     }

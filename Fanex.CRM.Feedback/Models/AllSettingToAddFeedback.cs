@@ -40,7 +40,7 @@ namespace Fanex.CRM.Feedback.Models
 
         public IEnumerable<SettingRelation> ResponseList { get; set; }
 
-        public IEnumerable<Setting> StatusList { get; set; }
+        public IEnumerable<BaseModel> StatusList { get; set; }
 
         public IEnumerable<SettingRelation> TitleList { get; set; }
 

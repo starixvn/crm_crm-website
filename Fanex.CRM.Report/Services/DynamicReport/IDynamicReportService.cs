@@ -14,6 +14,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Setting.Models;
+    using Infrastructure.Models;
 
     public interface IDynamicReportService
     {
@@ -25,7 +26,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         IEnumerable<SiteInfo> GetAllSites();
 
-        IEnumerable<Setting> GetAllStatuses();
+        IEnumerable<BaseModel> GetAllStatuses();
 
         IEnumerable<SettingRelation> GetAllResponses();
 

@@ -191,7 +191,7 @@ namespace Fanex.CRM.Communication.Repositories
                 {
                     Id = Converter.ToInt(reader["StatusID"])
                 },
-                SiteInfo = new Setting
+                SiteInfo = new Site
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },

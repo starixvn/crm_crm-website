@@ -42,7 +42,7 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Product> GetAllSubProducts();
 
-        IEnumerable<Setting> GetAllStatuses(int statusType);
+        IEnumerable<BaseModel> GetAllStatuses(int statusType);
 
         IEnumerable<Status> GetInformHeadlineStatuses();
 

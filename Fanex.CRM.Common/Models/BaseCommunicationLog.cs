@@ -62,7 +62,7 @@ namespace Fanex.CRM.Common.Models
 
         public Setting Status { get; set; }
 
-        public Setting SiteInfo { get; set; }
+        public Site SiteInfo { get; set; }
 
         public Setting RoleInfo { get; set; }
 

@@ -10,16 +10,14 @@
 namespace Fanex.CRM.Report.Services.DynamicReport
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
-    using Fanex.Excel;
     using Fanex.Excel.Models;
     using NPOI.SS.UserModel;
 
     public interface IRedemptionStatisticsService
     {
-        List<Setting> AllStatus();
+        List<BaseModel> AllStatus();
 
         List<BaseModel> AllCurrencyRedemption();
 

@@ -58,7 +58,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             _redemptionRepository = redemptionRepository ?? new RedemptionStatisticsRepository();
         }
 
-        public List<Setting> AllStatus()
+        public List<BaseModel> AllStatus()
         {
             try
             {

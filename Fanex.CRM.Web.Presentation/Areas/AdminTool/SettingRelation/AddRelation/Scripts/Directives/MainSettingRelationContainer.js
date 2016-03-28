@@ -29,7 +29,7 @@
                                 {
                                     Name: "ColIsSub",
                                     Value: '<input type="checkbox" id="chk' + setting.Id + '"' +
-                                         (setting.IsSubSetting ? ' checked="checked" ' : '') +
+                                         (setting.IsChild ? ' checked="checked" ' : '') +
                                          ' data-row-index="' + i + '"' +
                                          ' class="hand checkbox-issub" name="chk" value="' + setting.Id + '"/>'
                                 },

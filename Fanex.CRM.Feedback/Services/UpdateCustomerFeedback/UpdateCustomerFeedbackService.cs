@@ -100,7 +100,6 @@ namespace Fanex.CRM.Feedback.Services
 
             var site = siteSettings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.SiteSetting.Id);
             feedback.CustomerInfo.SiteSetting.Name = site == null ? null : site.Name;
-            feedback.CustomerInfo.SiteSetting.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
             feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NA : licenseeType.Value;

@@ -34,7 +34,7 @@ namespace Fanex.CRM.Setting.Repositories
 
         IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
 
-        IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria);
+        IEnumerable<BaseModel> GetAllStatus(GetAllStatusCriteria criteria);
 
         IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria);
 

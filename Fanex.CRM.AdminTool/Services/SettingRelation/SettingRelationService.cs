@@ -71,7 +71,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                 .ToList();
         }
 
-        public IEnumerable<Setting> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<SettingRelation> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             return _settingRelationRepository.GetMainSettingRelations(criteria);
         }

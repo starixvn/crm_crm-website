@@ -140,7 +140,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return _serviceSetting.GetAllSites();
         }
 
-        public IEnumerable<Setting> GetAllStatuses()
+        public IEnumerable<BaseModel> GetAllStatuses()
         {
             var rawData = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
@@ -148,7 +148,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             rawData.Insert(
                 0,
-                new Setting
+                new BaseModel
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All

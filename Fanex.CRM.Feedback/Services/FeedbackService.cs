@@ -227,13 +227,13 @@ namespace Fanex.CRM.Feedback.Services
             return tools;
         }
 
-        private IEnumerable<Setting> GetStatus()
+        private IEnumerable<BaseModel> GetStatus()
         {
             var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            status.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
+            status.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.All });
             return status;
         }
 

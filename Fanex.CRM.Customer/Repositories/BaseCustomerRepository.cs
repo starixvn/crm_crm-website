@@ -54,7 +54,7 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["roleid"])
                 },
-                SiteSetting = new BaseModel
+                SiteSetting = new Site
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },

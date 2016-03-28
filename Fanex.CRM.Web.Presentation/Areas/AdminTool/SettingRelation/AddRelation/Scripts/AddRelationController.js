@@ -78,7 +78,7 @@
                 $scope.addSettingRelationsParams.SubSettings[i] = {
                     Id: subSetting.Id,
                     DisplayOrder: subSetting.DisplayOrder,
-                    IsSubSetting: subSetting.IsSubSetting
+                    IsChild: subSetting.IsChild
                 };
             }
 
@@ -115,7 +115,7 @@
             for (var i = 0; i < settingLength; i++) {
                 var setting = $scope.mainSettingRelationView[i];
                 var oldSetting = $scope.oldMainSettingRelationView[i];
-                if (setting.IsSubSetting !== oldSetting.IsSubSetting ||
+                if (setting.IsChild !== oldSetting.IsChild ||
                     setting.DisplayOrder !== oldSetting.DisplayOrder) {
                     isChange = true;
                     break;

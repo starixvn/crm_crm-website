@@ -19,7 +19,7 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
     {
         IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
-        IEnumerable<Setting> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria);
+        IEnumerable<SettingRelation> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
         Result AddSettingRelations(AddSettingRelationsCriteria criteria);
     }

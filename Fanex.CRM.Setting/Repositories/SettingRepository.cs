@@ -60,7 +60,7 @@ namespace Fanex.CRM.Setting.Repositories
                         {
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
-                            IsSubSetting = Converter.ToInt(reader["IsSub"]) == 1,
+                            IsChild = Converter.ToInt(reader["IsSub"]) == 1,
                             DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
                         };
 
@@ -223,27 +223,9 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria)
+        public IEnumerable<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var allStatus = new List<Setting>();
-                    while (reader.Read())
-                    {
-                        var setting = new Setting()
-                        {
-                            Id = Converter.ToInt(reader["StatusId"]),
-                            Name = Converter.ToString2(reader["Name"])
-                        };
-
-                        allStatus.Add(setting);
-                    }
-
-                    return allStatus;
-                }
-            }
+            return ReadBaseModels(criteria, "StatusId", "Name");
         }
 
         public IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria)

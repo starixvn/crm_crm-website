@@ -45,7 +45,7 @@ namespace Fanex.CRM.Communication.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public IList<Setting> AllStatusForEdit
+        public IList<BaseModel> AllStatusForEdit
         {
             get
             {
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Communication.Services
         /// <value>
         /// All status for insert.
         /// </value>
-        public IList<Setting> AllStatusForInsert
+        public IList<BaseModel> AllStatusForInsert
         {
             get
             {
@@ -95,7 +95,6 @@ namespace Fanex.CRM.Communication.Services
 
             var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
             log.SiteInfo.Name = site == null ? null : site.Name;
-            log.SiteInfo.AliasName = site == null ? null : site.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);
             log.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NotApply : licenseeType.Value;

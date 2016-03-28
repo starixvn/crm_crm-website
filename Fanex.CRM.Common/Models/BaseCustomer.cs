@@ -23,7 +23,7 @@ namespace Fanex.CRM.Common.Models
         public BaseCustomer()
         {
             Title = new Setting();
-            SiteSetting = new BaseModel();
+            SiteSetting = new Site();
             Country = new BaseModel();
             Languages = new List<BaseModel>();
             PhoneInfo = new List<Phone>();
@@ -46,7 +46,7 @@ namespace Fanex.CRM.Common.Models
 
         public string BirthDayString { get; set; }
 
-        public BaseModel SiteSetting { get; set; }
+        public Site SiteSetting { get; set; }
 
         public BaseModel Passport { get; set; }
 
