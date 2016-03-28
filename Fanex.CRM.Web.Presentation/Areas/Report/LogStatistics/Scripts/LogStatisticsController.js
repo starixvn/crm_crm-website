@@ -243,20 +243,24 @@ unused: vars */
 
         $scope.toggleExpansionForIBCReport = function () {
             $uiBlockerService.blockUI();
-            $scope.$apply(function () {
+
+            setTimeout(function () {
                 $scope.ibcReportOptions.IsExpand = !$scope.ibcReportOptions.IsExpand;
                 $scope.ibcReportOptions.IsUpdateGrid = true;
-            });
-            $uiBlockerService.unblockUI();
+                $scope.$apply();
+                $uiBlockerService.unblockUI();
+            }, 100);
         };
 
         $scope.toggleExpansionForLicenseeReport = function () {
             $uiBlockerService.blockUI();
-            $scope.$apply(function () {
+
+            setTimeout(function () {
                 $scope.licenseeReportOptions.IsExpand = !$scope.licenseeReportOptions.IsExpand;
                 $scope.licenseeReportOptions.IsUpdateGrid = true;
-            });
-            $uiBlockerService.unblockUI();
+                $scope.$apply();
+                $uiBlockerService.unblockUI();
+            }, 100);           
         };
 
         $scope.viewDetail = function (siteType) {
