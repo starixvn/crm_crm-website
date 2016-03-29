@@ -8,9 +8,7 @@
 
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SettingSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SettingDel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubjectTemplateSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xpre"></SpNameConfig>
-
+  
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xpre"></SpNameConfig>
