@@ -249,9 +249,9 @@
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateApplication.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateController.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateService.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateService.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateApplication.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateController.js" />
@@ -1319,8 +1319,8 @@
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Index.cshtml" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Styles\ChangeTemplateState.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Styles\EditTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />

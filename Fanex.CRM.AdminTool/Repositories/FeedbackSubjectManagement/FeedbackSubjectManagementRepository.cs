@@ -50,7 +50,7 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
             }
         }
 
-        public Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
+        public Result ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
             return ExecuteNonQuery(criteria);
         }

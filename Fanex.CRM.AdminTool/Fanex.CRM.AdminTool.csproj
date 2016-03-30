@@ -173,7 +173,7 @@
     <Compile Include="Controllers\FeedbackSubjectManagementController.cs" />
     <Compile Include="Controllers\SettingManagementController.cs" />
     <Compile Include="Controllers\SettingRelationController.cs" />
-    <Compile Include="Criteria\FeedbackSubjectManagement\DeleteFeedbackSubjectTemplateCriteria.cs" />
+    <Compile Include="Criteria\FeedbackSubjectManagement\ChangeSubjectTemplateStateCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\EditFeedbackSubjectTemplateCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\FeedbackSubjectTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\InsertFeedbackSubjectTemplateCriteria.cs" />

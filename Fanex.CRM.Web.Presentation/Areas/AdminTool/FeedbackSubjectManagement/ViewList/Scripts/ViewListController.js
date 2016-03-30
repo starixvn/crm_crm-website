@@ -134,12 +134,12 @@
                 { my: "center top+200", at: "center top" },
                 $scope.beforeCloseEditView);
         };
-        $scope.changeStateTemplate = function (template) {
+        $scope.changeTemplateState = function (template) {
             parent.homeManager.CachedData.shouldReloadView = false;
             var state = !template.IsActive;
             var title = state === true ? viewResources.ActiveFeedbackSubjectTitle : viewResources.DeactiveFeedbackSubjectTitle;
             parent.OpenPopup(
-                window.rootUrl + "FeedbackSubjectManagement/OpenChangeStateTemplateView?" + $.param({ TemplateId: template.Id, IsActive: state }),
+                window.rootUrl + "FeedbackSubjectManagement/OpenChangeTemplateStateView?" + $.param({ TemplateId: template.Id, IsActive: state }),
                 title,
                 450,
                 160,

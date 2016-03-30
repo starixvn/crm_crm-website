@@ -49,9 +49,9 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             };
         }
 
-        public Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
+        public Result ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
-            var result = _feedbackSubjectManagementRepository.DeleteTemplate(criteria);
+            var result = _feedbackSubjectManagementRepository.ChangeTemplateState(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = criteria.IsActive ?

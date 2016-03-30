@@ -4,16 +4,16 @@
     MessageResult,
     template */
 
-    angular.module('addmintool-feedbacksubjectmanagement-deletetemplate')
-    .controller('deleteTemplateController', ['$scope', '$uiBlockerService', 'deleteTemplateService',
-    function ($scope, $uiBlockerService, deleteTemplateService) {
+    angular.module('addmintool-feedbacksubjectmanagement-changeTemplateState')
+    .controller('changeTemplateStateController', ['$scope', '$uiBlockerService', 'changeTemplateStateService',
+    function ($scope, $uiBlockerService, changeTemplateStateService) {
         $scope.messageResultOptions = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
         };
-        $scope.changeStateTemplate = function () {
+        $scope.changeTemplateState = function () {
             $uiBlockerService.blockUI();
-            deleteTemplateService.changeStateTemplate({ TemplateId: template.TemplateId, IsActive: template.IsActive })
+            changeTemplateStateService.changeTemplateState({ TemplateId: template.TemplateId, IsActive: template.IsActive })
                 .then(function (data) {
                     $scope.showDeleteResult(data.Result);
                     $uiBlockerService.unblockUI();
@@ -36,7 +36,7 @@
                 parent.ClosePopup();
             }, sharedScriptManager.cachedData.alertSuccessTime);
         };
-        $scope.cancelDeleteTemplate = function () {
+        $scope.cancelChangeTemplateState = function () {
             parent.ClosePopup();
         };
         angular.element(document).ready(function () {

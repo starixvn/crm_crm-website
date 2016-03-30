@@ -16,7 +16,7 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
     /// <summary>
     /// Delete Feedback Subject Template Criteria.
     /// </summary>
-    public class DeleteFeedbackSubjectTemplateCriteria : CriteriaBase
+    public class ChangeSubjectTemplateStateCriteria : CriteriaBase
     {
         public int TemplateId { get; set; }
 

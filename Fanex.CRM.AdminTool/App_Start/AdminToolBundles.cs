@@ -75,17 +75,17 @@ namespace Fanex.CRM.AdminTool
         /// <param name="bundles">The bundles.</param>
         private static void RegisterDeleteFeedbackSubjectTemplateBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/DeleteTemplateScripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Scripts/DeleteTemplateApplication.js",
-                "~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Scripts/DeleteTemplateService.js",
-                "~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Scripts/DeleteTemplateController.js"));
+                "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Scripts/ChangeTemplateStateApplication.js",
+                "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Scripts/ChangeTemplateStateService.js",
+                "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Scripts/ChangeTemplateStateController.js"));
 
             AddAndInclude(
                 bundles,
-                "~/Areas/Admin/FeedbackSubjectManagement/DeleteTemplateStyles",
-                "~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Styles/DeleteTemplate.less");
+                "~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateStyles",
+                "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Styles/ChangeTemplateState.less");
         }
 
         /// <summary>

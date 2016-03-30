@@ -88,7 +88,7 @@
             activeSettings.unbind("click");
             activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
-                scope.changeStateTemplate(feedbackSubjectTemplateView.Templates[rowIndex]);
+                scope.changeTemplateState(feedbackSubjectTemplateView.Templates[rowIndex]);
             });
         }
 
