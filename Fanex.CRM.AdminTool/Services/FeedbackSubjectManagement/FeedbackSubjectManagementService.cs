@@ -54,7 +54,10 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             var result = _feedbackSubjectManagementRepository.DeleteTemplate(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
-                result.Message = Labels.Feedback_FeedbackSubjectManagement_DeleteSuccess;
+                result.Message = criteria.IsActive ?
+                    Labels.ActiveFeedbackSubjectSuccessMessage :
+                    Labels.DeactiveFeedbackSubjectSuccessMessage;
+
                 CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
             }
 

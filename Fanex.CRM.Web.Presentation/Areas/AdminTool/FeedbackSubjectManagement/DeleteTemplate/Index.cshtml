@@ -1,10 +1,15 @@
-﻿@using Fanex.CRM.AdminTool.Resources;
+﻿@using Newtonsoft.Json;
+@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
-@model int
+@model Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement.DeleteFeedbackSubjectTemplateCriteria
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Labels.Title_AdminTool_FeedbackSubjectManagement;
+
+    var model = JsonConvert.SerializeObject(Model);
+
+    var messageTemplate = Model.IsActive ? Labels.ActiveFeedbackSubjectMessage : Labels.DeactiveFeedbackSubjectMessage;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Areas/Admin/FeedbackSubjectManagement/DeleteTemplateStyles")
@@ -23,10 +28,10 @@
             </div>
         </div>
         <div class="row">
-            @string.Format(Labels.FeedbackSubjectManagement_DeleteTemplate_Message, Model)
+            @string.Format(messageTemplate, Model.TemplateId)
         </div>
         <div class="row btn-group">
-            <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="deleteTemplate();">@Labels.Ok
+            <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="changeStateTemplate();">@Labels.Ok
             </button>
             <button id="btn-cancel" class="btn pull-left btn-cancel" data-ng-click="cancelDeleteTemplate();">@Labels.Cancel
             </button>
@@ -40,10 +45,6 @@
         "~/Areas/Admin/FeedbackSubjectManagement/DeleteTemplateScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var templateId = @Model;
-        var viewResources = {
-            Edit: '@Labels.Edit',
-            Delete: '@Labels.Delete'
-        };
+        var template = @Html.Raw(model);
     </script>
 }

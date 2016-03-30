@@ -44,9 +44,9 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [AuthenticateAction(AuthenticationType.Read, "Index")]
-        public ActionResult OpenDeleteTemplateView(int templateId)
+        public ActionResult OpenChangeStateTemplateView(DeleteFeedbackSubjectTemplateCriteria template)
         {
-            return View("~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Index.cshtml", templateId);
+            return View("~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Index.cshtml", template);
         }
 
         [AuthenticateAction(AuthenticationType.Read, "Index")]
@@ -79,7 +79,7 @@ namespace Fanex.CRM.AdminTool.Controllers
 
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
-        public JsonResult DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
+        public JsonResult ChangeStateTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
         {
             Result result = _feedbackSubjectManagementService.DeleteTemplate(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);

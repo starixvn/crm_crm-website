@@ -2,7 +2,7 @@
     "use strict";
     /* global sharedScriptManager,
     MessageResult,
-    templateId */
+    template */
 
     angular.module('addmintool-feedbacksubjectmanagement-deletetemplate')
     .controller('deleteTemplateController', ['$scope', '$uiBlockerService', 'deleteTemplateService',
@@ -11,9 +11,9 @@
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
         };
-        $scope.deleteTemplate = function () {
+        $scope.changeStateTemplate = function () {
             $uiBlockerService.blockUI();
-            deleteTemplateService.deleteTemplate({ TemplateId: templateId })
+            deleteTemplateService.changeStateTemplate({ TemplateId: template.TemplateId, IsActive: template.IsActive })
                 .then(function (data) {
                     $scope.showDeleteResult(data.Result);
                     $uiBlockerService.unblockUI();

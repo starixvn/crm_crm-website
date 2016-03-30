@@ -39,7 +39,8 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
                             result.Add(new FeedbackSubjectTemplate
                             {
                                 Id = Converter.ToInt(reader["templateID"]),
-                                TemplateContent = templateContent
+                                TemplateContent = templateContent,
+                                IsActive = Converter.ToBool(reader["isactive"])
                             });
                         }
                     }

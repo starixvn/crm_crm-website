@@ -121,8 +121,20 @@
     <value>Active</value>
     <comment>#50270</comment>
   </data>
+  <data name="ActiveFeedbackSubjectMessage" xml:space="preserve">
+    <value>Are you sure you want to active Feedback Subject Template {0}?</value>
+    <comment>#50270</comment>
+  </data>
+  <data name="ActiveFeedbackSubjectSuccessMessage" xml:space="preserve">
+    <value>Active feedback subject template successfully!</value>
+    <comment>#50270</comment>
+  </data>
+  <data name="ActiveFeedbackSubjectTitle" xml:space="preserve">
+    <value>Active Feedback Subject Template</value>
+    <comment>#50270</comment>
+  </data>
   <data name="ActiveSettingSuccessMessage" xml:space="preserve">
-    <value>Active setting successful!</value>
+    <value>Active setting successfully!</value>
     <comment>#50270</comment>
   </data>
   <data name="Active_Setting" xml:space="preserve">
@@ -150,19 +162,25 @@
   <data name="Confirm_Ignore_InsertTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="DeactiveFeedbackSubjectMessage" xml:space="preserve">
+    <value>Are you sure you want to deactive Feedback Subject Template {0}?</value>
+    <comment>#50270</comment>
+  </data>
+  <data name="DeactiveFeedbackSubjectSuccessMessage" xml:space="preserve">
+    <value>Deactive feedback subject template successfully!</value>
+    <comment>#50270</comment>
+  </data>
+  <data name="DeactiveFeedbackSubjectTitle" xml:space="preserve">
+    <value>Deactive Feedback Subject Template</value>
+    <comment>#50270</comment>
+  </data>
   <data name="DeactiveSettingSuccessMessage" xml:space="preserve">
-    <value>Deactive setting successful!</value>
+    <value>Deactive setting successfully!</value>
     <comment>#50270</comment>
   </data>
   <data name="Deactive_Setting" xml:space="preserve">
     <value>Deactive Setting</value>
     <comment>#50270</comment>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Delete_Feedback_Subject_Template" xml:space="preserve">
-    <value>Delete Feedback Subject Template</value>
   </data>
   <data name="Display_Order" xml:space="preserve">
     <value>Display Order</value>
@@ -176,9 +194,6 @@
   <data name="Edit_Setting_Value" xml:space="preserve">
     <value>Edit Setting Value</value>
   </data>
-  <data name="FeedbackSubjectManagement_DeleteTemplate_Message" xml:space="preserve">
-    <value>Are you sure you want to delete Feedback Subject Template {0}?</value>
-  </data>
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>Please Input Feedback Subject Template Content!</value>
   </data>
@@ -190,9 +205,6 @@
   </data>
   <data name="FeedbackSubjectManagement_Error_ExceedValue" xml:space="preserve">
     <value>Max length of Setting Value is 100</value>
-  </data>
-  <data name="Feedback_FeedbackSubjectManagement_DeleteSuccess" xml:space="preserve">
-    <value>Delete template successful!</value>
   </data>
   <data name="Feedback_FeedbackSubjectManagement_EditSuccess" xml:space="preserve">
     <value>Update Feedback Subject Template Successfully!</value>

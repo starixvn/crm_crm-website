@@ -20,6 +20,8 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
     {
         public int TemplateId { get; set; }
 
+        public bool IsActive { get; set; }
+
         /// <summary>
         /// Gets the SP parameters.
         /// </summary>
@@ -28,6 +30,7 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
         {
             var param = new Hashtable();
             param.Add("templateid", TemplateId);
+            param.Add("isactive", IsActive);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             return param;

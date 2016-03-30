@@ -79,7 +79,34 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Active setting successful!.
+        ///   Looks up a localized string similar to Are you sure you want to active Feedback Subject Template {0}?.
+        /// </summary>
+        public static string ActiveFeedbackSubjectMessage {
+            get {
+                return ResourceManager.GetString("ActiveFeedbackSubjectMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active feedback subject template successfully!.
+        /// </summary>
+        public static string ActiveFeedbackSubjectSuccessMessage {
+            get {
+                return ResourceManager.GetString("ActiveFeedbackSubjectSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active Feedback Subject Template.
+        /// </summary>
+        public static string ActiveFeedbackSubjectTitle {
+            get {
+                return ResourceManager.GetString("ActiveFeedbackSubjectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active setting successfully!.
         /// </summary>
         public static string ActiveSettingSuccessMessage {
             get {
@@ -160,29 +187,38 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactive setting successful!.
+        ///   Looks up a localized string similar to Are you sure you want to deactive Feedback Subject Template {0}?.
+        /// </summary>
+        public static string DeactiveFeedbackSubjectMessage {
+            get {
+                return ResourceManager.GetString("DeactiveFeedbackSubjectMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactive feedback subject template successfully!.
+        /// </summary>
+        public static string DeactiveFeedbackSubjectSuccessMessage {
+            get {
+                return ResourceManager.GetString("DeactiveFeedbackSubjectSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactive Feedback Subject Template.
+        /// </summary>
+        public static string DeactiveFeedbackSubjectTitle {
+            get {
+                return ResourceManager.GetString("DeactiveFeedbackSubjectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactive setting successfully!.
         /// </summary>
         public static string DeactiveSettingSuccessMessage {
             get {
                 return ResourceManager.GetString("DeactiveSettingSuccessMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string Delete {
-            get {
-                return ResourceManager.GetString("Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete Feedback Subject Template.
-        /// </summary>
-        public static string Delete_Feedback_Subject_Template {
-            get {
-                return ResourceManager.GetString("Delete_Feedback_Subject_Template", resourceCulture);
             }
         }
         
@@ -223,15 +259,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete template successful!.
-        /// </summary>
-        public static string Feedback_FeedbackSubjectManagement_DeleteSuccess {
-            get {
-                return ResourceManager.GetString("Feedback_FeedbackSubjectManagement_DeleteSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update Feedback Subject Template Successfully!.
         /// </summary>
         public static string Feedback_FeedbackSubjectManagement_EditSuccess {
@@ -264,15 +291,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Feedback_Subject_Template_Content {
             get {
                 return ResourceManager.GetString("Feedback_Subject_Template_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete Feedback Subject Template {0}?.
-        /// </summary>
-        public static string FeedbackSubjectManagement_DeleteTemplate_Message {
-            get {
-                return ResourceManager.GetString("FeedbackSubjectManagement_DeleteTemplate_Message", resourceCulture);
             }
         }
         
