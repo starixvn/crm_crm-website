@@ -2,6 +2,7 @@
     "use strict";
     /* global communicationLog,
     sharedScriptManager,
+    SettingManager,
     crmConstants,
     viewResources,
     getRelatedCustomer,
@@ -129,8 +130,8 @@
                 }
             }
 
-            $scope.subProductOptions.DataList = $scope.getChildSettings($scope.communicationLog.Product.Id, $scope.productOptions.DataList);
-            $scope.betTypeList = $scope.getChildSettings($scope.communicationLog.SubProduct.Id, $scope.subProductOptions.DataList);
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.communicationLog.Product.Id, $scope.productOptions.DataList);
+            $scope.betTypeList = SettingManager.getChildSettings($scope.communicationLog.SubProduct.Id, $scope.subProductOptions.DataList);
 
             $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -151,14 +152,14 @@
             $scope.communicationLog.Product = product;
             $scope.productOptions.SelectedId = product.Id;
 
-            $scope.subProductOptions.DataList = $scope.getChildSettings(product.Id, $scope.productOptions.DataList);
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings(product.Id, $scope.productOptions.DataList);
             $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.communicationLog.SubProduct = subProduct;
             $scope.subProductOptions.SelectedId = subProduct.Id;
 
-            var childSettings = $scope.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
+            var childSettings = SettingManager.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
             if (!childSettings || childSettings.length === 0) {
                 var notApplySetting = $scope.subProductOptions.DataList[0];
                 childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
@@ -366,6 +367,11 @@
                 $scope.updateChangeFlag();
             }
         };
+
+        $scope.updateSelectedSite = function () {
+            $scope.communicationLog.SiteInfo = $scope.communicationLog.SiteInfo || { Id: 0 };
+        };
+
         $scope.updateRemark = function (remark) {
             $scope.communicationLog.Remark = remark;
             $scope.updateChangeFlag();
@@ -432,7 +438,7 @@
                 ExtensionId: $scope.communicationLog.Extension.Id,
                 MainCategoryId: $scope.communicationLog.MainCategory.Id,
                 SubcategoryId: $scope.communicationLog.SubCategory.Id,
-                SiteId: $scope.communicationLog.SiteInfo.Id,
+                SiteId: $scope.communicationLog.SiteInfo.Id ,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
                 SubProductId: $scope.communicationLog.SubProduct.Id,
@@ -632,80 +638,33 @@
         };
 
         $scope.updateAllSettingsForLog = function (settings) {
-            $scope.updateLogSetting($scope.communicationLog.Extension, $scope.extensionList);
-            $scope.updateLogSetting($scope.communicationLog.CommunicationTool, $scope.communicationToolList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Extension, $scope.extensionList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.CommunicationTool, $scope.communicationToolList);
 
-            $scope.updateLogSetting($scope.communicationLog.MainCategory, $scope.mainCategoryList);
-            $scope.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryList, $scope.communicationLog.MainCategory.Id);
+            SettingManager.updateSettingSelectList($scope.communicationLog.MainCategory, $scope.mainCategoryList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryList, $scope.communicationLog.MainCategory.Id);
 
             $scope.updateProductSettings();
 
-            $scope.updateLogSetting($scope.communicationLog.Language, $scope.languageList);
-            $scope.updateLogSetting($scope.communicationLog.Status, $scope.statusList);
-            $scope.updateLogSetting($scope.communicationLog.RoleInfo, $scope.roleList);
-            $scope.updateLogSetting($scope.communicationLog.Response, $scope.responseList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Language, $scope.languageList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Status, $scope.statusList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.RoleInfo, $scope.roleList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Response, $scope.responseList);
 
-            $scope.updateLogSetting($scope.communicationLog.SiteInfo, $scope.siteList);
-            $scope.updateLogSetting($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.SiteInfo, $scope.siteList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 
         $scope.updateProductSettings = function () {
             var product = $scope.communicationLog.Product;
             var productList = $scope.productOptions.DataList;
-            $scope.updateLogSetting(product, productList);
+            SettingManager.updateSettingSelectList(product, productList);
 
             var subProduct = $scope.communicationLog.SubProduct;
             var subProductList = $scope.subProductOptions.DataList;
-            $scope.updateInActiveChildSettings(subProduct, productList, product.Id);
-            subProductList = $scope.getChildSettings(product.Id, productList);
-            $scope.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
-        };
-
-        $scope.updateLogSetting = function (setting, dataList) {
-            if (!$scope.hasSetting(setting.Id, dataList)) {
-                dataList.push({
-                    Id: setting.Id,
-                    Name: setting.Name,
-                    Value: setting.Name,
-                    AliasName: setting.AliasName ? setting.AliasName : ""
-                });
-            }
-        };
-
-        $scope.hasSetting = function (settingId, dataList) {
-            for (var i = 0; i < dataList.length; i++) {
-                if (settingId == dataList[i].Id) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            var childSettings = $scope.getChildSettings(parentId, parentList);
-
-            if (!$scope.hasSetting(setting.Id, childSettings)) {
-                childSettings.push({
-                    Id: setting.Id,
-                    Name: setting.Name,
-                    Value: setting.Name
-                });
-            }
-        };
-
-        $scope.getChildSettings = function (parentId, parentDataList) {
-            for (var i = 0; i < parentDataList.length; i++) {
-                var parent = parentDataList[i];
-
-                if (parentId === parent.Id) {
-                    if (!parent.ChildSettings) {
-                        parent.ChildSettings = [];
-                    }
-
-                    return parent.ChildSettings;
-                }
-            }
+            SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
+            subProductList = SettingManager.getChildSettings(product.Id, productList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
         };
 
         $scope.getReviewedInfo = function () {

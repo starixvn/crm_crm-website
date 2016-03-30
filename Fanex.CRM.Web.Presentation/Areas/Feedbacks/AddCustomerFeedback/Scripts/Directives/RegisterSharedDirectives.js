@@ -5,7 +5,6 @@
     function addCustomerFeedbackRegisterPicker() {
         var addCustomerFeedbackRegister = new RegisterTemplate(angular.module('feedbacks-addcustomerfeedback-application'));
         addCustomerFeedbackRegister.registerTitlePicker();
-        addCustomerFeedbackRegister.registerSitePicker();
         addCustomerFeedbackRegister.registerDatePicker();
 
         addCustomerFeedbackRegister.registerCommunicationToolPicker();

@@ -116,8 +116,11 @@
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <label for="ddlsite">@Language.Site</label>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 site-picker-container" data-ng-model="siteOptions.DataList">
-                                <select id="site" class="dropdown-siteinfo" tabindex="7">
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <select id="site" class="dropdown-siteinfo" tabindex="7" data-ng-model="customerInfo.SiteSetting"
+                                        data-ng-options="s.Name group by s.AliasName for s in allSettings.SiteList track by s.Id"
+                                        ng-change="updateSelectedSite();">
+                                    <option value="">-- @Labels.Select --</option>
                                 </select>
                             </div>
                         </div>

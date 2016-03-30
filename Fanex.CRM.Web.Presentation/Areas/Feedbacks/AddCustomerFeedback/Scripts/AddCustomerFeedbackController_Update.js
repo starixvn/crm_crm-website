@@ -28,9 +28,6 @@
             $scope.customerInfo.Title = title;
             $scope.safeApply();
         };
-        $scope.updateSelectedSite = function (site) {
-            $scope.customerInfo.SiteSetting = site;
-        };
         $scope.updateSelectedCommunicationTool = function (communicationTool) {
             $scope.addCustomerFeedbackParams.CommunicationTool = communicationTool;
             $scope.updateRemarkPrefix();

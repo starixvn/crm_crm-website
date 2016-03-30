@@ -36,7 +36,7 @@ namespace Fanex.CRM.Feedback.Models
 
         public IEnumerable<Product> SubProductList { get; set; }
 
-        public IEnumerable<SiteInfo> SiteList { get; set; }
+        public IEnumerable<SiteSetting> SiteList { get; set; }
 
         public IEnumerable<SettingRelation> ResponseList { get; set; }
 

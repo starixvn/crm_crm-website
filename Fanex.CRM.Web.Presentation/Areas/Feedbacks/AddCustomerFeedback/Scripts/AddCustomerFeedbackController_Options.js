@@ -9,7 +9,6 @@
     /* exported registerOptions */
     window.registerOptions = function ($scope) {
         $scope.titleOptions = null;
-        $scope.siteOptions = null;
         $scope.birthdayOptions = null;
         $scope.communicationToolOptions = null;
         $scope.responseOptions = null;
@@ -48,12 +47,6 @@
                 AllText: viewResources.All
             };
 
-            $scope.siteOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedSite,
-                AllText: viewResources.Select,
-                IsIncludeNA: true
-            };
             $scope.birthdayOptions = {
                 CurrentDate: currentDate,
                 InitDate: null,

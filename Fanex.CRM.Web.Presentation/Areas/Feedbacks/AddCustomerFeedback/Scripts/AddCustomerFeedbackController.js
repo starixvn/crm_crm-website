@@ -1,6 +1,7 @@
 (function () {
     "use strict";
-    /* global 
+    /* global
+    SettingManager,
     MessageResult,
     registerOptions,
     registerUpdateFunctions,
@@ -100,9 +101,11 @@
                 return;
             }
 
+            $scope.allSettings.SiteList = SettingManager.updateSettingSelectListWithFullData(
+                                                        $scope.customerInfo.SiteSetting,
+                                                        $scope.allSettings.SiteList);
+
             $scope.titleOptions.SelectedId = $scope.customerInfo.Title.Id;
-            $scope.siteOptions.SelectedId = $scope.customerInfo.SiteSetting.Id;
-            $scope.siteOptions.DataList = $scope.allSettings.SiteList;
             $scope.birthdayOptions.InitDate = new Date($scope.customerInfo.BirthDayString);
             $scope.birthdayOptions.IsRerenderPicker = true;
 
@@ -200,6 +203,10 @@
                 }
             });
         };
+
+        $scope.updateSelectedSite = function () {
+            $scope.customerInfo.SiteSetting = $scope.customerInfo.SiteSetting || { Id: 0 }
+        }
 
         $scope.showHideCustomerDetailBox = function () {
             $scope.isShowCustomerDetailBox = !$scope.isShowCustomerDetailBox;

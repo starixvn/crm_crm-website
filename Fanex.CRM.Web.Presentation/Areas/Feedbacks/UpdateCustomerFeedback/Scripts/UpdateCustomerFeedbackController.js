@@ -2,6 +2,7 @@
     "use strict";
     /* global crmConstants,
     sharedScriptManager,
+    SettingManager,
     hotKeyManager,
     updateFeedbackResources,
     feedbackId,
@@ -258,77 +259,30 @@
         };
 
         $scope.updateAllSettingsForFeedback = function () {
-            $scope.updateFeedbackSetting($scope.feedback.Extension, $scope.settings.Extensions);
-            $scope.updateFeedbackSetting($scope.feedback.Communication, $scope.settings.Communications);
+            SettingManager.updateSettingSelectList($scope.feedback.Extension, $scope.settings.Extensions);
+            SettingManager.updateSettingSelectList($scope.feedback.Communication, $scope.settings.Communications);
 
-            $scope.updateFeedbackSetting($scope.feedback.Category, $scope.settings.Categories);            
-            $scope.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
+            SettingManager.updateSettingSelectList($scope.feedback.Category, $scope.settings.Categories);
+            SettingManager.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
 
             $scope.updateProductSettings();
 
-            $scope.updateFeedbackSetting($scope.feedback.Language, $scope.settings.Languages);
-            $scope.updateFeedbackSetting($scope.feedback.Status, $scope.settings.StatusList);
-            $scope.updateFeedbackSetting($scope.feedback.Role, $scope.settings.Roles);
-            $scope.updateFeedbackSetting($scope.feedback.Response, $scope.settings.Responses);
+            SettingManager.updateSettingSelectList($scope.feedback.Language, $scope.settings.Languages);
+            SettingManager.updateSettingSelectList($scope.feedback.Status, $scope.settings.StatusList);
+            SettingManager.updateSettingSelectList($scope.feedback.Role, $scope.settings.Roles);
+            SettingManager.updateSettingSelectList($scope.feedback.Response, $scope.settings.Responses);
 
-            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
-            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
-            $scope.updateFeedbackSetting($scope.feedback.CustomerInfo.SiteSetting, $scope.settings.Sites);
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.SiteSetting, $scope.settings.Sites);
         };
 
         $scope.updateProductSettings = function () {
             var product = $scope.feedback.Product;
-            $scope.updateFeedbackSetting(product, $scope.settings.Products);
-            $scope.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, product.Id);
-            $scope.subProducts = $scope.getChildSettings(product.Id, $scope.settings.Products);
-            $scope.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
-        };
-
-        $scope.updateFeedbackSetting = function (setting, dataList) {
-            if (!$scope.hasSetting(setting.Id, dataList)) {
-                dataList.push({
-                    Id: setting.Id,
-                    Name: setting.Name,
-                    Value: setting.Name,
-                    AliasName: setting.AliasName ? setting.AliasName : ""
-                });
-            }
-        };
-
-        $scope.hasSetting = function (settingId, dataList) {
-            for (var i = 0; i < dataList.length; i++) {
-                if (settingId == dataList[i].Id) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        $scope.updateInActiveChildSettings = function (setting, parentList, parentId) {
-            var childSettings = $scope.getChildSettings(parentId, parentList);
-
-            if (!$scope.hasSetting(setting.Id, childSettings)) {
-                childSettings.push({
-                    Id: setting.Id,
-                    Name: setting.Name,
-                    Value: setting.Name
-                });
-            }
-        };
-
-        $scope.getChildSettings = function (parentId, parentDataList) {
-            for (var i = 0; i < parentDataList.length; i++) {
-                var parent = parentDataList[i];
-
-                if (parentId === parent.Id) {
-                    if (!parent.ChildSettings) {
-                        parent.ChildSettings = [];
-                    }
-
-                    return parent.ChildSettings;
-                }
-            }
+            SettingManager.updateSettingSelectList(product, $scope.settings.Products);
+            SettingManager.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, product.Id);
+            $scope.subProducts = SettingManager.getChildSettings(product.Id, $scope.settings.Products);
+            SettingManager.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
         };
        
         $scope.categoryChanged = function () {
@@ -342,14 +296,18 @@
             }
         };
 
+        $scope.updateSelectedSite = function () {
+            $scope.feedback.CustomerInfo.SiteSetting = $scope.feedback.CustomerInfo.SiteSetting || { Id: 0 };
+        };
+
         $scope.productChanged = function () {
-            $scope.subProducts = $scope.getChildSettings($scope.feedback.Product.Id, $scope.settings.Products);
+            $scope.subProducts = SettingManager.getChildSettings($scope.feedback.Product.Id, $scope.settings.Products);
             $scope.feedback.SubProduct = $scope.subProducts[0];
             $scope.subProductChanged();
         };
 
         $scope.subProductChanged = function () {
-            var childSettings = $scope.getChildSettings($scope.feedback.SubProduct.Id, $scope.subProducts);
+            var childSettings = SettingManager.getChildSettings($scope.feedback.SubProduct.Id, $scope.subProducts);
             if (!childSettings || childSettings.length === 0) {
                 var notApplySetting = $scope.subProducts[0];
                 childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];

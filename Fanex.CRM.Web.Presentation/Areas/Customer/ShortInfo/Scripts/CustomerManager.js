@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global customerManager, sharedScriptManager, accId, crmConstants, hotKeyManager */
+    /* global customerManager, SettingManager, sharedScriptManager, accId, crmConstants, hotKeyManager */
     var CustomerManager = function () {
         var self = this;
         self.DOMElements = {
@@ -285,34 +285,15 @@
             self.completedLoadLeftPanel);
         };
         self.renderAllSiteResult = function (result) {
-            var siteOptions = '';
-            siteOptions += '<option value="' + crmConstants.Enums.Site.NotApply + '">' +
-                            self.CacheData.ViewResources.Select +
-                        '</option>';
-            if (result && result.length > 0) {
-                var siteGroupLength = result.length;
-                for (var i = 0; i < siteGroupLength; i++) {
-                    var siteGroup = result[i];
-                    var childSiteLength = siteGroup.ChildSites.length;
-                    siteOptions += '<optgroup label="' + siteGroup.Name + '">';
-                    for (var j = 0; j < childSiteLength; j++) {
-                        var site = siteGroup.ChildSites[j];
-                        siteOptions += '<option value="' + site.Id + '"' + '>' +
-                                        site.Name +
-                                    '</option>';
-                    }
+            var siteSetting = self.CacheData.currentCustomer.SiteSetting;
+            var dataList = SettingManager.updateSettingSelectListWithFullData(siteSetting, result);
+            self.CacheData.controllerScope.siteList = dataList;
 
-                    siteOptions += '</optgroup>';
-                }
+            self.CacheData.controllerScope.updateSelectedSite = function () {
+                self.CacheData.currentCustomer.SiteSetting = self.CacheData.currentCustomer.SiteSetting || { Id: 0 };
             }
 
-            self.DOMElements.dropdownSite.empty().html(siteOptions);
-            self.DOMElements.dropdownSite.val(self.CacheData.currentCustomer.SiteSetting.Id);
-            self.DOMElements.dropdownSite.find('option').click(function () {
-                self.CacheData.controllerScope.customer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
-                self.CacheData.controllerScope.$apply();
-            });
-
+            self.CacheData.controllerScope.$apply();
             self.CacheData.isLoadedSite = true;
         };
         self.getAllCountry = function () {

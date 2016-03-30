@@ -416,7 +416,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
@@ -910,6 +909,7 @@
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\FixBugManager.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
+    <Content Include="Scripts\ShareScripts\SettingManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\MessageResult.js" />
     <Content Include="Scripts\ShareScripts\SharedControllerManager.js" />

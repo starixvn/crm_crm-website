@@ -142,6 +142,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
@@ -200,6 +201,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
@@ -243,6 +245,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",

@@ -109,7 +109,8 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <select id="ddlsite" class="dropdown-siteinfo" tabindex="7" data-ng-model="feedback.CustomerInfo.SiteSetting"
-                                    data-ng-options="s.Name group by s.AliasName for s in settings.Sites track by s.Id">
+                                    data-ng-options="s.Name group by s.AliasName for s in settings.Sites track by s.Id"
+                                        ng-change="updateSelectedSite();">
                                     <option value="">-- @Labels.Select --</option>
                                 </select>
                             </div>

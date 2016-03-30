@@ -158,7 +158,7 @@
                         </label>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <select id="site" data-ng-model="communicationLog.SiteInfo"
+                        <select id="site" data-ng-model="communicationLog.SiteInfo" ng-change="updateSelectedSite();"
                                 data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
                             <option value="">-- @Labels.Select --</option>
                         </select>
