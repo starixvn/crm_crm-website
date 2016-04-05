@@ -57,9 +57,9 @@ viewResources */
                 { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.DeletedBy, Width: 100, Name: "DeletedBy", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback, Width: 350, Name: "Feedback", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Category, Width: 250, Name: "Category", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Customer, Width: 100, Name: "Customer", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.RelatedCustomer, Width: 100, Name: "RelatedCustomer", HeaderAlign: "center", CellAlign: "left" }
+                { HeaderText: viewResources.Category, Width: 280, Name: "Category", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Customer, Width: 150, Name: "Customer", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.RelatedCustomer, Width: 120, Name: "RelatedCustomer", HeaderAlign: "center", CellAlign: "left" }
             ];
         }
 

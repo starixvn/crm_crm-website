@@ -32,13 +32,13 @@
         <div class="row row-item">
             <div class="item product-item">
                 <label for="products">@Labels.Product</label>
-                <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList"
-                    style="min-width: 160px;">
+                <div class="product-Picker-Container display-inline-block product-wrapper"
+                     data-ng-model="productOptions.DataList">
                     <select id="product">
                     </select>
                 </div>
             </div>
-            <div class="item item">
+            <div class="item">
                 <label for="fromDate">@Labels.From</label>
                 <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                     <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
@@ -54,16 +54,16 @@
         <div class="row row-item">
             <div class="item">
                 <label class="" for="main-category">@Labels.Main_Category</label>
-                <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList"
-                    style="min-width: 300px;">
+                <div class="display-inline-block maincategory-wrapper" category-picker-container
+                     data-ng-model="categoryOptions.DataList">
                     <select id="category">
                     </select>
                 </div>
             </div>
             <div class="item">
                 <label class="first-column" for="communication-tool">@Labels.CommunicationType</label>
-                <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"
-                    style="min-width: 170px;">
+                <div class="display-inline-block communication-tool-picker-container communication-wrapper"
+                     data-ng-model="communicationToolOptions.DataList">
                     <select id="communication-tool">
                     </select>
                 </div>
