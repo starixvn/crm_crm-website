@@ -41,6 +41,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
         public const string GetAllMainCategorySessionKey = "Fanex.CRM.Setting.GetAllMainCategorySessionKey";
         public const string GetAllMainCategoryFromAllSettingsSessionKey = "Fanex.CRM.Setting.GetAllMainCategoryFromAllSettingsSessionKey";
+        public const string GetProductOnlySessionKey = "Fanex.CRM.Setting.GetProductOnlySessionKey";
         public const string GetAllProductSessionKey = "Fanex.CRM.Setting.GetAllProductSessionKey";
         public const string GetAllSubProductSessionKey = "Fanex.CRM.Setting.GetAllSubProductSessionKey";
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
@@ -319,6 +320,25 @@ namespace Fanex.CRM.Setting.Services
             return mainCategories;
         }
 
+        public IEnumerable<Product> GetProductsOnly()
+        {
+            var cache = CacheService.Get<IEnumerable<Product>>(GetProductOnlySessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.ParentProduct,
+                ParentId = 0
+            }).ToList();
+
+            CacheService.Set(GetProductOnlySessionKey, products);
+
+            return products;
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             var cache = CacheService.Get<IEnumerable<Product>>(GetAllProductSessionKey);
@@ -327,13 +347,9 @@ namespace Fanex.CRM.Setting.Services
                 return cache;
             }
 
+            var parentProducts = GetProductsOnly();
             var products = new List<Product>();
-            var parentProducts = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
-            {
-                SettingName = SettingTypeConstants.ParentProduct,
-                ParentId = 0
-            }).ToList();
-
+                     
             var notApplySetting = new Product
             {
                 Id = SettingConstants.NotApply,

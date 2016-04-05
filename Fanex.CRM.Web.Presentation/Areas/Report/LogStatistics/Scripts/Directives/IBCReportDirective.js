@@ -11,14 +11,14 @@
         var cachedGridOptions;
 
         function renderIBCReport(scope, element) {
-            if (scope.ibcReportOptions.DataList === null) {
+            var report = scope.ibcReportOptions.DataList;
+            if (!report || report.ProductColumns.length === 0 || report.CommunicationColumns.length === 0) {
                 return;
             }
 
             selfScope = scope;
             var tableIBCReport = element.find("#table-ibc-report");
             cachedTable = tableIBCReport;
-            var report = scope.ibcReportOptions.DataList;
             cachedReport = report;
             var gridOptions = reportDirectiveHelper.getGridOptions(report, scope.ibcReportOptions.IsExpand);
             gridOptions.gridHeight = ($(window).height() - 200) / 2;
