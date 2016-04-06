@@ -859,7 +859,7 @@ namespace Fanex.CRM.Setting.Services
             var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
             {
                 TemplateId = 0
-            });
+            }).Where(s => s.IsActive);
 
             CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
             return feedbackTemplates;
