@@ -104,6 +104,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
             var groupStyle = GetGroupedHandlerStyle();
             
             var feedbackStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            feedbackStyle.WrapText = true;
 
             var feedbackGroups = _deletedFeedbackStatisticsReport.DeletedFeedbackByHandlers;
             foreach (var group in feedbackGroups)
@@ -117,7 +118,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
                 {
                     currentColumnIndex = _exportExcelInfo.StartColumn;
                     var feedbackRow = _exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
-                    feedbackRow.Height = 500;
+                    feedbackRow.Height = 600;
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Deletor, feedbackStyle);
