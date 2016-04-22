@@ -12,7 +12,6 @@ unused: vars */
         $scope.allSettings = null;
 
         $scope.errorMessage = '';
-        $scope.isDisableSubmitButton = false;
 
         $scope.productOptions = null;
         $scope.categoryOptions = null;
@@ -151,7 +150,6 @@ unused: vars */
         };
         $scope.updateSelectedProduct = function (productIdList) {
             $scope.searchCriteria.ProductIds = productIdList;
-            $scope.checkSelectedItem();
         };
 
         $scope.initMainCategoryMultiSelectPickers = function () {
@@ -167,7 +165,6 @@ unused: vars */
         };
         $scope.updateSelectedCategory = function (categoryIdList) {
             $scope.searchCriteria.CategoryIds = categoryIdList;
-            $scope.checkSelectedItem();
         };
 
         $scope.initCommunicationMultiSelectPickers = function () {
@@ -183,25 +180,21 @@ unused: vars */
         };
         $scope.updateSelectedCommunicationTool = function (communicationIdList) {
             $scope.searchCriteria.CommunicationIds = communicationIdList;
-            $scope.checkSelectedItem();
         };
 
-        $scope.checkSelectedItem = function () {
-            $timeout(function () {
-                $scope.isDisableSubmitButton = $scope.searchCriteria.ProductIds === '' ||
-                                                $scope.searchCriteria.CategoryIds === '' ||
-                                                $scope.searchCriteria.CommunicationIds === '';
-
-                if ($scope.searchCriteria.ProductIds === '') {
-                    $scope.errorMessage = viewResources.ProductFilterRequired;
-                }
-                else if ($scope.searchCriteria.CategoryIds === '') {
-                    $scope.errorMessage = viewResources.MainCategoryFilterRequired;
-                }
-                else if ($scope.searchCriteria.CommunicationIds === '') {
-                    $scope.errorMessage = viewResources.CommunicationFilterRequired;
-                }
-            });
+        $scope.validateData = function () {
+            if ($scope.searchCriteria.ProductIds === '') {
+                $scope.errorMessage = viewResources.ProductFilterRequired;
+            }
+            else if ($scope.searchCriteria.CategoryIds === '') {
+                $scope.errorMessage = viewResources.MainCategoryFilterRequired;
+            }
+            else if ($scope.searchCriteria.CommunicationIds === '') {
+                $scope.errorMessage = viewResources.CommunicationFilterRequired;
+            }
+            else {
+                $scope.errorMessage = '';
+            }
         };
 
         $scope.getAllSetting = function () {
@@ -215,6 +208,11 @@ unused: vars */
         };
 
         $scope.getLogStatisticReport = function () {
+            $scope.validateData();
+            if ($scope.errorMessage !== '') {
+                return;
+            }            
+
             $uiBlockerService.blockUI();
             $scope.cachedSearchCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -331,8 +329,8 @@ unused: vars */
         };
 
         angular.element(document).ready(function () {
+            sharedScriptManager.safeApply($scope);
             $scope.initController();
-
             $scope.registerHotKey();
         });
     } ]);

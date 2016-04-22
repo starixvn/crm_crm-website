@@ -19,7 +19,7 @@
 }
 <div data-ng-app="log-statistics-application">
 <div class="main container" data-ng-controller="logStatisticsController">
-    <div class="row" data-ng-show="isDisableSubmitButton">
+    <div class="row" data-ng-show="errorMessage !== ''">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="alertboxerr">
                 <div data-ng-bind="errorMessage">
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="item">
-                <button class="btn" data-ng-click="getLogStatisticReport();" data-ng-disabled="isDisableSubmitButton">
+                <button class="btn" data-ng-click="getLogStatisticReport();">
                     <span class="hotkey">S</span>ubmit</button>
             </div>
         </div>
