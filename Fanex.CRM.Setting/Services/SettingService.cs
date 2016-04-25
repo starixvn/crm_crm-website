@@ -330,7 +330,7 @@ namespace Fanex.CRM.Setting.Services
 
             var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
             {
-                SettingName = SettingTypeConstants.ParentProduct,
+                SettingName = SettingTypeConstants.Product,
                 ParentId = 0
             }).ToList();
 

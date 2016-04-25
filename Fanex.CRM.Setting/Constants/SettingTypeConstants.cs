@@ -21,7 +21,6 @@ namespace Fanex.CRM.Setting.Constants
         public static readonly string Extension = "Station";
         public static readonly string CommunicationTool = "Communication";
         public static readonly string MainCategory = "MainCategory";
-        public static readonly string ParentProduct = "ParentProduct";
         public static readonly string Product = "Product";
         public static readonly string Status = "Status";
         public static readonly string Role = "Role";
