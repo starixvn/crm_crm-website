@@ -37,7 +37,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 exportExcelInfo.CurrentRow + rowSpan - 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
+            NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
                 cellValue,

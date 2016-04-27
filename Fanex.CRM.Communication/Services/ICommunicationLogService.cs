@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <copyright file="ICommunicationLogService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -18,9 +18,9 @@ namespace Fanex.CRM.Communication.Services
 
     public interface ICommunicationLogService
     {
-        IList<Setting> AllStatusForEdit { get; }
+        IList<BaseModel> AllStatusForEdit { get; }
 
-        IList<Setting> AllStatusForInsert { get; }
+        IList<BaseModel> AllStatusForInsert { get; }
 
         CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 

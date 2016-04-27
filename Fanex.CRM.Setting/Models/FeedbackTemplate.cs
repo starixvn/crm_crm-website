@@ -20,5 +20,7 @@ namespace Fanex.CRM.Setting.Models
         public int TemplateId { get; set; }
 
         public string Subject { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             GenerateHeader(exportExcelInfo);
             if (_data.Count() == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// <param name="title">The title.</param>
         private void GenerateTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
@@ -95,7 +95,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
             
-            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });            
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });            
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -108,13 +108,13 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             headerStyle.WrapText = true;
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
             foreach (var columnHeader in _columnHeaders)
             {
-                NpoiExcelExtensions.RenderCell(row, currentColumn, columnHeader, headerStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, columnHeader, headerStyle);
                 currentColumn++;
             }
 
@@ -134,12 +134,11 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentColumn = exportExcelInfo.CurrentColumn;
             ISheet worksheet = exportExcelInfo.Worksheet;
 
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _openedStatusColor, HSSFColor.LightYellow.Index);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _closedStatusColor, HSSFColor.Grey25Percent.Index);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, _openedStatusColor, HSSFColor.LightYellow.Index);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, _closedStatusColor, HSSFColor.Grey25Percent.Index);
 
             ICellStyle openedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index);
             ICellStyle openedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, CRMHorizontalAlignment.Center);
-
             ICellStyle closedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index);
             ICellStyle closedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, CRMHorizontalAlignment.Center);
 
@@ -160,18 +159,18 @@ namespace Fanex.CRM.InformHeadline.Excel
                     centerAlignStyle = closedCenterAlignStyle;
                 }
 
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Title), leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientCreatedDate), leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Status, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoReply.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch.ToString(IntegerFormat), centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Title), leftAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientCreatedDate), leftAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.Total.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.Status, centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.Done.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.NoReply.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.Uncontactable.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.InternalAccount.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.NeverTouch.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn++, inform.KeptForReference.ToString(IntegerFormat), centerAlignStyle);
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;
@@ -182,9 +181,9 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
-            return NpoiExcelExtensions.GetTextStyle(
+            return NpoiExtensions.GetTextStyle(
                 workbook,
-                color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
+                color < 0 ? NpoiExtensions.BackgroundColorIndex : color,
                 false,
                 align);
         }

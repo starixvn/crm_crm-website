@@ -23,6 +23,7 @@
             if (settingLength > 0) {
                 for (var i = 0; i < settingLength; i++) {
                     var setting = settingManagementView[i];
+                    var checked = setting.IsActive === true ? "checked" : "";
                     bodyData.push({
                         Columns: [
                                 { Name: "ColSettingName", Value: setting.Value },
@@ -33,8 +34,8 @@
                                     Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                                 },
                                 {
-                                    Name: "ColDelete",
-                                    Value: '<a class="c hand deleteSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                                    Name: "ColActive",
+                                    Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
                                 }],
                         CssClass: 'editlog-link-row row-index-' + i
                     });
@@ -54,7 +55,7 @@
                 { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Delete, Width: 60, Name: "ColDelete", HeaderAlign: "center", CellAlign: "center"}],
+                { HeaderText: viewResources.Active, Width: 60, Name: "ColActive", HeaderAlign: "center", CellAlign: "center"}],
                 showTitle: true,
                 titleInfo: {
                     text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
@@ -74,9 +75,9 @@
 
             tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            var deleteIcons = tableSetting.find(".deleteSetting");
-            deleteIcons.unbind("click");
-            deleteIcons.click(function () {
+            var activeSettings = tableSetting.find(".activeSetting");
+            activeSettings.unbind("click");
+            activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
                 selfScope.deleteSetting(settingManagementView[rowIndex]);
             });

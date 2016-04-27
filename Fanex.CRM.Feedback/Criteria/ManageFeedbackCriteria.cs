@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
     using System.Collections;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
 
@@ -61,35 +62,12 @@ namespace Fanex.CRM.Feedback.Criteria
             }
 
             inputParams.Add("username", Username);
-            if (IsGuest >= 0)
-            {
-                inputParams.Add("isguest", IsGuest == 1);
-            }
-
-            if (CommunicationId > 0)
-            {
-                inputParams.Add("communicationid", CommunicationId);
-            }
-
-            if (MainCategoryId > 0)
-            {
-                inputParams.Add("maincategoryid", MainCategoryId);
-            }
-
-            if (SubCategoryId > 0)
-            {
-                inputParams.Add("subcategoryid", SubCategoryId);
-            }
-
-            if (StatusId > 0)
-            {
-                inputParams.Add("statusid", StatusId);
-            }
-
-            if (ResponseId > 0)
-            {
-                inputParams.Add("responseid", ResponseId);
-            }
+            inputParams.AddIf(IsGuest >= 0, "isguest", IsGuest == 1);
+            inputParams.AddIf(CommunicationId > 0, "communicationid", CommunicationId);
+            inputParams.AddIf(MainCategoryId > 0, "maincategoryid", MainCategoryId);
+            inputParams.AddIf(SubCategoryId > 0, "subcategoryid", SubCategoryId);
+            inputParams.AddIf(StatusId > 0, "statusid", StatusId);
+            inputParams.AddIf(ResponseId > 0, "responseid", ResponseId);
 
             //// 0 : All
             //// 1 : Reviewed

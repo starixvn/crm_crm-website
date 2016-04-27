@@ -1,4 +1,4 @@
-﻿﻿@using Fanex.CRM.AdminTool.Resources;
+﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Models;
 @model Setting
@@ -16,19 +16,21 @@
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                         <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @string.Format(Labels.SettingManagement_DeleteSetting_Message, Model.SettingType, Model.Value)
+                @ViewBag.Message
             </div>
             <div class="row btn-group">
-                <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="deleteSetting();">@Labels.Ok
+                <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="deleteSetting();">
+                    @Labels.Ok
                 </button>
-                <button id="btn-cancel" class="btn pull-left btn-cancel" data-ng-click="cancelDeleteSetting();">@Labels.Cancel
+                <button id="btn-cancel" class="btn pull-left btn-cancel" data-ng-click="cancelDeleteSetting();">
+                    @Labels.Cancel
                 </button>
             </div>
         </div>
@@ -44,7 +46,8 @@
         {
             Id: @Model.Id,
             SettingType: '@Model.SettingType',
-            Value: '@Model.Value'
+            Value: '@Model.Value',
+            IsActive: '@Model.IsActive'
         };
     </script>
 }

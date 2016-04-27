@@ -44,6 +44,10 @@
                 Id: 0,
                 Value: ''
             },
+            SubProduct: {
+                Id: 0,
+                Value: ''
+            },
             BetType: {
                 Id: 0,
                 Value: ''
@@ -82,7 +86,7 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
-        $scope.productList = null;
+        
         $scope.betTypeList = null;
         $scope.statusList = null;
         $scope.siteList = null;
@@ -105,7 +109,7 @@
 
         $scope.isUpdatingTime = false;
         $scope.initController = function () {
-            $scope.getAllSettingForEdit($scope.customerInfo.Id);
+            $scope.getAllSettingForInsert($scope.customerInfo.Id);
             $scope.getNumberOfFeedbackSubjectTemplate();
         };
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
@@ -156,9 +160,11 @@
                 return;
             }
 
-            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
-            $scope.betTypeList = $scope.productList[0].ChildSettings;
+            var firstProduct = $scope.productOptions.DataList[0];
+            $scope.updateSelectedProduct(firstProduct);
+            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
 
+            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;           
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
             endtime.setMinutes(endtime.getMinutes() + 1);
@@ -172,6 +178,10 @@
 
             $scope.communicationLog.Product = {
                 Id: crmConstants.Enums.Product.NotApply
+            };
+
+            $scope.communicationLog.SubProduct = {
+                Id: crmConstants.Enums.SubProduct.NotApply
             };
 
             $scope.communicationLog.BetType = {
@@ -231,6 +241,26 @@
         $scope.invokeHotKey_CtrlE = function () {
             $scope.verifyRelatedCustomer();
         };
+        $scope.updateSelectedProduct = function (product) {
+            $scope.communicationLog.Product = product;
+
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
+
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.SubProduct = subProduct;
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeList = subProduct.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.safeApply();
+            $scope.updateChangeFlag();
+        };
+
         $scope.updateStartTime = function (selectedTime) {
             $scope.communicationLog.StartTime = selectedTime;
             if (new Date($scope.communicationLog.EndTime) <= selectedTime) {
@@ -359,30 +389,7 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedProduct = function (productId) {
-            productId = parseInt(productId);
-            var productInfo;
-            var productListLength = $scope.productList.length;
-            for (var i = 0; i < productListLength; i++) {
-                var product = $scope.productList[i];
-                if (product.Id === productId) {
-                    productInfo = product;
-                    break;
-                }
-            }
-
-            if (productInfo) {
-                $scope.communicationLog.Product = productInfo;
-                $scope.betTypeList = productInfo.ChildSettings;
-                $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
-                $scope.betTypeList[0] :
-                {
-                    Id: crmConstants.Enums.BetType.NotApply
-                };
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
-        };
+        
         $scope.updateSelectedBetType = function (betTypeId) {
             betTypeId = parseInt(betTypeId);
             var betTypeInfo;
@@ -530,6 +537,7 @@
                 SiteId: $scope.communicationLog.SiteInfo.Id,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
+                SubProductId: $scope.communicationLog.SubProduct.Id,
                 BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
@@ -588,6 +596,7 @@
             $scope.communicationLog.SiteInfo.Id !== $scope.oldCommunicationLog.SiteInfo.Id ||
             $scope.communicationLog.RoleInfo.Id !== $scope.oldCommunicationLog.RoleInfo.Id ||
             $scope.communicationLog.Product.Id !== $scope.oldCommunicationLog.Product.Id ||
+            $scope.communicationLog.SubProduct.Id !== $scope.oldCommunicationLog.SubProduct.Id ||
             $scope.communicationLog.BetType.Id !== $scope.oldCommunicationLog.BetType.Id ||
             $scope.communicationLog.Response.Id !== $scope.oldCommunicationLog.Response.Id ||
             $scope.communicationLog.Status.Id !== $scope.oldCommunicationLog.Status.Id ||
@@ -673,10 +682,10 @@
                 $scope.isSetFocus = true;
             });
         };
-        $scope.getAllSettingForEdit = function (custId) {
+        $scope.getAllSettingForInsert = function (custId) {
             $scope.BlockUI();
             $scope.isLoadedAllSite = false;
-            $insertLogService.getAllSettingForEdit(custId)
+            $insertLogService.getAllSettingForInsert(custId)
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.extensionList = allSetting.ExtensionList;
@@ -684,7 +693,7 @@
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
-                $scope.productList = allSetting.ProductList;
+                $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
@@ -706,6 +715,7 @@
             });
 
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
+            registerOptions($scope);
             $scope.initController();
             $scope.setFocus();
             hotKeyManager.CachedData.ActiveDocumentManager.push({

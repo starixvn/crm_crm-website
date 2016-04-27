@@ -3,12 +3,12 @@
     /* global directiveManager, RegisterTemplate, crmConstants */
 
     function viewDetailByIdApplicationRegisterPicker() {
-        function registerProductPicker() {
-            var productRegisterParams = {
-                PlugInName: 'productPickerContainer',
+        function registerProductDirective() {
+            var productRegisterOptions = {
+                PlugInName: 'dropdownProduct',
                 OptionName: 'productOptions',
                 PickerId: 'product',
-                RestrictType: 'C',
+                RestrictType: 'A',
 
                 DataPropertyName: {
                     Id: "Id",
@@ -16,18 +16,25 @@
                 }
             };
 
-            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), productRegisterParams);
+            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), productRegisterOptions);
         }
-        function registerSitePicker() {
-            var siteRegisterParams = {
-                PlugInName: 'sitePickerContainer',
-                OptionName: 'siteOptions',
-                PickerId: 'site',
-                RestrictType: 'C',
+
+        function registerSubProductDirective() {
+            var subProductRegisterOptions = {
+                PlugInName: 'dropdownSubProduct',
+                OptionName: 'subProductOptions',
+                PickerId: 'subProduct',
+                RestrictType: 'A',
+
+                DataPropertyName: {
+                    Id: "Id",
+                    Name: "Value"
+                }
             };
 
-            directiveManager.registerDropdownSiteContainer(angular.module('communicationlog-viewdetailbyid-application'), siteRegisterParams);
+            directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), subProductRegisterOptions);
         }
+
         function registerStatusPicker() {
             var statusRegisterParams = {
                 PlugInName: 'statusPickerContainer',
@@ -241,8 +248,8 @@
             directiveManager.registerDateTimePicker(angular.module('communicationlog-viewdetailbyid-application'), endTimeRegisterParams);
         }
 
-        registerProductPicker();
-        registerSitePicker();
+        registerProductDirective();
+        registerSubProductDirective();
         registerStatusPicker();
         registerResponsePicker();
         registerRolePicker();
@@ -258,7 +265,7 @@
         registerReviewEditorPicker();
         registerSubjectAutoComplete();
         registerStartTimePicker();
-        registerEndTimePicker();
+        registerEndTimePicker();       
 
         var viewDetailByIdRegister = new RegisterTemplate(angular.module('communicationlog-viewdetailbyid-application'));
         viewDetailByIdRegister.registerLicenseeTypePicker();

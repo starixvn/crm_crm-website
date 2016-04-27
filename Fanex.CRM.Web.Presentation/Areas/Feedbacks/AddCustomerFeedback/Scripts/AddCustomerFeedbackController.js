@@ -1,6 +1,7 @@
 (function () {
     "use strict";
-    /* global 
+    /* global
+    SettingManager,
     MessageResult,
     registerOptions,
     registerUpdateFunctions,
@@ -100,9 +101,11 @@
                 return;
             }
 
+            $scope.allSettings.SiteList = SettingManager.updateSettingSelectListWithFullData(
+                                                        $scope.customerInfo.SiteSetting,
+                                                        $scope.allSettings.SiteList);
+
             $scope.titleOptions.SelectedId = $scope.customerInfo.Title.Id;
-            $scope.siteOptions.SelectedId = $scope.customerInfo.SiteSetting.Id;
-            $scope.siteOptions.DataList = $scope.allSettings.SiteList;
             $scope.birthdayOptions.InitDate = new Date($scope.customerInfo.BirthDayString);
             $scope.birthdayOptions.IsRerenderPicker = true;
 
@@ -138,8 +141,11 @@
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
 
+            var firstProduct = $scope.productOptions.DataList[0];
+            $scope.updateSelectedProduct(firstProduct);
+            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
+
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
-            $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
             $scope.updateSelectedLanguage(defaultLanguage);
             $scope.updateSelectedResponse($scope.responseOptions.DataList[0]);
 
@@ -197,6 +203,10 @@
                 }
             });
         };
+
+        $scope.updateSelectedSite = function () {
+            $scope.customerInfo.SiteSetting = $scope.customerInfo.SiteSetting || { Id: 0 }
+        }
 
         $scope.showHideCustomerDetailBox = function () {
             $scope.isShowCustomerDetailBox = !$scope.isShowCustomerDetailBox;
@@ -358,6 +368,7 @@
 
                 $scope.oldParams.CommunicationTool.Id === $scope.addCustomerFeedbackParams.CommunicationTool.Id &&
                 $scope.oldParams.Product.Id === $scope.addCustomerFeedbackParams.Product.Id &&
+                $scope.oldParams.SubProduct.Id === $scope.addCustomerFeedbackParams.SubProduct.Id &&
                 $scope.oldParams.Language.Id === $scope.addCustomerFeedbackParams.Language.Id &&
                 $scope.oldParams.Response.Id === $scope.addCustomerFeedbackParams.Response.Id &&
                 $scope.oldParams.MainCategory.Id === $scope.addCustomerFeedbackParams.MainCategory.Id &&

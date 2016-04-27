@@ -61,5 +61,7 @@ namespace Fanex.CRM.Common.Constants
         public const string SettingRelationManagement = "SettingRelationshipManagement";
 
         public const string FBSubjectTemplateManagement = "FBSubjectTemplateManagement";
+
+        public const string LogStatistics = "LogStatistics";
     }
 }

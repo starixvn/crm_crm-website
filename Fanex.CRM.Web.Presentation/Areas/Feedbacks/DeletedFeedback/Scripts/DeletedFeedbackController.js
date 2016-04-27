@@ -28,6 +28,20 @@
             ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
 
+        $scope.cachedCriteria = {
+            FromDate: yesterday,
+            ToDate: currentTime,
+            Username: '',
+            IsGuest: null,
+            IsReviewed: null,
+            Response: null,
+            MainCategory: null,
+            SubCategory: null,
+            Communication: null,
+            PageIndex: 0,
+            ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
+        };
+
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
                 CurrentDate: currentDate,
@@ -154,7 +168,7 @@
 
         $scope.searchDeletedFeedback = function () {
             $uiBlockerService.blockUI();
-            var criteria = {
+            $scope.cachedCriteria = {
                 FeedbackId: $scope.searchCriteria.FeedbackId,
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -169,9 +183,9 @@
                 PageIndex: $scope.searchCriteria.PageIndex + 1,
                 PageSize: $scope.searchCriteria.ItemsPerPage
             };
-            criteria.FromCache = criteria.PageIndex !== 1;
+            $scope.cachedCriteria.FromCache = $scope.cachedCriteria.PageIndex !== 1;
 
-            deletedFBService.searchDeletedFeedback(criteria)
+            deletedFBService.searchDeletedFeedback($scope.cachedCriteria)
             .then(function (data) {
                 $scope.report = data.Result;
                 $uiBlockerService.unblockUI();
@@ -188,6 +202,15 @@
         parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
             $scope.searchDeletedFeedback();
         });
+    };
+
+    $scope.exportFeedbackExcel = function () {
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + "Feedbacks/ExportDeletedFeedbacks",
+            Params: $scope.cachedCriteria
+        };
+
+        $scope.$apply();
     };
 
         angular.element(document).ready(function () {

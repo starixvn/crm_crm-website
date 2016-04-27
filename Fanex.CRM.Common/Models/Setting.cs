@@ -25,7 +25,7 @@ namespace Fanex.CRM.Common.Models
 
         public int DisplayOrder { get; set; }
 
-        public bool IsSubSetting { get; set; }
+        public bool IsChild { get; set; }
 
         public bool IsActive { get; set; }
 

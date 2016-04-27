@@ -142,7 +142,11 @@
             $scope.solutionOptions.SelectedText = '';
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
+
+            var firstProduct = $scope.productOptions.DataList[0];
             $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
+            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
+
             $scope.updateSelectedResponse($scope.responseOptions.DataList[0]);
 
             $scope.updateSelectedMainCategory($scope.mainCategoryOptions.DataList[0]);

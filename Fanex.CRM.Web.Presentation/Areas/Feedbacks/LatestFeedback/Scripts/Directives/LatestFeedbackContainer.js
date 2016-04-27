@@ -4,7 +4,7 @@
     sharedScriptManager */
     angular.module('feedback-latest-application').directive('tableLatestFeedbackContainer', function () {
         var gridOptions, tableLatestFeedback;
-        function getGridOptions(title) {
+        function getGridOptions() {
             return {
                 columns: [
                     { HeaderText: latestFeedbackResources.Feedback, Width: 450, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
@@ -12,11 +12,13 @@
                     { HeaderText: latestFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
                 showTitle: true,
-                titleInfo: { text: title },
+                titleInfo: {
+                    showExcelButton: true
+                },
                 showFooter: false,
                 fullWidth: true,
                 fullHeight: true,
-                gridExpandHeight: 80,
+                gridExpandHeight: 90,
                 showDistinctRow: false,
                 showHighlightRow: false,
                 headerColumnHeight: 29
@@ -53,8 +55,13 @@
             var feedbacks = report.Feedbacks;
             var bodyData = getGridBody(feedbacks);
 
-            gridOptions = gridOptions || getGridOptions(report.Title);
+            gridOptions = gridOptions || getGridOptions();
             gridOptions.bodyRows = bodyData;
+            gridOptions.titleInfo.text = report.Title;
+            gridOptions.titleInfo.exportExcelFunction = function () {
+                scope.exportFeedbackExcel();
+            };
+
             tableLatestFeedback = element.find('#table-latest-feedback');
             tableLatestFeedback
             .empty()

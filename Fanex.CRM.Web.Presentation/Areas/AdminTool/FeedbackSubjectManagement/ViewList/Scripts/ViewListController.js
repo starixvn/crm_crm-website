@@ -134,11 +134,13 @@
                 { my: "center top+200", at: "center top" },
                 $scope.beforeCloseEditView);
         };
-        $scope.deleteTemplate = function (template) {
+        $scope.changeTemplateState = function (template) {
             parent.homeManager.CachedData.shouldReloadView = false;
+            var state = !template.IsActive;
+            var title = state === true ? viewResources.ActiveFeedbackSubjectTitle : viewResources.DeactiveFeedbackSubjectTitle;
             parent.OpenPopup(
-                window.rootUrl + "FeedbackSubjectManagement/OpenDeleteTemplateView?" + $.param({ templateId: template.Id }),
-                viewResources.Delete_Feedback_Subject_Template,
+                window.rootUrl + "FeedbackSubjectManagement/OpenChangeTemplateStateView?" + $.param({ TemplateId: template.Id, IsActive: state }),
+                title,
                 450,
                 160,
                 true,
@@ -154,6 +156,10 @@
             $scope.isSetFocus = true;
             $scope.safeApply();
             if (!parent.homeManager.CachedData.shouldReloadView) {
+                var tempData = angular.copy($scope.feedbackSubjectTemplateView);
+                $scope.feedbackSubjectTemplateView = null;
+                $scope.feedbackSubjectTemplateView = tempData;
+                $scope.safeApply();
                 return;
             }
 

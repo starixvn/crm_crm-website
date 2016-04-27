@@ -664,6 +664,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub-product.
+        /// </summary>
+        public static string SubProduct {
+            get {
+                return ResourceManager.GetString("SubProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         public static string Symbol_NotApply {

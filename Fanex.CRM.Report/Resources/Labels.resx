@@ -834,4 +834,47 @@
   <data name="Poker" xml:space="preserve">
     <value>Poker</value>
   </data>
+  <data name="LogStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Daily Log Statistics | {1} - {2}</value>
+  </data>
+  <data name="All_Products" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="ProductCollapseExpand" xml:space="preserve">
+    <value>Product Collapse/Expand</value>
+  </data>
+  <data name="CommunicationFilter_Required" xml:space="preserve">
+    <value>Please choose a communication type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>Communication Type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="MainCategoryFilter_Required" xml:space="preserve">
+    <value>Please choose a category</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="ProductFilter_Required" xml:space="preserve">
+    <value>Please choose a product</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="Log_Statistics_Report" xml:space="preserve">
+    <value>Log Statistics Report</value>
+  </data>
+  <data name="DeletedFeedbackStatistics" xml:space="preserve">
+    <value>Deleted Feedback Statistics</value>
+    <comment>#40843</comment>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>Deleted By</value>
+    <comment>#40843</comment>
+  </data>
+  <data name="FeedbackDetail" xml:space="preserve">
+    <value>Feedback Detail</value>
+  </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-product</value>
+    <comment>#50691</comment>
+  </data>
 </root>

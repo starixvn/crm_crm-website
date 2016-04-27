@@ -1,0 +1,50 @@
+﻿@using Newtonsoft.Json;
+@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+@model Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement.ChangeSubjectTemplateStateCriteria
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Title_AdminTool_FeedbackSubjectManagement;
+
+    var model = JsonConvert.SerializeObject(Model);
+
+    var messageTemplate = Model.IsActive ? Labels.ActiveFeedbackSubjectMessage : Labels.DeactiveFeedbackSubjectMessage;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateStyles")
+}
+<!DOCTYPE>
+<div data-ng-app="addmintool-feedbacksubjectmanagement-changeTemplateState">
+<div class="changeTemplateStateController" data-ng-controller="changeTemplateStateController">
+    <div class="container main">
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @string.Format(messageTemplate, Model.TemplateId)
+        </div>
+        <div class="row btn-group">
+            <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="changeTemplateState();">@Labels.Ok
+            </button>
+            <button id="btn-cancel" class="btn pull-left btn-cancel" data-ng-click="cancelChangeTemplateState();">@Labels.Cancel
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var template = @Html.Raw(model);
+    </script>
+}

@@ -69,7 +69,7 @@
         var settingInfo = {
             Id: @Model.Id,
             SettingType: '@Model.SettingType',
-            Value: '@Model.Value',
+            Value: '@Html.Raw(Model.Value)',
             DisplayOrder:  @Model.DisplayOrder,
             ParentId: @Model.ParentId
         };

@@ -9,12 +9,13 @@
     /* exported registerOptions */
     window.registerOptions = function ($scope) {
         $scope.titleOptions = null;
-        $scope.siteOptions = null;
         $scope.birthdayOptions = null;
         $scope.communicationToolOptions = null;
-        $scope.productOptions = null;
         $scope.responseOptions = null;
         $scope.languageOptions = null;
+
+        $scope.productOptions = null;
+        $scope.subProductOptions = null;
 
         $scope.mainCategoryOptions = null;
         $scope.betTypeOptions = null;
@@ -46,12 +47,6 @@
                 AllText: viewResources.All
             };
 
-            $scope.siteOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedSite,
-                AllText: viewResources.Select,
-                IsIncludeNA: true
-            };
             $scope.birthdayOptions = {
                 CurrentDate: currentDate,
                 InitDate: null,
@@ -71,10 +66,6 @@
             $scope.communicationToolOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCommunicationTool
-            };
-            $scope.productOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedProduct
             };
             $scope.responseOptions = {
                 DataList: [],
@@ -136,6 +127,17 @@
                 IsUpdate: true,
                 CompleteUpdate: $scope.completeUpdateRelatedCustomer,
                 OnChangeEvent: $scope.updateRelatedCustomer
+            };
+
+            $scope.productOptions = {
+                DataList: [],
+                SelectedId: null,
+                OnChangeEvent: $scope.updateSelectedProduct
+            };
+            $scope.subProductOptions = {
+                DataList: [],
+                SelectedId: null,
+                OnChangeEvent: $scope.updateSelectedSubProduct
             };
         };
     };

@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
     angular.module('communicationlog-edit-application').factory('$editLogService', ['$http', '$q',
     function ($http, $q) {

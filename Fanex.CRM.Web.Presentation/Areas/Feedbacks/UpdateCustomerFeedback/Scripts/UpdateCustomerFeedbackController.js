@@ -2,6 +2,7 @@
     "use strict";
     /* global crmConstants,
     sharedScriptManager,
+    SettingManager,
     hotKeyManager,
     updateFeedbackResources,
     feedbackId,
@@ -17,6 +18,9 @@
         $scope.reviewedBy = '';
         $scope.relatedCustomers = [];
         $scope.hasReviewPermission = hasReviewFeedbackPermission === 'True';
+        $scope.bettypes = null;
+        $scope.subProducts = null;
+
         var oldReview;
         $scope.panelManager = {
             customer: false,
@@ -198,22 +202,15 @@
                             SelectedText: $scope.feedback.Review,
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
+                       
+                        $scope.updateAllSettingsForFeedback();
 
-                        angular.forEach($scope.settings.Products, function (product, index) {
-                            /* jshint unused: false */
-                            if (product.Id === $scope.feedback.Product.Id) {
-                                $scope.bettypes = product.ChildSettings;
-                            }
-                        });
+                        $scope.getSubProducts();
+                        $scope.getBettypes();
 
-                        angular.forEach($scope.settings.Categories, function (category, index) {
-                            /* jshint unused: false */
-                            if (category.Id === $scope.feedback.Category.Id) {
-                                $scope.subcategories = category.ChildSettings;
-                            }
-                        });
+                        $scope.getSubcategories();
 
-                        $scope.initRelatedCustomer();
+                        $scope.initRelatedCustomer();                       
 
                         $uiBlockerService.unblockUI();
                     },
@@ -226,6 +223,68 @@
             });
         };
 
+        $scope.getSubProducts = function () {
+            angular.forEach($scope.settings.Products, function (product, index) {
+                /* jshint unused: false */
+                if (product.Id === $scope.feedback.Product.Id) {
+                    $scope.subProducts = product.ChildSettings;
+                }
+            });
+
+            if (!$scope.subProducts) {
+                $scope.subProducts = $scope.settings.Products[0].ChildSettings;
+            }
+        };
+        $scope.getBettypes = function () {
+            angular.forEach($scope.subProducts, function (subProduct, index) {
+                /* jshint unused: false */
+                if (subProduct.Id === $scope.feedback.SubProduct.Id) {
+                    $scope.bettypes = subProduct.ChildSettings;
+                }
+            });
+
+            if (!$scope.bettypes) {
+                var notApplySetting = $scope.subProducts[0];
+                $scope.bettypes = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+        };
+
+        $scope.getSubcategories = function () {
+            angular.forEach($scope.settings.Categories, function (category, index) {
+                /* jshint unused: false */
+                if (category.Id === $scope.feedback.Category.Id) {
+                    $scope.subcategories = category.ChildSettings;
+                }
+            });
+        };
+
+        $scope.updateAllSettingsForFeedback = function () {
+            SettingManager.updateSettingSelectList($scope.feedback.Extension, $scope.settings.Extensions);
+            SettingManager.updateSettingSelectList($scope.feedback.Communication, $scope.settings.Communications);
+
+            SettingManager.updateSettingSelectList($scope.feedback.Category, $scope.settings.Categories);
+            SettingManager.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
+
+            $scope.updateProductSettings();
+
+            SettingManager.updateSettingSelectList($scope.feedback.Language, $scope.settings.Languages);
+            SettingManager.updateSettingSelectList($scope.feedback.Status, $scope.settings.StatusList);
+            SettingManager.updateSettingSelectList($scope.feedback.Role, $scope.settings.Roles);
+            SettingManager.updateSettingSelectList($scope.feedback.Response, $scope.settings.Responses);
+
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.Title, $scope.settings.Titles);
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.LicenseeType, $scope.settings.LicenseeTypes);
+            SettingManager.updateSettingSelectList($scope.feedback.CustomerInfo.SiteSetting, $scope.settings.Sites);
+        };
+
+        $scope.updateProductSettings = function () {
+            var product = $scope.feedback.Product;
+            SettingManager.updateSettingSelectList(product, $scope.settings.Products);
+            SettingManager.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, product.Id);
+            $scope.subProducts = SettingManager.getChildSettings(product.Id, $scope.settings.Products);
+            SettingManager.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
+        };
+       
         $scope.categoryChanged = function () {
             $scope.subcategories = $scope.feedback.Category.ChildSettings;
             if ($scope.subcategories.length === 0) {
@@ -237,8 +296,25 @@
             }
         };
 
+        $scope.updateSelectedSite = function () {
+            $scope.feedback.CustomerInfo.SiteSetting = $scope.feedback.CustomerInfo.SiteSetting || { Id: 0 };
+        };
+
         $scope.productChanged = function () {
-            $scope.bettypes = $scope.feedback.Product.ChildSettings;
+            $scope.subProducts = SettingManager.getChildSettings($scope.feedback.Product.Id, $scope.settings.Products);
+            $scope.feedback.SubProduct = $scope.subProducts[0];
+            $scope.subProductChanged();
+        };
+
+        $scope.subProductChanged = function () {
+            var childSettings = SettingManager.getChildSettings($scope.feedback.SubProduct.Id, $scope.subProducts);
+            if (!childSettings || childSettings.length === 0) {
+                var notApplySetting = $scope.subProducts[0];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.bettypes = childSettings;
+
             if ($scope.bettypes.length === 0) {
                 $scope.errorMessage(updateFeedbackResources.NoBettypeError.replace('{0}', '[' + $scope.feedback.Product.Value + ']'));
             }
@@ -341,31 +417,37 @@
                 }
             }
 
-        feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
-        feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
-            .then(function (data) {
-                var result = data.Result;
-                if (result && result.Code === 0) {
-                    alertBoxService.show({
-                        type: crmConstants.Enums.MessageType.Success,
-                        message: updateFeedbackResources.UpdateFeedbackSuccessfully,
-                        callback: function () {
-                            parent.ClosePopup();
-                            if (feedback.OverrideCRMInfo) {
-                                parent.leftPanelManager.loadLeftPanel(feedback.CustomerInfo.Name, true);
+            feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
+            $scope.assignIdForParam(feedback);
+            feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
+                .then(function (data) {
+                    var result = data.Result;
+                    if (result && result.Code === 0) {
+                        alertBoxService.show({
+                            type: crmConstants.Enums.MessageType.Success,
+                            message: updateFeedbackResources.UpdateFeedbackSuccessfully,
+                            callback: function () {
+                                parent.ClosePopup();
+                                if (feedback.OverrideCRMInfo) {
+                                    parent.leftPanelManager.loadLeftPanel(feedback.CustomerInfo.Name, true);
+                                }
                             }
-                        }
-                    });
-                }
-                else {
-                    $scope.errorMessage(result.Code ? result.Message : 'Oppss... An error occurred while processing your request.');
-                }
+                        });
+                    }
+                    else {
+                        $scope.errorMessage(result.Code ? result.Message : 'Oppss... An error occurred while processing your request.');
+                    }
 
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                    $uiBlockerService.unblockUI();
+                },
+                function () {
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
+        $scope.assignIdForParam = function (feedback) {
+            feedback.Product = { Id: feedback.Product.Id };
+            feedback.SubProduct = { Id: feedback.SubProduct.Id };
         };
 
         $scope.errorMessage = function (error) {

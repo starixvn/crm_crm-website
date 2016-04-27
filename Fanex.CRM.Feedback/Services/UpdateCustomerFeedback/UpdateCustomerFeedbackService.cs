@@ -67,7 +67,7 @@ namespace Fanex.CRM.Feedback.Services
             return new
             {
                 Titles = _settingService.GetAllTitles(),
-                Sites = _settingService.GetAllSiteWithGroup(),
+                Sites = _settingService.GetAllSiteWithGroup().Where(s => s.IsActive),
                 Extensions = _settingService.GetAllExtensions(),
                 Communications = _settingService.GetAllCommunicationTools(),
                 Categories = _settingService.GetAllMainCategories(),
@@ -82,8 +82,50 @@ namespace Fanex.CRM.Feedback.Services
         }
 
         public CustomerFeedback GetFeedbackById(GetFeedbackByIdCriteria criteria)
+        {           
+            var feedback = _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
+
+            UpdateSettingNameForFeedback(feedback);
+
+            return feedback;
+        }
+
+        private void UpdateSettingNameForFeedback(CustomerFeedback feedback)
         {
-            return _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
+            var settings = _settingService.GetAllSettings();
+            var siteSettings = _settingService.GetAllSiteWithGroup().Where(s => !s.IsActive);
+
+            var title = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.Title.Id);
+            feedback.CustomerInfo.Title.Name = title == null ? null : title.Value;
+
+            var site = siteSettings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.SiteSetting.Id);
+            feedback.CustomerInfo.SiteSetting.Name = site == null ? null : site.Name;
+            feedback.CustomerInfo.SiteSetting.AliasName = site == null ? null : site.AliasName;
+
+            var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
+            feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NA : licenseeType.Value;
+
+            var communication = settings.FirstOrDefault(s => s.Id == feedback.Communication.Id);
+            feedback.Communication.Name = communication == null ? null : communication.Value;
+
+            var product = settings.FirstOrDefault(s => s.Id == feedback.Product.Id);
+            feedback.Product.Name = product == null ? null : product.Value;
+
+            var subProduct = settings.FirstOrDefault(s => s.Id == feedback.SubProduct.Id);
+            feedback.SubProduct.Name = subProduct == null ? Labels.Symbol_NA : subProduct.Value;
+
+            var language = settings.FirstOrDefault(s => s.Id == feedback.Language.Id);
+            feedback.Language.Name = language == null ? Labels.Symbol_NA : language.Value;
+
+            var bettype = settings.FirstOrDefault(s => s.Id == feedback.BetType.Id);
+            feedback.BetType.Name = bettype == null ? Labels.Symbol_NA : bettype.Value;           
+
+            feedback.Response.Name = settings.First(s => s.Id == feedback.Response.Id).Value;
+            feedback.Category.Name = settings.First(s => s.Id == feedback.Category.Id).Value;
+            feedback.Status.Name = settings.First(s => s.Id == feedback.Status.Id).Value;
+            feedback.Extension.Name = settings.First(s => s.Id == feedback.Extension.Id).Value;
+            feedback.Role.Name = settings.First(s => s.Id == feedback.Role.Id).Value;
+            feedback.SubCategory.Name = settings.First(s => s.Id == feedback.SubCategory.Id).Value;                      
         }
 
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)

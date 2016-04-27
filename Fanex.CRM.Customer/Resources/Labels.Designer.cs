@@ -277,15 +277,6 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert new case successfully!.
-        /// </summary>
-        public static string CreateTitleSuccess {
-            get {
-                return ResourceManager.GetString("CreateTitleSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CRM Info.
         /// </summary>
         public static string CRM_Info {
@@ -565,24 +556,6 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Never Touch.
-        /// </summary>
-        public static string NeverTouch {
-            get {
-                return ResourceManager.GetString("NeverTouch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New Case.
-        /// </summary>
-        public static string NewCase {
-            get {
-                return ResourceManager.GetString("NewCase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nick Name.
         /// </summary>
         public static string Nick_Name {
@@ -610,29 +583,11 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No. headlines to inform.
-        /// </summary>
-        public static string NoHeadlinesToInform {
-            get {
-                return ResourceManager.GetString("NoHeadlinesToInform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No Need To Call.
-        /// </summary>
-        public static string NoNeedToCall {
-            get {
-                return ResourceManager.GetString("NoNeedToCall", resourceCulture);
             }
         }
         
@@ -646,38 +601,11 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No. Of Headlines.
-        /// </summary>
-        public static string NoOfHeadlines {
-            get {
-                return ResourceManager.GetString("NoOfHeadlines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No. Of Headlines To Inform.
-        /// </summary>
-        public static string NoOfHeadlinesToInform {
-            get {
-                return ResourceManager.GetString("NoOfHeadlinesToInform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have permission on this function!.
         /// </summary>
         public static string NoPermission {
             get {
                 return ResourceManager.GetString("NoPermission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No Reply.
-        /// </summary>
-        public static string NoReply {
-            get {
-                return ResourceManager.GetString("NoReply", resourceCulture);
             }
         }
         
@@ -835,15 +763,6 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request Call Back.
-        /// </summary>
-        public static string RequestCallback {
-            get {
-                return ResourceManager.GetString("RequestCallback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Secret Code.
         /// </summary>
         public static string Secret_Code {
@@ -943,38 +862,11 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uncontactable.
-        /// </summary>
-        public static string Uncontactable {
-            get {
-                return ResourceManager.GetString("Uncontactable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Updated Time.
         /// </summary>
         public static string UpdatedTime {
             get {
                 return ResourceManager.GetString("UpdatedTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Title is mandatory!.
-        /// </summary>
-        public static string UpdateInforms_TitleEmpty {
-            get {
-                return ResourceManager.GetString("UpdateInforms_TitleEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update inform successfully!.
-        /// </summary>
-        public static string UpdateInformsSuccess {
-            get {
-                return ResourceManager.GetString("UpdateInformsSuccess", resourceCulture);
             }
         }
         

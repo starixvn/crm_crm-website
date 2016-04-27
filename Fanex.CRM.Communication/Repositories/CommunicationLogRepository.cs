@@ -171,10 +171,17 @@ namespace Fanex.CRM.Communication.Repositories
                 {
                     Id = Converter.ToInt(reader["CommunicationID"])
                 },
-                LanguageId = Converter.ToInt(reader["LanguageID"]),
+                Language = new Setting
+                {
+                    Id = Converter.ToInt(reader["LanguageID"])
+                },
                 Product = new Setting
                 {
                     Id = Converter.ToInt(reader["ProductID"])
+                },
+                SubProduct = new Setting
+                {
+                    Id = Converter.ToInt(reader["SubProductID"])
                 },
                 BetType = new Setting
                 {
@@ -184,7 +191,7 @@ namespace Fanex.CRM.Communication.Repositories
                 {
                     Id = Converter.ToInt(reader["StatusID"])
                 },
-                SiteInfo = new Setting
+                SiteInfo = new Site
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },

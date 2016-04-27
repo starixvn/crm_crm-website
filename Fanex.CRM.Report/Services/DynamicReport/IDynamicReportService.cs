@@ -14,26 +14,29 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Setting.Models;
+    using Infrastructure.Models;
 
     public interface IDynamicReportService
     {
         IEnumerable<Setting> GetAllPeriodTypes();
 
-        IEnumerable<Setting> GetAllProducts();
+        IEnumerable<Product> GetAllProducts();
+
+        IEnumerable<Product> GetAllSubProducts();
 
         IEnumerable<SiteInfo> GetAllSites();
 
-        IEnumerable<Setting> GetAllStatuses();
+        IEnumerable<BaseModel> GetAllStatuses();
 
-        IEnumerable<Setting> GetAllResponses();
+        IEnumerable<SettingRelation> GetAllResponses();
 
-        IEnumerable<Setting> GetAllRoles();
+        IEnumerable<SettingRelation> GetAllRoles();
 
         IEnumerable<Setting> GetAllCommunicationTools();
 
         IEnumerable<Setting> GetAllMainCategories();
 
-        IEnumerable<Setting> GetAllExtensions();
+        IEnumerable<SettingRelation> GetAllExtensions();
 
         DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria);
 

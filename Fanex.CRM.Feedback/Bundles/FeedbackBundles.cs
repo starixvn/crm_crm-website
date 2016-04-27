@@ -66,6 +66,7 @@ namespace Fanex.CRM.Feedback.Bundles
                 .Include(
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
+                    "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -79,7 +80,6 @@ namespace Fanex.CRM.Feedback.Bundles
                     "~/Scripts/ShareScripts/Directives/RelatedCustomer.js",
                     "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                     "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackService.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Options.js",
@@ -99,7 +99,7 @@ namespace Fanex.CRM.Feedback.Bundles
         /// <param name="bundles">The bundles.</param>
         private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
+            bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
@@ -138,6 +138,7 @@ namespace Fanex.CRM.Feedback.Bundles
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
                 "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackApplication.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackController.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",
@@ -196,6 +197,7 @@ namespace Fanex.CRM.Feedback.Bundles
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
                     "~/Scripts/FanexGridV2/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
+                    "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                     "~/Scripts/ShareScripts/Directives/HtmlArea.js",

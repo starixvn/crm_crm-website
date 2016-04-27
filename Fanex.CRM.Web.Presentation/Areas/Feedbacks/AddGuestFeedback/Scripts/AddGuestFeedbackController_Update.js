@@ -36,8 +36,18 @@
             $scope.safeApply();
         };
         $scope.updateSelectedProduct = function (product) {
-            $scope.addGuestFeedbackParams.Product = product;
-            $scope.betTypeOptions.DataList = product.ChildSettings;
+            $scope.addGuestFeedbackParams.Product = { Id: product.Id };
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.addGuestFeedbackParams.SubProduct = { Id: subProduct.Id };
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
         };
         $scope.updateSelectedLanguage = function (language) {

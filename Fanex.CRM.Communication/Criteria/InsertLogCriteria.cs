@@ -48,6 +48,7 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("siteid", SiteId);
             param.Add("roleid", RoleId);
             param.Add("productid", ProductId);
+            param.Add("subproductid", SubProductId);
             param.Add("bettypeid", BetTypeId);
             param.Add("responseid", ResponseId);
             param.Add("statusid", StatusId);

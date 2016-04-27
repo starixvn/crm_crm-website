@@ -84,7 +84,7 @@ namespace Fanex.CRM.Feedback.Services
 
         public IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
         {
-            return GetDeletedFeedbacks(criteria);
+            return GetFeedbacks(criteria);
         }
 
         /// <summary>
@@ -96,7 +96,12 @@ namespace Fanex.CRM.Feedback.Services
         {
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-            var feedbacks = GetDeletedFeedbacks(criteria);
+            var feedbacks = GetFeedbacks(criteria);
+
+            if (criteria.IsExportExcel)
+            {
+                return feedbacks;
+            }
 
             // pagination.
             int totalItems = feedbacks.Count();
@@ -109,16 +114,16 @@ namespace Fanex.CRM.Feedback.Services
             return feedbacks;
         }
 
-        private IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria)
+        private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.GetAllMainCategories();
+            var categoies = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
                 {
-                    categoryHash.Add(category.Id, category.Name);
+                    categoryHash.Add(category.Id, category.Value);
                 }
 
                 foreach (var subcategory in category.ChildSettings)
@@ -167,12 +172,12 @@ namespace Fanex.CRM.Feedback.Services
             };
         }
 
-        private IEnumerable<Setting> GetCustomerResponse()
+        private IEnumerable<SettingRelation> GetCustomerResponse()
         {
             var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
-                new Setting
+                new SettingRelation
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
@@ -222,13 +227,13 @@ namespace Fanex.CRM.Feedback.Services
             return tools;
         }
 
-        private IEnumerable<Setting> GetStatus()
+        private IEnumerable<BaseModel> GetStatus()
         {
             var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            status.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
+            status.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.All });
             return status;
         }
 

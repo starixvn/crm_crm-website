@@ -1,0 +1,152 @@
+﻿@using Fanex.CRM.Report.Resources
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.CRM.Common.Helpers;
+@using Fanex.CRM.Report.Helpers;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Log_Statistics_Report;
+
+    var currentClientTime = DateTimeUtilize.CurrentClientTime();
+    string clientDate = currentClientTime.ToShortFormatedDate();
+
+    var firstDayOfWeek = DateTimeHelper.GetFirstDayOfWeek(currentClientTime).ToShortFormatedDate();
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/site/common",
+                            "~/bundles/Report/LogStatisticsStyles",
+                            "~/Styles/FanexMultipleSelect")
+}
+<div data-ng-app="log-statistics-application">
+<div class="main container" data-ng-controller="logStatisticsController">
+    <div class="row" data-ng-show="errorMessage !== ''">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="alertboxerr">
+                <div data-ng-bind="errorMessage">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="filter-frm one-row">
+        <form novalidate>
+        <div class="row row-item">
+            <div class="item product-item">
+                <label for="products">@Labels.Product</label>
+                <div class="product-Picker-Container display-inline-block product-wrapper"
+                     data-ng-model="productOptions.DataList">
+                    <select id="product">
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <label for="fromDate">@Labels.From</label>
+                <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                    <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="toDate">@Labels.To</label>
+                <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                    <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label class="" for="main-category">@Labels.Main_Category</label>
+                <div class="display-inline-block maincategory-wrapper" category-picker-container
+                     data-ng-model="categoryOptions.DataList">
+                    <select id="category">
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <label class="first-column" for="communication-tool">@Labels.CommunicationType</label>
+                <div class="display-inline-block communication-tool-picker-container communication-wrapper"
+                     data-ng-model="communicationToolOptions.DataList">
+                    <select id="communication-tool">
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <button class="btn" data-ng-click="getLogStatisticReport();">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div>
+        <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
+            <div id="table-ibc-report" class="freegrid  table-ibc-report">
+            </div>
+        </div>
+        <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
+            <div id="table-licensee-report" class="freegrid table-licensee-report">
+            </div>
+        </div>
+        <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
+            <div id="table-detail-report" class="freegrid table-detail-report">
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+</div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var firstDayOfWeek = new Date('@firstDayOfWeek');
+        var currentDate = new Date('@clientDate');
+        var viewResources = {
+            All: '@Labels.All',
+            All_Products: '@Labels.All_Products',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Total: '@Labels.Total',
+            Grand_Total: '@Labels.Grand_Total',
+            Complaints_Enquiries: '@Labels.Complaints_Enquiries',
+            ProductCollapseExpand: '@Labels.ProductCollapseExpand',
+            DailyStatisticsReport_ChartSuffix: '@Labels.DailyStatisticsReport_ChartSuffix',
+
+            Date: '@Labels.Date',
+            Start_Time: '@Labels.Start_Time',
+            End_Time: '@Labels.End_Time',
+            Duration: '@Labels.Duration',
+            Customer: '@Labels.Customer',
+            Site: '@Labels.Site',
+            Type_Of_Contact: '@Labels.Type_Of_Contact',
+            Symbol_Extension: '@Labels.Symbol_Extension',
+            Role: '@Labels.Role',
+            Contact: '@Labels.ContactInfo',
+            MSN: '@Labels.MSN',
+            Skype: '@Labels.Skype',
+            Email: '@Labels.Email',
+            Phone: '@Labels.Phone',
+            Mobile: '@Labels.Mobile',
+            Product: '@Labels.Product',
+            Country: '@Labels.Country',
+            Category: '@Labels.Category',
+            Subcategory: '@Labels.SubCategory',
+            Solution: '@Labels.Solution',
+            Status: '@Labels.Status',
+            Response: '@Labels.Response',
+            Handle_By: '@Labels.Handle_By',
+            Creation_Time: '@Labels.Creation_Time',
+            Detail: '@Labels.Detail',
+
+            ViewDetail: '@Labels.ViewDetail',
+            ViewChart: '@Labels.ViewChart',
+            GoBack: '@Labels.GoBack',
+
+            ProductFilterRequired: '@Labels.ProductFilter_Required',
+            MainCategoryFilterRequired: '@Labels.MainCategoryFilter_Required',
+            CommunicationFilterRequired: '@Labels.CommunicationFilter_Required'
+        };
+    </script>
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/Scripts/FanexMultipleSelect",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/bundles/Report/LogStatisticsScripts")
+}

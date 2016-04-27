@@ -40,6 +40,21 @@
             });
         };
 
+        $scope.exportFeedbackExcel = function () {
+            var criteria = { top: $scope.top.Id };
+            if ($scope.custId !== 0) {
+                criteria.custId = $scope.custId;
+                criteria.username = $scope.username;
+            }
+
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "Feedbacks/ExportLatestFeedbacks",
+                Params: criteria
+            };
+
+            $scope.$apply();
+        };
+
         angular.element(document).ready(function () {
             $scope.getLatestFeedback();
         });

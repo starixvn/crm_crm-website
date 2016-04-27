@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -23,6 +21,8 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Linq;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Communication Log Controller.
@@ -30,7 +30,8 @@ namespace Fanex.CRM.Communication.Controllers
     public class CommunicationLogController : BaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
-        private readonly bool hasHostCreateUpdateFeedbackPermission;
+
+        private readonly bool _hasHostCreateUpdateFeedbackPermission;
 
         private ISettingService _serviceSetting;
 
@@ -45,7 +46,7 @@ namespace Fanex.CRM.Communication.Controllers
         {
             _communicationServiceLog = communicationServiceLog ?? new CommunicationLogService();
             _serviceSetting = serviceSetting ?? new SettingService();
-            hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            _hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
         }
 
         private static bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
@@ -87,7 +88,7 @@ namespace Fanex.CRM.Communication.Controllers
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes()
@@ -159,10 +160,10 @@ namespace Fanex.CRM.Communication.Controllers
             var isDeletedStatus = currentStatus == (int)CRMStatus.Deleted;
             if (isDeletedStatus)
             {
-                return hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+                return _hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
             }
 
-            return hasHostCreateUpdateFeedbackPermission;
+            return _hasHostCreateUpdateFeedbackPermission;
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
@@ -197,7 +198,7 @@ namespace Fanex.CRM.Communication.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!hasHostCreateUpdateFeedbackPermission)
+            if (!_hasHostCreateUpdateFeedbackPermission)
             {
                 return new Result(permissionError, Labels.Communication_Logs_NoUpdatePermission);
             }

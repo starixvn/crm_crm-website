@@ -67,7 +67,7 @@
 
             return deferred.promise;
         };
-        serviceInstance.getAllSettingForEdit = function (custId) {
+        serviceInstance.getAllSettingForInsert = function (custId) {
             var deferred = $q.defer();
             $http.post(window.rootUrl + "CommunicationLog/AllSettingForInsert", { custId: custId })
              .success(function (data, status, headers, config) {

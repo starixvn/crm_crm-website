@@ -7,4 +7,5 @@
     manageFBRegister.registerDatePicker();
     manageFBRegister.registerMainCategoryPicker();
     manageFBRegister.registerSubCategoryPicker();
+    manageFBRegister.registerDownloadFile();
 })();

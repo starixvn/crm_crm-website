@@ -1,0 +1,128 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#
+    SiteInfo.Host = Host;
+#>
+<#@ import namespace="System" #>
+<#
+    var sites = new SiteInfo[]{        
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.DEV
+        },
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.LOCAL
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.UAT
+        },
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.SIT
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.PRO
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.BACKUPMNL
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.MASTER
+        }
+    };
+#>
+<#+
+	enum SiteEnvironment
+    {
+		DEV,
+        LOCAL,
+        UAT,
+		SIT,
+        PRO,
+        BACKUPMNL,
+        MASTER
+    }
+
+	class SiteInfo
+    {
+		public static ITextTemplatingEngineHost Host { get; set; }
+
+        //Web config value.
+        public SiteEnvironment SiteEnvironment { get; set; }
+
+		public string SpNameTemplate = "SpName=\"{0}\"";
+		
+		public string GenerateSpName(string allSpName, IList<SpNameConfig> listOfConfig)
+		{
+			listOfConfig = listOfConfig.Where (x=>x.Environment == SiteEnvironment.ToString()).ToList();
+			string generateSpNameText = allSpName;
+			foreach (var item in listOfConfig)
+			{
+				generateSpNameText = Regex.Replace(
+					generateSpNameText, 
+					string.Format(SpNameTemplate, item.SpName), 
+					string.Format(SpNameTemplate, item.SpName + item.EnvironmentText), 
+					RegexOptions.IgnoreCase); 
+			}
+			
+			return generateSpNameText;
+		}
+    }
+
+	class SpNameConfig
+	{
+		public string Environment {get;set;}
+
+		public string SpName {get;set;}
+
+		public string EnvironmentText {get;set;}
+	}
+
+	static class Helper 
+	{
+		public static string GetAllSpName()
+        {
+			// Append DBNAP_Include.xml.
+			var originalXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpNameOriginal.xml");
+            var appendedXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBNAP_Include.xml");
+            originalXml.Root.Add(appendedXml.Root.Elements());
+
+			StringBuilder builder = new StringBuilder();
+			using (TextWriter writer = new StringWriter(builder))
+			{
+				originalXml.Save(writer); // Use Save() to keep XML Encoding Tag.
+			}
+
+			return builder.ToString();
+        }
+		
+		public static IList<SpNameConfig> GetListOfConfig()
+		{
+			var document = System.Xml.Linq.XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\_SpNameConfig.xml");
+			var elements = document.Root.Elements("SpNameConfig");
+			var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
+				
+			foreach (var element in elements)
+			{
+				var enviroments = element.Attribute("Environment").Value.Trim().Split(',');
+				foreach(var enviroment in enviroments)
+				{
+					listOfConfig.Add(new SpNameConfig
+					{
+						Environment = enviroment.Trim(),
+						SpName = element.Attribute("SpName").Value.Trim(),
+						EnvironmentText = element.Attribute("EnvironmentText").Value.Trim(),
+					});
+				}
+			}
+
+			return listOfConfig;
+		}
+
+	}
+#>

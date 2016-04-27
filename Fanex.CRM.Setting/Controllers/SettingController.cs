@@ -35,7 +35,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllSite()
         {
-            var allSite = _settingServiceInstance.GetAllSites();
+            var allSite = _settingServiceInstance.GetAllSiteWithGroup();
             var jsonResult = Json(allSite, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -90,7 +90,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllProduct()
         {
-            var allProduct = _settingServiceInstance.GetAllProducts();
+            var allProduct = _settingServiceInstance.GetAllSubProducts();
             var jsonResult = Json(allProduct, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

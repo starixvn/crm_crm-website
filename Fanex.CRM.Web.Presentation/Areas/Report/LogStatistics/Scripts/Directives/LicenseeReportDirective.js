@@ -1,0 +1,66 @@
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    reportDirectiveHelper */
+    /* jshint unused: false,
+    camelcase: false */
+    angular.module('log-statistics-application').directive('tableLicenseeReportContainer', function () {
+        var selfScope;
+        var cachedTable;
+        var cachedReport;
+        var cachedGridOptions;
+
+        function renderReport(scope, element) {
+            var report = scope.licenseeReportOptions.DataList;
+            if (!report || report.ProductColumns.length === 0 || report.CommunicationColumns.length === 0) {
+                return;
+            }
+
+            selfScope = scope;
+            var tableReport = element.find("#table-licensee-report");
+            cachedTable = tableReport;            
+            cachedReport = report;
+            var gridOptions = reportDirectiveHelper.getGridOptions(report, scope.licenseeReportOptions.IsExpand);
+            gridOptions.gridHeight = $(window).height() - 200 - $("#table-ibc-report").height();
+            gridOptions.titleInfo.exportExcelFunction = function () {
+                selfScope.exportReport(selfScope.licenseeReportOptions.Type);
+            };
+
+            cachedGridOptions = gridOptions;
+            element.removeClass(crmConstants.Enums.CssClass.DisplayNone);
+            $(".table-detail-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
+            tableReport.fanexGrid(gridOptions);
+
+            bindEvents(scope, element);
+        }
+
+        function bindEvents(scope, element) {
+            element.find(".btnCharting").click(function () {
+                reportDirectiveHelper.viewChart(scope, cachedReport);
+            });
+
+            element.find(".btnViewDetail").click(function () {
+                scope.viewDetail(selfScope.licenseeReportOptions.Type);
+            });
+            element.find(".btnHorizontal").click(function () {
+                scope.toggleExpansionForLicenseeReport();
+            });
+        }
+
+        return {
+            restrict: 'C',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    if (!scope.licenseeReportOptions ||
+                    !scope.licenseeReportOptions.IsUpdateGrid) {
+                        return;
+                    }
+
+                    renderReport(scope, element);
+                    scope.licenseeReportOptions.IsUpdateGrid = false;
+                });
+            }
+        };
+    });
+})();

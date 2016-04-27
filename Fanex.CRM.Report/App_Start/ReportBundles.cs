@@ -28,6 +28,9 @@ namespace Fanex.CRM.Report
             
             RegisterFeedbackStatisticBundles(bundles);
             RegisterFeedbackStatisticDetailBundles(bundles);
+
+            RegisterLogStatisticsBundles(bundles);
+            RegisterDeletedFeedbackStatisticsBundles(bundles);
         }
 
         /// <summary>
@@ -180,6 +183,56 @@ namespace Fanex.CRM.Report
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailService.js",
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailController.js",
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/Directives/*.js"));
+        }
+
+        /// <summary>
+        /// Registers the log statistics bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLogStatisticsBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+                bundles,
+                "~/bundles/Report/LogStatisticsStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/LogStatistics/Styles/LogStatistics.less",
+                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
+
+            bundles.Add(new ScriptBundle("~/bundles/Report/LogStatisticsScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsApplication.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsService.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsOptions.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsInitialPickers.js",
+                "~/Areas/Report/LogStatistics/Scripts/LogStatisticsController.js",
+                "~/Areas/Report/LogStatistics/Scripts/Directives/*.js"));
+        }
+
+        private static void RegisterDeletedFeedbackStatisticsBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+                bundles,
+                "~/bundles/Report/DeletedFeedbackStatisticsStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/DeletedFeedbackStatistics/Styles/deletedFeedbackStatistics.less");
+
+            bundles.Add(new ScriptBundle("~/bundles/Report/DeletedFeedbackStatisticsScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/DeletedFeedbackStatistics/Scripts/DeletedFeedbackStatisticsApplication.js",
+                "~/Areas/Report/DeletedFeedbackStatistics/Scripts/DeletedFeedbackStatisticsService.js",
+                "~/Areas/Report/DeletedFeedbackStatistics/Scripts/DeletedFeedbackStatisticsController.js",
+                "~/Areas/Report/DeletedFeedbackStatistics/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(

@@ -12,7 +12,8 @@ namespace Fanex.CRM.AdminTool.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
-    using Fanex.CRM.AdminTool.Services.SettingManagement;
+    using Fanex.CRM.AdminTool.Resources;
+    using Fanex.CRM.AdminTool.Services.SettingManagement; 
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -65,15 +66,26 @@ namespace Fanex.CRM.AdminTool.Controllers
         public ActionResult OpenDeleteSettingView(
             string settingType,
             int settingId,
-            string settingValue)
+            string settingValue,
+            bool isActive)
         {
+            var messageConfirm = string.Format(Labels.SettingManagement_ActiveSetting_Message, settingType, settingValue);
+
+            if (isActive)
+            {
+                messageConfirm = string.Format(Labels.SettingManagement_DeactiveSetting_Message, settingType, settingValue);
+            }
+
+            ViewBag.Message = messageConfirm;
+
             return View(
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Index.cshtml",
                 new Setting
                 {
                     SettingType = settingType,
                     Id = settingId,
-                    Value = settingValue
+                    Value = settingValue,
+                    IsActive = isActive
                 });
         }
 

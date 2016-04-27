@@ -81,7 +81,7 @@ namespace Fanex.CRM.Report.Controllers
             var excelFileName = this.GetSummaryFileName(criteria);
             criteria.Subject = criteria.Subject ?? string.Empty;
 
-            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), excelFileName);
+            NpoiExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), excelFileName);
 
             return new EmptyResult();
         }
@@ -97,7 +97,7 @@ namespace Fanex.CRM.Report.Controllers
             criteria.Subject = criteria.Subject ?? string.Empty;
             criteria.StatusId = criteria.StatusId ?? string.Empty;
 
-            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportFilename);
+            NpoiExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportFilename);
 
             return new EmptyResult();
         }

@@ -26,11 +26,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
     </div>
 </div>
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
-        "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts")
+            "~/CRM/DownLoadFile/Scripts",
+            "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts")
     <script language="javascript" type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

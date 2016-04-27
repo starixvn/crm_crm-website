@@ -32,6 +32,7 @@
             PageIndex: 0,
             ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
+        $scope.downloadFileOptions = null;
 
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
@@ -176,6 +177,31 @@
             parent.OpenPopup(url, manageFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
                 $scope.searchManageFeedback();
             });
+        };
+
+        $scope.exportFeedbackExcel = function () {
+            var criteria = {
+                FeedbackId: $scope.searchCriteria.FeedbackId,
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                Username: $scope.searchCriteria.Username,
+                IsGuest: $scope.searchCriteria.IsGuest.Id,
+                CommunicationId: $scope.searchCriteria.Communication.Id,
+                MainCategoryId: $scope.searchCriteria.MainCategory.Id,
+                SubCategoryId: $scope.searchCriteria.SubCategory.Id,
+                StatusId: $scope.searchCriteria.Status.Id,
+                IsReviewed: $scope.searchCriteria.IsReviewed.Id,
+                ResponseId: $scope.searchCriteria.Response.Id,
+                HandledBy: $scope.searchCriteria.Handler,
+                PageIndex: $scope.searchCriteria.PageIndex + 1,
+                ItemsPerPage: $scope.searchCriteria.ItemsPerPage
+            };
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "Feedbacks/ExportManageFeedbacks",
+                Params: criteria
+            };
+
+            $scope.$apply();
         };
 
         angular.element(document).ready(function () {

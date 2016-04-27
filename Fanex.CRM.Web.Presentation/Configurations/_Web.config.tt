@@ -1,0 +1,19 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="Microsoft.Web.XmlTransform.dll" #>
+<#@ import namespace="System.Xml" #>
+<#@ output extension=".txt" #>
+<#
+string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.CRM.Web.Presentation\";
+var environments = new string[] { "DEV", "LOCAL", "backupMNL", "Master", "UATSandBox", "UAT", "UATSIT", "PRO" };
+foreach(var environment in environments)
+{
+ using(var transform = new Microsoft.Web.XmlTransform.XmlTransformation( projectPath + "Configurations\\WebConfigTransforms\\" + environment + ".config"))
+ {
+ var document = new XmlDocument();
+ document.Load(projectPath + "Web.config");
+ transform.Apply(document);
+ document.Save(projectPath + "Configurations\\Web." + environment + ".config");
+ }
+}
+#>

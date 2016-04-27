@@ -197,7 +197,7 @@ function RegisterTemplate(application) {
 
         directiveManager.registerDropdownContainer(self.application, roleRegisterParams);
     };
-    self.registerCommunicationToolPicker = function () {
+    self.registerCommunicationToolPicker = function (isMultiSelect) {
         var communicationToolRegisterParams = {
             PlugInName: 'communicationToolPickerContainer',
             OptionName: 'communicationToolOptions',
@@ -210,7 +210,12 @@ function RegisterTemplate(application) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.application, communicationToolRegisterParams);
+        if (isMultiSelect) {
+            directiveManager.registerMultiSelectContainer(self.application, communicationToolRegisterParams);       
+        }
+        else {
+            directiveManager.registerDropdownContainer(self.application, communicationToolRegisterParams);
+        }
     };
     self.registerMainCategoryPicker = function () {
         var mainCategoryRegisterParams = {
@@ -388,6 +393,21 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, countryRegisterParams);
+    };
+    self.registerProductMultiSelectPicker = function () {
+        var productRegisterParams = {
+            PlugInName: 'productPickerContainer',
+            OptionName: 'productOptions',
+            PickerId: 'product',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, productRegisterParams);
     };
 
     self.registerToggleElement = function () {

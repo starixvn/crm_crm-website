@@ -67,7 +67,10 @@
                 <label for="customerinfo-siteoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Site</label>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <select id="customerinfo-siteoptions" tabindex="4" data-ng-keyup="textBoxKeyUp($event);">
+                    <select id="customerinfo-siteoptions" tabindex="4" data-ng-model="customer.SiteSetting"
+                            data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id"
+                            ng-change="updateSelectedSite();" data-ng-keyup="textBoxKeyUp($event);">
+                        <option value="">@Labels.Select</option>
                     </select>
                 </div>
             </div>

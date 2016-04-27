@@ -29,6 +29,7 @@
         $scope.fromYearOptions = null;
         $scope.toYearOptions = null;
         $scope.productOptions = null;
+        $scope.subProductOptions = null;
         $scope.siteOptions = null;
         $scope.statusOptions = null;
         $scope.responseOptions = null;
@@ -52,6 +53,7 @@
             ToDate: new Date(currentDate),
 
             Product: null,
+            SubProduct: null,
             Site: null,
             Status: null,
             Response: null,
@@ -83,8 +85,6 @@
                 Id: "Report_DynamicReport"
             });
 
-            $scope.initPicker();
-
             $scope.defaultFocusOptions = {
                 IsSetFocus: false,
                 OnChangeEvent: $scope.completeSetFocus
@@ -97,159 +97,7 @@
         $scope.invokeHotKey_CtrlS = function () {
             $scope.getDynamicReport();
         };
-        $scope.initPicker = function () {
-            $scope.fromWeekOptions = {
-                CurrentDate: currentDate,
-                InitDate: initFromDate,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateFromWeek
-            };
 
-            $scope.toWeekOptions = {
-                CurrentDate: currentDate,
-                InitDate: initFromDate,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateToWeek
-            };
-
-            $scope.fromWeekOptions.IsRerenderPicker = true;
-            $scope.toWeekOptions.IsRerenderPicker = true;
-            $scope.$apply();
-
-            $scope.reportTypeOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateReportType
-            };
-
-            $scope.$apply();
-
-            currentDate = new Date(currentDate);
-            initFromDate = new Date(initFromDate);
-            $scope.fromMonthOptions = {
-                CurrentDate: currentDate,
-                InitDate: initFromDate,
-                MaxDate: initFromDate,
-                MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
-                initFromDate.getMonth(),
-                initFromDate.getDate()),
-                IsRerenderPicker: false,
-                OnChangeEvent: $scope.updateFromMonth,
-                SelectedYear: initFromDate.getFullYear(),
-                SelectedMonth: initFromDate.getMonth() + 1
-            };
-
-            $scope.fromMonthOptions.IsRerenderPicker = true;
-            $scope.$apply();
-
-            $scope.toMonthOptions = {
-                CurrentDate: currentDate,
-                InitDate: currentDate,
-                MaxDate: currentDate,
-                MinDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeEvent: $scope.updateToMonth,
-                SelectedYear: currentDate.getFullYear(),
-                SelectedMonth: currentDate.getMonth() + 1
-            };
-
-            $scope.toMonthOptions.IsRerenderPicker = true;
-            $scope.$apply();
-
-            $scope.fromYearOptions = {
-                CurrentDate: currentDate,
-                InitDate: initFromDate,
-                MaxDate: initFromDate,
-                MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
-                initFromDate.getMonth(),
-                initFromDate.getDate()),
-                IsRerenderPicker: false,
-                OnChangeEvent: $scope.updateFromYear,
-                SelectedYear: initFromDate.getFullYear()
-            };
-
-            $scope.fromYearOptions.IsRerenderPicker = true;
-            $scope.$apply();
-
-            $scope.toYearOptions = {
-                CurrentDate: currentDate,
-                InitDate: currentDate,
-                MaxDate: currentDate,
-                MinDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeEvent: $scope.updateToYear,
-                SelectedYear: currentDate.getFullYear()
-            };
-
-            $scope.toYearOptions.IsRerenderPicker = true;
-            $scope.$apply();
-
-            $scope.productOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedProduct
-            };
-
-            $scope.siteOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedSite,
-                AllText: viewResources.All,
-                IsIncludeNA: true
-            };
-
-            $scope.statusOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedStatus
-            };
-            $scope.responseOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedResponse
-            };
-
-            $scope.roleOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedRole
-            };
-            $scope.communicationToolOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedCommunicationTool
-            };
-            $scope.mainCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedMainCategory
-            };
-            $scope.subCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedSubCategory
-            };
-            $scope.extensionOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedExtension
-            };
-
-            $scope.$apply();
-
-            $scope.fromDateOptions = {
-                CurrentDate: currentDate,
-                InitDate: initFromDate,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateFromDate,
-                CompleteRender: $scope.CompleteRenderFromDate
-            };
-
-            $scope.toDateOptions = {
-                CurrentDate: currentDate,
-                InitDate: currentDate,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateToDate,
-                CompleteRender: $scope.CompleteRenderToDate
-            };
-
-            $scope.updateFromDatePicker();
-            $scope.updateToDatePicker();
-        };
         $scope.getAllSetting = function () {
             $scope.BlockUI();
             $scope.isLoadedAllSite = false;
@@ -257,7 +105,10 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.reportTypeOptions.DataList = allSetting.PeriodTypeList;
+
                 $scope.productOptions.DataList = allSetting.ProductList;
+                $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
+
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
@@ -592,8 +443,17 @@
             $scope.$apply();
         };
         $scope.updateSelectedProduct = function (product) {
-            $scope.searchCriteria.Product = product;
-            $scope.$apply();
+            $scope.searchCriteria.Product = { Id: product.Id };
+            $scope.subProductOptions.DataList = product.ChildSettings;
+            $scope.subProductOptions.DataList[0].Value = viewResources.All;
+
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {          
+            $scope.searchCriteria.SubProduct = { Id: subProduct.Id };
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
         };
         $scope.updateSelectedResponse = function (response) {
             $scope.searchCriteria.Response = response;
@@ -633,6 +493,7 @@
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
 
                 ProductId: $scope.searchCriteria.Product.Id,
+                SubProductId: $scope.searchCriteria.SubProduct.Id,
                 SiteId: $scope.searchCriteria.Site.Id,
                 StatusId: $scope.searchCriteria.Status.Id,
                 ResponseId: $scope.searchCriteria.Response.Id,
@@ -738,6 +599,7 @@
             }
         };
         angular.element(document).ready(function () {
+            registerOptions($scope);
             $scope.initController();
         });
     } ]);

@@ -28,26 +28,26 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         public FirstGrandTotalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = NpoiExcelExtensions.GrandTotalRowColorIndex;
+            _rowBackgroundColorIndex = NpoiExtensions.GrandTotalRowColorIndex;
 
-            IntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            IntStyle = NpoiExtensions.GetIntegerNumberStyle(
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                true,
                CRMHorizontalAlignment.Right,
-               NpoiExcelExtensions.GrandTotalTextColorIndex);
-            TextStyle = NpoiExcelExtensions.GetTextStyle(
+               NpoiExtensions.GrandTotalTextColorIndex);
+            TextStyle = NpoiExtensions.GetTextStyle(
                  _exportExcelInfo.ExcelFile,
                  _rowBackgroundColorIndex,
                  true,
                  CRMHorizontalAlignment.Left,
-                 NpoiExcelExtensions.GrandTotalTextColorIndex);
-            CenterTextStyle = NpoiExcelExtensions.GetTextStyle(
+                 NpoiExtensions.GrandTotalTextColorIndex);
+            CenterTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
                 CRMHorizontalAlignment.Center,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+                NpoiExtensions.GrandTotalTextColorIndex);
         }
     }
 }

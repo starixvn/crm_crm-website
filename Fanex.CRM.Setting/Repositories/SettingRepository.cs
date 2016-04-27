@@ -37,7 +37,8 @@ namespace Fanex.CRM.Setting.Repositories
                             Id = Converter.ToInt(reader["settingid"], 0),
                             SettingType = Converter.ToString2(reader["settingname"]),
                             Value = Converter.ToString2(reader["settingvalue"]),
-                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
+                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0),
+                            IsActive = Converter.ToBool(reader["isactive"])
                         });
                     }
 
@@ -46,20 +47,20 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria)
+        public IEnumerable<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var settings = new List<Setting>();
+                    var settings = new List<T>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new T()
                         {
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
-                            IsSubSetting = Converter.ToInt(reader["IsSub"]) == 1,
+                            IsChild = Converter.ToInt(reader["IsSub"]) == 1,
                             DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
                         };
 
@@ -222,27 +223,9 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria)
+        public IEnumerable<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var allStatus = new List<Setting>();
-                    while (reader.Read())
-                    {
-                        var setting = new Setting()
-                        {
-                            Id = Converter.ToInt(reader["StatusId"]),
-                            Name = Converter.ToString2(reader["Name"])
-                        };
-
-                        allStatus.Add(setting);
-                    }
-
-                    return allStatus;
-                }
-            }
+            return ReadBaseModels(criteria, "StatusId", "Name");
         }
 
         public IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria)
@@ -271,22 +254,23 @@ namespace Fanex.CRM.Setting.Repositories
             return ReadBaseModels(criteria, "InformStatusId", "Name");
         }
 
-        public IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria)
+        public IEnumerable<Product> GetAllBetType(GetAllBetTypeCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allBetType = new List<Setting>();
+                    var allBetType = new List<Product>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Product()
                         {
                             Id = Converter.ToInt(reader["BetTypeId"]),
                             Name = Converter.ToString2(reader["Name"]),
                             DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
-                            IsActive = Converter.ToBool(reader["IsActive"])
+                            IsActive = Converter.ToBool(reader["IsActive"]),
+                            ParentId = Converter.ToInt(reader["ProductID"])
                         };
 
                         allBetType.Add(setting);
@@ -295,6 +279,30 @@ namespace Fanex.CRM.Setting.Repositories
                     return allBetType;
                 }
             }            
+        }
+
+        public IEnumerable<Product> GetSubProducts(SubProductCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var subProducts = new List<Product>();
+                    while (reader.Read())
+                    {
+                        subProducts.Add(new Product()
+                        {
+                            Id = Converter.ToInt(reader["SubProductID"]),
+                            Value = Converter.ToString2(reader["Name"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"]),
+                            ParentId = Converter.ToInt(reader["ProductID"])
+                        });
+                    }
+
+                    return subProducts;
+                }
+            }
         }
 
         public IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)

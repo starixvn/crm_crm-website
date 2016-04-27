@@ -28,17 +28,25 @@
             $scope.customerInfo.Title = title;
             $scope.safeApply();
         };
-        $scope.updateSelectedSite = function (site) {
-            $scope.customerInfo.SiteSetting = site;
-        };
         $scope.updateSelectedCommunicationTool = function (communicationTool) {
             $scope.addCustomerFeedbackParams.CommunicationTool = communicationTool;
             $scope.updateRemarkPrefix();
             $scope.safeApply();
         };
         $scope.updateSelectedProduct = function (product) {
-            $scope.addCustomerFeedbackParams.Product = product;
-            $scope.betTypeOptions.DataList = product.ChildSettings;
+            $scope.addCustomerFeedbackParams.Product = { Id: product.Id };
+            $scope.subProductOptions.DataList = product.ChildSettings;
+
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };
+            if (!subProduct.ChildSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
         };
         $scope.updateSelectedLanguage = function (language) {

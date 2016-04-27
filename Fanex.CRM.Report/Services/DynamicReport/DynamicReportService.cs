@@ -47,6 +47,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         private readonly ISettingService _serviceSetting;
 
+        private ICellStyle periodGroupTitleStyle;
+
         public DynamicReportService()
             : this(null, null)
         {
@@ -87,7 +89,30 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return types;
         }
 
-        public IEnumerable<Setting> GetAllProducts()
+        public IEnumerable<Product> GetAllSubProducts()
+        {
+            var subProducts = _serviceSetting.GetAllSubProducts().ToList();
+            var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+
+            if (notApplyItem == null)
+            {
+                subProducts.Insert(
+                    0,
+                    new Product
+                    {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+            }
+            else
+            {
+                notApplyItem.Value = Labels.All;
+            }
+
+            return subProducts;
+        }
+
+        public IEnumerable<Product> GetAllProducts()
         {
             var products = _serviceSetting.GetAllProducts().ToList();
             var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
@@ -96,11 +121,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 products.Insert(
                     0,
-                    new Setting
-                {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.All
-                });
+                    new Product
+                    {
+                        Id = SettingConstants.NotApply,
+                        Value = Labels.All
+                    });
             }
             else
             {
@@ -115,7 +140,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return _serviceSetting.GetAllSites();
         }
 
-        public IEnumerable<Setting> GetAllStatuses()
+        public IEnumerable<BaseModel> GetAllStatuses()
         {
             var rawData = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
@@ -123,7 +148,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             rawData.Insert(
                 0,
-                new Setting
+                new BaseModel
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All
@@ -132,13 +157,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return rawData;
         }
 
-        public IEnumerable<Setting> GetAllResponses()
+        public IEnumerable<SettingRelation> GetAllResponses()
         {
             var data = _serviceSetting.GetAllResponses().ToList();
             data.Insert(
                 0,
-                new Setting
-            {
+                new SettingRelation
+                {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
             });
@@ -146,13 +171,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return data;
         }
 
-        public IEnumerable<Setting> GetAllRoles()
+        public IEnumerable<SettingRelation> GetAllRoles()
         {
             var data = _serviceSetting.GetAllRoles().ToList();
             data.Insert(
                 0,
-                new Setting
-            {
+                new SettingRelation
+                {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
             });
@@ -212,11 +237,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return allMainCategory;
         }
 
-        public IEnumerable<Setting> GetAllExtensions()
+        public IEnumerable<SettingRelation> GetAllExtensions()
         {
-            var extensions = new List<Setting>();
+            var extensions = new List<SettingRelation>();
             var rawData = _serviceSetting.GetAllExtensions();
-            extensions.Add(new Setting
+            extensions.Add(new SettingRelation
             {
                 Id = ExtensionConstants.NotApply,
                 Value = Labels.All
@@ -302,7 +327,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             SetStatusColorIndex(ref exportExcelInfo);
             ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
         private DynamicReportInfo GetDynamicReportData(GetDynamicReportCriteria criteria)
@@ -525,21 +550,21 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 300 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 300 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
 
             string reportTitle = string.Format(
                 Labels.DynamicReport_TitleWithNumberOfLog,
@@ -554,37 +579,37 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Symbol_No, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Symbol_No, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Running_No, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Running_No, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Feedback_Date, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Feedback_Date, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(
+            NpoiExtensions.RenderCell(
                 row,
                 currentColumn,
                 string.Format("{0}/{1}", Labels.Main_Category, Labels.Sub_Category),
                 headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Subject, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Subject, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Status, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Status, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Duration, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Duration, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Username, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Username, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Handler, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Handler, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Reviewer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Reviewer, headerStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
@@ -607,32 +632,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.DynamicReport_SheetName);
                 ExportDynamicReportHeader(ref exportExcelInfo, criteria, dynamicReport);
-                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
-            var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
-            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
-            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                periodGroupBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Left);
-            var font = exportExcelInfo.ExcelFile.CreateFont();
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
-            font.Color = (short)HSSFColor.Blue.Index;
-            font.Boldweight = (short)FontBoldWeight.Bold;
-            periodGroupTitleStyle.SetFont(font);
-            NpoiExcelExtensions.SetBorderToCell(periodGroupTitleStyle);
+            InitPeriodGroupTitleStyle(exportExcelInfo);
 
             CellRangeAddress cellRangeAddress;
-            var childReportLength = dynamicReport.ChildReports.Count;
 
             var normalRowWriter = new CommunicationLogRowExcelWriter(
                 exportExcelInfo,
-                NpoiExcelExtensions.BackgroundColorIndex);
+                NpoiExtensions.BackgroundColorIndex);
             var closedRowWriter = new CommunicationLogRowExcelWriter(
                 exportExcelInfo,
                 _closedBackgroundColorIndex);
@@ -643,9 +653,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo,
                 _pendingBackgroundColorIndex);
 
-            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
-            var numberOfSheet = (childReportLength / maxRowPerSheet) +
-                (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            var totalPeriodGroupTitle = dynamicReport.ChildReports.Count;
+            var totalItems = dynamicReport.TotalChildReports + totalPeriodGroupTitle;
+            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
+            var numberOfSheet = (totalItems / maxRowPerSheet) +
+                (totalItems % maxRowPerSheet != 0 ? 1 : 0);
+
+            var mainCategoryCount = dynamicReport.ChildReports.Count;
+
+            var currentIndexOfMainCategory = 0;
+            var currentIndexOfDetailItem = 0;
+            var currentExportedItemCount = 0;
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
@@ -655,9 +673,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
                 exportExcelInfo.CurrentRow = 0;
                 ExportDynamicReportHeader(ref exportExcelInfo, criteria, dynamicReport);
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
-                for (var i = startIndex; i < endIndex && i < childReportLength; i++)
+
+                currentExportedItemCount = 0;
+
+                for (var i = currentIndexOfMainCategory; i < mainCategoryCount && currentExportedItemCount < maxRowPerSheet; i++)
                 {
                     var periodReport = dynamicReport.ChildReports[i];
                     var childsLength = periodReport.ChildReports.Count;
@@ -669,13 +688,15 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                         exportExcelInfo.CurrentRow + 1,
                         exportExcelInfo.StartColumn,
                         exportExcelInfo.MaxColumnIndex);
-                    NpoiExcelExtensions.RenderMergedCells(
+                    NpoiExtensions.RenderMergedCells(
                         exportExcelInfo,
                         cellRangeAddress,
                         string.Format("{0} [{1}]", periodReport.Name, childsLength),
                         periodGroupTitleStyle);
                     exportExcelInfo.CurrentRow += 2;
-                    for (var j = 0; j < childsLength; j++)
+                    currentExportedItemCount++;
+
+                    for (var j = currentIndexOfDetailItem; j < childsLength && currentExportedItemCount <= maxRowPerSheet; j++)
                     {
                         exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                         exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
@@ -698,9 +719,37 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                         {
                             normalRowWriter.WriteRow(exportExcelInfo, info, j);
                         }
+
+                        currentIndexOfDetailItem++;
+                        currentExportedItemCount++;
+                    }
+
+                    if (currentIndexOfDetailItem == childsLength)
+                    {
+                        currentIndexOfDetailItem = 0;
+                        currentIndexOfMainCategory++;
                     }
                 }
             }
+        }
+
+        private void InitPeriodGroupTitleStyle(ExportExcelInfo exportExcelInfo)
+        {
+            var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
+            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
+            periodGroupTitleStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                periodGroupBackgroundColorIndex,
+                true,
+                CRMHorizontalAlignment.Left);
+            var font = exportExcelInfo.ExcelFile.CreateFont();
+            font.FontHeightInPoints = NpoiExtensions.FontSize;
+            font.FontName = NpoiExtensions.FontName;
+            font.Color = (short)HSSFColor.Blue.Index;
+            font.Boldweight = (short)FontBoldWeight.Bold;
+            periodGroupTitleStyle.SetFont(font);
+            NpoiExtensions.SetBorderToCell(periodGroupTitleStyle);
         }
 
         /// <summary>
@@ -710,13 +759,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, closedBackgroundColor, _closedBackgroundColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, closedBackgroundColor, _closedBackgroundColorIndex);
 
             var checkedBackgroundColor = Color.FromArgb(242, 242, 242);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, checkedBackgroundColor, _checkedBackgroundColorIndex);
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, checkedBackgroundColor, _checkedBackgroundColorIndex);
 
             var pendingBackgroundColor = Color.FromArgb(240, 237, 196);
-            NpoiExcelExtensions.SetColorAtIndex(
+            NpoiExtensions.SetColorAtIndex(
                 exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
         }
 

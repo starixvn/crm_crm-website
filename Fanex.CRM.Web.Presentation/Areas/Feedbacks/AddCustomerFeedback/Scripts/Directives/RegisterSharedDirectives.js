@@ -5,7 +5,6 @@
     function addCustomerFeedbackRegisterPicker() {
         var addCustomerFeedbackRegister = new RegisterTemplate(angular.module('feedbacks-addcustomerfeedback-application'));
         addCustomerFeedbackRegister.registerTitlePicker();
-        addCustomerFeedbackRegister.registerSitePicker();
         addCustomerFeedbackRegister.registerDatePicker();
 
         addCustomerFeedbackRegister.registerCommunicationToolPicker();
@@ -39,6 +38,34 @@
         };
 
         directiveManager.registerDatePickerContainer(angular.module('feedbacks-addcustomerfeedback-application'), birthdayRegisterParams);
+
+        var productRegisterOptions = {
+            PlugInName: 'dropdownProduct',
+            OptionName: 'productOptions',
+            PickerId: 'product',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('feedbacks-addcustomerfeedback-application'), productRegisterOptions);
+
+        var subProductRegisterOptions = {
+            PlugInName: 'dropdownSubProduct',
+            OptionName: 'subProductOptions',
+            PickerId: 'subProduct',
+            RestrictType: 'A',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(angular.module('feedbacks-addcustomerfeedback-application'), subProductRegisterOptions);
     }
 
     addCustomerFeedbackRegisterPicker();

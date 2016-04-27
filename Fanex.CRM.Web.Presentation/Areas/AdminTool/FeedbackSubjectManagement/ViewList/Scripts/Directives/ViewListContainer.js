@@ -25,6 +25,7 @@
                 var templatesLength = templates.length;
                 for (var i = 0; i < templatesLength; i++) {
                     var info = templates[i];
+                    var checked = info.IsActive === true ? "checked" : "";
                     bodyData.push({
                         Columns: [
                         { Name: "ColTemplateId", Value: info.Id },
@@ -34,8 +35,8 @@
                             Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                         },
                         {
-                            Name: "ColDelete",
-                            Value: '<a class="c hand deleteSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                            Name: "ColActive",
+                            Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
                         }],
                         CssClass: 'editlog-link-row row-index-' + i
                     });
@@ -52,7 +53,7 @@
                     CellAlign: "left"
                 },
                 { HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Delete, Width: 60, Name: "ColDelete", HeaderAlign: "center", CellAlign: "center"}],
+                { HeaderText: viewResources.Active, Width: 60, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" }],
                 showTitle: false,
                 bodyRows: bodyData,
                 numberOfFrozenColumn: 2,
@@ -83,11 +84,11 @@
                 scope.editTemplate(feedbackSubjectTemplateView.Templates[rowIndex]);
             });
 
-            var deleteIcons = tableTemplates.find(".deleteSetting");
-            deleteIcons.unbind("click");
-            deleteIcons.click(function () {
+            var activeSettings = tableTemplates.find(".activeSetting");
+            activeSettings.unbind("click");
+            activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
-                scope.deleteTemplate(feedbackSubjectTemplateView.Templates[rowIndex]);
+                scope.changeTemplateState(feedbackSubjectTemplateView.Templates[rowIndex]);
             });
         }
 

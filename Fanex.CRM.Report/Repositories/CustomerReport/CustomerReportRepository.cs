@@ -57,7 +57,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
                  BirthDayString = reader["BirthDay"] != DBNull.Value ?
                      Converter.ToDateTime(reader["Birthday"]).ToShortFormatedDate() :
                      string.Empty,
-                 SiteSetting = new BaseModel
+                 SiteSetting = new Site
                  {
                      Name = Converter.ToString2(reader["Site"])
                  },

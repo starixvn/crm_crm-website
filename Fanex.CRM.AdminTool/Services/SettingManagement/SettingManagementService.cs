@@ -94,14 +94,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         public Result DeleteSetting(DeleteSettingCriteria criteria)
         {
             var result = new Result();
-            if (IsExistedSetting(criteria.OldSetting))
-            {
-                result = _settingManagementRepository.DeleteSetting(criteria);
-            }
+            result = _settingManagementRepository.DeleteSetting(criteria);
 
             if (result.Code == ErrorCodeConstants.NoneError)
             {
-                result.Message = Labels.SettingManagement_DeleteSettingSuccess;
+                result.Message = criteria.OldSetting.IsActive ?
+                    Labels.DeactiveSettingSuccessMessage : Labels.ActiveSettingSuccessMessage;
                 _settingService.ClearCache();
             }
 

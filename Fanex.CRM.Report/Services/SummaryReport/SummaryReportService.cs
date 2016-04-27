@@ -102,18 +102,18 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             ExportHeader(ref exportExcelInfo, report.Months);
             if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
+                NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.GroupBackgroundColor, NpoiExtensions.GroupBackgroundColorIndex);
+                NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 ExportBody(ref exportExcelInfo, report.CategorySummaries);
                 ExportFooter(ref exportExcelInfo, report.GrandTotals);
             }
 
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
         /// <summary>
@@ -222,12 +222,12 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             var columnWidths = new List<int>() { 300 };
             columnWidths.AddRange(Enumerable.Repeat(80, 12));
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -240,13 +240,13 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Categories, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.Categories, headerStyle);
             currentColumn++;
             foreach (string item in months)
             {
-                NpoiExcelExtensions.RenderCell(row, currentColumn, item, headerStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, item, headerStyle);
                 currentColumn++;
             }
 
@@ -280,7 +280,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
                 categoryRow = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
                 categoryRow.Height *= 2;
-                NpoiExcelExtensions.RenderCell(categoryRow, currentColumn, category.Name, categoryCellStyle);
+                NpoiExtensions.RenderCell(categoryRow, currentColumn, category.Name, categoryCellStyle);
                 currentColumn++;
 
                 categoryTotalLen = category.Summaries.Count;
@@ -289,12 +289,12 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                     summay = category.Summaries[l];
                     if (summay.Amount == 0)
                     {
-                        NpoiExcelExtensions.RenderCell(categoryRow, currentColumn, string.Empty, categoryTotalCellStyle);
+                        NpoiExtensions.RenderCell(categoryRow, currentColumn, string.Empty, categoryTotalCellStyle);
                         currentColumn++;
                     }
                     else
                     {
-                        NpoiExcelExtensions.RenderCell(categoryRow, currentColumn, summay.Amount, categoryTotalCellStyle);
+                        NpoiExtensions.RenderCell(categoryRow, currentColumn, summay.Amount, categoryTotalCellStyle);
                         currentColumn++;
                     }
                 }
@@ -307,7 +307,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                     subCategory = category.SubCategories[j];
 
                     subCategortRow = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
-                    NpoiExcelExtensions.RenderCell(subCategortRow, currentColumn, subCategory.Name, subCategoryCellStyle);
+                    NpoiExtensions.RenderCell(subCategortRow, currentColumn, subCategory.Name, subCategoryCellStyle);
                     currentColumn++;
 
                     monthLen = subCategory.Summaries.Count;
@@ -316,12 +316,12 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                         summay = subCategory.Summaries[k];
                         if (summay.Amount == 0)
                         {
-                            NpoiExcelExtensions.RenderCell(subCategortRow, currentColumn, string.Empty, monthCellStyle);
+                            NpoiExtensions.RenderCell(subCategortRow, currentColumn, string.Empty, monthCellStyle);
                             currentColumn++;
                         }
                         else
                         {
-                            NpoiExcelExtensions.RenderCell(subCategortRow, currentColumn, summay.Amount, monthCellStyle);
+                            NpoiExtensions.RenderCell(subCategortRow, currentColumn, summay.Amount, monthCellStyle);
                             currentColumn++;
                         }
                     }
@@ -352,7 +352,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);
 
             IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.GrandTotal, totalCellStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, Labels.GrandTotal, totalCellStyle);
             currentColumn++;
 
             Summary summary;
@@ -362,12 +362,12 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                 summary = grandTotals[i];
                 if (summary.Amount == 0)
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumn, string.Empty, monthCellStyle);
+                    NpoiExtensions.RenderCell(row, currentColumn, string.Empty, monthCellStyle);
                     currentColumn++;
                 }
                 else
                 {
-                    NpoiExcelExtensions.RenderCell(row, currentColumn, summary.Amount, monthCellStyle);
+                    NpoiExtensions.RenderCell(row, currentColumn, summary.Amount, monthCellStyle);
                     currentColumn++;
                 }
             }
@@ -380,12 +380,12 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetTextStyle(
+            return NpoiExtensions.GetTextStyle(
                 workbook,
-                NpoiExcelExtensions.GroupBackgroundColorIndex,
+                NpoiExtensions.GroupBackgroundColorIndex,
                 true,
                 CRMHorizontalAlignment.Left,
-                NpoiExcelExtensions.GroupColorIndex);
+                NpoiExtensions.GroupColorIndex);
         }
 
         /// <summary>
@@ -395,59 +395,59 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
-            ICellStyle cellStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+            ICellStyle cellStyle = NpoiExtensions.GetIntegerNumberStyle(
             workbook,
-            NpoiExcelExtensions.GroupBackgroundColorIndex,
+            NpoiExtensions.GroupBackgroundColorIndex,
             true,
             CRMHorizontalAlignment.Right,
-            NpoiExcelExtensions.GrandTotalTextColorIndex);
+            NpoiExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
-            font.Color = NpoiExcelExtensions.GroupColorIndex;
+            font.FontHeightInPoints = NpoiExtensions.FontSize;
+            font.FontName = NpoiExtensions.FontName;
+            font.Color = NpoiExtensions.GroupColorIndex;
             font.Boldweight = (short)FontBoldWeight.Bold;
             cellStyle.SetFont(font);
-            NpoiExcelExtensions.SetBorderToCell(cellStyle);
+            NpoiExtensions.SetBorderToCell(cellStyle);
 
             return cellStyle;
         }
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetTextStyle(
+            return NpoiExtensions.GetTextStyle(
             workbook,
-            NpoiExcelExtensions.GrandTotalRowColorIndex,
+            NpoiExtensions.GrandTotalRowColorIndex,
             true,
             CRMHorizontalAlignment.Left,
-            NpoiExcelExtensions.GrandTotalTextColorIndex);
+            NpoiExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetTextStyle(
+            return NpoiExtensions.GetTextStyle(
             workbook,
-            NpoiExcelExtensions.BackgroundColorIndex,
+            NpoiExtensions.BackgroundColorIndex,
             false,
             CRMHorizontalAlignment.Left);
         }
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetIntegerNumberStyle(
+            return NpoiExtensions.GetIntegerNumberStyle(
             workbook,
-            NpoiExcelExtensions.BackgroundColorIndex,
+            NpoiExtensions.BackgroundColorIndex,
             false,
             CRMHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.GetIntegerNumberStyle(
+            return NpoiExtensions.GetIntegerNumberStyle(
             workbook,
-            NpoiExcelExtensions.GrandTotalRowColorIndex,
+            NpoiExtensions.GrandTotalRowColorIndex,
             true,
             CRMHorizontalAlignment.Right,
-            NpoiExcelExtensions.GrandTotalTextColorIndex);
+            NpoiExtensions.GrandTotalTextColorIndex);
         }
 
         #endregion

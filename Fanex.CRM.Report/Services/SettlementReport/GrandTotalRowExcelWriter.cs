@@ -34,22 +34,22 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         {
             _exportExcelInfo = exportExcelInfo;
             _isFirstRow = isFirstRow;
-            _rowBackgroundColorIndex = NpoiExcelExtensions.GrandTotalRowColorIndex;
+            _rowBackgroundColorIndex = NpoiExtensions.GrandTotalRowColorIndex;
 
-            _intStyle = NpoiExcelExtensions.GetIntegerNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
-            _textStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(_exportExcelInfo.ExcelFile);
-            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(
+            _intStyle = NpoiExtensions.GetIntegerNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
+            _textStyle = NpoiExtensions.GetTextStyleGrandTotal(_exportExcelInfo.ExcelFile);
+            _centerTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
                 CRMHorizontalAlignment.Center,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
-            _centerIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
+                NpoiExtensions.GrandTotalTextColorIndex);
+            _centerIntStyle = NpoiExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
                 CRMHorizontalAlignment.Center,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+                NpoiExtensions.GrandTotalTextColorIndex);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                exportExcelInfo.CurrentRow + groupInfo.ChildReports.Count - 1,
                currentColumn,
                currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(
+                NpoiExtensions.RenderMergedCells(
                     exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.Name,
@@ -88,9 +88,9 @@ namespace Fanex.CRM.Report.Services.SettlementReport
 
             currentColumn++;
 
-            NpoiExcelExtensions.RenderCell(row, currentColumn, info.Name, _textStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.Name, _textStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _intStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _intStyle);
             currentColumn++;
 
             if (_isFirstRow)

@@ -2,6 +2,7 @@
     "use strict";
     /* global communicationLog,
     sharedScriptManager,
+    SettingManager,
     crmConstants,
     viewResources,
     getRelatedCustomer,
@@ -24,7 +25,6 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
-        $scope.productList = null;
         $scope.betTypeList = null;
         $scope.statusList = null;
         $scope.siteList = null;
@@ -130,22 +130,8 @@
                 }
             }
 
-            if ($scope.productList !== null) {
-                var productId = communicationLog.Product.Id;
-                var productInfo;
-                var productListLength = $scope.productList.length;
-                for (i = 0; i < productListLength; i++) {
-                    var product = $scope.productList[i];
-                    if (product.Id === productId) {
-                        productInfo = product;
-                        break;
-                    }
-                }
-
-                if (productInfo) {
-                    $scope.betTypeList = productInfo.ChildSettings;
-                }
-            }
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.communicationLog.Product.Id, $scope.productOptions.DataList);
+            $scope.betTypeList = SettingManager.getChildSettings($scope.communicationLog.SubProduct.Id, $scope.subProductOptions.DataList);
 
             $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -160,6 +146,29 @@
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlE = function () {
             $scope.verifyRelatedCustomer();
+        };
+
+        $scope.updateSelectedProduct = function (product) {
+            $scope.communicationLog.Product = product;
+            $scope.productOptions.SelectedId = product.Id;
+
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings(product.Id, $scope.productOptions.DataList);
+            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            $scope.communicationLog.SubProduct = subProduct;
+            $scope.subProductOptions.SelectedId = subProduct.Id;
+
+            var childSettings = SettingManager.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
+            if (!childSettings || childSettings.length === 0) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeList = childSettings;
+            $scope.communicationLog.BetType = childSettings[0];
+            $scope.safeApply();
+            $scope.updateChangeFlag();
         };
         $scope.updateStartTime = function (selectedTime) {
             $scope.communicationLog.StartTime = selectedTime;
@@ -240,7 +249,7 @@
         };
         $scope.updateSelectedLanguage = function (languageId) {
             languageId = parseInt(languageId);
-            $scope.communicationLog.LanguageId = languageId;
+            $scope.communicationLog.Language.Id = languageId;
             $scope.$apply();
             $scope.updateChangeFlag();
         };
@@ -286,30 +295,6 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedProduct = function (productId) {
-            productId = parseInt(productId);
-            var productInfo;
-            var productListLength = $scope.productList.length;
-            for (var i = 0; i < productListLength; i++) {
-                var product = $scope.productList[i];
-                if (product.Id === productId) {
-                    productInfo = product;
-                    break;
-                }
-            }
-
-            if (productInfo) {
-                $scope.communicationLog.Product = productInfo;
-                $scope.betTypeList = productInfo.ChildSettings;
-                $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
-                $scope.betTypeList[0] :
-                {
-                    Id: crmConstants.Enums.BetType.NotApply
-                };
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
-        };
         $scope.updateSelectedBetType = function (betTypeId) {
             betTypeId = parseInt(betTypeId);
             var betTypeInfo;
@@ -327,37 +312,6 @@
                 $scope.$apply();
                 $scope.updateChangeFlag();
             }
-        };
-        $scope.updateSelectedSite = function (siteId) {
-            siteId = parseInt(siteId);
-            var siteInfo;
-            var siteGroupLength = $scope.siteList.length;
-            for (var i = 0; i < siteGroupLength; i++) {
-                var siteGroup = $scope.siteList[i];
-                var siteLength = siteGroup.ChildSites.length;
-                for (var j = 0; j < siteLength; j++) {
-                    var site = siteGroup.ChildSites[j];
-                    if (site.Id === siteId) {
-                        siteInfo = site;
-                        break;
-                    }
-                }
-
-                if (siteInfo) {
-                    break;
-                }
-            }
-
-            if (siteInfo) {
-                $scope.communicationLog.SiteInfo = siteInfo;
-            } else {
-                $scope.communicationLog.SiteInfo = {
-                    Id: crmConstants.Enums.Site.NotApply,
-                    Value: viewResources.Select
-                };
-            }
-
-            $scope.updateChangeFlag();
         };
         $scope.updateSelectedStatus = function (statusId) {
             statusId = parseInt(statusId);
@@ -413,6 +367,11 @@
                 $scope.updateChangeFlag();
             }
         };
+
+        $scope.updateSelectedSite = function () {
+            $scope.communicationLog.SiteInfo = $scope.communicationLog.SiteInfo || { Id: 0 };
+        };
+
         $scope.updateRemark = function (remark) {
             $scope.communicationLog.Remark = remark;
             $scope.updateChangeFlag();
@@ -470,7 +429,7 @@
                 FeedbackId: $scope.communicationLog.RunningNumber,
                 CustomerId: $scope.communicationLog.CustomerId,
                 RelatedCustomerId: relatedCustomer,
-                LanguageId: $scope.communicationLog.LanguageId,
+                LanguageId: $scope.communicationLog.Language.Id,
                 CountryId: $scope.communicationLog.Country.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -479,9 +438,10 @@
                 ExtensionId: $scope.communicationLog.Extension.Id,
                 MainCategoryId: $scope.communicationLog.MainCategory.Id,
                 SubcategoryId: $scope.communicationLog.SubCategory.Id,
-                SiteId: $scope.communicationLog.SiteInfo.Id,
+                SiteId: $scope.communicationLog.SiteInfo.Id ,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
+                SubProductId: $scope.communicationLog.SubProduct.Id,
                 BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
@@ -533,7 +493,7 @@
             if ($scope.communicationLog.RunningNumber !== $scope.oldCommunicationLog.RunningNumber ||
             $scope.communicationLog.CustomerId !== $scope.oldCommunicationLog.CustomerId ||
             $scope.communicationLog.RelatedCustomerId !== $scope.oldCommunicationLog.RelatedCustomerId ||
-            $scope.communicationLog.LanguageId !== $scope.oldCommunicationLog.LanguageId ||
+            $scope.communicationLog.Language.Id !== $scope.oldCommunicationLog.Language.Id ||
             $scope.communicationLog.Country.Id !== $scope.oldCommunicationLog.Country.Id ||
             $scope.communicationLog.LicenseeType.Id !== $scope.oldCommunicationLog.LicenseeType.Id ||
 
@@ -651,12 +611,13 @@
             $editLogService.getAllSettingForEdit()
             .then(function (data) {
                 var allSetting = data.Result;
+
                 $scope.extensionList = allSetting.ExtensionList;
                 $scope.countryList = allSetting.CountryList;
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.mainCategoryList = allSetting.MainCategoryList;
-                $scope.productList = allSetting.ProductList;
+                $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
@@ -667,12 +628,45 @@
                     SelectedId: $scope.communicationLog.LicenseeType.Id
                 };
 
+                $scope.updateAllSettingsForLog();
+
                 $scope.completedLoadFilterInfo();
             },
             function () {
                 $scope.completedLoadFilterInfo();
             });
         };
+
+        $scope.updateAllSettingsForLog = function (settings) {
+            SettingManager.updateSettingSelectList($scope.communicationLog.Extension, $scope.extensionList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.CommunicationTool, $scope.communicationToolList);
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.MainCategory, $scope.mainCategoryList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryList, $scope.communicationLog.MainCategory.Id);
+
+            $scope.updateProductSettings();
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.Language, $scope.languageList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Status, $scope.statusList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.RoleInfo, $scope.roleList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Response, $scope.responseList);
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.SiteInfo, $scope.siteList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
+        };
+
+        $scope.updateProductSettings = function () {
+            var product = $scope.communicationLog.Product;
+            var productList = $scope.productOptions.DataList;
+            SettingManager.updateSettingSelectList(product, productList);
+
+            var subProduct = $scope.communicationLog.SubProduct;
+            var subProductList = $scope.subProductOptions.DataList;
+            SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
+            subProductList = SettingManager.getChildSettings(product.Id, productList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
+        };
+
         $scope.getReviewedInfo = function () {
             return sharedScriptManager.stringFormat(
             viewResources.ReviewedInformation,
@@ -690,6 +684,7 @@
             });
 
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
+            registerOptions($scope);
             $scope.initController();
             $scope.setFocus();
             hotKeyManager.CachedData.ActiveDocumentManager.push({

@@ -18,7 +18,7 @@
             $scope.safeApply();
         };
         $scope.updateIsSub = function (rowIndex, isCheck) {
-            $scope.mainSettingRelationView[rowIndex].IsSubSetting = isCheck;
+            $scope.mainSettingRelationView[rowIndex].IsChild = isCheck;
             $scope.safeApply();
         };
     };

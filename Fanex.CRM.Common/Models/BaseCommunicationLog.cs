@@ -52,15 +52,17 @@ namespace Fanex.CRM.Common.Models
 
         public Setting CommunicationTool { get; set; }
 
-        public int LanguageId { get; set; }
+        public Setting Language { get; set; }
 
         public Setting Product { get; set; }
+
+        public Setting SubProduct { get; set; }
 
         public Setting BetType { get; set; }
 
         public Setting Status { get; set; }
 
-        public Setting SiteInfo { get; set; }
+        public Site SiteInfo { get; set; }
 
         public Setting RoleInfo { get; set; }
 

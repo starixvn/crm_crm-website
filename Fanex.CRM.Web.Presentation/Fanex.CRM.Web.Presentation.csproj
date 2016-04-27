@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -23,6 +24,16 @@
     <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Scripts\|\Views\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -155,13 +166,17 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependency\Net4\System.Net.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -234,9 +249,9 @@
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateApplication.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateController.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateService.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Scripts\ChangeTemplateStateService.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateApplication.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateController.js" />
@@ -246,7 +261,6 @@
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateController.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateService.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListContainer.js" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController.js" />
@@ -312,14 +326,12 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Product.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Role.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Site.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SolutionEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Status.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubCategory.js" />
@@ -332,17 +344,18 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\StartTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\EditLogOption.js" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DirectiveRegister.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\MainCategory.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Product.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />
@@ -355,10 +368,12 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogApplication.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogOption.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RelatedCustomer.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdOption.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdApplication.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdController.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdService.js" />
@@ -378,20 +393,6 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\Directives\InformStatisticContainer.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticApplication.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticController.js" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticService.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -415,7 +416,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
@@ -535,6 +535,15 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportOption.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDetailDirective.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\Directives\LicenseeReportDirective.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsApplication.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsController.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\LogStatisticsService.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\Directives\IBCReportDirective.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDirectiveHelper.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyApplication.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyController.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyService.js" />
@@ -545,6 +554,11 @@
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyService.js" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklyDetailContainer.js" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklySummaryContainer.js" />
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsService.js" />
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsController.js" />
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsApplication.js" />
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\Directives\DeletedFeedbackStatisticsContainer.js" />
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RedemptionStatisticsDetailContainer.js" />
     <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RedemptionStatisticsContainer.js" />
     <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RegisterSharedDirectives.js" />
@@ -592,10 +606,6 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
@@ -631,50 +641,55 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\BackupMNL.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
+    <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
+    <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
+    <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
+    <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName.SIT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.UAT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpName.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpName.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_SpName.txt</LastGenOutput>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
+    <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
+    <Content Include="Configurations\SpNameConfig\DBNAP_Include.xml" />
+    <Content Include="Configurations\_Web.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_Web.config.txt</LastGenOutput>
+    </Content>
+    <Content Include="Configurations\_Web.config.txt">
+      <DependentUpon>_Web.config.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\ico-horizontal-collapse.png" />
+    <Content Include="Content\site\Images\ico-horizontal-expand.png" />
     <Content Include="Content\site\Images\icn_edit.png" />
     <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />
@@ -894,6 +909,7 @@
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\FixBugManager.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
+    <Content Include="Scripts\ShareScripts\SettingManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\MessageResult.js" />
     <Content Include="Scripts\ShareScripts\SharedControllerManager.js" />
@@ -943,31 +959,22 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config">
+    <Content Include="Configurations\dev.ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config">
+    <Content Include="Configurations\dev.Web.Setting.config" />
+    <Content Include="Configurations\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\Master.Web.Setting.config" />
+    <Content Include="Configurations\PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\PRO.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
+    <Content Include="Configurations\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config" />
+    <Content Include="Configurations\UATSandBox.Web.Setting.config" />
     <Content Include="Content\site\customizeFanexGridV2.less" />
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
@@ -976,10 +983,7 @@
     <Content Include="Content\site\reportgrid.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\Local.Web.Setting.config" />
     <Content Include="Scripts\Vendors\jqueryui\jquery-ui.min.js" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Areas\User\LogIn\Scripts\LogInManager.js" />
@@ -1203,7 +1207,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1215,7 +1221,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1314,8 +1319,8 @@
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Index.cshtml" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ChangeTemplateState\Styles\ChangeTemplateState.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Styles\EditTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />
@@ -1325,8 +1330,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Index.cshtml" />
-    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
-    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\EditSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
@@ -1335,7 +1338,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
+    <Content Include="Configurations\UATSandBox.ConnectionStrings.config" />
     <Content Include="Views\Common\ErrorPage.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
   </ItemGroup>
@@ -1373,21 +1376,79 @@
     <Content Include="Areas\InformHeadline\ContactInform\Styles\ViewList.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.Setting.config" />
+    <Content Include="Configurations\backupMNL.ConnectionStrings.config" />
+    <Content Include="Configurations\backupMNL.Web.Setting.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.Web.Setting.config" />
+    <Content Include="Configurations\UATSIT.Web.Setting.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.ConnectionStrings.config" />
+    <Content Include="Configurations\UATSIT.ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSIT.Web.config" />
+    <Content Include="Areas\Report\LogStatistics\Index.cshtml" />
+    <Content Include="Areas\Report\LogStatistics\Styles\logstatistics.less" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Report\DeletedFeedbackStatistics\Styles\deletedFeedbackStatistics.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\SpNameConfig\SpNameHelper.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\LOCAL.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\backupMNL.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\DEV.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\Master.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\UAT.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\UATSIT.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\PRO.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\Web.backupMNL.config" />
+    <Content Include="Configurations\Web.DEV.config" />
+    <Content Include="Configurations\Web.LOCAL.config" />
+    <Content Include="Configurations\Web.Master.config" />
+    <Content Include="Configurations\Web.PRO.config" />
+    <Content Include="Configurations\Web.UAT.config" />
+    <Content Include="Configurations\Web.UATSIT.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebConfigTransforms\UATSandBox.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
+    <None Include="Configurations\Web.UATSandBox.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -1416,11 +1477,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>

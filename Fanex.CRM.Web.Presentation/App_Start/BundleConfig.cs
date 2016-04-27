@@ -142,6 +142,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
@@ -200,10 +201,12 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
+                "~/Areas/Communication/EditLog/Scripts/EditLogOption.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
                 "~/Areas/Communication/EditLog/Scripts/Directives/*.js"));
@@ -225,8 +228,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
-                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",              
                 "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
@@ -241,6 +245,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
@@ -249,6 +254,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdOption.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdController.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/Directives/*.js"));
@@ -441,6 +447,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
+                "~/Areas/Report/DynamicReport/Scripts/DynamicReportOption.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
                 "~/Areas/Report/DynamicReport/Scripts/Directives/*.js"));

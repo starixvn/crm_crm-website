@@ -96,7 +96,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
             for (var i = 0; i < subSettingLength; i++)
             {
                 var subSetting = SubSettings[i];
-                if (subSetting.IsSubSetting)
+                if (subSetting.IsChild)
                 {
                     settingId.Add(string.Format("{0}_{1}", subSetting.Id, subSetting.DisplayOrder));
                 }

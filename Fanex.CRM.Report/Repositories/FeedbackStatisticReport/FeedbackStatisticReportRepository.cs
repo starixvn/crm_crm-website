@@ -73,7 +73,7 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
                     report.FeedbackCategories.Add(feedbackCategory);
                 }
 
-                var feedbackSubcategory = new FeedbackSubcategory 
+                var feedbackSubcategory = new FeedbackSubcategory
                 {
                     Id = Converter.ToInt(reader["SubCategoryId"]),
                     Name = Converter.ToString2(reader["SubCategory"]),
@@ -91,6 +91,12 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
                 feedbackCategory.FeedbackSubcategories.Add(feedbackSubcategory);
             }
 
+            ReadUsernameIds(reader, report);
+            return report;
+        }
+
+        private static void ReadUsernameIds(IDataReader reader, FeedbackStatistic report)
+        {
             if (reader.NextResult())
             {
                 int index = 0;
@@ -99,8 +105,6 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
                     report.Usernames[index++].Id = Converter.ToInt(reader["Item"]);
                 }
             }
-
-            return report;
         }
 
         private static FeedbackSubcategory InitializeSubTotal(int length)

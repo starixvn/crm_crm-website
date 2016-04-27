@@ -2,6 +2,7 @@
     "use strict";
     /* global communicationLog,
     sharedScriptManager,
+    SettingManager,
     viewResources,
     hasReviewPermission,
     currentTime,
@@ -16,8 +17,6 @@
         $scope.hasReviewPermission = hasReviewPermission;
         $scope.IsUpdatingTime = false;
 
-        $scope.productOptions = null;
-        $scope.siteOptions = null;
         $scope.statusOptions = null;
         $scope.responseOptions = null;
         $scope.roleOptions = null;
@@ -39,108 +38,8 @@
         $scope.initController = function () {
             $scope.getAllSetting();
             $scope.getNumberOfFeedbackSubjectTemplate();
-            $scope.initPicker();
         };
-        $scope.initPicker = function () {
-            $scope.productOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.Product.Id
-            };
 
-            $scope.siteOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                AllText: viewResources.Select,
-                IsIncludeNA: true,
-                SelectedId: $scope.communicationLog.SiteInfo.Id
-            };
-
-            $scope.statusOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.Status.Id
-            };
-            $scope.responseOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.Response.Id
-            };
-
-            $scope.roleOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.RoleInfo.Id
-            };
-            $scope.communicationToolOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.CommunicationTool.Id
-            };
-            $scope.mainCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.MainCategory.Id
-            };
-            $scope.subCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.SubCategory.Id
-            };
-            $scope.extensionOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.Extension.Id
-            };
-            $scope.countryOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.Country.Id
-            };
-            $scope.languageOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.LanguageId
-            };
-            $scope.betTypeOptions = {
-                DataList: [],
-                OnChangeEvent: null,
-                SelectedId: $scope.communicationLog.BetType.Id
-            };
-            $scope.remarkOptions = {
-                OnChangeEvent: null,
-                SelectedText: $scope.communicationLog.Remark,
-                EditIconText: viewResources.Insert_Edit_Block
-            };
-            $scope.solutionOptions = {
-                OnChangeEvent: null,
-                SelectedText: $scope.communicationLog.Solution,
-                EditIconText: viewResources.Insert_Edit_Block
-            };
-            $scope.reviewOptions = {
-                OnChangeEvent: null,
-                SelectedText: $scope.communicationLog.Review,
-                EditIconText: viewResources.Insert_Edit_Block
-            };
-            $scope.subjectOptions = {
-                OnChangeEvent: null,
-                NumberOfSuggestItems: 15,
-                SubjectList: $scope.feedbackSubjectTemplateList,
-                Subject: $scope.communicationLog.Subject
-            };
-            $scope.startTimeOptions = {
-                OnChangeEvent: null,
-                SelectedTime: $scope.communicationLog.StartTime,
-                CurrentTime: currentTime
-            };
-            $scope.endTimeOptions = {
-                OnChangeEvent: null,
-                SelectedTime: $scope.communicationLog.EndTime,
-                CurrentTime: currentTime
-            };
-
-            $scope.$apply();
-        };
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
             $scope.BlockUI();
             $viewDetailByIdService.getNumberOfFeedbackSubjectTemplate()
@@ -224,24 +123,34 @@
                 }
             }
 
-            var productList = $scope.productOptions.DataList;
-            if (productList !== null) {
-                var productId = communicationLog.Product.Id;
-                var productInfo;
-                var productListLength = productList.length;
-                for (i = 0; i < productListLength; i++) {
-                    var product = productList[i];
-                    if (product.Id === productId) {
-                        productInfo = product;
-                        break;
-                    }
-                }
+            $scope.updateSelectedProduct($scope.communicationLog.Product);
+        };
 
-                if (productInfo) {
-                    $scope.betTypeOptions.DataList = productInfo.ChildSettings;
+        $scope.updateSelectedProduct = function (product) {
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings(product.Id, $scope.productOptions.DataList);
+            $scope.updateSelectedSubProduct($scope.communicationLog.SubProduct);
+        };
+        $scope.updateSelectedSubProduct = function (subProduct) {
+            var childSettings = SettingManager.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
+            if (!childSettings) {
+                var notApplySetting = $scope.subProductOptions.DataList[0];
+                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
+            }
+
+            $scope.betTypeOptions.DataList = childSettings;
+        };
+
+        $scope.getSettingById = function (settingId, dataList) {
+            for (var i = 0; i < dataList.length; i++) {
+                var setting = dataList[i];
+
+                if (setting.Id === settingId) {
+                    return setting;
                 }
             }
-        };
+
+            return null;
+        }
 
         $scope.unblockUI = function () {
             try {
@@ -260,10 +169,11 @@
             $scope.isLoadedAllSite = false;
             $viewDetailByIdService.getAllSetting()
             .then(function (data) {
-                var allSetting = data.Result;
+                var allSetting = data.Result;                
 
                 $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.siteOptions.DataList = allSetting.SiteList;
+                $scope.subProductOptions.DataList = allSetting.SubProductList;
+                $scope.siteList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
                 $scope.roleOptions.DataList = allSetting.RoleList;
@@ -286,18 +196,52 @@
                 };
 
                 $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
+
+                $scope.updateAllSettingsForLog(allSetting);
                 $scope.completedLoadFilterInfo();
             },
             function () {
                 $scope.completedLoadFilterInfo();
             });
         };
+
+        $scope.updateAllSettingsForLog = function () {
+            SettingManager.updateSettingSelectList($scope.communicationLog.Extension, $scope.extensionOptions.DataList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.CommunicationTool, $scope.communicationToolOptions.DataList);
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.MainCategory, $scope.mainCategoryOptions.DataList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryOptions.DataList, $scope.communicationLog.MainCategory.Id);
+
+            $scope.updateProductSettings();
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.Language, $scope.languageOptions.DataList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Status, $scope.statusOptions.DataList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.RoleInfo, $scope.roleOptions.DataList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.Response, $scope.responseOptions.DataList);
+
+            SettingManager.updateSettingSelectList($scope.communicationLog.SiteInfo, $scope.siteList);
+            SettingManager.updateSettingSelectList($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
+        };
+
+        $scope.updateProductSettings = function () {
+            var product = $scope.communicationLog.Product;
+            var productList = $scope.productOptions.DataList;
+            SettingManager.updateSettingSelectList(product, productList);
+
+            var subProduct = $scope.communicationLog.SubProduct;
+            var subProductList = $scope.subProductOptions.DataList;
+            SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
+            subProductList = SettingManager.getChildSettings(product.Id, productList);
+            SettingManager.updateInActiveChildSettings($scope.communicationLog.BetType, subProductList, subProduct.Id);
+        };
+
         $scope.getReviewedInfo = function () {
             return sharedScriptManager.stringFormat(
             viewResources.ReviewedInformation,
             [$scope.communicationLog.Reviewer, $scope.communicationLog.ReviewedTimeString]);
         };
         angular.element(document).ready(function () {
+            registerOptions($scope);
             $scope.initController();
         });
     } ]);
