@@ -48,7 +48,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                             Username = Converter.ToString2(reader["UserName"]),
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
                             Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
-                            SubProduct = new Setting { Name = "Test-SubProduct" },
+                            SubProduct = new Setting { Name = Converter.ToString2(reader["SubProduct"]) },
                             Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
                             Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
                             MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
