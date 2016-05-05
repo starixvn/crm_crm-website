@@ -127,6 +127,8 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public Setting Product { get; set; }
 
+        public Setting SubProduct { get; set; }
+
         public Country Country { get; set; }
 
         public Setting MainCategory { get; set; }

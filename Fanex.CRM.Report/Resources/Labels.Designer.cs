@@ -1933,7 +1933,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub-product.
+        ///   Looks up a localized string similar to Sub-Product.
         /// </summary>
         public static string SubProduct {
             get {
