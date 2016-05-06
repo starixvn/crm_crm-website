@@ -36,12 +36,53 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
-                MaxColumnIndex = 19
+                MaxColumnIndex = 20
             };
 
             GenerateReportDetail(exportExcelInfo);
 
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
+        }
+
+        private static void GenerateDetailReportRowData(
+            StatisticsDetailbyDateModel info,
+            ExportExcelInfo exportExcelInfo,
+            ICellStyle textStyle,
+            ICellStyle centerTextStyle)
+        {
+            var duration = info.Duration;
+            var durationText = string.Format(
+                "{0}:{1}:{2}",
+                duration.Days.ToString("00"),
+                duration.Hours.ToString("00"),
+                duration.Minutes.ToString("00"));
+
+            exportExcelInfo.ResetCurrentColumn();
+            exportExcelInfo.CreateCurrentRow();
+            exportExcelInfo.RenderCell(info.StartDateString, centerTextStyle);
+            exportExcelInfo.RenderCell(info.StartTime, centerTextStyle);
+            exportExcelInfo.RenderCell(info.ResolutionTimeString, centerTextStyle);
+            exportExcelInfo.RenderCell(durationText, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Username, centerTextStyle);
+            exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Role, textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
+            exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.SubProduct.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Remark), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
+            exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Handler, centerTextStyle);
+            exportExcelInfo.RenderCell(
+                info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
+                centerTextStyle);
+            exportExcelInfo.CurrentRow++;
         }
 
         private void GenerateReportDetail(ExportExcelInfo exportExcelInfo)
@@ -82,7 +123,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             leftTitleStyle.Alignment = HorizontalAlignment.Left;
 
             exportExcelInfo.ResetCurrentColumn();
-            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 100, 250, 120, 120, 300, 300, 480, 480, 100, 100, 140, 120 };
+            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 100, 250, 120, 120, 120, 300, 300, 480, 480, 100, 100, 140, 120 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
             var title = _logStatisticsReportDetail != null ? _logStatisticsReportDetail.Name : string.Empty;
@@ -101,6 +142,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             exportExcelInfo.RenderCell(Labels.Role, headerStyle);
             exportExcelInfo.RenderCell(Labels.ContactInfo, headerStyle);
             exportExcelInfo.RenderCell(Labels.Product, headerStyle);
+            exportExcelInfo.RenderCell(Labels.SubProduct, headerStyle);
             exportExcelInfo.RenderCell(Labels.Country, headerStyle);
             exportExcelInfo.RenderCell(Labels.Category, headerStyle);
             exportExcelInfo.RenderCell(Labels.SubCategory, headerStyle);
@@ -121,47 +163,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
             NpoiExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
-        }
-
-        private void GenerateDetailReportRowData(
-            StatisticsDetailbyDateModel info,
-            ExportExcelInfo exportExcelInfo,
-            ICellStyle textStyle,
-            ICellStyle centerTextStyle)
-        {
-            var duration = info.Duration;
-            var durationText = string.Format(
-                "{0}:{1}:{2}",
-                duration.Days.ToString("00"),
-                duration.Hours.ToString("00"),
-                duration.Minutes.ToString("00"));
-
-            exportExcelInfo.ResetCurrentColumn();
-            exportExcelInfo.CreateCurrentRow();
-            exportExcelInfo.RenderCell(info.StartDateString, centerTextStyle);
-            exportExcelInfo.RenderCell(info.StartTime, centerTextStyle);
-            exportExcelInfo.RenderCell(info.ResolutionTimeString, centerTextStyle);
-            exportExcelInfo.RenderCell(duration, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Username, centerTextStyle);
-            exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Role, textStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
-            exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Remark), textStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
-            exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Handler, centerTextStyle);
-            exportExcelInfo.RenderCell(
-                info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
-                centerTextStyle);
-            exportExcelInfo.CurrentRow++;
-        }
+        }        
 
         private string GetSheetname()
         {
