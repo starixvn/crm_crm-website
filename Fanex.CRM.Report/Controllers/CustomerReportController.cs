@@ -14,11 +14,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Customer Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CustomerReport, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class CustomerReportController : BaseController
     {
         private readonly ICustomerReportService _customerReportService;

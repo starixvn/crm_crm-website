@@ -19,10 +19,12 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Feedback Subject Management Controller.
     /// </summary>
+    [CheckUMFilter]
     public class FeedbackSubjectManagementController : BaseController
     {
         private IFeedbackSubjectManagementService _feedbackSubjectManagementService;

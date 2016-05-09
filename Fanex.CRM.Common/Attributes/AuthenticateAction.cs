@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Common.Attributes
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -19,7 +18,6 @@ namespace Fanex.CRM.Common.Attributes
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
-    using Fanex.NAP.Core.Model;
 
     /// <summary>
     /// TODO: Update summary.

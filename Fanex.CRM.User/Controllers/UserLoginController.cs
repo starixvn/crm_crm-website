@@ -28,6 +28,7 @@ namespace Fanex.CRM.User.Controllers
     using Fanex.NAP.Core.Web;
     using Fanex.NAP.Core.Web.Auth;
     using Fanex.NAP.Core.Web.Session;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// TODO: Update summary.
@@ -45,7 +46,7 @@ namespace Fanex.CRM.User.Controllers
         private ICurrentSession _napCurrentSession;
         private IGroupService _napGroupService;
         private ISiteService _napSiteService;
-        private IMaintenanceService _maintenanceService;
+        private ONEbook.UM.Services.IMaintenanceService _maintenanceService;
         private HashAlgorithm _hashAlgorithm = new SHA1Managed();
 
         public UserLoginController()
@@ -59,7 +60,7 @@ namespace Fanex.CRM.User.Controllers
             ISiteService siteService,
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
-            IMaintenanceService maintenanceService)
+            ONEbook.UM.Services.IMaintenanceService maintenanceService)
         {
             _userNapService = userService ?? new UserService();
             _menuItemNapService = menuItemService ?? new MenuItemService();
@@ -67,7 +68,7 @@ namespace Fanex.CRM.User.Controllers
 
             _napGroupService = groupService ?? new GroupService();
             _napSiteService = siteService ?? new SiteService();
-            _maintenanceService = maintenanceService ?? new MaintenanceService();
+            _maintenanceService = maintenanceService ?? new ONEbook.UM.Services.Impl.MaintenanceService();
         }
 
         public string FormToken
@@ -92,25 +93,14 @@ namespace Fanex.CRM.User.Controllers
         /// Login Page.
         /// </summary>
         /// <returns>Return view.</returns>
+        [UMBackdoorFilter]
         public ActionResult Index()
         {
-            var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
-            if (!isCheckUM)
-            {
-                CreateNewToken();
-                return View(LogInViewURL);
-            }
-
-            var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
-            if (maintenanceInfo.IsDowntime)
-            {
-                return RedirectToAction("Offline", "Common");
-            }
-
             CreateNewToken();
             return View(LogInViewURL);
         }
 
+        [CheckUMFilter]
         public RedirectResult SignIn()
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
@@ -132,6 +122,7 @@ namespace Fanex.CRM.User.Controllers
         /// <returns>The log in result.</returns>
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [CheckUMFilter]
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here."),
@@ -250,6 +241,7 @@ namespace Fanex.CRM.User.Controllers
         /// <returns>The index page.</returns>
         [AllowAnonymous]
         [HttpGet]
+        [CheckUMFilter]
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -332,6 +324,7 @@ namespace Fanex.CRM.User.Controllers
         /// Log out action.
         /// </summary>
         /// <returns>Log out result.</returns>
+        [CheckUMFilter]
         [SuppressMessage("Microsoft.Design",
             "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -364,7 +357,7 @@ namespace Fanex.CRM.User.Controllers
 
             if (settings.EnableCheckUM)
             {
-                if (_maintenanceService.GetDowntimeInfo().IsDowntime)
+                if (_maintenanceService.IsUnderMaintenance())
                 {
                     DoSignOut();
                     return Json(new { ErrCode = 3, ErrMsg = "UM" });

@@ -9,17 +9,17 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
-    using Fanex.NAP.Core.Model;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
+    [CheckUMFilter]
     public class HomeController : BaseController
     {
         private readonly IPermissionService _permissionService;

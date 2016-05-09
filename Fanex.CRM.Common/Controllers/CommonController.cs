@@ -15,9 +15,8 @@ namespace Fanex.CRM.Common.Controllers
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
-    using Fanex.NAP.Core.Configuration;
-    using Fanex.NAP.Core.Service.Impl;
-    using Fanex.NAP.Core.Service.Interface;
+    using ONEbook.UM.Services;
+    using ONEbook.UM.Services.Impl;
 
     /// <summary>
     /// Common Controller.
@@ -69,17 +68,12 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            if (!NapSettings.Settings.EnableCheckUM)
+            var downTime = _maintenanceService.GetUnderMaintenanceTime();
+            if (!downTime.IsUnderMaintenanceTime)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
-
-            var downTime = _maintenanceService.GetDowntimeInfo();
-            if (!downTime.IsDowntime)
-            {
-                FormsAuthentication.RedirectToLoginPage();
-            }
-
+            
             ViewBag.UmtFrom = downTime.From;
             ViewBag.UmtTo = downTime.To;
 

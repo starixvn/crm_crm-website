@@ -19,11 +19,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.SummaryReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// SummaryReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CategoriesSummaryReport, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class SummaryReportController : BaseController
     {
         private readonly ISummaryReportService _summaryService;

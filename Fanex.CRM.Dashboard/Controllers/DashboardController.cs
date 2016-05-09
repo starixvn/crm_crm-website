@@ -17,10 +17,12 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Dashboard.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Dashboard Controller.
     /// </summary>
+    [CheckUMFilter]
     public class DashboardController : BaseController
     {
         private IDashboardService _dashboardServiceInstance;

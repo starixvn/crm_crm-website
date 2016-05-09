@@ -17,7 +17,9 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DeletedFeedbackStatistics;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
+    [CheckUMFilter]
     public class DeletedFeedbackStatisticsController : BaseController
     {
         private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;

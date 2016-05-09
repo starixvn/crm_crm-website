@@ -17,10 +17,12 @@ namespace Fanex.CRM.Redemption.Controllers
     using Fanex.CRM.Redemption.Services.RedemptionLog;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Redemption Controller.
     /// </summary>
+    [CheckUMFilter]
     public class RedemptionController : BaseController
     {
         private IRedemptionLogService _logService;

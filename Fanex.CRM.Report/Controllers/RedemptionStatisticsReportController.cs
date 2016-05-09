@@ -19,11 +19,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.Excel.Extensions;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Feedback statistic report controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.RedemptionStatistics, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class RedemptionStatisticsReportController : BaseController
     {
         private readonly IRedemptionStatisticsService _redemptionStatisticsService;

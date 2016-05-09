@@ -18,11 +18,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.StatisticByDateReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Daily Statistics Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.DailyStatistics, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class DailyStatisticsReportController : BaseController
     {
         private IStatisticByDateReportService _dailyStatisticsReportService;

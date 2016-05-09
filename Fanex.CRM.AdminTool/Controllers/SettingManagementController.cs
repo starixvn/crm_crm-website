@@ -13,7 +13,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
-    using Fanex.CRM.AdminTool.Services.SettingManagement; 
+    using Fanex.CRM.AdminTool.Services.SettingManagement;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -21,10 +21,12 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
+    [CheckUMFilter]
     public class SettingManagementController : BaseController
     {
         private ISettingManagementService _settingManagementService;

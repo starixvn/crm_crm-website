@@ -23,10 +23,12 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.NAP.Core.Web.Attribute;
     using System.Linq;
     using System.Web.Mvc;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Communication Log Controller.
     /// </summary>
+    [CheckUMFilter]
     public class CommunicationLogController : BaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;

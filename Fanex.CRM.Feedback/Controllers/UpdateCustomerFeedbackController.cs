@@ -21,10 +21,12 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Update customer feedback controller.
     /// </summary>
+    [CheckUMFilter]
     public class UpdateCustomerFeedbackController : BaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;

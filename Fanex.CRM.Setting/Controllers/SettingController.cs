@@ -14,10 +14,12 @@ namespace Fanex.CRM.Setting.Controllers
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Setting Controller.
     /// </summary>
+    [CheckUMFilter]
     public class SettingController : BaseController
     {
         private ISettingService _settingServiceInstance;

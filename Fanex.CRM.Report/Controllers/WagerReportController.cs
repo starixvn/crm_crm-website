@@ -19,11 +19,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.WagerReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// WagerReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.WagersRelatedReport, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class WagerReportController : BaseController
     {
         private readonly IWagerReportService _wagerService;

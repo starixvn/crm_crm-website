@@ -19,10 +19,12 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Setting Relation Controller.
     /// </summary>
+    [CheckUMFilter]
     public class SettingRelationController : BaseController
     {
         private ISettingRelationService _settingRelationService;
