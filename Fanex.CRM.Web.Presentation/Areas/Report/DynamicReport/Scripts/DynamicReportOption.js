@@ -1,4 +1,6 @@
-﻿(function () {
+﻿/*global currentDate, initFromDate */
+
+(function () {
     "use strict";
     /*
      currentDate: true,
@@ -161,5 +163,5 @@
 
         $scope.updateFromDatePicker();
         $scope.updateToDatePicker();
-    }
+    };
 })();

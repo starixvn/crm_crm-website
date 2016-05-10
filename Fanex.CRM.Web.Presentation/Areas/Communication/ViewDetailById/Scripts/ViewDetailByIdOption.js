@@ -1,4 +1,6 @@
-﻿(function () {
+﻿/*global viewResources, currentTime */
+
+(function () {
     "use strict";
 
     window.registerOptions = function ($scope) {
