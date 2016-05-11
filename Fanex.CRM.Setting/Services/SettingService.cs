@@ -349,27 +349,12 @@ namespace Fanex.CRM.Setting.Services
 
             var parentProducts = GetProductsOnly();
             var products = new List<Product>();
-                     
-            var notApplySetting = new Product
-            {
-                Id = SettingConstants.NotApply,
-                Name = Labels.Symbol_NotApply,
-                Value = Labels.Symbol_NotApply
-            };
 
             var subProducts = GetAllSubProducts();
-
-            products.Add(new Product
-            {
-                Id = SettingConstants.NotApply,
-                Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<Product> { notApplySetting }
-            });
 
             foreach (var parentProduct in parentProducts)
             {
                 var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
-                subProductByProduct.Insert(0, notApplySetting);
                 parentProduct.ChildSettings = subProductByProduct;
 
                 products.Add(parentProduct);
@@ -398,25 +383,10 @@ namespace Fanex.CRM.Setting.Services
             var products = new List<Product>();
             var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria());
 
-            var notApplySetting = new Product
-            {
-                Id = SettingConstants.NotApply,
-                Name = Labels.Symbol_NotApply,
-                Value = Labels.Symbol_NotApply
-            };
-
-            products.Add(new Product
-            {
-                Id = SettingConstants.NotApply,
-                Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<Product> { notApplySetting }
-            });
-
             var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
             foreach (var data in subProducts)
             {
                 var childSettings = betTypes.Where(s => s.ParentId == data.Id).OrderBy(s => s.DisplayOrder).ToList();
-                childSettings.Insert(0, notApplySetting);
                 data.ChildSettings = childSettings;
                 products.Add(data);
             }

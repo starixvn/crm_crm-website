@@ -115,24 +115,20 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         public IEnumerable<Product> GetAllProducts()
         {
             var products = _serviceSetting.GetAllProducts().ToList();
-            var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+            var itemProductAll = CreateItemAll();
 
-            if (notApplyItem == null)
-            {
-                products.Insert(
-                    0,
-                    new Product
-                    {
-                        Id = SettingConstants.NotApply,
-                        Value = Labels.All
-                    });
-            }
-            else
-            {
-                notApplyItem.Value = Labels.All;
-            }
+            products.Insert(0, itemProductAll);        
 
             return products;
+        }
+
+        private static Product CreateItemAll()
+        {
+            return new Product
+            {
+                Id = 0,
+                Value = Labels.All
+            };
         }
 
         public IEnumerable<SiteInfo> GetAllSites()

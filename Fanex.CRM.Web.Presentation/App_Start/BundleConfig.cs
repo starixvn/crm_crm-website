@@ -434,6 +434,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
+                "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/WeekPicker/WeekPickerManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",

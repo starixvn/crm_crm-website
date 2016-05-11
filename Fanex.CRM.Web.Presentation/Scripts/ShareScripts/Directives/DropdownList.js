@@ -17,7 +17,7 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
             var dropdown = element.find("#" + registerParams.PickerId);
             dropdown.empty();
             var optionHtml = '';
-            var dataListLength = options.DataList.length;
+            var dataListLength = options.DataList ? options.DataList.length : 0;
             for (var i = 0; i < dataListLength; i++) {
                 var data = options.DataList[i];
                 optionHtml +=
