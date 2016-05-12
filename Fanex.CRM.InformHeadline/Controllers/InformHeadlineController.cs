@@ -15,10 +15,12 @@ namespace Fanex.CRM.InformHeadline.Controllers
     using Fanex.CRM.InformHeadline.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [CheckUMFilter]
     public class InformHeadlineController : BaseController
     {
         private readonly IInformHeadlineService _informHeadlineService;

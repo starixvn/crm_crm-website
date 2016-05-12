@@ -284,9 +284,22 @@ var SharedScriptManager = function () {
                     Headers: headers,
                     Config: config
                 });
+                self.handleUndermaintenance(data);
             });
 
         return deferred.promise;
+    };
+    self.handleUndermaintenance = function (data) {
+        var underMaintenanceCode = 999999
+        var offlineUrl = window.rootUrl + 'Common/Offline';
+
+        if (!data) {
+            return;
+        }
+
+        if (data.code && data.code === underMaintenanceCode) {
+            location.href = offlineUrl;
+        }
     };
     self.formatTimeToSendToServer = function (dateTime) {
         return moment(new Date(dateTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment);

@@ -1,6 +1,7 @@
 ﻿(function () {
     "use strict";
     /* global hotKeyManager,
+    SettingManager,
     viewResources,
     crmConstants,
     currentDate: true,
@@ -444,8 +445,12 @@
         };
         $scope.updateSelectedProduct = function (product) {
             $scope.searchCriteria.Product = { Id: product.Id };
-            $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.subProductOptions.DataList[0].Value = viewResources.All;
+            $scope.subProductOptions.DataList = product.ChildSettings || [];
+
+            if (!SettingManager.hasSetting(0, $scope.subProductOptions.DataList)) {
+                var itemAll = { Id: 0, Value: viewResources.All };
+                $scope.subProductOptions.DataList.splice(0, 0, itemAll);
+            }
 
             $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
         };

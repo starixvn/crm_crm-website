@@ -16,11 +16,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DynamicReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Dynamic Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class DynamicReportController : BaseController
     {
         private IDynamicReportService _dynamicReportService;

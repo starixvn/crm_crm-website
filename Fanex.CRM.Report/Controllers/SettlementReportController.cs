@@ -19,11 +19,13 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.SettlementReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Settlement Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettlementIssuesReport, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class SettlementReportController : BaseController
     {
         private ISettlementReportService _settlementReportService;

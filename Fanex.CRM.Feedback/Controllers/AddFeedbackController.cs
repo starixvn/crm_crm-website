@@ -23,11 +23,13 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Add Feedback Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+    [CheckUMFilter]
     public class AddFeedbackController : BaseController
     {
         public AddFeedbackController()

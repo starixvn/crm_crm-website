@@ -17,10 +17,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.CasinoReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Casino Report Controller.
     /// </summary>
+    [CheckUMFilter]
     public class CasinoReportController : BaseController
     {
         private readonly ICasinoReportService _casinoReportService;

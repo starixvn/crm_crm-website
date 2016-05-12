@@ -20,7 +20,9 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using ONEbook.UM.Filters;
 
+    [CheckUMFilter]
     public class LogStatisticsController : BaseController
     {
         private readonly ISettingService _serviceSetting;
