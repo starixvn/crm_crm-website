@@ -11,8 +11,8 @@ namespace Fanex.CRM.Common.Services
     using System.Web.SessionState;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.NAP.Core.Model;
 
+    using NAP.Core.Models;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

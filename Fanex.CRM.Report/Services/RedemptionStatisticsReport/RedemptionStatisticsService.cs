@@ -18,7 +18,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -33,14 +32,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.Excel.Enums;
     using Fanex.Excel.Models;
     using Fanex.Excel.Repositories.CustomColors;
-    using Fanex.NAP.Core.Service.Impl;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
 
     /// <summary>
     /// Dynamic Report Service.
     /// </summary>
-    public class RedemptionStatisticsService : BaseService, IRedemptionStatisticsService
+    public class RedemptionStatisticsService : /*BaseService,*/ IRedemptionStatisticsService
     {
         private readonly ISettingService _serviceSetting;
         private readonly IRedemptionStatisticsRepository _redemptionRepository;
