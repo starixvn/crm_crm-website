@@ -6,7 +6,9 @@
     using Fanex.Common;
     using Helpers;
     using Models;
+    using NAP.Core.Context;
     using NAP.Core.Models.ParameterObject;
+    using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
     using NAP.Core.Web.Session;
@@ -28,9 +30,9 @@
             ISecurityService securityService,
             ICurrentContext currentContext)
         {
-            _userService = userService;
-            _securityService = securityService;
-            _currentContext = currentContext;
+            _userService = userService ?? new UserService();
+            _securityService = securityService ?? new SecurityService();
+            _currentContext = currentContext ?? new CurrentContext();
         }
 
         public LoginStatus SingleSignOn(SSOLogin ssoLogin, ICurrentSession napCurrentSession)
