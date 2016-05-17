@@ -26,7 +26,7 @@
         private readonly ICurrentContext _currentContext;
 
         public LocalAuthenticationService()
-            :this(null, null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -100,7 +100,7 @@
         {
             return _userService
                 .GetSiteLevel(user.Id, localLogin.Environment)
-                .FirstOrDefault(s =>  s.Site.Id == localLogin.SiteId && s.IsActive) != null;
+                .FirstOrDefault(s => s.Site.Id == localLogin.SiteId && s.IsActive) != null;
         }
 
         private bool IsExistNapGroup(User user)
@@ -138,14 +138,14 @@
             var userLevel = _userService.GetUserLevel(user.Id, localLogin.SiteId);
 
             ClearToken();
-            
+
             AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, user, onuserid);
             AuthencationHelper.AssignCurrentSession(napCurrentSession, user, menus, userLevel, onuserid, localLogin.SessionId);
             AuthencationHelper.AssignAppSession(user, menus);
 
             return LoginStatus.LoginSuccessful;
         }
-        
+
         private int ProcessNapLogin(User user, LocalLogin localLogin)
         {
             return _securityService.Login(

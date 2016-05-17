@@ -19,7 +19,7 @@
         private readonly ICurrentContext _currentContext;
 
         public SSOAuthenticationService()
-            :this(null, null, null)
+            : this(null, null, null)
         {
         }
 

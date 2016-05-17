@@ -18,7 +18,7 @@
         private readonly IMaintenanceService _maintenanceService;
 
         public CommonAuthenticationService()
-            :this(null, null, null)
+            : this(null, null, null)
         {
         }
 

@@ -22,7 +22,7 @@ namespace Fanex.CRM.Common.Services
         private readonly IUserService _userService;
 
         public PermissionService()
-            :this(null)
+            : this(null)
         {
         }
 
@@ -31,18 +31,11 @@ namespace Fanex.CRM.Common.Services
             _userService = userService ?? new UserService();
         }
 
-        /// <summary>
-        /// HasPermission: check that user has permission to access one menu link.
-        /// </summary>
-        /// <param name="functionName">Name of the function.</param>
-        /// <returns>
-        /// Has Read Permission indicator.
-        /// </returns>
         public bool HasReadPermission(string functionName)
         {
             var permission = GetPermission(functionName);
-            return (permission == (int)Constant.Policy.Read ||
-                   permission == (int)Constant.Policy.Host);
+            return permission == (int)Constant.Policy.Read ||
+                   permission == (int)Constant.Policy.Host;
         }
 
         public bool HasHostPermission(string functionName)

@@ -11,8 +11,8 @@ namespace Fanex.CRM.Common.Services
     using System.Web.SessionState;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
-
     using NAP.Core.Models;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -89,7 +89,7 @@ namespace Fanex.CRM.Common.Services
                 SessionExtension.AddSession(CurrentSession, CurrentUserMenuKey, value);
             }
         }
-        
+
         public static string CurrentHttpMethod
         {
             get
@@ -142,7 +142,7 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        public static string RedirectionLink 
+        public static string RedirectionLink
         {
             get
             {
