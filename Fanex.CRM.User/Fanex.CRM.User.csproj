@@ -169,7 +169,7 @@
     <Compile Include="Models\SSOLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Labels.Designer.cs" />
-    <Compile Include="Services\AuthencationHelper.cs" />
+    <Compile Include="Helpers\AuthencationHelper.cs" />
     <Compile Include="Services\CommonAuthenticationService.cs" />
     <Compile Include="Services\ICommonAuthenticationService.cs" />
     <Compile Include="Services\ILocalAuthenticationService.cs" />

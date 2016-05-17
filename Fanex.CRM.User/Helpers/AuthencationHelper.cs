@@ -1,4 +1,4 @@
-﻿namespace Fanex.CRM.User.Services
+﻿namespace Fanex.CRM.User.Helpers
 {
     using System;
     using System.Collections.Generic;
