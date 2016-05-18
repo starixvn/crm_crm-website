@@ -1443,6 +1443,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
     <None Include="Configurations\Web.UATSandBox.config" />
+    <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
