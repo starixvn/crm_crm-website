@@ -13,7 +13,6 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
@@ -21,28 +20,22 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Update customer feedback controller.
     /// </summary>
-    [CheckUMFilter]
     public class UpdateCustomerFeedbackController : BaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
-        private readonly bool _hasHostCreateUpdateFeedbackPermission;
-        private readonly bool _hasHostDeleteFeedbackPermission;
 
         public UpdateCustomerFeedbackController()
             : this(null)
-        { 
+        {
         }
 
         public UpdateCustomerFeedbackController(IUpdateCustomerFeedbackService updateCustomerFeedbackService)
         {
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
-            _hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
-            _hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
         private static bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
@@ -53,13 +46,23 @@ namespace Fanex.CRM.Feedback.Controllers
             return isChangedStatusFromDeleted || isChangedStatusToDeleted;
         }
 
+        private bool HasHostCreateUpdateFeedbackPermission()
+        {
+            return HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+        }
+
+        private bool HasHostDeleteFeedbackPermission()
+        {
+            return HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+        }
+
         public ActionResult Index(int id, bool isDeletedFeedbackView = false)
         {
             ViewBag.FeedbackId = id;
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
             ViewBag.IsDeletedFeedbackView = isDeletedFeedbackView.ToString().ToLower();
-            ViewBag.IsShowDeletedStatus = (isDeletedFeedbackView || _hasHostDeleteFeedbackPermission).ToString().ToLower();
+            ViewBag.IsShowDeletedStatus = (isDeletedFeedbackView || HasHostDeleteFeedbackPermission()).ToString().ToLower();
 
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
@@ -68,10 +71,10 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             if (isDeletedFeedbackView)
             {
-                return _hasHostCreateUpdateFeedbackPermission && _hasHostDeleteFeedbackPermission;
+                return HasHostCreateUpdateFeedbackPermission() && HasHostDeleteFeedbackPermission();
             }
 
-            return _hasHostCreateUpdateFeedbackPermission;
+            return HasHostCreateUpdateFeedbackPermission();
         }
 
         public ActionResult AllSettings()
@@ -115,12 +118,12 @@ namespace Fanex.CRM.Feedback.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!_hasHostCreateUpdateFeedbackPermission)
+            if (!HasHostCreateUpdateFeedbackPermission())
             {
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (!_hasHostDeleteFeedbackPermission && IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus))
+            if (!HasHostDeleteFeedbackPermission() && IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }

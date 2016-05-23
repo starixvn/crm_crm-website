@@ -21,12 +21,10 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
-    [CheckUMFilter]
     public class SettingManagementController : BaseController
     {
         private ISettingManagementService _settingManagementService;

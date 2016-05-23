@@ -10,8 +10,6 @@
 namespace Fanex.CRM.Report.Entities.StatisticReport
 {
     using System;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Statistic Report Entity.

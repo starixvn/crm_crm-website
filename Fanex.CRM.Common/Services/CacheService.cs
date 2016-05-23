@@ -9,9 +9,7 @@
 
 namespace Fanex.CRM.Common.Services
 {
-    using System;
     using Fanex.Caching;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Newtonsoft.Json;
 
     /// <summary>

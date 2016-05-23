@@ -10,10 +10,8 @@
 
 namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     public interface IAddGuestFeedbackService
     {

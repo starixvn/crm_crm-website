@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>

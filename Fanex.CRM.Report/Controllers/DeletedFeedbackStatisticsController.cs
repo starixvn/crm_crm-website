@@ -17,9 +17,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DeletedFeedbackStatistics;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
-    [CheckUMFilter]
     public class DeletedFeedbackStatisticsController : BaseController
     {
         private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;
@@ -44,7 +42,7 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
         public ActionResult GetReport(DeletedFeedbackStatisticsCriteria criteria)
         {
-            return Json(new 
+            return Json(new
             {
                 ReportData = _deletedFeedbackStatisticsService.GetReport(criteria)
             });

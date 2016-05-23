@@ -20,13 +20,11 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.StatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Statistic Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.IssueStatistics, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
     public class StatisticReportController : BaseController
     {
         private IStatisticReportService _statisticReportService;

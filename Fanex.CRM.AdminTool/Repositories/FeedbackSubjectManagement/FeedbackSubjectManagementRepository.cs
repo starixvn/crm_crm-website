@@ -11,7 +11,6 @@
 namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement;

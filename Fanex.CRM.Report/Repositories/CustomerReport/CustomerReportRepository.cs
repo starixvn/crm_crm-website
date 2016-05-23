@@ -12,7 +12,6 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;

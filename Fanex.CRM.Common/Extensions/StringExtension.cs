@@ -19,7 +19,6 @@ namespace Fanex.CRM.Common.Extensions
     using System.Web;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Resources;
-    using Fanex.CRM.Infrastructure.Extensions;
 
     /// <summary>
     /// String Extension.

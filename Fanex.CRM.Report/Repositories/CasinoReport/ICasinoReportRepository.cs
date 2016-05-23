@@ -13,7 +13,6 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Entities.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;
-    using Fanex.Data.Repository;
 
     public interface ICasinoReportRepository
     {

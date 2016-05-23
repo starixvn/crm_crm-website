@@ -9,8 +9,6 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Models;
-    using NPOI.SS.UserModel;
 
     /// <summary>
     /// TODO: Update summary.

@@ -12,17 +12,14 @@ namespace Fanex.CRM.Redemption.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Services.RedemptionLog;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Redemption Controller.
     /// </summary>
-    [CheckUMFilter]
     public class RedemptionController : BaseController
     {
         private IRedemptionLogService _logService;

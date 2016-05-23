@@ -6,8 +6,6 @@
 
 namespace Fanex.CRM.Report.Entities.LogStatistics
 {
-    using System;
-
     public class LogStatisticsEntity
     {
         public int MainCategoryId { get; set; }

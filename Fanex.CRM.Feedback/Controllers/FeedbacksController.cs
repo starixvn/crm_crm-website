@@ -22,12 +22,10 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Feedbacks Controller.
     /// </summary>
-    [CheckUMFilter]
     public class FeedbacksController : BaseController
     {
         private readonly IFeedbackService _feedbackService;

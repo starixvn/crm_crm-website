@@ -9,6 +9,10 @@
 
 namespace Fanex.CRM.Setting.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -18,10 +22,6 @@ namespace Fanex.CRM.Setting.Services
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories;
     using Fanex.CRM.Setting.Resources;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     /// <summary>
     /// Setting Service.

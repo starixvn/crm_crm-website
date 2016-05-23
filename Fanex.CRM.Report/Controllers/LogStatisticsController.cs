@@ -20,9 +20,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
-    [CheckUMFilter]
     public class LogStatisticsController : BaseController
     {
         private readonly ISettingService _serviceSetting;
@@ -30,7 +28,7 @@ namespace Fanex.CRM.Report.Controllers
 
         public LogStatisticsController()
             : this(null, null)
-        { 
+        {
         }
 
         public LogStatisticsController(
@@ -51,20 +49,20 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult GetAllSettings()
         {
             var products = _serviceSetting.GetProductsOnly().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Value
-                });
+            {
+                Id = p.Id,
+                Name = p.Value
+            });
             var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                });
+            {
+                Id = p.Id,
+                Name = p.Name
+            });
             var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                });
+            {
+                Id = p.Id,
+                Name = p.Name
+            });
 
             var allSetting = new SettingForLogStatistics
             {

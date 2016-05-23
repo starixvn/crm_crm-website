@@ -10,7 +10,6 @@
 namespace Fanex.CRM.ActionLog.Repositories
 {
     using System.Collections.Generic;
-    using Fanex.Common;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.Common.Helpers;

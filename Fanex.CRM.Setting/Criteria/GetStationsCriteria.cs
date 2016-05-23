@@ -6,7 +6,6 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.CRM.Setting.Constants;
     using Fanex.Data.Repository;
 
     /// <summary>

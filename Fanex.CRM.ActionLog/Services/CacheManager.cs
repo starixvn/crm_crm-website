@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.ActionLog.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.ActionLog.Resources;

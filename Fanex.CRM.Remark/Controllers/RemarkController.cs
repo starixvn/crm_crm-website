@@ -17,13 +17,11 @@ namespace Fanex.CRM.Remark.Controllers
     using Fanex.CRM.Remark.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Remark controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
     public class RemarkController : BaseController
     {
         private readonly IRemarkService _remarkService;

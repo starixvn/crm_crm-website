@@ -9,6 +9,8 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -21,21 +23,15 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System.Linq;
-    using System.Web.Mvc;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Communication Log Controller.
     /// </summary>
-    [CheckUMFilter]
     public class CommunicationLogController : BaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
 
-        private readonly bool _hasHostCreateUpdateFeedbackPermission;
-
-        private ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
 
         public CommunicationLogController()
             : this(null, null)
@@ -48,7 +44,6 @@ namespace Fanex.CRM.Communication.Controllers
         {
             _communicationServiceLog = communicationServiceLog ?? new CommunicationLogService();
             _serviceSetting = serviceSetting ?? new SettingService();
-            _hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
         }
 
         private static bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
@@ -57,6 +52,11 @@ namespace Fanex.CRM.Communication.Controllers
             bool isChangedStatusToDeleted = !isDeletedStatus && currentStatus == (int)CRMStatus.Deleted;
 
             return isChangedStatusFromDeleted || isChangedStatusToDeleted;
+        }
+
+        private bool HasHostCreateUpdateFeedbackPermission()
+        {
+            return HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
@@ -162,10 +162,10 @@ namespace Fanex.CRM.Communication.Controllers
             var isDeletedStatus = currentStatus == (int)CRMStatus.Deleted;
             if (isDeletedStatus)
             {
-                return _hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+                return HasHostCreateUpdateFeedbackPermission() && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
             }
 
-            return _hasHostCreateUpdateFeedbackPermission;
+            return HasHostCreateUpdateFeedbackPermission();
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
@@ -200,7 +200,7 @@ namespace Fanex.CRM.Communication.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!_hasHostCreateUpdateFeedbackPermission)
+            if (!HasHostCreateUpdateFeedbackPermission())
             {
                 return new Result(permissionError, Labels.Communication_Logs_NoUpdatePermission);
             }

@@ -14,12 +14,10 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
-    [CheckUMFilter]
     public class HomeController : BaseController
     {
         private readonly IPermissionService _permissionService;
@@ -68,7 +66,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
 
-            if (AppSession.RedirectionLink != null && 
+            if (AppSession.RedirectionLink != null &&
                 !string.IsNullOrEmpty(AppSession.RedirectionLink))
             {
                 ViewBag.RedirectUrl = AppSession.RedirectionLink;
@@ -81,7 +79,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            return PartialView("~/Views/Home/_Menu.cshtml", CurrentSession.MenuItemList);
+            return PartialView("~/Views/Home/_Menu.cshtml", AppSession.CurrentUserMenu);
         }
 
         public PartialViewResult GettingDashboardMenu()

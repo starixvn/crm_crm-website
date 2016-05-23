@@ -12,7 +12,6 @@ namespace Fanex.CRM.Report.Models.SettlementReport
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Settlement Report Information.

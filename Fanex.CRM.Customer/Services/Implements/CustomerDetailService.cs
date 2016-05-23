@@ -9,14 +9,11 @@
 
 namespace Fanex.CRM.Customer.Services
 {
-    using System;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;

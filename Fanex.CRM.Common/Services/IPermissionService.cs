@@ -9,9 +9,7 @@
 
 namespace Fanex.CRM.Common.Services
 {
-    using System.Collections.Generic;
     using Fanex.NAP.Core.Business;
-    using NAP.Core.Models.ValueObject;
 
     public interface IPermissionService
     {

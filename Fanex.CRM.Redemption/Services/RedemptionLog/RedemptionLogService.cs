@@ -14,7 +14,6 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
     using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;

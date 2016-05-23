@@ -18,13 +18,11 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// ActionLog Controller controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
     public class ActionLogController : BaseController
     {
         private readonly IActionLogService _actionLogService;

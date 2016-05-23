@@ -8,7 +8,6 @@ namespace Fanex.CRM.InformHeadline.Repositories
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.InformHeadline.Criteria;

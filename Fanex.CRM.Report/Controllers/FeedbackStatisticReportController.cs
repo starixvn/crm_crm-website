@@ -16,13 +16,11 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.FeedbackStatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Feedback statistic report controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.FeedbackStatistics, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
     public class FeedbackStatisticReportController : BaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
