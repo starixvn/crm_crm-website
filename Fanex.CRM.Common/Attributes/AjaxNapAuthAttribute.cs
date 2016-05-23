@@ -27,9 +27,9 @@ namespace Fanex.CRM.Common.Attributes
         /// Called when [authorization].
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
-        public override void OnAuthorization(System.Web.Mvc.AuthorizationContext filterContext)
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!CheckFunctionAuthorization(AppSession.CurrentUser.Id))
+            if (!IsAuthenticated(AppSession.CurrentUser.Id))
             {
                 filterContext.Result = new JsonResult
                 {

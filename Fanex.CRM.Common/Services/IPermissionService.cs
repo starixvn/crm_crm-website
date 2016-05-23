@@ -11,12 +11,10 @@ namespace Fanex.CRM.Common.Services
 {
     using System.Collections.Generic;
     using Fanex.NAP.Core.Business;
-    using Fanex.NAP.Core.Model.ValueObject;
+    using NAP.Core.Models.ValueObject;
 
     public interface IPermissionService
     {
-        Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions);
-
         bool HasReadPermission(string functionName);
 
         bool HasHostPermission(string functionName);

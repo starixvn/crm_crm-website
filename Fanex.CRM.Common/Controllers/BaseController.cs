@@ -11,12 +11,11 @@ namespace Fanex.CRM.Common.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Configuration;
-    using Fanex.NAP.Core.Model.ValueObject;
-    using Fanex.NAP.Core.Service.Impl;
-    using Fanex.NAP.Core.Service.Interface;
     using Fanex.NAP.Core.Web;
     using Fanex.NAP.Core.Web.Context;
     using Fanex.NAP.Core.Web.Session;
+    using NAP.Core.Context;
+    using NAP.Core.Models.ValueObject;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,14 +26,7 @@ namespace Fanex.CRM.Common.Controllers
 
         public BaseController()
         {
-            this.CurrentContext = new CurrentContext();
             ViewBag.Session = this.CurrentSession = new CurrentSession();
-            this.ServiceContext = new ServiceContext
-            {
-                UserId = this.CurrentSession.UserId,
-                SiteId = this.SiteId,
-                Ip = this.CurrentContext.IP
-            };
 
             ViewFlags = new ViewFlags
             {
@@ -91,12 +83,6 @@ namespace Fanex.CRM.Common.Controllers
             private set;
         }
 
-        protected IServiceContext ServiceContext
-        {
-            get;
-            private set;
-        }
-
         protected string Environment
         {
             get { return NapSettings.Settings.Environment; }
@@ -105,18 +91,6 @@ namespace Fanex.CRM.Common.Controllers
         protected int SiteId
         {
             get { return NapSettings.Settings.SiteId; }
-        }
-
-        /// <summary>
-        /// GetRollAccess: get permission to access with each menu item of current user login.
-        /// </summary>
-        /// <param name="currentFunctions">The current functions.</param>
-        /// <returns>
-        /// Roll Access.
-        /// </returns>
-        public Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions)
-        {
-            return PermissionService.GetRoleAccess(currentFunctions);
         }
 
         /// <summary>
