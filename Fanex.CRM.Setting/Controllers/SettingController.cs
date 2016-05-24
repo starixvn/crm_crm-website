@@ -18,7 +18,7 @@ namespace Fanex.CRM.Setting.Controllers
     /// <summary>
     /// Setting Controller.
     /// </summary>
-    public class SettingController : BaseController
+    public class SettingController : ReadOnlyBaseController
     {
         private ISettingService _settingServiceInstance;
 

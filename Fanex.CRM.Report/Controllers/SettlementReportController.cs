@@ -24,7 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Settlement Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettlementIssuesReport, Policy = Constant.Policy.Read)]
-    public class SettlementReportController : BaseController
+    public class SettlementReportController : ReadOnlyBaseController
     {
         private ISettlementReportService _settlementReportService;
 

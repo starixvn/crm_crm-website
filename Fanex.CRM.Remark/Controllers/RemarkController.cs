@@ -22,7 +22,7 @@ namespace Fanex.CRM.Remark.Controllers
     /// Remark controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    public class RemarkController : BaseController
+    public class RemarkController : ReadOnlyBaseController
     {
         private readonly IRemarkService _remarkService;
 

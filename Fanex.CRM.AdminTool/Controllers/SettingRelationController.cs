@@ -23,7 +23,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Setting Relation Controller.
     /// </summary>
-    public class SettingRelationController : BaseController
+    public class SettingRelationController : ReadOnlyBaseController
     {
         private ISettingRelationService _settingRelationService;
 

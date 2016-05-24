@@ -24,7 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     /// WagerReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.WagersRelatedReport, Policy = Constant.Policy.Read)]
-    public class WagerReportController : BaseController
+    public class WagerReportController : ReadOnlyBaseController
     {
         private readonly IWagerReportService _wagerService;
 

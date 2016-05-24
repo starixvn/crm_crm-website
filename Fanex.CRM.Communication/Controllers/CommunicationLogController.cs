@@ -27,7 +27,7 @@ namespace Fanex.CRM.Communication.Controllers
     /// <summary>
     /// Communication Log Controller.
     /// </summary>
-    public class CommunicationLogController : BaseController
+    public class CommunicationLogController : ReadOnlyBaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
 

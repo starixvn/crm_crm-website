@@ -26,7 +26,7 @@ namespace Fanex.CRM.Feedback.Controllers
     /// <summary>
     /// Feedbacks Controller.
     /// </summary>
-    public class FeedbacksController : BaseController
+    public class FeedbacksController : ReadOnlyBaseController
     {
         private readonly IFeedbackService _feedbackService;
 

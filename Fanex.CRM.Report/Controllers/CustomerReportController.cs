@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Customer Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CustomerReport, Policy = Constant.Policy.Read)]
-    public class CustomerReportController : BaseController
+    public class CustomerReportController : ReadOnlyBaseController
     {
         private readonly ICustomerReportService _customerReportService;
         private readonly ISettingService _settingService;

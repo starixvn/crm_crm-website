@@ -21,7 +21,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Dynamic Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
-    public class DynamicReportController : BaseController
+    public class DynamicReportController : ReadOnlyBaseController
     {
         private IDynamicReportService _dynamicReportService;
 

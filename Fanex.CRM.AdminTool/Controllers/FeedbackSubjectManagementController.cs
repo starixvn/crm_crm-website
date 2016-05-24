@@ -23,7 +23,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Feedback Subject Management Controller.
     /// </summary>
-    public class FeedbackSubjectManagementController : BaseController
+    public class FeedbackSubjectManagementController : ReadOnlyBaseController
     {
         private IFeedbackSubjectManagementService _feedbackSubjectManagementService;
 

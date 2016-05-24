@@ -25,7 +25,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Statistic Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.IssueStatistics, Policy = Constant.Policy.Read)]
-    public class StatisticReportController : BaseController
+    public class StatisticReportController : ReadOnlyBaseController
     {
         private IStatisticReportService _statisticReportService;
 

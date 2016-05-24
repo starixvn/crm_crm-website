@@ -19,7 +19,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class InformHeadlineController : BaseController
+    public class InformHeadlineController : ReadOnlyBaseController
     {
         private readonly IInformHeadlineService _informHeadlineService;
 

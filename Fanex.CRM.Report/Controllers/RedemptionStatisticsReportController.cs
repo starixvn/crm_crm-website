@@ -24,7 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Feedback statistic report controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.RedemptionStatistics, Policy = Constant.Policy.Read)]
-    public class RedemptionStatisticsReportController : BaseController
+    public class RedemptionStatisticsReportController : ReadOnlyBaseController
     {
         private readonly IRedemptionStatisticsService _redemptionStatisticsService;
 

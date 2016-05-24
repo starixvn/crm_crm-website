@@ -21,7 +21,7 @@ namespace Fanex.CRM.Report.Controllers
     /// <summary>
     /// Casino Report Controller.
     /// </summary>
-    public class CasinoReportController : BaseController
+    public class CasinoReportController : ReadOnlyBaseController
     {
         private readonly ICasinoReportService _casinoReportService;
 

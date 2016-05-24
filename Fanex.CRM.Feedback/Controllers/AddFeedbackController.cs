@@ -27,7 +27,7 @@ namespace Fanex.CRM.Feedback.Controllers
     /// Add Feedback Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    public class AddFeedbackController : BaseController
+    public class AddFeedbackController : ReadOnlyBaseController
     {
         public AddFeedbackController()
             : this(null)

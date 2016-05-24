@@ -21,7 +21,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    public class LogStatisticsController : BaseController
+    public class LogStatisticsController : ReadOnlyBaseController
     {
         private readonly ISettingService _serviceSetting;
         private readonly ILogStatisticsService _logStatisticsService;

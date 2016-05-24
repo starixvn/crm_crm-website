@@ -18,7 +18,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    public class DeletedFeedbackStatisticsController : BaseController
+    public class DeletedFeedbackStatisticsController : ReadOnlyBaseController
     {
         private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;
 

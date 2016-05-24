@@ -18,6 +18,7 @@ namespace Fanex.CRM.User.Controllers
     using Models;
     using NAP.Core.Configuration;
     using NAP.Core.Web;
+    using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Services;
@@ -25,6 +26,7 @@ namespace Fanex.CRM.User.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [CheckUMFilter]
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";

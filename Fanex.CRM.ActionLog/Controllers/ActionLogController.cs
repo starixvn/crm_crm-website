@@ -23,7 +23,7 @@ namespace Fanex.CRM.ActionLog.Controllers
     /// ActionLog Controller controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    public class ActionLogController : BaseController
+    public class ActionLogController : ReadOnlyBaseController
     {
         private readonly IActionLogService _actionLogService;
 

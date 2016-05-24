@@ -24,7 +24,7 @@ namespace Fanex.CRM.Customer.Controllers
     /// Customer Setting Detail Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    public class CustomerSettingDetailController : BaseController
+    public class CustomerSettingDetailController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
         private ICustomerDetailService _customerService;

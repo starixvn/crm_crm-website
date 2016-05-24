@@ -23,7 +23,7 @@ namespace Fanex.CRM.Report.Controllers
     /// Daily Statistics Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.DailyStatistics, Policy = Constant.Policy.Read)]
-    public class DailyStatisticsReportController : BaseController
+    public class DailyStatisticsReportController : ReadOnlyBaseController
     {
         private IStatisticByDateReportService _dailyStatisticsReportService;
 

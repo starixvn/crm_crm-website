@@ -20,7 +20,7 @@ namespace Fanex.CRM.Redemption.Controllers
     /// <summary>
     /// Redemption Controller.
     /// </summary>
-    public class RedemptionController : BaseController
+    public class RedemptionController : ReadOnlyBaseController
     {
         private IRedemptionLogService _logService;
 

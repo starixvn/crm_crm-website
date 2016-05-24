@@ -25,7 +25,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
-    public class SettingManagementController : BaseController
+    public class SettingManagementController : ReadOnlyBaseController
     {
         private ISettingManagementService _settingManagementService;
 

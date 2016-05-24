@@ -24,7 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     /// SummaryReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CategoriesSummaryReport, Policy = Constant.Policy.Read)]
-    public class SummaryReportController : BaseController
+    public class SummaryReportController : ReadOnlyBaseController
     {
         private readonly ISummaryReportService _summaryService;
 
