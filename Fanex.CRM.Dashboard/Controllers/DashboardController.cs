@@ -21,7 +21,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     /// <summary>
     /// Dashboard Controller.
     /// </summary>
-    public class DashboardController : BaseController
+    public class DashboardController : ReadOnlyBaseController
     {
         private IDashboardService _dashboardServiceInstance;
 

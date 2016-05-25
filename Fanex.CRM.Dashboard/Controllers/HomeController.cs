@@ -18,7 +18,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     /// <summary>
     /// Home Controller.
     /// </summary>
-    public class HomeController : BaseController
+    public class HomeController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
 
