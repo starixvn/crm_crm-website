@@ -10,7 +10,6 @@
     var customer = (ViewBag.CurrentCustomer as SearchedCustomer) ?? new SearchedCustomer();
 
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
-    string redirectUrl = ViewBag.RedirectUrl;
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
     var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
 }
@@ -121,7 +120,6 @@
         var accUrlDefault = '@Fanex.CRM.Common.Services.AppSetting.LoginLink';
         var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
-        var redirectUrl = '@redirectUrl';
         @if(Fanex.CRM.Common.Services.AppSetting.IsLocalTest == false)
         {
         <text>

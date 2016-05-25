@@ -18,12 +18,9 @@ namespace Fanex.CRM.Common.Services
     /// </summary>
     public static class AppSession
     {
-        private const string CurrentLogInUserKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentLogInUser";
-        private const string CurrentUserMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserMenu";
-        private const string CurrentUserRoleAccessKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserRoleAccess";
-        private const string CurrentWorkingOnMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
-        private const string CurrentActionNameKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
-        private const string RedirectUrlKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.RedirectUrl";
+        private const string CurrentLogInUserKey = "CurrentLogInUser";
+        private const string CurrentUserMenuKey = "CurrentUserMenu";
+        private const string RedirectUrlKey = "RedirectUrl";
 
         public static SearchedCustomer CurrentCustomer
         {
@@ -57,19 +54,6 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        public static Dictionary<string, int> RoleAccess
-        {
-            get
-            {
-                return SessionExtension.GetSession(CurrentSession, CurrentUserRoleAccessKey) as Dictionary<string, int>;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, CurrentUserRoleAccessKey, value);
-            }
-        }
-
         /// <summary>
         /// Gets or sets menu of current login user.
         /// </summary>
@@ -86,58 +70,6 @@ namespace Fanex.CRM.Common.Services
             set
             {
                 SessionExtension.AddSession(CurrentSession, CurrentUserMenuKey, value);
-            }
-        }
-        
-        /// <summary>
-        /// Gets or sets IsTrackedMenu: determine current working on menu is
-        /// tracked for page tracking or not.
-        /// </summary>
-        /// <value>
-        /// The name of the current action.
-        /// </value>
-        public static string CurrentActionName
-        {
-            get
-            {
-                return SessionExtension.GetSession(CurrentSession, CurrentActionNameKey) as string;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, CurrentActionNameKey, value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets current working menu url.
-        /// </summary>
-        /// <value>
-        /// The current working on menu.
-        /// </value>
-        public static MenuItem CurrentWorkingOnMenu
-        {
-            get
-            {
-                return SessionExtension.GetSession(CurrentSession, CurrentWorkingOnMenuKey) as MenuItem;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, CurrentWorkingOnMenuKey, value);
-            }
-        }
-
-        public static string RedirectionLink
-        {
-            get
-            {
-                return SessionExtension.GetSession(CurrentSession, RedirectUrlKey) as string;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, RedirectUrlKey, value);
             }
         }
 

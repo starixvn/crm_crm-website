@@ -60,18 +60,10 @@ namespace Fanex.CRM.Dashboard.Controllers
                 return new RedirectResult("~/UserLogin/SignIn");
             }
 
-            ViewBag.RedirectUrl = string.Empty;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
-
-            if (AppSession.RedirectionLink != null &&
-                !string.IsNullOrEmpty(AppSession.RedirectionLink))
-            {
-                ViewBag.RedirectUrl = AppSession.RedirectionLink;
-                AppSession.RedirectionLink = null;
-            }
 
             return View("~/Views/Home/Default.cshtml");
         }
