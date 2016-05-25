@@ -11,10 +11,6 @@ namespace Fanex.CRM.Common.Controllers
 {
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Resources;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
 
@@ -41,20 +37,7 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>The denied access result.</returns>
         public ActionResult AccessDenied()
         {
-            var previousHttpMethod = string.IsNullOrEmpty(AppSession.CurrentHttpMethod) ?
-                HttpMethodConstants.Get :
-                AppSession.CurrentHttpMethod;
-            if (previousHttpMethod == HttpMethodConstants.Get)
-            {
-                return View("~/Views/Common/AccessDenied.cshtml");
-            }
-
-            var errorInfo = new Result
-            {
-                Code = ErrorCodeConstants.NoPermission,
-                Message = Labels.NoPermission
-            };
-            return Json(errorInfo, JsonRequestBehavior.AllowGet);
+            return View("~/Views/Common/AccessDenied.cshtml");
         }
 
         public ActionResult ErrorPage()
@@ -73,7 +56,7 @@ namespace Fanex.CRM.Common.Controllers
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
-            
+
             ViewBag.UmtFrom = downTime.From;
             ViewBag.UmtTo = downTime.To;
 

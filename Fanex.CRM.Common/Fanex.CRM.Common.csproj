@@ -223,7 +223,6 @@
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Attributes\CRMAuthAttribute.cs" />
     <Compile Include="Attributes\AjaxNapAuthAttribute.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />

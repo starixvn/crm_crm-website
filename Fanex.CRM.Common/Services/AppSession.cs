@@ -23,7 +23,6 @@ namespace Fanex.CRM.Common.Services
         private const string CurrentUserRoleAccessKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserRoleAccess";
         private const string CurrentWorkingOnMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
         private const string CurrentActionNameKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
-        private const string CurrentHttpMethodKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentHttpMethod";
         private const string RedirectUrlKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.RedirectUrl";
 
         public static SearchedCustomer CurrentCustomer
@@ -89,20 +88,7 @@ namespace Fanex.CRM.Common.Services
                 SessionExtension.AddSession(CurrentSession, CurrentUserMenuKey, value);
             }
         }
-
-        public static string CurrentHttpMethod
-        {
-            get
-            {
-                return SessionExtension.GetSession(CurrentSession, CurrentHttpMethodKey) as string;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, CurrentHttpMethodKey, value);
-            }
-        }
-
+        
         /// <summary>
         /// Gets or sets IsTrackedMenu: determine current working on menu is
         /// tracked for page tracking or not.

@@ -110,7 +110,6 @@ namespace Fanex.CRM.Dashboard.Controllers
         }
 
         [HttpPost]
-        [CRMAuth]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
