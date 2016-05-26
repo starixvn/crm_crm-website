@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
@@ -108,9 +109,24 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
+            criteria.Username = NormalizeUserNameString(criteria.Username);
+
             var jsonResult = Json(_customerService.VerifyUsername(criteria));
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
+        }
+
+        private static string NormalizeUserNameString(string username)
+        {
+            const string separator = ",";
+            if (username.Contains(separator))
+            {
+                var customerList = username.Split(separator.ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(t => t.Trim());
+                username = string.Join(separator, customerList);
+            }
+
+            return username;
         }
     }
 }

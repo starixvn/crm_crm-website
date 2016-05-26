@@ -20,6 +20,7 @@
         $scope.hasReviewPermission = hasReviewFeedbackPermission === 'True';
         $scope.bettypes = null;
         $scope.subProducts = null;
+        $scope.customersInput = '';
 
         var oldReview;
         $scope.panelManager = {
@@ -45,14 +46,8 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
 
         // Functions of Related customers.
-        $scope.verifyUsernames = function () {
-            var usernames = [];
-            $('#txtrelatedcustomer option').each(function (i, option) {
-                usernames[i] = $(option).text();
-            });
-
-            var username = usernames.join(',');
-            if (username.length !== 0) {
+        $scope.verifyUsernames = function (username) {
+            if (username !== '') {
                 $uiBlockerService.blockUI();
                 feedbackService.verifyUsernames({ Username: username })
                 .then(function (data) {
@@ -62,17 +57,9 @@
                         customers.push({ Id: customer.Id, Name: customer.Name });
                     });
 
-                    customers = $scope.relatedCustomers.concat(customers);
-                    // unique customer.
-                    for (var i = 0; i < customers.length; ++i) {
-                        for (var j = i + 1; j < customers.length; ++j) {
-                            if (customers[i].Id === customers[j].Id) {
-                                customers.splice(j--, 1);
-                            }
-                        }
-                    }
-
-                    $scope.relatedCustomers = customers;
+                    $scope.relatedCustomers = $scope.getRelatedCustomers(customers);
+                    $scope.customersInput = '';
+                  
                     $uiBlockerService.unblockUI();
                 },
                 function () {
@@ -80,6 +67,20 @@
                 });
             }
         };
+
+        $scope.getRelatedCustomers = function (customerList) {
+            var customers = $scope.relatedCustomers.concat(customerList);
+            // unique customer.
+            for (var i = 0; i < customers.length; ++i) {
+                for (var j = i + 1; j < customers.length; ++j) {
+                    if (customers[i].Id === customers[j].Id) {
+                        customers.splice(j--, 1);
+                    }
+                }
+            }
+
+            return customers;
+        }
         // ---------- End of Functions of Related customers ----------
 
         // Subject functions.
@@ -470,19 +471,12 @@
                 return;
             }
 
-            $scope.verifyUsernames();
+            $scope.verifyUsernames($scope.customersInput);
         };
 
         $scope.initRelatedCustomer = function () {
-            if ($scope.feedback.HasRelated) {
-                var control = $('#txtrelatedcustomer');
-                var arrayTemp = $scope.feedback.RelatedCustomer.split(',');
-                angular.forEach(arrayTemp, function (name, index) {
-                    /* jshint unused: false */
-                    control.trigger('addItem', { title: name, value: name });
-                });
-
-                orgLengt = arrayTemp.length;
+            if ($scope.feedback.HasRelated) {                
+                $scope.verifyUsernames($scope.feedback.RelatedCustomer);
             }
         };
 
