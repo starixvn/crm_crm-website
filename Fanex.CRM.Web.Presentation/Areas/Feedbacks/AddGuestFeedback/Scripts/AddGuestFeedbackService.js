@@ -21,6 +21,10 @@
             var url = window.rootUrl + "Setting/GetFeedbackSubjectTemplateByPagingIndex";
             return sharedScriptManager.registerAngularService($http, $q, url, pagingInfo);
         };
+        serviceInstance.verifyUsernames = function (username) {
+            var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
+            return sharedScriptManager.registerAngularService($http, $q, url, username);
+        };
         serviceInstance.addFeedback = function (params) {
             var url = window.rootUrl + "AddGuestFeedback/AddGuestFeedback";
             return sharedScriptManager.registerAngularService($http, $q, url, params);

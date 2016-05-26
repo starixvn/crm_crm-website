@@ -462,7 +462,6 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RelatedCustomerResult.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\UpdateCustomerFeedbackController.js" />
@@ -904,6 +903,7 @@
     <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
     <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomerResult.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />

@@ -10,6 +10,7 @@
         updateCustomerFeedbackRegister.registerReviewHtml();
         updateCustomerFeedbackRegister.registerRawHtmlDirective();
         updateCustomerFeedbackRegister.registerLicenseeTypePicker();
+        directiveManager.registerRelatedCustomerResult(angular.module('feedbacks-updatecustomerfeedback-application'));
     }
 
     updateCustomerFeedbackRegisterPicker();

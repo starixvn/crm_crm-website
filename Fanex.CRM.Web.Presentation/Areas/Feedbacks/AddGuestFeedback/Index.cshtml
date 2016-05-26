@@ -440,32 +440,36 @@
                             </div>
                             <div class="col-xs-9 col-sm-10 col-md-10">
                                 <div class="row">
-                                    <div class="col-xs-11 col-sm-11 col-md-11 related-customer-directive-container" data-ng-model="relatedCustomerOptions.IsUpdate">
-                                        <input type="button" value="  " id="btnRelatedHelp"
+                                    <div class="col-xs-11 col-sm-11 col-md-11">
+                                        <input type="button" id="btnRelatedHelp"
                                         class="btnHelp pull-left tipsy-directive"
                                         title="@Labels.Related_Help"
                                         data-ng-model="tipsyOptions.IsUpdateTip"
                                         tabindex="79" />
-                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                                        </select>
+                                        <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
+                                               data-ng-model="customersInput"
+                                               data-ng-disabled="!addGuestFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
-                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyUserName();" disabled
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyUsernames(customersInput)"
+                                            data-ng-disabled ="customersInput === ''"
                                             tabindex="80">
                                             V<span class="hotkey">e</span>rify</button>
                                     </div>
                                 </div>
-                                <div id="ColorGuide" class="row display-none colorGuide">
+                                <div id="ColorGuide" class="row colorGuide" data-ng-show="addGuestFeedbackParams.HasRelated && relatedCustomers.length > 0">
                                     <div class="col-sm-2 col-md-2 relate-customer">
-                                        @Language.Customer</div>
+                                        @Labels.Customer
+                                    </div>
                                     <div class="col-sm-2 col-md-2 relate-guest">
-                                        @Language.Guest</div>
+                                        @Labels.Guest
+                                    </div>
                                     <div class="col-sm-2 col-md-2 relate-invalid">
-                                        @Language.Invalid</div>
+                                        @Labels.Invalid
+                                    </div>
                                 </div>
-                                <div id="trRelatedInfo" class="row display-none relatedFeedback">
-                                    <table id="related">
-                                    </table>
+                                <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="addGuestFeedbackParams.HasRelated && relatedCustomers.length > 0">
+                                    <table id="related" data-ng-model="relatedCustomers" relatedcustomerresult></table>
                                 </div>
                             </div>
                         </div>
