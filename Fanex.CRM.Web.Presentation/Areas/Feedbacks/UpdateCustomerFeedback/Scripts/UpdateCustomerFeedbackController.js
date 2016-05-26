@@ -48,6 +48,7 @@
         // Functions of Related customers.
         $scope.verifyUsernames = function (username) {
             if (username !== '') {
+                username = username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
                 $uiBlockerService.blockUI();
                 feedbackService.verifyUsernames({ Username: username })
                 .then(function (data) {
