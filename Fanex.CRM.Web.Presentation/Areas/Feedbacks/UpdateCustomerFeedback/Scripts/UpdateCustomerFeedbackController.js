@@ -16,7 +16,6 @@
     function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
         $scope.feedback = null;
         $scope.reviewedBy = '';
-        $scope.relatedCustomers = [];
         $scope.hasReviewPermission = hasReviewFeedbackPermission === 'True';
         $scope.bettypes = null;
         $scope.subProducts = null;
@@ -44,45 +43,6 @@
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
         $scope.isLoadedFeedbackSubjectTemplate = false;
-
-        // Functions of Related customers.
-        $scope.verifyUsernames = function (username) {
-            if (username !== '') {
-                username = username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
-                $uiBlockerService.blockUI();
-                feedbackService.verifyUsernames({ Username: username })
-                .then(function (data) {
-                    var customers = [];
-                    angular.forEach(data.Result, function (customer, index) {
-                        /* jshint unused: false */
-                        customers.push({ Id: customer.Id, Name: customer.Name });
-                    });
-
-                    $scope.relatedCustomers = $scope.getRelatedCustomers(customers);
-                    $scope.customersInput = '';
-                  
-                    $uiBlockerService.unblockUI();
-                },
-                function () {
-                    $uiBlockerService.unblockUI();
-                });
-            }
-        };
-
-        $scope.getRelatedCustomers = function (customerList) {
-            var customers = $scope.relatedCustomers.concat(customerList);
-            // unique customer.
-            for (var i = 0; i < customers.length; ++i) {
-                for (var j = i + 1; j < customers.length; ++j) {
-                    if (customers[i].Id === customers[j].Id) {
-                        customers.splice(j--, 1);
-                    }
-                }
-            }
-
-            return customers;
-        }
-        // ---------- End of Functions of Related customers ----------
 
         // Subject functions.
         $scope.updateSelectedSubject = function (subject) {
@@ -405,9 +365,9 @@
         $scope.updateCustomerFeedback = function (feedback) {
             $uiBlockerService.blockUI();
             if (feedback.HasRelated) {
-                if ($scope.relatedCustomers.length > 0) {
+                if ($scope.relatedCustomerResult.relatedCustomers.length > 0) {
                     var relatedCustomerIds = [];
-                    angular.forEach($scope.relatedCustomers, function (customer, index) {
+                    angular.forEach($scope.relatedCustomerResult.relatedCustomers, function (customer, index) {
                         /* jshint unused: false */
                         relatedCustomerIds.push(customer.Id);
                     });
@@ -472,12 +432,12 @@
                 return;
             }
 
-            $scope.verifyUsernames($scope.customersInput);
+            $scope.relatedCustomerResult.verifyUsernames($scope.customersInput);
         };
 
         $scope.initRelatedCustomer = function () {
             if ($scope.feedback.HasRelated) {                
-                $scope.verifyUsernames($scope.feedback.RelatedCustomer);
+                $scope.relatedCustomerResult.verifyUsernames($scope.feedback.RelatedCustomer);
             }
         };
 

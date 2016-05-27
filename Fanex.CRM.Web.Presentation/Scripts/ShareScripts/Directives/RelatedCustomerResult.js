@@ -4,7 +4,8 @@
 
     directiveManager = directiveManager || {};
     directiveManager.registerRelatedCustomerResult = function (angularApplication) {
-        angularApplication.directive('relatedcustomerresult', function () {
+        angularApplication.directive('relatedcustomerresult', ['$http', '$q', '$uiBlockerService',
+         function ($http, $q, $uiBlockerService) {
             var renderHtmlCell = function (customer) {
                 if (!customer) {
                     return;
@@ -69,7 +70,7 @@
                 table.find('.icon-del-single').unbind('click').bind('click', function () {
                     var custId = parseInt($(this).data('customer-id'));
                     $('#' + custId).parent().remove();
-                    scope.relatedCustomers = customers.filter(function (value) {
+                    scope.relatedCustomerResult.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== custId;
                     });
 
@@ -77,13 +78,26 @@
                 });
                 table.find('.icon-del-all-invalid').unbind('click').bind('click', function () {
                     $('.invalidcustomers').remove();
-                    scope.relatedCustomers = customers.filter(function (value) {
+                    scope.relatedCustomerResult.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== 0;
                     });
 
                     scope.$apply();
                 });
             };
+            function combineCustomers (currentCustomers, newCustomers) {
+                var customers = (currentCustomers || []).concat(newCustomers);
+                // unique customer.
+                for (var i = 0; i < customers.length; ++i) {
+                    for (var j = i + 1; j < customers.length; ++j) {
+                        if (customers[i].Id === customers[j].Id) {
+                            customers.splice(j--, 1);
+                        }
+                    }
+                }
+
+                return customers;
+            }
 
             return {
                 restrict: 'A',
@@ -93,8 +107,34 @@
                     scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                         renderRelatedCustomers(scope, newVal);
                     });
+                    scope.relatedCustomerResult = {};
+                    scope.relatedCustomerResult.verifyUsernames = function (username) {
+                        if (username === '') {
+                            return;
+                        }
+                        username = username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
+                        $uiBlockerService.blockUI();
+                        var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
+                        var promise = sharedScriptManager.registerAngularService($http, $q, url, { Username: username });
+                        promise.then(function (data) {
+                            var customers = [];
+                            angular.forEach(data.Result, function (customer, index) {
+                                /* jshint unused: false */
+                                customers.push({ Id: customer.Id, Name: customer.Name });
+                            });
+
+                            scope.relatedCustomerResult.relatedCustomers = combineCustomers(scope.relatedCustomerResult.relatedCustomers, customers);
+                            attrs.ngModel = '';
+
+                            renderRelatedCustomers(scope, scope.relatedCustomerResult.relatedCustomers);
+                            $uiBlockerService.unblockUI();
+                        },
+                        function () {
+                            $uiBlockerService.unblockUI();
+                        });
+                    };
                 }
             };
-        });
+        }]);
     }
 })();

@@ -60,11 +60,6 @@
             return sharedScriptManager.registerAngularService($http, $q, url, pagingInfo);
         };
 
-        serviceInstance.verifyUsernames = function (username) {
-            var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
-            return sharedScriptManager.registerAngularService($http, $q, url, username);
-        };
-
     serviceInstance.updateFeedback = function (criteria, isDeletedFeedbackView) {
         var url = window.rootUrl + 'UpdateCustomerFeedback/UpdateFeedback';
         var params = {
