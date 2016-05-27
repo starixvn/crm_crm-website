@@ -93,16 +93,16 @@ namespace Fanex.CRM.Customer.Repositories
             return ExecuteNonQuery(criteria);
         }
 
-        public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var result = new List<CustomerInfo>();
+                    var result = new List<BaseModel>();
                     while (reader.Read())
                     {
-                        var customer = new CustomerInfo()
+                        var customer = new BaseModel()
                         {
                             Id = Converter.ToInt(reader["custid"]),
                             Name = Converter.ToString2(reader["val"])

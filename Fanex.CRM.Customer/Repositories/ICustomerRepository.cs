@@ -28,6 +28,6 @@ namespace Fanex.CRM.Customer.Repositories
 
         IEnumerable<RelatedCustomerSuggestion> GetRelatedCustomerAutoSuggestions(RelatedCustomerAutoSuggestionCriteria criteria);
 
-        IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
+        IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
     }
 }

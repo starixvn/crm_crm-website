@@ -127,7 +127,7 @@ namespace Fanex.CRM.Customer.Services
             });
         }
 
-        public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
             return _customerRepository.VerifyUsername(criteria);
         }
