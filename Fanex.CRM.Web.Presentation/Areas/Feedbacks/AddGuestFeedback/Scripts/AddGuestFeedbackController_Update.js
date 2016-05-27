@@ -83,12 +83,6 @@
         $scope.updateSelectedCountry = function (country) {
             $scope.addGuestFeedbackParams.Country = country;
         };
-        $scope.checkIsRelated = function () {
-            $scope.relatedCustomerOptions.Action = "checkIsRelated";
-            $scope.relatedCustomerOptions.HasRelated = !$scope.addGuestFeedbackParams.HasRelated;
-            $scope.relatedCustomerOptions.IsUpdate = true;
-        };
-
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;
         };

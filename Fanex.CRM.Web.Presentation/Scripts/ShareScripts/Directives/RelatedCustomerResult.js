@@ -1,9 +1,11 @@
 ﻿(function () {
     "use strict";
+    var NUM_OF_COLUMNS = 3;
+
     directiveManager = directiveManager || {};
     directiveManager.registerRelatedCustomerResult = function (angularApplication) {
         angularApplication.directive('relatedcustomerresult', function () {
-            var renderRow = function (customer) {
+            var renderHtmlCell = function (customer) {
                 if (!customer) {
                     return;
                 }
@@ -11,44 +13,56 @@
                 var html;
                 if (customer && customer.Id !== 0) {
                     if (customer.Id > 0) {
-                        html = '<tr>\
-                        <td id="' + customer.Id + '" value="' + customer.Name + '">\
+                        html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
                                 <a rel="friend" class="txt-customer">\
                                     <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></span>' + customer.Name + '</a>\
-                         </td>\
-                     </tr>';
+                         </td>';
                     }
                     else {
-                        html = '<tr>\
-                        <td id="' + customer.Id + '" value="' + customer.Name + '">\
+                        html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
                                 <a rel="friend" class="txt-guest">\
                                     <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></span>' + customer.Name + '</a>\
-                        </td>\
-                    </tr>';
+                        </td>';
                     }
                 }
                 else {
-                    html = '<tr class="invalidcustomers">\
-                        <td id="' + customer.Id + '" value="' + customer.Name + '">\
+                    html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customer.Name + '">\
                                 <a rel="friend" class="txt-invalid">\
                                     <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-all-invalid"></span>' + customer.Name + '</a>\
-                        </td>\
-                    </tr>';
+                        </td>';
                 }
 
                 return html;
             };
 
             var renderRelatedCustomers = function (scope, customers) {
+
                 if (!customers || customers.length === 0) {
                     return;
                 }
 
                 var rows = [];
+
+                var columnIndex = 0;
+                var row = "";
                 angular.forEach(customers, function (customer, index) {
                     /* jshint unused: false */
-                    rows.push(renderRow(customer));
+                    var cell = renderHtmlCell(customer);
+                    if (columnIndex < NUM_OF_COLUMNS) {
+                        row += cell;
+                        columnIndex++;
+                    }
+                    
+                    if (columnIndex == NUM_OF_COLUMNS){
+                        rows.push("<tr>" + row + "</tr>");
+                        row = "";
+                        columnIndex = 0;
+                    }
                 });
+
+                if (row != "") {
+                    rows.push("<tr>" + row + "</tr>");
+                }
 
                 var table = $('#related');
                 table.html(rows.join(''));
