@@ -73,8 +73,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.SearchFeedbackSubjectTemplate(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -82,8 +81,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
             Result result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -91,8 +89,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.GetFeedbackSubjectTemplate(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -100,8 +97,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.EditTemplate(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -109,8 +105,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.InsertTemplate(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

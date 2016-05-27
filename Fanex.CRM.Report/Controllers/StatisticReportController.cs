@@ -68,8 +68,7 @@ namespace Fanex.CRM.Report.Controllers
         public JsonWithoutNullField GetStatisticReport(GetStatisticReportCriteria criteria)
         {
             var logs = _statisticReportService.StatisticReport(criteria);
-            var jsonResult = new JsonWithoutNullField(logs);
-            return jsonResult;
+            return new JsonWithoutNullField(logs);
         }
 
         public ActionResult ExportStatisticReport(GetStatisticReportCriteria criteria)

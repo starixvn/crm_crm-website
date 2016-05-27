@@ -61,8 +61,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult MainSetting()
         {
             var result = _settingRelationService.GetMainSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -70,8 +69,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingRelationService.GetSettingByTypes(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -79,8 +77,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
             var result = _settingRelationService.GetMainSettingForAddRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -88,8 +85,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.MainSettingRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -97,8 +93,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.GetAddSettingRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

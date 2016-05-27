@@ -36,40 +36,35 @@ namespace Fanex.CRM.Setting.Controllers
         public JsonResult AllSite()
         {
             var allSite = _settingServiceInstance.GetAllSiteWithGroup();
-            var jsonResult = Json(allSite, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allSite, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllTitle()
         {
             var allTitle = _settingServiceInstance.GetAllTitles();
-            var jsonResult = Json(allTitle, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allTitle, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllCountry()
         {
             var allCountry = _settingServiceInstance.GetAllCountries();
-            var jsonResult = Json(allCountry, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allCountry, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllLanguage()
         {
             var allLanguage = _settingServiceInstance.GetAllLanguages();
-            var jsonResult = Json(allLanguage, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allLanguage, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllExtension()
         {
             var allExtension = _settingServiceInstance.GetAllExtensions();
-            var jsonResult = Json(allExtension, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allExtension, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -83,56 +78,49 @@ namespace Fanex.CRM.Setting.Controllers
         public JsonResult AllMainCategory()
         {
             var allCategory = _settingServiceInstance.GetAllMainCategories();
-            var jsonResult = Json(allCategory, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allCategory, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllProduct()
         {
             var allProduct = _settingServiceInstance.GetAllSubProducts();
-            var jsonResult = Json(allProduct, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allProduct, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllStatus()
         {
             var allStatus = _settingServiceInstance.GetAllStatuses(ViewTypeConstants.All);
-            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allStatus, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllRole()
         {
             var allRole = _settingServiceInstance.GetAllRoles();
-            var jsonResult = Json(allRole, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allRole, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllResponse()
         {
             var allResponse = _settingServiceInstance.GetAllResponses();
-            var jsonResult = Json(allResponse, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allResponse, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult NumberOfFeedbackSubjectTemplate()
         {
             var numberOfFeedbackSubjectTemplate = _settingServiceInstance.NumberOfFeedbackSubjectTemplate();
-            var jsonResult = Json(numberOfFeedbackSubjectTemplate, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(numberOfFeedbackSubjectTemplate, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
             var feedbackSubjectTemplateByPagingIndex = _settingServiceInstance.GetFeedbackSubjectTemplateByPagingIndex(criteria);
-            var jsonResult = Json(feedbackSubjectTemplateByPagingIndex, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(feedbackSubjectTemplateByPagingIndex, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

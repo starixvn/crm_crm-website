@@ -238,8 +238,7 @@ namespace Fanex.CRM.Communication.Controllers
         public JsonResult AllStatus()
         {
             var allStatus = _communicationServiceLog.AllStatusForInsert;
-            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(allStatus, JsonRequestBehavior.AllowGet);
         }
     }
 }

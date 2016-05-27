@@ -105,8 +105,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult MainSetting()
         {
             var result = _settingManagementService.GetMainSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -114,8 +113,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult ParentSetting()
         {
             var result = _settingManagementService.GetParentSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -123,8 +121,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingManagementService.SettingByType(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -132,8 +129,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult InsertSetting(InsertSettingCriteria criteria)
         {
             var result = _settingManagementService.InsertSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -141,8 +137,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
         {
             Result result = _settingManagementService.DeleteSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -150,8 +145,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult EditSetting(EditSettingCriteria criteria)
         {
             var result = _settingManagementService.EditSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

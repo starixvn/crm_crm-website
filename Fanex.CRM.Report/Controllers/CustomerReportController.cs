@@ -64,8 +64,7 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult GetCustomerReport(GetCustomerReportCriteria criteria)
         {
             var customerReport = _customerReportService.GetCustomerReport(criteria);
-            var jsonResult = Json(customerReport, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(customerReport, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportCustomerReport(GetCustomerReportCriteria criteria)

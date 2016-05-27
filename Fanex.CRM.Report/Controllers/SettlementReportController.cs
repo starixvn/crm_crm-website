@@ -50,8 +50,7 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             var logs = _settlementReportService.GetSettlementReport(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(logs, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportSettlementReport(GetSettlementReportCriteria criteria)

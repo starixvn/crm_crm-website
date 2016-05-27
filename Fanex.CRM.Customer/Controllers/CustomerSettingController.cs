@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
@@ -36,7 +35,7 @@ namespace Fanex.CRM.Customer.Controllers
         {
             _customerService = customerServiceInstance ?? new CustomerService();
         }
-        
+
         public ActionResult ShortCustomerInfo()
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
@@ -82,8 +81,7 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -94,24 +92,13 @@ namespace Fanex.CRM.Customer.Controllers
                 {
                     CustomerNamePharse = tag
                 });
-            JsonResult jsonResult = Json(result);
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Verifies the name of the user.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// Verify result.
-        /// </returns>
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            var jsonResult = Json(_customerService.VerifyUsername(criteria));
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
+            return Json(_customerService.VerifyUsername(criteria), JsonRequestBehavior.AllowGet);
         }
     }
 }
