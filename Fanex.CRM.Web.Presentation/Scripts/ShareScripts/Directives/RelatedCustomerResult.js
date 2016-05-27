@@ -70,7 +70,7 @@
                 table.find('.icon-del-single').unbind('click').bind('click', function () {
                     var custId = parseInt($(this).data('customer-id'));
                     $('#' + custId).parent().remove();
-                    scope.relatedCustomerResult.relatedCustomers = customers.filter(function (value) {
+                    scope.relatedCustomerResultDirective.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== custId;
                     });
 
@@ -78,7 +78,7 @@
                 });
                 table.find('.icon-del-all-invalid').unbind('click').bind('click', function () {
                     $('.invalidcustomers').remove();
-                    scope.relatedCustomerResult.relatedCustomers = customers.filter(function (value) {
+                    scope.relatedCustomerResultDirective.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== 0;
                     });
 
@@ -107,8 +107,8 @@
                     scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                         renderRelatedCustomers(scope, newVal);
                     });
-                    scope.relatedCustomerResult = {};
-                    scope.relatedCustomerResult.verifyUsernames = function (username) {
+                    scope.relatedCustomerResultDirective = {};
+                    scope.relatedCustomerResultDirective.verifyUsernames = function (username) {
                         if (username === '') {
                             return;
                         }
@@ -123,10 +123,10 @@
                                 customers.push({ Id: customer.Id, Name: customer.Name });
                             });
 
-                            scope.relatedCustomerResult.relatedCustomers = combineCustomers(scope.relatedCustomerResult.relatedCustomers, customers);
+                            scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
                             attrs.ngModel = '';
 
-                            renderRelatedCustomers(scope, scope.relatedCustomerResult.relatedCustomers);
+                            renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
                             $uiBlockerService.unblockUI();
                         },
                         function () {

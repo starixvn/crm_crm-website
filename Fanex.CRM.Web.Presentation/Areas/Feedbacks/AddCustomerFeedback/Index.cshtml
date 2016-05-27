@@ -478,11 +478,13 @@
                                         class="btnHelp pull-left tipsy-directive"
                                         title="@Labels.Related_Help"
                                         data-ng-model="tipsyOptions.IsUpdateTip" />
-                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                                        </select>
+                                        <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
+                                               data-ng-model="customersInput"
+                                               data-ng-disabled="!addCustomerFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
-                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyUserName();" disabled
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUserName(customersInput);" 
+                                            data-ng-disabled ="customersInput === ''"
                                             tabindex="79">
                                             V<span class="hotkey">e</span>rify</button>
                                     </div>
@@ -495,9 +497,8 @@
                                     <div class="col-sm-2 col-md-2 relate-invalid">
                                         @Language.Invalid</div>
                                 </div>
-                                <div id="trRelatedInfo" class="row display-none relatedFeedback">
-                                    <table id="related">
-                                    </table>
+                                <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="addCustomerFeedbackParams.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
+                                    <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
                                 </div>
                             </div>
                         </div>

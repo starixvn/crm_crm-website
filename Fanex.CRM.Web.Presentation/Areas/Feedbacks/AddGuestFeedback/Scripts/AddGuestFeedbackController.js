@@ -58,7 +58,6 @@
             }
         };
 
-        $scope.relatedCustomers = [];
         $scope.customersInput = '';
 
         $scope.isShowCustomerDetailBox = true;
@@ -226,49 +225,11 @@
             $scope.isShowSolutionPreview = false;
         };
 
-        // Functions of Related customers.
-        $scope.verifyUsernames = function (username) {
-            if (username !== '') {
-                username = username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
-                $uiBlockerService.blockUI();
-                addGuestFeedbackService.verifyUsernames({ Username: username })
-                .then(function (data) {
-                    var customers = [];
-                    angular.forEach(data.Result, function (customer, index) {
-                        /* jshint unused: false */
-                        customers.push({ Id: customer.Id, Name: customer.Name });
-                    });
-
-                    $scope.relatedCustomers = $scope.getRelatedCustomers(customers);
-                    $scope.customersInput = '';
-
-                    $uiBlockerService.unblockUI();
-                },
-                function () {
-                    $uiBlockerService.unblockUI();
-                });
-            }
-        };
-
-        $scope.getRelatedCustomers = function (customerList) {
-            var customers = $scope.relatedCustomers.concat(customerList);
-            // unique customer.
-            for (var i = 0; i < customers.length; ++i) {
-                for (var j = i + 1; j < customers.length; ++j) {
-                    if (customers[i].Id === customers[j].Id) {
-                        customers.splice(j--, 1);
-                    }
-                }
-            }
-
-            return customers;
-        }
-
         $scope.getRelatedCustomerId = function () {
             var ids = "";
-            if ($scope.addGuestFeedbackParams.HasRelated && $scope.relatedCustomers.length > 0) {
+            if ($scope.addGuestFeedbackParams.HasRelated && $scope.relatedCustomerResultDirective.relatedCustomers.length > 0) {
                 var relatedCustomerIds = [];
-                angular.forEach($scope.relatedCustomers, function (customer, index) {
+                angular.forEach($scope.relatedCustomerResultDirective.relatedCustomers, function (customer, index) {
                     /* jshint unused: false */
                     relatedCustomerIds.push(customer.Id);
                 });

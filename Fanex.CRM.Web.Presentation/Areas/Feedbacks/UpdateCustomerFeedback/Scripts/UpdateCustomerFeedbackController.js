@@ -365,9 +365,9 @@
         $scope.updateCustomerFeedback = function (feedback) {
             $uiBlockerService.blockUI();
             if (feedback.HasRelated) {
-                if ($scope.relatedCustomerResult.relatedCustomers.length > 0) {
+                if ($scope.relatedCustomerResultDirective.relatedCustomers.length > 0) {
                     var relatedCustomerIds = [];
-                    angular.forEach($scope.relatedCustomerResult.relatedCustomers, function (customer, index) {
+                    angular.forEach($scope.relatedCustomerResultDirective.relatedCustomers, function (customer, index) {
                         /* jshint unused: false */
                         relatedCustomerIds.push(customer.Id);
                     });
@@ -432,12 +432,12 @@
                 return;
             }
 
-            $scope.relatedCustomerResult.verifyUsernames($scope.customersInput);
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput);
         };
 
         $scope.initRelatedCustomer = function () {
             if ($scope.feedback.HasRelated) {                
-                $scope.relatedCustomerResult.verifyUsernames($scope.feedback.RelatedCustomer);
+                $scope.relatedCustomerResultDirective.verifyUsernames($scope.feedback.RelatedCustomer);
             }
         };
 
