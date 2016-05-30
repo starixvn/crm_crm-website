@@ -34,14 +34,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         public RedirectResult Index()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/SignIn", true);
-            }
-            else
-            {
-                return new RedirectResult("~/Home/Default");
-            }
+            return new RedirectResult("~/Home/Default");
         }
 
         public ActionResult BlankPage()
@@ -55,11 +48,6 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/SignIn");
-            }
-
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 

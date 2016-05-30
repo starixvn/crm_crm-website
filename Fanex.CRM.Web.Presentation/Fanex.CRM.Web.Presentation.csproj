@@ -902,7 +902,6 @@
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
     <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
-    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
     <Content Include="Scripts\ShareScripts\Directives\RelatedCustomerResult.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />

@@ -77,7 +77,7 @@ namespace Fanex.CRM.Feedback.Bundles
                     "~/Scripts/ShareScripts/Directives/HtmlArea.js",
                     "~/Scripts/ShareScripts/Directives/RawHtml.js",
                     "~/Scripts/ShareScripts/Directives/TipsyDirective.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomer.js",
+                    "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                     "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                     "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",

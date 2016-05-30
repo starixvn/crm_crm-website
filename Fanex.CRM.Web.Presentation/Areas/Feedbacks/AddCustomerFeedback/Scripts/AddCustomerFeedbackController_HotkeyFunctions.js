@@ -15,13 +15,7 @@
             $scope.safeApply();
         };
         $scope.invokeHotKey_CtrlE = function () {
-            if ($scope.addCustomerFeedbackParams.RelatedCustomerId === '' ||
-                $scope.addCustomerFeedbackParams.RelatedCustomerId === null ||
-                $scope.addCustomerFeedbackParams.RelatedCustomerId === undefined) {
-                return;
-            }
-
-            $scope.verifyUserName();
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput);
         };
     };
 })();

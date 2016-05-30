@@ -226,13 +226,6 @@
         $scope.showSolutionEditor = function () {
             $scope.isShowSolutionPreview = false;
         };
-
-        $scope.verifyUserName = function () {
-            $scope.relatedCustomerOptions.Action = "verifyUserName";
-            $scope.relatedCustomerOptions.IsUpdate = true;
-            $scope.isEditingRelatedCustomer = false;
-            $scope.safeApply();
-        };
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
             var params = angular.copy($scope.addCustomerFeedbackParams);

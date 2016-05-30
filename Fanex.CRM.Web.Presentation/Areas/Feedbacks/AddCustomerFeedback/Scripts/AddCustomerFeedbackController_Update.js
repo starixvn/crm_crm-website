@@ -88,17 +88,9 @@
         $scope.updateRelatedCustomer = function (relatedCustomer) {
             $scope.addCustomerFeedbackParams.RelatedCustomerId = relatedCustomer;
         };
-        $scope.checkIsRelated = function () {
-            $scope.relatedCustomerOptions.Action = "checkIsRelated";
-            $scope.relatedCustomerOptions.HasRelated = !$scope.addCustomerFeedbackParams.HasRelated;
-            $scope.relatedCustomerOptions.IsUpdate = true;
-        };
 
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;
-        };
-        $scope.completeUpdateRelatedCustomer = function () {
-            $scope.relatedCustomerOptions.IsUpdate = false;
         };
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
