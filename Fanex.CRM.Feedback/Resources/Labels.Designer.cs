@@ -340,7 +340,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
+        ///   Looks up a localized string similar to You must verify the username before saving this feedback..
         /// </summary>
         public static string Error_VerifyRelatedCustomer {
             get {

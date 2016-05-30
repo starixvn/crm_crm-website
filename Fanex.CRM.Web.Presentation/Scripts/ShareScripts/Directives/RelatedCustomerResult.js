@@ -124,6 +124,7 @@
                             });
 
                             scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
+                            scope.customersInput = '';
                             attrs.ngModel = '';
 
                             renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
@@ -134,9 +135,9 @@
                         });
                     };
 
-                    scope.relatedCustomerResultDirective.convertIdListToString = function () {
+                    scope.relatedCustomerResultDirective.getRelatedCustomerId = function () {
                         var IdString = "";
-                        var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers;
+                        var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
                         if (relatedCustomers.length > 0) {
                             var relatedCustomerIds = [];
                             angular.forEach(relatedCustomers, function (customer) {

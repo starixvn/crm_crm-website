@@ -396,7 +396,7 @@
             var updateCriteria = {
                 FeedbackId: $scope.communicationLog.RunningNumber,
                 CustomerId: $scope.communicationLog.CustomerId,
-                RelatedCustomerId: $scope.relatedCustomerResultDirective.convertIdListToString(),
+                RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
                 LanguageId: $scope.communicationLog.Language.Id,
                 CountryId: $scope.communicationLog.Country.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -509,6 +509,11 @@
 
             if (result && criteria.Subject === '') {
                 $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
+                result = false;
+            }
+
+            if (result && $scope.customersInput !== '') {
+                $scope.resultMessage = viewResources.CustomerVerification;
                 result = false;
             }
 

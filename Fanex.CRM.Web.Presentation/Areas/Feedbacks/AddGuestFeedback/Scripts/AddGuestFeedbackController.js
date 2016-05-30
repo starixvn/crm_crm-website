@@ -71,8 +71,6 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.isLoadedAllSettings = false;
         $scope.isLoading = true;
-        $scope.isEditingRelatedCustomer = false;
-        $scope.inputRelatedCustomerLength = 0;
         $scope.allSettings = null;
 
         $scope.lastRemarkPrefix = '';
@@ -228,7 +226,7 @@
 
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
-            $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.convertIdListToString();
+            $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.getRelatedCustomerId();
             var params = angular.copy($scope.addGuestFeedbackParams);
             params.CustomerInfo = $scope.customerInfo;
             params.StartTime = sharedScriptManager.formatTimeToSendToServer($scope.addGuestFeedbackParams.StartTime);
@@ -302,9 +300,7 @@
                 result = false;
             }
 
-            if (result &&
-                $scope.isEditingRelatedCustomer &&
-                $scope.inputRelatedCustomerLength) {
+            if (result && $scope.addGuestFeedbackParams.HasRelated && $scope.customersInput !== '') {
                 message = viewResources.Error_VerifyRelatedCustomer;
                 result = false;
             }

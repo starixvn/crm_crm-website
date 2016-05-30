@@ -141,7 +141,7 @@ namespace Fanex.CRM.Feedback.Criteria
             // RelatedCustomer parameter:
             // null: don't update anything.
             // string.Empty: update RelatedCustomer to empty.
-            inputParams.Add("relatedcustid", HasRelated ? RelatedCustomer : string.Empty);
+            inputParams.Add("relatedcustid", HasRelated ? (RelatedCustomer ?? string.Empty) : string.Empty);
 
             if (IsReviewed)
             {

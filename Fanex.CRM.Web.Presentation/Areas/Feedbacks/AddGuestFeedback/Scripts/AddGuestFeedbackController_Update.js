@@ -89,9 +89,5 @@
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
         };
-        $scope.updateEditProcess = function (relatedCustomerLength) {
-            $scope.inputRelatedCustomerLength = relatedCustomerLength;
-            $scope.isEditingRelatedCustomer = true;
-        };
     };
 })();

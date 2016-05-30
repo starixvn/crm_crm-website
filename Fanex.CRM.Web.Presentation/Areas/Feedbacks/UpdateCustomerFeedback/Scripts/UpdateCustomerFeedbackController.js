@@ -319,6 +319,11 @@
                 return false;
             }
 
+            if (feedback.HasRelated && $scope.customersInput !== '') {
+                $scope.errorMessage(updateFeedbackResources.CustomerVerification);
+                return false;
+            }
+
             $scope.requiredManager.subject = feedback.Subject.trim().length !== 0;
             if (!$scope.requiredManager.subject) {
                 $scope.errorMessage(updateFeedbackResources.EmptySubject);
@@ -364,20 +369,7 @@
 
         $scope.updateCustomerFeedback = function (feedback) {
             $uiBlockerService.blockUI();
-            if (feedback.HasRelated) {
-                if ($scope.relatedCustomerResultDirective.relatedCustomers.length > 0) {
-                    var relatedCustomerIds = [];
-                    angular.forEach($scope.relatedCustomerResultDirective.relatedCustomers, function (customer, index) {
-                        /* jshint unused: false */
-                        relatedCustomerIds.push(customer.Id);
-                    });
-
-                    feedback.RelatedCustomer = relatedCustomerIds.join(',');
-                }
-                else {
-                    feedback.RelatedCustomer = null;
-                }
-            }
+            feedback.RelatedCustomer = $scope.relatedCustomerResultDirective.getRelatedCustomerId();
 
             feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
             $scope.assignIdForParam(feedback);
