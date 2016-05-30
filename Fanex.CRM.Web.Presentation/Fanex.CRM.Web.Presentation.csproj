@@ -331,7 +331,6 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />

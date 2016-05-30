@@ -224,26 +224,11 @@
         $scope.showSolutionEditor = function () {
             $scope.isShowSolutionPreview = false;
         };
-
-        $scope.getRelatedCustomerId = function () {
-            var ids = "";
-            if ($scope.addGuestFeedbackParams.HasRelated && $scope.relatedCustomerResultDirective.relatedCustomers.length > 0) {
-                var relatedCustomerIds = [];
-                angular.forEach($scope.relatedCustomerResultDirective.relatedCustomers, function (customer, index) {
-                    /* jshint unused: false */
-                    relatedCustomerIds.push(customer.Id);
-                });
-
-                ids = relatedCustomerIds.join(',');
-            }
-
-            return ids;
-        }
         // ---------- End of Functions of Related customers ----------
 
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
-            $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.getRelatedCustomerId();
+            $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.convertIdListToString();
             var params = angular.copy($scope.addGuestFeedbackParams);
             params.CustomerInfo = $scope.customerInfo;
             params.StartTime = sharedScriptManager.formatTimeToSendToServer($scope.addGuestFeedbackParams.StartTime);

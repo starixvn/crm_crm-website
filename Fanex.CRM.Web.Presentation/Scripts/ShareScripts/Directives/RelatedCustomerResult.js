@@ -133,6 +133,21 @@
                             $uiBlockerService.unblockUI();
                         });
                     };
+
+                    scope.relatedCustomerResultDirective.convertIdListToString = function () {
+                        var IdString = "";
+                        var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers;
+                        if (relatedCustomers.length > 0) {
+                            var relatedCustomerIds = [];
+                            angular.forEach(relatedCustomers, function (customer) {
+                                relatedCustomerIds.push(customer.Id);
+                            });
+
+                            IdString = relatedCustomerIds.join(',');
+                        }
+
+                        return IdString;
+                    }
                 }
             };
         }]);

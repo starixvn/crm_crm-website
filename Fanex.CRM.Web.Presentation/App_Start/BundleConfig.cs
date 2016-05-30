@@ -200,11 +200,13 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogOption.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
