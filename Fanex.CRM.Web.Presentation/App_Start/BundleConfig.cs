@@ -225,10 +225,12 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
