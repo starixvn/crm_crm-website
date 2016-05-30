@@ -466,7 +466,7 @@
                         <div class="row item">
                             <div class="col-xs-3 col-sm-2 col-md-2">
                                 <label class="labelforcheckbox checkbox">
-                                    <input type="checkbox" id="chkisrelated" data-ng-click="checkIsRelated();" data-ng-model="addCustomerFeedbackParams.HasRelated"
+                                    <input type="checkbox" id="chkisrelated" data-ng-model="addCustomerFeedbackParams.HasRelated"
                                         tabindex="78" />
                                     @Language.IsRelatedCustomer
                                 </label>
@@ -474,7 +474,7 @@
                             <div class="col-xs-9 col-sm-10 col-md-10">
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11 related-customer-directive-container">
-                                        <input type="button" value="  " id="btnRelatedHelp"
+                                        <input type="button" id="btnRelatedHelp"
                                         class="btnHelp pull-left tipsy-directive"
                                         title="@Labels.Related_Help"
                                         data-ng-model="tipsyOptions.IsUpdateTip" />
@@ -483,13 +483,13 @@
                                                data-ng-disabled="!addCustomerFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
-                                        <button id="btnverify" class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUserName(customersInput);" 
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUsernames(customersInput)" 
                                             data-ng-disabled ="customersInput === ''"
                                             tabindex="79">
                                             V<span class="hotkey">e</span>rify</button>
                                     </div>
                                 </div>
-                                <div id="ColorGuide" class="row display-none colorGuide">
+                                <div id="ColorGuide" class="row colorGuide" data-ng-show="addCustomerFeedbackParams.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
                                     <div class="col-sm-2 col-md-2 relate-customer">
                                         @Language.Customer</div>
                                     <div class="col-sm-2 col-md-2 relate-guest">
@@ -582,7 +582,6 @@
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
     @RazorHelper.RenderScripts("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
-    @RazorHelper.RenderScripts("~/Scripts/InputBox/jquery.fcbkcomplete.js")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")

@@ -20,6 +20,7 @@
     angular.module('feedbacks-addcustomerfeedback-application').controller('addCustomerFeedbackController',
     ['$scope', '$uiBlockerService', 'addCustomerFeedbackService',
     function ($scope, $uiBlockerService, addCustomerFeedbackService) {
+        $scope.customersInput = '';
         $scope.customerInfo = {
             Id: parent.homeManager.CachedData.currentCustomer.Id,
             Name: parent.homeManager.CachedData.currentCustomer.Name
@@ -228,6 +229,7 @@
         };
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
+            $scope.addCustomerFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.getRelatedCustomerId();
             var params = angular.copy($scope.addCustomerFeedbackParams);
             params.CustomerInfo = $scope.customerInfo;
             params.StartTime = sharedScriptManager.formatTimeToSendToServer($scope.addCustomerFeedbackParams.StartTime);
@@ -295,9 +297,7 @@
                 result = false;
             }
 
-            if (result &&
-                $scope.isEditingRelatedCustomer &&
-                $scope.inputRelatedCustomerLength) {
+            if (result && params.HasRelated && $scope.customersInput !== '') {
                 message = viewResources.Error_VerifyRelatedCustomer;
                 result = false;
             }
