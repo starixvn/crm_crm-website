@@ -172,18 +172,6 @@
                 Id: $scope.defaultSettings.CountryId
             };
 
-            $scope.communicationLog.Product = {
-                Id: crmConstants.Enums.Product.NotApply
-            };
-
-            $scope.communicationLog.SubProduct = {
-                Id: crmConstants.Enums.SubProduct.NotApply
-            };
-
-            $scope.communicationLog.BetType = {
-                Id: crmConstants.Enums.BetType.NotApply
-            };
-
             $scope.communicationLog.SiteInfo = {
                 Id: $scope.defaultSettings.SiteId
             };
@@ -246,11 +234,6 @@
 
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.communicationLog.SubProduct = subProduct;
-            if (!subProduct.ChildSettings) {
-                var notApplySetting = $scope.subProductOptions.DataList[0];
-                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
-
             $scope.betTypeList = subProduct.ChildSettings;
             $scope.communicationLog.BetType = $scope.betTypeList[0];
             $scope.safeApply();
