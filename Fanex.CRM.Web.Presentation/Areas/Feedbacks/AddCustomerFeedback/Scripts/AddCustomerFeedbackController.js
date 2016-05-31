@@ -38,8 +38,6 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.isLoadedAllSettings = false;
         $scope.isLoading = true;
-        $scope.isEditingRelatedCustomer = false;
-        $scope.inputRelatedCustomerLength = 0;
         $scope.allSettings = null;
 
         $scope.lastRemarkPrefix = '';

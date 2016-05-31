@@ -300,7 +300,7 @@
                 result = false;
             }
 
-            if (result && $scope.addGuestFeedbackParams.HasRelated && $scope.customersInput !== '') {
+            if (result && params.HasRelated && $scope.customersInput !== '') {
                 message = viewResources.Error_VerifyRelatedCustomer;
                 result = false;
             }

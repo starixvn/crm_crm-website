@@ -12,7 +12,7 @@ namespace Fanex.CRM.Communication.Repositories
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Text;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -71,7 +71,7 @@ namespace Fanex.CRM.Communication.Repositories
                             });
                         }
 
-                        log.RelatedCustomers = relatedCustomers;
+                        log.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                     }
 
                     return log;

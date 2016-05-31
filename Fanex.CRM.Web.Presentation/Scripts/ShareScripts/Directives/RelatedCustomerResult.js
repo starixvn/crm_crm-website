@@ -90,13 +90,17 @@
                 // unique customer.
                 for (var i = 0; i < customers.length; ++i) {
                     for (var j = i + 1; j < customers.length; ++j) {
-                        if (customers[j].Id !== 0 && customers[i].Id === customers[j].Id) {
+                        if (isDuplicatedCustomer(customers[i], customers[j])) {
                             customers.splice(j--, 1);
                         }
                     }
                 }
 
                 return customers;
+            }
+
+            function isDuplicatedCustomer(source, target) {
+                return source.Id === target.Id && source.Name === target.Name;
             }
 
             return {

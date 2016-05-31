@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Criteria
     using System;
     using System.Collections;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
@@ -141,7 +142,7 @@ namespace Fanex.CRM.Feedback.Criteria
             // RelatedCustomer parameter:
             // null: don't update anything.
             // string.Empty: update RelatedCustomer to empty.
-            inputParams.Add("relatedcustid", HasRelated ? (RelatedCustomer ?? string.Empty) : string.Empty);
+            inputParams.Add("relatedcustid", HasRelated ? GetRelatedCustomerId() : string.Empty);
 
             if (IsReviewed)
             {
@@ -159,6 +160,11 @@ namespace Fanex.CRM.Feedback.Criteria
             // 2: Remove review.
             inputParams.Add("updatereviewedmode", UpdateReviewMode);
             return inputParams;
+        }
+
+        private string GetRelatedCustomerId()
+        {
+            return string.Join(",", RelatedCustomers.Select(c => c.Id));
         }
     }
 }
