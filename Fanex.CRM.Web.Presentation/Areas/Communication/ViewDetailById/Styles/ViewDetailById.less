@@ -32,162 +32,23 @@
     margin-top: 26px;
 }
 
-.related-customer-container {
-    .holder {
-        border: 1px solid #B1B1B1;
-        height: auto !important;
-        max-height: 65px;
-        margin: 0;
-        overflow: auto;
-        padding: 5px;
-        margin: 0 !important;
-        width: 100%!important;
-
-        li {
-            float: left;
-            list-style-type: none;
-            white-space: nowrap;
-            width: auto;
-        }
-
-        .bit-input input {
-            border: 0 none;
-            margin: 0;
-            outline: 0 none;
-            overflow: visible;
-            padding: 3px 0;
-            width: auto;
-        }
-    }
-
-    ul.holder li.bit-box, #apple-list ul.holder li.bit-box {
-        padding-right: 15px;
-        position: relative;
-        z-index: 1000;
-    }
-
-    ul.holder li.bit-box {
-        background: #DEE7F8;
-        border: 1px solid #CAD8F3;
-        padding: 0 16px 0 5px;
-        width: auto;
-        margin: 1px 3px 0 0;
-        .border-radius(2px);
-
-        a.closebutton {
-            background: url("Images/close.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
-            display: block;
-            font-size: 1px;
-            height: 7px;
-            position: absolute;
-            right: 4px;
-            top: 5px;
-            width: 7px;
-        }
-    }
-
-    a.closebutton, a.closebutton:hover {
-        background-position: center bottom;
-    }
-
-    a.closebutton {
-        background: url("Images/close.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
-        display: block;
-        font-size: 1px;
-        height: 7px;
-        position: absolute;
-        right: 4px;
-        top: 5px;
-        width: 7px;
-    }
-}
-/* Autocompleter */
-.facebook-auto {
-    display: none;
-    position: absolute;
-    background: #eee;
-    z-index: 1001;
-
-    .select_all_items {
-        display: block;
-        float: right;
-    }
-
-    .default {
-        padding: 5px 7px;
-        border: 1px solid #ccc;
-        border-width: 0 1px 1px;
-        font-size: 11px;
-    }
-
-    ul {
-        display: none;
-        margin: 0;
-        padding: 0;
-        overflow: auto;
-        position: absolute;
-        z-index: 9999;
-
-        li {
-            padding: 5px 12px;
-            z-index: 1000;
-            cursor: pointer;
-            margin: 0;
-            list-style-type: none;
-            border: 1px solid #ccc;
-            border-width: 0 1px 1px;
-            font-size: 11px;
-            background-color: #eee;
-
-            em {
-                font-weight: bold;
-                font-style: normal;
-                background: #ccc;
-            }
-
-            &.auto-focus {
-                background: #4173CC;
-                color: #fff;
-
-                em {
-                    background: none;
-                }
-            }
-        }
-    }
-}
-
 .display-none  {
     display: none;
-}
-
-/* Color for verify*/
-.relate-customer {
-    border-left: 17px solid #008000;
-    padding-left: 5px;
-}
-
-.relate-guest {
-    border-left: 17px solid #0066CC;
-    padding-left: 5px;
-}
-
-.relate-invalid {
-    border-left: 17px solid #FF0000;
-    padding-left: 5px;
 }
 
 .related {
     border: 1px solid @border-color;
     height: auto;
     max-height: 227px;
-    margin-top: 10px;
     overflow: auto;
     padding: 5px;
 
     td {
         padding-bottom: 5px;
     }
+}
+.icon-del{
+    display: none;
 }
 
 /* Formatting for palette in html */

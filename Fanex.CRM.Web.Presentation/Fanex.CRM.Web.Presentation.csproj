@@ -374,7 +374,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdOption.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdApplication.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdController.js" />

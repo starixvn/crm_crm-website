@@ -80,6 +80,7 @@
         };
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.communicationLog.RelatedCustomers);
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {
