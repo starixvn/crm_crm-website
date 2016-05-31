@@ -428,7 +428,7 @@
         };
 
         $scope.initRelatedCustomer = function () {
-            if ($scope.feedback.HasRelated) {                
+            if ($scope.feedback.HasRelated) {
                 $scope.relatedCustomerResultDirective.verifyUsernames($scope.feedback.RelatedCustomer);
             }
         };

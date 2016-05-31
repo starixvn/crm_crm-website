@@ -90,7 +90,7 @@
                 // unique customer.
                 for (var i = 0; i < customers.length; ++i) {
                     for (var j = i + 1; j < customers.length; ++j) {
-                        if (customers[i].Id === customers[j].Id) {
+                        if (customers[j].Id !== 0 && customers[i].Id === customers[j].Id) {
                             customers.splice(j--, 1);
                         }
                     }
@@ -98,6 +98,22 @@
 
                 return customers;
             }
+
+            function getInitialRelatedCustomers(idString, nameString) {
+                var idList = idString.split(',').filter(function (value) {
+                    return value !== '';
+                });
+                var nameList = nameString.split(',').filter(function (value) {
+                    return value !== '';
+                });
+
+                var relatedCustomers = [];
+                for (var i = 0; i < idList.length; i++) {
+                    relatedCustomers.push({ Id: idList[i], Name: nameList[i] });
+                }
+
+                return relatedCustomers;
+            };
 
             return {
                 restrict: 'A',
@@ -138,6 +154,9 @@
                     scope.relatedCustomerResultDirective.getRelatedCustomerId = function () {
                         var IdString = "";
                         var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
+                        relatedCustomers = relatedCustomers.filter(function (value) {
+                            return value.Id !== 0;
+                        });
                         if (relatedCustomers.length > 0) {
                             var relatedCustomerIds = [];
                             angular.forEach(relatedCustomers, function (customer) {
@@ -148,7 +167,12 @@
                         }
 
                         return IdString;
-                    }
+                    };
+
+                    scope.relatedCustomerResultDirective.loadRelatedCustomers = function (idString, nameString) {
+                        scope.relatedCustomerResultDirective.relatedCustomers = getInitialRelatedCustomers(idString, nameString);
+                        renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
+                    };
                 }
             };
         }]);
