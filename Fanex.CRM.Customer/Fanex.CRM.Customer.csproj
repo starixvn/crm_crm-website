@@ -188,12 +188,10 @@
     <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
-    <Compile Include="Criteria\RelatedCustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
     <Compile Include="Criteria\VerifyRelatedCustomerCriteria.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
-    <Compile Include="Models\RelatedCustomerSuggestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseCustomerRepository.cs" />
     <Compile Include="Repositories\CustomerDetailRepository.cs" />

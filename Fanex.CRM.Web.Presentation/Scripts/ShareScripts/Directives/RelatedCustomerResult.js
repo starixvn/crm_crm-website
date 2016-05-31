@@ -99,22 +99,6 @@
                 return customers;
             }
 
-            function getInitialRelatedCustomers(idString, nameString) {
-                var idList = idString.split(',').filter(function (value) {
-                    return value !== '';
-                });
-                var nameList = nameString.split(',').filter(function (value) {
-                    return value !== '';
-                });
-
-                var relatedCustomers = [];
-                for (var i = 0; i < idList.length; i++) {
-                    relatedCustomers.push({ Id: idList[i], Name: nameList[i] });
-                }
-
-                return relatedCustomers;
-            };
-
             return {
                 restrict: 'A',
                 require: 'ngModel',
@@ -169,9 +153,9 @@
                         return IdString;
                     };
 
-                    scope.relatedCustomerResultDirective.loadRelatedCustomers = function (idString, nameString) {
-                        scope.relatedCustomerResultDirective.relatedCustomers = getInitialRelatedCustomers(idString, nameString);
-                        renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
+                    scope.relatedCustomerResultDirective.loadRelatedCustomers = function (relatedCustomers) {                        
+                        renderRelatedCustomers(scope, relatedCustomers);
+                        scope.relatedCustomerResultDirective.relatedCustomers = relatedCustomers;
                     };
                 }
             };

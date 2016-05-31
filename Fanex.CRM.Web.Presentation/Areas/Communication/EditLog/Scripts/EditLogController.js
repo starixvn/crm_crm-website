@@ -127,8 +127,7 @@
             $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.communicationLog.Product.Id, $scope.productOptions.DataList);
             $scope.betTypeList = SettingManager.getChildSettings($scope.communicationLog.SubProduct.Id, $scope.subProductOptions.DataList);
 
-            $scope.relatedCustomerResultDirective.loadRelatedCustomers(
-                    $scope.communicationLog.RelatedCustomerIds, $scope.communicationLog.RelatedCustomers);
+            $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
 
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
             $scope.updateChangeFlag();

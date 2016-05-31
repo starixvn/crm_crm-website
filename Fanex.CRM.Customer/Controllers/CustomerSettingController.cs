@@ -84,17 +84,6 @@ namespace Fanex.CRM.Customer.Controllers
             return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public JsonResult RelatedCustomerAutoSuggestion(string tag)
-        {
-            var result = _customerService.RelatedCustomerAutoSuggestion(
-                new RelatedCustomerAutoSuggestionCriteria
-                {
-                    CustomerNamePharse = tag
-                });
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {

@@ -124,28 +124,6 @@ namespace Fanex.CRM.Customer.Repositories
             }
         }
 
-        public IEnumerable<RelatedCustomerSuggestion> GetRelatedCustomerAutoSuggestions(RelatedCustomerAutoSuggestionCriteria criteria)
-        {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var result = new List<RelatedCustomerSuggestion>();
-                    while (reader.Read())
-                    {
-                        var name = Converter.ToString2(reader["UserName"]);
-                        result.Add(new RelatedCustomerSuggestion
-                        {
-                            Key = name,
-                            Value = name
-                        });
-                    }
-
-                    return result;
-                }
-            }
-        }
-
         public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var updateResult = false;

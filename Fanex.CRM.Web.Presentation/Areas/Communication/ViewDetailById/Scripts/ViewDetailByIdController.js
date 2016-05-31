@@ -80,8 +80,7 @@
         };
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
-            $scope.relatedCustomerResultDirective.loadRelatedCustomers(
-                    $scope.communicationLog.RelatedCustomerIds, $scope.communicationLog.RelatedCustomers);
+            $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {

@@ -70,9 +70,7 @@ namespace Fanex.CRM.Common.Models
 
         public Setting LicenseeType { get; set; }
 
-        public string RelatedCustomers { get; set; }
-
-        public string RelatedCustomerIds { get; set; }
+        public System.Collections.Generic.IEnumerable<BaseModel> RelatedCustomers { get; set; }
 
         public string Remark { get; set; }
 
