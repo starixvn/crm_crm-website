@@ -17,6 +17,7 @@ namespace Fanex.CRM.Common.Controllers
     /// <summary>
     /// Common Controller.
     /// </summary>
+    [AllowAnonymous]
     public class CommonController : Controller
     {
         private readonly IMaintenanceService _maintenanceService;

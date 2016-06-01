@@ -62,6 +62,7 @@ namespace Fanex.CRM.ActionLog.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
+        
         [HttpGet]
         [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
         public ActionResult SettingLog()

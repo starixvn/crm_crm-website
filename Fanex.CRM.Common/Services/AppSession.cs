@@ -20,7 +20,6 @@ namespace Fanex.CRM.Common.Services
     {
         private const string CurrentLogInUserKey = "CurrentLogInUser";
         private const string CurrentUserMenuKey = "CurrentUserMenu";
-        private const string RedirectUrlKey = "RedirectUrl";
 
         public static SearchedCustomer CurrentCustomer
         {

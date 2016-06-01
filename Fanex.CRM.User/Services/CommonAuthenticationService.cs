@@ -31,7 +31,7 @@
             _securityService = securityService ?? new SecurityService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
-        
+
         public RecheckInStatus RecheckIn(ICurrentSession currentSession)
         {
             var settings = NapSettings.Settings;
@@ -61,19 +61,12 @@
         public void Logout(ICurrentSession currentSession)
         {
             _securityService.Logout(currentSession.OnUserId);
-            currentSession.ClearAll();
-            ClearAuthenticationTicket();
-        }
-
-        private void ClearAuthenticationTicket()
-        {
             HttpContext.Current.Session.Abandon();
-            HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName)
-            {
-                Expires = DateTime.Now.AddDays(-1)
-            });
-
+            HttpContext.Current.Session.Clear();
+            currentSession.ClearAll();
+            HttpContext.Current.Response.Cookies.Clear();
             FormsAuthentication.SignOut();
         }
+
     }
 }

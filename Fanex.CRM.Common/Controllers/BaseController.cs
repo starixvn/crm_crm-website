@@ -11,11 +11,11 @@ namespace Fanex.CRM.Common.Controllers
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using ONEbook.UM.Filters;
-
+    using Attributes;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [NapSuperAuth]
+    [OverridableNapSupperAuth]
     [CheckUMFilter]
     public class BaseController : Controller
     {
@@ -25,6 +25,7 @@ namespace Fanex.CRM.Common.Controllers
         {
             _permissionService = new PermissionService();
         }
+
 
         protected IPermissionService PermissionService
         {

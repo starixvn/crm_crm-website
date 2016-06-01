@@ -86,18 +86,6 @@ namespace Fanex.CRM.User.Controllers
             return View(LogInViewURL);
         }
 
-        public RedirectResult SignIn()
-        {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/Index", true);
-            }
-            else
-            {
-                return new RedirectResult("~/Home/Index");
-            }
-        }
-
         /// <summary>
         /// Lon In Action.
         /// </summary>
