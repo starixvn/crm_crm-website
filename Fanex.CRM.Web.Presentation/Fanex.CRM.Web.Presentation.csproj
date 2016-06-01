@@ -1080,9 +1080,6 @@
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\dialogbox.js" />
     <Content Include="Scripts\ForceNumberic.js" />
-    <Content Include="Scripts\InputBox\close.gif" />
-    <Content Include="Scripts\InputBox\jquery.fcbkcomplete.js" />
-    <Content Include="Scripts\InputBox\style.css" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea-0.7.0.js" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu-0.7.0.js" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
