@@ -21,6 +21,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
+    using NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Setting Management Controller.
@@ -57,9 +58,9 @@ namespace Fanex.CRM.AdminTool.Controllers
             return View(
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
                  new Setting
-                {
-                    SettingType = settingType
-                });
+                 {
+                     SettingType = settingType
+                 });
         }
 
         [AuthenticateAction(AuthenticationType.Read, "Index")]
@@ -125,7 +126,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertSetting(InsertSettingCriteria criteria)
         {
             var result = _settingManagementService.InsertSetting(criteria);
@@ -133,7 +134,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
         {
             Result result = _settingManagementService.DeleteSetting(criteria);
@@ -141,7 +142,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult EditSetting(EditSettingCriteria criteria)
         {
             var result = _settingManagementService.EditSetting(criteria);

@@ -185,7 +185,7 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
             Result updateResult = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);

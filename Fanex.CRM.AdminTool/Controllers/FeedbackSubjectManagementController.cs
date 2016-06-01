@@ -19,6 +19,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
+    using NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Feedback Subject Management Controller.
@@ -77,7 +78,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
             Result result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
@@ -93,7 +94,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.EditTemplate(criteria);
@@ -101,7 +102,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.InsertTemplate(criteria);

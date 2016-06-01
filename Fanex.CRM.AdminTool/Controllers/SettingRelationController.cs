@@ -19,6 +19,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
+    using NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Setting Relation Controller.
@@ -89,7 +90,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Host)]
         public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.GetAddSettingRelations(criteria);

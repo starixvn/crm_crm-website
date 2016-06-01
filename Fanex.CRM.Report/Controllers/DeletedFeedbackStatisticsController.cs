@@ -39,7 +39,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
         public ActionResult GetReport(DeletedFeedbackStatisticsCriteria criteria)
         {
             return Json(new

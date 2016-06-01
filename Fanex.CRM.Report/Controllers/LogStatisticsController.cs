@@ -45,7 +45,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
             var products = _serviceSetting.GetProductsOnly().Select(p => new
@@ -75,7 +75,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetMainReport(LogStatisticsCriteria criteria)
         {
             if (criteria.IsValid())
