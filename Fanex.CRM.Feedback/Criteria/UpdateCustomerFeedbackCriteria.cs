@@ -142,7 +142,7 @@ namespace Fanex.CRM.Feedback.Criteria
             // RelatedCustomer parameter:
             // null: don't update anything.
             // string.Empty: update RelatedCustomer to empty.
-            inputParams.Add("relatedcustid", HasRelated ? GetRelatedCustomerId() : string.Empty);
+            inputParams.Add("relatedcustid", GetRelatedCustomerId());
 
             if (IsReviewed)
             {
@@ -164,7 +164,12 @@ namespace Fanex.CRM.Feedback.Criteria
 
         private string GetRelatedCustomerId()
         {
-            return string.Join(",", RelatedCustomers.Select(c => c.Id));
+            if (HasRelated && RelatedCustomers != null && RelatedCustomers.Count() > 0)
+            {
+                return string.Join(",", RelatedCustomers.Select(c => c.Id));
+            }
+
+            return string.Empty;
         }
     }
 }
