@@ -187,7 +187,7 @@
                            data-ng-model="customersInput" />
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
-                    <button class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUsernames(customersInput)">
+                    <button class="btn pull-right" data-ng-click="verifyRelatedCustomer()" data-ng-disabled="customersInput === ''">
                         V<span class="hotkey">e</span>rify
                     </button>
                 </div>
@@ -277,6 +277,7 @@
             Warning: '@Labels.Warning',
             OK: '@Labels.OK',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
+            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
             Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer',
             Communication_Log_NACommmunicationTool: '@Labels.Communication_Log_NACommmunicationTool',
 

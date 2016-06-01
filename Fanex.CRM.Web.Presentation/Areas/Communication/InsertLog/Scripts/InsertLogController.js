@@ -673,6 +673,19 @@
             });
         };
 
+        $scope.verifyRelatedCustomer = function () {
+            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
+
+            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
+                $scope.isShowResultMessage = false;
+                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
+            }
+            else {
+                $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
+                $scope.isShowResultMessage = true;
+            }
+        };
+
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);
             $scope.$watch(function ($scope) {

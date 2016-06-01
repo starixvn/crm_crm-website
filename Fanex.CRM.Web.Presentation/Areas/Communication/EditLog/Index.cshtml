@@ -191,7 +191,7 @@
                                data-ng-model="customersInput" />
                     </div>
                     <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUsernames(customersInput)">
+                        <button class="btn pull-right" data-ng-click="verifyRelatedCustomer()" data-ng-disabled="customersInput === ''">
                             V<span class="hotkey">e</span>rify</button>
                     </div>
                 </div>
@@ -318,7 +318,8 @@
             Communication_Log_NABetType:'@Labels.Communication_Log_NABetType',
             Communication_Log_NASite:'@Labels.Communication_Log_NASite',
             ReviewedInformation: '@Labels.ReviewedInformation',
-            CustomerVerification: '@Labels.Communication_Logs_VerifyRelatedCustomer'
+            CustomerVerification: '@Labels.Communication_Logs_VerifyRelatedCustomer',
+            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage'
         };
     </script>
 }

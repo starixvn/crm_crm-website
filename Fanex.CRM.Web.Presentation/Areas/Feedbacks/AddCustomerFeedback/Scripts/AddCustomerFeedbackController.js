@@ -398,6 +398,19 @@
                 $scope.updateRemarkPrefix();
             });
         };
+
+        $scope.verifyRelatedCustomer = function () {
+            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
+
+            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
+                $scope.messageResultOptions = new MessageResult('', false, false);
+                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
+            }
+            else {
+                $scope.messageResultOptions = new MessageResult(viewResources.CustomerNameLengthErrorMessage, true, false);
+            }
+        };
+
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);

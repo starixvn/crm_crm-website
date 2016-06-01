@@ -482,7 +482,7 @@
                                                data-ng-disabled="!addCustomerFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
-                                        <button id="btnverify" class="btn pull-right" data-ng-click="relatedCustomerResultDirective.verifyUsernames(customersInput)" 
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()" 
                                             data-ng-disabled ="customersInput === ''"
                                             tabindex="79">
                                             V<span class="hotkey">e</span>rify</button>
@@ -608,7 +608,8 @@
             Error_EmptySubject: '@Labels.Error_EmptySubject',
             ErrorEmptyRemark: '@Labels.Error_EmptyRemark',
             Error_EmptySolution: '@Labels.Error_EmptySolution',
-            Error_VerifyRelatedCustomer: '@Labels.Error_VerifyRelatedCustomer'
+            Error_VerifyRelatedCustomer: '@Labels.Error_VerifyRelatedCustomer',
+            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage'
      };
     </script>
 }

@@ -460,4 +460,8 @@
     <value>Sub-product</value>
     <comment>#50691</comment>
   </data>
+  <data name="RelatedCustomerNameLengthErrorMessage" xml:space="preserve">
+    <value>Customer Name cannot be greater than 50 characters</value>
+    <comment>#58197</comment>
+  </data>
 </root>

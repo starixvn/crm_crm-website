@@ -122,7 +122,7 @@
                         if (username === '') {
                             return;
                         }
-                        username = username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
+
                         $uiBlockerService.blockUI();
                         var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
                         var promise = sharedScriptManager.registerAngularService($http, $q, url, { Username: username });
@@ -143,6 +143,19 @@
                         function () {
                             $uiBlockerService.unblockUI();
                         });
+                    };
+
+                    scope.relatedCustomerResultDirective.normalizeUsername = function (username) {
+                        return username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
+                    }
+
+                    scope.relatedCustomerResultDirective.isValidUsername = function (username) {
+                        var usernameList = username.split(",").filter(function (value) {
+                            return value.length > 50;
+                        });
+
+                        console.log(usernameList);
+                        return usernameList.length == 0;
                     };
 
                     scope.relatedCustomerResultDirective.getRelatedCustomerId = function () {

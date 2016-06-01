@@ -790,6 +790,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Name cannot be greater than 50 characters.
+        /// </summary>
+        public static string RelatedCustomerNameLengthErrorMessage {
+            get {
+                return ResourceManager.GetString("RelatedCustomerNameLengthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;span class=&quot;mandatoryfield&quot;&gt;*&lt;/span&gt;.
         /// </summary>
         public static string RequiredFieldTemplate {
