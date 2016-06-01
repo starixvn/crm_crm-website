@@ -1092,12 +1092,10 @@
     <Content Include="Scripts\Jlinq\jlinq.js" />
     <Content Include="Scripts\Jlinq\jlinq\jlinq.jquery.js" />
     <Content Include="Scripts\Jlinq\jlinq\jlinq.js" />
-    <Content Include="Scripts\jquery-min.js" />
     <Content Include="Scripts\jquery-ui-1.8.14.custom.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon-bk.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.blockUI.1.33.js" />
-    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.json-1.3.js" />
     <Content Include="Scripts\jquery.number_format.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
