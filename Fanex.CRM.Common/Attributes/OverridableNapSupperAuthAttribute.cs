@@ -1,10 +1,8 @@
-﻿using Fanex.CRM.Common.Services;
-using Fanex.CRM.Infrastructure.Constants;
-using Fanex.CRM.Infrastructure.Resources;
-using Fanex.NAP.Core.Web.Attribute;
-using System;
+﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Fanex.CRM.Common.Services;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.CRM.Common.Attributes
 {
@@ -13,37 +11,17 @@ namespace Fanex.CRM.Common.Attributes
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!filterContext.HttpContext.Request.IsAuthenticated
-                || AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    filterContext.Result = new JsonResult
-                    {
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                        Data = new
-                        {
-                            Code = ErrorCodeConstants.NoPermission,
-                            Message = Labels.NoPermission
-                        }
-                    };
-
-                    filterContext.HttpContext.Response.StatusCode = 403;
-                }
-                else
-                {
-                    var routeValue = new
-                    {
-                        controller = "UserLogin",
-                    };
-
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
-                }
-            }
-
-
             base.OnAuthorization(filterContext);
 
+            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
+            {
+                var routeValue = new
+                {
+                    controller = "UserLogin",
+                };
+
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
+            }
         }
     }
 }
