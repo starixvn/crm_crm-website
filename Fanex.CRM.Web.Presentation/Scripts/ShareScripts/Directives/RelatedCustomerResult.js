@@ -15,21 +15,27 @@
                 if (customer && customer.Id !== 0) {
                     if (customer.Id > 0) {
                         html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
-                                <a rel="friend" class="txt-customer">\
-                                    <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></span>' + customer.Name + '</a>\
+                                <div rel="friend" class="txt-customer">\
+                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
+                                    <div class="customer-name">' + customer.Name + '</div>\
+                                </div>\
                          </td>';
                     }
                     else {
                         html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
-                                <a rel="friend" class="txt-guest">\
-                                    <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></span>' + customer.Name + '</a>\
+                                <div rel="friend" class="txt-guest">\
+                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
+                                    <div class="customer-name">' + customer.Name + '</div>\
+                                </div>\
                         </td>';
                     }
                 }
                 else {
                     html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customer.Name + '">\
-                                <a rel="friend" class="txt-invalid">\
-                                    <span data-customer-id="' + customer.Id + '" class="icon-del icon-del-all-invalid"></span>' + customer.Name + '</a>\
+                                <div rel="friend" class="txt-invalid">\
+                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-all-invalid"></div>\
+                                    <div class="customer-name">' + customer.Name + '</div>\
+                                </div>\
                         </td>';
                 }
 
