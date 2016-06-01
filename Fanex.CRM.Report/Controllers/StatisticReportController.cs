@@ -10,10 +10,8 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.ActionResults;
     using Fanex.CRM.Infrastructure.Attributes;
     using Fanex.CRM.Report.Criteria.StatisticReport;
@@ -39,7 +37,6 @@ namespace Fanex.CRM.Report.Controllers
             _statisticReportService = statisticReportrtService ?? new StatisticReportService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/StatisticReport/Index.cshtml");
@@ -50,7 +47,6 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -64,7 +60,6 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpPost]
         [HandleAjaxError]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonWithoutNullField GetStatisticReport(GetStatisticReportCriteria criteria)
         {
             var logs = _statisticReportService.StatisticReport(criteria);

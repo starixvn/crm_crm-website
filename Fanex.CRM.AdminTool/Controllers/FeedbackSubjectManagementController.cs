@@ -24,6 +24,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Feedback Subject Management Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Read)]
     public class FeedbackSubjectManagementController : ReadOnlyBaseController
     {
         private IFeedbackSubjectManagementService _feedbackSubjectManagementService;
@@ -38,25 +39,21 @@ namespace Fanex.CRM.AdminTool.Controllers
             _feedbackSubjectManagementService = feedbackSubjectManagementService ?? new FeedbackSubjectManagementService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenChangeTemplateStateView(ChangeSubjectTemplateStateCriteria template)
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Index.cshtml", template);
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenEditTemplateView(int templateId)
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Index.cshtml", templateId);
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertTemplateView()
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Index.cshtml");
@@ -70,7 +67,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         /// Add result.
         /// </returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.SearchFeedbackSubjectTemplate(criteria);
@@ -86,7 +82,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.GetFeedbackSubjectTemplate(criteria);

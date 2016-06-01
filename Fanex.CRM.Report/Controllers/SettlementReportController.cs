@@ -38,7 +38,6 @@ namespace Fanex.CRM.Report.Controllers
             _settlementReportService = settlementReportService ?? new SettlementReportService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/SettlementReport/Index.cshtml");
@@ -46,7 +45,6 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpPost]
         [HandleAjaxError]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             var logs = _settlementReportService.GetSettlementReport(criteria);

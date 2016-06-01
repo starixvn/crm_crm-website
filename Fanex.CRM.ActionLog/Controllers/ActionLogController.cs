@@ -64,7 +64,7 @@ namespace Fanex.CRM.ActionLog.Controllers
 
         
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult SettingLog()
         {
             return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
@@ -76,7 +76,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
             var settingLogs = _actionLogService.GetSettingLogs(criteria);

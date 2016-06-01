@@ -26,6 +26,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
     public class SettingManagementController : ReadOnlyBaseController
     {
         private ISettingManagementService _settingManagementService;
@@ -40,19 +41,16 @@ namespace Fanex.CRM.AdminTool.Controllers
             _settingManagementService = settingManagementService ?? new SettingManagementService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/SettingManagement/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertNewSettingView()
         {
             return View("~/Areas/AdminTool/SettingManagement/InsertSetting/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertSubSettingView(string settingType)
         {
             return View(
@@ -63,7 +61,6 @@ namespace Fanex.CRM.AdminTool.Controllers
                  });
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenDeleteSettingView(
             string settingType,
             int settingId,
@@ -90,7 +87,6 @@ namespace Fanex.CRM.AdminTool.Controllers
                 });
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenEditSettingView(int settingId)
         {
             return View(
@@ -102,7 +98,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
             var result = _settingManagementService.GetMainSettings();
@@ -110,7 +105,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult ParentSetting()
         {
             var result = _settingManagementService.GetParentSettings();
@@ -118,7 +112,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingManagementService.SettingByType(criteria);

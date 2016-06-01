@@ -220,7 +220,6 @@
     </Compile>
     <Compile Include="Services\AppSession.cs" />
     <Compile Include="Services\AppSetting.cs" />
-    <Compile Include="Attributes\AuthenticateAction.cs" />
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>

@@ -24,6 +24,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Setting Relation Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Read)]
     public class SettingRelationController : ReadOnlyBaseController
     {
         private ISettingRelationService _settingRelationService;
@@ -38,13 +39,11 @@ namespace Fanex.CRM.AdminTool.Controllers
             _settingRelationService = settingRelationService ?? new SettingRelationService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/SettingRelation/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertRelationView(int settingId, string settingValue, string settingType)
         {
             return View(
@@ -58,7 +57,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
             var result = _settingRelationService.GetMainSettings();
@@ -66,7 +64,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingRelationService.GetSettingByTypes(criteria);
@@ -74,7 +71,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
             var result = _settingRelationService.GetMainSettingForAddRelations(criteria);
@@ -82,7 +78,6 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.MainSettingRelations(criteria);
