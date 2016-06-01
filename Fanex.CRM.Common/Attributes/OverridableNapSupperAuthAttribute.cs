@@ -34,9 +34,7 @@ namespace Fanex.CRM.Common.Attributes
                 {
                     var routeValue = new
                     {
-                        controller = "Utility",
-                        action = "AccessDenied",
-                        message = "AccessDenied"
+                        controller = "UserLogin",
                     };
 
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));

@@ -39,14 +39,12 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/WagerReport/Index.cshtml");
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         [HandleAjaxError]
         public ActionResult GetWagerReport(GetWagerReportCriteria criteria)
         {
@@ -55,7 +53,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
             _wagerService.ExportWagerReportExcel(criteria);
