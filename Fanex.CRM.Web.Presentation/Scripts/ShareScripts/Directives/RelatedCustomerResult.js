@@ -154,7 +154,6 @@
                             return value.length > 50;
                         });
 
-                        console.log(usernameList);
                         return usernameList.length == 0;
                     };
 
