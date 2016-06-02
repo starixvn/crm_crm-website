@@ -1,6 +1,5 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
     using System.Web;
     using System.Web.Security;
     using Enumerations;
@@ -67,6 +66,5 @@
             HttpContext.Current.Response.Cookies.Clear();
             FormsAuthentication.SignOut();
         }
-
     }
 }

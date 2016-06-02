@@ -7,11 +7,11 @@
 namespace Fanex.CRM.Common.Controllers
 {
     using System.Web.Mvc;
+    using Attributes;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
-    using NAP.Core.Web.Attribute;
     using ONEbook.UM.Filters;
-    using Attributes;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -25,7 +25,6 @@ namespace Fanex.CRM.Common.Controllers
         {
             _permissionService = new PermissionService();
         }
-
 
         protected IPermissionService PermissionService
         {

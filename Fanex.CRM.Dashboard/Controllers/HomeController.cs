@@ -48,7 +48,6 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
-          
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 

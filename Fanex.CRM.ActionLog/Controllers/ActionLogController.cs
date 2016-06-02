@@ -61,8 +61,7 @@ namespace Fanex.CRM.ActionLog.Controllers
                 },
                 JsonRequestBehavior.AllowGet);
         }
-
-        
+       
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult SettingLog()
