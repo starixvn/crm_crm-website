@@ -14,10 +14,8 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
@@ -26,7 +24,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
-    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Read)]
     public class SettingManagementController : ReadOnlyBaseController
     {
         private ISettingManagementService _settingManagementService;
