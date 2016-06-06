@@ -59,11 +59,15 @@
 
         public void Logout(ICurrentSession currentSession)
         {
-            _securityService.Logout(currentSession.OnUserId);
-            HttpContext.Current.Session.Abandon();
+            if (currentSession != null && currentSession.UserId > 0)
+            {
+                _securityService.Logout(currentSession.OnUserId);
+                currentSession.ClearAll();
+            }
+
             HttpContext.Current.Session.Clear();
-            currentSession.ClearAll();
             HttpContext.Current.Response.Cookies.Clear();
+
             FormsAuthentication.SignOut();
         }
     }
