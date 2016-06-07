@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.DailyStatisticsReport
 {
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.StatisticByDateReport;
 

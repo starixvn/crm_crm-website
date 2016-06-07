@@ -9,14 +9,12 @@
 
 namespace Fanex.CRM.Dashboard.Services
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories;
     using Fanex.CRM.Dashboard.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>

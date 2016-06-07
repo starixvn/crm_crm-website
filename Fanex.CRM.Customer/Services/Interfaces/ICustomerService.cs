@@ -25,10 +25,8 @@ namespace Fanex.CRM.Customer.Services
 
         Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
 
-        IEnumerable<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria);
-
         IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
 
-        IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
+        IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
     }
 }

@@ -265,7 +265,7 @@
     <value>Language is mandatory!</value>
   </data>
   <data name="Error_VerifyRelatedCustomer" xml:space="preserve">
-    <value>You must verify the username before saving this communication log.</value>
+    <value>You must verify the username before saving this feedback.</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_AddSuccess" xml:space="preserve">
     <value>Add feedback successfully!</value>
@@ -459,5 +459,9 @@
   <data name="SubProduct" xml:space="preserve">
     <value>Sub-product</value>
     <comment>#50691</comment>
+  </data>
+  <data name="RelatedCustomerNameLengthErrorMessage" xml:space="preserve">
+    <value>Customer Name cannot be greater than 50 characters</value>
+    <comment>#58197</comment>
   </data>
 </root>

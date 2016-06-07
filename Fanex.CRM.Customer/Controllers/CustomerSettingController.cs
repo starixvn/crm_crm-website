@@ -17,13 +17,11 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Customer Setting Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
     public class CustomerSettingController : BaseController
     {
         private ICustomerService _customerService;
@@ -37,7 +35,7 @@ namespace Fanex.CRM.Customer.Controllers
         {
             _customerService = customerServiceInstance ?? new CustomerService();
         }
-        
+
         public ActionResult ShortCustomerInfo()
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
@@ -60,7 +58,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = _customerService.UpdateCustomerInfo(criteria);
@@ -83,36 +81,13 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public JsonResult RelatedCustomerAutoSuggestion(string tag)
-        {
-            var result = _customerService.RelatedCustomerAutoSuggestion(
-                new RelatedCustomerAutoSuggestionCriteria
-                {
-                    CustomerNamePharse = tag
-                });
-            JsonResult jsonResult = Json(result);
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
-        }
-
-        /// <summary>
-        /// Verifies the name of the user.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// Verify result.
-        /// </returns>
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            var jsonResult = Json(_customerService.VerifyUsername(criteria));
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
+            return Json(_customerService.VerifyUsername(criteria), JsonRequestBehavior.AllowGet);
         }
     }
 }

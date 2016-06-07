@@ -9,7 +9,6 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;

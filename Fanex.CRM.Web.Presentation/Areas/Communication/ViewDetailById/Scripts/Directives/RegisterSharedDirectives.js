@@ -269,6 +269,7 @@
 
         var viewDetailByIdRegister = new RegisterTemplate(angular.module('communicationlog-viewdetailbyid-application'));
         viewDetailByIdRegister.registerLicenseeTypePicker();
+        directiveManager.registerRelatedCustomerResult(angular.module('communicationlog-viewdetailbyid-application'));
     }
 
     viewDetailByIdApplicationRegisterPicker();

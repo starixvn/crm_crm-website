@@ -10,7 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
 {
-    using System;
     using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement;
@@ -18,7 +17,6 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
 

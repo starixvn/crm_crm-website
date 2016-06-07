@@ -8,7 +8,6 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
     using System.Collections.Generic;
     using Fanex.CRM.Report.Criteria.LogStatistics;
-    using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
 

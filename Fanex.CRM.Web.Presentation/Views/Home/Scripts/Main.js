@@ -3,8 +3,7 @@
 userId, gup, userSearch, isGuestSearch,
 leftPanelManager,
 menuManager,
-homeManager,
-redirectUrl */
+homeManager */
 
 /* exported accid, timerId, autosearch,
 isGuest, gotoURL, KeyPress, downup, udpateOnlineStatus */
@@ -210,11 +209,5 @@ $(document).ready(function () {
         txtusername.val(userSearch).removeClass("font-style-italic");
         leftPanelManager.loadLeftPanel(userSearch, true);
         menuManager.showLeftPanel();
-    }
-
-    if (redirectUrl.length > 0) {
-        setTimeout(function () {
-            menuManager.goToURL('centerFr', window.rootUrl + redirectUrl.replace('~/', ''));
-        }, 200);
     }
 });

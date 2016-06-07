@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
@@ -53,7 +52,7 @@ namespace Fanex.CRM.Feedback.Models
 
         public bool HasRelated { get; set; }
 
-        public string RelatedCustomer { get; set; }
+        public System.Collections.Generic.IEnumerable<BaseModel> RelatedCustomers { get; set; }
 
         public string Subject { get; set; }
 

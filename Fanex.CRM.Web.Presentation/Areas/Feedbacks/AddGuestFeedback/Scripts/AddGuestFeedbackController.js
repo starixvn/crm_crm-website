@@ -57,6 +57,9 @@
                 FaxNumber: ""
             }
         };
+
+        $scope.customersInput = '';
+
         $scope.isShowCustomerDetailBox = true;
         $scope.isShowFeedbackDetailBox = true;
         $scope.isShowDescriptionBox = true;
@@ -68,8 +71,6 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.isLoadedAllSettings = false;
         $scope.isLoading = true;
-        $scope.isEditingRelatedCustomer = false;
-        $scope.inputRelatedCustomerLength = 0;
         $scope.allSettings = null;
 
         $scope.lastRemarkPrefix = '';
@@ -221,15 +222,11 @@
         $scope.showSolutionEditor = function () {
             $scope.isShowSolutionPreview = false;
         };
+        // ---------- End of Functions of Related customers ----------
 
-        $scope.verifyUserName = function () {
-            $scope.relatedCustomerOptions.Action = "verifyUserName";
-            $scope.relatedCustomerOptions.IsUpdate = true;
-            $scope.isEditingRelatedCustomer = false;
-            $scope.safeApply();
-        };
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
+            $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.getRelatedCustomerId();
             var params = angular.copy($scope.addGuestFeedbackParams);
             params.CustomerInfo = $scope.customerInfo;
             params.StartTime = sharedScriptManager.formatTimeToSendToServer($scope.addGuestFeedbackParams.StartTime);
@@ -303,9 +300,7 @@
                 result = false;
             }
 
-            if (result &&
-                $scope.isEditingRelatedCustomer &&
-                $scope.inputRelatedCustomerLength) {
+            if (result && params.HasRelated && $scope.customersInput !== '') {
                 message = viewResources.Error_VerifyRelatedCustomer;
                 result = false;
             }
@@ -411,6 +406,19 @@
                 $scope.updateRemarkPrefix();
             });
         };
+
+        $scope.verifyRelatedCustomer = function () {
+            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
+
+            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
+                $scope.messageResultOptions = new MessageResult('', false, false);
+                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
+            }
+            else {
+                $scope.messageResultOptions = new MessageResult(viewResources.CustomerNameLengthErrorMessage, true, false);
+            }
+        };
+
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);

@@ -6,91 +6,32 @@
 
 namespace Fanex.CRM.Common.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
+    using Attributes;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
-    using Fanex.NAP.Core.Configuration;
-    using Fanex.NAP.Core.Web;
-    using Fanex.NAP.Core.Web.Context;
-    using Fanex.NAP.Core.Web.Session;
-    using NAP.Core.Context;
-    using NAP.Core.Models.ValueObject;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [OverridableNapSupperAuth]
+    [CheckUMFilter]
     public class BaseController : Controller
-    {        
-        private IPermissionService _permissionService;
+    {
+        private readonly IPermissionService _permissionService;
 
         public BaseController()
         {
-            ViewBag.Session = this.CurrentSession = new CurrentSession();
-
-            ViewFlags = new ViewFlags
-            {
-                IsLive = this.Environment.Equals(Constant.LIVE),
-                HasEditRight = false
-            };
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [is site login].
-        /// </summary>
-        /// <value>
-        ///   <c>True</c> if [is site login]; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsSiteLogin
-        {
-            get
-            {
-                return NapSettings.Settings.EnableDirectLogin;
-            }
-        }
-
-        protected ViewFlags ViewFlags
-        {
-            get
-            {
-                return ViewBag.ViewFlags;
-            }
-
-            set
-            {
-                ViewBag.ViewFlags = value;
-            }
+            _permissionService = new PermissionService();
         }
 
         protected IPermissionService PermissionService
         {
             get
             {
-                _permissionService = _permissionService ?? new PermissionService();
                 return _permissionService;
             }
-        }
-
-        protected ICurrentContext CurrentContext
-        {
-            get;
-            private set;
-        }
-
-        protected ICurrentSession CurrentSession
-        {
-            get;
-            private set;
-        }
-
-        protected string Environment
-        {
-            get { return NapSettings.Settings.Environment; }
-        }
-
-        protected int SiteId
-        {
-            get { return NapSettings.Settings.SiteId; }
         }
 
         /// <summary>
@@ -118,21 +59,6 @@ namespace Fanex.CRM.Common.Controllers
         public Constant.Policy GetPolicy(string functionName)
         {
             return PermissionService.GetPolicy(functionName);
-        }
-
-        /// <summary>
-        /// Execute before each request, if Downtime then go to Downtime page
-        /// Or not Authenticate will go to Login Page.
-        /// </summary>
-        /// <param name="filterContext">Information about the current request and action.</param>
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            AppSession.CurrentActionName = filterContext.ActionDescriptor.ActionName;
-            base.OnActionExecuting(filterContext);
-        }
-
-        protected override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
         }
     }
 }

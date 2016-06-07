@@ -15,7 +15,6 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
-    @RazorHelper.RenderStyles("~/Scripts/InputBox/style.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles")
 }
 <div data-ng-app="feedbacks-updatecustomerfeedback-application">
@@ -449,7 +448,7 @@
                         <div class="row item">
                             <div class="col-xs-3 col-sm-2 col-md-2">
                                 <label class="labelforcheckbox checkbox">
-                                    <input type="checkbox" id="chkisrelated" data-ng-click="checkIsRelated();" data-ng-model="feedback.HasRelated"
+                                    <input type="checkbox" id="chkisrelated" data-ng-model="feedback.HasRelated"
                                         tabindex="78" />
                                     @Labels.IsRelatedCustomer
                                 </label>
@@ -458,17 +457,16 @@
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11">
                                         <input type="button" value="" id="btnRelatedHelp" class="btnHelp pull-left" />
-                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
-                                            disabled data-ng-model="feedback.HasRelated" relatedcustomer>
-                                        </select>
+                                        <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
+                                            data-ng-disabled="!feedback.HasRelated" data-ng-model="customersInput" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
-                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyUsernames()" disabled
-                                            tabindex="79">
+                                        <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()" 
+                                                data-ng-disabled ="customersInput === ''" tabindex="79">
                                             V<span class="hotkey">e</span>rify</button>
                                     </div>
                                 </div>
-                                <div id="ColorGuide" class="row colorGuide" data-ng-show="feedback.HasRelated && relatedCustomers.length > 0">
+                                <div id="ColorGuide" class="row colorGuide" data-ng-show="feedback.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
                                     <div class="col-sm-2 col-md-2 relate-customer">
                                         @Labels.Customer</div>
                                     <div class="col-sm-2 col-md-2 relate-guest">
@@ -476,8 +474,8 @@
                                     <div class="col-sm-2 col-md-2 relate-invalid">
                                         @Labels.Invalid</div>
                                 </div>
-                                <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="feedback.HasRelated && relatedCustomers.length > 0">
-                                    <table id="related" data-ng-model="relatedCustomers" relatedcustomerresult>
+                                <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="feedback.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
+                                    <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult>
                                     </table>
                                 </div>
                             </div>
@@ -588,7 +586,6 @@
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
     @RazorHelper.RenderScripts("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
-    @RazorHelper.RenderScripts("~/Scripts/InputBox/jquery.fcbkcomplete.js")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
@@ -617,7 +614,9 @@
             EmptySolution: '@Labels.Error_EmptySolution',
             EmptyReview: '@Labels.Error_EmptyReview',
             ConfirmOverrideCRMInfo: '@Labels.ConfirmOverrideCRMInfo',
-            UpdateFeedbackSuccessfully: '@Labels.UpdateFeedbackSuccessfully'
+            UpdateFeedbackSuccessfully: '@Labels.UpdateFeedbackSuccessfully',
+            CustomerVerification: '@Labels.Error_VerifyRelatedCustomer',
+            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage'
         };
         $('#btnRelatedHelp').tipsy({
             gravity: 'nw',

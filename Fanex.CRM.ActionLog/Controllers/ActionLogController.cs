@@ -18,14 +18,12 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// ActionLog Controller controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class ActionLogController : BaseController
+    public class ActionLogController : ReadOnlyBaseController
     {
         private readonly IActionLogService _actionLogService;
 
@@ -63,9 +61,9 @@ namespace Fanex.CRM.ActionLog.Controllers
                 },
                 JsonRequestBehavior.AllowGet);
         }
-
+       
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult SettingLog()
         {
             return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
@@ -77,7 +75,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
             var settingLogs = _actionLogService.GetSettingLogs(criteria);

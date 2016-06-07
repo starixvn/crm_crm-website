@@ -597,14 +597,4 @@ function RegisterTemplate(application) {
 
         directiveManager.registerTipsyDirective(self.application, tipsyDirectiveRegisterParams);
     };
-    self.registerRelatedCustomerDirective = function () {
-        var relatedCustomerDirectiveRegisterParams = {
-            PlugInName: 'relatedCustomerDirectiveContainer',
-            PickerId: 'txtrelatedcustomer',
-            OptionName: 'relatedCustomerOptions',
-            RestrictType: 'C'
-        };
-
-        directiveManager.registerRelatedCustomerDirective(self.application, relatedCustomerDirectiveRegisterParams);
-    };
 }

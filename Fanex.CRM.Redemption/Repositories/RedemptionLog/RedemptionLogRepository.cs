@@ -10,8 +10,6 @@
 namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
 {
     using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;

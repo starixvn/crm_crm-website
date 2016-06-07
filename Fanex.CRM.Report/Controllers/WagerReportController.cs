@@ -19,14 +19,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.WagerReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// WagerReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.WagersRelatedReport, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class WagerReportController : BaseController
+    public class WagerReportController : ReadOnlyBaseController
     {
         private readonly IWagerReportService _wagerService;
 
@@ -41,14 +39,12 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/WagerReport/Index.cshtml");
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         [HandleAjaxError]
         public ActionResult GetWagerReport(GetWagerReportCriteria criteria)
         {
@@ -57,7 +53,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
             _wagerService.ExportWagerReportExcel(criteria);

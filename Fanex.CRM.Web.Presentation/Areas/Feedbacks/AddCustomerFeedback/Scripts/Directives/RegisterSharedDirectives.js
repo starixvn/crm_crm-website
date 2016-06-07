@@ -26,9 +26,9 @@
         addCustomerFeedbackRegister.registerSolutionHtml();
         addCustomerFeedbackRegister.registerRawHtmlDirective();
         addCustomerFeedbackRegister.registerTipsyDirective();
-        addCustomerFeedbackRegister.registerRelatedCustomerDirective();
         addCustomerFeedbackRegister.registerDefaultFocus();
         addCustomerFeedbackRegister.registerLicenseeTypePicker();
+        directiveManager.registerRelatedCustomerResult(angular.module('feedbacks-addcustomerfeedback-application'));
 
         var birthdayRegisterParams = {
             PlugInName: 'datePickerContainer',

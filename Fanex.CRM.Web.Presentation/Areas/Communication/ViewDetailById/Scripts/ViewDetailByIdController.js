@@ -80,6 +80,7 @@
         };
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
+            $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {
@@ -132,11 +133,6 @@
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             var childSettings = SettingManager.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
-            if (!childSettings) {
-                var notApplySetting = $scope.subProductOptions.DataList[0];
-                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
-
             $scope.betTypeOptions.DataList = childSettings;
         };
 

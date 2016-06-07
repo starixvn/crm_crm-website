@@ -511,6 +511,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Name cannot be greater than 50 characters.
+        /// </summary>
+        public static string RelatedCustomerNameLengthErrorMessage {
+            get {
+                return ResourceManager.GetString("RelatedCustomerNameLengthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remark.
         /// </summary>
         public static string Remark {

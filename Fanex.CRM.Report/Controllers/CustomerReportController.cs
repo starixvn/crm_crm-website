@@ -14,14 +14,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Customer Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CustomerReport, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class CustomerReportController : BaseController
+    public class CustomerReportController : ReadOnlyBaseController
     {
         private readonly ICustomerReportService _customerReportService;
         private readonly ISettingService _settingService;
@@ -66,8 +64,7 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult GetCustomerReport(GetCustomerReportCriteria criteria)
         {
             var customerReport = _customerReportService.GetCustomerReport(criteria);
-            var jsonResult = Json(customerReport, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(customerReport, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportCustomerReport(GetCustomerReportCriteria criteria)

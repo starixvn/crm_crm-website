@@ -18,7 +18,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
 

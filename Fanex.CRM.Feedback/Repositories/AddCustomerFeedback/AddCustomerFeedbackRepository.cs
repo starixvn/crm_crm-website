@@ -9,11 +9,9 @@
 
 namespace Fanex.CRM.Feedback.Repositories.AddCustomerFeedback
 {
-    using Fanex.Common;
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.Data;
 
     /// <summary>
     /// Add Customer Feedback Repository.

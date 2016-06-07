@@ -340,7 +340,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
+        ///   Looks up a localized string similar to You must verify the username before saving this feedback..
         /// </summary>
         public static string Error_VerifyRelatedCustomer {
             get {
@@ -786,6 +786,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string RelatedCustomer {
             get {
                 return ResourceManager.GetString("RelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Name cannot be greater than 50 characters.
+        /// </summary>
+        public static string RelatedCustomerNameLengthErrorMessage {
+            get {
+                return ResourceManager.GetString("RelatedCustomerNameLengthErrorMessage", resourceCulture);
             }
         }
         

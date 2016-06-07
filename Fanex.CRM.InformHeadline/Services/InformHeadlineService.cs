@@ -15,13 +15,11 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.InformHeadline.Resources;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
-    using Fanex.Data;
 
     /// <summary>
     /// TODO: Update summary.

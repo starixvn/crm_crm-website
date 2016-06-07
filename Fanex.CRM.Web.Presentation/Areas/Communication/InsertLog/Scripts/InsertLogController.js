@@ -4,12 +4,9 @@
     moment,
     crmConstants,
     viewResources,
-    getRelatedCustomer,
     customerId,
-    verifyRelatedCustomer,
     hotKeyManager,
-    currentTime,
-    getRelatedCustomerLength */
+    currentTime*/
     /* jshint camelcase: false */
     angular.module('communicationlog-insert-application').controller('insertLogController', ['$scope', '$http', '$insertLogService',
     function ($scope, $http, $insertLogService) {
@@ -68,7 +65,6 @@
                 Id: 0,
                 Value: ''
             },
-            RelatedCustomers: '',
             Remark: '',
             Solution: '',
             Review: '',
@@ -100,12 +96,12 @@
         $scope.isSuccess = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
-        $scope.isEditingRelatedCustomer = false;
-        $scope.isVerifyRelatedCustomer = false;
         $scope.isSetFocus = false;
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
+
+        $scope.customersInput = '';
 
         $scope.isUpdatingTime = false;
         $scope.initController = function () {
@@ -176,18 +172,6 @@
                 Id: $scope.defaultSettings.CountryId
             };
 
-            $scope.communicationLog.Product = {
-                Id: crmConstants.Enums.Product.NotApply
-            };
-
-            $scope.communicationLog.SubProduct = {
-                Id: crmConstants.Enums.SubProduct.NotApply
-            };
-
-            $scope.communicationLog.BetType = {
-                Id: crmConstants.Enums.BetType.NotApply
-            };
-
             $scope.communicationLog.SiteInfo = {
                 Id: $scope.defaultSettings.SiteId
             };
@@ -239,7 +223,7 @@
         };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlE = function () {
-            $scope.verifyRelatedCustomer();
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput)
         };
         $scope.updateSelectedProduct = function (product) {
             $scope.communicationLog.Product = product;
@@ -250,11 +234,6 @@
 
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.communicationLog.SubProduct = subProduct;
-            if (!subProduct.ChildSettings) {
-                var notApplySetting = $scope.subProductOptions.DataList[0];
-                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
-
             $scope.betTypeList = subProduct.ChildSettings;
             $scope.communicationLog.BetType = $scope.betTypeList[0];
             $scope.safeApply();
@@ -505,27 +484,13 @@
             $scope.communicationLog.Solution = solution;
             $scope.updateChangeFlag();
         };
-        $scope.updateEditFlag = function () {
-            $scope.isEditingRelatedCustomer = true;
-        };
         $scope.insertLog = function () {
             $scope.isShowResultMessage = false;
-            var relatedCustomer = getRelatedCustomer();
-            var inputCustomerLength = getRelatedCustomerLength();
-            if ($scope.isEditingRelatedCustomer &&
-            inputCustomerLength) {
-                /* jshint camelcase: false */
-                $scope.isShowResultMessage = true;
-                $scope.isSuccess = false;
-                $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
-                return;
-            }
-
-            $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
+
             var insertCriteria = {
                 CustomerId: customerId,
-                RelatedCustomerId: relatedCustomer,
+                RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
                 LanguageId: $scope.communicationLog.LanguageId,
                 CountryId: $scope.communicationLog.Country.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -633,6 +598,11 @@
                 result = false;
             }
 
+            if (result && $scope.customersInput !== '') {
+                $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
+                result = false;
+            }
+
             if (result &&
             ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
                 $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
@@ -669,11 +639,6 @@
             } catch (e) {
             }
         };
-        $scope.verifyRelatedCustomer = function () {
-            verifyRelatedCustomer($scope);
-            $scope.isVerifyRelatedCustomer = true;
-            $scope.isEditingRelatedCustomer = false;
-        };
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
         };
@@ -706,6 +671,19 @@
             function () {
                 $scope.completedLoadFilterInfo();
             });
+        };
+
+        $scope.verifyRelatedCustomer = function () {
+            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
+
+            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
+                $scope.isShowResultMessage = false;
+                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
+            }
+            else {
+                $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
+                $scope.isShowResultMessage = true;
+            }
         };
 
         angular.element(document).ready(function () {

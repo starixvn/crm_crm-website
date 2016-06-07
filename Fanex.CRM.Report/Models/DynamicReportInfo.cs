@@ -13,7 +13,6 @@ namespace Fanex.CRM.Report.Models
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Dynamic Report Information.

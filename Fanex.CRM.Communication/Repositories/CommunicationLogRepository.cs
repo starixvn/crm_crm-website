@@ -12,7 +12,7 @@ namespace Fanex.CRM.Communication.Repositories
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Text;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -61,18 +61,17 @@ namespace Fanex.CRM.Communication.Repositories
 
                     if (reader.NextResult())
                     {
-                        var customerNames = new StringBuilder();
-                        var customerIds = new StringBuilder();
+                        var relatedCustomers = new List<BaseModel>();
                         while (reader.Read())
                         {
-                            var name = Converter.ToString2(reader["UserName"]);
-                            var id = Converter.ToInt(reader["CustID"]);
-                            customerNames.Append(name + ",");
-                            customerIds.Append(id + ",");
+                            relatedCustomers.Add(new BaseModel
+                            {
+                                Id = Converter.ToInt(reader["CustID"]),
+                                Name = Converter.ToString2(reader["UserName"])
+                            });
                         }
 
-                        log.RelatedCustomers = customerNames.ToString().TrimEnd(',');
-                        log.RelatedCustomerIds = customerIds.ToString().TrimEnd(',');
+                        log.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                     }
 
                     return log;

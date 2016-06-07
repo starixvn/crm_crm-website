@@ -96,8 +96,8 @@
       <HintPath>..\packages\Fanex.MailDeliver.MailClient.1.0.0.2\lib\net40\Fanex.MailDeliver.MailClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.NAP.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.NAP.Core.Client.1.1.0.4\lib\net40\Fanex.NAP.Core.dll</HintPath>
+    <Reference Include="Fanex.NAP.Core, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.NAP.Core.Client.1.1.0.5\lib\net40\Fanex.NAP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -175,6 +175,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -327,7 +331,6 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />
@@ -356,7 +359,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\MainCategory.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Role.js" />
@@ -372,7 +374,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdOption.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdApplication.js" />
     <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdController.js" />
@@ -458,8 +459,6 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RelatedCustomerResult.js" />
-    <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\UpdateCustomerFeedbackController.js" />
@@ -900,7 +899,7 @@
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
     <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
-    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomerResult.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />
@@ -1081,9 +1080,6 @@
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\dialogbox.js" />
     <Content Include="Scripts\ForceNumberic.js" />
-    <Content Include="Scripts\InputBox\close.gif" />
-    <Content Include="Scripts\InputBox\jquery.fcbkcomplete.js" />
-    <Content Include="Scripts\InputBox\style.css" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea-0.7.0.js" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu-0.7.0.js" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
@@ -1096,12 +1092,10 @@
     <Content Include="Scripts\Jlinq\jlinq.js" />
     <Content Include="Scripts\Jlinq\jlinq\jlinq.jquery.js" />
     <Content Include="Scripts\Jlinq\jlinq\jlinq.js" />
-    <Content Include="Scripts\jquery-min.js" />
     <Content Include="Scripts\jquery-ui-1.8.14.custom.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon-bk.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.blockUI.1.33.js" />
-    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.json-1.3.js" />
     <Content Include="Scripts\jquery.number_format.js" />
     <Content Include="Scripts\jquery.tmpl.js" />

@@ -19,13 +19,13 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
-    using ONEbook.UM.Filters;
+    using NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Setting Relation Controller.
     /// </summary>
-    [CheckUMFilter]
-    public class SettingRelationController : BaseController
+    [NapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Read)]
+    public class SettingRelationController : ReadOnlyBaseController
     {
         private ISettingRelationService _settingRelationService;
 
@@ -39,13 +39,11 @@ namespace Fanex.CRM.AdminTool.Controllers
             _settingRelationService = settingRelationService ?? new SettingRelationService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/SettingRelation/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertRelationView(int settingId, string settingValue, string settingType)
         {
             return View(
@@ -59,48 +57,39 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
             var result = _settingRelationService.GetMainSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingRelationService.GetSettingByTypes(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
             var result = _settingRelationService.GetMainSettingForAddRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.MainSettingRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Host)]
         public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.GetAddSettingRelations(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

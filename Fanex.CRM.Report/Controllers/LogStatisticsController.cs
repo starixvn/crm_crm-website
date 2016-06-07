@@ -20,17 +20,15 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
-    [CheckUMFilter]
-    public class LogStatisticsController : BaseController
+    public class LogStatisticsController : ReadOnlyBaseController
     {
         private readonly ISettingService _serviceSetting;
         private readonly ILogStatisticsService _logStatisticsService;
 
         public LogStatisticsController()
             : this(null, null)
-        { 
+        {
         }
 
         public LogStatisticsController(
@@ -47,24 +45,24 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
             var products = _serviceSetting.GetProductsOnly().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Value
-                });
+            {
+                Id = p.Id,
+                Name = p.Value
+            });
             var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                });
+            {
+                Id = p.Id,
+                Name = p.Name
+            });
             var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                });
+            {
+                Id = p.Id,
+                Name = p.Name
+            });
 
             var allSetting = new SettingForLogStatistics
             {
@@ -77,7 +75,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetMainReport(LogStatisticsCriteria criteria)
         {
             if (criteria.IsValid())

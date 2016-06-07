@@ -83,27 +83,11 @@
         $scope.updateSelectedCountry = function (country) {
             $scope.addGuestFeedbackParams.Country = country;
         };
-        $scope.updateRelatedCustomer = function (relatedCustomer) {
-            $scope.addGuestFeedbackParams.RelatedCustomerId = relatedCustomer;
-        };
-        $scope.checkIsRelated = function () {
-            $scope.relatedCustomerOptions.Action = "checkIsRelated";
-            $scope.relatedCustomerOptions.HasRelated = !$scope.addGuestFeedbackParams.HasRelated;
-            $scope.relatedCustomerOptions.IsUpdate = true;
-        };
-
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;
         };
-        $scope.completeUpdateRelatedCustomer = function () {
-            $scope.relatedCustomerOptions.IsUpdate = false;
-        };
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
-        };
-        $scope.updateEditProcess = function (relatedCustomerLength) {
-            $scope.inputRelatedCustomerLength = relatedCustomerLength;
-            $scope.isEditingRelatedCustomer = true;
         };
     };
 })();

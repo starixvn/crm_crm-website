@@ -10,24 +10,20 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.ActionResults;
     using Fanex.CRM.Infrastructure.Attributes;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Services.StatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Statistic Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.IssueStatistics, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class StatisticReportController : BaseController
+    public class StatisticReportController : ReadOnlyBaseController
     {
         private IStatisticReportService _statisticReportService;
 
@@ -41,7 +37,6 @@ namespace Fanex.CRM.Report.Controllers
             _statisticReportService = statisticReportrtService ?? new StatisticReportService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/StatisticReport/Index.cshtml");
@@ -52,7 +47,6 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -66,12 +60,10 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpPost]
         [HandleAjaxError]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonWithoutNullField GetStatisticReport(GetStatisticReportCriteria criteria)
         {
             var logs = _statisticReportService.StatisticReport(criteria);
-            var jsonResult = new JsonWithoutNullField(logs);
-            return jsonResult;
+            return new JsonWithoutNullField(logs);
         }
 
         public ActionResult ExportStatisticReport(GetStatisticReportCriteria criteria)

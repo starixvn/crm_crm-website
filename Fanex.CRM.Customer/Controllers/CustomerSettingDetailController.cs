@@ -19,14 +19,12 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Customer Setting Detail Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class CustomerSettingDetailController : BaseController
+    public class CustomerSettingDetailController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
         private ICustomerDetailService _customerService;
@@ -62,7 +60,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
             var result = _customerService.UpdateCustomerInfoDetail(criteria);

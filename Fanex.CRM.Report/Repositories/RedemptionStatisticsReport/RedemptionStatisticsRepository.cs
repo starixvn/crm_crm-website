@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;

@@ -12,7 +12,6 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Models.StatisticsReportByDate;
 
     /// <summary>
     /// Weekly Statistics Detail Information.

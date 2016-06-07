@@ -17,13 +17,11 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Dashboard.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Dashboard Controller.
     /// </summary>
-    [CheckUMFilter]
-    public class DashboardController : BaseController
+    public class DashboardController : ReadOnlyBaseController
     {
         private IDashboardService _dashboardServiceInstance;
 
@@ -112,7 +110,6 @@ namespace Fanex.CRM.Dashboard.Controllers
         }
 
         [HttpPost]
-        [CRMAuth]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {

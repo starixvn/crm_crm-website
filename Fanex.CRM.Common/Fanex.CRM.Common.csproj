@@ -61,8 +61,8 @@
       <HintPath>..\packages\Fanex.MailDeliver.MailClient.1.0.0.2\lib\net40\Fanex.MailDeliver.MailClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.NAP.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.NAP.Core.Client.1.1.0.4\lib\net40\Fanex.NAP.Core.dll</HintPath>
+    <Reference Include="Fanex.NAP.Core, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.NAP.Core.Client.1.1.0.5\lib\net40\Fanex.NAP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.NAP.Framework, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
@@ -171,9 +171,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\OverridableNapAuthAttribute.cs" />
+    <Compile Include="Attributes\OverridableNapSupperAuthAttribute.cs" />
     <Compile Include="Constants\FunctionPermissions.cs" />
     <Compile Include="Constants\Pager.cs" />
     <Compile Include="Constants\UpdateReviewedModeConstants.cs" />
+    <Compile Include="Controllers\ReadOnlyBaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Criteria\UpdateCriteria.cs" />
@@ -218,12 +221,9 @@
     </Compile>
     <Compile Include="Services\AppSession.cs" />
     <Compile Include="Services\AppSetting.cs" />
-    <Compile Include="Attributes\AuthenticateAction.cs" />
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Attributes\CRMAuthAttribute.cs" />
-    <Compile Include="Attributes\AjaxNapAuthAttribute.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
     <Compile Include="Services\PermissionService.cs" />
@@ -243,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Resources\app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

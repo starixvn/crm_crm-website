@@ -28,7 +28,6 @@
         $scope.descriptionOptions = null;
         $scope.solutionOptions = null;
         $scope.tipsyOptions = null;
-        $scope.relatedCustomerOptions = null;
         $scope.licenseeTypes = [];
 
         $scope.IsUpdatingTime = false;
@@ -112,15 +111,6 @@
                 Gravity: 'nw',
                 Title: viewResources.Helper_RelatedInputMessage,
                 IsUpdateTip: true
-            };
-
-            $scope.relatedCustomerOptions = {
-                SuggestLink: window.rootUrl + 'CustomerSetting/RelatedCustomerAutoSuggestion',
-                VerifyUsernameLink: window.rootUrl + 'CustomerSetting/VerifyUsername',
-                MaxItems: crmConstants.Enums.RelatedCustomerSetting.MaxItems,
-                IsUpdate: true,
-                CompleteUpdate: $scope.completeUpdateRelatedCustomer,
-                OnChangeEvent: $scope.updateRelatedCustomer
             };
 
             $scope.productOptions = {

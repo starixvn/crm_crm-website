@@ -19,14 +19,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.SummaryReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// SummaryReportController controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CategoriesSummaryReport, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class SummaryReportController : BaseController
+    public class SummaryReportController : ReadOnlyBaseController
     {
         private readonly ISummaryReportService _summaryService;
 
@@ -41,21 +39,18 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSettings()
         {
             return Json(_summaryService.AllSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/SummaryReport/Index.cshtml");
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         [HandleAjaxError]
         public ActionResult GetSummaryReport(GetSummaryReportCriteria criteria)
         {
@@ -64,7 +59,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult ExportSummaryReportExcel(GetSummaryReportCriteria criteria)
         {
             _summaryService.ExportSummaryReportExcel(criteria);

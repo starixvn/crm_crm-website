@@ -18,14 +18,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.WeeklyStatisticsReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Weekly Statistics Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.WeeklyStatistics, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class WeeklyStatisticsReportController : BaseController
+    public class WeeklyStatisticsReportController : ReadOnlyBaseController
     {
         private IStatisticByDateReportService _weeklyStatisticsReportService;
 

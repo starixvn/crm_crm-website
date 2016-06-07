@@ -25,9 +25,10 @@
         addGuestFeedbackRegister.registerSolutionHtml();
         addGuestFeedbackRegister.registerRawHtmlDirective();
         addGuestFeedbackRegister.registerTipsyDirective();
-        addGuestFeedbackRegister.registerRelatedCustomerDirective();
         addGuestFeedbackRegister.registerDefaultFocus();
         addGuestFeedbackRegister.registerLicenseeTypePicker();
+
+        directiveManager.registerRelatedCustomerResult(angular.module('feedbacks-addguestfeedback-application'));
 
         var productRegisterOptions = {
             PlugInName: 'dropdownProduct',

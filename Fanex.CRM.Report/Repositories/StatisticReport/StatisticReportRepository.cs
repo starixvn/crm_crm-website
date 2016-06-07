@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Report.Repositories.StatisticReport
 {
     using System.Collections.Generic;
-    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Report.Entities.StatisticReport;

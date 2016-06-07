@@ -10,11 +10,9 @@
 namespace Fanex.CRM.Customer.Repositories
 {
     using System.Collections.Generic;
-    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
@@ -95,16 +93,16 @@ namespace Fanex.CRM.Customer.Repositories
             return ExecuteNonQuery(criteria);
         }
 
-        public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var result = new List<CustomerInfo>();
+                    var result = new List<BaseModel>();
                     while (reader.Read())
                     {
-                        var customer = new CustomerInfo()
+                        var customer = new BaseModel()
                         {
                             Id = Converter.ToInt(reader["custid"]),
                             Name = Converter.ToString2(reader["val"])
@@ -123,28 +121,6 @@ namespace Fanex.CRM.Customer.Repositories
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 return objectDB.Query<string>(criteria.GetSpParams());                
-            }
-        }
-
-        public IEnumerable<RelatedCustomerSuggestion> GetRelatedCustomerAutoSuggestions(RelatedCustomerAutoSuggestionCriteria criteria)
-        {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var result = new List<RelatedCustomerSuggestion>();
-                    while (reader.Read())
-                    {
-                        var name = Converter.ToString2(reader["UserName"]);
-                        result.Add(new RelatedCustomerSuggestion
-                        {
-                            Key = name,
-                            Value = name
-                        });
-                    }
-
-                    return result;
-                }
             }
         }
 

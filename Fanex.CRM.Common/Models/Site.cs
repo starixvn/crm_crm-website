@@ -7,7 +7,6 @@
 namespace Fanex.CRM.Common.Models
 {
     using System;
-    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>

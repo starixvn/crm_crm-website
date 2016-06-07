@@ -5,12 +5,8 @@
     SettingManager,
     crmConstants,
     viewResources,
-    getRelatedCustomer,
-    verifyRelatedCustomer,
     hotKeyManager,
     hasReviewPermission,
-    isOldRelatedCustomer,
-    getRelatedCustomerLength,
     isDeletedStatus,
     moment */
     /* jshint camelcase: false */
@@ -37,15 +33,13 @@
         $scope.isSuccess = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
-        $scope.isEditingRelatedCustomer = false;
-        $scope.isVerifyRelatedCustomer = false;
-        $scope.isVerifyRelatedCustomer = false;
-        $scope.oldRelatedCustomer = '';
         $scope.isSetFocus = false;
         $scope.hasReviewPermission = hasReviewPermission;
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypeOptions = null;
+
+        $scope.customersInput = '';
 
         $scope.isUpdatingTime = false;
         $scope.initController = function () {
@@ -133,19 +127,19 @@
             $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.communicationLog.Product.Id, $scope.productOptions.DataList);
             $scope.betTypeList = SettingManager.getChildSettings($scope.communicationLog.SubProduct.Id, $scope.subProductOptions.DataList);
 
-            $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
+            $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
+
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
             $scope.updateChangeFlag();
         };
 
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
-            $scope.preupdateLog();
-            $scope.$apply();
+            $scope.updateLog();
         };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlE = function () {
-            $scope.verifyRelatedCustomer();
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput)
         };
 
         $scope.updateSelectedProduct = function (product) {
@@ -384,35 +378,10 @@
             $scope.communicationLog.Solution = solution;
             $scope.updateChangeFlag();
         };
-        $scope.updateEditFlag = function () {
-            $scope.isEditingRelatedCustomer = true;
-        };
-        $scope.updateOldRelatedCustomer = function (oldRelatedCustomer) {
-            $scope.oldRelatedCustomer = oldRelatedCustomer;
-        };
-        $scope.preupdateLog = function () {
-            $scope.isShowResultMessage = false;
-            var inputCustomerLength = getRelatedCustomerLength();
-            if (!isOldRelatedCustomer($scope.oldRelatedCustomer) &&
-            $scope.isEditingRelatedCustomer &&
-            inputCustomerLength) {
-                /* jshint camelcase: false */
-                $scope.isShowResultMessage = true;
-                $scope.isSuccess = false;
-                $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
-                return;
-            }
-
-            $scope.updateLog();
-        };
 
         $scope.updateLog = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
-            var relatedCustomer = !$scope.isVerifyRelatedCustomer &&
-            isOldRelatedCustomer($scope.oldRelatedCustomer) ?
-            $scope.communicationLog.RelatedCustomerIds :
-            getRelatedCustomer();
 
             var isUnchangeReview =
            ((!$scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ||
@@ -428,7 +397,7 @@
             var updateCriteria = {
                 FeedbackId: $scope.communicationLog.RunningNumber,
                 CustomerId: $scope.communicationLog.CustomerId,
-                RelatedCustomerId: relatedCustomer,
+                RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
                 LanguageId: $scope.communicationLog.Language.Id,
                 CountryId: $scope.communicationLog.Country.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -544,6 +513,11 @@
                 result = false;
             }
 
+            if (result && $scope.customersInput !== '') {
+                $scope.resultMessage = viewResources.CustomerVerification;
+                result = false;
+            }
+
             if (result &&
             ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
                 $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
@@ -589,11 +563,6 @@
         };
         $scope.updateSelectedSubject = function (subject) {
             $scope.communicationLog.Subject = subject;
-        };
-        $scope.verifyRelatedCustomer = function () {
-            verifyRelatedCustomer($scope);
-            $scope.isEditingRelatedCustomer = false;
-            $scope.isVerifyRelatedCustomer = true;
         };
 
         $scope.completeSetFocus = function () {
@@ -675,6 +644,19 @@
         $scope.updateSelectedLicenseeType = function (licenseeType) {
             $scope.communicationLog.LicenseeType = licenseeType;
             $scope.safeApply();
+        };
+
+        $scope.verifyRelatedCustomer = function () {
+            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
+
+            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
+                $scope.isShowResultMessage = false;
+                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
+            }
+            else {
+                $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
+                $scope.isShowResultMessage = true;
+            }
         };
 
         angular.element(document).ready(function () {

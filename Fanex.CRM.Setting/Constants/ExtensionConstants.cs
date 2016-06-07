@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Setting.Constants
 {
-    using Fanex.CRM.Setting.Resources;
-
     /// <summary>
     /// Extension Constants.
     /// </summary>

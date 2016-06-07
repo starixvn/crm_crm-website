@@ -38,6 +38,7 @@ var SharedScriptManager = function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: requestParams ? JSON.stringify(requestParams) : null,
+            headers: { "X-Requested-With": "XMLhttprequest" },
             beforeSend: function () {
             },
             success: function (rs) {
@@ -121,13 +122,13 @@ var SharedScriptManager = function () {
 
             //disable IE ajax request caching
             $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
-        } ]);
+        }]);
     };
     self.setCommonHeaderHttpRequest = function (application) {
         application.config(['$httpProvider', function ($httpProvider) {
             $httpProvider.defaults.headers.common["FROM-ANGULAR"] = "true";
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-        } ]);
+        }]);
     };
 
     self.insertEditDescriptionBlock = function (username, editText, currentDate) {

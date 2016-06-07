@@ -12,7 +12,6 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     using System.Collections;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Models;
 
     /// <summary>

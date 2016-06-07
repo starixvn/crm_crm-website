@@ -15,13 +15,11 @@ namespace Fanex.CRM.InformHeadline.Controllers
     using Fanex.CRM.InformHeadline.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [CheckUMFilter]
-    public class InformHeadlineController : BaseController
+    public class InformHeadlineController : ReadOnlyBaseController
     {
         private readonly IInformHeadlineService _informHeadlineService;
 
@@ -63,7 +61,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         public void ExportInforms(GetInformHeadlinesCriteria criteria)
         {
             const string FILENAME = "InformHeadlines";
@@ -73,7 +71,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public JsonResult UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
             var result = _informHeadlineService.UpdateInformStatus(criteria);
@@ -108,7 +106,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(_informHeadlineService.InsertInformHeadline(criteria), JsonRequestBehavior.DenyGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public void ExportNewInforms(GetNewInformsCriteria criteria)
         {
             const string FILENAME = "NewInformHeadlines";
@@ -138,7 +136,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public void ExportUpdateInforms(GetUpdateInformsCriteria criteria)
         {
             const string FILENAME = "UpdateInformHeadlines";
@@ -185,7 +183,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public void ExportContactInforms(GetContactInformsCriteria criteria)
         {
             const string FILENAME = "ContactInformHeadlines";

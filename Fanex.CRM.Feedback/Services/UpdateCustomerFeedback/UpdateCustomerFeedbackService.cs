@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Feedback.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;

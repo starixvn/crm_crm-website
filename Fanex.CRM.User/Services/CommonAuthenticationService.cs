@@ -1,6 +1,5 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
     using System.Web;
     using System.Web.Security;
     using Enumerations;
@@ -31,7 +30,7 @@
             _securityService = securityService ?? new SecurityService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
-        
+
         public RecheckInStatus RecheckIn(ICurrentSession currentSession)
         {
             var settings = NapSettings.Settings;
@@ -60,19 +59,17 @@
 
         public void Logout(ICurrentSession currentSession)
         {
-            _securityService.Logout(currentSession.OnUserId);
-            currentSession.ClearAll();
-            ClearAuthenticationTicket();
-        }
-
-        private void ClearAuthenticationTicket()
-        {
-            HttpContext.Current.Session.Abandon();
-            HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName)
+            if (currentSession != null)
             {
-                Expires = DateTime.Now.AddDays(-1)
-            });
+                if (currentSession.OnUserId > 0)
+                {
+                    _securityService.Logout(currentSession.OnUserId);
+                }
 
+                currentSession.ClearAll();
+            }
+
+            HttpContext.Current.Response.Cookies.Clear();
             FormsAuthentication.SignOut();
         }
     }

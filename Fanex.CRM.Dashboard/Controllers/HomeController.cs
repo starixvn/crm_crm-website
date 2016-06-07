@@ -14,13 +14,11 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
-    [CheckUMFilter]
-    public class HomeController : BaseController
+    public class HomeController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
 
@@ -36,14 +34,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         public RedirectResult Index()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/SignIn", true);
-            }
-            else
-            {
-                return new RedirectResult("~/Home/Default");
-            }
+            return new RedirectResult("~/Home/Default");
         }
 
         public ActionResult BlankPage()
@@ -57,23 +48,10 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/SignIn");
-            }
-
-            ViewBag.RedirectUrl = string.Empty;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
-
-            if (AppSession.RedirectionLink != null && 
-                !string.IsNullOrEmpty(AppSession.RedirectionLink))
-            {
-                ViewBag.RedirectUrl = AppSession.RedirectionLink;
-                AppSession.RedirectionLink = null;
-            }
 
             return View("~/Views/Home/Default.cshtml");
         }
@@ -81,7 +59,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            return PartialView("~/Views/Home/_Menu.cshtml", CurrentSession.MenuItemList);
+            return PartialView("~/Views/Home/_Menu.cshtml", AppSession.CurrentUserMenu);
         }
 
         public PartialViewResult GettingDashboardMenu()

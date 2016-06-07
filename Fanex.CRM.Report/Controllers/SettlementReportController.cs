@@ -19,14 +19,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.SettlementReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Settlement Report Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettlementIssuesReport, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class SettlementReportController : BaseController
+    public class SettlementReportController : ReadOnlyBaseController
     {
         private ISettlementReportService _settlementReportService;
 
@@ -40,7 +38,6 @@ namespace Fanex.CRM.Report.Controllers
             _settlementReportService = settlementReportService ?? new SettlementReportService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/SettlementReport/Index.cshtml");
@@ -48,12 +45,10 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpPost]
         [HandleAjaxError]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             var logs = _settlementReportService.GetSettlementReport(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(logs, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportSettlementReport(GetSettlementReportCriteria criteria)

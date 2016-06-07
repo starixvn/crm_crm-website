@@ -11,12 +11,12 @@ namespace Fanex.CRM.User.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Enumerations;
-    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.User.Resources;
     using Fanex.NAP.Core.Web.Session;
     using Models;
+    using NAP.Core.Configuration;
     using NAP.Core.Web;
     using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
@@ -26,7 +26,8 @@ namespace Fanex.CRM.User.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class UserLoginController : BaseController
+    [CheckUMFilter]
+    public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
         private const string LogInViewURL = "~/Areas/User/LogIn/Index.cshtml";
@@ -79,24 +80,10 @@ namespace Fanex.CRM.User.Controllers
         /// Login Page.
         /// </summary>
         /// <returns>Return view.</returns>
-        [CheckUMFilter]
         public ActionResult Index()
         {
             CreateNewToken();
             return View(LogInViewURL);
-        }
-
-        [CheckUMFilter]
-        public RedirectResult SignIn()
-        {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult("~/UserLogin/Index", true);
-            }
-            else
-            {
-                return new RedirectResult("~/Home/Index");
-            }
         }
 
         /// <summary>
@@ -108,7 +95,6 @@ namespace Fanex.CRM.User.Controllers
         /// <returns>The log in result.</returns>
         [ValidateAntiForgeryToken]
         [HttpPost]
-        [CheckUMFilter]
         public ActionResult Index(LocalLogin localLogin)
         {
             if (string.IsNullOrEmpty(localLogin.Username) || string.IsNullOrEmpty(localLogin.Password))
@@ -121,8 +107,8 @@ namespace Fanex.CRM.User.Controllers
                 return LoginError(Labels.Login_SessionTimeout);
             }
 
-            localLogin.Environment = Environment;
-            localLogin.SiteId = SiteId;
+            localLogin.Environment = NapSettings.Settings.Environment;
+            localLogin.SiteId = NapSettings.Settings.SiteId;
             localLogin.SessionId = Session.SessionID;
 
             var loginStatus = _localService.Login(localLogin, _napCurrentSession);
@@ -134,14 +120,13 @@ namespace Fanex.CRM.User.Controllers
 
             return Redirect(FormsAuthentication.DefaultUrl);
         }
-        
+
         [AllowAnonymous]
         [HttpGet]
-        [CheckUMFilter]
         public ActionResult SSO(SSOLogin ssoLogin)
         {
-            ssoLogin.Environment = Environment;
-            ssoLogin.SiteId = SiteId;
+            ssoLogin.Environment = NapSettings.Settings.Environment;
+            ssoLogin.SiteId = NapSettings.Settings.SiteId;
             ssoLogin.SessionId = Session.SessionID;
 
             var loginStatus = _ssoService.SingleSignOn(ssoLogin, _napCurrentSession);
@@ -158,7 +143,6 @@ namespace Fanex.CRM.User.Controllers
         /// Log out action.
         /// </summary>
         /// <returns>Log out result.</returns>
-        [CheckUMFilter]
         public ActionResult LogOut()
         {
             try

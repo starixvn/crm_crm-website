@@ -117,17 +117,7 @@ namespace Fanex.CRM.Customer.Services
             return _customerRepository.UpdateCustomerSuggestion(criteria);
         }
 
-        public IEnumerable<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
-        {
-            var customers = _customerRepository.GetRelatedCustomerAutoSuggestions(criteria);
-            return customers.Select(x => new
-            {
-                key = x.Key,
-                value = x.Value
-            });
-        }
-
-        public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
             return _customerRepository.VerifyUsername(criteria);
         }

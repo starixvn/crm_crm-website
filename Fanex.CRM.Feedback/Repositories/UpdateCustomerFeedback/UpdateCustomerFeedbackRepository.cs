@@ -10,8 +10,10 @@
 namespace Fanex.CRM.Feedback.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -43,6 +45,22 @@ namespace Fanex.CRM.Feedback.Repositories
                     {
                         feedback = GetCustomerFeedback(reader);
                         feedback.CustomerInfo = GetCustomerInfo(reader);
+
+                        if (reader.NextResult())
+                        {
+                            var relatedCustomers = new List<BaseModel>();
+                            while (reader.Read())
+                            {
+                                relatedCustomers.Add(new BaseModel
+                                {
+                                    Id = Converter.ToInt(reader["CustID"]),
+                                    Name = Converter.ToString2(reader["UserName"])
+                                });
+                            }
+
+                            feedback.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
+                            feedback.HasRelated = relatedCustomers.Count > 0;
+                        }
                     }
                 }
             }
@@ -172,7 +190,6 @@ namespace Fanex.CRM.Feedback.Repositories
                 Status = new BaseModel { Id = Converter.ToInt(reader["StatusId"]) },
                 Role = new BaseModel { Id = Converter.ToInt(reader["RoleId"]) },
                 Response = new BaseModel { Id = Converter.ToInt(reader["ResponseId"]) },
-                RelatedCustomer = Converter.ToString2(reader["RelatedCustomer"]),
                 Subject = Converter.ToString2(reader["Subject"]),
                 Description = Converter.ToString2(reader["Description"]),
                 Solution = Converter.ToString2(reader["Solution"]),
@@ -182,7 +199,6 @@ namespace Fanex.CRM.Feedback.Repositories
                 Review = Converter.ToString2(reader["Review"])
             };
 
-            feedback.HasRelated = !string.IsNullOrWhiteSpace(feedback.RelatedCustomer);
             return feedback;
         }
 

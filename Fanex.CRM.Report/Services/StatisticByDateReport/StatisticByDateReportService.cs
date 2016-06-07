@@ -11,9 +11,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models.Npoi;

@@ -10,20 +10,18 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Services.DynamicReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Dynamic Report Controller.
     /// </summary>
-    [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class DynamicReportController : BaseController
+    public class DynamicReportController : ReadOnlyBaseController
     {
         private IDynamicReportService _dynamicReportService;
 
@@ -37,6 +35,8 @@ namespace Fanex.CRM.Report.Controllers
             _dynamicReportService = dynamicReportService ?? new DynamicReportService();
         }
 
+        [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
+
         public ActionResult Index()
         {
             return View("~/Areas/Report/DynamicReport/Index.cshtml");
@@ -47,6 +47,8 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
+
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -66,11 +68,12 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
+        [OverridableNapAuthAttribute(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
+
         public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
         {
             var logs = _dynamicReportService.GetDynamicReport(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(logs, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)

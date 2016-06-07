@@ -14,20 +14,18 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
-    using ONEbook.UM.Filters;
+    using NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
-    [CheckUMFilter]
-    public class SettingManagementController : BaseController
+    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Read)]
+    public class SettingManagementController : ReadOnlyBaseController
     {
         private ISettingManagementService _settingManagementService;
 
@@ -41,30 +39,26 @@ namespace Fanex.CRM.AdminTool.Controllers
             _settingManagementService = settingManagementService ?? new SettingManagementService();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/SettingManagement/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertNewSettingView()
         {
             return View("~/Areas/AdminTool/SettingManagement/InsertSetting/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertSubSettingView(string settingType)
         {
             return View(
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
                  new Setting
-                {
-                    SettingType = settingType
-                });
+                 {
+                     SettingType = settingType
+                 });
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenDeleteSettingView(
             string settingType,
             int settingId,
@@ -91,7 +85,6 @@ namespace Fanex.CRM.AdminTool.Controllers
                 });
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenEditSettingView(int settingId)
         {
             return View(
@@ -103,57 +96,48 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
             var result = _settingManagementService.GetMainSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult ParentSetting()
         {
             var result = _settingManagementService.GetParentSettings();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingManagementService.SettingByType(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertSetting(InsertSettingCriteria criteria)
         {
             var result = _settingManagementService.InsertSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
         {
             Result result = _settingManagementService.DeleteSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult EditSetting(EditSettingCriteria criteria)
         {
             var result = _settingManagementService.EditSetting(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

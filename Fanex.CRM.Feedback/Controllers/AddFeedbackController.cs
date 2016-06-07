@@ -12,7 +12,6 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -23,14 +22,12 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Add Feedback Controller.
     /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-    [CheckUMFilter]
-    public class AddFeedbackController : BaseController
+    public class AddFeedbackController : ReadOnlyBaseController
     {
         public AddFeedbackController()
             : this(null)

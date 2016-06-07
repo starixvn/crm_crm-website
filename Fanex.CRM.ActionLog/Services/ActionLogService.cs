@@ -12,14 +12,11 @@ namespace Fanex.CRM.ActionLog.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Xml;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.ActionLog.Repositories;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>

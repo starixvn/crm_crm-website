@@ -7,7 +7,6 @@
 namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Models.DeletedFeedbackStatistics;
     using Fanex.Data;

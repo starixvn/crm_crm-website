@@ -7,8 +7,6 @@
 namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// TODO: Update summary.
