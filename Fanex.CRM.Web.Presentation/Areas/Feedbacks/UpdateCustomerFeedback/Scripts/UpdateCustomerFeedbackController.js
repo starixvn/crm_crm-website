@@ -370,9 +370,14 @@
         $scope.updateCustomerFeedback = function (feedback) {
             $uiBlockerService.blockUI();
 
-            feedback.RelatedCustomers = $scope.relatedCustomerResultDirective.relatedCustomers.filter(function (value) {
-                return value.Id !== 0;
-            });
+            if ($scope.feedback.HasRelated && $scope.relatedCustomerResultDirective.relatedCustomers) {
+                feedback.RelatedCustomers = $scope.relatedCustomerResultDirective.relatedCustomers.filter(function (value) {
+                    return value.Id !== 0;
+                });
+            }
+            else {
+                feedback.RelatedCustomers = null;
+            }
 
             feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
             $scope.assignIdForParam(feedback);
