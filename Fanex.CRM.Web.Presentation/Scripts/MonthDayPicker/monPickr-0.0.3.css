@@ -4,7 +4,7 @@
 *
 * Examples and documentation at: http://update.later
 *
-* Copyright (c) 2012 Nexcel Solutions
+* Copyright (c) 2012
 *
 * Version: 0.0.3 (2 Mar 2012)
 * Requires: jQuery v1.7+
