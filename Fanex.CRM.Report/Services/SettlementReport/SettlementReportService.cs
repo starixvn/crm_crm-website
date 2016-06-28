@@ -36,7 +36,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The settlement report.</returns>      
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public SettlementReportInfo GetSettlementReport(GetSettlementReportCriteria criteria)
@@ -139,7 +139,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// <returns>
         /// The statistic report by daily.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private SettlementReportInfo MappingDataSettlementReport(
@@ -212,7 +212,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// <returns>
         /// The chart information.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private SettlementReportInfo GetChartInfo(SettlementReportInfo settlementReport)
@@ -261,7 +261,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
         /// <param name="settlementReport">The settlement report.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private void ExportSettlementReportBody(

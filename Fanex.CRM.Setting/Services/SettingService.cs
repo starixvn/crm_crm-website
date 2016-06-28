@@ -369,7 +369,7 @@ namespace Fanex.CRM.Setting.Services
         /// Gets all product.
         /// </summary>
         /// <returns>All product.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Product> GetAllSubProducts()

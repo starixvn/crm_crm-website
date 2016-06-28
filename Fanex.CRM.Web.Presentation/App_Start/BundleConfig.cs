@@ -27,7 +27,7 @@ namespace Fanex.CRM.Web.View.AppStart
         /// Registers the bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)

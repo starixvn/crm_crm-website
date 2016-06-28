@@ -85,7 +85,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// Gets all main category.
         /// </summary>
         /// <returns>All main category.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public List<Setting> AllMainCategory()
@@ -147,7 +147,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The statistic report.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public StatisticReportInfo StatisticReport(GetStatisticReportCriteria criteria)
@@ -248,7 +248,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <returns>
         /// The statistic report by monthly.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByMonthly(
@@ -338,7 +338,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <returns>
         /// The statistic report by daily.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByDaily(
@@ -413,7 +413,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <returns>
         /// The paging log list.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private IList<StatisticReportInfo> GetPagingLogList(
@@ -471,7 +471,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return dummyCountries;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, IDictionary<int, int> countryDictionary)
@@ -533,7 +533,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
         /// <param name="statisticReport">The statistic report.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private void ExportStatisticReportBody(

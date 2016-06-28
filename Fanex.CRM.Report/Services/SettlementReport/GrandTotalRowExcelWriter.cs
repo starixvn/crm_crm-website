@@ -58,7 +58,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="info">The information.</param>
         /// <param name="groupInfo">The group information.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(

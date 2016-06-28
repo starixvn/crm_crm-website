@@ -23,7 +23,7 @@ namespace Fanex.CRM.Customer.Repositories
     /// </summary>
     public class BaseCustomerRepository : BaseRepository
     {
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         public CustomerInfo ReadCustomerBasicInformation(IDataReader reader)

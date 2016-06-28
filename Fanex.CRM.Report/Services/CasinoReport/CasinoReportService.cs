@@ -676,7 +676,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="casinoDetails">The casino details.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void GenerateCasinoDetailBody(ExportExcelInfo exportExcelInfo, IEnumerable<CasinoDetailEntity> casinoDetails)

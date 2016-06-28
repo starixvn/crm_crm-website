@@ -120,7 +120,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Grid Options.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)

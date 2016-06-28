@@ -64,7 +64,7 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         public IList<StatisticsDetailbyDateModel> GetDetailReport(GetDetailReportCriteria criteria)

@@ -81,7 +81,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(reportName));
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
@@ -140,7 +140,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             exportExcelInfo.CurrentRow++;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void ExportCustomerReportBody(ref ExportExcelInfo exportExcelInfo, CustomerReportInfo customerReport)
@@ -227,7 +227,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         /// <param name="currentColumn">The current column.</param>
         /// <param name="customer">The customer.</param>
         /// <param name="centerTextStyle">The center text style.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void ExportCustomerReportRow(

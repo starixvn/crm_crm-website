@@ -102,7 +102,7 @@ namespace Fanex.CRM.Communication.Repositories
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>Log Info Object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLog MappingDataFromSqlToLogInfoObject(IDataReader reader)
@@ -142,7 +142,7 @@ namespace Fanex.CRM.Communication.Repositories
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>Log Info Object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLog MappingDataFromSqlToLogInfoObjectById(IDataReader reader)

@@ -50,7 +50,7 @@ namespace Fanex.CRM.Feedback.Criteria
         /// Gets the SP parameters.
         /// </summary>
         /// <returns>The input parameters hash.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public Hashtable GetSpParams()
         {
             int userId = AppSession.CurrentUser.Id;
