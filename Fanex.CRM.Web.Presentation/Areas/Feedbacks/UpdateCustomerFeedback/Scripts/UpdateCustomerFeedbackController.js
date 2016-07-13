@@ -186,38 +186,29 @@
         };
 
         $scope.getSubProducts = function () {
-            angular.forEach($scope.settings.Products, function (product, index) {
-                /* jshint unused: false */
-                if (product.Id === $scope.feedback.Product.Id) {
-                    $scope.subProducts = product.ChildSettings;
-                }
-            });
+            var products = $scope.settings.Products;
+            var productFiltered = products.filter(function (product) {
+                return product.Id === $scope.feedback.Product.Id;
+            })[0];
 
-            if (!$scope.subProducts) {
-                $scope.subProducts = $scope.settings.Products[0].ChildSettings;
-            }
+            $scope.subProducts = productFiltered.ChildSettings;
         };
         $scope.getBettypes = function () {
-            angular.forEach($scope.subProducts, function (subProduct, index) {
-                /* jshint unused: false */
-                if (subProduct.Id === $scope.feedback.SubProduct.Id) {
-                    $scope.bettypes = subProduct.ChildSettings;
-                }
-            });
+            var subProducts = $scope.subProducts;
+            var subProductsFiltered = subProducts.filter(function (subProduct) {
+                return subProduct.Id === $scope.feedback.SubProduct.Id;
+            })[0];
 
-            if (!$scope.bettypes) {
-                var notApplySetting = $scope.subProducts[0];
-                $scope.bettypes = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
+            $scope.bettypes = subProductsFiltered.ChildSettings;
         };
 
         $scope.getSubcategories = function () {
-            angular.forEach($scope.settings.Categories, function (category, index) {
-                /* jshint unused: false */
-                if (category.Id === $scope.feedback.Category.Id) {
-                    $scope.subcategories = category.ChildSettings;
-                }
-            });
+            var categories = $scope.settings.Categories;
+            var categoriesFiltered = categories.filter(function (category) {
+                return category.Id === $scope.feedback.Category.Id;
+            })[0];
+
+            $scope.subcategories = categoriesFiltered.ChildSettings;
         };
 
         $scope.updateAllSettingsForFeedback = function () {

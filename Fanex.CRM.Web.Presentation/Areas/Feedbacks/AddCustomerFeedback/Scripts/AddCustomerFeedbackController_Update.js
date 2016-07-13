@@ -41,11 +41,6 @@
         };
         $scope.updateSelectedSubProduct = function (subProduct) {
             $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };
-            if (!subProduct.ChildSettings) {
-                var notApplySetting = $scope.subProductOptions.DataList[0];
-                subProduct.ChildSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
-
             $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
         };

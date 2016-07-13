@@ -154,10 +154,6 @@
             $scope.subProductOptions.SelectedId = subProduct.Id;
 
             var childSettings = SettingManager.getChildSettings(subProduct.Id, $scope.subProductOptions.DataList);
-            if (!childSettings || childSettings.length === 0) {
-                var notApplySetting = $scope.subProductOptions.DataList[0];
-                childSettings = [{ Id: notApplySetting.Id, Name: notApplySetting.Name }];
-            }
 
             $scope.betTypeList = childSettings;
             $scope.communicationLog.BetType = childSettings[0];
