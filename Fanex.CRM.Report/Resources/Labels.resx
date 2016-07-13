@@ -877,4 +877,12 @@
     <value>Sub-Product</value>
     <comment>#50691</comment>
   </data>
+  <data name="Passport" xml:space="preserve">
+    <value>Passport</value>
+    <comment>#60341</comment>
+  </data>
+  <data name="SiteName" xml:space="preserve">
+    <value>Site Name</value>
+    <comment>#60341</comment>
+  </data>
 </root>

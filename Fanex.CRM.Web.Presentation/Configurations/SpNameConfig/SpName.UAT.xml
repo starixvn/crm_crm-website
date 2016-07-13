@@ -39,7 +39,7 @@
     <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Feedback">
-    <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -105,7 +105,9 @@
   </Function>
   <Function Name="Report">
     <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="VIP" ObjectProperty="IsVIP" />
+    </Setting>
     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Month" ObjectProperty="Month" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />

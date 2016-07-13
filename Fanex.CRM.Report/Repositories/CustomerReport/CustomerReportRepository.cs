@@ -29,67 +29,8 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var customerReport = new List<CustomerInfo>();
-                    while (reader.Read())
-                    {
-                        customerReport.Add(ReadCustomerInfo(reader));
-                    }
-
-                    return customerReport;
-                }
+                return objectDB.Query<CustomerInfo>(criteria.GetSpParams());
             }            
-        }
-
-        private static CustomerInfo ReadCustomerInfo(IDataReader reader)
-        {
-            var customerInfo = new CustomerInfo
-             {
-                 IsVIP = Converter.ToBool(reader["VIP"]),
-                 Title = new Setting
-                 {
-                     Name = Converter.ToString2(reader["Title"])
-                 },
-                 Username = Converter.ToString2(reader["UserName"]),
-                 BirthDay = Converter.ToDateTime(reader["Birthday"]),
-                 BirthDayString = reader["BirthDay"] != DBNull.Value ?
-                     Converter.ToDateTime(reader["Birthday"]).ToShortFormatedDate() :
-                     string.Empty,
-                 SiteSetting = new Site
-                 {
-                     Name = Converter.ToString2(reader["Site"])
-                 },
-                 Languages = new List<BaseModel>(),
-
-                 Skype = Converter.ToString2(reader["Skype"]),
-                 Email = Converter.ToString2(reader["Email"])
-             };
-
-            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 1));
-            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 2));
-            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 3));
-            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 4));            
-
-            var languages = Converter.ToString2(reader["Language"]).Split(',');
-            foreach (var language in languages)
-            {
-                customerInfo.Languages.Add(new BaseModel
-                {
-                    Name = language
-                });
-            }
-
-            return customerInfo;
-        }
-
-        private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, int index)
-        {
-            return new PersonalInfoContact
-            {
-                Name = Converter.ToString2(reader["Pic" + index + "Name"]),
-                Phone = Converter.ToString2(reader["Pic" + index])
-            };
         }
     }
 }

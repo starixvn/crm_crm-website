@@ -16,16 +16,6 @@
             return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
         }
 
-        function getCustomerLanguages(customer) {
-            var languageLength = customer.Languages.length;
-            var languages = [];
-            for (var i = 0; i < languageLength; i++) {
-                languages.push(customer.Languages[i].Name);
-            }
-
-            return languages.join(", ");
-        }
-
         function getGripOtions(customerReport) {
             var bodyData = [];
             var footerData = [];
@@ -33,54 +23,71 @@
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
-                    var customerLanguages = getCustomerLanguages(customer);
-
-                    var contactInfo = [];
-                    var contactLength = customer.PhoneInfo.length;
-                    for (var j = 0; j < contactLength; j++) {
-                        var contact = customer.PhoneInfo[j];
-                        if (contact.CountryCode !== '' &&
-contact.AreaCode !== '' &&
-contact.PhoneNumber !== '') {
-                            contactInfo.push(sharedScriptManager.stringFormat("{0}-{1}-{2}",
-[contact.CountryCode, contact.AreaCode, contact.PhoneNumber]));
-                        }
-                    }
-
+                    
                     bodyData.push({
-                        Columns: [{ Name: "ColTitle", Value: customer.Title.Name },
+                        Columns: [{ Name: "ColHeadline", Value: customer.Headline },
 { Name: "ColUsername", Value: customer.Username },
+{ Name: "ColFirstname", Value: customer.FirstName },
+{ Name: "ColLastname", Value: customer.LastName },
+{ Name: "ColPhone1", Value: customer.Phone1 },
+{ Name: "ColPhone2", Value: customer.Phone2 },
+{ Name: "ColPhone3", Value: customer.Phone3 },
+{ Name: "ColMobile", Value: customer.Mobile },
+{ Name: "ColFax", Value: customer.Fax },
+{ Name: "ColEmail", Value: customer.Email },
+{ Name: "ColSkype", Value: customer.Skype },
+{ Name: "ColMSN", Value: customer.MSN },
+{ Name: "ColWhatsApp", Value: customer.WhatsApp },
+{ Name: "ColLine", Value: customer.Line },
+{ Name: "ColWeChat", Value: customer.WeChat },
+{ Name: "ColYahoo", Value: customer.Yahoo },
+{ Name: "ColBBM", Value: customer.BBM },
+{ Name: "ColQQ", Value: customer.QQ },
+{ Name: "ColLanguage", Value: customer.Language },
 {
     Name: "ColVIP",
     TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
     Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
 },
-{ Name: "ColBirthday", Value: customer.BirthDayString },
-{ Name: "ColPIC1", Value: customer.PIC1 },
-{ Name: "ColPIC2", Value: customer.PIC2 },
-{ Name: "ColPIC3", Value: customer.PIC3 },
-{ Name: "ColPIC4", Value: customer.PIC4 },
-{ Name: "ColSkype", Value: customer.Skype },
-{ Name: "ColEmail", Value: customer.Email },
-{ Name: "ColLanguage", Value: customerLanguages },
-{ Name: "ColSite", Value: customer.SiteSetting.Name}]
+{ Name: "ColPIC1", Value: customer.Pic1 },
+{ Name: "ColPIC2", Value: customer.Pic2 },
+{ Name: "ColPIC3", Value: customer.Pic3 },
+{ Name: "ColPIC4", Value: customer.Pic4 },
+{ Name: "ColBirthday", Value: customer.BirthDay },
+{ Name: "ColPassport", Value: customer.Passport },
+{ Name: "ColSiteName", Value: customer.SiteName }]
                     });
                 }
             }
 
             var sortColumnIndex = getSortColumnIndex();
-            var headerColumns = [{ HeaderText: viewResources.Title, Width: 50, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
+            var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left", Sort: true },
 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.FirstName, Width: 120, Name: "ColFirstname", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.LastName, Width: 120, Name: "ColLastname", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Phone1, Width: 120, Name: "ColPhone1", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Phone2, Width: 120, Name: "ColPhone2", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Phone3, Width: 120, Name: "ColPhone3", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Mobile, Width: 120, Name: "ColMobile", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Fax, Width: 120, Name: "ColFax", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Email, Width: 180, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Skype, Width: 80, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.MSN, Width: 80, Name: "ColMSN", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.WhatsApp, Width: 80, Name: "ColWhatsApp", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Line, Width: 80, Name: "ColLine", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.WeChat, Width: 80, Name: "ColWeChat", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Yahoo, Width: 80, Name: "ColYahoo", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.BBM, Width: 80, Name: "ColBBM", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.QQ, Width: 80, Name: "ColQQ", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
 { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-{ HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
 { HeaderText: viewResources.PIC1, Width: 180, Name: "ColPIC1", HeaderAlign: "center", CellAlign: "left" },
 { HeaderText: viewResources.PIC2, Width: 180, Name: "ColPIC2", HeaderAlign: "center", CellAlign: "left" },
 { HeaderText: viewResources.PIC3, Width: 180, Name: "ColPIC3", HeaderAlign: "center", CellAlign: "left" },
 { HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
-{ HeaderText: viewResources.Skype, Width: 140, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
-{ HeaderText: viewResources.Email, Width: 180, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
-{ HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
-{ HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true}];
+{ HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true, FormatDateTime: "MMM DD, YYYY" },
+{ HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left", Sort: true}];
             if (sortColumnIndex !== -1) {
                 headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
             }
@@ -132,7 +139,7 @@ contact.PhoneNumber !== '') {
             switch (sortColumnName) {
                 case "ColVIP":
                     return "IsVIP";
-                case "ColTitle":
+                case "ColHeadline":
                     return "TitleName";
                 case "ColUsername":
                     return "Username";
@@ -140,7 +147,7 @@ contact.PhoneNumber !== '') {
                     return "BirthDay";
                 case "ColLanguage":
                     return "Languages";
-                case "ColSite":
+                case "ColSiteName":
                     return "SiteSettingName";
                 default:
                     return "";

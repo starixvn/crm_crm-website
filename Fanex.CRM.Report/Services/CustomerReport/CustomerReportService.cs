@@ -9,13 +9,11 @@
 
 namespace Fanex.CRM.Report.Repositories.CustomerReport
 {
-    using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
@@ -47,13 +45,6 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria).ToList();
             customerReport.TotalCustomer = customerReport.CustomerList.Count;
 
-            if (criteria.IsSortReport &&
-                !string.IsNullOrEmpty(criteria.SortField) &&
-                !string.IsNullOrEmpty(criteria.SortDirection))
-            {
-                customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
-            }
-
             return new CustomerReportInfo
             {
                 CustomerList = criteria.IsGetFullReport ?
@@ -69,7 +60,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         {
             criteria.IsGetFullReport = true;
             var customerReport = GetCustomerReport(criteria);
-            
+
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
@@ -237,155 +228,33 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExtensions.RenderCell(row, currentColumn, customer.Title.Name, centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Headline, centerTextStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, customer.Username, exportExcelInfo.TextStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, customer.BirthDayString, centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.BirthDay.HasValue ? customer.BirthDay.Value.ToShortFormatedDate() : string.Empty, centerTextStyle);
             currentColumn++;
 
-            NpoiExtensions.RenderCell(row, currentColumn, customer.PIC1, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Pic1, exportExcelInfo.TextStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, customer.PIC2, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Pic2, exportExcelInfo.TextStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, customer.PIC3, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Pic3, exportExcelInfo.TextStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, customer.PIC4, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Pic4, exportExcelInfo.TextStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, customer.Skype, exportExcelInfo.TextStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, customer.Email, exportExcelInfo.TextStyle);
             currentColumn++;
 
-            var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
-            NpoiExtensions.RenderCell(row, currentColumn, customerLanguages, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.Language, exportExcelInfo.TextStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.SiteName, exportExcelInfo.TextStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow++;
-        }
-
-        /// <summary>
-        /// Sorts the customer list.
-        /// </summary>
-        /// <param name="customerList">The customer list.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Sorted Customer List.</returns>
-        private static List<CustomerInfo> SortCustomerList(
-            List<CustomerInfo> customerList,
-            GetCustomerReportCriteria criteria)
-        {
-            if (string.Equals(criteria.SortDirection, SortDirectionConstants.Asc, StringComparison.OrdinalIgnoreCase))
-            {
-                return SortCustomerListByAscending(customerList, criteria);
-            }
-
-            if (string.Equals(criteria.SortDirection, SortDirectionConstants.Desc, StringComparison.OrdinalIgnoreCase))
-            {
-                return SortCustomerListByDescending(customerList, criteria);
-            }
-
-            return customerList;
-        }
-
-        [SuppressMessage("Microsoft.Maintainability",
-            "CA1502:AvoidExcessiveComplexity",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static List<CustomerInfo> SortCustomerListByAscending(
-            List<CustomerInfo> customerList,
-            GetCustomerReportCriteria criteria)
-        {
-            var sortedCustomerList = customerList;
-            switch (criteria.SortField)
-            {
-                case "IsVIP":
-                    sortedCustomerList = sortedCustomerList
-                        .OrderBy(customerInfo => customerInfo.IsVIP ? 1 : 0)
-                        .ToList();
-                    break;
-                case "IsHeadline":
-                    sortedCustomerList = sortedCustomerList
-                        .OrderBy(customerInfo => customerInfo.IsHeadline ? 1 : 0)
-                        .ToList();
-                    break;
-                case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Title.Name, customerB.Title.Name, StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "Username":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Username, customerB.Username, StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "BirthDay":
-                    sortedCustomerList = sortedCustomerList
-                       .OrderBy(customerInfo => customerInfo.BirthDay)
-                       .ToList();
-                    break;
-                case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) =>
-                        string.Compare(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB), StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) =>
-                        string.Compare(customerA.SiteSetting.Name, customerB.SiteSetting.Name, StringComparison.OrdinalIgnoreCase));
-                    break;
-                default:
-                    sortedCustomerList = customerList;
-                    break;
-            }
-
-            return sortedCustomerList;
-        }
-
-        [SuppressMessage("Microsoft.Maintainability",
-            "CA1502:AvoidExcessiveComplexity",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static List<CustomerInfo> SortCustomerListByDescending(
-            List<CustomerInfo> customerList,
-            GetCustomerReportCriteria criteria)
-        {
-            var sortedCustomerList = customerList;
-            switch (criteria.SortField)
-            {
-                case "IsVIP":
-                    sortedCustomerList = sortedCustomerList
-                        .OrderByDescending(customerInfo => customerInfo.IsVIP ? 1 : 0)
-                        .ToList();
-                    break;
-                case "IsHeadline":
-                    sortedCustomerList = sortedCustomerList
-                        .OrderByDescending(customerInfo => customerInfo.IsHeadline ? 1 : 0)
-                        .ToList();
-                    break;
-                case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Title.Name, customerA.Title.Name, StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "Username":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Username, customerA.Username, StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "BirthDay":
-                    sortedCustomerList = sortedCustomerList
-                       .OrderByDescending(customerInfo => customerInfo.BirthDay)
-                       .ToList();
-                    break;
-                case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) =>
-                        string.Compare(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA), StringComparison.OrdinalIgnoreCase));
-                    break;
-                case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.SiteSetting.Name, customerA.SiteSetting.Name, StringComparison.OrdinalIgnoreCase));
-                    break;
-                default:
-                    sortedCustomerList = customerList;
-                    break;
-            }
-
-            return sortedCustomerList;
-        }
-
-        private static string GetCustomerLanguages(CustomerInfo customerInfo)
-        {
-            return string.Join(", ", customerInfo.Languages.Select(language => language.Name));
         }
     }
 }
