@@ -15,7 +15,5 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     public interface ICustomerReportService
     {
         CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria);
-
-        void ExportCustomerReport(GetCustomerReportCriteria criteria);
     }
 }

@@ -7,6 +7,7 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Excels.CustomerReport;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.CustomerReport;
@@ -14,6 +15,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Resources;
 
     /// <summary>
     /// Customer Report Controller.
@@ -29,7 +31,9 @@ namespace Fanex.CRM.Report.Controllers
         {
         }
 
-        public CustomerReportController(ICustomerReportService customerReportService, ISettingService settingService)
+        public CustomerReportController(
+            ICustomerReportService customerReportService,
+            ISettingService settingService)
         {
             _customerReportService = customerReportService ?? new CustomerReportService();
             _settingService = settingService ?? new SettingService();
@@ -67,10 +71,13 @@ namespace Fanex.CRM.Report.Controllers
             return Json(customerReport, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ExportCustomerReport(GetCustomerReportCriteria criteria)
+        [HttpGet]
+        public void ExportCustomerReport(GetCustomerReportCriteria criteria)
         {
-            _customerReportService.ExportCustomerReport(criteria);
-            return new EmptyResult();
+            criteria.IsGetFullReport = true;
+            var data = _customerReportService.GetCustomerReport(criteria);
+            var excel = new CustomerReportExcel(data, Labels.CustomerReport_Title);
+            excel.BuildWorkBook();
         }
     }
 }
