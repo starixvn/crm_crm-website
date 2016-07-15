@@ -15,13 +15,10 @@
     {
         private readonly CustomerReportInfo _customerReportInfo;
 
-        private readonly int _totalRows;
-
-        public CustomerReportExcel(CustomerReportInfo customerReportInfo, string excelFileName, int totalRows)
+        public CustomerReportExcel(CustomerReportInfo customerReportInfo, string excelFileName)
             : base(excelFileName)
         {
             _customerReportInfo = customerReportInfo;
-            _totalRows = totalRows;
         }
 
         public override void BuildWorkBook()
@@ -153,8 +150,9 @@
                 false,
                 CRMHorizontalAlignment.Center);
 
-            var numberOfSheet = (_totalRows / NpoiExtensions.MaxRowPerSheet) +
-                (_totalRows % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
+            var totalRows = _customerReportInfo.CustomerList.Count;
+            var numberOfSheet = (totalRows / NpoiExtensions.MaxRowPerSheet) +
+                (totalRows % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
@@ -166,7 +164,7 @@
                 ExportCustomerReportHeader(ref exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
                 var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
-                for (var i = startIndex; i < endIndex && i < _totalRows; i++)
+                for (var i = startIndex; i < endIndex && i < totalRows; i++)
                 {
                     var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                     var currentColumn = exportExcelInfo.StartColumn;

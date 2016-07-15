@@ -75,10 +75,10 @@ namespace Fanex.CRM.Report.Controllers
         [HttpGet]
         public void ExportCustomerReport(GetCustomerReportCriteria criteria)
         {
-            criteria.PageIndex = 1;
-            criteria.PageSize = int.MaxValue - 1000;
+            criteria.PageIndex = 0;
+            criteria.PageSize = 0;
             var data = _customerReportService.GetCustomerReport(criteria);
-            var excel = new CustomerReportExcel(data, Labels.CustomerReport_Title, criteria.TotalRows);
+            var excel = new CustomerReportExcel(data, Labels.CustomerReport_Title);
             excel.BuildWorkBook();
         }
     }

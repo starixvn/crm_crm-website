@@ -118,7 +118,7 @@
                 //allowTruncate: true,
                 pagerOption: {
                     itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
-                    currentPage: cachedData.scope.lastSelectedParams.PageIndex,
+                    currentPage: cachedData.scope.lastSelectedParams.PageIndex - 1,
                     itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                     totalItem: customerReport.TotalCustomer,
                     pagerSelectCallBack: ReRenderAfterPaged
@@ -175,7 +175,7 @@
         }
 
         function ReRenderAfterPaged(page_index, itemsPerPage) {
-            cachedData.scope.pagingCustomerReport(page_index, itemsPerPage);
+            cachedData.scope.pagingCustomerReport(page_index + 1, itemsPerPage);
             return false;
         }
 

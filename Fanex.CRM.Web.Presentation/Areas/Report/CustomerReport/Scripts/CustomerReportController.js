@@ -33,7 +33,7 @@
             SiteIds: '',
             Title: null,
             VIPType: null,
-            PageIndex: 0,
+            PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             SortField: '',
             SortDirection: '',
