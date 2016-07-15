@@ -15,10 +15,13 @@
     {
         private readonly CustomerReportInfo _customerReportInfo;
 
-        public CustomerReportExcel(CustomerReportInfo customerReportInfo, string excelFileName)
+        private readonly int _totalRows;
+
+        public CustomerReportExcel(CustomerReportInfo customerReportInfo, string excelFileName, int totalRows)
             : base(excelFileName)
         {
             _customerReportInfo = customerReportInfo;
+            _totalRows = totalRows;
         }
 
         public override void BuildWorkBook()
@@ -29,7 +32,7 @@
                 MaxColumnIndex = 26
             };
 
-            ExportCustomerReportBody(ref exportExcelInfo, _customerReportInfo);
+            ExportCustomerReportBody(exportExcelInfo);
             string reportName = Labels.CustomerReport_Title;
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(ExcelFileName));
         }
@@ -50,8 +53,8 @@
             foreach (var item in columnWidths)
             {
                 exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, item * NpoiExtensions.FontWidth);
-            }            
-            
+            }
+
             string reportTitle = Labels.CustomerReport_Title;
             exportExcelInfo.RenderHeaderTitle(reportTitle, headerStyle);
 
@@ -71,85 +74,8 @@
             {
                 NpoiExtensions.RenderCell(row, currentColumn++, item, headerStyle);
             }
-            
+
             exportExcelInfo.CurrentRow++;
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static void ExportCustomerReportBody(ref ExportExcelInfo exportExcelInfo, CustomerReportInfo customerReport)
-        {
-            if (customerReport.CustomerList.Count == 0)
-            {
-                exportExcelInfo.Worksheet.VerticallyCenter = true;
-                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
-                ExportCustomerReportHeader(ref exportExcelInfo);
-                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
-                return;
-            }
-
-            NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
-
-            var reportLength = customerReport.CustomerList.Count;
-            var textStyle = NpoiExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                NpoiExtensions.BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Left);
-            var centerTextStyle = NpoiExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                NpoiExtensions.BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
-
-            var evenRowTextStyle = NpoiExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                NpoiExtensions.EvenRowColorIndex,
-                false,
-                CRMHorizontalAlignment.Left);
-            var evenRowCenterTextStyle = NpoiExtensions.GetTextStyle(
-                exportExcelInfo.ExcelFile,
-                NpoiExtensions.EvenRowColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
-
-            var numberOfSheet = (reportLength / NpoiExtensions.MaxRowPerSheet) +
-                (reportLength % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
-            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
-            {
-                var sheetName = numberOfSheet > 1 ?
-                    string.Format("{0} - {1}", Labels.CustomerReport_SheetName, sheetIndex + 1) :
-                    Labels.CustomerReport_SheetName;
-                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
-                exportExcelInfo.Worksheet.VerticallyCenter = true;
-                exportExcelInfo.CurrentRow = 0;
-                ExportCustomerReportHeader(ref exportExcelInfo);
-                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
-                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
-                for (var i = startIndex; i < endIndex && i < reportLength; i++)
-                {
-                    var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-                    var currentColumn = exportExcelInfo.StartColumn;
-                    var customer = customerReport.CustomerList[i];
-                    var isEvenRow = (i + 1) % 2 == 0;
-                    if (isEvenRow)
-                    {
-                        exportExcelInfo.TextStyle = evenRowTextStyle;
-                    }
-                    else
-                    {
-                        exportExcelInfo.TextStyle = textStyle;
-                    }
-
-                    ExportCustomerReportRow(
-                        exportExcelInfo,
-                        row,
-                        currentColumn,
-                        customer,
-                        isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
-                }
-            }
         }
 
         private static void ExportCustomerReportRow(
@@ -187,6 +113,82 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportCustomerReportBody(ExportExcelInfo exportExcelInfo)
+        {
+            if (_customerReportInfo.CustomerList.Count == 0)
+            {
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
+                ExportCustomerReportHeader(ref exportExcelInfo);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
+
+            var textStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
+            var centerTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
+
+            var evenRowTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.EvenRowColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
+            var evenRowCenterTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.EvenRowColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
+
+            var numberOfSheet = (_totalRows / NpoiExtensions.MaxRowPerSheet) +
+                (_totalRows % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+            {
+                var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", Labels.CustomerReport_SheetName, sheetIndex + 1) :
+                    Labels.CustomerReport_SheetName;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
+                exportExcelInfo.CurrentRow = 0;
+                ExportCustomerReportHeader(ref exportExcelInfo);
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
+                for (var i = startIndex; i < endIndex && i < _totalRows; i++)
+                {
+                    var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+                    var currentColumn = exportExcelInfo.StartColumn;
+                    var customer = _customerReportInfo.CustomerList[i];
+                    var isEvenRow = (i + 1) % 2 == 0;
+                    if (isEvenRow)
+                    {
+                        exportExcelInfo.TextStyle = evenRowTextStyle;
+                    }
+                    else
+                    {
+                        exportExcelInfo.TextStyle = textStyle;
+                    }
+
+                    ExportCustomerReportRow(
+                        exportExcelInfo,
+                        row,
+                        currentColumn,
+                        customer,
+                        isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
+                }
+            }
         }
     }
 }

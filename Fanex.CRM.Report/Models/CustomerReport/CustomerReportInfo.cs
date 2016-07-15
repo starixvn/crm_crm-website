@@ -18,7 +18,7 @@ namespace Fanex.CRM.Report.Models.CustomerReport
     [Serializable]
     public class CustomerReportInfo
     {
-        public List<CustomerInfo> CustomerList { get; set; }
+        public IList<CustomerInfo> CustomerList { get; set; }
 
         public int TotalCustomer { get; set; }
     }

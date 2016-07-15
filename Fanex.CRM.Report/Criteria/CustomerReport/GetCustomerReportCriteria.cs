@@ -38,14 +38,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
 
-        [SpParam(Ignored = true)]
         public int PageIndex { get; set; }
 
-        [SpParam(Ignored = true)]
         public int PageSize { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool IsGetFullReport { get; set; }
 
         [SpParam(Ignored = true)]
         public string SortField { get; set; }
@@ -55,6 +50,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         [SpParam(Ignored = true)]
         public bool IsSortReport { get; set; }
+
+        [SpParam(SqlParamName = "totalrows")]
+        public int TotalRows { get; set; }
 
         public override string GetSettingKey()
         {

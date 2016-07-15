@@ -24,6 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     public class CustomerReportController : ReadOnlyBaseController
     {
         private readonly ICustomerReportService _customerReportService;
+
         private readonly ISettingService _settingService;
 
         public CustomerReportController()
@@ -74,9 +75,10 @@ namespace Fanex.CRM.Report.Controllers
         [HttpGet]
         public void ExportCustomerReport(GetCustomerReportCriteria criteria)
         {
-            criteria.IsGetFullReport = true;
+            criteria.PageIndex = 1;
+            criteria.PageSize = int.MaxValue - 1000;
             var data = _customerReportService.GetCustomerReport(criteria);
-            var excel = new CustomerReportExcel(data, Labels.CustomerReport_Title);
+            var excel = new CustomerReportExcel(data, Labels.CustomerReport_Title, criteria.TotalRows);
             excel.BuildWorkBook();
         }
     }
