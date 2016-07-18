@@ -29,17 +29,15 @@
                 MaxColumnIndex = 26
             };
 
-            ExportCustomerReportBody(exportExcelInfo);
+            RenderBody(exportExcelInfo);
             string reportName = Labels.CustomerReport_Title;
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(ExcelFileName));
         }
 
-        private static void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
+        private static void RenderHeader(ExportExcelInfo exportExcelInfo)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(
-                exportExcelInfo.ExcelFile,
-                new ExcelStyleParam());
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new int[]
             {
@@ -75,7 +73,7 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        private static void ExportCustomerReportRow(
+        private static void RenderRow(
             ExportExcelInfo exportExcelInfo,
             IRow row,
             int currentColumn,
@@ -115,13 +113,13 @@
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportCustomerReportBody(ExportExcelInfo exportExcelInfo)
+        private void RenderBody(ExportExcelInfo exportExcelInfo)
         {
             if (_customerReportInfo.CustomerList.Count == 0)
             {
                 exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
-                ExportCustomerReportHeader(ref exportExcelInfo);
+                RenderHeader(exportExcelInfo);
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
@@ -161,7 +159,7 @@
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
                 exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.CurrentRow = 0;
-                ExportCustomerReportHeader(ref exportExcelInfo);
+                RenderHeader(exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
                 var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < totalRows; i++)
@@ -179,7 +177,7 @@
                         exportExcelInfo.TextStyle = textStyle;
                     }
 
-                    ExportCustomerReportRow(
+                    RenderRow(
                         exportExcelInfo,
                         row,
                         currentColumn,
