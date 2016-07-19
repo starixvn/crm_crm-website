@@ -885,4 +885,7 @@
     <value>Site Name</value>
     <comment>#60341</comment>
   </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
 </root>

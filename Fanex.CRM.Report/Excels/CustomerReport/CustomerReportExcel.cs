@@ -60,7 +60,7 @@
                 Labels.Headline, Labels.Username, Labels.First_Name, Labels.Last_Name,
                 Labels.Phone + "1", Labels.Phone + "2", Labels.Phone + "3", Labels.Mobile, Labels.Fax,
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
-                Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Language,
+                Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
                 Labels.VIP, Labels.PIC1, Labels.PIC2, Labels.PIC3, Labels.PIC4,
                 Labels.Birthday, Labels.Passport, Labels.SiteName
             };

@@ -79,7 +79,7 @@
                 { HeaderText: viewResources.Yahoo, Width: 80, Name: "ColYahoo", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.BBM, Width: 80, Name: "ColBBM", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.QQ, Width: 80, Name: "ColQQ", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Language, Width: 200, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Languages, Width: 200, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.PIC1, Width: 180, Name: "ColPIC1", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.PIC2, Width: 180, Name: "ColPIC2", HeaderAlign: "center", CellAlign: "left" },
