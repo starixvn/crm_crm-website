@@ -52,12 +52,12 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var downTime = _maintenanceService.GetUnderMaintenanceTime();
-            if (!downTime.IsUnderMaintenanceTime)
+            if (!_maintenanceService.IsUnderMaintenance())
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
 
+            var downTime = _maintenanceService.GetUnderMaintenanceTime();
             ViewBag.UmtFrom = downTime.From;
             ViewBag.UmtTo = downTime.To;
 
