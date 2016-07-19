@@ -35,8 +35,6 @@
             VIPType: null,
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            SortField: '',
-            SortDirection: '',
             IsGetFromCached: false
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
@@ -200,8 +198,6 @@
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
-                SortField: $scope.searchCriteria.SortField,
-                SortDirection: $scope.searchCriteria.SortDirection,
                 IsGetFromCached: false
             };
 
@@ -221,7 +217,6 @@
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
             $scope.lastSelectedParams.IsGetFromCached = true;
-            $scope.lastSelectedParams.IsSortReport = false;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
             .then(function (data) {
                 $scope.customerReportOptions.DataList = data.Result;
@@ -232,20 +227,7 @@
                 $scope.unblockUI();
             });
         };
-        $scope.sortCustomerReport = function () {
-            $scope.BlockUI();
-            $scope.lastSelectedParams.IsGetFromCached = true;
-            $scope.lastSelectedParams.IsSortReport = true;
-            $customerReportService.getCustomerReport($scope.lastSelectedParams)
-            .then(function (data) {
-                $scope.customerReportOptions.DataList = data.Result;
-                $scope.customerReportOptions.IsUpdateGrid = true;
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
-        };
+        
         $scope.exportReport = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "CustomerReport/ExportCustomerReport",
