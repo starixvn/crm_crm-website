@@ -151,9 +151,6 @@
 
                             scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
                             scope.customersInput = '';
-                            attrs.ngModel = '';
-
-                            renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
                             $uiBlockerService.unblockUI();
                         },
                         function () {
