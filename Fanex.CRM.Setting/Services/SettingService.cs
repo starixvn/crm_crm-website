@@ -192,19 +192,22 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false)
         {
+            IList<SettingRelation> allTitles;
             var cache = CacheService.Get<IEnumerable<SettingRelation>>(GetAllTitleSessionKey);
             if (cache != null)
             {
-                return cache;
+                allTitles = cache.ToList();
             }
-
-            var allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
+            else
             {
-                SettingName = SettingTypeConstants.Title,
-                ParentId = 0
-            }).ToList();
+                allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Title,
+                    ParentId = 0
+                }).ToList();
 
-            CacheService.Set(GetAllTitleSessionKey, allTitles);
+                CacheService.Set(GetAllTitleSessionKey, allTitles);
+            }
 
             if (hasItemAll)
             {
