@@ -142,9 +142,18 @@
             $scope.unblockUI();
         };
         $scope.updateSelectedLanguage = function (languageIdList) {
+            if (!languageIdList) {
+                $('#language--1').prop('checked', true);
+                return;
+            }
+
             $scope.searchCriteria.LanguageIds = languageIdList;
         };
         $scope.updateSelectedSite = function (siteIdList) {
+            if (!siteIdList) {
+                $('#site--1').prop('checked', true);
+                return;
+            }
             $scope.searchCriteria.SiteIds = siteIdList;
         };
         $scope.updateFromDate = function (selectedDate) {

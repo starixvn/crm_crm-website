@@ -17,14 +17,39 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
     /// </summary>
     public class GetCustomerReportCriteria : CriteriaBase
     {
+        private string _SiteIds;
+
+        private string _LanguageIds;
+
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
         [SpParam(SqlParamName = "languageid")]
-        public string LanguageIds { get; set; }
+        public string LanguageIds
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_LanguageIds) ? string.Empty : _LanguageIds.Replace("-1", "0");
+            }
+
+            set
+            {
+                _LanguageIds = value;
+            }
+        }
 
         [SpParam(SqlParamName = "siteid")]
-        public string SiteIds { get; set; }
+        public string SiteIds {
+            get
+            {
+                return string.IsNullOrEmpty(_SiteIds) ? string.Empty : _SiteIds.Replace("-1", "0");
+            }
+
+            set
+            {
+                _SiteIds = value;
+            }
+        }
 
         [SpParam(SqlParamName = "frombirthday")]
         public DateTime? FromDateBirthDay { get; set; }
