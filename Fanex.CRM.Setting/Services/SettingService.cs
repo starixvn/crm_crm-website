@@ -190,36 +190,21 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        public IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false)
+        public IEnumerable<SettingRelation> GetAllTitles()
         {
-            IList<SettingRelation> allTitles;
             var cache = CacheService.Get<IEnumerable<SettingRelation>>(GetAllTitleSessionKey);
             if (cache != null)
             {
-                allTitles = cache.ToList();
-            }
-            else
-            {
-                allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Title,
-                    ParentId = 0
-                }).ToList();
-
-                CacheService.Set(GetAllTitleSessionKey, allTitles);
+                return cache;
             }
 
-            if (hasItemAll)
+            var allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
-                allTitles.Insert(
-                    0,
-                    new SettingRelation
-                    {
-                        Value = Labels.All,
-                        Id = TitleConstants.All,
-                        DisplayOrder = 0
-                    });
-            }
+                SettingName = SettingTypeConstants.Title,
+                ParentId = 0
+            }).ToList();
+
+            CacheService.Set(GetAllTitleSessionKey, allTitles);
 
             return allTitles;
         }

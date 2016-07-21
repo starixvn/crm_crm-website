@@ -32,9 +32,6 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(SqlParamName = "tobirthday")]
         public DateTime? ToDateBirthDay { get; set; }
 
-        [SpParam(SqlParamName = "titleid")]
-        public int TitleId { get; set; }
-
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
 

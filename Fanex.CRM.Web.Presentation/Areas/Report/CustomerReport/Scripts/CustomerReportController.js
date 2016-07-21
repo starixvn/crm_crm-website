@@ -13,7 +13,6 @@
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.siteOptions = null;
-        $scope.titleOptions = null;
         $scope.languageOptions = null;
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
@@ -31,7 +30,6 @@
             Username: '',
             LanguageIds: '',
             SiteIds: '',
-            Title: null,
             VIPType: null,
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -77,12 +75,6 @@
                 YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
             };
             $scope.updateToDatePicker();
-
-            $scope.titleOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedTitle,
-                AllText: viewResources.All
-            };
 
             $scope.vipTypeOptions = {
                 DataList: [],
@@ -137,7 +129,6 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.siteOptions.DataList = allSetting.SiteList;
-                $scope.titleOptions.DataList = allSetting.TitleList;
                 $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
                 $scope.languageOptions.DataList = allSetting.LanguageList;
                 $scope.completedLoadFilterInfo();
@@ -147,7 +138,6 @@
             });
         };
         $scope.completedLoadFilterInfo = function () {
-            $scope.searchCriteria.Title = $scope.titleOptions.DataList[0];
             $scope.searchCriteria.VIPType = $scope.vipTypeOptions.DataList[0];
             $scope.unblockUI();
         };
@@ -156,9 +146,6 @@
         };
         $scope.updateSelectedSite = function (siteIdList) {
             $scope.searchCriteria.SiteIds = siteIdList;
-        };
-        $scope.updateSelectedTitle = function (title) {
-            $scope.searchCriteria.Title = title;
         };
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
@@ -194,7 +181,6 @@
                 Username: $scope.searchCriteria.Username,
                 LanguageIds: $scope.searchCriteria.LanguageIds,
                 SiteIds: $scope.searchCriteria.SiteIds,
-                TitleId: $scope.searchCriteria.Title.Id,
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
