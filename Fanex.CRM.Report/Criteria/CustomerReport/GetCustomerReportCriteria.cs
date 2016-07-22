@@ -17,9 +17,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
     /// </summary>
     public class GetCustomerReportCriteria : CriteriaBase
     {
-        private string _SiteIds;
+        private string _siteIds;
 
-        private string _LanguageIds;
+        private string _languageIds;
 
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
@@ -29,25 +29,26 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         {
             get
             {
-                return string.IsNullOrEmpty(_LanguageIds) ? string.Empty : _LanguageIds.Replace("-1", "0");
+                return string.IsNullOrEmpty(_languageIds) ? string.Empty : _languageIds.Replace("-1", "0");
             }
 
             set
             {
-                _LanguageIds = value;
+                _languageIds = value;
             }
         }
 
         [SpParam(SqlParamName = "siteid")]
-        public string SiteIds {
+        public string SiteIds
+        {
             get
             {
-                return string.IsNullOrEmpty(_SiteIds) ? string.Empty : _SiteIds.Replace("-1", "0");
+                return string.IsNullOrEmpty(_siteIds) ? string.Empty : _siteIds.Replace("-1", "0");
             }
 
             set
             {
-                _SiteIds = value;
+                _siteIds = value;
             }
         }
 
