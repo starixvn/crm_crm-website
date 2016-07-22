@@ -101,7 +101,7 @@
                 MaxHeight: 450,
                 NoItemText: viewResources.No_site_found,
                 NoneSelectedText: viewResources.Symbol_NotApply,
-                NumberOfItemShowShortText: 0,
+                NumberOfItemShowShortText: 2,
 
                 SubOptionsName: 'ChildSites',
                 NumberOfSelectedLevel: 2
