@@ -79,7 +79,7 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         public override string GetSettingKey()
         {
-            return "Report_CustomerReport_GetReport";
+            return "Acc_Crm_Rpt_CustomerReport";
         }
 
         public override bool IsValid()

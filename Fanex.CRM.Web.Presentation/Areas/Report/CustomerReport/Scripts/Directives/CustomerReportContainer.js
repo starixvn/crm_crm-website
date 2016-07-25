@@ -21,12 +21,28 @@
             var footerData = [];
             var reportLength = customerReport ? customerReport.CustomerList.length : 0;
             if (reportLength > 0) {
+                var previousHeadline = customerReport.CustomerList[0].Headline;
+                var previousIndex = 0;
+                var rowSpan = 0;
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
+                    
+                    if (customer.Headline !== previousHeadline || i == reportLength - 1) {
 
+                        if (i == reportLength - 1)
+                        {
+                            rowSpan++;
+                        }
+
+                        bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
+                        previousHeadline = customer.Headline;
+                        previousIndex = i;
+                        rowSpan = 0;
+                    }
+
+                    rowSpan++;
                     bodyData.push({
-                        Columns: [{ Name: "ColHeadline", Value: customer.Headline },
-                            { Name: "ColUsername", Value: customer.Username },
+                        Columns: [{ Name: "ColUsername", Value: customer.Username },
                             { Name: "ColFirstname", Value: customer.FirstName },
                             { Name: "ColLastname", Value: customer.LastName },
                             { Name: "ColPhone1", Value: customer.Phone1 },
@@ -87,7 +103,7 @@
                 { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                 { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" }];
-            
+
             var gridOptions = {
                 columns: headerColumns,
                 showTitle: true,
