@@ -10,6 +10,7 @@
     using Models.CustomerReport;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     public class CustomerReportExcel : BaseExcel
     {
@@ -117,8 +118,8 @@
         {
             if (_customerReportInfo.CustomerList.Count == 0)
             {
-                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 RenderHeader(exportExcelInfo);
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
@@ -162,11 +163,22 @@
                 RenderHeader(exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
                 var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
-                for (var i = startIndex; i < endIndex && i < totalRows; i++)
+                var previousHeadline = _customerReportInfo.CustomerList[startIndex].Headline;
+                var startExcelGroupIndex = exportExcelInfo.CurrentRow;
+                int i;
+                for (i = startIndex; i < endIndex && i < totalRows; i++)
                 {
                     var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                     var currentColumn = exportExcelInfo.StartColumn;
                     var customer = _customerReportInfo.CustomerList[i];
+                    if (previousHeadline != customer.Headline)
+                    {
+                        var mergingCellRange = new CellRangeAddress(startExcelGroupIndex, exportExcelInfo.CurrentRow - 1, 0, 0);
+                        NpoiExtensions.RenderMergedCells(exportExcelInfo, mergingCellRange, previousHeadline, textStyle);
+                        previousHeadline = customer.Headline;
+                        startExcelGroupIndex = exportExcelInfo.CurrentRow;
+                    }
+
                     var isEvenRow = (i + 1) % 2 == 0;
                     if (isEvenRow)
                     {
@@ -184,6 +196,9 @@
                         customer,
                         isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
                 }
+
+                var mergingRange = new CellRangeAddress(startExcelGroupIndex, exportExcelInfo.CurrentRow - 1, 0, 0);
+                NpoiExtensions.RenderMergedCells(exportExcelInfo, mergingRange, previousHeadline, textStyle);
             }
         }
     }

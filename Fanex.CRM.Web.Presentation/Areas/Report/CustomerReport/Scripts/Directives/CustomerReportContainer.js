@@ -26,14 +26,8 @@
                 var rowSpan = 0;
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
-                    
-                    if (customer.Headline !== previousHeadline || i == reportLength - 1) {
 
-                        if (i == reportLength - 1)
-                        {
-                            rowSpan++;
-                        }
-
+                    if (customer.Headline !== previousHeadline) {
                         bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
                         previousHeadline = customer.Headline;
                         previousIndex = i;
@@ -74,6 +68,14 @@
                             { Name: "ColSiteName", Value: customer.SiteName }]
                     });
                 }
+
+
+                var lastCustomer = customerReport.CustomerList[reportLength - 1];
+                if (lastCustomer.Headline === previousHeadline) {
+                    rowSpan++;
+                }
+
+                bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
             }
 
             var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left" },
