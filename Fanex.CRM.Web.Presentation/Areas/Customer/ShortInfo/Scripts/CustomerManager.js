@@ -151,6 +151,7 @@
         };
         self.showGetCustomerInfoByUsername_NoInfo = function () {
             self.goToBlankPage();
+            self.DOMElements.textboxUsername.prop('disabled', true);
             parent.menuManager.hideLeftPanel();
             self.DOMElements.divResultPopUp.removeClass("display-none");
             self.DOMElements.divResultPopUp.html(self.CacheData.ViewResources.GetCustomerByName_NoData);
@@ -167,11 +168,13 @@
                     self.DOMElements.divResultPopUp.dialog("destroy");
                     parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                     self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+                    self.DOMElements.textboxUsername.prop('disabled', false);
                 },
                 buttons: [{
                     text: self.CacheData.ViewResources.OK,
                     value: self.CacheData.ViewResources.OK,
-                    click: function () {
+                    click: function (event) {
+                        event.stopPropagation();
                         self.DOMElements.divResultPopUp.dialog("close");
                     }
                 }]
