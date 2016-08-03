@@ -233,6 +233,7 @@
     <Compile Include="Enums\CategoryType.cs" />
     <Compile Include="Enums\LogStatisticsReportType.cs" />
     <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Excels\CustomerReport\CustomerReportExcel.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsExcel.cs" />
     <Compile Include="Excels\LogStatistics\LogStatisticsReportDetailExcel.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />

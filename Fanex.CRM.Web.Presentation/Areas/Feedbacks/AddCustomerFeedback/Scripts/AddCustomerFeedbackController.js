@@ -140,9 +140,7 @@
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
 
-            var firstProduct = $scope.productOptions.DataList[0];
-            $scope.updateSelectedProduct(firstProduct);
-            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
+            $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
             $scope.updateSelectedLanguage(defaultLanguage);

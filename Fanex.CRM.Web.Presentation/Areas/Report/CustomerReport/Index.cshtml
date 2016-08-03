@@ -33,29 +33,19 @@
                         </div>
                     </div>
                     <div class="item">
-                        <label for="title" class="width-50 pull-left">
-                            @Labels.Title</label>
-                        <div class="title-picker-container pull-left" data-ng-model="titleOptions.DataList">
-                            <select id="title" class="selTitle">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-item">
-                    <div class="item">
                         <label for="language" class="width-70 pull-left">
-                            @Labels.Language</label>
+                            @Labels.Language
+                        </label>
                         <div class="language-picker-container selCustomerType pull-left" data-ng-model="languageOptions.DataList">
-                            <select id="language">
-                            </select>
+                            <select id="language"></select>
                         </div>
                     </div>
                     <div class="item">
                         <label for="site" class="width-50 pull-left">
-                            @Labels.Site</label>
+                            @Labels.Site
+                        </label>
                         <div class="site-picker-container pull-left" data-ng-model="siteOptions.DataList">
-                            <select id="site">
-                            </select>
+                            <select id="site"></select>
                         </div>
                     </div>
                 </div>
@@ -130,8 +120,7 @@
             First_Name: '@Labels.First_Name',
             Last_Name: '@Labels.Last_Name',
             Country: '@Labels.Country',
-            Language: '@Labels.Language',
-            Site: '@Labels.Site',
+            Languages: '@Labels.Languages',
             Birthday: '@Labels.Birthday',
             CustomerReport_Title: '@Labels.CustomerReport_Title',
             Contact_Number: '@Labels.Contact_Number',
@@ -139,6 +128,13 @@
             Fax: '@Labels.Fax',
             Skype: '@Labels.Skype',
             Email: '@Labels.Email',
+            MSN: '@Labels.MSN',
+            WhatsApp: '@Labels.WhatsApp',
+            Line: '@Labels.Line',
+            WeChat: '@Labels.WeChat',
+            Yahoo: '@Labels.Yahoo',
+            BBM: '@Labels.BBM',
+            QQ: '@Labels.QQ',
             Line_1: '@Labels.Line_1',
             Line_2: '@Labels.Line_2',
             Line_3: '@Labels.Line_3',
@@ -149,7 +145,15 @@
             PIC1: '@Labels.PIC1',
             PIC2: '@Labels.PIC2',
             PIC3: '@Labels.PIC3',
-            PIC4: '@Labels.PIC4'
+            PIC4: '@Labels.PIC4',
+            Headline: '@Labels.Headline',
+            FirstName: '@Labels.First_Name',
+            LastName: '@Labels.Last_Name',
+            Phone1: '@Labels.Phone 1',
+            Phone2: '@Labels.Phone 2',
+            Phone3: '@Labels.Phone 3',
+            Passport: '@Labels.Passport',
+            SiteName: '@Labels.SiteName'
         };
     </script>
 }

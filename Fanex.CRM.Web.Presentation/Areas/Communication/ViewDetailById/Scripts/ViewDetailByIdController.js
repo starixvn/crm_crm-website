@@ -136,18 +136,6 @@
             $scope.betTypeOptions.DataList = childSettings;
         };
 
-        $scope.getSettingById = function (settingId, dataList) {
-            for (var i = 0; i < dataList.length; i++) {
-                var setting = dataList[i];
-
-                if (setting.Id === settingId) {
-                    return setting;
-                }
-            }
-
-            return null;
-        }
-
         $scope.unblockUI = function () {
             try {
                 parent.$.unblockUI();

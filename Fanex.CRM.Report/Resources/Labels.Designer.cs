@@ -1123,6 +1123,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        public static string Languages {
+            get {
+                return ResourceManager.GetString("Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string Last_Name {
@@ -1389,6 +1398,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string OCT {
             get {
                 return ResourceManager.GetString("OCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport.
+        /// </summary>
+        public static string Passport {
+            get {
+                return ResourceManager.GetString("Passport", resourceCulture);
             }
         }
         
@@ -1749,6 +1767,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Site {
             get {
                 return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site Name.
+        /// </summary>
+        public static string SiteName {
+            get {
+                return ResourceManager.GetString("SiteName", resourceCulture);
             }
         }
         

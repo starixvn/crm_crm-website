@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerReportInfo.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="CustomerReportInfo.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -18,7 +18,7 @@ namespace Fanex.CRM.Report.Models.CustomerReport
     [Serializable]
     public class CustomerReportInfo
     {
-        public List<CustomerInfo> CustomerList { get; set; }
+        public IList<CustomerInfo> CustomerList { get; set; }
 
         public int TotalCustomer { get; set; }
     }

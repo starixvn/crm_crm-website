@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SettingService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="SettingService.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -190,7 +190,7 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        public IEnumerable<SettingRelation> GetAllTitles(bool hasItemAll = false)
+        public IEnumerable<SettingRelation> GetAllTitles()
         {
             var cache = CacheService.Get<IEnumerable<SettingRelation>>(GetAllTitleSessionKey);
             if (cache != null)
@@ -205,18 +205,6 @@ namespace Fanex.CRM.Setting.Services
             }).ToList();
 
             CacheService.Set(GetAllTitleSessionKey, allTitles);
-
-            if (hasItemAll)
-            {
-                allTitles.Insert(
-                    0,
-                    new SettingRelation
-                    {
-                        Value = Labels.All,
-                        Id = TitleConstants.All,
-                        DisplayOrder = 0
-                    });
-            }
 
             return allTitles;
         }
@@ -369,7 +357,7 @@ namespace Fanex.CRM.Setting.Services
         /// Gets all product.
         /// </summary>
         /// <returns>All product.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Product> GetAllSubProducts()

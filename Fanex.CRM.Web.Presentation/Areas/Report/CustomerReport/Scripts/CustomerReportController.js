@@ -13,7 +13,6 @@
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.siteOptions = null;
-        $scope.titleOptions = null;
         $scope.languageOptions = null;
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
@@ -31,12 +30,9 @@
             Username: '',
             LanguageIds: '',
             SiteIds: '',
-            Title: null,
             VIPType: null,
-            PageIndex: 0,
+            PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            SortField: '',
-            SortDirection: '',
             IsGetFromCached: false
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
@@ -80,12 +76,6 @@
             };
             $scope.updateToDatePicker();
 
-            $scope.titleOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedTitle,
-                AllText: viewResources.All
-            };
-
             $scope.vipTypeOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedVIPType,
@@ -111,7 +101,7 @@
                 MaxHeight: 450,
                 NoItemText: viewResources.No_site_found,
                 NoneSelectedText: viewResources.Symbol_NotApply,
-                NumberOfItemShowShortText: 0,
+                NumberOfItemShowShortText: 2,
 
                 SubOptionsName: 'ChildSites',
                 NumberOfSelectedLevel: 2
@@ -139,7 +129,6 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.siteOptions.DataList = allSetting.SiteList;
-                $scope.titleOptions.DataList = allSetting.TitleList;
                 $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
                 $scope.languageOptions.DataList = allSetting.LanguageList;
                 $scope.completedLoadFilterInfo();
@@ -149,18 +138,23 @@
             });
         };
         $scope.completedLoadFilterInfo = function () {
-            $scope.searchCriteria.Title = $scope.titleOptions.DataList[0];
             $scope.searchCriteria.VIPType = $scope.vipTypeOptions.DataList[0];
             $scope.unblockUI();
         };
         $scope.updateSelectedLanguage = function (languageIdList) {
+            if (!languageIdList) {
+                $('#language--1').prop('checked', true);
+                return;
+            }
+
             $scope.searchCriteria.LanguageIds = languageIdList;
         };
         $scope.updateSelectedSite = function (siteIdList) {
+            if (!siteIdList) {
+                $('#site--1').prop('checked', true);
+                return;
+            }
             $scope.searchCriteria.SiteIds = siteIdList;
-        };
-        $scope.updateSelectedTitle = function (title) {
-            $scope.searchCriteria.Title = title;
         };
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
@@ -196,12 +190,9 @@
                 Username: $scope.searchCriteria.Username,
                 LanguageIds: $scope.searchCriteria.LanguageIds,
                 SiteIds: $scope.searchCriteria.SiteIds,
-                TitleId: $scope.searchCriteria.Title.Id,
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
-                SortField: $scope.searchCriteria.SortField,
-                SortDirection: $scope.searchCriteria.SortDirection,
                 IsGetFromCached: false
             };
 
@@ -221,7 +212,6 @@
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
             $scope.lastSelectedParams.IsGetFromCached = true;
-            $scope.lastSelectedParams.IsSortReport = false;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
             .then(function (data) {
                 $scope.customerReportOptions.DataList = data.Result;
@@ -232,20 +222,7 @@
                 $scope.unblockUI();
             });
         };
-        $scope.sortCustomerReport = function () {
-            $scope.BlockUI();
-            $scope.lastSelectedParams.IsGetFromCached = true;
-            $scope.lastSelectedParams.IsSortReport = true;
-            $customerReportService.getCustomerReport($scope.lastSelectedParams)
-            .then(function (data) {
-                $scope.customerReportOptions.DataList = data.Result;
-                $scope.customerReportOptions.IsUpdateGrid = true;
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
-        };
+        
         $scope.exportReport = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "CustomerReport/ExportCustomerReport",

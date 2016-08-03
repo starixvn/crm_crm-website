@@ -12,29 +12,30 @@
                 }
 
                 var html;
+                var customerName = escapeHtml(customer.Name);
                 if (customer && customer.Id !== 0) {
                     if (customer.Id > 0) {
-                        html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
+                        html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-customer">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
-                                    <div class="customer-name">' + customer.Name + '</div>\
+                                    <div class="customer-name">' + customerName + '</div>\
                                 </div>\
                          </td>';
                     }
                     else {
-                        html = '<td id="' + customer.Id + '" value="' + customer.Name + '">\
+                        html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-guest">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
-                                    <div class="customer-name">' + customer.Name + '</div>\
+                                    <div class="customer-name">' + customerName + '</div>\
                                 </div>\
                         </td>';
                     }
                 }
                 else {
-                    html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customer.Name + '">\
+                    html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-invalid">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-all-invalid"></div>\
-                                    <div class="customer-name">' + customer.Name + '</div>\
+                                    <div class="customer-name">' + customerName + '</div>\
                                 </div>\
                         </td>';
                 }
@@ -109,6 +110,21 @@
                 return source.Id === target.Id && source.Name === target.Name;
             }
 
+            function escapeHtml(text) {
+                var entityMap = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    "/": '&#x2F;'
+                };
+
+                return text.replace(/[&<>"'\/]/g, function (s) {
+                    return entityMap[s];
+                });
+            }
+
             return {
                 restrict: 'A',
                 require: 'ngModel',
@@ -135,9 +151,6 @@
 
                             scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
                             scope.customersInput = '';
-                            attrs.ngModel = '';
-
-                            renderRelatedCustomers(scope, scope.relatedCustomerResultDirective.relatedCustomers);
                             $uiBlockerService.unblockUI();
                         },
                         function () {

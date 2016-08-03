@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CommonController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="CommonController.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -52,12 +52,12 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var downTime = _maintenanceService.GetUnderMaintenanceTime();
-            if (!downTime.IsUnderMaintenanceTime)
+            if (!_maintenanceService.IsUnderMaintenance())
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
 
+            var downTime = _maintenanceService.GetUnderMaintenanceTime();
             ViewBag.UmtFrom = downTime.From;
             ViewBag.UmtTo = downTime.To;
 

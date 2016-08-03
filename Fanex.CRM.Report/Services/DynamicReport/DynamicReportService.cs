@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="DynamicReportService.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -256,7 +256,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return extensions;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria)
@@ -357,7 +357,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByYearly(
@@ -418,7 +418,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByMonthly(
@@ -538,7 +538,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportHeader(
@@ -616,7 +616,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
         /// <param name="dynamicReport">The dynamic report.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportBody(
@@ -771,7 +771,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// <param name="criteria">The criteria.</param>
         /// <param name="dynamicReportList">The dynamic report list.</param>
         /// <returns>The paging log list.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private List<DynamicReportInfo> GetPagingLogList(

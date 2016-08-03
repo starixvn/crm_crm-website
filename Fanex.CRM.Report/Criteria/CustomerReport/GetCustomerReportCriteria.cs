@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetCustomerReportCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="GetCustomerReportCriteria.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -17,14 +17,40 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
     /// </summary>
     public class GetCustomerReportCriteria : CriteriaBase
     {
+        private string _siteIds;
+
+        private string _languageIds;
+
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
         [SpParam(SqlParamName = "languageid")]
-        public string LanguageIds { get; set; }
+        public string LanguageIds
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_languageIds) ? string.Empty : _languageIds.Replace("-1", "0");
+            }
+
+            set
+            {
+                _languageIds = value;
+            }
+        }
 
         [SpParam(SqlParamName = "siteid")]
-        public string SiteIds { get; set; }
+        public string SiteIds
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_siteIds) ? string.Empty : _siteIds.Replace("-1", "0");
+            }
+
+            set
+            {
+                _siteIds = value;
+            }
+        }
 
         [SpParam(SqlParamName = "frombirthday")]
         public DateTime? FromDateBirthDay { get; set; }
@@ -32,20 +58,12 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(SqlParamName = "tobirthday")]
         public DateTime? ToDateBirthDay { get; set; }
 
-        [SpParam(SqlParamName = "titleid")]
-        public int TitleId { get; set; }
-
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
 
-        [SpParam(Ignored = true)]
         public int PageIndex { get; set; }
 
-        [SpParam(Ignored = true)]
         public int PageSize { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool IsGetFullReport { get; set; }
 
         [SpParam(Ignored = true)]
         public string SortField { get; set; }
@@ -56,9 +74,12 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(Ignored = true)]
         public bool IsSortReport { get; set; }
 
+        [SpParam(SqlParamName = "totalrows")]
+        public int TotalRows { get; set; }
+
         public override string GetSettingKey()
         {
-            return "Report_CustomerReport_GetReport";
+            return "Acc_Crm_Rpt_CustomerReport";
         }
 
         public override bool IsValid()

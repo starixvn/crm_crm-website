@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SummaryReportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="SummaryReportService.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
@@ -117,7 +117,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The SummaryReportModel object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private SummaryReportModel ParseSummaryReport(GetSummaryReportCriteria criteria)
         {
             if (string.IsNullOrWhiteSpace(criteria.Categories))
@@ -254,7 +254,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="categorySummaries">The category summaries.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
         {
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;

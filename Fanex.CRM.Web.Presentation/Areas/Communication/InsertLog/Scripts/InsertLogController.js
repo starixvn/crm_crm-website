@@ -158,7 +158,6 @@
 
             var firstProduct = $scope.productOptions.DataList[0];
             $scope.updateSelectedProduct(firstProduct);
-            $scope.updateSelectedSubProduct(firstProduct.ChildSettings[0]);
 
             $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;           
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
