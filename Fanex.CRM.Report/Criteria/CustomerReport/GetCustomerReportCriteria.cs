@@ -52,14 +52,14 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
             }
         }
 
-        [SpParam(SqlParamName = "frombirthday")]
-        public DateTime? FromDateBirthDay { get; set; }
-
-        [SpParam(SqlParamName = "tobirthday")]
-        public DateTime? ToDateBirthDay { get; set; }
-
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
+
+        public string Headline { get; set; }
+
+        public int PositionId { get; set; }
+
+        public bool IsExcludeIgnoredAccounts { get; set; }
 
         public int PageIndex { get; set; }
 

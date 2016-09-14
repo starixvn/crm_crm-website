@@ -88,7 +88,9 @@ namespace Fanex.CRM.Customer.Repositories
                 Line = Converter.ToString2(reader["Line"]),
                 Yahoo = Converter.ToString2(reader["Yahoo"]),
                 QQ = Converter.ToString2(reader["QQ"]),
-                BBM = Converter.ToString2(reader["BBM"])
+                BBM = Converter.ToString2(reader["BBM"]),
+                Checker = Converter.ToString2(reader["Checker"]),
+                IsIgnore = Converter.ToBool(reader["IsIgnore"])
             };
 
             customer.NickName = customer.Id > 0 ?

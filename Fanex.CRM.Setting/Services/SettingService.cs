@@ -519,26 +519,35 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllVIPTypes()
         {
-            var allVIPType = new List<Setting>();
-            allVIPType.Add(new Setting
+            return new[] 
             {
-                Id = VIPTypeConstants.All,
-                Value = Labels.All
-            });
+                new Setting
+                {
+                    Id = VIPTypeConstants.All,
+                    Value = Labels.All
+                },
+                new Setting
+                {
+                    Id = VIPTypeConstants.Yes,
+                    Value = Labels.Yes
+                },
+                new Setting
+                {
+                    Id = VIPTypeConstants.No,
+                    Value = Labels.No
+                }
+            };
+        }
 
-            allVIPType.Add(new Setting
+        public IEnumerable<BaseModel> GetPositions()
+        {
+            return new[] 
             {
-                Id = VIPTypeConstants.Yes,
-                Value = Labels.Yes
-            });
-
-            allVIPType.Add(new Setting
-            {
-                Id = VIPTypeConstants.No,
-                Value = Labels.No
-            });
-
-            return allVIPType;
+                new BaseModel { Id = RoleIdConstants.Member, Name = Labels.Member },
+                new BaseModel { Id = RoleIdConstants.Agent, Name = Labels.Agent },
+                new BaseModel { Id = RoleIdConstants.Master, Name = Labels.Master },
+                new BaseModel { Id = RoleIdConstants.Super, Name = Labels.Super }
+            };
         }
 
         public IEnumerable<Setting> AllHeadlineType()

@@ -13,6 +13,8 @@ namespace Fanex.CRM.Report.Models.CustomerReport
     {
         public string Headline { get; set; }
 
+        public string Checker { get; set; }
+
         public string Username { get; set; }
 
         public string FirstName { get; set; }

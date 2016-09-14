@@ -32,6 +32,12 @@
                             </select>
                         </div>
                     </div>
+                    <div class="item default-focus">
+                        <label for="headline" class="width-70">
+                            @Labels.Headline
+                        </label>
+                        <input type="text" class="textbox search-by-enter" id="headline" data-ng-model="searchCriteria.Headline" />
+                    </div>
                     <div class="item">
                         <label for="language" class="width-70 pull-left">
                             @Labels.Language
@@ -48,28 +54,19 @@
                             <select id="site"></select>
                         </div>
                     </div>
-                </div>
-                <div class="row row-item">
-                    <fieldset class="dateBirth pull-left">
-                        <legend>@Labels.Date_Of_Birth</legend>
-                        <div class="item fromDate">
-                            <label for="fromDate" class="width-80">
-                                @Labels.From</label>
-                            <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                                <input id="fromDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="item toDate">
-                            <label for="toDate">
-                                @Labels.To</label>
-                            <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                                <input id="toDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
-                            </div>
-                        </div>
-                    </fieldset>
                     <div class="item">
-                        <button id="button-submit" class="btn" data-ng-click="getCustomerReport();">
-                            <span class="hotkey">S</span>ubmit</button>
+                        <label for="position" class="width-50 pull-left">
+                            @Labels.Position
+                        </label>
+                        <div class="position-picker-container pull-left" data-ng-model="positionOptions.DataList">
+                            <select id="position"></select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="isExcludeIgnoredAccounts" class="labelforcheckbox checkbox">
+                            <input id="isExcludeIgnoredAccounts" type="checkbox" data-ng-model="searchCriteria.IsExcludeIgnoredAccounts">
+                            @Labels.ExcludeIgnoredAccounts
+                        </label>
                     </div>
                 </div>
                 <div class="icon-collapse" data-ng-click="showHideFilterBox();">
@@ -147,6 +144,7 @@
             PIC3: '@Labels.PIC3',
             PIC4: '@Labels.PIC4',
             Headline: '@Labels.Headline',
+            Checker: '@Labels.Checker',
             FirstName: '@Labels.First_Name',
             LastName: '@Labels.Last_Name',
             Phone1: '@Labels.Phone 1',

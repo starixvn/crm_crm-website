@@ -191,8 +191,14 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "licenseetype")]
         public string LicenseeTypeId { get; set; }
 
+        [SpParam(SqlParamName = "Checker")]
+        public string Checker { get; set; }
+
         [SpParam(SqlParamName = "isvip")]
         public string IsVIP { get; set; }
+
+        [SpParam(SqlParamName = "isignore")]
+        public string IsIgnore { get; set; }
 
         [SpParam(SqlParamName = "titleid")]
         public string TitleId { get; set; }

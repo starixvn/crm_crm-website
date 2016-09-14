@@ -36,7 +36,9 @@
 
                     rowSpan++;
                     bodyData.push({
-                        Columns: [{ Name: "ColUsername", Value: customer.Username },
+                        Columns: [
+                            { Name: "ColChecker", Value: customer.Checker },
+                            { Name: "ColUsername", Value: customer.Username },
                             { Name: "ColFirstname", Value: customer.FirstName },
                             { Name: "ColLastname", Value: customer.LastName },
                             { Name: "ColPhone1", Value: customer.Phone1 },
@@ -79,6 +81,7 @@
             }
 
             var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Checker, Width: 120, Name: "ColChecker", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.FirstName, Width: 120, Name: "ColFirstname", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.LastName, Width: 120, Name: "ColLastname", HeaderAlign: "center", CellAlign: "left" },

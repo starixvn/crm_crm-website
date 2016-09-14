@@ -27,7 +27,7 @@
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
-                MaxColumnIndex = 26
+                MaxColumnIndex = 27
             };
 
             RenderBody(exportExcelInfo);
@@ -42,7 +42,7 @@
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new int[]
             {
-                160, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
+                160, 160, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
                 150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160
             };
 
@@ -58,7 +58,7 @@
             currentColumn = exportExcelInfo.StartColumn;
             var columnHeaders = new string[]
             {
-                Labels.Headline, Labels.Username, Labels.First_Name, Labels.Last_Name,
+                Labels.Headline, Labels.Checker, Labels.Username, Labels.First_Name, Labels.Last_Name,
                 Labels.Phone + "1", Labels.Phone + "2", Labels.Phone + "3", Labels.Mobile, Labels.Fax,
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
                 Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
@@ -82,6 +82,7 @@
             ICellStyle centerTextStyle)
         {
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Headline, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Checker, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.LastName, exportExcelInfo.TextStyle);
