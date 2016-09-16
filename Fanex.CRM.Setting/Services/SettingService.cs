@@ -539,14 +539,14 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
-        public IEnumerable<BaseModel> GetPositions()
+        public IEnumerable<Setting> GetPositions()
         {
             return new[] 
             {
-                new BaseModel { Id = RoleIdConstants.Member, Name = Labels.Member },
-                new BaseModel { Id = RoleIdConstants.Agent, Name = Labels.Agent },
-                new BaseModel { Id = RoleIdConstants.Master, Name = Labels.Master },
-                new BaseModel { Id = RoleIdConstants.Super, Name = Labels.Super }
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
+                new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
+                new Setting { Id = RoleIdConstants.Super, Value = Labels.Super }
             };
         }
 

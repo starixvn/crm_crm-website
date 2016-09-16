@@ -62,7 +62,7 @@ namespace Fanex.CRM.Common.Models
 
         public bool IsSuspended { get; set; }
 
-        public bool IsIgnore { get; set; }
+        public bool IsIgnored { get; set; }
 
         public string Status
         {

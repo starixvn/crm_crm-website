@@ -165,7 +165,7 @@
                 BettingCode: customerDetail.BettingCode[0],
                 RefCode2: customerDetail.BettingCode[1],
                 IsVIP: customerDetail.IsVIP,
-                IsIgnore: customerDetail.IsIgnore,
+                IsIgnored: customerDetail.IsIgnored,
                 LicenseeTypeId: customerDetail.LicenseeType.Id,
                 Checker: customerDetail.Checker
             };
@@ -430,7 +430,7 @@
             $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode ||
             !sharedScriptManager.datesEqual(new Date($scope.oldCustomerDetail.BirthDayString), new Date($scope.customerDetail.BirthDayString)) ||
             $scope.oldCustomerDetail.IsVIP !== $scope.customerDetail.IsVIP ||
-            $scope.oldCustomerDetail.IsIgnore !== $scope.customerDetail.IsIgnore ||
+            $scope.oldCustomerDetail.IsIgnored !== $scope.customerDetail.IsIgnored ||
             $scope.oldCustomerDetail.Checker !== $scope.customerDetail.Checker ||
             $scope.oldCustomerDetail.BettingCode[0] !== $scope.customerDetail.BettingCode[0] ||
             $scope.oldCustomerDetail.BettingCode[1] !== $scope.customerDetail.BettingCode[1] ||

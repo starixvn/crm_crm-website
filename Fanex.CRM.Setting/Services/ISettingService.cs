@@ -81,6 +81,6 @@ namespace Fanex.CRM.Setting.Services
 
         IEnumerable<Product> GetProductsOnly();
 
-        IEnumerable<BaseModel> GetPositions();
+        IEnumerable<Setting> GetPositions();
     }
 }

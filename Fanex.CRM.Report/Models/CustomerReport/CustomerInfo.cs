@@ -66,5 +66,9 @@ namespace Fanex.CRM.Report.Models.CustomerReport
         public string Passport { get; set; }
 
         public string SiteName { get; set; }
+
+        public string Status { get; set; }
+
+        public string Country { get; set; }
     }
 }

@@ -27,6 +27,7 @@
         customerReportRegister.registerVIPTypePicker();
         customerReportRegister.registerDefaultFocus();
         customerReportRegister.registerDownloadFile();
+        customerReportRegister.registerPositionMultiSelectPicker();
     }
 
     customerReportRegisterPicker();

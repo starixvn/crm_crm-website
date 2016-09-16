@@ -27,7 +27,7 @@
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
-                MaxColumnIndex = 27
+                MaxColumnIndex = 29
             };
 
             RenderBody(exportExcelInfo);
@@ -43,7 +43,7 @@
             var columnWidths = new int[]
             {
                 160, 160, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
-                150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160
+                150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160, 120, 140
             };
 
             foreach (var item in columnWidths)
@@ -63,7 +63,7 @@
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
                 Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
                 Labels.VIP, Labels.PIC1, Labels.PIC2, Labels.PIC3, Labels.PIC4,
-                Labels.Birthday, Labels.Passport, Labels.SiteName
+                Labels.Birthday, Labels.Passport, Labels.SiteName, Labels.Status, Labels.Country
             };
 
             foreach (var item in columnHeaders)
@@ -109,6 +109,8 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.BirthDay.HasValue ? customer.BirthDay.Value.ToShortFormatedDate() : string.Empty, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Country, exportExcelInfo.TextStyle);
             exportExcelInfo.CurrentRow++;
         }
 

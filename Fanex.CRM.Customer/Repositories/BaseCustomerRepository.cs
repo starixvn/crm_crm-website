@@ -90,7 +90,7 @@ namespace Fanex.CRM.Customer.Repositories
                 QQ = Converter.ToString2(reader["QQ"]),
                 BBM = Converter.ToString2(reader["BBM"]),
                 Checker = Converter.ToString2(reader["Checker"]),
-                IsIgnore = Converter.ToBool(reader["IsIgnore"])
+                IsIgnored = Converter.ToBool(reader["Ignored"])
             };
 
             customer.NickName = customer.Id > 0 ?

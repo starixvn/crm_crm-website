@@ -8,13 +8,13 @@
   </Function>
   <Function Name="Customer">
     <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -105,7 +105,7 @@
   </Function>
   <Function Name="Report">
     <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_Crm_Rpt_CustomerReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+    <Setting Key="Acc_Crm_Rpt_CustomerReport" SpName="Acc_Crm_Rpt_CustomerReport_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="VIP" ObjectProperty="IsVIP" />
     </Setting>
     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet">
@@ -133,7 +133,7 @@
     <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet">
@@ -141,7 +141,7 @@
       <Mapping DataField="Site" ObjectProperty="Sites" />
       <Mapping DataField="Position" ObjectProperty="Positions" />
     </Setting>
-    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />
       <Mapping DataField="CustID_New" ObjectProperty="NewCustId" />
       <Mapping DataField="Username_Old" ObjectProperty="OldUserName" />

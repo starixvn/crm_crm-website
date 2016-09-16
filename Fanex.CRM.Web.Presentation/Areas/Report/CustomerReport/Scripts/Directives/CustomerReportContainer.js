@@ -67,7 +67,9 @@
                             { Name: "ColPIC4", Value: customer.Pic4 },
                             { Name: "ColBirthday", Value: customer.BirthDay },
                             { Name: "ColPassport", Value: customer.Passport },
-                            { Name: "ColSiteName", Value: customer.SiteName }]
+                            { Name: "ColSiteName", Value: customer.SiteName },
+                            { Name: "ColStatus", Value: customer.Status },
+                            { Name: "ColCountry", Value: customer.Country }]
                     });
                 }
 
@@ -107,7 +109,9 @@
                 { HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                 { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" }];
+                { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" }];
 
             var gridOptions = {
                 columns: headerColumns,

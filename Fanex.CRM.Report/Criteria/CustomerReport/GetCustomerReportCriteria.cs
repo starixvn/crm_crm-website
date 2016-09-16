@@ -21,6 +21,8 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         private string _languageIds;
 
+        private string _positionIds;
+
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
@@ -57,8 +59,21 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         public string Headline { get; set; }
 
-        public int PositionId { get; set; }
+        [SpParam(SqlParamName = "roleid")]
+        public string PositionIds
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_positionIds) ? string.Empty : _positionIds.Replace("-1", "0");
+            }
 
+            set
+            {
+                _positionIds = value;
+            }
+        }
+
+        [SpParam(SqlParamName = "excludeignoredacc")]
         public bool IsExcludeIgnoredAccounts { get; set; }
 
         public int PageIndex { get; set; }

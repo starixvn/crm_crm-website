@@ -28,7 +28,8 @@
             VIPType: null,
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            IsGetFromCached: false
+            IsGetFromCached: false,
+            IsExcludeIgnoredAccounts: true
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -82,7 +83,7 @@
 
             $scope.positionOptions = {
                 DataList: [],
-                OnChangeEvent: $scope.updateSelectedLanguage,
+                OnChangeEvent: $scope.updateSelectedPosition,
                 AllText: viewResources.All,
                 MinWidth: 200,
                 MaxHeight: 450,

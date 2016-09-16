@@ -243,4 +243,7 @@
   <data name="NewCase" xml:space="preserve">
     <value>New Case</value>
   </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>Exclude ignored accounts</value>
+  </data>
 </root>

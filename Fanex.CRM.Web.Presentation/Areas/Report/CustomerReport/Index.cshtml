@@ -21,23 +21,26 @@
                 <div class="row row-item">
                     <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
                         <label for="username" class="width-70">
-                            @Labels.Username</label>
+                            @Labels.Username
+                        </label>
                         <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
                     </div>
                     <div class="item">
                         <label for="viptype" class="width-50 pull-left">
-                            @Labels.VIP</label>
+                            @Labels.VIP
+                        </label>
                         <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
-                            <select id="viptype" class="selVipType">
-                            </select>
+                            <select id="viptype" class="selVipType"></select>
                         </div>
                     </div>
                     <div class="item default-focus">
-                        <label for="headline" class="width-70">
+                        <label for="headline" class="width-50">
                             @Labels.Headline
                         </label>
                         <input type="text" class="textbox search-by-enter" id="headline" data-ng-model="searchCriteria.Headline" />
                     </div>
+                </div>
+                <div class="row row-item">
                     <div class="item">
                         <label for="language" class="width-70 pull-left">
                             @Labels.Language
@@ -62,11 +65,18 @@
                             <select id="position"></select>
                         </div>
                     </div>
+                </div>
+                <div class="row row-item">
                     <div class="item">
                         <label for="isExcludeIgnoredAccounts" class="labelforcheckbox checkbox">
                             <input id="isExcludeIgnoredAccounts" type="checkbox" data-ng-model="searchCriteria.IsExcludeIgnoredAccounts">
                             @Labels.ExcludeIgnoredAccounts
                         </label>
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getCustomerReport();">
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                     </div>
                 </div>
                 <div class="icon-collapse" data-ng-click="showHideFilterBox();">
@@ -151,7 +161,8 @@
             Phone2: '@Labels.Phone 2',
             Phone3: '@Labels.Phone 3',
             Passport: '@Labels.Passport',
-            SiteName: '@Labels.SiteName'
+            SiteName: '@Labels.SiteName',
+            Status: '@Labels.Status'
         };
     </script>
 }
