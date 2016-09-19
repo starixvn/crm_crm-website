@@ -110,7 +110,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.Country, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.CountryName, exportExcelInfo.TextStyle);
             exportExcelInfo.CurrentRow++;
         }
 

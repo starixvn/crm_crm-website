@@ -495,26 +495,24 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllCustomerTypes()
         {
-            var allCustomerType = new List<Setting>();
-            allCustomerType.Add(new Setting
+            return new[] 
             {
-                Id = CustomerTypeConstants.All,
-                Value = Labels.All
-            });
-
-            allCustomerType.Add(new Setting
-            {
-                Id = CustomerTypeConstants.Customer,
-                Value = Labels.Customer
-            });
-
-            allCustomerType.Add(new Setting
-            {
-                Id = CustomerTypeConstants.Guest,
-                Value = Labels.Guest
-            });
-
-            return allCustomerType;
+                new Setting
+                {
+                    Id = CustomerTypeConstants.All,
+                    Value = Labels.All
+                },
+                new Setting
+                {
+                    Id = CustomerTypeConstants.Customer,
+                    Value = Labels.Customer
+                },
+                new Setting
+                {
+                    Id = CustomerTypeConstants.Guest,
+                    Value = Labels.Guest
+                }
+            };
         }
 
         public IEnumerable<Setting> GetAllVIPTypes()

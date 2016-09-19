@@ -69,7 +69,7 @@
                             { Name: "ColPassport", Value: customer.Passport },
                             { Name: "ColSiteName", Value: customer.SiteName },
                             { Name: "ColStatus", Value: customer.Status },
-                            { Name: "ColCountry", Value: customer.Country }]
+                            { Name: "ColCountry", Value: customer.CountryName }]
                     });
                 }
 

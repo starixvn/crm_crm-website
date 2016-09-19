@@ -69,6 +69,6 @@ namespace Fanex.CRM.Report.Models.CustomerReport
 
         public string Status { get; set; }
 
-        public string Country { get; set; }
+        public string CountryName { get; set; }
     }
 }
