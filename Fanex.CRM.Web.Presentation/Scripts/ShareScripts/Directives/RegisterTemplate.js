@@ -462,7 +462,7 @@ function RegisterTemplate(application) {
         directiveManager.registerMultiSelectContainer(self.application, statusRegisterParams);
     };
 
-    self.registerPositionMultiSelectPicker = function () {
+    /*self.registerPositionMultiSelectPicker = function () {
         var positionRegisterParams = {
             PlugInName: 'positionMultiContainer',
             OptionName: 'positionOptions',
@@ -475,7 +475,7 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, positionRegisterParams);
-    };
+    };*/
 
     self.registerCurrencyMultiSelectPicker = function () {
         var currencyRegisterParams = {

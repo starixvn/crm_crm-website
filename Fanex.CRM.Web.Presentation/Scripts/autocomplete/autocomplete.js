@@ -253,7 +253,6 @@
                 div = $((me.selectedIndex === i ? '<div class="selected"' : '<div') + ' title="' + this.suggestions[i] + '">' + f(this.suggestions[i], this.data[i], v) + '</div>');
                 div.mouseover((function (xi) { return function () { me.activate(xi); }; })(i));
                 div.click((function (xi) { return function () { me.select(xi); }; })(i));
-                //console.log(div);
                 this.container.append(div);
             }
             this.enabled = true;

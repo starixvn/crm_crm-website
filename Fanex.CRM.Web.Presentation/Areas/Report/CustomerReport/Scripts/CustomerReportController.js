@@ -12,6 +12,7 @@
         $scope.isShowFilter = true;
         $scope.siteOptions = null;
         $scope.languageOptions = null;
+        $scope.positionOptions = null;
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
         $scope.vipTypeOptions = null;

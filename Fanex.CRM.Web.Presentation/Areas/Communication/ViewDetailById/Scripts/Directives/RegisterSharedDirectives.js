@@ -259,7 +259,6 @@
                     Name: "Value"
                 }
             };
-
             directiveManager.registerDropdownContainer(angular.module('communicationlog-viewdetailbyid-application'), positionRegisterParams);
         }
 

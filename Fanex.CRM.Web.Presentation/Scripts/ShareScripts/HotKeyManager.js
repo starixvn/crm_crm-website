@@ -141,7 +141,6 @@ var HotKeyManager = function () {
             var isCustomHotKey = false;
             self.CachedData.isInvokeHotKey = false;
             // Use follow line to test working flow
-            // console.log(self.CachedData.KeyPress);
             if (self.CachedData.ActiveDocumentManager.length === 0) {
                 return isCustomHotKey;
             }
