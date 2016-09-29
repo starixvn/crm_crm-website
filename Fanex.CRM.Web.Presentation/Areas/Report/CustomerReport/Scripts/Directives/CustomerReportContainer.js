@@ -27,6 +27,8 @@
                         Columns: [
                             { Name: "ColHeadline", Value: customer.Headline },
                             { Name: "ColChecker", Value: customer.Checker },
+                            { Name: "ColPosition", Value: customer.Position },
+                            { Name: "ColStatus", Value: customer.Status },
                             { Name: "ColUsername", Value: customer.Username },
                             { Name: "ColFirstname", Value: customer.FirstName },
                             { Name: "ColLastname", Value: customer.LastName },
@@ -57,7 +59,6 @@
                             { Name: "ColBirthday", Value: customer.BirthDay },
                             { Name: "ColPassport", Value: customer.Passport },
                             { Name: "ColSiteName", Value: customer.SiteName },
-                            { Name: "ColStatus", Value: customer.Status },
                             { Name: "ColCountry", Value: customer.CountryName }]
                     });
                 }
@@ -65,6 +66,8 @@
 
             var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Checker, Width: 120, Name: "ColChecker", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Position, Width: 120, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Status, Width: 120, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.FirstName, Width: 120, Name: "ColFirstname", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.LastName, Width: 120, Name: "ColLastname", HeaderAlign: "center", CellAlign: "left" },
@@ -91,7 +94,6 @@
                 { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                 { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" }];
 
             var gridOptions = {

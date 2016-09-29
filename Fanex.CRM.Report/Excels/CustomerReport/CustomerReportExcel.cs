@@ -42,8 +42,8 @@
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new int[]
             {
-                160, 160, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
-                150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160, 120, 140
+                160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
+                150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160, 140
             };
 
             foreach (var item in columnWidths)
@@ -58,7 +58,7 @@
             currentColumn = exportExcelInfo.StartColumn;
             var columnHeaders = new string[]
             {
-                Labels.Headline, Labels.Checker, Labels.Username, Labels.First_Name, Labels.Last_Name,
+                Labels.Headline, Labels.Checker, Labels.Position, Labels.Status, Labels.Username, Labels.First_Name, Labels.Last_Name,
                 Labels.Phone + "1", Labels.Phone + "2", Labels.Phone + "3", Labels.Mobile, Labels.Fax,
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
                 Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
@@ -83,6 +83,8 @@
         {
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Headline, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Checker, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Position, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.LastName, exportExcelInfo.TextStyle);
@@ -109,7 +111,6 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.BirthDay.HasValue ? customer.BirthDay.Value.ToShortFormatedDate() : string.Empty, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.CountryName, exportExcelInfo.TextStyle);
             exportExcelInfo.CurrentRow++;
         }
