@@ -21,22 +21,11 @@
             var footerData = [];
             var reportLength = customerReport ? customerReport.CustomerList.length : 0;
             if (reportLength > 0) {
-                var previousHeadline = customerReport.CustomerList[0].Headline;
-                var previousIndex = 0;
-                var rowSpan = 0;
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
-
-                    if (customer.Headline !== previousHeadline) {
-                        bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
-                        previousHeadline = customer.Headline;
-                        previousIndex = i;
-                        rowSpan = 0;
-                    }
-
-                    rowSpan++;
                     bodyData.push({
                         Columns: [
+                            { Name: "ColHeadline", Value: customer.Headline },
                             { Name: "ColChecker", Value: customer.Checker },
                             { Name: "ColUsername", Value: customer.Username },
                             { Name: "ColFirstname", Value: customer.FirstName },
@@ -72,14 +61,6 @@
                             { Name: "ColCountry", Value: customer.CountryName }]
                     });
                 }
-
-
-                var lastCustomer = customerReport.CustomerList[reportLength - 1];
-                if (lastCustomer.Headline === previousHeadline) {
-                    rowSpan++;
-                }
-
-                bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
             }
 
             var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left" },

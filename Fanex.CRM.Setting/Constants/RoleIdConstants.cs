@@ -14,8 +14,6 @@ namespace Fanex.CRM.Setting.Constants
     /// </summary>
     public static class RoleIdConstants
     {
-        public const int Guest = 0;
-
         public const int Member = 1;
         public const int CRMMember = 7000;
 
@@ -27,5 +25,7 @@ namespace Fanex.CRM.Setting.Constants
 
         public const int Super = 4;
         public const int CRMSuper = 7003;
+
+        public const int Guest = 5;
     }
 }

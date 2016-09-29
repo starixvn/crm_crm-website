@@ -166,7 +166,6 @@
                 RenderHeader(exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
                 var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
-                var previousHeadline = _customerReportInfo.CustomerList[startIndex].Headline;
                 var startExcelGroupIndex = exportExcelInfo.CurrentRow;
                 int i;
                 for (i = startIndex; i < endIndex && i < totalRows; i++)
@@ -174,13 +173,6 @@
                     var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                     var currentColumn = exportExcelInfo.StartColumn;
                     var customer = _customerReportInfo.CustomerList[i];
-                    if (previousHeadline != customer.Headline)
-                    {
-                        var mergingCellRange = new CellRangeAddress(startExcelGroupIndex, exportExcelInfo.CurrentRow - 1, 0, 0);
-                        NpoiExtensions.RenderMergedCells(exportExcelInfo, mergingCellRange, previousHeadline, textStyle);
-                        previousHeadline = customer.Headline;
-                        startExcelGroupIndex = exportExcelInfo.CurrentRow;
-                    }
 
                     var isEvenRow = (i + 1) % 2 == 0;
                     if (isEvenRow)
@@ -199,9 +191,6 @@
                         customer,
                         isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
                 }
-
-                var mergingRange = new CellRangeAddress(startExcelGroupIndex, exportExcelInfo.CurrentRow - 1, 0, 0);
-                NpoiExtensions.RenderMergedCells(exportExcelInfo, mergingRange, previousHeadline, textStyle);
             }
         }
     }
