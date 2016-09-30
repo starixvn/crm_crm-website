@@ -27,7 +27,7 @@
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
-                MaxColumnIndex = 29
+                MaxColumnIndex = 30
             };
 
             RenderBody(exportExcelInfo);
@@ -63,7 +63,7 @@
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
                 Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
                 Labels.VIP, Labels.PIC1, Labels.PIC2, Labels.PIC3, Labels.PIC4,
-                Labels.Birthday, Labels.Passport, Labels.SiteName, Labels.Status, Labels.Country
+                Labels.Birthday, Labels.Passport, Labels.SiteName, Labels.Country
             };
 
             foreach (var item in columnHeaders)
