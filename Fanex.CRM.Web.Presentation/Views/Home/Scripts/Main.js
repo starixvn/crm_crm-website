@@ -107,29 +107,33 @@ function downup() {
 
 function udpateOnlineStatus() {
 
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: '',
-        success: function (rs) {
-            if (rs != null && rs.ErrCode != null) {
-                if (rs.ErrCode > 0) {
-                    openConfirmPopup();
+    var reCheckIn = function () {
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: '',
+            success: function (rs) {
+                if (rs != null && rs.ErrCode != null) {
+                    if (rs.ErrCode > 0) {
+                        openConfirmPopup();
+                    }
+                    setTimeout(reCheckIn(), 20000);
+                    return false;
                 }
-
-                return false;
-            }
-            else {
+                else {
+                    openConfirmPopup();
+                    return false;
+                }
+            }, error: function () {
                 openConfirmPopup();
                 return false;
             }
-        }, error: function () {
-            openConfirmPopup();
-            return false;
-        }
-    });
+        });
+    };
+
+    reCheckIn();
 }
 
 $(document).ready(function () {

@@ -143,6 +143,7 @@ namespace Fanex.CRM.User.Controllers
         /// Log out action.
         /// </summary>
         /// <returns>Log out result.</returns>
+        [Authorize]
         public ActionResult LogOut()
         {
             try
@@ -162,6 +163,7 @@ namespace Fanex.CRM.User.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpPost]
+        [Authorize]
         public ActionResult CheckUserOnlineStatus()
         {
             var recheckInStatus = _authenticationService.RecheckIn(_napCurrentSession);
