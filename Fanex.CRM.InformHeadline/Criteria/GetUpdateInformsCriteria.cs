@@ -26,7 +26,7 @@ namespace Fanex.CRM.InformHeadline.Criteria
         public bool ChangeFilter { get; set; }
 
         [SpParam(SqlParamName = "ignored")]
-        public bool IsExcludeIgnoredAccounts { get; set; }
+        public bool ExcludeIgnoredAccounts { get; set; }
 
         public override string GetSettingKey()
         {

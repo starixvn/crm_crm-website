@@ -140,6 +140,7 @@
       <Mapping DataField="Currency" ObjectProperty="Currencies" />
       <Mapping DataField="Site" ObjectProperty="Sites" />
       <Mapping DataField="Position" ObjectProperty="Positions" />
+      <Mapping DataField="ExcludeIgnored" ObjectProperty="ExcludeIgnoredAccounts" />
     </Setting>
     <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />

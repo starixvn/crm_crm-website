@@ -22,5 +22,7 @@ namespace Fanex.CRM.InformHeadline.Models
         public int TypeAccount { get; set; }
 
         public string Positions { get; set; }
+
+        public bool ExcludeIgnoredAccounts { get; set; }
     }
 }

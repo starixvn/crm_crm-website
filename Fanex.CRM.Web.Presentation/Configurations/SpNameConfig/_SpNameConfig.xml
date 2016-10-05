@@ -10,4 +10,7 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformTitleDetail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineSearchUpd" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

@@ -74,7 +74,7 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         }
 
         [SpParam(SqlParamName = "excludeignoredacc")]
-        public bool IsExcludeIgnoredAccounts { get; set; }
+        public bool ExcludeIgnoredAccounts { get; set; }
 
         public int PageIndex { get; set; }
 

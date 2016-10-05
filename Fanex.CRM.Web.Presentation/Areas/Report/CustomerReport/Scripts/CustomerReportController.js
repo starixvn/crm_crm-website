@@ -30,7 +30,7 @@
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             IsGetFromCached: false,
-            IsExcludeIgnoredAccounts: true
+            ExcludeIgnoredAccounts: true
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -151,7 +151,7 @@
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
                 Headline: $scope.searchCriteria.Headline,
                 PositionIds: $scope.searchCriteria.PositionIds,
-                IsExcludeIgnoredAccounts: $scope.searchCriteria.IsExcludeIgnoredAccounts,
+                ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
                 IsGetFromCached: false
