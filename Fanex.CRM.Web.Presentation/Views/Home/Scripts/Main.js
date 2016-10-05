@@ -106,7 +106,6 @@ function downup() {
 }
 
 function udpateOnlineStatus() {
-
     var reCheckIn = function () {
         $.ajax({
             type: "POST",
@@ -119,7 +118,7 @@ function udpateOnlineStatus() {
                     if (rs.ErrCode > 0) {
                         openConfirmPopup();
                     }
-                    setTimeout(reCheckIn(), 20000);
+                    setTimeout(reCheckIn, 20000);
                     return false;
                 }
                 else {
