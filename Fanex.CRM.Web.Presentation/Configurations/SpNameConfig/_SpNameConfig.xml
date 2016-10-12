@@ -1,14 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerGuestIns" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerIns_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerSel_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerUpd_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineSearchSel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineIns" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformTitleDetail" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CRM_InformHeadlineSearchUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
