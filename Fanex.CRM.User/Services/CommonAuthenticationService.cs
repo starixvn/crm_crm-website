@@ -42,13 +42,11 @@
 
             if (_maintenanceService.IsUnderMaintenance())
             {
-                Logout(currentSession);
                 return RecheckInStatus.UnderMaintenance;
             }
 
             if (!_siteService.IsActivated(settings.SiteId))
             {
-                Logout(currentSession);
                 return RecheckInStatus.InvalidSite;
             }
 

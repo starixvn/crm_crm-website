@@ -36,6 +36,8 @@ namespace Fanex.CRM.Web.View
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+
             var defaultParameter = new
             {
                 controller = "Home",
