@@ -21,22 +21,15 @@
             var footerData = [];
             var reportLength = customerReport ? customerReport.CustomerList.length : 0;
             if (reportLength > 0) {
-                var previousHeadline = customerReport.CustomerList[0].Headline;
-                var previousIndex = 0;
-                var rowSpan = 0;
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
-
-                    if (customer.Headline !== previousHeadline) {
-                        bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
-                        previousHeadline = customer.Headline;
-                        previousIndex = i;
-                        rowSpan = 0;
-                    }
-
-                    rowSpan++;
                     bodyData.push({
-                        Columns: [{ Name: "ColUsername", Value: customer.Username },
+                        Columns: [
+                            { Name: "ColHeadline", Value: customer.Headline },
+                            { Name: "ColChecker", Value: customer.Checker },
+                            { Name: "ColPosition", Value: customer.Position },
+                            { Name: "ColStatus", Value: customer.Status },
+                            { Name: "ColUsername", Value: customer.Username },
                             { Name: "ColFirstname", Value: customer.FirstName },
                             { Name: "ColLastname", Value: customer.LastName },
                             { Name: "ColPhone1", Value: customer.Phone1 },
@@ -65,20 +58,16 @@
                             { Name: "ColPIC4", Value: customer.Pic4 },
                             { Name: "ColBirthday", Value: customer.BirthDay },
                             { Name: "ColPassport", Value: customer.Passport },
-                            { Name: "ColSiteName", Value: customer.SiteName }]
+                            { Name: "ColSiteName", Value: customer.SiteName },
+                            { Name: "ColCountry", Value: customer.CountryName }]
                     });
                 }
-
-
-                var lastCustomer = customerReport.CustomerList[reportLength - 1];
-                if (lastCustomer.Headline === previousHeadline) {
-                    rowSpan++;
-                }
-
-                bodyData[previousIndex].Columns.splice(0, 0, { TdClass: "bg-white", Name: "ColHeadline", Value: previousHeadline, MergeRowNumber: rowSpan });
             }
 
             var headerColumns = [{ HeaderText: viewResources.Headline, Width: 120, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Checker, Width: 120, Name: "ColChecker", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Position, Width: 120, Name: "ColPosition", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Status, Width: 120, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.FirstName, Width: 120, Name: "ColFirstname", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.LastName, Width: 120, Name: "ColLastname", HeaderAlign: "center", CellAlign: "left" },
@@ -104,7 +93,8 @@
                 { HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                 { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" }];
+                { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" }];
 
             var gridOptions = {
                 columns: headerColumns,

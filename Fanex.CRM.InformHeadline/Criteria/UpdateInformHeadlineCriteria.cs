@@ -32,6 +32,8 @@ namespace Fanex.CRM.InformHeadline.Criteria
         public bool ChangeFilter { get; set; }
 
         public string Content { get; set; }
+        
+        public bool ExcludeIgnoredAccounts { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<UpdateInform> Informs { get; set; }
@@ -49,6 +51,7 @@ namespace Fanex.CRM.InformHeadline.Criteria
             param.Add("Level", Level);
             param.Add("Site", Site);
             param.Add("TypeAccount", TypeAccount);
+            param.Add("ExcludeIgnored", ExcludeIgnoredAccounts);
             param.Add("changefilter", ChangeFilter);
             param.Add("Content", Content);
             param.Add("UserId", UserId);

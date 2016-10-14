@@ -10,10 +10,9 @@
     angular.module('report-customerreport-application').controller('customerReportController', ['$scope', '$customerReportService',
     function ($scope, $customerReportService) {
         $scope.isShowFilter = true;
-        $scope.fromDateOptions = null;
-        $scope.toDateOptions = null;
         $scope.siteOptions = null;
         $scope.languageOptions = null;
+        $scope.positionOptions = null;
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
         $scope.vipTypeOptions = null;
@@ -23,17 +22,15 @@
             IsUpdateGrid: false
         };
 
-        $scope.isUpdatingDate = false;
         $scope.searchCriteria = {
-            FromDate: '',
-            ToDate: '',
             Username: '',
             LanguageIds: '',
             SiteIds: '',
             VIPType: null,
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            IsGetFromCached: false
+            IsGetFromCached: false,
+            ExcludeIgnoredAccounts: true
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -54,28 +51,6 @@
             $scope.$apply();
         };
         $scope.initPicker = function () {
-            $scope.fromDateOptions = {
-                CurrentDate: currentDate,
-                InitDate: null,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateFromDate,
-                IsAllowNullDate: true,
-                YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
-            };
-            $scope.updateFromDatePicker();
-
-            $scope.toDateOptions = {
-                CurrentDate: currentDate,
-                InitDate: null,
-                MaxDate: currentDate,
-                IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateToDate,
-                IsAllowNullDate: true,
-                YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
-            };
-            $scope.updateToDatePicker();
-
             $scope.vipTypeOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedVIPType,
@@ -106,21 +81,17 @@
                 SubOptionsName: 'ChildSites',
                 NumberOfSelectedLevel: 2
             };
-        };
-        $scope.updateFromDatePicker = function (isOnApply) {
-            $scope.fromDateOptions.IsRerenderPicker = true;
-            if (!isOnApply) {
-                $scope.$apply();
-            }
-        };
-        $scope.updateToDatePicker = function (isOnApply) {
-            if ($scope.toDateOptions) {
-                $scope.toDateOptions.IsRerenderPicker = true;
-            }
 
-            if (!isOnApply) {
-                $scope.$apply();
-            }
+            $scope.positionOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedPosition,
+                AllText: viewResources.All,
+                MinWidth: 200,
+                MaxHeight: 450,
+                NoItemText: viewResources.No_languages_found,
+                NoneSelectedText: viewResources.Symbol_NotApply,
+                NumberOfItemShowShortText: 2
+            };
         };
         $scope.getAllSetting = function () {
             $scope.BlockUI();
@@ -131,6 +102,7 @@
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
                 $scope.languageOptions.DataList = allSetting.LanguageList;
+                $scope.positionOptions.DataList = allSetting.PositionList;
                 $scope.completedLoadFilterInfo();
             },
             function () {
@@ -156,20 +128,13 @@
             }
             $scope.searchCriteria.SiteIds = siteIdList;
         };
-        $scope.updateFromDate = function (selectedDate) {
-            $scope.searchCriteria.FromDate = selectedDate;
-            if ($scope.toDateOptions) {
-                $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;
+        $scope.updateSelectedPosition = function (positionIdList) {
+            if (!positionIdList) {
+                $('#position--1').prop('checked', true);
+                return;
             }
-
-            $scope.updateToDatePicker(true);
+            $scope.searchCriteria.PositionIds = positionIdList;
         };
-        $scope.updateToDate = function (selectedDate) {
-            $scope.searchCriteria.ToDate = selectedDate;
-            $scope.fromDateOptions.MaxDate = selectedDate && selectedDate !== "" ? selectedDate : null;
-            $scope.updateFromDatePicker(true);
-        };
-
         $scope.updateSelectedVIPType = function (vipType) {
             $scope.searchCriteria.VIPType = vipType;
         };
@@ -180,17 +145,13 @@
         $scope.getCustomerReport = function () {
             $scope.BlockUI();
             var getReportCriteria = {
-                FromDateBirthDay: $scope.searchCriteria.FromDate ?
-                moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
-                '',
-                ToDateBirthDay: $scope.searchCriteria.ToDate ?
-                moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
-                '',
-
                 Username: $scope.searchCriteria.Username,
                 LanguageIds: $scope.searchCriteria.LanguageIds,
                 SiteIds: $scope.searchCriteria.SiteIds,
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
+                Headline: $scope.searchCriteria.Headline,
+                PositionIds: $scope.searchCriteria.PositionIds,
+                ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
                 IsGetFromCached: false

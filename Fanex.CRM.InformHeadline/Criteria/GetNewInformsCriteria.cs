@@ -24,6 +24,9 @@ namespace Fanex.CRM.InformHeadline.Criteria
 
         public string Site { get; set; }
 
+        [SpParam(SqlParamName = "ignored")]
+        public bool ExcludeIgnoredAccounts { get; set; }
+
         public int PageIndex { get; set; }
 
         public int ItemsPerPage { get; set; }

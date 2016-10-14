@@ -88,20 +88,32 @@
                             </select>
                         </div>
                     </div>
+                    @if (Model.HeadLine)
+                    {
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="checker">
+                                @Labels.Checker
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox" id="checker" data-ng-model="customerDetail.Checker"
+                                    tabindex="11" />
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
                     <div class="row row-item">
                         <div class="col-xs-4 col-sm-3 col-md-3">
                             <label for="isVIP" class="labelforcheckbox checkbox">
                                 <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" />
-                                @Labels.VIP</label></div>
-                        <div class="col-md-9">
-                            @if (Model.HeadLine)
-                            {
-                                <label for="headline" class="labelforcheckbox checkbox">
-                                    <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
-                                    @Labels.Headline</label>
-                            }
+                                @Labels.VIP
+                            </label>
                         </div>
+                        <div class="col-md-9"></div>
                     </div>
+                    }
                 </div>
                 <div class="col-md-4">
                     <div class="row item">
@@ -131,6 +143,29 @@
                                 tabindex="9" />
                         </div>
                     </div>
+                    @if (Model.HeadLine)
+                    {
+                    <div class="row row-item">
+                        <div class="col-xs-4 col-sm-3 col-md-3">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="12" />
+                                @Labels.VIP
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-3 col-md-3">
+                            <label for="headline" class="labelforcheckbox checkbox">
+                                <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
+                                @Labels.Headline
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-3 col-md-3">
+                            <label for="ignore" class="labelforcheckbox checkbox">
+                                <input id="ignore" type="checkbox" data-ng-model="customerDetail.IsIgnored" tabindex="13"/>
+                                @Labels.Ignore
+                            </label>
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
         </div>

@@ -26,6 +26,7 @@
         };
         $scope.headlineChecked = true;
         $scope.directChecked = true;
+        $scope.excludeIgnoredAccounts = true;
 
         var _searchCriteria = {};
 
@@ -80,6 +81,7 @@
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: getAccountType(),
+                ExcludeIgnoredAccounts: $scope.excludeIgnoredAccounts,
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };

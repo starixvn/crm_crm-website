@@ -62,6 +62,8 @@ namespace Fanex.CRM.Common.Models
 
         public bool IsSuspended { get; set; }
 
+        public bool IsIgnored { get; set; }
+
         public string Status
         {
             get
@@ -71,6 +73,8 @@ namespace Fanex.CRM.Common.Models
         }
 
         public BaseModel LicenseeType { get; set; }
+
+        public string Checker { get; set; }
         
         #endregion
 

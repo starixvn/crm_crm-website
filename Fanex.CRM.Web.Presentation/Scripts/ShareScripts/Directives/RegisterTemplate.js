@@ -462,7 +462,7 @@ function RegisterTemplate(application) {
         directiveManager.registerMultiSelectContainer(self.application, statusRegisterParams);
     };
 
-    self.registerPositionMultiSelectPicker = function () {
+    /*self.registerPositionMultiSelectPicker = function () {
         var positionRegisterParams = {
             PlugInName: 'positionMultiContainer',
             OptionName: 'positionOptions',
@@ -475,7 +475,7 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, positionRegisterParams);
-    };
+    };*/
 
     self.registerCurrencyMultiSelectPicker = function () {
         var currencyRegisterParams = {
@@ -596,5 +596,20 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerTipsyDirective(self.application, tipsyDirectiveRegisterParams);
+    };
+    self.registerPositionMultiSelectPicker = function () {
+        var positionRegisterParams = {
+            PlugInName: 'positionPickerContainer',
+            OptionName: 'positionOptions',
+            PickerId: 'position',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, positionRegisterParams);
     };
 }

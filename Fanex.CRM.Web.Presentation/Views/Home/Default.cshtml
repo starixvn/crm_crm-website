@@ -6,6 +6,7 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Models;
 @using Fanex.NAP.Core.Business;
+@using Fanex.CRM.Common.Services;
 @{
     var customer = (ViewBag.CurrentCustomer as SearchedCustomer) ?? new SearchedCustomer();
 
@@ -117,13 +118,15 @@
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@customer.Name';
         var isGuestSearch = '@customer.IsGuest';
-        var accUrlDefault = '@Fanex.CRM.Common.Services.AppSetting.LoginLink';
-        var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
+        var accUrlDefault = '@AppSetting.LoginLink';
+        var logoutUrl = '@Url.Action("LogOut", "UserLogin")';
+        var umUrl = '@Url.Action("Offline", "Common")';
+        var userId = @(AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
-        @if(Fanex.CRM.Common.Services.AppSetting.IsLocalTest == false)
+        @if(AppSetting.IsLocalTest == false)
         {
         <text>
-        setInterval('udpateOnlineStatus()', 20000);
+        udpateOnlineStatus();
         </text>
         }
     </script>

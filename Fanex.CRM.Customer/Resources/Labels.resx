@@ -402,4 +402,10 @@
   <data name="Headline" xml:space="preserve">
     <value>Headline</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="Checker" xml:space="preserve">
+    <value>Checker</value>
+  </data>
 </root>

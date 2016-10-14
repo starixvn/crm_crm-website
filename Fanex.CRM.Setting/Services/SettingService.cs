@@ -495,50 +495,58 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllCustomerTypes()
         {
-            var allCustomerType = new List<Setting>();
-            allCustomerType.Add(new Setting
+            return new[] 
             {
-                Id = CustomerTypeConstants.All,
-                Value = Labels.All
-            });
-
-            allCustomerType.Add(new Setting
-            {
-                Id = CustomerTypeConstants.Customer,
-                Value = Labels.Customer
-            });
-
-            allCustomerType.Add(new Setting
-            {
-                Id = CustomerTypeConstants.Guest,
-                Value = Labels.Guest
-            });
-
-            return allCustomerType;
+                new Setting
+                {
+                    Id = CustomerTypeConstants.All,
+                    Value = Labels.All
+                },
+                new Setting
+                {
+                    Id = CustomerTypeConstants.Customer,
+                    Value = Labels.Customer
+                },
+                new Setting
+                {
+                    Id = CustomerTypeConstants.Guest,
+                    Value = Labels.Guest
+                }
+            };
         }
 
         public IEnumerable<Setting> GetAllVIPTypes()
         {
-            var allVIPType = new List<Setting>();
-            allVIPType.Add(new Setting
+            return new[] 
             {
-                Id = VIPTypeConstants.All,
-                Value = Labels.All
-            });
+                new Setting
+                {
+                    Id = VIPTypeConstants.All,
+                    Value = Labels.All
+                },
+                new Setting
+                {
+                    Id = VIPTypeConstants.Yes,
+                    Value = Labels.Yes
+                },
+                new Setting
+                {
+                    Id = VIPTypeConstants.No,
+                    Value = Labels.No
+                }
+            };
+        }
 
-            allVIPType.Add(new Setting
+        public IEnumerable<Setting> GetPositions()
+        {
+            return new[] 
             {
-                Id = VIPTypeConstants.Yes,
-                Value = Labels.Yes
-            });
-
-            allVIPType.Add(new Setting
-            {
-                Id = VIPTypeConstants.No,
-                Value = Labels.No
-            });
-
-            return allVIPType;
+                new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
+                new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
+                new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.Guest, Value = Labels.Guest }
+            };
         }
 
         public IEnumerable<Setting> AllHeadlineType()

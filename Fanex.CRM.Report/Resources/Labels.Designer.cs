@@ -322,6 +322,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checker.
+        /// </summary>
+        public static string Checker {
+            get {
+                return ResourceManager.GetString("Checker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -750,6 +759,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string EndTime {
             get {
                 return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude ignored accounts.
+        /// </summary>
+        public static string ExcludeIgnoredAccounts {
+            get {
+                return ResourceManager.GetString("ExcludeIgnoredAccounts", resourceCulture);
             }
         }
         
@@ -1497,6 +1515,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Poker {
             get {
                 return ResourceManager.GetString("Poker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
             }
         }
         

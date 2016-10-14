@@ -26,6 +26,7 @@
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
+        $scope.excludeIgnoredAccounts = false;
 
         $scope.currencyDropdownSettings = {};
         $scope.positionDropdownSettings = {};
@@ -51,6 +52,7 @@
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
                     $scope.titleDetail.Title = decodeHtml($scope.titleDetail.Title);
+                    $scope.excludeIgnoredAccounts = $scope.titleDetail.ExcludeIgnoredAccounts;
                     getAllSettings();
                 },
                 function () {
@@ -64,7 +66,8 @@
             return _searchCriteria.Currency !== titleDetail.Currencies ||
                     _searchCriteria.Site !== titleDetail.Sites ||
                     _searchCriteria.TypeAccount !== titleDetail.TypeAccount ||
-                    _searchCriteria.Level !== titleDetail.Positions;
+                    _searchCriteria.Level !== titleDetail.Positions ||
+                    _searchCriteria.ExcludeIgnoredAccounts !== titleDetail.ExcludeIgnoredAccounts;
         }
         function createCurrencyDropdownSettings(sourceData, currencyIds) {
             $scope.currencyDropdownSettings = {
@@ -146,6 +149,7 @@
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: getAccountType(),
+                ExcludeIgnoredAccounts: $scope.excludeIgnoredAccounts,
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };

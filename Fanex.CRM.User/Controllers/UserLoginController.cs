@@ -26,7 +26,6 @@ namespace Fanex.CRM.User.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [CheckUMFilter]
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
@@ -82,7 +81,13 @@ namespace Fanex.CRM.User.Controllers
         /// <returns>Return view.</returns>
         public ActionResult Index()
         {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return RedirectToAction("Offline", "Common");
+            }
+
             CreateNewToken();
+
             return View(LogInViewURL);
         }
 
@@ -97,6 +102,11 @@ namespace Fanex.CRM.User.Controllers
         [HttpPost]
         public ActionResult Index(LocalLogin localLogin)
         {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return RedirectToAction("Offline", "Common");
+            }
+
             if (string.IsNullOrEmpty(localLogin.Username) || string.IsNullOrEmpty(localLogin.Password))
             {
                 return LoginError(Labels.LogIn_InvalidInput);
@@ -125,6 +135,11 @@ namespace Fanex.CRM.User.Controllers
         [HttpGet]
         public ActionResult SSO(SSOLogin ssoLogin)
         {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return RedirectToAction("Offline", "Common");
+            }
+
             ssoLogin.Environment = NapSettings.Settings.Environment;
             ssoLogin.SiteId = NapSettings.Settings.SiteId;
             ssoLogin.SessionId = Session.SessionID;
@@ -162,6 +177,7 @@ namespace Fanex.CRM.User.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpPost]
+        [Authorize]
         public ActionResult CheckUserOnlineStatus()
         {
             var recheckInStatus = _authenticationService.RecheckIn(_napCurrentSession);

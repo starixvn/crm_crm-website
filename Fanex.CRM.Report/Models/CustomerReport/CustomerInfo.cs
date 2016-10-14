@@ -13,6 +13,12 @@ namespace Fanex.CRM.Report.Models.CustomerReport
     {
         public string Headline { get; set; }
 
+        public string Checker { get; set; }
+
+        public string Status { get; set; }
+
+        public string Position { get; set; }
+
         public string Username { get; set; }
 
         public string FirstName { get; set; }
@@ -64,5 +70,7 @@ namespace Fanex.CRM.Report.Models.CustomerReport
         public string Passport { get; set; }
 
         public string SiteName { get; set; }
+
+        public string CountryName { get; set; }
     }
 }

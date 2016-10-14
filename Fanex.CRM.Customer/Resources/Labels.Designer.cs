@@ -178,6 +178,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checker.
+        /// </summary>
+        public static string Checker {
+            get {
+                return ResourceManager.GetString("Checker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -435,6 +444,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string IBAN_SWIFT_code {
             get {
                 return ResourceManager.GetString("IBAN_SWIFT_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore.
+        /// </summary>
+        public static string Ignore {
+            get {
+                return ResourceManager.GetString("Ignore", resourceCulture);
             }
         }
         

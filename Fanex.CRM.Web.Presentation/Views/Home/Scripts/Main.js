@@ -17,8 +17,9 @@ var autosearch;
 var showLogo = true;
 var userName = "";
 var isGuest;
+var underMaintenanceCode = 3;
 
-function openConfirmPopup() {
+function openConfirmPopup(errorCode) {
     $("#dialog:ui-dialog").dialog("destroy");
 
     $("#divErrorPoup").html('Another session has been logged in or your session is expired. Forced to logout!');
@@ -31,19 +32,28 @@ function openConfirmPopup() {
         title: 'Alert',
         close: function (event, ui) {
             /* jshint unused: false */
-            top.location.href = accUrlDefault;
+            redirectPage(errorCode);
         },
         buttons: [
                 {
                     text: "OK",
                     click: function () {
-                        top.location.href = accUrlDefault;
+                        redirectPage(errorCode);
                         $(this).dialog("close");
                     }
                 }
             ]
     });
     return false;
+}
+
+function redirectPage(errorCode) {
+    if (errorCode === underMaintenanceCode) {
+        top.location.href = umUrl;
+    }
+    else {
+        top.location.href = logoutUrl;
+    }
 }
 
 function preResize() {
@@ -70,8 +80,6 @@ function KeyPress(e) {
                 buttons: [{
                     text: "OK",
                     click: function () {
-                        //top.location.href = accUrlDefault;  
-
                         $(this).dialog("close");
                         $('#txtuserName').focus();
                     }
@@ -106,30 +114,27 @@ function downup() {
 }
 
 function udpateOnlineStatus() {
-
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: '',
-        success: function (rs) {
-            if (rs != null && rs.ErrCode != null) {
-                if (rs.ErrCode > 0) {
-                    openConfirmPopup();
+    var reCheckIn = function () {
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: '',
+            success: function (rs) {
+                if(rs.ErrCode > 0) {
+                    openConfirmPopup(rs.ErrCode);
                 }
-
-                return false;
-            }
-            else {
+                else {
+                    setTimeout(reCheckIn, 20000);
+                }
+            }, error: function () {
                 openConfirmPopup();
-                return false;
             }
-        }, error: function () {
-            openConfirmPopup();
-            return false;
-        }
-    });
+        });
+    };
+
+    reCheckIn();
 }
 
 $(document).ready(function () {

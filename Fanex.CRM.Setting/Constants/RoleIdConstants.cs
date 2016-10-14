@@ -25,5 +25,7 @@ namespace Fanex.CRM.Setting.Constants
 
         public const int Super = 4;
         public const int CRMSuper = 7003;
+
+        public const int Guest = 5;
     }
 }

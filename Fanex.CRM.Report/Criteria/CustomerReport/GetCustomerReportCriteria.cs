@@ -21,6 +21,8 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         private string _languageIds;
 
+        private string _positionIds;
+
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
@@ -52,14 +54,27 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
             }
         }
 
-        [SpParam(SqlParamName = "frombirthday")]
-        public DateTime? FromDateBirthDay { get; set; }
-
-        [SpParam(SqlParamName = "tobirthday")]
-        public DateTime? ToDateBirthDay { get; set; }
-
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
+
+        public string Headline { get; set; }
+
+        [SpParam(SqlParamName = "roleid")]
+        public string PositionIds
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_positionIds) ? string.Empty : _positionIds.Replace("-1", "0");
+            }
+
+            set
+            {
+                _positionIds = value;
+            }
+        }
+
+        [SpParam(SqlParamName = "excludeignoredacc")]
+        public bool ExcludeIgnoredAccounts { get; set; }
 
         public int PageIndex { get; set; }
 
