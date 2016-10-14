@@ -81,7 +81,7 @@ namespace Fanex.CRM.User.Controllers
         /// <returns>Return view.</returns>
         public ActionResult Index()
         {
-            if(_maintenanceService.IsUnderMaintenance())
+            if (_maintenanceService.IsUnderMaintenance())
             {
                 return RedirectToAction("Offline", "Common");
             }

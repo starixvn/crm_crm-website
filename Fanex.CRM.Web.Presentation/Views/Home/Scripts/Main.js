@@ -126,7 +126,7 @@ function udpateOnlineStatus() {
                     openConfirmPopup(rs.ErrCode);
                 }
                 else {
-                    setTimeout(reCheckIn, 5000);
+                    setTimeout(reCheckIn, 20000);
                 }
             }, error: function () {
                 openConfirmPopup();
