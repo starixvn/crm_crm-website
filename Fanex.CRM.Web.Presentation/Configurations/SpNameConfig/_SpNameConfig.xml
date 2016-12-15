@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="LOCAL" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
