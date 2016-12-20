@@ -7,7 +7,7 @@ var FixBugManager = function () {
             $.param = function (a, traditional) {
                 var s = oldFunction.apply(oldFunction, [a, traditional]);
                 //Return the resulting serialization;
-                return s.replace('+', '%20');
+                return s.replace(/\+/g, '%20');
             };
         })(jQuery, jQuery.param);
     };
