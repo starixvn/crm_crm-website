@@ -325,6 +325,25 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\BetType.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\CommunicationTool.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\EndTime.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Extension.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Language.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\MainCategory.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Response.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\ReviewEditor.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Role.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\StartTime.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\Status.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\SubCategory.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
@@ -438,6 +457,9 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\CreateMultipleLogsApplication.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\CreateMultipleLogsController.js" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Scripts\CreateMultipleLogsService.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackService.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
@@ -1215,6 +1237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Communication\CreateMultipleLogs\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1436,6 +1459,7 @@
   <ItemGroup>
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
+    <Content Include="Areas\Communication\CreateMultipleLogs\Index.cshtml" />
     <None Include="Configurations\Web.UATSandBox.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
