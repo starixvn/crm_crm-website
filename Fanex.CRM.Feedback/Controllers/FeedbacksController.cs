@@ -119,6 +119,13 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 
+        [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Read)]
+        public ActionResult CreateMultipleLogs()
+        {
+            return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml");
+        }
+
         public void ExportLatestFeedbacks(LatestFeedbackCriteria criteria)
         {
             var fromCustomerText = criteria.CustId != 0 ?

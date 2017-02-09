@@ -123,6 +123,8 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Report_WagerReport(ref bundles);
             RegisterBundles_Report_SummaryReport(ref bundles);
 
+            RegisterCreateMultipleLogsBundles(bundles);
+
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -685,6 +687,26 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less");
+        }
+
+        private static void RegisterCreateMultipleLogsBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/CreateMultipleLogsScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
+                "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
+                "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
+                "~/Areas/Communication/CreateMultipleLogs/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Communication/CreateMultipleLogsStyles",
+                "~/Areas/Communication/CreateMultipleLogs/Styles/CreateMultipleLogs.less");
         }
     }
 

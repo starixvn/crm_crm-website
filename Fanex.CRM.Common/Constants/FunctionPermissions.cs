@@ -65,5 +65,7 @@ namespace Fanex.CRM.Common.Constants
         public const string LogStatistics = "LogStatistics";
 
         public const string SettingLog = "ViewSettingLog";
+
+        public const string CreateMultipleLogs = "CreateMultipleLogs";
     }
 }

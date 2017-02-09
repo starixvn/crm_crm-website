@@ -335,4 +335,7 @@
     <value>Customer Name cannot be greater than 50 characters</value>
     <comment>#58197</comment>
   </data>
+  <data name="CreateMultipleLogs" xml:space="preserve">
+    <value>Create Multiple Logs</value>
+  </data>
 </root>
