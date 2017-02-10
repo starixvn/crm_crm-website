@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownExtension', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownExtension', function () {
         function renderDropdown(scope, element) {
             if (scope.extensionList) {
                 var dropdown = element.find("#ext");
@@ -9,11 +9,7 @@
                 for (var i = 0; i < extensionListLength; i++) {
                     var extension = scope.extensionList[i];
                     dropdown.append(
-                    '<option value="' + extension.Id + '"' +
-                        (extension.Id === scope.communicationLog.Extension.Id ?
-                        ' selected="selected"' :
-                        '') +
-                        '>' + extension.Value + '</option>');
+                    '<option value="' + extension.Id + '">' + extension.Value + '</option>');
                 }
 
                 element.change(function () {

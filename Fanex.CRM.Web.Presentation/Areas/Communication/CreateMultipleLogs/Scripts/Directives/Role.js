@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownRole', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownRole', function () {
         function renderDropdown(scope, element) {
             if (scope.roleList) {
                 var dropdown = element.find("#role");
@@ -9,11 +9,9 @@
                 for (var i = 0; i < roleListLength; i++) {
                     var role = scope.roleList[i];
                     dropdown.append(
-                    '<option value="' + role.Id + '"' +
-                        (role.Id === scope.communicationLog.RoleInfo.Id ?
-                        ' selected="selected"' :
-                        '') +
-                    '>' + role.Value + '</option>');
+                    '<option value="' + role.Id + '">' +
+                        role.Value +
+                     '</option>');
                 }
 
                 element.change(function () {

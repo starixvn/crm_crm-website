@@ -1,26 +1,23 @@
 ﻿(function () {
     "use strict";
-    /* global communicationLog,
-    viewResources,
+    /* global viewResources,
     hotKeyManager,
     sharedScriptManager,
     currentUsername */
-    /* jshint camelcase: false */
-    angular.module('communicationlog-edit-application').directive('remarkEditorContainer', function () {
+    angular.module('create-multiple-logs-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
-
         function renderRemarkEditor(scope, element) {
-            var remark = communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
-            communicationLog.Remark.substring(0, communicationLog.Remark.length - 1) + "&nbsp;" :
-            communicationLog.Remark;
-
+            var remark = scope.multipleLogs.Remark.indexOf(" ", scope.multipleLogs.Remark.length - 1) !== -1 ?
+            scope.multipleLogs.Remark.substring(0, scope.multipleLogs.Remark.length - 1) + "&nbsp;" :
+            scope.multipleLogs.Remark;
             var editorHTML =
-            '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-                sharedScriptManager.encodeHtml(remark) +
-            '</textarea>';
+        '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
+             sharedScriptManager.encodeHtml(remark) +
+        '</textarea>';
 
             element.html(editorHTML);
             var editor = element.find("#" + editorId);
+            /* jshint camelcase: false */
             editor.htmlarea({
                 changeEvent: function () {
                     scope.updateRemark(editor.htmlarea("toHtmlString"));
@@ -33,10 +30,6 @@
                 },
                 blurEvent: function () {
                     return hotKeyManager.documentBlur();
-                },
-                clickEvent: function () {
-                    $("#startTime").datepicker("hide");
-                    $("#endTime").datepicker("hide");
                 },
                 toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
@@ -60,7 +53,6 @@
                 }]
            ]
             });
-
         }
 
         return {

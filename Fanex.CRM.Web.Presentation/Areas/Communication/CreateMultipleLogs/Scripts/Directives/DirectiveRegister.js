@@ -1,10 +1,7 @@
 ﻿(function () {
     "use strict";
-    /* global RegisterTemplate */
-    function editCommunicationLogRegisterPicker() {
-        var editCommunicationLogRegister = new RegisterTemplate(angular.module('communicationlog-edit-application'));
-        editCommunicationLogRegister.registerLicenseeTypePicker();
 
+    function registerDirectives() {
         registerProductDirective();
         registerSubProductDirective();
     }
@@ -22,7 +19,7 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('communicationlog-edit-application'), productRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('create-multiple-logs-application'), productRegisterOptions);
     }
 
     function registerSubProductDirective() {
@@ -38,8 +35,8 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('communicationlog-edit-application'), subProductRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('create-multiple-logs-application'), subProductRegisterOptions);
     }
 
-    editCommunicationLogRegisterPicker();
+    registerDirectives();
 })();

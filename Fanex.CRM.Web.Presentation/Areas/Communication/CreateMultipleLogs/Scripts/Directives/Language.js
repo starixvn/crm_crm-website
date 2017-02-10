@@ -3,24 +3,17 @@
     /* global viewResources,
     crmConstants */
     /* jshint camelcase: false */
-    angular.module('communicationlog-edit-application').directive('dropdownLanguage', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownLanguage', function () {
         function renderDropdown(scope, element) {
             if (scope.languageList) {
                 var dropdown = element.find("#language");
                 dropdown.empty();
-                var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '"' +
-                    (crmConstants.Enums.Language.NotApply === scope.communicationLog.Language.Id ?
-                    ' selected="selected"' :
-                    '') +
-                '>' + viewResources.Symbol_NotApply +
+                var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '">' + viewResources.Symbol_NotApply +
                 '</option>';
                 var languageListLength = scope.languageList.length;
                 for (var i = 0; i < languageListLength; i++) {
                     var language = scope.languageList[i];
-                    optionHtml += '<option value="' + language.Id + '"' +
-                      (language.Id === scope.communicationLog.Language.Id ?
-                        ' selected="selected"' :
-                        '') + '>' + language.Name + '</option>';
+                    optionHtml += '<option value="' + language.Id + '">' + language.Name + '</option>';
                 }
 
                 dropdown.append(optionHtml);

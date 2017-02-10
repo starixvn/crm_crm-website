@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').factory('$editLogService', ['$http', '$q',
+    angular.module('create-multiple-logs-application').factory('$createMultipleLogsService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
 
@@ -71,9 +71,9 @@
 
             return deferred.promise;
         };
-        serviceInstance.getAllSettingForEdit = function () {
+        serviceInstance.getSettings = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CommunicationLog/AllSettingForEdit", null)
+            $http.post(window.rootUrl + "CreateMultipleLogs/GetSettings", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

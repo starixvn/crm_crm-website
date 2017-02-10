@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('defaultFocus', function () {
+    angular.module('create-multiple-logs-application').directive('defaultFocus', function () {
         return {
             restrict: 'A',
             scope: true,

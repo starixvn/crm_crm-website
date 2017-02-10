@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownSubCategory', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownSubCategory', function () {
         function renderDropdown(scope, element) {
             if (scope.subCategoryList) {
                 var dropdown = element.find("#subCategory");
@@ -10,7 +10,7 @@
                     var subCategory = scope.subCategoryList[i];
                     dropdown.append(
                     '<option value="' + subCategory.Id + '"' +
-                        (scope.communicationLog.SubCategory.Name !== '' && subCategory.Name === scope.communicationLog.SubCategory.Name ?
+                        (scope.multipleLogs.SubCategory.Name !== '' && subCategory.Name === scope.multipleLogs.SubCategory.Name ?
                             ' selected="selected"' :
                             '') +
                         '>' + subCategory.Name + '</option>');

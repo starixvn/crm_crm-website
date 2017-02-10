@@ -5,7 +5,7 @@
     sharedScriptManager,
     moment */
     /* jshint camelcase: false */
-    angular.module('communicationlog-edit-application').directive('timePickerStartTimeContainer', function () {
+    angular.module('create-multiple-logs-application').directive('timePickerStartTimeContainer', function () {
         var isSettingDate = false;
         var oldValue = null;
         function renderDatePicker(scope, element) {
@@ -29,15 +29,15 @@
                 59)
         });
 
-            var initTime = scope.communicationLog.StartTime ?
-            new Date(scope.communicationLog.StartTime) :
+            var initTime = scope.multipleLogs.StartTime ?
+            new Date(scope.multipleLogs.StartTime) :
             new Date(currentTime);
             datePicker.datepicker('setDate', initTime);
         }
 
         function updateCurrentTime() {
             var clientTime = new Date();
-            if (clientTime > currentTime) {
+            if (clientTime > new Date(currentTime)) {
                 currentTime = clientTime;
             }
         }
@@ -135,12 +135,11 @@
                     }
                 });
 
-                oldValue = scope.communicationLog.StartTime ?
-                scope.communicationLog.StartTime :
-                currentTime;
-                scope.updateStartTime(oldValue);
+                oldValue = currentTime;
+                scope.updateStartTime(currentTime);
                 element.on('change', function () {
                     var selectedTime = selectedTimeChange(scope, element);
+
                     if (!sharedScriptManager.datesEqual(selectedTime, new Date(oldValue))) {
                         oldValue = selectedTime;
                         if (!scope.isUpdatingTime) {
@@ -152,6 +151,10 @@
                         }
 
                         datePicker.datepicker('setDate', selectedTime);
+                    } else {
+                        scope.$apply(function () {
+                            scope.updateRemarkPrefix();
+                        });
                     }
                 });
             }

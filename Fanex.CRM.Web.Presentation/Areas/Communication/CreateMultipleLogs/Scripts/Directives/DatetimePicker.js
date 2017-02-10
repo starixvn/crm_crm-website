@@ -1,8 +1,9 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('datetimepicker', function () {
+    angular.module('create-multiple-logs-application').directive('datetimepicker', function () {
         return {
             restrict: 'A',
+            scope: { onselect: '&' },
             require: 'ngModel',
             link: function (scope, element, attrs, ngModelCtrl) {
                 $(function () {
@@ -24,6 +25,20 @@
                             });
                         }
                     });
+
+                    if (scope.onselect && typeof (scope.onselect) === 'function') {
+                        var id = attrs.id;
+                        var hourSelect = $('#h_' + id);
+                        var minuteSelect = $('#m_' + id);
+
+                        $('#' + id)
+                    .delegate(hourSelect, 'change', function () {
+                        scope.onselect();
+                    })
+                    .delegate(minuteSelect, 'change', function () {
+                        scope.onselect();
+                    });
+                    }
                 });
             }
         };

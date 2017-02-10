@@ -700,6 +700,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
+                "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsOption.js",
                 "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
                 "~/Areas/Communication/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
                 "~/Areas/Communication/CreateMultipleLogs/Scripts/Directives/*.js"));

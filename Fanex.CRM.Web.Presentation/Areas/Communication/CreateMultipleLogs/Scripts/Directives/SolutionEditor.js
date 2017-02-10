@@ -1,22 +1,21 @@
 ﻿(function () {
     "use strict";
-    /* global communicationLog,
-    viewResources,
+    /* global viewResources,
     hotKeyManager,
     sharedScriptManager,
     currentUsername */
-    /* jshint camelcase: false */
-    angular.module('communicationlog-edit-application').directive('solutionEditorContainer', function () {
+    angular.module('create-multiple-logs-application').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
         function renderEditor(scope, element) {
-            var solution = communicationLog.Solution;
+            var solution = scope.multipleLogs ? scope.multipleLogs.Solution : '';
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-             sharedScriptManager.encodeHtml(solution) +
+            sharedScriptManager.encodeHtml(solution) +
         '</textarea>';
 
             element.html(editorHTML);
             var editor = element.find("#" + editorId);
+            /* jshint camelcase: false */
             editor.htmlarea({
                 changeEvent: function () {
                     scope.updateSolution(editor.htmlarea("toHtmlString"));
@@ -29,10 +28,6 @@
                 },
                 blurEvent: function () {
                     return hotKeyManager.documentBlur();
-                },
-                clickEvent: function () {
-                    $("#startTime").datepicker("hide");
-                    $("#endTime").datepicker("hide");
                 },
                 toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],

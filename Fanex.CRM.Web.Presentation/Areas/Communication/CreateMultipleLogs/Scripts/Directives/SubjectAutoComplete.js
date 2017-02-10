@@ -2,7 +2,7 @@
     "use strict";
     /* global jlinq,
     keyboardManager */
-    angular.module('communicationlog-edit-application').directive('subjectAutoComplete', function () {
+    angular.module('create-multiple-logs-application').directive('subjectAutoComplete', function () {
         var suggestionItemNumber = 15;
         function bindingAutoSuggestionSubject(scope, element) {
             element.keyup(function (e) {

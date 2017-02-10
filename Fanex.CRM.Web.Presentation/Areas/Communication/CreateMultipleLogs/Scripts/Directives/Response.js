@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownResponse', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownResponse', function () {
         function renderDropdown(scope, element) {
             if (scope.responseList) {
                 var dropdown = element.find("#response");
@@ -9,11 +9,7 @@
                 for (var i = 0; i < responseListLength; i++) {
                     var response = scope.responseList[i];
                     dropdown.append(
-                    '<option value="' + response.Id + '"' +
-                        (response.Id === scope.communicationLog.Response.Id ?
-                        ' selected="selected"' :
-                        '') +
-                    '>' + response.Value + '</option>');
+                    '<option value="' + response.Id + '">' + response.Value + '</option>');
                 }
 
                 element.change(function () {

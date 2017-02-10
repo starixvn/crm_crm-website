@@ -1,10 +1,10 @@
 ﻿(function () {
     "use strict";
-    /* global crmConstants,
-    currentTime:true,
+    /* global currentTime:true, 
     sharedScriptManager,
+    crmConstants,
     moment */
-    angular.module('communicationlog-edit-application').directive('timePickerEndTimeContainer', function () {
+    angular.module('create-multiple-logs-application').directive('timePickerEndTimeContainer', function () {
         var isSettingDate = false;
         var oldValue = null;
         function renderDatePicker(scope, element) {
@@ -21,8 +21,8 @@
             ampm: true
         });
 
-            var initTime = scope.communicationLog.EndTime ?
-            new Date(scope.communicationLog.EndTime) :
+            var initTime = scope.multipleLogs.EndTime ?
+            new Date(scope.multipleLogs.EndTime) :
             new Date(currentTime);
             datePicker.datepicker('setDate', initTime);
         }
@@ -34,7 +34,7 @@
             }
         }
         function setTimeWithDate(dateInfo, datePicker) {
-            /* jshint unused: false */    
+            /* jshint unused: false */
             var arrayDate = dateInfo.split("/");
             var isValidDate = sharedScriptManager.isValidDate(new Date(dateInfo));
             if (arrayDate.length < 3 || !isValidDate) {
@@ -129,8 +129,8 @@
 
                 var initEndTime = new Date(currentTime);
                 initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
-                scope.updateEndTime(scope.communicationLog.EndTime ?
-                new Date(scope.communicationLog.EndTime) :
+                scope.updateEndTime(scope.multipleLogs.EndTime ?
+                new Date(scope.multipleLogs.EndTime) :
                 initEndTime);
                 oldValue = new Date(currentTime);
                 element.on('change', function () {
@@ -146,6 +146,10 @@
                         }
 
                         datePicker.datepicker('setDate', selectedTime);
+                    } else {
+                        scope.$apply(function () {
+                            scope.updateRemarkPrefix();
+                        });
                     }
                 });
             }

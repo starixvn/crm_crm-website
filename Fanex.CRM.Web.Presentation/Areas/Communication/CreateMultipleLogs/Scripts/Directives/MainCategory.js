@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownMainCategory', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownMainCategory', function () {
         function renderDropdown(scope, element) {
             if (scope.extensionList) {
                 var dropdown = element.find("#mainCategory");
@@ -9,11 +9,7 @@
                 for (var i = 0; i < mainCategoryListLength; i++) {
                     var mainCategory = scope.mainCategoryList[i];
                     dropdown.append(
-                    '<option value="' + mainCategory.Id + '"' +
-                         (scope.communicationLog.MainCategory.Name !== '' && mainCategory.Name === scope.communicationLog.MainCategory.Name ?
-                            ' selected="selected"' :
-                            '') +
-                    '>' + mainCategory.Name + '</option>');
+                    '<option value="' + mainCategory.Id + '">' + mainCategory.Name + '</option>');
                 }
 
                 element.change(function () {

@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular.module('communicationlog-edit-application').directive('dropdownBetType', function () {
+    angular.module('create-multiple-logs-application').directive('dropdownBetType', function () {
         function renderDropdown(scope, element) {
             if (scope.betTypeList) {
                 var dropdown = element.find("#betType");
@@ -9,11 +9,7 @@
                 for (var i = 0; i < betTypeListLength; i++) {
                     var betType = scope.betTypeList[i];
                     dropdown.append(
-                    '<option value="' + betType.Id + '"' +
-                        (betType.Id === scope.communicationLog.BetType.Id ?
-                        ' selected="selected"' :
-                        '') +
-                    '>' + betType.Name + '</option>');
+                    '<option value="' + betType.Id + '">' + betType.Name + '</option>');
                 }
 
                 element.change(function () {
