@@ -8,7 +8,7 @@
     public class InsertMultipleLogsCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "username")]
-        public string CustomerIdList { get; set; }
+        public string ListCustomers { get; set; }
 
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }

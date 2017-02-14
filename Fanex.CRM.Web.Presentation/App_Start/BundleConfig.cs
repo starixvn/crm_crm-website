@@ -123,7 +123,8 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Report_WagerReport(ref bundles);
             RegisterBundles_Report_SummaryReport(ref bundles);
 
-            RegisterCreateMultipleLogsBundles(bundles);
+            RegisterBundle_MultipleLogs_Create(bundles);
+            RegisterBundle_MultipleLogs_Edit(bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -689,7 +690,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less");
         }
 
-        private static void RegisterCreateMultipleLogsBundles(BundleCollection bundles)
+        private static void RegisterBundle_MultipleLogs_Create(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/CreateMultipleLogsScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
@@ -708,6 +709,27 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.AddAndInclude(
                 "~/Areas/Communication/CreateMultipleLogsStyles",
                 "~/Areas/Communication/CreateMultipleLogs/Styles/CreateMultipleLogs.less");
+        }
+
+        private static void RegisterBundle_MultipleLogs_Edit(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/EditMultipleLogsScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Areas/Communication/EditMultipleLogs/Scripts/EditMultipleLogsApplication.js",
+                "~/Areas/Communication/EditMultipleLogs/Scripts/EditMultipleLogsOption.js",
+                "~/Areas/Communication/EditMultipleLogs/Scripts/EditMultipleLogsService.js",
+                "~/Areas/Communication/EditMultipleLogs/Scripts/EditMultipleLogsController.js",
+                "~/Areas/Communication/EditMultipleLogs/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Communication/EditMultipleLogsStyles",
+                "~/Areas/Communication/EditMultipleLogs/Styles/EditMultipleLogs.less");
         }
     }
 

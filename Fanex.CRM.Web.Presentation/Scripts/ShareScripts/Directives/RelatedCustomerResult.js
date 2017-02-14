@@ -188,6 +188,24 @@
                         return IdString;
                     };
 
+                    scope.relatedCustomerResultDirective.getRelatedCustomerName = function () {
+                        var customerName = "";
+                        var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
+                        relatedCustomers = relatedCustomers.filter(function (value) {
+                            return value.Id !== 0;
+                        });
+                        if (relatedCustomers.length > 0) {
+                            var relatedCustomerNames = [];
+                            angular.forEach(relatedCustomers, function (customer) {
+                                relatedCustomerNames.push(customer.Name);
+                            });
+
+                            customerName = relatedCustomerNames.join(',');
+                        }
+
+                        return customerName;
+                    };
+
                     scope.relatedCustomerResultDirective.loadRelatedCustomers = function (relatedCustomers) {                        
                         renderRelatedCustomers(scope, relatedCustomers);
                         scope.relatedCustomerResultDirective.relatedCustomers = relatedCustomers;

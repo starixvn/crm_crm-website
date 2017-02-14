@@ -157,7 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CommunicationLogController.cs" />
-    <Compile Include="Controllers\CreateMultipleLogsController.cs" />
+    <Compile Include="Controllers\MultipleLogsController.cs" />
     <Compile Include="Criteria\GetDefaultSettingsCriteria.cs" />
     <Compile Include="Criteria\GetLogsByCustomerIdCriteria.cs" />
     <Compile Include="Criteria\GetLogByRunningNumberCriteria.cs" />

@@ -14,18 +14,18 @@
     using Services;
     using Setting.Services;
 
-    public class CreateMultipleLogsController : ReadOnlyBaseController
+    public class MultipleLogsController : ReadOnlyBaseController
     {
         private readonly IMultipleLogsService _multipleLogsService;
 
         private readonly ISettingService _serviceSetting;
 
-        public CreateMultipleLogsController()
+        public MultipleLogsController()
             : this(null, null)
         {
         }
 
-        public CreateMultipleLogsController(
+        public MultipleLogsController(
             IMultipleLogsService multipleLogsService,
             ISettingService serviceSetting)
         {
@@ -34,9 +34,15 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
-        public ActionResult Index()
+        public ActionResult Create()
         {
             return View("~/Areas/Communication/CreateMultipleLogs/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.EditMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult Edit()
+        {
+            return View("~/Areas/Communication/EditMultipleLogs/Index.cshtml");
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
@@ -63,7 +69,7 @@
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
-        public ActionResult InsertLog(InsertMultipleLogsCriteria criteria)
+        public ActionResult InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
         {
             var insertResult = _multipleLogsService.InsertLog(criteria);
 

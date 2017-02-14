@@ -51,7 +51,9 @@ var HomeManager = function () {
             ActionResult: null,
             ShouldReloadView: false,
             PopupController: null
-        }
+        },
+
+        feedbacks: null
     };
 
     self.initPage = function () {

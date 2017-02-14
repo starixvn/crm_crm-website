@@ -341,4 +341,10 @@
   <data name="ListOfCustomers" xml:space="preserve">
     <value>List of customers</value>
   </data>
+  <data name="Confirm_Ignore_InsertMultipleLogs_Changes" xml:space="preserve">
+    <value>There are some changes on multiple logs input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="Multiple_Logs_EmptyListOfCustomers" xml:space="preserve">
+    <value>List of customers are mandatory!</value>
+  </data>
 </root>

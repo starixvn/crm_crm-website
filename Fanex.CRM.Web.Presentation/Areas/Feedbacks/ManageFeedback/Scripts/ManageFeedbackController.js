@@ -33,6 +33,7 @@
             ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
         $scope.downloadFileOptions = null;
+        $scope.isCheckAll = false;
 
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
@@ -177,6 +178,54 @@
             parent.OpenPopup(url, manageFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
                 $scope.searchManageFeedback();
             });
+        };
+
+        $scope.openEditMultipleLogs = function () {
+            var selectedFeedbacks = $scope.getSelectedFeedbacks();
+            if(selectedFeedbacks.length === 0) {
+                return;
+            }
+
+            parent.homeManager.CachedData.feedbacks = selectedFeedbacks;
+
+            var url = window.rootUrl + 'MultipleLogs/Edit';
+            var maxWidthOfPopUp = 987;
+            var maxHeightOfPopUp = $(parent.document).height();
+
+            parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
+                $scope.searchManageFeedback();
+            });
+        };
+
+        $scope.checkActionItem = function (id) {
+            var feedbacks = $scope.report.Feedbacks;
+            var numberFeedbacks = feedbacks.length;
+            for (var index = 0; index < numberFeedbacks; index++) {
+                if (feedbacks[index].FeedbackId === id) {
+                    feedbacks[index].IsChecked = !feedbacks[index].IsChecked;
+                    break;
+                }
+            }
+            $scope.$apply();
+        };
+
+        $scope.checkActionAll = function () {
+            $scope.isCheckAll = !$scope.isCheckAll;
+            angular.forEach($scope.report.Feedbacks, function (feedback) {
+                feedback.IsChecked = $scope.isCheckAll;
+            });
+            $scope.$apply();
+        };
+
+        $scope.getSelectedFeedbacks = function() {
+            var selectedFeedbacks = [];
+            angular.forEach($scope.report.Feedbacks, function (feedback) {
+                if(feedback.IsChecked) {
+                    this.push({ Id: feedback.FeedbackId, Name: feedback.Username });
+                }
+            }, selectedFeedbacks);
+
+            return selectedFeedbacks;
         };
 
         $scope.exportFeedbackExcel = function () {

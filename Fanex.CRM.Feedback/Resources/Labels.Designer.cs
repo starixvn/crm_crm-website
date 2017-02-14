@@ -241,6 +241,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Multiple Logs.
+        /// </summary>
+        public static string EditMultipleLogsTitle {
+            get {
+                return ResourceManager.GetString("EditMultipleLogsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -597,6 +606,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string MSN {
             get {
                 return ResourceManager.GetString("MSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multple Edit.
+        /// </summary>
+        public static string MultipleEdit {
+            get {
+                return ResourceManager.GetString("MultipleEdit", resourceCulture);
             }
         }
         

@@ -83,6 +83,8 @@ namespace Fanex.CRM.Common.Models
 
         public string RelatedCustomer { get; set; }
 
+        public bool IsChecked { get; set; }
+
         public string DurationTime
         {
             get
