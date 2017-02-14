@@ -16,7 +16,7 @@
 
     public class CreateMultipleLogsController : ReadOnlyBaseController
     {
-        private readonly ICommunicationLogService _communicationServiceLog;
+        private readonly IMultipleLogsService _multipleLogsService;
 
         private readonly ISettingService _serviceSetting;
 
@@ -26,10 +26,10 @@
         }
 
         public CreateMultipleLogsController(
-            ICommunicationLogService communicationServiceLog,
+            IMultipleLogsService multipleLogsService,
             ISettingService serviceSetting)
         {
-            _communicationServiceLog = communicationServiceLog ?? new CommunicationLogService();
+            _multipleLogsService = multipleLogsService ?? new MultipleLogsService();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
@@ -51,7 +51,7 @@
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
-                StatusList = _communicationServiceLog.AllStatusForInsert,
+                StatusList = _multipleLogsService.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
@@ -59,6 +59,15 @@
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult InsertLog(InsertMultipleLogsCriteria criteria)
+        {
+            var insertResult = _multipleLogsService.InsertLog(criteria);
+
+            return Json(insertResult);
         }
     }
 }

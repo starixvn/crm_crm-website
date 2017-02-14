@@ -46,13 +46,9 @@
 
             return deferred.promise;
         };
-        serviceInstance.updateLog = function (updateCriteria, isDeletedStatus) {
+        serviceInstance.getSettings = function () {
             var deferred = $q.defer();
-            var params = {
-                criteria: updateCriteria,
-                isDeletedStatus: isDeletedStatus
-            };
-            $http.post(window.rootUrl + "CommunicationLog/UpdateLog", params)
+            $http.post(window.rootUrl + "CreateMultipleLogs/GetSettings", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -71,9 +67,9 @@
 
             return deferred.promise;
         };
-        serviceInstance.getSettings = function () {
+        serviceInstance.insertLog = function (insertCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CreateMultipleLogs/GetSettings", null)
+            $http.post(window.rootUrl + "CreateMultipleLogs/InsertLog", insertCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

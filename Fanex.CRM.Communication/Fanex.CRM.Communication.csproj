@@ -162,13 +162,17 @@
     <Compile Include="Criteria\GetLogsByCustomerIdCriteria.cs" />
     <Compile Include="Criteria\GetLogByRunningNumberCriteria.cs" />
     <Compile Include="Criteria\InsertLogCriteria.cs" />
+    <Compile Include="Criteria\InsertMultipleLogsCriteria.cs" />
     <Compile Include="Criteria\ModifyLogCriteria.cs" />
     <Compile Include="Criteria\UpdateLogCriteria.cs" />
+    <Compile Include="Criteria\UpdateMultipleLogsCriteria.cs" />
     <Compile Include="Models\CustomerDefaultSetting.cs" />
     <Compile Include="Models\CustomerLogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CommunicationLogRepository.cs" />
     <Compile Include="Repositories\ICommunicationLogRepository.cs" />
+    <Compile Include="Repositories\IMultipleLogsRepository.cs" />
+    <Compile Include="Repositories\MultipleLogsRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +180,8 @@
     </Compile>
     <Compile Include="Services\CommunicationLogService.cs" />
     <Compile Include="Services\ICommunicationLogService.cs" />
+    <Compile Include="Services\IMultipleLogsService.cs" />
+    <Compile Include="Services\MultipleLogsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">

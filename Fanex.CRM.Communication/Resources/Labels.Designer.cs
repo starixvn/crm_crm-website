@@ -475,6 +475,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List of customers.
+        /// </summary>
+        public static string ListOfCustomers {
+            get {
+                return ResourceManager.GetString("ListOfCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Category.
         /// </summary>
         public static string Main_Category {
