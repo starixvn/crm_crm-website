@@ -1,4 +1,4 @@
-﻿namespace Fanex.CRM.Communication.Services
+﻿namespace Fanex.CRM.Feedback.Services
 {
     using System;
     using System.Collections.Generic;
@@ -47,7 +47,7 @@
             }
         }
 
-        public Result InsertLog(InsertMultipleLogsCriteria criteria)
+        public Result InsertMultpleLogs(InsertMultipleLogsCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
             criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
@@ -56,14 +56,36 @@
                 return new Result
                 {
                     Code = ErrorCodeConstants.ServerError,
-                    Message = Labels.Communication_Log_ExcessCurrentTime
+                    Message = Labels.Multiple_Logs_ExcessCurrentTime
                 };
             }
 
-            var result = _multipleLogsRepository.InsertLog(criteria);
+            var result = _multipleLogsRepository.InsertMultipleLogs(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
-                result.Message = Labels.Communication_Logs_InsertSuccess;
+                result.Message = Labels.Multiple_Logs_InsertSuccess;
+            }
+
+            return result;
+        }
+
+        public Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
+        {
+            criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
+            criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+            if (DateTime.Now < criteria.StartTime)
+            {
+                return new Result
+                {
+                    Code = ErrorCodeConstants.ServerError,
+                    Message = Labels.Multiple_Logs_ExcessCurrentTime
+                };
+            }
+
+            var result = _multipleLogsRepository.UpdateMultipleLogs(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.Multiple_Logs_UpdateSuccess;
             }
 
             return result;

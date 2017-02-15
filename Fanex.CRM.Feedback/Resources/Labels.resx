@@ -470,4 +470,88 @@
   <data name="EditMultipleLogsTitle" xml:space="preserve">
     <value>Edit Multiple Logs</value>
   </data>
+  <data name="Multiple_Logs_EmptyListOfCustomers" xml:space="preserve">
+    <value>List of customers are mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_InsertSuccess" xml:space="preserve">
+    <value>Create multiple logs successfully!</value>
+  </data>
+  <data name="Multiple_Logs_UpdateSuccess" xml:space="preserve">
+    <value>Update multiple logs successfully!</value>
+  </data>
+  <data name="Bet_Type" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
+  <data name="Confirm_Ignore_MultipleLogs_Changes" xml:space="preserve">
+    <value>There are some changes on multiple logs input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="Create_Multiple_Logs" xml:space="preserve">
+    <value>Create Multiple Logs</value>
+  </data>
+  <data name="Edit_Multiple_Logs" xml:space="preserve">
+    <value>Edit Multiple Logs</value>
+  </data>
+  <data name="End_Time" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="Ext" xml:space="preserve">
+    <value>Ext</value>
+  </data>
+  <data name="ListOfCustomers" xml:space="preserve">
+    <value>List of customers</value>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
+  <data name="Multiple_Logs_EmptyRemark" xml:space="preserve">
+    <value>Remark is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_EmptySolution" xml:space="preserve">
+    <value>Solution is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_EmptySubject" xml:space="preserve">
+    <value>Subject is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_ErrorEndTime" xml:space="preserve">
+    <value>Start Time should be smaller than End Time!</value>
+  </data>
+  <data name="Multiple_Logs_ExcessCurrentTime" xml:space="preserve">
+    <value>Start time should be smaller than or equal current time.</value>
+  </data>
+  <data name="Multiple_Logs_NACommmunicationTool" xml:space="preserve">
+    <value>Communication tool is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_NACountry" xml:space="preserve">
+    <value>Country is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_NALanguage" xml:space="preserve">
+    <value>Language is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_NAProduct" xml:space="preserve">
+    <value>Language is mandatory!</value>
+  </data>
+  <data name="Multiple_Logs_VerifyRelatedCustomer" xml:space="preserve">
+    <value>You must verify the username before saving this multiple logs.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Start_Time" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

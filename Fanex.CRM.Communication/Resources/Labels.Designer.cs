@@ -295,15 +295,6 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are some changes on multiple logs input! &lt;br/&gt; Are you sure you want to ignore these changes?.
-        /// </summary>
-        public static string Confirm_Ignore_InsertMultipleLogs_Changes {
-            get {
-                return ResourceManager.GetString("Confirm_Ignore_InsertMultipleLogs_Changes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {
@@ -484,29 +475,11 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List of customers.
-        /// </summary>
-        public static string ListOfCustomers {
-            get {
-                return ResourceManager.GetString("ListOfCustomers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Main Category.
         /// </summary>
         public static string Main_Category {
             get {
                 return ResourceManager.GetString("Main_Category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to List of customers are mandatory!.
-        /// </summary>
-        public static string Multiple_Logs_EmptyListOfCustomers {
-            get {
-                return ResourceManager.GetString("Multiple_Logs_EmptyListOfCustomers", resourceCulture);
             }
         }
         

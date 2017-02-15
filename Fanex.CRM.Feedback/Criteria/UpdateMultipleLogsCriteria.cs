@@ -1,14 +1,13 @@
-﻿namespace Fanex.CRM.Communication.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
-    using Common.Criteria;
-    using Common.Services;
-    using Fanex.Data.Repository;
+    using Data.Repository;
+    using Fanex.CRM.Common.Criteria;
 
-    public class InsertMultipleLogsCriteria : UpdateCriteria
+    public class UpdateMultipleLogsCriteria : UpdateCriteria
     {
-        [SpParam(SqlParamName = "username")]
-        public string ListCustomers { get; set; }
+        [SpParam(SqlParamName = "listfeedbackid")]
+        public string ListFeedbackId { get; set; }
 
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }
@@ -21,15 +20,6 @@
 
         [SpParam(SqlParamName = "languageid")]
         public int LanguageId { get; set; }
-
-        [SpParam(SqlParamName = "creatorid")]
-        public int CreatorId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
 
         [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }
@@ -84,7 +74,7 @@
 
         public override string GetSettingKey()
         {
-            return "MultipleLogsInsert";
+            return "MultipleLogsUpdate";
         }
     }
 }

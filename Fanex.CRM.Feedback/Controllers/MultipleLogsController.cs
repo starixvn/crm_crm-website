@@ -1,16 +1,11 @@
-﻿namespace Fanex.CRM.Communication.Controllers
+﻿namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Linq;
     using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
-    using Common.Enumerations;
     using Criteria;
-    using Infrastructure.Constants;
-    using Infrastructure.Models;
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
-    using Resources;
     using Services;
     using Setting.Services;
 
@@ -36,13 +31,13 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
-            return View("~/Areas/Communication/CreateMultipleLogs/Index.cshtml");
+            return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
         public ActionResult Edit()
         {
-            return View("~/Areas/Communication/EditMultipleLogs/Index.cshtml");
+            return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml");
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
@@ -71,9 +66,18 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
         public ActionResult InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
         {
-            var insertResult = _multipleLogsService.InsertLog(criteria);
+            var insertResult = _multipleLogsService.InsertMultpleLogs(criteria);
 
             return Json(insertResult);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
+        {
+            var updateResult = _multipleLogsService.UpdateMultipleLogs(criteria);
+
+            return Json(updateResult);
         }
     }
 }

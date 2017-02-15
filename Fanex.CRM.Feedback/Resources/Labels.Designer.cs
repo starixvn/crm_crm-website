@@ -90,6 +90,15 @@ namespace Fanex.CRM.Feedback.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
+        public static string Bet_Type {
+            get {
+                return ResourceManager.GetString("Bet_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Type.
+        /// </summary>
         public static string BetType {
             get {
                 return ResourceManager.GetString("BetType", resourceCulture);
@@ -142,6 +151,24 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Communication Tool.
+        /// </summary>
+        public static string Communication_Tool {
+            get {
+                return ResourceManager.GetString("Communication_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes on multiple logs input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_MultipleLogs_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_MultipleLogs_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current CRM Info will be overwritten. Do you want to continue?.
         /// </summary>
         public static string ConfirmOverrideCRMInfo {
@@ -156,6 +183,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Multiple Logs.
+        /// </summary>
+        public static string Create_Multiple_Logs {
+            get {
+                return ResourceManager.GetString("Create_Multiple_Logs", resourceCulture);
             }
         }
         
@@ -243,6 +279,15 @@ namespace Fanex.CRM.Feedback.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Edit Multiple Logs.
         /// </summary>
+        public static string Edit_Multiple_Logs {
+            get {
+                return ResourceManager.GetString("Edit_Multiple_Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Multiple Logs.
+        /// </summary>
         public static string EditMultipleLogsTitle {
             get {
                 return ResourceManager.GetString("EditMultipleLogsTitle", resourceCulture);
@@ -255,6 +300,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Time.
+        /// </summary>
+        public static string End_Time {
+            get {
+                return ResourceManager.GetString("End_Time", resourceCulture);
             }
         }
         
@@ -354,6 +408,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Error_VerifyRelatedCustomer {
             get {
                 return ResourceManager.GetString("Error_VerifyRelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ext.
+        /// </summary>
+        public static string Ext {
+            get {
+                return ResourceManager.GetString("Ext", resourceCulture);
             }
         }
         
@@ -583,6 +646,24 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List of customers.
+        /// </summary>
+        public static string ListOfCustomers {
+            get {
+                return ResourceManager.GetString("ListOfCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Category.
+        /// </summary>
+        public static string Main_Category {
+            get {
+                return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Category.
         /// </summary>
         public static string MainCategory {
@@ -606,6 +687,123 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string MSN {
             get {
                 return ResourceManager.GetString("MSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of customers are mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptyListOfCustomers {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptyListOfCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptyRemark {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptyRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptySolution {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptySolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptySubject {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptySubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Time should be smaller than End Time!.
+        /// </summary>
+        public static string Multiple_Logs_ErrorEndTime {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_ErrorEndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time should be smaller than or equal current time..
+        /// </summary>
+        public static string Multiple_Logs_ExcessCurrentTime {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_ExcessCurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create multiple logs successfully!.
+        /// </summary>
+        public static string Multiple_Logs_InsertSuccess {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_InsertSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication tool is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_NACommmunicationTool {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_NACommmunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_NACountry {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_NACountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_NALanguage {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_NALanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_NAProduct {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_NAProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update multiple logs successfully!.
+        /// </summary>
+        public static string Multiple_Logs_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must verify the username before saving this multiple logs..
+        /// </summary>
+        public static string Multiple_Logs_VerifyRelatedCustomer {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_VerifyRelatedCustomer", resourceCulture);
             }
         }
         
@@ -651,6 +849,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string NotReviewed {
             get {
                 return ResourceManager.GetString("NotReviewed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -817,6 +1024,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;span class=&quot;mandatoryfield&quot;&gt;*&lt;/span&gt;.
         /// </summary>
         public static string RequiredFieldTemplate {
@@ -952,6 +1168,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Time.
+        /// </summary>
+        public static string Start_Time {
+            get {
+                return ResourceManager.GetString("Start_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -966,6 +1191,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string String1 {
             get {
                 return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subcategory.
+        /// </summary>
+        public static string Sub_Category {
+            get {
+                return ResourceManager.GetString("Sub_Category", resourceCulture);
             }
         }
         
@@ -1020,6 +1254,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Symbol_NA {
             get {
                 return ResourceManager.GetString("Symbol_NA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NotApply {
+            get {
+                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
             }
         }
         
@@ -1083,6 +1326,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string VIP {
             get {
                 return ResourceManager.GetString("VIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

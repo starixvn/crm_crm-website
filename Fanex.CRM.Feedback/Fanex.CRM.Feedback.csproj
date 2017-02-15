@@ -186,14 +186,17 @@
     <Compile Include="Controllers\AddFeedbackController.cs" />
     <Compile Include="Controllers\AddGuestFeedbackController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Controllers\MultipleLogsController.cs" />
     <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
     <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
+    <Compile Include="Criteria\InsertMultipleLogsCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
+    <Compile Include="Criteria\UpdateMultipleLogsCriteria.cs" />
     <Compile Include="Excels\FeedbackExcel.cs" />
     <Compile Include="Excels\FeedbackRowExcelWriter.cs" />
     <Compile Include="Excels\LatestFeedback\LatestFeedbackExcel.cs" />
@@ -209,6 +212,8 @@
     <Compile Include="Repositories\AddGuestFeedback\IAddGuestFeedbackRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
+    <Compile Include="Repositories\MultipleLogs\IMultipleLogsRepository.cs" />
+    <Compile Include="Repositories\MultipleLogs\MultipleLogsRepository.cs" />
     <Compile Include="Repositories\UpdateCustomerFeedback\IUpdateCustomerFeedbackRepository.cs" />
     <Compile Include="Repositories\UpdateCustomerFeedback\UpdateCustomerFeedbackRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
@@ -222,6 +227,8 @@
     <Compile Include="Services\AddGuestFeedback\IAddGuestFeedbackService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
+    <Compile Include="Services\MultipleLogs\IMultipleLogsService.cs" />
+    <Compile Include="Services\MultipleLogs\MultipleLogsService.cs" />
     <Compile Include="Services\UpdateCustomerFeedback\IUpdateCustomerFeedbackService.cs" />
     <Compile Include="Services\UpdateCustomerFeedback\UpdateCustomerFeedbackService.cs" />
     <Compile Include="ViewModels\ManageFeedbackViewModel.cs" />

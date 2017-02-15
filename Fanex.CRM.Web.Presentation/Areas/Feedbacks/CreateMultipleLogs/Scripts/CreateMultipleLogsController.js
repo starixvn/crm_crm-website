@@ -93,7 +93,28 @@
 
         $scope.customersInput = '';
         $scope.initController = function () {
-            $scope.getSettings();
+            $scope.BlockUI();
+            $scope.isLoadedAllSite = false;
+            $createMultipleLogsService.getSettings()
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.extensionList = allSetting.ExtensionList;
+                $scope.countryList = allSetting.CountryList;
+                $scope.communicationToolList = allSetting.CommunicationToolList;
+                $scope.languageList = allSetting.LanguageList;
+                $scope.mainCategoryList = allSetting.MainCategoryList;
+                $scope.productOptions.DataList = allSetting.ProductList;
+                $scope.statusList = allSetting.StatusList;
+                $scope.siteList = allSetting.SiteList;
+                $scope.roleList = allSetting.RoleList;
+                $scope.responseList = allSetting.ResponseList;
+                $scope.licenseeTypes = allSetting.LicenseeType;
+
+                $scope.completedLoadFilterInfo();
+            },
+            function () {
+                $scope.completedLoadFilterInfo();
+            });
         };
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
@@ -153,7 +174,7 @@
         };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
-            $scope.insertLog();
+            $scope.insertMultipleLogs();
             $scope.$apply();
         };
         /* jshint camelcase: false */
@@ -427,35 +448,35 @@
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
                 $scope.BlockUI();
                 $createMultipleLogsService.insertLog(insertCriteria)
-            .then(function (data) {
-                var insertResult = data.Result;
-                $scope.showInsertResult(insertResult);
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
+                .then(function (data) {
+                    $scope.showResult(data.Result);
+                    $scope.unblockUI();
+                },
+                function () {
+                    $scope.unblockUI();
+                });
             }
         };
-        $scope.showInsertResult = function (insertResult) {
-            $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
-            if (insertResult.Code !== 0) {
-                $scope.resultMessage = insertResult.Message;
-                $scope.isShowResultMessage = true;
+        $scope.showResult = function (result) {
+            $scope.resultMessage = result.Message;
+            $scope.isShowResultMessage = true;
+
+            if (result.Code !== 0) {
                 $scope.isSuccess = false;
                 $scope.unblockUI();
                 return;
             }
 
-            parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
-            parent.homeManager.CachedData.shouldReloadView = true;
             $scope.unblockUI();
-            parent.ClosePopup();
+            setTimeout(function () {
+                parent.menuManager.goToURL('centerFr', window.rootUrl + 'Feedbacks/ManageFeedback');
+                parent.menuManager.setActiveClassForSubMenu('Feedback', 'Manage Feedback');
+            }, sharedScriptManager.cachedData.alertSuccessTime);
         };
         $scope.updateChangeFlag = function () {
             if ($scope.isParamsChange()) {
                 parent.homeManager.CachedData.isChangingData = true;
-                parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_InsertMultipleLogs_Changes;
+                parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_MultipleLogs_Changes;
             } else {
                 parent.homeManager.CachedData.isChangingData = false;
             }
@@ -492,39 +513,34 @@
             }
 
             if (feedbackTime > resolutionTime) {
-                $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
+                $scope.resultMessage = viewResources.Multiple_Logs_ErrorEndTime;
                 result = false;
             }
 
             if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
-                $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
+                $scope.resultMessage = viewResources.Multiple_Logs_NACommmunicationTool;
                 result = false;
             }
 
             if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
-                $scope.resultMessage = viewResources.Communication_Log_NALanguage;
+                $scope.resultMessage = viewResources.Multiple_Logs_NALanguage;
                 result = false;
             }
 
             if (result && criteria.Subject === '') {
-                $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
-                result = false;
-            }
-
-            if (result && $scope.customersInput !== '') {
-                $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptySubject;
                 result = false;
             }
 
             if (result &&
             ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
-                $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                 result = false;
             }
 
             if (result &&
             ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
-                $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptySolution;
                 result = false;
             }
 
@@ -560,30 +576,6 @@
                 $scope.isSetFocus = true;
             });
         };
-        $scope.getSettings = function () {
-            $scope.BlockUI();
-            $scope.isLoadedAllSite = false;
-            $createMultipleLogsService.getSettings()
-            .then(function (data) {
-                var allSetting = data.Result;
-                $scope.extensionList = allSetting.ExtensionList;
-                $scope.countryList = allSetting.CountryList;
-                $scope.communicationToolList = allSetting.CommunicationToolList;
-                $scope.languageList = allSetting.LanguageList;
-                $scope.mainCategoryList = allSetting.MainCategoryList;
-                $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.statusList = allSetting.StatusList;
-                $scope.siteList = allSetting.SiteList;
-                $scope.roleList = allSetting.RoleList;
-                $scope.responseList = allSetting.ResponseList;
-                $scope.licenseeTypes = allSetting.LicenseeType;
-
-                $scope.completedLoadFilterInfo();
-            },
-            function () {
-                $scope.completedLoadFilterInfo();
-            });
-        };
 
         $scope.verifyListCustomer = function () {
             var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
@@ -606,6 +598,13 @@
             });
             $scope.initController();
             $scope.setFocus();
+
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: "MultipleLogs_Insert"
+            });
+
+            hotKeyManager.CachedData.isBubbleToParent = false;
         });
     }]);
 })();

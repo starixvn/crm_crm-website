@@ -1,12 +1,10 @@
-﻿@using Fanex.CRM.Communication.Resources;
-@using Fanex.CRM.Communication.Models;
-@using Fanex.NAP.Core.Business;
+﻿@using Fanex.NAP.Core.Business;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Edit_Communication_Log;
+    ViewBag.Title = Labels.Create_Multiple_Logs;
 
     var customerId = Model;
 }
@@ -15,10 +13,10 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
-    @RazorHelper.RenderStyles("~/Areas/Communication/EditMultipleLogsStyles")
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
-<div data-ng-app="edit-multiple-logs-application">
-    <div data-ng-controller="editMultipleLogsController">
+<div data-ng-app="create-multiple-logs-application">
+    <div data-ng-controller="createMultipleLogsController">
         <div class="container main">
             <div class="row row-item" data-ng-show="isShowResultMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -271,7 +269,7 @@
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
-    @RazorHelper.RenderScripts("~/Areas/Communication/EditMultipleLogsScripts")
+    @RazorHelper.RenderScripts("~/Areas/Feedbacks/CreateMultipleLogsScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
@@ -285,22 +283,17 @@
             OK: '@Labels.OK',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
-            Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer',
-            Communication_Log_NACommmunicationTool: '@Labels.Communication_Log_NACommmunicationTool',
+            Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
+            Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
             Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
 
-            Communication_Log_ErrorEndTime: '@Labels.Communication_Log_ErrorEndTime',
-            Communication_Log_NACountry: '@Labels.Communication_Log_NACountry',
-            Communication_Log_NALanguage: '@Labels.Communication_Log_NALanguage',
-            Communication_Log_NAProduct: '@Labels.Communication_Log_NAProduct',
-            Communication_Log_NABetType: '@Labels.Communication_Log_NABetType',
-            Communication_Log_NASite: '@Labels.Communication_Log_NASite',
+            Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
+            Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
 
-            Communication_Log_EmptySubject: '@Labels.Communication_Log_EmptySubject',
-            Communication_Log_EmptyRemark: '@Labels.Communication_Log_EmptyRemark',
-            Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',
-            Communication_Log_EmptySolution: '@Labels.Communication_Log_EmptySolution',
-            Confirm_Ignore_InsertMultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertMultipleLogs_Changes)'
+            Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
+            Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
+            Multiple_Logs_EmptySolution: '@Labels.Multiple_Logs_EmptySolution',
+            Confirm_Ignore_InsertMultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)'
         };
     </script>
 }

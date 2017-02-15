@@ -68,6 +68,6 @@ namespace Fanex.CRM.Common.Constants
 
         public const string CreateMultipleLogs = "CreateMultipleLogs";
 
-        public const string EditMultipleLogs = "EditMultipleLogs";
+        public const string UpdateMultipleLogs = "UpdateMultipleLogs";
     }
 }

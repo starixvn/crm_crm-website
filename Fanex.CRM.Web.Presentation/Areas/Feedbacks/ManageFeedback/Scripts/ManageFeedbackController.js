@@ -145,6 +145,7 @@
 
         $scope.searchManageFeedback = function () {
             $uiBlockerService.blockUI();
+            $scope.isCheckAll = false;
             var criteria = {
                 FeedbackId: $scope.searchCriteria.FeedbackId,
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -221,7 +222,7 @@
             var selectedFeedbacks = [];
             angular.forEach($scope.report.Feedbacks, function (feedback) {
                 if(feedback.IsChecked) {
-                    this.push({ Id: feedback.FeedbackId, Name: feedback.Username });
+                    this.push({ FeedbackId: feedback.FeedbackId, UserName: feedback.Username });
                 }
             }, selectedFeedbacks);
 

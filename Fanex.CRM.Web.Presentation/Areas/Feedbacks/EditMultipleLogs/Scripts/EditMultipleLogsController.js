@@ -91,7 +91,9 @@
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
 
-        $scope.customersInput = '';
+        $scope.listOfCustomers = '';
+        $scope.feedbackList = '';
+
         $scope.initController = function () {
             $scope.getSettings();
         };
@@ -126,9 +128,25 @@
 
             $scope.updateRemarkPrefix();
             $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
-
-            $scope.relatedCustomerResultDirective.loadRelatedCustomers(angular.copy(parent.homeManager.CachedData.feedbacks));
+            $scope.listOfCustomers = $scope.getListOfCustomers(parent.homeManager.CachedData.feedbacks);
+            $scope.feedbackList = $scope.getFeedbackIdList(parent.homeManager.CachedData.feedbacks);
             parent.homeManager.CachedData.feedbacks = null;
+        };
+        $scope.getListOfCustomers = function (feedbacks) {
+            var customerList = [];
+            angular.forEach(feedbacks, function (feedback) {
+                this.push(feedback.UserName);
+            }, customerList);
+
+            return customerList.join(', ');
+        };
+        $scope.getFeedbackIdList = function (feedbacks) {
+            var feedbackIds = [];
+            angular.forEach(feedbacks, function (feedback) {
+                this.push(feedback.FeedbackId);
+            }, feedbackIds);
+
+            return feedbackIds;
         };
         $scope.generateRemarkPrefix = function () {
             /* jshint camelcase: false */
@@ -156,13 +174,10 @@
         };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
-            $scope.insertLog();
+            $scope.editMultipleLogs();
             $scope.$apply();
         };
         /* jshint camelcase: false */
-        $scope.invokeHotKey_CtrlE = function () {
-            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput)
-        };
         $scope.updateSelectedProduct = function (product) {
             $scope.multipleLogs.Product = product;
 
@@ -401,12 +416,12 @@
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
         };
-        $scope.insertMultipleLogs = function () {
+        $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
 
-            var insertCriteria = {
-                ListCustomers: $scope.relatedCustomerResultDirective.getRelatedCustomerName(),
+            var editCriteria = {
+                ListFeedbackId: $scope.feedbackList.join(','),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.multipleLogs.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 ExtensionId: $scope.multipleLogs.Extension.Id,
@@ -427,38 +442,40 @@
                 Remark: $scope.multipleLogs.Remark,
                 Solution: $scope.multipleLogs.Solution
             };
-            if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
+            if ($scope.validateEditMultipleLogsCriteria(editCriteria)) {
                 $scope.BlockUI();
-                $editMultipleLogsService.insertLog(insertCriteria)
-            .then(function (data) {
-                var insertResult = data.Result;
-                $scope.showInsertResult(insertResult);
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
+                $editMultipleLogsService.editMultipleLogs(editCriteria)
+                .then(function (data) {
+                    $scope.showResult(data.Result);
+                    $scope.unblockUI();
+                },
+                function () {
+                    $scope.unblockUI();
+                });
             }
         };
-        $scope.showInsertResult = function (insertResult) {
-            $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
-            if (insertResult.Code !== 0) {
-                $scope.resultMessage = insertResult.Message;
-                $scope.isShowResultMessage = true;
+        $scope.showResult = function (result) {
+            $scope.resultMessage = result.Message;
+            $scope.isShowResultMessage = true;
+
+            if (result.Code !== 0) {
                 $scope.isSuccess = false;
                 $scope.unblockUI();
                 return;
             }
 
-            parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
+            parent.homeManager.CachedData.shareInfoBetweenPopup = result;
             parent.homeManager.CachedData.shouldReloadView = true;
             $scope.unblockUI();
-            parent.ClosePopup();
+
+            setTimeout(function () {
+                parent.ClosePopup();
+            }, sharedScriptManager.cachedData.alertSuccessTime);
         };
         $scope.updateChangeFlag = function () {
             if ($scope.isParamsChange()) {
                 parent.homeManager.CachedData.isChangingData = true;
-                parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_InsertMultipleLogs_Changes;
+                parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_MultipleLogs_Changes;
             } else {
                 parent.homeManager.CachedData.isChangingData = false;
             }
@@ -484,50 +501,40 @@
                 $scope.multipleLogs.Solution !== $scope.oldmultipleLogs.Solution ||
                 $scope.multipleLogs.Subject !== $scope.oldmultipleLogs.Subject;
         };
-        $scope.validateInsertMultipleLogsCriteria = function (criteria) {
+        $scope.validateEditMultipleLogsCriteria = function (criteria) {
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
 
-            if (criteria.ListCustomers.length === 0) {
-                $scope.resultMessage = viewResources.Multiple_Logs_EmptyListOfCustomers;
-                result = false;
-            }
-
             if (feedbackTime > resolutionTime) {
-                $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
+                $scope.resultMessage = viewResources.Multiple_Logs_ErrorEndTime;
                 result = false;
             }
 
             if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
-                $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
+                $scope.resultMessage = viewResources.Multiple_Logs_NACommmunicationTool;
                 result = false;
             }
 
             if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
-                $scope.resultMessage = viewResources.Communication_Log_NALanguage;
+                $scope.resultMessage = viewResources.Multiple_Logs_NALanguage;
                 result = false;
             }
 
             if (result && criteria.Subject === '') {
-                $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
-                result = false;
-            }
-
-            if (result && $scope.customersInput !== '') {
-                $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptySubject;
                 result = false;
             }
 
             if (result &&
             ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
-                $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                 result = false;
             }
 
             if (result &&
             ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
-                $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptySolution;
                 result = false;
             }
 
@@ -588,27 +595,23 @@
             });
         };
 
-        $scope.verifyListCustomer = function () {
-            var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
-
-            if ($scope.relatedCustomerResultDirective.isValidUsername(customerString)) {
-                $scope.isShowResultMessage = false;
-                $scope.relatedCustomerResultDirective.verifyUsernames(customerString);
-            }
-            else {
-                $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
-                $scope.isShowResultMessage = true;
-            }
-        };
-
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);
-            registerOptions($scope);
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
+
+            parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
+
+            registerOptions($scope);
             $scope.initController();
             $scope.setFocus();
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: "MultipleLogs_Edit"
+            });
+
+            hotKeyManager.CachedData.isBubbleToParent = false;
         });
     }]);
 })();

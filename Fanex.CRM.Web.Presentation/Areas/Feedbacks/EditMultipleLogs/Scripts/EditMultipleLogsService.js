@@ -25,9 +25,9 @@
 
             return deferred.promise;
         };
-        serviceInstance.insertLog = function (insertCriteria) {
+        serviceInstance.editMultipleLogs = function (editCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "MultipleLogs/InsertMultipleLogs", insertCriteria)
+            $http.post(window.rootUrl + "MultipleLogs/UpdateMultipleLogs", editCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
