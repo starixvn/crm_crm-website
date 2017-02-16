@@ -43,6 +43,7 @@
             $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };
             $scope.betTypeOptions.DataList = subProduct.ChildSettings;
             $scope.safeApply();
+            $scope.updateSelectedBetType($scope.betTypeOptions.DataList[0]);
         };
         $scope.updateSelectedLanguage = function (language) {
             $scope.addCustomerFeedbackParams.Language = language;
