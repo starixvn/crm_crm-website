@@ -160,7 +160,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are some changes on multiple logs input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        ///   Looks up a localized string similar to There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_MultipleLogs_Changes {
             get {
