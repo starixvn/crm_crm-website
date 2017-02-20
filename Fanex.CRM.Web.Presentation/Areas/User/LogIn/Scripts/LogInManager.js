@@ -57,6 +57,11 @@ CRMLoginManager = {
         $('#msg').toggle($('#inner-msg').html().length > 0);
         $('#username').focus();
 
+        if ($(window.parent.document).find('iframe').length > 0) {
+            window.parent.location.href = location.href;
+            return;
+        }
+
         document.forms[0].onsubmit = function () {
             $('#msg').hide();
 
