@@ -10,64 +10,8 @@
     /* jshint camelcase: false */
     angular.module('edit-multiple-logs-application').controller('editMultipleLogsController', ['$scope', '$http', '$editMultipleLogsService',
     function ($scope, $http, $editMultipleLogsService) {
-
-        $scope.multipleLogs = {
-            StartTime: new Date(currentTime),
-            EndTime: new Date(currentTime),
-            CommunicationTool: {
-                Id: 0,
-                Value: ''
-            },
-            Extension: {
-                Id: 0,
-                Value: ''
-            },
-            Country: {
-                Id: 0
-            },
-            LanguageId: 0,
-            MainCategory: {
-                Name: ''
-            },
-            SubCategory: {
-                Name: ''
-            },
-            Product: {
-                Id: 0,
-                Value: ''
-            },
-            SubProduct: {
-                Id: 0,
-                Value: ''
-            },
-            Status: {
-                Id: 0,
-                Value: ''
-            },
-            BetType: {
-                Id: 0,
-                Value: ''
-            },
-            RoleInfo: {
-                Id: 0,
-                Value: ''
-            },
-            SiteInfo: {
-                Id: 0,
-                Value: ''
-            },
-            LicenseeType: {
-                Id: 0
-            },
-            Response: {
-                Id: 0,
-                Value: ''
-            },
-            Subject: '',
-            Remark: '',
-            Solution: ''
-        };
-        $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
+        $scope.multipleLogs = multipleLogs;
+        $scope.oldmultipleLogs = angular.copy(multipleLogs);
         $scope.extensionList = null;
         $scope.countryList = null;
         $scope.communicationToolList = null;
@@ -97,21 +41,54 @@
         $scope.initController = function () {
             $scope.getSettings();
         };
-        $scope.completedLoadFilterInfo = function () {
-            $scope.initSelectedLogInfo();
-            $scope.unblockUI();
-        };
         $scope.initSelectedLogInfo = function () {
-            if ($scope.mainCategoryList === null ||
-            $scope.mainCategoryList === undefined) {
-                return;
+            var i;
+            if ($scope.mainCategoryList != null) {
+                var mainCategoryListLength = $scope.mainCategoryList.length;
+                for (i = 0; i < mainCategoryListLength; i++) {
+                    var mainCategory = $scope.mainCategoryList[i];
+                    if (mainCategory.Id === multipleLogs.MainCategory.Id) {
+                        $scope.multipleLogs.MainCategory = mainCategory;
+                        $scope.subCategoryList = mainCategory.ChildSettings;
+                        break;
+                    }
+                }
             }
 
-            var firstProduct = $scope.productOptions.DataList[0];
-            $scope.updateSelectedProduct(firstProduct);
+            if ($scope.subCategoryList != null) {
+                var subCategoryListLength = $scope.subCategoryList.length;
+                for (i = 0; i < subCategoryListLength; i++) {
+                    var subCategory = $scope.subCategoryList[i];
+                    if (subCategory.Id === multipleLogs.SubCategory.Id) {
+                        $scope.multipleLogs.SubCategory = subCategory;
+                        break;
+                    }
+                }
+            }
 
-            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
-            var starttime = sharedScriptManager.newFeedbackTime(currentTime);
+            if ($scope.communicationToolList != null) {
+                var communicationToolListLength = $scope.communicationToolList.length;
+                for (i = 0; i < communicationToolListLength; i++) {
+                    var communicationTool = $scope.communicationToolList[i];
+                    if (communicationTool.Id === multipleLogs.CommunicationTool.Id) {
+                        $scope.multipleLogs.CommunicationTool = communicationTool;
+                        break;
+                    }
+                }
+            }
+
+            $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.multipleLogs.Product.Id, $scope.productOptions.DataList);
+            $scope.betTypeList = SettingManager.getChildSettings($scope.multipleLogs.SubProduct.Id, $scope.subProductOptions.DataList);
+            /*if ($scope.mainCategoryList === null ||
+            $scope.mainCategoryList === undefined) {
+                return;
+            }*/
+
+            //var firstProduct = $scope.productOptions.DataList[0];
+            //$scope.updateSelectedProduct(firstProduct);
+
+            //$scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
+            /*var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
             endtime.setMinutes(endtime.getMinutes() + 1);
             $scope.multipleLogs.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
@@ -124,10 +101,12 @@
             $scope.multipleLogs.Status = $scope.statusList[0];
             $scope.multipleLogs.RoleInfo = $scope.roleList[0];
             $scope.multipleLogs.SiteInfo = $scope.siteList[0];
-            $scope.multipleLogs.Response = $scope.responseList[0];
+            $scope.multipleLogs.Response = $scope.responseList[0];*/
 
-            $scope.updateRemarkPrefix();
-            $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
+            //$scope.updateRemarkPrefix();
+
+
+
             $scope.listOfCustomers = $scope.getListOfCustomers(parent.homeManager.CachedData.feedbacks);
             $scope.feedbackList = $scope.getFeedbackIdList(parent.homeManager.CachedData.feedbacks);
             parent.homeManager.CachedData.feedbacks = null;
@@ -328,33 +307,7 @@
             }
         };
         $scope.updateSelectedSite = function (siteId) {
-            siteId = parseInt(siteId);
-            var siteInfo;
-            var siteGroupLength = $scope.siteList.length;
-            for (var i = 0; i < siteGroupLength; i++) {
-                var siteGroup = $scope.siteList[i];
-                var siteLength = siteGroup.ChildSites.length;
-                for (var j = 0; j < siteLength; j++) {
-                    var site = siteGroup.ChildSites[j];
-                    if (site.Id === siteId) {
-                        siteInfo = site;
-                        break;
-                    }
-                }
-
-                if (siteInfo) {
-                    break;
-                }
-            }
-
-            if (siteInfo) {
-                $scope.multipleLogs.SiteInfo = siteInfo;
-            } else {
-                $scope.multipleLogs.SiteInfo = {
-                    Id: crmConstants.Enums.Site.NotApply,
-                    Value: viewResources.Select
-                };
-            }
+            $scope.multipleLogs.SiteInfo = $scope.multipleLogs.SiteInfo || { Id: 0 };
         };
         $scope.updateSelectedStatus = function (statusId) {
             statusId = parseInt(statusId);
@@ -415,6 +368,10 @@
         };
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
+        };
+        $scope.updateSelectedLicenseeType = function (licenseeType) {
+            $scope.multipleLogs.LicenseeType = licenseeType;
+            $scope.safeApply();
         };
         $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
@@ -587,12 +544,50 @@
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
                 $scope.licenseeTypes = allSetting.LicenseeType;
+                $scope.licenseeTypeOptions = {
+                    DataList: allSetting.LicenseeType,
+                    OnChangeEvent: $scope.updateSelectedLicenseeType,
+                    SelectedId: $scope.multipleLogs.LicenseeType.Id
+                };
 
+                $scope.updateAllSettingsForLog();
                 $scope.completedLoadFilterInfo();
             },
             function () {
                 $scope.completedLoadFilterInfo();
             });
+        };
+        $scope.completedLoadFilterInfo = function () {
+            $scope.initSelectedLogInfo();
+            $scope.unblockUI();
+        };
+        $scope.updateAllSettingsForLog = function () {
+            SettingManager.updateSettingSelectList($scope.multipleLogs.Extension, $scope.extensionList);
+            SettingManager.updateSettingSelectList($scope.multipleLogs.CommunicationTool, $scope.communicationToolList);
+
+            SettingManager.updateSettingSelectList($scope.multipleLogs.MainCategory, $scope.mainCategoryList);
+            SettingManager.updateInActiveChildSettings($scope.multipleLogs.SubCategory, $scope.mainCategoryList, $scope.multipleLogs.MainCategory.Id);
+
+            $scope.updateProductSettings();
+
+            SettingManager.updateSettingSelectList($scope.multipleLogs.Language, $scope.languageList);
+            SettingManager.updateSettingSelectList($scope.multipleLogs.Status, $scope.statusList);
+            SettingManager.updateSettingSelectList($scope.multipleLogs.RoleInfo, $scope.roleList);
+            SettingManager.updateSettingSelectList($scope.multipleLogs.Response, $scope.responseList);
+
+            SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
+            SettingManager.updateSettingSelectList($scope.multipleLogs.LicenseeType, $scope.licenseeTypeOptions.DataList);
+        };
+        $scope.updateProductSettings = function () {
+            var product = $scope.multipleLogs.Product;
+            var productList = $scope.productOptions.DataList;
+            SettingManager.updateSettingSelectList(product, productList);
+
+            var subProduct = $scope.multipleLogs.SubProduct;
+            var subProductList = $scope.subProductOptions.DataList;
+            SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
+            subProductList = SettingManager.getChildSettings(product.Id, productList);
+            SettingManager.updateInActiveChildSettings($scope.multipleLogs.BetType, subProductList, subProduct.Id);
         };
 
         angular.element(document).ready(function () {

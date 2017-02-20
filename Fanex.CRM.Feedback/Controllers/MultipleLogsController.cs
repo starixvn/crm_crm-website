@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
@@ -35,9 +36,14 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
-        public ActionResult Edit()
+        public ActionResult Edit(int feedbackId)
         {
-            return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml");
+            var log = _multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
+            {
+                FeedbackId = feedbackId
+            });
+
+            return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
@@ -54,6 +60,28 @@
                 ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetEditSettings()
+        {
+            var allSetting = new
+            {
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
+                StatusList = _multipleLogsService.AllStatusForInsert,
+                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes()

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
     using System.Collections.Generic;
+    using Common.Models;
     using Criteria;
     using Infrastructure.Models;
 
@@ -13,5 +14,7 @@
         Result InsertMultpleLogs(InsertMultipleLogsCriteria criteria);
 
         Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria);
+
+        BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria);
     }
 }

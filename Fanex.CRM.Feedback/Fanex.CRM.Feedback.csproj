@@ -191,6 +191,7 @@
     <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
+    <Compile Include="Criteria\GetLogByFeedbackIdCriteria.cs" />
     <Compile Include="Criteria\InsertMultipleLogsCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />

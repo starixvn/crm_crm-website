@@ -189,7 +189,7 @@
 
             parent.homeManager.CachedData.feedbacks = selectedFeedbacks;
 
-            var url = window.rootUrl + 'MultipleLogs/Edit';
+            var url = window.rootUrl + 'MultipleLogs/Edit?feedbackid=' + parent.homeManager.CachedData.feedbacks[0].FeedbackId;
             var maxWidthOfPopUp = 987;
             var maxHeightOfPopUp = $(parent.document).height();
 

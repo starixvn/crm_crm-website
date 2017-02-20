@@ -6,7 +6,7 @@
 
         serviceInstance.getSettings = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "MultipleLogs/GetSettings", null)
+            $http.post(window.rootUrl + "MultipleLogs/GetEditSettings", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

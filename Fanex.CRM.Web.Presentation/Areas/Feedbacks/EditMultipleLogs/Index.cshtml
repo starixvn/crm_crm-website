@@ -1,12 +1,12 @@
 ﻿@using Fanex.NAP.Core.Business;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using Newtonsoft.Json;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Labels.Edit_Multiple_Logs;
-
-    var customerId = Model;
+    var jsonLogInfo = JsonConvert.SerializeObject(Model);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -166,8 +166,11 @@
                                 @Labels.Site
                             </label>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
-                            <select id="site"></select>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                             <select id="site" data-ng-model="multipleLogs.SiteInfo" ng-change="updateSelectedSite();"
+                                    data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
+                                <option value="">-- @Labels.Select --</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row item">
@@ -247,8 +250,8 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
-        var customerId = '@customerId';
         var currentUsername = "@AppSession.CurrentUser.Username";
+        var multipleLogs = @Html.Raw(jsonLogInfo);
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Select: '@Labels.Select',

@@ -808,7 +808,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multple Edit.
+        ///   Looks up a localized string similar to Multiple Edit.
         /// </summary>
         public static string MultipleEdit {
             get {
