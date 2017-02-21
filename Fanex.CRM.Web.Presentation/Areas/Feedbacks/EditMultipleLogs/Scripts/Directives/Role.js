@@ -9,9 +9,11 @@
                 for (var i = 0; i < roleListLength; i++) {
                     var role = scope.roleList[i];
                     dropdown.append(
-                    '<option value="' + role.Id + '">' +
-                        role.Value +
-                     '</option>');
+                    '<option value="' + role.Id + '"' +
+                        (role.Id === scope.multipleLogs.RoleInfo.Id ?
+                        ' selected="selected"' :
+                        '') +
+                    '>' + role.Value + '</option>');
                 }
 
                 element.change(function () {

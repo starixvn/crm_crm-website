@@ -386,7 +386,6 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\Response.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\Role.js" />
-    <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\Site.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\SolutionEditor.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\StartTime.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\Status.js" />

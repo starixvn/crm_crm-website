@@ -79,34 +79,6 @@
 
             $scope.subProductOptions.DataList = SettingManager.getChildSettings($scope.multipleLogs.Product.Id, $scope.productOptions.DataList);
             $scope.betTypeList = SettingManager.getChildSettings($scope.multipleLogs.SubProduct.Id, $scope.subProductOptions.DataList);
-            /*if ($scope.mainCategoryList === null ||
-            $scope.mainCategoryList === undefined) {
-                return;
-            }*/
-
-            //var firstProduct = $scope.productOptions.DataList[0];
-            //$scope.updateSelectedProduct(firstProduct);
-
-            //$scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
-            /*var starttime = sharedScriptManager.newFeedbackTime(currentTime);
-            var endtime = sharedScriptManager.newFeedbackTime(currentTime);
-            endtime.setMinutes(endtime.getMinutes() + 1);
-            $scope.multipleLogs.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
-            $scope.multipleLogs.EndTime = sharedScriptManager.formatTimeToSendToServer(endtime);
-
-            $scope.multipleLogs.Extension = $scope.extensionList[0];
-            $scope.multipleLogs.CommunicationTool = $scope.communicationToolList[0];
-            $scope.multipleLogs.MainCategory = $scope.mainCategoryList[0];
-            $scope.multipleLogs.SubCategory = $scope.subCategoryList[0];
-            $scope.multipleLogs.Status = $scope.statusList[0];
-            $scope.multipleLogs.RoleInfo = $scope.roleList[0];
-            $scope.multipleLogs.SiteInfo = $scope.siteList[0];
-            $scope.multipleLogs.Response = $scope.responseList[0];*/
-
-            //$scope.updateRemarkPrefix();
-
-
-
             $scope.listOfCustomers = $scope.getListOfCustomers(parent.homeManager.CachedData.feedbacks);
             $scope.feedbackList = $scope.getFeedbackIdList(parent.homeManager.CachedData.feedbacks);
             parent.homeManager.CachedData.feedbacks = null;

@@ -9,7 +9,11 @@
                 for (var i = 0; i < extensionListLength; i++) {
                     var extension = scope.extensionList[i];
                     dropdown.append(
-                    '<option value="' + extension.Id + '">' + extension.Value + '</option>');
+                    '<option value="' + extension.Id + '"' +
+                        (extension.Id === scope.multipleLogs.Extension.Id ?
+                        ' selected="selected"' :
+                        '') +
+                        '>' + extension.Value + '</option>');
                 }
 
                 element.change(function () {

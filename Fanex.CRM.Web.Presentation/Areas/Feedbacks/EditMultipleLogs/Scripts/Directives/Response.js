@@ -9,7 +9,11 @@
                 for (var i = 0; i < responseListLength; i++) {
                     var response = scope.responseList[i];
                     dropdown.append(
-                    '<option value="' + response.Id + '">' + response.Value + '</option>');
+                    '<option value="' + response.Id + '"' +
+                        (response.Id === scope.multipleLogs.Response.Id ?
+                        ' selected="selected"' :
+                        '') +
+                    '>' + response.Value + '</option>');
                 }
 
                 element.change(function () {

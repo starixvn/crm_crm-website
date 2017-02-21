@@ -8,12 +8,19 @@
             if (scope.languageList) {
                 var dropdown = element.find("#language");
                 dropdown.empty();
-                var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '">' + viewResources.Symbol_NotApply +
+                var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '"' +
+                    (crmConstants.Enums.Language.NotApply === scope.multipleLogs.Language.Id ?
+                    ' selected="selected"' :
+                    '') +
+                '>' + viewResources.Symbol_NotApply +
                 '</option>';
                 var languageListLength = scope.languageList.length;
                 for (var i = 0; i < languageListLength; i++) {
                     var language = scope.languageList[i];
-                    optionHtml += '<option value="' + language.Id + '">' + language.Name + '</option>';
+                    optionHtml += '<option value="' + language.Id + '"' +
+                      (language.Id === scope.multipleLogs.Language.Id ?
+                        ' selected="selected"' :
+                        '') + '>' + language.Name + '</option>';
                 }
 
                 dropdown.append(optionHtml);

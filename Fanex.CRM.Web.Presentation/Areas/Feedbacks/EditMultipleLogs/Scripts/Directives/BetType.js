@@ -9,7 +9,11 @@
                 for (var i = 0; i < betTypeListLength; i++) {
                     var betType = scope.betTypeList[i];
                     dropdown.append(
-                    '<option value="' + betType.Id + '">' + betType.Name + '</option>');
+                    '<option value="' + betType.Id + '"' +
+                        (betType.Id === scope.multipleLogs.BetType.Id ?
+                        ' selected="selected"' :
+                        '') +
+                    '>' + betType.Name + '</option>');
                 }
 
                 element.change(function () {

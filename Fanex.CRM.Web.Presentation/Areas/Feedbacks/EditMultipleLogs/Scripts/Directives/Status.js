@@ -9,7 +9,11 @@
                 for (var i = 0; i < statusListLength; i++) {
                     var status = scope.statusList[i];
                     dropdown.append(
-                    '<option value="' + status.Id + '">' + status.Name + '</option>');
+                    '<option value="' + status.Id + '"' +
+                        (status.Id === scope.multipleLogs.Status.Id ?
+                        ' selected="selected"' :
+                        '') +
+                     '>' + status.Name + '</option>');
                 }
 
                 element.change(function () {

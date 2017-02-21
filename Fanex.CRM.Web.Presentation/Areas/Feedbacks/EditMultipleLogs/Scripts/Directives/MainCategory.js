@@ -9,7 +9,11 @@
                 for (var i = 0; i < mainCategoryListLength; i++) {
                     var mainCategory = scope.mainCategoryList[i];
                     dropdown.append(
-                    '<option value="' + mainCategory.Id + '">' + mainCategory.Name + '</option>');
+                    '<option value="' + mainCategory.Id + '"' +
+                         (scope.multipleLogs.MainCategory.Name !== '' && mainCategory.Name === scope.multipleLogs.MainCategory.Name ?
+                            ' selected="selected"' :
+                            '') +
+                    '>' + mainCategory.Name + '</option>');
                 }
 
                 element.change(function () {
