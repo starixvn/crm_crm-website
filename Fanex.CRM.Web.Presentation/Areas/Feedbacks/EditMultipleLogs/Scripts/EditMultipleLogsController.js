@@ -218,7 +218,7 @@
             $scope.$apply();
         };
         $scope.updateSelectedLanguage = function (languageId) {
-            $scope.multipleLogs.LanguageId = languageId;
+            $scope.multipleLogs.Language.Id = languageId;
             $scope.$apply();
         };
         $scope.updateSelectedMainCategory = function (mainCategoryId) {
@@ -356,7 +356,7 @@
                 ExtensionId: $scope.multipleLogs.Extension.Id,
                 CountryId: $scope.multipleLogs.Country.Id,
                 CommunicationToolId: $scope.multipleLogs.CommunicationTool.Id,
-                LanguageId: $scope.multipleLogs.LanguageId,
+                LanguageId: $scope.multipleLogs.Language.Id,
                 MainCategoryId: $scope.multipleLogs.MainCategory.Id,
                 SubcategoryId: $scope.multipleLogs.SubCategory.Id,
                 ProductId: $scope.multipleLogs.Product.Id,
@@ -415,7 +415,7 @@
             return $scope.multipleLogs.Extension.Id !== $scope.oldmultipleLogs.Extension.Id ||
                 $scope.multipleLogs.Country.Id !== $scope.oldmultipleLogs.Country.Id ||
                 $scope.multipleLogs.CommunicationTool.Id !== $scope.oldmultipleLogs.CommunicationTool.Id ||
-                $scope.multipleLogs.LanguageId !== $scope.oldmultipleLogs.LanguageId ||
+                $scope.multipleLogs.Language.Id !== $scope.oldmultipleLogs.Language.Id ||
                 $scope.multipleLogs.MainCategory.Id !== $scope.oldmultipleLogs.MainCategory.Id ||
                 $scope.multipleLogs.SubCategory.Id !== $scope.oldmultipleLogs.SubCategory.Id ||
                 $scope.multipleLogs.Product.Id !== $scope.oldmultipleLogs.Product.Id ||
