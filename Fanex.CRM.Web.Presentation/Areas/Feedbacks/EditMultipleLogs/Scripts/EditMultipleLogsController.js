@@ -140,6 +140,7 @@
             $scope.betTypeList = subProduct.ChildSettings;
             $scope.multipleLogs.BetType = $scope.betTypeList[0];
             $scope.safeApply();
+            $scope.updateChangeFlag();
         };
         $scope.updateStartTime = function (selectedTime) {
             $scope.multipleLogs.StartTime = selectedTime;
@@ -149,6 +150,7 @@
             }
 
             $scope.updateRemarkPrefix();
+            $scope.updateChangeFlag();
         };
         $scope.updateEndTime = function (selectedTime) {
             $scope.multipleLogs.EndTime = selectedTime;
@@ -158,6 +160,7 @@
             }
 
             $scope.updateRemarkPrefix();
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedExtension = function (extentionId) {
             extentionId = parseInt(extentionId);
@@ -174,6 +177,7 @@
             if (extensionInfo) {
                 $scope.multipleLogs.Extension = extensionInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedCountry = function (countryInfoId) {
@@ -197,6 +201,7 @@
             }
 
             $scope.$apply();
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedCommunicationTool = function (communicationToolId) {
             communicationToolId = parseInt(communicationToolId);
@@ -216,10 +221,12 @@
 
             $scope.updateRemarkPrefix();
             $scope.$apply();
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedLanguage = function (languageId) {
             $scope.multipleLogs.Language.Id = languageId;
             $scope.$apply();
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedMainCategory = function (mainCategoryId) {
             mainCategoryId = parseInt(mainCategoryId);
@@ -242,6 +249,7 @@
                     Id: 0
                 };
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedSubCategory = function (subCategoryId) {
@@ -259,6 +267,7 @@
             if (subCategoryInfo) {
                 $scope.multipleLogs.SubCategory = subCategoryInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedBetType = function (betTypeId) {
@@ -276,10 +285,12 @@
             if (betTypeInfo) {
                 $scope.multipleLogs.BetType = betTypeInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedSite = function (siteId) {
             $scope.multipleLogs.SiteInfo = $scope.multipleLogs.SiteInfo || { Id: 0 };
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedStatus = function (statusId) {
             statusId = parseInt(statusId);
@@ -296,6 +307,7 @@
             if (statusInfo) {
                 $scope.multipleLogs.Status = statusInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedRole = function (roleId) {
@@ -313,6 +325,7 @@
             if (roleInfo) {
                 $scope.multipleLogs.RoleInfo = roleInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedResponse = function (responseId) {
@@ -330,25 +343,29 @@
             if (responseInfo) {
                 $scope.multipleLogs.Response = responseInfo;
                 $scope.$apply();
+                $scope.updateChangeFlag();
             }
         };
         $scope.updateSelectedSubject = function (subject) {
             $scope.multipleLogs.Subject = subject;
+            $scope.updateChangeFlag();
         };
         $scope.updateRemark = function (remark) {
             $scope.multipleLogs.Remark = remark;
+            $scope.updateChangeFlag();
         };
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
+            $scope.updateChangeFlag();
         };
         $scope.updateSelectedLicenseeType = function (licenseeType) {
             $scope.multipleLogs.LicenseeType = licenseeType;
             $scope.safeApply();
+            $scope.updateChangeFlag();
         };
         $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
-
             var editCriteria = {
                 ListFeedbackId: $scope.feedbackList.join(','),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -386,27 +403,26 @@
         $scope.showResult = function (result) {
             $scope.resultMessage = result.Message;
             $scope.isShowResultMessage = true;
+            $scope.unblockUI();
 
             if (result.Code !== 0) {
                 $scope.isSuccess = false;
-                $scope.unblockUI();
                 return;
             }
 
             parent.homeManager.CachedData.shareInfoBetweenPopup = result;
             parent.homeManager.CachedData.shouldReloadView = true;
-            $scope.unblockUI();
-
+            
             setTimeout(function () {
                 parent.ClosePopup();
             }, sharedScriptManager.cachedData.alertSuccessTime);
         };
         $scope.updateChangeFlag = function () {
             if ($scope.isParamsChange()) {
-                parent.homeManager.CachedData.isChangingData = true;
+                parent.homeManager.CachedData.isChangingDataPopUp = true;
                 parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_MultipleLogs_Changes;
             } else {
-                parent.homeManager.CachedData.isChangingData = false;
+                parent.homeManager.CachedData.isChangingDataPopUp = false;
             }
 
             $scope.safeApply();

@@ -21,7 +21,7 @@
             return {
                 columns: [
                     {
-                        HeaderText: '<input type="checkbox" class="checkActionAll" ' + (!scope.isCheckAll ? '' : 'checked="checked"') + ' />',
+                        HeaderText: '<input type="checkbox" class="checkActionAll"/>',
                         Name: "Edit",
                         Width: 50,                        
                         HeaderAlign: 'center', CellAlign: 'center',
@@ -71,7 +71,7 @@
                 fb = feedbacks[i];
                 var checkedClass = fb.IsChecked ? 'checked="checked"' : '';
                 currentRow = [
-                { Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" ' + checkedClass + ' data-id="' + fb.FeedbackId + '" />' },
+                { Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' },
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
@@ -118,12 +118,14 @@
                 .unbind('click')
                 .bind('click', function () {
                     scope.checkActionItem($(this).data('id'));
+                    $(".checkActionAll").prop('checked', scope.getCheckAllStatus());
                 });
 
                 $('.checkActionAll')
                 .unbind('click')
                 .bind('click', function () {
                     scope.checkActionAll();
+                    $(".checkActionItem").prop('checked', scope.getCheckAllStatus());
                 });
             }
         }
@@ -161,7 +163,7 @@
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
                     /* jshint unused: false */
                     renderManageFeedback(newValues, scope, element);
-                }, true);
+                });
             }
         };
     });

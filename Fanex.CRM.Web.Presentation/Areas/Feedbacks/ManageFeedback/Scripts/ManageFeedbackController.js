@@ -12,6 +12,7 @@
     /* jshint camelcase: false */
     angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
     $scope, manageFBService, $uiBlockerService) {
+        $scope.isSetFocus = false;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.subCategoryOptions = null;
@@ -33,7 +34,7 @@
             ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
         };
         $scope.downloadFileOptions = null;
-        $scope.isCheckAll = false;
+        $scope.isCheckedAll = false;
 
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
@@ -171,7 +172,6 @@
                 $uiBlockerService.unblockUI();
             });
         };
-
         $scope.openEditFeedbackPopup = function (id) {
             var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
             var maxWidthOfPopUp = 987;
@@ -181,6 +181,13 @@
             });
         };
 
+        $scope.closeEditView = function () {
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            if (popUpResult && popUpResult.Code === crmConstants.Enums.Error.None) {
+                $scope.searchManageFeedback();
+            }
+        };
+
         $scope.openEditMultipleLogs = function () {
             var selectedFeedbacks = $scope.getSelectedFeedbacks();
             if(selectedFeedbacks.length === 0) {
@@ -188,34 +195,40 @@
             }
 
             parent.homeManager.CachedData.feedbacks = selectedFeedbacks;
-
+            parent.homeManager.CachedData.shouldReloadView = false;
             var url = window.rootUrl + 'MultipleLogs/Edit?feedbackid=' + parent.homeManager.CachedData.feedbacks[0].FeedbackId;
             var maxWidthOfPopUp = 987;
             var maxHeightOfPopUp = $(parent.document).height();
 
-            parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
-                $scope.searchManageFeedback();
-            });
+            parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
         };
 
         $scope.checkActionItem = function (id) {
-            var feedbacks = $scope.report.Feedbacks;
-            var numberFeedbacks = feedbacks.length;
-            for (var index = 0; index < numberFeedbacks; index++) {
-                if (feedbacks[index].FeedbackId === id) {
-                    feedbacks[index].IsChecked = !feedbacks[index].IsChecked;
-                    break;
+            var isCheckedAll = true;
+            angular.forEach($scope.report.Feedbacks, function (feedback) {
+                if (feedback.FeedbackId === id) {
+                    feedback.IsChecked = !feedback.IsChecked;
                 }
-            }
+
+                if (!feedback.IsChecked) {
+                    isCheckedAll = false;
+                }
+            });
+
+            $scope.isCheckedAll = isCheckedAll;
             $scope.$apply();
         };
 
         $scope.checkActionAll = function () {
-            $scope.isCheckAll = !$scope.isCheckAll;
+            $scope.isCheckedAll = !$scope.isCheckedAll;
             angular.forEach($scope.report.Feedbacks, function (feedback) {
-                feedback.IsChecked = $scope.isCheckAll;
+                feedback.IsChecked = $scope.isCheckedAll;
             });
             $scope.$apply();
+        };
+
+        $scope.getCheckAllStatus = function () {
+            return $scope.isCheckedAll;
         };
 
         $scope.getSelectedFeedbacks = function() {
