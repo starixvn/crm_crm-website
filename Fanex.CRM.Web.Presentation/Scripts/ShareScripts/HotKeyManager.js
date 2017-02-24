@@ -287,8 +287,8 @@ var HotKeyManager = function () {
             return true;
         }
 
-        if (self.CachedData.KeyPress[keyCodeEnums.Character_f]) {
-            self.invokeHotKey_CtrlF();
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_y]) {
+            self.invokeHotKey_CtrlY();
             return true;
         }
 
@@ -465,13 +465,13 @@ var HotKeyManager = function () {
 
         return self.CachedData.isInvokeHotKey;
     };
-    self.invokeHotKey_CtrlF = function () {
+    self.invokeHotKey_CtrlY = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
             var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
-            if (typeof (activeDocumentManager.invokeHotKey_CtrlF) === "function") {
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlY) === "function") {
                 self.CachedData.isInvokeHotKey = true;
-                activeDocumentManager.invokeHotKey_CtrlF();
+                activeDocumentManager.invokeHotKey_CtrlY();
             }
         }
 

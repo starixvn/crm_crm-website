@@ -51,7 +51,9 @@ var HomeManager = function () {
             ActionResult: null,
             ShouldReloadView: false,
             PopupController: null
-        }
+        },
+
+        feedbacks: null
     };
 
     self.initPage = function () {
@@ -428,7 +430,7 @@ var HomeManager = function () {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.ActivityLog);
         }
     };
-    self.invokeHotKey_CtrlF = function () {
+    self.invokeHotKey_CtrlY = function () {
         self.DOMElements.TextboxUsername.focus();
     };
 

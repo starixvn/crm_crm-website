@@ -1,0 +1,111 @@
+﻿namespace Fanex.CRM.Feedback.Controllers
+{
+    using System.Linq;
+    using System.Web.Mvc;
+    using Common.Constants;
+    using Common.Controllers;
+    using Criteria;
+    using NAP.Core.Business;
+    using NAP.Core.Web.Attribute;
+    using Services;
+    using Setting.Services;
+
+    public class MultipleLogsController : ReadOnlyBaseController
+    {
+        private readonly IMultipleLogsService _multipleLogsService;
+
+        private readonly ISettingService _serviceSetting;
+
+        public MultipleLogsController()
+            : this(null, null)
+        {
+        }
+
+        public MultipleLogsController(
+            IMultipleLogsService multipleLogsService,
+            ISettingService serviceSetting)
+        {
+            _multipleLogsService = multipleLogsService ?? new MultipleLogsService();
+            _serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult Create()
+        {
+            return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult Edit(int feedbackId)
+        {
+            var log = _multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
+            {
+                FeedbackId = feedbackId
+            });
+
+            return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetSettings()
+        {
+            var allSetting = new
+            {
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
+                StatusList = _multipleLogsService.AllStatusForInsert,
+                SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetEditSettings()
+        {
+            var allSetting = new
+            {
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
+                StatusList = _multipleLogsService.AllStatusForInsert,
+                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
+        {
+            var insertResult = _multipleLogsService.InsertMultpleLogs(criteria);
+
+            return Json(insertResult);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
+        {
+            var updateResult = _multipleLogsService.UpdateMultipleLogs(criteria);
+
+            return Json(updateResult);
+        }
+    }
+}

@@ -20,6 +20,12 @@
 
             return {
                 columns: [
+                    {
+                        HeaderText: '<input type="checkbox" class="checkActionAll"/>',
+                        Name: "Edit",
+                        Width: 50,                        
+                        HeaderAlign: 'center', CellAlign: 'center',
+                    },
                     { HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: manageFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
@@ -27,7 +33,7 @@
                     { HeaderText: manageFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
                 showTitle: true,
                 titleInfo: {
-                    text: manageFeedbackResources.Feedback,
+                    text: renderTitle(),
                     showExcelButton: true,
                     exportExcelFunction: function () {
                         scope.exportFeedbackExcel();
@@ -63,8 +69,9 @@
             var fb, currentRow, status, cssClass;
             for (var i = 0; i < fbLength; i++) {
                 fb = feedbacks[i];
-
+                var checkedClass = fb.IsChecked ? 'checked="checked"' : '';
                 currentRow = [
+                { Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' },
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
@@ -100,11 +107,35 @@
                 .bind('click', function () {
                     scope.openEditFeedbackPopup($(this).data('id'));
                 });
+
+                $('.desTitle')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.openEditMultipleLogs();
+                });
+
+                $('.checkActionItem')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.checkActionItem($(this).data('id'));
+                    $(".checkActionAll").prop('checked', scope.getCheckAllStatus());
+                });
+
+                $('.checkActionAll')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.checkActionAll();
+                    $(".checkActionItem").prop('checked', scope.getCheckAllStatus());
+                });
             }
         }
 
         function renderCategoryColumn(main, sub) {
             return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
+        }
+
+        function renderTitle() {
+            return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div> | <div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>';
         }
 
         function renderFeedbackColumn(feedback) {
