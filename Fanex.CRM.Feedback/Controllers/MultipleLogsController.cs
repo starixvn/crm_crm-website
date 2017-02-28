@@ -35,13 +35,15 @@
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult Edit(int feedbackId)
         {
             var log = _multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
             {
                 FeedbackId = feedbackId
             });
+
+            ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
 
             return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }
@@ -68,7 +70,7 @@
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetEditSettings()
         {
