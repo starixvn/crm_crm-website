@@ -120,7 +120,7 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult CreateMultipleLogs()
         {
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml");

@@ -29,13 +29,13 @@
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Edit(int feedbackId)
         {
             var log = _multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
@@ -46,7 +46,7 @@
             return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult GetSettings()
         {
@@ -68,7 +68,7 @@
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult GetEditSettings()
         {
@@ -91,7 +91,7 @@
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
         {
             var insertResult = _multipleLogsService.InsertMultpleLogs(criteria);
@@ -100,7 +100,7 @@
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.UpdateMultipleLogs, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
         {
             var updateResult = _multipleLogsService.UpdateMultipleLogs(criteria);
