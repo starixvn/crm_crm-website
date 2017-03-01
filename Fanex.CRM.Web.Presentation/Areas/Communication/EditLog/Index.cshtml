@@ -264,20 +264,17 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <button class="btn btn-save" data-ng-click="updateLog();">
-                    <span class="hotkey">S</span>ave</button>
-            </div>
+
+            @if (hasHostCreateUpdatePermission)
+            {
+                <div class="row">
+                    <button class="btn btn-save" data-ng-click="updateLog();">
+                        <span class="hotkey">S</span>ave
+                    </button>
+                </div>
+            }
             <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
         </div>
-        @if (hasHostCreateUpdatePermission)
-        {
-            <div class="row">
-                <button class="btn btn-save" data-ng-click="updateLog();">
-                    <span class="hotkey">S</span>ave</button>
-            </div>
-        }
-        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
 </div>
 @section Scripts {
