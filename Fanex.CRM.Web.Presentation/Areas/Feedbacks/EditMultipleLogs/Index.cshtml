@@ -7,6 +7,7 @@
 
     ViewBag.Title = Labels.Edit_Multiple_Logs;
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
+    var hasUpdateMultipleLogsPermission = (bool)ViewBag.HasUpdateMultipleLogsPermission;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -39,7 +40,6 @@
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1"></div>
                     </div>
-
                     <div class="row item">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                             <label for="startTime">
@@ -228,11 +228,14 @@
                 </div>
             </div>
         </div>
+        @if (hasUpdateMultipleLogsPermission)
+        {
         <div class="row">
             <button class="btn btn-save" data-ng-click="editMultipleLogs();">
                 <span class="hotkey">S</span>ave
             </button>
         </div>
+        }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
 </div>
