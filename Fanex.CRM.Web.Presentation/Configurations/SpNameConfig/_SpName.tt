@@ -12,8 +12,7 @@
 		var x = site.SiteEnvironment.ToString();
         var fileName = x == "DEV" ? "SpName.xml" : string.Format("SpName.{0}.xml", site.SiteEnvironment);
         manager.StartNewFile(fileName);
-		#>
-<#=site.GenerateSpName(allSpName, listOfConfig)#>
+		#><#=site.GenerateSpName(allSpName, listOfConfig)#>
 		<#
     }
     manager.Process();
