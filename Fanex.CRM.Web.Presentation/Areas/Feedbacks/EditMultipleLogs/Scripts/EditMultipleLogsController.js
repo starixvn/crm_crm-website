@@ -40,6 +40,45 @@
 
         $scope.initController = function () {
             $scope.getSettings();
+            $scope.getNumberOfFeedbackSubjectTemplate();
+        };
+        $scope.getNumberOfFeedbackSubjectTemplate = function () {
+            $scope.BlockUI();
+            $editMultipleLogsService.getNumberOfFeedbackSubjectTemplate()
+            .then(function (data) {
+                var numberOfFeedbackItem = data.Result;
+                $scope.feedbackSubjectTemplateList = [];
+                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                $scope.feedbackSubjectTemplateTotalPage = totalPage;
+                $scope.isLoadedFeedbackSubjectTemplate = false;
+                for (var i = 1; i <= totalPage; i++) {
+                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                }
+            },
+            function () {
+                $scope.isLoadedFeedbackSubjectTemplate = true;
+            });
+        };
+        $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+            $scope.BlockUI();
+            $editMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+            .then(function (data) {
+                var feedbackSubjectTemplate = data.Result;
+                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
+                }
+
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            },
+            function () {
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            });
         };
         $scope.initSelectedLogInfo = function () {
             var i;
