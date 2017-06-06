@@ -554,4 +554,7 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="UpdateSiteLicenseeType" xml:space="preserve">
+    <value>Update Site/Licensee Type</value>
+  </data>
 </root>

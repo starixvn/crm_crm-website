@@ -203,6 +203,23 @@
             parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
         };
 
+        $scope.updateSiteLicenseeType = function () {
+            var selectedFeedbacks = $scope.getSelectedFeedbacks();
+            if (selectedFeedbacks.length === 0) {
+                return;
+            }
+
+            manageFBService.updateSiteLicenseeType(selectedFeedbacks)
+              .then(
+                function (data) {
+                  console.log(data);
+                  $uiBlockerService.unblockUI();
+                },
+                function () {
+                  $uiBlockerService.unblockUI();
+                });
+        };
+
         $scope.checkActionItem = function (id) {
             var isCheckedAll = true;
             angular.forEach($scope.report.Feedbacks, function (feedback) {

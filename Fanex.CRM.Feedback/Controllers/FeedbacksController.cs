@@ -10,7 +10,6 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -22,6 +21,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Feedbacks Controller.
@@ -159,6 +159,12 @@ namespace Fanex.CRM.Feedback.Controllers
 
             BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);
             deletedFeedbackExcel.BuildWorkBook();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateSiteLicenseeType()
+        {
+            return Json(true, JsonRequestBehavior.DenyGet);
         }
     }
 }

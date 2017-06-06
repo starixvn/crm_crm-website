@@ -503,6 +503,7 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_updateSite.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />

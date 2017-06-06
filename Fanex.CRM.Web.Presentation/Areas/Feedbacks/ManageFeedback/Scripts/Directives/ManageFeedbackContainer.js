@@ -114,6 +114,12 @@
                     scope.openEditMultipleLogs();
                 });
 
+                $('.updateSiteLicensee')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.updateSiteLicenseeType();
+                });
+
                 $('.checkActionItem')
                 .unbind('click')
                 .bind('click', function () {
@@ -135,7 +141,11 @@
         }
 
         function renderTitle() {
-            return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div> | <div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>';
+            return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div>' +                
+                '<div class="update-site-licensee"><a class="updateSiteLicensee" href="javascript:;">' + manageFeedbackResources.UpdateSiteLicenseeType + '</a></div>' +
+                '<div class="split-bar"> | </div>' + 
+                '<div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>' +
+                '<div class="split-bar"> | </div>';
         }
 
         function renderFeedbackColumn(feedback) {
