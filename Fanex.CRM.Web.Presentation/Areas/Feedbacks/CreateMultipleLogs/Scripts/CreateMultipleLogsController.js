@@ -6,6 +6,7 @@
     viewResources,
     customerId,
     hotKeyManager,
+    hasReviewPermission,
     currentTime*/
     /* jshint camelcase: false */
     angular.module('create-multiple-logs-application').controller('createMultipleLogsController', ['$scope', '$http', '$createMultipleLogsService',
@@ -65,7 +66,9 @@
             },
             Subject: '',
             Remark: '',
-            Solution: ''
+            Solution: '',
+            IsReviewed: false,
+            Review: ''
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         $scope.extensionList = null;
@@ -90,6 +93,7 @@
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
+        $scope.hasReviewPermission = hasReviewPermission;
 
         $scope.customersInput = '';
         $scope.initController = function () {
@@ -146,13 +150,13 @@
 
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.completedLoadFilterInfo();
+                    $scope.unblockUI();
                 }
             },
             function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.completedLoadFilterInfo();
+                    $scope.unblockUI();
                 }
             });
         };
@@ -459,6 +463,9 @@
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
         };
+        $scope.updateReview = function (review) {
+            $scope.multipleLogs.Review = review;
+        };
         $scope.insertMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
@@ -483,7 +490,9 @@
                 ResponseId: $scope.multipleLogs.Response.Id,
                 Subject: $scope.multipleLogs.Subject,
                 Remark: $scope.multipleLogs.Remark,
-                Solution: $scope.multipleLogs.Solution
+                Solution: $scope.multipleLogs.Solution,
+                IsReviewed: $scope.multipleLogs.IsReviewed,
+                Review: $scope.multipleLogs.Review
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
                 $scope.BlockUI();
@@ -628,7 +637,7 @@
                 $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
                 $scope.isShowResultMessage = true;
             }
-        };
+        };      
 
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);

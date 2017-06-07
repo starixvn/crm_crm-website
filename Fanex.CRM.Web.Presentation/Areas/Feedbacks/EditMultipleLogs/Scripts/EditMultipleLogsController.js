@@ -6,6 +6,7 @@
     viewResources,
     customerId,
     hotKeyManager,
+    hasReviewPermission,
     currentTime*/
     /* jshint camelcase: false */
     angular.module('edit-multiple-logs-application').controller('editMultipleLogsController', ['$scope', '$http', '$editMultipleLogsService',
@@ -34,10 +35,11 @@
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
+        $scope.hasReviewPermission = hasReviewPermission;
 
         $scope.listOfCustomers = '';
         $scope.feedbackList = '';
-
+        
         $scope.initController = function () {
             $scope.getSettings();
             $scope.getNumberOfFeedbackSubjectTemplate();
@@ -70,13 +72,13 @@
 
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.completedLoadFilterInfo();
+                    $scope.unblockUI();
                 }
             },
             function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.completedLoadFilterInfo();
+                    $scope.unblockUI();
                 }
             });
         };
@@ -380,6 +382,9 @@
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
         };
+        $scope.updateReview = function (review) {
+            $scope.multipleLogs.Review = review;
+        };
         $scope.updateSelectedLicenseeType = function (licenseeType) {
             $scope.multipleLogs.LicenseeType = licenseeType;
             $scope.safeApply();
@@ -407,7 +412,9 @@
                 ResponseId: $scope.multipleLogs.Response.Id,
                 Subject: $scope.multipleLogs.Subject,
                 Remark: $scope.multipleLogs.Remark,
-                Solution: $scope.multipleLogs.Solution
+                Solution: $scope.multipleLogs.Solution,
+                IsReviewed: $scope.multipleLogs.IsReviewed,
+                Review: $scope.multipleLogs.Review
             };
             if ($scope.validateEditMultipleLogsCriteria(editCriteria)) {
                 $scope.BlockUI();
@@ -597,6 +604,11 @@
             SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
             subProductList = SettingManager.getChildSettings(product.Id, productList);
             SettingManager.updateInActiveChildSettings($scope.multipleLogs.BetType, subProductList, subProduct.Id);
+        };
+        $scope.getReviewedInfo = function () {
+            return sharedScriptManager.stringFormat(
+            viewResources.ReviewedInformation,
+            [$scope.multipleLogs.Reviewer, $scope.multipleLogs.ReviewedTimeString]);
         };
 
         angular.element(document).ready(function () {

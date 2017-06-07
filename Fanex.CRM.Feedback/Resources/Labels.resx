@@ -557,4 +557,7 @@
   <data name="UpdateSiteLicenseeType" xml:space="preserve">
     <value>Update Site/Licensee Type</value>
   </data>
+  <data name="ReviewedInformation" xml:space="preserve">
+    <value>(Reviewed by {0} on {1})</value>
+  </data>
 </root>

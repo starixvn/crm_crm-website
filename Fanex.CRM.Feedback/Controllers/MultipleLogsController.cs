@@ -1,7 +1,5 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
     using Criteria;
@@ -9,6 +7,8 @@
     using NAP.Core.Web.Attribute;
     using Services;
     using Setting.Services;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class MultipleLogsController : ReadOnlyBaseController
     {
@@ -32,6 +32,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
@@ -44,6 +45,7 @@
             });
 
             ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
 
             return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }

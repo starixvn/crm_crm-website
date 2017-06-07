@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
     using Common.Criteria;
     using Common.Services;
     using Fanex.Data.Repository;
+    using System;
 
     public class InsertMultipleLogsCriteria : UpdateCriteria
     {
@@ -80,7 +80,13 @@
 
         public string Review { get; set; }
 
-        public string ReviewerId { get; set; }
+        public int ReviewerId
+        {
+            get
+            {
+                return IsReviewed ? AppSession.CurrentUser.Id : 0;
+            }
+        }
 
         public override string GetSettingKey()
         {
