@@ -1,7 +1,5 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System.Web;
-    using System.Web.Security;
     using Enumerations;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
@@ -9,6 +7,8 @@
     using NAP.Core.Web.Session;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
+    using System.Web;
+    using System.Web.Security;
 
     public class CommonAuthenticationService : ICommonAuthenticationService
     {
@@ -35,14 +35,14 @@
         {
             var settings = NapSettings.Settings;
 
-            if (!settings.EnableReCheckIn)
-            {
-                return RecheckInStatus.Success;
-            }
-
             if (_maintenanceService.IsUnderMaintenance())
             {
                 return RecheckInStatus.UnderMaintenance;
+            }
+
+            if (!settings.EnableReCheckIn || currentSession.OnUserId <= 0)
+            {
+                return RecheckInStatus.Success;
             }
 
             if (!_siteService.IsActivated(settings.SiteId))
