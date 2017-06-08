@@ -560,4 +560,7 @@
   <data name="ReviewedInformation" xml:space="preserve">
     <value>(Reviewed by {0} on {1})</value>
   </data>
+  <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
+    <value>Update Site/Licensee Type Successfully!</value>
+  </data>
 </root>

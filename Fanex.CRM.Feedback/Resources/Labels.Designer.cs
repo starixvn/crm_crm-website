@@ -1330,6 +1330,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Site/Licensee Type Successfully!.
+        /// </summary>
+        public static string UpdateSiteLicenseeTypeSuccess {
+            get {
+                return ResourceManager.GetString("UpdateSiteLicenseeTypeSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {

@@ -10,11 +10,12 @@
 
 namespace Fanex.CRM.Feedback.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data.Repository;
+    using Infrastructure.Models;
+    using System.Collections.Generic;
 
     /// <summary>
     /// IFeedback Repository.
@@ -24,5 +25,7 @@ namespace Fanex.CRM.Feedback.Repositories
         IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria);
+
+        Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
     }
 }

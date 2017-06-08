@@ -49,7 +49,7 @@
 
         serviceInstance.updateSiteLicenseeType = function (criteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "Feedbacks/UpdateSiteLicenseeType", criteria)
+            $http.post(window.rootUrl + "Feedbacks/UpdateSiteLicenseeTypes", criteria)
             .success(function (data, status, headers, config) {
                 deferred.resolve({
                     Result: data,

@@ -10,11 +10,11 @@
 
 namespace Fanex.CRM.Feedback.Services
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Collections.Generic;
 
     /// <summary>
     /// IFeedback Service.
@@ -30,5 +30,7 @@ namespace Fanex.CRM.Feedback.Services
         IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria);
+
+        Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
     }
 }

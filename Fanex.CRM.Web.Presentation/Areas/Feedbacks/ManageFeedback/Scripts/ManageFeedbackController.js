@@ -10,8 +10,8 @@
     username,
     isGuest */
     /* jshint camelcase: false */
-    angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
-    $scope, manageFBService, $uiBlockerService) {
+    angular.module('feedback-manage-application').controller('manageFeedbackController',['$scope', 'manageFeedbackService', '$uiBlockerService', '$resultMessageService', function (
+    $scope, manageFBService, $uiBlockerService, $resultMessageService) {
         $scope.isSetFocus = false;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
@@ -209,14 +209,22 @@
                 return;
             }
 
-            manageFBService.updateSiteLicenseeType(selectedFeedbacks)
+            var criteria = {
+                ListFeedbackID: selectedFeedbacks.map(function (e) { return e.FeedbackId; }).join(",")
+            };
+
+            $uiBlockerService.blockUI();
+            manageFBService.updateSiteLicenseeType(criteria)
               .then(
                 function (data) {
-                  console.log(data);
-                  $uiBlockerService.unblockUI();
+                  $resultMessageService.showMessage({
+                      messageType: crmConstants.Enums.MessageType.Success,
+                      message: data.Result.Message
+                  });                  
+                  $scope.searchManageFeedback();
                 },
-                function () {
-                  $uiBlockerService.unblockUI();
+                function (data) {
+                    $uiBlockerService.unblockUI();
                 });
         };
 

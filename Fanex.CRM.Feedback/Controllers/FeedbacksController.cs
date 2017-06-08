@@ -162,9 +162,11 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateSiteLicenseeType()
+        public ActionResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
         {
-            return Json(true, JsonRequestBehavior.DenyGet);
+            var result = _feedbackService.UpdateSiteLicenseeTypes(criteria);
+
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
     }
 }

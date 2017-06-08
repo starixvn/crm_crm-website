@@ -10,24 +10,26 @@
 
 namespace Fanex.CRM.Feedback.Repositories
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+    using Common.Repositories;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using Infrastructure.Models;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Feedback Repository.
     /// </summary>
-    public class FeedbackRepository : IFeedbackRepository
+    public class FeedbackRepository : BaseRepository, IFeedbackRepository
     {
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-            {                
+            {
                 var feebbacks = db.Query<FeedbackDetail>(criteria.GetSpParams());
                 var outputParams = db.GetOuputParams();
                 if (outputParams.ContainsKey("totalrows"))
@@ -46,6 +48,11 @@ namespace Fanex.CRM.Feedback.Repositories
             {
                 return db.Query<DeletedFeedback>(criteria.GetSpParams());
             }
+        }
+
+        public Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
+        {
+            return ExecuteNonQuery(criteria);
         }
     }
 }
