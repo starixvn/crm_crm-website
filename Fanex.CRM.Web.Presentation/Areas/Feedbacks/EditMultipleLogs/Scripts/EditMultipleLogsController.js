@@ -392,6 +392,10 @@
         $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
+            var isResetReview = $scope.oldmultipleLogs.IsReviewed && !$scope.multipleLogs.IsReviewed;
+            var updateReviewedMode = !$scope.hasReviewPermission ? crmConstants.Enums.UpdateReviewedMode.NotChange :
+                                        (isResetReview ? crmConstants.Enums.UpdateReviewedMode.Reset : crmConstants.Enums.UpdateReviewedMode.Change);
+                                        
             var editCriteria = {
                 ListFeedbackId: $scope.feedbackList.join(','),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -414,7 +418,8 @@
                 Remark: $scope.multipleLogs.Remark,
                 Solution: $scope.multipleLogs.Solution,
                 IsReviewed: $scope.multipleLogs.IsReviewed,
-                Review: $scope.multipleLogs.Review
+                Review: $scope.multipleLogs.Review,
+                UpdateReviewedMode: updateReviewedMode
             };
             if ($scope.validateEditMultipleLogsCriteria(editCriteria)) {
                 $scope.BlockUI();

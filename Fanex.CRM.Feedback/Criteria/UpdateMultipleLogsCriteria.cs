@@ -79,6 +79,8 @@
             }
         }
 
+        public int UpdateReviewedMode { get; set; }
+
         public override string GetSettingKey()
         {
             return "MultipleLogsUpdate";
