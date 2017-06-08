@@ -9,7 +9,6 @@
     angular.module('create-multiple-logs-application').directive('reviewEditorContainer', function () {
         var editorId = "revieweditorbox";
         function renderEditor(scope, element) {
-            console.log(scope.multipleLogs);
             var review = scope.multipleLogs.Review;
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
