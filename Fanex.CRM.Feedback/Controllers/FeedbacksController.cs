@@ -162,6 +162,7 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
         {
             var result = _feedbackService.UpdateSiteLicenseeTypes(criteria);
