@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_ManageFeedback;
-
+    var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
     bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
     int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
 }
@@ -131,6 +131,7 @@
 
         var username = '@Model.CustName';
         var isGuest = @isGuest;
+        var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
 
         var manageFeedbackResources = {
             All: '@Labels.All',

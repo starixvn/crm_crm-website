@@ -8,6 +8,7 @@
     yesterday,
     currentTime,
     username,
+    createUpdateFeedbackPermission,
     isGuest */
     /* jshint camelcase: false */
     angular.module('feedback-manage-application').controller('manageFeedbackController',['$scope', 'manageFeedbackService', '$uiBlockerService', '$resultMessageService', function (
@@ -17,6 +18,7 @@
         $scope.toDateOptions = null;
         $scope.subCategoryOptions = null;
         $scope.mainCategoryOptions = null;
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
         $scope.searchCriteria = {
             FeedbackId: '',
             FromDate: yesterday,

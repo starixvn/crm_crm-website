@@ -58,6 +58,7 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
+            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
         }
 
