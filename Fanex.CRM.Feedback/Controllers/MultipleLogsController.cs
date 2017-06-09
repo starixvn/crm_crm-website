@@ -32,7 +32,6 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
-            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 

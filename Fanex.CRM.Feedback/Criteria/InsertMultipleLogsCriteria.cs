@@ -80,13 +80,7 @@
 
         public string Review { get; set; }
 
-        public int ReviewerId
-        {
-            get
-            {
-                return IsReviewed ? AppSession.CurrentUser.Id : 0;
-            }
-        }
+        public string ReviewerId { get; set; }
 
         public override string GetSettingKey()
         {

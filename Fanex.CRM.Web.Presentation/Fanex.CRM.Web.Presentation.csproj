@@ -338,7 +338,6 @@
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Response.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Role.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Site.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />

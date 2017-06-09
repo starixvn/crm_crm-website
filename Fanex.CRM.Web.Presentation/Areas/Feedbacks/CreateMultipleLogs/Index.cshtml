@@ -7,7 +7,6 @@
     ViewBag.Title = Labels.Create_Multiple_Logs;
 
     var customerId = Model;
-    var hasReviewPermission = ((bool)ViewBag.HasReviewPermission).ToString().ToLower();
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -251,19 +250,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row panel-group last">
-                <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
-                    <label for="review">
-                        @Labels.Reviewed
-                    </label>
-                    <input id="review" type="checkbox" class="review" data-ng-click="multipleLogs.IsReviewed=!multipleLogs.IsReviewed;"
-                           data-ng-model="multipleLogs.IsReviewed" data-ng-disabled="!hasReviewPermission" />                    
-                </div>               
-                <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
-                    <div id="revieweditorboxcontainer" data-ng-model="multipleLogs.Review" review-editor-container>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <button class="btn btn-save" data-ng-click="insertMultipleLogs();">
                     <span class="hotkey">S</span>ave
@@ -289,7 +275,6 @@
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var customerId = '@customerId';
         var currentUsername = "@AppSession.CurrentUser.Username";
-        var hasReviewPermission = @hasReviewPermission;
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Select: '@Labels.Select',
