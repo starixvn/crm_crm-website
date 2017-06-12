@@ -489,6 +489,7 @@
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\Directives\DeletedFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogs\Styles\Images\warning.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
