@@ -39,6 +39,13 @@
 
         $scope.listOfCustomers = '';
         $scope.feedbackList = '';
+
+        $scope.requiredManager = {
+            subject: true,
+            remark: true,
+            solution: true,
+            review: true
+        };
         
         $scope.initController = function () {
             $scope.getSettings();
@@ -499,26 +506,26 @@
                 result = false;
             }
 
-            if (result && criteria.Subject === '') {
+            $scope.requiredManager.subject = !(criteria.Subject === '');
+            if (result && !$scope.requiredManager.subject) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptySubject;
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
+            $scope.requiredManager.remark = !($.trim(criteria.Remark) === '' || criteria.Remark === '<br>');
+            if (result && !$scope.requiredManager.remark) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
+            $scope.requiredManager.solution = !($.trim(criteria.Solution) === '' || criteria.Solution === '<br>');
+            if (result && !$scope.requiredManager.solution) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptySolution;
                 result = false;
             }
 
-            if (result &&
-            criteria.IsReviewed &&
-            ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
+            $scope.requiredManager.review = !(criteria.IsReviewed && ($.trim(criteria.Review) === '' || criteria.Review === '<br>'));
+            if (result && !$scope.requiredManager.review) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyReview;
                 result = false;
             }
