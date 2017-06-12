@@ -516,6 +516,13 @@
                 result = false;
             }
 
+            if (result &&
+            criteria.IsReviewed &&
+            ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptyReview;
+                result = false;
+            }
+
             if (result) {
                 $scope.isShowResultMessage = false;
             } else {

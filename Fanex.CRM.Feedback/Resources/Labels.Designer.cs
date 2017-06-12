@@ -709,6 +709,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptyReview {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptyReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution is mandatory!.
         /// </summary>
         public static string Multiple_Logs_EmptySolution {

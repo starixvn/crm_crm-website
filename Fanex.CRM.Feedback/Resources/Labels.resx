@@ -563,4 +563,7 @@
   <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
     <value>Update Site/Licensee Type Successfully!</value>
   </data>
+  <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
+    <value>Review is mandatory!</value>
+  </data>
 </root>
