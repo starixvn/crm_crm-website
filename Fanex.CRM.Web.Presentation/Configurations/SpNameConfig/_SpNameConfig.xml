@@ -3,4 +3,5 @@
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_LogActionActivityList" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
