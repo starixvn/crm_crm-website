@@ -47,6 +47,29 @@
             return deferred.promise;
         };
 
+        serviceInstance.updateSiteLicenseeType = function (criteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Feedbacks/UpdateSiteLicenseeTypes", criteria)
+            .success(function (data, status, headers, config) {
+                deferred.resolve({
+                    Result: data,
+                    Status: status,
+                    Headers: headers,
+                    Config: config
+                });
+            })
+            .error(function (data, status, headers, config) {
+                deferred.resolve({
+                    Result: data,
+                    Status: status,
+                    Headers: headers,
+                    Config: config
+                });
+            });
+
+            return deferred.promise;
+        };
+
         return serviceInstance;
     } ]);
 })();

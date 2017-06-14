@@ -6,6 +6,7 @@
     viewResources,
     customerId,
     hotKeyManager,
+    hasReviewPermission,
     currentTime*/
     /* jshint camelcase: false */
     angular.module('edit-multiple-logs-application').controller('editMultipleLogsController', ['$scope', '$http', '$editMultipleLogsService',
@@ -34,12 +35,59 @@
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
+        $scope.hasReviewPermission = hasReviewPermission;
 
         $scope.listOfCustomers = '';
         $scope.feedbackList = '';
 
+        $scope.requiredManager = {
+            subject: true,
+            remark: true,
+            solution: true,
+            review: true
+        };
+        
         $scope.initController = function () {
             $scope.getSettings();
+            $scope.getNumberOfFeedbackSubjectTemplate();
+        };
+        $scope.getNumberOfFeedbackSubjectTemplate = function () {
+            $scope.BlockUI();
+            $editMultipleLogsService.getNumberOfFeedbackSubjectTemplate()
+            .then(function (data) {
+                var numberOfFeedbackItem = data.Result;
+                $scope.feedbackSubjectTemplateList = [];
+                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                $scope.feedbackSubjectTemplateTotalPage = totalPage;
+                $scope.isLoadedFeedbackSubjectTemplate = false;
+                for (var i = 1; i <= totalPage; i++) {
+                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                }
+            },
+            function () {
+                $scope.isLoadedFeedbackSubjectTemplate = true;
+            });
+        };
+        $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+            $scope.BlockUI();
+            $editMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+            .then(function (data) {
+                var feedbackSubjectTemplate = data.Result;
+                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
+                }
+
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.unblockUI();
+                }
+            },
+            function () {
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.unblockUI();
+                }
+            });
         };
         $scope.initSelectedLogInfo = function () {
             var i;
@@ -341,6 +389,9 @@
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
         };
+        $scope.updateReview = function (review) {
+            $scope.multipleLogs.Review = review;
+        };
         $scope.updateSelectedLicenseeType = function (licenseeType) {
             $scope.multipleLogs.LicenseeType = licenseeType;
             $scope.safeApply();
@@ -348,6 +399,10 @@
         $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
+            var isResetReview = $scope.oldmultipleLogs.IsReviewed && !$scope.multipleLogs.IsReviewed;
+            var updateReviewedMode = !$scope.hasReviewPermission ? crmConstants.Enums.UpdateReviewedMode.NotChange :
+                                        (isResetReview ? crmConstants.Enums.UpdateReviewedMode.Reset : crmConstants.Enums.UpdateReviewedMode.Change);
+                                        
             var editCriteria = {
                 ListFeedbackId: $scope.feedbackList.join(','),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -368,7 +423,10 @@
                 ResponseId: $scope.multipleLogs.Response.Id,
                 Subject: $scope.multipleLogs.Subject,
                 Remark: $scope.multipleLogs.Remark,
-                Solution: $scope.multipleLogs.Solution
+                Solution: $scope.multipleLogs.Solution,
+                IsReviewed: $scope.multipleLogs.IsReviewed,
+                Review: $scope.multipleLogs.Review,
+                UpdateReviewedMode: updateReviewedMode
             };
             if ($scope.validateEditMultipleLogsCriteria(editCriteria)) {
                 $scope.BlockUI();
@@ -448,20 +506,27 @@
                 result = false;
             }
 
-            if (result && criteria.Subject === '') {
+            $scope.requiredManager.subject = !(criteria.Subject === '');
+            if (result && !$scope.requiredManager.subject) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptySubject;
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
+            $scope.requiredManager.remark = !($.trim(criteria.Remark) === '' || criteria.Remark === '<br>');
+            if (result && !$scope.requiredManager.remark) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
+            $scope.requiredManager.solution = !($.trim(criteria.Solution) === '' || criteria.Solution === '<br>');
+            if (result && !$scope.requiredManager.solution) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptySolution;
+                result = false;
+            }
+
+            $scope.requiredManager.review = !(criteria.IsReviewed && ($.trim(criteria.Review) === '' || criteria.Review === '<br>'));
+            if (result && !$scope.requiredManager.review) {
+                $scope.resultMessage = viewResources.Multiple_Logs_EmptyReview;
                 result = false;
             }
 
@@ -558,6 +623,11 @@
             SettingManager.updateInActiveChildSettings(subProduct, productList, product.Id);
             subProductList = SettingManager.getChildSettings(product.Id, productList);
             SettingManager.updateInActiveChildSettings($scope.multipleLogs.BetType, subProductList, subProduct.Id);
+        };
+        $scope.getReviewedInfo = function () {
+            return sharedScriptManager.stringFormat(
+            viewResources.ReviewedInformation,
+            [$scope.multipleLogs.Reviewer, $scope.multipleLogs.ReviewedTimeString]);
         };
 
         angular.element(document).ready(function () {

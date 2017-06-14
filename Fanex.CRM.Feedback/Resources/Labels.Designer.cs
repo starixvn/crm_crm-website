@@ -709,6 +709,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review is mandatory!.
+        /// </summary>
+        public static string Multiple_Logs_EmptyReview {
+            get {
+                return ResourceManager.GetString("Multiple_Logs_EmptyReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution is mandatory!.
         /// </summary>
         public static string Multiple_Logs_EmptySolution {
@@ -1096,6 +1105,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Reviewed by {0} on {1}).
+        /// </summary>
+        public static string ReviewedInformation {
+            get {
+                return ResourceManager.GetString("ReviewedInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string Role {
@@ -1308,6 +1326,24 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string UpdateFeedbackTitle {
             get {
                 return ResourceManager.GetString("UpdateFeedbackTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Site/Licensee Type.
+        /// </summary>
+        public static string UpdateSiteLicenseeType {
+            get {
+                return ResourceManager.GetString("UpdateSiteLicenseeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Site/Licensee Type Successfully!.
+        /// </summary>
+        public static string UpdateSiteLicenseeTypeSuccess {
+            get {
+                return ResourceManager.GetString("UpdateSiteLicenseeTypeSuccess", resourceCulture);
             }
         }
         

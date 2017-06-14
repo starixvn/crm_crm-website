@@ -10,7 +10,6 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -22,6 +21,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Feedbacks Controller.
@@ -58,6 +58,7 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
+            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
         }
 
@@ -159,6 +160,15 @@ namespace Fanex.CRM.Feedback.Controllers
 
             BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);
             deletedFeedbackExcel.BuildWorkBook();
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
+        {
+            var result = _feedbackService.UpdateSiteLicenseeTypes(criteria);
+
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
     }
 }

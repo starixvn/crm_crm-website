@@ -369,6 +369,7 @@
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogOption.js" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsApplication.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsController.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsOption.js" />
@@ -488,6 +489,7 @@
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\Directives\DeletedFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogs\Styles\Images\warning.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -503,6 +505,7 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_updateSite.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />

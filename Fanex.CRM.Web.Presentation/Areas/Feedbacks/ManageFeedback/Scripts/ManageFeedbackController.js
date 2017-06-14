@@ -8,15 +8,17 @@
     yesterday,
     currentTime,
     username,
+    createUpdateFeedbackPermission,
     isGuest */
     /* jshint camelcase: false */
-    angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
-    $scope, manageFBService, $uiBlockerService) {
+    angular.module('feedback-manage-application').controller('manageFeedbackController',['$scope', 'manageFeedbackService', '$uiBlockerService', '$resultMessageService', function (
+    $scope, manageFBService, $uiBlockerService, $resultMessageService) {
         $scope.isSetFocus = false;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.subCategoryOptions = null;
         $scope.mainCategoryOptions = null;
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
         $scope.searchCriteria = {
             FeedbackId: '',
             FromDate: yesterday,
@@ -201,6 +203,31 @@
             var maxHeightOfPopUp = $(parent.document).height() - 30;
 
             parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
+        };
+
+        $scope.updateSiteLicenseeType = function () {
+            var selectedFeedbacks = $scope.getSelectedFeedbacks();
+            if (selectedFeedbacks.length === 0) {
+                return;
+            }
+
+            var criteria = {
+                ListFeedbackID: selectedFeedbacks.map(function (e) { return e.FeedbackId; }).join(",")
+            };
+
+            $uiBlockerService.blockUI();
+            manageFBService.updateSiteLicenseeType(criteria)
+              .then(
+                function (data) {
+                  $resultMessageService.showMessage({
+                      messageType: crmConstants.Enums.MessageType.Success,
+                      message: data.Result.Message
+                  });                  
+                  $scope.searchManageFeedback();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
+                });
         };
 
         $scope.checkActionItem = function (id) {

@@ -33,7 +33,7 @@
                     { HeaderText: manageFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
                 showTitle: true,
                 titleInfo: {
-                    text: renderTitle(),
+                    text: renderTitle(scope),
                     showExcelButton: true,
                     exportExcelFunction: function () {
                         scope.exportFeedbackExcel();
@@ -114,6 +114,12 @@
                     scope.openEditMultipleLogs();
                 });
 
+                $('.updateSiteLicensee')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.updateSiteLicenseeType();
+                });
+
                 $('.checkActionItem')
                 .unbind('click')
                 .bind('click', function () {
@@ -134,8 +140,14 @@
             return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
         }
 
-        function renderTitle() {
-            return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div> | <div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>';
+        function renderTitle(scope) {
+            var updateButtons = !scope.createUpdateFeedbackPermission ? '' :
+                '<div class="update-site-licensee"><a class="updateSiteLicensee" href="javascript:;">' + manageFeedbackResources.UpdateSiteLicenseeType + '</a></div>' +
+                '<div class="split-bar"> | </div>' +
+                '<div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>' +
+                '<div class="split-bar"> | </div>';
+
+            return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div>' + updateButtons;
         }
 
         function renderFeedbackColumn(feedback) {

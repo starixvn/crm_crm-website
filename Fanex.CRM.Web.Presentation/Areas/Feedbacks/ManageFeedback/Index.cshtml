@@ -5,15 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_ManageFeedback;
-
+    var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
     bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
     int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
 }
 @section Styles{
+    @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles")
 }
 <div data-ng-app="feedback-manage-application">
     <div class="main container" data-ng-controller="manageFeedbackController">
+        <div class="result-message-container display-none">
+        </div>
         <div class="row filter-frm one-row manage-feedback-filter">
             <form novalidate data-ng-submit="filterManageFeedback();">
             <div class="row row-item">
@@ -128,6 +131,7 @@
 
         var username = '@Model.CustName';
         var isGuest = @isGuest;
+        var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
 
         var manageFeedbackResources = {
             All: '@Labels.All',
@@ -141,10 +145,12 @@
             RelatedCustomer: '@Labels.RelatedCustomer',
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle',
             MultipleEdit: '@Labels.MultipleEdit',
-            EditMultipleLogsTitle: '@Labels.EditMultipleLogsTitle'
+            EditMultipleLogsTitle: '@Labels.EditMultipleLogsTitle',
+            UpdateSiteLicenseeType: '@Labels.UpdateSiteLicenseeType'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
         "~/CRM/DownLoadFile/Scripts",
-        "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts")
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts")    
 }

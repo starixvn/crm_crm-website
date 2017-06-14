@@ -90,7 +90,7 @@
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
-
+        
         $scope.customersInput = '';
         $scope.initController = function () {
             $scope.BlockUI();
@@ -114,6 +114,46 @@
             },
             function () {
                 $scope.completedLoadFilterInfo();
+            });
+
+            $scope.getNumberOfFeedbackSubjectTemplate();
+        };
+        $scope.getNumberOfFeedbackSubjectTemplate = function () {
+            $scope.BlockUI();
+            $createMultipleLogsService.getNumberOfFeedbackSubjectTemplate()
+            .then(function (data) {
+                var numberOfFeedbackItem = data.Result;
+                $scope.feedbackSubjectTemplateList = [];
+                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                $scope.feedbackSubjectTemplateTotalPage = totalPage;
+                $scope.isLoadedFeedbackSubjectTemplate = false;
+                for (var i = 1; i <= totalPage; i++) {
+                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                }
+            },
+            function () {
+                $scope.isLoadedFeedbackSubjectTemplate = true;
+            });
+        };
+        $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+            $scope.BlockUI();
+            $createMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+            .then(function (data) {
+                var feedbackSubjectTemplate = data.Result;
+                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
+                }
+
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.unblockUI();
+                }
+            },
+            function () {
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.unblockUI();
+                }
             });
         };
         $scope.completedLoadFilterInfo = function () {
@@ -588,7 +628,7 @@
                 $scope.resultMessage = viewResources.CustomerNameLengthErrorMessage;
                 $scope.isShowResultMessage = true;
             }
-        };
+        };      
 
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);

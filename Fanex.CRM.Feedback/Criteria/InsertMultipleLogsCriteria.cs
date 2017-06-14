@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
     using Common.Criteria;
     using Common.Services;
     using Fanex.Data.Repository;
+    using System;
 
     public class InsertMultipleLogsCriteria : UpdateCriteria
     {

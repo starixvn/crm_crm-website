@@ -10,9 +10,6 @@
 
 namespace Fanex.CRM.Feedback.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
@@ -23,6 +20,10 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
+    using Infrastructure.Constants;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Feedback Service.
@@ -112,6 +113,17 @@ namespace Fanex.CRM.Feedback.Services
             return feedbacks;
         }
 
+        public Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
+        {
+            var result = _feedbackRepository.UpdateSiteLicenseeTypes(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.UpdateSiteLicenseeTypeSuccess;
+            }
+
+            return result;
+        }
+
         private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
@@ -192,7 +204,7 @@ namespace Fanex.CRM.Feedback.Services
                 Name = Labels.All,
             };
 
-            var mainCategories = new List<Setting>() 
+            var mainCategories = new List<Setting>()
             {
                 new Setting
                 {
