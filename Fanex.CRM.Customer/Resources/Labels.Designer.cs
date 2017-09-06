@@ -466,6 +466,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Introduced By.
+        /// </summary>
+        public static string IntroducedBy {
+            get {
+                return ResourceManager.GetString("IntroducedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {

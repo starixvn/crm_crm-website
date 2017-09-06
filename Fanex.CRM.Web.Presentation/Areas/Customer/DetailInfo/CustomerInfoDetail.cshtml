@@ -145,6 +145,17 @@
                     </div>
                     @if (Model.HeadLine)
                     {
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="bettingcode">
+                                @Labels.IntroducedBy
+                            </label>
+                        </div>
+                        <div class="col-md-9" date-picker-container>
+                            <input type="text" class="textbox" id="introducedby" data-ng-model="customerDetail.IntroducedBy"
+                                    tabindex="9" />
+                        </div>
+                    </div>
                     <div class="row row-item">
                         <div class="col-xs-4 col-sm-3 col-md-3">
                             <label for="isVIP" class="labelforcheckbox checkbox">
