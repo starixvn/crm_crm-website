@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Web.View.AppStart
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
     using Fanex.CRM.AdminTool;
     using Fanex.CRM.Feedback.Bundles;
     using Fanex.CRM.InformHeadline;
     using Fanex.CRM.Report;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Optimization;
 
     /// <summary>
     /// Bundle Config.
@@ -109,6 +109,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Report_DynamicReport(ref bundles);
             RegisterBundles_Report_RedemptionStatistics(ref bundles);
             RegisterBundles_Report_CustomerReport(ref bundles);
+            RegisterBundles_Report_DirectCustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
 
@@ -234,7 +235,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
-                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",              
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
                 "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
@@ -515,6 +516,27 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.AddAndInclude(
                 "~/Areas/Report/CustomerReportStyles",
                 "~/Areas/Report/CustomerReport/Styles/CustomerReport.less");
+        }
+
+        private static void RegisterBundles_Report_DirectCustomerReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/DirectCustomerReportScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportApplication.js",
+                "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportService.js",
+                "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportController.js"
+                //"~/Areas/Report/CustomerReport/Scripts/Directives/*.js"
+                ));
+
+            bundles.AddAndInclude(
+                "~/Areas/Report/DirectCustomerReportStyles",
+                "~/Areas/Report/DirectCustomerReport/Styles/DirectCustomerReport.less");
         }
 
         /// <summary>
