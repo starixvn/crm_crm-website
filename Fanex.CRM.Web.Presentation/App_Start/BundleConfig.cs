@@ -530,8 +530,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportApplication.js",
                 "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportService.js",
-                "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportController.js"
-                //"~/Areas/Report/CustomerReport/Scripts/Directives/*.js"
+                "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportController.js",
+                "~/Areas/Report/DirectCustomerReport/Scripts/Directives/*.js"
                 ));
 
             bundles.AddAndInclude(

@@ -1033,6 +1033,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group headline.
+        /// </summary>
+        public static string Groupheadline {
+            get {
+                return ResourceManager.GetString("Groupheadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handle By.
         /// </summary>
         public static string Handle_By {
@@ -1092,6 +1101,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string IBCBetCasino {
             get {
                 return ResourceManager.GetString("IBCBetCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Introduce by.
+        /// </summary>
+        public static string Introduceby {
+            get {
+                return ResourceManager.GetString("Introduceby", resourceCulture);
             }
         }
         

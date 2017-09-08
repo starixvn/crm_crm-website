@@ -28,10 +28,21 @@
             $scope.$apply();
         };
 
-        $scope.getReport = function () {
-            console.log("get report");
-
+        var getReport = function (criteria) {
             $scope.BlockUI();
+
+            $directCustomerReportService.getReport(criteria)
+           .then(function (data) {
+               $scope.customerReportOptions.DataList = data.Result;
+               $scope.customerReportOptions.IsUpdateGrid = true;
+               $scope.unblockUI();
+           },
+           function () {
+               $scope.unblockUI();
+           });
+        }
+
+        $scope.getReport = function () {
             var getReportCriteria = {
                 Headline: $scope.searchCriteria.Headline,
                 ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
@@ -39,24 +50,23 @@
                 PageSize: $scope.searchCriteria.PageSize,
                 IsGetFromCached: false
             };
-
             $scope.lastSelectedParams = getReportCriteria;
-            $directCustomerReportService.getReport(getReportCriteria)
-            .then(function (data) {
-                console.log(data);
-                $scope.customerReportOptions.DataList = data.Result;
-                $scope.customerReportOptions.IsUpdateGrid = true;
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
+
+            getReport(getReportCriteria);
         }
+
+        $scope.pagingCustomerReport = function (pageIndex, pageSize) {
+            $scope.lastSelectedParams.PageIndex = pageIndex;
+            $scope.lastSelectedParams.PageSize = pageSize;
+            $scope.lastSelectedParams.IsGetFromCached = true;
+
+            getReport($scope.lastSelectedParams);            
+        };
 
         $scope.showHideFilterBox = function () {
             $scope.isShowFilter = !$scope.isShowFilter;
-            //$scope.customerReportOptions.IsUpdateGrid = true;
-            //$scope.customerReportOptions.IsResize = true;
+            $scope.customerReportOptions.IsUpdateGrid = true;
+            $scope.customerReportOptions.IsResize = true;
         };
 
         $scope.unblockUI = function () {
@@ -80,7 +90,6 @@
         };
        
         angular.element(document).ready(function () {
-            console.log("inint controller");
             $scope.initController();
         });
     }]);   

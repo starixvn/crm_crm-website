@@ -585,6 +585,7 @@
     <Content Include="Areas\Report\DirectCustomerReport\Scripts\DirectCustomerReportApplication.js" />
     <Content Include="Areas\Report\DirectCustomerReport\Scripts\DirectCustomerReportController.js" />
     <Content Include="Areas\Report\DirectCustomerReport\Scripts\DirectCustomerReportService.js" />
+    <Content Include="Areas\Report\DirectCustomerReport\Scripts\Directives\DirectCustomerReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportOption.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDetailDirective.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\LicenseeReportDirective.js" />
