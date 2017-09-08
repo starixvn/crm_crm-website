@@ -8,6 +8,12 @@ namespace Fanex.CRM.Report.Criteria.DirectCustomerReport
 
         public bool ExcludeIgnoredAccounts { get; set; }
 
+        public int TotalRows { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+
         public override string GetSettingKey()
         {
             return "Acc_Crm_Rpt_DirectCustomerReport";

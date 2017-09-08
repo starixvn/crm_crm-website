@@ -637,6 +637,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Customer Report.
+        /// </summary>
+        public static string DirectCustomerReport_SheetName {
+            get {
+                return ResourceManager.GetString("DirectCustomerReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct Customer Report.
+        /// </summary>
+        public static string DirectCustomerReportTitle {
+            get {
+                return ResourceManager.GetString("DirectCustomerReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM System - Dynamic Report.
         /// </summary>
         public static string DocumentTitle_DynamicReport {

@@ -9,6 +9,7 @@
     /* jshint camelcase: false */
     angular.module('report-directcustomerreport-application').controller('directCustomerReportController', ['$scope', '$directCustomerReportService',
     function ($scope, $directCustomerReportService) {
+        $scope.downloadFileOptions = null;
         $scope.isShowFilter = true;
         $scope.customerReportOptions = {
             DataList: null,
@@ -26,6 +27,15 @@
 
         $scope.initController = function () {
             $scope.$apply();
+        };
+
+        $scope.exportReport = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "DirectCustomerReport/ExportReport",
+                Params: $scope.lastSelectedParams
+            };
+
+            $scope.$apply(); console.log("export");
         };
 
         var getReport = function (criteria) {

@@ -903,4 +903,10 @@
   <data name="Introduceby" xml:space="preserve">
     <value>Introduce by</value>
   </data>
+  <data name="DirectCustomerReportTitle" xml:space="preserve">
+    <value>Direct Customer Report</value>
+  </data>
+  <data name="DirectCustomerReport_SheetName" xml:space="preserve">
+    <value>Direct Customer Report</value>
+  </data>
 </root>
