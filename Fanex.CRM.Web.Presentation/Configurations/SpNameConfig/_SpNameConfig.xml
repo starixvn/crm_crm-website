@@ -4,4 +4,5 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSel_New" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_DirectCustomerReport" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpd_New" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

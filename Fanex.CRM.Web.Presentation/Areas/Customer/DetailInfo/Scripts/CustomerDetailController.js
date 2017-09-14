@@ -167,7 +167,8 @@
                 IsVIP: customerDetail.IsVIP,
                 IsIgnored: customerDetail.IsIgnored,
                 LicenseeTypeId: customerDetail.LicenseeType.Id,
-                Checker: customerDetail.Checker
+                Checker: customerDetail.Checker,
+                IntroducedBy: customerDetail.IntroducedBy
             };
 
             $scope.BlockUI();

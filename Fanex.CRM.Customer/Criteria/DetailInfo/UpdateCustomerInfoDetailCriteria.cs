@@ -191,9 +191,6 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "licenseetype")]
         public string LicenseeTypeId { get; set; }
 
-        [SpParam(SqlParamName = "Checker")]
-        public string Checker { get; set; }
-
         [SpParam(SqlParamName = "isvip")]
         public string IsVIP { get; set; }
 
@@ -208,6 +205,8 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         [SpParam(SqlParamName = "refcode2")]
         public string RefCode2 { get; set; }
+
+        public string IntroducedBy { get; set; }
 
         public override string GetSettingKey()
         {
