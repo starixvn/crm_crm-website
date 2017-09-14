@@ -111,6 +111,17 @@
     <Setting Key="Acc_Crm_Rpt_CustomerReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="VIP" ObjectProperty="IsVIP" />
     </Setting>
+    <Setting Key="Acc_Crm_Rpt_DirectCustomerReport" SpName="Acc_Crm_Rpt_DirectCustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="headline" ObjectProperty="GroupHeadline" />
+      <Mapping DataField="roleid" ObjectProperty="Position" />
+      <Mapping DataField="Enabled" ObjectProperty="Status" />
+      <Mapping DataField="IntroducedBy" ObjectProperty="IntroduceBy" />
+      <Mapping DataField="language_name" ObjectProperty="Languages" />
+      <Mapping DataField="CountryName" ObjectProperty="Country" />
+      <Mapping DataField="IsVIP" ObjectProperty="VIP" />
+      <Mapping DataField="Phone" ObjectProperty="Phone1" />
+      <Mapping DataField="MobilePhone" ObjectProperty="Mobile" />
+    </Setting>
     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Month" ObjectProperty="Month" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
