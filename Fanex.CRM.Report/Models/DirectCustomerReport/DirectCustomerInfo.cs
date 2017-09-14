@@ -22,7 +22,7 @@
 
         public string Checker { get; set; }
 
-        public string VIP { get; set; }
+        public bool VIP { get; set; }
 
         public string FirstName { get; set; }
 

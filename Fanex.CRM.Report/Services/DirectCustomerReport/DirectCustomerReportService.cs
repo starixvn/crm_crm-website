@@ -3,30 +3,31 @@
     using Criteria.DirectCustomerReport;
     using Models.DirectCustomerReport;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class DirectCustomerReportService : IDirectCustomerReportService
     {
-        private readonly IDirectCustomerReportRepository _customerReportRepository;
+        private readonly IDirectCustomerReportRepository _repository;
 
         public DirectCustomerReportService()
             : this(null)
         {
         }
 
-        public DirectCustomerReportService(IDirectCustomerReportRepository customerReportRepository)
+        public DirectCustomerReportService(IDirectCustomerReportRepository repository)
         {
-            _customerReportRepository = customerReportRepository ?? new DirectCustomerReportRepository();
+            _repository = repository ?? new DirectCustomerReportRepository();
         }
 
         public DirectCustomerReportInfo GetReport(DirectCustomerReportCriteria criteria)
         {
-            //return new DirectCustomerReportInfo
-            //{
-            //    CustomerList = _customerReportRepository.GetReport(criteria).ToList(),
-            //    TotalCustomer = criteria.TotalRows
-            //};
+            return new DirectCustomerReportInfo
+            {
+                CustomerList = _repository.GetReport(criteria).ToList(),
+                TotalCustomer = criteria.TotalRows
+            };
 
-            return FakeReport();
+            //return FakeReport();
         }
 
         private DirectCustomerReportInfo FakeReport()
@@ -116,7 +117,7 @@
                 Languages = "language 1",
                 Country = "country 1",
                 Checker = "checker 1",
-                VIP = "vip 1",
+                VIP = true,
                 FirstName = "first name 1",
                 LastName = "last name 1",
                 Phone1 = "phone 1 1 ",

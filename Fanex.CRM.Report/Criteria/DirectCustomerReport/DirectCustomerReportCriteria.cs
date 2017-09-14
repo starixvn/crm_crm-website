@@ -6,6 +6,7 @@ namespace Fanex.CRM.Report.Criteria.DirectCustomerReport
     {
         public string Headline { get; set; }
 
+        [SpParam(SqlParamName = "ExcludeIgnoredAcc")]
         public bool ExcludeIgnoredAccounts { get; set; }
 
         public int TotalRows { get; set; }

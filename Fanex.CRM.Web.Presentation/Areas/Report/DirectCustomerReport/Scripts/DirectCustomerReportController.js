@@ -21,7 +21,7 @@
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             IsGetFromCached: false,
-            ExcludeIgnoredAccounts: true
+            ExcludeIgnoredAccounts: false
         };
 
 

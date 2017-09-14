@@ -909,4 +909,7 @@
   <data name="DirectCustomerReport_SheetName" xml:space="preserve">
     <value>Direct Customer Report</value>
   </data>
+  <data name="NumberColumn" xml:space="preserve">
+    <value>No.</value>
+  </data>
 </root>

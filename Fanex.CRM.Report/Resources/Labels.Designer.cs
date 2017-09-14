@@ -1438,6 +1438,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        public static string NumberColumn {
+            get {
+                return ResourceManager.GetString("NumberColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NUMBER GAME.
         /// </summary>
         public static string NumberGame {

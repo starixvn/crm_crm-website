@@ -25,7 +25,7 @@
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
-                MaxColumnIndex = 30
+                MaxColumnIndex = 29
             };
 
             RenderBody(exportExcelInfo);
@@ -39,8 +39,9 @@
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new int[]
             {
-                160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
-                150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160, 140
+                160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200,
+                200, 200, 200, 200, 200, 200, 200,
+                150, 150, 80, 200, 200, 200, 200, 140, 160, 160
             };
 
             foreach (var item in columnWidths)
@@ -74,7 +75,8 @@
             ExportExcelInfo exportExcelInfo,
             IRow row,
             int currentColumn,
-            DirectCustomerInfo customer)
+            DirectCustomerInfo customer,
+            ICellStyle centerTextStyle)
         {
             NpoiExtensions.RenderCell(row, currentColumn++, customer.GroupHeadline, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
@@ -86,7 +88,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Languages, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Country, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Checker, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.VIP, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.VIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.LastName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Phone1, exportExcelInfo.TextStyle);
@@ -131,12 +133,22 @@
                 NpoiExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
+            var centerTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
 
             var evenRowTextStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.EvenRowColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
+            var evenRowCenterTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.EvenRowColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
 
             var totalRows = _customerReportInfo.CustomerList.Count;
             var numberOfSheet = (totalRows / NpoiExtensions.MaxRowPerSheet) +
@@ -173,7 +185,8 @@
                         exportExcelInfo,
                         row,
                         currentColumn,
-                        customer);
+                        customer,
+                        isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
                 }
             }
         }
