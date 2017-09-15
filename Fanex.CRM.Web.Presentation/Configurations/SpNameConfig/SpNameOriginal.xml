@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" ?>
 <Functions>
   <Function Name="Others DB">
     <Setting Key="UserInfoSel" SpName="Acc_UserInfoSel" DbName="DBACC.bodb02.bodbAdminNet" />
