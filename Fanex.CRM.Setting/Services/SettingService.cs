@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Setting.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -22,6 +18,10 @@ namespace Fanex.CRM.Setting.Services
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories;
     using Fanex.CRM.Setting.Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Setting Service.
@@ -495,7 +495,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllCustomerTypes()
         {
-            return new[] 
+            return new[]
             {
                 new Setting
                 {
@@ -517,7 +517,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetAllVIPTypes()
         {
-            return new[] 
+            return new[]
             {
                 new Setting
                 {
@@ -539,8 +539,9 @@ namespace Fanex.CRM.Setting.Services
 
         public IEnumerable<Setting> GetPositions()
         {
-            return new[] 
+            return new[]
             {
+                new Setting { Id = -1, Value = Labels.Symbol_NotApply },
                 new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
                 new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
                 new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
