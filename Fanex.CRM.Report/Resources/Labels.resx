@@ -912,4 +912,7 @@
   <data name="NumberColumn" xml:space="preserve">
     <value>No.</value>
   </data>
+  <data name="Group_Headline" xml:space="preserve">
+    <value>Group Headline</value>
+  </data>
 </root>

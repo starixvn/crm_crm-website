@@ -18,6 +18,7 @@
         };
         $scope.searchCriteria = {
             Headline: '',
+            Username: '',
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             IsGetFromCached: false,
@@ -35,7 +36,7 @@
                 Params: $scope.lastSelectedParams
             };
 
-            $scope.$apply(); console.log("export");
+            $scope.$apply();
         };
 
         var getReport = function (criteria) {
@@ -55,6 +56,7 @@
         $scope.getReport = function () {
             var getReportCriteria = {
                 Headline: $scope.searchCriteria.Headline,
+                Username: $scope.searchCriteria.Username,
                 ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,

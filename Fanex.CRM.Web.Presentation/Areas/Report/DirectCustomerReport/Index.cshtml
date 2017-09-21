@@ -20,10 +20,10 @@
             <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
                 <div class="row row-item">
                     <div class="item">
-                        <label for="language" class="width-70 pull-left">
-                            @Labels.Headline
+                        <label for="language" class="width-90 pull-left">
+                            @Labels.Group_Headline
                         </label>
-                        <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Headline" />
+                        <input type="text" class="textbox search-by-enter" id="groupheadline" data-ng-model="searchCriteria.Headline" />
                     </div>
                     <div class="item pad-left-30">
                         <label for="excludeIgnoredAccounts" class="labelforcheckbox checkbox">
@@ -33,10 +33,13 @@
                     </div>               
                 </div>
                 <div class="row row-item">                   
-                    <div class="item width-240">
-                       <label></label>
-                    </div>     
                     <div class="item">
+                        <label for="language" class="width-90 pull-left">
+                            @Labels.Username
+                        </label>
+                        <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
+                    </div>     
+                    <div class="item pad-left-30">
                         <button id="button-submit" class="btn" data-ng-click="getReport();">
                             <span class="hotkey">S</span>ubmit
                         </button>

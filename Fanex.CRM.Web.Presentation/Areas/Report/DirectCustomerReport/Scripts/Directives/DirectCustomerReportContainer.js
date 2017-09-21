@@ -27,7 +27,7 @@
                     bodyData.push({
                         Columns: [
                             { Name: "No", Value: baseIndex + i },
-                            { Name: "GroupHeadline", Value: customer.GroupHeadline },
+                            { Name: "GroupHeadline", Value: (customer.GroupHeadline == null ? "not assign group" : customer.GroupHeadline) },
                             { Name: "Username", Value: customer.Username },
                             { Name: "Status", Value: customer.Status },
                             { Name: "Site", Value: customer.Site },

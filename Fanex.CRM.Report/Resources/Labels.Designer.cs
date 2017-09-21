@@ -1051,6 +1051,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Headline.
+        /// </summary>
+        public static string Group_Headline {
+            get {
+                return ResourceManager.GetString("Group_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group headline.
         /// </summary>
         public static string Groupheadline {
