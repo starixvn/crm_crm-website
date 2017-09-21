@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" ?>
-<Functions>
+<Functions SiteId="73" SiteName="NAP-CRM">
   <Function Name="Others DB">
     <Setting Key="UserInfoSel" SpName="Acc_UserInfoSel" DbName="DBACC.bodb02.bodbAdminNet" />
     <Setting Key="UserOnlineUpdate" SpName="Acc_Recheckin" DbName="DBONUSER.ON_USER.bodbAdminNet" />
