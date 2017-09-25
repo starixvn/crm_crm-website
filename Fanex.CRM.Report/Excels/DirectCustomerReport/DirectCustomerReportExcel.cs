@@ -78,7 +78,7 @@
             DirectCustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.GroupHeadline, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, (customer.GroupHeadline == null ? "not assign group" : customer.GroupHeadline), exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Site, exportExcelInfo.TextStyle);
