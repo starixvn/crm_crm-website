@@ -22,7 +22,7 @@
             PageIndex: 1,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             IsGetFromCached: false,
-            ExcludeIgnoredAccounts: false
+            ExcludeIgnoredAccounts: true
         };
 
 
