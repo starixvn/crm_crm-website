@@ -400,7 +400,8 @@
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
             var isResetReview = $scope.oldmultipleLogs.IsReviewed && !$scope.multipleLogs.IsReviewed;
-            var updateReviewedMode = !$scope.hasReviewPermission ? crmConstants.Enums.UpdateReviewedMode.NotChange :
+            var isReviewNotChanged = !$scope.oldmultipleLogs.IsReviewed && !$scope.multipleLogs.IsReviewed;
+            var updateReviewedMode = (!$scope.hasReviewPermission || isReviewNotChanged) ? crmConstants.Enums.UpdateReviewedMode.NotChange :
                                         (isResetReview ? crmConstants.Enums.UpdateReviewedMode.Reset : crmConstants.Enums.UpdateReviewedMode.Change);
                                         
             var editCriteria = {

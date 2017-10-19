@@ -9,6 +9,7 @@
     /* jshint camelcase: false */
     angular.module('report-customerreport-application').controller('customerReportController', ['$scope', '$customerReportService',
     function ($scope, $customerReportService) {
+        $scope.errorMessage = '';
         $scope.isShowFilter = true;
         $scope.siteOptions = null;
         $scope.languageOptions = null;
@@ -129,11 +130,11 @@
             $scope.searchCriteria.SiteIds = siteIdList;
         };
         $scope.updateSelectedPosition = function (positionIdList) {
+            $scope.searchCriteria.PositionIds = positionIdList;
             if (!positionIdList) {
                 $('#position--1').prop('checked', true);
                 return;
             }
-            $scope.searchCriteria.PositionIds = positionIdList;
         };
         $scope.updateSelectedVIPType = function (vipType) {
             $scope.searchCriteria.VIPType = vipType;
@@ -143,6 +144,14 @@
             $scope.getCustomerReport();
         };
         $scope.getCustomerReport = function () {
+            if (!$scope.searchCriteria.PositionIds) {
+                $scope.errorMessage = "Please choose a position";
+                return;
+            }
+            else {
+                $scope.errorMessage = '';
+            }
+
             $scope.BlockUI();
             var getReportCriteria = {
                 Username: $scope.searchCriteria.Username,

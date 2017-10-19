@@ -131,6 +131,7 @@
                 showTree: true,
                 treeParentPaddingLeft: 5,
                 customPager: true,
+                showNumberColumn: true,
                 pagerOption: {
                     itemsPerPage: selfScope.lastSelectedParams.PageSize,
                     currentPage: selfScope.lastSelectedParams.PageIndex,

@@ -90,15 +90,9 @@
 			// Append DBNAP_Include.xml.
 			var originalXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpNameOriginal.xml");
             var appendedXml = XDocument.Load(@"Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\DBNAP_Include.xml");
-            originalXml.Root.Add(appendedXml.Root.Elements());
+			originalXml.Root.Add(appendedXml.Root.Elements());
 
-			StringBuilder builder = new StringBuilder();
-			using (TextWriter writer = new StringWriter(builder))
-			{
-				originalXml.Save(writer); // Use Save() to keep XML Encoding Tag.
-			}
-
-			return builder.ToString();
+			return "<?xml version=\"1.0\" ?>\n" + originalXml.ToString();
         }
 		
 		public static IList<SpNameConfig> GetListOfConfig()

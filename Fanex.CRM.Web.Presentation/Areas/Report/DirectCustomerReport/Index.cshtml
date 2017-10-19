@@ -1,0 +1,124 @@
+﻿﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.CRM.Common.Helpers;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Customer_Report;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Report/DirectCustomerReportStyles")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+}
+<div data-ng-app="report-directcustomerreport-application">
+    <div class="directCustomerReportController" data-ng-controller="directCustomerReportController">
+        <div class="main container">
+            <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="language" class="width-90 pull-left">
+                            @Labels.Group_Headline
+                        </label>
+                        <input type="text" class="textbox search-by-enter" id="groupheadline" data-ng-model="searchCriteria.Headline" />
+                    </div>
+                    <div class="item pad-left-30">
+                        <label for="excludeIgnoredAccounts" class="labelforcheckbox checkbox">
+                            <input id="excludeIgnoredAccounts" type="checkbox" data-ng-model="searchCriteria.ExcludeIgnoredAccounts">
+                            @Labels.ExcludeIgnoredAccounts
+                        </label>
+                    </div>               
+                </div>
+                <div class="row row-item">                   
+                    <div class="item">
+                        <label for="language" class="width-90 pull-left">
+                            @Labels.Username
+                        </label>
+                        <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
+                    </div>     
+                    <div class="item pad-left-30">
+                        <button id="button-submit" class="btn" data-ng-click="getReport();">
+                            <span class="hotkey">S</span>ubmit
+                        </button>
+                    </div>
+                </div>
+                <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+                </div>
+            </div>
+            <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+                <div class="icon-expand" data-ng-click="showHideFilterBox();">
+                </div>
+            </div>
+            <div class="row">
+                <div data-ng-model="customerReportOptions.IsUpdateGrid" class="table-direct-customer-report-container">
+                    <div id="table-customer-report" class="freegrid display-none table-customer-report">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/Report/DirectCustomerReportScripts")
+    <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {
+            All: '@Labels.All',
+            All_Languages: '@Labels.All_Languages',
+            No_language_found: '@Labels.No_language_found',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+
+            All_Countries: '@Labels.All_Countries',
+            No_country_found: '@Labels.No_country_found',
+            All_Sites: '@Labels.All_Sites',
+            No_site_found: '@Labels.No_site_found',
+
+            No: '@Labels.NumberColumn',
+            GroupHeadline: '@Labels.Groupheadline',
+            Username: '@Labels.Username',
+            Status: '@Labels.Status',
+            Site: '@Labels.Site',
+            Currency: '@Labels.Currency',
+            Position: '@Labels.Position',
+            IntroduceBy: '@Labels.Introduceby',
+            Languages: '@Labels.Languages',
+            Country: '@Labels.Country',
+            Checker: '@Labels.Checker',
+            VIP: '@Labels.VIP',
+            FirstName: '@Labels.First_Name',
+            LastName: '@Labels.Last_Name',
+            Phone1: '@Labels.Phone 1',
+            Phone2: '@Labels.Phone 2',
+            Phone3: '@Labels.Phone 3',
+            PIC1: '@Labels.PIC1',
+            PIC2: '@Labels.PIC2',
+            PIC3: '@Labels.PIC3',
+            PIC4: '@Labels.PIC4',
+            Mobile: '@Labels.Mobile',
+            Email: '@Labels.Email',
+            Skype: '@Labels.Skype',
+            MSN: '@Labels.MSN',
+            WhatsApp: '@Labels.WhatsApp',
+            Line: '@Labels.Line',
+            WeChat: '@Labels.WeChat',
+            Yahoo: '@Labels.Yahoo',
+            BBM: '@Labels.BBM',
+            QQ: '@Labels.QQ'
+        };
+    </script>
+}

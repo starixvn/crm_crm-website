@@ -637,6 +637,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Customer Report.
+        /// </summary>
+        public static string DirectCustomerReport_SheetName {
+            get {
+                return ResourceManager.GetString("DirectCustomerReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct Customer Report.
+        /// </summary>
+        public static string DirectCustomerReportTitle {
+            get {
+                return ResourceManager.GetString("DirectCustomerReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM System - Dynamic Report.
         /// </summary>
         public static string DocumentTitle_DynamicReport {
@@ -1033,6 +1051,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Headline.
+        /// </summary>
+        public static string Group_Headline {
+            get {
+                return ResourceManager.GetString("Group_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group headline.
+        /// </summary>
+        public static string Groupheadline {
+            get {
+                return ResourceManager.GetString("Groupheadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handle By.
         /// </summary>
         public static string Handle_By {
@@ -1092,6 +1128,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string IBCBetCasino {
             get {
                 return ResourceManager.GetString("IBCBetCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Introduce by.
+        /// </summary>
+        public static string Introduceby {
+            get {
+                return ResourceManager.GetString("Introduceby", resourceCulture);
             }
         }
         
@@ -1398,6 +1443,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string NOV {
             get {
                 return ResourceManager.GetString("NOV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        public static string NumberColumn {
+            get {
+                return ResourceManager.GetString("NumberColumn", resourceCulture);
             }
         }
         

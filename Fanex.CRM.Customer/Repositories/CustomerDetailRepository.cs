@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Customer.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
@@ -19,6 +16,9 @@ namespace Fanex.CRM.Customer.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
 
     /// <summary>
     /// Customer Detail Repository.
@@ -69,7 +69,7 @@ namespace Fanex.CRM.Customer.Repositories
             customer.BankInfo.HolderName = Converter.ToString2(reader["AccountHolderName"]);
             customer.BankInfo.AddressInfo = new Address
             {
-                LineList = new List<string> 
+                LineList = new List<string>
                 {
                     Converter.ToString2(reader["BankLine1"]),
                     Converter.ToString2(reader["BankLine2"]),
@@ -84,6 +84,7 @@ namespace Fanex.CRM.Customer.Repositories
                 }
             };
 
+            customer.IntroducedBy = Converter.ToString2(reader["IntroducedBy"]);
             customer.Creator.Id = Converter.ToInt(reader["CreatorID"]);
             customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
             customer.CreatedDate = Converter.ToDateTime(reader["CreateDate"]);

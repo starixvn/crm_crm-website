@@ -9,10 +9,10 @@
 
 namespace Fanex.CRM.Common.Models
 {
-    using System;
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Infrastructure.Models;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Base Customer Information.
@@ -75,7 +75,9 @@ namespace Fanex.CRM.Common.Models
         public BaseModel LicenseeType { get; set; }
 
         public string Checker { get; set; }
-        
+
+        public string IntroducedBy { get; set; }
+
         #endregion
 
         #region Communication

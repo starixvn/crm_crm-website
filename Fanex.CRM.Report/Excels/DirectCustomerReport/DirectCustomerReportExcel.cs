@@ -1,0 +1,194 @@
+﻿namespace Fanex.CRM.Report.Excels.CustomerReport
+{
+    using Fanex.CRM.Common.Excel;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Report.Resources;
+    using Models.DirectCustomerReport;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using System.Diagnostics.CodeAnalysis;
+
+    public class DirectCustomerReportExcel : BaseExcel
+    {
+        private readonly DirectCustomerReportInfo _customerReportInfo;
+
+        public DirectCustomerReportExcel(DirectCustomerReportInfo customerReportInfo, string excelFileName)
+            : base(excelFileName)
+        {
+            _customerReportInfo = customerReportInfo;
+        }
+
+        public override void BuildWorkBook()
+        {
+            var exportExcelInfo = new ExportExcelInfo
+            {
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = 29
+            };
+
+            RenderBody(exportExcelInfo);
+            NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(ExcelFileName));
+        }
+
+        private static void RenderHeader(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var currentColumn = exportExcelInfo.StartColumn;
+            var columnWidths = new int[]
+            {
+                160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200,
+                200, 200, 200, 200, 200, 200, 200,
+                150, 150, 80, 200, 200, 200, 200, 140, 160, 160
+            };
+
+            foreach (var item in columnWidths)
+            {
+                exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, item * NpoiExtensions.FontWidth);
+            }
+
+            string reportTitle = Labels.DirectCustomerReportTitle;
+            exportExcelInfo.RenderHeaderTitle(reportTitle, headerStyle);
+
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            currentColumn = exportExcelInfo.StartColumn;
+            var columnHeaders = new string[]
+            {
+                Labels.Groupheadline, Labels.Username, Labels.Status, Labels.Site, Labels.Currency, Labels.Position, Labels.Introduceby,
+                Labels.Language, Labels.Country, Labels.Checker, Labels.VIP, Labels.First_Name, Labels.Last_Name,
+                Labels.Phone + "1", Labels.Phone + "2", Labels.Phone + "3", Labels.PIC1, Labels.PIC2, Labels.PIC3, Labels.PIC4,
+                Labels.Mobile, Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line, Labels.WeChat,
+                Labels.Yahoo, Labels.BBM, Labels.QQ
+            };
+
+            foreach (var item in columnHeaders)
+            {
+                NpoiExtensions.RenderCell(row, currentColumn++, item, headerStyle);
+            }
+
+            exportExcelInfo.CurrentRow++;
+        }
+
+        private static void RenderRow(
+            ExportExcelInfo exportExcelInfo,
+            IRow row,
+            int currentColumn,
+            DirectCustomerInfo customer,
+            ICellStyle centerTextStyle)
+        {
+            NpoiExtensions.RenderCell(row, currentColumn++, (customer.GroupHeadline == null ? "not assign group" : customer.GroupHeadline), exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Site, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Currency, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Position, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.IntroduceBy, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Languages, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Country, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Checker, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.VIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.FirstName, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.LastName, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Phone1, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Phone2, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Phone3, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.PIC1, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.PIC2, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.PIC3, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.PIC4, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Mobile, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Email, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Skype, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.MSN, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.WhatsApp, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Line, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.WeChat, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.Yahoo, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, customer.BBM, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.QQ, exportExcelInfo.TextStyle);
+
+            exportExcelInfo.CurrentRow++;
+        }
+
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void RenderBody(ExportExcelInfo exportExcelInfo)
+        {
+            if (_customerReportInfo.CustomerList.Count == 0)
+            {
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.DirectCustomerReport_SheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
+                RenderHeader(exportExcelInfo);
+                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
+
+            var textStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
+            var centerTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
+
+            var evenRowTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.EvenRowColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
+            var evenRowCenterTextStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.EvenRowColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
+
+            var totalRows = _customerReportInfo.CustomerList.Count;
+            var numberOfSheet = (totalRows / NpoiExtensions.MaxRowPerSheet) +
+                (totalRows % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+            {
+                var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", Labels.DirectCustomerReport_SheetName, sheetIndex + 1) :
+                    Labels.DirectCustomerReport_SheetName;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
+                exportExcelInfo.CurrentRow = 0;
+                RenderHeader(exportExcelInfo);
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
+                int i;
+                for (i = startIndex; i < endIndex && i < totalRows; i++)
+                {
+                    var row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+                    var currentColumn = exportExcelInfo.StartColumn;
+                    var customer = _customerReportInfo.CustomerList[i];
+
+                    var isEvenRow = (i + 1) % 2 == 0;
+                    if (isEvenRow)
+                    {
+                        exportExcelInfo.TextStyle = evenRowTextStyle;
+                    }
+                    else
+                    {
+                        exportExcelInfo.TextStyle = textStyle;
+                    }
+
+                    RenderRow(
+                        exportExcelInfo,
+                        row,
+                        currentColumn,
+                        customer,
+                        isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
+                }
+            }
+        }
+    }
+}

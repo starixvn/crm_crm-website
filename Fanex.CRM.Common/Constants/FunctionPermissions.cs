@@ -40,6 +40,8 @@ namespace Fanex.CRM.Common.Constants
 
         public const string CustomerReport = "CustomerReport";
 
+        public const string DirectCustomerReport = "DirectCustomerReport";
+
         public const string DynamicReport = "DynamicReport";
 
         public const string SettlementIssuesReport = "SettlementIssuesReport";

@@ -17,6 +17,14 @@
 <div data-ng-app="report-customerreport-application">
     <div class="customerReportController" data-ng-controller="customerReportController">
         <div class="main container">
+            <div class="row" data-ng-show="errorMessage !== ''">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="alertboxerr">
+                        <div data-ng-bind="errorMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
                 <div class="row row-item">
                     <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
