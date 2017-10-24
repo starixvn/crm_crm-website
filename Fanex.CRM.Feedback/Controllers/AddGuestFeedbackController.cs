@@ -69,7 +69,11 @@ namespace Fanex.CRM.Feedback.Controllers
             }
             catch (Exception exception)
             {
-                CRMLogging.Error(exception, criteria);
+                if (AppSetting.EnableManualLogging)
+                {
+                    LoggingHelper.Error(exception, criteria);
+                }
+
                 throw exception;
             }
         }
