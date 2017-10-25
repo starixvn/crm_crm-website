@@ -10,7 +10,7 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Web.Mvc;
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
@@ -20,6 +20,8 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Add Guest Feedback Controller.
@@ -55,13 +57,25 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public JsonResult AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
-            var result = CheckAddCustomerFeedbackPermission(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            try
             {
-                result = _feedbackService.AddGuestFeedback(criteria);
-            }
+                var result = CheckAddCustomerFeedbackPermission(criteria);
+                if (result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result = _feedbackService.AddGuestFeedback(criteria);
+                }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception exception)
+            {
+                if (AppSetting.EnableManualLogging)
+                {
+                    LoggingHelper.Error(exception, criteria);
+                }
+
+                throw exception;
+            }
         }
 
         /// <summary>

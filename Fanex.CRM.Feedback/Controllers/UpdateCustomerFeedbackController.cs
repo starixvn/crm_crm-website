@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Web.Mvc;
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -20,6 +20,8 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Update customer feedback controller.
@@ -100,14 +102,26 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
-            Result result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            try
             {
-                _updateCustomerFeedbackService.UpdateFeedback(criteria);
-                result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
-            }
+                Result result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
+                if (result.Code == ErrorCodeConstants.NoneError)
+                {
+                    _updateCustomerFeedbackService.UpdateFeedback(criteria);
+                    result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
+                }
 
-            return Json(result, JsonRequestBehavior.DenyGet);
+                return Json(result, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception exception)
+            {
+                if (AppSetting.EnableManualLogging)
+                {
+                    LoggingHelper.Error(exception, criteria);
+                }
+
+                throw exception;
+            }
         }
 
         /// <summary>

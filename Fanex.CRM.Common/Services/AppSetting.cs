@@ -130,5 +130,10 @@ namespace Fanex.CRM.Common.Services
         {
             get { return ConfigurationManager.AppSettings["Environment"]; }
         }
+
+        public static bool EnableManualLogging
+        {
+            get { return ConfigurationManager.AppSettings["EnableManualLogging"] == "true"; }
+        }
     }
 }

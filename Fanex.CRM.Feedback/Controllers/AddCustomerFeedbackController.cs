@@ -10,7 +10,7 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Web.Mvc;
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
@@ -20,6 +20,8 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Add Customer Feedback Controller.
@@ -72,13 +74,25 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public JsonResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            var insertResult = CheckAddCustomerFeedbackPermission();
-            if (insertResult.Code == ErrorCodeConstants.NoneError)
+            try
             {
-                insertResult = _feedbackService.AddCustomerFeedback(criteria);
-            }
+                var insertResult = CheckAddCustomerFeedbackPermission();
+                if (insertResult.Code == ErrorCodeConstants.NoneError)
+                {
+                    insertResult = _feedbackService.AddCustomerFeedback(criteria);
+                }
 
-            return Json(insertResult, JsonRequestBehavior.AllowGet);
+                return Json(insertResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception exception)
+            {
+                if (AppSetting.EnableManualLogging)
+                {
+                    LoggingHelper.Error(exception, criteria);
+                }
+
+                throw exception;
+            }
         }
 
         private Result CheckAddCustomerFeedbackPermission()
