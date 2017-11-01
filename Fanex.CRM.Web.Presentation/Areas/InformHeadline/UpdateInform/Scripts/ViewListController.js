@@ -239,10 +239,20 @@
             updateInformService.updateInforms(_searchCriteria)
                 .then(function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
+                    setTimeout(function () {
+                        $scope.$apply(function () {
+                            $scope.messageResultOptions.IsShowMessage = false;
+                        });                        
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
                 function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
+                    setTimeout(function () {
+                        $scope.$apply(function () {
+                            $scope.messageResultOptions.IsShowMessage = false;
+                        });
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 });
         };
