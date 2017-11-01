@@ -124,11 +124,7 @@
             }
 
             function saveSuccessCallback() {
-                $scope.showSaveButton = false;
                 $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
-                setTimeout(function () {
-                    parent.ClosePopup();
-                }, sharedScriptManager.cachedData.alertSuccessTime);
                 $uiBlockerService.unblockUI();
             }
 

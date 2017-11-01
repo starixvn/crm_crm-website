@@ -39,7 +39,7 @@
                 Id: "InformHeadline_UpdateInform"
             });
             sharedScriptManager.safeApply($scope);
-            getTitleDetail();
+            getTitleDetail();            
         }
 
         function getTitleDetail() {
@@ -238,11 +238,7 @@
 
             updateInformService.updateInforms(_searchCriteria)
                 .then(function () {
-                    $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
-                    setTimeout(function () {
-                        parent.ClosePopup();
-                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
                 function () {
