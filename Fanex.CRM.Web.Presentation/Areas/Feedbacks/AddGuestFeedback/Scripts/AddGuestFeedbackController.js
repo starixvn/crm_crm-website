@@ -8,7 +8,8 @@
     crmConstants,
     sharedScriptManager,
     viewResources,
-    moment */
+    moment,
+    dialogManager*/
     /* jshint camelcase: false */
     window.MessageResult = function (message, isShowMessage, isSuccess) {
         this.Message = message;
@@ -232,8 +233,24 @@
             if (!$scope.validateAddParams(params)) {
                 $uiBlockerService.unblockUI();
                 return;
+            }            
+
+            if (!isNameValid(params.CustomerInfo.Name)) {
+                params.CustomerInfo.Name = updateName(params.CustomerInfo.Name);
+                var message = "Content will be saved without special characters such as <, >, &, #";
+                $uiBlockerService.unblockUI();
+                parent.dialogManager.alert("Warning", message, "OK", function () {
+                    callAddGuestFeedback(params);
+                });
+            }
+            else {
+                callAddGuestFeedback(params);
             }
 
+           
+        };
+
+        var callAddGuestFeedback = function (params) {
             addGuestFeedbackService.addFeedback(params)
                 .then(function (data) {
                     var addResult = data.Result;
@@ -242,7 +259,27 @@
                 function () {
                     $uiBlockerService.unblockUI();
                 });
-        };
+        }
+
+        var specialChars = ["<", ">", "#", "&"];
+
+        var isNameValid = function (name) {
+            for (var i = 0; i < specialChars.length; i++) {
+                if (name.indexOf(specialChars[i]) >= 0) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        var updateName = function (name) {
+            for (var i = 0; i < specialChars.length; i++) {
+                name = name.replace(specialChars[i], "");
+            }
+
+            return name;
+        }
 
         $scope.validateAddParams = function (params) {
             var result = true;
