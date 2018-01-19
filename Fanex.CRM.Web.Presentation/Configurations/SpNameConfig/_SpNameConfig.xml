@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" ?>
 <Root>
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSel_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_DirectCustomerReport" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpd_New" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xtest"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

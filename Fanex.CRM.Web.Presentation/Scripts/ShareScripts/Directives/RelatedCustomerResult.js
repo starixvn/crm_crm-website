@@ -132,6 +132,9 @@
                     /* jshint unused: false */
                     scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                         renderRelatedCustomers(scope, newVal);
+                        if (scope.relatedCustomersChanged) {
+                            scope.relatedCustomersChanged();
+                        }
                     });
                     scope.relatedCustomerResultDirective = {};
                     scope.relatedCustomerResultDirective.verifyUsernames = function (username) {

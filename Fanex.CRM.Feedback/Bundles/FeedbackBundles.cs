@@ -10,9 +10,9 @@
 
 namespace Fanex.CRM.Feedback.Bundles
 {
-    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
+    using System.Web.Optimization;
 
     /// <summary>
     /// Feedback Bundles.
@@ -103,6 +103,7 @@ namespace Fanex.CRM.Feedback.Bundles
         {
             bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
+                    "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",

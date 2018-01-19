@@ -71,5 +71,7 @@ namespace Fanex.CRM.Feedback.Models
         public int CreatorId { get; set; }
 
         public int UserId { get; set; }
+
+        public string AutoField { get; set; }
     }
 }

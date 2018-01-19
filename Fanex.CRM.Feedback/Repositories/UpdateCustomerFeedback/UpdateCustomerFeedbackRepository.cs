@@ -9,11 +9,6 @@
 
 namespace Fanex.CRM.Feedback.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -23,6 +18,11 @@ namespace Fanex.CRM.Feedback.Repositories
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Update customer feedback repository.
@@ -134,7 +134,7 @@ namespace Fanex.CRM.Feedback.Repositories
             customer.SiteSetting.Id = Converter.ToInt(reader["SiteId"]);
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
-            PersonalInfoContact pic = new PersonalInfoContact 
+            PersonalInfoContact pic = new PersonalInfoContact
             {
                 Name = Converter.ToString2(reader["Pic1Name"]),
                 Phone = Converter.ToString2(reader["Pic1"])
@@ -196,7 +196,8 @@ namespace Fanex.CRM.Feedback.Repositories
                 IsReviewed = Converter.ToBool(reader["IsReviewed"]),
                 ReviewerId = Converter.ToInt(reader["ReviewerId"]),
                 ReviewerName = Converter.ToString2(reader["ReviewerName"]),
-                Review = Converter.ToString2(reader["Review"])
+                Review = Converter.ToString2(reader["Review"]),
+                AutoField = Converter.ToString2(reader["AutoField"])
             };
 
             return feedback;
