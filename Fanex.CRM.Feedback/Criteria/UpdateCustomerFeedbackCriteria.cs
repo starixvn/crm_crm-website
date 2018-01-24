@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
-    using System.Collections;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Update customer feedback criteria.
@@ -54,7 +54,7 @@ namespace Fanex.CRM.Feedback.Criteria
         public Hashtable GetSpParams()
         {
             int userId = AppSession.CurrentUser.Id;
-            Hashtable inputParams = new Hashtable 
+            Hashtable inputParams = new Hashtable
             {
                 { "feedbackid", Id },
                 { "userid", userId },
@@ -117,10 +117,11 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "description", Description },
                 { "solution", Solution },
                 { "isreviewed", IsReviewed },
+                { "autofield", AutoField },
                 { "ip", IPHelper.ClientIP },
                 { "errcode", ErrorCode },
                 { "errmsg", ErrorMessage }
-            };
+        };
 
             DateTime birthday, feedbackTime, resolutionTime;
             var sqlMinDate = new DateTime(1900, 1, 1);

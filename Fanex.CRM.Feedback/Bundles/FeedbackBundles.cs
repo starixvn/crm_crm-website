@@ -196,6 +196,7 @@ namespace Fanex.CRM.Feedback.Bundles
 
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
                 .Include(
+                    "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
                     "~/Scripts/FanexGridV2/moment.js",

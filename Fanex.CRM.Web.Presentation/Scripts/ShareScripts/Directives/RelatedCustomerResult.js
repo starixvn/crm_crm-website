@@ -136,11 +136,12 @@
                             scope.relatedCustomersChanged();
                         }
                     });
-                    scope.relatedCustomerResultDirective = {};
+                    scope.relatedCustomerResultDirective = {verifyUsernamesAtLeastOneTime: false};
                     scope.relatedCustomerResultDirective.verifyUsernames = function (username) {
                         if (username === '') {
                             return;
                         }
+                        scope.relatedCustomerResultDirective.verifyUsernamesAtLeastOneTime = true;
 
                         $uiBlockerService.blockUI();
                         var url = window.rootUrl + 'CustomerSetting/VerifyUsername';
