@@ -30,7 +30,7 @@
         };
         $scope.updateSelectedCommunicationTool = function (communicationTool) {
             $scope.addCustomerFeedbackParams.CommunicationTool = communicationTool;
-            $scope.updateRemarkPrefix();
+            $scope.updateTimeAndToolPrefix();
             $scope.safeApply();
         };
         $scope.updateSelectedProduct = function (product) {
