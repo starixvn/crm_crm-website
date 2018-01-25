@@ -9,10 +9,10 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
-    using System.Collections;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Insert Log Criteria.
@@ -27,6 +27,9 @@ namespace Fanex.CRM.Communication.Criteria
                 return AppSession.CurrentUser.Id;
             }
         }
+
+        [SpParam(SqlParamName = "autofield")]
+        public string AutoField { get; set; }
 
         /// <summary>
         /// Gets the SP parameters.
@@ -58,6 +61,7 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("subject", StringExtension.GetValueNotNull(Subject));
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("autofield", AutoField);
 
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);

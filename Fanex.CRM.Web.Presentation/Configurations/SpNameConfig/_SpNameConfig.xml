@@ -9,5 +9,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

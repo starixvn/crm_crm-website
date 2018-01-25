@@ -24,7 +24,7 @@
   <Function Name="Communication">
     <Setting Key="Communication_Log_GetInfoByCustomerId" SpName="Acc_CRM_CommunicationLogList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
