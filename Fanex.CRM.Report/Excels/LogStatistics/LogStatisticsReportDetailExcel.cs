@@ -6,7 +6,6 @@
 
 namespace Fanex.CRM.Report.Excels.LogStatistics
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
@@ -17,6 +16,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Collections.Generic;
 
     public class LogStatisticsReportDetailExcel : BaseExcel
     {
@@ -74,7 +74,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Remark), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.RemarkText), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
             exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
@@ -163,7 +163,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
             NpoiExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
-        }        
+        }
 
         private string GetSheetname()
         {
