@@ -1,7 +1,5 @@
 ﻿namespace Fanex.CRM.Feedback.Repositories
 {
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Common.Helpers;
     using Common.Models;
     using Criteria;
@@ -10,6 +8,8 @@
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Models;
     using Infrastructure.Extensions;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     public class MultipleLogsRepository : BaseRepository, IMultipleLogsRepository
     {
@@ -103,6 +103,7 @@
                 },
                 Remark = Converter.ToString2(reader["Description"]),
                 Solution = Converter.ToString2(reader["Solution"]),
+                AutoField = Converter.ToString2(reader["AutoField"]),
                 Review = Converter.ToString2(reader["Review"]),
                 IsReviewed = Converter.ToBool(reader["IsReviewed"]),
                 Country = new Country

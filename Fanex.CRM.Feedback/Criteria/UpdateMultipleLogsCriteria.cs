@@ -71,6 +71,9 @@
 
         public string Review { get; set; }
 
+        [SpParam(SqlParamName = "autofield")]
+        public string AutoField { get; set; }
+
         public int ReviewerId
         {
             get
