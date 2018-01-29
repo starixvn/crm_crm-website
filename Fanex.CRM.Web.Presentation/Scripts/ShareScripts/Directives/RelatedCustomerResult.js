@@ -80,7 +80,7 @@
                     scope.relatedCustomerResultDirective.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== custId;
                     });
-
+                    scope.relatedCustomerResultDirective.verifyUsernamesAtLeastOneTime = true;
                     scope.$apply();
                 });
                 table.find('.icon-del-all-invalid').unbind('click').bind('click', function () {
