@@ -42,7 +42,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         {
                             StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                             ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
-                            Remark = Converter.ToString2(reader["Description"]),
+                            Remark = Converter.ToString2(reader["Remark"]),
                             AutoField = Converter.ToString2(reader["AutoField"]),
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
