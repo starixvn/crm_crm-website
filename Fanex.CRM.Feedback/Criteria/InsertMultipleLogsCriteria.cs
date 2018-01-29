@@ -82,6 +82,9 @@
 
         public string ReviewerId { get; set; }
 
+        [SpParam(SqlParamName = "autofield")]
+        public string AutoField { get; set; }
+
         public override string GetSettingKey()
         {
             return "MultipleLogsInsert";
