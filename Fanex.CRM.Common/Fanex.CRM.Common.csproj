@@ -194,7 +194,9 @@
     <Compile Include="Helpers\DateTimeUtilize.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
+    <Compile Include="Helpers\XmlSerializerCache.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BaseCustomer.cs" />
