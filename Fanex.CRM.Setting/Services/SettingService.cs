@@ -347,6 +347,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 var subProductByProduct = subProducts.Where(p => p.ParentId == parentProduct.Id).ToList();
                 parentProduct.ChildSettings = subProductByProduct;
+                parentProduct.Name = parentProduct.Value;
 
                 products.Add(parentProduct);
             }
@@ -379,6 +380,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 var childSettings = betTypes.Where(s => s.ParentId == data.Id).OrderBy(s => s.DisplayOrder).ToList();
                 data.ChildSettings = childSettings;
+                data.Name = data.Value;
                 products.Add(data);
             }
 

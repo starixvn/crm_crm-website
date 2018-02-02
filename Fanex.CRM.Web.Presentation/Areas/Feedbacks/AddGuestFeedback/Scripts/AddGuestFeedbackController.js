@@ -117,6 +117,86 @@
                     $scope.completedLoadFilterInfo();
                 });
         };
+
+        $scope.productChangedHandler = function () {
+            $scope.subProductDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubProducts($scope.selectedProducts),
+                childrenMember: "ChildSettings",
+            };
+        }
+
+        $scope.subProductChangedHandler = function () {
+            $scope.bettypeDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
+                childrenMember: "ChildSettings",
+            };
+        }
+
+        $scope.getSubProducts = function (seletedProducts) {
+            var cloneSeletedProducts = [];
+            if (seletedProducts) {
+                cloneSeletedProducts = angular.copy(seletedProducts);
+            }
+
+            angular.forEach(cloneSeletedProducts, function (product) {
+                angular.forEach(product.ChildSettings, function (subProducts) {
+                    subProducts.ChildSettings = [];
+                })
+            });
+
+            return cloneSeletedProducts;
+        }
+
+        $scope.getBettypes = function (seletedSubProducts, allProducts) {
+            var selectedProductIds = [];
+            angular.forEach(seletedSubProducts, function (selectedSubProduct) {
+                if (selectedProductIds.indexOf(selectedSubProduct.ParentId) < 0) {
+                    selectedProductIds.push(selectedSubProduct.ParentId);
+                }
+            });
+
+            var selectProductandSubProductIds = [];
+            angular.forEach(selectedProductIds, function (productId) {
+                var Ids = {
+                    ProductId: productId,
+                    SubProductIds: []
+                };
+
+                angular.forEach(seletedSubProducts, function (selectedSubProduct) {
+                    if (selectedSubProduct.ParentId == productId) {
+                        Ids.SubProductIds.push(selectedSubProduct.Id);
+                    }
+                });
+
+                selectProductandSubProductIds.push(Ids);
+            })
+
+            var selectedProducts = [];
+            angular.forEach(selectProductandSubProductIds, function (ids) {
+                angular.forEach(allProducts, function (product) {
+                    if (product.Id == ids.ProductId) {
+                        var product = angular.copy(product);
+
+                        var subProducts = [];
+                        angular.forEach(product.ChildSettings, function (subProduct) {
+                            if (ids.SubProductIds.indexOf(subProduct.Id) >= 0) {
+                                subProducts.push(angular.copy(subProduct));
+                            }
+                        });
+                        product.ChildSettings = subProducts;
+
+                        selectedProducts.push(angular.copy(product))
+                    }
+                })
+            });
+
+            return selectedProducts;
+        }
+
         $scope.completedLoadFilterInfo = function () {
             if (!$scope.isLoadedAllSettings ||
                 !$scope.isLoadedFeedbackSubjectTemplate) {
@@ -162,6 +242,26 @@
                 nameMember: "Name",
                 sourceData: $scope.allSettings.MainCategoryList,
                 childrenMember: "ChildSettings"
+            };
+
+            $scope.productDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.allSettings.ProductList
+            };
+
+            $scope.subProductDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubProducts($scope.selectedProducts),
+                childrenMember: "ChildSettings",
+            };
+
+            $scope.bettypeDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
+                childrenMember: "ChildSettings",
             };
 
             $scope.descriptionOptions.SelectedText = '';

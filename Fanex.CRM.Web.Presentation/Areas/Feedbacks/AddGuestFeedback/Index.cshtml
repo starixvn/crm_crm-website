@@ -331,9 +331,11 @@
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="product">@Language.Product</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" dropdown-product data-ng-model="productOptions.DataList">
-                                    <select id="product" tabindex="66">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedProducts"
+                                                            data-ng-change="productChangedHandler()"
+                                                            data-settings="productDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
@@ -370,9 +372,11 @@
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="subProduct">@Language.SubProduct</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" dropdown-sub-product data-ng-model="subProductOptions.DataList">
-                                    <select id="subProduct" tabindex="67">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8" >
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedSubProducts"
+                                                            data-ng-change="subProductChangedHandler()"
+                                                            data-settings="subProductDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
@@ -408,8 +412,10 @@
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="bettype">@Language.BetType</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
-                                    <select id="bettype" tabindex="67"></select>
+                                <div class="col-xs-8 col-sm-8 col-md-8  " >
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedBettypes"
+                                                            data-settings="bettypeDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
