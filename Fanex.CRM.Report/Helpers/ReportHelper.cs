@@ -16,7 +16,7 @@ namespace Fanex.CRM.Report.Helpers
             switch (siteType)
             {
                 case (int)LogStatisticsReportType.IBC:
-                    return Labels.IBC;
+                    return Labels.MBC;
 
                 case (int)LogStatisticsReportType.Licensee:
                     return Labels.Licensee;
