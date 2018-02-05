@@ -33,48 +33,15 @@
             $scope.updateTimeAndToolPrefix();
             $scope.safeApply();
         };
-        $scope.updateSelectedProduct = function (product) {
-            $scope.addCustomerFeedbackParams.Product = { Id: product.Id };
-            $scope.subProductOptions.DataList = product.ChildSettings;
-
-            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
-        };
-        $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.addCustomerFeedbackParams.SubProduct = { Id: subProduct.Id };
-            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
-            $scope.safeApply();
-            $scope.updateSelectedBetType($scope.betTypeOptions.DataList[0]);
-        };
         $scope.updateSelectedLanguage = function (language) {
             $scope.addCustomerFeedbackParams.Language = language;
         };
         $scope.updateSelectedResponse = function (response) {
             $scope.addCustomerFeedbackParams.Response = response;
         };
-        $scope.updateSelectedMainCategory = function (mainCategory) {
-            $scope.messageResultOptions = new MessageResult('', false, false);
-            if (!mainCategory.ChildSettings || mainCategory.ChildSettings.length === 0) {
-                var message = viewResources.NoSubcategoryError.replace('{0}', '[' + mainCategory.Name + ']');
-                $scope.messageResultOptions = new MessageResult(message, true, false);
-            }
-
-            $scope.addCustomerFeedbackParams.MainCategory = mainCategory;
-            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-            $scope.addCustomerFeedbackParams.SubCategory = $scope.subCategoryOptions.DataList[0];
-            $scope.safeApply();
-        };
-        $scope.updateSelectedBetType = function (betType) {
-            $scope.addCustomerFeedbackParams.BetType = betType;
-        };
         $scope.updateSelectedStatus = function (status) {
             $scope.addCustomerFeedbackParams.Status = status;
-        };
-        $scope.updateSelectedExtension = function (extension) {
-            $scope.addCustomerFeedbackParams.Extension = extension;
-        };
-        $scope.updateSelectedSubCategory = function (subCategory) {
-            $scope.addCustomerFeedbackParams.SubCategory = subCategory;
-        };
+        };               
         $scope.updateSelectedCountry = function (country) {
             $scope.addCustomerFeedbackParams.Country = country;
         };

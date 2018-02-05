@@ -18,6 +18,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles")
 }
 <div data-ng-app="feedbacks-addcustomerfeedback-application">
@@ -339,18 +340,21 @@
                                     <label for="ddlcommunication">@Language.Communication</label>
                                     @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
-                                    <select id="communication-tool" tabindex="63">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCommunications"
+                                                            data-settings="communicationDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="product">@Language.Product</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" dropdown-product data-ng-model="productOptions.DataList">
-                                    <select id="product" tabindex="66">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedProducts"
+                                                            data-ng-change="productChangedHandler()"
+                                                            data-settings="productDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
 
@@ -388,17 +392,21 @@
                                     <label for="ddlcategory">@Language.Category</label>
                                     @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                                    <select id="main-category" tabindex="64">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCategories"
+                                                            data-settings="categoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlproduct">@Language.SubProduct</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" dropdown-sub-product data-ng-model="subProductOptions.DataList">
-                                    <select id="subProduct" tabindex="66"></select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedSubProducts"
+                                                            data-ng-change="subProductChangedHandler()"
+                                                            data-settings="subProductDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
 
@@ -411,7 +419,18 @@
                                     <select id="language" tabindex="69"></select>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcsextension">@Language.CSExtension</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedExtensions"
+                                                            data-settings="extensionDropdownSettings"></multileveldropdowntree>
+                                </div>
+                            </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlresponse">@Language.Response</label>
@@ -420,33 +439,14 @@
                                     <select id="response" tabindex="72"></select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlcsextension">@Language.CSExtension</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 extension-picker-container" data-ng-model="extensionOptions.DataList">
-                                    <select id="extension" tabindex="62">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlsubcategory">@Language.SubCategory</label>
-                                    @Html.Raw(Language.RequiredFieldTemplate)
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
-                                    <select id="sub-category" tabindex="65">
-                                    </select>
-                                </div>
-                            </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="bettype">@Language.BetType</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8  bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
-                                    <select id="bettype" tabindex="67"></select>
+                                <div class="col-xs-8 col-sm-8 col-md-8  ">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedBettypes"
+                                                            data-settings="bettypeDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             
