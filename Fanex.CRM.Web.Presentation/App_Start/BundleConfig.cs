@@ -234,6 +234,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",

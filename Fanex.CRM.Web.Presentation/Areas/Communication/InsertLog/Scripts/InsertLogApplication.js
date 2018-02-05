@@ -1,7 +1,7 @@
 ﻿/*global sharedScriptManager*/
 (function () {
     "use strict";
-    angular.module('communicationlog-insert-application', ['$uiBlockerApplication', 'selectwithsearch']);
+    angular.module('communicationlog-insert-application', ['$uiBlockerApplication', 'selectwithsearch', 'multileveldropdown']);
     sharedScriptManager.setNoCachingHttpRequest(angular.module('communicationlog-insert-application'));
     directiveManager.registerRelatedCustomerResult(angular.module('communicationlog-insert-application'));
 
