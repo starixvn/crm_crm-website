@@ -250,10 +250,22 @@ namespace Fanex.CRM.Setting.Services
             {
                 SettingName = SettingTypeConstants.Extension,
                 ParentId = 0
-            });
+            })
+            .Where(e => e.Value != "N/A");
 
             CacheService.Set(GetAllExtensionSessionKey, allExtensions);
             return allExtensions;
+        }
+
+        public SettingRelation GetExtensionNA()
+        {
+            var allExtensions = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.Extension,
+                ParentId = 0
+            });
+
+            return allExtensions.FirstOrDefault(e => e.Value == "N/A");
         }
 
         public IEnumerable<Setting> GetAllCommunicationTools()
@@ -265,10 +277,35 @@ namespace Fanex.CRM.Setting.Services
             }
 
             tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
-            tools = tools.OrderBy(s => s.DisplayOrder).ToList();
+            tools = tools.Where(t => t.Name != "N/A").OrderBy(s => s.DisplayOrder).ToList();
             CacheService.Set(GetAllCommunicationToolSessionKey, tools);
 
             return tools;
+        }
+
+        public Product GetProductNA()
+        {
+            var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
+            {
+                SettingName = SettingTypeConstants.Product,
+                ParentId = 0
+            }).ToList();
+
+            return products.FirstOrDefault(p => p.Value == "N/A.");
+        }
+
+        public Product GetSubProductNA()
+        {
+            var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria());
+
+            return subProducts.FirstOrDefault(s => s.Value == "N/A.");
+        }
+
+        public Product GetBettypeNA()
+        {
+            var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
+
+            return betTypes.FirstOrDefault(b => b.Name == "N/A.");
         }
 
         public IEnumerable<Setting> GetAllMainCategories()
@@ -349,7 +386,10 @@ namespace Fanex.CRM.Setting.Services
                 parentProduct.ChildSettings = subProductByProduct;
                 parentProduct.Name = parentProduct.Value;
 
-                products.Add(parentProduct);
+                if (parentProduct.Name != "N/A.")
+                {
+                    products.Add(parentProduct);
+                }
             }
 
             CacheService.Set(GetAllProductSessionKey, products);
@@ -378,13 +418,17 @@ namespace Fanex.CRM.Setting.Services
             var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
             foreach (var data in subProducts)
             {
-                var childSettings = betTypes.Where(s => s.ParentId == data.Id)
+                var childSettings = betTypes.Where(s => s.ParentId == data.Id && s.Name != "N/A.")
                     .Select(s => { s.GrandParentId = data.ParentId; return s; })
                     .OrderBy(s => s.DisplayOrder)
                     .ToList();
                 data.ChildSettings = childSettings;
                 data.Name = data.Value;
-                products.Add(data);
+
+                if (data.Name != "N/A.")
+                {
+                    products.Add(data);
+                }
             }
 
             CacheService.Set(GetAllSubProductSessionKey, products);

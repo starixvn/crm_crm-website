@@ -9,11 +9,11 @@
 
 namespace Fanex.CRM.Setting.Services
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
+    using System.Collections.Generic;
 
     public interface ISettingService
     {
@@ -82,5 +82,13 @@ namespace Fanex.CRM.Setting.Services
         IEnumerable<Product> GetProductsOnly();
 
         IEnumerable<Setting> GetPositions();
+
+        Product GetProductNA();
+
+        Product GetSubProductNA();
+
+        Product GetBettypeNA();
+
+        SettingRelation GetExtensionNA();
     }
 }

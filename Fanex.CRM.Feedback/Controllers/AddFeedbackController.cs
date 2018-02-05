@@ -10,8 +10,6 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -22,6 +20,8 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Linq;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Add Feedback Controller.
@@ -92,7 +92,11 @@ namespace Fanex.CRM.Feedback.Controllers
                 ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
                 TitleList = ServiceSetting.GetAllTitles(),
-                LicenseeType = ServiceSetting.GetAllLicenseeTypes()
+                LicenseeType = ServiceSetting.GetAllLicenseeTypes(),
+                ProductNA = ServiceSetting.GetProductNA(),
+                SubProductNA = ServiceSetting.GetSubProductNA(),
+                BettypeNA = ServiceSetting.GetBettypeNA(),
+                ExtensionNA = ServiceSetting.GetExtensionNA()
             };
 
             return settings;

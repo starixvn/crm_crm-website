@@ -364,16 +364,16 @@
             angular.forEach($scope.selectedExtensions, function (extension) {
                 extensionIds.push(extension.Id);
             })
+
+            if (extensionIds.length == 0) {
+                extensionIds = [$scope.allSettings.ExtensionNA.Id];
+            }
             $scope.addGuestFeedbackParams.ExtensionIds = extensionIds.join(",");
         }
 
         $scope.GetProductParams = function () {
             var products = [];
             angular.forEach($scope.selectedProducts, function (product) {
-                var p = {
-                    ProductId: product.Id
-                };
-
                 var subIds = [];
                 angular.forEach($scope.selectedSubProducts, function (subProduct) {
                     if (subProduct.ParentId == product.Id) {
@@ -405,8 +405,27 @@
                         p.BettypeIds.push(bettype.Id);
                     }
                 })
+
+                if (p.SubProductId == "") {
+                    p.SubProductId = $scope.allSettings.SubProductNA.Id;
+                }
+
+                if (p.BettypeIds.length == 0) {
+                    p.BettypeIds = [$scope.allSettings.BettypeNA.Id];
+                }
+
                 p.BettypeIds = p.BettypeIds.join(",");
             })
+
+            if (products.length == 0) {
+                products = [
+                    {
+                        ProductId: $scope.allSettings.ProductNA.Id,
+                        SubProductId: $scope.allSettings.SubProductNA.Id,
+                        BettypeIds: $scope.allSettings.BettypeNA.Id
+                    }
+                ];
+            }
 
             $scope.addGuestFeedbackParams.Products = products;
         }
