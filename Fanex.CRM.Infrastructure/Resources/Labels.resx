@@ -135,6 +135,9 @@
   <data name="Licensee" xml:space="preserve">
     <value>Licensee</value>
   </data>
+  <data name="MBC" xml:space="preserve">
+    <value>MBC</value>
+  </data>
   <data name="Message_ViewChart_FromToDate" xml:space="preserve">
     <value>{0} To {1}</value>
   </data>
