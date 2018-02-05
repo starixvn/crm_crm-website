@@ -142,13 +142,18 @@
                 cloneSeletedProducts = angular.copy(seletedProducts);
             }
 
+            var productsWithSubProducts = [];
             angular.forEach(cloneSeletedProducts, function (product) {
-                angular.forEach(product.ChildSettings, function (subProducts) {
-                    subProducts.ChildSettings = [];
-                })
+                // only get product having subproducts
+                if (product.ChildSettings.length != 0) {
+                    angular.forEach(product.ChildSettings, function (subProducts) {
+                        subProducts.ChildSettings = [];
+                    })
+                    productsWithSubProducts.push(product);
+                }
             });
 
-            return cloneSeletedProducts;
+            return productsWithSubProducts;
         }
 
         $scope.getBettypes = function (seletedSubProducts, allProducts) {
@@ -179,17 +184,20 @@
             angular.forEach(selectProductandSubProductIds, function (ids) {
                 angular.forEach(allProducts, function (product) {
                     if (product.Id == ids.ProductId) {
-                        var product = angular.copy(product);
-
                         var subProducts = [];
                         angular.forEach(product.ChildSettings, function (subProduct) {
-                            if (ids.SubProductIds.indexOf(subProduct.Id) >= 0) {
+                            // only get subproduct having bettypes
+                            if (ids.SubProductIds.indexOf(subProduct.Id) >= 0 && subProduct.ChildSettings.length > 0) {
                                 subProducts.push(angular.copy(subProduct));
                             }
                         });
-                        product.ChildSettings = subProducts;
-
-                        selectedProducts.push(angular.copy(product))
+                        
+                        // only get product having subproducts
+                        if (subProducts.length > 0) {
+                            var p = angular.copy(product);
+                            p.ChildSettings = subProducts;
+                            selectedProducts.push(p)
+                        }
                     }
                 })
             });
