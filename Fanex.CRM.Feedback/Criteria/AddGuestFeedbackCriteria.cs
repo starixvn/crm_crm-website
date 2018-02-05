@@ -17,6 +17,7 @@ namespace Fanex.CRM.Feedback.Criteria
     using Fanex.Data.Repository;
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -30,25 +31,35 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public DateTime EndTime { get; set; }
 
-        public Setting CommunicationTool { get; set; }
+        public string CommunicationIds { get; set; }
 
-        public Setting Product { get; set; }
+        public IEnumerable<ProductFilter> Products { get; set; }
 
-        public Setting SubProduct { get; set; }
+        public string ProductsContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Products);
+            }
+        }
 
         public Setting Language { get; set; }
 
         public Setting Response { get; set; }
 
-        public Setting MainCategory { get; set; }
+        public IEnumerable<CaterogyFilter> Categories { get; set; }
 
-        public Setting BetType { get; set; }
+        public string CategoriesContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Categories);
+            }
+        }
 
         public Setting Status { get; set; }
 
-        public Setting Extension { get; set; }
-
-        public Setting SubCategory { get; set; }
+        public string ExtensionIds { get; set; }
 
         public Country Country { get; set; }
 
@@ -159,19 +170,17 @@ namespace Fanex.CRM.Feedback.Criteria
 
             param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(EndTime));
-            param.Add("communicationid", CommunicationTool.Id);
-            param.Add("stationid", Extension.Id);
-            param.Add("maincategoryid", MainCategory.Id);
-            param.Add("subcategoryid", SubCategory.Id);
-            param.Add("productid", Product.Id);
-            param.Add("subproductid", SubProduct.Id);
-            param.Add("bettypeid", BetType.Id);
             param.Add("countryid", Country.Id);
             param.Add("languageid", Language.Id);
             param.Add("responseid", Response.Id);
             param.Add("statusid", Status.Id);
             param.Add("licenseetype", CustomerInfo.LicenseeType.Id);
             param.Add("autofield", AutoField);
+
+            param.Add("communicationid", CommunicationIds);
+            param.Add("stationid", ExtensionIds);
+            param.Add("category", CategoriesContent);
+            param.Add("product", ProductsContent);
 
             param.Add("relatedcustid", RelatedCustomerId);
             param.Add("subject", Subject);

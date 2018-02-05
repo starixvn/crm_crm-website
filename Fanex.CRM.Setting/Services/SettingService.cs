@@ -378,7 +378,10 @@ namespace Fanex.CRM.Setting.Services
             var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
             foreach (var data in subProducts)
             {
-                var childSettings = betTypes.Where(s => s.ParentId == data.Id).OrderBy(s => s.DisplayOrder).ToList();
+                var childSettings = betTypes.Where(s => s.ParentId == data.Id)
+                    .Select(s => { s.GrandParentId = data.ParentId; return s; })
+                    .OrderBy(s => s.DisplayOrder)
+                    .ToList();
                 data.ChildSettings = childSettings;
                 data.Name = data.Value;
                 products.Add(data);

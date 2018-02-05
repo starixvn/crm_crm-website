@@ -21,6 +21,8 @@ namespace Fanex.CRM.Common.Models
 
         public int ParentId { get; set; }
 
+        public int GrandParentId { get; set; }
+
         public IList<Product> ChildSettings { get; set; }
     }
 }
