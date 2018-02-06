@@ -264,7 +264,7 @@
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var communicationLog = @Html.Raw(jsonLogInfo);
         if(communicationLog.AutoField){
-            communicationLog.AutoField = communicationLog.AutoField.replace("System ID:", "<br>System ID:") + "<br><br>";
+            communicationLog.AutoField = communicationLog.AutoField.replace(/\n/g, "<br>") + "<br><br>";
         }
         var hasReviewPermission = @hasReviewPermission;
         var viewResources = {
