@@ -157,9 +157,11 @@ namespace Fanex.CRM.Setting.Services
                     siteGroup.ChildSites.Add(newSite);
                 }
 
+                siteGroup.ChildSites = siteGroup.ChildSites.OrderBy(s => s.Name).ToList();
                 allSites.Add(siteGroup);
             }
 
+            allSites = allSites.OrderBy(g => g.Name).ToList();
             CacheService.Set(GetAllSiteSessionKey, allSites);
             return allSites;
         }
@@ -186,6 +188,7 @@ namespace Fanex.CRM.Setting.Services
                 });
             }
 
+            sites = sites.OrderBy(s => s.AliasName).ThenBy(s => s.Name).ToList();
             CacheService.Set(GetAllSiteWithGroupSessionKey, sites);
             return sites;
         }
