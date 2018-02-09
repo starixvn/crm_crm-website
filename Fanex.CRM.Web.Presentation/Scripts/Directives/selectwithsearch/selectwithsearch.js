@@ -12,7 +12,7 @@
                 collapsedAll: false, // temp setting, not 2 way binding
                 hasFilter: true,
                 hasToolbar: true,
-                idMember: "id",
+                idMember: "Id",
                 nameMember: "name",
                 selectedMember: null,
                 dataMember: null,
@@ -56,7 +56,7 @@
                 function createDropDownModelItem(settings, modelItem) {
                     var itemLabel = modelItem[settings.nameMember];
                     var item = {
-                        id: settings.idMember ? modelItem[settings.idMember] : undefined,
+                        Id: settings.idMember ? modelItem[settings.idMember] : undefined,
                         label: itemLabel ? itemLabel.substr(0, settings.maxTextLength) : '',
                         model: modelItem,
                         checked: modelItem.checked === true ||
@@ -118,7 +118,7 @@
                                 var item = createDropDownModelItem(settings, sourceData[i]);
                                 items.push(item);
                             }
-
+                            
                             return items;
                         }
 
@@ -129,6 +129,10 @@
 
                             if (!selectedItems || selectedItems.length === 0) {
                                 return scope._textSettings.NoItemChecked;
+                            }
+
+                            if (selectedItems.Id == scope._textSettings.NAId) {
+                                return scope._textSettings.NAText;
                             }
 
                             return selectedItems.label || selectedItems[scope._settings.nameMember];
@@ -142,7 +146,7 @@
                             if (scope._settings.dataMember) {
                                 scope._settings.sourceData = scope._settings.sourceData[scope._settings.dataMember];
                             }
-
+                            
                             scope.items = parseSourceData(scope._settings.sourceData);                          
                         }
 
@@ -151,7 +155,7 @@
                             if (!newValue) {
                                 return;
                             }
-
+                            
                             scope._settings = angular.extend({}, dropdowntreeConfig, scope.settings);
                             if (typeof scope._settings.itemFormatter === "string") {
                                 var filterInstance = $filter(scope._settings.itemFormatter);
@@ -195,7 +199,9 @@
                                 CollapseBranch: "Collapse/Expanse this branch",
                                 NoItemChecked: "Select options",
                                 ItemsSelected: "# selected",
-                                NoData: "N/A"
+                                NoData: "N/A",
+                                NAText: "N/A",
+                                NAId: 0
                             };
 
                             scope._textSettings = angular.extend(defaultTextSettings, scope.textSettings);
@@ -223,6 +229,15 @@
                             refreshViewValue(true);
                             scope.toggleSelect();
                         };
+
+                        scope.checkNA = function () {
+                            scope.selectedItems = {
+                                Id: scope._textSettings.NAId,
+                                Name: scope._textSettings.NAText
+                            }
+                            refreshViewValue(true);
+                            scope.toggleSelect();
+                        }
 
                         scope.getCollapseExpandClass = function (item) {
                             if (!item.children || item.children.length === 0) {

@@ -479,7 +479,7 @@
                 ExtensionId: $scope.communicationLog.Extension.Id,
                 MainCategoryId: $scope.communicationLog.MainCategory.Id,
                 SubcategoryId: $scope.communicationLog.SubCategory.Id,
-                SiteId: $scope.selectedSite ? $scope.selectedSite.id : crmConstants.Enums.Site.NotApply,
+                SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
                 SubProductId: $scope.communicationLog.SubProduct.Id,

@@ -25,6 +25,11 @@
         <li>
             <div class="tree">
                 <ul>
+                    <li>
+                        <a data-ng-click="checkNA();">
+                            <span class="group-text">N/A</span>
+                        </a>
+                    </li>
                     <li data-ng-repeat="item1 in items | filter:filterSearchText">
                         <a data-ng-class="getItemClass(item1);" data-ng-attr-id="item-{{item1.id}}">
                             <span class="group-text">{{item1.label | itemFormatFilter:item1:0:_settings.itemFormatter}}</span>
