@@ -21,7 +21,7 @@
                 templateUrl: window.rootUrl + "Scripts/Directives/selectwithsearch/selectwithsearch.template.html",
                 sourceData: null,
                 checkedFilter: null, // function to checked item
-                width: 250,
+                //width: 250,
                 height: null, // auto
                 maxTextLength: 100,
                 selectedTextLength: 30
