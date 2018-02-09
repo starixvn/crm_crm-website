@@ -20,6 +20,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
     @RazorHelper.RenderStyles("~/Areas/Communication/EditLogStyles")
 }
 <div data-ng-app="communicationlog-edit-application">
@@ -158,10 +159,9 @@
                         </label>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <select id="site" data-ng-model="communicationLog.SiteInfo" ng-change="updateSelectedSite();"
-                                data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
-                            <option value="">-- @Labels.Select --</option>
-                        </select>
+                        <selectwithsearchtree text-settings="TextSettings"
+                                              data-ng-model="selectedSite"
+                                              data-settings="siteDropdownSettings"></selectwithsearchtree>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -299,6 +299,7 @@
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
+    @RazorHelper.RenderScripts("~/Scripts/Directives/selectwithsearch/selectwithsearch.js")
     @RazorHelper.RenderScripts("~/Areas/Communication/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
