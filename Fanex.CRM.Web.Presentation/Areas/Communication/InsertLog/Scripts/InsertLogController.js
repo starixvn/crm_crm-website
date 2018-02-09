@@ -467,7 +467,7 @@
         $scope.insertLog = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
-
+            
             var insertCriteria = {
                 CustomerId: customerId,
                 RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
@@ -479,7 +479,7 @@
                 ExtensionId: $scope.communicationLog.Extension.Id,
                 MainCategoryId: $scope.communicationLog.MainCategory.Id,
                 SubcategoryId: $scope.communicationLog.SubCategory.Id,
-                SiteId: $scope.communicationLog.SiteInfo.Id,
+                SiteId: $scope.selectedSite ? $scope.selectedSite.id : crmConstants.Enums.Site.NotApply,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
                 ProductId: $scope.communicationLog.Product.Id,
                 SubProductId: $scope.communicationLog.SubProduct.Id,
@@ -647,7 +647,6 @@
                 $scope.defaultSettings = allSetting.DefaultSettings;
                 $scope.licenseeTypes = allSetting.LicenseeType;
 
-                $scope.selectedSite = $scope.siteList[0].ChildSites[1];
                 $scope.siteDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
