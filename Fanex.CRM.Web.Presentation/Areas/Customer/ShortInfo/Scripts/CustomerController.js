@@ -60,6 +60,10 @@
             UplineInfo: [],
             SelectedLanguages: ''
         };
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A"
+        };
 
         $scope.oldCustomer = null;
         $scope.isShowCommunicationTool = true;

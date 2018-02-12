@@ -288,13 +288,13 @@
             self.completedLoadLeftPanel);
         };
         self.renderAllSiteResult = function (result) {
-            var siteSetting = self.CacheData.currentCustomer.SiteSetting;
-            var dataList = SettingManager.updateSettingSelectListWithFullData(siteSetting, result);
-            self.CacheData.controllerScope.siteList = dataList;
-
-            self.CacheData.controllerScope.updateSelectedSite = function () {
-                self.CacheData.currentCustomer.SiteSetting = self.CacheData.currentCustomer.SiteSetting || { Id: 0 };
-            }
+            self.CacheData.controllerScope.selectedSite = self.CacheData.currentCustomer.SiteSetting;
+            self.CacheData.controllerScope.siteDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: result,
+                childrenMember: "ChildSites"
+            };          
 
             self.CacheData.controllerScope.$apply();
             self.CacheData.isLoadedSite = true;
@@ -415,7 +415,8 @@
         self.getUpdatedCustomerInfoParams = function (customer) {
             return {
                 CustomerId: customer.Id,
-                SiteSettingId: parseInt(self.DOMElements.dropdownSite.val()),
+                SiteSettingId: self.CacheData.controllerScope.selectedSite ?
+                    self.CacheData.controllerScope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 CountryId: parseInt(self.DOMElements.dropdownCountry.val()),
                 FirstName: customer.FirstName,
                 LastName: customer.LastName,

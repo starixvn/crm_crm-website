@@ -145,6 +145,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
