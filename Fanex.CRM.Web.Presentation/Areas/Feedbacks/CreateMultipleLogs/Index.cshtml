@@ -13,6 +13,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
 <div data-ng-app="create-multiple-logs-application">
@@ -191,8 +192,10 @@
                                     @Labels.Site
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
-                                <select id="site"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3" >
+                                <selectwithsearchtree text-settings="TextSettings"
+                                                      data-ng-model="selectedSite"
+                                                      data-settings="siteDropdownSettings"></selectwithsearchtree>
                             </div>
                         </div>
                         <div class="row item">

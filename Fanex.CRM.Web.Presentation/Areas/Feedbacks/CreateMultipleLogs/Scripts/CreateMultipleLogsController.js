@@ -90,6 +90,10 @@
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.licenseeTypes = [];
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A"
+        };
         
         $scope.customersInput = '';
         $scope.initController = function () {
@@ -109,6 +113,13 @@
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
                 $scope.licenseeTypes = allSetting.LicenseeType;
+
+                $scope.siteDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: allSetting.SiteList,
+                    childrenMember: "ChildSites"
+                };
 
                 $scope.completedLoadFilterInfo();
             },
@@ -453,7 +464,7 @@
                 StatusId: $scope.multipleLogs.Status.Id,
                 BetTypeId: $scope.multipleLogs.BetType.Id,
                 RoleId: $scope.multipleLogs.RoleInfo.Id,
-                SiteId: $scope.multipleLogs.SiteInfo.Id,
+                SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 LicenseeTypeId: $scope.multipleLogs.LicenseeType.Id,
                 ResponseId: $scope.multipleLogs.Response.Id,
                 Subject: $scope.multipleLogs.Subject,

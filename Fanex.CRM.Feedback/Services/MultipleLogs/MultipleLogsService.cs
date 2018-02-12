@@ -1,8 +1,5 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Common.Helpers;
     using Common.Models;
     using Criteria;
@@ -12,6 +9,9 @@
     using Resources;
     using Setting.Constants;
     using Setting.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class MultipleLogsService : IMultipleLogsService
     {
@@ -104,7 +104,7 @@
         private void UpdateSettingNameForLog(BaseCommunicationLog log)
         {
             var settings = _serviceSetting.GetAllSettings();
-            var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => !s.IsActive);
+            var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive);
 
             var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
             log.SiteInfo.Name = site == null ? null : site.Name;
