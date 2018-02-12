@@ -163,6 +163,7 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",

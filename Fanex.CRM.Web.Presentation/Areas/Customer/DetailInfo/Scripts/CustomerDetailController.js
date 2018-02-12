@@ -27,6 +27,10 @@
         $scope.isShowBankInfoInfo = true;
         $scope.selectedLangueList = '';
         $scope.oldSelectedLangueList = '';
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A"
+        };
 
         $scope.DOMElements = {
             divResultPopUp: null,
@@ -48,6 +52,14 @@
                 $scope.languageList = data.Result.Languages;
                 $scope.licenseeTypes = data.Result.LicenseeTypes;
                 $scope.isLoadedAllSettings = true;
+
+                $scope.selectedSite = $scope.customerDetail.SiteSetting;
+                $scope.siteDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: data.Result.Sites,
+                    childrenMember: "ChildSites"
+                };
 
                 $scope.completedLoadDetailInfo();
             },
@@ -138,7 +150,7 @@
                 PersonalInfoContact3: customerDetail.PersonalInfoContacts[2].Phone,
                 PersonalInfoContactName4: customerDetail.PersonalInfoContacts[3].Name,
                 PersonalInfoContact4: customerDetail.PersonalInfoContacts[3].Phone,
-                SiteId: customerDetail.SiteSetting.Id,
+                SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 HomeAddressLine1: customerDetail.AddressInfo.LineList[0],
                 HomeAddressLine2: customerDetail.AddressInfo.LineList[1],
                 HomeAddressLine3: customerDetail.AddressInfo.LineList[2],
