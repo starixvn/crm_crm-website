@@ -7,7 +7,6 @@
     using NAP.Core.Web.Attribute;
     using Services;
     using Setting.Services;
-    using System.Linq;
     using System.Web.Mvc;
 
     public class MultipleLogsController : ReadOnlyBaseController
@@ -84,7 +83,7 @@
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
-                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
+                SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes()

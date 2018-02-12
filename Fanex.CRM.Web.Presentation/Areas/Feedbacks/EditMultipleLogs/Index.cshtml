@@ -15,6 +15,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/EditMultipleLogsStyles")
 }
 <div data-ng-app="edit-multiple-logs-application">
@@ -168,10 +169,9 @@
                             </label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                             <select id="site" data-ng-model="multipleLogs.SiteInfo" ng-change="updateSelectedSite();"
-                                    data-ng-options="s.Name group by s.AliasName for s in siteList track by s.Id">
-                                <option value="">-- @Labels.Select --</option>
-                            </select>
+                            <selectwithsearchtree text-settings="TextSettings"
+                                                  data-ng-model="selectedSite"
+                                                  data-settings="siteDropdownSettings"></selectwithsearchtree>
                         </div>
                     </div>
                     <div class="row item">
