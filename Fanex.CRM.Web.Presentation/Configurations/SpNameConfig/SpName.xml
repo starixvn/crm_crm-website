@@ -40,22 +40,22 @@
   </Function>
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailysummaryreport" SpName="Acc_CRM_Rpt_CustomerStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
