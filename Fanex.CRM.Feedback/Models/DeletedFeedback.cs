@@ -10,8 +10,8 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
-    using System;
     using Fanex.CRM.Common.Models;
+    using System;
 
     /// <summary>
     /// Deleted feedback model.
@@ -20,5 +20,9 @@ namespace Fanex.CRM.Feedback.Models
     public class DeletedFeedback : FeedbackDetail
     {
         public string Description { get; set; }
+
+        public string AutoField { get; set; }
+
+        public string DescriptionTooltip { get; set; }
     }
 }
