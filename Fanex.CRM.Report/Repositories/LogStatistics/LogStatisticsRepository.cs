@@ -83,8 +83,8 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         };
 
                         var autoFieldText = statisticsDetail.AutoField != null ?
-                            (new System.Text.RegularExpressions.Regex("\n")).Replace(statisticsDetail.AutoField, "<br>") : string.Empty;
-                        statisticsDetail.RemarkText = autoFieldText + "<br><br>" + statisticsDetail.Remark;
+                            (new System.Text.RegularExpressions.Regex("\n")).Replace(statisticsDetail.AutoField, "<br>") + "<br><br>" : string.Empty;
+                        statisticsDetail.RemarkText = autoFieldText + statisticsDetail.Remark;
 
                         statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
                         statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));
