@@ -147,31 +147,8 @@
             }, feedbackIds);
 
             return feedbackIds;
-        };
-        $scope.generateRemarkPrefix = function () {
-            /* jshint camelcase: false */
-            return sharedScriptManager.stringFormat("{0}/{1} ",
-            [moment($scope.multipleLogs.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
-            $scope.multipleLogs.CommunicationTool.Name]);
-        };
-        $scope.updateRemarkPrefix = function () {
-            var remarkPrefix = $scope.generateRemarkPrefix();
-            if ($scope.multipleLogs.Remark.indexOf($scope.lastRemarkPrefix) === 0) {
-                $scope.multipleLogs.Remark = $scope.multipleLogs.Remark.substring(
-                    $scope.lastRemarkPrefix.length,
-                    $scope.multipleLogs.Remark.length);
-            }
-
-            if ($scope.multipleLogs.Remark.indexOf(remarkPrefix) === -1) {
-                $scope.multipleLogs.Remark = remarkPrefix + $scope.multipleLogs.Remark;
-                $scope.lastRemarkPrefix = remarkPrefix;
-            }
-        };
-        $scope.onStartTimeChanged = function () {
-            $scope.$apply(function () {
-                $scope.updateRemarkPrefix();
-            });
-        };
+        };        
+       
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
             $scope.editMultipleLogs();
@@ -197,7 +174,6 @@
                 $scope.multipleLogs.EndTime.setMinutes(selectedTime.getMinutes() + 1);
             }
 
-            $scope.updateRemarkPrefix();
         };
         $scope.updateEndTime = function (selectedTime) {
             $scope.multipleLogs.EndTime = selectedTime;
@@ -206,7 +182,6 @@
                 $scope.multipleLogs.StartTime.setMinutes(selectedTime.getMinutes() - 1);
             }
 
-            $scope.updateRemarkPrefix();
         };
         $scope.updateSelectedExtension = function (extentionId) {
             extentionId = parseInt(extentionId);
@@ -263,7 +238,6 @@
                 $scope.multipleLogs.CommunicationTool = communicationToolInfo;
             }
 
-            $scope.updateRemarkPrefix();
             $scope.$apply();
         };
         $scope.updateSelectedLanguage = function (languageId) {
