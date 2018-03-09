@@ -14,6 +14,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
     @RazorHelper.RenderStyles("~/Areas/Report/DynamicReportStyles")
 }
 <div data-ng-app="report-dynamicreport-application">
@@ -126,11 +127,14 @@
                         </label>
                         <select id="subProduct" class="selProduct"></select>
                     </div>
-                    <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
+                    <div class="item">
                         <label for="site" class="width-110">
-                            @Labels.Site</label>
-                        <select id="site" class="selSite">
-                        </select>
+                            @Labels.Site</label>                      
+                        <div class="col-xs-3 col-sm-3 col-md-3 ">
+                            <selectwithsearchtree text-settings="TextSettings"
+                                                  data-ng-model="selectedSite"
+                                                  data-settings="siteDropdownSettings"></selectwithsearchtree>
+                        </div>
                     </div>
                 </div>
                 <div class="row row-item">
