@@ -82,8 +82,9 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                             Bbm = Converter.ToString2(reader["BBM"])
                         };
 
-                        var autoFieldText = statisticsDetail.AutoField != null ?
-                            (new System.Text.RegularExpressions.Regex("\n")).Replace(statisticsDetail.AutoField, "<br>") + "<br><br>" : string.Empty;
+                        var autoFieldText = string.IsNullOrEmpty(statisticsDetail.AutoField) ?
+                            string.Empty :
+                            (new System.Text.RegularExpressions.Regex("\n")).Replace(statisticsDetail.AutoField, "<br>") + "<br><br>";
                         statisticsDetail.RemarkText = autoFieldText + statisticsDetail.Remark;
 
                         statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
