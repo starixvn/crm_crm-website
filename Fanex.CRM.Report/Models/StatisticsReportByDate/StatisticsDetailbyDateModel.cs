@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
-    using System;
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Helpers;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Statistics Detail By Date Information.
@@ -61,12 +61,12 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public DateTime StartDate { get; set; }
 
-        public string StartDateString 
+        public string StartDateString
         {
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(StartDate).ToShortFormatedDate(); }
         }
 
-        public string StartTime 
+        public string StartTime
         {
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(StartDate).ToHourMinuteMiddayTypeFormated(); }
         }
@@ -82,11 +82,11 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
                 var timeSpan = resolutionDate - feedbackDate;
 
                 return new TimeInfo
-                    {
-                        Days = timeSpan.Days,
-                        Hours = timeSpan.Hours,
-                        Minutes = timeSpan.Minutes
-                    };
+                {
+                    Days = timeSpan.Days,
+                    Hours = timeSpan.Hours,
+                    Minutes = timeSpan.Minutes
+                };
             }
         }
 
@@ -137,6 +137,10 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public string Remark { get; set; }
 
+        public string AutoField { get; set; }
+
+        public string RemarkText { get; set; }
+
         public string Solution { get; set; }
 
         public string StatusName { get; set; }
@@ -147,14 +151,14 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public DateTime CreationTime { get; set; }
 
-        public string CreationTimeString 
+        public string CreationTimeString
         {
-            get { return DateTimeUtilize.ChangeTimeZoneToClient(CreationTime); } 
+            get { return DateTimeUtilize.ChangeTimeZoneToClient(CreationTime); }
         }
 
         public DateTime ResolutionTime { get; set; }
 
-        public string ResolutionTimeString 
+        public string ResolutionTimeString
         {
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(ResolutionTime).ToHourMinuteMiddayTypeFormated(); }
         }

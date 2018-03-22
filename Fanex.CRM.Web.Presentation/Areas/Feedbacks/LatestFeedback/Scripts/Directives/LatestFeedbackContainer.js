@@ -73,10 +73,10 @@
                 tooltips.unbind('click')
                 .bind('click', function () {
                     var $this = $(this);
-                    $this.tipsy('hide');
+                    $(".tipsy").remove();
                     scope.openEditFeedbackPopup($this.data('id'));
                 })
-                .tipsy({ fade: true, gravity: 'nw', html: true, title: function () { return feedbacks[$(this).data('index')].Description; } });
+                .tipsy({ fade: true, gravity: 'nw', html: true, title: function () { return feedbacks[$(this).data('index')].DescriptionTooltip; } });
             }
         }
 

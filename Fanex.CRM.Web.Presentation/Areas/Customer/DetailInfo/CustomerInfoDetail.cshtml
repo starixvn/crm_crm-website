@@ -14,6 +14,7 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 @section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")    
 }
 <div data-ng-app="customerdetail-application">
@@ -83,9 +84,10 @@
                         <div class="col-md-3">
                             <label for="customerinfodetail-siteoptions">
                                 @Labels.Site</label></div>
-                        <div class="col-md-9" data-ng-model="siteList" dropdown-site-container>
-                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="8">
-                            </select>
+                        <div class="col-md-9">
+                            <selectwithsearchtree text-settings="TextSettings"
+                                                  data-ng-model="selectedSite"
+                                                  data-settings="siteDropdownSettings"></selectwithsearchtree>
                         </div>
                     </div>
                     @if (Model.HeadLine)

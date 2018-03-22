@@ -10,9 +10,9 @@
 
 namespace Fanex.CRM.Feedback.Bundles
 {
-    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
+    using System.Web.Optimization;
 
     /// <summary>
     /// Feedback Bundles.
@@ -66,6 +66,7 @@ namespace Fanex.CRM.Feedback.Bundles
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
                 .Include(
+                    "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
@@ -103,6 +104,7 @@ namespace Fanex.CRM.Feedback.Bundles
         {
             bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
+                    "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -195,6 +197,7 @@ namespace Fanex.CRM.Feedback.Bundles
 
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
                 .Include(
+                    "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
                     "~/Scripts/FanexGridV2/moment.js",
@@ -224,6 +227,7 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsOption.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
@@ -246,6 +250,7 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsApplication.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsOption.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsService.js",

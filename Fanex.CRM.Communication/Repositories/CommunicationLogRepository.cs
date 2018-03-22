@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Communication.Repositories
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -22,6 +18,10 @@ namespace Fanex.CRM.Communication.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Communication Log Repository.
@@ -202,6 +202,7 @@ namespace Fanex.CRM.Communication.Repositories
                 {
                     Id = Converter.ToInt(reader["ResponseID"])
                 },
+                AutoField = Converter.ToString2(reader["AutoField"]),
                 Remark = Converter.ToString2(reader["Description"]),
                 Solution = Converter.ToString2(reader["Solution"]),
                 Review = Converter.ToString2(reader["Review"]),

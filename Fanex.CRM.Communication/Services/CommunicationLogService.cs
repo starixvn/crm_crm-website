@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Communication.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
@@ -22,6 +19,9 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Communication Log Service.
@@ -91,7 +91,7 @@ namespace Fanex.CRM.Communication.Services
         private void UpdateSettingNameForLog(BaseCommunicationLog log)
         {
             var settings = _serviceSetting.GetAllSettings();
-            var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => !s.IsActive);
+            var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive);
 
             var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
             log.SiteInfo.Name = site == null ? null : site.Name;

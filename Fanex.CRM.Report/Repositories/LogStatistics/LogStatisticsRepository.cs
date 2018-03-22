@@ -6,15 +6,15 @@
 
 namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     public class LogStatisticsRepository : ILogStatisticsRepository
     {
@@ -42,7 +42,8 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         {
                             StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                             ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
-                            Remark = Converter.ToString2(reader["Description"]),
+                            Remark = Converter.ToString2(reader["Remark"]),
+                            AutoField = Converter.ToString2(reader["AutoField"]),
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
@@ -80,6 +81,11 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                             QQ = Converter.ToString2(reader["QQ"]),
                             Bbm = Converter.ToString2(reader["BBM"])
                         };
+
+                        var autoFieldText = string.IsNullOrEmpty(statisticsDetail.AutoField) ?
+                            string.Empty :
+                            (new System.Text.RegularExpressions.Regex("\n")).Replace(statisticsDetail.AutoField, "<br>") + "<br><br>";
+                        statisticsDetail.RemarkText = autoFieldText + statisticsDetail.Remark;
 
                         statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
                         statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));

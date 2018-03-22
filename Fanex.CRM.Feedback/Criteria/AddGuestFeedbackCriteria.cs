@@ -10,14 +10,14 @@
 
 namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
-    using System.Collections;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Add Guest Feedback Criteria.
@@ -85,6 +85,8 @@ namespace Fanex.CRM.Feedback.Criteria
                 return AppSession.CurrentUser.Id;
             }
         }
+
+        public string AutoField { get; set; }
 
         public string IP
         {
@@ -169,6 +171,7 @@ namespace Fanex.CRM.Feedback.Criteria
             param.Add("responseid", Response.Id);
             param.Add("statusid", Status.Id);
             param.Add("licenseetype", CustomerInfo.LicenseeType.Id);
+            param.Add("autofield", AutoField);
 
             param.Add("relatedcustid", RelatedCustomerId);
             param.Add("subject", Subject);

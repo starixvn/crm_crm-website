@@ -67,7 +67,7 @@
                     { Name: "ColCountry", Value: info.Country.Name },
                     { Name: "ColCategory", Value: info.MainCategory.Name },
                     { Name: "ColSubcategory", Value: info.SubCategory.Name },
-                    { Name: "ColRemark", Value: info.Remark, CssClass: 'word-wrap-remark' },
+                    { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
                     { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
                     { Name: "ColStatus", Value: info.StatusName },
                     { Name: "ColResponse", Value: info.Response.Name },

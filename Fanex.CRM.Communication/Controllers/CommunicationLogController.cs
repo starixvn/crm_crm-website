@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -23,6 +20,8 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Linq;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Communication Log Controller.
@@ -90,7 +89,7 @@ namespace Fanex.CRM.Communication.Controllers
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive),
+                SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes()

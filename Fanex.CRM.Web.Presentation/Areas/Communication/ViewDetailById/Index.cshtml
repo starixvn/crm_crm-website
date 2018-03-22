@@ -212,6 +212,8 @@
                 @Labels.Remark
             </div>
             <div class="row content multi-text">
+                <div class="lastRemarkPrefixPreview" ng-bind-html="communicationLog.AutoField">
+                </div>
                 <div class="item">
                     @Html.Raw(Model.Remark)
                 </div>
@@ -261,6 +263,9 @@
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var communicationLog = @Html.Raw(jsonLogInfo);
+        if(communicationLog.AutoField){
+            communicationLog.AutoField = communicationLog.AutoField.replace(/\n/g, "<br>") + "<br><br>";
+        }
         var hasReviewPermission = @hasReviewPermission;
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',

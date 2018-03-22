@@ -38,6 +38,8 @@ namespace Fanex.CRM.Communication.Criteria
             }
         }
 
+        public string AutoField { get; set; }
+
         public override string GetSettingKey()
         {
             return "Communication_Log_Update";

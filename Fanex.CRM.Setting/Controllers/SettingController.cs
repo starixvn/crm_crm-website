@@ -9,11 +9,11 @@
 
 namespace Fanex.CRM.Setting.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Setting Controller.
@@ -35,7 +35,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllSite()
         {
-            var allSite = _settingServiceInstance.GetAllSiteWithGroup();
+            var allSite = _settingServiceInstance.GetAllSites();
             return Json(allSite, JsonRequestBehavior.AllowGet);
         }
 

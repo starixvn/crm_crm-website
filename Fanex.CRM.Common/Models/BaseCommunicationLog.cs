@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Common.Models
 {
-    using System;
     using Fanex.CRM.Infrastructure.Models;
+    using System;
 
     /// <summary>
     /// Base Communication Log Information.
@@ -79,5 +79,7 @@ namespace Fanex.CRM.Common.Models
         public string Review { get; set; }
 
         public bool IsReviewed { get; set; }
+
+        public string AutoField { get; set; }
     }
 }

@@ -155,6 +155,10 @@ namespace Fanex.CRM.Feedback.Services
                 feedback.MainCategory = categoryHash[feedback.MainCategoryId];
                 feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
+                var autoFieldText = String.IsNullOrEmpty(feedback.AutoField) ?
+                        string.Empty :
+                        (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.AutoField, "<br>") + "<br><br>";
+                feedback.DescriptionTooltip = autoFieldText + feedback.Description;
             }
 
             return feedbacks;

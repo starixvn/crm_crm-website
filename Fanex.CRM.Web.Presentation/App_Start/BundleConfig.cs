@@ -145,6 +145,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
@@ -162,6 +163,7 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
@@ -250,6 +252,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
+                "~/Scripts/AngularJS/sanitize.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -454,6 +457,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportOption.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",

@@ -8,8 +8,8 @@
     currentTime,
     crmConstants */
     /* jshint camelcase: false */
-    angular.module('communicationlog-viewdetailbyid-application').controller('viewDetailByIdController', ['$scope', '$http', '$viewDetailByIdService',
-    function ($scope, $http, $viewDetailByIdService) {
+    angular.module('communicationlog-viewdetailbyid-application').controller('viewDetailByIdController', ['$scope', '$http', '$viewDetailByIdService', '$sce',
+    function ($scope, $http, $viewDetailByIdService, $sce) {
         $scope.communicationLog = communicationLog;
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
@@ -34,6 +34,8 @@
         $scope.startTimeOptions = null;
         $scope.endTimeOptions = null;
         $scope.licenseeTypeOptions = null;
+        $scope.communicationLog.AutoField = $sce.trustAsHtml($scope.communicationLog.AutoField);
+        
 
         $scope.initController = function () {
             $scope.getAllSetting();

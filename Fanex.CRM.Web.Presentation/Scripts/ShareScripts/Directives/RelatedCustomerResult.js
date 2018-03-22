@@ -80,7 +80,7 @@
                     scope.relatedCustomerResultDirective.relatedCustomers = customers.filter(function (value) {
                         return value.Id !== custId;
                     });
-
+                    scope.relatedCustomerResultDirective.verifyUsernamesAtLeastOneTime = true;
                     scope.$apply();
                 });
                 table.find('.icon-del-all-invalid').unbind('click').bind('click', function () {
@@ -132,12 +132,16 @@
                     /* jshint unused: false */
                     scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                         renderRelatedCustomers(scope, newVal);
+                        if (scope.relatedCustomersChanged) {
+                            scope.relatedCustomersChanged();
+                        }
                     });
-                    scope.relatedCustomerResultDirective = {};
+                    scope.relatedCustomerResultDirective = {verifyUsernamesAtLeastOneTime: false};
                     scope.relatedCustomerResultDirective.verifyUsernames = function (username) {
                         if (username === '') {
                             return;
                         }
+                        scope.relatedCustomerResultDirective.verifyUsernamesAtLeastOneTime = true;
 
                         $uiBlockerService.blockUI();
                         var url = window.rootUrl + 'CustomerSetting/VerifyUsername';

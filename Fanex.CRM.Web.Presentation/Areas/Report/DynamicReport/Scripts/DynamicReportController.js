@@ -47,6 +47,10 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.isLoadedAllSetting = false;
         $scope.subjectOptions = null;
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A"
+        };
 
         $scope.searchCriteria = {
             ReportType: null,
@@ -119,6 +123,14 @@
                 $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
                 $scope.extensionOptions.DataList = allSetting.ExtensionList;
                 $scope.isLoadedAllSetting = true;
+
+                $scope.siteDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: allSetting.SiteList,
+                    childrenMember: "ChildSites"
+                };
+
                 $scope.completedLoadFilterInfo();
             },
             function () {
@@ -499,7 +511,7 @@
 
                 ProductId: $scope.searchCriteria.Product.Id,
                 SubProductId: $scope.searchCriteria.SubProduct.Id,
-                SiteId: $scope.searchCriteria.Site.Id,
+                SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 StatusId: $scope.searchCriteria.Status.Id,
                 ResponseId: $scope.searchCriteria.Response.Id,
                 RoleId: $scope.searchCriteria.Role.Id,
