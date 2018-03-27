@@ -157,6 +157,13 @@
                 sourceData: $scope.allSettings.ExtensionList
             };
 
+            $scope.categoryDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.allSettings.MainCategoryList,
+                childrenMember: "ChildSettings"
+            };
+
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
 
