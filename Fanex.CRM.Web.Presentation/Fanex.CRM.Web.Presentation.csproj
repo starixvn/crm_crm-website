@@ -816,6 +816,9 @@
     <Content Include="Scripts\Directives\selectwithsearch\selectwithsearch.css" />
     <Content Include="Scripts\Directives\selectwithsearch\selectwithsearch.template.html" />
     <Content Include="Scripts\Directives\selectwithsearch\selectwithsearch.js" />
+    <Content Include="Scripts\Directives\multileveldropdown\multileveldropdown.css" />
+    <Content Include="Scripts\Directives\multileveldropdown\multileveldropdown.js" />
+    <Content Include="Scripts\Directives\multileveldropdown\multileveldropdown.template.html" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
