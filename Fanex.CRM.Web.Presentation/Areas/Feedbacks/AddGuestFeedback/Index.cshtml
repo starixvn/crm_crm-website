@@ -14,6 +14,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackStyles")
 }
 <div data-ng-app="feedbacks-addguestfeedback-application">
@@ -320,9 +321,10 @@
                                     <label for="ddlcommunication">@Language.Communication</label>
                                     @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
-                                    <select id="communication-tool" tabindex="63">
-                                    </select>
+                                <div class="col-xs-8 col-sm-8 col-md-8" >
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCommunications"
+                                                            data-settings="communicationDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
