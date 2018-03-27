@@ -151,6 +151,12 @@
                 sourceData: $scope.allSettings.CommunicationToolList
             };
 
+            $scope.extensionDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Value",
+                sourceData: $scope.allSettings.ExtensionList
+            };
+
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
 
