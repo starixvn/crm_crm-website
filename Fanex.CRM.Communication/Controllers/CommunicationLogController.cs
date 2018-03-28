@@ -122,7 +122,11 @@ namespace Fanex.CRM.Communication.Controllers
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
-                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId })
+                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId }),
+                ProductNA = _serviceSetting.GetProductNA(),
+                SubProductNA = _serviceSetting.GetSubProductNA(),
+                BettypeNA = _serviceSetting.GetBettypeNA(),
+                ExtensionNA = _serviceSetting.GetExtensionNA()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
