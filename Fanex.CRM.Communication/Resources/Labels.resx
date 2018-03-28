@@ -338,4 +338,7 @@
   <data name="CreateMultipleLogs" xml:space="preserve">
     <value>Create Multiple Logs</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
 </root>

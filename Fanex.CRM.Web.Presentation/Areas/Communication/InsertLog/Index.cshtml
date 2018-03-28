@@ -95,7 +95,8 @@
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="mainCategory">
-                        @Labels.Main_Category
+                        @Labels.Category
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                     </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -310,6 +311,8 @@
             Communication_Log_NAProduct: '@Labels.Communication_Log_NAProduct',
             Communication_Log_NABetType: '@Labels.Communication_Log_NABetType',
             Communication_Log_NASite: '@Labels.Communication_Log_NASite',
+            Error_NAMainCategory: '@Labels.Error_NAMainCategory',
+            NoSubcategoryError: '@Labels.NoSubcategoryError',
 
             Communication_Log_EmptySubject: '@Labels.Communication_Log_EmptySubject',
             Communication_Log_EmptyRemark: '@Labels.Communication_Log_EmptyRemark',

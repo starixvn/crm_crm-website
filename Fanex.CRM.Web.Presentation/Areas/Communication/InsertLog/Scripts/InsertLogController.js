@@ -575,6 +575,17 @@
                 result = false;
             }
 
+            if (result && criteria.Categories.length == 0) {
+                $scope.resultMessage = viewResources.Error_NAMainCategory;
+                result = false;
+            }
+
+            var invalidCategories = $scope.CheckInvalidCategories();
+            if (result && invalidCategories != "") {
+                $scope.resultMessage = viewResources.NoSubcategoryError.replace('{0}', '[' + invalidCategories + ']');
+                result = false;
+            }
+
             if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
                 $scope.resultMessage = viewResources.Communication_Log_NALanguage;
                 result = false;
