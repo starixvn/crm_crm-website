@@ -171,7 +171,6 @@
             $scope.communicationLog.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
             $scope.communicationLog.EndTime = sharedScriptManager.formatTimeToSendToServer(endtime);
 
-            $scope.communicationLog.Extension = $scope.extensionList[0];
             $scope.communicationLog.Country = {
                 Id: $scope.defaultSettings.CountryId
             };
@@ -182,8 +181,6 @@
 
             $scope.communicationLog.LanguageId = $scope.defaultSettings.DefaultLanguage;
             $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
-            $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
-            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
             $scope.communicationLog.Status = $scope.statusList[0];
             $scope.communicationLog.RoleInfo = {
                 Id: $scope.defaultSettings.RoleId
@@ -497,14 +494,8 @@
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
-                ExtensionId: $scope.communicationLog.Extension.Id,
-                MainCategoryId: $scope.communicationLog.MainCategory.Id,
-                SubcategoryId: $scope.communicationLog.SubCategory.Id,
                 SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
-                ProductId: $scope.communicationLog.Product.Id,
-                SubProductId: $scope.communicationLog.SubProduct.Id,
-                BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
                 Remark: $scope.communicationLog.Remark,
@@ -742,12 +733,9 @@
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.allSettings = data.Result;
-                $scope.extensionList = allSetting.ExtensionList;
                 $scope.countryList = allSetting.CountryList;
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
-                $scope.mainCategoryList = allSetting.MainCategoryList;
-                $scope.productOptions.DataList = allSetting.ProductList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
