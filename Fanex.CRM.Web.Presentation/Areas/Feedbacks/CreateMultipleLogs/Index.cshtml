@@ -131,7 +131,8 @@
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="mainCategory">
-                                    @Labels.Main_Category
+                                    @Labels.Category
+                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                                 </label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -310,6 +311,8 @@
 
             Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
             Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
+            Error_NAMainCategory: '@Labels.Error_NAMainCategory',
+            NoSubcategoryError: '@Labels.NoSubcategoryError',
 
             Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
             Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
