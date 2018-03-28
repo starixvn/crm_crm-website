@@ -157,14 +157,10 @@
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {
-            if ($scope.mainCategoryList === null ||
-            $scope.mainCategoryList === undefined) {
+            if ($scope.defaultSettings === null) {
                 return;
             }
 
-            var firstProduct = $scope.productOptions.DataList[0];
-            
-            $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;           
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
             endtime.setMinutes(endtime.getMinutes() + 1);
