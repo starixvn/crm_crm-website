@@ -214,15 +214,10 @@
             $scope.birthdayOptions.IsRerenderPicker = true;
             $scope.titleOptions.DataList = $scope.allSettings.TitleList;
             $scope.communicationToolOptions.DataList = $scope.allSettings.CommunicationToolList;
-            $scope.productOptions.DataList = $scope.allSettings.ProductList;
             $scope.responseOptions.DataList = $scope.allSettings.ResponseList;
             $scope.languageOptions.DataList = $scope.allSettings.LanguageList;
-            $scope.mainCategoryOptions.DataList = $scope.allSettings.MainCategoryList;
-            $scope.betTypeOptions.DataList = $scope.allSettings.ProductList[0].ChildSettings;
             $scope.statusOptions.DataList = $scope.allSettings.StatusList;
 
-            $scope.extensionOptions.DataList = $scope.allSettings.ExtensionList;
-            $scope.subCategoryOptions.DataList = $scope.allSettings.MainCategoryList[0].ChildSettings;
             $scope.countryOptions.DataList = $scope.allSettings.CountryList;
 
             $scope.subjectOptions = {
