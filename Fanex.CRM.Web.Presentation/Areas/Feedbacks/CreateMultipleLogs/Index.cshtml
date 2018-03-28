@@ -14,6 +14,7 @@
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
 <div data-ng-app="create-multiple-logs-application">
@@ -81,10 +82,11 @@
                                     @Labels.Ext
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-extension data-ng-model="extensionList">
-                                <select id="ext"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedExtensions"
+                                                        data-settings="extensionDropdownSettings"></multileveldropdowntree>
                             </div>
-                        </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="endTime">
@@ -111,8 +113,10 @@
                                     @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-communication-tool data-ng-model="communicationToolList">
-                                <select id="communicationTool"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedCommunications"
+                                                        data-settings="communicationDropdownSettings"></multileveldropdowntree>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="language">
@@ -130,16 +134,18 @@
                                     @Labels.Main_Category
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-main-category data-ng-model="mainCategoryList">
-                                <select id="mainCategory"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedCategories"
+                                                        data-settings="categoryDropdownSettings"></multileveldropdowntree>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="subcategory">
-                                    @Labels.Sub_Category
+                                <label for="response">
+                                    @Labels.Response
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-sub-category data-ng-model="subCategoryList">
-                                <select id="subCategory"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                                <select id="response"></select>
                             </div>
                         </div>
                         <div class="row item">
@@ -148,16 +154,22 @@
                                     @Labels.Product
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-product data-ng-model="productOptions.DataList">
-                                <select id="product"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedProducts"
+                                                        data-ng-change="productChangedHandler()"
+                                                        data-settings="productDropdownSettings"></multileveldropdowntree>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="subproduct">
                                     @Labels.SubProduct
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-sub-product data-ng-model="subProductOptions.DataList">
-                                <select id="subProduct"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedSubProducts"
+                                                        data-ng-change="subProductChangedHandler()"
+                                                        data-settings="subProductDropdownSettings"></multileveldropdowntree>
                             </div>
                         </div>
                         <div class="row item">
@@ -174,8 +186,10 @@
                                     @Labels.Bet_Type
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-bet-type data-ng-model="betTypeList">
-                                <select id="betType"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedBettypes"
+                                                        data-settings="bettypeDropdownSettings"></multileveldropdowntree>
                             </div>
                         </div>
                         <div class="row item">
@@ -206,15 +220,7 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="response">
-                                    @Labels.Response
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                                <select id="response"></select>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
