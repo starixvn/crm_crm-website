@@ -20,6 +20,11 @@
         $scope.bettypes = null;
         $scope.subProducts = null;
         $scope.customersInput = '';
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A",
+            CheckAll: "All"
+        };
 
         var oldReview;
         $scope.panelManager = {
@@ -116,6 +121,93 @@
         };
         // ---------- End of Functions of jHtml ----------
 
+        $scope.productChangedHandler = function () {
+            $scope.subProductDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubProducts($scope.selectedProducts),
+                childrenMember: "ChildSettings",
+            };
+        }
+
+        $scope.subProductChangedHandler = function () {
+            $scope.bettypeDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
+                childrenMember: "ChildSettings",
+            };
+        }
+
+        $scope.getSubProducts = function (seletedProducts) {
+            var cloneSeletedProducts = [];
+            if (seletedProducts) {
+                cloneSeletedProducts = angular.copy(seletedProducts);
+            }
+
+            var productsWithSubProducts = [];
+            angular.forEach(cloneSeletedProducts, function (product) {
+                // only get product having subproducts
+                if (product.ChildSettings.length != 0) {
+                    angular.forEach(product.ChildSettings, function (subProducts) {
+                        subProducts.ChildSettings = [];
+                    })
+                    productsWithSubProducts.push(product);
+                }
+            });
+
+            return productsWithSubProducts;
+        }
+
+        $scope.getBettypes = function (seletedSubProducts, allProducts) {
+            var selectedProductIds = [];
+            angular.forEach(seletedSubProducts, function (selectedSubProduct) {
+                if (selectedProductIds.indexOf(selectedSubProduct.ParentId) < 0) {
+                    selectedProductIds.push(selectedSubProduct.ParentId);
+                }
+            });
+
+            var selectProductandSubProductIds = [];
+            angular.forEach(selectedProductIds, function (productId) {
+                var Ids = {
+                    ProductId: productId,
+                    SubProductIds: []
+                };
+
+                angular.forEach(seletedSubProducts, function (selectedSubProduct) {
+                    if (selectedSubProduct.ParentId == productId) {
+                        Ids.SubProductIds.push(selectedSubProduct.Id);
+                    }
+                });
+
+                selectProductandSubProductIds.push(Ids);
+            })
+
+            var selectedProducts = [];
+            angular.forEach(selectProductandSubProductIds, function (ids) {
+                angular.forEach(allProducts, function (product) {
+                    if (product.Id == ids.ProductId) {
+                        var subProducts = [];
+                        angular.forEach(product.ChildSettings, function (subProduct) {
+                            // only get subproduct having bettypes
+                            if (ids.SubProductIds.indexOf(subProduct.Id) >= 0 && subProduct.ChildSettings.length > 0) {
+                                subProducts.push(angular.copy(subProduct));
+                            }
+                        });
+
+                        // only get product having subproducts
+                        if (subProducts.length > 0) {
+                            var p = angular.copy(product);
+                            p.ChildSettings = subProducts;
+                            selectedProducts.push(p)
+                        }
+                    }
+                })
+            });
+
+            return selectedProducts;
+        }
+
         $scope.initController = function () {
             $uiBlockerService.blockUI();
             $scope.isSetFocus = true;
@@ -128,6 +220,7 @@
             feedbackService.getSettings()
             .then(function (data) {
                 $scope.settings = data.Result;
+                $scope.allSettings = data.Result;
 
                 if (!isShowDeletedStatus) {
                     feedbackService.removeDeletedStatus($scope.settings.StatusList);
@@ -168,13 +261,51 @@
                             SelectedText: $scope.feedback.Review,
                             EditIconText: updateFeedbackResources.InsertEditBlock
                         };
+
+
                        
                         $scope.updateAllSettingsForFeedback();
+                        
 
-                        $scope.getSubProducts();
-                        $scope.getBettypes();
+                        $scope.communicationDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.allSettings.CommunicationToolList
+                        };
 
-                        $scope.getSubcategories();
+                        $scope.extensionDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Value",
+                            sourceData: $scope.allSettings.ExtensionList
+                        };
+
+                        $scope.categoryDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.allSettings.MainCategoryList,
+                            childrenMember: "ChildSettings"
+                        };
+
+                        $scope.productDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.allSettings.ProductList
+                        };
+
+                        $scope.subProductDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.getSubProducts($scope.selectedProducts),
+                            childrenMember: "ChildSettings",
+                        };
+
+                        $scope.bettypeDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
+                            childrenMember: "ChildSettings",
+                        };
+
 
                         $scope.initRelatedCustomer();                       
 
@@ -189,31 +320,6 @@
             });
         };
 
-        $scope.getSubProducts = function () {
-            var products = $scope.settings.Products;
-            var productFiltered = products.filter(function (product) {
-                return product.Id === $scope.feedback.Product.Id;
-            })[0];
-
-            $scope.subProducts = productFiltered.ChildSettings;
-        };
-        $scope.getBettypes = function () {
-            var subProducts = $scope.subProducts;
-            var subProductsFiltered = subProducts.filter(function (subProduct) {
-                return subProduct.Id === $scope.feedback.SubProduct.Id;
-            })[0];
-
-            $scope.bettypes = subProductsFiltered.ChildSettings;
-        };
-
-        $scope.getSubcategories = function () {
-            var categories = $scope.settings.Categories;
-            var categoriesFiltered = categories.filter(function (category) {
-                return category.Id === $scope.feedback.Category.Id;
-            })[0];
-
-            $scope.subcategories = categoriesFiltered.ChildSettings;
-        };
 
         $scope.updateAllSettingsForFeedback = function () {
             SettingManager.updateSettingSelectList($scope.feedback.Extension, $scope.settings.Extensions);

@@ -213,6 +213,7 @@ namespace Fanex.CRM.Feedback.Bundles
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
                     "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                     "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                    "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackApplication.js",
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackService.js",
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackController.js",

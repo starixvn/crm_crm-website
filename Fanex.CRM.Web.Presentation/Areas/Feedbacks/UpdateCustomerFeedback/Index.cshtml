@@ -15,6 +15,7 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles")
 }
 <div data-ng-app="feedbacks-updatecustomerfeedback-application">
@@ -321,9 +322,9 @@
                                     @Html.Raw(Labels.RequiredFieldTemplate)
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcommunication" tabindex="63" data-ng-model="feedback.Communication"
-                                        data-ng-options="s.Name for s in settings.Communications track by s.Id">
-                                    </select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCommunications"
+                                                            data-settings="communicationDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
@@ -371,9 +372,9 @@
                                     @Html.Raw(Labels.RequiredFieldTemplate)
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcategory" tabindex="64" data-ng-model="feedback.Category" data-ng-options="s.Name for s in settings.Categories track by s.Id"
-                                        data-ng-change="categoryChanged()">
-                                    </select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCategories"
+                                                            data-settings="categoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
@@ -381,8 +382,10 @@
                                     <label for="ddlSubProduct">@Labels.SubProduct</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlSubProduct" tabindex="66" data-ng-model="feedback.SubProduct" data-ng-options="s.Value for s in subProducts track by s.Id"
-                                            data-ng-change="subProductChanged()"></select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedSubProducts"
+                                                            data-ng-change="subProductChangedHandler()"
+                                                            data-settings="subProductDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
 
@@ -411,26 +414,19 @@
                                     <label for="ddlcsextension">@Labels.CSExtension</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcsextension" tabindex="62" data-ng-model="feedback.Extension" data-ng-options="s.Value for s in settings.Extensions track by s.Id">
-                                    </select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedExtensions"
+                                                            data-settings="extensionDropdownSettings"></multileveldropdowntree>
                                 </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlsubcategory">@Labels.SubCategory</label>
-                                    @Html.Raw(Labels.RequiredFieldTemplate)
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlsubcategory" tabindex="65" data-ng-model="feedback.SubCategory" data-ng-options="s.Name for s in subcategories track by s.Id">
-                                    </select>
-                                </div>
-                            </div>
+                            </div>                           
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlbettype">@Labels.BetType</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlbettype" tabindex="67" data-ng-model="feedback.BetType" data-ng-options="s.Name for s in bettypes track by s.Id"></select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedBettypes"
+                                                            data-settings="bettypeDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
 
