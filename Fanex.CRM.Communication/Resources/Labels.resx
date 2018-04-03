@@ -341,4 +341,10 @@
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="Error_NAMainCategory" xml:space="preserve">
+    <value>Main category is mandatory!</value>
+  </data>
+  <data name="NoSubcategoryError" xml:space="preserve">
+    <value>Subcategory is mandatory!</value>
+  </data>
 </root>

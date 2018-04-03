@@ -385,6 +385,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main category is mandatory!.
+        /// </summary>
+        public static string Error_NAMainCategory {
+            get {
+                return ResourceManager.GetString("Error_NAMainCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ext.
         /// </summary>
         public static string Ext {
@@ -489,6 +498,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Main_Category {
             get {
                 return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subcategory is mandatory!.
+        /// </summary>
+        public static string NoSubcategoryError {
+            get {
+                return ResourceManager.GetString("NoSubcategoryError", resourceCulture);
             }
         }
         
