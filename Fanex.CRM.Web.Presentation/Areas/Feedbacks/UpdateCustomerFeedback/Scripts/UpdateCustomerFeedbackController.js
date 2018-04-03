@@ -305,8 +305,7 @@
                             sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
                             childrenMember: "ChildSettings",
                         };
-
-
+                        
                         $scope.initRelatedCustomer();                       
 
                         $uiBlockerService.unblockUI();
@@ -322,14 +321,9 @@
 
 
         $scope.updateAllSettingsForFeedback = function () {
-            SettingManager.updateSettingSelectList($scope.feedback.Extension, $scope.settings.Extensions);
-            SettingManager.updateSettingSelectList($scope.feedback.Communication, $scope.settings.Communications);
-
-            SettingManager.updateSettingSelectList($scope.feedback.Category, $scope.settings.Categories);
-            SettingManager.updateInActiveChildSettings($scope.feedback.SubCategory, $scope.settings.Categories, $scope.feedback.Category.Id);
-
-            $scope.updateProductSettings();
-
+            //SettingManager.updateSettingSelectList($scope.feedback.Extension, $scope.settings.Extensions);
+            //SettingManager.updateSettingSelectList($scope.feedback.Communication, $scope.settings.Communications);
+            
             SettingManager.updateSettingSelectList($scope.feedback.Language, $scope.settings.Languages);
             SettingManager.updateSettingSelectList($scope.feedback.Status, $scope.settings.StatusList);
             SettingManager.updateSettingSelectList($scope.feedback.Role, $scope.settings.Roles);

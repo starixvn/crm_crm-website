@@ -332,9 +332,10 @@
                                     <label for="ddlProduct">@Labels.Product</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlProduct" tabindex="66" data-ng-model="feedback.Product" data-ng-options="s.Value for s in settings.Products track by s.Id"
-                                        data-ng-change="productChanged()">
-                                    </select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedProducts"
+                                                            data-ng-change="productChangedHandler()"
+                                                            data-settings="productDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
 
