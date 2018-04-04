@@ -8,8 +8,8 @@ namespace Fanex.CRM.Common.Helpers
 {
     public static class SerializerHelper
     {
-        public const string RootElementName = "root";
-        public const string RootElementWrapper = "<root>{0}</root>";
+        public const string RootElementName = "ROOT";
+        public const string RootElementWrapper = "<ROOT>{0}</ROOT>";
 
         private static XmlSerializerNamespaces xmlNameSpace = GetXmlSerializerNamespaces();
         private static XmlWriterSettings xmlSettings = GetXmlWriterSettings();
