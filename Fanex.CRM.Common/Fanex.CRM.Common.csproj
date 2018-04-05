@@ -210,6 +210,7 @@
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\SearchedCustomer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SettingItem.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SettingRelation.cs" />
     <Compile Include="Models\Setting.cs" />

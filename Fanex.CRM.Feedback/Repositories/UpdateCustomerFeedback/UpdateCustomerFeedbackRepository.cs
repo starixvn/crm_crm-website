@@ -61,6 +61,20 @@ namespace Fanex.CRM.Feedback.Repositories
                             feedback.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                             feedback.HasRelated = relatedCustomers.Count > 0;
                         }
+
+                        if (reader.NextResult())
+                        {
+                            while (reader.Read())
+                            {
+                                feedback.Settings.Add(new SettingItem
+                                {
+                                    SettingType = Converter.ToString2(reader["SettingType"]),
+                                    SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                    SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                    SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -178,13 +192,6 @@ namespace Fanex.CRM.Feedback.Repositories
                 FeedbackTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["FeedbackDate"])),
                 ResolutionTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["ResolutionDate"])),
                 SolveTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["SolveDate"])),
-                Extension = new BaseModel { Id = Converter.ToInt(reader["StationId"]) },
-                Communication = new BaseModel { Id = Converter.ToInt(reader["CommunicationId"]) },
-                Category = new BaseModel { Id = Converter.ToInt(reader["MainCategoryId"]) },
-                SubCategory = new BaseModel { Id = Converter.ToInt(reader["SubcategoryId"]) },
-                Product = new BaseModel { Id = Converter.ToInt(reader["ProductId"]) },
-                SubProduct = new BaseModel { Id = Converter.ToInt(reader["SubProductId"]) },
-                BetType = new BaseModel { Id = Converter.ToInt(reader["BettypeId"]) },
                 Country = new BaseModel { Id = Converter.ToInt(reader["CountryId"]) },
                 Language = new BaseModel { Id = Converter.ToInt(reader["LanguageId"]) },
                 Status = new BaseModel { Id = Converter.ToInt(reader["StatusId"]) },

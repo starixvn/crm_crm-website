@@ -9,13 +9,20 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
+    using Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Customer feedback.
     /// </summary>
     public class CustomerFeedback
     {
+        public CustomerFeedback()
+        {
+            this.Settings = new List<SettingItem>();
+        }
+
         public CustomerInfo CustomerInfo { get; set; }
 
         public int Id { get; set; }
@@ -73,5 +80,7 @@ namespace Fanex.CRM.Feedback.Models
         public int UserId { get; set; }
 
         public string AutoField { get; set; }
+
+        public List<SettingItem> Settings { get; set; }
     }
 }
