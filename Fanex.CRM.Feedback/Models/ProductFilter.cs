@@ -36,7 +36,7 @@ namespace Fanex.CRM.Feedback.Models
             set { }
         }
 
-        [XmlAttribute("BettypeID")]
+        [XmlAttribute("BetTypeID")]
         public string BettypeIdsContent
         {
             get
