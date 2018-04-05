@@ -12,5 +12,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogList" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

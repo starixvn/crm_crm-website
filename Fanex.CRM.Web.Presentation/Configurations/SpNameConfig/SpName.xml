@@ -50,7 +50,7 @@
     <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdateSiteLicenseeTypes" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
