@@ -92,7 +92,11 @@ namespace Fanex.CRM.Communication.Controllers
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
-                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
+                ProductNA = _serviceSetting.GetProductNA(),
+                SubProductNA = _serviceSetting.GetSubProductNA(),
+                BettypeNA = _serviceSetting.GetBettypeNA(),
+                ExtensionNA = _serviceSetting.GetExtensionNA()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

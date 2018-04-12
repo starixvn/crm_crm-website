@@ -343,6 +343,107 @@
             $scope.updateChangeFlag();
         };
 
+        $scope.GetCommunicationParams = function () {
+            var communicationIds = [];
+            angular.forEach($scope.selectedCommunications, function (communication) {
+                communicationIds.push(communication.Id);
+            })
+
+            return communicationIds.join(",");
+        }
+
+        $scope.GetExtensionParams = function () {
+            var extensionIds = [];
+            angular.forEach($scope.selectedExtensions, function (extension) {
+                extensionIds.push(extension.Id);
+            })
+
+            if (extensionIds.length == 0) {
+                extensionIds = [$scope.allSettings.ExtensionNA.Id];
+            }
+
+            return extensionIds.join(",");
+        }
+
+        $scope.GetProductParams = function () {
+            var products = [];
+            angular.forEach($scope.selectedProducts, function (product) {
+                var subIds = [];
+                angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                    if (subProduct.ParentId == product.Id) {
+                        subIds.push(subProduct.Id);
+                    }
+                })
+
+                if (subIds.length == 0) {
+                    products.push({
+                        ProductId: product.Id,
+                        SubProductId: "",
+                        BettypeIds: []
+                    })
+                }
+                else {
+                    angular.forEach(subIds, function (subId) {
+                        products.push({
+                            ProductId: product.Id,
+                            SubProductId: subId,
+                            BettypeIds: []
+                        })
+                    })
+                }
+            })
+
+            angular.forEach(products, function (p) {
+                angular.forEach($scope.selectedBettypes, function (bettype) {
+                    if (p.ProductId == bettype.GrandParentId && p.SubProductId == bettype.ParentId) {
+                        p.BettypeIds.push(bettype.Id);
+                    }
+                })
+
+                if (p.SubProductId == "") {
+                    p.SubProductId = $scope.allSettings.SubProductNA.Id;
+                }
+
+                if (p.BettypeIds.length == 0) {
+                    p.BettypeIds = [$scope.allSettings.BettypeNA.Id];
+                }
+
+                p.BettypeIds = p.BettypeIds.join(",");
+            })
+
+            if (products.length == 0) {
+                products = [
+                    {
+                        ProductId: $scope.allSettings.ProductNA.Id,
+                        SubProductId: $scope.allSettings.SubProductNA.Id,
+                        BettypeIds: $scope.allSettings.BettypeNA.Id
+                    }
+                ];
+            }
+
+            return products;
+        }
+
+        $scope.GetCategoryParams = function () {
+            var categories = [];
+            angular.forEach($scope.selectedCategories, function (category) {
+                if (category.ParentId != 0) {
+                    categories.push({
+                        MainCategoryID: category.ParentId,
+                        SubCategoryID: category.Id
+                    })
+                }
+                else {
+                    categories.push({
+                        MainCategoryID: category.Id,
+                        SubCategoryID: ''
+                    })
+                }
+            })
+            
+            return categories;
+        }
+
         $scope.updateLog = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
@@ -367,15 +468,13 @@
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
 
-                CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
-                ExtensionId: $scope.communicationLog.Extension.Id,
-                MainCategoryId: $scope.communicationLog.MainCategory.Id,
-                SubcategoryId: $scope.communicationLog.SubCategory.Id,
+                CommunicationIds: $scope.GetCommunicationParams(),
+                ExtensionIds: $scope.GetExtensionParams(),
+                Products: $scope.GetProductParams(),
+                Categories: $scope.GetCategoryParams(),
+
                 SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 RoleId: $scope.communicationLog.RoleInfo.Id,
-                ProductId: $scope.communicationLog.Product.Id,
-                SubProductId: $scope.communicationLog.SubProduct.Id,
-                BetTypeId: $scope.communicationLog.BetType.Id,
                 ResponseId: $scope.communicationLog.Response.Id,
                 StatusId: $scope.communicationLog.Status.Id,
                 Remark: $scope.communicationLog.Remark,
@@ -388,17 +487,17 @@
                 AutoField: $scope.autoGeneratedText
             };
 
-        if ($scope.validateUpdateLogCriteria(updateCriteria)) {
-            $scope.BlockUI();
-            $editLogService.updateLog(updateCriteria, isDeletedStatus)
-            .then(function (data) {
-                var updateResult = data.Result;
-                $scope.showUpdateResult(updateResult);
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
+            if ($scope.validateUpdateLogCriteria(updateCriteria)) {
+                $scope.BlockUI();
+                $editLogService.updateLog(updateCriteria, isDeletedStatus)
+                .then(function (data) {
+                    var updateResult = data.Result;
+                    $scope.showUpdateResult(updateResult);
+                    $scope.unblockUI();
+                },
+                function () {
+                    $scope.unblockUI();
+                });
             }
         };
         $scope.showUpdateResult = function (updateResult) {
@@ -457,7 +556,7 @@
                 result = false;
             }
 
-            if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
+            if (result && $scope.selectedCommunications.length == 0) {
                 $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
                 result = false;
             }

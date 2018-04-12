@@ -9,8 +9,10 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
+    using Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using Models;
 
     /// <summary>
     /// Update Log Criteria.
@@ -39,6 +41,36 @@ namespace Fanex.CRM.Communication.Criteria
         }
 
         public string AutoField { get; set; }
+
+        [SpParam(Ignored = true)]
+        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+
+        [SpParam(SqlParamName = "product")]
+        public string ProductsContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Products);
+            }
+        }
+
+        [SpParam(Ignored = true)]
+        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
+
+        [SpParam(SqlParamName = "category")]
+        public string CategoriesContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Categories);
+            }
+        }
+
+        [SpParam(SqlParamName = "communicationid")]
+        public string CommunicationIds { get; set; }
+
+        [SpParam(SqlParamName = "stationid")]
+        public string ExtensionIds { get; set; }
 
         public override string GetSettingKey()
         {

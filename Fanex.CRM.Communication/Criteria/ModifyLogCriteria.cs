@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
-    using System;
     using Fanex.CRM.Common.Criteria;
     using Fanex.Data.Repository;
+    using System;
 
     /// <summary>
     /// Modify Criteria.
@@ -36,32 +36,11 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "resolutiondate")]
         public DateTime EndTime { get; set; }
 
-        [SpParam(SqlParamName = "communicationid")]
-        public int CommunicationToolId { get; set; }
-
-        [SpParam(SqlParamName = "stationid")]
-        public int ExtensionId { get; set; }
-
-        [SpParam(SqlParamName = "maincategoryid")]
-        public int MainCategoryId { get; set; }
-
-        [SpParam(SqlParamName = "subcategoryid")]
-        public int SubCategoryId { get; set; }
-
         [SpParam(SqlParamName = "siteid")]
         public int SiteId { get; set; }
 
         [SpParam(SqlParamName = "roleid")]
         public int RoleId { get; set; }
-
-        [SpParam(SqlParamName = "productid")]
-        public int ProductId { get; set; }
-
-        [SpParam(SqlParamName = "subproductid")]
-        public int SubProductId { get; set; }
-
-        [SpParam(SqlParamName = "bettypeid")]
-        public int BetTypeId { get; set; }
 
         [SpParam(SqlParamName = "responseid")]
         public int ResponseId { get; set; }
