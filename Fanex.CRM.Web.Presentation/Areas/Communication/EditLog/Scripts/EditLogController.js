@@ -94,42 +94,7 @@
             $scope.initSelectedLogInfo();
             $scope.unblockUI();
         };
-        $scope.initSelectedLogInfo = function () {
-            var i;
-            if ($scope.mainCategoryList != null) {
-                var mainCategoryListLength = $scope.mainCategoryList.length;
-                for (i = 0; i < mainCategoryListLength; i++) {
-                    var mainCategory = $scope.mainCategoryList[i];
-                    if (mainCategory.Id === communicationLog.MainCategory.Id) {
-                        $scope.communicationLog.MainCategory = mainCategory;
-                        $scope.subCategoryList = mainCategory.ChildSettings;
-                        break;
-                    }
-                }
-            }
-
-            if ($scope.subCategoryList != null) {
-                var subCategoryListLength = $scope.subCategoryList.length;
-                for (i = 0; i < subCategoryListLength; i++) {
-                    var subCategory = $scope.subCategoryList[i];
-                    if (subCategory.Id === communicationLog.SubCategory.Id) {
-                        $scope.communicationLog.SubCategory = subCategory;
-                        break;
-                    }
-                }
-            }
-
-            if ($scope.communicationToolList != null) {
-                var communicationToolListLength = $scope.communicationToolList.length;
-                for (i = 0; i < communicationToolListLength; i++) {
-                    var communicationTool = $scope.communicationToolList[i];
-                    if (communicationTool.Id === communicationLog.CommunicationTool.Id) {
-                        $scope.communicationLog.CommunicationTool = communicationTool;
-                        break;
-                    }
-                }
-            }
-
+        $scope.initSelectedLogInfo = function () {            
             $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
 
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -734,6 +699,12 @@
 
         $scope.updateAllSettingsForLog = function (settings) {
             //$scope.updateProductSettings();
+            $scope.updateSettingCommunication();
+            $scope.updateSettingExtension();
+            $scope.updateSettingCategory();
+            $scope.updateSettingProduct();
+            $scope.updateSettingSubProduct();
+            $scope.updateSettingBettype();
 
             SettingManager.updateSettingSelectList($scope.communicationLog.Language, $scope.languageList);
             SettingManager.updateSettingSelectList($scope.communicationLog.Status, $scope.statusList);
@@ -743,6 +714,95 @@
             //SettingManager.updateSettingSelectList($scope.communicationLog.SiteInfo, $scope.siteList);
             SettingManager.updateSettingSelectList($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
+
+        $scope.updateSettingCommunication = function () {
+            var length = $scope.communicationDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.communicationDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Communication" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingExtension = function () {
+            var length = $scope.extensionDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.extensionDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Station" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingCategory = function () {
+            var length = $scope.categoryDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.categoryDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Category" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                data.ChildSettings[j].checked = true;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingProduct = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingSubProduct = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                data.ChildSettings[j].checked = true;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingBettype = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                var childData = data.ChildSettings[j].ChildSettings;
+                                for (var k = 0; k < childData.length; k++) {
+                                    if (childData[k].Id == setting.SettingIdLv3) {
+                                        childData[k].checked = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
 
         $scope.updateProductSettings = function () {
             var product = $scope.communicationLog.Product;
