@@ -31,6 +31,30 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public byte UpdateReviewMode { get; set; }
 
+        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+
+        public string ProductsContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Products);
+            }
+        }
+
+        public System.Collections.Generic.IEnumerable<CaterogyFilter> Categories { get; set; }
+
+        public string CategoriesContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Categories);
+            }
+        }
+
+        public string CommunicationIds { get; set; }
+
+        public string ExtensionIds { get; set; }
+
         public Hashtable AddSpParams(Hashtable storeProcParamName)
         {
             throw new NotImplementedException();
@@ -101,13 +125,12 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "yahoo", CustomerInfo.Yahoo },
                 { "qq", CustomerInfo.QQ },
                 { "bbm", CustomerInfo.BBM },
-                { "stationid", Extension.Id },
-                { "communicationid", Communication.Id },
-                { "maincategoryid", Category.Id },
-                { "subcategoryid", SubCategory.Id },
-                { "productid", Product.Id },
-                { "subproductid", SubProduct.Id },
-                { "bettypeid", BetType.Id },
+
+                { "communicationid", CommunicationIds },
+                { "stationid", ExtensionIds },
+                { "category", CategoriesContent },
+                { "product", ProductsContent },
+
                 { "countryid", Country.Id },
                 { "languageid", Language.Id },
                 { "statusid", Status.Id },

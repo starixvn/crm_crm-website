@@ -470,6 +470,17 @@
             }
         };
 
+        $scope.CheckInvalidCategories = function () {
+            var invalidCategories = [];
+            angular.forEach($scope.selectedCategories, function (category) {
+                if (category.ParentId == 0) {
+                    invalidCategories.push(category.Name);
+                }
+            })
+
+            return invalidCategories.join(",")
+        }
+
         $scope.validateFeedback = function () {
             $scope.hideMessage();
 
@@ -481,21 +492,15 @@
                 return false;
             }
 
-            if (feedback.Communication === $scope.settings.Communications[0]) {
+            if ($scope.selectedCommunications.length == 0) {
                 $scope.errorMessage(updateFeedbackResources.NACommmunicationTool);
                 return false;
             }
 
-            var category = feedback.Category;
-            if (category.ChildSettings && category.ChildSettings.length === 0) {
-                $scope.errorMessage(updateFeedbackResources.NoSubcategoryError.replace('{0}', '[' + category.Name + ']'));
-                return false;
-            }
-
-            var product = feedback.Product;
-            if (product.ChildSettings && product.ChildSettings.length === 0) {
-                $scope.errorMessage(updateFeedbackResources.NoBettypeError.replace('{0}', '[' + product.Value + ']'));
-                return false;
+            var invalidCategories = $scope.CheckInvalidCategories();
+            if (invalidCategories != "") {
+                message = viewResources.NoSubcategoryError.replace('{0}', '[' + invalidCategories + ']');
+                result = false;
             }
 
             if (feedback.Language === $scope.settings.Languages[0]) {
@@ -551,8 +556,110 @@
             });
         };
 
+        $scope.GetCommunicationParams = function () {
+            var communicationIds = [];
+            angular.forEach($scope.selectedCommunications, function (communication) {
+                communicationIds.push(communication.Id);
+            })
+            $scope.feedback.CommunicationIds = communicationIds.join(",");
+        }
+
+        $scope.GetExtensionParams = function () {
+            var extensionIds = [];
+            angular.forEach($scope.selectedExtensions, function (extension) {
+                extensionIds.push(extension.Id);
+            })
+
+            if (extensionIds.length == 0) {
+                extensionIds = [$scope.allSettings.ExtensionNA.Id];
+            }
+            $scope.feedback.ExtensionIds = extensionIds.join(",");
+        }
+
+        $scope.GetProductParams = function () {
+            var products = [];
+            angular.forEach($scope.selectedProducts, function (product) {
+                var subIds = [];
+                angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                    if (subProduct.ParentId == product.Id) {
+                        subIds.push(subProduct.Id);
+                    }
+                })
+
+                if (subIds.length == 0) {
+                    products.push({
+                        ProductId: product.Id,
+                        SubProductId: "",
+                        BettypeIds: []
+                    })
+                }
+                else {
+                    angular.forEach(subIds, function (subId) {
+                        products.push({
+                            ProductId: product.Id,
+                            SubProductId: subId,
+                            BettypeIds: []
+                        })
+                    })
+                }
+            })
+
+            angular.forEach(products, function (p) {
+                angular.forEach($scope.selectedBettypes, function (bettype) {
+                    if (p.ProductId == bettype.GrandParentId && p.SubProductId == bettype.ParentId) {
+                        p.BettypeIds.push(bettype.Id);
+                    }
+                })
+
+                if (p.SubProductId == "") {
+                    p.SubProductId = $scope.allSettings.SubProductNA.Id;
+                }
+
+                if (p.BettypeIds.length == 0) {
+                    p.BettypeIds = [$scope.allSettings.BettypeNA.Id];
+                }
+
+                p.BettypeIds = p.BettypeIds.join(",");
+            })
+
+            if (products.length == 0) {
+                products = [
+                    {
+                        ProductId: $scope.allSettings.ProductNA.Id,
+                        SubProductId: $scope.allSettings.SubProductNA.Id,
+                        BettypeIds: $scope.allSettings.BettypeNA.Id
+                    }
+                ];
+            }
+
+            $scope.feedback.Products = products;
+        }
+
+        $scope.GetCategoryParams = function () {
+            var categories = [];
+            angular.forEach($scope.selectedCategories, function (category) {
+                if (category.ParentId != 0) {
+                    categories.push({
+                        MainCategoryID: category.ParentId,
+                        SubCategoryID: category.Id
+                    })
+                }
+                else {
+                    categories.push({
+                        MainCategoryID: category.Id,
+                        SubCategoryID: ''
+                    })
+                }
+            })
+            $scope.feedback.Categories = categories;
+        }
+
         $scope.updateCustomerFeedback = function (feedback) {
             $uiBlockerService.blockUI();
+            $scope.GetCommunicationParams();
+            $scope.GetExtensionParams();
+            $scope.GetProductParams();
+            $scope.GetCategoryParams();
 
             if ($scope.feedback.HasRelated && $scope.relatedCustomerResultDirective.relatedCustomers) {
                 feedback.RelatedCustomers = $scope.relatedCustomerResultDirective.relatedCustomers.filter(function (value) {
@@ -564,7 +671,7 @@
             }
 
             feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
-            $scope.assignIdForParam(feedback);
+            //$scope.assignIdForParam(feedback);
             
             feedback.AutoField = $scope.autoGeneratedText;
             feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
