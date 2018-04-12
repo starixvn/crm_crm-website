@@ -209,6 +209,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogOption.js",

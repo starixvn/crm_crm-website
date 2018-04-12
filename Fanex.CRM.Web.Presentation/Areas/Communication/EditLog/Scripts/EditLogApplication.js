@@ -1,7 +1,7 @@
 /* global sharedScriptManager, directiveManager */
 (function () {
     "use strict";
-    angular.module('communicationlog-edit-application', ['$uiBlockerApplication', 'selectwithsearch']);
+    angular.module('communicationlog-edit-application', ['$uiBlockerApplication', 'selectwithsearch', 'multileveldropdown']);
     sharedScriptManager.setNoCachingHttpRequest(angular.module('communicationlog-edit-application'));
     directiveManager.registerRelatedCustomerResult(angular.module('communicationlog-edit-application'));
 
