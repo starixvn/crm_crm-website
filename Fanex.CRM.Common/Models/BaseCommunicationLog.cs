@@ -11,6 +11,7 @@ namespace Fanex.CRM.Common.Models
 {
     using Fanex.CRM.Infrastructure.Models;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Base Communication Log Information.
@@ -18,6 +19,11 @@ namespace Fanex.CRM.Common.Models
     [Serializable]
     public class BaseCommunicationLog
     {
+        public BaseCommunicationLog()
+        {
+            this.Settings = new List<SettingItem>();
+        }
+
         public string FeedbackDate { get; set; }
 
         public int CustomerId { get; set; }
@@ -81,5 +87,7 @@ namespace Fanex.CRM.Common.Models
         public bool IsReviewed { get; set; }
 
         public string AutoField { get; set; }
+
+        public List<SettingItem> Settings { get; set; }
     }
 }

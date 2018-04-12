@@ -74,6 +74,20 @@ namespace Fanex.CRM.Communication.Repositories
                         log.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                     }
 
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            log.Settings.Add(new SettingItem
+                            {
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
                     return log;
                 }
             }
@@ -151,40 +165,12 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToShortFormatedDate(),
-                MainCategory = new Setting
-                {
-                    Id = Converter.ToInt(reader["MainCategoryID"])
-                },
-                SubCategory = new Setting
-                {
-                    Id = Converter.ToInt(reader["SubCategoryID"])
-                },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
                 EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ResolutionDate"])).ToLongFormatedDateTime(),
-                Extension = new Setting
-                {
-                    Id = Converter.ToInt(reader["StationID"])
-                },
-                CommunicationTool = new Setting
-                {
-                    Id = Converter.ToInt(reader["CommunicationID"])
-                },
                 Language = new Setting
                 {
                     Id = Converter.ToInt(reader["LanguageID"])
-                },
-                Product = new Setting
-                {
-                    Id = Converter.ToInt(reader["ProductID"])
-                },
-                SubProduct = new Setting
-                {
-                    Id = Converter.ToInt(reader["SubProductID"])
-                },
-                BetType = new Setting
-                {
-                    Id = Converter.ToInt(reader["BetTypeID"])
                 },
                 Status = new Setting
                 {
