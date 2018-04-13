@@ -122,19 +122,7 @@
             $scope.editMultipleLogs();
             $scope.$apply();
         };
-        /* jshint camelcase: false */
-        $scope.updateSelectedProduct = function (product) {
-            $scope.multipleLogs.Product = product;
-
-            $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
-        };
-        $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.multipleLogs.SubProduct = subProduct;
-            $scope.betTypeList = subProduct.ChildSettings;
-            $scope.multipleLogs.BetType = $scope.betTypeList[0];
-            $scope.safeApply();
-        };
+        /* jshint camelcase: false */        
         $scope.updateStartTime = function (selectedTime) {
             $scope.multipleLogs.StartTime = selectedTime;
             if (new Date($scope.multipleLogs.EndTime) <= selectedTime) {
@@ -151,23 +139,7 @@
             }
 
         };
-        $scope.updateSelectedExtension = function (extentionId) {
-            extentionId = parseInt(extentionId);
-            var extensionInfo;
-            var extensionListLength = $scope.extensionList.length;
-            for (var i = 0; i < extensionListLength; i++) {
-                var extension = $scope.extensionList[i];
-                if (extension.Id === extentionId) {
-                    extensionInfo = extension;
-                    break;
-                }
-            }
-
-            if (extensionInfo) {
-                $scope.multipleLogs.Extension = extensionInfo;
-                $scope.$apply();
-            }
-        };
+        
         $scope.updateSelectedCountry = function (countryInfoId) {
             countryInfoId = parseInt(countryInfoId);
             var countryInfo;
@@ -189,86 +161,12 @@
             }
 
             $scope.$apply();
-        };
-        $scope.updateSelectedCommunicationTool = function (communicationToolId) {
-            communicationToolId = parseInt(communicationToolId);
-            var communicationToolInfo;
-            var communicationToolListLength = $scope.communicationToolList.length;
-            for (var i = 0; i < communicationToolListLength; i++) {
-                var communicationTool = $scope.communicationToolList[i];
-                if (communicationTool.Id === communicationToolId) {
-                    communicationToolInfo = communicationTool;
-                    break;
-                }
-            }
-
-            if (communicationToolInfo) {
-                $scope.multipleLogs.CommunicationTool = communicationToolInfo;
-            }
-
-            $scope.$apply();
-        };
+        };        
         $scope.updateSelectedLanguage = function (languageId) {
             $scope.multipleLogs.Language.Id = languageId;
             $scope.$apply();
         };
-        $scope.updateSelectedMainCategory = function (mainCategoryId) {
-            mainCategoryId = parseInt(mainCategoryId);
-            var mainCategoryInfo;
-            var mainCategoryListLength = $scope.mainCategoryList.length;
-            for (var i = 0; i < mainCategoryListLength; i++) {
-                var mainCategory = $scope.mainCategoryList[i];
-                if (mainCategory.Id === mainCategoryId) {
-                    mainCategoryInfo = mainCategory;
-                    break;
-                }
-            }
-
-            if (mainCategoryInfo) {
-                $scope.multipleLogs.MainCategory = mainCategoryInfo;
-                $scope.subCategoryList = mainCategoryInfo.ChildSettings;
-                $scope.multipleLogs.SubCategory = $scope.subCategoryList.length > 0 ?
-                $scope.subCategoryList[0] :
-                {
-                    Id: 0
-                };
-                $scope.$apply();
-            }
-        };
-        $scope.updateSelectedSubCategory = function (subCategoryId) {
-            subCategoryId = parseInt(subCategoryId);
-            var subCategoryInfo;
-            var subCategoryListLength = $scope.subCategoryList.length;
-            for (var i = 0; i < subCategoryListLength; i++) {
-                var subCategory = $scope.subCategoryList[i];
-                if (subCategory.Id === subCategoryId) {
-                    subCategoryInfo = subCategory;
-                    break;
-                }
-            }
-
-            if (subCategoryInfo) {
-                $scope.multipleLogs.SubCategory = subCategoryInfo;
-                $scope.$apply();
-            }
-        };
-        $scope.updateSelectedBetType = function (betTypeId) {
-            betTypeId = parseInt(betTypeId);
-            var betTypeInfo;
-            var betTypeListLength = $scope.betTypeList.length;
-            for (var i = 0; i < betTypeListLength; i++) {
-                var betType = $scope.betTypeList[i];
-                if (betType.Id === betTypeId) {
-                    betTypeInfo = betType;
-                    break;
-                }
-            }
-
-            if (betTypeInfo) {
-                $scope.multipleLogs.BetType = betTypeInfo;
-                $scope.$apply();
-            }
-        };
+       
         $scope.updateSelectedSite = function (siteId) {
             $scope.multipleLogs.SiteInfo = $scope.multipleLogs.SiteInfo || { Id: 0 };
         };
@@ -669,6 +567,12 @@
         };
         $scope.updateAllSettingsForLog = function () {
             //$scope.updateProductSettings();
+            $scope.updateSettingCommunication();
+            $scope.updateSettingExtension();
+            $scope.updateSettingCategory();
+            $scope.updateSettingProduct();
+            $scope.updateSettingSubProduct();
+            $scope.updateSettingBettype();
 
             SettingManager.updateSettingSelectList($scope.multipleLogs.Language, $scope.languageList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.Status, $scope.statusList);
@@ -678,6 +582,96 @@
             SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
+
+        $scope.updateSettingCommunication = function () {
+            var length = $scope.communicationDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.communicationDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Communication" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingExtension = function () {
+            var length = $scope.extensionDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.extensionDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Station" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingCategory = function () {
+            var length = $scope.categoryDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.categoryDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Category" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                data.ChildSettings[j].checked = true;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingProduct = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingSubProduct = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                data.ChildSettings[j].checked = true;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingBettype = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.multipleLogs.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        for (var j = 0; j < data.ChildSettings.length; j++) {
+                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
+                                var childData = data.ChildSettings[j].ChildSettings;
+                                for (var k = 0; k < childData.length; k++) {
+                                    if (childData[k].Id == setting.SettingIdLv3) {
+                                        childData[k].checked = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
         $scope.updateProductSettings = function () {
             var product = $scope.multipleLogs.Product;
             var productList = $scope.productOptions.DataList;
