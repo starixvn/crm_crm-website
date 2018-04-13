@@ -265,6 +265,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdOption.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",

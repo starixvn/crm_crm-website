@@ -4,17 +4,7 @@
     "use strict";
 
     window.registerOptions = function ($scope) {
-        $scope.productOptions = {
-            DataList: [],
-            SelectedId: $scope.communicationLog.Product.Id,
-            OnChangeEvent: null
-        };
-        $scope.subProductOptions = {
-            DataList: [],
-            SelectedId: $scope.communicationLog.SubProduct.Id,
-            OnChangeEvent: null
-        };
-
+        
         $scope.statusOptions = {
             DataList: [],
             OnChangeEvent: null,
@@ -31,26 +21,6 @@
             OnChangeEvent: null,
             SelectedId: $scope.communicationLog.RoleInfo.Id
         };
-        $scope.communicationToolOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            SelectedId: $scope.communicationLog.CommunicationTool.Id
-        };
-        $scope.mainCategoryOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            SelectedId: $scope.communicationLog.MainCategory.Id
-        };
-        $scope.subCategoryOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            SelectedId: $scope.communicationLog.SubCategory.Id
-        };
-        $scope.extensionOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            SelectedId: $scope.communicationLog.Extension.Id
-        };
         $scope.countryOptions = {
             DataList: [],
             OnChangeEvent: null,
@@ -60,11 +30,6 @@
             DataList: [],
             OnChangeEvent: null,
             SelectedId: $scope.communicationLog.Language.Id
-        };
-        $scope.betTypeOptions = {
-            DataList: [],
-            OnChangeEvent: null,
-            SelectedId: $scope.communicationLog.BetType.Id
         };
         $scope.remarkOptions = {
             OnChangeEvent: null,
