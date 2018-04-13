@@ -1,7 +1,7 @@
 ﻿/* global sharedScriptManager, directiveManager */
 (function () {
     "use strict";
-    angular.module('edit-multiple-logs-application', ['$uiBlockerApplication', 'selectwithsearch']);
+    angular.module('edit-multiple-logs-application', ['$uiBlockerApplication', 'selectwithsearch', 'multileveldropdown']);
     sharedScriptManager.setNoCachingHttpRequest(angular.module('edit-multiple-logs-application'));
     directiveManager.registerRelatedCustomerResult(angular.module('edit-multiple-logs-application'));
 
