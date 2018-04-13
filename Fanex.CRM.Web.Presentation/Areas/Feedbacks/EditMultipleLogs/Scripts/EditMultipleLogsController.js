@@ -237,6 +237,109 @@
             $scope.multipleLogs.LicenseeType = licenseeType;
             $scope.safeApply();
         };
+
+        $scope.GetCommunicationParams = function () {
+            var communicationIds = [];
+            angular.forEach($scope.selectedCommunications, function (communication) {
+                communicationIds.push(communication.Id);
+            })
+
+            return communicationIds.join(",");
+        }
+
+        $scope.GetExtensionParams = function () {
+            var extensionIds = [];
+            angular.forEach($scope.selectedExtensions, function (extension) {
+                extensionIds.push(extension.Id);
+            })
+
+            if (extensionIds.length == 0) {
+                extensionIds = [$scope.allSettings.ExtensionNA.Id];
+            }
+
+            return extensionIds.join(",");
+        }
+
+        $scope.GetProductParams = function () {
+            var products = [];
+            angular.forEach($scope.selectedProducts, function (product) {
+                var subIds = [];
+                angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                    if (subProduct.ParentId == product.Id) {
+                        subIds.push(subProduct.Id);
+                    }
+                })
+
+                if (subIds.length == 0) {
+                    products.push({
+                        ProductId: product.Id,
+                        SubProductId: "",
+                        BettypeIds: []
+                    })
+                }
+                else {
+                    angular.forEach(subIds, function (subId) {
+                        products.push({
+                            ProductId: product.Id,
+                            SubProductId: subId,
+                            BettypeIds: []
+                        })
+                    })
+                }
+            })
+
+            angular.forEach(products, function (p) {
+                angular.forEach($scope.selectedBettypes, function (bettype) {
+                    if (p.ProductId == bettype.GrandParentId && p.SubProductId == bettype.ParentId) {
+                        p.BettypeIds.push(bettype.Id);
+                    }
+                })
+
+                if (p.SubProductId == "") {
+                    p.SubProductId = $scope.allSettings.SubProductNA.Id;
+                }
+
+                if (p.BettypeIds.length == 0) {
+                    p.BettypeIds = [$scope.allSettings.BettypeNA.Id];
+                }
+
+                p.BettypeIds = p.BettypeIds.join(",");
+            })
+
+            if (products.length == 0) {
+                products = [
+                    {
+                        ProductId: $scope.allSettings.ProductNA.Id,
+                        SubProductId: $scope.allSettings.SubProductNA.Id,
+                        BettypeIds: $scope.allSettings.BettypeNA.Id
+                    }
+                ];
+            }
+
+            return products;
+        }
+
+        $scope.GetCategoryParams = function () {
+            var categories = [];
+            angular.forEach($scope.selectedCategories, function (category) {
+                if (category.ParentId != 0) {
+                    categories.push({
+                        MainCategoryID: category.ParentId,
+                        SubCategoryID: category.Id
+                    })
+                }
+                else {
+                    categories.push({
+                        MainCategoryID: category.Id,
+                        SubCategoryID: ''
+                    })
+                }
+            })
+
+            return categories;
+        }
+
+
         $scope.editMultipleLogs = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
@@ -246,19 +349,16 @@
                                         (isResetReview ? crmConstants.Enums.UpdateReviewedMode.Reset : crmConstants.Enums.UpdateReviewedMode.Change);
                                         
             var editCriteria = {
+                CommunicationIds: $scope.GetCommunicationParams(),
+                ExtensionIds: $scope.GetExtensionParams(),
+                Products: $scope.GetProductParams(),
+                Categories: $scope.GetCategoryParams(),
                 ListFeedbackId: $scope.feedbackList.join(','),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.multipleLogs.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
-                ExtensionId: $scope.multipleLogs.Extension.Id,
                 CountryId: $scope.multipleLogs.Country.Id,
-                CommunicationToolId: $scope.multipleLogs.CommunicationTool.Id,
                 LanguageId: $scope.multipleLogs.Language.Id,
-                MainCategoryId: $scope.multipleLogs.MainCategory.Id,
-                SubcategoryId: $scope.multipleLogs.SubCategory.Id,
-                ProductId: $scope.multipleLogs.Product.Id,
-                SubProductId: $scope.multipleLogs.SubProduct.Id,
                 StatusId: $scope.multipleLogs.Status.Id,
-                BetTypeId: $scope.multipleLogs.BetType.Id,
                 RoleId: $scope.multipleLogs.RoleInfo.Id,
                 SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 LicenseeTypeId: $scope.multipleLogs.LicenseeType.Id,
@@ -332,7 +432,7 @@
                 result = false;
             }
 
-            if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
+            if (result && $scope.selectedCommunications.length == 0) {
                 $scope.resultMessage = viewResources.Multiple_Logs_NACommmunicationTool;
                 result = false;
             }
