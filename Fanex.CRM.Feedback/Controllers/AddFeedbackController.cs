@@ -87,7 +87,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
                 LanguageList = languages,
                 MainCategoryList = ServiceSetting.GetAllMainCategories(),
-                ProductList = ServiceSetting.GetAllProducts(),
                 SiteList = ServiceSetting.GetAllSiteWithGroup(),
                 ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
@@ -96,7 +95,10 @@ namespace Fanex.CRM.Feedback.Controllers
                 ProductNA = ServiceSetting.GetProductNA(),
                 SubProductNA = ServiceSetting.GetSubProductNA(),
                 BettypeNA = ServiceSetting.GetBettypeNA(),
-                ExtensionNA = ServiceSetting.GetExtensionNA()
+                ExtensionNA = ServiceSetting.GetExtensionNA(),
+                ProductList = ServiceSetting.GetProducts(),
+                SubProductList = ServiceSetting.GetSubProducts(),
+                BettypeList = ServiceSetting.GetBettypes()
             };
 
             return settings;

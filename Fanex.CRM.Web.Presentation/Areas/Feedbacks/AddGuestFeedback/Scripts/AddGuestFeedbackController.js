@@ -131,78 +131,50 @@
             $scope.bettypeDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
-                childrenMember: "ChildSettings",
+                sourceData: $scope.getBettypes($scope.selectedSubProducts)
             };
         }
 
         $scope.getSubProducts = function (seletedProducts) {
-            var cloneSeletedProducts = [];
-            if (seletedProducts) {
-                cloneSeletedProducts = angular.copy(seletedProducts);
-            }
+            var selectedProductIds = [];
+            angular.forEach(seletedProducts, function (product) {
+                selectedProductIds.push(product.Id);
+            });
 
-            var productsWithSubProducts = [];
-            angular.forEach(cloneSeletedProducts, function (product) {
-                // only get product having subproducts
-                if (product.ChildSettings.length != 0) {
-                    angular.forEach(product.ChildSettings, function (subProducts) {
-                        subProducts.ChildSettings = [];
-                    })
-                    productsWithSubProducts.push(product);
+            var subProducts = [];
+            angular.forEach($scope.allSettings.SubProductList, function (subProduct) {
+                if (selectedProductIds.indexOf(subProduct.ParentId) >= 0) {
+                    subProducts.push(subProduct);
                 }
             });
 
-            return productsWithSubProducts;
+            return subProducts;
         }
 
-        $scope.getBettypes = function (seletedSubProducts, allProducts) {
-            var selectedProductIds = [];
-            angular.forEach(seletedSubProducts, function (selectedSubProduct) {
-                if (selectedProductIds.indexOf(selectedSubProduct.ParentId) < 0) {
-                    selectedProductIds.push(selectedSubProduct.ParentId);
+        $scope.getBettypes = function (selectedSubProducts) {
+            var selectedSubProductIds = [];
+            angular.forEach(selectedSubProducts, function (subProduct) {
+                selectedSubProductIds.push(subProduct.Id);
+            });
+
+            var bettypes = [];
+            angular.forEach($scope.allSettings.BettypeList, function (bettype) {
+                if (selectedSubProductIds.indexOf(bettype.ParentId) >= 0) {
+                    bettypes.push(bettype);
                 }
             });
 
-            var selectProductandSubProductIds = [];
-            angular.forEach(selectedProductIds, function (productId) {
-                var Ids = {
-                    ProductId: productId,
-                    SubProductIds: []
-                };
-
-                angular.forEach(seletedSubProducts, function (selectedSubProduct) {
-                    if (selectedSubProduct.ParentId == productId) {
-                        Ids.SubProductIds.push(selectedSubProduct.Id);
-                    }
-                });
-
-                selectProductandSubProductIds.push(Ids);
-            })
-
-            var selectedProducts = [];
-            angular.forEach(selectProductandSubProductIds, function (ids) {
-                angular.forEach(allProducts, function (product) {
-                    if (product.Id == ids.ProductId) {
-                        var subProducts = [];
-                        angular.forEach(product.ChildSettings, function (subProduct) {
-                            // only get subproduct having bettypes
-                            if (ids.SubProductIds.indexOf(subProduct.Id) >= 0 && subProduct.ChildSettings.length > 0) {
-                                subProducts.push(angular.copy(subProduct));
-                            }
-                        });
-                        
-                        // only get product having subproducts
-                        if (subProducts.length > 0) {
-                            var p = angular.copy(product);
-                            p.ChildSettings = subProducts;
-                            selectedProducts.push(p)
-                        }
-                    }
-                })
+            // remove duplicate bettypes
+            var selectedIds = [];
+            var distinctBettypes = [];
+            angular.forEach(bettypes, function (bettype) {
+                if (selectedIds.indexOf(bettype.Id) < 0) {
+                    selectedIds.push(bettype.Id);
+                    distinctBettypes.push(bettype);
+                }
             });
 
-            return selectedProducts;
+            return distinctBettypes;
         }
 
         $scope.completedLoadFilterInfo = function () {
@@ -256,15 +228,13 @@
             $scope.subProductDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getSubProducts($scope.selectedProducts),
-                childrenMember: "ChildSettings",
+                sourceData: $scope.allSettings.SubProductList
             };
 
             $scope.bettypeDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getBettypes($scope.selectedSubProducts, $scope.allSettings.ProductList),
-                childrenMember: "ChildSettings",
+                sourceData: $scope.allSettings.BettypeList,
             };
 
             $scope.descriptionOptions.SelectedText = '';
@@ -369,47 +339,47 @@
         $scope.GetProductParams = function () {
             var products = [];
             angular.forEach($scope.selectedProducts, function (product) {
-                var subIds = [];
                 angular.forEach($scope.selectedSubProducts, function (subProduct) {
-                    if (subProduct.ParentId == product.Id) {
-                        subIds.push(subProduct.Id);
-                    }
-                })
-
-                if (subIds.length == 0) {
-                    products.push({
-                        ProductId: product.Id,
-                        SubProductId: "",
-                        BettypeIds: []
+                    // check subproduct
+                    var subproductFlag = false;
+                    angualar.forEach($scope.allSettings.SubProductList, function (sp) {
+                        if (sp.Id == subProduct.Id && sp.ParentId == product.Id) {
+                            subproductFlag = true;
+                        }
                     })
-                }
-                else {
-                    angular.forEach(subIds, function (subId) {
-                        products.push({
-                            ProductId: product.Id,
-                            SubProductId: subId,
-                            BettypeIds: []
-                        })
+
+                    angular.forEach($scope.selectedBettypes, function (bettype) {
+                        // check bettype
+                        var bettypeFlag = false;
+                        angular.forEach($scope.allSettings.BettypeList, function (b) {
+                            if (b.Id == bettype.Id && b.ParentId == subProduct.Id) {
+                                bettypeFlag = true;
+                            }
+                        })                       
+                        
+                        if (bettypeFlag && subproductFlag) {
+                            products.push({
+                                ProductId: product.Id,
+                                SubProductId: subProduct.Id,
+                                BettypeId: bettype.Id
+                            })
+                        }
+                        else if (subproductFlag) {
+                            products.push({
+                                ProductId: product.Id,
+                                SubProductId: subProduct.Id,
+                                BettypeId: $scope.allSettings.BettypeNA.Id
+                            })
+                        }
+                        else {
+                            products.push({
+                                ProductId: product.Id,
+                                SubProductId: $scope.allSettings.SubProductNA.Id,
+                                BettypeId: $scope.allSettings.BettypeNA.Id
+                            })
+                        }
                     })
-                }
-            })
-
-            angular.forEach(products, function (p) {
-                angular.forEach($scope.selectedBettypes, function (bettype) {
-                    if (p.ProductId == bettype.GrandParentId && p.SubProductId == bettype.ParentId) {
-                        p.BettypeIds.push(bettype.Id);
-                    }
                 })
-
-                if (p.SubProductId == "") {
-                    p.SubProductId = $scope.allSettings.SubProductNA.Id;
-                }
-
-                if (p.BettypeIds.length == 0) {
-                    p.BettypeIds = [$scope.allSettings.BettypeNA.Id];
-                }
-
-                p.BettypeIds = p.BettypeIds.join(",");
             })
 
             if (products.length == 0) {
@@ -417,12 +387,39 @@
                     {
                         ProductId: $scope.allSettings.ProductNA.Id,
                         SubProductId: $scope.allSettings.SubProductNA.Id,
-                        BettypeIds: $scope.allSettings.BettypeNA.Id
+                        BettypeId: $scope.allSettings.BettypeNA.Id
                     }
                 ];
             }
 
             $scope.addGuestFeedbackParams.Products = products;
+        }
+
+        
+        $scope.GetSubProductParams = function () {
+            var subProductIds = [];
+            angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                subProductIds.push(subProduct.Id);
+            })
+
+            if (subProductIds.length == 0) {
+                subProductIds = [$scope.allSettings.SubProductNA.Id];
+            }
+
+            $scope.addGuestFeedbackParams.SubProductIds = subProductIds.join(",");
+        }
+
+        $scope.GetBettypeParams = function () {
+            var bettypeIds = [];
+            angular.forEach($scope.selectedBettypes, function (bettype) {
+                bettypeIds.push(bettype.Id);
+            })
+
+            if (bettypeIds.length == 0) {
+                bettypeIds = [$scope.allSettings.BettypeNA.Id];
+            }
+
+            $scope.addGuestFeedbackParams.BettypeIds = bettypeIds.join(",");
         }
 
         $scope.GetCategoryParams = function () {
@@ -459,7 +456,7 @@
             $uiBlockerService.blockUI();
             $scope.GetCommunicationParams();
             $scope.GetExtensionParams();
-            $scope.GetProductParams();
+            $scope.GetProductParams();            
             $scope.GetCategoryParams();
 
             $scope.addGuestFeedbackParams.RelatedCustomerId = $scope.relatedCustomerResultDirective.getRelatedCustomerId();

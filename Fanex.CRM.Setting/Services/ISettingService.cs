@@ -90,5 +90,11 @@ namespace Fanex.CRM.Setting.Services
         Product GetBettypeNA();
 
         SettingRelation GetExtensionNA();
+
+        IEnumerable<Product> GetProducts();
+
+        IEnumerable<Product> GetSubProducts();
+
+        IEnumerable<Product> GetBettypes();
     }
 }

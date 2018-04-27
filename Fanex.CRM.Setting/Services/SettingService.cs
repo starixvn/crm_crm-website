@@ -55,6 +55,9 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllLicenseeTypeSessionKey = "Fanex.CRM.Setting.GetAllLicenseeTypeSessionKey";
         public const string GetAllCurrencySessionKey = "Fanex.CRM.Setting.GetAllCurrencySessionKey";
         public const string GetAllCurrencyRedemptionSessionKey = "Fanex.CRM.Setting.GetAllCurrencyRedemptionSessionKey";
+        public const string GetProductsSessionKey = "Fanex.CRM.Setting.GetProductsSessionKey";
+        public const string GetSubProductsSessionKey = "Fanex.CRM.Setting.GetSubProductsSessionKey";
+        public const string GetBettypesSessionKey = "Fanex.CRM.Setting.GetBettypesSessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -434,6 +437,60 @@ namespace Fanex.CRM.Setting.Services
             CacheService.Set(GetAllSubProductSessionKey, products);
             return products;
         }
+
+        public IEnumerable<Product> GetProducts()
+        {
+            var cache = CacheService.Get<IEnumerable<Product>>(GetProductsSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var products = GetProductsOnly()
+                              .Where(p => p.Value != "N/A.")
+                              .Select(p => { p.Name = p.Value; return p; })
+                              .ToList();
+
+            CacheService.Set(GetProductsSessionKey, products);
+            return products;
+        }
+
+        public IEnumerable<Product> GetSubProducts()
+        {
+            var cache = CacheService.Get<IEnumerable<Product>>(GetSubProductsSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var subProducts = _settingRepositoryInstance
+                                .GetSubProducts(new SubProductCriteria())
+                                .Where(p => p.Value != "N/A." && p.ParentId != 0)
+                                .Select(p => { p.Name = p.Value; return p; })
+                                .ToList();
+
+            CacheService.Set(GetSubProductsSessionKey, subProducts);
+            return subProducts;
+        }
+
+        public IEnumerable<Product> GetBettypes()
+        {
+            var cache = CacheService.Get<IEnumerable<Product>>(GetBettypesSessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var betTypes = _settingRepositoryInstance
+                               .GetAllBetType(new GetAllBetTypeCriteria())
+                               .Where(b => b.Name != "N/A.")
+                               .OrderBy(b => b.DisplayOrder)
+                               .ToList();
+
+            CacheService.Set(GetBettypesSessionKey, betTypes);
+            return betTypes;
+        }
+
 
         /// <summary>
         /// Gets all status.

@@ -12,7 +12,7 @@ namespace Fanex.CRM.Feedback.Models
         public string SubProductId { get; set; }
 
         [XmlIgnore]
-        public string BettypeIds { get; set; } = string.Empty;
+        public string BettypeId { get; set; } = string.Empty;
 
         [XmlAttribute("ProductID")]
         public string ProductIdContent
@@ -41,7 +41,7 @@ namespace Fanex.CRM.Feedback.Models
         {
             get
             {
-                return this.BettypeIds == null ? string.Empty : this.BettypeIds;
+                return this.BettypeId == null ? string.Empty : this.BettypeId;
             }
 
             set { }
