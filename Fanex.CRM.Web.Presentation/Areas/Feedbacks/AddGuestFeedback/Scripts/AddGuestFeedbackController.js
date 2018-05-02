@@ -336,60 +336,63 @@
             $scope.addGuestFeedbackParams.ExtensionIds = extensionIds.join(",");
         }
 
+        $scope.CheckSubProductBettype = function (subProductID, bettypeId) {
+            var flag = false;
+            angular.forEach($scope.allSettings.BettypeList, function (b) {
+                if (b.Id == bettypeId && b.ParentId == subProductID) {
+                    flag = true;
+                }
+            })
+
+            return flag;
+        }
+
         $scope.GetProductParams = function () {
             var products = [];
-            angular.forEach($scope.selectedProducts, function (product) {
-                angular.forEach($scope.selectedSubProducts, function (subProduct) {
-                    // check subproduct
-                    var subproductFlag = false;
-                    angualar.forEach($scope.allSettings.SubProductList, function (sp) {
-                        if (sp.Id == subProduct.Id && sp.ParentId == product.Id) {
-                            subproductFlag = true;
-                        }
-                    })
-
+            if ($scope.selectedProducts.length == 0) {
+                products = [
+                   {
+                       ProductId: $scope.allSettings.ProductNA.Id,
+                       SubProductId: $scope.allSettings.SubProductNA.Id,
+                       BettypeId: $scope.allSettings.BettypeNA.Id
+                   }
+                ];
+            }
+            else {
+                var processedProductIds = [];
+                angular.forEach($scope.selectedSubProducts, function (subProduct) {                    
+                    var subProductBettypes = [];                    
                     angular.forEach($scope.selectedBettypes, function (bettype) {
-                        // check bettype
-                        var bettypeFlag = false;
-                        angular.forEach($scope.allSettings.BettypeList, function (b) {
-                            if (b.Id == bettype.Id && b.ParentId == subProduct.Id) {
-                                bettypeFlag = true;
-                            }
-                        })                       
-                        
-                        if (bettypeFlag && subproductFlag) {
-                            products.push({
-                                ProductId: product.Id,
+                        if ($scope.CheckSubProductBettype(subProduct.Id, bettype.Id)) {
+                            subProductBettypes.push({
+                                ProductId: subProduct.ParentId,
                                 SubProductId: subProduct.Id,
                                 BettypeId: bettype.Id
                             })
-                        }
-                        else if (subproductFlag) {
-                            products.push({
-                                ProductId: product.Id,
-                                SubProductId: subProduct.Id,
-                                BettypeId: $scope.allSettings.BettypeNA.Id
-                            })
-                        }
-                        else {
-                            products.push({
-                                ProductId: product.Id,
-                                SubProductId: $scope.allSettings.SubProductNA.Id,
-                                BettypeId: $scope.allSettings.BettypeNA.Id
-                            })
-                        }
+                        }                        
                     })
-                })
-            })
 
-            if (products.length == 0) {
-                products = [
-                    {
-                        ProductId: $scope.allSettings.ProductNA.Id,
-                        SubProductId: $scope.allSettings.SubProductNA.Id,
-                        BettypeId: $scope.allSettings.BettypeNA.Id
+                    if (subProductBettypes.length == 0) {
+                        subProductBettypes.push({
+                            ProductId: subProduct.ParentId,
+                            SubProductId: subProduct.Id,
+                            BettypeId: $scope.allSettings.BettypeNA.Id
+                        })
                     }
-                ];
+
+                    products = products.concat(subProductBettypes);
+                    processedProductIds.push(subProduct.ParentId);
+                })
+
+                angular.forEach($scope.selectedProducts, function (product) {
+                    if (processedProductIds.indexOf(product.Id) < 0) {
+                        products.push({
+                            ProductId: product.Id,
+                            SubProductId: $scope.allSettings.SubProductNA.Id,
+                            BettypeId: $scope.allSettings.BettypeNA.Id
+                        })
+                    }
+                })
             }
 
             $scope.addGuestFeedbackParams.Products = products;
