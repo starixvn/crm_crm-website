@@ -398,33 +398,6 @@
             $scope.addGuestFeedbackParams.Products = products;
         }
 
-        
-        $scope.GetSubProductParams = function () {
-            var subProductIds = [];
-            angular.forEach($scope.selectedSubProducts, function (subProduct) {
-                subProductIds.push(subProduct.Id);
-            })
-
-            if (subProductIds.length == 0) {
-                subProductIds = [$scope.allSettings.SubProductNA.Id];
-            }
-
-            $scope.addGuestFeedbackParams.SubProductIds = subProductIds.join(",");
-        }
-
-        $scope.GetBettypeParams = function () {
-            var bettypeIds = [];
-            angular.forEach($scope.selectedBettypes, function (bettype) {
-                bettypeIds.push(bettype.Id);
-            })
-
-            if (bettypeIds.length == 0) {
-                bettypeIds = [$scope.allSettings.BettypeNA.Id];
-            }
-
-            $scope.addGuestFeedbackParams.BettypeIds = bettypeIds.join(",");
-        }
-
         $scope.GetCategoryParams = function () {
             var categories = [];
             angular.forEach($scope.selectedCategories, function (category) {
