@@ -87,7 +87,6 @@ namespace Fanex.CRM.Communication.Controllers
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -96,7 +95,10 @@ namespace Fanex.CRM.Communication.Controllers
                 ProductNA = _serviceSetting.GetProductNA(),
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
-                ExtensionNA = _serviceSetting.GetExtensionNA()
+                ExtensionNA = _serviceSetting.GetExtensionNA(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts(),
+                BettypeList = _serviceSetting.GetBettypes()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
