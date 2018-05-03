@@ -41,7 +41,7 @@ namespace Fanex.CRM.Feedback.Criteria
             }
         }
 
-        public System.Collections.Generic.IEnumerable<CaterogyFilter> Categories { get; set; }
+        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
 
         public string CategoriesContent
         {

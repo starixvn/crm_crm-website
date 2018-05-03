@@ -122,8 +122,7 @@
             $scope.subProductDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getSubProducts($scope.selectedProducts),
-                childrenMember: "ChildSettings",
+                sourceData: $scope.getSubProducts($scope.selectedProducts)
             };
         }
 

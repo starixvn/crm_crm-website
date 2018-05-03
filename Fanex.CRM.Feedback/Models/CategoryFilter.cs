@@ -3,7 +3,7 @@
 namespace Fanex.CRM.Feedback.Models
 {
     [XmlType("Category")]
-    public class CaterogyFilter
+    public class CategoryFilter
     {
         [XmlIgnore]
         public string MainCategoryID { get; set; }

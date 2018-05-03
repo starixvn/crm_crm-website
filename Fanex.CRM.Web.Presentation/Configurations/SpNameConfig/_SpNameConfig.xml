@@ -18,5 +18,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

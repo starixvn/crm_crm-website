@@ -68,7 +68,7 @@
         }
 
         [SpParam(Ignored = true)]
-        public System.Collections.Generic.IEnumerable<CaterogyFilter> Categories { get; set; }
+        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
 
         [SpParam(SqlParamName = "category")]
         public string CategoriesContent

@@ -47,7 +47,7 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public Setting Response { get; set; }
 
-        public IEnumerable<CaterogyFilter> Categories { get; set; }
+        public IEnumerable<CategoryFilter> Categories { get; set; }
 
         public string CategoriesContent
         {
