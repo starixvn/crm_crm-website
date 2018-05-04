@@ -129,6 +129,7 @@
         deletedFBService.getAllSetting()
             .then(function (data) {
                 var settings = data.Result;
+                $scope.settings = data.Result;
                 $scope.customerTypes = settings.CustomerType;
                 $scope.reviews = settings.Review;
                 $scope.responses = settings.CustomerResponse;
@@ -188,6 +189,7 @@
             deletedFBService.searchDeletedFeedback($scope.cachedCriteria)
             .then(function (data) {
                 $scope.report = data.Result;
+                $scope.report.Settings = $scope.settings;
                 $uiBlockerService.unblockUI();
             },
             function () {
