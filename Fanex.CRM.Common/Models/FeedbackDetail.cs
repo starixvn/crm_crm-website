@@ -9,9 +9,10 @@
 
 namespace Fanex.CRM.Common.Models
 {
-    using System;
-    using System.Web.Script.Serialization;
     using Fanex.CRM.Common.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Script.Serialization;
 
     /// <summary>
     /// Feedback detail.
@@ -19,6 +20,11 @@ namespace Fanex.CRM.Common.Models
     [Serializable]
     public class FeedbackDetail
     {
+        public FeedbackDetail()
+        {
+            this.Settings = new List<SettingItem>();
+        }
+
         public int FeedbackId { get; set; }
 
         public string Username { get; set; }
@@ -84,6 +90,8 @@ namespace Fanex.CRM.Common.Models
         public string RelatedCustomer { get; set; }
 
         public bool IsChecked { get; set; }
+
+        public List<SettingItem> Settings { get; set; }
 
         public string DurationTime
         {

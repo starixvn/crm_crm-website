@@ -455,7 +455,7 @@
 
             var invalidCategories = $scope.CheckInvalidCategories();
             if (invalidCategories != "") {
-                message = viewResources.NoSubcategoryError.replace('{0}', '[' + invalidCategories + ']');
+                $scope.errorMessage(updateFeedbackResources.NoSubcategoryError.replace('{0}', '[' + invalidCategories + ']'));
                 result = false;
             }
 

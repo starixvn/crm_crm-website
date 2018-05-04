@@ -101,6 +101,7 @@
             manageFBService.getAllSetting()
             .then(function (data) {
                 var settings = data.Result;
+                $scope.settings = data.Result;
                 $scope.customerTypes = settings.CustomerType;
                 $scope.reviews = settings.Review;
                 $scope.responses = settings.CustomerResponse;
@@ -168,6 +169,7 @@
             manageFBService.searchManageFeedback(criteria)
             .then(function (data) {
                 $scope.report = data.Result;
+                $scope.report.MainCategory = $scope.settings.MainCategory;
                 $uiBlockerService.unblockUI();
             },
             function () {

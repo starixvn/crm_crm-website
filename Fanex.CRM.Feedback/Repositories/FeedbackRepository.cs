@@ -19,6 +19,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using Infrastructure.Models;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Feedback Repository.
@@ -30,15 +31,20 @@ namespace Fanex.CRM.Feedback.Repositories
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var feebbacks = db.Query<FeedbackDetail>(criteria.GetSpParams());
-                var outputParams = db.GetOuputParams();
-                if (outputParams.ContainsKey("totalrows"))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    object totalRows = outputParams["totalrows"];
-                    criteria.TotalRows = totalRows == null ? 0 : (int)totalRows;
-                }
+                    var feebbacks = multi.Read<FeedbackDetail>();
+                    var settings = multi.Read<SettingItem>();
 
-                return criteria.TotalRows > 0 ? feebbacks : new List<FeedbackDetail>();
+                    feebbacks = feebbacks.Select(f =>
+                    {
+                        f.Settings = settings.Where(s => s.FeedbackID == f.FeedbackId).ToList();
+                        return f;
+                    });
+
+                    criteria.TotalRows = feebbacks.ToList().Count;
+                    return feebbacks;
+                }
             }
         }
 

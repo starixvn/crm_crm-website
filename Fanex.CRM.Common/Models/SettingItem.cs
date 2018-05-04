@@ -2,6 +2,8 @@
 {
     public class SettingItem
     {
+        public int FeedbackID { get; set; }
+
         public string SettingType { get; set; }
 
         public int SettingIdLv1 { get; set; }
