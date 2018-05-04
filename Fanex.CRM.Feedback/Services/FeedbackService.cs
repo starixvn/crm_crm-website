@@ -152,8 +152,6 @@ namespace Fanex.CRM.Feedback.Services
             var feedbacks = _feedbackRepository.GetDeletedFeedbacks(criteria);
             foreach (var feedback in feedbacks)
             {
-                feedback.MainCategory = categoryHash[feedback.MainCategoryId];
-                feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
                 var autoFieldText = String.IsNullOrEmpty(feedback.AutoField) ?
                         string.Empty :
