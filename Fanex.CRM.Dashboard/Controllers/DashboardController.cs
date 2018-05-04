@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Dashboard Controller.
@@ -24,6 +24,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     public class DashboardController : ReadOnlyBaseController
     {
         private IDashboardService _dashboardServiceInstance;
+        public ISettingService _serviceSetting { get; set; }
 
         public DashboardController()
             : this(null)
@@ -33,8 +34,9 @@ namespace Fanex.CRM.Dashboard.Controllers
         public DashboardController(IDashboardService dashboardServiceInstance)
         {
             _dashboardServiceInstance = dashboardServiceInstance ?? new DashboardService();
+            _serviceSetting = new SettingService();
         }
-                
+
         public ActionResult Index(int customerId = 0)
         {
             if (customerId == 0)
@@ -106,7 +108,13 @@ namespace Fanex.CRM.Dashboard.Controllers
         public ActionResult GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
             var communicationLogs = _dashboardServiceInstance.GetCommunicationLogs(criteria);
-            return Json(communicationLogs, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                CommunicationLogs = communicationLogs,
+                MainCategory = _serviceSetting.GetAllMainCategories()
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -108,7 +108,8 @@
             $dashboardService.getCommunicationLogs(selectedCriteria)
                 .then(function (data) {
                     $scope.isLoadedCommunicationLogs = true;
-                    $scope.communicationLogs = data.Result;
+                    $scope.communicationLogs = data.Result.CommunicationLogs;
+                    $scope.mainCategory = data.Result.MainCategory;
                     $scope.completedLoadDashboard();
                 },
                 function () {

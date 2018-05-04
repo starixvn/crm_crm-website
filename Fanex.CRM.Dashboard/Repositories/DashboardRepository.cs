@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Dashboard.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -22,6 +18,11 @@ namespace Fanex.CRM.Dashboard.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Dashboard Repository.
@@ -80,6 +81,28 @@ namespace Fanex.CRM.Dashboard.Repositories
                     {
                         communicationLogs.Add(ReadCommunicationLog(reader));
                     }
+
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
+                    communicationLogs = communicationLogs.Select(l =>
+                    {
+                        l.Settings = settings.Where(s => s.FeedbackID == l.RunningNumber).ToList();
+                        return l;
+                    }).ToList();
 
                     return communicationLogs;
                 }
@@ -154,8 +177,6 @@ namespace Fanex.CRM.Dashboard.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
