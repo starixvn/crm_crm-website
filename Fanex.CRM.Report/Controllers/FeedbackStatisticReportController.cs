@@ -75,7 +75,8 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);
+            var mainCategories = _serviceSetting.GetAllMainCategories();
+            _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
             return new EmptyResult();
         }
     }

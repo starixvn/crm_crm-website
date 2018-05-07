@@ -159,7 +159,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// Exports the feedback statistic detail.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        public void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
+        public void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria, IEnumerable<Setting> mainCategories)
         {
             var excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
 
@@ -204,7 +204,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     exportExcelInfo.CurrentRow = 0;
                     GenerateFeedbackStatisticDetailTitle(exportExcelInfo, report.Title);
                     GenerateFeedbackStatisticDetailHeader(exportExcelInfo);
-                    GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks, startIndex, endIndex);
+                    GenerateFeedbackStatisticDetailBody(exportExcelInfo, report.Feedbacks, mainCategories, startIndex, endIndex);
                 }
             }
 
@@ -531,8 +531,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             currentColumn++;
             NpoiExtensions.RenderCell(headerRow, currentColumn, Labels.Category, headerStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(headerRow, currentColumn, Labels.SubCategory, headerStyle);
-            currentColumn++;
             NpoiExtensions.RenderCell(headerRow, currentColumn, Labels.Status, headerStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(headerRow, currentColumn, Labels.RelatedCustomer, headerStyle);
@@ -540,12 +538,31 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 
+        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
+        }
+
+
         /// <summary>
         /// Generates the feedback statistic detail body.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="feedbacks">The feedbacks.</param>
-        private void GenerateFeedbackStatisticDetailBody(ExportExcelInfo exportExcelInfo, IList<FeedbackDetail> feedbacks, int startIndex, int endIndex)
+        private void GenerateFeedbackStatisticDetailBody(
+            ExportExcelInfo exportExcelInfo,
+            IList<FeedbackDetail> feedbacks,
+            IEnumerable<Setting> mainCategories,
+            int startIndex,
+            int endIndex)
         {
             const string FeedbackPattern = "{0}\nFeedback date {1}\nBy {2} on {3}\nSolving Duration: {4}{5}";
             int currentColumn;
@@ -573,12 +590,26 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     currentColumn,
                     string.Format(FeedbackPattern, feedback.Subject, feedback.FeedbackDateString, feedback.CreatorName, feedback.CreateDateString, feedback.DurationTime, reviewer),
                                     textCellStyle);
+
+                var categoryContents = feedback.Settings
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key, mainCategories);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
+
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, feedback.Username, textCellStyle);
                 currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, feedback.MainCategory, textCellStyle);
-                currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, feedback.SubCategory, textCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, String.Join("\n\n", categoryContents), textCellStyle);
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, feedback.Status, textCellStyle);
                 currentColumn++;
