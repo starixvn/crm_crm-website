@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -28,6 +24,10 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Feedback statistic report service.
@@ -251,8 +251,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             var rawdata = _feedbackStatisticRepository.GetFeedbackDetail(criteria);
             foreach (var feedback in rawdata)
             {
-                feedback.MainCategory = categoryHash[feedback.MainCategoryId];
-                feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
                 feedbacks.Add(feedback);
             }
@@ -555,7 +553,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             ICellStyle textCellStyle;
             IRow row;
             string reviewer;
-            
+
             InitializeTextStyles(exportExcelInfo.ExcelFile);
 
             for (int i = startIndex; i < endIndex; i++)
@@ -569,7 +567,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     : string.Empty;
                 row = exportExcelInfo.Worksheet.CreateRow(currentRow);
                 row.Height = 1200;
-                
+
                 NpoiExtensions.RenderCell(
                     row,
                     currentColumn,

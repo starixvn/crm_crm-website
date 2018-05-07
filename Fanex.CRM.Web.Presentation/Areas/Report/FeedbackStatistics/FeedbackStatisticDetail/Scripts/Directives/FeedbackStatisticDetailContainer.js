@@ -20,15 +20,7 @@
             var columns = [
             { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];
-            if (isShowSubCategory) {
-                columns.push({
-                    HeaderText: feedbackStatisticDetailResources.SubCategory,
-                    Width: 270, Name: 'ColSubCategory',
-                    HeaderAlign: 'center',
-                    CellAlign: 'left'
-                });
-            }
+            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];           
 
             columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({
@@ -69,7 +61,7 @@
             };
         }
 
-        function getGridBody(scope, feedbacks) {
+        function getGridBody(scope, feedbacks, mainCategories) {
             /* jshint unused: false */
             var bodyData = [];
             if (feedbacks) {
@@ -81,15 +73,9 @@
                     cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
                     currentRow = [
                         { Name: 'ColFeedback', Value: renderFeedbackColumn(feedback) },
-                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap'}];
-                    if (isShowSubCategory) {
-                        currentRow.push({ Name: 'ColMainCategory', Value: feedback.MainCategory });
-                        currentRow.push({ Name: 'ColSubCategory', Value: feedback.SubCategory });
-                    }
-                    else {
-                        currentRow.push({ Name: 'ColMainCategory', Value: renderCategoryColumn(feedback.MainCategory, feedback.SubCategory) });
-                    }
+                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap'}];                   
 
+                    currentRow.push({ Name: 'ColMainCategory', Value: renderCategoryColumn(feedback, mainCategories) });
                     currentRow.push({ Name: 'ColStatus', Value: feedback.Status });
                     currentRow.push({ Name: 'ColRelatedCustomer', 
                         Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap' });
@@ -99,6 +85,73 @@
             }
 
             return bodyData;
+        }
+
+        function getMainCategoryName(mainCategoryId, mainCategories) {
+            for (var i = 0; i < mainCategories.length; i++) {
+                if (mainCategories[i].Id == mainCategoryId) {
+                    return mainCategories[i].Name;
+                }
+            }
+        }
+
+        function getSubCategoryName(mainCategoryId, subCategoryId, mainCategories) {
+            var mainCategory = null;
+            for (var i = 0; i < mainCategories.length; i++) {
+                if (mainCategories[i].Id == mainCategoryId) {
+                    mainCategory = mainCategories[i];
+                    break;
+                }
+            }
+
+            if (mainCategory) {
+                for (var j = 0; j < mainCategory.ChildSettings.length; j++) {
+                    if (mainCategory.ChildSettings[j].Id == subCategoryId) {
+                        return mainCategory.ChildSettings[j].Name;
+                    }
+                }
+            }
+
+            return '';
+        }
+
+        function renderCategoryColumn(feedback, mainCategories) {
+            var settings = feedback.Settings;
+
+            var mainCategoryIds = [];
+            for (var i = 0; i < settings.length; i++) {
+                if (mainCategoryIds.indexOf(settings[i].SettingIdLv1) < 0) {
+                    mainCategoryIds.push(settings[i].SettingIdLv1);
+                }
+            }
+
+            var categories = [];
+            for (var i = 0; i < mainCategoryIds.length; i++) {
+                var subCategoryIds = [];
+                for (var j = 0; j < settings.length; j++) {
+                    if (settings[j].SettingIdLv1 == mainCategoryIds[i]) {
+                        subCategoryIds.push(settings[j].SettingIdLv2);
+                    }
+                }
+
+                categories.push({
+                    mainCategoryId: mainCategoryIds[i],
+                    subCategoryIds: subCategoryIds
+                })
+            }
+
+            var result = '';
+            for (var i = 0; i < categories.length; i++) {
+                var categoryHtml = '<div class="main-category">' + getMainCategoryName(categories[i].mainCategoryId, mainCategories);
+                var subCategoryIds = categories[i].subCategoryIds;
+                for (var j = 0; j < subCategoryIds.length; j++) {
+                    categoryHtml += '<div><span class="sub-category">' + getSubCategoryName(categories[i].mainCategoryId, subCategoryIds[j], mainCategories) + '</span></div>';
+                }
+                categoryHtml += '</div>';
+                result += categoryHtml;
+            }
+
+            return result;
         }
 
         function renderFeedbackColumn(feedback) {
@@ -119,16 +172,12 @@
             return html + reviewer + '</div></div>';
         }
 
-        function renderCategoryColumn(main, sub) {
-            return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
-        }
-
         function renderFeedbackStatisticDetail(scope, element) {
             isShowSubCategory = scope.searchCriteria.MainCategoryId === 0 &&
             scope.searchCriteria.SubCategoryId === 0 &&
             scope.searchCriteria.ValueId === 0;
             var report = scope.feedbackStatisticDetail;
-            var bodyData = getGridBody(scope, report.Feedbacks);
+            var bodyData = getGridBody(scope, report.Feedbacks, scope.mainCategory);
 
             if (!gridOptions) {
                 gridOptions = getGridOptions(scope, report.Title, bodyData);

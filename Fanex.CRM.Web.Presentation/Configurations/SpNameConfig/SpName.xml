@@ -37,7 +37,10 @@
     <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="MainCategory" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubCategory" ObjectProperty="SettingIdLv2" />
+    </Setting>
     <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />

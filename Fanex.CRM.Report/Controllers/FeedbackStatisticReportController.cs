@@ -9,13 +9,14 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Services.FeedbackStatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Feedback statistic report controller.
@@ -24,6 +25,7 @@ namespace Fanex.CRM.Report.Controllers
     public class FeedbackStatisticReportController : ReadOnlyBaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
+        public ISettingService _serviceSetting { get; set; }
 
         public FeedbackStatisticReportController()
             : this(null)
@@ -33,6 +35,7 @@ namespace Fanex.CRM.Report.Controllers
         public FeedbackStatisticReportController(IFeedbackStatisticReportService feedbackStatisticService)
         {
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
+            _serviceSetting = new SettingService();
         }
 
         public ActionResult Index()
@@ -44,6 +47,7 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
+
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
@@ -60,8 +64,13 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
-            return Json(report, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories()
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)

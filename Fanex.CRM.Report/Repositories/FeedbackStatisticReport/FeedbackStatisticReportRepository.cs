@@ -9,15 +9,15 @@
 
 namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
     /// <summary>
     /// Feedback statistic report repository.
@@ -39,8 +39,20 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<FeedbackDetail>(criteria.GetSpParams());
-            }    
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var feebbacks = multi.Read<FeedbackDetail>();
+                    var settings = multi.Read<SettingItem>();
+
+                    feebbacks = feebbacks.Select(f =>
+                    {
+                        f.Settings = settings.Where(s => s.FeedbackID == f.FeedbackId).ToList();
+                        return f;
+                    });
+
+                    return feebbacks;
+                }
+            }
         }
 
         private static FeedbackStatistic ReadFeedbackStatistic(IDataReader reader)
