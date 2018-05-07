@@ -15,6 +15,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     public class LogStatisticsRepository : ILogStatisticsRepository
     {
@@ -40,6 +41,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                     {
                         StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
                         {
+                            FeedbackID = Converter.ToInt(reader["FeedbackID"]),
                             StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                             ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
                             Remark = Converter.ToString2(reader["Remark"]),
@@ -47,18 +49,12 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
-                            Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
-                            SubProduct = new Setting { Name = Converter.ToString2(reader["SubProduct"]) },
-                            Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
                             Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
-                            MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                            SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                             StatusName = Converter.ToString2(reader["Status"]),
                             Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                             Handler = Converter.ToString2(reader["CreatorName"]),
                             CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                             Role = Converter.ToString2(reader["Role"]),
-                            CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
                             Fax = new Fax
                             {
                                 CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
@@ -98,6 +94,28 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
 
                         result.Add(statisticsDetail);
                     }
+
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
+                    result = result.Select(l =>
+                    {
+                        l.Settings = settings.Where(s => s.FeedbackID == l.FeedbackID).ToList();
+                        return l;
+                    }).ToList();
                 }
 
                 var outputParams = objDb.GetOuputParams();

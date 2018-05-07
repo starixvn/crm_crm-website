@@ -6,10 +6,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.LogStatistics;
@@ -20,6 +16,9 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
 
     public class LogStatisticsController : ReadOnlyBaseController
     {
@@ -115,7 +114,15 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
-            var jsonResult = Json(_logStatisticsService.GetReportDetail(criteria));
+            var jsonResult = Json(new
+            {
+                Report = _logStatisticsService.GetReportDetail(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts(),
+            });
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
         }

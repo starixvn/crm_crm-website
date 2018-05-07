@@ -27,9 +27,12 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         {
             Phones = new List<Phone>();
             PICs = new List<PersonalInfoContact>();
+            Settings = new List<SettingItem>();
         }
 
         #region Communication
+
+        public int FeedbackID { get; set; }
 
         public List<Phone> Phones { get; set; }
 
@@ -162,5 +165,7 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         {
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(ResolutionTime).ToHourMinuteMiddayTypeFormated(); }
         }
+
+        public IEnumerable<SettingItem> Settings { get; set; }
     }
 }
