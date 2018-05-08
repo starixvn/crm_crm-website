@@ -74,8 +74,13 @@
             casinoWeeklyService.getCasinoWeeklyDetail(
                 _lastSubmitData.fromDate, _lastSubmitData.toDate, page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
                 .then(function (data) {
-                    $scope.weeklyDetail = data.Result;
-                    $uiBlockerService.unblockUI();
+                    $scope.weeklyDetail = data.Result.Report;
+                    $scope.mainCategory = data.Result.MainCategory;
+                    $scope.CommunicationToolList = data.Result.CommunicationToolList;
+                    $scope.ExtensionList = data.Result.ExtensionList;
+                    $scope.ProductList = data.Result.ProductList;
+                    $scope.SubProductList = data.Result.SubProductList;
+                    $uiBlockerService.unblockUI();                    
                 },
                 function () {
                     $uiBlockerService.unblockUI();

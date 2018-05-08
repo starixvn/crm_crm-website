@@ -105,8 +105,17 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CasinoWeeklyStatistics, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
         {
-            var report = _casinoReportService.GetCasinoWeeklyDetail(criteria);
-            return Json(report, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                Report = _casinoReportService.GetCasinoWeeklyDetail(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts()
+
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CasinoWeeklyStatistics, Policy = Constant.Policy.Read)]
