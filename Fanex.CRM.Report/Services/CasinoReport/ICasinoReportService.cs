@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 {
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;
+    using System.Collections.Generic;
 
     public interface ICasinoReportService
     {
@@ -21,7 +22,13 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         CasinoDetail GetCasinoDailyDetail(GetCasinoDetailCriteria criteria);
 
-        void ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria);
+        void ExportCasinoDailyDetail(
+            GetCasinoDetailCriteria criteria,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList);
 
         // Casino Weekly Statistic.
         CasinoWeeklySummary GetCasinoWeeklySummary(GetCasinoSummaryCriteria criteria);

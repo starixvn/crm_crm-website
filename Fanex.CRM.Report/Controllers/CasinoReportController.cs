@@ -77,7 +77,18 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CasinoDailyStatistics, Policy = Constant.Policy.Read)]
         public ActionResult ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
-            _casinoReportService.ExportCasinoDailyDetail(criteria);
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+            var extensionList = _serviceSetting.GetAllExtensions();
+            var productList = _serviceSetting.GetProducts();
+            var subProductList = _serviceSetting.GetSubProducts();
+            _casinoReportService.ExportCasinoDailyDetail(
+                criteria,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList);
             return new EmptyResult();
         }
 
@@ -121,8 +132,19 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CasinoWeeklyStatistics, Policy = Constant.Policy.Read)]
         public ActionResult ExportCasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
         {
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+            var extensionList = _serviceSetting.GetAllExtensions();
+            var productList = _serviceSetting.GetProducts();
+            var subProductList = _serviceSetting.GetSubProducts();
             criteria.ReportType = 3; // Weekly
-            _casinoReportService.ExportCasinoDailyDetail(criteria);
+            _casinoReportService.ExportCasinoDailyDetail(
+                criteria,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList);
             return new EmptyResult();
         }
     }

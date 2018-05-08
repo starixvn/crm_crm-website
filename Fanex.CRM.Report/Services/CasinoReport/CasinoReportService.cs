@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.CasinoReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models.Npoi;
@@ -26,6 +22,10 @@ namespace Fanex.CRM.Report.Services.CasinoReport
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Casino Report Service.
@@ -109,7 +109,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
             var casinoDailyDetails = _casinoReportRepository.GetCasinoDetails(criteria);
-            
+
             int totalItems = casinoDailyDetails.Count();
             if (totalItems > 0)
             {
@@ -128,7 +128,14 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             return new CasinoDetail { Title = title };
         }
 
-        public void ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria)
+        public void ExportCasinoDailyDetail(
+            GetCasinoDetailCriteria criteria,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList
+        )
         {
             criteria.FullReport = true;
 
@@ -162,7 +169,14 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
                 NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
-                GenerateCasinoDetailBody(exportExcelInfo, data.CasinoDetails);
+                GenerateCasinoDetailBody(
+                    exportExcelInfo,
+                    data.CasinoDetails,
+                    mainCategory,
+                    communicationToolList,
+                    extensionList,
+                    productList,
+                    subProductList);
             }
 
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
@@ -653,8 +667,6 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Category, headerStyle);
             currentColumn++;
-            NpoiExtensions.RenderCell(row, currentColumn, Labels.SubCategory, headerStyle);
-            currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Description, headerStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Solution, headerStyle);
@@ -671,6 +683,44 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 
+        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private static string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
+        }
+
+        private static string GetProductName(int id, IEnumerable<Common.Models.Product> productList)
+        {
+            var product = productList.FirstOrDefault(c => c.Id == id);
+            return product == null ? "N/A" : product.Name;
+        }
+
+        private static string GetSubProductName(int id, IEnumerable<Common.Models.Product> subProductList)
+        {
+            var subProduct = subProductList.FirstOrDefault(c => c.Id == id);
+            return subProduct == null ? "N/A" : subProduct.Name;
+        }
+
+        private static string GetCommunicationName(int id, IEnumerable<Common.Models.Setting> communicationToolList)
+        {
+            var item = communicationToolList.FirstOrDefault(c => c.Id == id);
+            return item == null ? string.Empty : item.Name;
+        }
+
+        private static string GetExtensionName(int id, IEnumerable<Common.Models.SettingRelation> extensionList)
+        {
+            var item = extensionList.FirstOrDefault(c => c.Id == id);
+            return item == null ? "N/A" : item.Value;
+        }
+
+
         /// <summary>
         /// Generates the casino detail body.
         /// </summary>
@@ -679,7 +729,14 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static void GenerateCasinoDetailBody(ExportExcelInfo exportExcelInfo, IEnumerable<CasinoDetailEntity> casinoDetails)
+        private static void GenerateCasinoDetailBody(
+            ExportExcelInfo exportExcelInfo,
+            IEnumerable<CasinoDetailEntity> casinoDetails,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             ISheet worksheet = exportExcelInfo.Worksheet;
@@ -689,6 +746,54 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentColumn;
             foreach (var item in casinoDetails)
             {
+                var categoryContents = item.Settings
+                    .Where(i => i.SettingType == "Category")
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key, mainCategory);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategory);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
+
+                var productContents = item.Settings
+                        .Where(i => i.SettingType == "Product")
+                       .GroupBy(s => s.SettingIdLv1)
+                       .Select(s =>
+                       {
+                           var con = GetProductName(s.Key, productList);
+                           var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                           foreach (var id in subIds)
+                           {
+                               con = con + "\n  " + GetSubProductName(id, subProductList);
+                           }
+
+                           return con;
+                       })
+                       .ToArray();
+
+                var communicationContents = item.Settings
+                        .Where(i => i.SettingType == "Communication")
+                        .Select(s =>
+                        {
+                            return GetCommunicationName(s.SettingIdLv1, communicationToolList);
+                        })
+                        .ToArray();
+
+                var extensionContents = item.Settings
+                       .Where(i => i.SettingType == "Station")
+                       .Select(s =>
+                       {
+                           return GetExtensionName(s.SettingIdLv1, extensionList);
+                       })
+                       .ToArray();
+
                 currentColumn = exportExcelInfo.CurrentColumn;
                 row = worksheet.CreateRow(currentRow);
                 NpoiExtensions.RenderCell(row, currentColumn, item.FeedbackDateString, textCenterCellStyle);
@@ -703,11 +808,11 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, item.SiteName, textLeftCellStyle);
                 currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, item.Communication, textLeftCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, String.Join("\n", communicationContents), textLeftCellStyle);
                 currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, item.Product, textLeftCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, String.Join("\n\n", productContents), textLeftCellStyle);
                 currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, item.Station, textCenterCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, String.Join("\n", extensionContents), textCenterCellStyle);
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, item.Role, textCenterCellStyle);
                 currentColumn++;
@@ -715,9 +820,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, item.CountryName, textLeftCellStyle);
                 currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, item.MainCategory, textLeftCellStyle);
-                currentColumn++;
-                NpoiExtensions.RenderCell(row, currentColumn, item.SubCategory, textLeftCellStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, String.Join("\n\n", categoryContents), textLeftCellStyle);
                 currentColumn++;
                 NpoiExtensions.RenderCell(row, currentColumn, HtmlHelper.RemoveHtmlTags(item.Description), textLeftCellStyle);
                 currentColumn++;

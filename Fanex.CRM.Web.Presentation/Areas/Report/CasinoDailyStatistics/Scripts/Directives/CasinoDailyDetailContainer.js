@@ -286,8 +286,6 @@
             restrict: 'A',
             link: function (scope, element) {
                 scope.$watch('dailyDetail', function (newValue, oldValue) {
-                    console.log("daily");
-                    console.log(newValue);
                     /* jshint unused: false */
                     if (!newValue) {
                         return;
