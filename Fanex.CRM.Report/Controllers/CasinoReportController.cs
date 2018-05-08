@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Services.CasinoReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Casino Report Controller.
@@ -24,6 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     public class CasinoReportController : ReadOnlyBaseController
     {
         private readonly ICasinoReportService _casinoReportService;
+        private readonly ISettingService _serviceSetting;
 
         public CasinoReportController()
             : this(null)
@@ -33,6 +34,7 @@ namespace Fanex.CRM.Report.Controllers
         public CasinoReportController(ICasinoReportService casinoReportService)
         {
             _casinoReportService = casinoReportService ?? new CasinoReportService();
+            _serviceSetting = new SettingService();
         }
 
         // Casino Daily Statistics.
@@ -59,8 +61,17 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CasinoDailyStatistics, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
-            var report = _casinoReportService.GetCasinoDailyDetail(criteria);
-            return Json(report, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                Report = _casinoReportService.GetCasinoDailyDetail(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts()
+
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CasinoDailyStatistics, Policy = Constant.Policy.Read)]

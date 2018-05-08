@@ -9,15 +9,16 @@
 
 namespace Fanex.CRM.Report.Repositories.CasinoReport
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
+    using Common.Models;
     using Fanex.Common;
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Entities.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
     /// <summary>
     /// Casino Report Repository.
@@ -75,7 +76,19 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<CasinoDetailEntity>(criteria.GetSpParams()).ToList();
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var feebbacks = multi.Read<CasinoDetailEntity>();
+                    var settings = multi.Read<SettingItem>();
+
+                    feebbacks = feebbacks.Select(f =>
+                    {
+                        f.Settings = settings.Where(s => s.FeedbackID == f.FeedbackID).ToList();
+                        return f;
+                    });
+
+                    return feebbacks.ToList();
+                }
             }
         }
 
@@ -135,7 +148,7 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
             var gameTypeCount = weeklySummary.GameTypes.Count;
             var firstRow = true;
             while (reader.Read())
-            {                
+            {
                 var gameTypeValues = new List<int>();
                 for (int i = 0; i < gameTypeCount; i++)
                 {
@@ -144,7 +157,7 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
 
                     // Grand Total.
                     if (firstRow)
-                    {                      
+                    {
                         weeklySummary.GrandTotal.GameTypeValues.Add(value);
                     }
                     else

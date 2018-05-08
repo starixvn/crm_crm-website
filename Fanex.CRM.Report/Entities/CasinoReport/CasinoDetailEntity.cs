@@ -9,11 +9,12 @@
 
 namespace Fanex.CRM.Report.Entities.CasinoReport
 {
-    using System;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Report.Helpers;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Casino Daily Detail Entity.
@@ -21,6 +22,13 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
     [Serializable]
     public class CasinoDetailEntity
     {
+        public CasinoDetailEntity()
+        {
+            Settings = new List<SettingItem>();
+        }
+
+        public int FeedbackID { get; set; }
+
         #region Communication
 
         public string WEChat { get; set; }
@@ -158,7 +166,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
 
         public DateTime ResolutionDate { get; set; }
 
-        public string ResolutionTimeString 
+        public string ResolutionTimeString
         {
             get
             {
@@ -190,7 +198,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
             {
                 if (string.IsNullOrEmpty(Description))
                 {
-                    return null;    
+                    return null;
                 }
 
                 return HtmlHelper.RemoveSpecialHtmlTag(Description);
@@ -214,13 +222,13 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
 
         public string Address
         {
-            get 
+            get
             {
                 return string.Format(
                     "MSN: {0}<br/> Skype: {1}<br/> Email: {2}<br/> Phone: {3}<br/> Mobile: {4}",
-                    MSN, 
-                    Skype, 
-                    Email, 
+                    MSN,
+                    Skype,
+                    Email,
                     Phone,
                     MobilePhone);
             }
@@ -243,6 +251,8 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
                     totalDays.Minutes.ToString("00"));
             }
         }
+
+        public IEnumerable<SettingItem> Settings { get; set; }
 
         private DateTime FeedbackDateClient
         {
