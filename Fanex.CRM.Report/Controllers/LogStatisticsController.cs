@@ -152,7 +152,21 @@ namespace Fanex.CRM.Report.Controllers
 
             var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
 
-            LogStatisticsReportDetailExcel reportDetailExcel = new LogStatisticsReportDetailExcel(reportDetail, excelFileName);
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+            var extensionList = _serviceSetting.GetAllExtensions();
+            var productList = _serviceSetting.GetProducts();
+            var subProductList = _serviceSetting.GetSubProducts();
+
+            LogStatisticsReportDetailExcel reportDetailExcel = new LogStatisticsReportDetailExcel(
+                reportDetail,
+                excelFileName,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList
+            );
             reportDetailExcel.BuildWorkBook();
         }
     }

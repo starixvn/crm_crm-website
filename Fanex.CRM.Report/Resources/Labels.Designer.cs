@@ -313,6 +313,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category/Sub-Category.
+        /// </summary>
+        public static string CategorySubCategory {
+            get {
+                return ResourceManager.GetString("CategorySubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checked.
         /// </summary>
         public static string Checked {
@@ -1623,6 +1632,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string ProductName {
             get {
                 return ResourceManager.GetString("ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product/Sub-Product.
+        /// </summary>
+        public static string ProductSubProduct {
+            get {
+                return ResourceManager.GetString("ProductSubProduct", resourceCulture);
             }
         }
         

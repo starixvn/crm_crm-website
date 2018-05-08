@@ -16,16 +16,36 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class LogStatisticsReportDetailExcel : BaseExcel
     {
         private readonly StatisticsDetailReportByDateModel _logStatisticsReportDetail;
+        private readonly IEnumerable<Common.Models.Setting> _mainCategory;
+        private readonly IEnumerable<Common.Models.Setting> _communicationToolList;
+        private readonly IEnumerable<Common.Models.SettingRelation> _extensionList;
+        private readonly IEnumerable<Common.Models.Product> _productList;
+        private readonly IEnumerable<Common.Models.Product> _subProductList;
 
-        public LogStatisticsReportDetailExcel(StatisticsDetailReportByDateModel logStatisticsReportDetail, string excelFileName)
+        public LogStatisticsReportDetailExcel(
+            StatisticsDetailReportByDateModel logStatisticsReportDetail,
+            string excelFileName,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList
+        )
             : base(excelFileName)
         {
             _logStatisticsReportDetail = logStatisticsReportDetail;
+            _mainCategory = mainCategory;
+            _communicationToolList = communicationToolList;
+            _extensionList = extensionList;
+            _productList = productList;
+            _subProductList = subProductList;
         }
 
         public override void BuildWorkBook()
@@ -44,7 +64,45 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
-        private static void GenerateDetailReportRowData(
+        private string GetMainCategoryName(int mainCategoryId)
+        {
+            var mainCategory = _mainCategory.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private string GetSubCategoryName(int mainCategoryId, int subCategoryId)
+        {
+            var mainCategory = _mainCategory.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
+        }
+
+        private string GetProductName(int id)
+        {
+            var product = _productList.FirstOrDefault(c => c.Id == id);
+            return product == null ? "N/A" : product.Name;
+        }
+
+        private string GetSubProductName(int id)
+        {
+            var subProduct = _subProductList.FirstOrDefault(c => c.Id == id);
+            return subProduct == null ? "N/A" : subProduct.Name;
+        }
+
+        private string GetCommunicationName(int id)
+        {
+            var item = _communicationToolList.FirstOrDefault(c => c.Id == id);
+            return item == null ? string.Empty : item.Name;
+        }
+
+        private string GetExtensionName(int id)
+        {
+            var item = _extensionList.FirstOrDefault(c => c.Id == id);
+            return item == null ? "N/A" : item.Value;
+        }
+
+
+        private void GenerateDetailReportRowData(
             StatisticsDetailbyDateModel info,
             ExportExcelInfo exportExcelInfo,
             ICellStyle textStyle,
@@ -57,6 +115,54 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
 
+            var categoryContents = info.Settings
+                    .Where(i => i.SettingType == "Category")
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
+
+            var productContents = info.Settings
+                    .Where(i => i.SettingType == "Product")
+                   .GroupBy(s => s.SettingIdLv1)
+                   .Select(s =>
+                   {
+                       var con = GetProductName(s.Key);
+                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                       foreach (var id in subIds)
+                       {
+                           con = con + "\n  " + GetSubProductName(id);
+                       }
+
+                       return con;
+                   })
+                   .ToArray();
+
+            var communicationContents = info.Settings
+                    .Where(i => i.SettingType == "Communication")
+                    .Select(s =>
+                    {
+                        return GetCommunicationName(s.SettingIdLv1);
+                    })
+                    .ToArray();
+
+            var extensionContents = info.Settings
+                   .Where(i => i.SettingType == "Station")
+                   .Select(s =>
+                   {
+                       return GetExtensionName(s.SettingIdLv1);
+                   })
+                   .ToArray();
+
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
             exportExcelInfo.RenderCell(info.StartDateString, centerTextStyle);
@@ -65,15 +171,13 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             exportExcelInfo.RenderCell(durationText, centerTextStyle);
             exportExcelInfo.RenderCell(info.Username, centerTextStyle);
             exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n", communicationContents), centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n", extensionContents), centerTextStyle);
             exportExcelInfo.RenderCell(info.Role, textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
-            exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.SubProduct.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n\n", productContents), textStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n\n", categoryContents), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.RemarkText), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
@@ -141,11 +245,9 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             exportExcelInfo.RenderCell(Labels.Symbol_Extension, headerStyle);
             exportExcelInfo.RenderCell(Labels.Role, headerStyle);
             exportExcelInfo.RenderCell(Labels.ContactInfo, headerStyle);
-            exportExcelInfo.RenderCell(Labels.Product, headerStyle);
-            exportExcelInfo.RenderCell(Labels.SubProduct, headerStyle);
+            exportExcelInfo.RenderCell(Labels.ProductSubProduct, headerStyle);
             exportExcelInfo.RenderCell(Labels.Country, headerStyle);
-            exportExcelInfo.RenderCell(Labels.Category, headerStyle);
-            exportExcelInfo.RenderCell(Labels.SubCategory, headerStyle);
+            exportExcelInfo.RenderCell(Labels.CategorySubCategory, headerStyle);
             exportExcelInfo.RenderCell(Labels.Complaints_Enquiries, headerStyle);
             exportExcelInfo.RenderCell(Labels.Solution, headerStyle);
             exportExcelInfo.RenderCell(Labels.Status, headerStyle);

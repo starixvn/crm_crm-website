@@ -915,4 +915,10 @@
   <data name="Group_Headline" xml:space="preserve">
     <value>Group Headline</value>
   </data>
+  <data name="CategorySubCategory" xml:space="preserve">
+    <value>Category/Sub-Category</value>
+  </data>
+  <data name="ProductSubProduct" xml:space="preserve">
+    <value>Product/Sub-Product</value>
+  </data>
 </root>
