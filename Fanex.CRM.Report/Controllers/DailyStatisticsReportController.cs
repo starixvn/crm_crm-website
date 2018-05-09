@@ -87,7 +87,15 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult DetailReport(GetDetailReportCriteria criteria)
         {
-            var result = _dailyStatisticsReportService.DetailReport(criteria);
+            var result = new
+            {
+                Report = _dailyStatisticsReportService.DetailReport(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts()
+            };
             var jsonResult = Json(result);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;

@@ -83,7 +83,13 @@
 
             dailyStatisticsReportService.getDailyStatisticsDetailReport($scope.getDetailReportCriteria)
                 .then(function (data) {
-                    $scope.detailReportOptions.DataList = data.Result;
+                    $scope.detailReportOptions.DataList = data.Result.Report;
+                    $scope.mainCategory = data.Result.MainCategory;
+                    $scope.CommunicationToolList = data.Result.CommunicationToolList;
+                    $scope.ExtensionList = data.Result.ExtensionList;
+                    $scope.ProductList = data.Result.ProductList;
+                    $scope.SubProductList = data.Result.SubProductList;
+                    $scope.detailReportOptions.IsUpdateGrid = true;
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
