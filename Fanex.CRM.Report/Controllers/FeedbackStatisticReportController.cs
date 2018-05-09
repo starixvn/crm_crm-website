@@ -25,7 +25,7 @@ namespace Fanex.CRM.Report.Controllers
     public class FeedbackStatisticReportController : ReadOnlyBaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
-        public ISettingService _serviceSetting { get; set; }
+        public ISettingService _serviceSetting;
 
         public FeedbackStatisticReportController()
             : this(null)

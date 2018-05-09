@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -18,6 +17,8 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.WeeklyStatisticsReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Weekly Statistics Report Controller.
@@ -26,6 +27,7 @@ namespace Fanex.CRM.Report.Controllers
     public class WeeklyStatisticsReportController : ReadOnlyBaseController
     {
         private IStatisticByDateReportService _weeklyStatisticsReportService;
+        public ISettingService _serviceSetting;
 
         public WeeklyStatisticsReportController()
             : this(null)
@@ -35,6 +37,7 @@ namespace Fanex.CRM.Report.Controllers
         public WeeklyStatisticsReportController(IStatisticByDateReportService weeklyStatisticsReportService)
         {
             _weeklyStatisticsReportService = weeklyStatisticsReportService ?? new WeeklyStatisticsReportService();
+            _serviceSetting = new SettingService();
         }
 
         public ActionResult Index()
@@ -84,7 +87,15 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult DetailReport(GetDetailReportCriteria criteria)
         {
-            var result = _weeklyStatisticsReportService.DetailReport(criteria);
+            var result = new
+            {
+                Report = _weeklyStatisticsReportService.DetailReport(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts()
+            };
             var jsonResult = Json(result);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;

@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -20,6 +17,10 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.CRM.Report.Resources;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Statistic By Date Repository.
@@ -68,7 +69,7 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
         public IList<StatisticsDetailbyDateModel> GetDetailReport(GetDetailReportCriteria criteria)
-        {            
+        {
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDb.ExecuteReader(criteria.GetSpParams()))
@@ -78,23 +79,19 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                     {
                         var statisticsDetail = new StatisticsDetailbyDateModel
                         {
+                            FeedbackID = Converter.ToInt(reader["FeedbackID"]),
                             StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                             ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
                             Remark = Converter.ToString2(reader["Description"]),
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
-                            Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
-                            Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
                             Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
-                            MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                            SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                             StatusName = Converter.ToString2(reader["Status"]),
                             Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                             Handler = Converter.ToString2(reader["CreatorName"]),
                             CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                             Role = Converter.ToString2(reader["Role"]),
-                            CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
                             Fax = new Fax
                             {
                                 CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
@@ -126,9 +123,31 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC2"));
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
-                        
+
                         result.Add(statisticsDetail);
                     }
+
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
+                    result = result.Select(l =>
+                    {
+                        l.Settings = settings.Where(s => s.FeedbackID == l.FeedbackID).ToList();
+                        return l;
+                    }).ToList();
 
                     return result;
                 }
@@ -153,7 +172,7 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                 PhoneNumber = Converter.ToString2(reader[prefix])
             };
         }
-        
+
         private static IList<BaseModel> GetCommunicationTools()
         {
             var result = new List<BaseModel>();

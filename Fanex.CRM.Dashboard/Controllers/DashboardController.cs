@@ -24,7 +24,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     public class DashboardController : ReadOnlyBaseController
     {
         private IDashboardService _dashboardServiceInstance;
-        public ISettingService _serviceSetting { get; set; }
+        public ISettingService _serviceSetting;
 
         public DashboardController()
             : this(null)
