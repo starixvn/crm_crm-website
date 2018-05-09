@@ -29,9 +29,7 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CustomerStatistics" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" EnvironmentText="_xpre"></SpNameConfig>
-  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>  
-</Root>
+  </Root>
