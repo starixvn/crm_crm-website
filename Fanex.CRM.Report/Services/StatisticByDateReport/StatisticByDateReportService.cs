@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.StatisticByDateReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models.Npoi;
@@ -27,6 +24,9 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Statistic By Date Report Service.
@@ -117,7 +117,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.CreateSheet(GetMainReportSheetName());
             ExportMainReportHeader(report, exportExcelInfo);
             ExportMainReportBody(report, exportExcelInfo);
- 
+
             NpoiExtensions.ResponseStreamExcel(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.StandardizeExcelReportName(reportName));
@@ -128,7 +128,13 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             return string.Empty;
         }
 
-        public void ExportDetailReport(GetDetailReportCriteria criteria)
+        public void ExportDetailReport(
+            GetDetailReportCriteria criteria,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList)
         {
             string reportName = string.Format(
                 GetMainReportTitle(),
@@ -143,8 +149,15 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 MaxColumnIndex = 19
             };
 
-            ExportDetailReportBody(report, exportExcelInfo);
-            
+            ExportDetailReportBody(
+                report,
+                exportExcelInfo,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList);
+
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(reportName));
         }
 
@@ -389,8 +402,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(Labels.ContactInfo, headerStyle);
             exportExcelInfo.RenderCell(Labels.Product, headerStyle);
             exportExcelInfo.RenderCell(Labels.Country, headerStyle);
-            exportExcelInfo.RenderCell(Labels.Category, headerStyle);
-            exportExcelInfo.RenderCell(Labels.SubCategory, headerStyle);
+            exportExcelInfo.RenderCell(Labels.CategorySubCategory, headerStyle);
             exportExcelInfo.RenderCell(Labels.Complaints_Enquiries, headerStyle);
             exportExcelInfo.RenderCell(Labels.Solution, headerStyle);
             exportExcelInfo.RenderCell(Labels.Status, headerStyle);
@@ -405,7 +417,14 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         /// </summary>
         /// <param name="report">The report.</param>
         /// <param name="exportExcelInfo">The export excel information.</param>
-        private void ExportDetailReportBody(StatisticsDetailReportByDateModel report, ExportExcelInfo exportExcelInfo)
+        private void ExportDetailReportBody(
+            StatisticsDetailReportByDateModel report,
+            ExportExcelInfo exportExcelInfo,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList)
         {
             var reportSheetName = GetMainReportSheetName();
             if (report == null || report.TotalChildReports == 0)
@@ -437,7 +456,16 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 var endIndex = startIndex + maxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < childReportLength; i++)
                 {
-                    ExportDetailReportRow(report.ChildReports[i], exportExcelInfo, textStyle, centerTextStyle);
+                    ExportDetailReportRow(
+                        report.ChildReports[i],
+                        exportExcelInfo,
+                        textStyle,
+                        centerTextStyle,
+                        mainCategory,
+                        communicationToolList,
+                        extensionList,
+                        productList,
+                        subProductList);
                 }
             }
         }
@@ -453,7 +481,12 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             StatisticsDetailbyDateModel info,
             ExportExcelInfo exportExcelInfo,
             ICellStyle textStyle,
-            ICellStyle centerTextStyle)
+            ICellStyle centerTextStyle,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList)
         {
             var duration = info.Duration;
             var durationText = string.Format(
@@ -461,6 +494,54 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 duration.Days.ToString("00"),
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
+
+            var categoryContents = info.Settings
+                    .Where(i => i.SettingType == "Category")
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key, mainCategory);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategory);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
+
+            var productContents = info.Settings
+                    .Where(i => i.SettingType == "Product")
+                   .GroupBy(s => s.SettingIdLv1)
+                   .Select(s =>
+                   {
+                       var con = GetProductName(s.Key, productList);
+                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                       foreach (var id in subIds)
+                       {
+                           con = con + "\n  " + GetSubProductName(id, subProductList);
+                       }
+
+                       return con;
+                   })
+                   .ToArray();
+
+            var communicationContents = info.Settings
+                    .Where(i => i.SettingType == "Communication")
+                    .Select(s =>
+                    {
+                        return GetCommunicationName(s.SettingIdLv1, communicationToolList);
+                    })
+                    .ToArray();
+
+            var extensionContents = info.Settings
+                   .Where(i => i.SettingType == "Station")
+                   .Select(s =>
+                   {
+                       return GetExtensionName(s.SettingIdLv1, extensionList);
+                   })
+                   .ToArray();
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
@@ -470,14 +551,13 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(duration, centerTextStyle);
             exportExcelInfo.RenderCell(info.Username, centerTextStyle);
             exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n", communicationContents), centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n", extensionContents), centerTextStyle);
             exportExcelInfo.RenderCell(info.Role, textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
-            exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n\n", productContents), textStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
+            exportExcelInfo.RenderCell(String.Join("\n\n", categoryContents), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Remark), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
@@ -487,6 +567,43 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
                 centerTextStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private static string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
+        }
+
+        private static string GetProductName(int id, IEnumerable<Common.Models.Product> productList)
+        {
+            var product = productList.FirstOrDefault(c => c.Id == id);
+            return product == null ? "N/A" : product.Name;
+        }
+
+        private static string GetSubProductName(int id, IEnumerable<Common.Models.Product> subProductList)
+        {
+            var subProduct = subProductList.FirstOrDefault(c => c.Id == id);
+            return subProduct == null ? "N/A" : subProduct.Name;
+        }
+
+        private static string GetCommunicationName(int id, IEnumerable<Common.Models.Setting> communicationToolList)
+        {
+            var item = communicationToolList.FirstOrDefault(c => c.Id == id);
+            return item == null ? string.Empty : item.Name;
+        }
+
+        private static string GetExtensionName(int id, IEnumerable<Common.Models.SettingRelation> extensionList)
+        {
+            var item = extensionList.FirstOrDefault(c => c.Id == id);
+            return item == null ? "N/A" : item.Value;
         }
     }
 }

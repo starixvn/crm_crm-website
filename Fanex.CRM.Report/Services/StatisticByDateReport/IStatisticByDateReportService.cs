@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 {
     using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
+    using System.Collections.Generic;
 
     public interface IStatisticByDateReportService
     {
@@ -20,6 +21,12 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 
         StatisticsDetailReportByDateModel DetailReport(GetDetailReportCriteria criteria);
 
-        void ExportDetailReport(GetDetailReportCriteria criteria);
+        void ExportDetailReport(
+            GetDetailReportCriteria criteria,
+            IEnumerable<Common.Models.Setting> mainCategory,
+            IEnumerable<Common.Models.Setting> communicationToolList,
+            IEnumerable<Common.Models.SettingRelation> extensionList,
+            IEnumerable<Common.Models.Product> productList,
+            IEnumerable<Common.Models.Product> subProductList);
     }
 }

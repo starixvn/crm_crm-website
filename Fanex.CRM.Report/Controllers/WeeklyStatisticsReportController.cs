@@ -103,7 +103,18 @@ namespace Fanex.CRM.Report.Controllers
 
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
-            _weeklyStatisticsReportService.ExportDetailReport(criteria);
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+            var extensionList = _serviceSetting.GetAllExtensions();
+            var productList = _serviceSetting.GetProducts();
+            var subProductList = _serviceSetting.GetSubProducts();
+            _weeklyStatisticsReportService.ExportDetailReport(
+                criteria,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList);
         }
     }
 }

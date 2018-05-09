@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -18,6 +17,8 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.StatisticByDateReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Daily Statistics Report Controller.
@@ -26,6 +27,7 @@ namespace Fanex.CRM.Report.Controllers
     public class DailyStatisticsReportController : ReadOnlyBaseController
     {
         private IStatisticByDateReportService _dailyStatisticsReportService;
+        public ISettingService _serviceSetting;
 
         public DailyStatisticsReportController()
             : this(null)
@@ -35,6 +37,7 @@ namespace Fanex.CRM.Report.Controllers
         public DailyStatisticsReportController(IStatisticByDateReportService dailyStatisticsReportService)
         {
             _dailyStatisticsReportService = dailyStatisticsReportService ?? new DailyStatisticsReportService();
+            _serviceSetting = new SettingService();
         }
 
         public ActionResult Index()
@@ -92,7 +95,18 @@ namespace Fanex.CRM.Report.Controllers
 
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
-            _dailyStatisticsReportService.ExportDetailReport(criteria);
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+            var extensionList = _serviceSetting.GetAllExtensions();
+            var productList = _serviceSetting.GetProducts();
+            var subProductList = _serviceSetting.GetSubProducts();
+            _dailyStatisticsReportService.ExportDetailReport(
+                criteria,
+                mainCategory,
+                communicationToolList,
+                extensionList,
+                productList,
+                subProductList);
         }
     }
 }
