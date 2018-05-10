@@ -18,6 +18,8 @@ namespace Fanex.CRM.Setting.Constants
 
         public const int All = 0;
 
+        public const int NA = 3;
+
         public const int IBCGroup = 1;
 
         public const int LicenseeGroup = 2;

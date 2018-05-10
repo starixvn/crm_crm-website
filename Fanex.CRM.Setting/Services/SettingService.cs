@@ -718,6 +718,7 @@ namespace Fanex.CRM.Setting.Services
             return new List<Setting>()
             {
                 new Setting { Id = SiteConstants.All, Value = Labels.All },
+                new Setting { Id = SiteConstants.NA, Value = Labels.Symbol_NotApply },
                 new Setting { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
                 new Setting { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
             };
