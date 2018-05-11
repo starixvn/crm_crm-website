@@ -97,6 +97,8 @@
         };
         $scope.latestedSelectedCommunication = "N/A";
         $scope.previousSelectedCommunications = [];
+        $scope.selectedSubProductIds = [];
+        $scope.selectedBettypeIds = [];
         
         $scope.customersInput = '';
 
@@ -109,11 +111,21 @@
         }
 
         $scope.subProductChangedHandler = function () {
+            angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                $scope.selectedSubProductIds.push(subProduct.Id);
+            });
+
             $scope.bettypeDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
                 sourceData: $scope.getBettypes($scope.selectedSubProducts)
             };
+        }
+
+        $scope.bettypeChangeHandler = function () {
+            angular.forEach($scope.selectedBettypes, function (bettype) {
+                $scope.selectedBettypeIds.push(bettype.Id);
+            });
         }
 
         $scope.getSubProducts = function (seletedProducts) {
@@ -126,6 +138,13 @@
             angular.forEach($scope.allSettings.SubProductList, function (subProduct) {
                 if (selectedProductIds.indexOf(subProduct.ParentId) >= 0) {
                     subProducts.push(subProduct);
+                }
+            });
+
+            // check selected sub products
+            angular.forEach(subProducts, function (subProduct) {
+                if ($scope.selectedSubProductIds.indexOf(subProduct.Id) >= 0) {
+                    subProduct.checked = true;
                 }
             });
 
@@ -152,6 +171,13 @@
                 if (selectedIds.indexOf(bettype.Id) < 0) {
                     selectedIds.push(bettype.Id);
                     distinctBettypes.push(bettype);
+                }
+            });
+
+            // check selected bettypes
+            angular.forEach(distinctBettypes, function (bettype) {
+                if ($scope.selectedBettypeIds.indexOf(bettype.Id) >= 0) {
+                    bettype.checked = true;
                 }
             });
 
