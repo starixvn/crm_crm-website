@@ -663,6 +663,7 @@
         }
 
         $scope.subProductChangedHandler = function () {
+            $scope.selectedSubProductIds = [];
             angular.forEach($scope.selectedSubProducts, function (subProduct) {
                 $scope.selectedSubProductIds.push(subProduct.Id);
             });
@@ -675,6 +676,7 @@
         }
 
         $scope.bettypeChangeHandler = function () {
+            $scope.selectedBettypeIds = [];
             angular.forEach($scope.selectedBettypes, function (bettype) {
                 $scope.selectedBettypeIds.push(bettype.Id);
             });
@@ -689,6 +691,7 @@
             var subProducts = [];
             angular.forEach($scope.allSettings.SubProductList, function (subProduct) {
                 if (selectedProductIds.indexOf(subProduct.ParentId) >= 0) {
+                    subProduct.checked = false;
                     subProducts.push(subProduct);
                 }
             });
@@ -722,6 +725,7 @@
             angular.forEach(bettypes, function (bettype) {
                 if (selectedIds.indexOf(bettype.Id) < 0) {
                     selectedIds.push(bettype.Id);
+                    bettype.checked = false;
                     distinctBettypes.push(bettype);
                 }
             });
