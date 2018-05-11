@@ -25,6 +25,8 @@
             NoItemChecked: "N/A",
             CheckAll: "All"
         };
+        $scope.selectedSubProductIds = [];
+        $scope.selectedBettypeIds = [];
 
         var oldReview;
         $scope.panelManager = {
@@ -130,11 +132,23 @@
         }
 
         $scope.subProductChangedHandler = function () {
+            $scope.selectedSubProductIds = [];
+            angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                $scope.selectedSubProductIds.push(subProduct.Id);
+            });
+
             $scope.bettypeDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
                 sourceData: $scope.getBettypes($scope.selectedSubProducts)
             };
+        }
+
+        $scope.bettypeChangeHandler = function () {
+            $scope.selectedBettypeIds = [];
+            angular.forEach($scope.selectedBettypes, function (bettype) {
+                $scope.selectedBettypeIds.push(bettype.Id);
+            });
         }
 
         $scope.getSubProducts = function (seletedProducts) {
@@ -146,7 +160,15 @@
             var subProducts = [];
             angular.forEach($scope.allSettings.SubProductList, function (subProduct) {
                 if (selectedProductIds.indexOf(subProduct.ParentId) >= 0) {
+                    subProduct.checked = false;
                     subProducts.push(subProduct);
+                }
+            });
+
+            // check selected sub products
+            angular.forEach(subProducts, function (subProduct) {
+                if ($scope.selectedSubProductIds.indexOf(subProduct.Id) >= 0) {
+                    subProduct.checked = true;
                 }
             });
 
@@ -172,7 +194,15 @@
             angular.forEach(bettypes, function (bettype) {
                 if (selectedIds.indexOf(bettype.Id) < 0) {
                     selectedIds.push(bettype.Id);
+                    bettype.checked = false;
                     distinctBettypes.push(bettype);
+                }
+            });
+
+            // check selected bettypes
+            angular.forEach(distinctBettypes, function (bettype) {
+                if ($scope.selectedBettypeIds.indexOf(bettype.Id) >= 0) {
+                    bettype.checked = true;
                 }
             });
 
@@ -343,7 +373,7 @@
             }
         }
 
-        $scope.updateSettingProduct = function(){
+        $scope.updateSettingProduct = function () {           
             var length = $scope.productDropdownSettings.sourceData.length;
             for (var i = 0; i < length; i++) {
                 var data = $scope.productDropdownSettings.sourceData[i];                
@@ -356,27 +386,19 @@
         }
 
         $scope.updateSettingSubProduct = function () {
-            var length = $scope.subProductDropdownSettings.sourceData.length;
-            for (var i = 0; i < length; i++) {
-                var data = $scope.subProductDropdownSettings.sourceData[i];
-                angular.forEach($scope.feedback.Settings, function (setting) {
-                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv2) {
-                        data.checked = true;
-                    }
-                });
-            }
+            angular.forEach($scope.feedback.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedSubProductIds.push(setting.SettingIdLv2);
+                }
+            });
         }
 
         $scope.updateSettingBettype = function () {
-            var length = $scope.bettypeDropdownSettings.sourceData.length;
-            for (var i = 0; i < length; i++) {
-                var data = $scope.bettypeDropdownSettings.sourceData[i];
-                angular.forEach($scope.feedback.Settings, function (setting) {
-                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv3) {
-                        data.checked = true;
-                    }
-                });
-            }
+            angular.forEach($scope.feedback.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedBettypeIds.push(setting.SettingIdLv3);
+                }
+            });
         }
 
         $scope.updateProductSettings = function () {
