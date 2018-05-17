@@ -264,7 +264,7 @@
                     $.get(this.serviceUrl, me.options.params, function (txt) { me.processResponse(txt); }, 'text');
                 }
             }
-            return false;
+            //return false;
             var cr, me;
             cr = this.isLocal ? this.getSuggestionsLocal(q) : this.cachedResponse[q];
             if (cr && $.isArray(cr.suggestions)) {
