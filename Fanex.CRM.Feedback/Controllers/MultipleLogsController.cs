@@ -82,7 +82,7 @@
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 ProductList = _serviceSetting.GetAllProducts(),
-                StatusList = _multipleLogsService.AllStatusForInsert,
+                StatusList = _multipleLogsService.AllStatusForEdit,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
