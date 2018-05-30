@@ -395,6 +395,7 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-change="categoryChangedHandler()"
                                                             data-ng-model="selectedCategories"
                                                             data-settings="categoryDropdownSettings"></multileveldropdowntree>
                                 </div>
@@ -430,6 +431,18 @@
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedExtensions"
                                                             data-settings="extensionDropdownSettings"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlcategory">@Language.SubCategory</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-change="subCategoryChangedHandler()"
+                                                            data-ng-model="selectedSubCategories"
+                                                            data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
