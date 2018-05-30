@@ -32,6 +32,8 @@ namespace Fanex.CRM.Feedback.Models
 
         public IEnumerable<Setting> MainCategoryList { get; set; }
 
+        public IEnumerable<Setting> SubCategoryList { get; set; }
+
         public IEnumerable<Product> ProductList { get; set; }
 
         public IEnumerable<Product> SubProductList { get; set; }

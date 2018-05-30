@@ -366,6 +366,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8" >
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedCategories"
+                                                            data-ng-change="categoryChangedHandler()"
                                                             data-settings="categoryDropdownSettings"></multileveldropdowntree> 
                                 </div>
                             </div>
@@ -403,12 +404,17 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Language.Response</label>
+                                    <label for="ddlcategory">@Language.SubCategory</label>
+                                    @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
-                                    <select id="response" tabindex="71"></select>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedSubCategories"
+                                                            data-ng-change="subCategoryChangedHandler()"
+                                                            data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
+                            
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="bettype">@Language.BetType</label>
@@ -418,6 +424,14 @@
                                                             data-ng-model="selectedBettypes"
                                                             data-settings="bettypeDropdownSettings"
                                                             data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Language.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
+                                    <select id="response" tabindex="71"></select>
                                 </div>
                             </div>
                             <div class="row item">

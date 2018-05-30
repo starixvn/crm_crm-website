@@ -96,5 +96,9 @@ namespace Fanex.CRM.Setting.Services
         IEnumerable<Product> GetSubProducts();
 
         IEnumerable<Product> GetBettypes();
+
+        IEnumerable<Setting> GetMainCategories();
+
+        IEnumerable<Setting> GetSubCategories();
     }
 }

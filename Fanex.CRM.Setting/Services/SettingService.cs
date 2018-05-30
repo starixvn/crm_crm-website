@@ -58,6 +58,8 @@ namespace Fanex.CRM.Setting.Services
         public const string GetProductsSessionKey = "Fanex.CRM.Setting.GetProductsSessionKey";
         public const string GetSubProductsSessionKey = "Fanex.CRM.Setting.GetSubProductsSessionKey";
         public const string GetBettypesSessionKey = "Fanex.CRM.Setting.GetBettypesSessionKey";
+        public const string GetMainCategorySessionKey = "Fanex.CRM.Setting.GetMainCategorySessionKey";
+        public const string GetSubCategorySessionKey = "Fanex.CRM.Setting.GetSubCategorySessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -329,6 +331,34 @@ namespace Fanex.CRM.Setting.Services
 
             CacheService.Set(GetAllMainCategorySessionKey, mainCategories);
             return mainCategories;
+        }
+
+        public IEnumerable<Setting> GetMainCategories()
+        {
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetMainCategorySessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
+
+            CacheService.Set(GetMainCategorySessionKey, mainCategories);
+            return mainCategories;
+        }
+
+        public IEnumerable<Setting> GetSubCategories()
+        {
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetSubCategorySessionKey);
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+
+            CacheService.Set(GetSubCategorySessionKey, subCategories);
+            return subCategories;
         }
 
         public IEnumerable<Setting> GetAllMainCategoriesFromAllSettings()
