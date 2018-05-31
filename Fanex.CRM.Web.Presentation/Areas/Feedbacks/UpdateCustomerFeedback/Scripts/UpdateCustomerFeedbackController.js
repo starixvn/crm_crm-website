@@ -27,6 +27,7 @@
         };
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
+        $scope.selectedSubCategoryIds = [];
 
         var oldReview;
         $scope.panelManager = {
@@ -151,6 +152,21 @@
             });
         }
 
+        $scope.categoryChangedHandler = function () {
+            $scope.subCategoryDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubCategories($scope.selectedCategories)
+            };
+        }
+
+        $scope.subCategoryChangedHandler = function () {
+            $scope.selectedSubCategoryIds = [];
+            angular.forEach($scope.selectedSubCategories, function (subCategory) {
+                $scope.selectedSubCategoryIds.push(subCategory.Id);
+            });
+        }
+
         $scope.getSubProducts = function (seletedProducts) {
             var selectedProductIds = [];
             angular.forEach(seletedProducts, function (product) {
@@ -207,6 +223,40 @@
             });
 
             return distinctBettypes;
+        }
+
+        $scope.getSubCategories = function (selectedCategories) {
+            var selectedCategoryIds = [];
+            angular.forEach(selectedCategories, function (category) {
+                selectedCategoryIds.push(category.Id);
+            });
+
+            var subCategories = [];
+            angular.forEach($scope.allSettings.SubCategoryList, function (subCategory) {
+                if (selectedCategoryIds.indexOf(subCategory.ParentId) >= 0) {
+                    subCategories.push(subCategory);
+                }
+            });
+
+            // remove duplicate bettypes
+            var selectedIds = [];
+            var distinctSubCategories = [];
+            angular.forEach(subCategories, function (subCategory) {
+                if (selectedIds.indexOf(subCategory.Id) < 0) {
+                    selectedIds.push(subCategory.Id);
+                    subCategory.checked = false;
+                    distinctSubCategories.push(subCategory);
+                }
+            });
+
+            // check selected bettypes
+            angular.forEach(distinctSubCategories, function (subCategory) {
+                if ($scope.selectedSubCategoryIds.indexOf(subCategory.Id) >= 0) {
+                    subCategory.checked = true;
+                }
+            });
+
+            return distinctSubCategories;
         }
 
         $scope.initController = function () {
@@ -278,8 +328,13 @@
                         $scope.categoryDropdownSettings = {
                             idMember: "Id",
                             nameMember: "Name",
-                            sourceData: $scope.allSettings.MainCategoryList,
-                            childrenMember: "ChildSettings"
+                            sourceData: $scope.allSettings.MainCategoryList
+                        };
+
+                        $scope.subCategoryDropdownSettings = {
+                            idMember: "Id",
+                            nameMember: "Name",
+                            sourceData: $scope.allSettings.SubCategoryList
                         };
 
                         $scope.productDropdownSettings = {
@@ -319,6 +374,7 @@
             $scope.updateSettingCommunication();
             $scope.updateSettingExtension();
             $scope.updateSettingCategory();
+            $scope.updateSettingSubCategory();
             $scope.updateSettingProduct();
             $scope.updateSettingSubProduct();
             $scope.updateSettingBettype();
@@ -357,20 +413,24 @@
             }
         }
 
-        $scope.updateSettingCategory = function(){
+        $scope.updateSettingCategory = function () {
             var length = $scope.categoryDropdownSettings.sourceData.length;
             for (var i = 0; i < length; i++) {
                 var data = $scope.categoryDropdownSettings.sourceData[i];
                 angular.forEach($scope.feedback.Settings, function (setting) {
                     if (setting.SettingType == "Category" && data.Id == setting.SettingIdLv1) {
-                        for (var j = 0; j < data.ChildSettings.length; j++) {
-                            if (data.ChildSettings[j].Id == setting.SettingIdLv2) {
-                                data.ChildSettings[j].checked = true;
-                            }
-                        }
+                        data.checked = true;                        
                     }
                 });
             }
+        }
+
+        $scope.updateSettingSubCategory = function () {
+            angular.forEach($scope.feedback.Settings, function (setting) {
+                if (setting.SettingType == "Category") {
+                    $scope.selectedSubCategoryIds.push(setting.SettingIdLv2);
+                }
+            });
         }
 
         $scope.updateSettingProduct = function () {           
@@ -407,18 +467,8 @@
             SettingManager.updateInActiveChildSettings($scope.feedback.SubProduct, $scope.settings.Products, product.Id);
             $scope.subProducts = SettingManager.getChildSettings(product.Id, $scope.settings.Products);
             SettingManager.updateInActiveChildSettings($scope.feedback.BetType, $scope.subProducts, $scope.feedback.SubProduct.Id);
-        };
-       
-        $scope.categoryChanged = function () {
-            $scope.subcategories = $scope.feedback.Category.ChildSettings;
-            if ($scope.subcategories.length === 0) {
-                $scope.errorMessage(updateFeedbackResources.NoSubcategoryError.replace('{0}', '[' + $scope.feedback.Category.Name + ']'));
-            }
-            else {
-                $scope.hideMessage();
-                $scope.feedback.SubCategory = $scope.subcategories[0];
-            }
-        };
+        };      
+        
 
         $scope.updateSelectedSite = function () {
             $scope.feedback.CustomerInfo.SiteSetting = $scope.feedback.CustomerInfo.SiteSetting || { Id: 0 };
@@ -447,18 +497,7 @@
                 $scope.feedback.BetType = $scope.bettypes[0];
             }
         };
-
-        $scope.CheckInvalidCategories = function () {
-            var invalidCategories = [];
-            angular.forEach($scope.selectedCategories, function (category) {
-                if (category.ParentId == 0) {
-                    invalidCategories.push(category.Name);
-                }
-            })
-
-            return invalidCategories.join(",")
-        }
-
+      
         $scope.validateFeedback = function () {
             $scope.hideMessage();
 
@@ -475,12 +514,6 @@
                 return false;
             }
 
-            var invalidCategories = $scope.CheckInvalidCategories();
-            if (invalidCategories != "") {
-                $scope.errorMessage(updateFeedbackResources.NoSubcategoryError.replace('{0}', '[' + invalidCategories + ']'));
-                result = false;
-            }
-
             if (feedback.Language === $scope.settings.Languages[0]) {
                 $scope.errorMessage(updateFeedbackResources.NALanguage);
                 return false;
@@ -488,6 +521,12 @@
 
             if (feedback.HasRelated && $scope.customersInput !== '') {
                 $scope.errorMessage(updateFeedbackResources.CustomerVerification);
+                return false;
+            }
+
+            $scope.GetCategoryParams();
+            if ($scope.feedback.Categories.length == 0) {
+                $scope.errorMessage(updateFeedbackResources.NASubCategory);
                 return false;
             }
 
@@ -616,23 +655,30 @@
             $scope.feedback.Products = products;
         }
 
+        $scope.CheckCategorySubCategory = function (categoryId, subCategoryId) {
+            var flag = false;
+            angular.forEach($scope.allSettings.SubCategoryList, function (b) {
+                if (b.Id == subCategoryId && b.ParentId == categoryId) {
+                    flag = true;
+                }
+            })
+
+            return flag;
+        }
 
         $scope.GetCategoryParams = function () {
             var categories = [];
             angular.forEach($scope.selectedCategories, function (category) {
-                if (category.ParentId != 0) {
-                    categories.push({
-                        MainCategoryID: category.ParentId,
-                        SubCategoryID: category.Id
-                    })
-                }
-                else {
-                    categories.push({
-                        MainCategoryID: category.Id,
-                        SubCategoryID: ''
-                    })
-                }
-            })
+                angular.forEach($scope.selectedSubCategories, function (subCategory) {
+                    if ($scope.CheckCategorySubCategory(category.Id, subCategory.Id)) {
+                        categories.push({
+                            MainCategoryID: category.Id,
+                            SubCategoryID: subCategory.Id
+                        })
+                    }
+                })
+            });
+
             $scope.feedback.Categories = categories;
         }
 

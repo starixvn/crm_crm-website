@@ -69,7 +69,6 @@ namespace Fanex.CRM.Feedback.Services
                 Sites = _settingService.GetAllSiteWithGroup().Where(s => s.IsActive),
                 ExtensionList = _settingService.GetAllExtensions(),
                 CommunicationToolList = _settingService.GetAllCommunicationTools(),
-                MainCategoryList = _settingService.GetAllMainCategories(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusRawData,
@@ -82,7 +81,9 @@ namespace Fanex.CRM.Feedback.Services
                 ExtensionNA = _settingService.GetExtensionNA(),
                 ProductList = _settingService.GetProducts(),
                 SubProductList = _settingService.GetSubProducts(),
-                BettypeList = _settingService.GetBettypes()
+                BettypeList = _settingService.GetBettypes(),
+                MainCategoryList = _settingService.GetMainCategories(),
+                SubCategoryList = _settingService.GetSubCategories(),
             };
         }
 

@@ -384,6 +384,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedCategories"
+                                                            data-ng-change="categoryChangedHandler()"
                                                             data-settings="categoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
@@ -421,10 +422,14 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Labels.Response</label>
+                                    <label for="ddlsubcategory">@Labels.SubCategory</label>
+                                    @Html.Raw(Labels.RequiredFieldTemplate)
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-change="subCategoryChangedHandler()"
+                                                            data-ng-model="selectedSubCategories"
+                                                            data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
@@ -444,6 +449,14 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id"></select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Labels.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
                                 </div>
                             </div>
                         </div>
