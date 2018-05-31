@@ -102,20 +102,26 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="mainCategory">
                             @Labels.Main_Category
+                            @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                         </label>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <multileveldropdowntree text-settings="TextSettings"
                                                 data-ng-model="selectedCategories"
+                                                data-ng-change="categoryChangedHandler()"
                                                 data-settings="categoryDropdownSettings"></multileveldropdowntree>
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                         <label for="response">
-                            @Labels.Response
+                            @Labels.Sub_Category
+                            @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                        <select id="response"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" >
+                        <multileveldropdowntree text-settings="TextSettings"
+                                                data-ng-change="subCategoryChangedHandler()"
+                                                data-ng-model="selectedSubCategories"
+                                                data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                     </div>
 
                 </div>
@@ -192,6 +198,14 @@
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 licensee-type-picker-container" data-ng-model="licenseeTypeOptions.DataList">
                         <select id="licensee-type"></select>
+                    </div>
+                    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                        <label for="response">
+                            @Labels.Response
+                        </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                        <select id="response"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -336,6 +350,7 @@
             Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',
             Communication_Log_EmptySolution: '@Labels.Communication_Log_EmptySolution',
             Confirm_Ignore_EditCommunication_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditCommunication_Changes)',
+            NASubCategory: '@Labels.NoSubcategoryError',
 
             Communication_Log_ErrorEndTime: '@Labels.Communication_Log_ErrorEndTime',
             Communication_Log_NACommmunicationTool:'@Labels.Communication_Log_NACommmunicationTool',
