@@ -23,13 +23,13 @@
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                         <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row panel-group" data-ng-class=" isShowCustomerDetailBox ? '': 'consecutive-container-before'">
+            <div class="row panel-group" data-ng-class="{{isShowCustomerDetailBox ? '' : 'consecutive-container-before' }}">
                 <div class="row title hand identify hand">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="row item">
@@ -50,8 +50,7 @@
                                 <label for="ddltitle">@Language.Title</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8 title-picker-container" data-ng-model="titleOptions.DataList">
-                                <select id="title" tabindex="2">
-                                </select>
+                                <select id="title" tabindex="2"></select>
                             </div>
                         </div>
                         <div class="row item">
@@ -60,13 +59,14 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8 date-picker-container" data-ng-model="birthdayOptions.IsRerenderPicker">
                                 <input type="text" class="textbox timepicker txtcalendar" data-ng-model="customerInfo.BirthDayString"
-                                    id="birthdayInfo" tabindex="5" />
+                                       id="birthdayInfo" tabindex="5" />
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <label for="isVIP" class="labelforcheckbox checkbox">
-                                    <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="customerInfo.IsVIP" />@Language.VIP</label>
+                                    <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="customerInfo.IsVIP" />@Language.VIP
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -103,8 +103,7 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <select id="licensee-type" tabindex="10" data-ng-model="customerInfo.LicenseeType"
-                                    data-ng-options="s.Name for s in allSettings.LicenseeType track by s.Id">
-                                </select>
+                                        data-ng-options="s.Name for s in allSettings.LicenseeType track by s.Id"></select>
                             </div>
                         </div>
                     </div>
@@ -120,9 +119,9 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox code-country" id="contact1InfoCountry" tabindex="12"
-                                    data-ng-model="customerInfo.PhoneInfo[0].CountryCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[0].CountryCode" />
                                 <input type="text" class="textbox code-area" id="contact1InfoArea" tabindex="13"
-                                    data-ng-model="customerInfo.PhoneInfo[0].AreaCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[0].AreaCode" />
                                 <input type="text" class="textbox phone" id="contact1InfoPhone" tabindex="14" data-ng-model="customerInfo.PhoneInfo[0].PhoneNumber" />
                             </div>
                         </div>
@@ -132,7 +131,7 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox code-country" id="faxInfoCountry" tabindex="21"
-                                    data-ng-model="customerInfo.FaxInfo.CountryCode" />
+                                       data-ng-model="customerInfo.FaxInfo.CountryCode" />
                                 <input type="text" class="textbox code-area" id="faxInfoArea" tabindex="22" data-ng-model="customerInfo.FaxInfo.AreaCode" />
                                 <input type="text" class="textbox phone" id="faxInfoFax" tabindex="23" data-ng-model="customerInfo.FaxInfo.FaxNumber" />
                             </div>
@@ -146,7 +145,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox pic-name" id="pic2NameInfo" tabindex="29" data-ng-model="customerInfo.PersonalInfoContacts[1].Name" />
                                 <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[1].Phone"
-                                    tabindex="30" />
+                                       tabindex="30" />
                             </div>
                         </div>
                         <div class="row item">
@@ -181,9 +180,9 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox code-country" id="contact2InfoCountry" tabindex="15"
-                                    data-ng-model="customerInfo.PhoneInfo[1].CountryCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[1].CountryCode" />
                                 <input type="text" class="textbox code-area" id="contact2InfoArea" tabindex="16"
-                                    data-ng-model="customerInfo.PhoneInfo[1].AreaCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[1].AreaCode" />
                                 <input type="text" class="textbox phone" id="contact2InfoPhone" tabindex="17" data-ng-model="customerInfo.PhoneInfo[1].PhoneNumber" />
                             </div>
                         </div>
@@ -193,7 +192,7 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox code-country" id="mobileInfoCountry" tabindex="24"
-                                    data-ng-model="customerInfo.MobilePhone.CountryCode" />
+                                       data-ng-model="customerInfo.MobilePhone.CountryCode" />
                                 <input type="text" class="textbox code-area" id="mobileInfoArea" tabindex="25" data-ng-model="customerInfo.MobilePhone.AreaCode" />
                                 <input type="text" class="textbox phone" id="mobileInfoPhone" tabindex="26" data-ng-model="customerInfo.MobilePhone.PhoneNumber" />
                             </div>
@@ -207,7 +206,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox pic-name" id="pic3NameInfo" tabindex="31" data-ng-model="customerInfo.PersonalInfoContacts[2].Name" />
                                 <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[2].Phone"
-                                    tabindex="32" />
+                                       tabindex="32" />
                             </div>
                         </div>
                         <div class="row item">
@@ -242,9 +241,9 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox code-country" id="contact3InfoCountry" tabindex="18"
-                                    data-ng-model="customerInfo.PhoneInfo[2].CountryCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[2].CountryCode" />
                                 <input type="text" class="textbox code-area" id="contact3InfoArea" tabindex="19"
-                                    data-ng-model="customerInfo.PhoneInfo[2].AreaCode" />
+                                       data-ng-model="customerInfo.PhoneInfo[2].AreaCode" />
                                 <input type="text" class="textbox phone" id="contact3InfoPhone" tabindex="20" data-ng-model="customerInfo.PhoneInfo[2].PhoneNumber" />
                             </div>
                         </div>
@@ -257,7 +256,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox pic-name" id="pic1NameInfo" tabindex="27" data-ng-model="customerInfo.PersonalInfoContacts[0].Name" />
                                 <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[0].Phone"
-                                    tabindex="28" />
+                                       tabindex="28" />
                             </div>
                         </div>
                         <div class="row item">
@@ -269,7 +268,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox pic-name" id="pic4NameInfo" tabindex="33" data-ng-model="customerInfo.PersonalInfoContacts[3].Name" />
                                 <input type="text" class="textbox phone" data-ng-model="customerInfo.PersonalInfoContacts[3].Phone"
-                                    tabindex="34" />
+                                       tabindex="34" />
                             </div>
                         </div>
                         <div class="row item">
@@ -312,8 +311,8 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60"
-                                        readonly onselect="onStartTimeChanged();" data-ng-model="addGuestFeedbackParams.StartTime"
-                                        datetimepicker />
+                                           readonly onselect="onStartTimeChanged();" data-ng-model="addGuestFeedbackParams.StartTime"
+                                           datetimepicker />
                                 </div>
                             </div>
                             <div class="row item">
@@ -321,7 +320,7 @@
                                     <label for="ddlcommunication">@Language.Communication</label>
                                     @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" >
+                                <div class="col-xs-8 col-sm-8 col-md-8">
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedCommunications"
                                                             data-settings="communicationDropdownSettings"
@@ -346,7 +345,16 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
                                     <select id="country" tabindex="68"></select>
                                 </div>
-                            </div>                            
+                            </div>
+
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlstatus">@Language.Status</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
+                                    <select id="status" tabindex="70"></select>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row item">
@@ -355,7 +363,7 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <input type="text" id="endTime" class="txtcalendar textbox timepicker" tabindex="61"
-                                        readonly data-ng-model="addGuestFeedbackParams.EndTime" datetimepicker />
+                                           readonly data-ng-model="addGuestFeedbackParams.EndTime" datetimepicker />
                                 </div>
                             </div>
                             <div class="row item">
@@ -363,18 +371,18 @@
                                     <label for="ddlcategory">@Language.Category</label>
                                     @Html.Raw(Language.RequiredFieldTemplate)
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" >
+                                <div class="col-xs-8 col-sm-8 col-md-8">
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedCategories"
                                                             data-ng-change="categoryChangedHandler()"
-                                                            data-settings="categoryDropdownSettings"></multileveldropdowntree> 
+                                                            data-settings="categoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="subProduct">@Language.SubProduct</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" >
+                                <div class="col-xs-8 col-sm-8 col-md-8">
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedSubProducts"
                                                             data-ng-change="subProductChangedHandler()"
@@ -414,12 +422,12 @@
                                                             data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                                 </div>
                             </div>
-                            
+
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="bettype">@Language.BetType</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8  " >
+                                <div class="col-xs-8 col-sm-8 col-md-8  ">
                                     <multileveldropdowntree text-settings="TextSettings"
                                                             data-ng-model="selectedBettypes"
                                                             data-settings="bettypeDropdownSettings"
@@ -433,15 +441,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
                                     <select id="response" tabindex="71"></select>
                                 </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlstatus">@Language.Status</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
-                                    <select id="status" tabindex="70"></select>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="row">
@@ -449,7 +449,7 @@
                             <div class="col-xs-3 col-sm-2 col-md-2">
                                 <label class="labelforcheckbox checkbox">
                                     <input type="checkbox" id="chkisrelated" data-ng-change="IsRelatedCustomerCheckboxChanged()" data-ng-model="addGuestFeedbackParams.HasRelated"
-                                        tabindex="78" />
+                                           tabindex="78" />
                                     @Language.IsRelatedCustomer
                                 </label>
                             </div>
@@ -457,19 +457,20 @@
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11">
                                         <input type="button" id="btnRelatedHelp"
-                                        class="btnHelp pull-left tipsy-directive"
-                                        title="@Labels.Related_Help"
-                                        data-ng-model="tipsyOptions.IsUpdateTip"
-                                        tabindex="79" />
+                                               class="btnHelp pull-left tipsy-directive"
+                                               title="@Labels.Related_Help"
+                                               data-ng-model="tipsyOptions.IsUpdateTip"
+                                               tabindex="79" />
                                         <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
                                                data-ng-model="customersInput"
                                                data-ng-disabled="!addGuestFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
                                         <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()"
-                                            data-ng-disabled ="customersInput === ''"
-                                            tabindex="80">
-                                            V<span class="hotkey">e</span>rify</button>
+                                                data-ng-disabled="customersInput === ''"
+                                                tabindex="80">
+                                            V<span class="hotkey">e</span>rify
+                                        </button>
                                     </div>
                                 </div>
                                 <div id="ColorGuide" class="row colorGuide" data-ng-show="addGuestFeedbackParams.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
@@ -499,7 +500,7 @@
                             </div>
                             <div class="col-xs-9 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
                                 <input type="text" id="subject" class="textbox subject-auto-complete txtSubject"
-                                    autocomplete="off" tabindex="81" data-ng-model="subjectOptions.Subject" />
+                                       autocomplete="off" tabindex="81" data-ng-model="subjectOptions.Subject" />
                             </div>
                         </div>
                     </div>
@@ -507,9 +508,9 @@
             </div>
             <div class="row panel-group" data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
                 <div class="row title">
-                    <div class="pull-left hand" >
+                    <div class="pull-left hand">
                         Auto-generated
-                    </div>                    
+                    </div>
                 </div>
                 <div class="FeedbackDescription row content">
                     <div class="" id="">
@@ -524,9 +525,9 @@
                     </div>
                     <div class="pull-right">
                         <input type="button" class="btnreview " value="@Language.Preview" id="btndesreview" data-ng-click="showDescriptionPreview();"
-                        data-ng-class="isShowDescriptionPreview ? 'hidden' : '' " />
+                               data-ng-class="isShowDescriptionPreview ? 'hidden' : '' " />
                         <input type="button" class="btnedit hidden" value="@Language.Edit" id="btndesedit" data-ng-click="showDescriptionEditor();"
-                        data-ng-class="isShowDescriptionPreview ? '' : 'hidden' " />
+                               data-ng-class="isShowDescriptionPreview ? '' : 'hidden' " />
                     </div>
                 </div>
                 <div class="FeedbackDescription row content" data-ng-class="isShowDescriptionBox ? '' : 'hide'">
@@ -534,10 +535,10 @@
                         <div data-ng-class="isShowDescriptionPreview ? 'lastRemarkPrefixPreview' : 'hidden' " ng-bind-html="autoGeneratedTextPreview">
                         </div>
                         <div id="previewboxdes" class="preview raw-html-directive" data-ng-class="isShowDescriptionPreview ? '' : 'hidden' "
-                            data-ng-model="descriptionOptions.SelectedText">
+                             data-ng-model="descriptionOptions.SelectedText">
                         </div>
                         <div id="descriptioneditorboxcontainer" class="description-editor-container" data-ng-model="descriptionOptions.SelectedText"
-                            data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
+                             data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
                         </div>
                     </div>
                 </div>
@@ -549,26 +550,27 @@
                     </div>
                     <div class="pull-right">
                         <input type="button" class="btnreview " value="@Language.Preview" id="btnsolreview" data-ng-click="showSolutionPreview();"
-                        data-ng-class="isShowSolutionPreview ? 'hidden' : '' " />
+                               data-ng-class="isShowSolutionPreview ? 'hidden' : '' " />
                         <input type="button" class="btnedit" value="@Language.Edit"
-                        id="btnsoledit" data-ng-click="showSolutionEditor();"
-                        data-ng-class="isShowSolutionPreview ? '' : 'hidden' " />
+                               id="btnsoledit" data-ng-click="showSolutionEditor();"
+                               data-ng-class="isShowSolutionPreview ? '' : 'hidden' " />
                     </div>
                 </div>
                 <div class="FeedbackSolution row content" data-ng-class="isShowSolutionBox ? '' : 'hide'">
                     <div class="editerwrapper" id="solutionwrapper">
                         <div id="previewboxsol" class="preview raw-html-directive" data-ng-class="isShowSolutionPreview ? '' : 'hidden' "
-                            data-ng-model="solutionOptions.SelectedText">
+                             data-ng-model="solutionOptions.SelectedText">
                         </div>
                         <div id="solutioneditorboxcontainer" class="solution-editor-container" data-ng-model="solutionOptions.SelectedText"
-                            data-ng-class="isShowSolutionPreview ? 'hidden' : '' ">
+                             data-ng-class="isShowSolutionPreview ? 'hidden' : '' ">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row btn-group">
                 <button class="btn" data-ng-click="addFeedback();">
-                    <span class="hotkey">S</span>ave</button>
+                    <span class="hotkey">S</span>ave
+                </button>
             </div>
             <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
