@@ -58,7 +58,6 @@
                 CountryList = _serviceSetting.GetAllCountries(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
-                MainCategoryList = _serviceSetting.GetAllMainCategories(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -70,7 +69,9 @@
                 ExtensionNA = _serviceSetting.GetExtensionNA(),
                 ProductList = _serviceSetting.GetProducts(),
                 SubProductList = _serviceSetting.GetSubProducts(),
-                BettypeList = _serviceSetting.GetBettypes()
+                BettypeList = _serviceSetting.GetBettypes(),
+                MainCategoryList = _serviceSetting.GetMainCategories(),
+                SubCategoryList = _serviceSetting.GetSubCategories(),
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
