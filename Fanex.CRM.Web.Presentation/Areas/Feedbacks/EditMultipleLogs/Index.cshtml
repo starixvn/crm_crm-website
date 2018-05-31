@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
-                                    onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
+                                   onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
                         </div>
                         <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                             <label for="ext">
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="multipleLogs.EndTime"
-                                    datetimepicker />
+                                   datetimepicker />
                         </div>
                         <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                             <label for="country">
@@ -114,15 +114,19 @@
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <multileveldropdowntree text-settings="TextSettings"
                                                     data-ng-model="selectedCategories"
+                                                    data-ng-change="categoryChangedHandler()"
                                                     data-settings="categoryDropdownSettings"></multileveldropdowntree>
                         </div>
                         <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                            <label for="response">
-                                @Labels.Response
+                            <label for="subCategory">
+                                @Labels.Sub_Category
                             </label>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                            <select id="response"></select>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <multileveldropdowntree text-settings="TextSettings"
+                                                    data-ng-change="subCategoryChangedHandler()"
+                                                    data-ng-model="selectedSubCategories"
+                                                    data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                         </div>
                     </div>
                     <div class="row item">
@@ -198,7 +202,16 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
-                        </div>                        
+                        </div>
+
+                        <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                            <label for="response">
+                                @Labels.Response
+                            </label>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                            <select id="response"></select>
+                        </div>
                     </div>
                     <div class="row item">
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -209,7 +222,7 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
                             <input type="text" class="textbox " id="subject" data-ng-model="multipleLogs.Subject"
-                                    subject-auto-complete />
+                                   subject-auto-complete />
                             <span class="errormsg" data-ng-hide="requiredManager.subject">@Labels.RequiredInformation</span>
                         </div>
                     </div>
@@ -230,7 +243,7 @@
         </div>
         <div class="row panel-group">
             <div class="row title remarktitle" data-ng-class="isShowRemarkBox ? '' : 'border-bottom-none'"
-                    data-ng-click="isShowRemarkBox = !isShowRemarkBox">
+                 data-ng-click="isShowRemarkBox = !isShowRemarkBox">
                 @Labels.Remark
                 @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 <span class="errormsg" data-ng-hide="requiredManager.remark">@Labels.RequiredInformation</span>
@@ -242,7 +255,7 @@
         </div>
         <div class="row panel-group last">
             <div class="row title solutiontitle" data-ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
-                    data-ng-click="isShowSolutionBox = !isShowSolutionBox">
+                 data-ng-click="isShowSolutionBox = !isShowSolutionBox">
                 @Labels.Solution
                 @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 <span class="errormsg" data-ng-hide="requiredManager.solution">@Labels.RequiredInformation</span>
@@ -256,7 +269,7 @@
             <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
                 <label for="review">
                     @Labels.Reviewed
-                </label>                
+                </label>
                 <input id="review" type="checkbox" class="review" data-ng-click="multipleLogs.IsReviewed=!multipleLogs.IsReviewed;"
                        data-ng-model="multipleLogs.IsReviewed" data-ng-disabled="!hasReviewPermission" />
                 <span class="errormsg" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
@@ -274,11 +287,11 @@
         </div>
         @if (hasUpdateMultipleLogsPermission)
         {
-        <div class="row">
-            <button class="btn btn-save" data-ng-click="editMultipleLogs();">
-                <span class="hotkey">S</span>ave
-            </button>
-        </div>
+            <div class="row">
+                <button class="btn btn-save" data-ng-click="editMultipleLogs();">
+                    <span class="hotkey">S</span>ave
+                </button>
+            </div>
         }
         <div class="footer-div">&nbsp;</div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
@@ -312,6 +325,7 @@
             Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
             Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
             Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
+            Error_NASubCategory: '@Labels.Error_NASubCategory',
 
             Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
             Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
