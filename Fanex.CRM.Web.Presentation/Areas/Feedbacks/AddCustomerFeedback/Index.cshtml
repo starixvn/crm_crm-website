@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row panel-group" data-ng-class=" isShowCustomerDetailBox ? '': 'consecutive-container-before'">
+            <div class="row panel-group" data-ng-class="{{isShowCustomerDetailBox ? '': 'consecutive-container-before'}}">
                 <div class="row title hand" data-ng-click="showHideCustomerDetailBox();">
                     <b><span id="label-customername" data-ng-bind="customerInfo.Name"></span></b>
                 </div>
@@ -421,6 +421,14 @@
                                     <select id="language" tabindex="69"></select>
                                 </div>
                             </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlstatus">@Language.Status</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
+                                    <select id="status" tabindex="70"></select>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row item">
@@ -464,16 +472,7 @@
                                                             data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
                                 </div>
                             </div>
-                            
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlstatus">@Language.Status</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
-                                    <select id="status" tabindex="70"></select>
-                                </div>
-                            </div>
-
+                           
                         </div>
                     </div>
                     <div class="row">
