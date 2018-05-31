@@ -408,6 +408,14 @@
                                     <select id="ddllanguage" tabindex="69" data-ng-model="feedback.Language" data-ng-options="s.Name for s in settings.Languages track by s.Id"></select>
                                 </div>
                             </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Labels.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="row item">
@@ -450,15 +458,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id"></select>
                                 </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Labels.Response</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="row">
