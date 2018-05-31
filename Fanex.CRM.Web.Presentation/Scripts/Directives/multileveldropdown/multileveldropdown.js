@@ -23,7 +23,7 @@
                 templateUrl: window.rootUrl + "Scripts/Directives/multileveldropdown/multileveldropdown.template.html",
                 sourceData: null,
                 checkedFilter: null, // function to checked item
-                width: 250,
+                minWidth: 350,
                 height: null, // auto
                 maxTextLength: 100,
                 selectedTextLength: 30
