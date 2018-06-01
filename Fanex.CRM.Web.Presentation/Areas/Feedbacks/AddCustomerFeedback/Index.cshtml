@@ -452,15 +452,7 @@
                                                             data-ng-model="selectedSubCategories"
                                                             data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                                 </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Language.Response</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
-                                    <select id="response" tabindex="72"></select>
-                                </div>
-                            </div>
+                            </div>                           
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="bettype">@Language.BetType</label>
@@ -472,7 +464,14 @@
                                                             data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
                                 </div>
                             </div>
-                           
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlresponse">@Language.Response</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 response-picker-container" data-ng-model="responseOptions.DataList">
+                                    <select id="response" tabindex="72"></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
