@@ -106,7 +106,7 @@ multileveldropdowntree .tree li
 {
     list-style-type: none;
     margin: 0;
-    padding: 10px 5px 0 5px;
+    padding: 5px 5px 0 25px;
     position: relative;
     line-height: 9pt;
 }
@@ -141,8 +141,9 @@ multileveldropdowntree .tree li span
 {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    display: inline-block;
+    display: inline;
     text-decoration: none;
+    line-height: 1.5;
 }
 multileveldropdowntree .tree li.parent_li > span
 {
