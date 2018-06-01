@@ -566,4 +566,7 @@
   <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
     <value>Review is mandatory!</value>
   </data>
+  <data name="Error_NA_MainSubCategory" xml:space="preserve">
+    <value>Main Category - Sub Category is mandatory!</value>
+  </data>
 </root>

@@ -347,4 +347,7 @@
   <data name="NoSubcategoryError" xml:space="preserve">
     <value>Subcategory is mandatory!</value>
   </data>
+  <data name="Error_NA_MainSubCategory" xml:space="preserve">
+    <value>Main Category - Sub Category is mandatory!</value>
+  </data>
 </root>

@@ -555,7 +555,7 @@
             }
 
             if (result && params.Categories.length == 0) {
-                message = viewResources.Error_NASubCategory;
+                message = viewResources.Error_NA_MainSubCategory;
                 result = false;
             }
 

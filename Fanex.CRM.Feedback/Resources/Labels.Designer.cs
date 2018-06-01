@@ -367,6 +367,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Category - Sub Category is mandatory!.
+        /// </summary>
+        public static string Error_NA_MainSubCategory {
+            get {
+                return ResourceManager.GetString("Error_NA_MainSubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication tool is mandatory!.
         /// </summary>
         public static string Error_NACommmunicationTool {

@@ -526,7 +526,7 @@
 
             $scope.GetCategoryParams();
             if ($scope.feedback.Categories.length == 0) {
-                $scope.errorMessage(updateFeedbackResources.NASubCategory);
+                $scope.errorMessage(updateFeedbackResources.Error_NA_MainSubCategory);
                 return false;
             }
 

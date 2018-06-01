@@ -741,7 +741,7 @@
             }
 
             if (result && criteria.Categories.length == 0) {
-                $scope.resultMessage = viewResources.Error_NASubCategory;
+                $scope.resultMessage = viewResources.Error_NA_MainSubCategory;
                 result = false;
             }
             

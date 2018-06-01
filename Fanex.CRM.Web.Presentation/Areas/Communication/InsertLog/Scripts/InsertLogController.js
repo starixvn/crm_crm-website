@@ -580,7 +580,7 @@
             }
 
             if (result && criteria.Categories.length == 0) {
-                $scope.resultMessage = viewResources.NoSubcategoryError;
+                $scope.resultMessage = viewResources.Error_NA_MainSubCategory;
                 result = false;
             }
 
