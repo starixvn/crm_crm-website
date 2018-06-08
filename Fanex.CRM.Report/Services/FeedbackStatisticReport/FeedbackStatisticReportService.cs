@@ -592,6 +592,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                                     textCellStyle);
 
                 var categoryContents = feedback.Settings
+                    .Where(s => s.SettingType == "Category")
                     .GroupBy(s => s.SettingIdLv1)
                     .Select(s =>
                     {

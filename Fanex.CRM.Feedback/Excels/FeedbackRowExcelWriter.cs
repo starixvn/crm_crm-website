@@ -58,6 +58,7 @@ namespace Fanex.CRM.Feedback.Excels
         protected string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
             return feedback.Settings
+                    .Where(i => i.SettingType == "Category")
                    .GroupBy(s => s.SettingIdLv1)
                    .Select(s =>
                    {
