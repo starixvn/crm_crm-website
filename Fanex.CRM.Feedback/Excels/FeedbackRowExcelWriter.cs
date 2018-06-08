@@ -11,6 +11,9 @@ namespace Fanex.CRM.Feedback.Excels
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// TODO: Update summary.
@@ -33,18 +36,33 @@ namespace Fanex.CRM.Feedback.Excels
 
         public ICellStyle _cellStyle { get; private set; }
 
-        public virtual void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback)
+        public virtual void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
             int columnIndex = exportExcelInfo.StartColumn;
             var feedbackRow = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             feedbackRow.Height = 1200;
+
+            var categoryContents = feedback.Settings
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key, mainCategories);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
 
             var feedbackCellValue = GetFeedbackCellValue(feedback);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
 
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
 
-            var categoryCellValue = GetCategoryCellValue(feedback);
+            var categoryCellValue = String.Join("\n\n", categoryContents);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
 
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
@@ -53,10 +71,23 @@ namespace Fanex.CRM.Feedback.Excels
             exportExcelInfo.CurrentRow++;
         }
 
+        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
+        }
+
         protected string GetFeedbackCellValue(FeedbackDetail feedback)
         {
             var cellValue = string.Format(
-                "{0}\n{1}\n{2}\n{3}", 
+                "{0}\n{1}\n{2}\n{3}",
                 feedback.Subject,
                 "Feedback date " + feedback.FeedbackDateString,
                 "By " + feedback.CreatorName + " on " + feedback.CreateDateString,

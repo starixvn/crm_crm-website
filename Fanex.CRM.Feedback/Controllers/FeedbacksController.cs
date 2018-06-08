@@ -21,6 +21,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
     using System.Web.Mvc;
 
     /// <summary>
@@ -29,15 +30,17 @@ namespace Fanex.CRM.Feedback.Controllers
     public class FeedbacksController : ReadOnlyBaseController
     {
         private readonly IFeedbackService _feedbackService;
+        private readonly ISettingService _serviceSetting;
 
         public FeedbacksController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public FeedbacksController(IFeedbackService feedbackService)
+        public FeedbacksController(IFeedbackService feedbackService, ISettingService serviceSetting)
         {
             _feedbackService = feedbackService ?? new FeedbackService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [HttpGet]
@@ -136,7 +139,8 @@ namespace Fanex.CRM.Feedback.Controllers
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
 
-            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim());
+            var mainCategories = _serviceSetting.GetAllMainCategories();
+            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim(), mainCategories);
             latestFeedbackExcel.BuildWorkBook();
         }
 
@@ -150,7 +154,8 @@ namespace Fanex.CRM.Feedback.Controllers
                                     string.Format(Labels.FromCustomer, criteria.Username);
             var title = Labels.Feedback + " " + fromCustomerText;
 
-            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, title.Trim());
+            var mainCategories = _serviceSetting.GetAllMainCategories();
+            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, title.Trim());
             manageFeedbackExcel.BuildWorkBook();
         }
 
@@ -159,7 +164,8 @@ namespace Fanex.CRM.Feedback.Controllers
             criteria.IsExportExcel = true;
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
 
-            BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);
+            var mainCategories = _serviceSetting.GetAllMainCategories();
+            BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
             deletedFeedbackExcel.BuildWorkBook();
         }
 
