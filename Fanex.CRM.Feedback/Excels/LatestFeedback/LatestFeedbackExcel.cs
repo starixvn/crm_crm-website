@@ -6,11 +6,11 @@
 
 namespace Fanex.CRM.Feedback.Excels.LatestFeedback
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Feedback.Resources;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -19,8 +19,8 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
     {
         private const int ColumnsCount = 4;
 
-        public LatestFeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string excelFileName)
-            : base(feedbacks, excelFileName, ColumnsCount)
+        public LatestFeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string excelFileName, IEnumerable<Setting> mainCategories)
+            : base(feedbacks, mainCategories, excelFileName, ColumnsCount)
         {
         }
 

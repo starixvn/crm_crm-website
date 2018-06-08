@@ -42,46 +42,35 @@ namespace Fanex.CRM.Feedback.Excels
             var feedbackRow = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             feedbackRow.Height = 1200;
 
-            var categoryContents = feedback.Settings
-                    .GroupBy(s => s.SettingIdLv1)
-                    .Select(s =>
-                    {
-                        var con = GetMainCategoryName(s.Key, mainCategories);
-                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                        foreach (var id in subIds)
-                        {
-                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
-                        }
-
-                        return con;
-                    })
-                    .ToArray();
+            var categoryContents = BuildCategoryContent(feedback, mainCategories);
+            var categoryCellValue = String.Join("\n\n", categoryContents);
 
             var feedbackCellValue = GetFeedbackCellValue(feedback);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
-
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
-
-            var categoryCellValue = String.Join("\n\n", categoryContents);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
-
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
 
             exportExcelInfo.CurrentRow++;
         }
 
-        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
+        protected string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
-            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
-        }
+            return feedback.Settings
+                   .GroupBy(s => s.SettingIdLv1)
+                   .Select(s =>
+                   {
+                       var con = GetMainCategoryName(s.Key, mainCategories);
+                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                       foreach (var id in subIds)
+                       {
+                           con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
+                       }
 
-        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Setting> mainCategories)
-        {
-            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
-            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
-            return child == null ? string.Empty : child.Name;
+                       return con;
+                   })
+                   .ToArray();
         }
 
         protected string GetFeedbackCellValue(FeedbackDetail feedback)
@@ -105,6 +94,19 @@ namespace Fanex.CRM.Feedback.Excels
         protected string GetCategoryCellValue(FeedbackDetail feedback)
         {
             return string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
+        }
+
+        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
         }
     }
 }
