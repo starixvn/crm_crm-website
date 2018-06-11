@@ -40,10 +40,10 @@
         public DateTime EndTime { get; set; }
 
         [SpParam(SqlParamName = "communicationid")]
-        public int CommunicationIds { get; set; }
+        public string CommunicationIds { get; set; }
 
         [SpParam(SqlParamName = "stationid")]
-        public int ExtensionIds { get; set; }
+        public string ExtensionIds { get; set; }
 
         [SpParam(SqlParamName = "roleid")]
         public int RoleId { get; set; }
