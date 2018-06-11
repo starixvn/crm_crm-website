@@ -42,6 +42,26 @@ namespace Fanex.CRM.Communication.Repositories
                         logs.Add(log);
                     }
 
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingIdLv1 = Converter.ToInt(reader["MainCategoryID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubCategoryID"])
+                            });
+                        }
+                    }
+
+                    logs = logs.Select(l =>
+                    {
+                        l.Settings = settings.Where(s => s.FeedbackID == l.RunningNumber).ToList();
+                        return l;
+                    }).ToList();
+
                     return logs;
                 }
             }
@@ -128,14 +148,6 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new Setting
-                {
-                    Name = Converter.ToString2(reader["MainCategory"])
-                },
-                SubCategory = new Setting
-                {
-                    Name = Converter.ToString2(reader["SubCategory"])
-                },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo

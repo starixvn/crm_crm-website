@@ -152,7 +152,14 @@ namespace Fanex.CRM.Communication.Controllers
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
-            return Json(logs, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                MainCategory = _serviceSetting.GetAllMainCategories(),
+                Logs = logs
+            };
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
