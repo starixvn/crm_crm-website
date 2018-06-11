@@ -122,7 +122,8 @@
             $scope.subProductDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getSubProducts($scope.selectedProducts)
+                sourceData: $scope.getSubProducts($scope.selectedProducts),
+                disabled: true
             };
         }
 
@@ -135,7 +136,8 @@
             $scope.bettypeDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getBettypes($scope.selectedSubProducts)
+                sourceData: $scope.getBettypes($scope.selectedSubProducts),
+                disabled: true
             };
         }
 
@@ -150,7 +152,8 @@
             $scope.subCategoryDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.getSubCategories($scope.selectedCategories)
+                sourceData: $scope.getSubCategories($scope.selectedCategories),
+                disabled: true
             };
         }
 
@@ -284,43 +287,50 @@
                 $scope.communicationDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
-                    sourceData: $scope.allSettings.CommunicationToolList
+                    sourceData: $scope.allSettings.CommunicationToolList,
+                    disabled: true
                 };
 
                 $scope.extensionDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Value",
-                    sourceData: $scope.allSettings.ExtensionList
+                    sourceData: $scope.allSettings.ExtensionList,
+                    disabled: true
                 };
 
                 $scope.categoryDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
                     sourceData: $scope.allSettings.MainCategoryList,
+                    disabled: true
                 };
 
                 $scope.subCategoryDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
-                    sourceData: $scope.allSettings.SubCategoryList
+                    sourceData: $scope.allSettings.SubCategoryList,
+                    disabled: true
                 };
 
                 $scope.productDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
-                    sourceData: $scope.allSettings.ProductList
+                    sourceData: $scope.allSettings.ProductList,
+                    disabled: true
                 };
 
                 $scope.subProductDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
-                    sourceData: $scope.allSettings.SubProductList
+                    sourceData: $scope.allSettings.SubProductList,
+                    disabled: true
                 };
 
                 $scope.bettypeDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
-                    sourceData: $scope.allSettings.BettypeList
+                    sourceData: $scope.allSettings.BettypeList,
+                    disabled: true
                 };
 
                 $scope.updateAllSettingsForLog(allSetting);

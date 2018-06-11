@@ -1,5 +1,5 @@
 ﻿<div class="dropdown">
-    <button type="button" class="btn" data-ng-click="toggleSelect()" data-ng-disabled="disabled" data-ng-class="{'ng-invalid': !valid()}">
+    <button type="button" class="btn" data-ng-click="toggleSelect(_settings.disabled)" data-ng-disabled="disabled" data-ng-class="{'ng-invalid': !valid(), 'disabled': _settings.disabled}">
         <span class="pull-left">{{header}}</span> <span class="caret pull-right">
         </span>
     </button>

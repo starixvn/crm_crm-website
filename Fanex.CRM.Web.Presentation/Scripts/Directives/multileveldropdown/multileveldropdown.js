@@ -26,7 +26,8 @@
                 //minWidth: 350,
                 height: null, // auto
                 maxTextLength: 100,
-                selectedTextLength: 30
+                selectedTextLength: 30,
+                disabled: false
             };
             return {
                 set: function (options) {
@@ -493,7 +494,11 @@
                         }
                     }
 
-                    scope.toggleSelect = function () {
+                    scope.toggleSelect = function (isDisabled) {
+                        if (isDisabled) {
+                            return;
+                        }
+
                         assignDropdownElement();
                         if (dropdownElement.hasClass('open')) {
                             dropdownElement.removeClass('open');
