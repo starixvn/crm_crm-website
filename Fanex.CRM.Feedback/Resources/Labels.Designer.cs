@@ -1231,7 +1231,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subcategory.
+        ///   Looks up a localized string similar to SubCategory.
         /// </summary>
         public static string SubCategory {
             get {
