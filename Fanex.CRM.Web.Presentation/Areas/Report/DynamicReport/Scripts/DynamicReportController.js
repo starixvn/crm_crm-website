@@ -530,7 +530,8 @@
             $scope.lastSelectedParams = getReportCriteria;
             $dynamicReportService.getDynamicReport(getReportCriteria)
             .then(function (data) {
-                $scope.dynamicReportOptions.DataList = data.Result;
+                $scope.dynamicReportOptions.DataList = data.Result.Logs;
+                $scope.dynamicReportOptions.mainCategory = data.Result.MainCategory;
                 $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
@@ -545,7 +546,8 @@
             $scope.lastSelectedParams.IsGetFromCached = true;
             $dynamicReportService.getDynamicReport($scope.lastSelectedParams)
             .then(function (data) {
-                $scope.dynamicReportOptions.DataList = data.Result;
+                $scope.dynamicReportOptions.DataList = data.Result.Logs;
+                $scope.dynamicReportOptions.mainCategory = data.Result.MainCategory;
                 $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },

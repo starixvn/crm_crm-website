@@ -9,15 +9,16 @@
 
 namespace Fanex.CRM.Report.Repositories.DynamicReport
 {
-    using System.Collections.Generic;
-    using System.Data;
+    using Common.Models;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
     /// <summary>
     /// Dynamic Report Repository.
@@ -36,6 +37,26 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                         communications.Add(ReadDynamicReportInfo(reader));
                     }
 
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingIdLv1 = Converter.ToInt(reader["MainCategoryID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubCategoryID"])
+                            });
+                        }
+                    }
+
+                    communications = communications.Select(l =>
+                    {
+                        l.Settings = settings.Where(s => s.FeedbackID == l.RunningNumber).ToList();
+                        return l;
+                    }).ToList();
+
                     return communications;
                 }
             }
@@ -52,8 +73,6 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                 {
                     FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"]))
                 },
-                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
