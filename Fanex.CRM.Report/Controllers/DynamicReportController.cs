@@ -87,7 +87,8 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            _dynamicReportService.ExportDynamicReport(criteria);
+            var mainCategory = _serviceSetting.GetAllMainCategories();
+            _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
             return new EmptyResult();
         }
     }

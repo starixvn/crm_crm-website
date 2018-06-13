@@ -9,11 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Drawing;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -31,6 +26,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
+    using System.Linq;
 
     /// <summary>
     /// Dynamic Report Service.
@@ -100,9 +100,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     0,
                     new Product
                     {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.All
-                });
+                        Id = SettingConstants.NotApply,
+                        Value = Labels.All
+                    });
             }
             else
             {
@@ -117,7 +117,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             var products = _serviceSetting.GetAllProducts().ToList();
             var itemProductAll = CreateItemAll();
 
-            products.Insert(0, itemProductAll);        
+            products.Insert(0, itemProductAll);
 
             return products;
         }
@@ -160,9 +160,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 0,
                 new SettingRelation
                 {
-                Id = SettingConstants.NotApply,
-                Value = Labels.All
-            });
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
 
             return data;
         }
@@ -174,9 +174,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 0,
                 new SettingRelation
                 {
-                Id = SettingConstants.NotApply,
-                Value = Labels.All
-            });
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
 
             return data;
         }
@@ -191,10 +191,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 rawData.Insert(
                     0,
                     new Setting
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.All
-                });
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.All
+                    });
             }
             else
             {
@@ -300,7 +300,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             };
         }
 
-        public void ExportDynamicReport(GetDynamicReportCriteria criteria)
+        public void ExportDynamicReport(GetDynamicReportCriteria criteria, IEnumerable<Setting> mainCategories)
         {
             string reportName = string.Format(
                  Labels.DynamicReport_ExcelTitle,
@@ -321,7 +321,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             };
 
             SetStatusColorIndex(ref exportExcelInfo);
-            ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
+            ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport, mainCategories);
 
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
@@ -622,7 +622,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         private void ExportDynamicReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
-            DynamicReportInfo dynamicReport)
+            DynamicReportInfo dynamicReport,
+            IEnumerable<Setting> mainCategories)
         {
             if (dynamicReport == null || dynamicReport.ChildReports.Count == 0)
             {
@@ -700,20 +701,20 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
                         if (string.Equals(info.StatusName, Labels.Closed, StringComparison.OrdinalIgnoreCase))
                         {
-                            closedRowWriter.WriteRow(exportExcelInfo, info, j);
+                            closedRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else if (string.Equals(info.StatusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
                             string.Equals(info.StatusName, Labels.Solved, StringComparison.OrdinalIgnoreCase))
                         {
-                            checkedRowWriter.WriteRow(exportExcelInfo, info, j);
+                            checkedRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else if (string.Equals(info.StatusName, Labels.Pending, StringComparison.OrdinalIgnoreCase))
                         {
-                            pendingRowWriter.WriteRow(exportExcelInfo, info, j);
+                            pendingRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else
                         {
-                            normalRowWriter.WriteRow(exportExcelInfo, info, j);
+                            normalRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
 
                         currentIndexOfDetailItem++;

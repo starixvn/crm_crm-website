@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Setting.Models;
     using Infrastructure.Models;
+    using System.Collections.Generic;
 
     public interface IDynamicReportService
     {
@@ -40,6 +40,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria);
 
-        void ExportDynamicReport(GetDynamicReportCriteria criteria);
+        void ExportDynamicReport(GetDynamicReportCriteria criteria, IEnumerable<Setting> mainCategories);
     }
 }

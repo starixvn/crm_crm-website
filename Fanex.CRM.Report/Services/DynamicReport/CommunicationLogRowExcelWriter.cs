@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -18,6 +17,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Communication Log Row Excel Writer.
@@ -61,8 +64,28 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public void WriteRow(ExportExcelInfo exportExcelInfo, DynamicReportInfo info, int infoIndex)
+        public void WriteRow(
+            ExportExcelInfo exportExcelInfo,
+            DynamicReportInfo info,
+            int infoIndex,
+            IEnumerable<Common.Models.Setting> mainCategories)
         {
+            var categoryContents = info.Settings
+                    .GroupBy(s => s.SettingIdLv1)
+                    .Select(s =>
+                    {
+                        var con = GetMainCategoryName(s.Key, mainCategories);
+                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                        foreach (var id in subIds)
+                        {
+                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
+                        }
+
+                        return con;
+                    })
+                    .ToArray();
+            var categoryCellValue = String.Join("\n\n", categoryContents);
+
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow,
                 exportExcelInfo.CurrentRow + 1,
@@ -103,7 +126,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
-                info.MainCategory.Name + "\n" + info.SubCategory.Name,
+                categoryCellValue,
                 _textStyle);
             exportExcelInfo.CurrentColumn++;
 
@@ -179,6 +202,19 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 _textStyle);
             exportExcelInfo.CurrentColumn++;
             exportExcelInfo.CurrentRow += 2;
+        }
+
+        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategories)
+        {
+            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
         }
     }
 }
