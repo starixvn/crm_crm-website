@@ -6,9 +6,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Text.RegularExpressions;
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -17,19 +14,26 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DeletedFeedbackStatistics;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
 
     public class DeletedFeedbackStatisticsController : ReadOnlyBaseController
     {
         private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;
+        private readonly ISettingService _serviceSetting;
 
         public DeletedFeedbackStatisticsController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DeletedFeedbackStatisticsController(IDeletedFeedbackStatisticsService deletedFeedbackStatisticsService)
+        public DeletedFeedbackStatisticsController(
+            IDeletedFeedbackStatisticsService deletedFeedbackStatisticsService,
+            ISettingService serviceSetting)
         {
             _deletedFeedbackStatisticsService = deletedFeedbackStatisticsService ?? new DeletedFeedbackStatisticsService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
@@ -44,7 +48,8 @@ namespace Fanex.CRM.Report.Controllers
         {
             return Json(new
             {
-                ReportData = _deletedFeedbackStatisticsService.GetReport(criteria)
+                ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
+                MainCategory = _serviceSetting.GetAllMainCategories()
             });
         }
 

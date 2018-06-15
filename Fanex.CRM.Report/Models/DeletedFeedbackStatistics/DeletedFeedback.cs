@@ -6,14 +6,21 @@
 
 namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 {
-    using System;
+    using Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
+    using System;
+    using System.Collections.Generic;
 
     public class DeletedFeedback
     {
+        public DeletedFeedback()
+        {
+            Settings = new List<SettingItem>();
+        }
+
         public DateTime CreateDate { get; set; }
 
-        public string CreateDateString 
+        public string CreateDateString
         {
             get { return CreateDate.ToShortFormatedDate(); }
         }
@@ -33,5 +40,7 @@ namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
         public string Customer { get; set; }
 
         public string RelatedCustomer { get; set; }
+
+        public IEnumerable<SettingItem> Settings { get; set; }
     }
 }

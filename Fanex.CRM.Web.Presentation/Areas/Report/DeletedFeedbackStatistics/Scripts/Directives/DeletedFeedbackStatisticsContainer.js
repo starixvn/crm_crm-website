@@ -9,11 +9,11 @@ viewResources */
         var selfScope;
         var tableHeaders;
 
-        function getGripOtions(report) {
+        function getGripOtions(report, mainCategories) {
             if (!tableHeaders) {
                 tableHeaders = getTableHeader();
             }
-            var bodyData = getDataRow(report);
+            var bodyData = getDataRow(report, mainCategories);
             var footerData = [{
                 Columns: [{
                     Name: "Date",
@@ -63,7 +63,7 @@ viewResources */
             ];
         }
 
-        function getDataRow(report) {
+        function getDataRow(report, mainCategories) {
             var bodyData = [];
             var deletedFeedbackStatisticsList = report.DeletedFeedbackByHandlers;
 
@@ -107,7 +107,7 @@ viewResources */
                             },
                             {
                                 Name: "Category",
-                                Value: getCategoryCellContent(deletedFeedback.MainCategory, deletedFeedback.SubCategory)
+                                Value: renderCategoryColumn(deletedFeedback, mainCategories)
                             },
                             {
                                 Name: "Customer",
@@ -130,6 +130,73 @@ viewResources */
             return bodyData;
         }
 
+        function getMainCategoryName(mainCategoryId, mainCategories) {
+            for (var i = 0; i < mainCategories.length; i++) {
+                if (mainCategories[i].Id == mainCategoryId) {
+                    return mainCategories[i].Name;
+                }
+            }
+        }
+
+        function getSubCategoryName(mainCategoryId, subCategoryId, mainCategories) {
+            var mainCategory = null;
+            for (var i = 0; i < mainCategories.length; i++) {
+                if (mainCategories[i].Id == mainCategoryId) {
+                    mainCategory = mainCategories[i];
+                    break;
+                }
+            }
+
+            if (mainCategory) {
+                for (var j = 0; j < mainCategory.ChildSettings.length; j++) {
+                    if (mainCategory.ChildSettings[j].Id == subCategoryId) {
+                        return mainCategory.ChildSettings[j].Name;
+                    }
+                }
+            }
+
+            return '';
+        }
+
+        function renderCategoryColumn(feedback, mainCategories) {
+            var settings = feedback.Settings;
+
+            var mainCategoryIds = [];
+            for (var i = 0; i < settings.length; i++) {
+                if (settings[i].SettingType == "Category" && mainCategoryIds.indexOf(settings[i].SettingIdLv1) < 0) {
+                    mainCategoryIds.push(settings[i].SettingIdLv1);
+                }
+            }
+
+            var categories = [];
+            for (var i = 0; i < mainCategoryIds.length; i++) {
+                var subCategoryIds = [];
+                for (var j = 0; j < settings.length; j++) {
+                    if (settings[j].SettingType == "Category" && settings[j].SettingIdLv1 == mainCategoryIds[i]) {
+                        subCategoryIds.push(settings[j].SettingIdLv2);
+                    }
+                }
+
+                categories.push({
+                    mainCategoryId: mainCategoryIds[i],
+                    subCategoryIds: subCategoryIds
+                })
+            }
+
+            var result = '';
+            for (var i = 0; i < categories.length; i++) {
+                var categoryHtml = '<div class="main-category">' + getMainCategoryName(categories[i].mainCategoryId, mainCategories);
+                var subCategoryIds = categories[i].subCategoryIds;
+                for (var j = 0; j < subCategoryIds.length; j++) {
+                    categoryHtml += '<div><span class="sub-category">' + getSubCategoryName(categories[i].mainCategoryId, subCategoryIds[j], mainCategories) + '</span></div>';
+                }
+                categoryHtml += '</div>';
+                result += categoryHtml;
+            }
+
+            return result;
+        }
+
         function getFeedbackCellContent(feedbackId, subject) {
             return '<a href="javascript:;" class="lnkFeedback" data-id="' + feedbackId + '">' +
                     '<span class="b">' + subject + '</span></a>';
@@ -148,7 +215,8 @@ viewResources */
             selfScope = scope;
             var tableReport = element.find("#deleted-feedback-statistics-report");
             var reportData = scope.reportOptions.DataList;
-            var gridOptions = getGripOtions(reportData);
+            var mainCategories = scope.reportOptions.mainCategory
+            var gridOptions = getGripOtions(reportData, mainCategories);
             tableReport.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             bindEvents(scope, element);
         }
