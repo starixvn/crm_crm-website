@@ -6,7 +6,6 @@
 
 namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 {
-    using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -16,18 +15,24 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class DeletedFeedbackStatisticsExcel : BaseExcel
     {
         private readonly DeletedFeedbackStatisticsViewModel _deletedFeedbackStatisticsReport;
-
+        private IEnumerable<Common.Models.Setting> _mainCategories;
         private ExportExcelInfo _exportExcelInfo;
 
-        public DeletedFeedbackStatisticsExcel(DeletedFeedbackStatisticsViewModel deletedFeedbackStatisticsReport, string excelFileName)
+        public DeletedFeedbackStatisticsExcel(
+            DeletedFeedbackStatisticsViewModel deletedFeedbackStatisticsReport,
+            string excelFileName,
+            IEnumerable<Common.Models.Setting> mainCategories)
             : base(excelFileName)
         {
             _deletedFeedbackStatisticsReport = deletedFeedbackStatisticsReport;
-
+            _mainCategories = mainCategories;
             _exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
@@ -102,7 +107,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
             NpoiExtensions.SetGroupBackgroundColorIndex(_exportExcelInfo);
             var groupStyle = GetGroupedHandlerStyle();
-            
+
             var feedbackStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             feedbackStyle.WrapText = true;
 
@@ -119,13 +124,29 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
                     currentColumnIndex = _exportExcelInfo.StartColumn;
                     var feedbackRow = _exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
                     feedbackRow.Height = 600;
+
+                    var categoryContents = feedback.Settings
+                        .Where(i => i.SettingType == "Category")
+                        .GroupBy(s => s.SettingIdLv1)
+                        .Select(s =>
+                        {
+                            var con = GetMainCategoryName(s.Key, _mainCategories);
+                            var subIds = s.Select(e => e.SettingIdLv2).ToList();
+                            foreach (var id in subIds)
+                            {
+                                con = con + "\n  " + GetSubCategoryName(s.Key, id, _mainCategories);
+                            }
+
+                            return con;
+                        })
+                        .ToArray();
+
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Deletor, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Subject, feedbackStyle);
 
-                    var categoryCellValue = string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
-                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, categoryCellValue, feedbackStyle);
+                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, String.Join("\n\n", categoryContents), feedbackStyle);
 
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Customer, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.RelatedCustomer, feedbackStyle);
@@ -134,6 +155,19 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
                 _exportExcelInfo.CurrentRow = currentRowIndex;
             }
+        }
+
+        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            return mainCategory == null ? string.Empty : mainCategory.Name;
+        }
+
+        private static string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
+        {
+            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
+            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
+            return child == null ? string.Empty : child.Name;
         }
 
         private ICellStyle GetGroupedHandlerStyle()

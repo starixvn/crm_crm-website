@@ -56,9 +56,10 @@ namespace Fanex.CRM.Report.Controllers
         public void ExportReport(DeletedFeedbackStatisticsCriteria criteria)
         {
             var report = _deletedFeedbackStatisticsService.GetReport(criteria);
+            var mainCategories = _serviceSetting.GetAllMainCategories();
 
             var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
-            BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName);
+            BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);
             deletedFeedbackStatisticsExcel.BuildWorkBook();
         }
     }
