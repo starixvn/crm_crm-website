@@ -596,16 +596,6 @@
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\IBCReportDirective.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\LogStatistics\Scripts\Directives\ReportDirectiveHelper.js" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyApplication.js" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyController.js" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyService.js" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\Directives\CasinoDailyDetailContainer.js" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\Directives\CasinoDailySummaryContainer.js" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyApplication.js" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyController.js" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyService.js" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklyDetailContainer.js" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklySummaryContainer.js" />
     <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsService.js" />
     <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsController.js" />
     <Content Include="Areas\Report\DeletedFeedbackStatistics\Scripts\DeletedFeedbackStatisticsApplication.js" />
@@ -622,18 +612,6 @@
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\Directives\CustomerReportContainer.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportApplication.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_HotKey.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_Options.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_Update.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportService.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\DetailReportDirective.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\IBCReportDirective.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\LicenseeReportDirective.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\ReportDirectiveHelper.js" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Styles\Images\ico_warning.png" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
@@ -658,9 +636,6 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
@@ -677,18 +652,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\Directives\DetailReportDirective.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\Directives\IBCReportDirective.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\Directives\LicenseeReportDirective.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\Directives\ReportDirectiveHelper.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportApplication.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController_HotKey.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController_Options.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController_Update.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportService.js" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\Images\ico_warning.png" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
@@ -967,6 +930,7 @@
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\FixBugManager.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
+    <Content Include="Scripts\ShareScripts\NameMapping.js" />
     <Content Include="Scripts\ShareScripts\SettingManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\MessageResult.js" />
@@ -1010,13 +974,8 @@
     <Content Include="Areas\Report\FeedbackStatistics\Styles\styles.less" />
     <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Index.cshtml" />
     <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Styles\styles.less" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Index.cshtml" />
-    <Content Include="Areas\Report\DailyStatisticsReport\Styles\DailyStatisticsReport.less" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Index.cshtml" />
-    <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\WeeklyStatisticsReport.less" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Configurations\dev.ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>

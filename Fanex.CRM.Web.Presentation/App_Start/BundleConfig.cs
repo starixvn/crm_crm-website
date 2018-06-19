@@ -57,6 +57,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/jquery-ui-1.8.14.custom.js",
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
+                "~/Scripts/ShareScripts/NameMapping.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
 
             bundles.AddAndInclude(
