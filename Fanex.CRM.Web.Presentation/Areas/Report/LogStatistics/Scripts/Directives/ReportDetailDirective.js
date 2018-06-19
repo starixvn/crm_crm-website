@@ -128,7 +128,9 @@
             for (var i = 0; i < productIds.length; i++) {
                 var subProductIds = [];
                 for (var j = 0; j < settings.length; j++) {
-                    if (settings[j].SettingType == "Product" && settings[j].SettingIdLv1 == productIds[i]) {
+                    if (settings[j].SettingType == "Product"
+                            && settings[j].SettingIdLv1 == productIds[i]
+                            && subProductIds.indexOf(settings[j].SettingIdLv2) < 0) {
                         subProductIds.push(settings[j].SettingIdLv2);
                     }
                 }
@@ -253,7 +255,7 @@
                 { HeaderText: viewResources.Contact, Width: 220, Name: "ColContact", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: "Product/Sub-Product", Width: 200, Name: "ColProduct", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Category/Sub-Catogory", Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Category/Sub-Category", Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Complaints_Enquiries, Width: 480, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Solution, Width: 480, Name: "ColSolution", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },

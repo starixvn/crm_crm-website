@@ -195,7 +195,9 @@
             for (var i = 0; i < productIds.length; i++) {
                 var subProductIds = [];
                 for (var j = 0; j < settings.length; j++) {
-                    if (settings[j].SettingType == "Product" && settings[j].SettingIdLv1 == productIds[i]) {
+                    if (settings[j].SettingType == "Product"
+                            && settings[j].SettingIdLv1 == productIds[i]
+                            && subProductIds.indexOf(settings[j].SettingIdLv2) < 0) {
                         subProductIds.push(settings[j].SettingIdLv2);
                     }
                 }
