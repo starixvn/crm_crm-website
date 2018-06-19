@@ -495,53 +495,10 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
 
-            var categoryContents = info.Settings
-                    .Where(i => i.SettingType == "Category")
-                    .GroupBy(s => s.SettingIdLv1)
-                    .Select(s =>
-                    {
-                        var con = GetMainCategoryName(s.Key, mainCategory);
-                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                        foreach (var id in subIds)
-                        {
-                            con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategory);
-                        }
-
-                        return con;
-                    })
-                    .ToArray();
-
-            var productContents = info.Settings
-                    .Where(i => i.SettingType == "Product")
-                   .GroupBy(s => s.SettingIdLv1)
-                   .Select(s =>
-                   {
-                       var con = GetProductName(s.Key, productList);
-                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                       foreach (var id in subIds)
-                       {
-                           con = con + "\n  " + GetSubProductName(id, subProductList);
-                       }
-
-                       return con;
-                   })
-                   .ToArray();
-
-            var communicationContents = info.Settings
-                    .Where(i => i.SettingType == "Communication")
-                    .Select(s =>
-                    {
-                        return GetCommunicationName(s.SettingIdLv1, communicationToolList);
-                    })
-                    .ToArray();
-
-            var extensionContents = info.Settings
-                   .Where(i => i.SettingType == "Station")
-                   .Select(s =>
-                   {
-                       return GetExtensionName(s.SettingIdLv1, extensionList);
-                   })
-                   .ToArray();
+            var categoryContents = NameMapping.GetCategoryContent(info.Settings, mainCategory);
+            var productContents = NameMapping.GetProductContent(info.Settings, productList, subProductList);
+            var communicationContents = NameMapping.GetCommunicationContent(info.Settings, communicationToolList);
+            var extensionContents = NameMapping.GetExtensionContent(info.Settings, extensionList);
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
@@ -567,43 +524,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
                 centerTextStyle);
             exportExcelInfo.CurrentRow++;
-        }
-
-        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
-        {
-            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
-        }
-
-        private static string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
-        {
-            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
-            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
-            return child == null ? string.Empty : child.Name;
-        }
-
-        private static string GetProductName(int id, IEnumerable<Common.Models.Product> productList)
-        {
-            var product = productList.FirstOrDefault(c => c.Id == id);
-            return product == null ? "N/A" : product.Name;
-        }
-
-        private static string GetSubProductName(int id, IEnumerable<Common.Models.Product> subProductList)
-        {
-            var subProduct = subProductList.FirstOrDefault(c => c.Id == id);
-            return subProduct == null ? "N/A" : subProduct.Name;
-        }
-
-        private static string GetCommunicationName(int id, IEnumerable<Common.Models.Setting> communicationToolList)
-        {
-            var item = communicationToolList.FirstOrDefault(c => c.Id == id);
-            return item == null ? string.Empty : item.Name;
-        }
-
-        private static string GetExtensionName(int id, IEnumerable<Common.Models.SettingRelation> extensionList)
-        {
-            var item = extensionList.FirstOrDefault(c => c.Id == id);
-            return item == null ? "N/A" : item.Value;
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
     using NPOI.SS.Util;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class LogStatisticsReportDetailExcel : BaseExcel
     {
@@ -64,44 +63,6 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
-        private string GetMainCategoryName(int mainCategoryId)
-        {
-            var mainCategory = _mainCategory.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
-        }
-
-        private string GetSubCategoryName(int mainCategoryId, int subCategoryId)
-        {
-            var mainCategory = _mainCategory.FirstOrDefault(c => c.Id == mainCategoryId);
-            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
-            return child == null ? string.Empty : child.Name;
-        }
-
-        private string GetProductName(int id)
-        {
-            var product = _productList.FirstOrDefault(c => c.Id == id);
-            return product == null ? "N/A" : product.Name;
-        }
-
-        private string GetSubProductName(int id)
-        {
-            var subProduct = _subProductList.FirstOrDefault(c => c.Id == id);
-            return subProduct == null ? "N/A" : subProduct.Name;
-        }
-
-        private string GetCommunicationName(int id)
-        {
-            var item = _communicationToolList.FirstOrDefault(c => c.Id == id);
-            return item == null ? string.Empty : item.Name;
-        }
-
-        private string GetExtensionName(int id)
-        {
-            var item = _extensionList.FirstOrDefault(c => c.Id == id);
-            return item == null ? "N/A" : item.Value;
-        }
-
-
         private void GenerateDetailReportRowData(
             StatisticsDetailbyDateModel info,
             ExportExcelInfo exportExcelInfo,
@@ -115,53 +76,10 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
 
-            var categoryContents = info.Settings
-                    .Where(i => i.SettingType == "Category")
-                    .GroupBy(s => s.SettingIdLv1)
-                    .Select(s =>
-                    {
-                        var con = GetMainCategoryName(s.Key);
-                        var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                        foreach (var id in subIds)
-                        {
-                            con = con + "\n  " + GetSubCategoryName(s.Key, id);
-                        }
-
-                        return con;
-                    })
-                    .ToArray();
-
-            var productContents = info.Settings
-                    .Where(i => i.SettingType == "Product")
-                   .GroupBy(s => s.SettingIdLv1)
-                   .Select(s =>
-                   {
-                       var con = GetProductName(s.Key);
-                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                       foreach (var id in subIds)
-                       {
-                           con = con + "\n  " + GetSubProductName(id);
-                       }
-
-                       return con;
-                   })
-                   .ToArray();
-
-            var communicationContents = info.Settings
-                    .Where(i => i.SettingType == "Communication")
-                    .Select(s =>
-                    {
-                        return GetCommunicationName(s.SettingIdLv1);
-                    })
-                    .ToArray();
-
-            var extensionContents = info.Settings
-                   .Where(i => i.SettingType == "Station")
-                   .Select(s =>
-                   {
-                       return GetExtensionName(s.SettingIdLv1);
-                   })
-                   .ToArray();
+            var categoryContents = NameMapping.GetCategoryContent(info.Settings, _mainCategory);
+            var productContents = NameMapping.GetProductContent(info.Settings, _productList, _subProductList);
+            var communicationContents = NameMapping.GetCommunicationContent(info.Settings, _communicationToolList);
+            var extensionContents = NameMapping.GetExtensionContent(info.Settings, _extensionList);
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();

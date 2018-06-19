@@ -125,21 +125,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
                     var feedbackRow = _exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
                     feedbackRow.Height = 600;
 
-                    var categoryContents = feedback.Settings
-                        .Where(i => i.SettingType == "Category")
-                        .GroupBy(s => s.SettingIdLv1)
-                        .Select(s =>
-                        {
-                            var con = GetMainCategoryName(s.Key, _mainCategories);
-                            var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                            foreach (var id in subIds)
-                            {
-                                con = con + "\n  " + GetSubCategoryName(s.Key, id, _mainCategories);
-                            }
-
-                            return con;
-                        })
-                        .ToArray();
+                    var categoryContents = NameMapping.GetCategoryContent(feedback.Settings, _mainCategories);
 
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackStyle);
@@ -155,19 +141,6 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
                 _exportExcelInfo.CurrentRow = currentRowIndex;
             }
-        }
-
-        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
-        {
-            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
-        }
-
-        private static string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Common.Models.Setting> mainCategoryList)
-        {
-            var mainCategory = mainCategoryList.FirstOrDefault(c => c.Id == mainCategoryId);
-            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
-            return child == null ? string.Empty : child.Name;
         }
 
         private ICellStyle GetGroupedHandlerStyle()

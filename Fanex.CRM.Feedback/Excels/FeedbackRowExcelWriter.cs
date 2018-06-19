@@ -13,7 +13,6 @@ namespace Fanex.CRM.Feedback.Excels
     using NPOI.SS.UserModel;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// TODO: Update summary.
@@ -57,21 +56,7 @@ namespace Fanex.CRM.Feedback.Excels
 
         protected string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
-            return feedback.Settings
-                    .Where(i => i.SettingType == "Category")
-                   .GroupBy(s => s.SettingIdLv1)
-                   .Select(s =>
-                   {
-                       var con = GetMainCategoryName(s.Key, mainCategories);
-                       var subIds = s.Select(e => e.SettingIdLv2).ToList();
-                       foreach (var id in subIds)
-                       {
-                           con = con + "\n  " + GetSubCategoryName(s.Key, id, mainCategories);
-                       }
-
-                       return con;
-                   })
-                   .ToArray();
+            return NameMapping.GetCategoryContent(feedback.Settings, mainCategories);
         }
 
         protected string GetFeedbackCellValue(FeedbackDetail feedback)
@@ -95,19 +80,6 @@ namespace Fanex.CRM.Feedback.Excels
         protected string GetCategoryCellValue(FeedbackDetail feedback)
         {
             return string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
-        }
-
-        private string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
-        {
-            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
-        }
-
-        private string GetSubCategoryName(int mainCategoryId, int subCategoryId, IEnumerable<Setting> mainCategories)
-        {
-            var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
-            var child = mainCategory == null ? null : mainCategory.ChildSettings.FirstOrDefault(c => c.Id == subCategoryId);
-            return child == null ? string.Empty : child.Name;
         }
     }
 }
