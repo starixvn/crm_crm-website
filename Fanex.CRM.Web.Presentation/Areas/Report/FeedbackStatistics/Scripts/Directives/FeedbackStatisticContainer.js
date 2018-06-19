@@ -203,7 +203,7 @@
                 scope.viewFeedbackStatisticChart();
             });
             element.find('#button-viewdetail').click(function () {
-                scope.openFeedbackStatisticDetail(0, 0, 0);
+                scope.openFeedbackStatisticDetail(0, 0, -1);
             });
             element.find('.link').click(function () {
                 var $this = $(this);
