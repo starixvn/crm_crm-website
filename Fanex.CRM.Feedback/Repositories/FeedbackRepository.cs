@@ -11,6 +11,7 @@
 namespace Fanex.CRM.Feedback.Repositories
 {
     using Common.Repositories;
+    using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
@@ -42,7 +43,12 @@ namespace Fanex.CRM.Feedback.Repositories
                         return f;
                     });
 
-                    criteria.TotalRows = feebbacks.ToList().Count;
+                    var outputParams = db.GetOuputParams();
+                    if (outputParams.Count != 0)
+                    {
+                        criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
+                    }
+
                     return feebbacks;
                 }
             }
