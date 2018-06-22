@@ -906,6 +906,7 @@
     <Content Include="Scripts\ShareScripts\Applications\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Applications\MonthDayPicker.js" />
     <Content Include="Scripts\ShareScripts\Applications\ResultMessage.js" />
+    <Content Include="Scripts\ShareScripts\AutoTextScripts.js" />
     <Content Include="Scripts\ShareScripts\Controllers\FromToDatePicker.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />

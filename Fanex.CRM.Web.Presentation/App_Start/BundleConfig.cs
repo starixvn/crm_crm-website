@@ -59,6 +59,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/NameMapping.js",
                 "~/Scripts/ShareScripts/FilterScripts.js",
+                "~/Scripts/ShareScripts/AutoTextScripts.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
 
             bundles.AddAndInclude(
