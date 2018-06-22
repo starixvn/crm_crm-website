@@ -50,7 +50,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
-        
+      
         $scope.addCustomerFeedbackParams = {
             OverrideCRMInfo: false,
             Subject: null,
@@ -147,96 +147,25 @@
             });
         }
 
-        $scope.getSubProducts = function (seletedProducts) {
-            var selectedProductIds = [];
-            angular.forEach(seletedProducts, function (product) {
-                selectedProductIds.push(product.Id);
-            });
-
-            var subProducts = [];
-            angular.forEach($scope.allSettings.SubProductList, function (subProduct) {
-                if (selectedProductIds.indexOf(subProduct.ParentId) >= 0) {
-                    subProduct.checked = false;
-                    subProducts.push(subProduct);
-                }
-            });
-
-            // check selected sub products
-            angular.forEach(subProducts, function (subProduct) {
-                if ($scope.selectedSubProductIds.indexOf(subProduct.Id) >= 0) {
-                    subProduct.checked = true;
-                }
-            });
-
-            return subProducts;
+        $scope.getSubProducts = function (selectedProducts) {
+            return filterScripts.getSubProducts(
+                           selectedProducts,
+                           $scope.allSettings.SubProductList,
+                           $scope.selectedSubProductIds);
         }
 
         $scope.getBettypes = function (selectedSubProducts) {
-            var selectedSubProductIds = [];
-            angular.forEach(selectedSubProducts, function (subProduct) {
-                selectedSubProductIds.push(subProduct.Id);
-            });
-
-            var bettypes = [];
-            angular.forEach($scope.allSettings.BettypeList, function (bettype) {
-                if (selectedSubProductIds.indexOf(bettype.ParentId) >= 0) {
-                    bettypes.push(bettype);
-                }
-            });
-
-            // remove duplicate bettypes
-            var selectedIds = [];
-            var distinctBettypes = [];
-            angular.forEach(bettypes, function (bettype) {
-                if (selectedIds.indexOf(bettype.Id) < 0) {
-                    selectedIds.push(bettype.Id);
-                    bettype.checked = false;
-                    distinctBettypes.push(bettype);
-                }
-            });
-
-            // check selected bettypes
-            angular.forEach(distinctBettypes, function (bettype) {
-                if ($scope.selectedBettypeIds.indexOf(bettype.Id) >= 0) {
-                    bettype.checked = true;
-                }
-            });
-
-            return distinctBettypes;
+            return filterScripts.getBettypes(
+                            selectedSubProducts,
+                            $scope.allSettings.BettypeList,
+                            $scope.selectedBettypeIds);
         }
 
         $scope.getSubCategories = function (selectedCategories) {
-            var selectedCategoryIds = [];
-            angular.forEach(selectedCategories, function (category) {
-                selectedCategoryIds.push(category.Id);
-            });
-
-            var subCategories = [];
-            angular.forEach($scope.allSettings.SubCategoryList, function (subCategory) {
-                if (selectedCategoryIds.indexOf(subCategory.ParentId) >= 0) {
-                    subCategories.push(subCategory);
-                }
-            });
-
-            // remove duplicate bettypes
-            var selectedIds = [];
-            var distinctSubCategories = [];
-            angular.forEach(subCategories, function (subCategory) {
-                if (selectedIds.indexOf(subCategory.Id) < 0) {
-                    selectedIds.push(subCategory.Id);
-                    subCategory.checked = false;
-                    distinctSubCategories.push(subCategory);
-                }
-            });
-
-            // check selected bettypes
-            angular.forEach(distinctSubCategories, function (subCategory) {
-                if ($scope.selectedSubCategoryIds.indexOf(subCategory.Id) >= 0) {
-                    subCategory.checked = true;
-                }
-            });
-
-            return distinctSubCategories;
+            return filterScripts.getSubCategories(
+                            selectedCategories,
+                            $scope.allSettings.SubCategoryList,
+                            $scope.selectedSubCategoryIds);
         }
 
         $scope.completedLoadFilterInfo = function () {
@@ -402,113 +331,34 @@
             $scope.isShowSolutionPreview = false;
         };
 
-        $scope.GetCommunicationParams = function () {
-            var communicationIds = [];
-            angular.forEach($scope.selectedCommunications, function (communication) {
-                communicationIds.push(communication.Id);
-            })
-            $scope.addCustomerFeedbackParams.CommunicationIds = communicationIds.join(",");
+        $scope.GetCommunicationParams = function () {           
+            $scope.addCustomerFeedbackParams.CommunicationIds = filterScripts.GetCommunicationParams($scope.selectedCommunications);
         }
 
         $scope.GetExtensionParams = function () {
-            var extensionIds = [];
-            angular.forEach($scope.selectedExtensions, function (extension) {
-                extensionIds.push(extension.Id);
-            })
-
-            if (extensionIds.length == 0) {
-                extensionIds = [$scope.allSettings.ExtensionNA.Id];
-            }
-            $scope.addCustomerFeedbackParams.ExtensionIds = extensionIds.join(",");
-        }
-
-        $scope.CheckSubProductBettype = function (subProductID, bettypeId) {
-            var flag = false;
-            angular.forEach($scope.allSettings.BettypeList, function (b) {
-                if (b.Id == bettypeId && b.ParentId == subProductID) {
-                    flag = true;
-                }
-            })
-
-            return flag;
+            $scope.addCustomerFeedbackParams.ExtensionIds = filterScripts.GetExtensionParams($scope.selectedExtensions, $scope.allSettings.ExtensionNA);
         }
 
         $scope.GetProductParams = function () {
-            var products = [];
-            if ($scope.selectedProducts.length == 0) {
-                products = [
-                   {
-                       ProductId: $scope.allSettings.ProductNA.Id,
-                       SubProductId: $scope.allSettings.SubProductNA.Id,
-                       BettypeId: $scope.allSettings.BettypeNA.Id
-                   }
-                ];
-            }
-            else {
-                var processedProductIds = [];
-                angular.forEach($scope.selectedSubProducts, function (subProduct) {
-                    var subProductBettypes = [];
-                    angular.forEach($scope.selectedBettypes, function (bettype) {
-                        if ($scope.CheckSubProductBettype(subProduct.Id, bettype.Id)) {
-                            subProductBettypes.push({
-                                ProductId: subProduct.ParentId,
-                                SubProductId: subProduct.Id,
-                                BettypeId: bettype.Id
-                            })
-                        }
-                    })
-
-                    if (subProductBettypes.length == 0) {
-                        subProductBettypes.push({
-                            ProductId: subProduct.ParentId,
-                            SubProductId: subProduct.Id,
-                            BettypeId: $scope.allSettings.BettypeNA.Id
-                        })
-                    }
-
-                    products = products.concat(subProductBettypes);
-                    processedProductIds.push(subProduct.ParentId);
-                })
-
-                angular.forEach($scope.selectedProducts, function (product) {
-                    if (processedProductIds.indexOf(product.Id) < 0) {
-                        products.push({
-                            ProductId: product.Id,
-                            SubProductId: $scope.allSettings.SubProductNA.Id,
-                            BettypeId: $scope.allSettings.BettypeNA.Id
-                        })
-                    }
-                })
-            }
-
-            $scope.addCustomerFeedbackParams.Products = products;
-        }
-
-        $scope.CheckCategorySubCategory = function (categoryId, subCategoryId) {
-            var flag = false;
-            angular.forEach($scope.allSettings.SubCategoryList, function (b) {
-                if (b.Id == subCategoryId && b.ParentId == categoryId) {
-                    flag = true;
-                }
-            })
-
-            return flag;
+            $scope.addCustomerFeedbackParams.Products = filterScripts.GetProductParams(
+                                                                        {
+                                                                            selectedProducts: $scope.selectedProducts,
+                                                                            selectedSubProducts: $scope.selectedSubProducts,
+                                                                            selectedBettypes: $scope.selectedBettypes
+                                                                        },
+                                                                        {
+                                                                            ProductNA: $scope.allSettings.ProductNA,
+                                                                            SubProductNA: $scope.allSettings.SubProductNA,
+                                                                            BettypeNA: $scope.allSettings.BettypeNA
+                                                                        },
+                                                                        $scope.allSettings.BettypeList);
         }
 
         $scope.GetCategoryParams = function () {
-            var categories = [];
-            angular.forEach($scope.selectedCategories, function (category) {
-                angular.forEach($scope.selectedSubCategories, function (subCategory) {
-                    if ($scope.CheckCategorySubCategory(category.Id, subCategory.Id)) {
-                        categories.push({
-                            MainCategoryID: category.Id,
-                            SubCategoryID: subCategory.Id
-                        })
-                    }
-                })
-            });
-
-            $scope.addCustomerFeedbackParams.Categories = categories;
+            $scope.addCustomerFeedbackParams.Categories = filterScripts.GetCategoryParams(
+                                                                            $scope.selectedCategories,
+                                                                            $scope.selectedSubCategories,
+                                                                            $scope.allSettings.SubCategoryList);
         }
 
         $scope.addFeedback = function () {

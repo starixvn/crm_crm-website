@@ -928,6 +928,7 @@
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
+    <Content Include="Scripts\ShareScripts\FilterScripts.js" />
     <Content Include="Scripts\ShareScripts\FixBugManager.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\NameMapping.js" />
