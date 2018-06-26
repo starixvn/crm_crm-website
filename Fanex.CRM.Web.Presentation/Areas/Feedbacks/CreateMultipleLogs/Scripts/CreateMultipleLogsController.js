@@ -593,6 +593,13 @@
                 result = false;
             }
             
+            var inValidCategories = filterScripts.CheckCategoryParams(
+                                                                        $scope.selectedCategories,
+                                                                        $scope.allSettings.SubCategoryList);
+            if (result && inValidCategories.length != 0) {
+                $scope.resultMessage = sharedScriptManager.stringFormat(viewResources.InvalidCategoryError, [inValidCategories.join(", ")]);
+                result = false;
+            }
 
             if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
                 $scope.resultMessage = viewResources.Multiple_Logs_NALanguage;

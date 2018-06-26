@@ -242,114 +242,35 @@
         };
 
         $scope.GetCommunicationParams = function () {
-            var communicationIds = [];
-            angular.forEach($scope.selectedCommunications, function (communication) {
-                communicationIds.push(communication.Id);
-            })
-
-            return communicationIds.join(",");
+            return filterScripts.GetCommunicationParams($scope.selectedCommunications);
         }
 
         $scope.GetExtensionParams = function () {
-            var extensionIds = [];
-            angular.forEach($scope.selectedExtensions, function (extension) {
-                extensionIds.push(extension.Id);
-            })
-
-            if (extensionIds.length == 0) {
-                extensionIds = [$scope.allSettings.ExtensionNA.Id];
-            }
-
-            return extensionIds.join(",");
-        }
-
-        $scope.CheckSubProductBettype = function (subProductID, bettypeId) {
-            var flag = false;
-            angular.forEach($scope.allSettings.BettypeList, function (b) {
-                if (b.Id == bettypeId && b.ParentId == subProductID) {
-                    flag = true;
-                }
-            })
-
-            return flag;
+            return filterScripts.GetExtensionParams(
+                                                    $scope.selectedExtensions,
+                                                    $scope.allSettings.ExtensionNA);
         }
 
         $scope.GetProductParams = function () {
-            var products = [];
-            if ($scope.selectedProducts.length == 0) {
-                products = [
-                   {
-                       ProductId: $scope.allSettings.ProductNA.Id,
-                       SubProductId: $scope.allSettings.SubProductNA.Id,
-                       BettypeId: $scope.allSettings.BettypeNA.Id
-                   }
-                ];
-            }
-            else {
-                var processedProductIds = [];
-                angular.forEach($scope.selectedSubProducts, function (subProduct) {
-                    var subProductBettypes = [];
-                    angular.forEach($scope.selectedBettypes, function (bettype) {
-                        if ($scope.CheckSubProductBettype(subProduct.Id, bettype.Id)) {
-                            subProductBettypes.push({
-                                ProductId: subProduct.ParentId,
-                                SubProductId: subProduct.Id,
-                                BettypeId: bettype.Id
-                            })
-                        }
-                    })
-
-                    if (subProductBettypes.length == 0) {
-                        subProductBettypes.push({
-                            ProductId: subProduct.ParentId,
-                            SubProductId: subProduct.Id,
-                            BettypeId: $scope.allSettings.BettypeNA.Id
-                        })
-                    }
-
-                    products = products.concat(subProductBettypes);
-                    processedProductIds.push(subProduct.ParentId);
-                })
-
-                angular.forEach($scope.selectedProducts, function (product) {
-                    if (processedProductIds.indexOf(product.Id) < 0) {
-                        products.push({
-                            ProductId: product.Id,
-                            SubProductId: $scope.allSettings.SubProductNA.Id,
-                            BettypeId: $scope.allSettings.BettypeNA.Id
-                        })
-                    }
-                })
-            }
-
-            return products;
-        }
-
-        $scope.CheckCategorySubCategory = function (categoryId, subCategoryId) {
-            var flag = false;
-            angular.forEach($scope.allSettings.SubCategoryList, function (b) {
-                if (b.Id == subCategoryId && b.ParentId == categoryId) {
-                    flag = true;
-                }
-            })
-
-            return flag;
+            return filterScripts.GetProductParams(
+                                                    {
+                                                        selectedProducts: $scope.selectedProducts,
+                                                        selectedSubProducts: $scope.selectedSubProducts,
+                                                        selectedBettypes: $scope.selectedBettypes
+                                                    },
+                                                    {
+                                                        ProductNA: $scope.allSettings.ProductNA,
+                                                        SubProductNA: $scope.allSettings.SubProductNA,
+                                                        BettypeNA: $scope.allSettings.BettypeNA
+                                                    },
+                                                    $scope.allSettings.BettypeList);
         }
 
         $scope.GetCategoryParams = function () {
-            var categories = [];
-            angular.forEach($scope.selectedCategories, function (category) {
-                angular.forEach($scope.selectedSubCategories, function (subCategory) {
-                    if ($scope.CheckCategorySubCategory(category.Id, subCategory.Id)) {
-                        categories.push({
-                            MainCategoryID: category.Id,
-                            SubCategoryID: subCategory.Id
-                        })
-                    }
-                })
-            });
-
-            return categories;
+            return filterScripts.GetCategoryParams(
+                                                    $scope.selectedCategories,
+                                                    $scope.selectedSubCategories,
+                                                    $scope.allSettings.SubCategoryList);
         }
 
         $scope.editMultipleLogs = function () {
@@ -456,6 +377,14 @@
 
             if (result && criteria.Categories.length == 0) {
                 $scope.resultMessage = viewResources.Error_NA_MainSubCategory;
+                result = false;
+            }
+
+            var inValidCategories = filterScripts.CheckCategoryParams(
+                                                                        $scope.selectedCategories,
+                                                                        $scope.allSettings.SubCategoryList);
+            if (result && inValidCategories.length != 0) {
+                $scope.resultMessage = sharedScriptManager.stringFormat(viewResources.InvalidCategoryError, [inValidCategories.join(", ")]);
                 result = false;
             }
 

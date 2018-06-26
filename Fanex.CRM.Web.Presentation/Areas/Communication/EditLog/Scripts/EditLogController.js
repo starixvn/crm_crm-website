@@ -503,6 +503,14 @@
                 result = false;
             }
 
+            var inValidCategories = filterScripts.CheckCategoryParams(
+                                                                        $scope.selectedCategories,
+                                                                        $scope.allSettings.SubCategoryList);
+            if (result && inValidCategories.length != 0) {
+                $scope.resultMessage = sharedScriptManager.stringFormat(viewResources.InvalidCategoryError, [inValidCategories.join(", ")]);
+                result = false;
+            }
+
             if (result && criteria.Subject === '') {
                 $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
                 result = false;
