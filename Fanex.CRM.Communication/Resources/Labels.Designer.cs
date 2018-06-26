@@ -484,6 +484,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category..
+        /// </summary>
+        public static string InvalidCategoryError {
+            get {
+                return ResourceManager.GetString("InvalidCategoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {

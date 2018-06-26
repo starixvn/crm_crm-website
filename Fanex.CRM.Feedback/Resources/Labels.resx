@@ -569,4 +569,7 @@
   <data name="Error_NA_MainSubCategory" xml:space="preserve">
     <value>Main Category - Sub Category is mandatory!</value>
   </data>
+  <data name="InvalidCategoryError" xml:space="preserve">
+    <value>There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category.</value>
+  </data>
 </root>

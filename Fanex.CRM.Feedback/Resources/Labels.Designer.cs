@@ -583,6 +583,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category..
+        /// </summary>
+        public static string InvalidCategoryError {
+            get {
+                return ResourceManager.GetString("InvalidCategoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is Related to Customer.
         /// </summary>
         public static string IsRelatedCustomer {

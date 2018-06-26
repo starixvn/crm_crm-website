@@ -204,6 +204,24 @@ var FilterScript = function () {
 
         return categories;
     }
+
+    self.CheckCategoryParams = function (selectedCategories, selectedSubCategories, subCategoryList) {
+        var inValidCategories = [];
+        angular.forEach(selectedCategories, function (category) {
+            var validCategory = false;
+            angular.forEach(selectedSubCategories, function (subCategory) {
+                if (self.CheckCategorySubCategory(category.Id, subCategory.Id, subCategoryList)) {
+                    validCategory = true;
+                }
+            })
+
+            if (!validCategory) {
+                inValidCategories.push(category.Name);
+            }
+        });
+
+        return inValidCategories;
+    }
 };
 
 filterScripts = new FilterScript();
