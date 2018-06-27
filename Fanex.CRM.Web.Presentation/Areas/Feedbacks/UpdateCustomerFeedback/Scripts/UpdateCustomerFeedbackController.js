@@ -463,6 +463,7 @@
 
             var inValidCategories = filterScripts.CheckCategoryParams(
                                                                         $scope.selectedCategories,
+                                                                        $scope.selectedSubCategories,
                                                                         $scope.allSettings.SubCategoryList);
             if (inValidCategories.length != 0) {
                 $scope.errorMessage(sharedScriptManager.stringFormat(updateFeedbackResources.InvalidCategoryError, [inValidCategories.join(", ")]));
