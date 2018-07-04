@@ -117,7 +117,7 @@ namespace Fanex.CRM.Report.Controllers
             var jsonResult = Json(new
             {
                 Report = _logStatisticsService.GetReportDetail(criteria),
-                MainCategory = _serviceSetting.GetAllMainCategories(),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 ExtensionList = _serviceSetting.GetAllExtensions(),
                 ProductList = _serviceSetting.GetProducts(),
@@ -152,7 +152,7 @@ namespace Fanex.CRM.Report.Controllers
 
             var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
 
-            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             var communicationToolList = _serviceSetting.GetAllCommunicationTools();
             var extensionList = _serviceSetting.GetAllExtensions();
             var productList = _serviceSetting.GetProducts();

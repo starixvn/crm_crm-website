@@ -278,7 +278,7 @@ unused: vars */
             logStatisticsService.getDetailReport($scope.detailReportCriteria)
                 .then(function (data) {
                     $scope.detailReportOptions.DataList = data.Result.Report;
-                    $scope.detailReportOptions.mainCategory = data.Result.MainCategory;
+                    $scope.detailReportOptions.mainCategory = data.Result.MainCategories;
                     $scope.detailReportOptions.CommunicationToolList = data.Result.CommunicationToolList;
                     $scope.detailReportOptions.ExtensionList = data.Result.ExtensionList;
                     $scope.detailReportOptions.ProductList = data.Result.ProductList;

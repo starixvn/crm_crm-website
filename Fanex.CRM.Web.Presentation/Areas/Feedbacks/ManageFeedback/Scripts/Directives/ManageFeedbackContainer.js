@@ -92,7 +92,7 @@
 
             var totalItems = report.TotalItems;
             var feedbacks = totalItems > 0 ? report.Feedbacks : [];
-            var bodyData = getGridBody(feedbacks, report.MainCategory);
+            var bodyData = getGridBody(feedbacks, report.MainCategories);
             gridOptions = getGridOptions(scope, bodyData, totalItems);
 
             tableManageFeedback = element.find('#table-manage-feedback');

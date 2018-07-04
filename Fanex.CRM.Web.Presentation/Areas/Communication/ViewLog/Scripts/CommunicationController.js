@@ -49,7 +49,7 @@
             $communicationService.getLogsByCustomerId(getLogByCustomerIdParams)
             .then(function (data) {
                 $scope.logs = data.Result.Logs.Logs;
-                $scope.mainCategory = data.Result.MainCategory;
+                $scope.mainCategory = data.Result.MainCategories;
                 $scope.unblockUI();
             },
             function () {
@@ -246,7 +246,7 @@
             $communicationService.getLogsByCustomerId(searchLogsCriteria)
             .then(function (data) {
                 $scope.logs = data.Result.Logs.Logs;
-                $scope.mainCategory = data.Result.MainCategory;
+                $scope.mainCategory = data.Result.MainCategories;
                 $scope.isSearched = true;
                 $scope.unblockUI();
             },

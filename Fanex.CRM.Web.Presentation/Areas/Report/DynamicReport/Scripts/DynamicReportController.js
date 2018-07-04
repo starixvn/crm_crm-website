@@ -531,7 +531,7 @@
             $dynamicReportService.getDynamicReport(getReportCriteria)
             .then(function (data) {
                 $scope.dynamicReportOptions.DataList = data.Result.Logs;
-                $scope.dynamicReportOptions.mainCategory = data.Result.MainCategory;
+                $scope.dynamicReportOptions.mainCategory = data.Result.MainCategories;
                 $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },

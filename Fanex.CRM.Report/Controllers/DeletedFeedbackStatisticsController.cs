@@ -49,14 +49,14 @@ namespace Fanex.CRM.Report.Controllers
             return Json(new
             {
                 ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
-                MainCategory = _serviceSetting.GetAllMainCategories()
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
             });
         }
 
         public void ExportReport(DeletedFeedbackStatisticsCriteria criteria)
         {
             var report = _deletedFeedbackStatisticsService.GetReport(criteria);
-            var mainCategories = _serviceSetting.GetAllMainCategories();
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
 
             var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
             BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);

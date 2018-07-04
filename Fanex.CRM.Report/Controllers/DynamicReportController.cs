@@ -78,7 +78,7 @@ namespace Fanex.CRM.Report.Controllers
             var logs = _dynamicReportService.GetDynamicReport(criteria);
             var result = new
             {
-                MainCategory = _serviceSetting.GetAllMainCategories(),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
                 Logs = logs
             };
 
@@ -87,7 +87,7 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            var mainCategory = _serviceSetting.GetAllMainCategories();
+            var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
             return new EmptyResult();
         }

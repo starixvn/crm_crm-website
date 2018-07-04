@@ -154,7 +154,7 @@ namespace Fanex.CRM.Communication.Controllers
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var result = new
             {
-                MainCategory = _serviceSetting.GetAllMainCategories(),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
                 Logs = logs
             };
 

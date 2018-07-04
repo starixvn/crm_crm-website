@@ -109,7 +109,7 @@
                 .then(function (data) {
                     $scope.isLoadedCommunicationLogs = true;
                     $scope.communicationLogs = data.Result.CommunicationLogs;
-                    $scope.mainCategory = data.Result.MainCategory;
+                    $scope.mainCategory = data.Result.MainCategories;
                     $scope.completedLoadDashboard();
                 },
                 function () {

@@ -70,7 +70,12 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
-            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
+            var report = new
+            {
+                Feedbacks = feedbacks,
+                TotalItems = criteria.TotalRows,
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+            };
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 
@@ -103,7 +108,8 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Title = title.Trim(),
                     Feedbacks = feedbacks,
-                    Settings = _feedbackService.GetAllSettings()
+                    Settings = _feedbackService.GetAllSettings(),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);
         }
@@ -120,7 +126,12 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
-            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalItems };
+            var report = new
+            {
+                Feedbacks = feedbacks,
+                TotalItems = criteria.TotalItems,
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+            };
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 
@@ -139,7 +150,7 @@ namespace Fanex.CRM.Feedback.Controllers
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
 
-            var mainCategories = _serviceSetting.GetAllMainCategories();
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim(), mainCategories);
             latestFeedbackExcel.BuildWorkBook();
         }
@@ -154,7 +165,7 @@ namespace Fanex.CRM.Feedback.Controllers
                                     string.Format(Labels.FromCustomer, criteria.Username);
             var title = Labels.Feedback + " " + fromCustomerText;
 
-            var mainCategories = _serviceSetting.GetAllMainCategories();
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, title.Trim());
             manageFeedbackExcel.BuildWorkBook();
         }
@@ -164,7 +175,7 @@ namespace Fanex.CRM.Feedback.Controllers
             criteria.IsExportExcel = true;
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
 
-            var mainCategories = _serviceSetting.GetAllMainCategories();
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
             deletedFeedbackExcel.BuildWorkBook();
         }

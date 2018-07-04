@@ -84,7 +84,7 @@ namespace Fanex.CRM.Common.Extensions
         private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
         {
             var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
-            return mainCategory == null ? string.Empty : mainCategory.Name;
+            return mainCategory == null ? string.Empty : mainCategory.Value;
         }
 
         private static string GetSubCategoryName(

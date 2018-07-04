@@ -79,7 +79,7 @@
 
             var totalItems = report.TotalItems;
             var feedbacks = totalItems > 0 ? report.Feedbacks : [];
-            var bodyData = getGridBody(feedbacks, report.Settings.MainCategory);
+            var bodyData = getGridBody(feedbacks, report.MainCategories);
             gridOptions = getGridOptions(scope, bodyData, totalItems);
 
             tableDeletedFeedback = element.find('#table-deleted-feedback');

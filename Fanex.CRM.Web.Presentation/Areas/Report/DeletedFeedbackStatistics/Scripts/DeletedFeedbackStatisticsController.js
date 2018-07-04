@@ -100,7 +100,7 @@ moment,currentDate, fromDateDefault, toDateDefault */
             DeletedFeedbackStatisticsService.getReport($scope.cachedSearchCriteria)
                     .then(function (data) {
                         $scope.reportOptions.DataList = data.Result.ReportData;
-                        $scope.reportOptions.mainCategory = data.Result.MainCategory;
+                        $scope.reportOptions.mainCategory = data.Result.MainCategories;
                         $scope.reportOptions.IsUpdateGrid = true;
 
                         $uiBlockerService.unblockUI();

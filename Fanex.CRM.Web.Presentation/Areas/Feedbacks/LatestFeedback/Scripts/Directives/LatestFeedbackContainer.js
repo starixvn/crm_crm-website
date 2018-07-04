@@ -53,7 +53,7 @@
             if (!report) { return; }
 
             var feedbacks = report.Feedbacks;
-            var bodyData = getGridBody(feedbacks, report.Settings.MainCategory);
+            var bodyData = getGridBody(feedbacks, report.MainCategories);
 
             gridOptions = gridOptions || getGridOptions();
             gridOptions.bodyRows = bodyData;

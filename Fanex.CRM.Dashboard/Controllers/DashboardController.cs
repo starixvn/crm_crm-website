@@ -111,7 +111,7 @@ namespace Fanex.CRM.Dashboard.Controllers
             var result = new
             {
                 CommunicationLogs = communicationLogs,
-                MainCategory = _serviceSetting.GetAllMainCategories()
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

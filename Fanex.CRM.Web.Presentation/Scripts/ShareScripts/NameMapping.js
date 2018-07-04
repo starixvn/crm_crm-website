@@ -5,7 +5,7 @@ var NameMapping = function () {
     self.getMainCategoryName = function(mainCategoryId, mainCategories) {
         for (var i = 0; i < mainCategories.length; i++) {
             if (mainCategories[i].Id == mainCategoryId) {
-                return mainCategories[i].Name;
+                return mainCategories[i].Value;
             }
         }
     }

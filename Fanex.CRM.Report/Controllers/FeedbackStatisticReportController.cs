@@ -67,7 +67,7 @@ namespace Fanex.CRM.Report.Controllers
             var result = new
             {
                 Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
-                MainCategory = _serviceSetting.GetAllMainCategories()
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -75,7 +75,7 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var mainCategories = _serviceSetting.GetAllMainCategories();
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
             _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
             return new EmptyResult();
         }
