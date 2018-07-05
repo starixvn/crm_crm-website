@@ -13,7 +13,7 @@
 
                 scope.searchCriteria.PageIndex = page_index;
                 scope.searchCriteria.ItemsPerPage = itemsPerPage;
-                scope.searchManageFeedback();
+                scope.searchDeletedFeedback();
                 return false;
             }
 
