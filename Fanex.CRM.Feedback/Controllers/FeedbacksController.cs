@@ -103,7 +103,7 @@ namespace Fanex.CRM.Feedback.Controllers
                                     string.Empty;
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
 
-            return Json(
+            var jsonResult = Json(
                 new
                 {
                     Title = title.Trim(),
@@ -112,6 +112,9 @@ namespace Fanex.CRM.Feedback.Controllers
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);
+
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         [HttpGet]
