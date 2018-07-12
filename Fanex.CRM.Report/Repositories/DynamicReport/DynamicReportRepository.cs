@@ -31,10 +31,10 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var communications = new List<DynamicReportInfo>();
+                    var feedbacks = new List<DynamicReportInfo>();
                     while (reader.Read())
                     {
-                        communications.Add(ReadDynamicReportInfo(reader));
+                        feedbacks.Add(ReadDynamicReportInfo(reader));
                     }
 
                     var settings = new List<SettingItem>();
@@ -51,13 +51,24 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                         }
                     }
 
-                    communications = communications.Select(l =>
-                    {
-                        l.Settings = settings.Where(s => s.FeedbackID == l.RunningNumber).ToList();
-                        return l;
-                    }).ToList();
+                    var groups = from f in feedbacks
+                                 join s in settings on f.RunningNumber equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.RunningNumber into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
 
-                    return communications;
+                    var result = new List<DynamicReportInfo>();
+                    foreach (var i in groups)
+                    {
+                        i.feedback.Settings = i.settings.ToList();
+                        result.Add(i.feedback);
+                    }
+
+                    return result;
                 }
             }
         }

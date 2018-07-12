@@ -37,6 +37,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
             {
                 using (var reader = objDb.ExecuteReader(criteria.GetSpParams()))
                 {
+                    var feedbacks = new List<StatisticsDetailbyDateModel>();
                     while (reader.Read())
                     {
                         StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
@@ -92,7 +93,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
 
-                        result.Add(statisticsDetail);
+                        feedbacks.Add(statisticsDetail);
                     }
 
                     var settings = new List<SettingItem>();
@@ -111,11 +112,21 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         }
                     }
 
-                    result = result.Select(l =>
+                    var groups = from f in feedbacks
+                                 join s in settings on f.FeedbackID equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.FeedbackID into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
+
+                    foreach (var i in groups)
                     {
-                        l.Settings = settings.Where(s => s.FeedbackID == l.FeedbackID).ToList();
-                        return l;
-                    }).ToList();
+                        i.feedback.Settings = i.settings;
+                        result.Add(i.feedback);
+                    }
                 }
 
                 var outputParams = objDb.GetOuputParams();

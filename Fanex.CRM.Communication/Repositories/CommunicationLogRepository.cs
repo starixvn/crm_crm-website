@@ -34,12 +34,12 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var logs = new List<BaseCommunicationLog>();
+                    var feedbacks = new List<BaseCommunicationLog>();
                     while (reader.Read())
                     {
                         var log = MappingDataFromSqlToLogInfoObject(reader);
                         log.CustomerId = criteria.CustomerId;
-                        logs.Add(log);
+                        feedbacks.Add(log);
                     }
 
                     var settings = new List<SettingItem>();
@@ -56,13 +56,24 @@ namespace Fanex.CRM.Communication.Repositories
                         }
                     }
 
-                    logs = logs.Select(l =>
-                    {
-                        l.Settings = settings.Where(s => s.FeedbackID == l.RunningNumber).ToList();
-                        return l;
-                    }).ToList();
+                    var groups = from f in feedbacks
+                                 join s in settings on f.RunningNumber equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.RunningNumber into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
 
-                    return logs;
+                    var result = new List<BaseCommunicationLog>();
+                    foreach (var i in groups)
+                    {
+                        i.feedback.Settings = i.settings.ToList();
+                        result.Add(i.feedback);
+                    }
+
+                    return result;
                 }
             }
         }

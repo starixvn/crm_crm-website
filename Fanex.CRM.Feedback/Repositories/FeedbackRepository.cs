@@ -34,14 +34,25 @@ namespace Fanex.CRM.Feedback.Repositories
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var feebbacks = multi.Read<FeedbackDetail>();
+                    var feedbacks = multi.Read<FeedbackDetail>();
                     var settings = multi.Read<SettingItem>();
 
-                    feebbacks = feebbacks.Select(f =>
+                    var groups = from f in feedbacks
+                                 join s in settings on f.FeedbackId equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.FeedbackId into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
+
+                    var result = new List<FeedbackDetail>();
+                    foreach (var i in groups)
                     {
-                        f.Settings = settings.Where(s => s.FeedbackID == f.FeedbackId).ToList();
-                        return f;
-                    });
+                        i.feedback.Settings = i.settings.ToList();
+                        result.Add(i.feedback);
+                    }
 
                     var outputParams = db.GetOuputParams();
                     if (outputParams.Count != 0)
@@ -49,7 +60,7 @@ namespace Fanex.CRM.Feedback.Repositories
                         criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
                     }
 
-                    return feebbacks;
+                    return result;
                 }
             }
         }
@@ -60,16 +71,27 @@ namespace Fanex.CRM.Feedback.Repositories
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var feebbacks = multi.Read<DeletedFeedback>();
+                    var feedbacks = multi.Read<DeletedFeedback>();
                     var settings = multi.Read<SettingItem>();
 
-                    feebbacks = feebbacks.Select(f =>
-                    {
-                        f.Settings = settings.Where(s => s.FeedbackID == f.FeedbackId).ToList();
-                        return f;
-                    });
+                    var groups = from f in feedbacks
+                                 join s in settings on f.FeedbackId equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.FeedbackId into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
 
-                    return feebbacks;
+                    var result = new List<DeletedFeedback>();
+                    foreach (var i in groups)
+                    {
+                        i.feedback.Settings = i.settings.ToList();
+                        result.Add(i.feedback);
+                    }
+
+                    return result;
                 }
             }
         }
