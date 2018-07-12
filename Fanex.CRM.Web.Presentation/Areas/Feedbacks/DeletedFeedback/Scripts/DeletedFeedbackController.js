@@ -79,14 +79,17 @@
 
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
+
+            var maxToDate = new Date(selectedDate.getTime());
+            maxToDate.setMonth(selectedDate.getMonth() + 12);
+            maxToDate.setDate(selectedDate.getDate() - 1);
             $scope.toDateOptions.MinDate = selectedDate;
+            $scope.toDateOptions.MaxDate = (maxToDate < currentTime) ? maxToDate : currentTime;
             $scope.updateToDatePicker(true);
         };
 
         $scope.updateToDate = function (selectedDate) {
             $scope.searchCriteria.ToDate = selectedDate;
-            $scope.fromDateOptions.MaxDate = selectedDate;
-            $scope.updateFromDatePicker(true);
         };
 
         $scope.updateSelectedMainCategory = function (mainCategory) {
@@ -100,18 +103,6 @@
             $scope.searchCriteria.SubCategory = subCategory;
             $scope.$apply();
         };
-
-    $scope.updateFromDate = function (selectedDate) {
-        $scope.searchCriteria.FromDate = selectedDate;
-        $scope.toDateOptions.MinDate = selectedDate;
-        $scope.updateToDatePicker(true);
-    };
-
-    $scope.updateToDate = function (selectedDate) {
-        $scope.searchCriteria.ToDate = selectedDate;
-        $scope.fromDateOptions.MaxDate = selectedDate;
-        $scope.updateFromDatePicker(true);
-    };
 
     $scope.updateSelectedMainCategory = function (mainCategory) {
         $scope.searchCriteria.MainCategory = mainCategory;        

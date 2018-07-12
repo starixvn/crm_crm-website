@@ -40,17 +40,17 @@
 
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {
-                CurrentDate: currentDate,
+                CurrentDate: currentTime,
                 InitDate: yesterday,
-                MaxDate: currentDate,
+                MaxDate: currentTime,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateFromDate
             };
 
             $scope.toDateOptions = {
-                CurrentDate: currentDate,
-                InitDate: currentDate,
-                MaxDate: currentDate,
+                CurrentDate: currentTime,
+                InitDate: currentTime,
+                MaxDate: currentTime,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateToDate
             };
@@ -75,14 +75,17 @@
 
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
+
+            var maxToDate = new Date(selectedDate.getTime());
+            maxToDate.setMonth(selectedDate.getMonth() + 12);
+            maxToDate.setDate(selectedDate.getDate() - 1);
             $scope.toDateOptions.MinDate = selectedDate;
+            $scope.toDateOptions.MaxDate = (maxToDate < currentTime) ? maxToDate : currentTime;
             $scope.updateToDatePicker(true);
         };
 
         $scope.updateToDate = function (selectedDate) {
             $scope.searchCriteria.ToDate = selectedDate;
-            $scope.fromDateOptions.MaxDate = selectedDate;
-            $scope.updateFromDatePicker(true);
         };
 
         $scope.updateSelectedMainCategory = function (mainCategory) {

@@ -88,11 +88,15 @@ unused: vars */
                 IsRerenderPicker: false,
                 OnChangeDateEvent: function (selectedDate) {
                     $scope.searchCriteria.FromDate = moment(selectedDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+                    
                     if ($scope.toDateOptions) {
-                        $scope.toDateOptions.MinDate = selectedDate && selectedDate !== '' ? selectedDate : null;
+                        var maxToDate = new Date(selectedDate.getTime());
+                        maxToDate.setMonth(selectedDate.getMonth() + 12);
+                        maxToDate.setDate(selectedDate.getDate() - 1);
+                        $scope.toDateOptions.MinDate = selectedDate;
+                        $scope.toDateOptions.MaxDate = (maxToDate < currentDate) ? maxToDate : currentDate;
+                        $scope.updateToDatePicker(true);
                     }
-
-                    $scope.updateToDatePicker(true);
                 },
                 IsAllowNullDate: true,
                 YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
@@ -105,9 +109,7 @@ unused: vars */
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: function (selectedDate) {
-                    $scope.searchCriteria.ToDate = moment(selectedDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
-                    $scope.fromDateOptions.MaxDate = selectedDate && selectedDate !== '' ? selectedDate : null;
-                    $scope.updateFromDatePicker(true);
+                    $scope.searchCriteria.ToDate = moment(selectedDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);                    
                 },
                 IsAllowNullDate: true,
                 YearRange: sharedScriptManager.cachedData.yearRangeDatePicker

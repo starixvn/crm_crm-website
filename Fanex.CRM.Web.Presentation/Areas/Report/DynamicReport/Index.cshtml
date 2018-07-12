@@ -232,6 +232,7 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var currentTime = new Date(currentDate);
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
             All: '@Labels.All',
