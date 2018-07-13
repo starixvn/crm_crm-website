@@ -20,6 +20,7 @@
         $scope.fromWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
+            MinDate: new Date(currentTime.getFullYear() - 50, currentTime.getMonth(), currentTime.getDate()),
             MaxDate: currentDate,
             IsRerenderPicker: false,
             OnChangeDateEvent: $scope.updateFromWeek
@@ -28,6 +29,7 @@
         $scope.toWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
+            MinDate: new Date(currentTime.getFullYear() - 50, currentTime.getMonth(), currentTime.getDate()),
             MaxDate: currentDate,
             IsRerenderPicker: false,
             OnChangeDateEvent: $scope.updateToWeek

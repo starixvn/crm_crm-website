@@ -9,12 +9,9 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
         function ngModelChange(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
             selfScope = scope;
-            var picker = element.find("#" + registerParams.PickerId);
-            picker.on('change', function () {
-                picker.weekpicker('onSelect', onChangeDateEvent);
-            });
-
+            var picker = element.find("#" + registerParams.PickerId);            
             picker.weekpicker('onSelect', onChangeDateEvent);
+            setLimitDate(scope, options, picker);
             isAlreadyApply = false;
         }
 
@@ -23,6 +20,20 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
             if (options.OnChangeDateEvent &&
                 typeof (options.OnChangeDateEvent) === "function") {
                 options.OnChangeDateEvent(fromDate, toDate, picker, isAlreadyApply);
+            }
+        }
+
+        function setLimitDate(scope, options, picker) {
+            if (options && options.MinDate) {
+                picker.updateWeekPicker("minDate", new Date(options.MinDate))
+            }
+
+            if (options && options.MaxDate) {
+                picker.updateWeekPicker("maxDate", new Date(options.MaxDate))
+            }
+
+            if (options && options.CurrentDate) {
+                picker.setWeekPicker(new Date(options.CurrentDate));                
             }
         }
 

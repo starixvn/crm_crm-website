@@ -238,33 +238,46 @@
         $scope.updateFromWeek = function (fromDate, toDate, picker, isAlreadyApply) {
             /* jshint unused: false */
             $scope.searchCriteria.FromDate = fromDate;
-
+            
             var maxToDate = new Date(fromDate.getTime());
             maxToDate.setMonth(fromDate.getMonth() + 12);
             maxToDate.setDate(fromDate.getDate() - 1);
-            $scope.toWeekOptions.MinDate = fromDate;
-            $scope.toWeekOptions.MaxDate = (maxToDate < currentTime) ? maxToDate : currentTime;
-            //$scope.updateToWeekPicker();
-            $scope.toWeekOptions.IsRerenderPicker = true;
-            console.log("update week");
+            var maxToDateEndWeek = new Date(maxToDate.getFullYear(), maxToDate.getMonth(), 1);
+            maxToDateEndWeek.setDate(maxToDate.getDate() - maxToDate.getDay() + 6);
+            maxToDate = maxToDateEndWeek;
 
+            var currentToDate = $scope.searchCriteria.ToDate;
+            if (currentToDate < fromDate) {
+                currentToDate = fromDate;
+            }
+            else if (currentToDate > maxToDate) {
+                currentToDate = maxToDate;
+            }
+            $scope.searchCriteria.ToDate = currentToDate;
+
+            $scope.toWeekOptions = {
+                CurrentDate: currentToDate,
+                InitDate: initFromDate,
+                MinDate: fromDate,
+                MaxDate: (maxToDate < currentTime) ? maxToDate : currentTime,
+                IsRerenderPicker: false,
+                OnChangeDateEvent: $scope.updateToWeek
+            };
+
+            $scope.toWeekOptions.IsRerenderPicker = true;
             if (!isAlreadyApply) {
                 $scope.$apply();
             }
         };
         $scope.updateToWeek = function (fromDate, toDate, picker, isAlreadyApply) {
+            console.log("update to week");
             /* jshint unused: false */
             $scope.searchCriteria.ToDate = toDate;
             if (!isAlreadyApply) {
                 $scope.$apply();
             }
         };
-        $scope.updateToWeekPicker = function () {
-            $scope.toWeekOptions.IsRerenderPicker = true;
-            if (!$scope.$$phase) {
-                $scope.$apply();
-            }
-        };
+       
         $scope.updateFromMonth = function (month, year, isAlreadyApply) {
             var selectedDate = new Date(year, month - 1, 1);
             var selectedYear = selectedDate.getFullYear();
