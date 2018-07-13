@@ -270,7 +270,6 @@
             }
         };
         $scope.updateToWeek = function (fromDate, toDate, picker, isAlreadyApply) {
-            console.log("update to week");
             /* jshint unused: false */
             $scope.searchCriteria.ToDate = toDate;
             if (!isAlreadyApply) {
