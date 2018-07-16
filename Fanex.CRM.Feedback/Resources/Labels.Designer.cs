@@ -259,6 +259,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max length of Description is 32,700!.
+        /// </summary>
+        public static string DescriptionMaxLengthError {
+            get {
+                return ResourceManager.GetString("DescriptionMaxLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -1191,6 +1200,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Solution {
             get {
                 return ResourceManager.GetString("Solution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max length of Solution is 32,700!.
+        /// </summary>
+        public static string SolutionMaxLengthError {
+            get {
+                return ResourceManager.GetString("SolutionMaxLengthError", resourceCulture);
             }
         }
         

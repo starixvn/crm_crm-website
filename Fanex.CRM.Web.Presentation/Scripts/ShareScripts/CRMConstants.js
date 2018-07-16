@@ -151,6 +151,8 @@ var CRMConstants = function () {
                        'May', 'June', 'July', 'August',
                        'September', 'October', 'November', 'December'];
     self.MarginBottomPage = 15;
+
+    self.MaxDescLength = 32700;
 };
 
 var crmConstants = new CRMConstants();
