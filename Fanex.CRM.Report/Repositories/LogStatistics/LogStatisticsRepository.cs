@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -32,12 +33,13 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
              Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<StatisticsDetailbyDateModel> GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
+            var feedbacks = new List<StatisticsDetailbyDateModel>();
+            var settings = new List<SettingItem>();
             var result = new List<StatisticsDetailbyDateModel>();
             using (var objDb = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objDb.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var feedbacks = new List<StatisticsDetailbyDateModel>();
                     while (reader.Read())
                     {
                         StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
@@ -96,7 +98,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         feedbacks.Add(statisticsDetail);
                     }
 
-                    var settings = new List<SettingItem>();
+
                     if (reader.NextResult())
                     {
                         while (reader.Read())
@@ -133,7 +135,23 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                 criteria.TotalRows = (int)outputParams["totalrows"];
             }
 
-            return result;
+            return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+        }
+
+        private IEnumerable<StatisticsDetailbyDateModel> GenerateFeedBackDetailWithSetting(IEnumerable<StatisticsDetailbyDateModel> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<StatisticsDetailbyDateModel, List<SettingItem>, StatisticsDetailbyDateModel> regenerateFeedBackDetail = delegate (StatisticsDetailbyDateModel f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackID equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackID into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
 
         private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, string prefix)

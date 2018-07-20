@@ -98,24 +98,7 @@ namespace Fanex.CRM.Dashboard.Repositories
                         }
                     }
 
-                    var groups = from f in feedbacks
-                                 join s in settings on f.RunningNumber equals s.FeedbackID
-                                 select new { f, s } into t1
-                                 group t1 by t1.f.RunningNumber into g
-                                 select new
-                                 {
-                                     feedback = g.FirstOrDefault().f,
-                                     settings = g.Select(r => r.s)
-                                 };
-
-                    var result = new List<CommunicationLogInfo>();
-                    foreach (var i in groups)
-                    {
-                        i.feedback.Settings = i.settings.ToList();
-                        result.Add(i.feedback);
-                    }
-
-                    return result;
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -201,6 +184,22 @@ namespace Fanex.CRM.Dashboard.Repositories
             };
 
             return communicationLog;
+        }
+
+        private IEnumerable<CommunicationLogInfo> GenerateFeedBackDetailWithSetting(IEnumerable<CommunicationLogInfo> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<CommunicationLogInfo, List<SettingItem>, CommunicationLogInfo> regenerateFeedBackDetail = delegate (CommunicationLogInfo f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.RunningNumber equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.RunningNumber into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -44,26 +45,25 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
                     var feedbacks = multi.Read<FeedbackDetail>();
                     var settings = multi.Read<SettingItem>();
 
-                    var groups = from f in feedbacks
-                                 join s in settings on f.FeedbackId equals s.FeedbackID
-                                 select new { f, s } into t1
-                                 group t1 by t1.f.FeedbackId into g
-                                 select new
-                                 {
-                                     feedback = g.FirstOrDefault().f,
-                                     settings = g.Select(r => r.s)
-                                 };
-
-                    var result = new List<FeedbackDetail>();
-                    foreach (var i in groups)
-                    {
-                        i.feedback.Settings = i.settings.ToList();
-                        result.Add(i.feedback);
-                    }
-
-                    return result;
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
+        }
+
+        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
 
         private static FeedbackStatistic ReadFeedbackStatistic(IDataReader reader)

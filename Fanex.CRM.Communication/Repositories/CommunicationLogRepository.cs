@@ -18,6 +18,7 @@ namespace Fanex.CRM.Communication.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -56,24 +57,7 @@ namespace Fanex.CRM.Communication.Repositories
                         }
                     }
 
-                    var groups = from f in feedbacks
-                                 join s in settings on f.RunningNumber equals s.FeedbackID
-                                 select new { f, s } into t1
-                                 group t1 by t1.f.RunningNumber into g
-                                 select new
-                                 {
-                                     feedback = g.FirstOrDefault().f,
-                                     settings = g.Select(r => r.s)
-                                 };
-
-                    var result = new List<BaseCommunicationLog>();
-                    foreach (var i in groups)
-                    {
-                        i.feedback.Settings = i.settings.ToList();
-                        result.Add(i.feedback);
-                    }
-
-                    return result;
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -230,6 +214,22 @@ namespace Fanex.CRM.Communication.Repositories
             };
 
             return logInfo;
+        }
+
+        private IEnumerable<BaseCommunicationLog> GenerateFeedBackDetailWithSetting(IEnumerable<BaseCommunicationLog> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<BaseCommunicationLog, List<SettingItem>, BaseCommunicationLog> regenerateFeedBackDetail = delegate (BaseCommunicationLog f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.RunningNumber equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.RunningNumber into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }
