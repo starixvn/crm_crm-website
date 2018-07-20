@@ -24,7 +24,6 @@ namespace Fanex.CRM.Common.Models
         {
             this.Settings = new List<SettingItem>();
         }
-
         public int FeedbackId { get; set; }
 
         public string Username { get; set; }

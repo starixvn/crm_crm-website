@@ -18,6 +18,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Infrastructure.Models;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -27,6 +28,22 @@ namespace Fanex.CRM.Feedback.Repositories
     /// </summary>
     public class FeedbackRepository : BaseRepository, IFeedbackRepository
     {
+        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
+        }
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria)
         {
@@ -37,30 +54,13 @@ namespace Fanex.CRM.Feedback.Repositories
                     var feedbacks = multi.Read<FeedbackDetail>();
                     var settings = multi.Read<SettingItem>();
 
-                    var groups = from f in feedbacks
-                                 join s in settings on f.FeedbackId equals s.FeedbackID
-                                 select new { f, s } into t1
-                                 group t1 by t1.f.FeedbackId into g
-                                 select new
-                                 {
-                                     feedback = g.FirstOrDefault().f,
-                                     settings = g.Select(r => r.s)
-                                 };
-
-                    var result = new List<FeedbackDetail>();
-                    foreach (var i in groups)
-                    {
-                        i.feedback.Settings = i.settings.ToList();
-                        result.Add(i.feedback);
-                    }
-
                     var outputParams = db.GetOuputParams();
                     if (outputParams.Count != 0)
                     {
                         criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
                     }
 
-                    return result;
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }
