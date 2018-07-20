@@ -106,17 +106,13 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>The setting by identifier.</returns>
         public Setting GetSettingById(GetSettingByIdCriteria criteria)
         {
-            var allSettings = GetAllSettings();
-            var setting = allSettings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
-            if (setting == null)
+            var setting = GetAllSettings().Where(s => s.Id == criteria.SettingId)
+                .FirstOrDefault();
+            return setting ?? new Setting
             {
-                setting = new Setting()
-                {
-                    Value = Labels.Symbol_NotApply
-                };
-            }
+                Value = Labels.Symbol_NotApply
 
-            return setting;
+            };
         }
 
         public IEnumerable<Setting> GetAllSettings()
@@ -140,23 +136,23 @@ namespace Fanex.CRM.Setting.Services
             }
 
             var allSites = (from n in GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria())
-                                where n.IsActive
-                                group n by n.IsLicensee into g
-                                orderby g.Key 
-                                select new SiteInfo
-                                {
-                                    Id = g.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
-                                    Name = g.Key ? Labels.Licensee : Labels.Credit,
-                                    ChildSites = (from c in g
-                                                  orderby c.Name
-                                                  select new SiteInfo
-                                                  {
-                                                      Id = c.Id,
-                                                      Name = c.Name
-                                                  }).ToList()
+                            where n.IsActive
+                            group n by n.IsLicensee into g
+                            orderby g.Key
+                            select new SiteInfo
+                            {
+                                Id = g.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
+                                Name = g.Key ? Labels.Licensee : Labels.Credit,
+                                ChildSites = (from c in g
+                                              orderby c.Name
+                                              select new SiteInfo
+                                              {
+                                                  Id = c.Id,
+                                                  Name = c.Name
+                                              }).ToList()
 
-                                }).ToList();
-                                
+                            }).ToList();
+
             CacheService.Set(GetAllSiteSessionKey, allSites);
             return allSites;
         }
