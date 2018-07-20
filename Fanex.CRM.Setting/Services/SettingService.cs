@@ -139,34 +139,24 @@ namespace Fanex.CRM.Setting.Services
                 return cache;
             }
 
-            var allSites = new List<SiteInfo>();
-            var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria()).Where(s => s.IsActive);
-            var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
-            foreach (var rawDataGroup in rawDataGroups)
-            {
-                var siteGroup = new SiteInfo
-                {
-                    Id = rawDataGroup.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
-                    Name = rawDataGroup.Key ? Labels.Licensee : Labels.Credit,
-                    ChildSites = new List<SiteInfo>()
-                };
+            var allSites = (from n in GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria())
+                                where n.IsActive
+                                group n by n.IsLicensee into g
+                                orderby g.Key 
+                                select new SiteInfo
+                                {
+                                    Id = g.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
+                                    Name = g.Key ? Labels.Licensee : Labels.Credit,
+                                    ChildSites = (from c in g
+                                                  orderby c.Name
+                                                  select new SiteInfo
+                                                  {
+                                                      Id = c.Id,
+                                                      Name = c.Name
+                                                  }).ToList()
 
-                foreach (var rawDataSetting in rawDataGroup)
-                {
-                    var newSite = new SiteInfo()
-                    {
-                        Name = rawDataSetting.Name,
-                        Id = rawDataSetting.Id
-                    };
-
-                    siteGroup.ChildSites.Add(newSite);
-                }
-
-                siteGroup.ChildSites = siteGroup.ChildSites.OrderBy(s => s.Name).ToList();
-                allSites.Add(siteGroup);
-            }
-
-            allSites = allSites.OrderBy(g => g.Name).ToList();
+                                }).ToList();
+                                
             CacheService.Set(GetAllSiteSessionKey, allSites);
             return allSites;
         }
@@ -294,7 +284,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 SettingName = SettingTypeConstants.Product,
                 ParentId = 0
-            }).ToList();
+            });
 
             return products.FirstOrDefault(p => p.Value == "N/A.");
         }

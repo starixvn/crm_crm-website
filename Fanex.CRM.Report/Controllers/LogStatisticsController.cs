@@ -49,18 +49,18 @@ namespace Fanex.CRM.Report.Controllers
         {
             var products = _serviceSetting.GetProductsOnly().Select(p => new
             {
-                Id = p.Id,
+                p.Id,
                 Name = p.Value
             });
             var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
             {
-                Id = p.Id,
-                Name = p.Name
+                p.Id,
+                p.Name
             });
             var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
             {
-                Id = p.Id,
-                Name = p.Name
+                p.Id,
+                p.Name
             });
 
             var allSetting = new SettingForLogStatistics
