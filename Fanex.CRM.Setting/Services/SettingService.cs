@@ -242,7 +242,8 @@ namespace Fanex.CRM.Setting.Services
                 SettingName = SettingTypeConstants.Extension,
                 ParentId = 0
             })
-            .Where(e => e.Value != "N/A");
+            .Where(e => e.Value != "N/A")
+            .ToList();
 
             CacheService.Set(GetAllExtensionSessionKey, allExtensions);
             return allExtensions;
@@ -268,7 +269,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
-            tools = tools.Where(t => t.Name != "N/A").OrderBy(s => s.DisplayOrder);
+            tools = tools.Where(t => t.Name != "N/A").OrderBy(s => s.DisplayOrder).ToList();
             CacheService.Set(GetAllCommunicationToolSessionKey, tools);
 
             return tools;
@@ -403,7 +404,8 @@ namespace Fanex.CRM.Setting.Services
                             p.Name = p.Value;
                             p.ChildSettings = subProducts.Where(s => s.ParentId == p.Id).ToList();
                             return p;
-                        });
+                        })
+                        .ToList();
 
             CacheService.Set(GetAllProductSessionKey, products);
 
@@ -439,7 +441,8 @@ namespace Fanex.CRM.Setting.Services
                                                     .ToList();
 
                             return sp;
-                        });
+                        })
+                        .ToList();
 
             CacheService.Set(GetAllSubProductSessionKey, products);
             return products;
@@ -455,7 +458,8 @@ namespace Fanex.CRM.Setting.Services
 
             var products = GetProductsOnly()
                               .Where(p => p.Value != "N/A.")
-                              .Select(p => { p.Name = p.Value; return p; });
+                              .Select(p => { p.Name = p.Value; return p; })
+                              .ToList();
 
             CacheService.Set(GetProductsSessionKey, products);
             return products;
@@ -472,7 +476,8 @@ namespace Fanex.CRM.Setting.Services
             var subProducts = _settingRepositoryInstance
                                 .GetSubProducts(new SubProductCriteria())
                                 .Where(p => p.Value != "N/A." && p.ParentId != 0)
-                                .Select(p => { p.Name = p.Value; return p; });
+                                .Select(p => { p.Name = p.Value; return p; })
+                                .ToList();
 
             CacheService.Set(GetSubProductsSessionKey, subProducts);
             return subProducts;
@@ -545,8 +550,10 @@ namespace Fanex.CRM.Setting.Services
                 return allStatus;
             }
 
-            allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
-                .OrderBy(s => s.DisplayOrder);
+            allStatus = _settingRepositoryInstance
+                .GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
+                .OrderBy(s => s.DisplayOrder)
+                .ToList();
             CacheService.Set(key, allStatus);
 
             return allStatus;
@@ -693,7 +700,7 @@ namespace Fanex.CRM.Setting.Services
                 return cache;
             }
 
-            var licenseeTypes = _settingRepositoryInstance.GetAllLicenseeTypes(new GetAllLicenseeTypeCriteria()).ToList();
+            var licenseeTypes = _settingRepositoryInstance.GetAllLicenseeTypes(new GetAllLicenseeTypeCriteria());
             licenseeTypes.Insert(
                 0,
                 new BaseModel
@@ -721,7 +728,7 @@ namespace Fanex.CRM.Setting.Services
                 return cache;
             }
 
-            var currencies = _settingRepositoryInstance.GetAllCurrencies(criteria).ToList();
+            var currencies = _settingRepositoryInstance.GetAllCurrencies(criteria);
 
             if (hasDefaultOption)
             {
@@ -880,11 +887,11 @@ namespace Fanex.CRM.Setting.Services
             settingList.Add(setting);
         }
 
-        private IEnumerable<T> GetSettingRelationByName<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
+        private IList<T> GetSettingRelationByName<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
             var settingRelations = _settingRepositoryInstance.GetSettingRelations<T>(criteria);
 
-            return settingRelations.OrderBy(setting => setting.DisplayOrder);
+            return settingRelations.OrderBy(setting => setting.DisplayOrder).ToList();
         }
 
         private IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplates()
@@ -892,7 +899,7 @@ namespace Fanex.CRM.Setting.Services
             var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
             {
                 TemplateId = 0
-            }).Where(s => s.IsActive);
+            }).Where(s => s.IsActive).ToList();
 
             CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
             return feedbackTemplates;

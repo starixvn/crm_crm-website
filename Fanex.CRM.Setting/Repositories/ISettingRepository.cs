@@ -9,47 +9,47 @@
 
 namespace Fanex.CRM.Setting.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
+    using System.Collections.Generic;
 
     public interface ISettingRepository
     {
-        IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria);
+        IList<Setting> GetAllSettings(GetAllSettingCriteria criteria);
 
-        IEnumerable<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new();
+        IList<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new();
 
-        IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria);
+        IList<Country> GetAllCountries(GetAllCountryCriteria criteria);
 
         IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
-        IEnumerable<Setting> GetAllLanguages(GetAllLanguageCriteria criteria);
+        IList<Setting> GetAllLanguages(GetAllLanguageCriteria criteria);
 
-        IEnumerable<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria);
+        IList<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria);
 
-        IEnumerable<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
+        IList<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
 
-        IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
+        IList<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllStatus(GetAllStatusCriteria criteria);
+        IList<BaseModel> GetAllStatus(GetAllStatusCriteria criteria);
 
         IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria);
 
         IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria);
+        IList<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
         IEnumerable<Product> GetAllBetType(GetAllBetTypeCriteria criteria);
 
         IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllLicenseeTypes(GetAllLicenseeTypeCriteria criteria);
+        IList<BaseModel> GetAllLicenseeTypes(GetAllLicenseeTypeCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria);
+        IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
+        IList<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
         IEnumerable<Station> GetStations(GetStationsCriteria criteria);
 
