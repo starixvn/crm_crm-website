@@ -9,15 +9,13 @@
 
 namespace Fanex.CRM.ActionLog.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Services;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// ActionLog Controller controller.
@@ -29,7 +27,7 @@ namespace Fanex.CRM.ActionLog.Controllers
 
         public ActionLogController()
             : this(null)
-        { 
+        {
         }
 
         public ActionLogController(IActionLogService actionLogService)
@@ -37,7 +35,7 @@ namespace Fanex.CRM.ActionLog.Controllers
             _actionLogService = actionLogService ?? new ActionLogService();
         }
 
-        [HttpGet]        
+        [HttpGet]
         public ActionResult ActivityLog(int customerId)
         {
             return View("~/Areas/ActionLog/ActivityLog/Index.cshtml", customerId);
@@ -53,15 +51,18 @@ namespace Fanex.CRM.ActionLog.Controllers
         {
             var activityLogs = _actionLogService.GetActivityLogs(criteria);
 
-            return Json(
-                new 
-                { 
+            var jsonResult = Json(
+                new
+                {
                     ActivityLogs = activityLogs,
                     TotalItems = activityLogs.TotalItems
                 },
                 JsonRequestBehavior.AllowGet);
+
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
-       
+
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult SettingLog()
@@ -79,7 +80,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
             var settingLogs = _actionLogService.GetSettingLogs(criteria);
-       
+
             return Json(
                 new
                 {
