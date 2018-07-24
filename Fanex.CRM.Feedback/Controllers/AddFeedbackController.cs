@@ -60,7 +60,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
-            var languages = ServiceSetting.GetAllLanguages().ToList();
+            var languages = ServiceSetting.GetAllLanguages();
             languages.Insert(
                 0,
                 new Setting
@@ -69,7 +69,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
-            var countries = ServiceSetting.GetAllCountries().ToList();
+            var countries = ServiceSetting.GetAllCountries();
             countries.Insert(
                 0,
                 new Country

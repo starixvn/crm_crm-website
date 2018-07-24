@@ -6,9 +6,6 @@
 
 namespace Fanex.CRM.InformHeadline.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
@@ -20,6 +17,8 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
+    using System.Collections.Generic;
+    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -206,7 +205,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public IEnumerable<Status> GetProductStatuses()
         {
-            var productStatuses = _settingServices.GetInformHeadlineStatuses().ToList();
+            var productStatuses = _settingServices.GetInformHeadlineStatuses();
             if (productStatuses.Count > 0 && productStatuses[0].StatusId != 0)
             {
                 productStatuses.Insert(

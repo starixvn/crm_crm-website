@@ -49,7 +49,7 @@ namespace Fanex.CRM.Communication.Services
         {
             get
             {
-                return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+                return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             }
         }
 

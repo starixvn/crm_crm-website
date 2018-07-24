@@ -47,13 +47,13 @@ namespace Fanex.CRM.Feedback.Services
         /// </returns>
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
         {
-            var countries = _settingService.GetAllCountries().ToList();
+            var countries = _settingService.GetAllCountries();
             countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
 
-            var languages = _settingService.GetAllLanguages().ToList();
+            var languages = _settingService.GetAllLanguages();
             languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA });
 
-            var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+            var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             if (!hasDeleteFeedbackPermission)
             {
                 var deletedStatus = statusRawData.SingleOrDefault(s => string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));

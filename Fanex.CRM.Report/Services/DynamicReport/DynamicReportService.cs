@@ -91,7 +91,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Product> GetAllSubProducts()
         {
-            var subProducts = _serviceSetting.GetAllSubProducts().ToList();
+            var subProducts = _serviceSetting.GetAllSubProducts();
             var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (notApplyItem == null)
@@ -114,7 +114,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Product> GetAllProducts()
         {
-            var products = _serviceSetting.GetAllProducts().ToList();
+            var products = _serviceSetting.GetAllProducts();
             var itemProductAll = CreateItemAll();
 
             products.Insert(0, itemProductAll);
@@ -155,7 +155,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<SettingRelation> GetAllResponses()
         {
-            var data = _serviceSetting.GetAllResponses().ToList();
+            var data = _serviceSetting.GetAllResponses();
             data.Insert(
                 0,
                 new SettingRelation
@@ -169,7 +169,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<SettingRelation> GetAllRoles()
         {
-            var data = _serviceSetting.GetAllRoles().ToList();
+            var data = _serviceSetting.GetAllRoles();
             data.Insert(
                 0,
                 new SettingRelation
@@ -183,7 +183,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var rawData = _serviceSetting.GetAllCommunicationTools().ToList();
+            var rawData = _serviceSetting.GetAllCommunicationTools();
             var item = rawData.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (item == null)

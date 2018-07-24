@@ -186,7 +186,7 @@ namespace Fanex.CRM.Feedback.Services
 
         private IEnumerable<SettingRelation> GetCustomerResponse()
         {
-            var response = _serviceSetting.GetAllResponses().ToList();
+            var response = _serviceSetting.GetAllResponses();
             response.Insert(
                 0,
                 new SettingRelation

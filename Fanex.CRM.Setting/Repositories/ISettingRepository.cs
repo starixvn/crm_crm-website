@@ -17,7 +17,7 @@ namespace Fanex.CRM.Setting.Repositories
 
     public interface ISettingRepository
     {
-        IList<Setting> GetAllSettings(GetAllSettingCriteria criteria);
+        List<Setting> GetAllSettings(GetAllSettingCriteria criteria);
 
         IList<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new();
 

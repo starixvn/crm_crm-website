@@ -9,11 +9,6 @@
 
 namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Web;
     using Fanex.Common;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Extensions;
@@ -34,6 +29,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.Excel.Repositories.CustomColors;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Web;
 
     /// <summary>
     /// Dynamic Report Service.
@@ -60,7 +60,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption).ToList();
+                var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption);
 
                 int deleteIndex = -1;
                 for (int i = 0; i < statusList.Count; i++)
@@ -103,7 +103,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria()).ToList();
+                var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria());
                 currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.All });
 
                 return currencies;

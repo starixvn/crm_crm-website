@@ -17,55 +17,55 @@ namespace Fanex.CRM.Setting.Services
 
     public interface ISettingService
     {
-        IEnumerable<Setting> GetAllSettings();
+        List<Setting> GetAllSettings();
 
         Setting GetSettingById(GetSettingByIdCriteria criteria);
 
-        IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
+        IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
 
-        IEnumerable<SiteSetting> GetAllSiteWithGroup();
+        IList<SiteSetting> GetAllSiteWithGroup();
 
-        IEnumerable<SettingRelation> GetAllTitles();
+        IList<SettingRelation> GetAllTitles();
 
-        IEnumerable<Country> GetAllCountries();
+        IList<Country> GetAllCountries();
 
-        IEnumerable<Setting> GetAllLanguages();
+        IList<Setting> GetAllLanguages();
 
-        IEnumerable<SettingRelation> GetAllExtensions();
+        IList<SettingRelation> GetAllExtensions();
 
-        IEnumerable<Setting> GetAllCommunicationTools();
+        IList<Setting> GetAllCommunicationTools();
 
-        IEnumerable<Setting> GetAllMainCategories();
+        IList<Setting> GetAllMainCategories();
 
-        IEnumerable<Setting> GetAllMainCategoriesFromAllSettings();
+        IList<Setting> GetAllMainCategoriesFromAllSettings();
 
-        IEnumerable<Product> GetAllSubProducts();
+        IList<Product> GetAllSubProducts();
 
-        IEnumerable<BaseModel> GetAllStatuses(int statusType);
+        List<BaseModel> GetAllStatuses(int statusType);
 
-        IEnumerable<Status> GetInformHeadlineStatuses();
+        IList<Status> GetInformHeadlineStatuses();
 
-        IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
+        List<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
-        IEnumerable<SettingRelation> GetAllRoles();
+        IList<SettingRelation> GetAllRoles();
 
-        IEnumerable<SettingRelation> GetAllResponses();
+        IList<SettingRelation> GetAllResponses();
 
-        IEnumerable<Setting> GetAllCustomerTypes();
+        IList<Setting> GetAllCustomerTypes();
 
-        IEnumerable<Setting> GetAllVIPTypes();
+        IList<Setting> GetAllVIPTypes();
 
-        IEnumerable<Setting> GetAllSiteTypes();
+        IList<Setting> GetAllSiteTypes();
 
-        IEnumerable<BaseModel> GetAllLicenseeTypes();
+        IList<BaseModel> GetAllLicenseeTypes();
 
-        IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
+        IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
 
         int NumberOfFeedbackSubjectTemplate();
 
-        IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
+        IList<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
 
-        IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria);
+        IList<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
         InformHeadlineSetting GetAllInformHeadlineSettings();
 
@@ -73,15 +73,15 @@ namespace Fanex.CRM.Setting.Services
 
         void ClearCache();
 
-        IEnumerable<Setting> GetMainSettings();
+        IList<Setting> GetMainSettings();
 
-        IEnumerable<Station> GetStations();
+        IList<Station> GetStations();
 
-        IEnumerable<Product> GetAllProducts();
+        IList<Product> GetAllProducts();
 
-        IEnumerable<Product> GetProductsOnly();
+        IList<Product> GetProductsOnly();
 
-        IEnumerable<Setting> GetPositions();
+        IList<Setting> GetPositions();
 
         Product GetProductNA();
 
@@ -91,14 +91,14 @@ namespace Fanex.CRM.Setting.Services
 
         SettingRelation GetExtensionNA();
 
-        IEnumerable<Product> GetProducts();
+        IList<Product> GetProducts();
 
-        IEnumerable<Product> GetSubProducts();
+        IList<Product> GetSubProducts();
 
-        IEnumerable<Product> GetBettypes();
+        IList<Product> GetBettypes();
 
-        IEnumerable<Setting> GetMainCategories();
+        IList<Setting> GetMainCategories();
 
-        IEnumerable<Setting> GetSubCategories();
+        IList<Setting> GetSubCategories();
     }
 }

@@ -6,8 +6,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Excels.CustomerReport;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -17,6 +15,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     using Resources;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Customer Report Controller.
@@ -53,10 +52,10 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult AllSetting()
         {
-            var languages = _settingService.GetAllLanguages().ToList();
+            var languages = _settingService.GetAllLanguages();
             languages.Insert(0, new Common.Models.Setting() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
-            var sites = _settingService.GetAllSites().ToList();
+            var sites = _settingService.GetAllSites();
             sites.Insert(0, new Setting.Models.SiteInfo() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
             var allSetting = new
             {

@@ -23,7 +23,7 @@ namespace Fanex.CRM.Setting.Repositories
     /// </summary>
     public class SettingRepository : ISettingRepository
     {
-        public IList<Setting> GetAllSettings(GetAllSettingCriteria criteria)
+        public List<Setting> GetAllSettings(GetAllSettingCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
