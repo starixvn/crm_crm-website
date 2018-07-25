@@ -10,9 +10,9 @@
 
 namespace Fanex.CRM.Feedback.Criteria
 {
+    using Fanex.Data.Repository;
     using System;
     using System.Collections;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Deleted feedback criteria.
@@ -48,6 +48,11 @@ namespace Fanex.CRM.Feedback.Criteria
         public override string GetSettingKey()
         {
             return "FeedbackGetDeleted";
+        }
+
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
 
         /// <summary>

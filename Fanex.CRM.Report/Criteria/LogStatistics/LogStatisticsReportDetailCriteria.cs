@@ -6,8 +6,8 @@
 
 namespace Fanex.CRM.Report.Criteria.LogStatistics
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
     public class LogStatisticsReportDetailCriteria : CriteriaBase
     {
@@ -39,7 +39,7 @@ namespace Fanex.CRM.Report.Criteria.LogStatistics
 
         public override bool IsValid()
         {
-            return true;
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
     }
 }

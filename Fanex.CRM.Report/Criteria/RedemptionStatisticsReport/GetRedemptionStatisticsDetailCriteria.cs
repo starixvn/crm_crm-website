@@ -35,7 +35,7 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 
         public override bool IsValid()
         {
-            return true;
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
     }
 }

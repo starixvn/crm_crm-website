@@ -16,7 +16,9 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DynamicReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models;
     using Setting.Services;
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     /// <summary>
@@ -75,20 +77,35 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            var logs = _dynamicReportService.GetDynamicReport(criteria);
-            var result = new
+            if (criteria.IsValid())
             {
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
-                Logs = logs
-            };
+                var logs = _dynamicReportService.GetDynamicReport(criteria);
+                var result = new
+                {
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                    Logs = logs
+                };
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                Logs = new DynamicReportInfo
+                {
+                    ChildReports = new List<DynamicReportInfo>(),
+                }
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-            _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
+            if (criteria.IsValid())
+            {
+                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
+            }
+
             return new EmptyResult();
         }
     }

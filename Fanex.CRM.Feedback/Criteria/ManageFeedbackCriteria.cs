@@ -10,11 +10,11 @@
 
 namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
-    using System.Collections;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections;
 
     /// <summary>
     /// ManageFeedback Criteria.
@@ -50,6 +50,11 @@ namespace Fanex.CRM.Feedback.Criteria
         public int ItemsPerPage { get; set; }
 
         public int TotalRows { get; set; }
+
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
+        }
 
         public override Hashtable GetSpParams()
         {

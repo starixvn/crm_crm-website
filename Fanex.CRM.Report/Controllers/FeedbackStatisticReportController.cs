@@ -1,12 +1,15 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using Common.Models;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Services.FeedbackStatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models.FeedbackStatisticReport;
     using Setting.Services;
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     [NapAuth(FunctionKey = FunctionPermissions.FeedbackStatistics, Policy = Constant.Policy.Read)]
@@ -52,19 +55,36 @@
 
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var result = new
+            if (criteria.IsValid())
             {
-                Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
-            };
+                var result = new
+                {
+                    Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                };
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                Report = new FeedbackStatisticDetail
+                {
+                    Title = string.Empty,
+                    TotalItems = 0,
+                    Feedbacks = new List<FeedbackDetail>()
+                }
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-            _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
+            if (criteria.IsValid())
+            {
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
+            }
+
             return new EmptyResult();
         }
     }

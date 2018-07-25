@@ -16,6 +16,8 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models.StatisticsReportByDate;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
@@ -114,17 +116,30 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
-            var jsonResult = Json(new
+            if (criteria.IsValid())
             {
-                Report = _logStatisticsService.GetReportDetail(criteria),
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
-                ExtensionList = _serviceSetting.GetAllExtensions(),
-                ProductList = _serviceSetting.GetProducts(),
-                SubProductList = _serviceSetting.GetSubProducts(),
+                var jsonResult = Json(new
+                {
+                    Report = _logStatisticsService.GetReportDetail(criteria),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                    CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                    ExtensionList = _serviceSetting.GetAllExtensions(),
+                    ProductList = _serviceSetting.GetProducts(),
+                    SubProductList = _serviceSetting.GetSubProducts(),
+                });
+                jsonResult.MaxJsonLength = int.MaxValue;
+                return jsonResult;
+            }
+
+            return Json(new
+            {
+                Report = new StatisticsDetailReportByDateModel
+                {
+                    Name = string.Empty,
+                    ChildReports = new List<StatisticsDetailbyDateModel>(),
+                    TotalChildReports = 0
+                }
             });
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
         }
 
         public void ExportReport(LogStatisticsCriteria criteria)
@@ -146,28 +161,31 @@ namespace Fanex.CRM.Report.Controllers
 
         public void ExportReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
-            criteria.PageIndex = 0;
-            criteria.PageSize = 0;
-            var reportDetail = _logStatisticsService.GetReportDetail(criteria);
+            if (criteria.IsValid())
+            {
+                criteria.PageIndex = 0;
+                criteria.PageSize = 0;
+                var reportDetail = _logStatisticsService.GetReportDetail(criteria);
 
-            var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
+                var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
 
-            var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-            var communicationToolList = _serviceSetting.GetAllCommunicationTools();
-            var extensionList = _serviceSetting.GetAllExtensions();
-            var productList = _serviceSetting.GetProducts();
-            var subProductList = _serviceSetting.GetSubProducts();
+                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+                var extensionList = _serviceSetting.GetAllExtensions();
+                var productList = _serviceSetting.GetProducts();
+                var subProductList = _serviceSetting.GetSubProducts();
 
-            LogStatisticsReportDetailExcel reportDetailExcel = new LogStatisticsReportDetailExcel(
-                reportDetail,
-                excelFileName,
-                mainCategory,
-                communicationToolList,
-                extensionList,
-                productList,
-                subProductList
-            );
-            reportDetailExcel.BuildWorkBook();
+                LogStatisticsReportDetailExcel reportDetailExcel = new LogStatisticsReportDetailExcel(
+                    reportDetail,
+                    excelFileName,
+                    mainCategory,
+                    communicationToolList,
+                    extensionList,
+                    productList,
+                    subProductList
+                );
+                reportDetailExcel.BuildWorkBook();
+            }
         }
     }
 }

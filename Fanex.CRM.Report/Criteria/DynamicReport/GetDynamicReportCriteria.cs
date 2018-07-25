@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Report.Criteria.DynamicReport
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
     /// <summary>
     /// Get Communication Logs By Customer Identity Criteria.
@@ -81,7 +81,7 @@ namespace Fanex.CRM.Report.Criteria.DynamicReport
 
         public override bool IsValid()
         {
-            return true;
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
     }
 }

@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Extensions;
@@ -19,6 +18,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.Excel.Extensions;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Feedback statistic report controller.
@@ -65,9 +65,14 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         public ActionResult GetRedemptionStatisticsDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
-            criteria.Subject = criteria.Subject ?? string.Empty;
-            criteria.StatusId = criteria.StatusId ?? string.Empty;
-            return new JsonNetResult(_redemptionStatisticsService.GetRedemptionDetailReport(criteria));
+            if (criteria.IsValid())
+            {
+                criteria.Subject = criteria.Subject ?? string.Empty;
+                criteria.StatusId = criteria.StatusId ?? string.Empty;
+                return new JsonNetResult(_redemptionStatisticsService.GetRedemptionDetailReport(criteria));
+            }
+
+            return new JsonNetResult();
         }
 
         /// <summary>
@@ -94,10 +99,13 @@ namespace Fanex.CRM.Report.Controllers
         [HttpGet]
         public ActionResult ExportDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
-            criteria.Subject = criteria.Subject ?? string.Empty;
-            criteria.StatusId = criteria.StatusId ?? string.Empty;
+            if (criteria.IsValid())
+            {
+                criteria.Subject = criteria.Subject ?? string.Empty;
+                criteria.StatusId = criteria.StatusId ?? string.Empty;
 
-            NpoiExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportFilename);
+                NpoiExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportFilename);
+            }
 
             return new EmptyResult();
         }

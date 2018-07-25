@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 {
+    using Fanex.Data.Repository;
     using System;
     using System.Collections;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get feedback statistic detail criteria.
@@ -57,7 +57,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
         /// <returns>The hash of parameters.</returns>
         public override Hashtable GetSpParams()
         {
-            return new Hashtable 
+            return new Hashtable
             {
                 { "type", SelectionType },
                 { "maincategoryid", MainCategoryId },
@@ -68,6 +68,11 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
                 { "fromduration", FromDuration == null ? string.Empty : FromDuration },
                 { "toduration", ToDuration == null ? string.Empty : ToDuration }
             };
+        }
+
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
     }
 }
