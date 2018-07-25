@@ -126,25 +126,6 @@ namespace Fanex.CRM.Feedback.Services
 
         private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
-            var categoryHash = new Dictionary<int, string>();
-            var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-            foreach (var category in categoies)
-            {
-                if (!categoryHash.ContainsKey(category.Id))
-                {
-                    categoryHash.Add(category.Id, category.Value);
-                }
-
-                foreach (var subcategory in category.ChildSettings)
-                {
-                    if (!subcategoryHash.ContainsKey(subcategory.Id))
-                    {
-                        subcategoryHash.Add(subcategory.Id, subcategory.Name);
-                    }
-                }
-            }
-
             var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);

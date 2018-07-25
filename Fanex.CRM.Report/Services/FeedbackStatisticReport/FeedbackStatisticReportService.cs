@@ -224,25 +224,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The feedback detail list.</returns>
         private IList<FeedbackDetail> GetFeedbackDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var categoryHash = new Dictionary<int, string>();
-            var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _settingService.GetAllMainCategories();
-            foreach (var category in categoies)
-            {
-                if (!categoryHash.ContainsKey(category.Id))
-                {
-                    categoryHash.Add(category.Id, category.Name);
-                }
-
-                foreach (var subcategory in category.ChildSettings)
-                {
-                    if (!subcategoryHash.ContainsKey(subcategory.Id))
-                    {
-                        subcategoryHash.Add(subcategory.Id, subcategory.Name);
-                    }
-                }
-            }
-
             var statusList = _settingService.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NotApply);
