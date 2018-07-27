@@ -189,7 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ReportBundles.cs" />
-    <Compile Include="Controllers\CasinoReportController.cs" />
     <Compile Include="Controllers\DirectCustomerReportController.cs" />
     <Compile Include="Controllers\LogStatisticsController.cs" />
     <Compile Include="Controllers\DeletedFeedbackStatisticsController.cs" />
@@ -207,8 +206,6 @@
     <Compile Include="Controllers\WeeklyStatisticsReportController.cs" />
     <Compile Include="Criteria\DirectCustomerReport\DirectCustomerReportCriteria.cs" />
     <Compile Include="Criteria\LogStatistics\LogStatisticsCriteria.cs" />
-    <Compile Include="Criteria\CasinoReport\GetCasinoDetailCriteria.cs" />
-    <Compile Include="Criteria\CasinoReport\GetCasinoSummaryCriteria.cs" />
     <Compile Include="Criteria\LogStatistics\LogStatisticsReportDetailCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackStatistics\DeletedFeedbackStatisticsCriteria.cs" />
     <Compile Include="Criteria\RedemptionStatisticsReport\GetRedemptionStatisticsDetailCriteria.cs" />
@@ -221,7 +218,6 @@
     <Compile Include="Criteria\StatisticByDateReport\GetMainReportCriteria.cs" />
     <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
     <Compile Include="Criteria\StatisticByDateReport\GetDetailReportCriteria.cs" />
-    <Compile Include="Entities\CasinoReport\CasinoDetailEntity.cs" />
     <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsDetailEntity.cs" />
     <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsEntity.cs" />
     <Compile Include="Entities\LogStatistics\LogStatisticsEntity.cs" />
@@ -249,13 +245,6 @@
     <Compile Include="Models\LogStatistics\LogStatisticsMainCategory.cs" />
     <Compile Include="Models\LogStatistics\SettingForLogStatistics.cs" />
     <Compile Include="Models\LogStatistics\LogStatisticsViewModel.cs" />
-    <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />
-    <Compile Include="Models\CasinoReport\CasinoDetail.cs" />
-    <Compile Include="Models\CasinoReport\CasinoGroup.cs" />
-    <Compile Include="Models\CasinoReport\CasinoWeeklyCategory.cs" />
-    <Compile Include="Models\CasinoReport\CasinoWeeklySummary.cs" />
-    <Compile Include="Models\CasinoReport\CategoryCasinoGroup.cs" />
-    <Compile Include="Models\CasinoReport\CommunicationValue.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedback.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackByHandler.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackStatisticsViewModel.cs" />
@@ -293,7 +282,6 @@
     <Compile Include="Repositories\RedemptionStatisticsReport\RedemptionStatisticsRepository.cs" />
     <Compile Include="Repositories\StatisticByDateReport\StatisticByDateRepository.cs" />
     <Compile Include="Repositories\StatisticByDateReport\IStatisticByDateRepository.cs" />
-    <Compile Include="Repositories\CasinoReport\CasinoReportRepository.cs" />
     <Compile Include="Repositories\CustomerReport\CustomerReportRepository.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
@@ -303,7 +291,6 @@
     <Compile Include="Repositories\StatisticReport\StatisticReportRepository.cs" />
     <Compile Include="Repositories\SummaryReport\SummaryReportRepository.cs" />
     <Compile Include="Repositories\WagerReport\WagerReportRepository.cs" />
-    <Compile Include="Repositories\CasinoReport\ICasinoReportRepository.cs" />
     <Compile Include="Repositories\CustomerReport\ICustomerReportRepository.cs" />
     <Compile Include="Repositories\DynamicReport\IDynamicReportRepository.cs" />
     <Compile Include="Repositories\FeedbackStatisticReport\IFeedbackStatisticReportRepository.cs" />
@@ -323,7 +310,6 @@
     <Compile Include="Services\RedemptionStatisticsReport\RedemptionStatisticsService.cs" />
     <Compile Include="Services\RedemptionStatisticsReport\IRedemptionStatisticsService.cs" />
     <Compile Include="Services\DailyStatisticsReport\DailyStatisticsReportService.cs" />
-    <Compile Include="Services\CasinoReport\CasinoReportService.cs" />
     <Compile Include="Services\CustomerReport\CustomerReportService.cs" />
     <Compile Include="Services\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\DynamicReport\DynamicReportService.cs" />
@@ -338,7 +324,6 @@
     <Compile Include="Services\SettlementReport\SettlementReportService.cs" />
     <Compile Include="Services\SummaryReport\SummaryReportService.cs" />
     <Compile Include="Services\WagerReport\WagerReportService.cs" />
-    <Compile Include="Services\CasinoReport\ICasinoReportService.cs" />
     <Compile Include="Services\CustomerReport\ICustomerReportService.cs" />
     <Compile Include="Services\DynamicReport\IDynamicReportService.cs" />
     <Compile Include="Services\FeedbackStatisticReport\IFeedbackStatisticReportService.cs" />
