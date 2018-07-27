@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionStatisticsService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.11.24">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.DynamicReport
+﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Constants;
@@ -35,9 +26,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using System.Linq;
     using System.Web;
 
-    /// <summary>
-    /// Dynamic Report Service.
-    /// </summary>
     public class RedemptionStatisticsService : /*BaseService,*/ IRedemptionStatisticsService
     {
         private readonly ISettingService _serviceSetting;
@@ -86,19 +74,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
         }
 
-        /// <summary>
-        /// All the report by.
-        /// </summary>
-        /// <returns>The Setting List.</returns>
         public List<BaseModel> AllReportBy()
         {
             return GetAllReportByRedemptionCriteria.ReportByList;
         }
 
-        /// <summary>
-        /// All the currency redemption.
-        /// </summary>
-        /// <returns>The Setting Info List.</returns>
         public List<BaseModel> AllCurrencyRedemption()
         {
             try
@@ -115,11 +95,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
         }
 
-        /// <summary>
-        /// Gets the redemption summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Grid Options.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -183,11 +158,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return gridOptions;
         }
 
-        /// <summary>
-        /// Gets the redemption detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Grid Options.</returns>
         public GridOptions GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
             // PageIndex of SP starts from 1 but Fanex.Grid starts from 0.
@@ -230,11 +200,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return gridOptions;
         }
 
-        /// <summary>
-        /// Generates the summary excel workbook.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Workbook Result.</returns>
         public IWorkbook GenerateSummaryExcelWorkbook(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             GridOptions gridOption = this.GetRedemptionSummaryReport(criteria);
@@ -288,11 +253,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return headerRow;
         }
 
-        /// <summary>
-        /// Gens the summary data row.
-        /// </summary>
-        /// <param name="item">The Redemption Statistics Entity item.</param>
-        /// <returns>The Grid Data Row.</returns>
         private GridDataRow GenSummaryDataRow(RedemptionStatisticsEntity item)
         {
             var dataRow = new GridDataRow();
@@ -322,13 +282,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dataRow;
         }
 
-        /// <summary>
-        /// Gens the summary total row.
-        /// </summary>
-        /// <param name="currency">The currency.</param>
-        /// <param name="amount">The amount.</param>
-        /// <param name="mergeNum">The merge number.</param>
-        /// <returns>The Grid Data Row.</returns>
         private GridDataRow GenSummaryTotalRow(string currency, decimal amount, ref int mergeNum)
         {
             var dataRow = new GridDataRow();
@@ -357,11 +310,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return dataRow;
         }
 
-        /// <summary>
-        /// Gens the detail data row.
-        /// </summary>
-        /// <param name="item">The Redemption Statistics Detail Entity item.</param>
-        /// <returns>The Grid Data Row.</returns>
         private GridDataRow GenDetailDataRow(RedemptionStatisticsDetailEntity item)
         {
             var dataRow = new GridDataRow();

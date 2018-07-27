@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CasinoDetailEntity.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.07.30">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Entities.CasinoReport
+﻿namespace Fanex.CRM.Report.Entities.CasinoReport
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -16,9 +7,6 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Casino Daily Detail Entity.
-    /// </summary>
     [Serializable]
     public class CasinoDetailEntity
     {

@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddGuestFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -20,9 +10,6 @@ namespace Fanex.CRM.Feedback.Criteria
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// Add Guest Feedback Criteria.
-    /// </summary>
     public class AddGuestFeedbackCriteria : CriteriaBase
     {
         public CustomerInfo CustomerInfo { get; set; }
@@ -111,10 +98,6 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

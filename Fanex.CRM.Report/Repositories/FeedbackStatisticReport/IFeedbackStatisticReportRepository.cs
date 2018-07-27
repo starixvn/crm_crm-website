@@ -1,18 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IFeedbackStatisticReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data.Repository;
+    using System.Collections.Generic;
 
     public interface IFeedbackStatisticReportRepository
     {

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
@@ -18,9 +9,6 @@ namespace Fanex.CRM.Feedback.Criteria
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback criteria.
-    /// </summary>
     public class UpdateCustomerFeedbackCriteria : CustomerFeedback, ICriteria
     {
         public bool OverrideCRMInfo { get; set; }
@@ -70,10 +58,6 @@ namespace Fanex.CRM.Feedback.Criteria
             return "FeedbackInfoUpd";
         }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The input parameters hash.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public Hashtable GetSpParams()
         {

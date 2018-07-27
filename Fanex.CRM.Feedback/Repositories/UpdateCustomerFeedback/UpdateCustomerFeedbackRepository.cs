@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Repositories
+﻿namespace Fanex.CRM.Feedback.Repositories
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
@@ -24,16 +15,8 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback repository.
-    /// </summary>
     public class UpdateCustomerFeedbackRepository : IUpdateCustomerFeedbackRepository
     {
-        /// <summary>
-        /// Gets the feedback by id.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback of customer.</returns>
         public CustomerFeedback GetFeedbackById(ICriteria criteria)
         {
             CustomerFeedback feedback = null;
@@ -82,10 +65,6 @@ namespace Fanex.CRM.Feedback.Repositories
             return feedback;
         }
 
-        /// <summary>
-        /// Updates the feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -100,11 +79,6 @@ namespace Fanex.CRM.Feedback.Repositories
             }
         }
 
-        /// <summary>
-        /// Gets the customer info.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The customer information.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private CustomerInfo GetCustomerInfo(IDataReader reader)
         {
@@ -179,11 +153,6 @@ namespace Fanex.CRM.Feedback.Repositories
             return customer;
         }
 
-        /// <summary>
-        /// Gets the customer feedback.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The feedback of customer.</returns>
         private CustomerFeedback GetCustomerFeedback(IDataReader reader)
         {
             CustomerFeedback feedback = new CustomerFeedback

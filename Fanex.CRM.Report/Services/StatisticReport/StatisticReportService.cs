@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.StatisticReport
+﻿namespace Fanex.CRM.Report.Services.StatisticReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -31,10 +18,11 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-    /// <summary>
-    /// Statistic Report Service.
-    /// </summary>
     public class StatisticReportService : ServiceBase, IStatisticReportService
     {
         private readonly ISettingService _serviceSetting;
@@ -51,10 +39,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             _statisticReportRepository = statisticReportRepository ?? new StatisticReportRepository();
         }
 
-        /// <summary>
-        /// Gets all period type.
-        /// </summary>
-        /// <returns>All period type.</returns>
         public List<Setting> AllPeriodType()
         {
             try
@@ -81,10 +65,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
         }
 
-        /// <summary>
-        /// Gets all main category.
-        /// </summary>
-        /// <returns>All main category.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -142,11 +122,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
         }
 
-        /// <summary>
-        /// Gets the statistic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -238,16 +213,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
-        /// <summary>
-        /// Gets the statistic report by monthly.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="countryList">The country list.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// The statistic report by monthly.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -328,16 +293,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return statisticReport;
         }
 
-        /// <summary>
-        /// Gets the statistic report by daily.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="countryList">The country list.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// The statistic report by daily.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -405,14 +360,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return statisticReport;
         }
 
-        /// <summary>
-        /// Gets the paging log list.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="statisticReportList">The statistic report list.</param>
-        /// <returns>
-        /// The paging log list.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -445,15 +392,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return countryDictionary;
         }
 
-        /// <summary>
-        /// Gets the dummy country list.
-        /// </summary>
-        /// <param name="countryLength">Length of the country.</param>
-        /// <param name="countryList">The country list.</param>
-        /// <param name="isGrandTotal">If set to <c>true</c> [is grand total].</param>
-        /// <returns>
-        /// The dummy country list.
-        /// </returns>
         private IList<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
             IList<Country> countryList,
@@ -527,12 +465,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return chartInfo;
         }
 
-        /// <summary>
-        /// Exports the dynamic report body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="statisticReport">The statistic report.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
@@ -598,13 +530,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
         }
 
-        /// <summary>
-        /// Exports the statistic report header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="statisticReport">The statistic report.</param>
-        /// <param name="countryList">The country list.</param>
         private void ExportStatisticReportHeader(
             ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
@@ -661,14 +586,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Gets the time report.
-        /// </summary>
-        /// <param name="timeGroup">The time group.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <param name="timeReport">The time report.</param>
-        /// <param name="statisticReport">The statistic report.</param>
-        /// <param name="dateReport">The date report.</param>
         private void GetTimeReport(
             IList<StatisticReportEntity> timeGroup,
             IDictionary<int, int> countryDictionary,

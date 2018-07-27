@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticRepository.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Repositories.LogStatistics
+﻿namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Models;

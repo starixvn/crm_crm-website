@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CasinoReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.07.30">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.CasinoReport
+﻿namespace Fanex.CRM.Report.Services.CasinoReport
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
@@ -27,9 +18,6 @@ namespace Fanex.CRM.Report.Services.CasinoReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Casino Report Service.
-    /// </summary>
     public class CasinoReportService : ICasinoReportService
     {
         private const int CasinoDailyType = 1;

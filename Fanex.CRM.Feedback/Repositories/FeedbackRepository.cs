@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Repositories
+﻿namespace Fanex.CRM.Feedback.Repositories
 {
     using Common.Repositories;
     using Fanex.Common;
@@ -23,9 +13,6 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Feedback Repository.
-    /// </summary>
     public class FeedbackRepository : BaseRepository, IFeedbackRepository
     {
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]

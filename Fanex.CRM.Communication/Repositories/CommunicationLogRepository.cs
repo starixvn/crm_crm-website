@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Communication.Repositories
+﻿namespace Fanex.CRM.Communication.Repositories
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
@@ -24,9 +15,6 @@ namespace Fanex.CRM.Communication.Repositories
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Communication Log Repository.
-    /// </summary>
     public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
     {
         public IEnumerable<BaseCommunicationLog> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
@@ -126,11 +114,6 @@ namespace Fanex.CRM.Communication.Repositories
             }
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Log Info Object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
@@ -158,11 +141,6 @@ namespace Fanex.CRM.Communication.Repositories
             return logInfo;
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object of function get log by identify.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Log Info Object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]

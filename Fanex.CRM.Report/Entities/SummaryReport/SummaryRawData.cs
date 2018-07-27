@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SummaryRawData.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.04.08">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Entities.SummaryReport
+﻿namespace Fanex.CRM.Report.Entities.SummaryReport
 {
-    /// <summary>
-    /// SummaryRawData class.
-    /// </summary>
     public class SummaryRawData
     {
         public int M { get; set; }

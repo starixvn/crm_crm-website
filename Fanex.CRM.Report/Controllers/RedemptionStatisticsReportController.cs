@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionStatisticsReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2014.11.24">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -20,9 +11,6 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.NAP.Core.Web.Attribute;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Feedback statistic report controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.RedemptionStatistics, Policy = Constant.Policy.Read)]
     public class RedemptionStatisticsReportController : ReadOnlyBaseController
     {
@@ -38,10 +26,6 @@ namespace Fanex.CRM.Report.Controllers
             _redemptionStatisticsService = redemptionStatisticsService ?? new RedemptionStatisticsService();
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
         [HttpPost]
         public ActionResult AllSetting()
         {
@@ -75,11 +59,6 @@ namespace Fanex.CRM.Report.Controllers
             return new JsonNetResult();
         }
 
-        /// <summary>
-        /// Exports the summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Action Result.</returns>
         [HttpGet]
         public ActionResult ExportSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
@@ -91,11 +70,6 @@ namespace Fanex.CRM.Report.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Exports the detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Action Result.</returns>
         [HttpGet]
         public ActionResult ExportDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {

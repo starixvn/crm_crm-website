@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Services
+﻿namespace Fanex.CRM.Feedback.Services
 {
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
@@ -19,9 +10,6 @@ namespace Fanex.CRM.Feedback.Services
     using System;
     using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback service.
-    /// </summary>
     public class UpdateCustomerFeedbackService : IUpdateCustomerFeedbackService
     {
         private readonly IUpdateCustomerFeedbackRepository _updateCustomerFeedbackRepsitory;
@@ -38,13 +26,6 @@ namespace Fanex.CRM.Feedback.Services
             _settingService = settingService ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <param name="hasDeleteFeedbackPermission">If set to <c>true</c> [has delete feedback permission].</param>
-        /// <returns>
-        /// The object of all settings.
-        /// </returns>
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
         {
             var countries = _settingService.GetAllCountries();

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.DynamicReport
+﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
@@ -32,9 +23,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using System.Drawing;
     using System.Linq;
 
-    /// <summary>
-    /// Dynamic Report Service.
-    /// </summary>
     public class DynamicReportService : IDynamicReportService
     {
         private readonly short _closedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
@@ -610,12 +598,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the dynamic report body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReport">The dynamic report.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -749,10 +731,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             NpoiExtensions.SetBorderToCell(periodGroupTitleStyle);
         }
 
-        /// <summary>
-        /// Sets the index of the status color.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
@@ -766,12 +744,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
         }
 
-        /// <summary>
-        /// Gets the paging log list.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReportList">The dynamic report list.</param>
-        /// <returns>The paging log list.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -837,12 +809,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return pagingLogList;
         }
 
-        /// <summary>
-        /// Gets the dynamic report information by group.
-        /// </summary>
-        /// <param name="periodGroups">The period groups.</param>
-        /// <param name="dynamicReport">The dynamic report.</param>
-        /// <param name="groupTypeName">Name of the group type.</param>
         private void GetDynamicReportInfoByGroup(
             IEnumerable<IGrouping<string, DynamicReportInfo>> periodGroups,
             ref DynamicReportInfo dynamicReport,

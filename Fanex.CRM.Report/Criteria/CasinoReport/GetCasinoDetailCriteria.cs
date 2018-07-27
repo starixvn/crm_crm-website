@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetCasinoDetailCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.07.30">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.CasinoReport
+﻿namespace Fanex.CRM.Report.Criteria.CasinoReport
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
-    /// <summary>
-    /// Get Casino Daily Detail Criteria.
-    /// </summary>
     public class GetCasinoDetailCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }

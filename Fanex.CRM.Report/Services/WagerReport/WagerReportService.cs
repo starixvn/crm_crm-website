@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="WagerReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.03.28">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.WagerReport
+﻿namespace Fanex.CRM.Report.Services.WagerReport
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
@@ -22,10 +10,10 @@ namespace Fanex.CRM.Report.Services.WagerReport
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-    /// <summary>
-    /// WagerReportService service.
-    /// </summary>
     public class WagerReportService : IWagerReportService
     {
         private readonly IWagerReportRepository _wagerRepository;
@@ -40,11 +28,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             _wagerRepository = wagerReportRepository ?? new WagerReportRepository();
         }
 
-        /// <summary>
-        /// Gets the wager report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>WagerReport model.</returns>
         public WagerReportModel GetWagerReport(GetWagerReportCriteria criteria)
         {
             var report = ParseWagerReport(criteria);
@@ -53,10 +36,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             return report;
         }
 
-        /// <summary>
-        /// Exports the wager report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
             WagerReportModel report = GetWagerReport(criteria);
@@ -91,11 +70,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        /// <summary>
-        /// Parses the wager report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The WagerReportModel.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private WagerReportModel ParseWagerReport(GetWagerReportCriteria criteria)
         {
@@ -156,11 +130,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         #region Export excel helper
 
-        /// <summary>
-        /// Exports the title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -171,10 +140,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        /// <summary>
-        /// Exports the header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
         private void ExportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             int currentColumn = exportExcelInfo.StartColumn;
@@ -192,11 +157,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="wagerByMonths">The wager by months.</param>
         private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<WagerByMonth> wagerByMonths)
         {
             ICellStyle monthCellStyle, wagersCellStyle, amountCellStyle, totalCellStyle;
@@ -248,11 +208,6 @@ namespace Fanex.CRM.Report.Services.WagerReport
             }
         }
 
-        /// <summary>
-        /// Exports the footer.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="total">The total.</param>
         private void ExportFooter(ref ExportExcelInfo exportExcelInfo, WagerByMonth total)
         {
             int mergeRowNumber = total.Wagers.Count;

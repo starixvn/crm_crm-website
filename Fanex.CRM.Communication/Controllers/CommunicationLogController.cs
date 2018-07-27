@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Communication.Controllers
+﻿namespace Fanex.CRM.Communication.Controllers
 {
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -23,9 +14,6 @@ namespace Fanex.CRM.Communication.Controllers
     using System.Linq;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Communication Log Controller.
-    /// </summary>
     public class CommunicationLogController : ReadOnlyBaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
@@ -65,10 +53,6 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <returns>All setting for edit.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult AllSettingForEdit()
@@ -105,13 +89,6 @@ namespace Fanex.CRM.Communication.Controllers
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <param name="custId">The customer ID.</param>
-        /// <returns>
-        /// All setting for edit.
-        /// </returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult AllSettingForInsert(int custId)
@@ -142,11 +119,6 @@ namespace Fanex.CRM.Communication.Controllers
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Gets the logs by customer identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by customer identifier.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
@@ -240,11 +212,6 @@ namespace Fanex.CRM.Communication.Controllers
             return new Result();
         }
 
-        /// <summary>
-        /// Inserts the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)

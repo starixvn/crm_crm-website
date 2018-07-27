@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetDetailReportCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.StatisticByDateReport
+﻿namespace Fanex.CRM.Report.Criteria.StatisticByDateReport
 {
-    using System;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data.Repository;
+    using System;
 
-    /// <summary>
-    /// Get Detail Report Criteria.
-    /// </summary>
     public class GetDetailReportCriteria : PagingCriteria
     {
         public DateTime FromDate { get; set; }

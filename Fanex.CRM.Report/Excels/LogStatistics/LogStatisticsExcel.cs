@@ -1,12 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Excels.LogStatistics
+﻿namespace Fanex.CRM.Report.Excels.LogStatistics
 {
-    using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -16,6 +9,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Linq;
 
     public class LogStatisticsExcel : BaseExcel
     {
@@ -114,15 +108,12 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
 
         private void GenerateBodyData(ExportExcelInfo excelInfo)
         {
-            int currentRowIndex = excelInfo.CurrentRow;
-            int currentColumnIndex = excelInfo.StartColumn;
-
             NpoiExtensions.SetTotalColumnBackgroundColorIndex(excelInfo);
 
             var mainTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             var mainNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var mainTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
-            
+
             var font = excelInfo.ExcelFile.CreateFont();
             SetFontStyleForMainCategory(font, mainTextStyle);
             SetFontStyleForMainCategory(font, mainNumberStyle);
@@ -157,17 +148,17 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             {
                 Name = Labels.GrandTotal,
                 ListOfCommunicationCount = _logStatisticsReport.GrandTotalOfCommunicationCount,
-                ListOfCommunicationSumByProduct = _logStatisticsReport.GrandTotalOfCommunicationSumByProduct              
+                ListOfCommunicationSumByProduct = _logStatisticsReport.GrandTotalOfCommunicationSumByProduct
             };
 
             GenerateRowValue(exportExcelInfo, granTotal, footerTextStyle, footerValueStyle, footerValueStyle);
         }
 
         private void GenerateRowValue(
-            ExportExcelInfo excelInfo, 
-            LogStatisticsBaseModel category, 
-            ICellStyle textStyle, 
-            ICellStyle numberStyle, 
+            ExportExcelInfo excelInfo,
+            LogStatisticsBaseModel category,
+            ICellStyle textStyle,
+            ICellStyle numberStyle,
             ICellStyle totalCellStyle)
         {
             excelInfo.ResetCurrentColumn();
@@ -208,7 +199,7 @@ namespace Fanex.CRM.Report.Excels.LogStatistics
             font.Color = (short)HSSFColor.Blue.Index;
             font.Boldweight = (short)FontBoldWeight.Bold;
 
-            cellStyle.SetFont(font);          
+            cellStyle.SetFont(font);
         }
     }
 }

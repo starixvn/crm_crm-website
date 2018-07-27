@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddGuestFeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Repositories.AddCustomerFeedback
+﻿namespace Fanex.CRM.Feedback.Repositories.AddCustomerFeedback
 {
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Infrastructure.Models;
 
-    /// <summary>
-    /// Add Guest Feedback Repository.
-    /// </summary>
     public class AddGuestFeedbackRepository : BaseRepository, IAddGuestFeedbackRepository
     {
         public Result AddGuestFeedback(AddGuestFeedbackCriteria criteria)

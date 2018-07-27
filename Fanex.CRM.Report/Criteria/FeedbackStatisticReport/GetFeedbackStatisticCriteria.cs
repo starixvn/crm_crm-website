@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetFeedbackStatisticCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 {
+    using Fanex.Data.Repository;
     using System;
     using System.Collections;
-    using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get feedback statistic criteria.
-    /// </summary>
     public class GetFeedbackStatisticCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }
@@ -44,7 +32,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 
         public override Hashtable GetSpParams()
         {
-            return new Hashtable 
+            return new Hashtable
             {
                 { "type", SelectionType },
                 { "fromdate", FromDate },

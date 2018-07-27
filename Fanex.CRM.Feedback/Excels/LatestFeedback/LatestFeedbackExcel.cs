@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LatestFeedbackExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Excels.LatestFeedback
+﻿namespace Fanex.CRM.Feedback.Excels.LatestFeedback
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
@@ -12,9 +6,6 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
     using Fanex.CRM.Feedback.Resources;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class LatestFeedbackExcel : FeedbackExcel
     {
         private const int ColumnsCount = 4;

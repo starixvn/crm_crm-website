@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackStatisticReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
@@ -20,9 +11,6 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
     using System.Data;
     using System.Linq;
 
-    /// <summary>
-    /// Feedback statistic report repository.
-    /// </summary>
     public class FeedbackStatisticReportRepository : IFeedbackStatisticReportRepository
     {
         public FeedbackStatistic GetFeedbackStatistic(ICriteria criteria)

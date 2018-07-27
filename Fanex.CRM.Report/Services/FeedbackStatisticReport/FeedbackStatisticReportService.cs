@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackStatisticReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
@@ -29,9 +20,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Feedback statistic report service.
-    /// </summary>
     public class FeedbackStatisticReportService : IFeedbackStatisticReportService
     {
         private readonly IFeedbackStatisticReportRepository _feedbackStatisticRepository;
@@ -57,11 +45,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             return _settingService.GetFeedbackStatisticFilterTypes();
         }
 
-        /// <summary>
-        /// Gets the feedback statistic.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Feedback statistic object.</returns>
         public FeedbackStatistic GetFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
@@ -81,10 +64,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             return report;
         }
 
-        /// <summary>
-        /// Exports the feedback statistic.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             string excelFileName = string.Format(Labels.FeedbackStatisticExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
@@ -127,11 +106,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        /// <summary>
-        /// Feedbacks the statistic detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Feedback statistic detail report.</returns>
         public FeedbackStatisticDetail FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             var title = string.Format(Labels.FeedbackStatisticDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
@@ -155,10 +129,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             };
         }
 
-        /// <summary>
-        /// Exports the feedback statistic detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria, IEnumerable<Setting> mainCategories)
         {
             var excelFileName = string.Format(Labels.FeedbackStatisticDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
@@ -217,11 +187,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             return date.ToString(pattern);
         }
 
-        /// <summary>
-        /// Gets the feedback detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback detail list.</returns>
         private IList<FeedbackDetail> GetFeedbackDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             var statusList = _settingService.GetAllStatuses(ViewTypeConstants.All);
@@ -241,11 +206,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         #region Excel - Feedback statistic
 
-        /// <summary>
-        /// Generates the feedback statistic title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void GenerateFeedbackStatisticTitle(ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -260,11 +220,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        /// <summary>
-        /// Generates the feedback statistic header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="usernames">The usernames.</param>
         private void GenerateFeedbackStatisticHeader(ExportExcelInfo exportExcelInfo, IList<BaseModel> usernames)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -285,11 +240,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Generates the feedback statistic body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="feedbackCategories">The feedback categories.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void GenerateFeedbackStatisticBody(ExportExcelInfo exportExcelInfo, IList<FeedbackCategory> feedbackCategories)
         {
@@ -364,11 +314,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Generates the feedback statistic footer.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="grandTotals">The grand totals.</param>
         private void GenerateFeedbackStatisticFooter(ExportExcelInfo exportExcelInfo, int[] grandTotals)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -388,11 +333,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             }
         }
 
-        /// <summary>
-        /// Categories the cell style.
-        /// </summary>
-        /// <param name="workbook">The workbook.</param>
-        /// <returns>The cell style of excel.</returns>
         private ICellStyle CategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
@@ -463,11 +403,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         #region Excel - Feedback statistic detail
 
-        /// <summary>
-        /// Generates the feedback statistic detail title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void GenerateFeedbackStatisticDetailTitle(ExportExcelInfo exportExcelInfo, string title)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -495,10 +430,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 
-        /// <summary>
-        /// Generates the feedback statistic detail header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
         private void GenerateFeedbackStatisticDetailHeader(ExportExcelInfo exportExcelInfo)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -519,11 +450,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 
-        /// <summary>
-        /// Generates the feedback statistic detail body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="feedbacks">The feedbacks.</param>
         private void GenerateFeedbackStatisticDetailBody(
             ExportExcelInfo exportExcelInfo,
             IList<FeedbackDetail> feedbacks,
@@ -577,12 +503,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             }
         }
 
-        /// <summary>
-        /// Feedbacks the detail text style.
-        /// </summary>
-        /// <param name="workbook">The workbook.</param>
-        /// <param name="status">The status.</param>
-        /// <returns>The cell style of Feedback detail.</returns>
         private ICellStyle GetFeedbackDetailTextStyle(string status)
         {
             ICellStyle textCellStyle;

@@ -1,32 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettlementReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Attributes;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Services.SettlementReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
-    /// <summary>
-    /// Settlement Report Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettlementIssuesReport, Policy = Constant.Policy.Read)]
     public class SettlementReportController : ReadOnlyBaseController
     {
-        private ISettlementReportService _settlementReportService;
+        private readonly ISettlementReportService _settlementReportService;
 
         public SettlementReportController()
             : this(null)

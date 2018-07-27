@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticsReportDetailCriteria.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Criteria.LogStatistics
+﻿namespace Fanex.CRM.Report.Criteria.LogStatistics
 {
     using Fanex.Data.Repository;
     using System;

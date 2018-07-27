@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetFeedbackByIdCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Feedback by ID criteria.
-    /// </summary>
     public class GetFeedbackByIdCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "FeedbackID")]

@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LatestFeedbackRowExcelWriter.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Excels.LatestFeedback
+﻿namespace Fanex.CRM.Feedback.Excels.LatestFeedback
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
@@ -12,9 +6,6 @@ namespace Fanex.CRM.Feedback.Excels.LatestFeedback
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class LatestFeedbackRowExcelWriter : FeedbackRowExcelWriter
     {
         public LatestFeedbackRowExcelWriter(ExportExcelInfo exportExcelInfo, short rowBackgroundColorIndex)

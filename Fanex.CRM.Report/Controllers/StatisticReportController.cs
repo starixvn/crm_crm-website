@@ -1,15 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Infrastructure.ActionResults;
@@ -18,14 +8,12 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.StatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
-    /// <summary>
-    /// Statistic Report Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.IssueStatistics, Policy = Constant.Policy.Read)]
     public class StatisticReportController : ReadOnlyBaseController
     {
-        private IStatisticReportService _statisticReportService;
+        private readonly IStatisticReportService _statisticReportService;
 
         public StatisticReportController()
             : this(null)
@@ -42,10 +30,6 @@ namespace Fanex.CRM.Report.Controllers
             return View("~/Areas/Report/StatisticReport/Index.cshtml");
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
         [HttpPost]
         public ActionResult AllSetting()
         {

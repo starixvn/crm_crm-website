@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="FeedbackExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Excels
+﻿namespace Fanex.CRM.Feedback.Excels
 {
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
@@ -18,14 +12,11 @@ namespace Fanex.CRM.Feedback.Excels
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class FeedbackExcel : BaseExcel
     {
-        private string _title;
-        private IEnumerable<FeedbackDetail> _feedbacks;
-        private IEnumerable<Setting> _mainCategories;
+        private readonly string _title;
+        private readonly IEnumerable<FeedbackDetail> _feedbacks;
+        private readonly IEnumerable<Setting> _mainCategories;
 
         public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<Setting> mainCategories, string title, int columnsCount = 5)
             : base(Regex.Replace(title, @"\W+", "_"))

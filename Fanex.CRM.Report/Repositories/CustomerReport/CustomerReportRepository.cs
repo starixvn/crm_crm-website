@@ -1,20 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Repositories.CustomerReport
+﻿namespace Fanex.CRM.Report.Repositories.CustomerReport
 {
-    using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.Data;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// Customer Report Repository.
-    /// </summary>
     public class CustomerReportRepository : ICustomerReportRepository
     {
         public IEnumerable<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)

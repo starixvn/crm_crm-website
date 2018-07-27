@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticsReportDetailExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Excels.LogStatistics
+﻿namespace Fanex.CRM.Report.Excels.LogStatistics
 {
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;

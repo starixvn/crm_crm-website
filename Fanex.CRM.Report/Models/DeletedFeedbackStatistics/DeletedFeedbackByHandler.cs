@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedFeedbackByHandler.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
+﻿namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 {
     using System.Collections.Generic;
 

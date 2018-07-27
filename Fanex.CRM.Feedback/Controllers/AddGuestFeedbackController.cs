@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddGuestFeedbackController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Controllers
+﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -23,13 +13,10 @@ namespace Fanex.CRM.Feedback.Controllers
     using System;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Add Guest Feedback Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddGuestFeedbackController : AddFeedbackController
     {
-        private IAddGuestFeedbackService _feedbackService;
+        private readonly IAddGuestFeedbackService _feedbackService;
 
         public AddGuestFeedbackController()
             : this(null)
@@ -47,13 +34,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
         }
 
-        /// <summary>
-        /// Adds the feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// Add result.
-        /// </returns>
         [HttpPost]
         public JsonResult AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
@@ -78,13 +58,6 @@ namespace Fanex.CRM.Feedback.Controllers
             }
         }
 
-        /// <summary>
-        /// Checks the add customer feedback permission.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// Check result.
-        /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddGuestFeedbackCriteria criteria)
         {
             if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))

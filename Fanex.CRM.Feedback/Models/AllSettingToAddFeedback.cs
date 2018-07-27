@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AllSettingToAddFeedback.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.07">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Models
+﻿namespace Fanex.CRM.Feedback.Models
 {
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -16,9 +6,6 @@ namespace Fanex.CRM.Feedback.Models
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Deleted feedback model.
-    /// </summary>
     [Serializable]
     public class AllSettingToAddFeedback
     {

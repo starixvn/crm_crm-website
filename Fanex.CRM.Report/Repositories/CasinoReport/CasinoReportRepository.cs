@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CasinoReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.07.30">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Repositories.CasinoReport
+﻿namespace Fanex.CRM.Report.Repositories.CasinoReport
 {
     using Common.Models;
     using Fanex.Common;
@@ -20,9 +11,6 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
     using System.Data;
     using System.Linq;
 
-    /// <summary>
-    /// Casino Report Repository.
-    /// </summary>
     public class CasinoReportRepository : ICasinoReportRepository
     {
         public CasinoDailySummary GetCasinoDailySummary(GetCasinoSummaryCriteria criteria)

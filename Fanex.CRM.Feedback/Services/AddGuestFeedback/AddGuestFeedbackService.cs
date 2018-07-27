@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddGuestFeedbackService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
+﻿namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
 {
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Repositories.AddCustomerFeedback;
@@ -16,12 +6,9 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
 
-    /// <summary>
-    /// Add Guest Feedback Service.
-    /// </summary>
     public class AddGuestFeedbackService : IAddGuestFeedbackService
     {
-        private IAddGuestFeedbackRepository _addGuestFeedbackRepository;
+        private readonly IAddGuestFeedbackRepository _addGuestFeedbackRepository;
 
         public AddGuestFeedbackService()
             : this(null)

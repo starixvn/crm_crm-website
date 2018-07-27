@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddFeedbackController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Controllers
+﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -23,9 +13,6 @@ namespace Fanex.CRM.Feedback.Controllers
     using System.Linq;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Add Feedback Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddFeedbackController : ReadOnlyBaseController
     {
@@ -54,10 +41,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
             var languages = ServiceSetting.GetAllLanguages();

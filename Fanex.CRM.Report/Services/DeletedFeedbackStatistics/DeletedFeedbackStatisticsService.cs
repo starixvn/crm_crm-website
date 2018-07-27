@@ -1,21 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedFeedbackStatisticsService.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Services.DeletedFeedbackStatistics
+﻿namespace Fanex.CRM.Report.Services.DeletedFeedbackStatistics
 {
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Models.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Resources;
+    using System.Linq;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class DeletedFeedbackStatisticsService : IDeletedFeedbackStatisticsService
     {
         private readonly IDeletedFeedbackStatisticsRepository _deletedFeedbackStatisticsRepository;

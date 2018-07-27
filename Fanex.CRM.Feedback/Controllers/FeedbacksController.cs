@@ -1,13 +1,3 @@
-// --------------------------------------------------------------------------
-// <copyright file="FeedbacksController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
 namespace Fanex.CRM.Feedback.Controllers
 {
     using Common.Models;
@@ -26,9 +16,6 @@ namespace Fanex.CRM.Feedback.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Feedbacks Controller.
-    /// </summary>
     public class FeedbacksController : ReadOnlyBaseController
     {
         private readonly IFeedbackService _feedbackService;
@@ -95,11 +82,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTopItems);
         }
 
-        /// <summary>
-        /// Gets the latest feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)

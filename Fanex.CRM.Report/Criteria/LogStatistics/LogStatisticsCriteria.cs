@@ -1,13 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticCriteria.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Criteria.LogStatistics
+﻿namespace Fanex.CRM.Report.Criteria.LogStatistics
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
     public class LogStatisticsCriteria : CriteriaBase
     {

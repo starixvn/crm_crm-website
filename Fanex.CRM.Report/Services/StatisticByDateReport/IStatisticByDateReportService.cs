@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IStatisticByDateReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.StatisticByDateReport
+﻿namespace Fanex.CRM.Report.Services.StatisticByDateReport
 {
     using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;

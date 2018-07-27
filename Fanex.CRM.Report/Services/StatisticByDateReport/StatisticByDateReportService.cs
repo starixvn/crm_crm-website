@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticByDateReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.StatisticByDateReport
+﻿namespace Fanex.CRM.Report.Services.StatisticByDateReport
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
@@ -28,9 +19,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// Statistic By Date Report Service.
-    /// </summary>
     public class StatisticByDateReportService : ServiceBase, IStatisticByDateReportService
     {
         public StatisticByDateReportService()
@@ -93,10 +81,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             return string.Empty;
         }
 
-        /// <summary>
-        /// Exports the main report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportMainReport(GetMainReportCriteria criteria)
         {
             string reportName = string.Format(
@@ -221,11 +205,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             return result;
         }
 
-        /// <summary>
-        /// Exports the main report header.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void ExportMainReportHeader(
             StatisticsReportByDateModel report,
             ExportExcelInfo exportExcelInfo)
@@ -256,11 +235,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the main report body.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void ExportMainReportBody(
             StatisticsReportByDateModel report,
             ExportExcelInfo exportExcelInfo)
@@ -298,12 +272,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ExportMainReportGrandTotalRow(grandTotal, exportExcelInfo, communicationToolLength);
         }
 
-        /// <summary>
-        /// Exports the main report main category row.
-        /// </summary>
-        /// <param name="issueInfo">The issue information.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="communicationToolLength">Length of the communication tool.</param>
         private void ExportMainReportMainCategoryRow(
             CategoryIssuesInfo issueInfo,
             ExportExcelInfo exportExcelInfo,
@@ -325,12 +293,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ExportMainReportRow(issueInfo, exportExcelInfo, intNumberStyleMainCategory, textStyleMainCategory, communicationToolLength);
         }
 
-        /// <summary>
-        /// Exports the main report grand total  row.
-        /// </summary>
-        /// <param name="issueInfo">The issue information.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="communicationToolLength">Length of the communication tool.</param>
         private void ExportMainReportGrandTotalRow(
             CategoryIssuesInfo issueInfo,
             ExportExcelInfo exportExcelInfo,
@@ -343,14 +305,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ExportMainReportRow(issueInfo, exportExcelInfo, intNumberStyle, textStyle, communicationToolLength);
         }
 
-        /// <summary>
-        /// Exports the main report row.
-        /// </summary>
-        /// <param name="issueInfo">The issue information.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="intNumberStyle">The integer number style.</param>
-        /// <param name="textStyle">The text style.</param>
-        /// <param name="communicationToolLength">Length of the communication tool.</param>
         private void ExportMainReportRow(
             CategoryIssuesInfo issueInfo,
             ExportExcelInfo exportExcelInfo,
@@ -370,11 +324,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the detail report header.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void ExportDetailReportHeader(StatisticsDetailReportByDateModel report, ExportExcelInfo exportExcelInfo)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -412,11 +361,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the detail report body.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void ExportDetailReportBody(
             StatisticsDetailReportByDateModel report,
             ExportExcelInfo exportExcelInfo,
@@ -470,13 +414,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             }
         }
 
-        /// <summary>
-        /// Exports the detail report row.
-        /// </summary>
-        /// <param name="info">The information.</param>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="textStyle">The text style.</param>
-        /// <param name="centerTextStyle">The center text style.</param>
         private void ExportDetailReportRow(
             StatisticsDetailbyDateModel info,
             ExportExcelInfo exportExcelInfo,

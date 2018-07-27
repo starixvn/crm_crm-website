@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertLogCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Communication.Criteria
+﻿namespace Fanex.CRM.Communication.Criteria
 {
     using Common.Helpers;
     using Fanex.CRM.Common.Extensions;
@@ -16,9 +7,6 @@ namespace Fanex.CRM.Communication.Criteria
     using Models;
     using System.Collections;
 
-    /// <summary>
-    /// Insert Log Criteria.
-    /// </summary>
     public class InsertLogCriteria : ModifyLogCriteria
     {
         public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
@@ -57,10 +45,6 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "autofield")]
         public string AutoField { get; set; }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();

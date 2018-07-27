@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
     using Common.Attributes;
     using Fanex.CRM.Common.Constants;
@@ -21,12 +12,9 @@ namespace Fanex.CRM.Report.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Dynamic Report Controller.
-    /// </summary>
     public class DynamicReportController : ReadOnlyBaseController
     {
-        private IDynamicReportService _dynamicReportService;
+        private readonly IDynamicReportService _dynamicReportService;
         private readonly ISettingService _serviceSetting;
 
         public DynamicReportController()
@@ -47,10 +35,6 @@ namespace Fanex.CRM.Report.Controllers
             return View("~/Areas/Report/DynamicReport/Index.cshtml");
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
 

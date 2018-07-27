@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DailyStatisticsReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -20,14 +11,11 @@ namespace Fanex.CRM.Report.Controllers
     using Setting.Services;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Daily Statistics Report Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.DailyStatistics, Policy = Constant.Policy.Read)]
     public class DailyStatisticsReportController : ReadOnlyBaseController
     {
-        private IStatisticByDateReportService _dailyStatisticsReportService;
-        public ISettingService _serviceSetting;
+        private readonly IStatisticByDateReportService _dailyStatisticsReportService;
+        public readonly ISettingService _serviceSetting;
 
         public DailyStatisticsReportController()
             : this(null)
@@ -45,11 +33,6 @@ namespace Fanex.CRM.Report.Controllers
             return View("~/Areas/Report/DailyStatisticsReport/Index.cshtml");
         }
 
-        /// <summary>
-        /// Gets the main report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main report.</returns>
         [HttpPost]
         public ActionResult MainReport(GetMainReportCriteria criteria)
         {

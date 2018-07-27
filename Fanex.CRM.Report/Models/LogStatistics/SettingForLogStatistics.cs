@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SettingForLogStatistic.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Models.LogStatistics
+﻿namespace Fanex.CRM.Report.Models.LogStatistics
 {
     public class SettingForLogStatistics
     {
