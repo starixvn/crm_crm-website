@@ -54,7 +54,7 @@
                     LoggingHelper.Error(exception, criteria);
                 }
 
-                throw exception;
+                throw;
             }
         }
 
