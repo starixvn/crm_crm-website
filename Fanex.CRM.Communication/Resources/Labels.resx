@@ -338,4 +338,25 @@
   <data name="CreateMultipleLogs" xml:space="preserve">
     <value>Create Multiple Logs</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Error_NAMainCategory" xml:space="preserve">
+    <value>Main category is mandatory!</value>
+  </data>
+  <data name="NoSubcategoryError" xml:space="preserve">
+    <value>Subcategory is mandatory!</value>
+  </data>
+  <data name="Error_NA_MainSubCategory" xml:space="preserve">
+    <value>Main Category - Sub Category is mandatory!</value>
+  </data>
+  <data name="InvalidCategoryError" xml:space="preserve">
+    <value>There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category.</value>
+  </data>
+  <data name="DescriptionMaxLengthError" xml:space="preserve">
+    <value>Max length of Remark is 32,700!</value>
+  </data>
+  <data name="SolutionMaxLengthError" xml:space="preserve">
+    <value>Max length of Solution is 32,700!</value>
+  </data>
 </root>

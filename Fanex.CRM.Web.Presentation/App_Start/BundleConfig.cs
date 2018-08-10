@@ -57,6 +57,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/jquery-ui-1.8.14.custom.js",
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
+                "~/Scripts/ShareScripts/NameMapping.js",
+                "~/Scripts/ShareScripts/FilterScripts.js",
+                "~/Scripts/ShareScripts/AutoTextScripts.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
 
             bundles.AddAndInclude(
@@ -209,6 +212,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogOption.js",
@@ -234,6 +238,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
@@ -263,6 +268,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdOption.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",

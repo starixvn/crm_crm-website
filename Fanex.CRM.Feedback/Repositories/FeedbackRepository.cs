@@ -1,28 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Repositories
+﻿namespace Fanex.CRM.Feedback.Repositories
 {
     using Common.Repositories;
+    using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Infrastructure.Models;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-    /// <summary>
-    /// Feedback Repository.
-    /// </summary>
     public class FeedbackRepository : BaseRepository, IFeedbackRepository
     {
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
@@ -30,15 +20,19 @@ namespace Fanex.CRM.Feedback.Repositories
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var feebbacks = db.Query<FeedbackDetail>(criteria.GetSpParams());
-                var outputParams = db.GetOuputParams();
-                if (outputParams.ContainsKey("totalrows"))
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    object totalRows = outputParams["totalrows"];
-                    criteria.TotalRows = totalRows == null ? 0 : (int)totalRows;
-                }
+                    var feedbacks = multi.Read<FeedbackDetail>();
+                    var settings = multi.Read<SettingItem>();
 
-                return criteria.TotalRows > 0 ? feebbacks : new List<FeedbackDetail>();
+                    var outputParams = db.GetOuputParams();
+                    if (outputParams.Count != 0)
+                    {
+                        criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
+                    }
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+                }
             }
         }
 
@@ -46,13 +40,51 @@ namespace Fanex.CRM.Feedback.Repositories
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<DeletedFeedback>(criteria.GetSpParams());
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var feedbacks = multi.Read<DeletedFeedback>();
+                    var settings = multi.Read<SettingItem>();
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings); ;
+                }
             }
         }
 
         public Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
         {
             return ExecuteNonQuery(criteria);
+        }
+
+        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
+        }
+
+        private IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(IEnumerable<DeletedFeedback> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateFeedBackDetail = delegate (DeletedFeedback f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }

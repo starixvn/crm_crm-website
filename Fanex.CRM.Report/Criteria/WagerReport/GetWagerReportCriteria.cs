@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetWagerReportCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.03.28">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.WagerReport
+﻿namespace Fanex.CRM.Report.Criteria.WagerReport
 {
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// GetWagerReportCriteria criteria.
-    /// </summary>
     public class GetWagerReportCriteria : CriteriaBase
     {
         public int Year { get; set; }

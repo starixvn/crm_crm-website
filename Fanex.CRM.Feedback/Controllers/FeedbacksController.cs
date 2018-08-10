@@ -1,15 +1,6 @@
-// --------------------------------------------------------------------------
-// <copyright file="FeedbacksController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
 namespace Fanex.CRM.Feedback.Controllers
 {
+    using Common.Models;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -21,23 +12,24 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Services;
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Feedbacks Controller.
-    /// </summary>
     public class FeedbacksController : ReadOnlyBaseController
     {
         private readonly IFeedbackService _feedbackService;
+        private readonly ISettingService _serviceSetting;
 
         public FeedbacksController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public FeedbacksController(IFeedbackService feedbackService)
+        public FeedbacksController(IFeedbackService feedbackService, ISettingService serviceSetting)
         {
             _feedbackService = feedbackService ?? new FeedbackService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [HttpGet]
@@ -66,9 +58,19 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
         {
-            var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
-            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
-            return Json(report, JsonRequestBehavior.DenyGet);
+            if (criteria.IsValid())
+            {
+                var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
+                var report = new
+                {
+                    Feedbacks = feedbacks,
+                    TotalItems = criteria.TotalRows,
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+                };
+                return Json(report, JsonRequestBehavior.DenyGet);
+            }
+
+            return Json(new { Feedbacks = new List<FeedbackDetail>() }, JsonRequestBehavior.DenyGet);
         }
 
         [HttpGet]
@@ -80,11 +82,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTopItems);
         }
 
-        /// <summary>
-        /// Gets the latest feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
@@ -95,13 +92,18 @@ namespace Fanex.CRM.Feedback.Controllers
                                     string.Empty;
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
 
-            return Json(
+            var jsonResult = Json(
                 new
                 {
                     Title = title.Trim(),
-                    Feedbacks = feedbacks
+                    Feedbacks = feedbacks,
+                    Settings = _feedbackService.GetAllSettings(),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);
+
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         [HttpGet]
@@ -115,9 +117,19 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Read)]
         public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
         {
-            var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
-            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalItems };
-            return Json(report, JsonRequestBehavior.DenyGet);
+            if (criteria.IsValid())
+            {
+                var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
+                var report = new
+                {
+                    Feedbacks = feedbacks,
+                    TotalItems = criteria.TotalItems,
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+                };
+                return Json(report, JsonRequestBehavior.DenyGet);
+            }
+
+            return Json(new { Feedbacks = new List<Models.DeletedFeedback>() }, JsonRequestBehavior.DenyGet);
         }
 
         [HttpGet]
@@ -135,31 +147,40 @@ namespace Fanex.CRM.Feedback.Controllers
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
 
-            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim());
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim(), mainCategories);
             latestFeedbackExcel.BuildWorkBook();
         }
 
         public void ExportManageFeedbacks(ManageFeedbackCriteria criteria)
         {
-            criteria.PageIndex = 0;
-            var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
+            if (criteria.IsValid())
+            {
+                criteria.PageIndex = 0;
+                var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
 
-            var fromCustomerText = string.IsNullOrEmpty(criteria.Username) ?
-                                    string.Empty :
-                                    string.Format(Labels.FromCustomer, criteria.Username);
-            var title = Labels.Feedback + " " + fromCustomerText;
+                var fromCustomerText = string.IsNullOrEmpty(criteria.Username) ?
+                                        string.Empty :
+                                        string.Format(Labels.FromCustomer, criteria.Username);
+                var title = Labels.Feedback + " " + fromCustomerText;
 
-            BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, title.Trim());
-            manageFeedbackExcel.BuildWorkBook();
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, title.Trim());
+                manageFeedbackExcel.BuildWorkBook();
+            }
         }
 
         public void ExportDeletedFeedbacks(DeletedFeedbackCriteria criteria)
         {
-            criteria.IsExportExcel = true;
-            var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
+            if (criteria.IsValid())
+            {
+                criteria.IsExportExcel = true;
+                var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
 
-            BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, Labels.DeletedFeedbackTitle);
-            deletedFeedbackExcel.BuildWorkBook();
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
+                deletedFeedbackExcel.BuildWorkBook();
+            }
         }
 
         [HttpPost]

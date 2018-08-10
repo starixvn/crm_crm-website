@@ -1,17 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IFeedbackStatisticReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 {
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
+    using System.Collections.Generic;
 
     public interface IFeedbackStatisticReportService
     {
@@ -23,6 +15,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         FeedbackStatisticDetail FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria);
 
-        void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria);
+        void ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria, IEnumerable<Common.Models.Setting> mainCategories);
     }
 }

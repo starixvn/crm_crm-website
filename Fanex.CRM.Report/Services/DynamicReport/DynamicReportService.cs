@@ -1,19 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.DynamicReport
+﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Drawing;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -31,10 +17,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
+    using System.Linq;
 
-    /// <summary>
-    /// Dynamic Report Service.
-    /// </summary>
     public class DynamicReportService : IDynamicReportService
     {
         private readonly short _closedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
@@ -91,7 +79,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Product> GetAllSubProducts()
         {
-            var subProducts = _serviceSetting.GetAllSubProducts().ToList();
+            var subProducts = _serviceSetting.GetAllSubProducts();
             var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (notApplyItem == null)
@@ -100,9 +88,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     0,
                     new Product
                     {
-                    Id = SettingConstants.NotApply,
-                    Value = Labels.All
-                });
+                        Id = SettingConstants.NotApply,
+                        Value = Labels.All
+                    });
             }
             else
             {
@@ -114,10 +102,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<Product> GetAllProducts()
         {
-            var products = _serviceSetting.GetAllProducts().ToList();
+            var products = _serviceSetting.GetAllProducts();
             var itemProductAll = CreateItemAll();
 
-            products.Insert(0, itemProductAll);        
+            products.Insert(0, itemProductAll);
 
             return products;
         }
@@ -155,35 +143,35 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         public IEnumerable<SettingRelation> GetAllResponses()
         {
-            var data = _serviceSetting.GetAllResponses().ToList();
+            var data = _serviceSetting.GetAllResponses();
             data.Insert(
                 0,
                 new SettingRelation
                 {
-                Id = SettingConstants.NotApply,
-                Value = Labels.All
-            });
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
 
             return data;
         }
 
         public IEnumerable<SettingRelation> GetAllRoles()
         {
-            var data = _serviceSetting.GetAllRoles().ToList();
+            var data = _serviceSetting.GetAllRoles();
             data.Insert(
                 0,
                 new SettingRelation
                 {
-                Id = SettingConstants.NotApply,
-                Value = Labels.All
-            });
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
 
             return data;
         }
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var rawData = _serviceSetting.GetAllCommunicationTools().ToList();
+            var rawData = _serviceSetting.GetAllCommunicationTools();
             var item = rawData.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
 
             if (item == null)
@@ -191,10 +179,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 rawData.Insert(
                     0,
                     new Setting
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.All
-                });
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.All
+                    });
             }
             else
             {
@@ -300,7 +288,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             };
         }
 
-        public void ExportDynamicReport(GetDynamicReportCriteria criteria)
+        public void ExportDynamicReport(GetDynamicReportCriteria criteria, IEnumerable<Setting> mainCategories)
         {
             string reportName = string.Format(
                  Labels.DynamicReport_ExcelTitle,
@@ -321,7 +309,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             };
 
             SetStatusColorIndex(ref exportExcelInfo);
-            ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
+            ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport, mainCategories);
 
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
@@ -610,19 +598,14 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the dynamic report body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReport">The dynamic report.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
-            DynamicReportInfo dynamicReport)
+            DynamicReportInfo dynamicReport,
+            IEnumerable<Setting> mainCategories)
         {
             if (dynamicReport == null || dynamicReport.ChildReports.Count == 0)
             {
@@ -700,20 +683,20 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
                         if (string.Equals(info.StatusName, Labels.Closed, StringComparison.OrdinalIgnoreCase))
                         {
-                            closedRowWriter.WriteRow(exportExcelInfo, info, j);
+                            closedRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else if (string.Equals(info.StatusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
                             string.Equals(info.StatusName, Labels.Solved, StringComparison.OrdinalIgnoreCase))
                         {
-                            checkedRowWriter.WriteRow(exportExcelInfo, info, j);
+                            checkedRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else if (string.Equals(info.StatusName, Labels.Pending, StringComparison.OrdinalIgnoreCase))
                         {
-                            pendingRowWriter.WriteRow(exportExcelInfo, info, j);
+                            pendingRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
                         else
                         {
-                            normalRowWriter.WriteRow(exportExcelInfo, info, j);
+                            normalRowWriter.WriteRow(exportExcelInfo, info, j, mainCategories);
                         }
 
                         currentIndexOfDetailItem++;
@@ -748,10 +731,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             NpoiExtensions.SetBorderToCell(periodGroupTitleStyle);
         }
 
-        /// <summary>
-        /// Sets the index of the status color.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
@@ -765,12 +744,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
         }
 
-        /// <summary>
-        /// Gets the paging log list.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReportList">The dynamic report list.</param>
-        /// <returns>The paging log list.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -836,12 +809,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return pagingLogList;
         }
 
-        /// <summary>
-        /// Gets the dynamic report information by group.
-        /// </summary>
-        /// <param name="periodGroups">The period groups.</param>
-        /// <param name="dynamicReport">The dynamic report.</param>
-        /// <param name="groupTypeName">Name of the group type.</param>
         private void GetDynamicReportInfoByGroup(
             IEnumerable<IGrouping<string, DynamicReportInfo>> periodGroups,
             ref DynamicReportInfo dynamicReport,

@@ -1,12 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedFeedbackStatisticsExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
+﻿namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 {
-    using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -16,18 +9,24 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class DeletedFeedbackStatisticsExcel : BaseExcel
     {
         private readonly DeletedFeedbackStatisticsViewModel _deletedFeedbackStatisticsReport;
+        private readonly IEnumerable<Common.Models.Setting> _mainCategories;
+        private readonly ExportExcelInfo _exportExcelInfo;
 
-        private ExportExcelInfo _exportExcelInfo;
-
-        public DeletedFeedbackStatisticsExcel(DeletedFeedbackStatisticsViewModel deletedFeedbackStatisticsReport, string excelFileName)
+        public DeletedFeedbackStatisticsExcel(
+            DeletedFeedbackStatisticsViewModel deletedFeedbackStatisticsReport,
+            string excelFileName,
+            IEnumerable<Common.Models.Setting> mainCategories)
             : base(excelFileName)
         {
             _deletedFeedbackStatisticsReport = deletedFeedbackStatisticsReport;
-
+            _mainCategories = mainCategories;
             _exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = WorkBook,
@@ -90,7 +89,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
-            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex, Labels.RelatedCustomer, headerStyle);
 
             _exportExcelInfo.CurrentRow++;
         }
@@ -102,7 +101,7 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 
             NpoiExtensions.SetGroupBackgroundColorIndex(_exportExcelInfo);
             var groupStyle = GetGroupedHandlerStyle();
-            
+
             var feedbackStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             feedbackStyle.WrapText = true;
 
@@ -119,16 +118,18 @@ namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
                     currentColumnIndex = _exportExcelInfo.StartColumn;
                     var feedbackRow = _exportExcelInfo.Worksheet.CreateRow(currentRowIndex);
                     feedbackRow.Height = 600;
+
+                    var categoryContents = NameMapping.GetCategoryContent(feedback.Settings, _mainCategories);
+
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.CreateDateString, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Handler, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Deletor, feedbackStyle);
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Subject, feedbackStyle);
 
-                    var categoryCellValue = string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
-                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, categoryCellValue, feedbackStyle);
+                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, String.Join("\n\n", categoryContents), feedbackStyle);
 
                     NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.Customer, feedbackStyle);
-                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex++, feedback.RelatedCustomer, feedbackStyle);
+                    NpoiExtensions.RenderCell(feedbackRow, currentColumnIndex, feedback.RelatedCustomer, feedbackStyle);
                     currentRowIndex++;
                 }
 

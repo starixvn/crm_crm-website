@@ -1,13 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticBaseModel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Models.LogStatistics
+﻿namespace Fanex.CRM.Report.Models.LogStatistics
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Collections.Generic;
 
     public class LogStatisticsBaseModel : BaseModel
     {

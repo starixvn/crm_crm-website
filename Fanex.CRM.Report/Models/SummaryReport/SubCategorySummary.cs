@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SubCategorySummary.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.04.08">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Models.SummaryReport
+﻿namespace Fanex.CRM.Report.Models.SummaryReport
 {
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// SubCategorySummary model.
-    /// </summary>
     [Serializable]
     public class SubCategorySummary
     {

@@ -1,35 +1,28 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="FeedbackExcel.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Excels
+﻿namespace Fanex.CRM.Feedback.Excels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text.RegularExpressions;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Feedback.Resources;
     using NPOI.HSSF.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class FeedbackExcel : BaseExcel
     {
-        private string _title;
-        private IEnumerable<FeedbackDetail> _feedbacks;
+        private readonly string _title;
+        private readonly IEnumerable<FeedbackDetail> _feedbacks;
+        private readonly IEnumerable<Setting> _mainCategories;
 
-        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string title, int columnsCount = 5)
+        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<Setting> mainCategories, string title, int columnsCount = 5)
             : base(Regex.Replace(title, @"\W+", "_"))
         {
             _feedbacks = feedbacks;
+            _mainCategories = mainCategories;
             _title = title;
             ExportExcelInfo = new ExportExcelInfo
             {
@@ -130,26 +123,26 @@ namespace Fanex.CRM.Feedback.Excels
                 CreateSheetHeader();
 
                 var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;               
+                var endIndex = startIndex + maxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < totalRows; i++)
                 {
                     var feedback = _feedbacks.ElementAt(i);
                     if (string.Equals(feedback.Status, Labels.Closed, StringComparison.OrdinalIgnoreCase))
                     {
-                        ClosedRowWriter.WriteRow(ExportExcelInfo, feedback);
+                        ClosedRowWriter.WriteRow(ExportExcelInfo, feedback, _mainCategories);
                     }
                     else if (string.Equals(feedback.Status, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(feedback.Status, Labels.Solved, StringComparison.OrdinalIgnoreCase))
                     {
-                        CheckedRowWriter.WriteRow(ExportExcelInfo, feedback);
+                        CheckedRowWriter.WriteRow(ExportExcelInfo, feedback, _mainCategories);
                     }
                     else if (string.Equals(feedback.Status, Labels.Pending, StringComparison.OrdinalIgnoreCase))
                     {
-                        PendingRowWriter.WriteRow(ExportExcelInfo, feedback);
+                        PendingRowWriter.WriteRow(ExportExcelInfo, feedback, _mainCategories);
                     }
                     else
                     {
-                        NormalRowWriter.WriteRow(ExportExcelInfo, feedback);
+                        NormalRowWriter.WriteRow(ExportExcelInfo, feedback, _mainCategories);
                     }
                 }
             }

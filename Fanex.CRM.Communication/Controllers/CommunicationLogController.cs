@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Communication.Controllers
+﻿namespace Fanex.CRM.Communication.Controllers
 {
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -23,9 +14,6 @@ namespace Fanex.CRM.Communication.Controllers
     using System.Linq;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Communication Log Controller.
-    /// </summary>
     public class CommunicationLogController : ReadOnlyBaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
@@ -65,10 +53,6 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <returns>All setting for edit.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult AllSettingForEdit()
@@ -86,25 +70,25 @@ namespace Fanex.CRM.Communication.Controllers
                 CountryList = _serviceSetting.GetAllCountries(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
-                MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
-                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
+                ProductNA = _serviceSetting.GetProductNA(),
+                SubProductNA = _serviceSetting.GetSubProductNA(),
+                BettypeNA = _serviceSetting.GetBettypeNA(),
+                ExtensionNA = _serviceSetting.GetExtensionNA(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts(),
+                BettypeList = _serviceSetting.GetBettypes(),
+                MainCategoryList = _serviceSetting.GetMainCategories(),
+                SubCategoryList = _serviceSetting.GetSubCategories(),
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <param name="custId">The customer ID.</param>
-        /// <returns>
-        /// All setting for edit.
-        /// </returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult AllSettingForInsert(int custId)
@@ -115,30 +99,39 @@ namespace Fanex.CRM.Communication.Controllers
                 CountryList = _serviceSetting.GetAllCountries(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
-                MainCategoryList = _serviceSetting.GetAllMainCategories(),
-                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSites(),
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
-                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId })
+                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId }),
+                ProductNA = _serviceSetting.GetProductNA(),
+                SubProductNA = _serviceSetting.GetSubProductNA(),
+                BettypeNA = _serviceSetting.GetBettypeNA(),
+                ExtensionNA = _serviceSetting.GetExtensionNA(),
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts(),
+                BettypeList = _serviceSetting.GetBettypes(),
+                MainCategoryList = _serviceSetting.GetMainCategories(),
+                SubCategoryList = _serviceSetting.GetSubCategories(),
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Gets the logs by customer identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by customer identifier.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
-            return Json(logs, JsonRequestBehavior.AllowGet);
+            var result = new
+            {
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                Logs = logs
+            };
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
@@ -219,11 +212,6 @@ namespace Fanex.CRM.Communication.Controllers
             return new Result();
         }
 
-        /// <summary>
-        /// Inserts the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)

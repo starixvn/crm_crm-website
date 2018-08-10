@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticsDetailReportByDateModel.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Models.StatisticsReportByDate
+﻿namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
+    using Fanex.CRM.Infrastructure.Models;
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
 
-    /// <summary>
-    /// Weekly Statistics Detail Information.
-    /// </summary>
     [Serializable]
     public class StatisticsDetailReportByDateModel : BaseModel
     {

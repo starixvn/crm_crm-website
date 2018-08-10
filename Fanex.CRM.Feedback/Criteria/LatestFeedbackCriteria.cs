@@ -1,21 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="LatestFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.09.05">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using System.Collections;
     using Fanex.Data.Repository;
+    using System.Collections;
 
-    /// <summary>
-    /// Latest Feedback Criteria.
-    /// </summary>
     public class LatestFeedbackCriteria : CriteriaBase
     {
         public int CustId { get; set; }
@@ -40,7 +27,7 @@ namespace Fanex.CRM.Feedback.Criteria
             inputParams.Add("top", Top);
             if (CustId != 0)
             {
-                inputParams.Add("custid", CustId);    
+                inputParams.Add("custid", CustId);
             }
 
             return inputParams;

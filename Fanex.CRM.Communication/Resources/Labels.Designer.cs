@@ -79,6 +79,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checked.
         /// </summary>
         public static string Checked {
@@ -340,6 +349,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max length of Remark is 32,700!.
+        /// </summary>
+        public static string DescriptionMaxLengthError {
+            get {
+                return ResourceManager.GetString("DescriptionMaxLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Duration {
@@ -372,6 +390,24 @@ namespace Fanex.CRM.Communication.Resources {
         public static string End_Time {
             get {
                 return ResourceManager.GetString("End_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Category - Sub Category is mandatory!.
+        /// </summary>
+        public static string Error_NA_MainSubCategory {
+            get {
+                return ResourceManager.GetString("Error_NA_MainSubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main category is mandatory!.
+        /// </summary>
+        public static string Error_NAMainCategory {
+            get {
+                return ResourceManager.GetString("Error_NAMainCategory", resourceCulture);
             }
         }
         
@@ -457,6 +493,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category..
+        /// </summary>
+        public static string InvalidCategoryError {
+            get {
+                return ResourceManager.GetString("InvalidCategoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
@@ -480,6 +525,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Main_Category {
             get {
                 return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subcategory is mandatory!.
+        /// </summary>
+        public static string NoSubcategoryError {
+            get {
+                return ResourceManager.GetString("NoSubcategoryError", resourceCulture);
             }
         }
         
@@ -633,6 +687,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Solution {
             get {
                 return ResourceManager.GetString("Solution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max length of Solution is 32,700!.
+        /// </summary>
+        public static string SolutionMaxLengthError {
+            get {
+                return ResourceManager.GetString("SolutionMaxLengthError", resourceCulture);
             }
         }
         

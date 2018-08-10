@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SummaryReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-// <change who="Kan.Nguyen" date="2014.04.08">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.SummaryReport
+﻿namespace Fanex.CRM.Report.Services.SummaryReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -26,10 +13,11 @@ namespace Fanex.CRM.Report.Services.SummaryReport
     using Fanex.CRM.Setting.Services;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-    /// <summary>
-    /// SummaryReportService class.
-    /// </summary>
     public class SummaryReportService : ISummaryReportService
     {
         private readonly ISummaryReportRepository _summaryRepository;
@@ -46,10 +34,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             _settingServices = settingServices ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <returns>The object with all settings.</returns>
         public dynamic AllSettings()
         {
             var minReportDate = AppSetting.MinReportDate.Year;
@@ -112,11 +96,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        /// <summary>
-        /// Parses the summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The SummaryReportModel object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private SummaryReportModel ParseSummaryReport(GetSummaryReportCriteria criteria)
         {
@@ -211,11 +190,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         #region Export excel helper
 
-        /// <summary>
-        /// Exports the title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -227,11 +201,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        /// <summary>
-        /// Exports the header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="months">The months.</param>
         private void ExportHeader(ref ExportExcelInfo exportExcelInfo, IList<string> months)
         {
             int currentColumn = exportExcelInfo.StartColumn;
@@ -249,11 +218,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             exportExcelInfo.CurrentRow++;
         }
 
-        /// <summary>
-        /// Exports the body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="categorySummaries">The category summaries.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
         {
@@ -332,11 +296,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Exports the footer.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="grandTotals">The total.</param>
         private void ExportFooter(ref ExportExcelInfo exportExcelInfo, IList<Summary> grandTotals)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -369,11 +328,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             }
         }
 
-        /// <summary>
-        /// Gets the category cell style.
-        /// </summary>
-        /// <param name="workbook">The workbook.</param>
-        /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
@@ -384,11 +338,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                 NpoiExtensions.GroupColorIndex);
         }
 
-        /// <summary>
-        /// Gets the category total cell style.
-        /// </summary>
-        /// <param name="workbook">The workbook.</param>
-        /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
             ICellStyle cellStyle = NpoiExtensions.GetIntegerNumberStyle(

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticsDetailbyDateModel.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Models.StatisticsReportByDate
+﻿namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -17,9 +8,6 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Statistics Detail By Date Information.
-    /// </summary>
     [Serializable]
     public class StatisticsDetailbyDateModel
     {
@@ -27,9 +15,12 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         {
             Phones = new List<Phone>();
             PICs = new List<PersonalInfoContact>();
+            Settings = new List<SettingItem>();
         }
 
         #region Communication
+
+        public int FeedbackID { get; set; }
 
         public List<Phone> Phones { get; set; }
 
@@ -162,5 +153,7 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         {
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(ResolutionTime).ToHourMinuteMiddayTypeFormated(); }
         }
+
+        public IEnumerable<SettingItem> Settings { get; set; }
     }
 }

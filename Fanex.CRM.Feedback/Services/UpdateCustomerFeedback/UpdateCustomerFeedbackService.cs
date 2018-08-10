@@ -1,16 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Services
+﻿namespace Fanex.CRM.Feedback.Services
 {
-    using System;
-    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
@@ -18,10 +7,9 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
+    using System;
+    using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback service.
-    /// </summary>
     public class UpdateCustomerFeedbackService : IUpdateCustomerFeedbackService
     {
         private readonly IUpdateCustomerFeedbackRepository _updateCustomerFeedbackRepsitory;
@@ -38,28 +26,21 @@ namespace Fanex.CRM.Feedback.Services
             _settingService = settingService ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <param name="hasDeleteFeedbackPermission">If set to <c>true</c> [has delete feedback permission].</param>
-        /// <returns>
-        /// The object of all settings.
-        /// </returns>
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
         {
-            var countries = _settingService.GetAllCountries().ToList();
+            var countries = _settingService.GetAllCountries();
             countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
 
-            var languages = _settingService.GetAllLanguages().ToList();
+            var languages = _settingService.GetAllLanguages();
             languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA });
 
-            var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+            var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             if (!hasDeleteFeedbackPermission)
             {
                 var deletedStatus = statusRawData.SingleOrDefault(s => string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
                 if (deletedStatus != null)
                 {
-                    statusRawData.Remove(deletedStatus);    
+                    statusRawData.Remove(deletedStatus);
                 }
             }
 
@@ -67,21 +48,28 @@ namespace Fanex.CRM.Feedback.Services
             {
                 Titles = _settingService.GetAllTitles(),
                 Sites = _settingService.GetAllSiteWithGroup().Where(s => s.IsActive),
-                Extensions = _settingService.GetAllExtensions(),
-                Communications = _settingService.GetAllCommunicationTools(),
-                Categories = _settingService.GetAllMainCategories(),
-                Products = _settingService.GetAllProducts(),
+                ExtensionList = _settingService.GetAllExtensions(),
+                CommunicationToolList = _settingService.GetAllCommunicationTools(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusRawData,
                 Roles = _settingService.GetAllRoles(),
                 Responses = _settingService.GetAllResponses(),
-                LicenseeTypes = _settingService.GetAllLicenseeTypes()
+                LicenseeTypes = _settingService.GetAllLicenseeTypes(),
+                ProductNA = _settingService.GetProductNA(),
+                SubProductNA = _settingService.GetSubProductNA(),
+                BettypeNA = _settingService.GetBettypeNA(),
+                ExtensionNA = _settingService.GetExtensionNA(),
+                ProductList = _settingService.GetProducts(),
+                SubProductList = _settingService.GetSubProducts(),
+                BettypeList = _settingService.GetBettypes(),
+                MainCategoryList = _settingService.GetMainCategories(),
+                SubCategoryList = _settingService.GetSubCategories(),
             };
         }
 
         public CustomerFeedback GetFeedbackById(GetFeedbackByIdCriteria criteria)
-        {           
+        {
             var feedback = _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
 
             UpdateSettingNameForFeedback(feedback);
@@ -104,27 +92,12 @@ namespace Fanex.CRM.Feedback.Services
             var licenseeType = settings.FirstOrDefault(s => s.Id == feedback.CustomerInfo.LicenseeType.Id);
             feedback.CustomerInfo.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NA : licenseeType.Value;
 
-            var communication = settings.FirstOrDefault(s => s.Id == feedback.Communication.Id);
-            feedback.Communication.Name = communication == null ? null : communication.Value;
-
-            var product = settings.FirstOrDefault(s => s.Id == feedback.Product.Id);
-            feedback.Product.Name = product == null ? null : product.Value;
-
-            var subProduct = settings.FirstOrDefault(s => s.Id == feedback.SubProduct.Id);
-            feedback.SubProduct.Name = subProduct == null ? Labels.Symbol_NA : subProduct.Value;
-
             var language = settings.FirstOrDefault(s => s.Id == feedback.Language.Id);
             feedback.Language.Name = language == null ? Labels.Symbol_NA : language.Value;
 
-            var bettype = settings.FirstOrDefault(s => s.Id == feedback.BetType.Id);
-            feedback.BetType.Name = bettype == null ? Labels.Symbol_NA : bettype.Value;           
-
             feedback.Response.Name = settings.First(s => s.Id == feedback.Response.Id).Value;
-            feedback.Category.Name = settings.First(s => s.Id == feedback.Category.Id).Value;
             feedback.Status.Name = settings.First(s => s.Id == feedback.Status.Id).Value;
-            feedback.Extension.Name = settings.First(s => s.Id == feedback.Extension.Id).Value;
             feedback.Role.Name = settings.First(s => s.Id == feedback.Role.Id).Value;
-            feedback.SubCategory.Name = settings.First(s => s.Id == feedback.SubCategory.Id).Value;                      
         }
 
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)

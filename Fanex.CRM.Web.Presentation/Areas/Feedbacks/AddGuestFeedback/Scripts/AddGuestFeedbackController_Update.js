@@ -35,45 +35,14 @@
             $scope.updateTimeAndToolPrefix();
             $scope.safeApply();
         };
-        $scope.updateSelectedProduct = function (product) {
-            $scope.addGuestFeedbackParams.Product = { Id: product.Id };
-            $scope.subProductOptions.DataList = product.ChildSettings;
-            $scope.updateSelectedSubProduct($scope.subProductOptions.DataList[0]);
-        };
-        $scope.updateSelectedSubProduct = function (subProduct) {
-            $scope.addGuestFeedbackParams.SubProduct = { Id: subProduct.Id };
-            $scope.betTypeOptions.DataList = subProduct.ChildSettings;
-            $scope.safeApply();
-        };
         $scope.updateSelectedLanguage = function (language) {
             $scope.addGuestFeedbackParams.Language = language;
         };
         $scope.updateSelectedResponse = function (response) {
             $scope.addGuestFeedbackParams.Response = response;
-        };
-        $scope.updateSelectedMainCategory = function (mainCategory) {
-            $scope.messageResultOptions = new MessageResult('', false, false);
-            if (!mainCategory.ChildSettings || mainCategory.ChildSettings.length === 0) {
-                var message = viewResources.NoSubcategoryError.replace('{0}', '[' + mainCategory.Name + ']');
-                $scope.messageResultOptions = new MessageResult(message, true, false);
-            }
-
-            $scope.addGuestFeedbackParams.MainCategory = mainCategory;
-            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-            $scope.addGuestFeedbackParams.SubCategory = $scope.subCategoryOptions.DataList[0];
-            $scope.safeApply();
-        };
-        $scope.updateSelectedBetType = function (betType) {
-            $scope.addGuestFeedbackParams.BetType = betType;
-        };
+        };       
         $scope.updateSelectedStatus = function (status) {
             $scope.addGuestFeedbackParams.Status = status;
-        };
-        $scope.updateSelectedExtension = function (extension) {
-            $scope.addGuestFeedbackParams.Extension = extension;
-        };
-        $scope.updateSelectedSubCategory = function (subCategory) {
-            $scope.addGuestFeedbackParams.SubCategory = subCategory;
         };
         $scope.updateSelectedCountry = function (country) {
             $scope.addGuestFeedbackParams.Country = country;

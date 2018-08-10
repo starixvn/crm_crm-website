@@ -35,7 +35,14 @@
         $scope.endTimeOptions = null;
         $scope.licenseeTypeOptions = null;
         $scope.communicationLog.AutoField = $sce.trustAsHtml($scope.communicationLog.AutoField);
-        
+        $scope.TextSettings = {
+            Filter: "Search",
+            NoItemChecked: "N/A",
+            CheckAll: "All"
+        };
+        $scope.selectedSubProductIds = [];
+        $scope.selectedBettypeIds = [];
+        $scope.selectedSubCategoryIds = [];        
 
         $scope.initController = function () {
             $scope.getAllSetting();
@@ -85,48 +92,8 @@
             $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.communicationLog.RelatedCustomers);
             $scope.unblockUI();
         };
-        $scope.initSelectedLogInfo = function () {
-            var i;
-            var mainCategoryList = $scope.mainCategoryOptions.DataList;
-            if (mainCategoryList != null) {
-                var mainCategoryListLength = mainCategoryList.length;
-                for (i = 0; i < mainCategoryListLength; i++) {
-                    var mainCategory = mainCategoryList[i];
-                    if (mainCategory.Id === communicationLog.MainCategory.Id) {
-                        $scope.communicationLog.MainCategory = mainCategory;
-                        $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-                        break;
-                    }
-                }
-            }
-
-            var subCategoryList = $scope.subCategoryOptions.DataList;
-            if (subCategoryList != null) {
-                var subCategoryListLength = subCategoryList.length;
-                for (i = 0; i < subCategoryListLength; i++) {
-                    var subCategory = subCategoryList[i];
-                    if (subCategory.Id === communicationLog.SubCategory.Id) {
-                        $scope.communicationLog.SubCategory = subCategory;
-                        break;
-                    }
-                }
-            }
-
-            $scope.mainCategoryOptions.SelectedId = $scope.communicationLog.MainCategory.Id;
-            $scope.subCategoryOptions.SelectedId = $scope.communicationLog.SubCategory.Id;
-            var communicationToolList = $scope.communicationToolOptions.DataList;
-            if (communicationToolList != null) {
-                var communicationToolListLength = communicationToolList.length;
-                for (i = 0; i < communicationToolListLength; i++) {
-                    var communicationTool = communicationToolList[i];
-                    if (communicationTool.Id === communicationLog.CommunicationTool.Id) {
-                        $scope.communicationLog.CommunicationTool = communicationTool;
-                        break;
-                    }
-                }
-            }
-
-            $scope.updateSelectedProduct($scope.communicationLog.Product);
+        $scope.initSelectedLogInfo = function () {           
+            //$scope.updateSelectedProduct($scope.communicationLog.Product);
         };
 
         $scope.updateSelectedProduct = function (product) {
@@ -150,26 +117,89 @@
             } catch (e) {
             }
         };
+
+        $scope.productChangedHandler = function () {
+            $scope.subProductDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubProducts($scope.selectedProducts),
+                disabled: true
+            };
+        }
+
+        $scope.subProductChangedHandler = function () {
+            $scope.selectedSubProductIds = [];
+            angular.forEach($scope.selectedSubProducts, function (subProduct) {
+                $scope.selectedSubProductIds.push(subProduct.Id);
+            });
+
+            $scope.bettypeDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getBettypes($scope.selectedSubProducts),
+                disabled: true
+            };
+        }
+
+        $scope.bettypeChangeHandler = function () {
+            $scope.selectedBettypeIds = [];
+            angular.forEach($scope.selectedBettypes, function (bettype) {
+                $scope.selectedBettypeIds.push(bettype.Id);
+            });
+        }
+
+        $scope.categoryChangedHandler = function () {
+            $scope.subCategoryDropdownSettings = {
+                idMember: "Id",
+                nameMember: "Name",
+                sourceData: $scope.getSubCategories($scope.selectedCategories),
+                disabled: true
+            };
+        }
+
+        $scope.subCategoryChangedHandler = function () {
+            $scope.selectedSubCategoryIds = [];
+            angular.forEach($scope.selectedSubCategories, function (subCategory) {
+                $scope.selectedSubCategoryIds.push(subCategory.Id);
+            });
+        }
+
+        $scope.getSubProducts = function (selectedProducts) {
+            return filterScripts.getSubProducts(
+                           selectedProducts,
+                           $scope.allSettings.SubProductList,
+                           $scope.selectedSubProductIds);
+        }
+
+        $scope.getBettypes = function (selectedSubProducts) {
+            return filterScripts.getBettypes(
+                            selectedSubProducts,
+                            $scope.allSettings.BettypeList,
+                            $scope.selectedBettypeIds);
+        }
+
+        $scope.getSubCategories = function (selectedCategories) {
+            return filterScripts.getSubCategories(
+                            selectedCategories,
+                            $scope.allSettings.SubCategoryList,
+                            $scope.selectedSubCategoryIds);
+        }
+
         $scope.getAllSetting = function () {
             $scope.BlockUI();
             $scope.isLoadedAllSite = false;
             $viewDetailByIdService.getAllSetting()
             .then(function (data) {
-                var allSetting = data.Result;                
+                var allSetting = data.Result;
+                $scope.allSettings = data.Result;
 
-                $scope.productOptions.DataList = allSetting.ProductList;
-                $scope.subProductOptions.DataList = allSetting.SubProductList;
                 $scope.siteList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
                 $scope.roleOptions.DataList = allSetting.RoleList;
-                $scope.communicationToolOptions.DataList = allSetting.CommunicationToolList;
-                $scope.mainCategoryOptions.DataList = allSetting.MainCategoryList;
-                $scope.extensionOptions.DataList = allSetting.ExtensionList;
-
+                
                 $scope.languageOptions.DataList = allSetting.LanguageList;
-                $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
-
+                
                 $scope.countryOptions.DataList = [];
                 $scope.countryOptions.DataList.push({
                     Id: crmConstants.Enums.Country.NotApply,
@@ -183,6 +213,55 @@
 
                 $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
 
+                $scope.communicationDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.CommunicationToolList,
+                    disabled: true
+                };
+
+                $scope.extensionDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Value",
+                    sourceData: $scope.allSettings.ExtensionList,
+                    disabled: true
+                };
+
+                $scope.categoryDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.MainCategoryList,
+                    disabled: true
+                };
+
+                $scope.subCategoryDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.SubCategoryList,
+                    disabled: true
+                };
+
+                $scope.productDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.ProductList,
+                    disabled: true
+                };
+
+                $scope.subProductDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.SubProductList,
+                    disabled: true
+                };
+
+                $scope.bettypeDropdownSettings = {
+                    idMember: "Id",
+                    nameMember: "Name",
+                    sourceData: $scope.allSettings.BettypeList,
+                    disabled: true
+                };
+
                 $scope.updateAllSettingsForLog(allSetting);
                 $scope.completedLoadFilterInfo();
             },
@@ -191,14 +270,15 @@
             });
         };
 
-        $scope.updateAllSettingsForLog = function () {
-            SettingManager.updateSettingSelectList($scope.communicationLog.Extension, $scope.extensionOptions.DataList);
-            SettingManager.updateSettingSelectList($scope.communicationLog.CommunicationTool, $scope.communicationToolOptions.DataList);
-
-            SettingManager.updateSettingSelectList($scope.communicationLog.MainCategory, $scope.mainCategoryOptions.DataList);
-            SettingManager.updateInActiveChildSettings($scope.communicationLog.SubCategory, $scope.mainCategoryOptions.DataList, $scope.communicationLog.MainCategory.Id);
-
-            $scope.updateProductSettings();
+        $scope.updateAllSettingsForLog = function () {            
+            //$scope.updateProductSettings();
+            $scope.updateSettingCommunication();
+            $scope.updateSettingExtension();
+            $scope.updateSettingCategory();
+            $scope.updateSettingSubCategory();
+            $scope.updateSettingProduct();
+            $scope.updateSettingSubProduct();
+            $scope.updateSettingBettype();
 
             SettingManager.updateSettingSelectList($scope.communicationLog.Language, $scope.languageOptions.DataList);
             SettingManager.updateSettingSelectList($scope.communicationLog.Status, $scope.statusOptions.DataList);
@@ -208,6 +288,78 @@
             SettingManager.updateSettingSelectList($scope.communicationLog.SiteInfo, $scope.siteList);
             SettingManager.updateSettingSelectList($scope.communicationLog.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
+
+        $scope.updateSettingCommunication = function () {
+            var length = $scope.communicationDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.communicationDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Communication" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingExtension = function () {
+            var length = $scope.extensionDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.extensionDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Station" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingCategory = function () {
+            var length = $scope.categoryDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.categoryDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Category" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingSubCategory = function () {            
+            angular.forEach($scope.communicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Category") {
+                    $scope.selectedSubCategoryIds.push(setting.SettingIdLv2);
+                }
+            });
+        }
+
+        $scope.updateSettingProduct = function () {
+            var length = $scope.productDropdownSettings.sourceData.length;
+            for (var i = 0; i < length; i++) {
+                var data = $scope.productDropdownSettings.sourceData[i];
+                angular.forEach($scope.communicationLog.Settings, function (setting) {
+                    if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                        data.checked = true;
+                    }
+                });
+            }
+        }
+
+        $scope.updateSettingSubProduct = function () {
+            angular.forEach($scope.communicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedSubProductIds.push(setting.SettingIdLv2);
+                }
+            });
+        }
+
+        $scope.updateSettingBettype = function () {
+            angular.forEach($scope.communicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedBettypeIds.push(setting.SettingIdLv3);
+                }
+            });
+        }
 
         $scope.updateProductSettings = function () {
             var product = $scope.communicationLog.Product;

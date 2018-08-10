@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionStatisticsInfo.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2014.11.26">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Models.RedemptionStatistics
+﻿namespace Fanex.CRM.Report.Models.RedemptionStatistics
 {
+    using Fanex.CRM.Report.Entities.RedemptionStatistics;
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Report.Entities.RedemptionStatistics;
 
-    /// <summary>
-    /// Redemption Statistic Report Information.
-    /// </summary>
     [Serializable]
     public class RedemptionStatisticsInfo
     {

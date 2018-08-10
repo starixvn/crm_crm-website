@@ -1,34 +1,22 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GrandTotalRowExcelWriter.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.SettlementReport
+﻿namespace Fanex.CRM.Report.Services.SettlementReport
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.SettlementReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// Grand Total Row Excel Writer.
-    /// </summary>
     public class GrandTotalRowExcelWriter : SettlementReportExportExcelService
     {
-        private ICellStyle _intStyle;
-        private ICellStyle _textStyle;
-        private ICellStyle _centerTextStyle;
-        private ExportExcelInfo _exportExcelInfo;
-        private short _rowBackgroundColorIndex;
-        private ICellStyle _centerIntStyle;
-        private bool _isFirstRow;
+        private readonly ICellStyle _intStyle;
+        private readonly ICellStyle _textStyle;
+        private readonly ICellStyle _centerTextStyle;
+        private readonly ExportExcelInfo _exportExcelInfo;
+        private readonly short _rowBackgroundColorIndex;
+        private readonly ICellStyle _centerIntStyle;
+        private readonly bool _isFirstRow;
 
         public GrandTotalRowExcelWriter(ExportExcelInfo exportExcelInfo, bool isFirstRow)
         {
@@ -52,12 +40,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        /// <summary>
-        /// Exports the dynamic report row.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="info">The information.</param>
-        /// <param name="groupInfo">The group information.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

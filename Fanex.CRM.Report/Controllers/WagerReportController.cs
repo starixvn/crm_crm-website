@@ -1,28 +1,14 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="WagerReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.03.28">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Attributes;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Services.WagerReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
-    /// <summary>
-    /// WagerReportController controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.WagersRelatedReport, Policy = Constant.Policy.Read)]
     public class WagerReportController : ReadOnlyBaseController
     {

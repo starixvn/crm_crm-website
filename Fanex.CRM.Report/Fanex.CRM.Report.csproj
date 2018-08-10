@@ -137,16 +137,11 @@
     <Reference Include="NPOI.OOXML">
       <HintPath>..\Dependency\NPoi\NPOI.OOXML.dll</HintPath>
     </Reference>
-    <Reference Include="ONEbook.UM, Version=2.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ONEbook.UM.2.0.2.6\lib\net40\ONEbook.UM.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ONEbook.UM, Version=2.0.2.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ONEbook.UM.2.0.2.9\lib\net40\ONEbook.UM.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -189,13 +184,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ReportBundles.cs" />
-    <Compile Include="Controllers\CasinoReportController.cs" />
     <Compile Include="Controllers\DirectCustomerReportController.cs" />
     <Compile Include="Controllers\LogStatisticsController.cs" />
     <Compile Include="Controllers\DeletedFeedbackStatisticsController.cs" />
     <Compile Include="Controllers\RedemptionStatisticsReportController.cs" />
     <Compile Include="Controllers\CustomerReportController.cs" />
-    <Compile Include="Controllers\DailyStatisticsReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
     <Compile Include="Controllers\FeedbackStatisticReportController.cs" />
     <Compile Include="Controllers\StatisticReportController.cs">
@@ -204,11 +197,8 @@
     <Compile Include="Controllers\SettlementReportController.cs" />
     <Compile Include="Controllers\SummaryReportController.cs" />
     <Compile Include="Controllers\WagerReportController.cs" />
-    <Compile Include="Controllers\WeeklyStatisticsReportController.cs" />
     <Compile Include="Criteria\DirectCustomerReport\DirectCustomerReportCriteria.cs" />
     <Compile Include="Criteria\LogStatistics\LogStatisticsCriteria.cs" />
-    <Compile Include="Criteria\CasinoReport\GetCasinoDetailCriteria.cs" />
-    <Compile Include="Criteria\CasinoReport\GetCasinoSummaryCriteria.cs" />
     <Compile Include="Criteria\LogStatistics\LogStatisticsReportDetailCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackStatistics\DeletedFeedbackStatisticsCriteria.cs" />
     <Compile Include="Criteria\RedemptionStatisticsReport\GetRedemptionStatisticsDetailCriteria.cs" />
@@ -218,14 +208,10 @@
     <Compile Include="Criteria\FeedbackStatisticReport\GetFeedbackStatisticCriteria.cs" />
     <Compile Include="Criteria\FeedbackStatisticReport\GetFeedbackStatisticDetailCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
-    <Compile Include="Criteria\StatisticByDateReport\GetMainReportCriteria.cs" />
     <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
-    <Compile Include="Criteria\StatisticByDateReport\GetDetailReportCriteria.cs" />
-    <Compile Include="Entities\CasinoReport\CasinoDetailEntity.cs" />
     <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsDetailEntity.cs" />
     <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsEntity.cs" />
     <Compile Include="Entities\LogStatistics\LogStatisticsEntity.cs" />
-    <Compile Include="Entities\StatisticsReportByDate\StatisticByDateEntity.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
     <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
@@ -249,13 +235,6 @@
     <Compile Include="Models\LogStatistics\LogStatisticsMainCategory.cs" />
     <Compile Include="Models\LogStatistics\SettingForLogStatistics.cs" />
     <Compile Include="Models\LogStatistics\LogStatisticsViewModel.cs" />
-    <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />
-    <Compile Include="Models\CasinoReport\CasinoDetail.cs" />
-    <Compile Include="Models\CasinoReport\CasinoGroup.cs" />
-    <Compile Include="Models\CasinoReport\CasinoWeeklyCategory.cs" />
-    <Compile Include="Models\CasinoReport\CasinoWeeklySummary.cs" />
-    <Compile Include="Models\CasinoReport\CategoryCasinoGroup.cs" />
-    <Compile Include="Models\CasinoReport\CommunicationValue.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedback.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackByHandler.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackStatisticsViewModel.cs" />
@@ -280,8 +259,6 @@
     <Compile Include="Models\CategoryIssuesInfo.cs" />
     <Compile Include="Models\StatisticsReportByDate\StatisticsDetailbyDateModel.cs" />
     <Compile Include="Models\StatisticsReportByDate\StatisticsDetailReportByDateModel.cs" />
-    <Compile Include="Models\StatisticsReportByDate\StatisticsInfoByDateRepositoryResultModel.cs" />
-    <Compile Include="Models\StatisticsReportByDate\StatisticsReportByDateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DirectCustomerReport\DirectCustomerReportRepository.cs" />
     <Compile Include="Repositories\DirectCustomerReport\IDirectCustomerReportRepository.cs" />
@@ -291,9 +268,6 @@
     <Compile Include="Repositories\DeletedFeedbackStatistics\IDeletedFeedbackStatisticsRepository.cs" />
     <Compile Include="Repositories\RedemptionStatisticsReport\IRedemptionStatisticsRepository.cs" />
     <Compile Include="Repositories\RedemptionStatisticsReport\RedemptionStatisticsRepository.cs" />
-    <Compile Include="Repositories\StatisticByDateReport\StatisticByDateRepository.cs" />
-    <Compile Include="Repositories\StatisticByDateReport\IStatisticByDateRepository.cs" />
-    <Compile Include="Repositories\CasinoReport\CasinoReportRepository.cs" />
     <Compile Include="Repositories\CustomerReport\CustomerReportRepository.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
@@ -303,7 +277,6 @@
     <Compile Include="Repositories\StatisticReport\StatisticReportRepository.cs" />
     <Compile Include="Repositories\SummaryReport\SummaryReportRepository.cs" />
     <Compile Include="Repositories\WagerReport\WagerReportRepository.cs" />
-    <Compile Include="Repositories\CasinoReport\ICasinoReportRepository.cs" />
     <Compile Include="Repositories\CustomerReport\ICustomerReportRepository.cs" />
     <Compile Include="Repositories\DynamicReport\IDynamicReportRepository.cs" />
     <Compile Include="Repositories\FeedbackStatisticReport\IFeedbackStatisticReportRepository.cs" />
@@ -322,8 +295,6 @@
     <Compile Include="Services\DeletedFeedbackStatistics\IDeletedFeedbackStatisticsService.cs" />
     <Compile Include="Services\RedemptionStatisticsReport\RedemptionStatisticsService.cs" />
     <Compile Include="Services\RedemptionStatisticsReport\IRedemptionStatisticsService.cs" />
-    <Compile Include="Services\DailyStatisticsReport\DailyStatisticsReportService.cs" />
-    <Compile Include="Services\CasinoReport\CasinoReportService.cs" />
     <Compile Include="Services\CustomerReport\CustomerReportService.cs" />
     <Compile Include="Services\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\DynamicReport\DynamicReportService.cs" />
@@ -338,7 +309,6 @@
     <Compile Include="Services\SettlementReport\SettlementReportService.cs" />
     <Compile Include="Services\SummaryReport\SummaryReportService.cs" />
     <Compile Include="Services\WagerReport\WagerReportService.cs" />
-    <Compile Include="Services\CasinoReport\ICasinoReportService.cs" />
     <Compile Include="Services\CustomerReport\ICustomerReportService.cs" />
     <Compile Include="Services\DynamicReport\IDynamicReportService.cs" />
     <Compile Include="Services\FeedbackStatisticReport\IFeedbackStatisticReportService.cs" />
@@ -346,9 +316,6 @@
     <Compile Include="Services\SettlementReport\ISettlementReportService.cs" />
     <Compile Include="Services\SummaryReport\ISummaryReportService.cs" />
     <Compile Include="Services\WagerReport\IWagerReportService.cs" />
-    <Compile Include="Services\StatisticByDateReport\IStatisticByDateReportService.cs" />
-    <Compile Include="Services\StatisticByDateReport\StatisticByDateReportService.cs" />
-    <Compile Include="Services\WeeklyStatisticsReport\WeeklyStatisticsReportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

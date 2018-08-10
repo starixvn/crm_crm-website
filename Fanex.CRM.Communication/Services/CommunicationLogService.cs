@@ -1,12 +1,3 @@
-// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
 namespace Fanex.CRM.Communication.Services
 {
     using Fanex.CRM.Common.Helpers;
@@ -23,14 +14,11 @@ namespace Fanex.CRM.Communication.Services
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// Communication Log Service.
-    /// </summary>
     public class CommunicationLogService : ICommunicationLogService
     {
         private readonly ICommunicationLogRepository _communicationRepositoryLog;
 
-        private ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
 
         public CommunicationLogService()
             : this(null, null)
@@ -49,16 +37,10 @@ namespace Fanex.CRM.Communication.Services
         {
             get
             {
-                return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+                return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             }
         }
 
-        /// <summary>
-        /// Gets all status for insert.
-        /// </summary>
-        /// <value>
-        /// All status for insert.
-        /// </value>
         public IList<BaseModel> AllStatusForInsert
         {
             get
@@ -100,27 +82,12 @@ namespace Fanex.CRM.Communication.Services
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);
             log.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NotApply : licenseeType.Value;
 
-            var communication = settings.FirstOrDefault(s => s.Id == log.CommunicationTool.Id);
-            log.CommunicationTool.Name = communication == null ? null : communication.Value;
-
-            var product = settings.FirstOrDefault(s => s.Id == log.Product.Id);
-            log.Product.Name = product == null ? Labels.Symbol_NotApply : product.Value;
-
-            var subProduct = settings.FirstOrDefault(s => s.Id == log.SubProduct.Id);
-            log.SubProduct.Name = subProduct == null ? Labels.Symbol_NotApply : subProduct.Value;
-
             var language = settings.FirstOrDefault(s => s.Id == log.Language.Id);
             log.Language.Name = language == null ? Labels.Symbol_NotApply : language.Value;
 
-            var bettype = settings.FirstOrDefault(s => s.Id == log.BetType.Id);
-            log.BetType.Name = bettype == null ? Labels.Symbol_NotApply : bettype.Value;
-
             log.Response.Name = settings.First(s => s.Id == log.Response.Id).Value;
-            log.MainCategory.Name = settings.First(s => s.Id == log.MainCategory.Id).Value;
             log.Status.Name = settings.First(s => s.Id == log.Status.Id).Value;
-            log.Extension.Name = settings.First(s => s.Id == log.Extension.Id).Value;
             log.RoleInfo.Name = settings.First(s => s.Id == log.RoleInfo.Id).Value;
-            log.SubCategory.Name = settings.First(s => s.Id == log.SubCategory.Id).Value;
         }
 
         public Result UpdateLog(UpdateLogCriteria criteria)

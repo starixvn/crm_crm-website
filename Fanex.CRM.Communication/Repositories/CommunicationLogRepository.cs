@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Communication.Repositories
+﻿namespace Fanex.CRM.Communication.Repositories
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
@@ -18,14 +9,12 @@ namespace Fanex.CRM.Communication.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Communication Log Repository.
-    /// </summary>
     public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
     {
         public IEnumerable<BaseCommunicationLog> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
@@ -34,15 +23,29 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var logs = new List<BaseCommunicationLog>();
+                    var feedbacks = new List<BaseCommunicationLog>();
                     while (reader.Read())
                     {
                         var log = MappingDataFromSqlToLogInfoObject(reader);
                         log.CustomerId = criteria.CustomerId;
-                        logs.Add(log);
+                        feedbacks.Add(log);
                     }
 
-                    return logs;
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingIdLv1 = Converter.ToInt(reader["MainCategoryID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubCategoryID"])
+                            });
+                        }
+                    }
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -74,6 +77,20 @@ namespace Fanex.CRM.Communication.Repositories
                         log.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                     }
 
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            log.Settings.Add(new SettingItem
+                            {
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
                     return log;
                 }
             }
@@ -97,11 +114,6 @@ namespace Fanex.CRM.Communication.Repositories
             }
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Log Info Object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
@@ -114,14 +126,6 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new Setting
-                {
-                    Name = Converter.ToString2(reader["MainCategory"])
-                },
-                SubCategory = new Setting
-                {
-                    Name = Converter.ToString2(reader["SubCategory"])
-                },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
@@ -137,11 +141,6 @@ namespace Fanex.CRM.Communication.Repositories
             return logInfo;
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object of function get log by identify.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Log Info Object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
@@ -151,40 +150,12 @@ namespace Fanex.CRM.Communication.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToShortFormatedDate(),
-                MainCategory = new Setting
-                {
-                    Id = Converter.ToInt(reader["MainCategoryID"])
-                },
-                SubCategory = new Setting
-                {
-                    Id = Converter.ToInt(reader["SubCategoryID"])
-                },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
                 EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ResolutionDate"])).ToLongFormatedDateTime(),
-                Extension = new Setting
-                {
-                    Id = Converter.ToInt(reader["StationID"])
-                },
-                CommunicationTool = new Setting
-                {
-                    Id = Converter.ToInt(reader["CommunicationID"])
-                },
                 Language = new Setting
                 {
                     Id = Converter.ToInt(reader["LanguageID"])
-                },
-                Product = new Setting
-                {
-                    Id = Converter.ToInt(reader["ProductID"])
-                },
-                SubProduct = new Setting
-                {
-                    Id = Converter.ToInt(reader["SubProductID"])
-                },
-                BetType = new Setting
-                {
-                    Id = Converter.ToInt(reader["BetTypeID"])
                 },
                 Status = new Setting
                 {
@@ -221,6 +192,22 @@ namespace Fanex.CRM.Communication.Repositories
             };
 
             return logInfo;
+        }
+
+        private IEnumerable<BaseCommunicationLog> GenerateFeedBackDetailWithSetting(IEnumerable<BaseCommunicationLog> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<BaseCommunicationLog, List<SettingItem>, BaseCommunicationLog> regenerateFeedBackDetail = delegate (BaseCommunicationLog f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.RunningNumber equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.RunningNumber into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }

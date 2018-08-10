@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetRedemptionStatisticsSummaryCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2014.11.26">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
+﻿namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
-    /// <summary>
-    /// Get Redemption Statistics Summary Report.
-    /// </summary>
     public class GetRedemptionStatisticsSummaryCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "fromdate")]

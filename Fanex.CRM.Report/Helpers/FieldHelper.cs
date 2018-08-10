@@ -1,31 +1,12 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FieldHelper.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Helpers
+﻿namespace Fanex.CRM.Report.Helpers
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Web;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Resources;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web;
 
-    /// <summary>
-    /// Site Helper.
-    /// </summary>
     public static class FieldHelper
     {
-        /// <summary>
-        /// Generates the contact information.
-        /// </summary>
-        /// <param name="customerInfo">The customer info.</param>
-        /// <returns>
-        /// The contact information.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Need Review.")]
         public static string GenerateContactInfo(BaseCustomer customerInfo)
         {

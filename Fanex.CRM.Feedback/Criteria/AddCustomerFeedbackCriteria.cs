@@ -1,30 +1,13 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddCustomerFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Fanex.CRM.Feedback.Models;
     using System.Collections;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.CRM.Feedback.Models;
 
-    /// <summary>
-    /// Add Customer Feedback Criteria.
-    /// </summary>
     public class AddCustomerFeedbackCriteria : AddGuestFeedbackCriteria
     {
         public bool OverrideCRMInfo { get; set; }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

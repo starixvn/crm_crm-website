@@ -259,6 +259,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max length of Description is 32,700!.
+        /// </summary>
+        public static string DescriptionMaxLengthError {
+            get {
+                return ResourceManager.GetString("DescriptionMaxLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -363,6 +372,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Error_FeedbackResolutionTime {
             get {
                 return ResourceManager.GetString("Error_FeedbackResolutionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Category - Sub Category is mandatory!.
+        /// </summary>
+        public static string Error_NA_MainSubCategory {
+            get {
+                return ResourceManager.GetString("Error_NA_MainSubCategory", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Invalid {
             get {
                 return ResourceManager.GetString("Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category..
+        /// </summary>
+        public static string InvalidCategoryError {
+            get {
+                return ResourceManager.GetString("InvalidCategoryError", resourceCulture);
             }
         }
         
@@ -1177,6 +1204,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max length of Solution is 32,700!.
+        /// </summary>
+        public static string SolutionMaxLengthError {
+            get {
+                return ResourceManager.GetString("SolutionMaxLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solved.
         /// </summary>
         public static string Solved {
@@ -1222,7 +1258,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subcategory.
+        ///   Looks up a localized string similar to SubCategory.
         /// </summary>
         public static string SubCategory {
             get {

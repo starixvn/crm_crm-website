@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.ActionLog.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.ActionLog.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// CacheManager class.
@@ -49,14 +49,14 @@ namespace Fanex.CRM.ActionLog.Services
             var currencies = settingService.GetAllCurrencies(new GetAllCurrencyCriteria())
                 .Select(c => new Setting { Id = c.Id, Value = c.Name, SettingType = "Currency" });
 
-            var settings = settingService.GetAllSettings().ToList();
+            var settings = settingService.GetAllSettings();
             settings.AddRange(countries);
             settings.AddRange(currencies);
 
             // Add default N/A
             settings.Add(new Setting { Id = 0, Value = Labels.NA, SettingType = string.Empty });
 
-            return settings.ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);            
+            return settings.ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);
         }
     }
 }

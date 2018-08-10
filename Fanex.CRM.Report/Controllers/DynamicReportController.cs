@@ -1,15 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
     using Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -17,22 +7,25 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DynamicReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models;
+    using Setting.Services;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
-    /// <summary>
-    /// Dynamic Report Controller.
-    /// </summary>
     public class DynamicReportController : ReadOnlyBaseController
     {
-        private IDynamicReportService _dynamicReportService;
+        private readonly IDynamicReportService _dynamicReportService;
+        private readonly ISettingService _serviceSetting;
 
         public DynamicReportController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DynamicReportController(IDynamicReportService dynamicReportService)
+        public DynamicReportController(IDynamicReportService dynamicReportService, ISettingService serviceSetting)
         {
             _dynamicReportService = dynamicReportService ?? new DynamicReportService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
@@ -42,10 +35,6 @@ namespace Fanex.CRM.Report.Controllers
             return View("~/Areas/Report/DynamicReport/Index.cshtml");
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
 
@@ -72,13 +61,35 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            var logs = _dynamicReportService.GetDynamicReport(criteria);
-            return Json(logs, JsonRequestBehavior.AllowGet);
+            if (criteria.IsValid())
+            {
+                var logs = _dynamicReportService.GetDynamicReport(criteria);
+                var result = new
+                {
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                    Logs = logs
+                };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                Logs = new DynamicReportInfo
+                {
+                    ChildReports = new List<DynamicReportInfo>(),
+                }
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)
         {
-            _dynamicReportService.ExportDynamicReport(criteria);
+            if (criteria.IsValid())
+            {
+                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
+            }
+
             return new EmptyResult();
         }
     }

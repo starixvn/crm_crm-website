@@ -1,30 +1,19 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="FeedbackRowExcelWriter.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Excels
+﻿namespace Fanex.CRM.Feedback.Excels
 {
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class FeedbackRowExcelWriter
     {
-        private ExportExcelInfo _exportExcelInfo;
-
         public FeedbackRowExcelWriter(ExportExcelInfo exportExcelInfo, short rowBackgroundColorIndex)
         {
-            _exportExcelInfo = exportExcelInfo;
-
             _cellStyle = NpoiExtensions.GetTextStyle(
-                _exportExcelInfo.ExcelFile,
+                exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
@@ -33,30 +22,34 @@ namespace Fanex.CRM.Feedback.Excels
 
         public ICellStyle _cellStyle { get; private set; }
 
-        public virtual void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback)
+        public virtual void WriteRow(ExportExcelInfo exportExcelInfo, FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
             int columnIndex = exportExcelInfo.StartColumn;
             var feedbackRow = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             feedbackRow.Height = 1200;
 
+            var categoryContents = BuildCategoryContent(feedback, mainCategories);
+            var categoryCellValue = String.Join("\n\n", categoryContents);
+
             var feedbackCellValue = GetFeedbackCellValue(feedback);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
-
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
-
-            var categoryCellValue = GetCategoryCellValue(feedback);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
-
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
-            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex, feedback.RelatedCustomer, _cellStyle);
 
             exportExcelInfo.CurrentRow++;
+        }
+
+        protected string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
+        {
+            return NameMapping.GetCategoryContent(feedback.Settings, mainCategories);
         }
 
         protected string GetFeedbackCellValue(FeedbackDetail feedback)
         {
             var cellValue = string.Format(
-                "{0}\n{1}\n{2}\n{3}", 
+                "{0}\n{1}\n{2}\n{3}",
                 feedback.Subject,
                 "Feedback date " + feedback.FeedbackDateString,
                 "By " + feedback.CreatorName + " on " + feedback.CreateDateString,

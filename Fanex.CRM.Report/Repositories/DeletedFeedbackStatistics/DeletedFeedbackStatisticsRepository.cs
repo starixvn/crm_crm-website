@@ -1,15 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedFeedbackStatisticsRepository.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
+﻿namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
 {
-    using System.Collections.Generic;
+    using Common.Models;
     using Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Models.DeletedFeedbackStatistics;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class DeletedFeedbackStatisticsRepository : IDeletedFeedbackStatisticsRepository
     {
@@ -17,8 +14,30 @@ namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
         {
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                return objectDb.Query<DeletedFeedback>(criteria.GetSpParams());
+                using (var multi = objectDb.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var feedbacks = multi.Read<DeletedFeedback>();
+                    var settings = multi.Read<SettingItem>();
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+                }
             }
+        }
+
+        private IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(IEnumerable<DeletedFeedback> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateFeedBackDetail = delegate (DeletedFeedback f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }

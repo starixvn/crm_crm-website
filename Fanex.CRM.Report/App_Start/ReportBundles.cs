@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Report
 {
-    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
+    using System.Web.Optimization;
 
     /// <summary>
     /// Bundle Config of Report.
@@ -20,12 +20,6 @@ namespace Fanex.CRM.Report
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            RegisterCasinoDailyStatisticsBundles(bundles);
-            RegisterCasinoWeeklyBundles(bundles);
-
-            RegisterDailyStatisticsReportBundles(bundles);
-            RegisterWeeklyStatisticsReportBundles(bundles);
-            
             RegisterFeedbackStatisticBundles(bundles);
             RegisterFeedbackStatisticDetailBundles(bundles);
 
@@ -33,109 +27,7 @@ namespace Fanex.CRM.Report
             RegisterDeletedFeedbackStatisticsBundles(bundles);
         }
 
-        /// <summary>
-        /// Registers the casino daily statistics bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterCasinoDailyStatisticsBundles(BundleCollection bundles)
-        {
-            AddAndInclude(
-                bundles,
-                "~/bundles/Report/CasinoDailyStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
-                "~/Areas/Report/CasinoDailyStatistics/Styles/casinodaily.less");
 
-            bundles.Add(new ScriptBundle("~/bundles/Report/CasinoDailyScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/CasinoDailyStatistics/Scripts/CasinoDailyApplication.js",
-                "~/Areas/Report/CasinoDailyStatistics/Scripts/CasinoDailyService.js",
-                "~/Areas/Report/CasinoDailyStatistics/Scripts/CasinoDailyController.js",
-                "~/Areas/Report/CasinoDailyStatistics/Scripts/Directives/*.js"));
-        }
-
-        /// <summary>
-        /// Registers the casino weekly bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterCasinoWeeklyBundles(BundleCollection bundles)
-        {
-            AddAndInclude(
-                bundles,
-                "~/bundles/Report/CasinoWeeklyStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
-                "~/Areas/Report/CasinoWeeklyStatistics/Styles/casinoweekly.less");
-
-            bundles.Add(new ScriptBundle("~/bundles/Report/CasinoWeeklyScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/CasinoWeeklyStatistics/Scripts/CasinoWeeklyApplication.js",
-                "~/Areas/Report/CasinoWeeklyStatistics/Scripts/CasinoWeeklyService.js",
-                "~/Areas/Report/CasinoWeeklyStatistics/Scripts/CasinoWeeklyController.js",
-                "~/Areas/Report/CasinoWeeklyStatistics/Scripts/Directives/*.js"));
-        }
-
-        /// <summary>
-        /// Registers the daily statistics report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterDailyStatisticsReportBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Report/DailyStatisticsReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportApplication.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportService.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_Options.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_Update.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_HotKey.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController.js",
-                "~/Areas/Report/DailyStatisticsReport/Scripts/Directives/*.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Report/DailyStatisticsReportStyles",
-                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
-        }
-
-        /// <summary>
-        /// Registers the weekly statistics report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterWeeklyStatisticsReportBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Report/WeeklyStatisticsReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportApplication.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportService.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportController_Options.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportController_Update.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportController_HotKey.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/WeeklyStatisticsReportController.js",
-                "~/Areas/Report/WeeklyStatisticsReport/Scripts/Directives/*.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Report/WeeklyStatisticsReportStyles",
-                "~/Areas/Report/WeeklyStatisticsReport/Styles/WeeklyStatisticsReport.less");
-        }
-        
         /// <summary>
         /// Registers the feedback statistic bundles.
         /// </summary>

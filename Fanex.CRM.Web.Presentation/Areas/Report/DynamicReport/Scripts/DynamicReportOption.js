@@ -20,6 +20,7 @@
         $scope.fromWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
+            MinDate: new Date(currentTime.getFullYear() - 50, currentTime.getMonth(), currentTime.getDate()),
             MaxDate: currentDate,
             IsRerenderPicker: false,
             OnChangeDateEvent: $scope.updateFromWeek
@@ -28,6 +29,7 @@
         $scope.toWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
+            MinDate: new Date(currentTime.getFullYear() - 50, currentTime.getMonth(), currentTime.getDate()),
             MaxDate: currentDate,
             IsRerenderPicker: false,
             OnChangeDateEvent: $scope.updateToWeek
@@ -50,9 +52,7 @@
             CurrentDate: currentDate,
             InitDate: initFromDate,
             MaxDate: initFromDate,
-            MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
-            initFromDate.getMonth(),
-            initFromDate.getDate()),
+            MinDate: new Date(initFromDate.getFullYear() - 50, initFromDate.getMonth(), initFromDate.getDate()),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromMonth,
             SelectedYear: initFromDate.getFullYear(),
@@ -80,9 +80,7 @@
             CurrentDate: currentDate,
             InitDate: initFromDate,
             MaxDate: initFromDate,
-            MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
-            initFromDate.getMonth(),
-            initFromDate.getDate()),
+            MinDate: new Date(initFromDate.getFullYear() - 50, initFromDate.getMonth(),initFromDate.getDate()),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromYear,
             SelectedYear: initFromDate.getFullYear()

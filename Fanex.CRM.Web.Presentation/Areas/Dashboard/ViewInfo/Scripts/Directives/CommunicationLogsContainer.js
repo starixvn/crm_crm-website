@@ -5,7 +5,7 @@
     sharedScriptManager,
     viewResources */
     /* jshint camelcase: false */
-    angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {
+    angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {        
         function renderCommunicationLogs(scope, element) {
             if (scope.communicationLogs == null) {
                 return;
@@ -34,8 +34,7 @@
                         },
                         {
                             Name: "ColCategory",
-                            Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                                (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                            Value: nameMapping.renderCategoryColumn(info, scope.mainCategory)
                         },
                         { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
                         { Name: "ColStatus", Value: info.StatusName },

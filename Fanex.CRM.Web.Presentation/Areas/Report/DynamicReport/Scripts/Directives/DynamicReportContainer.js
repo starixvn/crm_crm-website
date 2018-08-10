@@ -17,7 +17,7 @@
             65 + crmConstants.MarginBottomPage;
         }
 
-        function getGripOtions(dynamicReport) {
+        function getGripOtions(dynamicReport, mainCategory) {
             var bodyData = [];
             var footerData = [];
             var childReportLength = dynamicReport ? dynamicReport.ChildReports.length : 0;
@@ -63,8 +63,7 @@
                             },
                             {
                                 Name: "ColCategory",
-                                Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                                    (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                                Value: nameMapping.renderCategoryColumn(info, mainCategory, true)
                             },
                             { Name: "ColSubject", Value: info.Subject },
                             { Name: "ColStatus", Value: info.StatusName },
@@ -169,8 +168,9 @@
             var tableDynamicReport = element.find("#table-dynamic-report");
             cachedTable = tableDynamicReport;
             var dynamicReport = scope.dynamicReportOptions.DataList;
+            var mainCategory = scope.dynamicReportOptions.mainCategory;
             cachedDynamicReport = dynamicReport;
-            var gridOptions = getGripOtions(dynamicReport);
+            var gridOptions = getGripOtions(dynamicReport, mainCategory);
             cachedGridOptions = gridOptions;
             tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             bindLogLink(tableDynamicReport, scope);

@@ -1,14 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticService.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Services.LogStatistics
+﻿namespace Fanex.CRM.Report.Services.LogStatistics
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
@@ -19,6 +10,9 @@ namespace Fanex.CRM.Report.Services.LogStatistics
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.CRM.Report.Repositories.LogStatistics;
     using Fanex.CRM.Report.Resources;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     public class LogStatisticsService : ILogStatisticsService
     {

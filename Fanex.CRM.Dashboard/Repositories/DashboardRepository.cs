@@ -9,10 +9,6 @@
 
 namespace Fanex.CRM.Dashboard.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -22,6 +18,11 @@ namespace Fanex.CRM.Dashboard.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Dashboard Repository.
@@ -75,13 +76,29 @@ namespace Fanex.CRM.Dashboard.Repositories
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var communicationLogs = new List<CommunicationLogInfo>();
+                    var feedbacks = new List<CommunicationLogInfo>();
                     while (reader.Read())
                     {
-                        communicationLogs.Add(ReadCommunicationLog(reader));
+                        feedbacks.Add(ReadCommunicationLog(reader));
                     }
 
-                    return communicationLogs;
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -154,8 +171,6 @@ namespace Fanex.CRM.Dashboard.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
@@ -169,6 +184,22 @@ namespace Fanex.CRM.Dashboard.Repositories
             };
 
             return communicationLog;
+        }
+
+        private IEnumerable<CommunicationLogInfo> GenerateFeedBackDetailWithSetting(IEnumerable<CommunicationLogInfo> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<CommunicationLogInfo, List<SettingItem>, CommunicationLogInfo> regenerateFeedBackDetail = delegate (CommunicationLogInfo f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.RunningNumber equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.RunningNumber into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
     }
 }

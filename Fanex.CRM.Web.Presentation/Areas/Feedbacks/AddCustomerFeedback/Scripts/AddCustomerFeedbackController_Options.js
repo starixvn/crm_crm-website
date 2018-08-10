@@ -14,15 +14,8 @@
         $scope.responseOptions = null;
         $scope.languageOptions = null;
 
-        $scope.productOptions = null;
-        $scope.subProductOptions = null;
-
-        $scope.mainCategoryOptions = null;
-        $scope.betTypeOptions = null;
         $scope.statusOptions = null;
 
-        $scope.extensionOptions = null;
-        $scope.subCategoryOptions = null;
         $scope.countryOptions = null;
         $scope.roleOptions = null;
         $scope.subjectOptions = null;
@@ -74,25 +67,9 @@
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedLanguage
             };
-            $scope.mainCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedMainCategory
-            };
-            $scope.betTypeOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedBetType
-            };
             $scope.statusOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedStatus
-            };
-            $scope.extensionOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedExtension
-            };
-            $scope.subCategoryOptions = {
-                DataList: [],
-                OnChangeEvent: $scope.updateSelectedSubCategory
             };
             $scope.countryOptions = {
                 DataList: [],
@@ -117,17 +94,6 @@
                 Gravity: 'nw',
                 Title: viewResources.Helper_RelatedInputMessage,
                 IsUpdateTip: true
-            };
-
-            $scope.productOptions = {
-                DataList: [],
-                SelectedId: null,
-                OnChangeEvent: $scope.updateSelectedProduct
-            };
-            $scope.subProductOptions = {
-                DataList: [],
-                SelectedId: null,
-                OnChangeEvent: $scope.updateSelectedSubProduct
             };
         };
     };

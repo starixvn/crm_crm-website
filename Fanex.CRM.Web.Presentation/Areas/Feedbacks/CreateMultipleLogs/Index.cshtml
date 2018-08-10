@@ -14,6 +14,7 @@
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
+    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
 <div data-ng-app="create-multiple-logs-application">
@@ -65,250 +66,279 @@
                                 <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
                             </div>
                         </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="startTime">
+                                        @Labels.Start_Time
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
+                                           onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="ext">
+                                        @Labels.Ext
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedExtensions"
+                                                            data-settings="extensionDropdownSettings"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="endTime">
+                                        @Labels.End_Time
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="multipleLogs.EndTime"
+                                           datetimepicker />
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="country">
+                                        @Labels.Country
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
+                                    <select id="country"></select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="communicationTool">
+                                        @Labels.Communication_Tool
+                                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCommunications"
+                                                            data-settings="communicationDropdownSettings"
+                                                            ng-change="communicationChangeHandler()"></multileveldropdowntree>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="language">
+                                        @Labels.Language
+                                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
+                                    <select id="language" class="languageoptions"></select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="mainCategory">
+                                        @Labels.Category
+                                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedCategories"
+                                                            data-ng-change="categoryChangedHandler()"
+                                                            data-settings="categoryDropdownSettings"></multileveldropdowntree>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="subCategory">
+                                        @Labels.SubCategory
+                                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-change="subCategoryChangedHandler()"
+                                                            data-ng-model="selectedSubCategories"
+                                                            data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="product">
+                                        @Labels.Product
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedProducts"
+                                                            data-ng-change="productChangedHandler()"
+                                                            data-settings="productDropdownSettings"></multileveldropdowntree>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="subproduct">
+                                        @Labels.SubProduct
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedSubProducts"
+                                                            data-ng-change="subProductChangedHandler()"
+                                                            data-settings="subProductDropdownSettings"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="status">
+                                        @Labels.Status
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-status data-ng-model="statusList">
+                                    <select id="status"></select>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="betType">
+                                        @Labels.Bet_Type
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <multileveldropdowntree text-settings="TextSettings"
+                                                            data-ng-model="selectedBettypes"
+                                                            data-settings="bettypeDropdownSettings"
+                                                            data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="role">
+                                        @Labels.Role
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-role data-ng-model="roleList">
+                                    <select id="role"></select>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="site">
+                                        @Labels.Site
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <selectwithsearchtree text-settings="TextSettings"
+                                                          data-ng-model="selectedSite"
+                                                          data-settings="siteDropdownSettings"></selectwithsearchtree>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="licensee-type">
+                                        @Labels.Licensee_Type
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
+                                </div>
 
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="startTime">
-                                    @Labels.Start_Time
-                                </label>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                    <label for="response">
+                                        @Labels.Response
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                                    <select id="response"></select>
+                                </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
-                                       onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="ext">
-                                    @Labels.Ext
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-extension data-ng-model="extensionList">
-                                <select id="ext"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="endTime">
-                                    @Labels.End_Time
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="multipleLogs.EndTime"
-                                       datetimepicker />
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="country">
-                                    @Labels.Country
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
-                                <select id="country"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="communicationTool">
-                                    @Labels.Communication_Tool
-                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-communication-tool data-ng-model="communicationToolList">
-                                <select id="communicationTool"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="language">
-                                    @Labels.Language
-                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
-                                <select id="language" class="languageoptions"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="mainCategory">
-                                    @Labels.Main_Category
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-main-category data-ng-model="mainCategoryList">
-                                <select id="mainCategory"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="subcategory">
-                                    @Labels.Sub_Category
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-sub-category data-ng-model="subCategoryList">
-                                <select id="subCategory"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="product">
-                                    @Labels.Product
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-product data-ng-model="productOptions.DataList">
-                                <select id="product"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="subproduct">
-                                    @Labels.SubProduct
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-sub-product data-ng-model="subProductOptions.DataList">
-                                <select id="subProduct"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="status">
-                                    @Labels.Status
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-status data-ng-model="statusList">
-                                <select id="status"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="betType">
-                                    @Labels.Bet_Type
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-bet-type data-ng-model="betTypeList">
-                                <select id="betType"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="role">
-                                    @Labels.Role
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-role data-ng-model="roleList">
-                                <select id="role"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="site">
-                                    @Labels.Site
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" >
-                                <selectwithsearchtree text-settings="TextSettings"
-                                                      data-ng-model="selectedSite"
-                                                      data-settings="siteDropdownSettings"></selectwithsearchtree>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="licensee-type">
-                                    @Labels.Licensee_Type
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
-                            </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="response">
-                                    @Labels.Response
-                                </label>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                                <select id="response"></select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="subject">
-                                    @Labels.Subject
-                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                                </label>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
-                                <input type="text" class="textbox " id="subject" data-ng-model="multipleLogs.Subject"
-                                       subject-auto-complete />
+                            <div class="row item">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <label for="subject">
+                                        @Labels.Subject
+                                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                                    </label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
+                                    <input type="text" class="textbox " id="subject" data-ng-model="multipleLogs.Subject"
+                                           subject-auto-complete />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row panel-group">
-                <div class="row title">
-                    <div class="pull-left hand">
-                        Auto-generated
+                <div class="row panel-group">
+                    <div class="row title">
+                        <div class="pull-left hand">
+                            Auto-generated
+                        </div>
+                    </div>
+                    <div class="FeedbackDescription row content">
+                        <div class="" id="">
+                            <textarea rows="3" class="auto-generated-text" data-ng-model="autoGeneratedText"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="FeedbackDescription row content">
-                    <div class="" id="">
-                        <textarea rows="3" class="auto-generated-text" data-ng-model="autoGeneratedText"></textarea>
+                <div class="row panel-group">
+                    <div class="row title remarktitle" data-ng-class="isShowRemarkBox ? '' : 'border-bottom-none'"
+                         data-ng-click="isShowRemarkBox = !isShowRemarkBox">
+                        @Labels.Remark
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </div>
+                    <div class="row content multi-text" data-ng-show="isShowRemarkBox">
+                        <div id="remarkeditorboxcontainer" data-ng-model="multipleLogs.Remark" remark-editor-container>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row panel-group">
-                <div class="row title remarktitle" data-ng-class="isShowRemarkBox ? '' : 'border-bottom-none'"
-                     data-ng-click="isShowRemarkBox = !isShowRemarkBox">
-                    @Labels.Remark
-                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                </div>
-                <div class="row content multi-text" data-ng-show="isShowRemarkBox">
-                    <div id="remarkeditorboxcontainer" data-ng-model="multipleLogs.Remark" remark-editor-container>
+                <div class="row panel-group last">
+                    <div class="row title solutiontitle" data-ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
+                         data-ng-click="isShowSolutionBox = !isShowSolutionBox">
+                        @Labels.Solution
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </div>
+                    <div class="row content multi-text" data-ng-show="isShowSolutionBox">
+                        <div id="solutionkeditorboxcontainer" data-ng-model="multipleLogs.Solution" solution-editor-container>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row panel-group last">
-                <div class="row title solutiontitle" data-ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
-                     data-ng-click="isShowSolutionBox = !isShowSolutionBox">
-                    @Labels.Solution
-                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                <div class="row">
+                    <button class="btn btn-save" data-ng-click="insertMultipleLogs();">
+                        <span class="hotkey">S</span>ave
+                    </button>
                 </div>
-                <div class="row content multi-text" data-ng-show="isShowSolutionBox">
-                    <div id="solutionkeditorboxcontainer" data-ng-model="multipleLogs.Solution" solution-editor-container>
-                    </div>
-                </div>
+                <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
             </div>
-            <div class="row">
-                <button class="btn btn-save" data-ng-click="insertMultipleLogs();">
-                    <span class="hotkey">S</span>ave
-                </button>
-            </div>
-            <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
         </div>
     </div>
-</div>
-@section Scripts {
-    @RazorHelper.RenderScripts("~/Scripts/TimePicker")
-    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
-    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
-    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
-    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
-    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
-    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
-    @RazorHelper.RenderScripts("~/Scripts/common.js")
-    @RazorHelper.RenderScripts("~/Areas/Feedbacks/CreateMultipleLogsScripts")
-    <script type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
-        var customerId = '@customerId';
-        var currentUsername = "@AppSession.CurrentUser.Username";
-        var viewResources = {
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            Select: '@Labels.Select',
-            Insert_Edit_Block: '@Labels.Insert_Edit_Block',
-            Warning: '@Labels.Warning',
-            OK: '@Labels.OK',
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
-            Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
-            Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
-            Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
+    @section Scripts {
+        @RazorHelper.RenderScripts("~/Scripts/TimePicker")
+        @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+        @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+        @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+        @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+        @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+        @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+        @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+        @RazorHelper.RenderScripts("~/Scripts/common.js")
+        @RazorHelper.RenderScripts("~/Areas/Feedbacks/CreateMultipleLogsScripts")
+        <script type="text/javascript">
+            window.rootUrl = '@Url.Content("~")';
+            var currentTime = '@DateTimeUtilize.CurrentClientTime()';
+            var customerId = '@customerId';
+            var currentUsername = "@AppSession.CurrentUser.Username";
+            var viewResources = {
+                Symbol_NotApply: '@Labels.Symbol_NotApply',
+                Select: '@Labels.Select',
+                Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+                Warning: '@Labels.Warning',
+                OK: '@Labels.OK',
+                Symbol_NotApply: '@Labels.Symbol_NotApply',
+                CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
+                Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
+                Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
+                Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
 
-            Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
-            Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
+                Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
+                Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
+                Error_NAMainCategory: '@Labels.Error_NAMainCategory',
+                NoSubcategoryError: '@Labels.NoSubcategoryError',
+                Error_NASubCategory: '@Labels.Error_NASubCategory',
+                Error_NA_MainSubCategory: '@Labels.Error_NA_MainSubCategory',
 
-            Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
-            Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
-            Multiple_Logs_EmptySolution: '@Labels.Multiple_Logs_EmptySolution',
-            Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)'
-        };
-    </script>
-}
+                Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
+                Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
+                Multiple_Logs_EmptySolution: '@Labels.Multiple_Logs_EmptySolution',
+                Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)',
+                InvalidCategoryError: '@Labels.InvalidCategoryError',
+                DescriptionMaxLengthError: '@Labels.DescriptionMaxLengthError',
+                SolutionMaxLengthError: '@Labels.SolutionMaxLengthError'
+            };
+        </script>
+    }

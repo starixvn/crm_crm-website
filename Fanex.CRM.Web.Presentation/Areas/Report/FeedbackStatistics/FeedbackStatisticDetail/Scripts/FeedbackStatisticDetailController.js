@@ -24,7 +24,8 @@
 
             feedbackStatisticDetailService.getFeedbackStatisticDetail($scope.searchCriteria)
             .then(function (data) {
-                $scope.feedbackStatisticDetail = data.Result;
+                $scope.feedbackStatisticDetail = data.Result.Report;
+                $scope.mainCategory = data.Result.MainCategories;
                 $uiBlockerService.unblockUI();
             },
             function () {

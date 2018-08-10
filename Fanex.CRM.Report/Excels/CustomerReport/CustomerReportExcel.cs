@@ -1,6 +1,5 @@
 ﻿namespace Fanex.CRM.Report.Excels.CustomerReport
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -10,7 +9,7 @@
     using Models.CustomerReport;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
+    using System.Diagnostics.CodeAnalysis;
 
     public class CustomerReportExcel : BaseExcel
     {
@@ -111,7 +110,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.BirthDay.HasValue ? customer.BirthDay.Value.ToShortFormatedDate() : string.Empty, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.CountryName, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, customer.CountryName, exportExcelInfo.TextStyle);
             exportExcelInfo.CurrentRow++;
         }
 
@@ -167,7 +166,6 @@
                 RenderHeader(exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
                 var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
-                var startExcelGroupIndex = exportExcelInfo.CurrentRow;
                 int i;
                 for (i = startIndex; i < endIndex && i < totalRows; i++)
                 {

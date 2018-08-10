@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Controllers
+﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -23,9 +14,6 @@ namespace Fanex.CRM.Feedback.Controllers
     using System;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Update customer feedback controller.
-    /// </summary>
     public class UpdateCustomerFeedbackController : ReadOnlyBaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
@@ -93,11 +81,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(_updateCustomerFeedbackService.GetFeedbackById(criteria), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Updates the feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The result object.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
@@ -120,15 +103,10 @@ namespace Fanex.CRM.Feedback.Controllers
                     LoggingHelper.Error(exception, criteria);
                 }
 
-                throw exception;
+                throw;
             }
         }
 
-        /// <summary>
-        /// Checks the update customer feedback permission.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The permission result.</returns>
         private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;

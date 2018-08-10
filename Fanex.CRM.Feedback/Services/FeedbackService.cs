@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Services
+﻿namespace Fanex.CRM.Feedback.Services
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -25,9 +15,6 @@ namespace Fanex.CRM.Feedback.Services
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// Feedback Service.
-    /// </summary>
     public class FeedbackService : IFeedbackService
     {
         private readonly IFeedbackRepository _feedbackRepository;
@@ -59,10 +46,6 @@ namespace Fanex.CRM.Feedback.Services
             }
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>The all setting object.</returns>
         public dynamic GetAllSettings()
         {
             return new
@@ -86,11 +69,6 @@ namespace Fanex.CRM.Feedback.Services
             return GetFeedbacks(criteria);
         }
 
-        /// <summary>
-        /// Gets the deleted feedback report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of deleted feedback.</returns>
         public IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
         {
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
@@ -126,25 +104,6 @@ namespace Fanex.CRM.Feedback.Services
 
         private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
-            var categoryHash = new Dictionary<int, string>();
-            var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-            foreach (var category in categoies)
-            {
-                if (!categoryHash.ContainsKey(category.Id))
-                {
-                    categoryHash.Add(category.Id, category.Value);
-                }
-
-                foreach (var subcategory in category.ChildSettings)
-                {
-                    if (!subcategoryHash.ContainsKey(subcategory.Id))
-                    {
-                        subcategoryHash.Add(subcategory.Id, subcategory.Name);
-                    }
-                }
-            }
-
             var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
@@ -152,8 +111,6 @@ namespace Fanex.CRM.Feedback.Services
             var feedbacks = _feedbackRepository.GetDeletedFeedbacks(criteria);
             foreach (var feedback in feedbacks)
             {
-                feedback.MainCategory = categoryHash[feedback.MainCategoryId];
-                feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
                 var autoFieldText = String.IsNullOrEmpty(feedback.AutoField) ?
                         string.Empty :
@@ -188,7 +145,7 @@ namespace Fanex.CRM.Feedback.Services
 
         private IEnumerable<SettingRelation> GetCustomerResponse()
         {
-            var response = _serviceSetting.GetAllResponses().ToList();
+            var response = _serviceSetting.GetAllResponses();
             response.Insert(
                 0,
                 new SettingRelation

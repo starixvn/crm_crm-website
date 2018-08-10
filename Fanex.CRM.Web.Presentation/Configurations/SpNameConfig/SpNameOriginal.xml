@@ -37,23 +37,43 @@
   </Function>
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop"  DbName="DBCRM.bodb_CRM.bodbAdminNet"  />
+    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="MainCategory" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubCategory" ObjectProperty="SettingIdLv2" />
+    </Setting>
+    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted"  DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>
+    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>
+    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop"  DbName="DBCRM.bodb_CRM.bodbAdminNet"  >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>
     <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailysummaryreport" SpName="Acc_CRM_Rpt_CustomerStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>  
+    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>    
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdateSiteLicenseeTypes" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -137,7 +157,11 @@
     <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatistic" SpName="Acc_CRM_Rpt_DailyStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatisticDetail" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
+      <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
+      <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
+    </Setting>
   </Function>
 
   <Function Name="Inform Headline">

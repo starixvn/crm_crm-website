@@ -20,15 +20,7 @@
             var columns = [
             { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];
-            if (isShowSubCategory) {
-                columns.push({
-                    HeaderText: feedbackStatisticDetailResources.SubCategory,
-                    Width: 270, Name: 'ColSubCategory',
-                    HeaderAlign: 'center',
-                    CellAlign: 'left'
-                });
-            }
+            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];           
 
             columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({
@@ -69,7 +61,7 @@
             };
         }
 
-        function getGridBody(scope, feedbacks) {
+        function getGridBody(scope, feedbacks, mainCategories) {
             /* jshint unused: false */
             var bodyData = [];
             if (feedbacks) {
@@ -81,15 +73,9 @@
                     cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
                     currentRow = [
                         { Name: 'ColFeedback', Value: renderFeedbackColumn(feedback) },
-                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap'}];
-                    if (isShowSubCategory) {
-                        currentRow.push({ Name: 'ColMainCategory', Value: feedback.MainCategory });
-                        currentRow.push({ Name: 'ColSubCategory', Value: feedback.SubCategory });
-                    }
-                    else {
-                        currentRow.push({ Name: 'ColMainCategory', Value: renderCategoryColumn(feedback.MainCategory, feedback.SubCategory) });
-                    }
+                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap'}];                   
 
+                    currentRow.push({ Name: 'ColMainCategory', Value: nameMapping.renderCategoryColumn(feedback, mainCategories, true) });
                     currentRow.push({ Name: 'ColStatus', Value: feedback.Status });
                     currentRow.push({ Name: 'ColRelatedCustomer', 
                         Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap' });
@@ -119,16 +105,12 @@
             return html + reviewer + '</div></div>';
         }
 
-        function renderCategoryColumn(main, sub) {
-            return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
-        }
-
         function renderFeedbackStatisticDetail(scope, element) {
             isShowSubCategory = scope.searchCriteria.MainCategoryId === 0 &&
             scope.searchCriteria.SubCategoryId === 0 &&
             scope.searchCriteria.ValueId === 0;
             var report = scope.feedbackStatisticDetail;
-            var bodyData = getGridBody(scope, report.Feedbacks);
+            var bodyData = getGridBody(scope, report.Feedbacks, scope.mainCategory);
 
             if (!gridOptions) {
                 gridOptions = getGridOptions(scope, report.Title, bodyData);

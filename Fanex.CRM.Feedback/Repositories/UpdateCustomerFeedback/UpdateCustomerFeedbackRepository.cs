@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Repositories
+﻿namespace Fanex.CRM.Feedback.Repositories
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
@@ -24,16 +15,8 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback repository.
-    /// </summary>
     public class UpdateCustomerFeedbackRepository : IUpdateCustomerFeedbackRepository
     {
-        /// <summary>
-        /// Gets the feedback by id.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback of customer.</returns>
         public CustomerFeedback GetFeedbackById(ICriteria criteria)
         {
             CustomerFeedback feedback = null;
@@ -61,6 +44,20 @@ namespace Fanex.CRM.Feedback.Repositories
                             feedback.RelatedCustomers = relatedCustomers.OrderBy(c => c.Name);
                             feedback.HasRelated = relatedCustomers.Count > 0;
                         }
+
+                        if (reader.NextResult())
+                        {
+                            while (reader.Read())
+                            {
+                                feedback.Settings.Add(new SettingItem
+                                {
+                                    SettingType = Converter.ToString2(reader["SettingType"]),
+                                    SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                    SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                    SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -68,10 +65,6 @@ namespace Fanex.CRM.Feedback.Repositories
             return feedback;
         }
 
-        /// <summary>
-        /// Updates the feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -86,11 +79,6 @@ namespace Fanex.CRM.Feedback.Repositories
             }
         }
 
-        /// <summary>
-        /// Gets the customer info.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The customer information.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private CustomerInfo GetCustomerInfo(IDataReader reader)
         {
@@ -165,11 +153,6 @@ namespace Fanex.CRM.Feedback.Repositories
             return customer;
         }
 
-        /// <summary>
-        /// Gets the customer feedback.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The feedback of customer.</returns>
         private CustomerFeedback GetCustomerFeedback(IDataReader reader)
         {
             CustomerFeedback feedback = new CustomerFeedback
@@ -178,13 +161,6 @@ namespace Fanex.CRM.Feedback.Repositories
                 FeedbackTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["FeedbackDate"])),
                 ResolutionTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["ResolutionDate"])),
                 SolveTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["SolveDate"])),
-                Extension = new BaseModel { Id = Converter.ToInt(reader["StationId"]) },
-                Communication = new BaseModel { Id = Converter.ToInt(reader["CommunicationId"]) },
-                Category = new BaseModel { Id = Converter.ToInt(reader["MainCategoryId"]) },
-                SubCategory = new BaseModel { Id = Converter.ToInt(reader["SubcategoryId"]) },
-                Product = new BaseModel { Id = Converter.ToInt(reader["ProductId"]) },
-                SubProduct = new BaseModel { Id = Converter.ToInt(reader["SubProductId"]) },
-                BetType = new BaseModel { Id = Converter.ToInt(reader["BettypeId"]) },
                 Country = new BaseModel { Id = Converter.ToInt(reader["CountryId"]) },
                 Language = new BaseModel { Id = Converter.ToInt(reader["LanguageId"]) },
                 Status = new BaseModel { Id = Converter.ToInt(reader["StatusId"]) },

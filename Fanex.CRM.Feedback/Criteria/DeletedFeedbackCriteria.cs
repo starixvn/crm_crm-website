@@ -1,22 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeletedFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.07">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Fanex.Data.Repository;
     using System;
     using System.Collections;
-    using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Deleted feedback criteria.
-    /// </summary>
     public class DeletedFeedbackCriteria : CriteriaBase
     {
         public string Username { get; set; }
@@ -50,10 +37,11 @@ namespace Fanex.CRM.Feedback.Criteria
             return "FeedbackGetDeleted";
         }
 
-        /// <summary>
-        /// Gets the stored procedure hash.
-        /// </summary>
-        /// <returns>The hash table parameter.</returns>
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
+        }
+
         public override Hashtable GetSpParams()
         {
             var inputParams = new Hashtable();

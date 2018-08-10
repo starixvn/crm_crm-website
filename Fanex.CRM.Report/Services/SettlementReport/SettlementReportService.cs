@@ -1,18 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettlementReportService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.SettlementReport
+﻿namespace Fanex.CRM.Report.Services.SettlementReport
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
@@ -25,17 +12,13 @@ namespace Fanex.CRM.Report.Services.SettlementReport
     using Fanex.CRM.Setting.Constants;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
-    /// <summary>
-    /// Settlement Report Service.
-    /// </summary>
     public class SettlementReportService : ServiceBase, ISettlementReportService
     {
-        /// <summary>
-        /// Gets the settlement report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The settlement report.</returns>      
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -68,15 +51,11 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             };
         }
 
-        /// <summary>
-        /// Exports the settlement report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportSettlementReport(GetSettlementReportCriteria criteria)
         {
             criteria.IsGetFullReport = true;
             var settlementReport = GetSettlementReport(criteria);
-            
+
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
@@ -130,15 +109,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             return dummyCountries;
         }
 
-        /// <summary>
-        /// Gets the statistic report by daily.
-        /// </summary>
-        /// <param name="rawData">The raw data.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// The statistic report by daily.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -205,13 +175,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             return settlementReport;
         }
 
-        /// <summary>
-        /// Gets the chart information.
-        /// </summary>
-        /// <param name="settlementReport">The settlement report.</param>
-        /// <returns>
-        /// The chart information.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -255,12 +218,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             return chartInfo;
         }
 
-        /// <summary>
-        /// Exports the settlement report body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="settlementReport">The settlement report.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
@@ -324,12 +281,6 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             }
         }
 
-        /// <summary>
-        /// Exports the settlement report header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="settlementReport">The settlement report.</param>
         private void ExportSettlementReportHeader(
             ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,

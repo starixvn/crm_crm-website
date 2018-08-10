@@ -9,9 +9,6 @@
 
 namespace Fanex.CRM.Redemption.Services.RedemptionLog
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
@@ -22,6 +19,9 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Redemption Log Service.
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
 
         private IEnumerable<BaseModel> GetRedemptionCurrencies()
         {
-            var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria()).ToList();
+            var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria());
             currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.Symbol_NotApply });
 
             return currencies;

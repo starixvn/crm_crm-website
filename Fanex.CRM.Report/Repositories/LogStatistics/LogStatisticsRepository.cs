@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="LogStatisticRepository.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Repositories.LogStatistics
+﻿namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
@@ -12,9 +6,11 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     public class LogStatisticsRepository : ILogStatisticsRepository
     {
@@ -31,6 +27,8 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
              Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<StatisticsDetailbyDateModel> GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
+            var feedbacks = new List<StatisticsDetailbyDateModel>();
+            var settings = new List<SettingItem>();
             var result = new List<StatisticsDetailbyDateModel>();
             using (var objDb = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -40,6 +38,7 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                     {
                         StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
                         {
+                            FeedbackID = Converter.ToInt(reader["FeedbackID"]),
                             StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                             ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
                             Remark = Converter.ToString2(reader["Remark"]),
@@ -47,18 +46,12 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
-                            Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
-                            SubProduct = new Setting { Name = Converter.ToString2(reader["SubProduct"]) },
-                            Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
                             Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
-                            MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                            SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                             StatusName = Converter.ToString2(reader["Status"]),
                             Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                             Handler = Converter.ToString2(reader["CreatorName"]),
                             CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                             Role = Converter.ToString2(reader["Role"]),
-                            CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
                             Fax = new Fax
                             {
                                 CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
@@ -96,7 +89,39 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
                         statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
 
-                        result.Add(statisticsDetail);
+                        feedbacks.Add(statisticsDetail);
+                    }
+
+
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingType = Converter.ToString2(reader["SettingType"]),
+                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
+                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
+                            });
+                        }
+                    }
+
+                    var groups = from f in feedbacks
+                                 join s in settings on f.FeedbackID equals s.FeedbackID
+                                 select new { f, s } into t1
+                                 group t1 by t1.f.FeedbackID into g
+                                 select new
+                                 {
+                                     feedback = g.FirstOrDefault().f,
+                                     settings = g.Select(r => r.s)
+                                 };
+
+                    foreach (var i in groups)
+                    {
+                        i.feedback.Settings = i.settings;
+                        result.Add(i.feedback);
                     }
                 }
 
@@ -104,7 +129,23 @@ namespace Fanex.CRM.Report.Repositories.LogStatistics
                 criteria.TotalRows = (int)outputParams["totalrows"];
             }
 
-            return result;
+            return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+        }
+
+        private IEnumerable<StatisticsDetailbyDateModel> GenerateFeedBackDetailWithSetting(IEnumerable<StatisticsDetailbyDateModel> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<StatisticsDetailbyDateModel, List<SettingItem>, StatisticsDetailbyDateModel> regenerateFeedBackDetail = delegate (StatisticsDetailbyDateModel f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackID equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackID into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
 
         private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, string prefix)

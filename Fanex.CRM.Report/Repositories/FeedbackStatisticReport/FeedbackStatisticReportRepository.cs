@@ -1,27 +1,16 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackStatisticReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
-    /// <summary>
-    /// Feedback statistic report repository.
-    /// </summary>
     public class FeedbackStatisticReportRepository : IFeedbackStatisticReportRepository
     {
         public FeedbackStatistic GetFeedbackStatistic(ICriteria criteria)
@@ -39,8 +28,30 @@ namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<FeedbackDetail>(criteria.GetSpParams());
-            }    
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var feedbacks = multi.Read<FeedbackDetail>();
+                    var settings = multi.Read<SettingItem>();
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+                }
+            }
+        }
+
+        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.FeedbackId equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.FeedbackId into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
 
         private static FeedbackStatistic ReadFeedbackStatistic(IDataReader reader)

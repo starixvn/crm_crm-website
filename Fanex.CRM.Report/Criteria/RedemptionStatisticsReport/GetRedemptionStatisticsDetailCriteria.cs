@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetRedemptionStatisticsDetailCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2014.11.26">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
+﻿namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Redemption Statistics Detail Report.
-    /// </summary>
     public class GetRedemptionStatisticsDetailCriteria : GetRedemptionStatisticsSummaryCriteria
     {
         [SpParam(Ignored = true)]
@@ -35,7 +23,7 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 
         public override bool IsValid()
         {
-            return true;
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
         }
     }
 }

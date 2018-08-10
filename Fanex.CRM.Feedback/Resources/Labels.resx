@@ -154,7 +154,7 @@
     <value>Status</value>
   </data>
   <data name="SubCategory" xml:space="preserve">
-    <value>Subcategory</value>
+    <value>SubCategory</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
@@ -565,5 +565,17 @@
   </data>
   <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
     <value>Review is mandatory!</value>
+  </data>
+  <data name="Error_NA_MainSubCategory" xml:space="preserve">
+    <value>Main Category - Sub Category is mandatory!</value>
+  </data>
+  <data name="InvalidCategoryError" xml:space="preserve">
+    <value>There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category.</value>
+  </data>
+  <data name="DescriptionMaxLengthError" xml:space="preserve">
+    <value>Max length of Description is 32,700!</value>
+  </data>
+  <data name="SolutionMaxLengthError" xml:space="preserve">
+    <value>Max length of Solution is 32,700!</value>
   </data>
 </root>

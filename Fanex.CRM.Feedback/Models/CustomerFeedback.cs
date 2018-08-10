@@ -1,21 +1,16 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerFeedback.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Models
+﻿namespace Fanex.CRM.Feedback.Models
 {
+    using Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// Customer feedback.
-    /// </summary>
     public class CustomerFeedback
     {
+        public CustomerFeedback()
+        {
+            this.Settings = new List<SettingItem>();
+        }
+
         public CustomerInfo CustomerInfo { get; set; }
 
         public int Id { get; set; }
@@ -73,5 +68,7 @@ namespace Fanex.CRM.Feedback.Models
         public int UserId { get; set; }
 
         public string AutoField { get; set; }
+
+        public List<SettingItem> Settings { get; set; }
     }
 }

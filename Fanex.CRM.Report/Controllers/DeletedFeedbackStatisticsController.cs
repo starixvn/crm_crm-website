@@ -1,14 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DeletedFeedbackStatisticsController.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Text.RegularExpressions;
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -17,19 +8,28 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Services.DeletedFeedbackStatistics;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models.DeletedFeedbackStatistics;
+    using Setting.Services;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
 
     public class DeletedFeedbackStatisticsController : ReadOnlyBaseController
     {
         private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;
+        private readonly ISettingService _serviceSetting;
 
         public DeletedFeedbackStatisticsController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DeletedFeedbackStatisticsController(IDeletedFeedbackStatisticsService deletedFeedbackStatisticsService)
+        public DeletedFeedbackStatisticsController(
+            IDeletedFeedbackStatisticsService deletedFeedbackStatisticsService,
+            ISettingService serviceSetting)
         {
             _deletedFeedbackStatisticsService = deletedFeedbackStatisticsService ?? new DeletedFeedbackStatisticsService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
@@ -42,19 +42,37 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
         public ActionResult GetReport(DeletedFeedbackStatisticsCriteria criteria)
         {
+            if (criteria.IsValid())
+            {
+                return Json(new
+                {
+                    ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+                });
+            }
+
             return Json(new
             {
-                ReportData = _deletedFeedbackStatisticsService.GetReport(criteria)
+                ReportData = new DeletedFeedbackStatisticsViewModel
+                {
+                    Name = string.Empty,
+                    GrandTotal = 0,
+                    DeletedFeedbackByHandlers = new List<DeletedFeedbackByHandler>()
+                }
             });
         }
 
         public void ExportReport(DeletedFeedbackStatisticsCriteria criteria)
         {
-            var report = _deletedFeedbackStatisticsService.GetReport(criteria);
+            if (criteria.IsValid())
+            {
+                var report = _deletedFeedbackStatisticsService.GetReport(criteria);
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
 
-            var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
-            BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName);
-            deletedFeedbackStatisticsExcel.BuildWorkBook();
+                var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
+                BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);
+                deletedFeedbackStatisticsExcel.BuildWorkBook();
+            }
         }
     }
 }

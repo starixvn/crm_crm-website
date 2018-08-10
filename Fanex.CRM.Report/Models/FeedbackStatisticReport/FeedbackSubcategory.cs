@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackSubcategory.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Models.FeedbackStatisticReport
+﻿namespace Fanex.CRM.Report.Models.FeedbackStatisticReport
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// Feedback sub-category.
-    /// </summary>
     [Serializable]
     public class FeedbackSubcategory
     {
@@ -25,7 +13,7 @@ namespace Fanex.CRM.Report.Models.FeedbackStatisticReport
 
         public IList<int> Resolves { get; set; }
 
-        public int Total 
+        public int Total
         {
             get
             {

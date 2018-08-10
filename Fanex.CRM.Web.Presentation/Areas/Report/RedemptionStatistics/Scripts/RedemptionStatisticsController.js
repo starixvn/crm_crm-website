@@ -174,13 +174,16 @@
 
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
+
+            var maxToDate = new Date(selectedDate.getTime());
+            maxToDate.setMonth(selectedDate.getMonth() + 12);
+            maxToDate.setDate(selectedDate.getDate() - 1);
             $scope.toDateOptions.MinDate = selectedDate;
+            $scope.toDateOptions.MaxDate = (maxToDate < currentTime) ? maxToDate : currentTime;
             $scope.updateToDatePicker();
         };
         $scope.updateToDate = function (selectedDate) {
             $scope.searchCriteria.ToDate = selectedDate;
-            $scope.fromDateOptions.MaxDate = selectedDate;
-            $scope.updateFromDatePicker();
         };
 
         $scope.updateSelectedCurrency = function (currency) {

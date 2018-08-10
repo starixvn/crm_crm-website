@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Setting.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -17,13 +16,14 @@ namespace Fanex.CRM.Setting.Repositories
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Setting Repository.
     /// </summary>
     public class SettingRepository : ISettingRepository
     {
-        public IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria)
+        public List<Setting> GetAllSettings(GetAllSettingCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
+        public IList<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -72,7 +72,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria)
+        public IList<Country> GetAllCountries(GetAllCountryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -122,7 +122,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllLanguages(GetAllLanguageCriteria criteria)
+        public IList<Setting> GetAllLanguages(GetAllLanguageCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -147,7 +147,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria)
+        public IList<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -172,7 +172,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
+        public IList<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -197,7 +197,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
+        public IList<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -223,7 +223,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
+        public IList<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
         {
             return ReadBaseModels(criteria, "StatusId", "Name");
         }
@@ -244,7 +244,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria)
+        public IList<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
             return ReadBaseModels(criteria, "ActionID", "ActionName", false);
         }
@@ -278,7 +278,7 @@ namespace Fanex.CRM.Setting.Repositories
 
                     return allBetType;
                 }
-            }            
+            }
         }
 
         public IEnumerable<Product> GetSubProducts(SubProductCriteria criteria)
@@ -305,17 +305,17 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
+        public IList<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
             return ReadBaseModels(criteria, "CurrencyId", "Currency");
         }
 
-        public IEnumerable<BaseModel> GetAllLicenseeTypes(GetAllLicenseeTypeCriteria criteria)
+        public IList<BaseModel> GetAllLicenseeTypes(GetAllLicenseeTypeCriteria criteria)
         {
             return ReadBaseModels(criteria, "LicenseeType", "Licensee");
         }
 
-        public IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria)
+        public IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria)
         {
             return ReadBaseModels(criteria, "CurrencyId", "Currency");
         }
@@ -328,7 +328,7 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        private static IEnumerable<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)
+        private static IList<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {

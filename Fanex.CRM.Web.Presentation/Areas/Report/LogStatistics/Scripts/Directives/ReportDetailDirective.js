@@ -22,7 +22,7 @@
             cachedTable = tableReport;
             var report = scope.detailReportOptions.DataList;
             cachedReport = report;
-            var gridOptions = getGridOptions(report);
+            var gridOptions = getGridOptions(report, scope);
             cachedGridOptions = gridOptions;
             element.removeClass(crmConstants.Enums.CssClass.DisplayNone);
             tableReport.empty().fanexGrid(gridOptions);
@@ -37,7 +37,7 @@
             });
         }
 
-        function getGridOptions(report) {
+        function getGridOptions(report, scope) {
             var bodyData = [];
             var footerData = [];
             var childReportLength = report ? report.ChildReports.length : 0;
@@ -58,15 +58,13 @@
                     },
                     { Name: "ColCustomer", Value: info.Username, CssClass: 'word-wrap-customer' },
                     { Name: "ColSite", Value: info.SiteInfo.Name },
-                    { Name: "ColTypeOfContact", Value: info.CommunicationTool.Name },
-                    { Name: "ColExtension", Value: info.Extension.Name },
+                    { Name: "ColTypeOfContact", Value: nameMapping.renderCommunicationColumn(info, scope.detailReportOptions.CommunicationToolList) },
+                    { Name: "ColExtension", Value: nameMapping.renderExtensionColumn(info, scope.detailReportOptions.ExtensionList) },
                     { Name: "ColRole", Value: info.Role },
                     { Name: "ColContact", Value: info.Contact, CssClass: 'word-wrap-contactinfo' },
-                    { Name: "ColProduct", Value: info.Product.Name },
-                    { Name: "ColSubProduct", Value: info.SubProduct.Name },
+                    { Name: "ColProduct", Value: nameMapping.renderProductColumn(info, scope.detailReportOptions.ProductList, scope.detailReportOptions.SubProductList) },
                     { Name: "ColCountry", Value: info.Country.Name },
-                    { Name: "ColCategory", Value: info.MainCategory.Name },
-                    { Name: "ColSubcategory", Value: info.SubCategory.Name },
+                    { Name: "ColCategory", Value: nameMapping.renderCategoryColumn(info, scope.detailReportOptions.mainCategory) },
                     { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
                     { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
                     { Name: "ColStatus", Value: info.StatusName },
@@ -90,11 +88,9 @@
                 { HeaderText: viewResources.Symbol_Extension, Width: 60, Name: "ColExtension", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Role, Width: 60, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Contact, Width: 220, Name: "ColContact", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Product, Width: 100, Name: "ColProduct", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.SubProduct, Width: 100, Name: "ColSubProduct", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Product/Sub-Product", Width: 200, Name: "ColProduct", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Category, Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Subcategory, Width: 200, Name: "ColSubcategory", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Category/Sub-Category", Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Complaints_Enquiries, Width: 480, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Solution, Width: 480, Name: "ColSolution", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },

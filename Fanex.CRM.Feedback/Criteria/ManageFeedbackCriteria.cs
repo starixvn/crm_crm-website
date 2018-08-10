@@ -1,24 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ManageFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using System;
-    using System.Collections;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
+    using System;
+    using System.Collections;
 
-    /// <summary>
-    /// ManageFeedback Criteria.
-    /// </summary>
     public class ManageFeedbackCriteria : CriteriaBase
     {
         public int? FeedbackId { get; set; }
@@ -50,6 +37,11 @@ namespace Fanex.CRM.Feedback.Criteria
         public int ItemsPerPage { get; set; }
 
         public int TotalRows { get; set; }
+
+        public override bool IsValid()
+        {
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
+        }
 
         public override Hashtable GetSpParams()
         {

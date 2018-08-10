@@ -1,27 +1,17 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReportRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Repositories.DynamicReport
+﻿namespace Fanex.CRM.Report.Repositories.DynamicReport
 {
-    using System.Collections.Generic;
-    using System.Data;
+    using Common.Models;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
-    /// <summary>
-    /// Dynamic Report Repository.
-    /// </summary>
     public class DynamicReportRepository : IDynamicReportRepository
     {
         public IEnumerable<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria)
@@ -30,15 +20,45 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var communications = new List<DynamicReportInfo>();
+                    var feedbacks = new List<DynamicReportInfo>();
                     while (reader.Read())
                     {
-                        communications.Add(ReadDynamicReportInfo(reader));
+                        feedbacks.Add(ReadDynamicReportInfo(reader));
                     }
 
-                    return communications;
+                    var settings = new List<SettingItem>();
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            settings.Add(new SettingItem
+                            {
+                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
+                                SettingIdLv1 = Converter.ToInt(reader["MainCategoryID"]),
+                                SettingIdLv2 = Converter.ToInt(reader["SubCategoryID"])
+                            });
+                        }
+                    }
+
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
+        }
+
+        private IEnumerable<DynamicReportInfo> GenerateFeedBackDetailWithSetting(IEnumerable<DynamicReportInfo> feedbacks, IEnumerable<SettingItem> settings)
+        {
+            Func<DynamicReportInfo, List<SettingItem>, DynamicReportInfo> regenerateFeedBackDetail = delegate (DynamicReportInfo f, List<SettingItem> s)
+            {
+                f.Settings = s;
+                return f;
+            };
+            var result = from f in feedbacks
+                         join s in settings on f.RunningNumber equals s.FeedbackID
+                         select new { f, s } into t1
+                         group t1 by t1.f.RunningNumber into g
+                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+
+            return result.ToList();
         }
 
         private DynamicReportInfo ReadDynamicReportInfo(IDataReader reader)
@@ -52,8 +72,6 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                 {
                     FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"]))
                 },
-                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo

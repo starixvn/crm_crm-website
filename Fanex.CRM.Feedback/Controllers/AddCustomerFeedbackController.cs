@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddCustomerFeedbackController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Controllers
+﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -23,13 +13,10 @@ namespace Fanex.CRM.Feedback.Controllers
     using System;
     using System.Web.Mvc;
 
-    /// <summary>
-    /// Add Customer Feedback Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddCustomerFeedbackController : AddFeedbackController
     {
-        private IAddCustomerFeedbackService _feedbackService;
+        private readonly IAddCustomerFeedbackService _feedbackService;
 
         public AddCustomerFeedbackController()
             : this(null)
@@ -52,10 +39,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return View("~/Areas/Feedbacks/AddCustomerFeedback/Index.cshtml", customerInfo);
         }
 
-        /// <summary>
-        /// Gets all setting for edit.
-        /// </summary>
-        /// <returns>All setting for edit.</returns>
         [HttpPost]
         public ActionResult AllSettingToAddCustomerFeedback()
         {
@@ -64,13 +47,6 @@ namespace Fanex.CRM.Feedback.Controllers
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Adds the feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// Add result.
-        /// </returns>
         [HttpPost]
         public JsonResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
@@ -91,7 +67,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     LoggingHelper.Error(exception, criteria);
                 }
 
-                throw exception;
+                throw;
             }
         }
 

@@ -1,15 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommunicationLogRowExcelWriter.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Services.DynamicReport
+﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -18,16 +8,16 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// Communication Log Row Excel Writer.
-    /// </summary>
     public class CommunicationLogRowExcelWriter
     {
-        private ICellStyle _textStyle;
-        private ICellStyle _centerIntStyle;
-        private ICellStyle _centerTextStyle;
-        private ExportExcelInfo _exportExcelInfo;
+        private readonly ICellStyle _textStyle;
+        private readonly ICellStyle _centerIntStyle;
+        private readonly ICellStyle _centerTextStyle;
+        private readonly ExportExcelInfo _exportExcelInfo;
 
         public CommunicationLogRowExcelWriter(
             ExportExcelInfo exportExcelInfo,
@@ -52,17 +42,18 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 CRMHorizontalAlignment.Center);
         }
 
-        /// <summary>
-        /// Exports the dynamic report row.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="info">The information.</param>
-        /// <param name="infoIndex">Index of the information.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public void WriteRow(ExportExcelInfo exportExcelInfo, DynamicReportInfo info, int infoIndex)
+        public void WriteRow(
+            ExportExcelInfo exportExcelInfo,
+            DynamicReportInfo info,
+            int infoIndex,
+            IEnumerable<Common.Models.Setting> mainCategories)
         {
+            var categoryContents = NameMapping.GetCategoryContentWithoutSettingType(info.Settings, mainCategories);
+            var categoryCellValue = String.Join("\n\n", categoryContents);
+
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow,
                 exportExcelInfo.CurrentRow + 1,
@@ -103,7 +94,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             NpoiExtensions.RenderMergedCells(
                 exportExcelInfo,
                 cellRangeAddress,
-                info.MainCategory.Name + "\n" + info.SubCategory.Name,
+                categoryCellValue,
                 _textStyle);
             exportExcelInfo.CurrentColumn++;
 

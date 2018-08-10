@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IUpdateCustomerFeedbackRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Repositories
+﻿namespace Fanex.CRM.Feedback.Repositories
 {
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;

@@ -1,29 +1,22 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackStatisticReportController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report.Controllers
+﻿namespace Fanex.CRM.Report.Controllers
 {
-    using System.Web.Mvc;
+    using Common.Models;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Services.FeedbackStatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Models.FeedbackStatisticReport;
+    using Setting.Services;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
 
-    /// <summary>
-    /// Feedback statistic report controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.FeedbackStatistics, Policy = Constant.Policy.Read)]
     public class FeedbackStatisticReportController : ReadOnlyBaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
+        public readonly ISettingService _serviceSetting;
 
         public FeedbackStatisticReportController()
             : this(null)
@@ -33,6 +26,7 @@ namespace Fanex.CRM.Report.Controllers
         public FeedbackStatisticReportController(IFeedbackStatisticReportService feedbackStatisticService)
         {
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
+            _serviceSetting = new SettingService();
         }
 
         public ActionResult Index()
@@ -44,6 +38,7 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
+
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
@@ -60,13 +55,36 @@ namespace Fanex.CRM.Report.Controllers
 
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
-            return Json(report, JsonRequestBehavior.AllowGet);
+            if (criteria.IsValid())
+            {
+                var result = new
+                {
+                    Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                Report = new FeedbackStatisticDetail
+                {
+                    Title = string.Empty,
+                    TotalItems = 0,
+                    Feedbacks = new List<FeedbackDetail>()
+                }
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);
+            if (criteria.IsValid())
+            {
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
+            }
+
             return new EmptyResult();
         }
     }

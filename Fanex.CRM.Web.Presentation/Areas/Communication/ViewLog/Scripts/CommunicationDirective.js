@@ -197,7 +197,7 @@
         }
 
         function renderCommunicationLogs(scope, element) {
-            if (scope.logs === null) {
+            if (scope.logs === null || scope.mainCategory == null) {
                 return;
             }
 
@@ -225,8 +225,7 @@
                         },
                         {
                             Name: "ColCategory",
-                            Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                                (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                            Value: nameMapping.renderCategoryColumn(info, scope.mainCategory, true)
                         },
                         { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
                         { Name: "ColStatus", Value: info.StatusName },

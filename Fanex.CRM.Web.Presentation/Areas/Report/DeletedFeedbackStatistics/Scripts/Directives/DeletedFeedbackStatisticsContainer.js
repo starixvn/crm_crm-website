@@ -9,11 +9,11 @@ viewResources */
         var selfScope;
         var tableHeaders;
 
-        function getGripOtions(report) {
+        function getGripOtions(report, mainCategories) {
             if (!tableHeaders) {
                 tableHeaders = getTableHeader();
             }
-            var bodyData = getDataRow(report);
+            var bodyData = getDataRow(report, mainCategories);
             var footerData = [{
                 Columns: [{
                     Name: "Date",
@@ -63,7 +63,7 @@ viewResources */
             ];
         }
 
-        function getDataRow(report) {
+        function getDataRow(report, mainCategories) {
             var bodyData = [];
             var deletedFeedbackStatisticsList = report.DeletedFeedbackByHandlers;
 
@@ -107,7 +107,7 @@ viewResources */
                             },
                             {
                                 Name: "Category",
-                                Value: getCategoryCellContent(deletedFeedback.MainCategory, deletedFeedback.SubCategory)
+                                Value: nameMapping.renderCategoryColumn(deletedFeedback, mainCategories)
                             },
                             {
                                 Name: "Customer",
@@ -129,7 +129,7 @@ viewResources */
 
             return bodyData;
         }
-
+        
         function getFeedbackCellContent(feedbackId, subject) {
             return '<a href="javascript:;" class="lnkFeedback" data-id="' + feedbackId + '">' +
                     '<span class="b">' + subject + '</span></a>';
@@ -148,7 +148,8 @@ viewResources */
             selfScope = scope;
             var tableReport = element.find("#deleted-feedback-statistics-report");
             var reportData = scope.reportOptions.DataList;
-            var gridOptions = getGripOtions(reportData);
+            var mainCategories = scope.reportOptions.mainCategory
+            var gridOptions = getGripOtions(reportData, mainCategories);
             tableReport.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             bindEvents(scope, element);
         }

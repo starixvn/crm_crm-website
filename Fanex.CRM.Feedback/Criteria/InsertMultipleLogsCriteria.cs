@@ -1,8 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using Common.Criteria;
+    using Common.Helpers;
     using Common.Services;
     using Fanex.Data.Repository;
+    using Models;
     using System;
 
     public class InsertMultipleLogsCriteria : UpdateCriteria
@@ -38,28 +40,13 @@
         public DateTime EndTime { get; set; }
 
         [SpParam(SqlParamName = "communicationid")]
-        public int CommunicationToolId { get; set; }
+        public string CommunicationIds { get; set; }
 
         [SpParam(SqlParamName = "stationid")]
-        public int ExtensionId { get; set; }
-
-        [SpParam(SqlParamName = "maincategoryid")]
-        public int MainCategoryId { get; set; }
-
-        [SpParam(SqlParamName = "subcategoryid")]
-        public int SubCategoryId { get; set; }
+        public string ExtensionIds { get; set; }
 
         [SpParam(SqlParamName = "roleid")]
         public int RoleId { get; set; }
-
-        [SpParam(SqlParamName = "productid")]
-        public int ProductId { get; set; }
-
-        [SpParam(SqlParamName = "subproductid")]
-        public int SubProductId { get; set; }
-
-        [SpParam(SqlParamName = "bettypeid")]
-        public int BetTypeId { get; set; }
 
         [SpParam(SqlParamName = "responseid")]
         public int ResponseId { get; set; }
@@ -84,6 +71,30 @@
 
         [SpParam(SqlParamName = "autofield")]
         public string AutoField { get; set; }
+
+        [SpParam(Ignored = true)]
+        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+
+        [SpParam(SqlParamName = "product")]
+        public string ProductsContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Products);
+            }
+        }
+
+        [SpParam(Ignored = true)]
+        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
+
+        [SpParam(SqlParamName = "category")]
+        public string CategoriesContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Categories);
+            }
+        }
 
         public override string GetSettingKey()
         {

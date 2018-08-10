@@ -12,6 +12,31 @@ var WeekPickerManager = function () {
         // week picker plugin
         var configs = {};
 
+        $.fn.updateWeekPicker = function (field, value) {
+            var $this = $(this);
+            var $calendar = $this.nextAll("div:first");
+            var x = $calendar.datepicker("option", field, value);
+        }
+
+        $.fn.setWeekPicker = function (date) {
+            var $this = $(this);
+            var $calendar = $this.nextAll("div:first");
+            $calendar.datepicker('setDate', date);
+            
+            var isEndWeek = $this.attr("data-isendweek");
+            if (isEndWeek === "true") {
+                var dat = date.getDate();
+                var day = date.getDay();
+                var startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+                startDate.setDate(dat - (day - 0));
+                var endDate = new Date(date.getFullYear(), date.getMonth(), 1);
+                endDate.setDate(dat - (day - 0) + 6);
+                var week = $.datepicker.iso8601Week(startDate);
+                var targetDate = weekPickerManager.GetFormattedDate(endDate);
+                $this.val(week + " (" + targetDate + ")");
+            }
+        }
+
         $.fn.weekpicker = function (options, func) {
 
             var $this = $(this);
@@ -89,10 +114,7 @@ var WeekPickerManager = function () {
                     $calendar.show();
                 }
                 else if (options === "onSelect") {
-                    if (!defaults.selectHandlers) {
-                        defaults.selectHandlers = [];
-                    }
-
+                    defaults.selectHandlers = [];
                     defaults.selectHandlers.push(func);
                 }
                 else if (options === "getDates") {
@@ -105,7 +127,7 @@ var WeekPickerManager = function () {
                     selectWeek(func);
                 } else if (options === "updateInitDate") {
                     selectWeek(defaults.date);
-                }
+                } 
             }
             else {
                 $.extend(defaults, options);

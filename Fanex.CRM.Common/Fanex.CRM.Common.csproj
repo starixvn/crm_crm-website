@@ -121,16 +121,11 @@
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.UM, Version=2.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ONEbook.UM.2.0.2.6\lib\net40\ONEbook.UM.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ONEbook.UM, Version=2.0.2.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ONEbook.UM.2.0.2.9\lib\net40\ONEbook.UM.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -186,6 +181,7 @@
     <Compile Include="Enumerations\ReviewMode.cs" />
     <Compile Include="Excel\BaseExcel.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
+    <Compile Include="Extensions\NameMapping.cs" />
     <Compile Include="Extensions\NpoiExtensions.cs" />
     <Compile Include="Extensions\HashtableExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
@@ -194,7 +190,9 @@
     <Compile Include="Helpers\DateTimeUtilize.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
+    <Compile Include="Helpers\XmlSerializerCache.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BaseCustomer.cs" />
@@ -208,6 +206,7 @@
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\SearchedCustomer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SettingItem.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SettingRelation.cs" />
     <Compile Include="Models\Setting.cs" />

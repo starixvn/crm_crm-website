@@ -13,7 +13,7 @@
 
                 scope.searchCriteria.PageIndex = page_index;
                 scope.searchCriteria.ItemsPerPage = itemsPerPage;
-                scope.searchManageFeedback();
+                scope.searchDeletedFeedback();
                 return false;
             }
 
@@ -54,7 +54,7 @@
             };
         }
 
-        function getGridBody(feedbacks) {
+        function getGridBody(feedbacks, mainCategories) {
             var fbLength = feedbacks.length;
             if (fbLength === 0) { return []; }
 
@@ -65,7 +65,7 @@
                 bodyData.push({ Columns: [
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
-                { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
+                { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
                 { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
                 { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap'}]
                 });
@@ -79,7 +79,7 @@
 
             var totalItems = report.TotalItems;
             var feedbacks = totalItems > 0 ? report.Feedbacks : [];
-            var bodyData = getGridBody(feedbacks);
+            var bodyData = getGridBody(feedbacks, report.MainCategories);
             gridOptions = getGridOptions(scope, bodyData, totalItems);
 
             tableDeletedFeedback = element.find('#table-deleted-feedback');
@@ -95,10 +95,6 @@
                     scope.openEditFeedbackPopup($(this).data('id'));
                 });
             }
-        }
-
-        function renderCategoryColumn(main, sub) {
-            return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
         }
 
         function renderFeedbackColumn(feedback) {

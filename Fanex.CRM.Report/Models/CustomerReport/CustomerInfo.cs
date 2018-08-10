@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerInfo.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Models.CustomerReport
+﻿namespace Fanex.CRM.Report.Models.CustomerReport
 {
     using System;
 

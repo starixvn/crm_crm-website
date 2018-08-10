@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SiteHelper.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Report.Helpers
+﻿namespace Fanex.CRM.Report.Helpers
 {
     using Fanex.CRM.Infrastructure.Resources;
     using Fanex.CRM.Report.Enums;

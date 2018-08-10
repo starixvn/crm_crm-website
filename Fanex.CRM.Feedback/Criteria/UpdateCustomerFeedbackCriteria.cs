@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerFeedbackCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
-// </history>
-
-namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
@@ -18,9 +9,6 @@ namespace Fanex.CRM.Feedback.Criteria
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
-    /// <summary>
-    /// Update customer feedback criteria.
-    /// </summary>
     public class UpdateCustomerFeedbackCriteria : CustomerFeedback, ICriteria
     {
         public bool OverrideCRMInfo { get; set; }
@@ -30,6 +18,30 @@ namespace Fanex.CRM.Feedback.Criteria
         public string ErrorMessage { get; set; }
 
         public byte UpdateReviewMode { get; set; }
+
+        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+
+        public string ProductsContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Products);
+            }
+        }
+
+        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
+
+        public string CategoriesContent
+        {
+            get
+            {
+                return SerializerHelper.SerializeList(this.Categories);
+            }
+        }
+
+        public string CommunicationIds { get; set; }
+
+        public string ExtensionIds { get; set; }
 
         public Hashtable AddSpParams(Hashtable storeProcParamName)
         {
@@ -46,10 +58,6 @@ namespace Fanex.CRM.Feedback.Criteria
             return "FeedbackInfoUpd";
         }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The input parameters hash.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public Hashtable GetSpParams()
         {
@@ -101,13 +109,12 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "yahoo", CustomerInfo.Yahoo },
                 { "qq", CustomerInfo.QQ },
                 { "bbm", CustomerInfo.BBM },
-                { "stationid", Extension.Id },
-                { "communicationid", Communication.Id },
-                { "maincategoryid", Category.Id },
-                { "subcategoryid", SubCategory.Id },
-                { "productid", Product.Id },
-                { "subproductid", SubProduct.Id },
-                { "bettypeid", BetType.Id },
+
+                { "communicationid", CommunicationIds },
+                { "stationid", ExtensionIds },
+                { "category", CategoriesContent },
+                { "product", ProductsContent },
+
                 { "countryid", Country.Id },
                 { "languageid", Language.Id },
                 { "statusid", Status.Id },
