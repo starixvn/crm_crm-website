@@ -51,6 +51,15 @@ multileveldropdowntree span, multileveldropdowntree a
     color: #4f4f4f;
     line-height: 9pt;
 }
+multileveldropdowntree button.btn {
+    padding-left: 5px;
+}
+multileveldropdowntree button span {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
 multileveldropdowntree .dropdown-menu .glyphicon
 {
     margin-right: 5px;

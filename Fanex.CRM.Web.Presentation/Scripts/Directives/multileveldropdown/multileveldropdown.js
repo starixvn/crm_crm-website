@@ -241,7 +241,10 @@
 
                             var header;
 
-                            if (_leafCheckedNames.length < 10) {
+                            if (_leafCheckedNames.length == 1) {
+                                header = _leafCheckedNames[0];
+                            }
+                            else if (_leafCheckedNames.length < 10) {
                                 var names = [];
                                 var textLength = 0;
                                 for (var i = 0; i < _leafCheckedNames.length; i++) {
