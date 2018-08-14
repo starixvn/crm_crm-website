@@ -81,13 +81,13 @@ namespace Fanex.CRM.Common.Extensions
                   .ToArray();
         }
 
-        private static string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
+        public static string GetMainCategoryName(int mainCategoryId, IEnumerable<Setting> mainCategories)
         {
             var mainCategory = mainCategories.FirstOrDefault(c => c.Id == mainCategoryId);
             return mainCategory == null ? string.Empty : mainCategory.Value;
         }
 
-        private static string GetSubCategoryName(
+        public static string GetSubCategoryName(
             int mainCategoryId,
             int subCategoryId,
             IEnumerable<Setting> mainCategories)
@@ -97,25 +97,25 @@ namespace Fanex.CRM.Common.Extensions
             return child == null ? string.Empty : child.Name;
         }
 
-        private static string GetProductName(int id, IEnumerable<Product> productList)
+        public static string GetProductName(int id, IEnumerable<Product> productList)
         {
             var product = productList.FirstOrDefault(c => c.Id == id);
             return product == null ? "N/A" : product.Name;
         }
 
-        private static string GetSubProductName(int id, IEnumerable<Product> subProductList)
+        public static string GetSubProductName(int id, IEnumerable<Product> subProductList)
         {
             var subProduct = subProductList.FirstOrDefault(c => c.Id == id);
             return subProduct == null ? "N/A" : subProduct.Name;
         }
 
-        private static string GetCommunicationName(int id, IEnumerable<Setting> communicationToolList)
+        public static string GetCommunicationName(int id, IEnumerable<Setting> communicationToolList)
         {
             var item = communicationToolList.FirstOrDefault(c => c.Id == id);
             return item == null ? string.Empty : item.Name;
         }
 
-        private static string GetExtensionName(int id, IEnumerable<SettingRelation> extensionList)
+        public static string GetExtensionName(int id, IEnumerable<SettingRelation> extensionList)
         {
             var item = extensionList.FirstOrDefault(c => c.Id == id);
             return item == null ? "N/A" : item.Value;

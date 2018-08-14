@@ -1,35 +1,5 @@
 ﻿<?xml version="1.0" ?>
 <Root>
-  <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
-  
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DynamicFeedback" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatistics" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogList" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xpre"></SpNameConfig>  
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelTop" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelTopByCustId" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationCommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CasinoStatistics" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CustomerStatistics" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" EnvironmentText="_xpre"></SpNameConfig>  
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
-  </Root>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>  
+</Root>

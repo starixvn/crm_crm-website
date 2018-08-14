@@ -10,7 +10,7 @@ var NameMapping = function () {
         }
     }
 
-    self.getSubCategoryName = function(mainCategoryId, subCategoryId, mainCategories) {
+    self.getSubCategoryName = function (mainCategoryId, subCategoryId, mainCategories) {
         var mainCategory = null;
         for (var i = 0; i < mainCategories.length; i++) {
             if (mainCategories[i].Id == mainCategoryId) {

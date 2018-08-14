@@ -15,7 +15,6 @@
         {
             Phones = new List<Phone>();
             PICs = new List<PersonalInfoContact>();
-            Settings = new List<SettingItem>();
         }
 
         #region Communication
@@ -154,6 +153,16 @@
             get { return DateTimeUtilize.ChangeTimeZoneToClientDateTime(ResolutionTime).ToHourMinuteMiddayTypeFormated(); }
         }
 
-        public IEnumerable<SettingItem> Settings { get; set; }
+        public int ProductID { get; set; }
+
+        public int SubProductID { get; set; }
+
+        public int CategoryID { get; set; }
+
+        public int SubCategoryID { get; set; }
+
+        public int CommunicationID { get; set; }
+
+        public int StationID { get; set; }
     }
 }

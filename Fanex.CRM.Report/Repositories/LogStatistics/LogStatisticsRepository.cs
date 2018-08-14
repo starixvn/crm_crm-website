@@ -6,11 +6,9 @@
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class LogStatisticsRepository : ILogStatisticsRepository
     {
@@ -28,8 +26,6 @@
         public IEnumerable<StatisticsDetailbyDateModel> GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
             var feedbacks = new List<StatisticsDetailbyDateModel>();
-            var settings = new List<SettingItem>();
-            var result = new List<StatisticsDetailbyDateModel>();
             using (var objDb = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objDb.ExecuteReader(criteria.GetSpParams()))
@@ -72,7 +68,13 @@
                             WEChat = Converter.ToString2(reader["WeChat"]),
                             Yahoo = Converter.ToString2(reader["Yahoo"]),
                             QQ = Converter.ToString2(reader["QQ"]),
-                            Bbm = Converter.ToString2(reader["BBM"])
+                            Bbm = Converter.ToString2(reader["BBM"]),
+                            ProductID = Converter.ToInt(reader["ProductID"]),
+                            SubProductID = Converter.ToInt(reader["SubProductID"]),
+                            CategoryID = Converter.ToInt(reader["CategoryID"]),
+                            SubCategoryID = Converter.ToInt(reader["SubCategoryID"]),
+                            CommunicationID = Converter.ToInt(reader["CommunicationID"]),
+                            StationID = Converter.ToInt(reader["StationID"])
                         };
 
                         var autoFieldText = string.IsNullOrEmpty(statisticsDetail.AutoField) ?
@@ -91,61 +93,13 @@
 
                         feedbacks.Add(statisticsDetail);
                     }
-
-
-                    if (reader.NextResult())
-                    {
-                        while (reader.Read())
-                        {
-                            settings.Add(new SettingItem
-                            {
-                                FeedbackID = Converter.ToInt(reader["FeedbackID"]),
-                                SettingType = Converter.ToString2(reader["SettingType"]),
-                                SettingIdLv1 = Converter.ToInt(reader["SettingID"]),
-                                SettingIdLv2 = Converter.ToInt(reader["SubSettingID"]),
-                                SettingIdLv3 = Converter.ToInt(reader["SubSettingIDLevel3"]),
-                            });
-                        }
-                    }
-
-                    var groups = from f in feedbacks
-                                 join s in settings on f.FeedbackID equals s.FeedbackID
-                                 select new { f, s } into t1
-                                 group t1 by t1.f.FeedbackID into g
-                                 select new
-                                 {
-                                     feedback = g.FirstOrDefault().f,
-                                     settings = g.Select(r => r.s)
-                                 };
-
-                    foreach (var i in groups)
-                    {
-                        i.feedback.Settings = i.settings;
-                        result.Add(i.feedback);
-                    }
                 }
 
                 var outputParams = objDb.GetOuputParams();
                 criteria.TotalRows = (int)outputParams["totalrows"];
             }
 
-            return GenerateFeedBackDetailWithSetting(feedbacks, settings);
-        }
-
-        private IEnumerable<StatisticsDetailbyDateModel> GenerateFeedBackDetailWithSetting(IEnumerable<StatisticsDetailbyDateModel> feedbacks, IEnumerable<SettingItem> settings)
-        {
-            Func<StatisticsDetailbyDateModel, List<SettingItem>, StatisticsDetailbyDateModel> regenerateFeedBackDetail = delegate (StatisticsDetailbyDateModel f, List<SettingItem> s)
-            {
-                f.Settings = s;
-                return f;
-            };
-            var result = from f in feedbacks
-                         join s in settings on f.FeedbackID equals s.FeedbackID
-                         select new { f, s } into t1
-                         group t1 by t1.f.FeedbackID into g
-                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
-
-            return result.ToList();
+            return feedbacks;
         }
 
         private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, string prefix)
