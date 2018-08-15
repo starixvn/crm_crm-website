@@ -91,7 +91,7 @@ unused: vars */
                     
                     if ($scope.toDateOptions) {
                         var maxToDate = new Date(selectedDate.getTime());
-                        maxToDate.setMonth(selectedDate.getMonth() + 12);
+                        maxToDate.setMonth(selectedDate.getMonth() + 3);
                         maxToDate.setDate(selectedDate.getDate() - 1);
                         $scope.toDateOptions.MinDate = selectedDate;
                         $scope.toDateOptions.MaxDate = (maxToDate < currentDate) ? maxToDate : currentDate;
