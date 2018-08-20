@@ -295,6 +295,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple Review &amp; Update Status.
+        /// </summary>
+        public static string EditMultipleLogStatusesTitle {
+            get {
+                return ResourceManager.GetString("EditMultipleLogStatusesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Multiple Logs.
         /// </summary>
         public static string EditMultipleLogsTitle {

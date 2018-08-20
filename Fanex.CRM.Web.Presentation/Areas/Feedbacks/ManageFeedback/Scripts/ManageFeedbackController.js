@@ -210,6 +210,21 @@
             parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogsTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
         };
 
+        $scope.openEditMultipleLogStatuses = function () {
+            var selectedFeedbacks = $scope.getSelectedFeedbacks();
+            if (selectedFeedbacks.length === 0) {
+                return;
+            }
+
+            parent.homeManager.CachedData.feedbacks = selectedFeedbacks;
+            parent.homeManager.CachedData.shouldReloadView = false;
+            var url = window.rootUrl + 'MultipleLogs/EditStatus?feedbackid=' + parent.homeManager.CachedData.feedbacks[0].FeedbackId;
+            var maxWidthOfPopUp = 987;
+            var maxHeightOfPopUp = 270;
+
+            parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogStatusesTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
+        }
+
         $scope.updateSiteLicenseeType = function () {
             var selectedFeedbacks = $scope.getSelectedFeedbacks();
             if (selectedFeedbacks.length === 0) {

@@ -48,6 +48,20 @@
             return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }
 
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult EditStatus(int feedbackId)
+        {
+            var log = _multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
+            {
+                FeedbackId = feedbackId
+            });
+
+            ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+
+            return View("~/Areas/Feedbacks/EditMultipleLogStatuses/Index.cshtml", log);
+        }
+
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult GetSettings()

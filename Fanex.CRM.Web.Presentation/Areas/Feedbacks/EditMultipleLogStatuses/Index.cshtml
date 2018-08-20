@@ -1,0 +1,109 @@
+﻿@using Fanex.NAP.Core.Business;
+@using Fanex.CRM.Common.Helpers;
+@using Fanex.CRM.Common.Services;
+@using Newtonsoft.Json;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Edit_Multiple_Logs;
+    var jsonLogInfo = JsonConvert.SerializeObject(Model);
+    var hasUpdateMultipleLogsPermission = (bool)ViewBag.HasUpdateMultipleLogsPermission;
+    var hasReviewPermission = ((bool)ViewBag.HasReviewPermission).ToString().ToLower();
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/EditMultipleLogStatusesStyles")
+}
+<div data-ng-app="edit-multiple-log-statuses-application">
+    <div class="main popup container editMultipleLogStatusesController" data-ng-controller="editMultipleLogStatusesController">
+        <div class="row panel-group" data-ng-show="isShowResultMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="resultMessage">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group">
+            <div class="row content">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    
+                    <div class="row item">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <label for="status">
+                                @Labels.Status
+                            </label>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3" dropdown-status data-ng-model="statusList">
+                            <select id="status"></select>
+                        </div>                       
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="row panel-group last">
+            <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
+                <label for="review">
+                    @Labels.Reviewed
+                </label>
+                <input id="review" type="checkbox" class="review" data-ng-click="multipleLogs.IsReviewed=!multipleLogs.IsReviewed;"
+                       data-ng-model="multipleLogs.IsReviewed" data-ng-disabled="!hasReviewPermission" />
+                <span class="errormsg" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
+                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
+                       data-ng-bind="getReviewedInfo();">
+                </label>
+            </div>
+            <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
+                @Html.Raw(Model.Review)
+            </div>
+            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission}">
+                <div id="revieweditorboxcontainer" data-ng-model="multipleLogs.Review" review-editor-container>
+                </div>
+            </div>
+        </div>
+        @if (hasUpdateMultipleLogsPermission)
+        {
+            <div class="row">
+                <button class="btn btn-save" data-ng-click="editMultipleLogs();">
+                    <span class="hotkey">S</span>ave
+                </button>
+            </div>
+        }
+        <div class="footer-div">&nbsp;</div>
+        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/TimePicker")
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/Scripts/common.js")
+    @RazorHelper.RenderScripts("~/Areas/Feedbacks/EditMultipleLogStatusesScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
+        var currentUsername = "@AppSession.CurrentUser.Username";
+        var multipleLogs = @Html.Raw(jsonLogInfo);
+        var hasReviewPermission = @hasReviewPermission;
+        var viewResources = {
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Select: '@Labels.Select',
+            Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+            Warning: '@Labels.Warning',
+            OK: '@Labels.OK',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',            
+            Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)',
+            ReviewedInformation: '@Labels.ReviewedInformation',
+            Multiple_Logs_EmptyReview: '@Labels.Multiple_Logs_EmptyReview'            
+        };
+    </script>
+}
