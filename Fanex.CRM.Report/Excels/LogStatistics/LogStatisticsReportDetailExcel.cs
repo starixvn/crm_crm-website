@@ -10,7 +10,6 @@
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System;
     using System.Collections.Generic;
 
     public class LogStatisticsReportDetailExcel : BaseExcel
@@ -70,11 +69,6 @@
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
 
-            var categoryContents = NameMapping.GetCategoryContent(info.Settings, _mainCategory);
-            var productContents = NameMapping.GetProductContent(info.Settings, _productList, _subProductList);
-            var communicationContents = NameMapping.GetCommunicationContent(info.Settings, _communicationToolList);
-            var extensionContents = NameMapping.GetExtensionContent(info.Settings, _extensionList);
-
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
             exportExcelInfo.RenderCell(info.StartDateString, centerTextStyle);
@@ -83,13 +77,15 @@
             exportExcelInfo.RenderCell(durationText, centerTextStyle);
             exportExcelInfo.RenderCell(info.Username, centerTextStyle);
             exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(String.Join("\n", communicationContents), centerTextStyle);
-            exportExcelInfo.RenderCell(String.Join("\n", extensionContents), centerTextStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetCommunicationName(info.CommunicationID, _communicationToolList), centerTextStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetExtensionName(info.StationID, _extensionList), centerTextStyle);
             exportExcelInfo.RenderCell(info.Role, textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
-            exportExcelInfo.RenderCell(String.Join("\n\n", productContents), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetProductName(info.ProductID, _productList), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetSubProductName(info.SubProductID, _subProductList), textStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(String.Join("\n\n", categoryContents), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetMainCategoryName(info.CategoryID, _mainCategory), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetSubCategoryName(info.CategoryID, info.SubCategoryID, _mainCategory), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.RemarkText), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
@@ -157,9 +153,11 @@
             exportExcelInfo.RenderCell(Labels.Symbol_Extension, headerStyle);
             exportExcelInfo.RenderCell(Labels.Role, headerStyle);
             exportExcelInfo.RenderCell(Labels.ContactInfo, headerStyle);
-            exportExcelInfo.RenderCell(Labels.ProductSubProduct, headerStyle);
+            exportExcelInfo.RenderCell(Labels.Product, headerStyle);
+            exportExcelInfo.RenderCell(Labels.SubProduct, headerStyle);
             exportExcelInfo.RenderCell(Labels.Country, headerStyle);
-            exportExcelInfo.RenderCell(Labels.CategorySubCategory, headerStyle);
+            exportExcelInfo.RenderCell(Labels.Category, headerStyle);
+            exportExcelInfo.RenderCell(Labels.SubCategory, headerStyle);
             exportExcelInfo.RenderCell(Labels.Complaints_Enquiries, headerStyle);
             exportExcelInfo.RenderCell(Labels.Solution, headerStyle);
             exportExcelInfo.RenderCell(Labels.Status, headerStyle);

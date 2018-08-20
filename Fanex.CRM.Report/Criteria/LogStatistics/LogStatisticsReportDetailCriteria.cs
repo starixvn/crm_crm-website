@@ -33,7 +33,7 @@
 
         public override bool IsValid()
         {
-            return FromDate <= ToDate && (ToDate - FromDate).Days <= 365;
+            return FromDate <= ToDate && (ToDate - FromDate).Days <= 93;
         }
     }
 }
