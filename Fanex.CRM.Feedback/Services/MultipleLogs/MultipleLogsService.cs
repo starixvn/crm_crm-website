@@ -92,6 +92,17 @@
             return result;
         }
 
+        public Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
+        {
+            var result = _multipleLogsRepository.UpdateMultipleLogStatuses(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.Multiple_Logs_UpdateSuccess;
+            }
+
+            return result;
+        }
+
         public BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria)
         {
             var log = _multipleLogsRepository.GetLogByFeedbackId(criteria);

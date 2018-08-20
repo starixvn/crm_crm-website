@@ -137,5 +137,14 @@
 
             return Json(updateResult);
         }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
+        {
+            var updateResult = _multipleLogsService.UpdateMultipleLogStatuses(criteria);
+
+            return Json(updateResult);
+        }
     }
 }

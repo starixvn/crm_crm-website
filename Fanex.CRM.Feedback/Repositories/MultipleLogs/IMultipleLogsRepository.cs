@@ -11,5 +11,7 @@
         Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria);
 
         BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria);
+
+        Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria);
     }
 }
