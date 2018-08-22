@@ -1375,7 +1375,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This function will only update Status and Review. Communication Logs other information will NOT be udpated..
+        ///   Looks up a localized string similar to This function will only update Status and Review. Communication Logs other information will NOT be updated..
         /// </summary>
         public static string UpdateMultipleStatusesWarning {
             get {
