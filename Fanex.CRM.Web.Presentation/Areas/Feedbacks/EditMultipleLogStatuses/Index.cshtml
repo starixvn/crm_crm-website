@@ -19,6 +19,14 @@
 }
 <div data-ng-app="edit-multiple-log-statuses-application">
     <div class="main popup container editMultipleLogStatusesController" data-ng-controller="editMultipleLogStatusesController">
+        <div class="row panel-group" data-ng-show="true">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="alertboxwarn">
+                    <div data-ng-bind="warningMessage">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row panel-group" data-ng-show="isShowResultMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
@@ -103,7 +111,8 @@
             Symbol_NotApply: '@Labels.Symbol_NotApply',            
             Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)',
             ReviewedInformation: '@Labels.ReviewedInformation',
-            Multiple_Logs_EmptyReview: '@Labels.Multiple_Logs_EmptyReview'            
+            Multiple_Logs_EmptyReview: '@Labels.Multiple_Logs_EmptyReview',
+            UpdateMultipleStatusesWarning: '@Labels.UpdateMultipleStatusesWarning'
         };
     </script>
 }

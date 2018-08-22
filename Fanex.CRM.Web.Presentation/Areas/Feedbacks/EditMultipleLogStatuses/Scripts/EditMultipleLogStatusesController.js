@@ -17,6 +17,7 @@
         $scope.isShowRemarkBox = true;
         $scope.hasReviewPermission = hasReviewPermission;        
         $scope.feedbackList = '';
+        $scope.warningMessage = viewResources.UpdateMultipleStatusesWarning;
         
         $scope.requiredManager = {
             subject: true,

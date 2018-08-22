@@ -581,4 +581,7 @@
   <data name="EditMultipleLogStatusesTitle" xml:space="preserve">
     <value>Multiple Review &amp; Update Status</value>
   </data>
+  <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
+    <value>This function will only update Status and Review. Communication Logs other information will NOT be udpated.</value>
+  </data>
 </root>

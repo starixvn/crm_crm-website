@@ -1375,6 +1375,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This function will only update Status and Review. Communication Logs other information will NOT be udpated..
+        /// </summary>
+        public static string UpdateMultipleStatusesWarning {
+            get {
+                return ResourceManager.GetString("UpdateMultipleStatusesWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Site/Licensee Type.
         /// </summary>
         public static string UpdateSiteLicenseeType {

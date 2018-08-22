@@ -220,7 +220,7 @@
             parent.homeManager.CachedData.shouldReloadView = false;
             var url = window.rootUrl + 'MultipleLogs/EditStatus?feedbackid=' + parent.homeManager.CachedData.feedbacks[0].FeedbackId;
             var maxWidthOfPopUp = 987;
-            var maxHeightOfPopUp = 270;
+            var maxHeightOfPopUp = 290;
 
             parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogStatusesTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
         }
