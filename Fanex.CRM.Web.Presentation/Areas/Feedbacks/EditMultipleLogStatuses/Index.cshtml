@@ -68,7 +68,7 @@
             <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
                 @Html.Raw(Model.Review)
             </div>
-            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission}">
+            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
                 <div id="revieweditorboxcontainer" data-ng-model="multipleLogs.Review" review-editor-container>
                 </div>
             </div>
