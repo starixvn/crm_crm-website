@@ -365,6 +365,12 @@
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogOption.js" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\Directives\ReviewEditor.js" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\Directives\Status.js" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\EditMultipleLogStatusesApplication.js" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\EditMultipleLogStatusesController.js" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\EditMultipleLogStatusesService.js" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\Images\warning.png" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsApplication.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsController.js" />
@@ -1458,6 +1464,8 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Index.cshtml" />
     <Content Include="Areas\Report\DirectCustomerReport\Index.cshtml" />
     <Content Include="Areas\Report\DirectCustomerReport\Styles\DirectCustomerReport.less" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
     <None Include="Configurations\Web.UATSandBox.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>

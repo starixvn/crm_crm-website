@@ -295,6 +295,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple Review &amp; Update Status.
+        /// </summary>
+        public static string EditMultipleLogStatusesTitle {
+            get {
+                return ResourceManager.GetString("EditMultipleLogStatusesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Multiple Logs.
         /// </summary>
         public static string EditMultipleLogsTitle {
@@ -1362,6 +1371,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string UpdateFeedbackTitle {
             get {
                 return ResourceManager.GetString("UpdateFeedbackTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This function will only update Status and Review. Communication Logs other information will NOT be updated..
+        /// </summary>
+        public static string UpdateMultipleStatusesWarning {
+            get {
+                return ResourceManager.GetString("UpdateMultipleStatusesWarning", resourceCulture);
             }
         }
         

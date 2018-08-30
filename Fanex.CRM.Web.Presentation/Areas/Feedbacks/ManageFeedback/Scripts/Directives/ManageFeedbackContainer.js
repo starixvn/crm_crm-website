@@ -114,6 +114,13 @@
                     scope.openEditMultipleLogs();
                 });
 
+                $('.multipleStatusesTitle')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.openEditMultipleLogStatuses();
+                });
+
+
                 $('.updateSiteLicensee')
                 .unbind('click')
                 .bind('click', function () {
@@ -139,6 +146,8 @@
         function renderTitle(scope) {
             var updateButtons = !scope.createUpdateFeedbackPermission ? '' :
                 '<div class="update-site-licensee"><a class="updateSiteLicensee" href="javascript:;">' + manageFeedbackResources.UpdateSiteLicenseeType + '</a></div>' +
+                '<div class="split-bar"> | </div>' +
+                '<div class="lnksubject multiple-statuses-edit"><a class="multipleStatusesTitle" href="javascript:;">' + manageFeedbackResources.EditMultipleLogStatusesTitle + '</a></div>' +
                 '<div class="split-bar"> | </div>' +
                 '<div class="lnksubject multiple-edit"><a class="desTitle" href="javascript:;">' + manageFeedbackResources.MultipleEdit + '</a></div>' +
                 '<div class="split-bar"> | </div>';

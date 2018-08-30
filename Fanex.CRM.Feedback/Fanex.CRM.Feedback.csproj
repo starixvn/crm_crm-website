@@ -194,6 +194,7 @@
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\UpdateMultipleLogsCriteria.cs" />
+    <Compile Include="Criteria\UpdateMultipleLogStatusesCriteria.cs" />
     <Compile Include="Criteria\UpdateSiteLicenseeTypesCriteria.cs" />
     <Compile Include="Excels\FeedbackExcel.cs" />
     <Compile Include="Excels\FeedbackRowExcelWriter.cs" />

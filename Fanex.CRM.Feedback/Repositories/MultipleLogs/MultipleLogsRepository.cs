@@ -23,6 +23,11 @@
             return ExecuteNonQuery(criteria);
         }
 
+        public Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
+        {
+            return ExecuteNonQuery(criteria);
+        }
+
         public BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))

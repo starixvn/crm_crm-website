@@ -578,4 +578,10 @@
   <data name="SolutionMaxLengthError" xml:space="preserve">
     <value>Max length of Solution is 32,700!</value>
   </data>
+  <data name="EditMultipleLogStatusesTitle" xml:space="preserve">
+    <value>Multiple Review &amp; Update Status</value>
+  </data>
+  <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
+    <value>This function will only update Status and Review. Communication Logs other information will NOT be updated.</value>
+  </data>
 </root>

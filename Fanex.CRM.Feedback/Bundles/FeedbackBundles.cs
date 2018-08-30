@@ -29,6 +29,7 @@ namespace Fanex.CRM.Feedback.Bundles
             RegisterUpdateCustomerFeedbackBundles(bundles);
             RegisterCreateMultipleLogsBundles(bundles);
             RegisterEditMultipleLogsBundles(bundles);
+            RegisterEditMultipleLogStatusesBundles(bundles);
         }
 
         /// <summary>
@@ -266,6 +267,27 @@ namespace Fanex.CRM.Feedback.Bundles
                 bundles,
                 "~/Areas/Feedbacks/EditMultipleLogsStyles",
                 "~/Areas/Feedbacks/EditMultipleLogs/Styles/EditMultipleLogs.less");
+        }
+
+        private static void RegisterEditMultipleLogStatusesBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/EditMultipleLogStatusesScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesApplication.js",
+                "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesService.js",
+                "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesController.js",
+                "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Feedbacks/EditMultipleLogStatusesStyles",
+                "~/Areas/Feedbacks/EditMultipleLogStatuses/Styles/EditMultipleLogStatuses.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
