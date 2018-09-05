@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Common.Helpers
 {
+    using Fanex.CRM.Common.Extensions;
     using System.Text.RegularExpressions;
     using System.Web;
-    using Fanex.CRM.Common.Extensions;
 
     /// <summary>
     /// HTML Helper.
@@ -30,7 +30,11 @@ namespace Fanex.CRM.Common.Helpers
                 return string.Empty;
             }
 
-            var result = value.Replace("<br/>", "\n").Replace("<br>", "\n");
+            var result = value
+                .Replace("<div><br></div>", "\n")
+                .Replace(new string[] { "<br/>", "<br>", "</div>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>" }, "\n")
+                .Replace(new string[] { "</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>" }, "\n\n")
+                .Replace(new string[] { "<div>", "<p>" }, string.Empty);
             result = HttpUtility.HtmlDecode(result);
             result = Regex.Replace(result, "<[^<>]+>", string.Empty);
             return result;
