@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Common.Helpers
 {
     using Fanex.CRM.Common.Extensions;
+    using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
 
@@ -30,13 +31,16 @@ namespace Fanex.CRM.Common.Helpers
                 return string.Empty;
             }
 
-            var result = value
-                .Replace("<div><br></div>", "\n")
-                .Replace(new string[] { "<br/>", "<br>", "</div>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>" }, "\n")
-                .Replace(new string[] { "</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>" }, "\n\n")
-                .Replace(new string[] { "<div>", "<p>" }, string.Empty);
-            result = HttpUtility.HtmlDecode(result);
-            result = Regex.Replace(result, "<[^<>]+>", string.Empty);
+            var result = HttpUtility.HtmlDecode(value);
+            var strBuilder = new StringBuilder(result);
+            var toReplace = new string[] {"<div><br></div>", "<br>", "<div>", "<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>",
+                                            "<h6>", "<li>", "<br/>", "</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>"};
+            foreach (var str in toReplace)
+            {
+                strBuilder.Replace(str, "\n");
+            }
+
+            result = Regex.Replace(strBuilder.ToString(), "<[^<>]+>", string.Empty);
             return result;
         }
 
