@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" ?>
 <Root>
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>  
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_UpdMultipleReviewAndStatus" EnvironmentText="_xtest"></SpNameConfig>  
+  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGetUplineList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackDoubleCheck" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
