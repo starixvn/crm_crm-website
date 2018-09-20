@@ -27,6 +27,7 @@
         $scope.headlineChecked = true;
         $scope.directChecked = true;
         $scope.excludeIgnoredAccounts = true;
+        $scope.vipChecked = true;
 
         var _searchCriteria = {};
 
@@ -82,6 +83,7 @@
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: getAccountType(),
                 ExcludeIgnoredAccounts: $scope.excludeIgnoredAccounts,
+                IsVip: $scope.vipChecked,
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };

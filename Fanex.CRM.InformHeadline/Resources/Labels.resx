@@ -246,4 +246,7 @@
   <data name="ExcludeIgnoredAccounts" xml:space="preserve">
     <value>Exclude ignored accounts</value>
   </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
 </root>

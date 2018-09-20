@@ -63,7 +63,7 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            criteria.IsUpdateInfoHeadline = _permissionService.HasHostPermission(FunctionPermissions.Updateheadlineinfo);
+            criteria.IsUpdateHeadlineInfo = _permissionService.HasHostPermission(FunctionPermissions.Updateheadlineinfo);
             var result = _customerService.UpdateCustomerInfoDetail(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }

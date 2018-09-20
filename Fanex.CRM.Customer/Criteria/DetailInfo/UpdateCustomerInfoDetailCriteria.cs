@@ -208,7 +208,7 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         public string IntroducedBy { get; set; }
 
-        public bool IsUpdateInfoHeadline { get; set; }
+        public bool IsUpdateHeadlineInfo { get; set; }
 
         public override string GetSettingKey()
         {
