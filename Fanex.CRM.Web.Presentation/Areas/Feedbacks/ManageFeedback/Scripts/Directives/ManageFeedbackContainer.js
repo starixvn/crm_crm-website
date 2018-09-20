@@ -26,6 +26,7 @@
                         Width: 50,                        
                         HeaderAlign: 'center', CellAlign: 'center',
                     },
+                    { HeaderText: manageFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: manageFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
@@ -72,6 +73,7 @@
                 var checkedClass = fb.IsChecked ? 'checked="checked"' : '';
                 currentRow = [
                 { Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' },
+                { Name: 'ColRunningNo', Value: fb.FeedbackId },
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
                 { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },

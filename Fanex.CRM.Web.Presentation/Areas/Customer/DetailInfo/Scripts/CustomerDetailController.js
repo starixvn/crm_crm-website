@@ -11,6 +11,7 @@
     angular.module('customerdetail-application').controller('customerDetailController', ['$scope', '$http', '$customerDetailService',
     function ($scope, $http, $customerDetailService) {
         $scope.customerDetail = customerDetail;
+        $scope.canEditHeadline = canEditHeadline;
         $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
         $scope.siteList = null;
         $scope.countryList = null;
@@ -22,6 +23,7 @@
         $scope.isSetFocus = false;
 
         $scope.isShowPersonalInfo = true;
+        $scope.isShowHeadlineInfo = true;
         $scope.isShowCommunicationInfo = true;
         $scope.isShowHomeAddressInfo = true;
         $scope.isShowBankInfoInfo = true;

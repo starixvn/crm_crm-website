@@ -1159,6 +1159,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running No..
+        /// </summary>
+        public static string RunningNo {
+            get {
+                return ResourceManager.GetString("RunningNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Running Number.
         /// </summary>
         public static string RunningNumer {
@@ -1384,7 +1393,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Site/Licensee Type.
+        ///   Looks up a localized string similar to Update Site/Licensee Type/Role.
         /// </summary>
         public static string UpdateSiteLicenseeType {
             get {
@@ -1393,7 +1402,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Site/Licensee Type Successfully!.
+        ///   Looks up a localized string similar to Update Site/Licensee Type/Role Successfully!.
         /// </summary>
         public static string UpdateSiteLicenseeTypeSuccess {
             get {

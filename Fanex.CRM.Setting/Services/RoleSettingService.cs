@@ -43,6 +43,9 @@ namespace Fanex.CRM.Setting.Services
                 case RoleIdConstants.CRMSuper:
                     roleName = Labels.Super;
                     break;
+                case RoleIdConstants.Headline:
+                    roleName = Labels.Headline;
+                    break;
                 default:
                     roleName = Labels.Guest;
                     break;

@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Customer.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
@@ -21,6 +19,7 @@ namespace Fanex.CRM.Customer.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Customer Service.
@@ -67,7 +66,7 @@ namespace Fanex.CRM.Customer.Services
                 {
                     Name = criteria.Username,
                     IsGuest = criteria.IsGuest
-                };                
+                };
             }
             else
             {

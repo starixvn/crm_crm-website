@@ -86,7 +86,6 @@
                 $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
             }
-
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },
         function () {
