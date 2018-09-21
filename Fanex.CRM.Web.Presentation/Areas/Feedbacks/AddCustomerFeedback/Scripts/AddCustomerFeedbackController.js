@@ -381,15 +381,47 @@
                 return;
             }
 
-            addCustomerFeedbackService.addFeedback(params)
+            $uiBlockerService.unblockUI();
+            $scope.checkDuplicationThenCreateFeedback(params);
+        };
+
+        $scope.checkDuplicationThenCreateFeedback = function (params) {
+            var checkParams = {
+                StartTime: params.StartTime,
+                Categories: params.Categories
+            };
+
+            $uiBlockerService.blockUI();
+            addCustomerFeedbackService.checkFeedbackDuplication(checkParams)
                 .then(function (data) {
-                    var addResult = data.Result;
-                    $scope.showAddResult(addResult);
+                    $uiBlockerService.unblockUI();
+                    if (data.Result.HasDuplication) {
+                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);
+                        parent.dialogManager.confirm("Warning", message, function () {
+                            callAddCustomerFeedback(params);
+                        });
+                    }
+                    else {
+                        callAddCustomerFeedback(params);
+                    }
                 },
                 function () {
                     $uiBlockerService.unblockUI();
                 });
-        };
+        }
+
+        var callAddCustomerFeedback = function (params) {
+            $uiBlockerService.blockUI();
+            addCustomerFeedbackService.addFeedback(params)
+               .then(function (data) {
+                   $uiBlockerService.unblockUI();
+                   var addResult = data.Result;
+                   $scope.showAddResult(addResult);
+               },
+               function () {
+                   $uiBlockerService.unblockUI();
+               });
+        }
 
         $scope.validateAddParams = function (params) {
             var result = true;
