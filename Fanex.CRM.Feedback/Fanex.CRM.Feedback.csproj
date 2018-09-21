@@ -185,6 +185,7 @@
     <Compile Include="Controllers\MultipleLogsController.cs" />
     <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
     <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\CheckFeedbackDuplicationCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
     <Compile Include="Criteria\GetLogByFeedbackIdCriteria.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\CustomerFeedback.cs" />
     <Compile Include="Models\DeletedFeedback.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
+    <Compile Include="Models\FeedbackDuplicationResult.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddCustomerFeedback\AddCustomerFeedbackRepository.cs" />

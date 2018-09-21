@@ -36,6 +36,45 @@ var DialogManager = function () {
             }]
         });
     };
+
+    self.confirm = function (title, message, okCallback, cancelCallback, closeCallback) {
+        self.CachedData.resultPopup.removeClass('display-none');
+        self.CachedData.resultPopup.html(message);
+        self.CachedData.resultPopup.dialog({
+            zIndex: 500,
+            resizable: false,
+            modal: true,
+            title: title,
+            close: function (event, ui) {
+                self.CachedData.resultPopup.dialog('destroy');
+                $(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+                self.CachedData.resultPopup = $('#div-resultpopup');
+                if (closeCallback && typeof (closeCallback) === 'function') {
+                    closeCallback();
+                }
+            },
+            buttons: [
+                {
+                    text: "OK",
+                    click: function () {                        
+                        if (okCallback && typeof (okCallback) === 'function') {
+                            okCallback();
+                        }
+                        self.CachedData.resultPopup.dialog('close');
+                    }
+                },
+                {
+                    text: "Cancel",
+                    click: function () {                        
+                        if (cancelCallback && typeof (cancelCallback) === 'function') {
+                            cancelCallback();
+                        }
+                        self.CachedData.resultPopup.dialog('close');
+                    }
+                }
+            ]
+        });
+    };
 };
 
 var dialogManager = new DialogManager();

@@ -191,5 +191,12 @@ namespace Fanex.CRM.Feedback.Controllers
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }
+
+        [HttpPost]
+        public ActionResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
+        {
+            var result = _feedbackService.CheckFeedbackDuplication(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

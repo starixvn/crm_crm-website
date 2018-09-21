@@ -587,4 +587,7 @@
   <data name="RunningNo" xml:space="preserve">
     <value>Running No.</value>
   </data>
+  <data name="FeedbackDuplicationError" xml:space="preserve">
+    <value>This user has a similar log with running number {0}. Do you want to create this log?</value>
+  </data>
 </root>

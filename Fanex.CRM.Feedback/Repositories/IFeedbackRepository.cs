@@ -14,5 +14,7 @@
         IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria);
 
         Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
+
+        int CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria);
     }
 }
