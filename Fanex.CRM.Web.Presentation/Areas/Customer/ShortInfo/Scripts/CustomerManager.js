@@ -72,19 +72,19 @@
         self.getCustomerInfoByUsername = function () {
             var scope = angular.element("#divContent").scope();
             scope.$apply(function () {
-                var getCustomerInfoParams = self.getCustomerInfoByUsernameParamsFromURL();
+                var getCustomerInfoParams = self.getCustomerInfoByUsernameParamsFromURL(scope.username);
                 if (getCustomerInfoParams.Username === null ||
                 getCustomerInfoParams.Username === '' &&
                 getCustomerInfoParams.Username === "null") {
                     return;
                 }
-
+                
                 scope.getCustomerInfoByUsername(getCustomerInfoParams);
             });
         };
-        self.getCustomerInfoByUsernameParamsFromURL = function () {
+        self.getCustomerInfoByUsernameParamsFromURL = function (username) {
             var getCustomerInfoParams = {
-                Username: $.trim(sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username"))),
+                Username: username || $.trim(sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username"))),
                 IsGuest: sharedScriptManager.getURLParam("isguest"),
                 IsSearch: sharedScriptManager.getURLParam("issearch"),
                 IsFromURL: sharedScriptManager.getURLParam("isfromurl"),
