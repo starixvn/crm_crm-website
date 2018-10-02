@@ -19,7 +19,9 @@ namespace Fanex.CRM.Customer.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using Setting.Constants;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Customer Service.
@@ -83,13 +85,25 @@ namespace Fanex.CRM.Customer.Services
             var rawData = _customerRepository.GetUplineInfoOfUser(criteria);
             foreach (var item in rawData)
             {
-                if (criteria.CustomerId == item.Id)
+                if (criteria.CustomerId == item.Id || item.Role.Id == RoleIdConstants.Headline)
                 {
                     continue;
                 }
 
                 item.Role.Name = RoleSettingService.GetRoleName(item.Role.Id);
                 uplineInfoResult.Add(item);
+            }
+
+            var headline = rawData.Where(i => i.Role.Id == RoleIdConstants.Headline)
+                                  .Select(i =>
+                                  {
+                                      i.Role.Name = RoleSettingService.GetRoleName(i.Role.Id);
+                                      return i;
+                                  })
+                                  .FirstOrDefault();
+            if(headline != null)
+            {
+                uplineInfoResult.Insert(0, headline);
             }
 
             return uplineInfoResult;
