@@ -55,6 +55,17 @@
             return ExecuteNonQuery(criteria);
         }
 
+        public int CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.ExecuteNonQuery(criteria.GetSpParams());
+                var outputParams = objectDB.GetOuputParams();
+                var feedbackId = Converter.ToInt(outputParams["feedbackid"]);
+                return feedbackId;
+            }
+        }
+
         private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
         {
             Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)

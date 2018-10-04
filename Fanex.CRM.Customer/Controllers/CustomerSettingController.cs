@@ -9,14 +9,13 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Customer Setting Controller.
@@ -39,6 +38,7 @@ namespace Fanex.CRM.Customer.Controllers
         public ActionResult ShortCustomerInfo()
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+            ViewBag.UserName = Request.Params["username"];
 
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }

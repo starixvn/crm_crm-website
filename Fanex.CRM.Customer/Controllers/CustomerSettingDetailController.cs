@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
-    using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
@@ -19,6 +17,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Customer Setting Detail Controller.
@@ -43,6 +42,7 @@ namespace Fanex.CRM.Customer.Controllers
         public ActionResult Index(string customerId)
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+            ViewBag.UpdateHeadlineInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.Updateheadlineinfo);
 
             CustomerInfo customerDetail = _customerService.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {
@@ -63,6 +63,7 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
+            criteria.IsUpdateHeadlineInfo = _permissionService.HasHostPermission(FunctionPermissions.Updateheadlineinfo);
             var result = _customerService.UpdateCustomerInfoDetail(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }

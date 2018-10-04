@@ -383,24 +383,50 @@
                 return;
             }            
 
+            $uiBlockerService.unblockUI();
             if (!isNameValid(params.CustomerInfo.Name)) {
                 params.CustomerInfo.Name = updateName(params.CustomerInfo.Name);
                 var message = "Content will be saved without special characters such as <, >, &, #";
-                $uiBlockerService.unblockUI();
                 parent.dialogManager.alert("Warning", message, "OK", function () {
-                    callAddGuestFeedback(params);
+                    $scope.checkDuplicationThenCreateFeedback(params); 
                 });
             }
             else {
-                callAddGuestFeedback(params);
-            }
-
-           
+                $scope.checkDuplicationThenCreateFeedback(params); 
+            }           
         };
 
+
+        $scope.checkDuplicationThenCreateFeedback = function (params) {
+            var checkParams = {
+                StartTime: params.StartTime,
+                Categories: params.Categories
+            };
+
+            $uiBlockerService.blockUI();
+            addGuestFeedbackService.checkFeedbackDuplication(checkParams)
+                .then(function (data) {
+                    $uiBlockerService.unblockUI();
+                    if (data.Result.HasDuplication) {
+                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);                        
+                        parent.dialogManager.confirm("Warning", message, function () {
+                            callAddGuestFeedback(params);
+                        });
+                    }
+                    else {
+                        callAddGuestFeedback(params);
+                    }
+                },
+                function () {
+                    $uiBlockerService.unblockUI();
+                });
+        }
+
         var callAddGuestFeedback = function (params) {
+            $uiBlockerService.blockUI();
             addGuestFeedbackService.addFeedback(params)
                 .then(function (data) {
+                    $uiBlockerService.unblockUI();
                     var addResult = data.Result;
                     $scope.showAddResult(addResult);
                 },

@@ -26,6 +26,11 @@
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
+        serviceInstance.checkFeedbackDuplication = function (params) {
+            var url = window.rootUrl + "Feedbacks/CheckFeedbackDuplication";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);           
+        }
+
         return serviceInstance;
     } ]);
 })();

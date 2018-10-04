@@ -208,6 +208,8 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         public string IntroducedBy { get; set; }
 
+        public bool IsUpdateHeadlineInfo { get; set; }
+
         public override string GetSettingKey()
         {
             return "Customer_CustomerInfoDetail_Update_New";

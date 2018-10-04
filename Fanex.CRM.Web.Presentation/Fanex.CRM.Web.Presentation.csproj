@@ -690,7 +690,6 @@
     </Content>
     <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
     <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
-    <Content Include="Configurations\SpNameConfig\DBNAP_Include.xml" />
     <Content Include="Configurations\_Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_Web.config.txt</LastGenOutput>

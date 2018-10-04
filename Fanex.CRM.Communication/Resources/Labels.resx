@@ -359,4 +359,7 @@
   <data name="SolutionMaxLengthError" xml:space="preserve">
     <value>Max length of Solution is 32,700!</value>
   </data>
+  <data name="FeedbackDuplicationError" xml:space="preserve">
+    <value>This user has a similar log with running number {0}. Do you want to create this log?</value>
+  </data>
 </root>

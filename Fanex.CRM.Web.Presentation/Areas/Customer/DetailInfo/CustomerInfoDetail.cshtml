@@ -12,558 +12,649 @@
 
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
+    var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
+    var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
-    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")    
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
 }
 <div data-ng-app="customerdetail-application">
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
             <div class="row title group-header" data-ng-class="isShowPersonalInfo ? '' : 'border-bottom-none'"
-                data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
-            <div class="row content" data-ng-show="isShowPersonalInfo">
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="customerinfodetail-titleoptions">
-                                @Labels.Title</label></div>
-                        <div class="col-md-9" data-ng-model="titleList" dropdown-title-container>
-                            <select id="customerinfodetail-titleoptions" tabindex="1" default-focus data-ng-issetfocus="isSetFocus">
-                            </select>
+                 data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
+                <div class="row content" data-ng-show="isShowPersonalInfo">
+                    <div class="col-md-4">
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="customerinfodetail-titleoptions">
+                                    @Labels.Title
+                                </label>
+                            </div>
+                            <div class="col-md-9" data-ng-model="titleList" dropdown-title-container>
+                                <select id="customerinfodetail-titleoptions" tabindex="1" default-focus data-ng-issetfocus="isSetFocus"></select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="birthday">
-                                @Labels.Birthday</label></div>
-                        <div class="col-md-9" date-picker-container>
-                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="4" />
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="birthday">
+                                    @Labels.Birthday
+                                </label>
+                            </div>
+                            <div class="col-md-9" date-picker-container>
+                                <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="4" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="language">
-                                @Labels.Language</label></div>
-                        <div class="col-md-9" dropdown-language data-ng-model="languageList">
-                            <select id="customerinfodetail-languageoptions" tabindex="7">
-                            </select>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="language">
+                                    @Labels.Language
+                                </label>
+                            </div>
+                            <div class="col-md-9" dropdown-language data-ng-model="languageList">
+                                <select id="customerinfodetail-languageoptions" tabindex="7"></select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="customerinfodetail-licenseeTypeoptions">
-                                @Labels.LicenseeType</label></div>
-                        <div class="col-md-9">
-                            <select id="customerinfodetail-licenseeTypeoptions" tabindex="10" data-ng-model="customerDetail.LicenseeType"
-                                data-ng-options="s.Name for s in licenseeTypes track by s.Id">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="firstName">
-                                @Labels.First_Name</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName"
-                                tabindex="2" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="passport">
-                                @Labels.Passport_Number</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name"
-                                tabindex="5" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="customerinfodetail-siteoptions">
-                                @Labels.Site</label></div>
-                        <div class="col-md-9">
-                            <selectwithsearchtree text-settings="TextSettings"
-                                                  data-ng-model="selectedSite"
-                                                  data-settings="siteDropdownSettings"></selectwithsearchtree>
-                        </div>
-                    </div>
-                    @if (Model.HeadLine)
-                    {
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="checker">
-                                @Labels.Checker
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="checker" data-ng-model="customerDetail.Checker"
-                                    tabindex="11" disabled />
-                        </div>
-                    </div>
-                    }
-                    else
-                    {
-                    <div class="row row-item">
-                        <div class="col-xs-4 col-sm-3 col-md-3">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" />
-                                @Labels.VIP
-                            </label>
-                        </div>
-                        <div class="col-md-9"></div>
-                    </div>
-                    }
-                </div>
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="lastName">
-                                @Labels.Last_Name</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName"
-                                tabindex="3" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="refcode2">
-                                @Labels.Ref_Codes</label></div>
-                        <div class="col-md-9" date-picker-container>
-                            <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
-                                tabindex="6" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="bettingcode">
-                                @Labels.Secret_Code</label></div>
-                        <div class="col-md-9" date-picker-container>
-                            <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
-                                tabindex="9" />
-                        </div>
-                    </div>
-                    @if (Model.HeadLine)
-                    {
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="bettingcode">
-                                @Labels.IntroducedBy
-                            </label>
-                        </div>
-                        <div class="col-md-9" date-picker-container>
-                            <input type="text" class="textbox" id="introducedby" data-ng-model="customerDetail.IntroducedBy"
-                                    tabindex="9" />
-                        </div>
-                    </div>
-                    <div class="row row-item">
-                        <div class="col-xs-4 col-sm-3 col-md-3">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="12" />
-                                @Labels.VIP
-                            </label>
-                        </div>
-                        <div class="col-md-4 col-sm-3 col-md-3">
-                            <label for="headline" class="labelforcheckbox checkbox">
-                                <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
-                                @Labels.Headline
-                            </label>
-                        </div>
-                        <div class="col-md-4 col-sm-3 col-md-3">
-                            <label for="ignore" class="labelforcheckbox checkbox">
-                                <input id="ignore" type="checkbox" data-ng-model="customerDetail.IsIgnored" tabindex="13"/>
-                                @Labels.Ignore
-                            </label>
-                        </div>
-                    </div>
-                    }
-                </div>
-            </div>
-        </div>
-        @*TabIndex start from 15*@
-        <div class="row panel-group">
-            <div class="row title group-header" data-ng-class="isShowCommunicationInfo ? '' : 'border-bottom-none'"
-                data-ng-click="isShowCommunicationInfo = !isShowCommunicationInfo">@Labels.Communication_Info</div>
-            <div class="row content" data-ng-show="isShowCommunicationInfo">
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="contact1">
-                                @Labels.Contact_Number_1</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode"
-                                tabindex="15" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode"
-                                tabindex="16" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber"
-                                tabindex="17" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="faxInfo">
-                                @Labels.Fax</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
-                                tabindex="24" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode"
-                                tabindex="25" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber"
-                                tabindex="26" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="picName2">
-                                @Labels.PIC_2</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox pic-name" id="picName2" data-ng-model="customerDetail.PersonalInfoContacts[1].Name"
-                                tabindex="32" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[1].Phone"
-                                tabindex="33" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="skype">
-                                @Labels.Skype</label></div>
-                        <div class="col-md-9">
-                            <input id="skype" type="text" class="textbox" data-ng-model="customerDetail.Skype"
-                                tabindex="38" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="wechat">
-                                @Labels.WeChat</label></div>
-                        <div class="col-md-9">
-                            <input id="wechat" type="text" class="textbox" data-ng-model="customerDetail.WeChat"
-                                tabindex="41" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="yahoo">
-                                @Labels.Yahoo</label></div>
-                        <div class="col-md-9">
-                            <input id="yahoo" type="text" class="textbox" data-ng-model="customerDetail.Yahoo"
-                                tabindex="44" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="contact2">
-                                @Labels.Contact_Number_2</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode"
-                                tabindex="18" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode"
-                                tabindex="19" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber"
-                                tabindex="20" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="mobile">
-                                @Labels.Mobile</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode"
-                                tabindex="27" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode"
-                                tabindex="28" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber"
-                                tabindex="29" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="picName3">
-                                @Labels.PIC_3</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox pic-name" id="picName3" data-ng-model="customerDetail.PersonalInfoContacts[2].Name"
-                                tabindex="34" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[2].Phone"
-                                tabindex="35" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="email">
-                                @Labels.Email</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
-                                tabindex="39" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="whatsapp">
-                                @Labels.WhatsApp</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="whatsapp" data-ng-model="customerDetail.WhatsApp"
-                                tabindex="42" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="qq">
-                                @Labels.QQ</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="qq" data-ng-model="customerDetail.QQ" tabindex="45" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="contact3">
-                                @Labels.Contact_Number_3</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode"
-                                tabindex="21" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode"
-                                tabindex="22" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber"
-                                tabindex="23" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="picName1">
-                                @Labels.PIC_1</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox pic-name" id="picName1" data-ng-model="customerDetail.PersonalInfoContacts[0].Name"
-                                tabindex="30" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[0].Phone"
-                                tabindex="31" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="picName4">
-                                @Labels.PIC_4</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox pic-name" id="picName4" data-ng-model="customerDetail.PersonalInfoContacts[3].Name"
-                                tabindex="36" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[3].Phone"
-                                tabindex="37" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="msn">
-                                @Labels.MSN</label></div>
-                        <div class="col-md-9">
-                            <input id="msn" type="text" class="textbox" data-ng-model="customerDetail.MSN" tabindex="40" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="line">
-                                @Labels.Line</label></div>
-                        <div class="col-md-9">
-                            <input id="line" type="text" class="textbox" data-ng-model="customerDetail.Line"
-                                tabindex="43" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="bbm">
-                                @Labels.BBM</label></div>
-                        <div class="col-md-9">
-                            <input id="bbm" type="text" class="textbox" data-ng-model="customerDetail.BBM" tabindex="46" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*TabIndex start from 60*@
-        <div class="row panel-group">
-            <div class="row title group-header" data-ng-class="isShowHomeAddressInfo ? '' : 'border-bottom-none'"
-                data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
-                @Labels.Home_Address</div>
-            <div class="row content" data-ng-show="isShowHomeAddressInfo">
-                <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
-                    <div class="row">
-                        <div class="item col-md-12">
-                            <div class="col-md-3 widthTextLine">
-                                <label for="line{{ $index + 1 }}">
-                                    @Labels.Line {{ $index + 1 }}</label></div>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="customerinfodetail-licenseeTypeoptions">
+                                    @Labels.LicenseeType
+                                </label>
+                            </div>
                             <div class="col-md-9">
-                                <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]"
-                                    tabindex="{{ 60 + $index }}" /></div>
+                                <select id="customerinfodetail-licenseeTypeoptions" tabindex="10" data-ng-model="customerDetail.LicenseeType"
+                                        data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="city">
-                                @Labels.City</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City"
-                                tabindex="64" /></div>
-                    </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="state">
-                                @Labels.State</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State"
-                                tabindex="65" /></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="customerinfodetail-countryoptions">
-                                @Labels.Country</label></div>
-                        <div class="col-md-9" data-ng-model="countryList" dropdown-country-container>
-                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" tabindex="66">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="postcode">
-                                @Labels.Postcode</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode"
-                                tabindex="67" /></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*TabIndex start from 80*@
-        <div class="row panel-group last">
-            <div class="row title group-header" data-ng-class="isShowBankInfoInfo ? '' : 'border-bottom-none'"
-                data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
-                @Labels.Bank_Info</div>
-            <div class="row content" data-ng-show="isShowBankInfoInfo">
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="b-firstName">
-                                @Labels.Account_Holder_Name</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName"
-                                tabindex="80" /></div>
-                    </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="bankName">
-                                @Labels.Bank_s_Name</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="bankName" data-ng-model="customerDetail.BankInfo.Name"
-                                tabindex="81" /></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="accountNo">
-                                @Labels.Account_No</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="accountNo" data-ng-model="customerDetail.BankInfo.AccountNumber"
-                                tabindex="82" />
-                        </div>
-                    </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="IBANcode">
-                                @Labels.IBAN_SWIFT_code</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="IBANcode" data-ng-model="customerDetail.BankInfo.SwiftCode"
-                                tabindex="83" /></div>
-                    </div>
-                </div>
-                <div data-ng-repeat="addressLine in customerDetail.BankInfo.AddressInfo.LineList track by $index">
-                    <div class="row">
-                        <div class="item col-md-12">
-                            <div class="col-md-3 widthTextLine">
-                                <label for="bankline{{ $index + 1 }}">
-                                    @Labels.Line {{ $index + 1 }}</label></div>
+                    <div class="col-md-4">
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="firstName">
+                                    @Labels.First_Name
+                                </label>
+                            </div>
                             <div class="col-md-9">
-                                <input type="text" maxlength="100" class="textbox text-large" id="bankline{{ $index + 1 }}"
-                                    data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" tabindex="{{ 84 + $index }}" /></div>
+                                <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName"
+                                       tabindex="2" />
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="b-city">
-                                @Labels.City</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="b-city" data-ng-model="customerDetail.BankInfo.AddressInfo.City"
-                                tabindex="87" /></div>
-                    </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="b-state">
-                                @Labels.State</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="b-state" data-ng-model="customerDetail.BankInfo.AddressInfo.State"
-                                tabindex="88" /></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="item col-md-6">
-                        <div class="col-md-3 widthCol">
-                            <label for="customerinfodetail-countryoptions-bank">
-                                @Labels.Country</label></div>
-                        <div class="col-md-9" data-ng-model="countryList" dropdown-country-bank-container>
-                            <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo"
-                                tabindex="89">
-                            </select>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="passport">
+                                    @Labels.Passport_Number
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name"
+                                       tabindex="5" />
+                            </div>
                         </div>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="customerinfodetail-siteoptions">
+                                    @Labels.Site
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <selectwithsearchtree text-settings="TextSettings"
+                                                      data-ng-model="selectedSite"
+                                                      data-settings="siteDropdownSettings"></selectwithsearchtree>
+                            </div>
+                        </div>                      
+                        <div class="row row-item">
+                            <div class="col-xs-4 col-sm-3 col-md-3">
+                                <label for="isVIP" class="labelforcheckbox checkbox">
+                                    <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" />
+                                    @Labels.VIP
+                                </label>
+                            </div>
+                            <div class="col-md-9"></div>
+                        </div>                                             
                     </div>
-                    <div class="item col-md-6">
-                        <div class="col-md-3">
-                            <label for="b-postcode">
-                                @Labels.Postcode</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode"
-                                tabindex="90" /></div>
+                    <div class="col-md-4">
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="lastName">
+                                    @Labels.Last_Name
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName"
+                                       tabindex="3" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="refcode2">
+                                    @Labels.Ref_Codes
+                                </label>
+                            </div>
+                            <div class="col-md-9" date-picker-container>
+                                <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
+                                       tabindex="6" />
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-md-3">
+                                <label for="bettingcode">
+                                    @Labels.Secret_Code
+                                </label>
+                            </div>
+                            <div class="col-md-9" date-picker-container>
+                                <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
+                                       tabindex="9" />
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
-        </div>
-        @if (customerInfoPolicy == Constant.Policy.Host)
-        {
-        <div class="row">
-            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
-                <span id="button-save-customerinfodetail" class="hotkey">S</span>ave</button>
-        </div>
-        }
-    </div>
-    <div id="div-customerinfodetail-resultpopup" class="selector display-none">
-    </div>
-</div>
-@section Scripts {
-    @RazorHelper.RenderScripts("~/Scripts/PopUp")
-    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
-    @RazorHelper.RenderScripts("~/Areas/DetailCustomerInfo/Scripts")
-    <script type="text/javascript">
-        parent.document.title = document.title;
-        window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
-        var viewResources = {
-            OK: 'OK',
-            Select: '@Labels.Select',
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            Alert: '@Labels.Alert',
-            All_Languages: '@Labels.All_Languages',
-            No_languages_found: '@Labels.No_languages_found',
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
-          };
-        var customerDetail = @Html.Raw(jsonCustomerDetail);
-    </script>
-}
+            @if (Model.HeadLine && (updateHeadlineInfoPolicy == Constant.Policy.Read || updateHeadlineInfoPolicy == Constant.Policy.Host))
+            {            
+                <div class="row panel-group">
+                        <div class="row title group-header" data-ng-class="isShowHeadlineInfo ? '' : 'border-bottom-none'"
+                            data-ng-click="isShowHeadlineInfo = !isShowHeadlineInfo">@Labels.HeadlineInfo</div>
+                        <div class="row content" data-ng-show="isShowHeadlineInfo">
+                            <div class="col-md-4">
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="checker">
+                                            @Labels.Checker
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="checker" data-ng-model="customerDetail.Checker"
+                                               tabindex="11" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="bettingcode">
+                                            @Labels.IntroducedBy
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9" date-picker-container>
+                                        <input type="text" class="textbox" id="introducedby" data-ng-model="customerDetail.IntroducedBy"
+                                               tabindex="9" ng-disabled="!canEditHeadline"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row row-item">
+                                    <div class="col-md-12">
+                                        <label for="ignore" class="labelforcheckbox checkbox">
+                                            <input id="ignore" type="checkbox" data-ng-model="customerDetail.IsIgnored" tabindex="13" 
+                                                   ng-disabled="!canEditHeadline"/>
+                                            @Labels.Ignore
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*TabIndex start from 15*@
+                <div class="row panel-group">
+                    <div class="row title group-header" data-ng-class="isShowCommunicationInfo ? '' : 'border-bottom-none'"
+                         data-ng-click="isShowCommunicationInfo = !isShowCommunicationInfo">@Labels.Communication_Info</div>
+                        <div class="row content" data-ng-show="isShowCommunicationInfo">
+                            <div class="col-md-4">
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="contact1">
+                                            @Labels.Contact_Number_1
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode"
+                                               tabindex="15" />
+                                        <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode"
+                                               tabindex="16" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber"
+                                               tabindex="17" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="faxInfo">
+                                            @Labels.Fax
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
+                                               tabindex="24" />
+                                        <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode"
+                                               tabindex="25" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber"
+                                               tabindex="26" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="picName2">
+                                            @Labels.PIC_2
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox pic-name" id="picName2" data-ng-model="customerDetail.PersonalInfoContacts[1].Name"
+                                               tabindex="32" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[1].Phone"
+                                               tabindex="33" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="skype">
+                                            @Labels.Skype
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="skype" type="text" class="textbox" data-ng-model="customerDetail.Skype"
+                                               tabindex="38" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="wechat">
+                                            @Labels.WeChat
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="wechat" type="text" class="textbox" data-ng-model="customerDetail.WeChat"
+                                               tabindex="41" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="yahoo">
+                                            @Labels.Yahoo
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="yahoo" type="text" class="textbox" data-ng-model="customerDetail.Yahoo"
+                                               tabindex="44" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="contact2">
+                                            @Labels.Contact_Number_2
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode"
+                                               tabindex="18" />
+                                        <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode"
+                                               tabindex="19" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber"
+                                               tabindex="20" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="mobile">
+                                            @Labels.Mobile
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode"
+                                               tabindex="27" />
+                                        <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode"
+                                               tabindex="28" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber"
+                                               tabindex="29" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="picName3">
+                                            @Labels.PIC_3
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox pic-name" id="picName3" data-ng-model="customerDetail.PersonalInfoContacts[2].Name"
+                                               tabindex="34" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[2].Phone"
+                                               tabindex="35" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="email">
+                                            @Labels.Email
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
+                                               tabindex="39" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="whatsapp">
+                                            @Labels.WhatsApp
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="whatsapp" data-ng-model="customerDetail.WhatsApp"
+                                               tabindex="42" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="qq">
+                                            @Labels.QQ
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="qq" data-ng-model="customerDetail.QQ" tabindex="45" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="contact3">
+                                            @Labels.Contact_Number_3
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode"
+                                               tabindex="21" />
+                                        <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode"
+                                               tabindex="22" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber"
+                                               tabindex="23" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="picName1">
+                                            @Labels.PIC_1
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox pic-name" id="picName1" data-ng-model="customerDetail.PersonalInfoContacts[0].Name"
+                                               tabindex="30" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[0].Phone"
+                                               tabindex="31" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="picName4">
+                                            @Labels.PIC_4
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox pic-name" id="picName4" data-ng-model="customerDetail.PersonalInfoContacts[3].Name"
+                                               tabindex="36" />
+                                        <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[3].Phone"
+                                               tabindex="37" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="msn">
+                                            @Labels.MSN
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="msn" type="text" class="textbox" data-ng-model="customerDetail.MSN" tabindex="40" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="line">
+                                            @Labels.Line
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="line" type="text" class="textbox" data-ng-model="customerDetail.Line"
+                                               tabindex="43" />
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-md-3">
+                                        <label for="bbm">
+                                            @Labels.BBM
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="bbm" type="text" class="textbox" data-ng-model="customerDetail.BBM" tabindex="46" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*TabIndex start from 60*@
+                    <div class="row panel-group">
+                        <div class="row title group-header" data-ng-class="isShowHomeAddressInfo ? '' : 'border-bottom-none'"
+                             data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
+                            @Labels.Home_Address
+                        </div>
+                        <div class="row content" data-ng-show="isShowHomeAddressInfo">
+                            <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
+                                <div class="row">
+                                    <div class="item col-md-12">
+                                        <div class="col-md-3 widthTextLine">
+                                            <label for="line{{ $index + 1 }}">
+                                                @Labels.Line {{ $index + 1 }}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]"
+                                                   tabindex="{{ 60 + $index }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="city">
+                                            @Labels.City
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City"
+                                               tabindex="64" />
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="state">
+                                            @Labels.State
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State"
+                                               tabindex="65" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="customerinfodetail-countryoptions">
+                                            @Labels.Country
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9" data-ng-model="countryList" dropdown-country-container>
+                                        <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" tabindex="66"></select>
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="postcode">
+                                            @Labels.Postcode
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode"
+                                               tabindex="67" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*TabIndex start from 80*@
+                    <div class="row panel-group last">
+                        <div class="row title group-header" data-ng-class="isShowBankInfoInfo ? '' : 'border-bottom-none'"
+                             data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
+                            @Labels.Bank_Info
+                        </div>
+                        <div class="row content" data-ng-show="isShowBankInfoInfo">
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="b-firstName">
+                                            @Labels.Account_Holder_Name
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName"
+                                               tabindex="80" />
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="bankName">
+                                            @Labels.Bank_s_Name
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="bankName" data-ng-model="customerDetail.BankInfo.Name"
+                                               tabindex="81" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="accountNo">
+                                            @Labels.Account_No
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="accountNo" data-ng-model="customerDetail.BankInfo.AccountNumber"
+                                               tabindex="82" />
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="IBANcode">
+                                            @Labels.IBAN_SWIFT_code
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="IBANcode" data-ng-model="customerDetail.BankInfo.SwiftCode"
+                                               tabindex="83" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-ng-repeat="addressLine in customerDetail.BankInfo.AddressInfo.LineList track by $index">
+                                <div class="row">
+                                    <div class="item col-md-12">
+                                        <div class="col-md-3 widthTextLine">
+                                            <label for="bankline{{ $index + 1 }}">
+                                                @Labels.Line {{ $index + 1 }}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" maxlength="100" class="textbox text-large" id="bankline{{ $index + 1 }}"
+                                                   data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" tabindex="{{ 84 + $index }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="b-city">
+                                            @Labels.City
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="b-city" data-ng-model="customerDetail.BankInfo.AddressInfo.City"
+                                               tabindex="87" />
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="b-state">
+                                            @Labels.State
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="b-state" data-ng-model="customerDetail.BankInfo.AddressInfo.State"
+                                               tabindex="88" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="customerinfodetail-countryoptions-bank">
+                                            @Labels.Country
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9" data-ng-model="countryList" dropdown-country-bank-container>
+                                        <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo"
+                                                tabindex="89"></select>
+                                    </div>
+                                </div>
+                                <div class="item col-md-6">
+                                    <div class="col-md-3">
+                                        <label for="b-postcode">
+                                            @Labels.Postcode
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode"
+                                               tabindex="90" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (customerInfoPolicy == Constant.Policy.Host)
+                    {
+                        <div class="row">
+                            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
+                                <span id="button-save-customerinfodetail" class="hotkey">S</span>ave
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div id="div-customerinfodetail-resultpopup" class="selector display-none">
+                </div>
+            </div>
+            @section Scripts {
+                @RazorHelper.RenderScripts("~/Scripts/PopUp")
+                @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+                @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+                @RazorHelper.RenderScripts("~/Areas/DetailCustomerInfo/Scripts")
+                <script type="text/javascript">
+                    parent.document.title = document.title;
+                    window.rootUrl = '@Url.Content("~")';
+                    var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+                    var viewResources = {
+                        OK: 'OK',
+                        Select: '@Labels.Select',
+                        Symbol_NotApply: '@Labels.Symbol_NotApply',
+                        Alert: '@Labels.Alert',
+                        All_Languages: '@Labels.All_Languages',
+                        No_languages_found: '@Labels.No_languages_found',
+                        Symbol_NotApply: '@Labels.Symbol_NotApply',
+                        Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
+                    };
+                    var customerDetail = @Html.Raw(jsonCustomerDetail);
+                    var canEditHeadline = '@canEditHeadline' == 'True';
+                </script>
+            }

@@ -65,6 +65,8 @@
             NoItemChecked: "N/A"
         };
 
+        $scope.username = username;
+
         $scope.oldCustomer = null;
         $scope.isShowCommunicationTool = true;
         $scope.isShowDetail = true;
@@ -86,7 +88,6 @@
                 $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
             }
-
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },
         function () {

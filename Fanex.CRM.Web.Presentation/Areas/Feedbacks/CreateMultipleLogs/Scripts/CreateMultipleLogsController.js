@@ -518,17 +518,47 @@
                 Categories: $scope.GetCategoryParams()
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
-                $scope.BlockUI();
-                $createMultipleLogsService.insertLog(insertCriteria)
+                $scope.checkDuplicationThenCreateFeedback(insertCriteria);
+            }
+        };
+
+        $scope.checkDuplicationThenCreateFeedback = function (params) {
+            var checkParams = {
+                StartTime: params.StartTime,
+                Categories: params.Categories
+            };
+
+            $scope.BlockUI();
+            $createMultipleLogsService.checkFeedbackDuplication(checkParams)
                 .then(function (data) {
-                    $scope.showResult(data.Result);
                     $scope.unblockUI();
+                    if (data.Result.HasDuplication) {
+                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);
+                        parent.dialogManager.confirm("Warning", message, function () {
+                            callCreateMultipleLogs(params);
+                        });
+                    }
+                    else {
+                        callCreateMultipleLogs(params);
+                    }
                 },
                 function () {
                     $scope.unblockUI();
                 });
-            }
-        };
+        }
+
+        var callCreateMultipleLogs = function (params) {
+            $scope.BlockUI();
+            $createMultipleLogsService.insertLog(params)
+            .then(function (data) {
+                $scope.showResult(data.Result);
+                $scope.unblockUI();
+            },
+            function () {
+                $scope.unblockUI();
+            });
+        }
+
         $scope.showResult = function (result) {
             $scope.resultMessage = result.Message;
             $scope.isShowResultMessage = true;

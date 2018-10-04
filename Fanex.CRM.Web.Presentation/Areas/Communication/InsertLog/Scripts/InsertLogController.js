@@ -429,18 +429,48 @@
             };
 
             if ($scope.validateInsertLogCriteria(insertCriteria)) {
-                $scope.BlockUI();
-                $insertLogService.insertLog(insertCriteria)
-            .then(function (data) {
-                var insertResult = data.Result;
-                $scope.showInsertResult(insertResult);
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
-            });
+                $scope.checkDuplicationThenCreateFeedback(insertCriteria);               
             }
         };
+
+        $scope.checkDuplicationThenCreateFeedback = function (params) {
+            var checkParams = {
+                StartTime: params.StartTime,
+                Categories: params.Categories
+            };
+
+            $scope.BlockUI();
+            $insertLogService.checkFeedbackDuplication(checkParams)
+                .then(function (data) {
+                    $scope.unblockUI();
+                    if (data.Result.HasDuplication) {
+                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);
+                        parent.dialogManager.confirm("Warning", message, function () {
+                            callInsertLog(params);
+                        });
+                    }
+                    else {
+                        callInsertLog(params);
+                    }
+                },
+                function () {
+                    $scope.unblockUI();
+                });
+        }
+
+        var callInsertLog = function (params) {
+            $scope.BlockUI();
+            $insertLogService.insertLog(params)
+                .then(function (data) {
+                    var insertResult = data.Result;
+                    $scope.showInsertResult(insertResult);
+                    $scope.unblockUI();
+                },
+                function () {
+                    $scope.unblockUI();
+                });
+        }
+
         $scope.showInsertResult = function (insertResult) {
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
             if (insertResult.Code !== 0) {

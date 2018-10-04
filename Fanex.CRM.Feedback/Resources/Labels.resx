@@ -555,13 +555,13 @@
     <value>Warning</value>
   </data>
   <data name="UpdateSiteLicenseeType" xml:space="preserve">
-    <value>Update Site/Licensee Type</value>
+    <value>Update Site/Licensee Type/Role</value>
   </data>
   <data name="ReviewedInformation" xml:space="preserve">
     <value>(Reviewed by {0} on {1})</value>
   </data>
   <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
-    <value>Update Site/Licensee Type Successfully!</value>
+    <value>Update Site/Licensee Type/Role Successfully!</value>
   </data>
   <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
     <value>Review is mandatory!</value>
@@ -583,5 +583,11 @@
   </data>
   <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
     <value>This function will only update Status and Review. Communication Logs other information will NOT be updated.</value>
+  </data>
+  <data name="RunningNo" xml:space="preserve">
+    <value>Running No.</value>
+  </data>
+  <data name="FeedbackDuplicationError" xml:space="preserve">
+    <value>This user has a similar log with running number {0}. Do you want to create this log?</value>
   </data>
 </root>

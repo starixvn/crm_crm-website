@@ -102,6 +102,12 @@
             return result;
         }
 
+        public FeedbackDuplicationResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
+        {
+            var feedbackId = _feedbackRepository.CheckFeedbackDuplication(criteria);
+            return new FeedbackDuplicationResult { FeedbackId = feedbackId };
+        }
+
         private IEnumerable<DeletedFeedback> GetFeedbacks(ICriteria criteria)
         {
             var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.All);

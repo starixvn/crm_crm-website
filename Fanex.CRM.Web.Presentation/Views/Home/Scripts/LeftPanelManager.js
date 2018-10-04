@@ -42,7 +42,7 @@ var LeftPanelManager = function () {
 
     self.loadLeftPanel = function (username, isFromURL, isReloadLeftPanel) {
         var getCustomerInfoParams = {
-            Username: username != null ? username : escape(jQuery.trim(self.DOMElements.textboxUsername.val())),
+            Username: username != null ? username : jQuery.trim(self.DOMElements.textboxUsername.val()).replace(/<|>|#|&/g, ''),
             IsGuest: self.DOMElements.checkboxIsGuest.attr("checked") ? true : false
         };
 

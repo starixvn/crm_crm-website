@@ -7,6 +7,7 @@
         function getGridOptions() {
             return {
                 columns: [
+                    { HeaderText: latestFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: latestFeedbackResources.Feedback, Width: 450, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
@@ -35,6 +36,7 @@
                 fb = feedbacks[i];
 
                 currentRow = [
+                { Name: 'ColRunningNo', Value: fb.FeedbackId },
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
                 { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
                 { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
