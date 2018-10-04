@@ -528,23 +528,7 @@
                 Categories: params.Categories
             };
 
-            $scope.BlockUI();
-            $createMultipleLogsService.checkFeedbackDuplication(checkParams)
-                .then(function (data) {
-                    $scope.unblockUI();
-                    if (data.Result.HasDuplication) {
-                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);
-                        parent.dialogManager.confirm("Warning", message, function () {
-                            callCreateMultipleLogs(params);
-                        });
-                    }
-                    else {
-                        callCreateMultipleLogs(params);
-                    }
-                },
-                function () {
-                    $scope.unblockUI();
-                });
+            callCreateMultipleLogs(params);            
         }
 
         var callCreateMultipleLogs = function (params) {

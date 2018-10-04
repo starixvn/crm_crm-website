@@ -403,23 +403,7 @@
                 Categories: params.Categories
             };
 
-            $uiBlockerService.blockUI();
-            addGuestFeedbackService.checkFeedbackDuplication(checkParams)
-                .then(function (data) {
-                    $uiBlockerService.unblockUI();
-                    if (data.Result.HasDuplication) {
-                        var message = sharedScriptManager.stringFormat(viewResources.FeedbackDuplicationError, [data.Result.FeedbackId]);                        
-                        parent.dialogManager.confirm("Warning", message, function () {
-                            callAddGuestFeedback(params);
-                        });
-                    }
-                    else {
-                        callAddGuestFeedback(params);
-                    }
-                },
-                function () {
-                    $uiBlockerService.unblockUI();
-                });
+            callAddGuestFeedback(params);            
         }
 
         var callAddGuestFeedback = function (params) {
