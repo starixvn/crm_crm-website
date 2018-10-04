@@ -387,9 +387,10 @@
 
         $scope.checkDuplicationThenCreateFeedback = function (params) {
             var checkParams = {
+                CustId: params.CustomerInfo.Id,
                 StartTime: params.StartTime,
                 Categories: params.Categories
-            };
+            }; 
 
             $uiBlockerService.blockUI();
             addCustomerFeedbackService.checkFeedbackDuplication(checkParams)

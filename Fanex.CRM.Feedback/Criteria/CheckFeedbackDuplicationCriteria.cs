@@ -9,6 +9,8 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     public class CheckFeedbackDuplicationCriteria : CriteriaBase
     {
+        public int CustId { get; set; }
+
         public DateTime StartTime { get; set; }
 
         public IEnumerable<CategoryFilter> Categories { get; set; }
@@ -26,6 +28,7 @@ namespace Fanex.CRM.Feedback.Criteria
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
+            param.Add("CustId", CustId);
             param.Add("StartTime", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("Category", CategoriesContent);
             param.Add("FeedbackID", FeedbackID);
