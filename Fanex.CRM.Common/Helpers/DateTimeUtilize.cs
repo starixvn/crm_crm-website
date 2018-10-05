@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Common.Helpers
 {
-    using System;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
+    using System;
 
     /// <summary>
     /// Date Time Utilize.
@@ -21,16 +21,16 @@ namespace Fanex.CRM.Common.Helpers
         private static readonly string[] MonthName =
                                     {
                                         "January",
-                                        "February", 
-                                        "March", 
-                                        "April", 
-                                        "May", 
+                                        "February",
+                                        "March",
+                                        "April",
+                                        "May",
                                         "June",
-                                        "July", 
-                                        "August", 
-                                        "September", 
-                                        "October", 
-                                        "November", 
+                                        "July",
+                                        "August",
+                                        "September",
+                                        "October",
+                                        "November",
                                         "December"
                                     };
 
@@ -49,6 +49,16 @@ namespace Fanex.CRM.Common.Helpers
         public static string GetMonthName(int month)
         {
             return DateTimeUtilize.MonthName[month - 1];
+        }
+
+        public static string GetDateTimeString(DateTime time)
+        {
+            return time.ToString("MM/dd/yyyy hh:mm tt");
+        }
+
+        public static int GetTimeSpan()
+        {
+            return AppSetting.TimeSpan;
         }
 
         #region Convert time client <->server

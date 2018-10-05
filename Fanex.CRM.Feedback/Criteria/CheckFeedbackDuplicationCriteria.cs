@@ -29,13 +29,13 @@ namespace Fanex.CRM.Feedback.Criteria
         {
             var param = new Hashtable();
             param.Add("CustId", CustId);
-            param.Add("StartTime", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
+            param.Add("StartTime", DateTimeUtilize.GetDateTimeString(StartTime));
+            param.Add("TimeSpan", DateTimeUtilize.GetTimeSpan());
             param.Add("Category", CategoriesContent);
             param.Add("FeedbackID", FeedbackID);
 
             return param;
         }
-
 
         public override string GetSettingKey()
         {
