@@ -529,7 +529,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This user has a similar log with running number {0}. Do you want to create this log?.
+        ///   Looks up a localized string similar to This customer has a similar log with running number {0}. Do you want to create this log?.
         /// </summary>
         public static string FeedbackDuplicationError {
             get {

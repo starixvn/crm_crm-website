@@ -435,6 +435,7 @@
 
         $scope.checkDuplicationThenCreateFeedback = function (params) {
             var checkParams = {
+                CustId: params.CustomerId,
                 StartTime: params.StartTime,
                 Categories: params.Categories
             };
