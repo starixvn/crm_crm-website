@@ -129,7 +129,7 @@
         var yesterday = new Date(currentDate);
         yesterday.setDate(yesterday.getDate() - 1);
 
-        var username = '@Model.CustName';
+        var username = '@HttpUtility.JavaScriptStringEncode(Model.CustName)';
         var isGuest = @isGuest;
         var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
 
