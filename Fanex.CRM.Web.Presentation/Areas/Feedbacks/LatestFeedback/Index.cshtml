@@ -41,7 +41,7 @@
         window.rootUrl = '@Url.Content("~")';
 
         var custId = @ViewBag.CustId;
-        var username = "@ViewBag.Username";
+        var username = "@HttpUtility.JavaScriptStringEncode(ViewBag.Username)";
         var tops = @Html.Raw(model);
         var latestFeedbackResources = {
             Feedback: '@Labels.Feedback',
