@@ -228,6 +228,6 @@
         var viewResources = {
             Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)'
         };
-        var username = '@ViewBag.UserName';
+        var username = '@HttpUtility.JavaScriptStringEncode(ViewBag.UserName)';
     </script>
 }

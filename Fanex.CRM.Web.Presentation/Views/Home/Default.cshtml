@@ -116,7 +116,7 @@
     @RazorHelper.RenderScripts("~/Views/Home/Dashboard/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var userSearch = '@customer.Name';
+        var userSearch = '@HttpUtility.JavaScriptStringEncode(@customer.Name)';
         var isGuestSearch = '@customer.IsGuest';
         var accUrlDefault = '@AppSetting.LoginLink';
         var logoutUrl = '@Url.Action("LogOut", "UserLogin")';
