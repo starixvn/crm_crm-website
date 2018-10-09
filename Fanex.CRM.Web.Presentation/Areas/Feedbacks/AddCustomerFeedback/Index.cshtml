@@ -615,7 +615,7 @@
         parent.document.title = '@Resources.Language.Title_AddFeedback';
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
-        var customerName = '@customerName';
+        var customerName = '@HttpUtility.JavaScriptStringEncode(@customerName)';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var currentUsername = "@AppSession.CurrentUser.Username";
