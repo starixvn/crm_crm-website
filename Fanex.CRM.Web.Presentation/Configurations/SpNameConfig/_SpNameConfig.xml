@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" ?>
 <Root>
-  <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>  
-  
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackDoubleCheck" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>    
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackDoubleCheck" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
