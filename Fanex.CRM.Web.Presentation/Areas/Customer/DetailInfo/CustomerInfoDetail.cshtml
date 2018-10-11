@@ -13,7 +13,7 @@
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
-    var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
+    var canEditHeadline = false;// (updateHeadlineInfoPolicy == Constant.Policy.Host);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
@@ -178,7 +178,8 @@
                                 <div class="row row-item vip-row">
                                     <div class="col-xs-4 col-sm-3 col-md-2">
                                         <label for="isVIP" class="labelforcheckbox checkbox">
-                                            <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" />
+                                            <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" 
+                                                   ng-disabled="!canEditHeadline"/>
                                             @Labels.VIP
                                         </label>
                                     </div>
