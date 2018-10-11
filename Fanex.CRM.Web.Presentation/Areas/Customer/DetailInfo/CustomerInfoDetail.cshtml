@@ -13,7 +13,7 @@
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
-    var canEditHeadline = false;// (updateHeadlineInfoPolicy == Constant.Policy.Host);
+    var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
