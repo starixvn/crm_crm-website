@@ -166,6 +166,7 @@
                 IsReviewed: $scope.searchCriteria.IsReviewed.Id,
                 ResponseId: $scope.searchCriteria.Response.Id,
                 HandledBy: $scope.searchCriteria.Handler,
+                Reviewer: $scope.searchCriteria.Reviewer,
                 PageIndex: $scope.searchCriteria.PageIndex + 1,
                 ItemsPerPage: $scope.searchCriteria.ItemsPerPage
             };
