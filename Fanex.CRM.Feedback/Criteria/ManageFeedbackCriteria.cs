@@ -32,6 +32,8 @@
 
         public string HandledBy { get; set; }
 
+        public string Reviewer { get; set; }
+
         public int PageIndex { get; set; }
 
         public int ItemsPerPage { get; set; }
@@ -74,6 +76,7 @@
             }
 
             inputParams.Add("handledby", string.IsNullOrWhiteSpace(HandledBy) ? string.Empty : HandledBy);
+            inputParams.Add("reviewer", string.IsNullOrWhiteSpace(Reviewer) ? string.Empty : Reviewer);
             inputParams.Add("pageindex", PageIndex);
             inputParams.Add("itemsperpage", ItemsPerPage);
             inputParams.Add("totalrows", 0);

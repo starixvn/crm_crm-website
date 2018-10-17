@@ -100,11 +100,8 @@ namespace Fanex.CRM.Customer.Services
                                       i.Role.Name = RoleSettingService.GetRoleName(i.Role.Id);
                                       return i;
                                   })
-                                  .FirstOrDefault();
-            if(headline != null)
-            {
-                uplineInfoResult.Insert(0, headline);
-            }
+                                  .FirstOrDefault() ?? NewUnAssignedCustomerInfo();
+            uplineInfoResult.Insert(0, headline);
 
             return uplineInfoResult;
         }
@@ -133,6 +130,22 @@ namespace Fanex.CRM.Customer.Services
         public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
             return _customerRepository.VerifyUsername(criteria);
+        }
+
+        private CustomerInfo NewUnAssignedCustomerInfo()
+        {
+            return new CustomerInfo
+            {
+                Name = "Unassigned",
+                IsActive = false,
+                IsClosed = false,
+                IsSuspended = false,
+                Role = new BaseModel
+                {
+                    Id = RoleIdConstants.Headline,
+                    Name = RoleSettingService.GetRoleName(RoleIdConstants.Headline)
+                }
+            };
         }
     }
 }
