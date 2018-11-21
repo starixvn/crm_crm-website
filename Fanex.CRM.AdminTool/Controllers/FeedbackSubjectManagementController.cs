@@ -10,16 +10,14 @@
 
 namespace Fanex.CRM.AdminTool.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Feedback Subject Management Controller.
@@ -41,6 +39,7 @@ namespace Fanex.CRM.AdminTool.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.FeedbackSubjectManagementPolicy = GetPolicy(FunctionPermissions.FBSubjectTemplateManagement);
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Index.cshtml");
         }
 

@@ -26,34 +26,45 @@
                 for (var i = 0; i < templatesLength; i++) {
                     var info = templates[i];
                     var checked = info.IsActive === true ? "checked" : "";
-                    bodyData.push({
-                        Columns: [
+                    var columns = [
                         { Name: "ColTemplateId", Value: info.Id },
-                        { Name: "ColTemplateContent", Value: info.TemplateContent },
-                        {
-                            Name: "ColEdit",
-                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
-                        },
-                        {
-                            Name: "ColActive",
-                            Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
-                        }],
+                        { Name: "ColTemplateContent", Value: info.TemplateContent }
+                       ];                   
+
+                    if (hasHostPermission) {
+                        columns.push({
+                                Name: "ColEdit",
+                                Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                            });
+                        columns.push({
+                                Name: "ColActive",
+                                Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
+                            });
+                    }
+
+                    bodyData.push({
+                        Columns: columns,
                         CssClass: 'editlog-link-row row-index-' + i
                     });
                 }
             }
 
-            var gridOptions = {
-                columns: [{ HeaderText: viewResources.Template_Id, Width: 80, Name: "ColTemplateId", HeaderAlign: "center", CellAlign: "center" },
+            var gridColumns = [
+                { HeaderText: viewResources.Template_Id, Width: 80, Name: "ColTemplateId", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: viewResources.Feedback_Subject_Template_Content,
                     Width: 470,
                     Name: "ColTemplateContent",
                     HeaderAlign: "center",
                     CellAlign: "left"
-                },
-                { HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Active, Width: 60, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" }],
+                }
+            ];
+            if (hasHostPermission) {
+                gridColumns.push({ HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
+                gridColumns.push({ HeaderText: viewResources.Active, Width: 60, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
+            }
+            var gridOptions = {
+                columns: gridColumns,
                 showTitle: false,
                 bodyRows: bodyData,
                 numberOfFrozenColumn: 2,
