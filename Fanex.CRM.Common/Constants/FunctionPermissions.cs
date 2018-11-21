@@ -50,10 +50,6 @@ namespace Fanex.CRM.Common.Constants
 
         public const string InformHeadline = "InformHeadline";
 
-        public const string InformHeadlineCreateTitle = "InformHeadlineTitle";
-
-        public const string InformHeadlineUpdateStatus = "InformHeadlineDetail";
-
         public const string InformHeadlineSearch = "InformHeadlineSearch";
 
         public const string InformHeadlineContact = "InformHeadlineContact";
