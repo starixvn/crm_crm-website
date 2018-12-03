@@ -1,9 +1,11 @@
 ﻿﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.NAP.Core.Business;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Labels.Title_AdminTool_FeedbackSubjectManagement;
+    var hasHostPermission = (Constant.Policy)ViewBag.FeedbackSubjectManagementPolicy == Constant.Policy.Host;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -19,23 +21,26 @@
             <div class="row filter-frm one-row subjectTemplate">
                 <div class="item afterButton subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
                     <input id="subject" name="txt-template-subject" type="text" class="textbox txt-search subject-auto-complete"
-                        autocomplete="off" data-ng-model="subjectOptions.Subject" />
+                           autocomplete="off" data-ng-model="subjectOptions.Subject" />
                 </div>
                 <div class="item afterButton">
                     <button id="btn-search" class="btn pull-left btn-update " data-ng-click="searchTemplate();">
                         <span class="hotkey">S</span>earch
                     </button>
                 </div>
-                <div class="item">
-                    <button id="btn-insert-setting" class="btn pull-left btn-update " data-ng-click="showInsertPopup();">
-                        <span class="hotkey">I</span>nsert New Feedback Subject
-                    </button>
-                </div>
+                @if (hasHostPermission)
+                {
+                    <div class="item">
+                        <button id="btn-insert-setting" class="btn pull-left btn-update " data-ng-click="showInsertPopup();">
+                            <span class="hotkey">I</span>nsert New Feedback Subject
+                        </button>
+                    </div>
+                }                
             </div>
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                         <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
@@ -43,7 +48,7 @@
             </div>
             <div class="row">
                 <div id="feedback-template-list-container" class="feedback-template-list-container"
-                    data-ng-model="feedbackSubjectTemplateView">
+                     data-ng-model="feedbackSubjectTemplateView">
                     <div id="feedback-template-list" class="freegrid display-none">
                     </div>
                 </div>
@@ -66,6 +71,7 @@
     <script type="text/javascript">
         parent.document.title = '@Labels.Title_AdminTool_FeedbackSubjectManagement';
         window.rootUrl = '@Url.Content("~")';
+        var hasHostPermission = '@hasHostPermission' == 'True';
         var viewResources = {
             Active: '@Labels.Active',
             Edit: '@Labels.Edit',
