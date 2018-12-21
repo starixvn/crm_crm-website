@@ -158,6 +158,14 @@
                 nameMember: "Name",
                 sourceData: $scope.getSubCategories($scope.selectedCategories)
             };
+
+            if ($scope.feedback) {
+                var currentSubject = $scope.feedback.Subject;
+                var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
+                if (updatedSubject != currentSubject) {
+                    $scope.feedback.Subject = updatedSubject;
+                }
+            }
         }
 
         $scope.subCategoryChangedHandler = function () {

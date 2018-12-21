@@ -79,6 +79,20 @@ var AutoTextScripts = function () {
 
         return '';
     }
+
+    // Update subject based on selected Categories
+    self.updateSubjectOnSelectedCategories = function (selectedCategories, subject) {
+        var updatedSubject = subject;
+
+        if (selectedCategories.length == 0 && subject != '') {
+            updatedSubject = '';
+        }
+        else if (selectedCategories.length == 1) {
+            updatedSubject = selectedCategories[0].Name;
+        }
+
+        return updatedSubject;
+    }
 };
 
 autoTextScripts = new AutoTextScripts();

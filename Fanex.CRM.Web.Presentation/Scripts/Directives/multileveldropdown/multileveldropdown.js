@@ -386,7 +386,7 @@
                                         scope.checkedAll = false;
                                     }
                                 }                               
-
+                              
                                 changeHandler();
 
                                 scope.header = getHeaderText(scope.selectedItems);
