@@ -628,7 +628,7 @@
             if ($scope.communicationLog) {
                 var currentSubject = $scope.communicationLog.Subject;
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
-                if (updatedSubject != currentSubject) {
+                if ($scope.categoriesChangedByUser && updatedSubject != currentSubject) {
                     $scope.communicationLog.Subject = updatedSubject;
                 }
             }

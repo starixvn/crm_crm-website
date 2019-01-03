@@ -494,7 +494,7 @@
             if ($scope.multipleLogs) {
                 var currentSubject = $scope.multipleLogs.Subject;
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
-                if (updatedSubject != currentSubject) {
+                if ($scope.categoriesChangedByUser && updatedSubject != currentSubject) {
                     $scope.multipleLogs.Subject = updatedSubject;
                 }
             }

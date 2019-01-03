@@ -28,7 +28,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
-
+        
         var oldReview;
         $scope.panelManager = {
             customer: false,
@@ -162,9 +162,10 @@
             if ($scope.feedback) {
                 var currentSubject = $scope.feedback.Subject;
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
-                if (updatedSubject != currentSubject) {
-                    $scope.feedback.Subject = updatedSubject;
+                if ($scope.categoriesChangedByUser && updatedSubject != currentSubject) {
+                    $scope.feedback.Subject = updatedSubject;                    
                 }
+                
             }
         }
 

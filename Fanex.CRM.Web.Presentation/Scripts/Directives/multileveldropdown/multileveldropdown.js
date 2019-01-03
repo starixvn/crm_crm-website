@@ -134,6 +134,7 @@
                         allSelectedItems: "=?",
                         settings: "=?",
                         textSettings: "=?",
+                        userDoCheck: "=?",
                         ngOnCheckall: "&",
                         ngOnOpen: "&",
                         ngOnClose: "&",
@@ -423,6 +424,7 @@
                         };
 
                         scope.checkItem = function (item) {
+                            scope.userDoCheck = true;
                             setItemChecked(item, !item.checked);
                             refreshViewValue(true);
                             scope.checkedAll = isAllItemsChecked(scope.items);
