@@ -144,6 +144,7 @@
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
                 if (updatedSubject != currentSubject) {
                     $scope.subjectOptions.Subject = updatedSubject;
+                    $scope.addCustomerFeedbackParams.Subject = updatedSubject;
                 }
             }
         }
