@@ -648,6 +648,14 @@
                 nameMember: "Name",
                 sourceData: $scope.getSubCategories($scope.selectedCategories)
             };
+
+            if ($scope.communicationLog) {
+                var currentSubject = $scope.communicationLog.Subject;
+                var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
+                if (updatedSubject != currentSubject) {
+                    $scope.communicationLog.Subject = updatedSubject;
+                }
+            }
         }
 
         $scope.subCategoryChangedHandler = function () {
