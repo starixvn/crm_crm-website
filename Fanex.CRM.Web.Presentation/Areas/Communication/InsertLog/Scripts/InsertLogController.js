@@ -1,6 +1,8 @@
 ﻿(function () {
     "use strict";
-    /* global sharedScriptManager,
+    /* global 
+    copiedCommunicationLog
+    sharedScriptManager,
     moment,
     crmConstants,
     viewResources,
@@ -12,6 +14,7 @@
     function ($scope, $http, $insertLogService) {
         /* jshint maxstatements: 80 */
         $scope.customerInfo = parent.homeManager.CachedData.currentCustomer;
+        $scope.copiedCommunicationLog = copiedCommunicationLog;
 
         $scope.communicationLog = {
             RunningNumber: 0,
@@ -75,6 +78,7 @@
                 Id: 0
             }
         };
+
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.extensionList = null;
         $scope.countryList = null;
@@ -117,8 +121,9 @@
         $scope.isUpdatingTime = false;
         $scope.initController = function () {
             $scope.getAllSettingForInsert($scope.customerInfo.Id);
-            $scope.getNumberOfFeedbackSubjectTemplate();
+            $scope.getNumberOfFeedbackSubjectTemplate();            
         };
+
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
             $scope.BlockUI();
             $insertLogService.getNumberOfFeedbackSubjectTemplate()
@@ -159,6 +164,7 @@
         };
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
+            $scope.copyCommunicationLog();
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {
@@ -194,6 +200,138 @@
             $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
             $scope.updateChangeFlag();
         };
+
+        $scope.copyCommunicationLog = function () {
+            if ($scope.copiedCommunicationLog) {
+                $scope.communicationLog.Subject = $scope.copiedCommunicationLog.Subject;
+                $scope.communicationLog.Remark = $scope.copiedCommunicationLog.Remark;
+                $scope.communicationLog.Solution = $scope.copiedCommunicationLog.Solution;
+
+                $scope.updateSettingCommunication();
+                $scope.updateSettingExtension();
+                $scope.updateSettingCategory();
+                $scope.updateSettingSubCategory();
+                $scope.updateSettingProduct();
+                $scope.updateSettingSubProduct();
+                $scope.updateSettingBettype();
+
+                if ($scope.copiedCommunicationLog.Country) {
+                    $scope.communicationLog.Country = {
+                        Id: $scope.copiedCommunicationLog.Country.Id
+                    };
+                }
+
+                if ($scope.copiedCommunicationLog.Language) {
+                    $scope.communicationLog.LanguageId = $scope.copiedCommunicationLog.Language.Id;
+                }
+
+                if ($scope.copiedCommunicationLog.LicenseeType) {
+                    $scope.communicationLog.LicenseeType.Id = $scope.copiedCommunicationLog.LicenseeType.Id;
+                }
+
+                if ($scope.copiedCommunicationLog.SiteInfo) {
+                    $scope.selectedSite = $scope.copiedCommunicationLog.SiteInfo;
+                }
+
+                if ($scope.copiedCommunicationLog.Status) {
+                    $scope.communicationLog.Status = $scope.copiedCommunicationLog.Status;
+                }
+
+                if ($scope.copiedCommunicationLog.RoleInfo) {
+                    $scope.communicationLog.RoleInfo = {
+                        Id: $scope.copiedCommunicationLog.RoleInfo.Id
+                    };
+                }
+
+                if ($scope.copiedCommunicationLog.Response) {
+                    $scope.communicationLog.Response = $scope.copiedCommunicationLog.Response;
+                }
+
+                if ($scope.copiedCommunicationLog.RelatedCustomers) {
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.copiedCommunicationLog.RelatedCustomers);
+                }
+            }
+        }
+
+        $scope.updateSettingCommunication = function () {
+            if ($scope.communicationDropdownSettings) {
+                var length = $scope.communicationDropdownSettings.sourceData.length;
+                for (var i = 0; i < length; i++) {
+                    var data = $scope.communicationDropdownSettings.sourceData[i];
+                    angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                        if (setting.SettingType == "Communication" && data.Id == setting.SettingIdLv1) {
+                            data.checked = true;
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.updateSettingExtension = function () {
+            if ($scope.extensionDropdownSettings) {
+                var length = $scope.extensionDropdownSettings.sourceData.length;
+                for (var i = 0; i < length; i++) {
+                    var data = $scope.extensionDropdownSettings.sourceData[i];
+                    angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                        if (setting.SettingType == "Station" && data.Id == setting.SettingIdLv1) {
+                            data.checked = true;
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.updateSettingCategory = function () {
+            if ($scope.categoryDropdownSettings) {
+                var length = $scope.categoryDropdownSettings.sourceData.length;
+                for (var i = 0; i < length; i++) {
+                    var data = $scope.categoryDropdownSettings.sourceData[i];
+                    angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                        if (setting.SettingType == "Category" && data.Id == setting.SettingIdLv1) {
+                            data.checked = true;
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.updateSettingSubCategory = function () {
+            angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Category") {
+                    $scope.selectedSubCategoryIds.push(setting.SettingIdLv2);
+                }
+            });
+        }
+
+        $scope.updateSettingProduct = function () {
+            if ($scope.productDropdownSettings) {
+                var length = $scope.productDropdownSettings.sourceData.length;
+                for (var i = 0; i < length; i++) {
+                    var data = $scope.productDropdownSettings.sourceData[i];
+                    angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                        if (setting.SettingType == "Product" && data.Id == setting.SettingIdLv1) {
+                            data.checked = true;
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.updateSettingSubProduct = function () {
+            angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedSubProductIds.push(setting.SettingIdLv2);
+                }
+            });
+        }
+
+        $scope.updateSettingBettype = function () {
+            angular.forEach($scope.copiedCommunicationLog.Settings, function (setting) {
+                if (setting.SettingType == "Product") {
+                    $scope.selectedBettypeIds.push(setting.SettingIdLv3);
+                }
+            });
+        }
         
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
@@ -652,7 +790,7 @@
             if ($scope.communicationLog) {
                 var currentSubject = $scope.communicationLog.Subject;
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
-                if (updatedSubject != currentSubject) {
+                if ($scope.categoriesChangedByUser && updatedSubject != currentSubject) {
                     $scope.communicationLog.Subject = updatedSubject;
                 }
             }

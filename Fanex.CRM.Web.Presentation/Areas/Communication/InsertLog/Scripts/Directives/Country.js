@@ -11,7 +11,7 @@
                 '<option value="' + crmConstants.Enums.Country.NotApply + '">' + viewResources.Symbol_NotApply +
                 '</option>');
                 var countryListLength = scope.countryList.length;
-                var countryId = scope.defaultSettings.CountryId;
+                var countryId = scope.communicationLog.Country.Id;
                 for (var i = 0; i < countryListLength; i++) {
                     var country = scope.countryList[i];
                     dropdown.append(

@@ -163,7 +163,20 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult OpenInsertView(int customerId)
         {
-            return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
+            ViewBag.customerId = customerId;
+            return View("~/Areas/Communication/InsertLog/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult OpenDuplicateView(int logRunningNumber)
+        {
+            var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
+            {
+                RunningNumber = logRunningNumber
+            });
+            ViewBag.customerId = logInfo.CustomerId;
+
+            return View("~/Areas/Communication/InsertLog/Index.cshtml", logInfo);
         }
 
         public ActionResult ViewDetailById(int logId)

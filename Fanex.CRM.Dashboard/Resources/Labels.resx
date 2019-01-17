@@ -222,4 +222,10 @@
   <data name="DoneBy" xml:space="preserve">
     <value>DoneBy</value>
   </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Insert_Communication_Log" xml:space="preserve">
+    <value>Insert Communication Log</value>
+  </data>
 </root>
