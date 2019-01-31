@@ -8,7 +8,7 @@
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -156,19 +156,19 @@
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="Acc_CRM_FeedbackDoubleCheck" SpName="Acc_CRM_FeedbackDoubleCheck_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_FeedbackDoubleCheck" SpName="Acc_CRM_FeedbackDoubleCheck" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Inform Headline">
     <Setting Key="Customer_InformHeadline_StatusList" SpName="Acc_CRM_InformHeadlineStatusList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet">
