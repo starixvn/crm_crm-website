@@ -204,7 +204,7 @@
         $scope.copyCommunicationLog = function () {
             if ($scope.copiedCommunicationLog) {
                 $scope.communicationLog.Subject = $scope.copiedCommunicationLog.Subject;
-                $scope.communicationLog.Remark = $scope.copiedCommunicationLog.Remark;
+                $scope.communicationLog.Remark = "<div>This is a duplicated entry</div>" + $scope.copiedCommunicationLog.Remark;
                 $scope.communicationLog.Solution = $scope.copiedCommunicationLog.Solution;
 
                 $scope.updateSettingCommunication();
