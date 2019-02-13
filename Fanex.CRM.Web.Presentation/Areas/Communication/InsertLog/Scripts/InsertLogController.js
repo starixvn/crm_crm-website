@@ -207,6 +207,7 @@
                 $scope.communicationLog.Remark = "<div>This is a duplicated entry</div>" + $scope.copiedCommunicationLog.Remark;
                 $scope.communicationLog.Solution = $scope.copiedCommunicationLog.Solution;
 
+                $scope.updateSiteSetting();
                 $scope.updateSettingCommunication();
                 $scope.updateSettingExtension();
                 $scope.updateSettingCategory();
@@ -227,11 +228,7 @@
 
                 if ($scope.copiedCommunicationLog.LicenseeType) {
                     $scope.communicationLog.LicenseeType.Id = $scope.copiedCommunicationLog.LicenseeType.Id;
-                }
-
-                if ($scope.copiedCommunicationLog.SiteInfo) {
-                    $scope.selectedSite = $scope.copiedCommunicationLog.SiteInfo;
-                }
+                }                
 
                 if ($scope.copiedCommunicationLog.Status) {
                     $scope.communicationLog.Status = $scope.copiedCommunicationLog.Status;
@@ -250,6 +247,19 @@
                 if ($scope.copiedCommunicationLog.RelatedCustomers) {
                     $scope.relatedCustomerResultDirective.loadRelatedCustomers($scope.copiedCommunicationLog.RelatedCustomers);
                 }
+            }
+        }
+
+        $scope.updateSiteSetting = function () {
+            if ($scope.siteDropdownSettings && $scope.copiedCommunicationLog.SiteInfo) {
+                $scope.selectedSite = $scope.copiedCommunicationLog.SiteInfo;
+                angular.forEach($scope.siteDropdownSettings.sourceData, function (parent) {
+                    angular.forEach(parent.ChildSites, function (child) {
+                        if (child.Id == $scope.selectedSite.Id) {
+                            child.checked = true;
+                        }
+                    });
+                })
             }
         }
 
@@ -840,7 +850,7 @@
                 $scope.responseList = allSetting.ResponseList;
                 $scope.defaultSettings = allSetting.DefaultSettings;
                 $scope.licenseeTypes = allSetting.LicenseeType;
-
+               
                 $scope.siteDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",
@@ -896,6 +906,7 @@
                 $scope.completedLoadFilterInfo();
             });
         };
+      
 
         $scope.verifyRelatedCustomer = function () {
             var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
