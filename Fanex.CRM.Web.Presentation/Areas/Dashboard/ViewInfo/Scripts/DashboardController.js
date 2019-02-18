@@ -214,6 +214,28 @@
                 null,
                 $scope.beforeCloseEditCommunicationLogView);
         };
+
+        $scope.duplicateCommunicationLog = function (logId) {            
+            parent.homeManager.CachedData.shouldReloadView = false;
+            var url = window.rootUrl + "CommunicationLog/OpenDuplicateView?" + $.param({
+                logRunningNumber: logId
+            });
+            /* jshint camelcase: false */
+            parent.OpenPopup(
+                url,
+                viewResources.Insert_Communication_Log,
+                $(parent.document).width() - 300,
+                $(parent.document).height(),
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditCommunicationLogView,
+                null,
+                $scope.beforeCloseEditCommunicationLogView);
+        }
+
         $scope.beforeCloseEditCommunicationLogView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {

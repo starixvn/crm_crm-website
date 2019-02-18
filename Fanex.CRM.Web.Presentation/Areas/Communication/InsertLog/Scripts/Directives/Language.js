@@ -11,7 +11,7 @@
                 var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '">' + viewResources.Symbol_NotApply +
                 '</option>';
                 var languageListLength = scope.languageList.length;
-                var languageId = scope.defaultSettings.DefaultLanguage;
+                var languageId = scope.communicationLog.LanguageId;
                 for (var i = 0; i < languageListLength; i++) {
                     var language = scope.languageList[i];
                     optionHtml += '<option value="' + language.Id + '"' +

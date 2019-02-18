@@ -6,7 +6,7 @@
                 var dropdown = element.find("#role");
                 dropdown.empty();
                 var roleListLength = scope.roleList.length;
-                var roleId = scope.defaultSettings.RoleId;
+                var roleId = scope.communicationLog.RoleInfo.Id;
                 for (var i = 0; i < roleListLength; i++) {
                     var role = scope.roleList[i];
                     dropdown.append(

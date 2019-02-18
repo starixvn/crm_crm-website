@@ -44,7 +44,8 @@
                                 [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
                         },
                         { Name: "ColHandler", Value: info.Handler },
-                        { Name: "ColReviewer", Value: info.Reviewer}],
+                        { Name: "ColReviewer", Value: info.Reviewer },
+                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">Duplicate</button>' }],
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }
@@ -64,7 +65,8 @@
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
+                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Duplicate, Width: 100, Name: "ColDuplicate", HeaderAlign: "center", CellAlign: "center" }],
                 showTitle: true,
                 titleInfo: {
                     text: viewResources.Last_10_Communication_Log
@@ -95,6 +97,14 @@
             editLogRows.dblclick(function () {
                 scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logid"));
             });
+
+            var duplicateBtns = tableCommunicationLogs.find(".duplicate-btn");
+            duplicateBtns.unbind("click");
+            duplicateBtns.click(function () {
+                scope.duplicateCommunicationLog($(this).attr("data-logid"));
+            });
+
+
         }
 
         return {
