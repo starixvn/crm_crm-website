@@ -35,10 +35,8 @@ namespace Fanex.CRM.User.Controllers
         private readonly ISSOAuthenticationService _ssoService;
         private readonly ICommonAuthenticationService _authenticationService;
         private readonly IMaintenanceService _maintenanceService;
-        private readonly CurrentSession _napCurrentSession;
-
         public UserLoginController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -46,15 +44,14 @@ namespace Fanex.CRM.User.Controllers
             ILocalAuthenticationService localService,
             ISSOAuthenticationService ssoService,
             ICommonAuthenticationService authenticationService,
-            IMaintenanceService maintenanceService,
-            CurrentSession currentSession)
+            IMaintenanceService maintenanceService
+            )
         {
             _localService = localService ?? new LocalAuthenticationService();
             _ssoService = ssoService ?? new SSOAuthenticationService();
             _authenticationService = authenticationService ?? new CommonAuthenticationService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
 
-            _napCurrentSession = currentSession ?? new CurrentSession();
         }
 
         public string FormToken
@@ -121,7 +118,7 @@ namespace Fanex.CRM.User.Controllers
             localLogin.SiteId = NapSettings.Settings.SiteId;
             localLogin.SessionId = Session.SessionID;
 
-            var loginStatus = _localService.Login(localLogin, _napCurrentSession);
+            var loginStatus = _localService.Login(localLogin);
 
             if (loginStatus != LoginStatus.LoginSuccessful)
             {
@@ -144,7 +141,7 @@ namespace Fanex.CRM.User.Controllers
             ssoLogin.SiteId = NapSettings.Settings.SiteId;
             ssoLogin.SessionId = Session.SessionID;
 
-            var loginStatus = _ssoService.SingleSignOn(ssoLogin, _napCurrentSession);
+            var loginStatus = _ssoService.SingleSignOn(ssoLogin);
 
             if (loginStatus != LoginStatus.LoginSuccessful)
             {
@@ -162,7 +159,7 @@ namespace Fanex.CRM.User.Controllers
         {
             try
             {
-                _authenticationService.Logout(_napCurrentSession);
+                _authenticationService.Logout(AppSession.CurrentUser);
             }
             catch (Exception exception)
             {
@@ -180,11 +177,12 @@ namespace Fanex.CRM.User.Controllers
         [Authorize]
         public ActionResult CheckUserOnlineStatus()
         {
-            var recheckInStatus = _authenticationService.RecheckIn(_napCurrentSession);
+            var user = AppSession.CurrentUser;
+            var recheckInStatus = _authenticationService.RecheckIn(user);
 
             return Json(new
             {
-                OnUserId = _napCurrentSession.OnUserId,
+                OnUserId = user.OnUserId,
                 ErrCode = (int)recheckInStatus,
                 ErrMsg = GetRecheckInStatusError(recheckInStatus)
             });

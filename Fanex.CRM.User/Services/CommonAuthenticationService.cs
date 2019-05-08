@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.User.Services
 {
     using Enumerations;
+    using Fanex.CRM.Common.Models;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
-    using NAP.Core.Web.Session;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using System.Web;
@@ -31,7 +31,7 @@
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
-        public RecheckInStatus RecheckIn(ICurrentSession currentSession)
+        public RecheckInStatus RecheckIn(CRMUser user)
         {
             var settings = NapSettings.Settings;
 
@@ -40,7 +40,7 @@
                 return RecheckInStatus.UnderMaintenance;
             }
 
-            if (!settings.EnableReCheckIn || currentSession.OnUserId <= 0)
+            if (!settings.EnableReCheckIn || user.OnUserId <= 0)
             {
                 return RecheckInStatus.Success;
             }
@@ -50,21 +50,17 @@
                 return RecheckInStatus.InvalidSite;
             }
 
-            int status = _securityService.ReCheckIn(currentSession.OnUserId, settings.SiteId);
+            int status = _securityService.ReCheckIn(user.OnUserId, settings.SiteId);
 
             return status > 0 ? RecheckInStatus.KickOut : RecheckInStatus.Success;
         }
 
-        public void Logout(ICurrentSession currentSession)
+        public void Logout(CRMUser user)
         {
-            if (currentSession != null)
+            if (user != null && user.OnUserId > 0)
             {
-                if (currentSession.OnUserId > 0)
-                {
-                    _securityService.Logout(currentSession.OnUserId);
-                }
+                _securityService.Logout(user.OnUserId);
 
-                currentSession.ClearAll();
             }
 
             HttpContext.Current.Response.Cookies.Clear();

@@ -40,11 +40,11 @@ namespace Fanex.CRM.Common.Services
         /// <value>
         /// The current user.
         /// </value>
-        public static User CurrentUser
+        public static CRMUser CurrentUser
         {
             get
             {
-                return SessionExtension.GetSession(CurrentSession, CurrentLogInUserKey) as User;
+                return SessionExtension.GetSession(CurrentSession, CurrentLogInUserKey) as CRMUser;
             }
 
             set

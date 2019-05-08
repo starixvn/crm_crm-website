@@ -179,6 +179,7 @@
     <Compile Include="Enumerations\CRMStatus.cs" />
     <Compile Include="Enumerations\ReportType.cs" />
     <Compile Include="Enumerations\ReviewMode.cs" />
+    <Compile Include="Enumerations\UserRole.cs" />
     <Compile Include="Excel\BaseExcel.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\NameMapping.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Models\BaseCustomer.cs" />
     <Compile Include="Models\BaseCommunicationLog.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\CRMUser.cs" />
     <Compile Include="Models\Fax.cs" />
     <Compile Include="Models\FeedbackDetail.cs" />
     <Compile Include="Models\Npoi\ExcelStyleParam.cs" />

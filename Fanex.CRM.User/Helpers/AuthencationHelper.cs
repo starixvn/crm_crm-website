@@ -5,47 +5,31 @@
     using System.Web;
     using System.Web.Security;
     using Common.Services;
+    using Fanex.CRM.Common.Models;
     using NAP.Core.Models;
     using NAP.Core.Web.Auth;
-    using NAP.Core.Web.Session;
 
     public static class AuthencationHelper
     {
-        public static void AssignAuthenticationCookie(string cookiePath, User user, int onuserid)
+        public static void AssignAuthenticationCookie(string cookiePath, CRMUser user)
         {
-            HttpContext.Current.Response.Cookies.Add(CreateAuthenticationCookie(cookiePath, user, onuserid));
+            HttpContext.Current.Response.Cookies.Add(CreateAuthenticationCookie(cookiePath, user));
         }
 
-        public static void AssignCurrentSession(
-            ICurrentSession currentSession,
-            User user,
-            IList<MenuItem> menuItems, 
-            int userLevel, 
-            int onuserid, 
-            string sessionId)
-        {
-            currentSession.Level = userLevel;
-            currentSession.UserId = user.Id;
-            currentSession.Username = user.Username;
-            currentSession.OnUserId = onuserid;
-            currentSession.SessionId = sessionId;
-            currentSession.MenuItemList = menuItems;
-        }
-
-        public static void AssignAppSession(User user, IList<MenuItem> menuItems)
+        public static void AssignAppSession(CRMUser user, IList<MenuItem> menuItems)
         {
             AppSession.CurrentUserMenu = menuItems;
             AppSession.CurrentUser = user;
         }
 
-        private static HttpCookie CreateAuthenticationCookie(string cookiePath, User user, int onuserid)
+        private static HttpCookie CreateAuthenticationCookie(string cookiePath, CRMUser user)
         {
             string cookieName = FormsAuthentication.FormsCookieName;
 
             string userData = (new AuthInfo
             {
                 UserId = user.Id,
-                OnUserId = onuserid,
+                OnUserId = user.OnUserId,
             }).ToXml();
 
             var currentTime = DateTime.Now;

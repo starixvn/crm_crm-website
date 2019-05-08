@@ -4,6 +4,7 @@
     using System.Linq;
     using Enumerations;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
     using NAP.Core.Context;
@@ -35,7 +36,7 @@
             _currentContext = currentContext ?? new CurrentContext();
         }
 
-        public LoginStatus SingleSignOn(SSOLogin ssoLogin, ICurrentSession napCurrentSession)
+        public LoginStatus SingleSignOn(SSOLogin ssoLogin)
         {
             if (ValidateTime(ssoLogin.Time))
             {
@@ -46,14 +47,16 @@
                 if (afterLoginUserId > 0)
                 {
                     var user = _userService.Get(userId);
-                    var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
-                    var userLevel = _userService.GetUserLevel(userId, ssoLogin.SiteId);
+                    if (user != null)
+                    {
+                        var crmUser = (CRMUser)user;
+                        var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
-                    AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, user, afterLoginUserId);
-                    AuthencationHelper.AssignCurrentSession(napCurrentSession, user, menus, userLevel, afterLoginUserId, ssoLogin.SessionId);
-                    AuthencationHelper.AssignAppSession(user, menus);
+                        AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, crmUser);
+                        AuthencationHelper.AssignAppSession(crmUser, menus);
 
-                    return LoginStatus.LoginSuccessful;
+                        return LoginStatus.LoginSuccessful;
+                    }
                 }
             }
 

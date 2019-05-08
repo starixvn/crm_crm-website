@@ -19,13 +19,6 @@ namespace Fanex.CRM.Infrastructure.Extensions
     /// </summary>
     public static class SessionExtension
     {
-        public static Dictionary<string, int> RoleAccess
-        {
-            get { return (Dictionary<string, int>)HttpContext.Current.Session["RoleAccess"]; }
-
-            set { HttpContext.Current.Session["RoleAccess"] = value; }
-        }
-
         public static int OnlineUserId
         {
             get { return Convert.ToInt32(HttpContext.Current.Session["useronlineid"]); }
@@ -43,9 +36,5 @@ namespace Fanex.CRM.Infrastructure.Extensions
             sessionState[key] = value;
         }
 
-        public static void DeleteSession(HttpSessionState sessionState, string key)
-        {
-            sessionState[key] = null;
-        }
     }
 }
