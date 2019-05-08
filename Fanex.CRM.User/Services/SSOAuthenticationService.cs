@@ -52,7 +52,7 @@
                         var crmUser = new CRMUser(user);
                         var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
-                        AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, crmUser);
+                        AuthencationHelper.SignIn(crmUser);
                         AuthencationHelper.AssignAppSession(crmUser, menus);
 
                         return LoginStatus.LoginSuccessful;

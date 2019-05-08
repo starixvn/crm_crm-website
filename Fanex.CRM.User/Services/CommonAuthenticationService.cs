@@ -2,6 +2,7 @@
 {
     using Enumerations;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.User.Helpers;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
@@ -63,7 +64,7 @@
 
             }
 
-            HttpContext.Current.Response.Cookies.Clear();
+            AuthencationHelper.ClearCookies();
             FormsAuthentication.SignOut();
         }
     }

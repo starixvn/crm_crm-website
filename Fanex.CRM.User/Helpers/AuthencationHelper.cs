@@ -8,48 +8,56 @@
     using Fanex.CRM.Common.Models;
     using NAP.Core.Models;
     using NAP.Core.Web.Auth;
-
+    using System.Security.Principal;
     public static class AuthencationHelper
     {
-        public static void AssignAuthenticationCookie(string cookiePath, CRMUser user)
+        public static void SignIn(CRMUser user)
         {
-            HttpContext.Current.Response.Cookies.Add(CreateAuthenticationCookie(cookiePath, user));
-        }
-
-        public static void AssignAppSession(CRMUser user, IList<MenuItem> menuItems)
-        {
-            AppSession.CurrentUserMenu = menuItems;
-            AppSession.CurrentUser = user;
-        }
-
-        private static HttpCookie CreateAuthenticationCookie(string cookiePath, CRMUser user)
-        {
-            string cookieName = FormsAuthentication.FormsCookieName;
-
+            var cache = HttpContext.Current.Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
+            DateTime expire = DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes);
             string userData = (new AuthInfo
             {
                 UserId = user.Id,
                 OnUserId = user.OnUserId,
             }).ToXml();
 
-            var currentTime = DateTime.Now;
-            var formAuthentiationTicket = new FormsAuthenticationTicket(
+            var ticket = new FormsAuthenticationTicket(
                 1,
                 user.Username,
-                currentTime,
-                currentTime.AddMinutes(FormsAuthentication.Timeout.Minutes),
+                 DateTime.Now,
+               expire,
                 false,
-                userData,
-                cookiePath);
+                userData, "/");
+            string hashTicket = FormsAuthentication.Encrypt(ticket);
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
 
-            string encryptTicket = FormsAuthentication.Encrypt(formAuthentiationTicket);
+            HttpContext.Current.Response.Cookies.Set(cookie);
 
-            return new HttpCookie(cookieName, encryptTicket)
+        }
+        public static void ClearCookies()
+        {
+            var cache = HttpContext.Current.Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
+            var cookies = HttpContext.Current.Request.Cookies.AllKeys;
+            foreach (string cookie in cookies)
             {
-                Path = cookiePath,
-                Name = cookieName,
-                HttpOnly = true
-            };
+                var item = new HttpCookie(cookie)
+                {
+                    Expires = DateTime.Now.AddDays(-1),
+                    HttpOnly = true
+                };
+                HttpContext.Current.Response.Cookies.Add(item);
+            }
+        }
+        public static void AssignAppSession(CRMUser user, IList<MenuItem> menuItems)
+        {
+            AppSession.CurrentUserMenu = menuItems;
+            AppSession.CurrentUser = user;
         }
     }
 }
