@@ -50,6 +50,7 @@
                     if (user != null)
                     {
                         var crmUser = new CRMUser(user);
+                        crmUser.OnUserId = afterLoginUserId;
                         var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
                         AuthencationHelper.SignIn(crmUser);

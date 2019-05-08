@@ -145,9 +145,8 @@
             {
                 return LoginStatus.InvalidUsernameOrPassword;
             }
-
-            var menus = _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).ToList();
             user.OnUserId = onuserid;
+            var menus = _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).ToList();
             AuthencationHelper.SignIn(user);
             AuthencationHelper.AssignAppSession(user, menus);
 
