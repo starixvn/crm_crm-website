@@ -50,7 +50,7 @@
                 return LoginStatus.InvalidUsernameOrPassword;
             }
 
-            var crmUser = (CRMUser)user;
+            var crmUser = new CRMUser(user);
 
             var validatedStatus = ValidateUser(crmUser, localLogin);
 

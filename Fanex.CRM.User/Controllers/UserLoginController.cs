@@ -182,7 +182,7 @@ namespace Fanex.CRM.User.Controllers
 
             return Json(new
             {
-                OnUserId = user.OnUserId,
+                user.OnUserId,
                 ErrCode = (int)recheckInStatus,
                 ErrMsg = GetRecheckInStatusError(recheckInStatus)
             });

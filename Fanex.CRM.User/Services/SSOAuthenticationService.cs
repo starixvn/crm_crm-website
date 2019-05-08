@@ -49,7 +49,7 @@
                     var user = _userService.Get(userId);
                     if (user != null)
                     {
-                        var crmUser = (CRMUser)user;
+                        var crmUser = new CRMUser(user);
                         var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
                         AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, crmUser);
