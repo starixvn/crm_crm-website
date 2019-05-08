@@ -44,13 +44,13 @@
             if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                if (authTicket == null || authTicket.Expired)
-                    return;
-
-                var identity = new FormsIdentity(authTicket);
-                var user = new NapPrincipal(identity, AuthInfo.CreateUserData(authTicket.UserData));
-                Context.User = user;
-                Thread.CurrentPrincipal = user;
+                if (authTicket?.Expired == false)
+                {
+                    var identity = new FormsIdentity(authTicket);
+                    var user = new NapPrincipal(identity, AuthInfo.CreateUserData(authTicket.UserData));
+                    Context.User = user;
+                    Thread.CurrentPrincipal = user;
+                }
             }
         }
         protected void Application_Start()
