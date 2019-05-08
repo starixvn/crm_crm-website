@@ -4,6 +4,7 @@
     using System.Linq;
     using Enumerations;
     using Fanex.Common;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
@@ -20,20 +21,22 @@
         private readonly IUserService _userService;
         private readonly ISecurityService _securityService;
         private readonly ICurrentContext _currentContext;
-
+        private readonly ICommonAuthenticationService _commonAuthenticationService;
         public SSOAuthenticationService()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public SSOAuthenticationService(
             IUserService userService,
             ISecurityService securityService,
-            ICurrentContext currentContext)
+            ICurrentContext currentContext,
+            ICommonAuthenticationService commonAuthenticationService)
         {
             _userService = userService ?? new UserService();
             _securityService = securityService ?? new SecurityService();
             _currentContext = currentContext ?? new CurrentContext();
+            _commonAuthenticationService = commonAuthenticationService ?? new CommonAuthenticationService();
         }
 
         public LoginStatus SingleSignOn(SSOLogin ssoLogin)
@@ -49,8 +52,15 @@
                     var user = _userService.Get(userId);
                     if (user != null)
                     {
-                        var crmUser = new CRMUser(user);
-                        crmUser.OnUserId = afterLoginUserId;
+                        var crmUser = new CRMUser(user)
+                        {
+                            OnUserId = afterLoginUserId,
+                            UserRole = _commonAuthenticationService.GetUserRole(user.Id)
+                        };
+                        if (crmUser.UserRole == UserRole.None)
+                        {
+                            return LoginStatus.NotKnowUserRole;
+                        }
                         var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
                         AuthencationHelper.SignIn(crmUser);
