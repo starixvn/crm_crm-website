@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Fanex.CRM.Common.Models
 {
+    [Serializable]
     public class CRMUser : User
     {
         public CRMUser(User napUser)
