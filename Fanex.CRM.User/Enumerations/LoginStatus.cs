@@ -7,11 +7,13 @@
         InvalidUsernameOrPassword,
 
         UserSuspended,
-        
+
         UserNoAuthorization,
-        
+
         UserNoMenuPermission,
 
-        ValidatedSuccess
+        ValidatedSuccess,
+
+        NotKnowUserRole
     }
 }

@@ -30,7 +30,7 @@ namespace Fanex.CRM.User.Controllers
     {
         private const string FormTokenName = "__SecureFormToken";
         private const string LogInViewURL = "~/Areas/User/LogIn/Index.cshtml";
-
+        private const string NotKnowUserRoleUrl = "/Login/NotDetectUserRole";
         private readonly ILocalAuthenticationService _localService;
         private readonly ISSOAuthenticationService _ssoService;
         private readonly ICommonAuthenticationService _authenticationService;
@@ -87,7 +87,14 @@ namespace Fanex.CRM.User.Controllers
 
             return View(LogInViewURL);
         }
-
+        public ActionResult UnknowUserRole()
+        {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return RedirectToAction("Offline", "Common");
+            }
+            return View("~/Areas/User/LogIn/UnknowUserRole.cshtml");
+        }
         /// <summary>
         /// Lon In Action.
         /// </summary>
@@ -120,12 +127,24 @@ namespace Fanex.CRM.User.Controllers
 
             var loginStatus = _localService.Login(localLogin);
 
-            if (loginStatus != LoginStatus.LoginSuccessful)
+            return ProcessLoginResult(loginStatus);
+
+        }
+
+        private ActionResult ProcessLoginResult(LoginStatus loginStatus)
+        {
+            if (loginStatus == LoginStatus.LoginSuccessful)
             {
-                return LoginError(GetLoginStatusError(loginStatus));
+                return Redirect(FormsAuthentication.DefaultUrl);
+
             }
 
-            return Redirect(FormsAuthentication.DefaultUrl);
+            if (loginStatus == LoginStatus.NotKnowUserRole)
+            {
+                return RedirectToAction("UnknowUserRole", "UserLogin");
+            }
+
+            return LoginError(GetLoginStatusError(loginStatus));
         }
 
         [AllowAnonymous]
@@ -143,12 +162,7 @@ namespace Fanex.CRM.User.Controllers
 
             var loginStatus = _ssoService.SingleSignOn(ssoLogin);
 
-            if (loginStatus != LoginStatus.LoginSuccessful)
-            {
-                return LoginError(GetLoginStatusError(loginStatus));
-            }
-
-            return Redirect(FormsAuthentication.DefaultUrl);
+            return ProcessLoginResult(loginStatus);
         }
 
         /// <summary>

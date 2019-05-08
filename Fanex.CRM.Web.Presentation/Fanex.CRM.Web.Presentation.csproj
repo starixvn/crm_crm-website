@@ -1465,6 +1465,7 @@
     <Content Include="Areas\Report\DirectCustomerReport\Styles\DirectCustomerReport.less" />
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Index.cshtml" />
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
+    <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <None Include="Configurations\Web.UATSandBox.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>

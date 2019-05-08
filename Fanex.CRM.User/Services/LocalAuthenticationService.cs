@@ -5,6 +5,7 @@
     using System.Web;
     using Common.Services;
     using Enumerations;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
@@ -23,23 +24,25 @@
         private readonly ISecurityService _securityService;
         private readonly IGroupService _groupService;
         private readonly ICurrentContext _currentContext;
-
+        private readonly ICommonAuthenticationService _commonAuthenticationService;
         public LocalAuthenticationService()
             : this(null, null, null, null, null)
         {
         }
 
         public LocalAuthenticationService(
-            IUserService userService, 
+            IUserService userService,
             ISecurityService securityService,
             IGroupService groupService,
-            IPermissionService permissionService,
-            ICurrentContext currentContext)
+            ICurrentContext currentContext,
+            ICommonAuthenticationService commonAuthenticationService
+            )
         {
             _userService = userService ?? new UserService();
             _securityService = securityService ?? new SecurityService();
             _groupService = groupService ?? new GroupService();
             _currentContext = currentContext ?? new CurrentContext();
+            _commonAuthenticationService = new CommonAuthenticationService();
         }
 
         public LoginStatus Login(LocalLogin localLogin)
@@ -54,12 +57,13 @@
 
             var validatedStatus = ValidateUser(crmUser, localLogin);
 
-            if (validatedStatus != LoginStatus.ValidatedSuccess)
+            if (validatedStatus == LoginStatus.ValidatedSuccess)
             {
-                return validatedStatus;
+                return ProcessLogin(crmUser, localLogin);
             }
 
-            return ProcessLogin(crmUser, localLogin);
+            return validatedStatus;
+
         }
 
         #region Validation
@@ -128,6 +132,13 @@
 
         private LoginStatus ProcessLogin(CRMUser user, LocalLogin localLogin)
         {
+
+            user.UserRole = _commonAuthenticationService.GetUserRole(user.Id);
+
+            if (user.UserRole == UserRole.None)
+            {
+                return LoginStatus.NotKnowUserRole;
+            }
             var onuserid = ProcessNapLogin(user, localLogin);
 
             if (onuserid <= 0)
@@ -159,6 +170,6 @@
                     Platform = _currentContext.Platform
                 });
         }
-      
+
     }
 }

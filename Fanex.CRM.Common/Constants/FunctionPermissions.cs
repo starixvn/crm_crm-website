@@ -65,5 +65,9 @@ namespace Fanex.CRM.Common.Constants
         public const string SettingLog = "ViewSettingLog";
 
         public const string Updateheadlineinfo = "Updateheadlineinfo";
+
+        public const string UserRoleCN88Staff = "CN88Staff";
+        public const string UserRoleNormalStaff = "Credit_LicenseeStaff";
+
     }
 }

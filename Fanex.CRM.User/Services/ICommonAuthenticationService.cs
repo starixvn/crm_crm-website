@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.User.Services
 {
     using Enumerations;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Web.Session;
 
@@ -9,5 +10,7 @@
         RecheckInStatus RecheckIn(CRMUser user);
 
         void Logout(CRMUser user);
+
+        UserRole GetUserRole(int userID);
     }
 }
