@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Update Customer Information Criteria.
@@ -65,6 +65,8 @@ namespace Fanex.CRM.Customer.Criteria
         public string MSN { get; set; }
 
         public string Skype { get; set; }
+
+        public int UserRole { get; set; }
 
         public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
@@ -131,6 +133,7 @@ namespace Fanex.CRM.Customer.Criteria
             param.Add("custid", CustomerId);
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
 
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);

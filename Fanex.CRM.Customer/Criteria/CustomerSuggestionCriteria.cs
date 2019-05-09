@@ -23,6 +23,8 @@ namespace Fanex.CRM.Customer.Criteria
 
         public bool IsGuest { get; set; }
 
+        public int UserRole { get; set; }
+
         public override string GetSettingKey()
         {
             return "autoSearchSuggest";

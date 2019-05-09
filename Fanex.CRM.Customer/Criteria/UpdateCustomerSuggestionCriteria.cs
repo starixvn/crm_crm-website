@@ -25,6 +25,8 @@ namespace Fanex.CRM.Customer.Criteria
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
+        public int UserRole { get; set; }
+
         public override string GetSettingKey()
         {
             return "Customer_CustomerInfo_UpdateCustomerSuggestion";

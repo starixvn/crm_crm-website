@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Fanex.Data.Repository;
     using System;
     using System.Collections;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Information By Username Criteria.
@@ -25,11 +25,14 @@ namespace Fanex.CRM.Customer.Criteria
         [SpParam(SqlParamName = "isguest")]
         public bool IsGuest { get; set; }
 
+        public int UserRole { get; set; }
+
         public Hashtable SPParams()
         {
             var param = new Hashtable();
             param.Add("username", Uri.UnescapeDataString(Username));
             param.Add("isguest", IsGuest);
+            param.Add("UserRole", UserRole);
             return param;
         }
 

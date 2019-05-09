@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" ?>
 <Functions SiteId="73" SiteName="NAP-CRM">
   <Function Name="Customer">
-    <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -93,7 +93,7 @@
   <Function Name="CustomerFeedback">
     <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -161,14 +161,14 @@
   <Function Name="Inform Headline">
     <Setting Key="Customer_InformHeadline_StatusList" SpName="Acc_CRM_InformHeadlineStatusList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet">

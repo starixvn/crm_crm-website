@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" ?>
 <Root>
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>    
-
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_xpre"></SpNameConfig>  
+  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpdateBasicInfo" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGetUplineList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpdUserSearch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSelUserSearch" EnvironmentText="_xpre"></SpNameConfig>
+  
+  
 </Root>

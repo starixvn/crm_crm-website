@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria;
@@ -46,6 +47,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
+            criteria.UserRole = (int)AppSession.CurrentUser.UserRole;
             var customerInfo = _customerService.GetCustomerInfoByUsername(criteria);
             return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
@@ -53,6 +55,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
+            criteria.UserRole = (int)AppSession.CurrentUser.UserRole;
             var uplineInfo = _customerService.GetUplineInfoOfUser(criteria);
             return Json(uplineInfo, JsonRequestBehavior.AllowGet);
         }
@@ -61,6 +64,7 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
+            criteria.UserRole = (int)AppSession.CurrentUser.UserRole;
             var updateResult = _customerService.UpdateCustomerInfo(criteria);
             return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
@@ -68,6 +72,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpGet]
         public JsonResult CustomerAutoSuggestion(CustomerSuggestionCriteria criteria)
         {
+            criteria.UserRole = (int)AppSession.CurrentUser.UserRole;
             var jsonResult = new
             {
                 query = criteria.Query,
@@ -80,6 +85,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
+            criteria.UserRole = (int)AppSession.CurrentUser.UserRole;
             var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
             return Json(updateResult, JsonRequestBehavior.AllowGet);
         }

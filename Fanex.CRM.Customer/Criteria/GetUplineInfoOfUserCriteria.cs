@@ -19,6 +19,8 @@ namespace Fanex.CRM.Customer.Criteria
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
 
+        public int UserRole { get; set; }
+
         public override string GetSettingKey()
         {
             return "Customer_CustomerInfo_GetUplineList";
