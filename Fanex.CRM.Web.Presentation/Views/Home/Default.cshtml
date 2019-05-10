@@ -13,6 +13,7 @@
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
     var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
+    var logo = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "logo-crm.png" : "logo-crm.png";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
@@ -25,7 +26,7 @@
 <div class="container crm-container">
     <div class="row header">
         <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
-            <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
+            <img alt="" src="~/Content/site/Images/@logo" class="crm-logo touchable-element"
                     title="@Resources.Language.Home"
                     onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);"
                     href="javascript:;" />

@@ -25,6 +25,7 @@
         {
             var inputParams = new Hashtable();
             inputParams.Add("top", Top);
+            inputParams.Add("UserRole", UserRole);
             if (CustId != 0)
             {
                 inputParams.Add("custid", CustId);

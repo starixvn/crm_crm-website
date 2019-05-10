@@ -9,11 +9,11 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Home Controller.
@@ -50,8 +50,8 @@ namespace Fanex.CRM.Dashboard.Controllers
         {
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
-
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Views/Home/Default.cshtml");
         }

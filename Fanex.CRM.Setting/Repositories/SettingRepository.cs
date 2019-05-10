@@ -151,7 +151,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var allCommunicationTool = new List<Setting>();
                     while (reader.Read())
@@ -176,7 +176,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var allMainCategory = new List<Setting>();
                     while (reader.Read())
@@ -285,7 +285,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var subProducts = new List<Product>();
                     while (reader.Read())

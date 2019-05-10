@@ -15,7 +15,7 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
     /// <summary>
     /// Update Customer Information Detail Criteria.
     /// </summary>
-    public class UpdateCustomerInfoDetailCriteria : BasedUpdateCriteria
+    public class UpdateCustomerInfoDetailCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public string CustomerId { get; set; }
