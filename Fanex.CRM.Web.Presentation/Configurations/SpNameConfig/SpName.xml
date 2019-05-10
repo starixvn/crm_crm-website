@@ -9,21 +9,21 @@
     <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetCommunicationLogs" SpName="Acc_CRM_MainInformationCommunicationLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetCommunicationLogs" SpName="Acc_CRM_MainInformationCommunicationLogSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_UpdateVerifyFlag" SpName="Acc_CRM_CustomerInformationVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Communication">
-    <Setting Key="Communication_Log_GetInfoByCustomerId" SpName="Acc_CRM_CommunicationLogList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Communication_Log_GetInfoByCustomerId" SpName="Acc_CRM_CommunicationLogList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Redemption">
-    <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -50,7 +50,7 @@
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
@@ -95,8 +95,8 @@
     <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Settings">
     <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -113,12 +113,12 @@
     <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Remark">
-    <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CustomerRemarkUpd" SpName="Acc_CRM_CustomerRemarkUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Action Log">
     <Setting Key="Acc_CRM_ActivityLogList" SpName="Acc_CRM_ActivityLogList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_LogActionActivityList" SpName="Acc_CRM_LogActionActivityList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_LogActionActivityList" SpName="Acc_CRM_LogActionActivityList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingLogList" SpName="Acc_CRM_SettingLogList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_LogActionSettingList" SpName="Acc_CRM_LogActionSettingList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>

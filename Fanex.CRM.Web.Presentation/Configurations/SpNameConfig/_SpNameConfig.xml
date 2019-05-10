@@ -7,15 +7,12 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGetUplineList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpdUserSearch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSelUserSearch" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSel_New" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingGetRelationBySettingName" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_LanguageList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_LicenseeTypeSel" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelTopByCustId" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_StatusList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SiteSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationToolList" EnvironmentText="_xpre"></SpNameConfig>
@@ -24,7 +21,20 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainCategoryList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubCategoryList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
 
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationRedemptionSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_RedemptionList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelTop" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_LogActionActivityList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogList" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerRemarkSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationCommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationSpecialRemarkSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
+  
 </Root>

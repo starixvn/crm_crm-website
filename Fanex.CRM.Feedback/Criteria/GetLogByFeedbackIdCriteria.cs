@@ -1,8 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class GetLogByFeedbackIdCriteria : CriteriaBase
+    public class GetLogByFeedbackIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "feedbackid")]
         public int FeedbackId { get; set; }

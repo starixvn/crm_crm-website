@@ -1,9 +1,10 @@
 ﻿namespace Fanex.CRM.Communication.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
     using System;
 
-    public class GetLogsByCustomerIdCriteria : CriteriaBase
+    public class GetLogsByCustomerIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }

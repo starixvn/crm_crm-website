@@ -9,13 +9,14 @@
 
 namespace Fanex.CRM.Redemption.Criteria
 {
-    using System;
+    using Common.Criteria;
     using Fanex.Data.Repository;
+    using System;
 
     /// <summary>
     /// Get Communication Logs By Customer Identity Criteria.
     /// </summary>
-    public class GetLogsByCustomerIdCriteria : CriteriaBase
+    public class GetLogsByCustomerIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }

@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Verify Related Customer Criteria.
     /// </summary>
-    public class VerifyRelatedCustomerCriteria : CriteriaBase
+    public class VerifyRelatedCustomerCriteria : BasedCriteria
     {
         [SpParamAttribute(SqlParamName = "username")]
         public string Username { get; set; }

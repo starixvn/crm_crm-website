@@ -1,16 +1,16 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.Data.Repository;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
-    public class AddGuestFeedbackCriteria : CriteriaBase
+    public class AddGuestFeedbackCriteria : BasedCriteria
     {
         public CustomerInfo CustomerInfo { get; set; }
 
@@ -178,6 +178,7 @@
 
             param.Add("creatorid", CreatorId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);
             return param;
