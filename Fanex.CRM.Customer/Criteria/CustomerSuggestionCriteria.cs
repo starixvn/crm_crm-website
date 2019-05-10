@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Common.Enumerations;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace Fanex.CRM.Customer.Criteria
 
         public bool IsGuest { get; set; }
 
-        public int UserRole { get; set; }
+        public UserRole UserRole { get; set; }
 
         public override string GetSettingKey()
         {

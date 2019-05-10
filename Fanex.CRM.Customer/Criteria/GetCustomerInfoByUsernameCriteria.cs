@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Common.Enumerations;
     using Fanex.Data.Repository;
     using System;
     using System.Collections;
@@ -25,7 +26,7 @@ namespace Fanex.CRM.Customer.Criteria
         [SpParam(SqlParamName = "isguest")]
         public bool IsGuest { get; set; }
 
-        public int UserRole { get; set; }
+        public UserRole UserRole { get; set; }
 
         public Hashtable SPParams()
         {

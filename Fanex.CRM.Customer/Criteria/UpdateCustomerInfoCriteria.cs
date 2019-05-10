@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -66,7 +67,7 @@ namespace Fanex.CRM.Customer.Criteria
 
         public string Skype { get; set; }
 
-        public int UserRole { get; set; }
+        public UserRole UserRole { get; set; }
 
         public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
