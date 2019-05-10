@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using Common.Enumerations;
+    using Common.Criteria;
     using Fanex.Data.Repository;
     using System;
     using System.Collections;
@@ -18,15 +18,14 @@ namespace Fanex.CRM.Customer.Criteria
     /// Get Customer Information By Username Criteria.
     /// </summary>
     [Serializable]
-    public class GetCustomerInfoByUsernameCriteria
+    public class GetCustomerInfoByUsernameCriteria : BasedCriteria
     {
+
         [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
         [SpParam(SqlParamName = "isguest")]
         public bool IsGuest { get; set; }
-
-        public UserRole UserRole { get; set; }
 
         public Hashtable SPParams()
         {
@@ -42,7 +41,7 @@ namespace Fanex.CRM.Customer.Criteria
             return "Customer_CustomerInfo_GetCustomerByUsername";
         }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
             return true;
         }

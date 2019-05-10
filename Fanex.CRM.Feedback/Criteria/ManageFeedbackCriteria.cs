@@ -1,12 +1,12 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Common.Criteria;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.Data.Repository;
     using System;
     using System.Collections;
 
-    public class ManageFeedbackCriteria : CriteriaBase
+    public class ManageFeedbackCriteria : BasedCriteria
     {
         public int? FeedbackId { get; set; }
 
@@ -80,6 +80,7 @@
             inputParams.Add("pageindex", PageIndex);
             inputParams.Add("itemsperpage", ItemsPerPage);
             inputParams.Add("totalrows", 0);
+            inputParams.Add("UserRole", UserRole);
 
             return inputParams;
         }

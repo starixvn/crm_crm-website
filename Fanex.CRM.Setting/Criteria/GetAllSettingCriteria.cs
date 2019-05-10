@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Get All Setting Criteria.
     /// </summary>
-    public class GetAllSettingCriteria : CriteriaBase
+    public class GetAllSettingCriteria : BasedCriteria
     {
         public override string GetSettingKey()
         {

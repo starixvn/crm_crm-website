@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Sub Category Criteria.
     /// </summary>
-    public class GetAllBetTypeCriteria : CriteriaBase
+    public class GetAllBetTypeCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "ProductID")]
         public int ParentId { get; set; }

@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
     using System.Collections;
 
-    public class LatestFeedbackCriteria : CriteriaBase
+    public class LatestFeedbackCriteria : BasedCriteria
     {
         public int CustId { get; set; }
 

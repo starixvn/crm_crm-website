@@ -10,16 +10,14 @@
 
 namespace Fanex.CRM.AdminTool.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Services.SettingRelation;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Setting Relation Controller.

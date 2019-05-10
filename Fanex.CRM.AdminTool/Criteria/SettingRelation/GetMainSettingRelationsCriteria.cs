@@ -10,14 +10,14 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 {
-    using System.Collections;
+    using Common.Criteria;
     using Fanex.CRM.Common.Models;
-    using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Get Main Setting Relation Criteria.
     /// </summary>
-    public class GetMainSettingRelationsCriteria : CriteriaBase
+    public class GetMainSettingRelationsCriteria : BasedCriteria
     {
         public int ParentId { get; set; }
 
@@ -32,6 +32,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
             var param = new Hashtable();
             param.Add("settingname", MainSetting.SettingType);
             param.Add("parentid", ParentId);
+            param.Add("UserRole", UserRole);
             return param;
         }
 
