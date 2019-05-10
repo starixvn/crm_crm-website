@@ -1466,6 +1466,7 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Index.cshtml" />
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
+    <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
     <None Include="Configurations\Web.UATSandBox.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
