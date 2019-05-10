@@ -6,14 +6,14 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Helpers;
+    using Fanex.NAP.Core.Models.ValueObject;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
-    using System.Web;
     using System.Web.Security;
-
+    using System.Linq;
     public class CommonAuthenticationService : ICommonAuthenticationService
     {
         private readonly ISiteService _siteService;
@@ -57,17 +57,16 @@
                 return RecheckInStatus.InvalidSite;
             }
 
-            int status = _securityService.ReCheckIn(user.OnUserId, settings.SiteId);
+            var status = _securityService.ReCheckIn(user.OnUserId, settings.SiteId);
 
             return status > 0 ? RecheckInStatus.KickOut : RecheckInStatus.Success;
         }
 
         public void Logout(CRMUser user)
         {
-            if (user != null && user.OnUserId > 0)
+            if (user?.OnUserId > 0)
             {
                 _securityService.Logout(user.OnUserId);
-
             }
 
             AuthencationHelper.ClearCookies();
@@ -77,22 +76,14 @@
         public UserRole GetUserRole(int userID)
         {
 
-            var isCN88Staff = _userService.GetPermission(userID, NapSettings.Settings.SiteId, FunctionPermissions.UserRoleCN88Staff) >= 1;
-            var isNormalStaff = _userService.GetPermission(userID, NapSettings.Settings.SiteId, FunctionPermissions.UserRoleNormalStaff) >= 1;
-
-            if (isCN88Staff && isNormalStaff)
-            {
-                return UserRole.ALL;
-            }
-
-            if (isNormalStaff)
-            {
-                return UserRole.NormalStaff;
-            }
-
-            if (isCN88Staff)
+            if (NapSettings.Settings.SiteId.ToString() == AppSetting.CN88SiteId)
             {
                 return UserRole.CN88Staff;
+            }
+
+            if (NapSettings.Settings.SiteId.ToString() == AppSetting.SiteId)
+            {
+                return UserRole.NormalStaff;
             }
 
             return UserRole.None;

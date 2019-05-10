@@ -21,6 +21,9 @@ namespace Fanex.CRM.Common.Services
         private static IDictionary<string, bool> actionLogKeyHash = null;
         private static IDictionary<string, string[]> actionLogBoolValueHash = null;
 
+        /// <summary>
+        /// Used in razor helper
+        /// </summary>
         public static string ResourceVersion
         {
             get { return ConfigurationManager.AppSettings["resourceVersion"]; }
@@ -31,11 +34,9 @@ namespace Fanex.CRM.Common.Services
             get { return ConfigurationManager.AppSettings["isLocalTest"] == "1"; }
         }
 
-        public static int ServerId
-        {
-            get { return Convert.ToInt32(ConfigurationManager.AppSettings["serverid"]); }
-        }
-
+        /// <summary>
+        /// Used in view
+        /// </summary>
         public static string LoginLink
         {
             get { return ConfigurationManager.AppSettings["loginUrl"]; }
@@ -51,27 +52,6 @@ namespace Fanex.CRM.Common.Services
             get { return Convert.ToDateTime(ConfigurationManager.AppSettings["minReportDate"]); }
         }
 
-        public static List<string> NotAuthenticateAction
-        {
-            get
-            {
-                var exceptionAction = ConfigurationManager.AppSettings["NotAuthenticateAction"].Split(';');
-                var notAuthenticateAction = new List<string>();
-                if (exceptionAction.Length != 0)
-                {
-                    foreach (var action in exceptionAction)
-                    {
-                        if (action != null)
-                        {
-                            notAuthenticateAction.Add(action.ToLower());
-                        }
-                    }
-                }
-
-                return notAuthenticateAction;
-            }
-        }
-
         public static IDictionary<string, bool> ActionLogKey
         {
             get
@@ -80,11 +60,11 @@ namespace Fanex.CRM.Common.Services
                 {
                     actionLogKeyHash = new Dictionary<string, bool>();
 
-                    string[] stringArray = ConfigurationManager.AppSettings["CRMActionLogKey"]
+                    var stringArray = ConfigurationManager.AppSettings["CRMActionLogKey"]
                         .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string item in stringArray)
                     {
-                        string upperKey = item.ToUpperInvariant();
+                        var upperKey = item.ToUpperInvariant();
                         if (!actionLogKeyHash.ContainsKey(upperKey))
                         {
                             actionLogKeyHash.Add(upperKey, true);
@@ -104,12 +84,12 @@ namespace Fanex.CRM.Common.Services
                 {
                     actionLogBoolValueHash = new Dictionary<string, string[]>();
 
-                    string[] boolValue = new string[] { "No", "Yes" };
-                    string[] stringArray = ConfigurationManager.AppSettings["CRMActionLogBoolValue"]
+                    var boolValue = new string[] { "No", "Yes" };
+                    var stringArray = ConfigurationManager.AppSettings["CRMActionLogBoolValue"]
                         .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string item in stringArray)
                     {
-                        string upperKey = item.ToUpperInvariant();
+                        var upperKey = item.ToUpperInvariant();
                         if (!actionLogBoolValueHash.ContainsKey(upperKey))
                         {
                             actionLogBoolValueHash.Add(upperKey, boolValue);
@@ -120,16 +100,8 @@ namespace Fanex.CRM.Common.Services
                 return actionLogBoolValueHash;
             }
         }
-
-        public static string PiwikSiteId
-        {
-            get { return ConfigurationManager.AppSettings["PiwikSiteId"]; }
-        }
-
-        public static string Environment
-        {
-            get { return ConfigurationManager.AppSettings["Environment"]; }
-        }
+        public static string SiteId { get { return ConfigurationManager.AppSettings["SiteId"]; } }
+        public static string CN88SiteId { get { return ConfigurationManager.AppSettings["CN88SiteId"]; } }
 
         public static bool EnableManualLogging
         {

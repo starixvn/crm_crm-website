@@ -22,7 +22,7 @@ namespace Fanex.CRM.Common.Models
             this.LastName = napUser.LastName;
             this.Email = napUser.Email;
         }
-        public UserRole UserRole { get; set; } = UserRole.None;
+        public UserRole UserRole { get; set; } = UserRole.NormalStaff;
         public int OnUserId { get; set; }
         public int SiteID { get; set; }
     }
