@@ -6,22 +6,20 @@
 
 namespace Fanex.CRM.User.Controllers
 {
-    using System;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Security;
     using Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.User.Resources;
-    using Fanex.NAP.Core.Web.Session;
     using Models;
     using NAP.Core.Configuration;
     using NAP.Core.Web;
-    using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Services;
+    using System;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Security;
 
     /// <summary>
     /// TODO: Update summary.
@@ -29,7 +27,7 @@ namespace Fanex.CRM.User.Controllers
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
-        private const string LogInViewURL = "~/Areas/User/LogIn/Index.{0}.cshtml";
+        private const string LogInViewURL = "~/Areas/User/LogIn/Index{0}.cshtml";
         private const string NotKnowUserRoleUrl = "/Login/NotDetectUserRole";
         private readonly ILocalAuthenticationService _localService;
         private readonly ISSOAuthenticationService _ssoService;
@@ -86,7 +84,7 @@ namespace Fanex.CRM.User.Controllers
             CreateNewToken();
 
             return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
-                == AppSetting.CN88SiteId ? "CN88" : ""));
+                == AppSetting.CN88SiteId ? ".CN88" : ""));
         }
         public ActionResult UnknowUserRole()
         {
