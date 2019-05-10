@@ -75,7 +75,6 @@
 
         public UserRole GetUserRole(int userID)
         {
-
             if (NapSettings.Settings.SiteId.ToString() == AppSetting.CN88SiteId)
             {
                 return UserRole.CN88Staff;

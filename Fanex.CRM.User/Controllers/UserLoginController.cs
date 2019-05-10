@@ -29,7 +29,7 @@ namespace Fanex.CRM.User.Controllers
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
-        private const string LogInViewURL = "~/Areas/User/LogIn/Index.cshtml";
+        private const string LogInViewURL = "~/Areas/User/LogIn/Index.{0}.cshtml";
         private const string NotKnowUserRoleUrl = "/Login/NotDetectUserRole";
         private readonly ILocalAuthenticationService _localService;
         private readonly ISSOAuthenticationService _ssoService;
@@ -85,7 +85,8 @@ namespace Fanex.CRM.User.Controllers
 
             CreateNewToken();
 
-            return View(LogInViewURL);
+            return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
+                == AppSetting.CN88SiteId ? "CN88" : ""));
         }
         public ActionResult UnknowUserRole()
         {
