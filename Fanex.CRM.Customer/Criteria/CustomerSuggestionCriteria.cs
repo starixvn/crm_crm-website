@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using Common.Enumerations;
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Customer Suggestion Criteria.
     /// </summary>
-    public class CustomerSuggestionCriteria : CriteriaBase
+    public class CustomerSuggestionCriteria : BasedCriteria
     {
         public int UserId { get; set; }
 
@@ -23,8 +23,6 @@ namespace Fanex.CRM.Customer.Criteria
         public string Query { get; set; }
 
         public bool IsGuest { get; set; }
-
-        public UserRole UserRole { get; set; }
 
         public override string GetSettingKey()
         {
