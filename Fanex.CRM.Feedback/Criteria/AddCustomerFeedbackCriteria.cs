@@ -14,6 +14,7 @@
         public override Hashtable GetSpParams()
         {
             var param = base.GetSpParams();
+            param.Remove("UserRole");
             param["siteid"] = CustomerInfo.SiteSetting.Id;
             param.Add("custid", CustomerInfo.Id);
             param.Add("roleid", Role.Id);
