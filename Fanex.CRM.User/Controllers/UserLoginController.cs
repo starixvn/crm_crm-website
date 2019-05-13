@@ -223,7 +223,8 @@ namespace Fanex.CRM.User.Controllers
             ViewBag.Message = errorMessage;
             CreateNewToken();
 
-            return View(LogInViewURL);
+            return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
+                == AppSetting.CN88SiteId ? ".CN88" : ""));
         }
 
         private void AddTokenToCookie(string loginToken)
