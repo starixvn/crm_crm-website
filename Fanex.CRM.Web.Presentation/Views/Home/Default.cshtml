@@ -13,7 +13,7 @@
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
     var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
-    var logo = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "logo-crm.png" : "logo-crm.png";
+    var logo = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "logo-crm-cn88.png" : "logo-crm.png";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
