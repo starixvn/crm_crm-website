@@ -658,6 +658,7 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
@@ -713,6 +714,7 @@
     <Content Include="Content\site\Images\list-muti-select.png" />
     <Content Include="Content\site\Images\loading-icon2.gif" />
     <Content Include="Content\site\Images\loading100x100.gif" />
+    <Content Include="Content\site\Images\logo-crm-cn88.png" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
     <Content Include="Content\site\Images\ResultMessage\sprites-image.png" />
     <Content Include="Content\site\Images\sort-ico.png" />
