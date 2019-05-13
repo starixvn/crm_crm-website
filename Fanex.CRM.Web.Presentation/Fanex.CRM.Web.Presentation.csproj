@@ -1467,7 +1467,17 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
+    <None Include="Configurations\CN88Local.Web.Setting.config" />
+    <None Include="Configurations\CN88UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Configurations\Web.CN88LOCAL.config" />
+    <None Include="Configurations\Web.CN88UAT.config" />
     <None Include="Configurations\Web.UATSandBox.config" />
+    <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
+    <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <PropertyGroup>

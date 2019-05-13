@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using Common.Enumerations;
+    using Common.Criteria;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -21,7 +21,7 @@ namespace Fanex.CRM.Customer.Criteria
     /// <summary>
     /// Update Customer Information Criteria.
     /// </summary>
-    public class UpdateCustomerInfoCriteria : CriteriaBase
+    public class UpdateCustomerInfoCriteria : BasedCriteria
     {
         public int CustomerId { get; set; }
 
@@ -66,8 +66,6 @@ namespace Fanex.CRM.Customer.Criteria
         public string MSN { get; set; }
 
         public string Skype { get; set; }
-
-        public UserRole UserRole { get; set; }
 
         public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
