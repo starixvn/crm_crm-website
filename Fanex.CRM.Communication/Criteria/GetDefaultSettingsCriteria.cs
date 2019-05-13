@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Communication.Criteria
 {
-    using Common.Criteria;
+    using Data.Repository;
 
-    public class GetDefaultSettingsCriteria : BasedCriteria
+    public class GetDefaultSettingsCriteria : CriteriaBase
     {
         public int CustId { get; set; }
 
