@@ -659,6 +659,45 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
+    <Content Include="Configurations\backupMNL.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\backupMNL.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <None Include="Configurations\CN88Local.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <None Include="Configurations\CN88UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\dev.ConnectionStrings.config">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\dev.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\Local.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\Local.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\Master.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\Master.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\PRO.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\PRO.Web.Setting.config">
+      <SubType>Designer</SubType>
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
@@ -691,6 +730,52 @@
     </Content>
     <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
     <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
+    <Content Include="Configurations\UAT.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\UATSandBox.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\UATSandBox.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <Content Include="Configurations\UATSIT.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
+    <None Include="Configurations\UATSIT.Web.Setting.config">
+      <DependentUpon>Web.Setting.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.backupMNL.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.CN88LOCAL.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.CN88UAT.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.DEV.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.LOCAL.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.Master.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.PRO.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.UAT.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Configurations\Web.UATSIT.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <Content Include="Configurations\_Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_Web.config.txt</LastGenOutput>
@@ -981,22 +1066,6 @@
     <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Styles\styles.less" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
-    <Content Include="Configurations\dev.ConnectionStrings.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\dev.Web.Setting.config" />
-    <Content Include="Configurations\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\Master.ConnectionStrings.config" />
-    <Content Include="Configurations\Master.Web.Setting.config" />
-    <Content Include="Configurations\PRO.ConnectionStrings.config" />
-    <Content Include="Configurations\PRO.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UATSandBox.Web.Setting.config" />
     <Content Include="Content\site\customizeFanexGridV2.less" />
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
@@ -1005,7 +1074,6 @@
     <Content Include="Content\site\reportgrid.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Configurations\Local.Web.Setting.config" />
     <Content Include="Scripts\Vendors\jqueryui\jquery-ui.min.js" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Areas\User\LogIn\Scripts\LogInManager.js" />
@@ -1355,7 +1423,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-    <Content Include="Configurations\UATSandBox.ConnectionStrings.config" />
     <Content Include="Views\Common\ErrorPage.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
   </ItemGroup>
@@ -1391,16 +1458,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\ContactInform\Styles\ViewList.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Configurations\backupMNL.ConnectionStrings.config" />
-    <Content Include="Configurations\backupMNL.Web.Setting.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Configurations\UATSIT.Web.Setting.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Configurations\UATSIT.ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Report\LogStatistics\Index.cshtml" />
@@ -1445,15 +1502,6 @@
     <Content Include="Configurations\WebConfigTransforms\PRO.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\Web.backupMNL.config" />
-    <Content Include="Configurations\Web.DEV.config" />
-    <Content Include="Configurations\Web.LOCAL.config" />
-    <Content Include="Configurations\Web.Master.config" />
-    <Content Include="Configurations\Web.PRO.config" />
-    <Content Include="Configurations\Web.UAT.config" />
-    <Content Include="Configurations\Web.UATSIT.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Configurations\WebConfigTransforms\UATSandBox.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1469,17 +1517,16 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
-    <Content Include="Configurations\CN88Local.Web.Setting.config" />
-    <Content Include="Configurations\CN88UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\Web.CN88LOCAL.config" />
-    <Content Include="Configurations\Web.CN88UAT.config" />
-    <None Include="Configurations\Web.UATSandBox.config" />
+    <Content Include="Configurations\ConnectionStrings.config" />
+    <None Include="Configurations\Web.config" />
+    <None Include="Configurations\Web.Setting.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Configurations\Web.UATSandBox.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <PropertyGroup>
