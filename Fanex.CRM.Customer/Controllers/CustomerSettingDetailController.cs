@@ -71,7 +71,7 @@ namespace Fanex.CRM.Customer.Controllers
 
         public JsonResult AllSettings()
         {
-            return Json(_customerService.GetAllSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_customerService.GetAllSettings(AppSession.CurrentUser.UserRole), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Services
 {
+    using Common.Enumerations;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
@@ -67,13 +68,13 @@ namespace Fanex.CRM.Customer.Services
             return updateResult;
         }
 
-        public dynamic GetAllSettings()
+        public dynamic GetAllSettings(UserRole userRole)
         {
             return new
             {
                 Titles = _settingService.GetAllTitles(),
                 Languages = _settingService.GetAllLanguages(),
-                Sites = _settingService.GetAllSites(),
+                Sites = userRole == UserRole.CN88Staff ? _settingService.GetAllSitesCN88() : _settingService.GetAllSites(),
                 LicenseeTypes = _settingService.GetAllLicenseeTypes(),
                 Countries = _settingService.GetAllCountries()
             };
