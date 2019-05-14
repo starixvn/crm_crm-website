@@ -26,6 +26,8 @@ namespace Fanex.CRM.Setting.Services
 
         IList<SiteSetting> GetAllSiteWithGroup();
 
+        IList<SiteSetting> GetAllSiteWithGroupCN88();
+
         IList<SettingRelation> GetAllTitles();
 
         IList<Country> GetAllCountries();

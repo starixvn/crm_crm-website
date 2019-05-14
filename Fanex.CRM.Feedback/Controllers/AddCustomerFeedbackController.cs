@@ -36,13 +36,15 @@
                 Id = custid,
                 Name = custName
             };
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+
             return View("~/Areas/Feedbacks/AddCustomerFeedback/Index.cshtml", customerInfo);
         }
 
         [HttpPost]
         public ActionResult AllSettingToAddCustomerFeedback()
         {
-            var allSetting = AllSettingToAddFeedback();
+            var allSetting = AllSettingToAddFeedback(AppSession.CurrentUser.UserRole);
             allSetting.RoleList = ServiceSetting.GetAllRoles();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }

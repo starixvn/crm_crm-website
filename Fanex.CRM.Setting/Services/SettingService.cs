@@ -178,6 +178,18 @@ namespace Fanex.CRM.Setting.Services
             return allSites;
         }
 
+        public IList<SiteSetting> GetAllSiteWithGroupCN88()
+        {
+            return new List<SiteSetting>
+            {
+                new SiteSetting
+                {
+                    Id = 33002,
+                    Name = "CN88",
+                    AliasName = "CN88"
+                }
+            };
+        }
 
         public IList<SiteSetting> GetAllSiteWithGroup()
         {

@@ -31,7 +31,7 @@
         [HttpPost]
         public ActionResult AllSetting()
         {
-            var settings = AllSettingToAddFeedback();
+            var settings = AllSettingToAddFeedback(UserRole.NormalStaff);
             bool hasCreateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             if (hasCreateFeedbackPermission)
             {
@@ -41,7 +41,7 @@
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
-        public AllSettingToAddFeedback AllSettingToAddFeedback()
+        public AllSettingToAddFeedback AllSettingToAddFeedback(UserRole userRole)
         {
             var languages = ServiceSetting.GetAllLanguages();
             languages.Insert(
@@ -69,7 +69,7 @@
                 CountryList = countries,
                 CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
                 LanguageList = languages,
-                SiteList = ServiceSetting.GetAllSiteWithGroup(),
+                SiteList = (userRole == UserRole.CN88Staff) ? ServiceSetting.GetAllSiteWithGroupCN88() : ServiceSetting.GetAllSiteWithGroup(),
                 ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
                 TitleList = ServiceSetting.GetAllTitles(),
