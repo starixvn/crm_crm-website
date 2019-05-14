@@ -88,6 +88,7 @@
                         selectedItems: "=ngModel",
                         settings: "=?",
                         textSettings: "=?",
+                        hideNa: "=?",
                         ngOnOpen: "&",
                         ngOnClose: "&",
                         ngChange: "&",
@@ -97,7 +98,7 @@
                         var changeHandler = scope.ngChange || angular.noop; 
                         
                         scope._settings = scope._settings = angular.extend({}, dropdowntreeConfig);
-                        scope._textSettings = {};
+                        scope._textSettings = {};                        
 
                         scope.searchText = {
                             value: ""

@@ -9,6 +9,8 @@
 
 namespace Fanex.CRM.Setting.Controllers
 {
+    using Common.Enumerations;
+    using Common.Services;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
@@ -35,7 +37,10 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllSite()
         {
-            var allSite = _settingServiceInstance.GetAllSites();
+            var userRole = AppSession.CurrentUser.UserRole;
+            var allSite = userRole == UserRole.CN88Staff
+                ? _settingServiceInstance.GetAllSitesCN88()
+                : _settingServiceInstance.GetAllSites();
             return Json(allSite, JsonRequestBehavior.AllowGet);
         }
 

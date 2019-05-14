@@ -157,6 +157,28 @@ namespace Fanex.CRM.Setting.Services
             return allSites;
         }
 
+        public IList<SiteInfo> GetAllSitesCN88()
+        {
+            var allSites = new List<SiteInfo>
+            {
+                new SiteInfo
+                {
+                    Id = 1,
+                    Name = "CN88",
+                    ChildSites = new List<SiteInfo> {
+                        new SiteInfo
+                        {
+                            Id = 33002,
+                            Name = "CN88"
+                        }
+                    }
+                }
+            };
+
+            return allSites;
+        }
+
+
         public IList<SiteSetting> GetAllSiteWithGroup()
         {
             var cache = CacheService.Get<IList<SiteSetting>>(GetAllSiteWithGroupSessionKey);

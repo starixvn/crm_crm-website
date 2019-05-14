@@ -22,6 +22,7 @@ namespace Fanex.CRM.Setting.Services
         Setting GetSettingById(GetSettingByIdCriteria criteria);
 
         IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
+        IList<SiteInfo> GetAllSitesCN88();
 
         IList<SiteSetting> GetAllSiteWithGroup();
 

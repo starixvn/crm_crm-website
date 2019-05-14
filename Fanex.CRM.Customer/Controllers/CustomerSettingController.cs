@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
-    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria;
