@@ -43,6 +43,7 @@ namespace Fanex.CRM.Customer.Controllers
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.UpdateHeadlineInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.Updateheadlineinfo);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             CustomerInfo customerDetail = _customerService.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {

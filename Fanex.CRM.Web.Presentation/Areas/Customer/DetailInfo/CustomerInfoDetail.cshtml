@@ -14,6 +14,7 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
     var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
+    var hideLicenseeTypeClass = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
@@ -56,7 +57,7 @@
                                 <select id="customerinfodetail-languageoptions" tabindex="7"></select>
                             </div>
                         </div>
-                        <div class="row item">
+                        <div class="row item @hideLicenseeTypeClass">
                             <div class="col-md-3">
                                 <label for="customerinfodetail-licenseeTypeoptions">
                                     @Labels.LicenseeType
