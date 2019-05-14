@@ -28,6 +28,6 @@ namespace Fanex.CRM.Setting.Constants
 
         public const int Guest = 5;
 
-        public const int Headline = 1000;
+        public const int Headline = 7006;
     }
 }
