@@ -82,6 +82,7 @@
             $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
         .then(function (data) {
             var customer = data.Result;
+            customer.showCustomerRole = customer.Role.Id != 7006; // do not show Customer role for Cn88 Headline                     
             var isHavingData = customerManager.checkCustomerInfoResult(customer);
             if (isHavingData) {
                 $scope.customer = customer;
@@ -99,9 +100,10 @@
             $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
         .then(function (data) {
             var customer = data.Result;
+            customer.showCustomerRole = customer.Role.Id != 7006; // do not show Customer role for Cn88 Headline            
             var isHavingData = customerManager.checkGuestCustomerInfoResult(customer);
             if (isHavingData) {
-                $scope.customer = customer;
+                $scope.customer = customer;                
                 $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
                 $scope.changeDirtyFlag($scope);
