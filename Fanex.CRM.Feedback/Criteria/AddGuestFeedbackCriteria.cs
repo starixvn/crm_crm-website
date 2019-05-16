@@ -5,6 +5,7 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
+    using Setting.Constants;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -103,6 +104,10 @@
             Justification = "Reviewed. Suppression is OK here.")]
         public override Hashtable GetSpParams()
         {
+            var isCN88 = UserRole == Common.Enumerations.UserRole.CN88Staff;
+            var siteId = isCN88 ? SiteConstants.CN88 : 0;
+            var roleId = isCN88 ? RoleIdConstants.CN88Guest : RoleIdConstants.CRMGuest;
+
             var param = new Hashtable();
             param.Add("userid", UserId);
             param.Add("username", CustomerInfo.Name);
@@ -142,7 +147,8 @@
             param.Add("pic3", CustomerInfo.PersonalInfoContacts[2].Phone);
             param.Add("pic4name", CustomerInfo.PersonalInfoContacts[3].Name);
             param.Add("pic4", CustomerInfo.PersonalInfoContacts[3].Phone);
-            param.Add("siteid", 0);
+            param.Add("siteid", siteId);
+            param.Add("roleid", roleId);
             param.Add("isvip", CustomerInfo.IsVIP);
             param.Add("wechat", CustomerInfo.WeChat);
             param.Add("whatsapp", CustomerInfo.WhatsApp);
@@ -178,7 +184,6 @@
 
             param.Add("creatorid", CreatorId);
             param.Add("ip", IP);
-            param.Add("UserRole", UserRole);
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);
             return param;

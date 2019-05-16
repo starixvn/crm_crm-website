@@ -36,13 +36,13 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
   
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingIns" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingUpd" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingDel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingRelationSel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateSel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateIns" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateUpd" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingDel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingRelationSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xpre"></SpNameConfig>
   
 </Root>
