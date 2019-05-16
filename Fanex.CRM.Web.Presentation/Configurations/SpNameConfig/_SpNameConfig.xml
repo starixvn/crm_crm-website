@@ -22,7 +22,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubCategoryList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
@@ -36,5 +35,14 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationSpecialRemarkSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
+  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingDel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingRelationSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateUpd" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xtest"></SpNameConfig>
   
 </Root>

@@ -10,12 +10,12 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Get All Setting Relation Criteria.
     /// </summary>
-    public class GetAllSettingRelationCriteria : CriteriaBase
+    public class GetAllSettingRelationCriteria : BasedCriteria
     {
         public override string GetSettingKey()
         {

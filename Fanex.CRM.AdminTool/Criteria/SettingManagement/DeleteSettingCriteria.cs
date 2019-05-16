@@ -10,16 +10,16 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
-    using System.Collections;
     using Fanex.CRM.Common.Criteria;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Delete Setting Criteria.
     /// </summary>
-    public class DeleteSettingCriteria : UpdateCriteria
+    public class DeleteSettingCriteria : BasedUpdateCriteria
     {
         public Setting OldSetting { get; set; }
 
@@ -31,7 +31,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
                 return AppSession.CurrentUser.Id;
             }
         }
-        
+
         /// <summary>
         /// Gets the SP parameters.
         /// </summary>
@@ -43,6 +43,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             param.Add("isactive", !OldSetting.IsActive);

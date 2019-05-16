@@ -30,7 +30,7 @@
     <Setting Key="Redemption_Statisics_GetCurrencyList" SpName="Acc_CRM_CurrencyList_Redemption" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Setting">
-    <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -55,9 +55,9 @@
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailysummaryreport" SpName="Acc_CRM_Rpt_CustomerStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -80,7 +80,7 @@
   <Function Name="Setting">
     <Setting Key="Acc_CRM_SettingGetRelationBySettingName" SpName="Acc_CRM_SettingGetRelationBySettingName_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllLanguage" SpName="Acc_CRM_LanguageList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCommunicationTool" SpName="Acc_CRM_CommunicationToolList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -99,11 +99,11 @@
     <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Settings">
-    <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingIns" SpName="Acc_CRM_SettingIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingIns" SpName="Acc_CRM_SettingIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SiteID" ObjectProperty="Id" />
       <Mapping DataField="SiteName" ObjectProperty="Name" />

@@ -10,13 +10,13 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
 {
+    using Common.Criteria;
     using System.Collections;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Feedback Subject Template By Identify Criteria.
     /// </summary>
-    public class FeedbackSubjectTemplateByIdCriteria : CriteriaBase
+    public class FeedbackSubjectTemplateByIdCriteria : BasedCriteria
     {
         public int TemplateId { get; set; }
 
@@ -28,6 +28,7 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
         {
             var param = new Hashtable();
             param.Add("templateid", TemplateId);
+            param.Add("UserRole", UserRole);
             return param;
         }
 

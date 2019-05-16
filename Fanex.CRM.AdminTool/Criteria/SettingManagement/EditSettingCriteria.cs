@@ -10,16 +10,16 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
-    using System.Collections;
     using Fanex.CRM.Common.Criteria;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Edit Setting Criteria.
     /// </summary>
-    public class EditSettingCriteria : UpdateCriteria
+    public class EditSettingCriteria : BasedUpdateCriteria
     {
         public Setting OldSetting { get; set; }
 
@@ -48,6 +48,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             return param;
