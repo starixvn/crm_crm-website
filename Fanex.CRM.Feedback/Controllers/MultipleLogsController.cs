@@ -2,6 +2,8 @@
 {
     using Common.Constants;
     using Common.Controllers;
+    using Common.Enumerations;
+    using Common.Services;
     using Criteria;
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
@@ -31,6 +33,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
@@ -44,6 +47,7 @@
 
             ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
         }
@@ -66,6 +70,9 @@
         [HttpPost]
         public ActionResult GetSettings()
         {
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+                ? _serviceSetting.GetAllSitesCN88()
+                : _serviceSetting.GetAllSites();
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
@@ -73,7 +80,7 @@
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
@@ -95,6 +102,10 @@
         [HttpPost]
         public ActionResult GetEditSettings()
         {
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+               ? _serviceSetting.GetAllSitesCN88()
+               : _serviceSetting.GetAllSites();
+
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
@@ -102,7 +113,7 @@
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = _multipleLogsService.AllStatusForEdit,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),

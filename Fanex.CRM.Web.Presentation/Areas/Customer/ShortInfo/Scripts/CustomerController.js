@@ -66,6 +66,7 @@
         };
 
         $scope.username = username;
+        $scope.isCN88 = isCN88;
 
         $scope.oldCustomer = null;
         $scope.isShowCommunicationTool = true;

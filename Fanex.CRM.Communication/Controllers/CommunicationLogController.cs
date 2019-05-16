@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Communication.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -63,6 +64,9 @@
             {
                 statusList = statusList.Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             }
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+              ? _serviceSetting.GetAllSitesCN88()
+              : _serviceSetting.GetAllSites();
 
             var allSetting = new
             {
@@ -71,7 +75,7 @@
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
@@ -93,6 +97,10 @@
         [HttpPost]
         public ActionResult AllSettingForInsert(int custId)
         {
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+               ? _serviceSetting.GetAllSitesCN88()
+               : _serviceSetting.GetAllSites();
+
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
@@ -100,7 +108,7 @@
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
@@ -145,6 +153,7 @@
             ViewBag.HasHostCreateUpdatePermission = HasUpdateFeedbackPermission(logInfo.Status.Id);
             ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             ViewBag.IsDeletedFeedbackView = (logInfo.Status.Id == (int)CRMStatus.Deleted).ToString().ToLower();
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
@@ -164,6 +173,7 @@
         public ActionResult OpenInsertView(int customerId)
         {
             ViewBag.customerId = customerId;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return View("~/Areas/Communication/InsertLog/Index.cshtml");
         }
 

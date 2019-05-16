@@ -86,6 +86,7 @@
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
+        $scope.isCN88 = isCN88;
         
         $scope.betTypeList = null;
         $scope.statusList = null;

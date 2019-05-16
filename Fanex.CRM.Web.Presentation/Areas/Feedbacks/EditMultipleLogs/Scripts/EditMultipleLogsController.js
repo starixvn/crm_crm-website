@@ -40,6 +40,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
+        $scope.isCN88 = isCN88;
 
         $scope.listOfCustomers = '';
         $scope.feedbackList = '';
@@ -625,7 +626,7 @@
             SettingManager.updateSettingSelectList($scope.multipleLogs.RoleInfo, $scope.roleList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.Response, $scope.responseList);
 
-            SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
+            !$scope.isCN88 && SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 

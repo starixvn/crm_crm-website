@@ -18,6 +18,7 @@
         $scope.languageList = null;
         $scope.titleList = null;
         $scope.licenseeTypes = [];
+        $scope.isCN88 = isCN88;
 
         $scope.isLoadedAllSettings = false;
         $scope.isSetFocus = false;

@@ -14,7 +14,8 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
     var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
-    var hideLicenseeTypeClass = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "hide-item" : "";
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
@@ -102,7 +103,7 @@
                                 <selectwithsearchtree text-settings="TextSettings"
                                                       data-ng-model="selectedSite"
                                                       data-settings="siteDropdownSettings"
-                                                      hide-NA="true"></selectwithsearchtree>
+                                                      hide-NA="isCN88"></selectwithsearchtree>
                             </div>
                         </div>                      
                                                                   
@@ -658,5 +659,6 @@
                     };
                     var customerDetail = @Html.Raw(jsonCustomerDetail);
                     var canEditHeadline = '@canEditHeadline' == 'True';
+                    var isCN88 = '@isCN88' == 'True';
                 </script>
             }

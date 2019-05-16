@@ -9,7 +9,9 @@
     var hasReviewFeedbackPermission = (bool)ViewBag.HasReviewFeedbackPermission;
     var hasUpdateFeedbackPermission = (bool)ViewBag.HasUpdateFeedbackPermission;
     var isDeletedFeedbackView = ViewBag.IsDeletedFeedbackView as string;
-    var isShowDeletedStatus = ViewBag.IsShowDeletedStatus as string;
+    var isShowDeletedStatus = ViewBag.IsShowDeletedStatus as string;    
+    var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCn88 ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -113,11 +115,14 @@
                                 <select id="ddlsite" class="dropdown-siteinfo" tabindex="7" data-ng-model="feedback.CustomerInfo.SiteSetting"
                                         data-ng-options="s.Name group by s.AliasName for s in settings.Sites track by s.Id"
                                         ng-change="updateSelectedSite();">
-                                    <option value="">-- @Labels.Select --</option>
+                                    @if (!isCn88)
+                                    {
+                                        <option value="">-- @Labels.Select --</option>
+                                    }                                    
                                 </select>
                             </div>
                         </div>
-                        <div class="row item">
+                        <div class="row item @hideLicenseeTypeClass">
                             <div class="col-xs-4 col-sm-4 col-md-4 ">
                                 <label for="licensee-type">
                                     @Labels.Licensee_Type

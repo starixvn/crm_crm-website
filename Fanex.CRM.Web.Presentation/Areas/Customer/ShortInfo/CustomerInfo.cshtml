@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/site/common")
@@ -89,7 +90,7 @@
                     <selectwithsearchtree text-settings="TextSettings"
                                           data-ng-model="selectedSite"
                                           data-settings="siteDropdownSettings"
-                                          hide-NA="true"></selectwithsearchtree>
+                                          hide-NA="isCN88"></selectwithsearchtree>
                 </div>
             </div>
             <div class="row item no-border-bg">
@@ -267,5 +268,6 @@
             Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)'
         };
         var username = '@HttpUtility.JavaScriptStringEncode(ViewBag.UserName)';
+        var isCN88 = '@isCN88' == 'True';
     </script>
 }

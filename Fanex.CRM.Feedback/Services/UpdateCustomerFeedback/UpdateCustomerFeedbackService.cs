@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
@@ -26,7 +27,7 @@
             _settingService = settingService ?? new SettingService();
         }
 
-        public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
+        public dynamic GetAllSettings(bool hasDeleteFeedbackPermission, UserRole userRole)
         {
             var countries = _settingService.GetAllCountries();
             countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
@@ -44,10 +45,13 @@
                 }
             }
 
+            var sites = userRole == UserRole.CN88Staff
+                ? _settingService.GetAllSiteWithGroupCN88()
+                : _settingService.GetAllSiteWithGroup().Where(s => s.IsActive);
             return new
             {
                 Titles = _settingService.GetAllTitles(),
-                Sites = _settingService.GetAllSiteWithGroup().Where(s => s.IsActive),
+                Sites = sites,
                 ExtensionList = _settingService.GetAllExtensions(),
                 CommunicationToolList = _settingService.GetAllCommunicationTools(),
                 Countries = countries,

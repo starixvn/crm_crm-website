@@ -53,6 +53,7 @@
             ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
             ViewBag.IsDeletedFeedbackView = isDeletedFeedbackView.ToString().ToLower();
             ViewBag.IsShowDeletedStatus = (isDeletedFeedbackView || HasHostDeleteFeedbackPermission()).ToString().ToLower();
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
@@ -71,7 +72,7 @@
         {
             dynamic settings = null;
             var hasDeleteFeedbackPermission = HasReadPermission(FunctionPermissions.DeleteFeedback);
-            settings = _updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission);
+            settings = _updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission, AppSession.CurrentUser.UserRole);
 
             return Json(settings, JsonRequestBehavior.AllowGet);
         }

@@ -9,6 +9,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_AddGuestFeedback;
+    var hideLicenseeTypeClass = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -97,7 +98,7 @@
                                 <input type="text" class="textbox" id="lastNameInfo" tabindex="4" data-ng-model="customerInfo.LastName" />
                             </div>
                         </div>
-                        <div class="row item">
+                        <div class="row item @hideLicenseeTypeClass">
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <label for="licensee-type">@Labels.Licensee_Type</label>
                             </div>

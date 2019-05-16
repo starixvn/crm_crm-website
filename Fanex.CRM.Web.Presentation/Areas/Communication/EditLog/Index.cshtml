@@ -14,6 +14,8 @@
     var hasHostCreateUpdatePermission = (bool)ViewBag.HasHostCreateUpdatePermission;
     var hasReviewPermission = ((bool)ViewBag.HasReviewPermission).ToString().ToLower();
     var isDeletedStatus = ViewBag.IsDeletedFeedbackView as string;
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -188,19 +190,12 @@
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <selectwithsearchtree text-settings="TextSettings"
                                               data-ng-model="selectedSite"
-                                              data-settings="siteDropdownSettings"></selectwithsearchtree>
+                                              data-settings="siteDropdownSettings"
+                                              hide-NA="isCN88"></selectwithsearchtree>
                     </div>
                 </div>
                 <div class="row row-item">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <label for="licensee-type">
-                            @Labels.Licensee_Type
-                        </label>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 licensee-type-picker-container" data-ng-model="licenseeTypeOptions.DataList">
-                        <select id="licensee-type"></select>
-                    </div>
-                    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
                         <label for="response">
                             @Labels.Response
                         </label>
@@ -208,6 +203,15 @@
                     <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
                         <select id="response"></select>
                     </div>
+                    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
+                        <label for="licensee-type">
+                            @Labels.Licensee_Type
+                        </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 licensee-type-picker-container @hideLicenseeTypeClass" data-ng-model="licenseeTypeOptions.DataList">
+                        <select id="licensee-type"></select>
+                    </div>
+                    
                 </div>
                 <div class="row row-item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -340,6 +344,7 @@
         var hasReviewPermission = @hasReviewPermission;
         var currentUsername = "@AppSession.CurrentUser.Username";
         var isDeletedStatus = '@isDeletedStatus' === 'true';
+        var isCN88 = '@isCN88' == 'True';
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Select:'@Labels.Select',

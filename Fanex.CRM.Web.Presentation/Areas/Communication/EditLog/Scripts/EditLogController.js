@@ -29,6 +29,7 @@
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
         $scope.isLoadedFeedbackSubjectTemplate = false;
+        $scope.isCN88 = isCN88;
 
         $scope.isSuccess = false;
         $scope.isShowResultMessage = false;
