@@ -72,6 +72,7 @@
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
                 CountryList = _serviceSetting.GetAllCountries(),
+                ProvinceList = _serviceSetting.GetAllProvinces(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = statusList,
