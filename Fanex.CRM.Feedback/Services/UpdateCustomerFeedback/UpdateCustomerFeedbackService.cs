@@ -55,6 +55,7 @@
                 ExtensionList = _settingService.GetAllExtensions(),
                 CommunicationToolList = _settingService.GetAllCommunicationTools(),
                 Countries = countries,
+                Provinces = _settingService.GetAllProvinces(),
                 Languages = languages,
                 StatusList = statusRawData,
                 Roles = _settingService.GetAllRoles(),

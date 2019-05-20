@@ -364,6 +364,14 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlprovince">@Labels.Province</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <select id="ddlprovince" tabindex="68" data-ng-model="feedback.Province" data-ng-options="s.Name for s in settings.Provinces track by s.Id"></select>
+                                </div>                                
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlrole">@Labels.Role</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
