@@ -17,6 +17,7 @@
         $scope.statusOptions = null;
 
         $scope.countryOptions = null;
+        $scope.provinceOptions = null;
         $scope.roleOptions = null;
         $scope.subjectOptions = null;
         $scope.descriptionOptions = null;
@@ -74,6 +75,10 @@
             $scope.countryOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCountry
+            };
+            $scope.provinceOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedProvince
             };
             $scope.roleOptions = {
                 DataList: [],

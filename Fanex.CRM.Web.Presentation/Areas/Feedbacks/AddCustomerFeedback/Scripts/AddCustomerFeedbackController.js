@@ -196,6 +196,7 @@
             var defaultLanguage = sharedScriptManager.getDefaultCustomerLangue($scope.customerInfo.Languages) || $scope.allSettings.LanguageList[0];
             $scope.languageOptions.SelectedId = defaultLanguage.Id;
             $scope.countryOptions.SelectedId = $scope.customerInfo.Country.Id;
+            $scope.provinceOptions.SelectedId = $scope.customerInfo.Province.Id;
             $scope.roleOptions.SelectedId = $scope.customerInfo.Role.Id;
 
             $scope.titleOptions.DataList = $scope.allSettings.TitleList;
@@ -205,6 +206,7 @@
             $scope.statusOptions.DataList = $scope.allSettings.StatusList;
 
             $scope.countryOptions.DataList = $scope.allSettings.CountryList;
+            $scope.provinceOptions.DataList = $scope.allSettings.ProvinceList;
             $scope.roleOptions.DataList = $scope.allSettings.RoleList;
             $scope.licenseeTypes = $scope.allSettings.LicenseeType;
 
@@ -268,6 +270,7 @@
             $scope.updateSelectedStatus($scope.statusOptions.DataList[0]);
 
             $scope.updateSelectedCountry($scope.customerInfo.Country);
+            $scope.updateSelectedProvince($scope.customerInfo.Province);
             $scope.updateSelectedRole($scope.customerInfo.Role);
 
             $scope.addCustomerFeedbackParams.CustomerInfo = $scope.customerInfo;

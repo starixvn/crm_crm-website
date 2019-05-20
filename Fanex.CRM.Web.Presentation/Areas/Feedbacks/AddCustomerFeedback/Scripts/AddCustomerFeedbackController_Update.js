@@ -45,6 +45,9 @@
         $scope.updateSelectedCountry = function (country) {
             $scope.addCustomerFeedbackParams.Country = country;
         };
+        $scope.updateSelectedProvince = function (province) {
+            $scope.addCustomerFeedbackParams.Province = province;
+        };
         $scope.updateSelectedRole = function (role) {
             $scope.addCustomerFeedbackParams.Role = role;
         };
