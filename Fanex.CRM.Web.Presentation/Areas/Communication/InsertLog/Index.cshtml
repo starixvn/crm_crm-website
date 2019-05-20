@@ -88,13 +88,12 @@
                                             ng-change="communicationChangeHandler()"></multileveldropdowntree>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                    <label for="language">
-                        @Labels.Language
-                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    <label for="province">
+                        @Labels.Province
                     </label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
-                    <select id="language" class="languageoptions"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-province data-ng-model="provinceList">
+                    <select id="province"></select>
                 </div>
             </div>
             <div class="row row-item">
@@ -209,6 +208,17 @@
                     <select id="licensee-type" data-ng-model="communicationLog.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
                 </div>
                
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2">
+                    <label for="language">
+                        @Labels.Language
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
+                    <select id="language" class="languageoptions"></select>
+                </div>
             </div>
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">

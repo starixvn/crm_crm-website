@@ -362,4 +362,7 @@
   <data name="FeedbackDuplicationError" xml:space="preserve">
     <value>This customer has a similar log with running number {0}. Do you want to create this log?</value>
   </data>
+  <data name="Province" xml:space="preserve">
+    <value>Province</value>
+  </data>
 </root>

@@ -321,6 +321,7 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Province.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsOption.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\CommunicationTool.js" />

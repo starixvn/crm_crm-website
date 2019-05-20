@@ -74,6 +74,9 @@
             Country: {
                 Id: 0
             },
+            Province: {
+                Id: 0
+            },
             LicenseeType: {
                 Id: 0
             }
@@ -82,6 +85,7 @@
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.extensionList = null;
         $scope.countryList = null;
+        $scope.provinceList = null;
         $scope.communicationToolList = null;
         $scope.languageList = null;
         $scope.mainCategoryList = null;
@@ -183,6 +187,10 @@
                 Id: $scope.defaultSettings.CountryId
             };
 
+            $scope.communicationLog.Province = {
+                Id: $scope.defaultSettings.ProvinceId
+            };
+
             $scope.communicationLog.SiteInfo = {
                 Id: $scope.defaultSettings.SiteId
             };
@@ -220,6 +228,12 @@
                 if ($scope.copiedCommunicationLog.Country) {
                     $scope.communicationLog.Country = {
                         Id: $scope.copiedCommunicationLog.Country.Id
+                    };
+                }
+
+                if ($scope.copiedCommunicationLog.Province) {
+                    $scope.communicationLog.Province = {
+                        Id: $scope.copiedCommunicationLog.Province.Id
                     };
                 }
 
@@ -389,6 +403,29 @@
                 $scope.communicationLog.Country = countryInfo;
             } else {
                 $scope.communicationLog.Country = {
+                    Id: crmConstants.Enums.Country.NotApply
+                };
+            }
+
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        };
+        $scope.updateSelectedProvince = function (provinceInfoId) {
+            provinceInfoId = parseInt(provinceInfoId);
+            var provinceInfo;
+            var provinceListLength = $scope.provinceList.length;
+            for (var i = 0; i < provinceListLength; i++) {
+                var province = $scope.provinceList[i];
+                if (province.Id === provinceInfoId) {
+                    provinceInfo = province;
+                    break;
+                }
+            }
+
+            if (provinceInfo) {
+                $scope.communicationLog.Province = provinceInfo;
+            } else {
+                $scope.communicationLog.Province = {
                     Id: crmConstants.Enums.Country.NotApply
                 };
             }
@@ -843,6 +880,7 @@
                 var allSetting = data.Result;
                 $scope.allSettings = data.Result;
                 $scope.countryList = allSetting.CountryList;
+                $scope.provinceList = allSetting.ProvinceList;
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.statusList = allSetting.StatusList;
