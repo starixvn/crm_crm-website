@@ -102,6 +102,10 @@
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 },
+                Province = new Province
+                {
+                    Id = 0
+                },
                 CustomerId = Converter.ToInt(reader["CustId"]),
                 CustomerName = Converter.ToString2(reader["UserName"]),
 

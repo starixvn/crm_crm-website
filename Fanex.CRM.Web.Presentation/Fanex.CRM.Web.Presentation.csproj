@@ -371,6 +371,7 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\EditMultipleLogStatusesController.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Scripts\EditMultipleLogStatusesService.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\Images\warning.png" />
+    <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\Province.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsApplication.js" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Scripts\EditMultipleLogsController.js" />

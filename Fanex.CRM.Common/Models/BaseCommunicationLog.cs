@@ -56,6 +56,8 @@ namespace Fanex.CRM.Common.Models
 
         public Country Country { get; set; }
 
+        public Province Province { get; set; }
+
         public Setting CommunicationTool { get; set; }
 
         public Setting Language { get; set; }
