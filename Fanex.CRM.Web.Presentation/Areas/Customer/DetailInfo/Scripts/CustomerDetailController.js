@@ -53,7 +53,7 @@
                 $scope.siteList = data.Result.Sites;
                 $scope.titleList = data.Result.Titles;
                 $scope.countryList = data.Result.Countries;
-                $scope.provinceList = data.Result.Countries;                
+                $scope.provinceList = data.Result.Provinces;                
                 $scope.languageList = data.Result.Languages;
                 $scope.licenseeTypes = data.Result.LicenseeTypes;
                 $scope.isLoadedAllSettings = true;

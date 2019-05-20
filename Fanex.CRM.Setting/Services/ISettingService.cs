@@ -32,6 +32,8 @@ namespace Fanex.CRM.Setting.Services
 
         IList<Country> GetAllCountries();
 
+        IList<Province> GetAllProvinces();
+
         IList<Setting> GetAllLanguages();
 
         IList<SettingRelation> GetAllExtensions();

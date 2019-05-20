@@ -76,7 +76,8 @@ namespace Fanex.CRM.Customer.Services
                 Languages = _settingService.GetAllLanguages(),
                 Sites = userRole == UserRole.CN88Staff ? _settingService.GetAllSitesCN88() : _settingService.GetAllSites(),
                 LicenseeTypes = _settingService.GetAllLicenseeTypes(),
-                Countries = _settingService.GetAllCountries()
+                Countries = _settingService.GetAllCountries(),
+                Provinces = _settingService.GetAllProvinces()
             };
         }
     }

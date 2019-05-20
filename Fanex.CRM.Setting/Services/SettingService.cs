@@ -250,6 +250,17 @@ namespace Fanex.CRM.Setting.Services
             return allCountry;
         }
 
+        public IList<Province> GetAllProvinces()
+        {
+            var allProvinces = new List<Province> {
+                new Province { Id = 1, Name = "Province 1" },
+                new Province { Id = 2, Name = "Province 2" }
+            };
+
+
+            return allProvinces;
+        }
+
         public IList<Setting> GetAllLanguages()
         {
             var allLanguages = CacheService.Get<IList<Setting>>(GetAllLanguageSessionKey);
