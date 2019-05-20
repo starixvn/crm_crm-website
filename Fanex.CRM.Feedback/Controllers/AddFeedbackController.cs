@@ -67,6 +67,7 @@
             {
                 ExtensionList = ServiceSetting.GetAllExtensions(),
                 CountryList = countries,
+                ProvinceList = ServiceSetting.GetAllProvinces(),
                 CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
                 LanguageList = languages,
                 SiteList = (userRole == UserRole.CN88Staff) ? ServiceSetting.GetAllSiteWithGroupCN88() : ServiceSetting.GetAllSiteWithGroup(),

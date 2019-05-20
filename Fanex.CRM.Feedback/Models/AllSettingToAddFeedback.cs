@@ -13,6 +13,8 @@
 
         public IEnumerable<Country> CountryList { get; set; }
 
+        public IEnumerable<Province> ProvinceList { get; set; }
+
         public IEnumerable<Setting> CommunicationToolList { get; set; }
 
         public IEnumerable<Setting> LanguageList { get; set; }

@@ -19,6 +19,7 @@
         addGuestFeedbackRegister.registerExtensionPicker();
         addGuestFeedbackRegister.registerSubCategoryPicker();
         addGuestFeedbackRegister.registerCountryPicker();
+        addGuestFeedbackRegister.registerProvincePicker();
 
         addGuestFeedbackRegister.registerSubjectAutoComplete();
         addGuestFeedbackRegister.registerDescriptionHtml();
