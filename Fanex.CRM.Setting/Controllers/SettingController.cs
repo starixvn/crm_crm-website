@@ -10,11 +10,13 @@
 namespace Fanex.CRM.Setting.Controllers
 {
     using Common.Enumerations;
+    using Common.Models;
     using Common.Services;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     /// <summary>
@@ -56,6 +58,17 @@ namespace Fanex.CRM.Setting.Controllers
         {
             var allCountry = _settingServiceInstance.GetAllCountries();
             return Json(allCountry, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AllProvince()
+        {
+            var allProvince = new List<Province> {
+                new Province { Id = 1, Name = "Province 1" },
+                new Province { Id = 2, Name = "Province 2" }
+            };
+
+            return Json(allProvince, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -17,6 +17,10 @@
                 Id: 0,
                 Name: ""
             },
+            Province: {
+                Id: 0,
+                Name: ""
+            },
             FirstName: "",
             LastName: "",
             NickName: "",
@@ -190,6 +194,7 @@
 
             $scope.customer.SiteSetting.Id = updatedParams.SiteSettingId;
             $scope.customer.Country.Id = updatedParams.CountryId;
+            $scope.customer.Province.Id = updatedParams.ProvinceId;
             $scope.oldCustomer = angular.copy($scope.customer);
 
             $scope.oldLanguages = customerManager.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
@@ -256,6 +261,7 @@
                     $scope.customer &&
                     ($scope.oldCustomer.SiteSetting.Id !== $scope.customer.SiteSetting.Id ||
                     $scope.oldCustomer.Country.Id !== $scope.customer.Country.Id ||
+                    $scope.oldCustomer.Province.Id !== $scope.customer.Province.Id ||
                     $scope.oldCustomer.FirstName !== $scope.customer.FirstName ||
                     $scope.oldCustomer.LastName !== $scope.customer.LastName ||
                     $scope.oldLanguages !== $scope.customer.SelectedLanguages ||

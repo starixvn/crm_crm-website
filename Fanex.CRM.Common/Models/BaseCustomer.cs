@@ -25,6 +25,7 @@ namespace Fanex.CRM.Common.Models
             Title = new Setting();
             SiteSetting = new Site();
             Country = new BaseModel();
+            Province = new BaseModel();
             Languages = new List<BaseModel>();
             PhoneInfo = new List<Phone>();
             PersonalInfoContacts = new List<PersonalInfoContact>();
@@ -111,6 +112,8 @@ namespace Fanex.CRM.Common.Models
         #endregion
 
         public BaseModel Country { get; set; }
+
+        public BaseModel Province { get; set; }
 
         public List<BaseModel> Languages { get; set; }
 

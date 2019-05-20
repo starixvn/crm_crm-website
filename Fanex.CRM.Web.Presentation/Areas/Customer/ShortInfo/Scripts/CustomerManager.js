@@ -49,6 +49,7 @@
 
             isLoadedSite: false,
             isLoadedCountry: false,
+            isLoadedProvince: false,
             isLoadedLanguage: false,
 
             controllerScope: null
@@ -65,6 +66,7 @@
             self.DOMElements.textboxUsername = parent.$("#txtuserName");
             self.DOMElements.dropdownSite = $("#customerinfo-siteoptions");
             self.DOMElements.dropdownCountry = $("#customerinfo-countryoptions");
+            self.DOMElements.dropdownProvince = $("#customerinfo-provinceoptions");
             self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
             self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
             self.DOMElements.autocompleteBox = parent.$("#Autocomplete_1");
@@ -255,6 +257,7 @@
 
             self.getAllSite();
             self.getAllCountry();
+            self.getAllProvince();
             self.getAllLanguage();
             parent.menuManager.showLeftPanel();
             self.updateCustomerSuggestion(customer);
@@ -273,6 +276,7 @@
         self.completedLoadLeftPanel = function () {
             if (self.CacheData.isLoadedSite &&
             self.CacheData.isLoadedCountry &&
+            self.CacheData.isLoadedProvince &&                
             self.CacheData.isLoadedLanguage) {
                 self.unblockUI();
             }
@@ -287,6 +291,7 @@
             null,
             self.completedLoadLeftPanel);
         };
+
         self.renderAllSiteResult = function (result) {
             self.CacheData.controllerScope.selectedSite = self.CacheData.currentCustomer.SiteSetting;
             self.CacheData.controllerScope.siteDropdownSettings = {
@@ -298,7 +303,8 @@
 
             self.CacheData.controllerScope.$apply();
             self.CacheData.isLoadedSite = true;
-        };
+        };       
+
         self.getAllCountry = function () {
             self.CacheData.isLoadedCountry = false;
             sharedScriptManager.CallAjax(self,
@@ -308,6 +314,17 @@
             null,
             self.completedLoadLeftPanel);
         };
+
+        self.getAllProvince = function () {
+            self.CacheData.isLoadedProvince = false;
+            sharedScriptManager.CallAjax(self,
+            window.rootUrl + "Setting/AllProvince",
+            null,
+            self.renderAllProvinceResult,
+            null,
+            self.completedLoadLeftPanel);
+        };
+
         self.renderAllCountryResult = function (result) {
             var siteOptions = '';
             siteOptions += '<option value="' + crmConstants.Enums.Country.NotApply + '">' +
@@ -331,6 +348,31 @@
             });
             self.CacheData.isLoadedCountry = true;
         };
+
+        self.renderAllProvinceResult = function (result) {
+            var siteOptions = '';
+            siteOptions += '<option value="' + crmConstants.Enums.Country.NotApply + '">' +
+                            self.CacheData.ViewResources.Symbol_NotApply +
+                        '</option>';
+            if (result && result.length > 0) {
+                var countryLength = result.length;
+                for (var i = 0; i < countryLength; i++) {
+                    var province = result[i];
+                    siteOptions += '<option value="' + province.Id + '"' + '>' +
+                                    province.Name +
+                                '</option>';
+                }
+            }
+
+            self.DOMElements.dropdownProvince.empty().html(siteOptions);
+            self.DOMElements.dropdownProvince.val(self.CacheData.currentCustomer.Province.Id);
+            self.DOMElements.dropdownProvince.find('option').click(function () {
+                self.CacheData.controllerScope.customer.Province.Id = parseInt(customerManager.DOMElements.dropdownProvince.val());
+                self.CacheData.controllerScope.$apply();
+            });
+            self.CacheData.isLoadedProvince = true;
+        };
+
         self.getAllLanguage = function () {
             self.CacheData.isLoadedLanguage = false;
             sharedScriptManager.CallAjax(self,
@@ -418,6 +460,7 @@
                 SiteSettingId: self.CacheData.controllerScope.selectedSite ?
                     self.CacheData.controllerScope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 CountryId: parseInt(self.DOMElements.dropdownCountry.val()),
+                ProvinceId: parseInt(self.DOMElements.dropdownProvince.val()),
                 FirstName: customer.FirstName,
                 LastName: customer.LastName,
                 NickName: customer.NickName,
