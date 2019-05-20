@@ -15,6 +15,7 @@
         $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
         $scope.siteList = null;
         $scope.countryList = null;
+        $scope.provinceList = null;
         $scope.languageList = null;
         $scope.titleList = null;
         $scope.licenseeTypes = [];
@@ -52,6 +53,7 @@
                 $scope.siteList = data.Result.Sites;
                 $scope.titleList = data.Result.Titles;
                 $scope.countryList = data.Result.Countries;
+                $scope.provinceList = data.Result.Countries;                
                 $scope.languageList = data.Result.Languages;
                 $scope.licenseeTypes = data.Result.LicenseeTypes;
                 $scope.isLoadedAllSettings = true;
@@ -246,6 +248,28 @@
                 $scope.customerDetail.AddressInfo.Country = countryInfo;
             } else {
                 $scope.customerDetail.AddressInfo.Country = {
+                    Id: crmConstants.Enums.Country.NotApply
+                };
+            }
+
+            $scope.$apply();
+        };
+        $scope.updateSelectedProvince = function (provinceInfoId) {
+            provinceInfoId = parseInt(provinceInfoId);
+            var provinceInfo;
+            var provinceListLength = $scope.provinceList.length;
+            for (var i = 0; i < provinceListLength; i++) {
+                var province = $scope.provinceList[i];
+                if (province.Id === provinceInfoId) {
+                    provinceInfo = province;
+                    break;
+                }
+            }
+
+            if (provinceInfo) {
+                $scope.customerDetail.AddressInfo.Province = provinceInfo;
+            } else {
+                $scope.customerDetail.AddressInfo.Province = {
                     Id: crmConstants.Enums.Country.NotApply
                 };
             }

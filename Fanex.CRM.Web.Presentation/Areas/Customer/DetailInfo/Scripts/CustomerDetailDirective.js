@@ -85,6 +85,43 @@
                 });
             }
         };
+    }).directive('dropdownProvinceContainer', function () {
+        function renderDropdown(scope, element) {
+            if (scope.provinceList) {
+                var dropdown = element.find("#customerinfodetail-provinceoptions");
+                dropdown.empty();
+                /* jshint camelcase: false */
+                dropdown.append(
+                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
+                    (scope.customerDetail.Province.Id === crmConstants.Enums.Country.NotApply ? ' selected="selected"' : '') +
+                    '">' + viewResources.Symbol_NotApply +
+                '</option>');
+                var provinceListLength = scope.provinceList.length;
+                for (var i = 0; i < provinceListLength; i++) {
+                    var province = scope.provinceList[i];
+                    dropdown.append(
+                    '<option' +
+                        ' value="' + province.Id + '"' +
+                        (scope.customerDetail.Province.Id === province.Id ? ' selected="selected"' : '') +
+                    '>' + province.Name + '</option>');
+                }
+
+                element.change(function () {
+                    scope.updateSelectedProvince(dropdown.find('option:selected').val());
+                });
+            }
+        }
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: false */
+                    renderDropdown(scope, element);
+                });
+            }
+        };
     }).directive('dropdownCountryBankContainer', function () {
         function renderDropdown(scope, element) {
             if (scope.countryList) {

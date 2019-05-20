@@ -17,7 +17,7 @@
             param.Remove("UserRole");
             param["siteid"] = CustomerInfo.SiteSetting.Id;
             param.Add("custid", CustomerInfo.Id);
-            param.Add("roleid", Role.Id);
+            param["roleid"] = Role.Id;
             param["relatedcustid"] = HasRelated && !string.IsNullOrWhiteSpace(RelatedCustomerId) ?
                 RelatedCustomerId :
                 null;
