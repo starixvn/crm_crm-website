@@ -665,9 +665,9 @@
     <Content Include="Configurations\backupMNL.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\backupMNL.Web.Setting.config">
+    <Content Include="Configurations\backupMNL.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\CN88Local.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
     </Content>
@@ -679,28 +679,28 @@
       <SubType>Designer</SubType>
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\dev.Web.Setting.config">
+    <Content Include="Configurations\dev.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\Local.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\Local.Web.Setting.config">
+    <Content Include="Configurations\Local.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\Master.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\Master.Web.Setting.config">
+    <Content Include="Configurations\Master.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\PRO.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\PRO.Web.Setting.config">
+    <Content Include="Configurations\PRO.Web.Setting.config">
       <SubType>Designer</SubType>
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
@@ -736,49 +736,49 @@
     <Content Include="Configurations\UAT.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\UAT.Web.Setting.config">
+    <Content Include="Configurations\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\UATSandBox.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\UATSandBox.Web.Setting.config">
+    <Content Include="Configurations\UATSandBox.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\UATSIT.ConnectionStrings.config">
       <DependentUpon>ConnectionStrings.config</DependentUpon>
     </Content>
-    <None Include="Configurations\UATSIT.Web.Setting.config">
+    <Content Include="Configurations\UATSIT.Web.Setting.config">
       <DependentUpon>Web.Setting.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.backupMNL.config">
+    </Content>
+    <Content Include="Configurations\Web.backupMNL.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\Web.CN88LOCAL.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Configurations\Web.CN88UAT.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <None Include="Configurations\Web.DEV.config">
+    <Content Include="Configurations\Web.DEV.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.LOCAL.config">
+    </Content>
+    <Content Include="Configurations\Web.LOCAL.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.Master.config">
+    </Content>
+    <Content Include="Configurations\Web.Master.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.PRO.config">
+    </Content>
+    <Content Include="Configurations\Web.PRO.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.UAT.config">
+    </Content>
+    <Content Include="Configurations\Web.UAT.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Configurations\Web.UATSIT.config">
+    </Content>
+    <Content Include="Configurations\Web.UATSIT.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
+    </Content>
     <Content Include="Configurations\_Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_Web.config.txt</LastGenOutput>
@@ -1527,9 +1527,9 @@
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Configurations\Web.UATSandBox.config">
+    <Content Include="Configurations\Web.UATSandBox.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
+    </Content>
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <PropertyGroup>
