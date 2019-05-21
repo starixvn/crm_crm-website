@@ -139,6 +139,7 @@
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Criteria\GetAllProvinceCriteria.cs" />
     <Compile Include="Criteria\GetStationsCriteria.cs" />
     <Compile Include="Criteria\GetAllReportByRedemptionCriteria.cs" />
     <Compile Include="Criteria\GetAllCurrencyRedemptionCriteria.cs" />

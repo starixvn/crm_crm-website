@@ -29,6 +29,8 @@ namespace Fanex.CRM.Customer.Criteria
 
         public int CountryId { get; set; }
 
+        public int ProvinceId { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -100,6 +102,7 @@ namespace Fanex.CRM.Customer.Criteria
             var param = new Hashtable();
             param.Add("site", SiteSettingId);
             param.Add("countryid", CountryId);
+            param.Add("provinceid", ProvinceId);
             param.Add("firstname", StringExtension.GetValueNotNull(FirstName));
             param.Add("lastname", StringExtension.GetValueNotNull(LastName));
             param.Add("language", StringExtension.GetValueNotNull(Languages));

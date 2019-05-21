@@ -98,6 +98,31 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
+        public IList<Province> GetAllProvinces(GetAllProvinceCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    var settings = new List<Province>();
+                    while (reader.Read())
+                    {
+                        var setting = new Province()
+                        {
+                            Id = Converter.ToInt(reader["ProvinceID"]),
+                            Name = Converter.ToString2(reader["ProvinceName"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            CountryId = Converter.ToInt(reader["CountryID"])
+                        };
+
+                        settings.Add(setting);
+                    }
+
+                    return settings;
+                }
+            }
+        }
+
         public IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))

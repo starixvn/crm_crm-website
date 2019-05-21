@@ -8,6 +8,7 @@
 
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hiddenClass = isCN88 ? "" : "hide-item";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/site/common")
@@ -101,7 +102,7 @@
                     <select id="customerinfo-countryoptions" tabindex="5" data-ng-keyup="textBoxKeyUp($event);"></select>
                 </div>
             </div>
-            <div class="row item no-border-bg">
+            <div class="row item no-border-bg @hiddenClass">
                 <label for="customerinfo-provinceoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Province
                 </label>

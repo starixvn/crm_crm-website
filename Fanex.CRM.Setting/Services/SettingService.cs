@@ -252,13 +252,8 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<Province> GetAllProvinces()
         {
-            var allProvinces = new List<Province> {
-                new Province { Id = 1, Name = "Province 1" },
-                new Province { Id = 2, Name = "Province 2" }
-            };
 
-
-            return allProvinces;
+            return _settingRepositoryInstance.GetAllProvinces(new GetAllProvinceCriteria());
         }
 
         public IList<Setting> GetAllLanguages()

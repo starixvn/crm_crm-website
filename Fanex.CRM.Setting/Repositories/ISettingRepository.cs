@@ -23,6 +23,8 @@ namespace Fanex.CRM.Setting.Repositories
 
         IList<Country> GetAllCountries(GetAllCountryCriteria criteria);
 
+        IList<Province> GetAllProvinces(GetAllProvinceCriteria criteria);
+
         IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
         IList<Setting> GetAllLanguages(GetAllLanguageCriteria criteria);

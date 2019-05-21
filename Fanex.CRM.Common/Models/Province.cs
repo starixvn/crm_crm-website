@@ -7,5 +7,7 @@ namespace Fanex.CRM.Common.Models
         public bool IsActive { get; set; }
 
         public int DisplayOrder { get; set; }
+
+        public int CountryId { get; set; }
     }
 }

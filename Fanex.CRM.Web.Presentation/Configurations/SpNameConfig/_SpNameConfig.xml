@@ -34,8 +34,7 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationCommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationSpecialRemarkSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
-  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingUpd" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingDel" EnvironmentText="_xpre"></SpNameConfig>
@@ -44,5 +43,22 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateUpd" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SubjectTemplateDel" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerIns_New" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerUpd_New" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGuestIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ActivityLogList" EnvironmentText="_xpre"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CountryList" EnvironmentText="_xpre"></SpNameConfig>
+  
+
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceUpd" EnvironmentText="_xpre"></SpNameConfig>
   
 </Root>

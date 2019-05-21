@@ -350,10 +350,7 @@
         };
 
         self.renderAllProvinceResult = function (result) {
-            var siteOptions = '';
-            siteOptions += '<option value="' + crmConstants.Enums.Country.NotApply + '">' +
-                            self.CacheData.ViewResources.Symbol_NotApply +
-                        '</option>';
+            var siteOptions = '';            
             if (result && result.length > 0) {
                 var countryLength = result.length;
                 for (var i = 0; i < countryLength; i++) {
