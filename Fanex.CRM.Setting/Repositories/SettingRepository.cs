@@ -76,7 +76,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var settings = new List<Country>();
                     while (reader.Read())

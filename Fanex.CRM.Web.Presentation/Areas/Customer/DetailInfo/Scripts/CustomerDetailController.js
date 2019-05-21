@@ -161,7 +161,7 @@
                 HomeAddressLine3: customerDetail.AddressInfo.LineList[2],
                 HomeAddressCity: customerDetail.AddressInfo.City,
                 HomeAddressCountryId: customerDetail.AddressInfo.Country.Id,
-                ProvinceID: $scope.isCN88 ? customerDetail.AddressInfo.Province.Id : 0,
+                ProvinceID: customerDetail.AddressInfo.Province ? customerDetail.AddressInfo.Province.Id : 0,
                 HomeAddressPostCode: customerDetail.AddressInfo.PostCode,
                 HomeAddressState: customerDetail.AddressInfo.State,
                 BankAddressLine1: customerDetail.BankInfo.AddressInfo.LineList[0],
