@@ -90,12 +90,7 @@
             if (scope.provinceList) {
                 var dropdown = element.find("#customerinfodetail-provinceoptions");
                 dropdown.empty();
-                /* jshint camelcase: false */
-                dropdown.append(
-                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
-                    (scope.customerDetail.Province.Id === crmConstants.Enums.Country.NotApply ? ' selected="selected"' : '') +
-                    '">' + viewResources.Symbol_NotApply +
-                '</option>');
+                /* jshint camelcase: false */               
                 var provinceListLength = scope.provinceList.length;
                 for (var i = 0; i < provinceListLength; i++) {
                     var province = scope.provinceList[i];

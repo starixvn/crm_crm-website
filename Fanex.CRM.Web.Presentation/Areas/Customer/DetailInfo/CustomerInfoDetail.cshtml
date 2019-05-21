@@ -16,6 +16,7 @@
     var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var hideProvinceClass = isCN88 ? "" : "hide-item";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
@@ -504,7 +505,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row @hideProvinceClass">
                                 <div class="item col-md-6">
                                     <div class="col-md-3 widthCol">
                                         <label for="customerinfodetail-provinceoptions">
