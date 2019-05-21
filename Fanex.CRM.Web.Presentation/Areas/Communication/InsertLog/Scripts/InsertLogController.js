@@ -91,6 +91,7 @@
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
         $scope.isCN88 = isCN88;
+        $scope.CN88SiteId = CN88SiteId;
         
         $scope.betTypeList = null;
         $scope.statusList = null;
@@ -889,7 +890,11 @@
                 $scope.responseList = allSetting.ResponseList;
                 $scope.defaultSettings = allSetting.DefaultSettings;
                 $scope.licenseeTypes = allSetting.LicenseeType;
-               
+                
+                if ($scope.isCN88) {
+                    $scope.selectedSite = { Id: $scope.CN88SiteId, Name: "CN88" };
+                }
+                
                 $scope.siteDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",

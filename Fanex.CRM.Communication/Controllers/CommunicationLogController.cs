@@ -12,6 +12,7 @@
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Constants;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -176,6 +177,7 @@
         {
             ViewBag.customerId = customerId;
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
             return View("~/Areas/Communication/InsertLog/Index.cshtml");
         }
 
