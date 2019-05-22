@@ -6,20 +6,13 @@
             if (scope.provinceList) {
                 var dropdown = element.find("#province");
                 dropdown.empty();
-                /* jshint camelcase: false */
-                dropdown.append(
-                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
-                     (crmConstants.Enums.Country.NotApply === scope.multipleLogs.Province.Id ?
-                        ' selected="selected"' :
-                        '') +
-                     '>' + viewResources.Symbol_NotApply +
-                '</option>');
+                /* jshint camelcase: false */               
                 var provinceListLength = scope.provinceList.length;
                 for (var i = 0; i < provinceListLength; i++) {
                     var province = scope.provinceList[i];
                     dropdown.append(
                     '<option value="' + province.Id + '"' +
-                        (province.Id === scope.multipleLogs.Country.Id ?
+                        (province.Id === scope.multipleLogs.Province.Id ?
                         ' selected="selected"' :
                         '') +
                     '>' + province.Name + '</option>');

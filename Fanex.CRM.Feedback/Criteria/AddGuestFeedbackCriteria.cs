@@ -51,6 +51,8 @@
 
         public Country Country { get; set; }
 
+        public Province Province { get; set; }
+
         public Setting Role { get; set; }
 
         public string Subject { get; set; }
@@ -160,6 +162,7 @@
             param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(EndTime));
             param.Add("countryid", Country.Id);
+            param.Add("provinceid", Province.Id);
             param.Add("languageid", Language.Id);
             param.Add("responseid", Response.Id);
             param.Add("statusid", Status.Id);

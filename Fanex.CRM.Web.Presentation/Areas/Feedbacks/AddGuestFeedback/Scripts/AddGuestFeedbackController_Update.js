@@ -48,7 +48,7 @@
             $scope.addGuestFeedbackParams.Country = country;
         };
         $scope.updateSelectedProvince = function (province) {
-            $scope.addGuestFeedbackParams.province = province;
+            $scope.addGuestFeedbackParams.Province = province;
         };
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;

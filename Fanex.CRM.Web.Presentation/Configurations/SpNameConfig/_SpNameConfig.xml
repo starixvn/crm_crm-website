@@ -56,7 +56,8 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ActivityLogList" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CountryList" EnvironmentText="_xpre"></SpNameConfig>
-  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceUpd" EnvironmentText="_xpre"></SpNameConfig>

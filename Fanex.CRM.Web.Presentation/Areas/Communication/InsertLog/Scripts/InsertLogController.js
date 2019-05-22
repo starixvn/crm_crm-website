@@ -60,10 +60,7 @@
                 Id: 0,
                 Value: ''
             },
-            RoleInfo: {
-                Id: 0,
-                Value: ''
-            },
+            RoleInfo: { Id: 0, Value: ''},
             Response: {
                 Id: 0,
                 Value: ''
@@ -81,6 +78,9 @@
                 Id: 0
             }
         };
+
+        console.log("write");
+        console.log($scope.communicationLog.RoleInfo);
 
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.extensionList = null;
@@ -597,6 +597,7 @@
                 RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
                 LanguageId: $scope.communicationLog.LanguageId,
                 CountryId: $scope.communicationLog.Country.Id,
+                ProvinceId: $scope.communicationLog.Province.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,

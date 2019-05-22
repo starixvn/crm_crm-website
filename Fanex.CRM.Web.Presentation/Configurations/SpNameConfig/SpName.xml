@@ -73,7 +73,7 @@
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdateSiteLicenseeTypes" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdMultipleReviewAndStatus" SpName="Acc_CRM_UpdMultipleReviewAndStatus" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
@@ -92,7 +92,7 @@
     <Setting Key="Setting_SettingInfo_GetAllSubProduct" SpName="Acc_CRM_SubProductList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="CustomerFeedback">
-    <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

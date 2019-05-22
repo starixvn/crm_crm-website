@@ -15,6 +15,8 @@
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }
 
+        public int ProvinceId { get; set; }
+
         [SpParam(SqlParamName = "siteid")]
         public int SiteId { get; set; }
 

@@ -6,14 +6,7 @@
             if (scope.provinceList) {
                 var dropdown = element.find("#province");
                 dropdown.empty();
-                /* jshint camelcase: false */
-                dropdown.append(
-                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
-                     (crmConstants.Enums.Country.NotApply === scope.communicationLog.Province.Id ?
-                        ' selected="selected"' :
-                        '') +
-                     '>' + viewResources.Symbol_NotApply +
-                '</option>');
+                /* jshint camelcase: false */                
                 var provinceListLength = scope.provinceList.length;
                 for (var i = 0; i < provinceListLength; i++) {
                     var province = scope.provinceList[i];
