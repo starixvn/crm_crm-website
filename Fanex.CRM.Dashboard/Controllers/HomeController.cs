@@ -65,6 +65,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         public PartialViewResult GettingDashboardMenu()
         {
             ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 

@@ -1,5 +1,7 @@
 ﻿@{
     bool hasCustomerInfoPermission = (bool)ViewBag.HasCustomerInfoPermission;
+    var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideClass = isCn88 ? "hide-item" : "";
 }
 <ul class="list-unstyled list-inline" id="ulDashboardMenu">
     <li class="active" id="liMain"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
@@ -15,7 +17,7 @@
         <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
             Special Remar<span class="hotkey">k</span></a></li>
         
-        <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
+        <li id="liRedemption" class="@hideClass"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
             Redem<span class="hotkey">p</span>tion</a></li>
         
         <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">

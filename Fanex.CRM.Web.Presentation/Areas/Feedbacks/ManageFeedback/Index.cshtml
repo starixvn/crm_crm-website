@@ -8,6 +8,7 @@
     var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
     bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
     int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
@@ -138,6 +139,7 @@
         var username = '@HttpUtility.JavaScriptStringEncode(Model.CustName)';
         var isGuest = @isGuest;
         var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
+        var isCN88 = '@isCN88' == 'True';
 
         var manageFeedbackResources = {
             All: '@Labels.All',
