@@ -79,9 +79,6 @@
             }
         };
 
-        console.log("write");
-        console.log($scope.communicationLog.RoleInfo);
-
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.extensionList = null;
         $scope.countryList = null;

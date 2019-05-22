@@ -9,9 +9,10 @@
     var hasReviewFeedbackPermission = (bool)ViewBag.HasReviewFeedbackPermission;
     var hasUpdateFeedbackPermission = (bool)ViewBag.HasUpdateFeedbackPermission;
     var isDeletedFeedbackView = ViewBag.IsDeletedFeedbackView as string;
-    var isShowDeletedStatus = ViewBag.IsShowDeletedStatus as string;    
+    var isShowDeletedStatus = ViewBag.IsShowDeletedStatus as string;
     var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideLicenseeTypeClass = isCn88 ? "hide-item" : "";
+    var hideProvinceClass = isCn88 ? "" : "hide-item";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -356,20 +357,12 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlcountry">@Labels.Country</label>
+                                    <label for="ddlresponse">@Labels.Response</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settings.Countries track by s.Id"></select>
+                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
                                 </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlprovince">@Labels.Province</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlprovince" tabindex="68" data-ng-model="feedback.Province" data-ng-options="s.Name for s in settings.Provinces track by s.Id"></select>
-                                </div>                                
-                            </div>
+                            </div>                            
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlrole">@Labels.Role</label>
@@ -378,6 +371,8 @@
                                     <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settings.Roles track by s.Id"></select>
                                 </div>
                             </div>
+                            
+                           
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="row item">
@@ -424,10 +419,10 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlresponse">@Labels.Response</label>
+                                    <label for="ddlcountry">@Labels.Country</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
+                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settings.Countries track by s.Id"></select>
                                 </div>
                             </div>
                         </div>
@@ -473,6 +468,14 @@
                                     <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id"></select>
                                 </div>
                             </div>                            
+                            <div class="row item @hideProvinceClass">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlprovince">@Labels.Province</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <select id="ddlprovince" tabindex="68" data-ng-model="feedback.Province" data-ng-options="s.Name for s in settings.Provinces track by s.Id"></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

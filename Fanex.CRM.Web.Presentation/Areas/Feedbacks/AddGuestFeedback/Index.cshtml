@@ -9,7 +9,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_AddGuestFeedback;
-    var hideLicenseeTypeClass = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "hide-item" : "";
+    var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var hideProvinceClass = isCN88 ? "" : "hide-item";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -341,6 +343,14 @@
                             </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlstatus">@Language.Status</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
+                                    <select id="status" tabindex="70"></select>
+                                </div>
+                            </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlcountry">@Language.country</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 country-picker-container" data-ng-model="countryOptions.DataList">
@@ -348,14 +358,7 @@
                                 </div>
                             </div>
 
-                            <div class="row item">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlcprovince">@Language.Province</label>
-                                </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 province-picker-container" data-ng-model="provinceOptions.DataList">
-                                    <select id="province" tabindex="68"></select>
-                                </div>
-                            </div>                            
+                                                       
                         </div>
                         <div class="col-md-4">
                             <div class="row item">
@@ -399,14 +402,14 @@
                                     <select id="language" tabindex="69"></select>
                                 </div>
                             </div>
-                            <div class="row item">
+                            <div class="row item @hideProvinceClass">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <label for="ddlstatus">@Language.Status</label>
+                                    <label for="ddlcprovince">@Language.Province</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8 status-picker-container" data-ng-model="statusOptions.DataList">
-                                    <select id="status" tabindex="70"></select>
+                                <div class="col-xs-8 col-sm-8 col-md-8 province-picker-container" data-ng-model="provinceOptions.DataList">
+                                    <select id="province" tabindex="68"></select>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <div class="col-md-4">
                             <div class="row item">

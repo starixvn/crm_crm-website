@@ -16,6 +16,7 @@
     var isDeletedStatus = ViewBag.IsDeletedFeedbackView as string;
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var hideProvinceClass = isCN88 ? "" : "hide-item";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -70,12 +71,12 @@
                                datetimepicker />
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                        <label for="country">
-                            @Labels.Country
+                        <label for="response">
+                            @Labels.Response
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
-                        <select id="country"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                        <select id="response"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -91,12 +92,13 @@
                                                 data-settings="communicationDropdownSettings"></multileveldropdowntree>
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                        <label for="province">
-                            @Labels.Province
+                        <label for="language">
+                            @Labels.Language
+                            @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-province data-ng-model="provinceList">
-                        <select id="province"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
+                        <select id="language" class="languageoptions"></select>
                     </div>
                 </div>
                 <div class="row row-item">
@@ -193,14 +195,14 @@
                                               hide-NA="isCN88"></selectwithsearchtree>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item">                    
                     <div class="col-xs-2 col-sm-2 col-md-2">
-                        <label for="response">
-                            @Labels.Response
+                        <label for="country">
+                            @Labels.Country
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                        <select id="response"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
+                        <select id="country"></select>
                     </div>
                     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
                         <label for="licensee-type">
@@ -212,15 +214,14 @@
                     </div>
                     
                 </div>
-                <div class="row row-item">
+                <div class="row row-item @hideProvinceClass">                    
                     <div class="col-xs-2 col-sm-2 col-md-2">
-                        <label for="language">
-                            @Labels.Language
-                            @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                        <label for="province">
+                            @Labels.Province
                         </label>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
-                        <select id="language" class="languageoptions"></select>
+                    <div class="col-xs-3 col-sm-3 col-md-3" dropdown-province data-ng-model="provinceList">
+                        <select id="province"></select>
                     </div>
                 </div>
                 <div class="row row-item">
