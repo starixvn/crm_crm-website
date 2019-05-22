@@ -190,6 +190,9 @@
                 RunningNumber = logRunningNumber
             });
             ViewBag.customerId = logInfo.CustomerId;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
+            ViewBag.CN88MemberId = RoleIdConstants.CN88Member;
 
             return View("~/Areas/Communication/InsertLog/Index.cshtml", logInfo);
         }
