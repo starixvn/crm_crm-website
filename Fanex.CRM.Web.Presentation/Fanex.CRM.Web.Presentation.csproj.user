@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
     <UseIISExpress>true</UseIISExpress>
-    <NameOfLastUsedPublishProfile>CRM</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -17,7 +17,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <StartPageUrl>UserLogin/SignIn</StartPageUrl>
+          <StartPageUrl>
+          </StartPageUrl>
           <StartAction>CurrentPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
@@ -31,13 +32,13 @@
           </StartCmdLineArguments>
           <StartWorkingDirectory>
           </StartWorkingDirectory>
-          <EnableENC>False</EnableENC>
+          <EnableENC>True</EnableENC>
           <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57501</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57501/</IISUrl>
+          <IISUrl>http://localhost:56393/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
