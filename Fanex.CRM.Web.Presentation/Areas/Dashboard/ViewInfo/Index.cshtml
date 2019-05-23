@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_MainTab;
+    var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
+    var hideRedemptionClass = isCN88 ? "hide-item" : "";
 
     var customerId = JsonConvert.SerializeObject(Model);
 }
@@ -33,7 +35,7 @@
                     @Html.Action("CustomerInfoView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item @hideRedemptionClass">
                 @Html.Action("RedemptionLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
             </div>
             <div class="row row-item">
