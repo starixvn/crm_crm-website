@@ -1521,6 +1521,9 @@
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
     <Content Include="Configurations\ConnectionStrings.config" />
+    <Content Include="Configurations\CN88UAT.ConnectionStrings.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+    </Content>
     <None Include="Configurations\Web.config" />
     <None Include="Configurations\Web.Setting.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
