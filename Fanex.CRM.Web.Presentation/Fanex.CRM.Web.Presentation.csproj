@@ -662,45 +662,6 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
-    <Content Include="Configurations\backupMNL.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\backupMNL.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\CN88Local.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\CN88UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\dev.ConnectionStrings.config">
-      <SubType>Designer</SubType>
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\dev.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Local.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Local.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Master.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Master.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\PRO.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\PRO.Web.Setting.config">
-      <SubType>Designer</SubType>
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
@@ -733,25 +694,6 @@
     </Content>
     <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
     <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
-    <Content Include="Configurations\UAT.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\UATSandBox.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\UATSandBox.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\UATSIT.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\UATSIT.Web.Setting.config">
-      <DependentUpon>Web.Setting.config</DependentUpon>
-    </Content>
     <Content Include="Configurations\Web.backupMNL.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1479,7 +1421,7 @@
     <Content Include="Configurations\SpNameConfig\SpNameHelper.ttinclude" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
+    <Content Include="Configurations\AppSettings\TemplateFilemanager.CS.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\WebConfigTransforms\LOCAL.config" />
@@ -1520,12 +1462,26 @@
     <Content Include="Areas\Feedbacks\EditMultipleLogStatuses\Styles\EditMultipleLogStatuses.less" />
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
-    <Content Include="Configurations\ConnectionStrings.config" />
-    <Content Include="Configurations\CN88UAT.ConnectionStrings.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-    </Content>
+    <Content Include="Configurations\ConnectionStrings\backupMNL.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\CN88UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\UATSandBox.ConnectionStrings.config" />
+    <Content Include="Configurations\ConnectionStrings\UATSIT.ConnectionStrings.config" />
+    <Content Include="Configurations\AppSettings\backupMNL.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\CN88Local.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\CN88UAT.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\dev.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\Local.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\Master.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\PRO.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\UAT.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\UATSandBox.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\UATSIT.Web.Setting.config" />
     <None Include="Configurations\Web.config" />
-    <None Include="Configurations\Web.Setting.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
       <SubType>Designer</SubType>
