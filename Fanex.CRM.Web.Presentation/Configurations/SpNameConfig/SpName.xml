@@ -11,7 +11,7 @@
     <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCommunicationLogs" SpName="Acc_CRM_MainInformationCommunicationLogSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_UpdateVerifyFlag" SpName="Acc_CRM_CustomerInformationVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
@@ -23,7 +23,7 @@
     <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Redemption">
-    <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

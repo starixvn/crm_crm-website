@@ -1481,6 +1481,7 @@
     <Content Include="Configurations\AppSettings\UAT.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UATSandBox.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UATSIT.Web.Setting.config" />
+    <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
