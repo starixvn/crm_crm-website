@@ -78,7 +78,7 @@
 
             if (!IsExistNapSite(user, localLogin))
             {
-                return LoginStatus.UserSuspended;
+                return LoginStatus.UserNoAuthorization;
             }
 
             if (!IsExistNapGroup(user))

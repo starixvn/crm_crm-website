@@ -265,7 +265,7 @@ namespace Fanex.CRM.User.Controllers
                     break;
 
                 case LoginStatus.UserNoAuthorization:
-                    error = ViewResources.You_have_no_authorization;
+                    error = Labels.You_dont_have_permission;
                     break;
 
                 case LoginStatus.UserNoMenuPermission:
