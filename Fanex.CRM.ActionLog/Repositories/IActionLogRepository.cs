@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.ActionLog.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
+    using System.Collections.Generic;
 
     /// <summary>
     /// IActionLogRepository interface.
@@ -20,6 +20,6 @@ namespace Fanex.CRM.ActionLog.Repositories
     {
         IEnumerable<ActionLog> GetActivityLogs(GetActionLogCriteria criteria);
 
-        IEnumerable<SettingLog> GetSettingLogs(GetActionLogCriteria criteria);
+        IEnumerable<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria);
     }
 }

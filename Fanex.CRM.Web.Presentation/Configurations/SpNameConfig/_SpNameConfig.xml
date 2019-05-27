@@ -59,5 +59,7 @@
 
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_LogActionSettingList" EnvironmentText="_xpre"></SpNameConfig>
   
+
 </Root>

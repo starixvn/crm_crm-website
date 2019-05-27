@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.ActionLog.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.Data;
+    using System.Collections.Generic;
 
     /// <summary>
     /// ActionLogRepository class.
@@ -47,7 +47,7 @@ namespace Fanex.CRM.ActionLog.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The setting log list.</returns>
-        public IEnumerable<SettingLog> GetSettingLogs(GetActionLogCriteria criteria)
+        public IEnumerable<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria)
         {
             criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
