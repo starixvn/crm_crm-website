@@ -12,6 +12,7 @@
     var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
     var hideProvinceClass = isCN88 ? "" : "hide-item";
+    var letsTalkLabel = isCN88 ? Labels.LetsTalk : Labels.BBM;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -292,7 +293,7 @@
                         </div>
                         <div class="row item">
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="bbm">@Labels.BBM</label>
+                                <label for="bbm">@letsTalkLabel</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input type="text" class="textbox" id="bbm" tabindex="43" data-ng-model="customerInfo.BBM" />

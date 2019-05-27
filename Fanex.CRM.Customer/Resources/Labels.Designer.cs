@@ -511,6 +511,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lets Talk.
+        /// </summary>
+        public static string LetsTalk {
+            get {
+                return ResourceManager.GetString("LetsTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string Level {

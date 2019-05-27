@@ -673,6 +673,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lets Talk.
+        /// </summary>
+        public static string LetsTalk {
+            get {
+                return ResourceManager.GetString("LetsTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Type.
         /// </summary>
         public static string Licensee_Type {

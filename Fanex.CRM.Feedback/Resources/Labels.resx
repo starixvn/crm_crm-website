@@ -596,4 +596,7 @@
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>
+  <data name="LetsTalk" xml:space="preserve">
+    <value>Lets Talk</value>
+  </data>
 </root>
