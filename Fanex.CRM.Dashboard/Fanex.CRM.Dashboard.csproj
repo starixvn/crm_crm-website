@@ -195,6 +195,7 @@
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

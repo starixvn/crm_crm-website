@@ -511,7 +511,7 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets Talk.
+        ///   Looks up a localized string similar to Lets Talk 1.
         /// </summary>
         public static string LetsTalk {
             get {

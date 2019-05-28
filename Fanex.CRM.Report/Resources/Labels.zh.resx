@@ -1,0 +1,915 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>所有类别</value>
+  </data>
+  <data name="All_Countries" xml:space="preserve">
+    <value>所有国家</value>
+  </data>
+  <data name="All_Languages" xml:space="preserve">
+    <value>所有语言</value>
+  </data>
+  <data name="All_Products" xml:space="preserve">
+    <value>所有产品</value>
+  </data>
+  <data name="All_Sites" xml:space="preserve">
+    <value>所有网站</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="APR" xml:space="preserve">
+    <value>四月</value>
+  </data>
+  <data name="AUG" xml:space="preserve">
+    <value>奥格</value>
+  </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
+  </data>
+  <data name="Bet2" xml:space="preserve">
+    <value>投注2</value>
+  </data>
+  <data name="Bingo" xml:space="preserve">
+    <value>答对了</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>打电话</value>
+  </data>
+  <data name="CasinoDailyDetailTitle" xml:space="preserve">
+    <value>每日赌场相关客户查询记录从{0}到{1}</value>
+  </data>
+  <data name="CasinoDailyStatisticsHint" xml:space="preserve">
+    <value>按反馈日期筛选</value>
+  </data>
+  <data name="CasinoDailyStatistics_Report" xml:space="preserve">
+    <value>赌场每日统计</value>
+  </data>
+  <data name="CasinoDailySummaryTitle" xml:space="preserve">
+    <value>客户查询的每日摘要从{0}到{1}</value>
+  </data>
+  <data name="CasinoDetailExcelName" xml:space="preserve">
+    <value>赌场详细报告-{0}-{1}</value>
+  </data>
+  <data name="CasinoSummaryExcelName" xml:space="preserve">
+    <value>赌场总结报告-{0}-{1}</value>
+  </data>
+  <data name="CasinoWeeklyDetailTitle" xml:space="preserve">
+    <value>每周赌场相关客户查询记录从{0}到{1}</value>
+  </data>
+  <data name="CasinoWeeklyExcelName" xml:space="preserve">
+    <value>赌场每周报告-{0}-{1}</value>
+  </data>
+  <data name="CasinoWeeklyStatistics_Report" xml:space="preserve">
+    <value>赌场每周统计</value>
+  </data>
+  <data name="CasinoWeeklySummaryTitle" xml:space="preserve">
+    <value>从{0}到{1}的每周摘要报告}</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="CategorySubCategory" xml:space="preserve">
+    <value>类别/子类别</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>检查</value>
+  </data>
+  <data name="Checker" xml:space="preserve">
+    <value>检查器</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="ClaimedDate" xml:space="preserve">
+    <value>索赔日期</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>已关闭</value>
+  </data>
+  <data name="CommunicationFilter_Required" xml:space="preserve">
+    <value>请选择通信类型</value>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>通信类型</value>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>通信工具</value>
+  </data>
+  <data name="Complaints_Enquiries" xml:space="preserve">
+    <value>投诉/查询</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>联系人/MSN/Skype/电子邮件/电话</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>联系方式</value>
+  </data>
+  <data name="Contact_Number" xml:space="preserve">
+    <value>联系电话</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="CreationTime" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="Creation_Time" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="CustomerReport_SheetName" xml:space="preserve">
+    <value>客户报告</value>
+  </data>
+  <data name="CustomerReport_Title" xml:space="preserve">
+    <value>客户报告</value>
+  </data>
+  <data name="Customer_Report" xml:space="preserve">
+    <value>客户报告</value>
+  </data>
+  <data name="Customer_Type" xml:space="preserve">
+    <value>客户类型</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>每日</value>
+  </data>
+  <data name="DailyStatisticsReport_ChartSuffix" xml:space="preserve">
+    <value>反馈（s)</value>
+  </data>
+  <data name="DailyStatisticsReport_DetailTitle" xml:space="preserve">
+    <value>{0}每日客户投诉/查询{1}至{2}</value>
+  </data>
+  <data name="DailyStatisticsReport_Title" xml:space="preserve">
+    <value>{0}每日汇总报告从{1}到{2}</value>
+  </data>
+  <data name="Daily_Statistics" xml:space="preserve">
+    <value>每日统计</value>
+  </data>
+  <data name="Daily_Statistics_Report" xml:space="preserve">
+    <value>每日统计报告</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Date_Of_Birth" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DEC" xml:space="preserve">
+    <value>12月</value>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>通过删除</value>
+  </data>
+  <data name="DeletedFeedbackStatistics" xml:space="preserve">
+    <value>已删除的反馈统计</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>投诉/查询</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>细节</value>
+  </data>
+  <data name="DetailedChart" xml:space="preserve">
+    <value>详细图表</value>
+  </data>
+  <data name="DirectCustomerReportTitle" xml:space="preserve">
+    <value>直接客户报告</value>
+  </data>
+  <data name="DirectCustomerReport_SheetName" xml:space="preserve">
+    <value>直接客户报告</value>
+  </data>
+  <data name="DocumentTitle_DynamicReport" xml:space="preserve">
+    <value>CRM系统-动态报告</value>
+  </data>
+  <data name="DoneBy" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持续时间</value>
+  </data>
+  <data name="DynamicReport_ChartSuffix" xml:space="preserve">
+    <value>日志(s)</value>
+  </data>
+  <data name="DynamicReport_ExcelTitle" xml:space="preserve">
+    <value>{0}_Communication_Logs_From_{1}_To_{2}</value>
+  </data>
+  <data name="DynamicReport_PeriodReport_Title" xml:space="preserve">
+    <value>{0}{1的通信日志}</value>
+  </data>
+  <data name="DynamicReport_SheetName" xml:space="preserve">
+    <value>动态报告</value>
+  </data>
+  <data name="DynamicReport_ShortTitle" xml:space="preserve">
+    <value>{0}到{1}</value>
+  </data>
+  <data name="DynamicReport_Title" xml:space="preserve">
+    <value>{0}从{1}到{2的通信日志}</value>
+  </data>
+  <data name="DynamicReport_TitleWithNumberOfLog" xml:space="preserve">
+    <value>{0}从{1}到{2}{3的通信日志}</value>
+  </data>
+  <data name="Dynamic_Report" xml:space="preserve">
+    <value>动态报告</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="End_Time" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>排除已忽略的帐户</value>
+  </data>
+  <data name="Ext" xml:space="preserve">
+    <value>分机#</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>扩展</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="FEB" xml:space="preserve">
+    <value>2月</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="FeedbackDetail" xml:space="preserve">
+    <value>反馈详细信息</value>
+  </data>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>反馈（s)</value>
+  </data>
+  <data name="FeedbackStatisticDetailExcelName" xml:space="preserve">
+    <value>反馈统计信息详细信息-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticDetailReport" xml:space="preserve">
+    <value>反馈统计详细信息报告</value>
+  </data>
+  <data name="FeedbackStatisticDetailSheetName" xml:space="preserve">
+    <value>反馈统计信息详细信息</value>
+  </data>
+  <data name="FeedbackStatisticDetailTitle" xml:space="preserve">
+    <value>从{0}到{1}的反馈统计信息详细报告}</value>
+  </data>
+  <data name="FeedbackStatisticExcelName" xml:space="preserve">
+    <value>反馈统计-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticSheetName" xml:space="preserve">
+    <value>反馈统计</value>
+  </data>
+  <data name="FeedbackStatistics_InvalidDuration" xml:space="preserve">
+    <value>'To Duration'必须大于等于'From Duration'。</value>
+  </data>
+  <data name="FeedbackStatisticTitle" xml:space="preserve">
+    <value>反馈统计报告从{0}到{1}</value>
+  </data>
+  <data name="Feedback_Date" xml:space="preserve">
+    <value>反馈日期</value>
+  </data>
+  <data name="Filtering_by_Feedback_date" xml:space="preserve">
+    <value>按反馈日期筛选</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="Format_Duration" xml:space="preserve">
+    <value>{0}:{1}:{2}</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="FromDuration" xml:space="preserve">
+    <value>从持续时间</value>
+  </data>
+  <data name="From_Date" xml:space="preserve">
+    <value>从日期</value>
+  </data>
+  <data name="From_Month" xml:space="preserve">
+    <value>从月</value>
+  </data>
+  <data name="From_Week" xml:space="preserve">
+    <value>从星期</value>
+  </data>
+  <data name="From_Year" xml:space="preserve">
+    <value>从一年</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>回去</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="Grand_Total" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="Groupheadline" xml:space="preserve">
+    <value>集团标题</value>
+  </data>
+  <data name="Group_By" xml:space="preserve">
+    <value>组别</value>
+  </data>
+  <data name="Group_Headline" xml:space="preserve">
+    <value>集团标题</value>
+  </data>
+  <data name="HandleBy" xml:space="preserve">
+    <value>按句柄</value>
+  </data>
+  <data name="Handled_By" xml:space="preserve">
+    <value>由</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>处理程序</value>
+  </data>
+  <data name="Handle_By" xml:space="preserve">
+    <value>按句柄</value>
+  </data>
+  <data name="Headline" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="IBCBetCasino" xml:space="preserve">
+    <value>IBCBET赌场</value>
+  </data>
+  <data name="Introduceby" xml:space="preserve">
+    <value>介绍</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>项目(s)</value>
+  </data>
+  <data name="JAN" xml:space="preserve">
+    <value>简</value>
+  </data>
+  <data name="JUL" xml:space="preserve">
+    <value>JUL</value>
+  </data>
+  <data name="JUN" xml:space="preserve">
+    <value>君</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>姓氏</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>线</value>
+  </data>
+  <data name="Line_1" xml:space="preserve">
+    <value>第1行</value>
+  </data>
+  <data name="Line_2" xml:space="preserve">
+    <value>第2行</value>
+  </data>
+  <data name="Line_3" xml:space="preserve">
+    <value>第3行</value>
+  </data>
+  <data name="LiveChat" xml:space="preserve">
+    <value>LiveChat</value>
+  </data>
+  <data name="LiveCS" xml:space="preserve">
+    <value>真人娱乐场</value>
+  </data>
+  <data name="LogStatisticsReport_Title" xml:space="preserve">
+    <value>{0}每日日志统计/{1}-{2}</value>
+  </data>
+  <data name="Log_Statistics_Report" xml:space="preserve">
+    <value>日志统计报表</value>
+  </data>
+  <data name="MainCategoryFilter_Required" xml:space="preserve">
+    <value>请选择一个类别</value>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>主要类别</value>
+  </data>
+  <data name="MAR" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MAY" xml:space="preserve">
+    <value>五月</value>
+  </data>
+  <data name="MiniGame" xml:space="preserve">
+    <value>迷你游戏</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>呐</value>
+  </data>
+  <data name="NoDataFound" xml:space="preserve">
+    <value>没有数据。</value>
+  </data>
+  <data name="NOV" xml:space="preserve">
+    <value>11月</value>
+  </data>
+  <data name="No_category_found" xml:space="preserve">
+    <value>没有发现类别。</value>
+  </data>
+  <data name="No_country_found" xml:space="preserve">
+    <value>没有找到任何国家</value>
+  </data>
+  <data name="No_language_found" xml:space="preserve">
+    <value>找不到语言</value>
+  </data>
+  <data name="No_site_found" xml:space="preserve">
+    <value>没有找到网站。</value>
+  </data>
+  <data name="No_status" xml:space="preserve">
+    <value>未找到状态</value>
+  </data>
+  <data name="No_status_found" xml:space="preserve">
+    <value>请选择至少一个状态！</value>
+  </data>
+  <data name="NumberColumn" xml:space="preserve">
+    <value>非也。.</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>数字游戏</value>
+  </data>
+  <data name="OCT" xml:space="preserve">
+    <value>十月</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>护照</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>待定</value>
+  </data>
+  <data name="Period_type" xml:space="preserve">
+    <value>周期类型</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="PIC" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="PIC1" xml:space="preserve">
+    <value>图1</value>
+  </data>
+  <data name="PIC2" xml:space="preserve">
+    <value>图2</value>
+  </data>
+  <data name="PIC3" xml:space="preserve">
+    <value>图3</value>
+  </data>
+  <data name="PIC4" xml:space="preserve">
+    <value>图4</value>
+  </data>
+  <data name="Please_choose_one" xml:space="preserve">
+    <value>请选择一个！</value>
+  </data>
+  <data name="Poker" xml:space="preserve">
+    <value>扑克</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Post_Code" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="ProductCollapseExpand" xml:space="preserve">
+    <value>产品折叠/展开</value>
+  </data>
+  <data name="ProductFilter_Required" xml:space="preserve">
+    <value>请选择产品</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="ProductSubProduct" xml:space="preserve">
+    <value>产品/子产品</value>
+  </data>
+  <data name="QQ" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="RedemptionStatisticsDetailReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_Detail_Report</value>
+  </data>
+  <data name="RedemptionStatisticsDetailReportTitle" xml:space="preserve">
+    <value>兑换统计详细报告</value>
+  </data>
+  <data name="RedemptionStatisticsDetailSheetName" xml:space="preserve">
+    <value>兑换统计详情</value>
+  </data>
+  <data name="RedemptionStatisticsReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_{0}_{1}</value>
+  </data>
+  <data name="RedemptionStatisticsReportTitle" xml:space="preserve">
+    <value>兑换统计报告从{0}到{1}</value>
+  </data>
+  <data name="RedemptionStatisticsSheetName" xml:space="preserve">
+    <value>兑换统计</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="RelatedCustomer" xml:space="preserve">
+    <value>相关客户</value>
+  </data>
+  <data name="Report_by" xml:space="preserve">
+    <value>报告方式</value>
+  </data>
+  <data name="Report_type" xml:space="preserve">
+    <value>报表类型</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>响应</value>
+  </data>
+  <data name="Reviewed_By" xml:space="preserve">
+    <value>审查</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>审阅者</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Running_No" xml:space="preserve">
+    <value>没有</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>二</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="SEP" xml:space="preserve">
+    <value>九月</value>
+  </data>
+  <data name="SettlementReport_ChartSuffix" xml:space="preserve">
+    <value>问题)</value>
+  </data>
+  <data name="SettlementReport_ExcelTitle" xml:space="preserve">
+    <value>Settlement_Issues_Report_For_Year_{0}</value>
+  </data>
+  <data name="SettlementReport_SheetName" xml:space="preserve">
+    <value>解决问题报告</value>
+  </data>
+  <data name="SettlementReport_Title" xml:space="preserve">
+    <value>年度结算问题报告{0}</value>
+  </data>
+  <data name="Settlement_Report" xml:space="preserve">
+    <value>结算报告</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="SiteName" xml:space="preserve">
+    <value>网站名称</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype的</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>解决方案</value>
+  </data>
+  <data name="Solved" xml:space="preserve">
+    <value>已解决</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="Start_Time" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="StatisticReport_ChartSuffix" xml:space="preserve">
+    <value>问题)</value>
+  </data>
+  <data name="StatisticReport_Error_EmptyMainCategory" xml:space="preserve">
+    <value>请选择一个主要类别！</value>
+  </data>
+  <data name="StatisticReport_Error_EmptySubCategory" xml:space="preserve">
+    <value>请选择一个子类别！</value>
+  </data>
+  <data name="StatisticReport_ExcelTitle" xml:space="preserve">
+    <value>{{0}_Issue_Statistics_Report_From_{1}_To_{2}</value>
+  </data>
+  <data name="StatisticReport_SheetName" xml:space="preserve">
+    <value>问题统计报告</value>
+  </data>
+  <data name="StatisticReport_ShortTitle" xml:space="preserve">
+    <value>{0}到{1}</value>
+  </data>
+  <data name="StatisticReport_Title" xml:space="preserve">
+    <value>{{0}从{1}到{2}的问题统计报告}</value>
+  </data>
+  <data name="StatisticReport_TotalTitle" xml:space="preserve">
+    <value>总数为{0}</value>
+  </data>
+  <data name="Statistic_Report" xml:space="preserve">
+    <value>统计报告</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>子类别</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>子类别</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>子产品</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>子总数</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>子类别</value>
+  </data>
+  <data name="SummaryChart" xml:space="preserve">
+    <value>汇总表</value>
+  </data>
+  <data name="SummaryReport" xml:space="preserve">
+    <value>类别摘要</value>
+  </data>
+  <data name="SummaryReportExcelName" xml:space="preserve">
+    <value>Categories_Summary_{0}</value>
+  </data>
+  <data name="SummaryReportTitle" xml:space="preserve">
+    <value>类别年度总结报告{0}</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="Symbol_Extension" xml:space="preserve">
+    <value>分机#</value>
+  </data>
+  <data name="Symbol_FullContactFormat" xml:space="preserve">
+    <value>{0}-{1}-{2}</value>
+  </data>
+  <data name="Symbol_IsVIP" xml:space="preserve">
+    <value>√</value>
+  </data>
+  <data name="Symbol_No" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="ToDuration" xml:space="preserve">
+    <value>到持续时间</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="To_Date" xml:space="preserve">
+    <value>迄今为止</value>
+  </data>
+  <data name="To_Month" xml:space="preserve">
+    <value>到月</value>
+  </data>
+  <data name="To_Week" xml:space="preserve">
+    <value>到周</value>
+  </data>
+  <data name="To_Year" xml:space="preserve">
+    <value>每年</value>
+  </data>
+  <data name="TypeOfContact" xml:space="preserve">
+    <value>接触类型</value>
+  </data>
+  <data name="Type_Of_Contact" xml:space="preserve">
+    <value>接触类型</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="ViewChart" xml:space="preserve">
+    <value>查看图表</value>
+  </data>
+  <data name="ViewDetail" xml:space="preserve">
+    <value>查看详细信息</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>贵宾</value>
+  </data>
+  <data name="VoidRefund" xml:space="preserve">
+    <value>无效/退款</value>
+  </data>
+  <data name="WagerReport" xml:space="preserve">
+    <value>投注相关报告</value>
+  </data>
+  <data name="WagerReportExcelName" xml:space="preserve">
+    <value>Wagers_Related_Report_{0}</value>
+  </data>
+  <data name="WagerReportTitle" xml:space="preserve">
+    <value>投注接受，拒绝，年度无效/退款{0}</value>
+  </data>
+  <data name="Wagers" xml:space="preserve">
+    <value>投注</value>
+  </data>
+  <data name="WeChat" xml:space="preserve">
+    <value>微信</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>每周</value>
+  </data>
+  <data name="WeeklyStatisticsReport_ChartSuffix" xml:space="preserve">
+    <value>反馈（s)</value>
+  </data>
+  <data name="WeeklyStatisticsReport_DetailTitle" xml:space="preserve">
+    <value>{0}每周客户投诉/查询{1}至{2}</value>
+  </data>
+  <data name="WeeklyStatisticsReport_Title" xml:space="preserve">
+    <value>{0}每周总结报告从{1}到{2}</value>
+  </data>
+  <data name="Weekly_Statistics" xml:space="preserve">
+    <value>每周统计</value>
+  </data>
+  <data name="Weekly_Statistics_Report" xml:space="preserve">
+    <value>每周统计报告</value>
+  </data>
+  <data name="WhatsApp" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>雅虎</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>每年</value>
+  </data>
+</root>

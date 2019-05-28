@@ -188,6 +188,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

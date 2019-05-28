@@ -6,11 +6,16 @@
 
 namespace Fanex.CRM.Common.Controllers
 {
-    using System.Web.Mvc;
     using Attributes;
+    using Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
+    using System;
+    using System.Globalization;
+    using System.Threading;
+    using System.Web;
+    using System.Web.Mvc;
 
     /// <summary>
     /// TODO: Update summary.
@@ -24,6 +29,33 @@ namespace Fanex.CRM.Common.Controllers
         public BaseController()
         {
             _permissionService = new PermissionService();
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            if (AppSession.CurrentUser != null && AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh");
+            }
+        }
+
+        public void ChangeCulture(string lang)
+        {
+            Response.Cookies.Remove("Language");
+
+            HttpCookie languageCookie = System.Web.HttpContext.Current.Request.Cookies["Language"];
+
+            if (languageCookie == null) languageCookie = new HttpCookie("Language");
+
+            languageCookie.Value = lang;
+
+            languageCookie.Expires = DateTime.Now.AddDays(10);
+
+            Response.SetCookie(languageCookie);
+
+            Response.Redirect(Request.UrlReferrer.ToString());
         }
 
         protected IPermissionService PermissionService

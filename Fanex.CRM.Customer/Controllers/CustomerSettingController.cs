@@ -42,6 +42,11 @@ namespace Fanex.CRM.Customer.Controllers
             ViewBag.UserName = Request.Params["username"];
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
+
+
+            //ChangeCulture("fr");
+
+
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }
 
