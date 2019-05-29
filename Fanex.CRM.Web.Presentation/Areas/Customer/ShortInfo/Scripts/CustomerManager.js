@@ -15,7 +15,7 @@
             optionNotApplyCheckBox: null,
             divResultPopUp: null
         };
-
+        
         self.CacheData = {
             getCustomerInfoParams: {
                 Username: null,
@@ -26,17 +26,18 @@
             },
 
             /* jshint camelcase: false */
+            
             ViewResources: {
-                GetCustomerByName_NoData: "There is no information",
-                OK: "OK",
-                Cancel: "Cancel",
-                SearchByGuest_DialogTitle: "Search By Guest",
-                Select: 'Select',
+                GetCustomerByName_NoData: viewResources.NoInformation,
+                OK: viewResources.OK,
+                Cancel: viewResources.Cancel,
+                SearchByGuest_DialogTitle: viewResources.SearchByGuest,
+                Select: viewResources.Select,
                 Symbol_NotApply: 'N/A',
-                All_Languages: 'All Languages',
-                No_languages_found: 'No languages found.',
-                Alert: 'Alert',
-                CustomerInfo_ConfirmSearchByGuest: "Do you want to search guest customer's information?"
+                All_Languages: viewResources.AllLanguages,
+                No_languages_found: viewResources.NoLanguage,
+                Alert: viewResources.Alert,
+                CustomerInfo_ConfirmSearchByGuest: viewResources.ConfirmSearchByGuest
             },
 
             leftPanelBlankPage: '../Home/BlankPage',

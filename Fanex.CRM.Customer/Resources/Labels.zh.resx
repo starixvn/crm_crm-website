@@ -420,4 +420,25 @@
   <data name="Yahoo" xml:space="preserve">
     <value>雅虎</value>
   </data>
+  <data name="AllLanguages" xml:space="preserve">
+    <value>所有语言</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ConfirmSearchByGuest" xml:space="preserve">
+    <value>你想搜索客户客户的信息？</value>
+  </data>
+  <data name="NoInformation" xml:space="preserve">
+    <value>没有任何信息</value>
+  </data>
+  <data name="NoLanguage" xml:space="preserve">
+    <value>没有发现语言。</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>好</value>
+  </data>
+  <data name="SearchByGuest" xml:space="preserve">
+    <value>客人搜索</value>
+  </data>
 </root>

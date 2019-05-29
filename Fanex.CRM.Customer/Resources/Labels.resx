@@ -420,4 +420,25 @@
   <data name="LetsTalk" xml:space="preserve">
     <value>Lets Talk</value>
   </data>
+  <data name="AllLanguages" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmSearchByGuest" xml:space="preserve">
+    <value>Do you want to search guest customer's information?</value>
+  </data>
+  <data name="NoInformation" xml:space="preserve">
+    <value>There is no information</value>
+  </data>
+  <data name="NoLanguage" xml:space="preserve">
+    <value>No languages found.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SearchByGuest" xml:space="preserve">
+    <value>Search By Guest</value>
+  </data>
 </root>

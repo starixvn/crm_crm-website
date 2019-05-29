@@ -267,16 +267,27 @@
     </div>
 </div>
 @section Scripts {
+<script type="text/javascript">
+    window.rootUrl = '@Url.Content("~")';
+    var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
+    var viewResources = {
+        Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)',
+        SearchByGuest: '@Labels.SearchByGuest',
+        ConfirmSearchByGuest: '@Labels.ConfirmSearchByGuest',
+        NoInformation: '@Labels.NoInformation',
+        OK: '@Labels.OK',
+        Cancel: '@Labels.Cancel',
+        AllLanguages: '@Labels.AllLanguages',
+        NoLanguage: '@Labels.NoLanguage',
+        Select: '@Labels.Select',
+        Alert: '@Labels.Alert'
+    };
+    var username = '@HttpUtility.JavaScriptStringEncode(ViewBag.UserName)';
+    var isCN88 = '@isCN88' == 'True';
+</script>
+
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
     @RazorHelper.RenderScripts("~/Areas/ShortCustomerInfo/Scripts")
-    <script type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
-        var viewResources = {
-            Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)'
-        };
-        var username = '@HttpUtility.JavaScriptStringEncode(ViewBag.UserName)';
-        var isCN88 = '@isCN88' == 'True';
-    </script>
+    
 }
