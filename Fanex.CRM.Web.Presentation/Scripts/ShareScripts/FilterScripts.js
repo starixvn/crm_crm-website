@@ -108,12 +108,12 @@ var FilterScript = function () {
         if (selectedExtensions || selectedExtensions.length > 0) {
 
             angular.forEach(selectedExtensions, function (extension) {
-                if ("Id" in extension) {
+                if (extension["Id"] !== undefined) {
                     extensionIds.push(extension.Id);
                 }
             });
         }
-        if (extensionIds.length === 0 && "Id" in extensionNA) {
+        if (extensionIds.length === 0 && extensionNA["Id"] !== undefined) {
             extensionIds.push(extensionNA.Id);
         }
         return extensionIds.join(",");
@@ -134,11 +134,11 @@ var FilterScript = function () {
         var products = [];
         if (selectProductsConfig.selectedProducts.length == 0) {
             products = [
-               {
-                   ProductId: productNAConfig.ProductNA.Id,
-                   SubProductId: productNAConfig.SubProductNA.Id,
-                   BettypeId: productNAConfig.BettypeNA.Id
-               }
+                {
+                    ProductId: productNAConfig.ProductNA.Id,
+                    SubProductId: productNAConfig.SubProductNA.Id,
+                    BettypeId: productNAConfig.BettypeNA.Id
+                }
             ];
         }
         else {
@@ -215,8 +215,8 @@ var FilterScript = function () {
             angular.forEach(selectedSubCategories, function (subCategory) {
                 if (self.CheckCategorySubCategory(category.Id, subCategory.Id, subCategoryList)) {
                     validCategory = true;
-                }               
-            })            
+                }
+            })
 
             if (!validCategory) {
                 inValidCategories.push(category.Name);
