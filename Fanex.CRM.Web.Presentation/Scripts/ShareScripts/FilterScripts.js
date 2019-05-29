@@ -105,6 +105,8 @@ var FilterScript = function () {
 
     self.GetExtensionParams = function (selectedExtensions, extensionNA) {
         var extensionIds = [];
+        console.log(selectedExtensions);
+        console.log(extensionNA);
         if (selectedExtensions || selectedExtensions.length > 0) {
 
             angular.forEach(selectedExtensions, function (extension) {
@@ -113,7 +115,7 @@ var FilterScript = function () {
                 }
             });
         }
-        if (extensionIds.length === 0 && extensionNA["Id"] !== undefined) {
+        if (extensionIds.length === 0 && extensionNA !== null && extensionNA["Id"] !== undefined) {
             extensionIds.push(extensionNA.Id);
         }
         return extensionIds.join(",");
