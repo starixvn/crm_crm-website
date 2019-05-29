@@ -253,7 +253,7 @@
     <value>家</value>
   </data>
   <data name="Html_Template_MandatoryField" xml:space="preserve">
-    <value>&lt;&lt;span class="mandatory field"&gt;*&lt;/span&gt;</value>
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
   <data name="ibcweeklysummaryreport" xml:space="preserve">
     <value>IBC每周总结报告</value>
@@ -373,7 +373,7 @@
     <value>CRM-{0}报告</value>
   </data>
   <data name="RequiredFieldTemplate" xml:space="preserve">
-    <value>&lt;&lt;span class="mandatory field"&gt;*&lt;/span&gt;</value>
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
   <data name="ResolutionTime" xml:space="preserve">
     <value>解决时间</value>

@@ -365,4 +365,7 @@
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>
+  <data name="Auto_Generated" xml:space="preserve">
+    <value>Auto-generated</value>
+  </data>
 </root>

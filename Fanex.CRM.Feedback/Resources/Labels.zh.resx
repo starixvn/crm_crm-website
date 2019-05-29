@@ -466,7 +466,7 @@
     <value>备注</value>
   </data>
   <data name="RequiredFieldTemplate" xml:space="preserve">
-    <value>&lt;&lt;span class="mandatory field"&gt;*&lt;/span&gt;</value>
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>此信息是必需的！</value>
@@ -596,5 +596,8 @@
   </data>
   <data name="Yahoo" xml:space="preserve">
     <value>雅虎</value>
+  </data>
+  <data name="Auto_Generated" xml:space="preserve">
+    <value>自动生成</value>
   </data>
 </root>

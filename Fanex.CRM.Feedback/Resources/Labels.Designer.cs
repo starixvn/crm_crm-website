@@ -79,6 +79,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto-generated.
+        /// </summary>
+        public static string Auto_Generated {
+            get {
+                return ResourceManager.GetString("Auto_Generated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BBM.
         /// </summary>
         public static string BBM {

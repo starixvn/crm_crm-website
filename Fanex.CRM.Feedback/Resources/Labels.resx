@@ -599,4 +599,7 @@
   <data name="LetsTalk" xml:space="preserve">
     <value>Lets Talk</value>
   </data>
+  <data name="Auto_Generated" xml:space="preserve">
+    <value>Auto-generated</value>
+  </data>
 </root>

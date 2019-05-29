@@ -96,6 +96,19 @@
 <div id="div-resultpopup" class="selector display-none">
 </div>
 @section Scripts {
+    <script type="text/javascript">
+        var viewResources = {
+            DefaultSearchCustomer: '@Labels.DefaultSearchCustomer',
+            Error_SearchCustomer_Empty: '@Labels.Error_SearchCustomer_Empty',
+            OK: '@Labels.OK',
+            Cancel: '@Labels.Cancel',
+            Alert: '@Labels.Alert',
+            Confirm_Ignore_Changes: '@Labels.Confirm_Ignore_Changes',
+            Yes: '@Labels.Yes',
+            No: '@Labels.No'
+        };
+    </script>
+
     @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
                             "~/Scripts/json2.js",
                             "~/Scripts/ShareScripts/HotKeyManager.js",

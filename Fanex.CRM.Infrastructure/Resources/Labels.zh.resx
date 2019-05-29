@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alert" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Confirm_Ignore_Changes" xml:space="preserve">
+    <value>确认忽略更改</value>
+  </data>
+  <data name="DefaultSearchCustomer" xml:space="preserve">
+    <value>电话或用户名或昵称</value>
+  </data>
   <data name="Error_500" xml:space="preserve">
     <value>你无权使用这个功能！</value>
+  </data>
+  <data name="Error_SearchCustomer_Empty" xml:space="preserve">
+    <value>请输入用户名！</value>
   </data>
   <data name="Error_Server" xml:space="preserve">
     <value>很抱歉，在处理您的请求时发生错误，请通知管理员。</value>
@@ -141,13 +156,22 @@
   <data name="Message_ViewChart_FromToDate" xml:space="preserve">
     <value>{0}到{1}</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>非也。</value>
+  </data>
   <data name="NoPermission" xml:space="preserve">
     <value>你没有这个功能的权限！</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>好</value>
   </data>
   <data name="ResultMessage_NoInfo" xml:space="preserve">
     <value>没有数据。</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>欢迎。</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>
