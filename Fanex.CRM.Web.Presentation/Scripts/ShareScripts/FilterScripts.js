@@ -105,16 +105,19 @@ var FilterScript = function () {
 
     self.GetExtensionParams = function (selectedExtensions, extensionNA) {
         var extensionIds = [];
-        angular.forEach(selectedExtensions, function (extension) {
-            extensionIds.push(extension.Id);
-        })
+        if (selectedExtensions || selectedExtensions.length > 0) {
 
-        if (extensionIds.length == 0) {
-            extensionIds = [extensionNA.Id];
+            angular.forEach(selectedExtensions, function (extension) {
+                if ("Id" in extension) {
+                    extensionIds.push(extension.Id);
+                }
+            });
         }
-
+        if (extensionIds.length === 0 && "Id" in extensionNA) {
+            extensionIds.push(extensionNA.Id);
+        }
         return extensionIds.join(",");
-    }
+    };
 
     self.CheckSubProductBettype = function (subProductID, bettypeId, bettypeList) {
         var flag = false;
