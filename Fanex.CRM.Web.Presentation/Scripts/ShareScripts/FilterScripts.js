@@ -104,17 +104,20 @@ var FilterScript = function () {
     }
 
     self.GetExtensionParams = function (selectedExtensions, extensionNA) {
-        var extensionIds = [];
-        angular.forEach(selectedExtensions, function (extension) {
-            extensionIds.push(extension.Id);
-        })
+        var extensionIds = [];        
+        if (selectedExtensions || selectedExtensions.length > 0) {
 
-        if (extensionIds.length == 0) {
-            extensionIds = [extensionNA.Id];
+            angular.forEach(selectedExtensions, function (extension) {
+                if (extension["Id"] !== undefined) {
+                    extensionIds.push(extension.Id);
+                }
+            });
         }
-
+        if (extensionIds.length === 0 && extensionNA !== null && extensionNA["Id"] !== undefined) {
+            extensionIds.push(extensionNA.Id);
+        }
         return extensionIds.join(",");
-    }
+    };
 
     self.CheckSubProductBettype = function (subProductID, bettypeId, bettypeList) {
         var flag = false;
@@ -131,11 +134,11 @@ var FilterScript = function () {
         var products = [];
         if (selectProductsConfig.selectedProducts.length == 0) {
             products = [
-               {
-                   ProductId: productNAConfig.ProductNA.Id,
-                   SubProductId: productNAConfig.SubProductNA.Id,
-                   BettypeId: productNAConfig.BettypeNA.Id
-               }
+                {
+                    ProductId: productNAConfig.ProductNA.Id,
+                    SubProductId: productNAConfig.SubProductNA.Id,
+                    BettypeId: productNAConfig.BettypeNA.Id
+                }
             ];
         }
         else {
@@ -212,8 +215,8 @@ var FilterScript = function () {
             angular.forEach(selectedSubCategories, function (subCategory) {
                 if (self.CheckCategorySubCategory(category.Id, subCategory.Id, subCategoryList)) {
                     validCategory = true;
-                }               
-            })            
+                }
+            })
 
             if (!validCategory) {
                 inValidCategories.push(category.Name);
