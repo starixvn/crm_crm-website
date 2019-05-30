@@ -6,15 +6,15 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// GetStationsCriteria class.
     /// </summary>
-    public class GetStationsCriteria : CriteriaBase
+    public class GetStationsCriteria : BasedCriteria
     {
         public override string GetSettingKey()
-        {            
+        {
             return "Acc_CRM_StationList";
         }
 

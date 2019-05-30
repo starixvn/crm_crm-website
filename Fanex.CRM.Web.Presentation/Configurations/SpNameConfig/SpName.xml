@@ -111,7 +111,7 @@
     </Setting>
     <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Remark">
     <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
