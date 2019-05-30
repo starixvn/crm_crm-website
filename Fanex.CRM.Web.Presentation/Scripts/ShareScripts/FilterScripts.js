@@ -104,9 +104,7 @@ var FilterScript = function () {
     }
 
     self.GetExtensionParams = function (selectedExtensions, extensionNA) {
-        var extensionIds = [];
-        console.log(selectedExtensions);
-        console.log(extensionNA);
+        var extensionIds = [];        
         if (selectedExtensions || selectedExtensions.length > 0) {
 
             angular.forEach(selectedExtensions, function (extension) {
