@@ -1,11 +1,12 @@
 ﻿namespace Fanex.CRM.Report.Criteria.StatisticReport
 {
+    using Common.Criteria;
     using Fanex.CRM.Setting.Constants;
     using Fanex.Data.Repository;
     using System;
     using System.Collections;
 
-    public class GetStatisticReportCriteria : CriteriaBase
+    public class GetStatisticReportCriteria : BasedCriteria
     {
         [SpParam(Ignored = true)]
         public int ReportType { get; set; }
@@ -48,6 +49,7 @@
             hastableParam.Add("todate", ToDate);
             hastableParam.Add("maincategoryid", MainCategoryId == SettingConstants.AllSetting ? 0 : MainCategoryId);
             hastableParam.Add("subcategoryid", SubCategoryId == SettingConstants.AllSetting ? 0 : SubCategoryId);
+            hastableParam.Add("userrole", UserRole);
             return hastableParam;
         }
     }

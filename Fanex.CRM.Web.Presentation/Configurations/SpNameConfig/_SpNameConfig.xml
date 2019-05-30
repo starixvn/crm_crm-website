@@ -60,6 +60,21 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_ProvinceUpd" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_LogActionSettingList" EnvironmentText="_xpre"></SpNameConfig>
-  
 
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineStatusSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_MainInformationRedemptionSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DynamicFeedback" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatistics" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackGetLatest" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xpre"></SpNameConfig>
+  
+  
 </Root>

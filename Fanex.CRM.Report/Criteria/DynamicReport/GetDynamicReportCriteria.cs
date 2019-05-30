@@ -1,9 +1,10 @@
 ﻿namespace Fanex.CRM.Report.Criteria.DynamicReport
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
     using System;
 
-    public class GetDynamicReportCriteria : CriteriaBase
+    public class GetDynamicReportCriteria : BasedCriteria
     {
         [SpParam(Ignored = true)]
         public int ReportType { get; set; }
