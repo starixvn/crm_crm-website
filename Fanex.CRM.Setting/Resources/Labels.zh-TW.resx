@@ -117,40 +117,127 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Active" xml:space="preserve">
-    <value>活动</value>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>By Category</value>
+  </data>
+  <data name="ByCommunicationTool" xml:space="preserve">
+    <value>By Communication Tool</value>
+  </data>
+  <data name="ByCountry" xml:space="preserve">
+    <value>By Country</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>By Creator</value>
+  </data>
+  <data name="ByLicensees" xml:space="preserve">
+    <value>By Licensees</value>
+  </data>
+  <data name="ByProduct" xml:space="preserve">
+    <value>By Product</value>
+  </data>
+  <data name="ByResponse" xml:space="preserve">
+    <value>By Response</value>
+  </data>
+  <data name="ByRole" xml:space="preserve">
+    <value>By Role</value>
+  </data>
+  <data name="BySite" xml:space="preserve">
+    <value>By Site</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>By Status</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>Checked</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>已关闭</value>
+    <value>Closed</value>
   </data>
-  <data name="Error_ArgumentEmpty" xml:space="preserve">
-    <value>"{0}"不能为空。</value>
+  <data name="Credit" xml:space="preserve">
+    <value>Credit</value>
   </data>
-  <data name="Error_ArgumentLength" xml:space="preserve">
-    <value>"{0}"不能超过{1}字符。</value>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
   </data>
-  <data name="Error_ArgumentOutOfRange" xml:space="preserve">
-    <value>{0}必须介于"{1}"-"{2}".</value>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
   </data>
-  <data name="Error_CollectionEmpty" xml:space="preserve">
-    <value>集合不能为空。</value>
+  <data name="Deleted" xml:space="preserve">
+    <value>Deleted</value>
   </data>
-  <data name="Error_GuidEmpty" xml:space="preserve">
-    <value>"{0}"不能为空guid。</value>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
   </data>
-  <data name="Error_InvalidEmail" xml:space="preserve">
-    <value>"{0}"不是有效的电子邮件地址。</value>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
   </data>
-  <data name="Error_InvalidIP" xml:space="preserve">
-    <value>"{0}"不是有效的IP。</value>
+  <data name="Error_GetAllSetting" xml:space="preserve">
+    <value>(SettingService GetAll) - {0}</value>
   </data>
-  <data name="Error_InvalidPattern" xml:space="preserve">
-    <value>无效模式：{0}</value>
+  <data name="Error_GetAllSite" xml:space="preserve">
+    <value>(SettingService SelAllSite) - {0}</value>
   </data>
-  <data name="Error_InvalidUrl" xml:space="preserve">
-    <value>"{0}"不是有效的web url。</value>
+  <data name="Error_GetSetting" xml:space="preserve">
+    <value>(SettingService GetById: {0}) - {1}</value>
   </data>
-  <data name="Suspended" xml:space="preserve">
-    <value>暂停</value>
+  <data name="Error_GetSettingRelationByName" xml:space="preserve">
+    <value>(SettingService GetSettingRelationByName) - Error: {0}&lt;br&gt; - Name: {1}&lt;br&gt; - parentId: {2}</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
+  <data name="IBC" xml:space="preserve">
+    <value>IBC</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>Licensee</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Solved" xml:space="preserve">
+    <value>Solved</value>
+  </data>
+  <data name="Super" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

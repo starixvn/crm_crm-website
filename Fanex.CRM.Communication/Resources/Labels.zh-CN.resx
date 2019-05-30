@@ -118,252 +118,254 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="All" xml:space="preserve">
-    <value>全部</value>
+    <value>All</value>
+  </data>
+  <data name="Auto_Generated" xml:space="preserve">
+    <value>Auto-generated</value>
   </data>
   <data name="Bet_Type" xml:space="preserve">
-    <value>投注类型</value>
+    <value>Bet Type</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>类别</value>
+    <value>Category</value>
   </data>
   <data name="Checked" xml:space="preserve">
-    <value>检查</value>
+    <value>Checked</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>已关闭</value>
+    <value>Closed</value>
   </data>
   <data name="Communication_Logs" xml:space="preserve">
-    <value>通信日志</value>
+    <value>Communication Logs</value>
   </data>
   <data name="Communication_Logs_InsertSuccess" xml:space="preserve">
-    <value>成功插入通讯日志！</value>
+    <value>Insert communication log successfully!</value>
   </data>
   <data name="Communication_Logs_NoDeletePermission" xml:space="preserve">
-    <value>你没有删除权限！</value>
+    <value>You don't have delete permission!</value>
   </data>
   <data name="Communication_Logs_NoReviewPermission" xml:space="preserve">
-    <value>你没有审查许可！</value>
+    <value>You don't have review permission!</value>
   </data>
   <data name="Communication_Logs_NoUpdatePermission" xml:space="preserve">
-    <value>你没有更新权限！</value>
+    <value>You don't have update permission!</value>
   </data>
   <data name="Communication_Logs_UpdateSuccess" xml:space="preserve">
-    <value>成功更新通讯日志！</value>
+    <value>Update communication log successfully!</value>
   </data>
   <data name="Communication_Logs_VerifyRelatedCustomer" xml:space="preserve">
-    <value>您必须在保存此通信日志之前验证用户名。</value>
+    <value>You must verify the username before saving this communication log.</value>
   </data>
   <data name="Communication_Log_EmptyRemark" xml:space="preserve">
-    <value>备注是强制性的！</value>
+    <value>Remark is mandatory!</value>
   </data>
   <data name="Communication_Log_EmptyReview" xml:space="preserve">
-    <value>审查是强制性的！</value>
+    <value>Review is mandatory!</value>
   </data>
   <data name="Communication_Log_EmptySolution" xml:space="preserve">
-    <value>解决方案是强制性的！</value>
+    <value>Solution is mandatory!</value>
   </data>
   <data name="Communication_Log_EmptySubject" xml:space="preserve">
-    <value>主题是强制性的！</value>
+    <value>Subject is mandatory!</value>
   </data>
   <data name="Communication_Log_ErrorEndTime" xml:space="preserve">
-    <value>开始时间应该比结束时间小！</value>
+    <value>Start Time should be smaller than End Time!</value>
   </data>
   <data name="Communication_Log_ExcessCurrentTime" xml:space="preserve">
-    <value>启动时间应小于或等于当前时间。</value>
+    <value>Start time should be smaller than or equal current time.</value>
   </data>
   <data name="Communication_Log_NABetType" xml:space="preserve">
-    <value>投注类型是强制性的！</value>
+    <value>Bet Type is mandatory!</value>
   </data>
   <data name="Communication_Log_NACommmunicationTool" xml:space="preserve">
-    <value>通信工具是强制性的！</value>
+    <value>Communication tool is mandatory!</value>
   </data>
   <data name="Communication_Log_NACountry" xml:space="preserve">
-    <value>国家是强制性的！</value>
+    <value>Country is mandatory!</value>
   </data>
   <data name="Communication_Log_NALanguage" xml:space="preserve">
-    <value>语言是强制性的！</value>
+    <value>Language is mandatory!</value>
   </data>
   <data name="Communication_Log_NAProduct" xml:space="preserve">
-    <value>产品是强制性的！</value>
+    <value>Product is mandatory!</value>
   </data>
   <data name="Communication_Log_NASite" xml:space="preserve">
-    <value>网站是强制性的！</value>
+    <value>Site is mandatory!</value>
   </data>
   <data name="Communication_Tool" xml:space="preserve">
-    <value>通信工具</value>
+    <value>Communication Tool</value>
   </data>
   <data name="Confirm_Ignore_EditCommunication_Changes" xml:space="preserve">
-    <value>有通信输入的一些变化！ &lt;br/&gt;你确定你想忽略这些变化？</value>
+    <value>There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
   <data name="Confirm_Ignore_InsertCommunication_Changes" xml:space="preserve">
-    <value>有通信输入的一些变化！ &lt;br/&gt;你确定你想忽略这些变化？</value>
+    <value>There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>国家</value>
+    <value>Country</value>
   </data>
   <data name="CreateMultipleLogs" xml:space="preserve">
-    <value>创建多个日志</value>
+    <value>Create Multiple Logs</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>客户</value>
+    <value>Customer</value>
   </data>
   <data name="Customer_Communication_Logs" xml:space="preserve">
-    <value>客户通信日志</value>
+    <value>Customer Communication Logs</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>已删除</value>
+    <value>Deleted</value>
   </data>
   <data name="DescriptionMaxLengthError" xml:space="preserve">
-    <value>备注的最大长度是32,700！</value>
+    <value>Max length of Remark is 32,700!</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>持续时间</value>
+    <value>Duration</value>
   </data>
   <data name="Edit_Communication_Log" xml:space="preserve">
-    <value>编辑通讯日志</value>
+    <value>Edit Communication Log</value>
   </data>
   <data name="Edit_Communication_Logs" xml:space="preserve">
-    <value>编辑通讯日志</value>
+    <value>Edit Communication Log</value>
   </data>
   <data name="End_Time" xml:space="preserve">
-    <value>结束时间</value>
+    <value>End Time</value>
   </data>
   <data name="Error_NAMainCategory" xml:space="preserve">
-    <value>主要类别是强制性的！</value>
+    <value>Main category is mandatory!</value>
   </data>
   <data name="Error_NA_MainSubCategory" xml:space="preserve">
-    <value>主要类别-子类别是强制性的！</value>
+    <value>Main Category - Sub Category is mandatory!</value>
   </data>
   <data name="Ext" xml:space="preserve">
-    <value>分机</value>
+    <value>Ext</value>
   </data>
   <data name="FeedbackDuplicationError" xml:space="preserve">
-    <value>这个客户有一个类似的日志与运行数{0}。 你想创建这个日志吗？</value>
+    <value>This customer has a similar log with running number {0}. Do you want to create this log?</value>
   </data>
   <data name="Feedback_Date" xml:space="preserve">
-    <value>反馈日期</value>
+    <value>Feedback Date</value>
   </data>
   <data name="From_date" xml:space="preserve">
-    <value>从日期</value>
+    <value>From date</value>
   </data>
   <data name="Guest" xml:space="preserve">
-    <value>嘉宾</value>
+    <value>Guest</value>
   </data>
   <data name="Handled_By" xml:space="preserve">
-    <value>按句柄</value>
+    <value>Handle By</value>
   </data>
   <data name="Handler" xml:space="preserve">
-    <value>处理程序</value>
+    <value>Handler</value>
   </data>
   <data name="Insert_Communication_Log" xml:space="preserve">
-    <value>插入通讯日志</value>
+    <value>Insert Communication Log</value>
   </data>
   <data name="Insert_Edit_Block" xml:space="preserve">
-    <value>插入编辑块</value>
+    <value>Insert Edit Block</value>
   </data>
   <data name="Invalid" xml:space="preserve">
-    <value>无效</value>
+    <value>Invalid</value>
   </data>
   <data name="InvalidCategoryError" xml:space="preserve">
-    <value>没有类别[{0}]的子类别。 请添加子类别或选择其他类别。</value>
+    <value>There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category.</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>语言</value>
+    <value>Language</value>
   </data>
   <data name="Licensee_Type" xml:space="preserve">
-    <value>被许可人类型</value>
+    <value>Licensee Type</value>
   </data>
   <data name="Main_Category" xml:space="preserve">
-    <value>主要类别</value>
+    <value>Main Category</value>
   </data>
   <data name="NoSubcategoryError" xml:space="preserve">
-    <value>子类别是强制性的！</value>
+    <value>Subcategory is mandatory!</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>好</value>
+    <value>OK</value>
   </data>
   <data name="Pending" xml:space="preserve">
-    <value>待定</value>
+    <value>Pending</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>产品</value>
+    <value>Product</value>
   </data>
   <data name="Province" xml:space="preserve">
-    <value>省</value>
+    <value>Province</value>
   </data>
   <data name="RelatedCustomerNameLengthErrorMessage" xml:space="preserve">
-    <value>客户名称不能大于50个字符</value>
+    <value>Customer Name cannot be greater than 50 characters</value>
+    <comment>#58197</comment>
   </data>
   <data name="Related_To" xml:space="preserve">
-    <value>与</value>
+    <value>Related To</value>
   </data>
   <data name="Remark" xml:space="preserve">
-    <value>备注</value>
+    <value>Remark</value>
   </data>
   <data name="Response" xml:space="preserve">
-    <value>响应</value>
+    <value>Response</value>
   </data>
   <data name="Reviewed" xml:space="preserve">
-    <value>审查</value>
+    <value>Reviewed</value>
   </data>
   <data name="ReviewedInformation" xml:space="preserve">
-    <value>（由{0}对{1进行审查})</value>
+    <value>(Reviewed by {0} on {1})</value>
   </data>
   <data name="Reviewed_By" xml:space="preserve">
-    <value>审查</value>
+    <value>Reviewed By</value>
   </data>
   <data name="Reviewer" xml:space="preserve">
-    <value>审阅者</value>
+    <value>Reviewer</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>角色</value>
+    <value>Role</value>
   </data>
   <data name="Running_No" xml:space="preserve">
-    <value>没有</value>
+    <value>Running No.</value>
   </data>
   <data name="Running_Number" xml:space="preserve">
-    <value>运行数</value>
+    <value>Running Number</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>选择</value>
+    <value>Select</value>
   </data>
   <data name="Site" xml:space="preserve">
-    <value>网站</value>
+    <value>Site</value>
   </data>
   <data name="Solution" xml:space="preserve">
-    <value>解决方案</value>
+    <value>Solution</value>
   </data>
   <data name="SolutionMaxLengthError" xml:space="preserve">
-    <value>解决方案的最大长度是32,700！</value>
+    <value>Max length of Solution is 32,700!</value>
   </data>
   <data name="Solved" xml:space="preserve">
-    <value>已解决</value>
+    <value>Solved</value>
   </data>
   <data name="Start_Time" xml:space="preserve">
-    <value>开始时间</value>
+    <value>Start Time</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>状态</value>
+    <value>Status</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>主题</value>
+    <value>Subject</value>
   </data>
   <data name="SubProduct" xml:space="preserve">
-    <value>子产品</value>
+    <value>Sub-product</value>
+    <comment>#50691</comment>
   </data>
   <data name="Sub_Category" xml:space="preserve">
-    <value>子类别</value>
+    <value>Subcategory</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>N/A</value>
   </data>
   <data name="To_date" xml:space="preserve">
-    <value>迄今为止</value>
+    <value>To date</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="Auto_Generated" xml:space="preserve">
-    <value>自动生成</value>
+    <value>Warning</value>
   </data>
 </root>

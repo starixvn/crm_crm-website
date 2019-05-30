@@ -198,10 +198,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Labels.zh.Designer.cs">
+    <Compile Include="Resources\Labels.zh-CN.Designer.cs">
+      <DependentUpon>Labels.zh-CN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Labels.zh.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Labels.zh-TW.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.zh-TW.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Implements\CustomerDetailService.cs" />
     <Compile Include="Services\Implements\CustomerService.cs" />
@@ -230,9 +235,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Labels.zh.resx">
+    <EmbeddedResource Include="Resources\Labels.zh-CN.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Labels.zh.Designer.cs</LastGenOutput>
+      <LastGenOutput>Labels.zh-CN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh-TW.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.zh-TW.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

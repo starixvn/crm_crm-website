@@ -117,136 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangedHeadlineCase1" xml:space="preserve">
-    <value>直接帐户(A)现在处于非活动状态。</value>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
   </data>
-  <data name="ChangedHeadlineCase2" xml:space="preserve">
-    <value>直接帐户(A)现在处于活动状态。</value>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
   </data>
-  <data name="ChangedHeadlineCase3" xml:space="preserve">
-    <value>此组标题从(A)更改为(B)。</value>
+  <data name="Error_ArgumentEmpty" xml:space="preserve">
+    <value>"{0}" cannot be blank.</value>
   </data>
-  <data name="ChangedHeadlineCase4" xml:space="preserve">
-    <value>这个直接账户（A）现在是标题。</value>
+  <data name="Error_ArgumentLength" xml:space="preserve">
+    <value>"{0}" cannot be more than {1} character.</value>
   </data>
-  <data name="ChangedHeadlineCase5" xml:space="preserve">
-    <value>直接帐户(A)现在处于非活动状态。</value>
+  <data name="Error_ArgumentOutOfRange" xml:space="preserve">
+    <value>{0} must be between "{1}"-"{2}".</value>
   </data>
-  <data name="CreatedDate" xml:space="preserve">
-    <value>创建日期</value>
+  <data name="Error_CollectionEmpty" xml:space="preserve">
+    <value>Collection cannot be empty.</value>
   </data>
-  <data name="Currency" xml:space="preserve">
-    <value>货币</value>
+  <data name="Error_GuidEmpty" xml:space="preserve">
+    <value>"{0}" cannot be empty guid.</value>
   </data>
-  <data name="DirectAccount" xml:space="preserve">
-    <value>直接账户</value>
+  <data name="Error_InvalidEmail" xml:space="preserve">
+    <value>"{0}" is not a valid email address.</value>
   </data>
-  <data name="DirectAccounts" xml:space="preserve">
-    <value>直接账户</value>
+  <data name="Error_InvalidIP" xml:space="preserve">
+    <value>"{0}" is not a valid IP.</value>
   </data>
-  <data name="Done" xml:space="preserve">
-    <value>搞定</value>
+  <data name="Error_InvalidPattern" xml:space="preserve">
+    <value>Invalid pattern: {0}</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
+  <data name="Error_InvalidUrl" xml:space="preserve">
+    <value>"{0}" is not a valid web url.</value>
   </data>
-  <data name="EditNumberOfAccounts" xml:space="preserve">
-    <value>编辑帐户数</value>
-  </data>
-  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
-    <value>排除已忽略的帐户</value>
-  </data>
-  <data name="Extension" xml:space="preserve">
-    <value>扩展</value>
-  </data>
-  <data name="Handler" xml:space="preserve">
-    <value>处理程序</value>
-  </data>
-  <data name="Headline" xml:space="preserve">
-    <value>标题</value>
-  </data>
-  <data name="InformHeadlines" xml:space="preserve">
-    <value>通知标题</value>
-  </data>
-  <data name="InformHeadlinesCases" xml:space="preserve">
-    <value>通知标题案例</value>
-  </data>
-  <data name="InternalAccount" xml:space="preserve">
-    <value>内部账户</value>
-  </data>
-  <data name="KeepThisAccount" xml:space="preserve">
-    <value>保留此帐户</value>
-  </data>
-  <data name="KeptForReference" xml:space="preserve">
-    <value>保留以供参考</value>
-  </data>
-  <data name="NA" xml:space="preserve">
-    <value>N/A</value>
-  </data>
-  <data name="NeverTouch" xml:space="preserve">
-    <value>不要碰</value>
-  </data>
-  <data name="NewCase" xml:space="preserve">
-    <value>新案子</value>
-  </data>
-  <data name="NewInformHeadlines" xml:space="preserve">
-    <value>新的通知标题</value>
-  </data>
-  <data name="NoDirectAccounts" xml:space="preserve">
-    <value>非也。. 直接账户</value>
-  </data>
-  <data name="NoNeedToCall" xml:space="preserve">
-    <value>不需要打电话</value>
-  </data>
-  <data name="NoReply" xml:space="preserve">
-    <value>无答复</value>
-  </data>
-  <data name="Position" xml:space="preserve">
-    <value>位置</value>
-  </data>
-  <data name="ProductStatus" xml:space="preserve">
-    <value>产品状态</value>
-  </data>
-  <data name="Remark" xml:space="preserve">
-    <value>备注</value>
-  </data>
-  <data name="RequestToCallBack" xml:space="preserve">
-    <value>请求回电</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>搜索</value>
-  </data>
-  <data name="Site" xml:space="preserve">
-    <value>网站</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>状态</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>标题</value>
-  </data>
-  <data name="Uncontactable" xml:space="preserve">
-    <value>无法接触</value>
-  </data>
-  <data name="UpdatedTime" xml:space="preserve">
-    <value>更新时间</value>
-  </data>
-  <data name="UpdateFailed" xml:space="preserve">
-    <value>更新失败！</value>
-  </data>
-  <data name="UpdateInformHeadlines" xml:space="preserve">
-    <value>更新通知标题</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>用户名</value>
-  </data>
-  <data name="VIP" xml:space="preserve">
-    <value>贵宾</value>
-  </data>
-  <data name="WithoutAnyGroup" xml:space="preserve">
-    <value>没有任何团体</value>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
   </data>
 </root>

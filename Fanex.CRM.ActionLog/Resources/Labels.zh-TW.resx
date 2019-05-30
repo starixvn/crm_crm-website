@@ -117,34 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Alert" xml:space="preserve">
-    <value>警报</value>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
   </data>
-  <data name="ConfirmIgnoreDataChange" xml:space="preserve">
-    <value>有对备注选项卡上的客户信息的一些变化！&lt;br/&gt;你确定你想忽略这些变化？</value>
+  <data name="ActivityLog" xml:space="preserve">
+    <value>Activity Log</value>
   </data>
-  <data name="Insert_Edit_Block" xml:space="preserve">
-    <value>插入编辑块</value>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>好</value>
+  <data name="Customer_Activity_Logs" xml:space="preserve">
+    <value>Customer Activity Logs</value>
   </data>
-  <data name="Remark" xml:space="preserve">
-    <value>备注</value>
+  <data name="EditedBy" xml:space="preserve">
+    <value>Edited By</value>
   </data>
-  <data name="RemarkPlaceHolder" xml:space="preserve">
-    <value>点击这里进入新注</value>
+  <data name="Entity" xml:space="preserve">
+    <value>Entity</value>
   </data>
-  <data name="SpecialRemark" xml:space="preserve">
-    <value>特别评论</value>
+  <data name="EntityId" xml:space="preserve">
+    <value>ID</value>
   </data>
-  <data name="SpecialRemarkPlaceHolder" xml:space="preserve">
-    <value>点击这里进入新的特别评论</value>
+  <data name="FieldName" xml:space="preserve">
+    <value>Field Name</value>
   </data>
-  <data name="UpdateRemarkSuccess" xml:space="preserve">
-    <value>更新备注成功！</value>
+  <data name="FromDate" xml:space="preserve">
+    <value>From date</value>
   </data>
-  <data name="UpdateRemarkUnSuccess" xml:space="preserve">
-    <value>新版变化</value>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
+  <data name="LogTime" xml:space="preserve">
+    <value>Log Time</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="NewValue" xml:space="preserve">
+    <value>New Value</value>
+  </data>
+  <data name="OldValue" xml:space="preserve">
+    <value>Old Value</value>
+  </data>
+  <data name="Setting_Logs" xml:space="preserve">
+    <value>Setting Logs</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To date</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

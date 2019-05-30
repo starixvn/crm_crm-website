@@ -117,61 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Alert" xml:space="preserve">
-    <value>警报</value>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
+  <data name="Bet_Credit" xml:space="preserve">
+    <value>Bet Credit</value>
   </data>
-  <data name="Confirm_Ignore_Changes" xml:space="preserve">
-    <value>确认忽略更改</value>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
   </data>
-  <data name="DefaultSearchCustomer" xml:space="preserve">
-    <value>电话或用户名或昵称</value>
+  <data name="Claimed_Time" xml:space="preserve">
+    <value>Claimed Time</value>
   </data>
-  <data name="Error_500" xml:space="preserve">
-    <value>你无权使用这个功能！</value>
+  <data name="Confirm_Ignore_EditVerifyFlag_Changes" xml:space="preserve">
+    <value>There are some changes on verify view! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
-  <data name="Error_SearchCustomer_Empty" xml:space="preserve">
-    <value>请输入用户名！</value>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
   </data>
-  <data name="Error_Server" xml:space="preserve">
-    <value>很抱歉，在处理您的请求时发生错误，请通知管理员。</value>
+  <data name="Dashboard_VerifyFlag_UpdateSuccess" xml:space="preserve">
+    <value>Update verify flag successfully!</value>
   </data>
-  <data name="Guest" xml:space="preserve">
-    <value>嘉宾</value>
+  <data name="DoneBy" xml:space="preserve">
+    <value>DoneBy</value>
   </data>
-  <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
-    <value>显示/隐藏左侧面板</value>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
   </data>
-  <data name="IBC" xml:space="preserve">
-    <value>IBC</value>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
   </data>
-  <data name="Licensee" xml:space="preserve">
-    <value>被许可人</value>
+  <data name="Edit_Communication_Log" xml:space="preserve">
+    <value>Edit Communication Log</value>
   </data>
-  <data name="MBC" xml:space="preserve">
-    <value>MBC</value>
+  <data name="Edit_Redemption_Log" xml:space="preserve">
+    <value>Edit Redemption Log</value>
   </data>
-  <data name="Message_ViewChart_FromToDate" xml:space="preserve">
-    <value>{0}到{1}</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>非也。</value>
+  <data name="Feedback_Date" xml:space="preserve">
+    <value>Feedback Date</value>
   </data>
-  <data name="NoPermission" xml:space="preserve">
-    <value>你没有这个功能的权限！</value>
+  <data name="Given_Credit" xml:space="preserve">
+    <value>Given Credit</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>好</value>
+  <data name="Handled_By" xml:space="preserve">
+    <value>Handled By</value>
   </data>
-  <data name="ResultMessage_NoInfo" xml:space="preserve">
-    <value>没有数据。</value>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>欢迎。</value>
+  <data name="Information_Verified" xml:space="preserve">
+    <value>Information Verified</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>是</value>
+  <data name="Insert_Communication_Log" xml:space="preserve">
+    <value>Insert Communication Log</value>
+  </data>
+  <data name="Last_10_Communication_Log" xml:space="preserve">
+    <value>Last 10 Communication Log</value>
+  </data>
+  <data name="Last_5_Redemption_Log" xml:space="preserve">
+    <value>Last 5 Redemption Log</value>
+  </data>
+  <data name="Last_5_Special_Remark" xml:space="preserve">
+    <value>Last 5 Special Remark</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
+  <data name="Passport_Number" xml:space="preserve">
+    <value>Passport Number</value>
+  </data>
+  <data name="Recent_Redemption_Activity" xml:space="preserve">
+    <value>Recent Redemption Activity</value>
+  </data>
+  <data name="Reviewed_By" xml:space="preserve">
+    <value>Reviewed By</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
+  <data name="Running_No" xml:space="preserve">
+    <value>Running No.</value>
+  </data>
+  <data name="Running_Number" xml:space="preserve">
+    <value>Running Number</value>
+  </data>
+  <data name="Secret_Code" xml:space="preserve">
+    <value>Secret Code</value>
+  </data>
+  <data name="Special_Remark" xml:space="preserve">
+    <value>Special Remark</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>There is no data</value>
+  </data>
+  <data name="Verify_Customer_Info" xml:space="preserve">
+    <value>Verify Customer Info</value>
   </data>
 </root>

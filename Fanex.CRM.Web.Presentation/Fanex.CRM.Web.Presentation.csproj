@@ -225,20 +225,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMsg.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\ErrorMsg.zh.designer.cs">
+    <Compile Include="App_GlobalResources\ErrorMsg.zh-CN.designer.cs">
+      <DependentUpon>ErrorMsg.zh-CN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorMsg.zh.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ErrorMsg.zh-TW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMsg.zh-TW.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\Language.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Language.zh.designer.cs">
+    <Compile Include="App_GlobalResources\Language.zh-CN.designer.cs">
+      <DependentUpon>Language.zh-CN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Language.zh.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Language.zh-TW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.zh-TW.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
@@ -1503,15 +1513,27 @@
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\ErrorMsg.zh.resx">
+    <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>ErrorMsg.zh.designer.cs</LastGenOutput>
+      <LastGenOutput>ErrorMsg.zh-TW.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Language.zh.resx">
+    <Content Include="App_GlobalResources\Language.zh-TW.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Language.zh.designer.cs</LastGenOutput>
+      <LastGenOutput>Language.zh-TW.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ErrorMsg.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ErrorMsg.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Language.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.zh-CN.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <PropertyGroup>

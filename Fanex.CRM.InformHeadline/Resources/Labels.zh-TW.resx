@@ -117,55 +117,136 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
-    <value>开始！</value>
+  <data name="ChangedHeadlineCase1" xml:space="preserve">
+    <value>Direct account (A) is now inactive.</value>
   </data>
-  <data name="ActivityLog" xml:space="preserve">
-    <value>活动日志</value>
+  <data name="ChangedHeadlineCase2" xml:space="preserve">
+    <value>Direct account (A) is now active.</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>全部</value>
+  <data name="ChangedHeadlineCase3" xml:space="preserve">
+    <value>This group headline is changed from (A) to (B).</value>
   </data>
-  <data name="Customer_Activity_Logs" xml:space="preserve">
-    <value>客户活动日志</value>
+  <data name="ChangedHeadlineCase4" xml:space="preserve">
+    <value>This direct account (A) is now headline.</value>
   </data>
-  <data name="EditedBy" xml:space="preserve">
-    <value>编辑者</value>
+  <data name="ChangedHeadlineCase5" xml:space="preserve">
+    <value>Direct account (A) is now inactive.</value>
   </data>
-  <data name="Entity" xml:space="preserve">
-    <value>实体</value>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
   </data>
-  <data name="EntityId" xml:space="preserve">
-    <value>ID</value>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
   </data>
-  <data name="FieldName" xml:space="preserve">
-    <value>字段名称</value>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
   </data>
-  <data name="FromDate" xml:space="preserve">
-    <value>从日期</value>
+  <data name="DirectAccounts" xml:space="preserve">
+    <value>Direct Accounts</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditNumberOfAccounts" xml:space="preserve">
+    <value>Edit Number of Accounts</value>
+  </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>Exclude ignored accounts</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
   </data>
   <data name="Handler" xml:space="preserve">
-    <value>处理程序</value>
+    <value>Handler</value>
   </data>
-  <data name="LogTime" xml:space="preserve">
-    <value>日志时间</value>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
+  <data name="InformHeadlines" xml:space="preserve">
+    <value>Inform Headlines</value>
+  </data>
+  <data name="InformHeadlinesCases" xml:space="preserve">
+    <value>Inform Headlines Cases</value>
+  </data>
+  <data name="InternalAccount" xml:space="preserve">
+    <value>Internal account</value>
+  </data>
+  <data name="KeepThisAccount" xml:space="preserve">
+    <value>Keep this account</value>
+  </data>
+  <data name="KeptForReference" xml:space="preserve">
+    <value>Kept for reference</value>
   </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
-  <data name="NewValue" xml:space="preserve">
-    <value>新价值</value>
+  <data name="NeverTouch" xml:space="preserve">
+    <value>Never touch</value>
   </data>
-  <data name="OldValue" xml:space="preserve">
-    <value>旧值</value>
+  <data name="NewCase" xml:space="preserve">
+    <value>New Case</value>
   </data>
-  <data name="Setting_Logs" xml:space="preserve">
-    <value>设置日志</value>
+  <data name="NewInformHeadlines" xml:space="preserve">
+    <value>New Inform Headlines</value>
   </data>
-  <data name="ToDate" xml:space="preserve">
-    <value>迄今为止</value>
+  <data name="NoDirectAccounts" xml:space="preserve">
+    <value>No. of Direct Accounts</value>
+  </data>
+  <data name="NoNeedToCall" xml:space="preserve">
+    <value>No need to call</value>
+  </data>
+  <data name="NoReply" xml:space="preserve">
+    <value>No reply</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>Product Status</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="RequestToCallBack" xml:space="preserve">
+    <value>Request to call back</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Uncontactable" xml:space="preserve">
+    <value>Uncontactable</value>
+  </data>
+  <data name="UpdatedTime" xml:space="preserve">
+    <value>Updated Time</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update Failed!</value>
+  </data>
+  <data name="UpdateInformHeadlines" xml:space="preserve">
+    <value>Update Inform Headlines</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>用户名</value>
+    <value>Username</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="WithoutAnyGroup" xml:space="preserve">
+    <value>Without any group</value>
   </data>
 </root>

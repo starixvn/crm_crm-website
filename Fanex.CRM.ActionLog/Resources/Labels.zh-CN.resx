@@ -117,127 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Agent" xml:space="preserve">
-    <value>探员</value>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActivityLog" xml:space="preserve">
+    <value>Activity Log</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value>全部</value>
+    <value>All</value>
   </data>
-  <data name="ByCategory" xml:space="preserve">
-    <value>按类别分类</value>
+  <data name="Customer_Activity_Logs" xml:space="preserve">
+    <value>Customer Activity Logs</value>
   </data>
-  <data name="ByCommunicationTool" xml:space="preserve">
-    <value>通过通信工具</value>
+  <data name="EditedBy" xml:space="preserve">
+    <value>Edited By</value>
   </data>
-  <data name="ByCountry" xml:space="preserve">
-    <value>按国家</value>
+  <data name="Entity" xml:space="preserve">
+    <value>Entity</value>
   </data>
-  <data name="ByCreator" xml:space="preserve">
-    <value>创建者</value>
+  <data name="EntityId" xml:space="preserve">
+    <value>ID</value>
   </data>
-  <data name="ByLicensees" xml:space="preserve">
-    <value>由被许可人</value>
+  <data name="FieldName" xml:space="preserve">
+    <value>Field Name</value>
   </data>
-  <data name="ByProduct" xml:space="preserve">
-    <value>按产品</value>
+  <data name="FromDate" xml:space="preserve">
+    <value>From date</value>
   </data>
-  <data name="ByResponse" xml:space="preserve">
-    <value>通过响应</value>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
   </data>
-  <data name="ByRole" xml:space="preserve">
-    <value>按角色</value>
+  <data name="LogTime" xml:space="preserve">
+    <value>Log Time</value>
   </data>
-  <data name="BySite" xml:space="preserve">
-    <value>通过网站</value>
-  </data>
-  <data name="ByStatus" xml:space="preserve">
-    <value>通过状态</value>
-  </data>
-  <data name="Checked" xml:space="preserve">
-    <value>检查</value>
-  </data>
-  <data name="Closed" xml:space="preserve">
-    <value>已关闭</value>
-  </data>
-  <data name="Credit" xml:space="preserve">
-    <value>信用</value>
-  </data>
-  <data name="Customer" xml:space="preserve">
-    <value>客户</value>
-  </data>
-  <data name="Daily" xml:space="preserve">
-    <value>每日</value>
-  </data>
-  <data name="Deleted" xml:space="preserve">
-    <value>已删除</value>
-  </data>
-  <data name="Disable" xml:space="preserve">
-    <value>禁用</value>
-  </data>
-  <data name="Enable" xml:space="preserve">
-    <value>启用</value>
-  </data>
-  <data name="Error_GetAllSetting" xml:space="preserve">
-    <value>(（设置服务全部获取）-{0}</value>
-  </data>
-  <data name="Error_GetAllSite" xml:space="preserve">
-    <value>(SettingService SelAllSite)-{0}</value>
-  </data>
-  <data name="Error_GetSetting" xml:space="preserve">
-    <value>(（设置服务GetById:{0}）-{1}</value>
-  </data>
-  <data name="Error_GetSettingRelationByName" xml:space="preserve">
-    <value>(（Settingsservice Getsettings关系按名称）-错误：{0}&lt;br&gt;-名称：{1}&lt;br&gt;-parentId：{2}</value>
-  </data>
-  <data name="Guest" xml:space="preserve">
-    <value>嘉宾</value>
-  </data>
-  <data name="Headline" xml:space="preserve">
-    <value>标题</value>
-  </data>
-  <data name="IBC" xml:space="preserve">
-    <value>IBC</value>
-  </data>
-  <data name="Licensee" xml:space="preserve">
-    <value>被许可人</value>
-  </data>
-  <data name="Master" xml:space="preserve">
-    <value>师父</value>
-  </data>
-  <data name="Member" xml:space="preserve">
-    <value>会员</value>
-  </data>
-  <data name="Monthly" xml:space="preserve">
-    <value>每月</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>非也。</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>没有</value>
-  </data>
-  <data name="Pending" xml:space="preserve">
-    <value>待定</value>
-  </data>
-  <data name="Solved" xml:space="preserve">
-    <value>已解决</value>
-  </data>
-  <data name="Super" xml:space="preserve">
-    <value>超级</value>
-  </data>
-  <data name="Symbol_NotApply" xml:space="preserve">
+  <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
-  <data name="VIP" xml:space="preserve">
-    <value>贵宾</value>
+  <data name="NewValue" xml:space="preserve">
+    <value>New Value</value>
   </data>
-  <data name="Weekly" xml:space="preserve">
-    <value>每周</value>
+  <data name="OldValue" xml:space="preserve">
+    <value>Old Value</value>
   </data>
-  <data name="Yearly" xml:space="preserve">
-    <value>每年</value>
+  <data name="Setting_Logs" xml:space="preserve">
+    <value>Setting Logs</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>是</value>
+  <data name="ToDate" xml:space="preserve">
+    <value>To date</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

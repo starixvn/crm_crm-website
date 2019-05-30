@@ -7,10 +7,13 @@
 namespace Fanex.CRM.Common.Controllers
 {
     using Attributes;
+    using Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
     using System;
+    using System.Globalization;
+    using System.Threading;
     using System.Web;
     using System.Web.Mvc;
 
@@ -32,10 +35,10 @@ namespace Fanex.CRM.Common.Controllers
         {
             base.Initialize(requestContext);
 
-            //if (AppSession.CurrentUser != null && AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
-            //{
-            //    Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh");
-            //}
+            if (AppSession.CurrentUser != null && AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+            }
         }
 
         public void ChangeCulture(string lang)

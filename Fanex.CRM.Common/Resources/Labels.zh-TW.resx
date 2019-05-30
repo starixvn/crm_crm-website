@@ -117,67 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblAddFeedbackSuccess" xml:space="preserve">
-    <value>成功添加反馈。</value>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
   </data>
-  <data name="lblAddGuestFeedbackSuccess" xml:space="preserve">
-    <value>成功添加来宾反馈。</value>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
   </data>
-  <data name="lblErrorInputRequiredDate" xml:space="preserve">
-    <value>请输入所有需要的数据。</value>
+  <data name="Error_ArgumentEmpty" xml:space="preserve">
+    <value>"{0}" cannot be blank.</value>
   </data>
-  <data name="lblErrorSessionIsExpired" xml:space="preserve">
-    <value>另一个会话已登录或您的会话已过期。 被迫注销！</value>
+  <data name="Error_ArgumentLength" xml:space="preserve">
+    <value>"{0}" cannot be more than {1} character.</value>
   </data>
-  <data name="lblErrorTimeDuration" xml:space="preserve">
-    <value>'To Duration'必须大于或等于'From Duration'。</value>
+  <data name="Error_ArgumentOutOfRange" xml:space="preserve">
+    <value>{0} must be between "{1}"-"{2}".</value>
   </data>
-  <data name="lblErroTimeDate" xml:space="preserve">
-    <value>'到目前为止'必须大于'从日期'。</value>
+  <data name="Error_CollectionEmpty" xml:space="preserve">
+    <value>Collection cannot be empty.</value>
   </data>
-  <data name="lblFeedbacDateShouldBeSmallerThanCurrentDate" xml:space="preserve">
-    <value>反馈日期应小于或等于当前日期。</value>
+  <data name="Error_GuidEmpty" xml:space="preserve">
+    <value>"{0}" cannot be empty guid.</value>
   </data>
-  <data name="lblFeedbackDateShouldBeSmallerThanResolutionTime" xml:space="preserve">
-    <value>反馈日期应小于分辨率时间。</value>
+  <data name="Error_InvalidEmail" xml:space="preserve">
+    <value>"{0}" is not a valid email address.</value>
   </data>
-  <data name="lblInvalidUserName" xml:space="preserve">
-    <value>无效的用户名</value>
+  <data name="Error_InvalidIP" xml:space="preserve">
+    <value>"{0}" is not a valid IP.</value>
   </data>
-  <data name="lblNoCreateFeedbackPermission" xml:space="preserve">
-    <value>您没有创建反馈的权限。</value>
+  <data name="Error_InvalidPattern" xml:space="preserve">
+    <value>Invalid pattern: {0}</value>
   </data>
-  <data name="lblNoDeletedFeedbackPermission" xml:space="preserve">
-    <value>您没有权限删除反馈。</value>
+  <data name="Error_InvalidUrl" xml:space="preserve">
+    <value>"{0}" is not a valid web url.</value>
   </data>
-  <data name="lblNoDeleteFBSubjectTemplate" xml:space="preserve">
-    <value>您没有权限删除反馈主题模板。</value>
-  </data>
-  <data name="lblNoInsertFBSubjectTemplate" xml:space="preserve">
-    <value>您没有插入反馈主题模板的权限。</value>
-  </data>
-  <data name="lblNoPermission" xml:space="preserve">
-    <value>你没有许可</value>
-  </data>
-  <data name="lblNotYetVerifyFeedbackRelatedCustomer" xml:space="preserve">
-    <value>您必须在添加此反馈之前验证相关客户的用户名！</value>
-  </data>
-  <data name="lblNoUpdateCustomerPermission" xml:space="preserve">
-    <value>您没有更新客户的权限。</value>
-  </data>
-  <data name="lblNoUpdateFBSubjectTemplate" xml:space="preserve">
-    <value>您没有更新反馈主题模板的权限。</value>
-  </data>
-  <data name="lblNoUpdateFeedbackPermission" xml:space="preserve">
-    <value>您没有更新反馈的权限。</value>
-  </data>
-  <data name="lblNoUpdateReviewFeedbackPermission" xml:space="preserve">
-    <value>您没有权限更新此反馈。</value>
-  </data>
-  <data name="lblUpdateCRMInfoSuccess" xml:space="preserve">
-    <value>成功更新CRM信息。</value>
-  </data>
-  <data name="lblUpdateFeedbackSuccess" xml:space="preserve">
-    <value>更新反馈成功。</value>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
   </data>
 </root>
