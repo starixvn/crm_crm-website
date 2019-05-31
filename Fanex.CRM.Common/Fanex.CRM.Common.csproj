@@ -228,8 +228,10 @@
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Services\ILanguageService.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
+    <Compile Include="Services\LanguageService.cs" />
     <Compile Include="Services\LoggingHelper.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\ServiceBase.cs" />

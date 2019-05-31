@@ -7,13 +7,10 @@
 namespace Fanex.CRM.Common.Controllers
 {
     using Attributes;
-    using Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
     using System;
-    using System.Globalization;
-    using System.Threading;
     using System.Web;
     using System.Web.Mvc;
 
@@ -25,20 +22,20 @@ namespace Fanex.CRM.Common.Controllers
     public class BaseController : Controller
     {
         private readonly IPermissionService _permissionService;
+        private readonly ILanguageService _langService;
 
         public BaseController()
         {
             _permissionService = new PermissionService();
+            _langService = new LanguageService();
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-            if (AppSession.CurrentUser != null && AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
-            }
+            var currentLanguage = _langService.GetCurrentLanguage();
+            _langService.SetPageCulture(currentLanguage);
         }
 
         public void ChangeCulture(string lang)

@@ -6,12 +6,12 @@
 
 namespace Fanex.CRM.Common.Services
 {
-    using System.Collections.Generic;
-    using System.Web;
-    using System.Web.SessionState;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using NAP.Core.Models;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.SessionState;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,6 +20,19 @@ namespace Fanex.CRM.Common.Services
     {
         private const string CurrentLogInUserKey = "CurrentLogInUser";
         private const string CurrentUserMenuKey = "CurrentUserMenu";
+
+        public static bool UpdateLanguage(string language)
+        {
+            var user = CurrentUser;
+            if (user != null)
+            {
+                user.SettingLanguage = language;
+                return true;
+                //CurrentUser = user;
+            }
+
+            return false;
+        }
 
         public static SearchedCustomer CurrentCustomer
         {
