@@ -127,7 +127,7 @@
     <value>Confirm Ignore Changes</value>
   </data>
   <data name="DefaultSearchCustomer" xml:space="preserve">
-    <value>Phone or Username or Nickname</value>
+    <value>Phone or Username or Nickname CN</value>
   </data>
   <data name="Error_500" xml:space="preserve">
     <value>You're not authorized on this function!</value>

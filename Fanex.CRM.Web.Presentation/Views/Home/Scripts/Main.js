@@ -137,6 +137,15 @@ function udpateOnlineStatus() {
     reCheckIn();
 }
 
+function toggleSelectLanguage() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function selectLanguage(language) {
+    window.location = window.rootUrl + "Home/Default?language=" + language;
+    toggleSelectLanguage();
+}
+
 $(document).ready(function () {
     preResize();
     //Add events to page

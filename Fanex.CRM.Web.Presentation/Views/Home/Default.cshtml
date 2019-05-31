@@ -14,6 +14,10 @@
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
     var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
     var logo = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "logo-crm-cn88.png" : "logo-crm.png";
+    var settingLanguage = (ViewBag.SettingLanguage == "en-US")
+        ? "English"
+        : (ViewBag.SettingLanguage == "zh-CN" ? "Chinese Simplified" : "Chinese Traditional");
+    var settingLanguageFlagClass = (ViewBag.SettingLanguage == "en-US") ? "en-flag" : "zh-flag";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
@@ -39,10 +43,23 @@
                     @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4">
+                    
                     @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
                     <div class="login-info pull-right">
                         @Labels.Welcome
                         <span class="txt-username">@ViewBag.AccUsername</span>
+                    </div>
+                    <div class="dropdown">
+                        <button onclick="toggleSelectLanguage()" class="dropbtn">
+                            <span class="icon-flag @settingLanguageFlagClass"></span>
+                            @settingLanguage
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#" onclick="selectLanguage('en-US');"><span class="icon-flag en-flag"></span>English</a>
+                            <a href="#" onclick="selectLanguage('zh-TW');"><span class="icon-flag zh-flag"></span>Chinese Traditional</a>
+                            <a href="#" onclick="selectLanguage('zh-CN');"><span class="icon-flag zh-flag"></span>Chinese Simplified</a>
+                        </div>
                     </div>
                 </div>
             </div>

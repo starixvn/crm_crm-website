@@ -21,6 +21,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     public class HomeController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
+        private readonly ILanguageService _langService;
 
         public HomeController()
             : this(null)
@@ -30,6 +31,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         public HomeController(IPermissionService permissionService)
         {
             _permissionService = permissionService ?? new PermissionService();
+            _langService = new LanguageService();
         }
 
         public RedirectResult Index()
@@ -46,12 +48,18 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// Access default page.
         /// </summary>
         /// <returns>Default page.</returns>
-        public ActionResult Default()
+        public ActionResult Default(string language)
         {
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+
+            if (language != null)
+            {
+                _langService.ChangeLanguage(language);
+                ViewBag.SettingLanguage = language;
+            }
 
             return View("~/Views/Home/Default.cshtml");
         }
