@@ -221,7 +221,7 @@
             $scope.communicationDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.allSettings.CommunicationToolList
+                sourceData: $scope.allSettings.CommunicationToolList.slice(0)
             };
 
             $scope.extensionDropdownSettings = {
