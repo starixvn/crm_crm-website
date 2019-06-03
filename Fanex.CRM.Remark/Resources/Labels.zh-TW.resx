@@ -118,33 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Alert" xml:space="preserve">
-    <value>Alert</value>
+    <value>註意</value>
   </data>
   <data name="ConfirmIgnoreDataChange" xml:space="preserve">
-    <value>There are some changes on customer information on Remark tab!&lt;br/&gt;Are you sure you want to ignore these changes?</value>
-  </data>
-  <data name="Insert_Edit_Block" xml:space="preserve">
-    <value>Insert Edit Block</value>
+    <value>客戶資訊備註欄有修改，是否要忽略修改部分？</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Remark" xml:space="preserve">
-    <value>Remark</value>
+    <value>備註</value>
   </data>
   <data name="RemarkPlaceHolder" xml:space="preserve">
-    <value>Click here to enter new remark</value>
+    <value>點擊此處新增備註</value>
   </data>
   <data name="SpecialRemark" xml:space="preserve">
-    <value>Special Remark</value>
+    <value>特別備註</value>
   </data>
   <data name="SpecialRemarkPlaceHolder" xml:space="preserve">
-    <value>Click here to enter new special remark</value>
+    <value>點擊此處新增特別備註</value>
   </data>
   <data name="UpdateRemarkSuccess" xml:space="preserve">
-    <value>Update remark successfully!</value>
+    <value>成功更新備註！</value>
   </data>
   <data name="UpdateRemarkUnSuccess" xml:space="preserve">
-    <value>Update remark unsuccessfully!</value>
+    <value>更新備註不成功！</value>
   </data>
 </root>

@@ -118,214 +118,199 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>活跃</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="Auto_Generated" xml:space="preserve">
-    <value>Auto-generated</value>
+    <value>全部</value>
   </data>
   <data name="BBM" xml:space="preserve">
     <value>BBM</value>
   </data>
   <data name="BetType" xml:space="preserve">
-    <value>Bet Type</value>
+    <value>投注类别</value>
   </data>
   <data name="Bet_Type" xml:space="preserve">
-    <value>Bet Type</value>
+    <value>投注类别</value>
   </data>
   <data name="Birthday" xml:space="preserve">
-    <value>Birthday</value>
+    <value>生日</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>范畴</value>
   </data>
   <data name="Checked" xml:space="preserve">
-    <value>Checked</value>
+    <value>检查</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
+    <value>关</value>
   </data>
   <data name="Communication" xml:space="preserve">
-    <value>Communication</value>
+    <value>通讯</value>
   </data>
   <data name="Communication_Tool" xml:space="preserve">
-    <value>Communication Tool</value>
+    <value>通讯工具</value>
   </data>
   <data name="ConfirmOverrideCRMInfo" xml:space="preserve">
-    <value>The current CRM Info will be overwritten. Do you want to continue?</value>
+    <value>现有 CRM 资讯将被覆写。是否要继续？</value>
   </data>
   <data name="Confirm_Ignore_MultipleLogs_Changes" xml:space="preserve">
-    <value>There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>通讯栏有修改，是否要忽略修改部分？</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>Country</value>
+    <value>国家</value>
   </data>
   <data name="Create_Multiple_Logs" xml:space="preserve">
-    <value>Create Multiple Logs</value>
+    <value>多重日志创建</value>
   </data>
   <data name="CSExtension" xml:space="preserve">
-    <value>CS Ext./Station</value>
+    <value>客服座机号</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Customer</value>
+    <value>客户</value>
   </data>
   <data name="CustomerResponse" xml:space="preserve">
-    <value>Customer Response</value>
+    <value>客户反应</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Feedback Date</value>
+    <value>反馈日期</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>已删除</value>
   </data>
   <data name="DeletedFeedbackTitle" xml:space="preserve">
-    <value>Deleted Feedback</value>
+    <value>已删除反馈</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>描述</value>
   </data>
   <data name="DescriptionMaxLengthError" xml:space="preserve">
-    <value>Max length of Description is 32,700!</value>
+    <value>描述内容最长可达 32,700！</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>细节</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>编辑</value>
   </data>
   <data name="EditMultipleLogStatusesTitle" xml:space="preserve">
-    <value>Multiple Review &amp; Update Status</value>
+    <value>多重审核及更新状态</value>
   </data>
   <data name="EditMultipleLogsTitle" xml:space="preserve">
-    <value>Edit Multiple Logs</value>
+    <value>多重编辑日志</value>
   </data>
   <data name="Edit_Multiple_Logs" xml:space="preserve">
-    <value>Edit Multiple Logs</value>
+    <value>多重编辑日志</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>电邮</value>
   </data>
   <data name="End_Time" xml:space="preserve">
-    <value>End Time</value>
+    <value>结案时间</value>
   </data>
   <data name="Error_EmptyId" xml:space="preserve">
-    <value>Identity is mandatory!</value>
+    <value>请填写身份栏处！</value>
   </data>
   <data name="Error_EmptyRemark" xml:space="preserve">
-    <value>Description is mandatory!</value>
+    <value>请填写描述栏处！</value>
   </data>
   <data name="Error_EmptyReview" xml:space="preserve">
-    <value>Review is mandatory!</value>
+    <value>请填写审核者栏处！</value>
   </data>
   <data name="Error_EmptySolution" xml:space="preserve">
-    <value>Solution is mandatory!</value>
+    <value>请填写解答栏处！</value>
   </data>
   <data name="Error_EmptySubject" xml:space="preserve">
-    <value>Subject is mandatory!</value>
+    <value>请填写标题！</value>
   </data>
   <data name="Error_FeedbackResolutionTime" xml:space="preserve">
-    <value>Feedback date should be smaller than Resolution time!</value>
+    <value>反馈日期需早于解决时间！</value>
   </data>
   <data name="Error_NACommmunicationTool" xml:space="preserve">
-    <value>Communication tool is mandatory!</value>
+    <value>请筛选通讯工具！</value>
   </data>
   <data name="Error_NALanguage" xml:space="preserve">
-    <value>Language is mandatory!</value>
+    <value>请筛选语系！</value>
   </data>
   <data name="Error_NAMainCategory" xml:space="preserve">
-    <value>Main category is mandatory!</value>
+    <value>请筛选主范畴！</value>
   </data>
   <data name="Error_NASubCategory" xml:space="preserve">
-    <value>Subcategory is mandatory!</value>
+    <value>请筛选副范畴！</value>
   </data>
   <data name="Error_NA_MainSubCategory" xml:space="preserve">
-    <value>Main Category - Sub Category is mandatory!</value>
+    <value>请筛选主范畴 - 副范畴！</value>
   </data>
   <data name="Error_VerifyRelatedCustomer" xml:space="preserve">
-    <value>You must verify the username before saving this feedback.</value>
+    <value>储存此反馈前，请先验证账号</value>
   </data>
   <data name="Ext" xml:space="preserve">
-    <value>Ext</value>
+    <value>座机号</value>
   </data>
   <data name="Fax" xml:space="preserve">
-    <value>Fax</value>
+    <value>传真</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
   </data>
   <data name="FeedbackDate" xml:space="preserve">
-    <value>Feedback Date</value>
+    <value>反馈日期</value>
   </data>
   <data name="FeedbackDuplicationError" xml:space="preserve">
-    <value>This customer has a similar log with running number {0}. Do you want to create this log?</value>
+    <value>此客户与目录号 {0} 相似日志，是否要创建此日志？</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_AddSuccess" xml:space="preserve">
-    <value>Add feedback successfully!</value>
+    <value>成功新增反馈！</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_NoCreateFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to create feedback.</value>
+    <value>无权限创建反馈</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to delete feedback.</value>
+    <value>无权限删除反馈</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission" xml:space="preserve">
-    <value>You don't have permission to update customer.</value>
+    <value>无权限更新客户</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_NoUpdateCustomerPermission" xml:space="preserve">
-    <value>You don't have permission to update customer.</value>
+    <value>无权限更新客户</value>
   </data>
   <data name="Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to update feedback.</value>
+    <value>无权限更新反馈</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>First Name</value>
+    <value>名字</value>
   </data>
   <data name="FromCustomer" xml:space="preserve">
-    <value>From {0}</value>
-  </data>
-  <data name="FromDate" xml:space="preserve">
-    <value>From Date</value>
+    <value>从 {0}</value>
   </data>
   <data name="Guest" xml:space="preserve">
-    <value>Guest</value>
+    <value>访客</value>
   </data>
   <data name="Handler" xml:space="preserve">
-    <value>Handler</value>
+    <value>处理人员</value>
   </data>
   <data name="Helper_RelatedInputMessage" xml:space="preserve">
-    <value>Multiple customers can be entered, separated by commas. Ex: abc, xyz, etc.</value>
-  </data>
-  <data name="Insert_Edit_Block" xml:space="preserve">
-    <value>Insert Edit Block</value>
+    <value>可多重填入客户，以逗号间隔。 如：abc，xyz，以此类推</value>
   </data>
   <data name="Invalid" xml:space="preserve">
-    <value>Invalid</value>
-  </data>
-  <data name="InvalidCategoryError" xml:space="preserve">
-    <value>There is no Subcategory for Category [{0}]. Please add a Subcategory or choose another Category.</value>
+    <value>无效</value>
   </data>
   <data name="IsRelatedCustomer" xml:space="preserve">
-    <value>Is Related to Customer</value>
+    <value>有关联客户</value>
   </data>
   <data name="IsReviewed" xml:space="preserve">
-    <value>Is Reviewed</value>
+    <value>已审核</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>语系</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Last Name</value>
+    <value>姓氏</value>
   </data>
   <data name="LatestFeedbackDocumentTitle" xml:space="preserve">
-    <value>CRM System - Latest Feeback</value>
+    <value>CRM 系统 - 最新反馈</value>
   </data>
   <data name="LatestFeedbackReportTitle" xml:space="preserve">
-    <value>Top {0} Feedback {1}</value>
-  </data>
-  <data name="LetsTalk" xml:space="preserve">
-    <value>Lets Talk</value>
+    <value>最新 {0} 反馈 {1}</value>
   </data>
   <data name="Licensee_Type" xml:space="preserve">
     <value>Licensee Type</value>
@@ -334,249 +319,241 @@
     <value>Line</value>
   </data>
   <data name="ListOfCustomers" xml:space="preserve">
-    <value>List of customers</value>
+    <value>客户列表</value>
   </data>
   <data name="MainCategory" xml:space="preserve">
-    <value>Main Category</value>
+    <value>主范畴</value>
   </data>
   <data name="Main_Category" xml:space="preserve">
-    <value>Main Category</value>
+    <value>主范畴</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>Mobile</value>
+    <value>手机</value>
   </data>
   <data name="MSN" xml:space="preserve">
     <value>MSN</value>
   </data>
   <data name="MultipleEdit" xml:space="preserve">
-    <value>Multiple Edit</value>
+    <value>多重编辑</value>
   </data>
   <data name="Multiple_Logs_EmptyListOfCustomers" xml:space="preserve">
-    <value>List of customers are mandatory!</value>
+    <value>请列出客户！</value>
   </data>
   <data name="Multiple_Logs_EmptyRemark" xml:space="preserve">
-    <value>Remark is mandatory!</value>
+    <value>请填写备注栏处！</value>
   </data>
   <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
-    <value>Review is mandatory!</value>
+    <value>请填写审核者栏处！</value>
   </data>
   <data name="Multiple_Logs_EmptySolution" xml:space="preserve">
-    <value>Solution is mandatory!</value>
+    <value>请填写解答栏处！</value>
   </data>
   <data name="Multiple_Logs_EmptySubject" xml:space="preserve">
-    <value>Subject is mandatory!</value>
+    <value>请填写标题！</value>
   </data>
   <data name="Multiple_Logs_ErrorEndTime" xml:space="preserve">
-    <value>Start Time should be smaller than End Time!</value>
+    <value>开始时间需早于解决时间！</value>
   </data>
   <data name="Multiple_Logs_ExcessCurrentTime" xml:space="preserve">
-    <value>Start time should be smaller than or equal current time.</value>
+    <value>请筛选主范畴 - 副范畴！</value>
   </data>
   <data name="Multiple_Logs_InsertSuccess" xml:space="preserve">
-    <value>Create multiple logs successfully!</value>
+    <value>成功创建多重日志！</value>
   </data>
   <data name="Multiple_Logs_NACommmunicationTool" xml:space="preserve">
-    <value>Communication tool is mandatory!</value>
+    <value>请筛选通讯工具！</value>
   </data>
   <data name="Multiple_Logs_NACountry" xml:space="preserve">
-    <value>Country is mandatory!</value>
+    <value>请筛选国家！</value>
   </data>
   <data name="Multiple_Logs_NALanguage" xml:space="preserve">
-    <value>Language is mandatory!</value>
+    <value>请筛选语系！</value>
   </data>
   <data name="Multiple_Logs_NAProduct" xml:space="preserve">
-    <value>Language is mandatory!</value>
+    <value>请筛选语系！</value>
   </data>
   <data name="Multiple_Logs_UpdateSuccess" xml:space="preserve">
-    <value>Update multiple logs successfully!</value>
+    <value>成功更新多重日志！</value>
   </data>
   <data name="Multiple_Logs_VerifyRelatedCustomer" xml:space="preserve">
-    <value>You must verify the username before saving this multiple logs.</value>
+    <value>储存多重日志前，请先验证账号</value>
   </data>
   <data name="NoBettypeError" xml:space="preserve">
-    <value>There is no Bet Type for Product {0}. Please add a Bet Type or choose another Product.</value>
+    <value>此产品无投注类别 {0}。请新增一个投注类别或另选其它产品</value>
   </data>
   <data name="NoPermissionOnReviewFunction" xml:space="preserve">
-    <value>You don't have permission to update this feedback.</value>
+    <value>无权限更新此反馈</value>
   </data>
   <data name="NoSubcategoryError" xml:space="preserve">
-    <value>There is no Subcategory for Category {0}. Please add a Subcategory or choose another Category.</value>
+    <value>此范畴无副范畴 {0}。请新增一个副范畴或另选其它范畴</value>
   </data>
   <data name="NotReviewed" xml:space="preserve">
-    <value>Not Reviewed</value>
+    <value>未审核</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OverwriteCRMInfo" xml:space="preserve">
-    <value>Overwrite current CRM Info</value>
+    <value>覆写现有 CRM 资讯</value>
   </data>
   <data name="PassportNumber" xml:space="preserve">
-    <value>Passport No.</value>
+    <value>护照编号</value>
   </data>
   <data name="Pending" xml:space="preserve">
-    <value>Pending</value>
+    <value>待定</value>
   </data>
   <data name="Phone1" xml:space="preserve">
-    <value>Phone 1</value>
+    <value>电话 1</value>
   </data>
   <data name="Phone2" xml:space="preserve">
-    <value>Phone 2</value>
+    <value>电话 2</value>
   </data>
   <data name="Phone3" xml:space="preserve">
-    <value>Phone 3</value>
+    <value>电话 3</value>
   </data>
   <data name="PIC" xml:space="preserve">
-    <value>PIC</value>
+    <value>负责人</value>
   </data>
   <data name="PIC_1" xml:space="preserve">
-    <value>PIC 1</value>
+    <value>负责人 1</value>
   </data>
   <data name="PIC_2" xml:space="preserve">
-    <value>PIC 2</value>
+    <value>负责人 2</value>
   </data>
   <data name="PIC_3" xml:space="preserve">
-    <value>PIC 3</value>
+    <value>负责人 3</value>
   </data>
   <data name="PIC_4" xml:space="preserve">
-    <value>PIC 4</value>
+    <value>负责人 4</value>
   </data>
   <data name="Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>预览</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Product</value>
-  </data>
-  <data name="Province" xml:space="preserve">
-    <value>Province</value>
+    <value>产品</value>
   </data>
   <data name="QQ" xml:space="preserve">
     <value>QQ</value>
   </data>
   <data name="RefCodes" xml:space="preserve">
-    <value>Ref Codes</value>
+    <value>参照编号</value>
   </data>
   <data name="RelatedCustomer" xml:space="preserve">
-    <value>Related Customer</value>
+    <value>关联客户</value>
   </data>
   <data name="RelatedCustomerNameLengthErrorMessage" xml:space="preserve">
-    <value>Customer Name cannot be greater than 50 characters</value>
-    <comment>#58197</comment>
-  </data>
-  <data name="Related_Help" xml:space="preserve">
-    <value>Related Help</value>
+    <value>客户名字不可多于 50字</value>
   </data>
   <data name="Remark" xml:space="preserve">
-    <value>Remark</value>
+    <value>备注</value>
   </data>
   <data name="RequiredFieldTemplate" xml:space="preserve">
     <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>This information is required!</value>
+    <value>必填此资讯！</value>
   </data>
   <data name="ResolutionTime" xml:space="preserve">
-    <value>ResolutionTime</value>
+    <value>解决时间</value>
   </data>
   <data name="Response" xml:space="preserve">
-    <value>Response</value>
+    <value>反应</value>
   </data>
   <data name="Review" xml:space="preserve">
-    <value>Review</value>
+    <value>审核</value>
   </data>
   <data name="Reviewed" xml:space="preserve">
-    <value>Reviewed</value>
+    <value>已审核</value>
   </data>
   <data name="ReviewedBy" xml:space="preserve">
-    <value>(Reviewed by  {0} on {1})</value>
+    <value>由 {0} 于 {1} 审核</value>
   </data>
   <data name="ReviewedInformation" xml:space="preserve">
-    <value>(Reviewed by {0} on {1})</value>
+    <value>由 {0} 于 {1} 审核</value>
   </data>
   <data name="Reviewer" xml:space="preserve">
-    <value>Reviewer</value>
+    <value>审核者</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Role</value>
+    <value>角色</value>
   </data>
   <data name="RunningNo" xml:space="preserve">
-    <value>Running No.</value>
+    <value>案件编号</value>
   </data>
   <data name="RunningNumer" xml:space="preserve">
-    <value>Running Number</value>
+    <value>案件号码</value>
   </data>
   <data name="SecretCode" xml:space="preserve">
-    <value>Secret Code</value>
+    <value>暗码</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>Select</value>
+    <value>筛选</value>
   </data>
   <data name="Site" xml:space="preserve">
-    <value>Site</value>
+    <value>网站</value>
   </data>
   <data name="Skype" xml:space="preserve">
-    <value>Skype</value>
+    <value>SKYPE</value>
   </data>
   <data name="Solution" xml:space="preserve">
-    <value>Solution</value>
+    <value>解决方案</value>
   </data>
   <data name="SolutionMaxLengthError" xml:space="preserve">
-    <value>Max length of Solution is 32,700!</value>
+    <value>解决方案最长字元可达 32,700!</value>
   </data>
   <data name="Solved" xml:space="preserve">
-    <value>Solved</value>
+    <value>已解决</value>
   </data>
   <data name="Start_Time" xml:space="preserve">
-    <value>Start Time</value>
+    <value>开始时间</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="String1" xml:space="preserve">
-    <value>Add feedback successfully!</value>
+    <value>成功新增反馈！</value>
   </data>
   <data name="SubCategory" xml:space="preserve">
-    <value>SubCategory</value>
+    <value>副范畴</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>标题</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
+    <value>提交</value>
   </data>
   <data name="SubProduct" xml:space="preserve">
-    <value>Sub-product</value>
-    <comment>#50691</comment>
+    <value>副产品</value>
   </data>
   <data name="Sub_Category" xml:space="preserve">
-    <value>Subcategory</value>
+    <value>副范畴</value>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
+    <value>冻结</value>
   </data>
   <data name="Symbol_NA" xml:space="preserve">
-    <value>N/A</value>
+    <value>无</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
-    <value>N/A</value>
+    <value>无</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>主题</value>
   </data>
   <data name="ToDate" xml:space="preserve">
-    <value>To Date</value>
+    <value>至日期</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Top</value>
+    <value>最顶端</value>
   </data>
   <data name="UpdateFeedbackSuccessfully" xml:space="preserve">
-    <value>Update Feedback Successfully.</value>
+    <value>成功更新反馈</value>
   </data>
   <data name="UpdateFeedbackTitle" xml:space="preserve">
-    <value>Update Feedback</value>
+    <value>更新反馈</value>
   </data>
   <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
-    <value>This function will only update Status and Review. Communication Logs other information will NOT be updated.</value>
+    <value>此功能仅更新状态及审核者。通讯日志及其它资讯将不更新。</value>
   </data>
   <data name="UpdateSiteLicenseeType" xml:space="preserve">
     <value>Update Site/Licensee Type/Role</value>
@@ -585,21 +562,21 @@
     <value>Update Site/Licensee Type/Role Successfully!</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>账号</value>
   </data>
   <data name="VIP" xml:space="preserve">
-    <value>VIP</value>
+    <value>贵宾</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
   </data>
   <data name="WeChat" xml:space="preserve">
-    <value>WeChat</value>
+    <value>微信</value>
   </data>
   <data name="WhatsApp" xml:space="preserve">
-    <value>What's App</value>
+    <value>What'sApp</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>雅虎</value>
   </data>
 </root>

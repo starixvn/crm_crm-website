@@ -117,40 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Active" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
   <data name="Error_ArgumentEmpty" xml:space="preserve">
-    <value>"{0}" cannot be blank.</value>
+    <value>"{0}" 不可空置</value>
   </data>
   <data name="Error_ArgumentLength" xml:space="preserve">
-    <value>"{0}" cannot be more than {1} character.</value>
+    <value>"{0}" 不可超出 {1} 字元</value>
   </data>
   <data name="Error_ArgumentOutOfRange" xml:space="preserve">
-    <value>{0} must be between "{1}"-"{2}".</value>
+    <value>{0} 需在 "{1}" - "{2}" 之间</value>
   </data>
   <data name="Error_CollectionEmpty" xml:space="preserve">
-    <value>Collection cannot be empty.</value>
+    <value>采集栏处不可空置</value>
   </data>
   <data name="Error_GuidEmpty" xml:space="preserve">
-    <value>"{0}" cannot be empty guid.</value>
+    <value>"{0}" 不可空置</value>
   </data>
   <data name="Error_InvalidEmail" xml:space="preserve">
-    <value>"{0}" is not a valid email address.</value>
+    <value>"{0}" 乃无效电邮地址</value>
   </data>
   <data name="Error_InvalidIP" xml:space="preserve">
-    <value>"{0}" is not a valid IP.</value>
+    <value>"{0}" 乃无效 IP</value>
   </data>
   <data name="Error_InvalidPattern" xml:space="preserve">
-    <value>Invalid pattern: {0}</value>
+    <value>无效模式: {0}</value>
   </data>
   <data name="Error_InvalidUrl" xml:space="preserve">
-    <value>"{0}" is not a valid web url.</value>
+    <value>"{0}" 乃无效网址</value>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
+    <value>冻结</value>
   </data>
 </root>

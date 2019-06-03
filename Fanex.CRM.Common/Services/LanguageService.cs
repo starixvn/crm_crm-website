@@ -9,10 +9,10 @@ namespace Fanex.CRM.Common.Services
 
         public string GetCurrentLanguage()
         {
-            var userSession = AppSession.CurrentUser;
-            if (userSession != null && !string.IsNullOrEmpty(userSession.SettingLanguage))
+            var settingLanguage = AppSession.SettingLanguage;
+            if (settingLanguage != null)
             {
-                return userSession.SettingLanguage;
+                return settingLanguage;
             }
 
             return _defaultLanguage;
@@ -23,19 +23,9 @@ namespace Fanex.CRM.Common.Services
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
         }
 
-        public bool ChangeLanguage(string languageCode)
+        public void ChangeLanguage(string languageCode)
         {
-            if (!string.IsNullOrEmpty(languageCode))
-            {
-                var updated = AppSession.UpdateLanguage(languageCode);
-                if (updated)
-                {
-                    this.SetPageCulture(languageCode);
-                    return true;
-                }
-            }
-
-            return false;
+            AppSession.SettingLanguage = languageCode;
         }
     }
 }

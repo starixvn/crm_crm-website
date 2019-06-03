@@ -4,7 +4,7 @@
     {
         string GetCurrentLanguage();
 
-        bool ChangeLanguage(string languageCode);
+        void ChangeLanguage(string languageCode);
 
         void SetPageCulture(string languageCode);
     }

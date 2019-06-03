@@ -23,7 +23,6 @@ namespace Fanex.CRM.Common.Models
             this.Email = napUser.Email;
         }
         public UserRole UserRole { get; set; } = UserRole.None;
-        public string SettingLanguage { get; set; }
         public int OnUserId { get; set; }
         public int SiteID { get; set; }
     }

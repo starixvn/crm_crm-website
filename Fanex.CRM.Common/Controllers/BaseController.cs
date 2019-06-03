@@ -10,8 +10,6 @@ namespace Fanex.CRM.Common.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
-    using System;
-    using System.Web;
     using System.Web.Mvc;
 
     /// <summary>
@@ -36,23 +34,6 @@ namespace Fanex.CRM.Common.Controllers
 
             var currentLanguage = _langService.GetCurrentLanguage();
             _langService.SetPageCulture(currentLanguage);
-        }
-
-        public void ChangeCulture(string lang)
-        {
-            Response.Cookies.Remove("Language");
-
-            HttpCookie languageCookie = System.Web.HttpContext.Current.Request.Cookies["Language"];
-
-            if (languageCookie == null) languageCookie = new HttpCookie("Language");
-
-            languageCookie.Value = lang;
-
-            languageCookie.Expires = DateTime.Now.AddDays(10);
-
-            Response.SetCookie(languageCookie);
-
-            Response.Redirect(Request.UrlReferrer.ToString());
         }
 
         protected IPermissionService PermissionService

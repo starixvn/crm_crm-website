@@ -118,114 +118,114 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Amount" xml:space="preserve">
-    <value>Amount</value>
+    <value>数值</value>
   </data>
   <data name="Bet_Credit" xml:space="preserve">
-    <value>Bet Credit</value>
+    <value>信用额</value>
   </data>
   <data name="Birthday" xml:space="preserve">
-    <value>Birthday</value>
+    <value>生日</value>
   </data>
   <data name="Claimed_Time" xml:space="preserve">
     <value>Claimed Time</value>
   </data>
   <data name="Confirm_Ignore_EditVerifyFlag_Changes" xml:space="preserve">
-    <value>There are some changes on verify view! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>审核栏处有更改！是否要忽略此更改？</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>Currency</value>
+    <value>货币</value>
   </data>
   <data name="Dashboard_VerifyFlag_UpdateSuccess" xml:space="preserve">
-    <value>Update verify flag successfully!</value>
+    <value>成功更新审核旗！</value>
   </data>
   <data name="DoneBy" xml:space="preserve">
-    <value>DoneBy</value>
+    <value>完成者</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
-    <value>Duplicate</value>
+    <value>复制</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duration</value>
+    <value>时长</value>
   </data>
   <data name="Edit_Communication_Log" xml:space="preserve">
-    <value>Edit Communication Log</value>
+    <value>编辑通讯日志</value>
   </data>
   <data name="Edit_Redemption_Log" xml:space="preserve">
     <value>Edit Redemption Log</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>电邮</value>
   </data>
   <data name="Feedback_Date" xml:space="preserve">
-    <value>Feedback Date</value>
+    <value>反馈日期</value>
   </data>
   <data name="Given_Credit" xml:space="preserve">
-    <value>Given Credit</value>
+    <value>信用额</value>
   </data>
   <data name="Handled_By" xml:space="preserve">
-    <value>Handled By</value>
+    <value>处理人员</value>
   </data>
   <data name="Handler" xml:space="preserve">
-    <value>Handler</value>
+    <value>处理者</value>
   </data>
   <data name="Information_Verified" xml:space="preserve">
-    <value>Information Verified</value>
+    <value>已审核资讯</value>
   </data>
   <data name="Insert_Communication_Log" xml:space="preserve">
-    <value>Insert Communication Log</value>
+    <value>输入通讯日志</value>
   </data>
   <data name="Last_10_Communication_Log" xml:space="preserve">
-    <value>Last 10 Communication Log</value>
+    <value>最后 10项通讯日志</value>
   </data>
   <data name="Last_5_Redemption_Log" xml:space="preserve">
     <value>Last 5 Redemption Log</value>
   </data>
   <data name="Last_5_Special_Remark" xml:space="preserve">
-    <value>Last 5 Special Remark</value>
+    <value>最后 5项特别备注</value>
   </data>
   <data name="Main" xml:space="preserve">
-    <value>Main</value>
+    <value>主</value>
   </data>
   <data name="Main_Category" xml:space="preserve">
-    <value>Main Category</value>
+    <value>主范畴</value>
   </data>
   <data name="Passport_Number" xml:space="preserve">
-    <value>Passport Number</value>
+    <value>护照编号</value>
   </data>
   <data name="Recent_Redemption_Activity" xml:space="preserve">
     <value>Recent Redemption Activity</value>
   </data>
   <data name="Reviewed_By" xml:space="preserve">
-    <value>Reviewed By</value>
+    <value>有 {0} 审核</value>
   </data>
   <data name="Reviewer" xml:space="preserve">
-    <value>Reviewer</value>
+    <value>审核者</value>
   </data>
   <data name="Running_No" xml:space="preserve">
-    <value>Running No.</value>
+    <value>案件编号</value>
   </data>
   <data name="Running_Number" xml:space="preserve">
-    <value>Running Number</value>
+    <value>案件号码</value>
   </data>
   <data name="Secret_Code" xml:space="preserve">
-    <value>Secret Code</value>
+    <value>暗码</value>
   </data>
   <data name="Special_Remark" xml:space="preserve">
-    <value>Special Remark</value>
+    <value>特别备注</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>标题</value>
   </data>
   <data name="Sub_Category" xml:space="preserve">
-    <value>Subcategory</value>
+    <value>副范畴</value>
   </data>
   <data name="There_is_no_data" xml:space="preserve">
-    <value>There is no data</value>
+    <value>无数据</value>
   </data>
   <data name="Verify_Customer_Info" xml:space="preserve">
-    <value>Verify Customer Info</value>
+    <value>验证客户资讯</value>
   </data>
 </root>

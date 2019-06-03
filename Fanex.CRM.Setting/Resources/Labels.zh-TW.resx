@@ -118,126 +118,114 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Agent" xml:space="preserve">
-    <value>Agent</value>
+    <value>代理</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All</value>
+    <value>全部</value>
   </data>
   <data name="ByCategory" xml:space="preserve">
-    <value>By Category</value>
+    <value>基於範疇</value>
   </data>
   <data name="ByCommunicationTool" xml:space="preserve">
-    <value>By Communication Tool</value>
+    <value>基於通訊工具</value>
   </data>
   <data name="ByCountry" xml:space="preserve">
-    <value>By Country</value>
+    <value>基於國家</value>
   </data>
   <data name="ByCreator" xml:space="preserve">
-    <value>By Creator</value>
+    <value>基於創建人員</value>
   </data>
   <data name="ByLicensees" xml:space="preserve">
-    <value>By Licensees</value>
+    <value>基於代理商</value>
   </data>
   <data name="ByProduct" xml:space="preserve">
-    <value>By Product</value>
+    <value>基於產品</value>
   </data>
   <data name="ByResponse" xml:space="preserve">
-    <value>By Response</value>
+    <value>基於反應</value>
   </data>
   <data name="ByRole" xml:space="preserve">
-    <value>By Role</value>
+    <value>基於角色</value>
   </data>
   <data name="BySite" xml:space="preserve">
-    <value>By Site</value>
+    <value>基於網站</value>
   </data>
   <data name="ByStatus" xml:space="preserve">
-    <value>By Status</value>
+    <value>基於狀態</value>
   </data>
   <data name="Checked" xml:space="preserve">
-    <value>Checked</value>
+    <value>檢查</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
+    <value>關</value>
   </data>
   <data name="Credit" xml:space="preserve">
-    <value>Credit</value>
+    <value>信用</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Customer</value>
+    <value>客戶</value>
   </data>
   <data name="Daily" xml:space="preserve">
-    <value>Daily</value>
+    <value>每日</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>已刪除</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>禁用</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="Error_GetAllSetting" xml:space="preserve">
-    <value>(SettingService GetAll) - {0}</value>
-  </data>
-  <data name="Error_GetAllSite" xml:space="preserve">
-    <value>(SettingService SelAllSite) - {0}</value>
-  </data>
-  <data name="Error_GetSetting" xml:space="preserve">
-    <value>(SettingService GetById: {0}) - {1}</value>
-  </data>
-  <data name="Error_GetSettingRelationByName" xml:space="preserve">
-    <value>(SettingService GetSettingRelationByName) - Error: {0}&lt;br&gt; - Name: {1}&lt;br&gt; - parentId: {2}</value>
+    <value>啟用</value>
   </data>
   <data name="Guest" xml:space="preserve">
-    <value>Guest</value>
+    <value>訪客</value>
   </data>
   <data name="Headline" xml:space="preserve">
-    <value>Headline</value>
+    <value>最高持有者</value>
   </data>
   <data name="IBC" xml:space="preserve">
     <value>IBC</value>
   </data>
   <data name="Licensee" xml:space="preserve">
-    <value>Licensee</value>
+    <value>代理商</value>
   </data>
   <data name="Master" xml:space="preserve">
-    <value>Master</value>
+    <value>總代理</value>
   </data>
   <data name="Member" xml:space="preserve">
-    <value>Member</value>
+    <value>會員</value>
   </data>
   <data name="Monthly" xml:space="preserve">
-    <value>Monthly</value>
+    <value>每月</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>沒</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>無</value>
   </data>
   <data name="Pending" xml:space="preserve">
-    <value>Pending</value>
+    <value>待定</value>
   </data>
   <data name="Solved" xml:space="preserve">
-    <value>Solved</value>
+    <value>已處理</value>
   </data>
   <data name="Super" xml:space="preserve">
-    <value>Super</value>
+    <value>超級總代理</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
-    <value>N/A</value>
+    <value>無</value>
   </data>
   <data name="VIP" xml:space="preserve">
-    <value>VIP</value>
+    <value>貴賓</value>
   </data>
   <data name="Weekly" xml:space="preserve">
-    <value>Weekly</value>
+    <value>每周</value>
   </data>
   <data name="Yearly" xml:space="preserve">
-    <value>Yearly</value>
+    <value>每年</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>是</value>
   </data>
 </root>

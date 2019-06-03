@@ -118,327 +118,303 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Account_Holder_Name" xml:space="preserve">
-    <value>Acc. Name</value>
+    <value>账号名</value>
   </data>
   <data name="Account_No" xml:space="preserve">
-    <value>Account No</value>
+    <value>账号编号</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>活跃</value>
   </data>
   <data name="Add_Feedback" xml:space="preserve">
-    <value>Add Feedback</value>
+    <value>新增反馈</value>
   </data>
   <data name="Agent" xml:space="preserve">
-    <value>Agent</value>
+    <value>代理</value>
   </data>
   <data name="Alert" xml:space="preserve">
-    <value>Alert</value>
-  </data>
-  <data name="AllLanguages" xml:space="preserve">
-    <value>All Languages</value>
+    <value>注意</value>
   </data>
   <data name="AllStatus" xml:space="preserve">
-    <value>All Status</value>
+    <value>所有状态</value>
   </data>
   <data name="All_Languages" xml:space="preserve">
-    <value>All Languages</value>
+    <value>所有语系</value>
   </data>
   <data name="Bank_Info" xml:space="preserve">
-    <value>Bank Info</value>
+    <value>银行资讯</value>
   </data>
   <data name="Bank_s_Name" xml:space="preserve">
-    <value>Bank's Name</value>
+    <value>银行名字</value>
   </data>
   <data name="BBM" xml:space="preserve">
     <value>BBM</value>
   </data>
   <data name="Betting_Code" xml:space="preserve">
-    <value>Betting Code</value>
+    <value>投注编码</value>
   </data>
   <data name="Birthday" xml:space="preserve">
-    <value>Birthday</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>生日</value>
   </data>
   <data name="Checker" xml:space="preserve">
-    <value>Checker</value>
+    <value>检查者</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>City</value>
+    <value>市</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
+    <value>已关</value>
   </data>
   <data name="Communication_Info" xml:space="preserve">
-    <value>Communication Info</value>
+    <value>通讯资讯</value>
   </data>
   <data name="Communication_Tool" xml:space="preserve">
-    <value>Communication Tool</value>
-  </data>
-  <data name="ConfirmSearchByGuest" xml:space="preserve">
-    <value>Do you want to search guest customer's information?</value>
+    <value>通讯工具</value>
   </data>
   <data name="Contact_Number" xml:space="preserve">
-    <value>Contact Number</value>
+    <value>联络号码</value>
   </data>
   <data name="Contact_Number_1" xml:space="preserve">
-    <value>Phone 1</value>
+    <value>电话 1</value>
   </data>
   <data name="Contact_Number_2" xml:space="preserve">
-    <value>Phone 2</value>
+    <value>电话 2</value>
   </data>
   <data name="Contact_Number_3" xml:space="preserve">
-    <value>Phone 3</value>
+    <value>电话 3</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>Country</value>
+    <value>国家</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
-    <value>Created Date</value>
+    <value>创建日期</value>
   </data>
   <data name="CreatedTime" xml:space="preserve">
-    <value>Created Time</value>
+    <value>创建时间</value>
   </data>
   <data name="CRM_Info" xml:space="preserve">
-    <value>CRM Info</value>
+    <value>CRM 资讯</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>Currency</value>
+    <value>货币</value>
   </data>
   <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
-    <value>Do you want to search guest customer's information?</value>
+    <value>是否要搜索访客信息？</value>
   </data>
   <data name="CustomerInfo_DefaultSearchTextbox" xml:space="preserve">
-    <value>Search...</value>
+    <value>搜索...</value>
   </data>
   <data name="CustomerInfo_UpdateSuccess" xml:space="preserve">
-    <value>Update CRM Info successful!</value>
+    <value>成功更新 CRM 资讯！</value>
   </data>
   <data name="Customer_Info" xml:space="preserve">
-    <value>Customer Info</value>
+    <value>客户资讯</value>
   </data>
   <data name="Danger" xml:space="preserve">
-    <value>Danger</value>
+    <value>危险</value>
   </data>
   <data name="Detail" xml:space="preserve">
-    <value>Detail</value>
+    <value>详细</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
+    <value>完成</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>电邮</value>
   </data>
   <data name="ExportToExcel" xml:space="preserve">
-    <value>Export to Excel</value>
+    <value>导出文档</value>
   </data>
   <data name="Extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>座机号</value>
   </data>
   <data name="Fax" xml:space="preserve">
-    <value>Fax</value>
+    <value>传真</value>
   </data>
   <data name="First_Name" xml:space="preserve">
-    <value>First Name</value>
+    <value>名字</value>
   </data>
   <data name="Handler" xml:space="preserve">
-    <value>Handler</value>
+    <value>处理人员</value>
   </data>
   <data name="Headline" xml:space="preserve">
-    <value>Headline</value>
+    <value>最高持有者</value>
   </data>
   <data name="HeadlineInfo" xml:space="preserve">
-    <value>Headline Info</value>
+    <value>最高持有者资讯</value>
   </data>
   <data name="Home_Address" xml:space="preserve">
-    <value>Home Address</value>
+    <value>住家地址</value>
   </data>
   <data name="IBAN_SWIFT_code" xml:space="preserve">
-    <value>IBAN/SWIFT code</value>
+    <value />
   </data>
   <data name="Ignore" xml:space="preserve">
-    <value>Ignore</value>
+    <value>忽略</value>
   </data>
   <data name="InternalAccount" xml:space="preserve">
-    <value>Internal Account</value>
+    <value>内部账号</value>
   </data>
   <data name="IntroducedBy" xml:space="preserve">
-    <value>Introduced By</value>
+    <value>介绍人</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>语系</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
-    <value>Last Name</value>
+    <value>姓氏</value>
   </data>
   <data name="Latest_Feedback" xml:space="preserve">
-    <value>Latest Feedback</value>
-  </data>
-  <data name="LetsTalk" xml:space="preserve">
-    <value>Lets Talk</value>
+    <value>最新反馈</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Level</value>
+    <value>层别</value>
   </data>
   <data name="LicenseeType" xml:space="preserve">
     <value>Licensee Type</value>
   </data>
   <data name="Line" xml:space="preserve">
-    <value>Line</value>
+    <value />
   </data>
   <data name="Lvl" xml:space="preserve">
-    <value>Lvl</value>
+    <value>级别</value>
   </data>
   <data name="Manage_Feedback" xml:space="preserve">
-    <value>Manage Feedback</value>
+    <value>管理反馈</value>
   </data>
   <data name="Master" xml:space="preserve">
-    <value>Master</value>
+    <value>总代理</value>
   </data>
   <data name="Member" xml:space="preserve">
-    <value>Member</value>
+    <value>会员</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>Mobile</value>
+    <value>手机</value>
   </data>
   <data name="MSN" xml:space="preserve">
     <value>MSN</value>
   </data>
   <data name="Nick_Name" xml:space="preserve">
-    <value>Nickname</value>
-  </data>
-  <data name="NoInformation" xml:space="preserve">
-    <value>There is no information</value>
-  </data>
-  <data name="NoLanguage" xml:space="preserve">
-    <value>No languages found.</value>
+    <value>昵称</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>无</value>
   </data>
   <data name="NonLive" xml:space="preserve">
-    <value>Non-Live</value>
+    <value />
   </data>
   <data name="NoPermission" xml:space="preserve">
-    <value>You don't have permission on this function!</value>
+    <value>无权限使用此功能！</value>
   </data>
   <data name="No_languages_found" xml:space="preserve">
-    <value>No languages found.</value>
+    <value>无发现语系</value>
   </data>
   <data name="No_status_found" xml:space="preserve">
-    <value>No status found.</value>
-  </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
+    <value>无状态发现</value>
   </data>
   <data name="Orginal" xml:space="preserve">
-    <value>Orginal</value>
+    <value>原版</value>
   </data>
   <data name="Other_sports" xml:space="preserve">
-    <value>Other sports</value>
+    <value>其它运动</value>
   </data>
   <data name="Passport_Number" xml:space="preserve">
-    <value>Passport No.</value>
+    <value>护照编号</value>
   </data>
   <data name="Personal_Info" xml:space="preserve">
-    <value>Personal Info</value>
+    <value>个人资讯</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Phone</value>
+    <value>电话</value>
   </data>
   <data name="PIC" xml:space="preserve">
-    <value>PIC</value>
+    <value>负责人</value>
   </data>
   <data name="PIC_1" xml:space="preserve">
-    <value>PIC 1</value>
+    <value>负责人 1</value>
   </data>
   <data name="PIC_2" xml:space="preserve">
-    <value>PIC 2</value>
+    <value>负责人 2</value>
   </data>
   <data name="PIC_3" xml:space="preserve">
-    <value>PIC 3</value>
+    <value>负责人 3</value>
   </data>
   <data name="PIC_4" xml:space="preserve">
-    <value>PIC 4</value>
+    <value>负责人 4</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position</value>
+    <value>位置</value>
   </data>
   <data name="Postcode" xml:space="preserve">
-    <value>Postcode</value>
+    <value>邮政编码</value>
   </data>
   <data name="ProductStatus" xml:space="preserve">
-    <value>Product Status</value>
+    <value>产品状态</value>
   </data>
   <data name="Province" xml:space="preserve">
-    <value>Province</value>
+    <value>省</value>
   </data>
   <data name="QQ" xml:space="preserve">
     <value>QQ</value>
   </data>
   <data name="Ref_Codes" xml:space="preserve">
-    <value>Ref Codes</value>
+    <value>参照号码</value>
   </data>
   <data name="Ref_Codes_2" xml:space="preserve">
-    <value>Ref Codes 2</value>
+    <value>参照号码 2</value>
   </data>
   <data name="Remark" xml:space="preserve">
-    <value>Remark</value>
-  </data>
-  <data name="SearchByGuest" xml:space="preserve">
-    <value>Search By Guest</value>
+    <value>备注</value>
   </data>
   <data name="Secret_Code" xml:space="preserve">
-    <value>Secret Code</value>
+    <value>暗码</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>Select</value>
+    <value>筛选</value>
   </data>
   <data name="Site" xml:space="preserve">
-    <value>Site</value>
+    <value>网站</value>
   </data>
   <data name="Skype" xml:space="preserve">
-    <value>Skype</value>
+    <value>SKYPE</value>
   </data>
   <data name="Staff" xml:space="preserve">
-    <value>Staff</value>
+    <value>工作人员</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>State</value>
+    <value>州</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="Super" xml:space="preserve">
-    <value>Super</value>
+    <value>超级总代理</value>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
+    <value>冻结</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
-    <value>N/A</value>
+    <value>无</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>主题</value>
   </data>
   <data name="UpdatedTime" xml:space="preserve">
-    <value>Updated Time</value>
+    <value>更新时间</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>用户名</value>
   </data>
   <data name="VIP" xml:space="preserve">
-    <value>VIP</value>
+    <value>贵宾</value>
   </data>
   <data name="WeChat" xml:space="preserve">
-    <value>WeChat</value>
+    <value>微信</value>
   </data>
   <data name="WhatsApp" xml:space="preserve">
-    <value>What's App</value>
+    <value>What'sApp</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>雅虎</value>
   </data>
 </root>
