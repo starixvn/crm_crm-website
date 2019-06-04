@@ -9,10 +9,10 @@ namespace Fanex.CRM.Common.Services
 
         public string GetCurrentLanguage()
         {
-            var settingLanguage = AppSession.SettingLanguage;
-            if (settingLanguage != null)
+            var currentUser = AppSession.CurrentUser;
+            if (currentUser != null && currentUser.Language != null)
             {
-                return settingLanguage;
+                return currentUser.Language;
             }
 
             return _defaultLanguage;
@@ -25,7 +25,7 @@ namespace Fanex.CRM.Common.Services
 
         public void ChangeLanguage(string languageCode)
         {
-            AppSession.SettingLanguage = languageCode;
+            AppSession.UpdateLanguage(languageCode);
         }
     }
 }

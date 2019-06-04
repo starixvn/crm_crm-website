@@ -20,18 +20,14 @@ namespace Fanex.CRM.Common.Services
     {
         private const string CurrentLogInUserKey = "CurrentLogInUser";
         private const string CurrentUserMenuKey = "CurrentUserMenu";
-        private const string SettingLanguageKey = "SettingLanguageKey";
 
-        public static string SettingLanguage
+        public static void UpdateLanguage(string language)
         {
-            get
+            var user = CurrentUser;
+            if (user != null)
             {
-                return SessionExtension.GetSession(CurrentSession, SettingLanguageKey) as string;
-            }
-
-            set
-            {
-                SessionExtension.AddSession(CurrentSession, SettingLanguageKey, value);
+                user.Language = language;
+                CurrentUser = user;
             }
         }
 

@@ -681,7 +681,10 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\User\LogIn\Styles\Images\chinese-flag.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\english-flag.png" />
     <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\small-arrow-down.png" />
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>

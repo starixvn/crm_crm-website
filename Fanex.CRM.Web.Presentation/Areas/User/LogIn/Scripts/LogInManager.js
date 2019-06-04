@@ -73,6 +73,32 @@ CRMLoginManager = {
             CRMLoginManager.encyptPassword();
             return true;
         };
+    },
+
+    toggleSelectLanguage: function () {
+        document.getElementById("myDropdown").classList.toggle("show");
+    },
+
+    selectLanguage: function (language) {
+        var languageIcon = document.getElementById("languageIcon");        
+        var languageText = document.getElementById("languageText");
+        var languageInput = document.getElementById("language");
+        languageInput.value = language;
+
+        if (language === "en-US") {
+            languageIcon.className = "icon-flag en-flag";
+            languageText.innerHTML = "English";
+        }
+        else if (language === "zh-TW") {
+            languageIcon.className = "icon-flag zh-flag";
+            languageText.innerHTML = "Chinese Traditional";
+        }
+        else {
+            languageIcon.className = "icon-flag zh-flag";
+            languageText.innerHTML = "Chinese Simplified";
+        }
+        
+        CRMLoginManager.toggleSelectLanguage();
     }
 };
 

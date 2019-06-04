@@ -37,6 +37,19 @@
                     <form action="@Url.Content("~/UserLogin/Index")" method="POST" id="frmLogin" name="frmLogin">
                         @Html.AntiForgeryToken()
                         <input id="loginToken" name="loginToken" value="@ViewBag.LoginToken" type ="hidden" />
+                        <div class="dropdown">
+                            <div id="languageBtn" onclick="CRMLoginManager.toggleSelectLanguage()" class="dropbtn">
+                                <span id="languageIcon" class="icon-flag zh-flag"></span>
+                                <span id="languageText">Chinese Simplified</span>
+                                <span class="icon-arrow"></span>
+                            </div>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="#" onclick="CRMLoginManager.selectLanguage('en-US');"><span class="icon-flag en-flag"></span>English</a>
+                                <a href="#" onclick="CRMLoginManager.selectLanguage('zh-TW');"><span class="icon-flag zh-flag"></span>Chinese Traditional</a>
+                                <a href="#" onclick="CRMLoginManager.selectLanguage('zh-CN');"><span class="icon-flag zh-flag"></span>Chinese Simplified</a>
+                            </div>
+                            <input id="language" name="language" value="zh-CN" type="hidden"/>
+                        </div>
                         <input type="text" id="username" name="username" autocomplete="off" />
                         <input type="password" id="password" name="password" />
                         <input type="submit" id="btnLogin" value="@Resources.Language.Sign_In" />

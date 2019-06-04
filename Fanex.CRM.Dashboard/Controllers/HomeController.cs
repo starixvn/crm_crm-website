@@ -18,7 +18,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     /// <summary>
     /// Home Controller.
     /// </summary>
-    public class HomeController : ReadOnlyBaseController
+    public class HomeController : BaseController
     {
         private readonly IPermissionService _permissionService;
         private readonly ILanguageService _langService;
@@ -50,16 +50,16 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default(string language)
         {
+            if (language != null)
+            {
+                _langService.ChangeLanguage(language);
+            }
+
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-
-            if (language != null)
-            {
-                _langService.ChangeLanguage(language);
-                ViewBag.SettingLanguage = language;
-            }
+            ViewBag.SettingLanguage = AppSession.CurrentUser.Language;
 
             return View("~/Views/Home/Default.cshtml");
         }

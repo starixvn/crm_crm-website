@@ -1,20 +1,17 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
-    using System.Linq;
-    using System.Web;
-    using Common.Services;
     using Enumerations;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
     using NAP.Core.Context;
-    using NAP.Core.Models;
     using NAP.Core.Models.ParameterObject;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
+    using System;
+    using System.Linq;
 
     public class LocalAuthenticationService : ILocalAuthenticationService
     {
@@ -54,6 +51,7 @@
             }
 
             var crmUser = new CRMUser(user);
+            crmUser.Language = localLogin.Language;
 
             var validatedStatus = ValidateUser(crmUser, localLogin);
 

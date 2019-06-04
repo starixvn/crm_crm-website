@@ -13,11 +13,26 @@
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
     var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
-    var logo = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff) ? "logo-crm-cn88.png" : "logo-crm.png";
-    var settingLanguage = (ViewBag.SettingLanguage == "en-US")
-        ? "English"
-        : (ViewBag.SettingLanguage == "zh-CN" ? "Chinese Simplified" : "Chinese Traditional");
-    var settingLanguageFlagClass = (ViewBag.SettingLanguage == "en-US") ? "en-flag" : "zh-flag";
+    var isCn88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
+    var logo = isCn88 ? "logo-crm-cn88.png" : "logo-crm.png";
+    var hideLanguageClass = isCn88 ? "" : "hide-item";
+    var settingLanguage = string.Empty;
+    var settingLanguageFlagClass = string.Empty;
+    if(ViewBag.SettingLanguage == "zh-CN")
+    {
+        settingLanguage = "Chinese Simplified";
+        settingLanguageFlagClass = "zh-flag";
+    }
+    else if(ViewBag.SettingLanguage == "zh-TW")
+    {
+        settingLanguage = "Chinese Traditional";
+        settingLanguageFlagClass = "zh-flag";
+    }
+    else
+    {
+        settingLanguage = "English";
+        settingLanguageFlagClass = "en-flag";
+    }
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
@@ -49,7 +64,7 @@
                         @Labels.Welcome
                         <span class="txt-username">@ViewBag.AccUsername</span>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown @hideLanguageClass">
                         <button onclick="toggleSelectLanguage()" class="dropbtn">
                             <span class="icon-flag @settingLanguageFlagClass"></span>
                             @settingLanguage

@@ -1,7 +1,5 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
-    using System.Linq;
     using Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Enumerations;
@@ -13,7 +11,8 @@
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
-    using NAP.Core.Web.Session;
+    using System;
+    using System.Linq;
 
     public class SSOAuthenticationService : ISSOAuthenticationService
     {
@@ -62,6 +61,12 @@
                             return LoginStatus.NotKnowUserRole;
                         }
                         var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
+
+                        // Set default language for CN88 site to Chinese Simplified
+                        if (crmUser.UserRole == UserRole.CN88Staff)
+                        {
+                            crmUser.Language = "zh-CN";
+                        }
 
                         AuthencationHelper.SignIn(crmUser);
                         AuthencationHelper.AssignAppSession(crmUser, menus);
