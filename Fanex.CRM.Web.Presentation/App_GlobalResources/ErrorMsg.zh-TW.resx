@@ -118,66 +118,60 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblAddFeedbackSuccess" xml:space="preserve">
-    <value>Add feedback Successfully.</value>
+    <value>成功提交反饋</value>
   </data>
   <data name="lblAddGuestFeedbackSuccess" xml:space="preserve">
-    <value> Add Guest Feedback Successfully.</value>
+    <value>成功提交訪客反饋</value>
   </data>
   <data name="lblErrorInputRequiredDate" xml:space="preserve">
-    <value>Please input all required data.</value>
+    <value>請填入所需資訊</value>
   </data>
   <data name="lblErrorSessionIsExpired" xml:space="preserve">
-    <value>Another session has been logged in or your session is expired. Forced to logout!</value>
-  </data>
-  <data name="lblErrorTimeDuration" xml:space="preserve">
-    <value>'To Duration' must be greater than or euqal 'From Duration' .</value>
-  </data>
-  <data name="lblErroTimeDate" xml:space="preserve">
-    <value>'To date' must be greater than 'From date'.</value>
+    <value>您的賬號在其它地方重復登入或登入已逾期。強制登出！</value>
   </data>
   <data name="lblFeedbacDateShouldBeSmallerThanCurrentDate" xml:space="preserve">
-    <value>Feedback date should be smaller than or equal current date.</value>
+    <value>反饋日期需早於或同等今日</value>
   </data>
   <data name="lblFeedbackDateShouldBeSmallerThanResolutionTime" xml:space="preserve">
-    <value>Feedback date should be smaller than Resolution time.</value>
+    <value>反饋日期需早於結案時間</value>
   </data>
   <data name="lblInvalidUserName" xml:space="preserve">
-    <value>Invalid Username</value>
+    <value>賬號不正確</value>
   </data>
   <data name="lblNoCreateFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to create feedback.</value>
+    <value>無權限創建反饋</value>
   </data>
   <data name="lblNoDeletedFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to delete feedback.</value>
+    <value>無權限刪除反饋</value>
   </data>
   <data name="lblNoDeleteFBSubjectTemplate" xml:space="preserve">
-    <value>You don't have permission to delete Feedback Subject Template.</value>
+    <value>無權限刪除反饋標題草稿</value>
   </data>
   <data name="lblNoInsertFBSubjectTemplate" xml:space="preserve">
-    <value>You don't have permission to insert Feedback Subject Template.</value>
+    <value>無權限填入反饋標題草稿</value>
   </data>
   <data name="lblNoPermission" xml:space="preserve">
-    <value>You don't have permission.</value>
+    <value>無權限</value>
   </data>
   <data name="lblNotYetVerifyFeedbackRelatedCustomer" xml:space="preserve">
-    <value>You must verify the username of related customer before adding this feedback!</value>
+    <value>創建反饋前，必須先在關聯客戶欄驗證賬號！</value>
   </data>
   <data name="lblNoUpdateCustomerPermission" xml:space="preserve">
-    <value>You don't have permission to update customer.</value>
+    <value>無權限更新客戶</value>
   </data>
   <data name="lblNoUpdateFBSubjectTemplate" xml:space="preserve">
-    <value>You don't have permission to update Feedback Subject Template.</value>
+    <value>無權限更新反饋標題草稿</value>
   </data>
   <data name="lblNoUpdateFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to update feedback.</value>
+    <value>無權限更新反饋</value>
   </data>
   <data name="lblNoUpdateReviewFeedbackPermission" xml:space="preserve">
-    <value>You don't have permission to update this feedback.</value>
+    <value>無權限更新此反饋</value>
   </data>
   <data name="lblUpdateCRMInfoSuccess" xml:space="preserve">
-    <value>Update CRM Info Successfully.</value>
+    <value>成功更新 CRM 信息</value>
   </data>
   <data name="lblUpdateFeedbackSuccess" xml:space="preserve">
-    <value>Update Feedback Successfully.</value>
+    <value>成功更新反饋</value>
   </data>
 </root>

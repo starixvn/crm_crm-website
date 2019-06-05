@@ -118,365 +118,349 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BettingCode" xml:space="preserve">
-    <value>Secret Code</value>
+    <value>暗码</value>
   </data>
   <data name="BetType" xml:space="preserve">
-    <value>Bet Type</value>
+    <value>投注类别</value>
   </data>
   <data name="Birthday" xml:space="preserve">
-    <value>Birthday</value>
+    <value>生日</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>范畴</value>
   </data>
   <data name="ClickExportButtonAfterSomeSeconds" xml:space="preserve">
-    <value>Please click export button after some seconds</value>
+    <value>请于几秒后点击 “导出” 功能按钮</value>
   </data>
   <data name="Communication" xml:space="preserve">
-    <value>Communication</value>
+    <value>通讯工具</value>
   </data>
   <data name="complaintsEnquiries" xml:space="preserve">
-    <value>Complaints/Enquiries</value>
+    <value>投诉/咨询</value>
   </data>
   <data name="Confirm_Ignore_EditCustomer_Changes" xml:space="preserve">
-    <value>There are some changes on customer information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>客户资讯有修改，请确认是否要忽略这修改？</value>
   </data>
   <data name="Confirm_Ignore_EditCustomer_ChangesLeftPanel" xml:space="preserve">
-    <value>There are some changes on customer information on left panel! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>左侧客户资讯有修改，请确认是否要忽略这修改？</value>
   </data>
   <data name="Confirm_Ignore_EditCustomer_ChangesTabDetail" xml:space="preserve">
-    <value>There are some changes on customer information on tab detail! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>客户资讯的标签细节有修改，请确认是否要忽略这修改？</value>
   </data>
   <data name="Confirm_Ignore_Feedback_AddCustomerFeedback" xml:space="preserve">
-    <value>There are some changes on add customer feedback information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>新增客户资讯有修改，请确认是否要忽略这修改？</value>
   </data>
   <data name="Confirm_Ignore_Feedback_AddGuestFeedback" xml:space="preserve">
-    <value>There are some changes on add guest feedback information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+    <value>新增访客資訊有修改，請確認是否要忽略這修改？</value>
   </data>
   <data name="ContactMSNSKypeEmail" xml:space="preserve">
-    <value>Contact/MSN/Skype/Email/Phone</value>
+    <value>联络/MSN/Skype/电邮/电话</value>
   </data>
   <data name="ContactNumber1" xml:space="preserve">
-    <value>Phone 1</value>
+    <value>号码 1</value>
   </data>
   <data name="ContactNumber2" xml:space="preserve">
-    <value>Phone 2</value>
+    <value>号码 2</value>
   </data>
   <data name="ContactNumber3" xml:space="preserve">
-    <value>Phone 3</value>
+    <value>号码 3</value>
   </data>
   <data name="country" xml:space="preserve">
-    <value>Country</value>
+    <value>国家</value>
   </data>
   <data name="CreationTime" xml:space="preserve">
-    <value>Creation Time</value>
+    <value>创建时间</value>
   </data>
   <data name="CRM_System" xml:space="preserve">
-    <value>CRM System</value>
+    <value>CRM 系统</value>
   </data>
   <data name="CSExtension" xml:space="preserve">
-    <value>CS Ext./Station</value>
+    <value>客服座机号</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Customer</value>
+    <value>客户</value>
   </data>
   <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
-    <value>Do you want to search guest customer's information?</value>
+    <value>是否要搜索访客资讯？</value>
   </data>
   <data name="date" xml:space="preserve">
-    <value>Date</value>
+    <value>日期</value>
   </data>
   <data name="Default_SearchTextbox" xml:space="preserve">
-    <value>Phone or Username or Nickname CN</value>
+    <value>电话 / 用户名 / 昵称</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>描述</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>细节</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duration</value>
+    <value>时长</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>编辑</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>电邮</value>
   </data>
   <data name="EndTime" xml:space="preserve">
-    <value>End Time</value>
+    <value>结束时间</value>
   </data>
   <data name="Error_GetCustomerInfo_SearchRemind" xml:space="preserve">
-    <value>Please search customer first!</value>
+    <value>请先搜索客户！</value>
   </data>
   <data name="exportCasinoDailySummaryTitle" xml:space="preserve">
-    <value>{0} SUMMARY ON CUSTOMER INQUIRIES {1}</value>
+    <value>客户咨询总结</value>
   </data>
   <data name="exportComplaintsEnquiriesTitle" xml:space="preserve">
-    <value>Complaints/Enquiries</value>
+    <value>投诉/咨询</value>
   </data>
   <data name="exportDailyComplaintsDetail" xml:space="preserve">
-    <value>{0} Data</value>
+    <value>数据</value>
   </data>
   <data name="exportDailyComplaintsTitle" xml:space="preserve">
-    <value>{0} CUSTOMER COMPLAINTS/ENQUIRIES RECORD {1}</value>
+    <value>客户投注/咨询记录</value>
   </data>
   <data name="exportDailySummarySheet" xml:space="preserve">
-    <value>{0} Summary</value>
+    <value>总结</value>
   </data>
   <data name="exportDailySummaryTitle" xml:space="preserve">
-    <value>{0} SUMMARY ON CUSTOMER &amp; LICENSEE INQUIRIES {1}</value>
+    <value>客户与代理商咨询总结</value>
   </data>
   <data name="ExtNo" xml:space="preserve">
-    <value>EXT. #</value>
+    <value>座机号</value>
   </data>
   <data name="Fax" xml:space="preserve">
-    <value>Fax</value>
+    <value>传真</value>
   </data>
   <data name="FeedbackDate" xml:space="preserve">
-    <value>Feedback Date</value>
+    <value>反馈日</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>First Name</value>
+    <value>名字</value>
   </data>
   <data name="grandTotal" xml:space="preserve">
-    <value>Grand Total</value>
+    <value>总数</value>
   </data>
   <data name="Guest" xml:space="preserve">
-    <value>Guest</value>
+    <value>访客</value>
   </data>
   <data name="handleBy" xml:space="preserve">
-    <value>Handle By</value>
+    <value>处理人员</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Html_Template_MandatoryField" xml:space="preserve">
-    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+    <value>主页</value>
   </data>
   <data name="ibcweeklysummaryreport" xml:space="preserve">
     <value>IBC Weekly Summary Report</value>
   </data>
   <data name="InputEmailForReceiveReportFile" xml:space="preserve">
-    <value>Please input your email, we will send this report to your mail.</value>
+    <value>请输入电邮地址，报表将寄到电邮收件箱</value>
   </data>
   <data name="Invalid" xml:space="preserve">
-    <value>Invalid</value>
+    <value>无效</value>
   </data>
   <data name="IsRelatedCustomer" xml:space="preserve">
-    <value>Is Related to Customer</value>
+    <value>关联客户</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Last Name</value>
+    <value>姓氏</value>
   </data>
   <data name="lblCategory" xml:space="preserve">
-    <value>Category</value>
+    <value>范畴</value>
   </data>
   <data name="lblCustomer" xml:space="preserve">
-    <value>Customer</value>
+    <value>客户</value>
   </data>
   <data name="lblFeedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
   </data>
   <data name="lblIdentityInformation" xml:space="preserve">
-    <value>Identity Information</value>
+    <value>身份信息</value>
   </data>
   <data name="lblInputMultipleEmail" xml:space="preserve">
-    <value>Multiple email can be entered, separated by commas. Ex: abc, xyz, etc.</value>
+    <value>可多重填入电邮地址，以逗号间隔。 如：abc，xyz，以此类推</value>
   </data>
   <data name="lblInputMultipleRealteFeedbackCustomerNote" xml:space="preserve">
-    <value>Multiple customers can be entered, separated by commas. Ex: abc, xyz, etc.</value>
+    <value>可多重填入客户，以逗号间隔。 如：abc，xyz，以此类推</value>
   </data>
   <data name="lblLatestFeedback" xml:space="preserve">
-    <value>Latest Feedback</value>
+    <value>最新反馈</value>
   </data>
   <data name="lblMainCategory" xml:space="preserve">
-    <value>Main Category</value>
+    <value>主范畴</value>
   </data>
   <data name="lblManageFeedback" xml:space="preserve">
-    <value>Manage Feedback</value>
+    <value>编辑反馈</value>
   </data>
   <data name="lblRelatedCustomer" xml:space="preserve">
-    <value>Related Customer</value>
+    <value>关联客户</value>
   </data>
   <data name="lblStatus" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="lblSubCategory" xml:space="preserve">
-    <value>Subcategory</value>
+    <value>副范畴</value>
   </data>
   <data name="lblsubTotal" xml:space="preserve">
-    <value>Sub Total</value>
+    <value>总数</value>
   </data>
   <data name="lblThereisnoinfomation" xml:space="preserve">
-    <value>There is no information.</value>
+    <value>无信息</value>
   </data>
   <data name="licensee" xml:space="preserve">
-    <value>Licensse</value>
+    <value>代理商</value>
   </data>
   <data name="licenseeinquiriesrecord" xml:space="preserve">
-    <value>{0} Licensee Inquiries Record</value>
+    <value>代理商咨询记录</value>
   </data>
   <data name="licenseeweeklysummaryreport" xml:space="preserve">
-    <value>Lincensee Weekly Summary Report</value>
+    <value>代理商每周报告总结</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>Mobile</value>
+    <value>手机</value>
   </data>
   <data name="MSN" xml:space="preserve">
     <value>MSN</value>
   </data>
   <data name="OverwriteCRMInfo" xml:space="preserve">
-    <value>Overwrite current CRM Info</value>
+    <value>覆写现有 CRM 资讯</value>
   </data>
   <data name="PassportNumber" xml:space="preserve">
-    <value>Passport No.</value>
+    <value>护照编号</value>
   </data>
   <data name="PIC1" xml:space="preserve">
-    <value>PIC 1</value>
+    <value>负责人 1</value>
   </data>
   <data name="PIC2" xml:space="preserve">
-    <value>PIC 2</value>
+    <value>负责人 2</value>
   </data>
   <data name="PIC3" xml:space="preserve">
-    <value>PIC 3</value>
+    <value>负责人 3</value>
   </data>
   <data name="PIC4" xml:space="preserve">
-    <value>PIC 4</value>
+    <value>负责人 4</value>
   </data>
   <data name="Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>预览</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Product</value>
+    <value>产品</value>
   </data>
   <data name="productname" xml:space="preserve">
-    <value>Product Name</value>
-  </data>
-  <data name="Province" xml:space="preserve">
-    <value>Province</value>
+    <value>产品名称</value>
   </data>
   <data name="RefCodes2" xml:space="preserve">
-    <value>Ref Codes</value>
-  </data>
-  <data name="reportMailBody" xml:space="preserve">
-    <value>Dear Admins,&lt;br&gt;&lt;br&gt;
-We would like to send you the report of Customer Complaints/ Inquiries Record. Please kindly &lt;a href='{0}/{1}.xls'&gt;download the attached&lt;/a&gt; for more details.
-&lt;br&gt;&lt;br&gt;
-Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential. If you are not the addressee you may not copy, forward, disclose or use any part of it. If you have received this message in error, please delete it from your system. This is an auto-generated email, please do not reply.&lt;/i&gt;</value>
+    <value>参考编号</value>
   </data>
   <data name="reportMailSubject" xml:space="preserve">
-    <value>CRM- {0} Report of Customer Complaints/ Inquiries Record ({1})</value>
+    <value>CRM - 客户投诉/咨询记录</value>
   </data>
   <data name="reportMailTitle" xml:space="preserve">
-    <value>CRM - {0} Reporting</value>
-  </data>
-  <data name="RequiredFieldTemplate" xml:space="preserve">
-    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+    <value>CRM - 报告</value>
   </data>
   <data name="ResolutionTime" xml:space="preserve">
-    <value>Resolution Time</value>
+    <value>解决时间</value>
   </data>
   <data name="Response" xml:space="preserve">
-    <value>Response</value>
+    <value>反应</value>
   </data>
   <data name="Review" xml:space="preserve">
-    <value>Review</value>
+    <value>预览</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Role</value>
+    <value>角色</value>
   </data>
   <data name="RunningNumber" xml:space="preserve">
-    <value>Running Number</value>
+    <value>个案编号</value>
   </data>
   <data name="Sign_In" xml:space="preserve">
-    <value>Sign In</value>
+    <value>登入</value>
   </data>
   <data name="Sign_out" xml:space="preserve">
-    <value>Sign out</value>
+    <value>登出</value>
   </data>
   <data name="Site" xml:space="preserve">
-    <value>Site</value>
+    <value>网站</value>
   </data>
   <data name="Skype" xml:space="preserve">
     <value>Skype</value>
   </data>
   <data name="solution" xml:space="preserve">
-    <value>Solution</value>
+    <value>解决方案</value>
   </data>
   <data name="StartTime" xml:space="preserve">
-    <value>Start Time</value>
+    <value>开始时间</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="SubCategory" xml:space="preserve">
-    <value>SubCategory</value>
+    <value>副范畴</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>主题</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
+    <value>提交</value>
   </data>
   <data name="SubProduct" xml:space="preserve">
-    <value>Sub-product</value>
-    <comment>#50691</comment>
+    <value>副产品</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Time</value>
+    <value>时间</value>
   </data>
   <data name="TimeZoneGMT" xml:space="preserve">
-    <value>GMT+8</value>
+    <value>GMT +8</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>标题</value>
   </data>
   <data name="Title_ActivityLogTab" xml:space="preserve">
-    <value>CRM System - Activity Log</value>
+    <value>CRM 系统 - 活动日志</value>
   </data>
   <data name="Title_AddFeedback" xml:space="preserve">
-    <value>CRM System - Add Feedback</value>
+    <value>CRM 系统 - 新增反馈</value>
   </data>
   <data name="Title_AddGuestFeedback" xml:space="preserve">
-    <value>CRM System - Add Guest Feedback</value>
+    <value>CRM 系统 - 新增访客反馈</value>
   </data>
   <data name="Title_AdminTool_FeedbackSubjectManagement" xml:space="preserve">
-    <value>CRM System - Feedback Subject Management</value>
+    <value>CRM 系统 - 反馈主题管理</value>
   </data>
   <data name="Title_AdminTool_SettingLog" xml:space="preserve">
-    <value>CRM System - Setting Log</value>
+    <value>CRM 系统 - 设定日志</value>
   </data>
   <data name="Title_AdminTool_SettingManagement" xml:space="preserve">
-    <value>CRM System - Setting Management</value>
+    <value>CRM 系统 - 设定管理</value>
   </data>
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
-    <value>CRM System - Setting Relation</value>
+    <value>CRM 系统 - 设定系</value>
   </data>
   <data name="Title_CommunicationTab" xml:space="preserve">
-    <value>CRM System - Communication Log</value>
+    <value>CRM 系统 - 通讯日志</value>
   </data>
   <data name="Title_DeletedFeedback" xml:space="preserve">
-    <value>CRM System - Deleted Feedback</value>
+    <value>CRM 系統 - 已删除反馈</value>
   </data>
   <data name="Title_DeleteFeedback" xml:space="preserve">
-    <value>CRM System - Delete Feedback</value>
+    <value>CRM 系統 - 删除反馈</value>
   </data>
   <data name="Title_DetailTab" xml:space="preserve">
-    <value>CRM System - Detail</value>
+    <value>CRM 系統 - 细节</value>
   </data>
   <data name="Title_Home" xml:space="preserve">
-    <value>CRM System - Home</value>
+    <value>CRM 系統 - 主页</value>
   </data>
   <data name="Title_LatestFeedback" xml:space="preserve">
-    <value>CRM System - Latest Feedback</value>
+    <value>CRM 系統 - 最新反馈</value>
   </data>
   <data name="Title_MainTab" xml:space="preserve">
-    <value>CRM System - Main</value>
+    <value>CRM 系統 - 主</value>
   </data>
   <data name="Title_ManageFeedback" xml:space="preserve">
-    <value>CRM System - Manage Feedback</value>
+    <value>CRM 系統 - 编辑反馈</value>
   </data>
   <data name="Title_RedemptionTab" xml:space="preserve">
     <value>CRM System - Redemption</value>
@@ -488,48 +472,48 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>CRM System - Casino Weekly Statistics Report</value>
   </data>
   <data name="Title_Report_CustomerReport" xml:space="preserve">
-    <value>CRM System - Customer Report</value>
+    <value>CRM 系统 - 客户报告</value>
   </data>
   <data name="Title_Report_DailyStatistics" xml:space="preserve">
-    <value>CRM System - Daily Statistics Report</value>
+    <value>CRM 系统 - 每日统计报告</value>
   </data>
   <data name="Title_Report_DynamicReport" xml:space="preserve">
-    <value>CRM System - Dynamic Report</value>
+    <value>CRM 系统 - 动态报告</value>
   </data>
   <data name="Title_Report_FeedbackStatistics" xml:space="preserve">
-    <value>CRM System - Feedback Statistics Report</value>
+    <value>CRM 系统 - 反馈统计报告</value>
   </data>
   <data name="Title_Report_RedemptionStatistics" xml:space="preserve">
     <value>CRM System - Redemption Statistics Report</value>
   </data>
   <data name="Title_Report_SettlementReport" xml:space="preserve">
-    <value>CRM System - Settlement Report</value>
+    <value>CRM 系统 - 结算报告</value>
   </data>
   <data name="Title_Report_StatisticReport" xml:space="preserve">
-    <value>CRM System - Statistic Report</value>
+    <value>CRM 系統 - 统计報告</value>
   </data>
   <data name="Title_Report_SummaryReport" xml:space="preserve">
-    <value>CRM System - Categories Summary Report</value>
+    <value>CRM 系统 - 范畴总结报告</value>
   </data>
   <data name="Title_Report_WagerReport" xml:space="preserve">
-    <value>CRM System - Wager-Related Report</value>
+    <value>CRM 系统 - 投注相关报告</value>
   </data>
   <data name="Title_Report_WeeklyStatistics" xml:space="preserve">
-    <value>CRM System - Weekly Statistics Report</value>
+    <value>CRM 系统 - 每周统计报告</value>
   </data>
   <data name="Title_SpecialRemarkTab" xml:space="preserve">
-    <value>CRM System - Special Remark</value>
+    <value>CRM 系統 - 特别备注</value>
   </data>
   <data name="typeofcontact" xml:space="preserve">
-    <value>Type of Contact</value>
+    <value>联系方式</value>
   </data>
   <data name="Verify" xml:space="preserve">
-    <value>Verify</value>
+    <value>验证</value>
   </data>
   <data name="VIP" xml:space="preserve">
-    <value>VIP</value>
+    <value>贵宾</value>
   </data>
   <data name="_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
 </root>
