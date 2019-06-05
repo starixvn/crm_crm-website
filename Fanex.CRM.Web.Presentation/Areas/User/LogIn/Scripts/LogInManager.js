@@ -91,11 +91,11 @@ CRMLoginManager = {
         }
         else if (language === "zh-TW") {
             languageIcon.className = "icon-flag zh-flag";
-            languageText.innerHTML = "Chinese Traditional";
+            languageText.innerHTML = "繁體中文";
         }
         else {
             languageIcon.className = "icon-flag zh-flag";
-            languageText.innerHTML = "Chinese Simplified";
+            languageText.innerHTML = "简体中文";
         }
         
         CRMLoginManager.toggleSelectLanguage();
