@@ -13,6 +13,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
+    using Services;
     using System.Web.Mvc;
 
     /// <summary>
@@ -22,16 +23,21 @@ namespace Fanex.CRM.Dashboard.Controllers
     {
         private readonly IPermissionService _permissionService;
         private readonly ILanguageService _langService;
+        private readonly IHomeService _homeService;
 
         public HomeController()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
-        public HomeController(IPermissionService permissionService)
+        public HomeController(
+            IPermissionService permissionService,
+            ILanguageService langService,
+            IHomeService homeService)
         {
             _permissionService = permissionService ?? new PermissionService();
-            _langService = new LanguageService();
+            _langService = langService ?? new LanguageService();
+            _homeService = homeService ?? new HomeService();
         }
 
         public RedirectResult Index()
@@ -67,7 +73,8 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            return PartialView("~/Views/Home/_Menu.cshtml", AppSession.CurrentUserMenu);
+            var currentUserMenu = _homeService.UpdateMenuLanguage(AppSession.CurrentUserMenu);
+            return PartialView("~/Views/Home/_Menu.cshtml", currentUserMenu);
         }
 
         public PartialViewResult GettingDashboardMenu()
