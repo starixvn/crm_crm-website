@@ -62,7 +62,7 @@
                     @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
                     <div class="login-info pull-right">
                         @Labels.Welcome
-                        <span class="txt-username">@ViewBag.AccUsername</span>
+                        <span class="txt-username" title="@ViewBag.AccUsername">@ViewBag.AccUsername</span>
                     </div>
                     <div class="dropdown @hideLanguageClass">
                         <button onclick="toggleSelectLanguage()" class="dropbtn">
