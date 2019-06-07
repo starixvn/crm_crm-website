@@ -106,6 +106,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please input username!.
+        /// </summary>
+        internal static string lblErrorUsernameEmpty {
+            get {
+                return ResourceManager.GetString("lblErrorUsernameEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max length of username is 50!.
+        /// </summary>
+        internal static string lblErrorUsernameMaxLength {
+            get {
+                return ResourceManager.GetString("lblErrorUsernameMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;To date&apos; must be greater than &apos;From date&apos;..
         /// </summary>
         internal static string lblErroTimeDate {

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DefaultSearchCustomer" xml:space="preserve">
+    <value>电话 / 用户名 / 昵称</value>
+  </data>
   <data name="Error_500" xml:space="preserve">
     <value>无权限使用此功能！</value>
+  </data>
+  <data name="Error_SearchCustomer_Empty" xml:space="preserve">
+    <value>请输入用户名！</value>
   </data>
   <data name="Error_Server" xml:space="preserve">
     <value>抱歉，要求处理过程中出现报错，请联系管理人员。</value>

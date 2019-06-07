@@ -180,4 +180,10 @@
   <data name="lblNotYetVerifyFeedbackRelatedCustomer" xml:space="preserve">
     <value>You must verify the username of related customer before adding this feedback!</value>
   </data>
+  <data name="lblErrorUsernameEmpty" xml:space="preserve">
+    <value>Please input username!</value>
+  </data>
+  <data name="lblErrorUsernameMaxLength" xml:space="preserve">
+    <value>Max length of username is 50!</value>
+  </data>
 </root>

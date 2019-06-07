@@ -310,7 +310,7 @@
     <value>Nickname</value>
   </data>
   <data name="NoInformation" xml:space="preserve">
-    <value>There is no information</value>
+    <value>無信息</value>
   </data>
   <data name="NoLanguage" xml:space="preserve">
     <value>No languages found.</value>
@@ -440,5 +440,11 @@
   </data>
   <data name="Yahoo" xml:space="preserve">
     <value>Yahoo</value>
+  </data>
+  <data name="ConfirmSearchByGuest1" xml:space="preserve">
+    <value>Do you want to search guest customer's information?</value>
+  </data>
+  <data name="SearchByGuest1" xml:space="preserve">
+    <value>搜索訪客</value>
   </data>
 </root>

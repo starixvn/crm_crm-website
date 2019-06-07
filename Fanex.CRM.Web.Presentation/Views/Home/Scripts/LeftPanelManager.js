@@ -16,8 +16,8 @@ var LeftPanelManager = function () {
         MaxUsernameLength: 50,
         /* jshint camelcase: false */
         ViewResources: {
-            Home_Index_ErrorUsernameMaxLength: 'Max length of username is 50!',
-            Home_Index_ErrorUsernameEmpty: 'Please input username!',
+            Home_Index_ErrorUsernameMaxLength: viewResources.ErrorUsernameMaxLength,
+            Home_Index_ErrorUsernameEmpty: viewResources.ErrorUsernameEmpty,
             OK: 'OK'
         },
 
@@ -91,7 +91,7 @@ var LeftPanelManager = function () {
     self.showValidateGetParamsResult = function () {
         self.DOMElements.resultPopup.dialog({
             width: 200,
-            height: 100,
+            height: 150,
             zIndex: 500,
             resizable: false,
             modal: true,

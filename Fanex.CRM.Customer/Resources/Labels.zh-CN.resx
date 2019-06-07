@@ -417,4 +417,13 @@
   <data name="Yahoo" xml:space="preserve">
     <value>雅虎</value>
   </data>
+  <data name="ConfirmSearchByGuest" xml:space="preserve">
+    <value>是否要搜索访客信息？</value>
+  </data>
+  <data name="NoInformation" xml:space="preserve">
+    <value>无信息</value>
+  </data>
+  <data name="SearchByGuest" xml:space="preserve">
+    <value>搜索访客</value>
+  </data>
 </root>

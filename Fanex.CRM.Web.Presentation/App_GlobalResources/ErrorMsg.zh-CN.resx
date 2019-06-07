@@ -174,4 +174,7 @@
   <data name="lblUpdateFeedbackSuccess" xml:space="preserve">
     <value>成功更新反馈</value>
   </data>
+  <data name="lblErrorUsernameEmpty" xml:space="preserve">
+    <value>请输入用户名！</value>
+  </data>
 </root>
