@@ -246,9 +246,6 @@
   <data name="Home_Address" xml:space="preserve">
     <value>住家地址</value>
   </data>
-  <data name="IBAN_SWIFT_code" xml:space="preserve">
-    <value />
-  </data>
   <data name="Ignore" xml:space="preserve">
     <value>忽略</value>
   </data>
@@ -273,9 +270,6 @@
   <data name="LicenseeType" xml:space="preserve">
     <value>Licensee Type</value>
   </data>
-  <data name="Line" xml:space="preserve">
-    <value />
-  </data>
   <data name="Lvl" xml:space="preserve">
     <value>级别</value>
   </data>
@@ -299,9 +293,6 @@
   </data>
   <data name="None" xml:space="preserve">
     <value>无</value>
-  </data>
-  <data name="NonLive" xml:space="preserve">
-    <value />
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>无权限使用此功能！</value>
@@ -376,7 +367,7 @@
     <value>网站</value>
   </data>
   <data name="Skype" xml:space="preserve">
-    <value>SKYPE</value>
+    <value>Skype</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>工作人员</value>
