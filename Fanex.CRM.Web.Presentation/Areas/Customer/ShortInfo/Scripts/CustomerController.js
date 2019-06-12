@@ -140,7 +140,7 @@
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
-            parent.menuManager.setActiveClassForLeftPanel('Add Feedback');
+            parent.menuManager.setActiveClassForLeftPanel(viewResources.Add_Feedback);
         };
         $scope.addFeedback = function () {
             $scope.detailLinkClick();
@@ -160,7 +160,7 @@
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
-            parent.menuManager.setActiveClassForLeftPanel('Latest Feedback');
+            parent.menuManager.setActiveClassForLeftPanel(viewResources.Latest_Feedback);
         };
         $scope.manageFeedback = function () {
             if (parent.homeManager.CachedData.isChangingData ||
@@ -178,7 +178,7 @@
                 isGuest: $(customerManager.DOMElements.checkboxIsGuest).prop('checked') ? 1 : 0
             });
             parent.menuManager.goToURL('centerFr', url);
-            parent.menuManager.setActiveClassForLeftPanel('Manage Feedback');
+            parent.menuManager.setActiveClassForLeftPanel(viewResources.Manage_Feedback);
         };
         $scope.updateCustomerInfo = function () {
             if (parent.homeManager.CachedData.isChangingData === true) {

@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model Fanex.CRM.Feedback.ViewModels.ManageFeedbackViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -156,7 +157,8 @@
             EditMultipleLogsTitle: '@Labels.EditMultipleLogsTitle',
             UpdateSiteLicenseeType: '@Labels.UpdateSiteLicenseeType',
             EditMultipleLogStatusesTitle: '@Labels.EditMultipleLogStatusesTitle',
-            RunningNo: '@Labels.RunningNo'
+            RunningNo: '@Labels.RunningNo',
+            There_is_no_data: '@CommonLabels.There_is_no_data'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",

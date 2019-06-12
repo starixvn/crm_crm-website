@@ -153,4 +153,7 @@
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
   </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>無數據</value>
+  </data>
 </root>

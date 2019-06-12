@@ -168,4 +168,7 @@
   <data name="Suspended" xml:space="preserve">
     <value>冻结</value>
   </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>无数据</value>
+  </data>
 </root>

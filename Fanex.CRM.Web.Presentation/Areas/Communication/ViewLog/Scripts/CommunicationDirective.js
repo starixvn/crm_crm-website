@@ -261,6 +261,7 @@
                 titleInfo: {
                     text: viewResources.Customer_Communication_Logs
                 },
+                noDataText: viewResources.There_is_no_data,
                 bodyRows: bodyData,
                 footerRows: footerData,
                 numberOfFrozenColumn: 0,

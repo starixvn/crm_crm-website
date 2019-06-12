@@ -4,6 +4,7 @@
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
 @using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+@using DashboardMenus = Fanex.CRM.Dashboard.Resources.Menus;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -281,7 +282,10 @@
         AllLanguages: '@Labels.AllLanguages',
         NoLanguage: '@Labels.NoLanguage',
         Select: '@Labels.Select',
-        Alert: '@Labels.Alert'
+        Alert: '@Labels.Alert',
+        Add_Feedback: '@DashboardMenus.Add_Feedback',
+        Manage_Feedback: '@DashboardMenus.Manage_Feedback',
+        Latest_Feedback: '@DashboardMenus.Latest_Feedback'
     };
     var username = '@HttpUtility.JavaScriptStringEncode(ViewBag.UserName)';
     var isCN88 = '@isCN88' == 'True';

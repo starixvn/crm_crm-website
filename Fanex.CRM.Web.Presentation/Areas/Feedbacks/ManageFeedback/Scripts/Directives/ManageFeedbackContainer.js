@@ -58,7 +58,8 @@
                     itemsPerPageArray: sharedScriptManager.cachedData.largePagingOptions,
                     totalItem: totalItems,
                     pagerSelectCallBack: ReRenderAfterPaged
-                }
+                },
+                noDataText: manageFeedbackResources.There_is_no_data
             };
         }
 

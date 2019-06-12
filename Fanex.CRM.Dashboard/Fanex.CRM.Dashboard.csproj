@@ -205,7 +205,7 @@
     <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />
     <EmbeddedResource Include="Resources\Labels.zh-TW.resx" />
     <EmbeddedResource Include="Resources\Menus.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Menus.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Menus.zh-CN.resx" />

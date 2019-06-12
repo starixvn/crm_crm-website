@@ -22,7 +22,7 @@ namespace Fanex.CRM.Dashboard.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Menus {
+    public class Menus {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fanex.CRM.Dashboard.Resources.Menus", typeof(Menus).Assembly);
@@ -51,7 +51,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Feedback.
+        /// </summary>
+        public static string Add_Feedback {
+            get {
+                return ResourceManager.GetString("Add_Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Guest Feedback.
         /// </summary>
-        internal static string Add_Guest_Feedback {
+        public static string Add_Guest_Feedback {
             get {
                 return ResourceManager.GetString("Add_Guest_Feedback", resourceCulture);
             }
@@ -72,7 +81,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to AdminTool.
         /// </summary>
-        internal static string AdminTool {
+        public static string AdminTool {
             get {
                 return ResourceManager.GetString("AdminTool", resourceCulture);
             }
@@ -81,7 +90,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Categories Summary Report.
         /// </summary>
-        internal static string Categories_Summary_Report {
+        public static string Categories_Summary_Report {
             get {
                 return ResourceManager.GetString("Categories_Summary_Report", resourceCulture);
             }
@@ -90,7 +99,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Create Multiple Logs.
         /// </summary>
-        internal static string Create_Multiple_Logs {
+        public static string Create_Multiple_Logs {
             get {
                 return ResourceManager.GetString("Create_Multiple_Logs", resourceCulture);
             }
@@ -99,7 +108,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Customer Report.
         /// </summary>
-        internal static string Customer_Report {
+        public static string Customer_Report {
             get {
                 return ResourceManager.GetString("Customer_Report", resourceCulture);
             }
@@ -108,7 +117,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deleted Feedback.
         /// </summary>
-        internal static string Deleted_Feedback {
+        public static string Deleted_Feedback {
             get {
                 return ResourceManager.GetString("Deleted_Feedback", resourceCulture);
             }
@@ -117,7 +126,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deleted Feedback Statistic.
         /// </summary>
-        internal static string Deleted_Feedback_Statistic {
+        public static string Deleted_Feedback_Statistic {
             get {
                 return ResourceManager.GetString("Deleted_Feedback_Statistic", resourceCulture);
             }
@@ -126,7 +135,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Direct Customer Report.
         /// </summary>
-        internal static string Direct_Customer_Report {
+        public static string Direct_Customer_Report {
             get {
                 return ResourceManager.GetString("Direct_Customer_Report", resourceCulture);
             }
@@ -135,7 +144,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Dynamic Report.
         /// </summary>
-        internal static string Dynamic_Report {
+        public static string Dynamic_Report {
             get {
                 return ResourceManager.GetString("Dynamic_Report", resourceCulture);
             }
@@ -144,7 +153,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feedback.
         /// </summary>
-        internal static string Feedback {
+        public static string Feedback {
             get {
                 return ResourceManager.GetString("Feedback", resourceCulture);
             }
@@ -153,7 +162,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feedback Statistics.
         /// </summary>
-        internal static string Feedback_Statistics {
+        public static string Feedback_Statistics {
             get {
                 return ResourceManager.GetString("Feedback_Statistics", resourceCulture);
             }
@@ -162,7 +171,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Feedback Subject Management.
         /// </summary>
-        internal static string Feedback_Subject_Management {
+        public static string Feedback_Subject_Management {
             get {
                 return ResourceManager.GetString("Feedback_Subject_Management", resourceCulture);
             }
@@ -171,7 +180,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
-        internal static string Home {
+        public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
             }
@@ -180,7 +189,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Inform Headlines.
         /// </summary>
-        internal static string Inform_Headlines {
+        public static string Inform_Headlines {
             get {
                 return ResourceManager.GetString("Inform_Headlines", resourceCulture);
             }
@@ -189,7 +198,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Issue Statistics Report.
         /// </summary>
-        internal static string Issue_Statistics_Report {
+        public static string Issue_Statistics_Report {
             get {
                 return ResourceManager.GetString("Issue_Statistics_Report", resourceCulture);
             }
@@ -198,7 +207,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Latest Feedback.
         /// </summary>
-        internal static string Latest_Feedback {
+        public static string Latest_Feedback {
             get {
                 return ResourceManager.GetString("Latest_Feedback", resourceCulture);
             }
@@ -207,7 +216,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Log Statistics.
         /// </summary>
-        internal static string Log_Statistics {
+        public static string Log_Statistics {
             get {
                 return ResourceManager.GetString("Log_Statistics", resourceCulture);
             }
@@ -216,7 +225,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Manage Feedback.
         /// </summary>
-        internal static string Manage_Feedback {
+        public static string Manage_Feedback {
             get {
                 return ResourceManager.GetString("Manage_Feedback", resourceCulture);
             }
@@ -225,7 +234,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Redemption Statistics.
         /// </summary>
-        internal static string Redemption_Statistics {
+        public static string Redemption_Statistics {
             get {
                 return ResourceManager.GetString("Redemption_Statistics", resourceCulture);
             }
@@ -234,7 +243,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
-        internal static string Report {
+        public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
             }
@@ -243,7 +252,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Setting Log.
         /// </summary>
-        internal static string Setting_Log {
+        public static string Setting_Log {
             get {
                 return ResourceManager.GetString("Setting_Log", resourceCulture);
             }
@@ -252,7 +261,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Setting Management.
         /// </summary>
-        internal static string Setting_Management {
+        public static string Setting_Management {
             get {
                 return ResourceManager.GetString("Setting_Management", resourceCulture);
             }
@@ -261,7 +270,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Setting Relation.
         /// </summary>
-        internal static string Setting_Relation {
+        public static string Setting_Relation {
             get {
                 return ResourceManager.GetString("Setting_Relation", resourceCulture);
             }
@@ -270,7 +279,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Settlement Issues Report.
         /// </summary>
-        internal static string Settlement_Issues_Report {
+        public static string Settlement_Issues_Report {
             get {
                 return ResourceManager.GetString("Settlement_Issues_Report", resourceCulture);
             }
@@ -279,7 +288,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
-        internal static string Statistics {
+        public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
             }
@@ -288,7 +297,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Wagers-Related Report.
         /// </summary>
-        internal static string Wagers_Related_Report {
+        public static string Wagers_Related_Report {
             get {
                 return ResourceManager.GetString("Wagers_Related_Report", resourceCulture);
             }

@@ -83,7 +83,8 @@
                 showHighlightRow: true,
                 headerColumnHeight: 29,
                 bodyRowHeight: 25,
-                showPager: false
+                showPager: false,
+                noDataText: viewResources.There_is_no_data
             };
 
             tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
