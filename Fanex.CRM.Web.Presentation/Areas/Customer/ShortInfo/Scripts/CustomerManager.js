@@ -72,7 +72,7 @@
             self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
             self.DOMElements.autocompleteBox = parent.$("#Autocomplete_1");
         };
-        self.getCustomerInfoByUsername = function () {
+        self.getCustomerInfoByUsername = function () {            
             var scope = angular.element("#divContent").scope();
             scope.$apply(function () {
                 var getCustomerInfoParams = self.getCustomerInfoByUsernameParamsFromURL(scope.username);
@@ -86,8 +86,9 @@
             });
         };
         self.getCustomerInfoByUsernameParamsFromURL = function (username) {
+            var decodedUsername = username ? (new DOMParser).parseFromString(username, 'text/html').body.textContent : null;
             var getCustomerInfoParams = {
-                Username: username || $.trim(sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username"))),
+                Username: decodedUsername || $.trim(sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username"))),
                 IsGuest: sharedScriptManager.getURLParam("isguest"),
                 IsSearch: sharedScriptManager.getURLParam("issearch"),
                 IsFromURL: sharedScriptManager.getURLParam("isfromurl"),
