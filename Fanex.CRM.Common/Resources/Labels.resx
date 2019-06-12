@@ -120,6 +120,27 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Btn_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Btn_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Btn_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Btn_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Btn_Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
   </data>

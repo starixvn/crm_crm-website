@@ -532,4 +532,22 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>
+  <data name="Tab_ActivityLog" xml:space="preserve">
+    <value>Ac&lt;span class="hotkey"&gt;t&lt;/span&gt;ivity Log</value>
+  </data>
+  <data name="Tab_CommunicationLog" xml:space="preserve">
+    <value>Communication &lt;span class="hotkey"&gt;L&lt;/span&gt;og</value>
+  </data>
+  <data name="Tab_Detail" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;D&lt;/span&gt;etail</value>
+  </data>
+  <data name="Tab_Main" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;M&lt;/span&gt;ain</value>
+  </data>
+  <data name="Tab_Redemption" xml:space="preserve">
+    <value>Redem&lt;span class="hotkey"&gt;p&lt;/span&gt;tion</value>
+  </data>
+  <data name="Tab_SpecialRemark" xml:space="preserve">
+    <value>Special Remar&lt;span class="hotkey"&gt;k&lt;/span&gt;</value>
+  </data>
 </root>

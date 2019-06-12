@@ -516,4 +516,22 @@
   <data name="_Language" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="Tab_ActivityLog" xml:space="preserve">
+    <value>活动日志</value>
+  </data>
+  <data name="Tab_CommunicationLog" xml:space="preserve">
+    <value>通讯日志</value>
+  </data>
+  <data name="Tab_Detail" xml:space="preserve">
+    <value>细节</value>
+  </data>
+  <data name="Tab_Main" xml:space="preserve">
+    <value>主</value>
+  </data>
+  <data name="Tab_Redemption" xml:space="preserve">
+    <value>Redemption</value>
+  </data>
+  <data name="Tab_SpecialRemark" xml:space="preserve">
+    <value>特别备注</value>
+  </data>
 </root>

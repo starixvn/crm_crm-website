@@ -973,6 +973,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ac&lt;span class=&quot;hotkey&quot;&gt;t&lt;/span&gt;ivity Log.
+        /// </summary>
+        internal static string Tab_ActivityLog {
+            get {
+                return ResourceManager.GetString("Tab_ActivityLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication &lt;span class=&quot;hotkey&quot;&gt;L&lt;/span&gt;og.
+        /// </summary>
+        internal static string Tab_CommunicationLog {
+            get {
+                return ResourceManager.GetString("Tab_CommunicationLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;D&lt;/span&gt;etail.
+        /// </summary>
+        internal static string Tab_Detail {
+            get {
+                return ResourceManager.GetString("Tab_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;M&lt;/span&gt;ain.
+        /// </summary>
+        internal static string Tab_Main {
+            get {
+                return ResourceManager.GetString("Tab_Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redem&lt;span class=&quot;hotkey&quot;&gt;p&lt;/span&gt;tion.
+        /// </summary>
+        internal static string Tab_Redemption {
+            get {
+                return ResourceManager.GetString("Tab_Redemption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special Remar&lt;span class=&quot;hotkey&quot;&gt;k&lt;/span&gt;.
+        /// </summary>
+        internal static string Tab_SpecialRemark {
+            get {
+                return ResourceManager.GetString("Tab_SpecialRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
         internal static string Time {
