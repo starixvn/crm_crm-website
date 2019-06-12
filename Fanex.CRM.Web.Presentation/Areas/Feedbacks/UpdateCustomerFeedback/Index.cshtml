@@ -2,6 +2,7 @@
 @using Fanex.CRM.Feedback.Resources;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.UpdateFeedbackTitle;
@@ -498,7 +499,7 @@
                                     <div class="col-xs-1 col-sm-1 col-md-1">
                                         <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()"
                                                 data-ng-disabled="customersInput === ''" tabindex="79">
-                                            V<span class="hotkey">e</span>rify
+                                            @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                                         </button>
                                     </div>
                                 </div>
@@ -623,7 +624,7 @@
             {
                 <div class="row btn-group">
                     <button class="btn" data-ng-click="updateFeedback();">
-                        <span class="hotkey">S</span>ave
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                     </button>
                 </div>
             }

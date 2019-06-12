@@ -4,6 +4,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.NAP.Core.Business;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model int
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -48,7 +49,7 @@
             </div>
             <div class="item">
                 <button class="btn" data-ng-click="searchCommunicationLogs()">
-                    <span class="hotkey">S</span>ubmit</button>
+                    @Html.Raw(@CommonLabels.Btn_HotKey_Submit)</button>
             </div>
         </div>
         <div class="row row-item" data-ng-show="isShowResultMessage">
@@ -69,7 +70,7 @@
         {
             <div class="row btn-group">
                 <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();">
-                    <span class="hotkey">I</span>nsert Case</button>
+                    @Html.Raw(@CommonLabels.Btn_HotKey_InsertCase)</button>
             </div>
         }
     </div>

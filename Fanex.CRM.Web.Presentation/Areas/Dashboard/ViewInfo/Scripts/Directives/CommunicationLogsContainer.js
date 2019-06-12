@@ -45,7 +45,7 @@
                         },
                         { Name: "ColHandler", Value: info.Handler },
                         { Name: "ColReviewer", Value: info.Reviewer },
-                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">Duplicate</button>' }],
+                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' }],
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }

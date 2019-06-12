@@ -88,6 +88,51 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;I&lt;/span&gt;insert Case.
+        /// </summary>
+        public static string Btn_HotKey_InsertCase {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_InsertCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;S&lt;/span&gt;ave.
+        /// </summary>
+        public static string Btn_HotKey_Save {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;S&lt;/span&gt;ubmit.
+        /// </summary>
+        public static string Btn_HotKey_Submit {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;U&lt;/span&gt;pdate.
+        /// </summary>
+        public static string Btn_HotKey_Update {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to V&lt;span class=&quot;hotkey&quot;&gt;e&lt;/span&gt;rify.
+        /// </summary>
+        public static string Btn_HotKey_Verify {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Verify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string Btn_OK {

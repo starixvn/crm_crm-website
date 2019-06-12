@@ -2,6 +2,7 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @using Newtonsoft.Json;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -307,7 +308,7 @@
         {
             <div class="row">
                 <button class="btn btn-save" data-ng-click="editMultipleLogs();">
-                    <span class="hotkey">S</span>ave
+                    @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>
         }

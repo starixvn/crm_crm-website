@@ -5,6 +5,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model CustomerInfo
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -513,7 +514,7 @@
                                         <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()" 
                                             data-ng-disabled ="customersInput === ''"
                                             tabindex="79">
-                                            V<span class="hotkey">e</span>rify</button>
+                                            @Html.Raw(@CommonLabels.Btn_HotKey_Verify)</button>
                                     </div>
                                 </div>
                                 <div id="ColorGuide" class="row colorGuide" data-ng-show="addCustomerFeedbackParams.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
@@ -609,7 +610,7 @@
             </div>
             <div class="row btn-group">
                 <button class="btn" data-ng-click="addFeedback();">
-                    <span class="hotkey">S</span>ave</button>
+                    @Html.Raw(@CommonLabels.Btn_HotKey_Save)</button>
             </div>
             <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>

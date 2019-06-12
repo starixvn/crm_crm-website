@@ -4,6 +4,7 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @using Newtonsoft.Json;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -235,7 +236,7 @@
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                     <button class="btn pull-right" data-ng-click="verifyRelatedCustomer()" data-ng-disabled="customersInput === ''">
-                        V<span class="hotkey">e</span>rify
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                     </button>
                 </div>
             </div>
@@ -306,7 +307,7 @@
         </div>
         <div class="row">
             <button class="btn btn-save" data-ng-click="insertLog();">
-                <span class="hotkey">S</span>ave
+                @Html.Raw(@CommonLabels.Btn_HotKey_Save)
             </button>
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />

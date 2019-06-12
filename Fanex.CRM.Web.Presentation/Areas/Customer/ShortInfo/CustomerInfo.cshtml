@@ -3,6 +3,7 @@
 @using Fanex.NAP.Core.Business;
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -231,7 +232,7 @@
                         <div class="col-xs-9 col-sm-9 col-md-9 text-left">
                             <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();" default-focus
                                     data-ng-model="isSetFocus">
-                                <span class="hotkey">U</span>pdate
+                                @Html.Raw(@CommonLabels.Btn_HotKey_Update)
                             </button>
                         </div>
                     }
