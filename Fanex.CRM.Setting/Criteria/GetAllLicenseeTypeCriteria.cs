@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get all Licensee type criteria.
     /// </summary>
-    public class GetAllLicenseeTypeCriteria : BasedCriteria
+    public class GetAllLicenseeTypeCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get All Communication Tool Criteria.
     /// </summary>
-    public class GetAllCommunicationToolCriteria : BasedCriteria
+    public class GetAllCommunicationToolCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

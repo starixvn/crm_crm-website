@@ -1,8 +1,8 @@
-﻿namespace Fanex.CRM.Setting.Criteria
-{
-    using Fanex.Data.Repository;
+﻿using Fanex.CRM.Common.Criteria;
 
-    public class GetAllProvinceCriteria : CriteriaBase
+namespace Fanex.CRM.Setting.Criteria
+{
+    public class GetAllProvinceCriteria : LanguageCriteria
     {
         public override string GetSettingKey()
         {

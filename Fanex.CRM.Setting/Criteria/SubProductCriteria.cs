@@ -3,7 +3,7 @@
     using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class SubProductCriteria : BasedCriteria
+    public class SubProductCriteria : BasedLanguageCriteria
     {
         [SpParam(SqlParamName = "ProductID")]
         public int ParentId { get; set; }

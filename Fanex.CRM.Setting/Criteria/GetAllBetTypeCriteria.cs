@@ -15,7 +15,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get All Sub Category Criteria.
     /// </summary>
-    public class GetAllBetTypeCriteria : BasedCriteria
+    public class GetAllBetTypeCriteria : BasedLanguageCriteria
     {
         [SpParam(SqlParamName = "ProductID")]
         public int ParentId { get; set; }

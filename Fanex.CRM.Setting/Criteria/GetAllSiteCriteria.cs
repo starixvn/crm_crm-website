@@ -15,7 +15,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get All Site Criteria.
     /// </summary>
-    public class GetAllSiteCriteria : BasedCriteria
+    public class GetAllSiteCriteria : BasedLanguageCriteria
     {
         public GetAllSiteCriteria()
         {

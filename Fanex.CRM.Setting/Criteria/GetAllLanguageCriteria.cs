@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get All Language Criteria.
     /// </summary>
-    public class GetAllLanguageCriteria : BasedCriteria
+    public class GetAllLanguageCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

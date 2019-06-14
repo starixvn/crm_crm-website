@@ -15,7 +15,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     /// <summary>
     /// Get All Setting Relation Criteria.
     /// </summary>
-    public class GetAllSettingRelationCriteria : BasedCriteria
+    public class GetAllSettingRelationCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

@@ -15,7 +15,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// <summary>
     /// Get All Language Criteria.
     /// </summary>
-    public class GetAllStatusCriteria : BasedCriteria
+    public class GetAllStatusCriteria : BasedLanguageCriteria
     {
         public GetAllStatusCriteria(int statusType)
         {

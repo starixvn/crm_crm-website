@@ -17,7 +17,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     /// <summary>
     /// Get Main Setting Relation Criteria.
     /// </summary>
-    public class GetMainSettingRelationsCriteria : BasedCriteria
+    public class GetMainSettingRelationsCriteria : BasedLanguageCriteria
     {
         public int ParentId { get; set; }
 
