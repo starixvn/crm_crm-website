@@ -127,7 +127,7 @@
     <value>Duplicate</value>
   </data>
   <data name="Btn_HotKey_InsertCase" xml:space="preserve">
-    <value>&lt;span class="hotkey"&gt;I&lt;/span&gt;insert Case</value>
+    <value>&lt;span class="hotkey"&gt;I&lt;/span&gt;nsert Case</value>
   </data>
   <data name="Btn_HotKey_Save" xml:space="preserve">
     <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;ave</value>

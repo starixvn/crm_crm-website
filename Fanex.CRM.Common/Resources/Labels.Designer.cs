@@ -88,7 +88,7 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;I&lt;/span&gt;insert Case.
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;I&lt;/span&gt;nsert Case.
         /// </summary>
         public static string Btn_HotKey_InsertCase {
             get {

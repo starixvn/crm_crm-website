@@ -289,7 +289,7 @@
     <value>客户名不可超出 50字元</value>
   </data>
   <data name="Related_To" xml:space="preserve">
-    <value>与 {0} 关联</value>
+    <value>关联</value>
   </data>
   <data name="Remark" xml:space="preserve">
     <value>备注</value>
