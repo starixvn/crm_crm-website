@@ -123,13 +123,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\CommunicationToolConstants.cs" />
     <Compile Include="Constants\LicenseeTypeConstants.cs" />
     <Compile Include="Constants\CustomerTypeConstants.cs" />
-    <Compile Include="Constants\ExtensionConstants.cs" />
     <Compile Include="Constants\FeedbackStatisticFilterType.cs" />
     <Compile Include="Constants\HeadlineProductStatusConstants.cs" />
     <Compile Include="Constants\HeadlineTypeConstants.cs" />
+    <Compile Include="Constants\NAConstants.cs" />
     <Compile Include="Constants\PeriodTypeConstants.cs" />
     <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />

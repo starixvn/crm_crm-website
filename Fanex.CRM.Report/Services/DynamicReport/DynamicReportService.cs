@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
+    using Common.Services;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -227,13 +228,13 @@
             var rawData = _serviceSetting.GetAllExtensions();
             extensions.Add(new SettingRelation
             {
-                Id = ExtensionConstants.NotApply,
+                Id = NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole),
                 Value = Labels.All
             });
 
             foreach (var rawExtension in rawData)
             {
-                if (rawExtension.Id == ExtensionConstants.NotApply)
+                if (rawExtension.Id == NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole))
                 {
                     continue;
                 }
