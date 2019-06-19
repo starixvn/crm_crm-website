@@ -162,6 +162,9 @@
   <data name="Edit_Setting_Value" xml:space="preserve">
     <value>编辑设定值</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>请填入反馈标题草稿内容！</value>
   </data>
@@ -258,6 +261,9 @@
   <data name="Setting_Value" xml:space="preserve">
     <value>设定值</value>
   </data>
+  <data name="SimplifiedChinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>副设定</value>
   </data>
@@ -278,5 +284,8 @@
   </data>
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM 系统 - 设定关联</value>
+  </data>
+  <data name="TraditionalChinese" xml:space="preserve">
+    <value>繁體中文</value>
   </data>
 </root>

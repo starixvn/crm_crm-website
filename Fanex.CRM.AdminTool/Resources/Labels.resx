@@ -194,6 +194,9 @@
   <data name="Edit_Setting_Value" xml:space="preserve">
     <value>Edit Setting Value</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>Please Input Feedback Subject Template Content!</value>
   </data>
@@ -301,6 +304,9 @@
   <data name="Setting_Value" xml:space="preserve">
     <value>Setting Value</value>
   </data>
+  <data name="SimplifiedChinese" xml:space="preserve">
+    <value>Simplified Chinese</value>
+  </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>Sub setting</value>
   </data>
@@ -321,5 +327,8 @@
   </data>
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM System - Setting Relation</value>
+  </data>
+  <data name="TraditionalChinese" xml:space="preserve">
+    <value>Traditional Chinese</value>
   </data>
 </root>

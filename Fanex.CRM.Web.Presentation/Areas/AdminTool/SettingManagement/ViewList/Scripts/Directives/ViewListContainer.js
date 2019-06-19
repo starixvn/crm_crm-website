@@ -26,7 +26,9 @@
                     var checked = setting.IsActive === true ? "checked" : "";
                     bodyData.push({
                         Columns: [
-                                { Name: "ColSettingName", Value: setting.Value },
+                                { Name: "ColSettingNameEnglish", Value: setting.Value },
+                                { Name: "ColSettingNameSimplChinese", Value: setting.Value },
+                                { Name: "ColSettingNameTradChinese", Value: setting.Value },
                                 { Name: "ColSettingId", Value: setting.Id },
                                 { Name: "ColOrder", Value: setting.DisplayOrder },
                                 {
@@ -43,15 +45,26 @@
             }
 
             var gridOptions = {
-                columns: [
-                {
-                    HeaderText: viewResources.Setting,
-                    Width: 400,
-                    Name: "ColSettingName",
-                    HeaderAlign: "center",
-                    CellAlign: "left",
-                    ShowCollapseExpand: true
-                },
+                customizeHeader: true,
+                groupHeaderRows: [
+                    {
+                        Columns: [
+                            {
+                                HeaderText: viewResources.Setting,                               
+                                Name: "ColSettingNameEnglish",
+                                MergeColNumber: 3
+                            },
+                            { HeaderText: viewResources.Setting_Id, Name: "ColSettingId", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Order, Name: "ColOrder", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Edit, Name: "ColEdit", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Active, Name: "ColActive", MergeRowNumber: 2 }
+                        ]
+                    }
+                ],
+                columns: [                
+                { HeaderText: viewResources.English, Width: 150, Name: "ColSettingNameEnglish", HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: viewResources.SimplifiedChinese, Width: 150, Name: "ColSettingNameSimplChinese", HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: viewResources.TraditionalChinese, Width: 150, Name: "ColSettingNameTradChinese", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" },
@@ -61,7 +74,7 @@
                     text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
                 },
                 bodyRows: bodyData,
-                numberOfFrozenColumn: 1,
+                //numberOfFrozenColumn: 1,
                 fullWidth: true,
                 fullHeight: true,
                 gridHeight: 0,

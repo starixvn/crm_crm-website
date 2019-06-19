@@ -259,6 +259,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Feedback Subject Template Successfully!.
         /// </summary>
         public static string Feedback_FeedbackSubjectManagement_EditSuccess {
@@ -574,6 +583,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Simplified Chinese.
+        /// </summary>
+        public static string SimplifiedChinese {
+            get {
+                return ResourceManager.GetString("SimplifiedChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sub setting.
         /// </summary>
         public static string Sub_setting {
@@ -633,6 +651,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Title_AdminTool_SettingRelation {
             get {
                 return ResourceManager.GetString("Title_AdminTool_SettingRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traditional Chinese.
+        /// </summary>
+        public static string TraditionalChinese {
+            get {
+                return ResourceManager.GetString("TraditionalChinese", resourceCulture);
             }
         }
     }
