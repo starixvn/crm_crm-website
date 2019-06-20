@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\CountryConstants.cs" />
     <Compile Include="Constants\LicenseeTypeConstants.cs" />
     <Compile Include="Constants\CustomerTypeConstants.cs" />
     <Compile Include="Constants\FeedbackStatisticFilterType.cs" />

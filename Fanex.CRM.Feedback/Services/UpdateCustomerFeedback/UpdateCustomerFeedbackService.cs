@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
     using Common.Enumerations;
+    using Common.Services;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
@@ -30,7 +31,10 @@
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission, UserRole userRole)
         {
             var countries = _settingService.GetAllCountries();
-            countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
+            if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
+            {
+                countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
+            }
 
             var languages = _settingService.GetAllLanguages();
             languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA });
@@ -76,6 +80,10 @@
         public CustomerFeedback GetFeedbackById(GetFeedbackByIdCriteria criteria)
         {
             var feedback = _updateCustomerFeedbackRepsitory.GetFeedbackById(criteria);
+            if (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+            {
+                feedback.Country.Id = CountryConstants.CN88CountryChina;
+            }
 
             UpdateSettingNameForFeedback(feedback);
 
