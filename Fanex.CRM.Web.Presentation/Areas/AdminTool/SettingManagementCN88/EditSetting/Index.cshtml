@@ -1,0 +1,115 @@
+﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.CRM.Common.Models;
+@model Setting
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Admin/SettingManagementCN88/EditSettingStyles")
+}
+<div data-ng-app="admintool-settingmanagement-editsetting-application">
+    <div class="editSettingController" data-ng-controller="editSettingController">
+        <div class="container main popup">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal frm" role="form">
+                <div class="form-group">
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_EN</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                            data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_SC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_TC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_EN</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                            data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_SC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_TC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtDisplayOrder" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Display_Order</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
+                            data-ng-model="editSettingParams.UpdatedSetting.DisplayOrder" maxlength="20" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-10 col-sm-10 col-md-10">
+                        <button type="button" class="btn" data-ng-click="editSetting();">
+                            <span class="hotkey">S</span>ave
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/Admin/SettingManagementCN88/EditSettingScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var settingInfo = {
+            Id: @Model.Id,
+            SettingType: '@Model.SettingType',
+            Value: '@Html.Raw(Model.Value)',
+            DisplayOrder:  @Model.DisplayOrder,
+            ParentId: @Model.ParentId
+        };
+
+        var viewResources = {
+            All: '@Labels.All',
+            Confirm_Ignore_EditSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditSetting_Changes)',
+            SettingManagement_Error_EmptySettingName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_ExceedName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_ExceedValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)'
+        };
+    </script>
+}

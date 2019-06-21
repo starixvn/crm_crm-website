@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.AdminTool
 {
-    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
+    using System.Web.Optimization;
 
     /// <summary>
     /// Bundle Config of Report.
@@ -37,6 +37,15 @@ namespace Fanex.CRM.AdminTool
             RegisterSettingManagementInsertSubSettingBundles(bundles);
             RegisterSettingManagementDeleteSettingBundles(bundles);
             RegisterSettingManagementEditSettingBundles(bundles);
+
+            RegisterSettingManagementCN88EditSettingBundles(bundles);
+            RegisterSettingRelationCN88ViewListBundles(bundles);
+            RegisterAddSettingRelationCN88Bundles(bundles);
+            RegisterSettingManagementCN88ViewListBundles(bundles);
+            RegisterSettingManagementCN88InsertSettingBundles(bundles);
+            RegisterSettingManagementCN88InsertSubSettingBundles(bundles);
+            RegisterSettingManagementCN88DeleteSettingBundles(bundles);
+            RegisterSettingManagementCN88EditSettingBundles(bundles);
         }
 
         /// <summary>
@@ -325,6 +334,189 @@ namespace Fanex.CRM.AdminTool
                 bundles,
                 "~/Areas/Admin/SettingManagement/EditSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
+        }
+
+        private static void RegisterSettingManagementCN88EditSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/EditSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingService.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingController.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingController_Options.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingController_Update.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/EditSettingController_HotKey.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/Directives/KeyPressDirective.js",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagementCN88/EditSettingStyles",
+                "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Styles/EditSetting.less");
+        }
+
+        private static void RegisterSettingRelationCN88ViewListBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelationCN88/ViewListScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListApplication.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListService.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListController.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListController_Options.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListController_Update.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListController_HotKey.js",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingRelationCN88/ViewListStyles",
+                "~/Areas/AdminTool/SettingRelationCN88/ViewList/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register Add Relation Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterAddSettingRelationCN88Bundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelationCN88/AddRelationScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationApplication.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationService.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationController.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationController_Options.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationController_Update.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationController_HotKey.js",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingRelationCN88/AddRelationStyles",
+                "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Styles/AddRelation.less");
+        }
+
+        /// <summary>
+        /// Register Setting Management View List Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementCN88ViewListBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/ViewListScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListApplication.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListService.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListController.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListController_Options.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListController_Update.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListController_HotKey.js",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagementCN88/ViewListStyles",
+                "~/Areas/AdminTool/SettingManagementCN88/ViewList/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register Setting Management Insert Setting Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementCN88InsertSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/InsertSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingService.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingController.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingController_Options.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingController_Update.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/InsertSettingController_HotKey.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/Directives/ParentSettingDirective.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/Directives/KeyPressDirective.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/Directives/RegisterSharedDirectives.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagementCN88/InsertSettingStyles",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Styles/InsertSetting.less");
+        }
+
+        /// <summary>
+        /// Register Setting Management Insert Sub Setting Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementCN88InsertSubSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/InsertSubSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingService.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingController.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingController_Options.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingController_Update.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/InsertSubSettingController_HotKey.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/Directives/ParentSettingDirective.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagementCN88/InsertSubSettingStyles",
+                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Styles/InsertSubSetting.less");
+        }
+
+        /// <summary>
+        /// Register Delete Feedback Subject Template Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementCN88DeleteSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/DeleteSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Scripts/DeleteSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Scripts/DeleteSettingService.js",
+                "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Scripts/DeleteSettingController.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagementCN88/DeleteSettingStyles",
+                "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Styles/DeleteSetting.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

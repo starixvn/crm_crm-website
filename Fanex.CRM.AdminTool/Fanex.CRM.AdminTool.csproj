@@ -170,6 +170,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AdminToolBundles.cs" />
     <Compile Include="Controllers\FeedbackSubjectManagementController.cs" />
+    <Compile Include="Controllers\SettingManagementCN88Controller.cs" />
     <Compile Include="Controllers\SettingManagementController.cs" />
     <Compile Include="Controllers\SettingRelationController.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\ChangeSubjectTemplateStateCriteria.cs" />

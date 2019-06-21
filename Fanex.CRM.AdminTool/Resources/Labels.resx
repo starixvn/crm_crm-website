@@ -298,11 +298,29 @@
   <data name="Setting_Name" xml:space="preserve">
     <value>Setting Name</value>
   </data>
+  <data name="Setting_Name_EN" xml:space="preserve">
+    <value>Setting Name (EN)</value>
+  </data>
+  <data name="Setting_Name_SC" xml:space="preserve">
+    <value>Setting Name (SC)</value>
+  </data>
+  <data name="Setting_Name_TC" xml:space="preserve">
+    <value>Setting Name (TC)</value>
+  </data>
   <data name="Setting_Relation_Management" xml:space="preserve">
     <value>Setting Relation Management</value>
   </data>
   <data name="Setting_Value" xml:space="preserve">
     <value>Setting Value</value>
+  </data>
+  <data name="Setting_Value_EN" xml:space="preserve">
+    <value>Setting Value (EN)</value>
+  </data>
+  <data name="Setting_Value_SC" xml:space="preserve">
+    <value>Setting Value (SC)</value>
+  </data>
+  <data name="Setting_Value_TC" xml:space="preserve">
+    <value>Setting Value (TC)</value>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>Simplified Chinese</value>

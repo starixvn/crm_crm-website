@@ -255,11 +255,29 @@
   <data name="Setting_Name" xml:space="preserve">
     <value>设定名称</value>
   </data>
+  <data name="Setting_Name_EN" xml:space="preserve">
+    <value>设定名称 (EN)</value>
+  </data>
+  <data name="Setting_Name_SC" xml:space="preserve">
+    <value>设定名称 (SC)</value>
+  </data>
+  <data name="Setting_Name_TC" xml:space="preserve">
+    <value>设定名称 (TC)</value>
+  </data>
   <data name="Setting_Relation_Management" xml:space="preserve">
     <value>设定关联管理者</value>
   </data>
   <data name="Setting_Value" xml:space="preserve">
     <value>设定值</value>
+  </data>
+  <data name="Setting_Value_EN" xml:space="preserve">
+    <value>设定值 (EN)</value>
+  </data>
+  <data name="Setting_Value_SC" xml:space="preserve">
+    <value>设定值 (SC)</value>
+  </data>
+  <data name="Setting_Value_TC" xml:space="preserve">
+    <value>设定值 (TC)</value>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>简体中文</value>

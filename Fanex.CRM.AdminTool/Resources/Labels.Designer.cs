@@ -457,6 +457,33 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting Name (EN).
+        /// </summary>
+        public static string Setting_Name_EN {
+            get {
+                return ResourceManager.GetString("Setting_Name_EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Name (SC).
+        /// </summary>
+        public static string Setting_Name_SC {
+            get {
+                return ResourceManager.GetString("Setting_Name_SC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Name (TC).
+        /// </summary>
+        public static string Setting_Name_TC {
+            get {
+                return ResourceManager.GetString("Setting_Name_TC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting Relation Management.
         /// </summary>
         public static string Setting_Relation_Management {
@@ -471,6 +498,33 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Setting_Value {
             get {
                 return ResourceManager.GetString("Setting_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (EN).
+        /// </summary>
+        public static string Setting_Value_EN {
+            get {
+                return ResourceManager.GetString("Setting_Value_EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (SC).
+        /// </summary>
+        public static string Setting_Value_SC {
+            get {
+                return ResourceManager.GetString("Setting_Value_SC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (TC).
+        /// </summary>
+        public static string Setting_Value_TC {
+            get {
+                return ResourceManager.GetString("Setting_Value_TC", resourceCulture);
             }
         }
         
