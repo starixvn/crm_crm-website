@@ -1,7 +1,7 @@
 ﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Models;
-@model Setting
+@model SettingCN88
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
@@ -28,21 +28,21 @@
                         @Labels.Setting_Name_EN</label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                            data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                            data-ng-model="editSettingParams.UpdatedSetting.SettingName" disabled="disabled" />
                     </div>
                     <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Name_SC
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                               data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingNameCS" disabled="disabled" />
                     </div>
                     <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Name_TC
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                               data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingNameCT" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,21 +50,21 @@
                         @Labels.Setting_Value_EN</label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
-                            data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                            data-ng-model="editSettingParams.UpdatedSetting.SettingValue" />
                     </div>
                     <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Value_SC
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
-                               data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingValueCS" />
                     </div>
                     <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Value_TC
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
-                               data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingValueCT" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -95,9 +95,13 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var settingInfo = {
-            Id: @Model.Id,
-            SettingType: '@Model.SettingType',
-            Value: '@Html.Raw(Model.Value)',
+            SettingId: @Model.SettingId,
+            SettingName: '@Model.SettingName',
+            SettingValue: '@Html.Raw(Model.SettingValue)',
+            SettingNameCS: '@Model.SettingNameCS',
+            SettingValueCS: '@Html.Raw(Model.SettingValueCS)',
+            SettingNameCT: '@Model.SettingNameCT',
+            SettingValueCT: '@Html.Raw(Model.SettingValueCT)',
             DisplayOrder:  @Model.DisplayOrder,
             ParentId: @Model.ParentId
         };

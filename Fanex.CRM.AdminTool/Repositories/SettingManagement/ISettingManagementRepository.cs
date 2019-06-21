@@ -10,6 +10,7 @@
 
 namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
 {
+    using Common.Models;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.Infrastructure.Models;
 
@@ -20,5 +21,9 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
         Result DeleteSetting(DeleteSettingCriteria criteria);
 
         Result EditSetting(EditSettingCriteria criteria);
+
+        Result EditSettingCN88(EditSettingCN88Criteria criteria);
+
+        SettingCN88 GetSettingCN88ById(GetSettingCN88ByIdCriteria criteria);
     }
 }

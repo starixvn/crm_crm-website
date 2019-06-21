@@ -10,14 +10,12 @@
         var settingManagementView;
 
         function renderSettingManagement(scope, element) {
-            console.log("xx");
             selfScope = scope;
             settingManagementView = scope.settingManagementView;
             if (scope.settingManagementView === null) {
                 return;
             }
-            console.log("yy");
-
+            
             var tableSetting = element.find("#settingmanagement-list");
             var bodyData = [];
             tableSetting.empty();

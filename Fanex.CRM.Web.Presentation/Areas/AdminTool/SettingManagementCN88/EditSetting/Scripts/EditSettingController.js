@@ -44,22 +44,16 @@
                 });
         };
         $scope.checkEditParam = function (editParam) {
-            if (editParam.UpdatedSetting.SettingType === "") {
-                $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingName, true, false);
-                return false;
-            }
-
-            if (editParam.UpdatedSetting.Value === "") {
+            if (editParam.UpdatedSetting.SettingValue === ""
+                || editParam.UpdatedSetting.SettingValueCS === ""
+                || editParam.UpdatedSetting.SettingValueCT === "") {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingValue, true, false);
                 return false;
-            }
+            }           
 
-            if (editParam.UpdatedSetting.SettingType.length > 100) {
-                $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedName, true, false);
-                return false;
-            }
-
-            if (editParam.UpdatedSetting.Value.length > 100) {
+            if (editParam.UpdatedSetting.SettingValue.length > 100
+                || editParam.UpdatedSetting.SettingValueCS.length > 100
+                || editParam.UpdatedSetting.SettingValueCT.length > 100) {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedValue, true, false);
                 return false;
             }
@@ -88,8 +82,9 @@
         };
         $scope.updateChangeFlag = function () {
             if ($scope.oldEditSettingParams.UpdatedSetting &&
-                ($scope.oldEditSettingParams.UpdatedSetting.SettingType !== $scope.editSettingParams.UpdatedSetting.SettingType ||
-                $scope.oldEditSettingParams.UpdatedSetting.Value !== $scope.editSettingParams.UpdatedSetting.Value ||
+                ($scope.oldEditSettingParams.UpdatedSetting.SettingValue !== $scope.editSettingParams.UpdatedSetting.SettingValue ||                
+                $scope.oldEditSettingParams.UpdatedSetting.SettingValueCS !== $scope.editSettingParams.UpdatedSetting.SettingValueCS ||
+                $scope.oldEditSettingParams.UpdatedSetting.SettingValueCT !== $scope.editSettingParams.UpdatedSetting.SettingValueCT ||
                 $scope.oldEditSettingParams.UpdatedSetting.DisplayOrder !== $scope.editSettingParams.UpdatedSetting.DisplayOrder ||
                 $scope.oldEditSettingParams.UpdatedSetting.ParentId !== $scope.editSettingParams.UpdatedSetting.ParentId)) {
                 parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditSetting_Changes;

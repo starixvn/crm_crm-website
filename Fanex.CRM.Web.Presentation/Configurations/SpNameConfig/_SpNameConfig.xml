@@ -77,5 +77,10 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_StationList" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingSelBySettingID" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingSelBySettingName" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingIns" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingUpd" EnvironmentText="_xpre"></SpNameConfig>  
   
 </Root>

@@ -213,6 +213,7 @@
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\SearchedCustomer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SettingCN88.cs" />
     <Compile Include="Models\SettingItem.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SettingRelation.cs" />

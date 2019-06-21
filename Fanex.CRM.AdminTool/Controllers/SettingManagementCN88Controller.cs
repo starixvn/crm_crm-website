@@ -89,7 +89,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Index.cshtml",
-                _settingManagementService.GetSettingById(new GetSettingByIdCriteria
+                _settingManagementService.GetSettingCN88ById(new GetSettingCN88ByIdCriteria
                 {
                     SettingId = settingId
                 }));
@@ -134,9 +134,9 @@ namespace Fanex.CRM.AdminTool.Controllers
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
-        public JsonResult EditSetting(EditSettingCriteria criteria)
+        public JsonResult EditSetting(EditSettingCN88Criteria criteria)
         {
-            var result = _settingManagementService.EditSetting(criteria);
+            var result = _settingManagementService.EditSettingCN88(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

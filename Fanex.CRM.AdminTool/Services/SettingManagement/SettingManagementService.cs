@@ -10,9 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingManagement
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Repositories.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
@@ -20,6 +17,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Setting Relation Service.
@@ -126,6 +126,24 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return _settingService.GetAllSettings()
                 .Where(s => s.Id == criteria.SettingId)
                 .FirstOrDefault();
+        }
+
+        public SettingCN88 GetSettingCN88ById(GetSettingCN88ByIdCriteria criteria)
+        {
+            return _settingManagementRepository.GetSettingCN88ById(criteria);
+        }
+
+        public Result EditSettingCN88(EditSettingCN88Criteria criteria)
+        {
+            var result = _settingManagementRepository.EditSettingCN88(criteria);
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
+                _settingService.ClearCache();
+            }
+
+            return result;
         }
     }
 }
