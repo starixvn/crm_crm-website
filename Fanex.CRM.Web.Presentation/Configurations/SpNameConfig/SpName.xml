@@ -83,6 +83,8 @@
     <Setting Key="Acc_CRM_CN88_SettingSelBySettingName" SpName="Acc_CRM_CN88_SettingSelBySettingName_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingIns" SpName="Acc_CRM_CN88_SettingIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

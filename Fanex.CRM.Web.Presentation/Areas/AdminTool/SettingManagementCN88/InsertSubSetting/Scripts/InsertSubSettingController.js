@@ -17,8 +17,12 @@
         $scope.insertSettingParams = {
             NewSetting: {
                 ParentId: 0,
-                SettingType: settingInfo.SettingType,
-                Value: '',
+                SettingName: settingInfo.SettingName,
+                SettingValue: '',
+                SettingNameCS: settingInfo.SettingNameCS,
+                SettingValueCS: '',
+                SettingNameCT: settingInfo.SettingNameCT,
+                SettingValueCT: '',
                 DisplayOrder: ''
             }
         };
@@ -74,22 +78,30 @@
                 });
         };
         $scope.checkInsertParam = function (insertParam) {
-            if (insertParam.NewSetting.SettingType === "") {
+            if (insertParam.NewSetting.SettingName === ""
+                || insertParam.NewSetting.SettingNameCS === ""
+                || insertParam.NewSetting.SettingNameCT === "") {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingName, true, false);
                 return false;
             }
 
-            if (insertParam.NewSetting.Value === "") {
+            if (insertParam.NewSetting.SettingValue === ""
+                || insertParam.NewSetting.SettingValueCS === ""
+                || insertParam.NewSetting.SettingValueCT === "") {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingValue, true, false);
                 return false;
             }
 
-            if (insertParam.NewSetting.SettingType.length > 100) {
+            if (insertParam.NewSetting.SettingName.length > 100
+                || insertParam.NewSetting.SettingNameCS.length > 100
+                || insertParam.NewSetting.SettingNameCT.length > 100) {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedName, true, false);
                 return false;
             }
 
-            if (insertParam.NewSetting.Value.length > 100) {
+            if (insertParam.NewSetting.SettingValue.length > 100
+                || insertParam.NewSetting.SettingValueCS.length > 100
+                || insertParam.NewSetting.SettingValueCT.length > 100) {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedValue, true, false);
                 return false;
             }
@@ -118,8 +130,12 @@
         };
         $scope.updateChangeFlag = function () {
             if ($scope.oldInsertSettingParams.NewSetting &&
-                ($scope.oldInsertSettingParams.NewSetting.SettingType !== $scope.insertSettingParams.NewSetting.SettingType ||
-                $scope.oldInsertSettingParams.NewSetting.Value !== $scope.insertSettingParams.NewSetting.Value ||
+                ($scope.oldInsertSettingParams.NewSetting.SettingName !== $scope.insertSettingParams.NewSetting.SettingName ||
+                $scope.oldInsertSettingParams.NewSetting.SettingNameCS !== $scope.insertSettingParams.NewSetting.SettingNameCS ||
+                $scope.oldInsertSettingParams.NewSetting.SettingNameCT !== $scope.insertSettingParams.NewSetting.SettingNameCT ||
+                $scope.oldInsertSettingParams.NewSetting.SettingValue !== $scope.insertSettingParams.NewSetting.SettingValue ||
+                $scope.oldInsertSettingParams.NewSetting.SettingValueCS !== $scope.insertSettingParams.NewSetting.SettingValueCS ||
+                $scope.oldInsertSettingParams.NewSetting.SettingValueCT !== $scope.insertSettingParams.NewSetting.SettingValueCT ||
                 $scope.oldInsertSettingParams.NewSetting.DisplayOrder !== $scope.insertSettingParams.NewSetting.DisplayOrder ||
                 $scope.oldInsertSettingParams.NewSetting.ParentId !== $scope.insertSettingParams.NewSetting.ParentId)) {
                 parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertSetting_Changes;

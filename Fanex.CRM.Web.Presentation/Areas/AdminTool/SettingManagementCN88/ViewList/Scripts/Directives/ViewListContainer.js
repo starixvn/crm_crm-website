@@ -26,10 +26,10 @@
                     var checked = setting.IsActive === true ? "checked" : "";
                     bodyData.push({
                         Columns: [
-                                { Name: "ColSettingNameEnglish", Value: setting.Value },
-                                { Name: "ColSettingNameSimplChinese", Value: setting.Value },
-                                { Name: "ColSettingNameTradChinese", Value: setting.Value },
-                                { Name: "ColSettingId", Value: setting.Id },
+                                { Name: "ColSettingNameEnglish", Value: setting.SettingValue },
+                                { Name: "ColSettingNameSimplChinese", Value: setting.SettingValueCS },
+                                { Name: "ColSettingNameTradChinese", Value: setting.SettingValueCT },
+                                { Name: "ColSettingId", Value: setting.SettingID },
                                 { Name: "ColOrder", Value: setting.DisplayOrder },
                                 {
                                     Name: "ColEdit",

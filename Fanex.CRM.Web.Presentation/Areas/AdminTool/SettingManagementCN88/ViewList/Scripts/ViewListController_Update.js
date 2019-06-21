@@ -6,7 +6,8 @@
             var isChange = !$scope.getSettingRelationsParams.MainSetting ||
             $scope.getSettingRelationsParams.MainSetting.SettingType !== mainSetting.SettingType;
             $scope.getSettingRelationsParams.MainSetting = {
-                SettingType: mainSetting.SettingType
+                SettingType: mainSetting.SettingNameEn,
+                SettingName: mainSetting.SettingName
             };
 
             $scope.safeApply();

@@ -75,11 +75,11 @@
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
                 window.rootUrl + "SettingManagementCN88/OpenInsertSubSettingView?" + $.param({
-                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
+                    SettingName: $scope.getSettingRelationsParams.MainSetting.SettingType
                 }),
                 viewResources.Insert_New_Setting,
-                480,
-                280,
+                880,
+                230,
                 true,
                 false,
                 parent.window,
@@ -95,9 +95,7 @@
             parent.OpenPopup(
                 window.rootUrl + "SettingManagementCN88/OpenDeleteSettingView?" +
                     $.param({
-                        settingId: settingInfo.Id,
-                        settingType: settingInfo.SettingType,
-                        settingValue: settingInfo.Value,
+                        settingId: settingInfo.SettingID,                        
                         isActive: settingInfo.IsActive
                     }),
                 title,
@@ -117,7 +115,7 @@
             parent.OpenPopup(
                 window.rootUrl + "SettingManagementCN88/OpenEditSettingView?" +
                     $.param({
-                        settingId: settingInfo.Id
+                        settingId: settingInfo.SettingID
                     }),
                 viewResources.Edit_Setting_Value,
                 880,

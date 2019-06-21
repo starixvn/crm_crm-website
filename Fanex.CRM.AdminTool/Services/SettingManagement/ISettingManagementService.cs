@@ -13,6 +13,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Models.SettingManagement;
     using System.Collections.Generic;
 
     public interface ISettingManagementService
@@ -36,5 +37,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         Result EditSettingCN88(EditSettingCN88Criteria criteria);
 
         Result InsertSettingCN88(InsertSettingCN88Criteria criteria);
+
+        List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria);
+
+        SettingItemName GetSettingName(GetSettingNameCriteria criteria);
+
+        List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria);
     }
 }

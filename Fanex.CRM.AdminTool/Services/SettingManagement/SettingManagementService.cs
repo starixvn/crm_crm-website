@@ -17,6 +17,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
+    using Models.SettingManagement;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -131,6 +132,21 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         public SettingCN88 GetSettingCN88ById(GetSettingCN88ByIdCriteria criteria)
         {
             return _settingManagementRepository.GetSettingCN88ById(criteria);
+        }
+
+        public List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria)
+        {
+            return _settingManagementRepository.GetMainSettingCN88(criteria);
+        }
+
+        public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
+        {
+            return _settingManagementRepository.GetSettingByTypeCN88(criteria);
+        }
+
+        public SettingItemName GetSettingName(GetSettingNameCriteria criteria)
+        {
+            return _settingManagementRepository.GetSettingName(criteria);
         }
 
         public Result EditSettingCN88(EditSettingCN88Criteria criteria)

@@ -49,14 +49,10 @@ namespace Fanex.CRM.AdminTool.Controllers
             return View("~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Index.cshtml");
         }
 
-        public ActionResult OpenInsertSubSettingView(string settingType)
+        public ActionResult OpenInsertSubSettingView(GetSettingNameCriteria criteria)
         {
-            return View(
-                "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Index.cshtml",
-                 new Setting
-                 {
-                     SettingType = settingType
-                 });
+            var settingName = _settingManagementService.GetSettingName(criteria);
+            return View("~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Index.cshtml", settingName);
         }
 
         public ActionResult OpenDeleteSettingView(
@@ -98,7 +94,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [HttpPost]
         public JsonResult MainSetting()
         {
-            var result = _settingManagementService.GetMainSettings();
+            var result = _settingManagementService.GetMainSettingCN88(new GetMainSettingCriteria());
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -110,9 +106,9 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
+        public JsonResult SettingByType(GetSettingByTypeCN88Criteria criteria)
         {
-            var result = _settingManagementService.SettingByType(criteria);
+            var result = _settingManagementService.GetSettingByTypeCN88(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
