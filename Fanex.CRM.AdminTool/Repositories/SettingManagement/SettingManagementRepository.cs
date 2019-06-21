@@ -50,5 +50,10 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
                 return result;
             }
         }
+
+        public Result InsertSettingCN88(InsertSettingCN88Criteria criteria)
+        {
+            return ExecuteNonQuery(criteria);
+        }
     }
 }

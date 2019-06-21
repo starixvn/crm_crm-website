@@ -23,39 +23,65 @@
             <div class="row">
                 <form class="form-horizontal frm" role="form">
                 <div class="form-group">
-                    <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Name</label>
-                    <div class="col-xs-9 col-sm-9 col-md-10">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                            data-ng-model="insertSettingParams.NewSetting.SettingType" />
+                            data-ng-model="insertSettingParams.NewSetting.SettingName" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_SC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingNameCS" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_TC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingNameCT" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="txtSettingValue" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Setting_Value</label>
-                    <div class="col-xs-9 col-sm-9 col-md-10">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
-                            data-ng-model="insertSettingParams.NewSetting.Value" />
+                            data-ng-model="insertSettingParams.NewSetting.SettingValue" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_SC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingValueCS" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_TC
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingValueCT" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="ddlParent" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    <label for="ddlParent" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Parent</label>
-                    <div class="col-xs-9 col-sm-9 col-md-10 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
+                    <div class="col-xs-2 col-sm-2 col-md-2 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
                         <select id="parentsetting">
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="txtDisplayOrder" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    <label for="txtDisplayOrder" class="col-xs-2 col-sm-2 col-md-2 control-label">
                         @Labels.Display_Order</label>
-                    <div class="col-xs-9 col-sm-9 col-md-10">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
                             data-ng-model="insertSettingParams.NewSetting.DisplayOrder" maxlength="20" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-xs-offset-3 col-sm-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-10 col-sm-10 col-md-10">
                         <button type="button" class="btn" data-ng-click="insertSetting();">
                             <span class="hotkey">S</span>ave
                         </button>

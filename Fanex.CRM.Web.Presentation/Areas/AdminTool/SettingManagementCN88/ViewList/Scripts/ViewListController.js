@@ -60,8 +60,8 @@
             parent.OpenPopup(
                 window.rootUrl + "SettingManagementCN88/OpenInsertNewSettingView",
                 viewResources.Insert_New_Setting,
-                480,
-                260,
+                880,
+                230,
                 true,
                 false,
                 parent.window,

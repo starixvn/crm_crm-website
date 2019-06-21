@@ -25,5 +25,7 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
         Result EditSettingCN88(EditSettingCN88Criteria criteria);
 
         SettingCN88 GetSettingCN88ById(GetSettingCN88ByIdCriteria criteria);
+
+        Result InsertSettingCN88(InsertSettingCN88Criteria criteria);
     }
 }

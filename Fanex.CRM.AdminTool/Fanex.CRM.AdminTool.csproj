@@ -184,6 +184,7 @@
     <Compile Include="Criteria\SettingManagement\GetSettingCN88ByIdCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetSettingByTypeCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\InsertSettingCN88Criteria.cs" />
     <Compile Include="Criteria\SettingManagement\InsertSettingCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\AddSettingRelationsCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetAllSettingRelationCriteria.cs" />

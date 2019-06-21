@@ -145,5 +145,18 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
             return result;
         }
+
+        public Result InsertSettingCN88(InsertSettingCN88Criteria criteria)
+        {
+            var result = _settingManagementRepository.InsertSettingCN88(criteria);
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
+                _settingService.ClearCache();
+            }
+
+            return result;
+        }
     }
 }

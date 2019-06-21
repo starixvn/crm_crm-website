@@ -118,9 +118,9 @@ namespace Fanex.CRM.AdminTool.Controllers
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
-        public JsonResult InsertSetting(InsertSettingCriteria criteria)
+        public JsonResult InsertSetting(InsertSettingCN88Criteria criteria)
         {
-            var result = _settingManagementService.InsertSetting(criteria);
+            var result = _settingManagementService.InsertSettingCN88(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
