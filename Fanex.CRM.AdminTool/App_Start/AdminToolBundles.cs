@@ -32,15 +32,15 @@ namespace Fanex.CRM.AdminTool
             RegisterSettingRelationViewListBundles(bundles);
             RegisterAddSettingRelationBundles(bundles);
 
+            RegisterSettingRelationCN88ViewListBundles(bundles);
+            RegisterAddSettingRelationCN88Bundles(bundles);
+
             RegisterSettingManagementViewListBundles(bundles);
             RegisterSettingManagementInsertSettingBundles(bundles);
             RegisterSettingManagementInsertSubSettingBundles(bundles);
             RegisterSettingManagementDeleteSettingBundles(bundles);
             RegisterSettingManagementEditSettingBundles(bundles);
 
-            RegisterSettingManagementCN88EditSettingBundles(bundles);
-            RegisterSettingRelationCN88ViewListBundles(bundles);
-            RegisterAddSettingRelationCN88Bundles(bundles);
             RegisterSettingManagementCN88ViewListBundles(bundles);
             RegisterSettingManagementCN88InsertSettingBundles(bundles);
             RegisterSettingManagementCN88InsertSubSettingBundles(bundles);

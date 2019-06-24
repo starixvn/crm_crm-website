@@ -7,11 +7,11 @@
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getMainSetting = function (params) {
-            var url = window.rootUrl + "SettingRelation/MainSetting";
+            var url = window.rootUrl + "SettingRelationCN88/MainSetting";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.getSettingRelations = function (params) {
-            var url = window.rootUrl + "SettingRelation/SettingByType";
+            var url = window.rootUrl + "SettingRelationCN88/SettingByType";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 

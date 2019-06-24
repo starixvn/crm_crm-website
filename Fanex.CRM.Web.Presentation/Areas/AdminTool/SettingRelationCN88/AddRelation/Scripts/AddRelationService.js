@@ -6,15 +6,15 @@
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getMainSettingForAddRelation = function (params) {
-            var url = window.rootUrl + "SettingRelation/GetMainSettingForAddRelation";
+            var url = window.rootUrl + "SettingRelationCN88/GetMainSettingForAddRelation";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.getMainSettingRelations = function (params) {
-            var url = window.rootUrl + "SettingRelation/MainSettingRelations";
+            var url = window.rootUrl + "SettingRelationCN88/MainSettingRelations";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.addSettingRelations = function (params) {
-            var url = window.rootUrl + "SettingRelation/AddSettingRelations";
+            var url = window.rootUrl + "SettingRelationCN88/AddSettingRelations";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 

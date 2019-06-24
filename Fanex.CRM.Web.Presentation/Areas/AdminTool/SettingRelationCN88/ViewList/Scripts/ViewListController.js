@@ -58,7 +58,7 @@
         $scope.addRelation = function (setting) {
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
-                window.rootUrl + "SettingRelation/OpenInsertRelationView?" +
+                window.rootUrl + "SettingRelationCN88/OpenInsertRelationView?" +
                     $.param({
                         settingId: setting.Id,
                         settingValue: setting.Value,
