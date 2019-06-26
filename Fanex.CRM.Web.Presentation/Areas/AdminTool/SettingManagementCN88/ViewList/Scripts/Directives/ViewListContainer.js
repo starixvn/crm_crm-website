@@ -62,9 +62,9 @@
                     }
                 ],
                 columns: [                
-                { HeaderText: viewResources.English, Width: 150, Name: "ColSettingNameEnglish", HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: viewResources.SimplifiedChinese, Width: 150, Name: "ColSettingNameSimplChinese", HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: viewResources.TraditionalChinese, Width: 150, Name: "ColSettingNameTradChinese", HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: viewResources.English, Width: 150, Name: "ColSettingNameEnglish", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.SimplifiedChinese, Width: 150, Name: "ColSettingNameSimplChinese", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.TraditionalChinese, Width: 150, Name: "ColSettingNameTradChinese", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: viewResources.Edit, Width: 60, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" },
