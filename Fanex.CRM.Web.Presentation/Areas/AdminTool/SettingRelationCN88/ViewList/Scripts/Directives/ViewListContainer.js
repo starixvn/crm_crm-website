@@ -31,9 +31,11 @@
                         var subSetting = setting.ChildSettings[j];
                         subRows.push({
                             Columns: [
-                                { Name: "ColSettingName", Value: subSetting.Value },
+                                { Name: "ColSettingNameEnglish", Value: subSetting.SettingValue },
+                                { Name: "ColSettingNameSimplChinese", Value: subSetting.SettingValueCS },
+                                { Name: "ColSettingNameTradChinese", Value: subSetting.SettingValueCT },
                                 { Name: "ColRelation", Value: '' },
-                                { Name: "ColSettingId", Value: subSetting.Id },
+                                { Name: "ColSettingId", Value: subSetting.SettingID },
                                 { Name: "ColOrder", Value: subSetting.DisplayOrder}],
                             CssClass: j % 2 === 0 ? ' freegrid-even' : ''
                         });
@@ -41,12 +43,14 @@
 
                     bodyData.push({
                         Columns: [
-                                { Name: "ColSettingName", Value: setting.Value },
+                                { Name: "ColSettingNameEnglish", Value: setting.SettingValue },
+                                { Name: "ColSettingNameSimplChinese", Value: setting.SettingValueCS },
+                                { Name: "ColSettingNameTradChinese", Value: setting.SettingValueCT },
                                 {
                                     Name: "ColRelation",
                                     Value: '<a class="c hand addSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                                 },
-                                { Name: "ColSettingId", Value: setting.Id },
+                                { Name: "ColSettingId", Value: setting.SettingID },
                                 { Name: "ColOrder", Value: setting.DisplayOrder}],
                         SubRows: subRows,
                         CssClass: 'editlog-link-row row-index-' + i
@@ -55,13 +59,40 @@
             }
 
             var gridOptions = {
+                customizeHeader: true,
+                groupHeaderRows: [
+                    {
+                        Columns: [
+                            {
+                                HeaderText: viewResources.Setting,
+                                Name: "ColSettingNameEnglish",
+                                MergeColNumber: 3
+                            },
+                            { HeaderText: viewResources.Relation, Name: "ColRelation", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Setting_Id, Name: "ColSettingId", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Order, Name: "ColOrder", MergeRowNumber: 2 }
+                        ]
+                    }
+                ],
                 columns: [
                 {
-                    HeaderText: viewResources.Setting,
-                    Width: 400,
-                    Name: "ColSettingName",
+                    HeaderText: viewResources.English,
+                    Width: 200,
+                    Name: "ColSettingNameEnglish",
                     HeaderAlign: "center",
                     CellAlign: "left",
+                    ShowCollapseExpand: true
+                },
+                {
+                    HeaderText: viewResources.SimplifiedChinese,
+                    Width: 200, Name: "ColSettingNameSimplChinese",
+                    HeaderAlign: "center", CellAlign: "left",
+                    ShowCollapseExpand: true
+                },
+                {
+                    HeaderText: viewResources.TraditionalChinese,
+                    Width: 200, Name: "ColSettingNameTradChinese",
+                    HeaderAlign: "center", CellAlign: "left",
                     ShowCollapseExpand: true
                 },
                 { HeaderText: viewResources.Relation, Width: 60, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
@@ -72,7 +103,7 @@
                     text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
                 },
                 bodyRows: bodyData,
-                numberOfFrozenColumn: 1,
+                //numberOfFrozenColumn: 1,
                 fullWidth: true,
                 fullHeight: true,
                 gridHeight: 0,

@@ -13,8 +13,8 @@
             RestrictType: 'C',
 
             DataPropertyName: {
-                Id: "SettingType",
-                Name: "SettingType"
+                Id: "SettingNameEn",
+                Name: "SettingName"
             }
         };
 

@@ -12,7 +12,8 @@
         };
         serviceInstance.getSettingRelations = function (params) {
             var url = window.rootUrl + "SettingRelationCN88/SettingByType";
-            return sharedScriptManager.registerAngularService($http, $q, url, params);
+            return sharedScriptManager.registerAngularService($http, $q, url,
+                { SettingName: params.MainSetting.SettingType });
         };
 
         return serviceInstance;

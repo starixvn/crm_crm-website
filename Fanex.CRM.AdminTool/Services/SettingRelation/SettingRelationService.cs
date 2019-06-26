@@ -10,9 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingRelation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Repositories.SettingRelation;
     using Fanex.CRM.AdminTool.Resources;
@@ -21,6 +18,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
+    using Models.SettingManagement;
+    using Models.SettingRelation;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Setting Relation Service.
@@ -63,11 +65,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return result;
         }
 
-        public IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
+        public IEnumerable<MainSetting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
         {
-            var mainSetting = GetMainSettings();
+            var mainSetting = GetMainSettingCN88(new GetMainSettingCriteria());
             return mainSetting
-                .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
+                .Where(s => !string.Equals(s.SettingNameEn, criteria.MainSetting.SettingType, StringComparison.Ordinal))
                 .ToList();
         }
 
@@ -85,6 +87,59 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                 CacheService.Delete(AllSettingRelationSessionKey);
                 _settingService.ClearCache();
             }
+
+            return result;
+        }
+
+        public IEnumerable<SettingRelationItem> MainSettingRelationsCN88(GetMainSettingRelationsCriteria criteria)
+        {
+            var parentSetting = _settingRelationRepository.GetSettingByTypeCN88(new GetSettingByTypeCN88Criteria
+            {
+                SettingName = criteria.ParentName
+            });
+
+            var settingByTypeData = _settingRelationRepository.GetSettingByTypeCN88(new GetSettingByTypeCN88Criteria
+            {
+                SettingName = criteria.MainSetting.SettingType
+            });
+
+            var result = settingByTypeData
+                .Where(s => s.ParentID == 0)
+                .Select(s =>
+                {
+                    var settingRelationItem = new SettingRelationItem
+                    {
+                        SettingID = s.SettingID,
+                        SettingValue = s.SettingValue,
+                        SettingValueCS = s.SettingValueCS,
+                        SettingValueCT = s.SettingValueCT,
+                        DisplayOrder = s.DisplayOrder,
+                        IsSub = parentSetting.Any(p => p.SettingID == s.SettingID && p.ParentID == criteria.ParentId)
+                    };
+
+                    return settingRelationItem;
+                })
+                .ToList();
+
+            return result;
+        }
+
+        public List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria)
+        {
+            return _settingRelationRepository.GetMainSettingCN88(criteria);
+        }
+
+        public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
+        {
+            var data = _settingRelationRepository.GetSettingByTypeCN88(criteria);
+            var result = data
+                .Where(s => s.ParentID == 0)
+                .Select(s =>
+                {
+                    s.ChildSettings = data.Where(c => c.ParentID == s.SettingID).ToList();
+                    return s;
+                })
+                .ToList();
 
             return result;
         }

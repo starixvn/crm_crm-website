@@ -25,18 +25,20 @@
                     var setting = settingRelationView[i];
                     bodyData.push({
                         Columns: [
-                                { Name: "ColSettingName", Value: setting.Value },
+                                { Name: "ColSettingNameEnglish", Value: setting.SettingValue },
+                                { Name: "ColSettingNameSimplChinese", Value: setting.SettingValueCS },
+                                { Name: "ColSettingNameTradChinese", Value: setting.SettingValueCT },
                                 {
                                     Name: "ColIsSub",
-                                    Value: '<input type="checkbox" id="chk' + setting.Id + '"' +
-                                         (setting.IsChild ? ' checked="checked" ' : '') +
+                                    Value: '<input type="checkbox" id="chk' + setting.SettingID + '"' +
+                                         (setting.IsSub ? ' checked="checked" ' : '') +
                                          ' data-row-index="' + i + '"' +
-                                         ' class="hand checkbox-issub" name="chk" value="' + setting.Id + '"/>'
+                                         ' class="hand checkbox-issub" name="chk" value="' + setting.SettingID + '"/>'
                                 },
                                 {
                                     Name: "ColOrder",
                                     Value: '<input class="c textbox-displayorder" type="text"' +
-                                        ' id="txt' + setting.Id + '"' +
+                                        ' id="txt' + setting.SettingID + '"' +
                                         ' data-row-index="' + i + '"' +
                                         ' value="' + setting.DisplayOrder + '" />'
                                 }],
@@ -46,11 +48,39 @@
             }
 
             var gridOptions = {
+                customizeHeader: true,
+                groupHeaderRows: [
+                    {
+                        Columns: [
+                            {
+                                HeaderText: viewResources.Setting,
+                                Name: "ColSettingNameEnglish",
+                                MergeColNumber: 3
+                            },
+                            { HeaderText: viewResources.Is_Sub, Name: "ColIsSub", MergeRowNumber: 2 },
+                            { HeaderText: viewResources.Order, Name: "ColOrder", MergeRowNumber: 2 }                            
+                        ]
+                    }
+                ],
                 columns: [
                 {
-                    HeaderText: viewResources.Setting,
-                    Width: 400,
-                    Name: "ColSettingName",
+                    HeaderText: viewResources.English,
+                    Width: 260,
+                    Name: "ColSettingNameEnglish",
+                    HeaderAlign: "center",
+                    CellAlign: "left"
+                },
+                {
+                    HeaderText: viewResources.SimplifiedChinese,
+                    Width: 260,
+                    Name: "ColSettingNameSimplChinese",
+                    HeaderAlign: "center",
+                    CellAlign: "left"
+                },
+                {
+                    HeaderText: viewResources.TraditionalChinese,
+                    Width: 260,
+                    Name: "ColSettingNameTradChinese",
                     HeaderAlign: "center",
                     CellAlign: "left"
                 },
@@ -58,7 +88,7 @@
                 { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "center"}],
                 showTitle: false,
                 bodyRows: bodyData,
-                numberOfFrozenColumn: 1,
+                //numberOfFrozenColumn: 1,
                 fullWidth: true,
                 fullHeight: false,
                 gridHeight: 400,

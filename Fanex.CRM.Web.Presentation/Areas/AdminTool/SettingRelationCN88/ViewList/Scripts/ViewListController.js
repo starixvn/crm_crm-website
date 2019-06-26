@@ -60,12 +60,12 @@
             parent.OpenPopup(
                 window.rootUrl + "SettingRelationCN88/OpenInsertRelationView?" +
                     $.param({
-                        settingId: setting.Id,
-                        settingValue: setting.Value,
-                        settingType: setting.SettingType
+                        settingId: setting.SettingID,
+                        settingValue: setting.SettingValue,
+                        settingType: $scope.getSettingRelationsParams.MainSetting.SettingName
                     }),
                 viewResources.Setting_Relation_Management,
-                585,
+                1000,
                 600,
                 true,
                 false,

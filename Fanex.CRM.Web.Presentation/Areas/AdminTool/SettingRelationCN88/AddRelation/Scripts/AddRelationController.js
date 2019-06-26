@@ -14,6 +14,7 @@
     function ($scope, $uiBlockerService, addRelationService) {
         $scope.getMainSettingRelationsParams = {
             ParentId: mainSetting.Id,
+            ParentName: mainSetting.SettingType,
             MainSetting: mainSetting
         };
         $scope.addSettingRelationsParams = {
@@ -76,9 +77,9 @@
             for (var i = 0; i < subSettingLength; i++) {
                 var subSetting = $scope.addSettingRelationsParams.SubSettings[i];
                 $scope.addSettingRelationsParams.SubSettings[i] = {
-                    Id: subSetting.Id,
+                    Id: subSetting.SettingID,
                     DisplayOrder: subSetting.DisplayOrder,
-                    IsChild: subSetting.IsChild
+                    IsChild: subSetting.IsSub
                 };
             }
 
@@ -115,7 +116,7 @@
             for (var i = 0; i < settingLength; i++) {
                 var setting = $scope.mainSettingRelationView[i];
                 var oldSetting = $scope.oldMainSettingRelationView[i];
-                if (setting.IsChild !== oldSetting.IsChild ||
+                if (setting.IsSub !== oldSetting.IsSub ||
                     setting.DisplayOrder !== oldSetting.DisplayOrder) {
                     isChange = true;
                     break;

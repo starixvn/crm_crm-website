@@ -141,7 +141,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
         public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
         {
-            return _settingManagementRepository.GetSettingByTypeCN88(criteria);
+            return _settingManagementRepository.GetSettingByTypeCN88(criteria)
+                .Where(s => s.ParentID == 0).ToList();
         }
 
         public SettingItemName GetSettingName(GetSettingNameCriteria criteria)

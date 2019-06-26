@@ -21,6 +21,8 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     {
         public int ParentId { get; set; }
 
+        public string ParentName { get; set; }
+
         public Setting MainSetting { get; set; }
 
         /// <summary>

@@ -4,7 +4,7 @@
     window.registerUpdateFunctions = function ($scope) {
         $scope.updateSelectedMainSetting = function (mainSetting) {
             $scope.getMainSettingRelationsParams.MainSetting = {
-                SettingType: mainSetting.SettingType,
+                SettingType: mainSetting.SettingNameEn,
                 Id: mainSetting.Id
             };
             $scope.safeApply();
@@ -18,7 +18,7 @@
             $scope.safeApply();
         };
         $scope.updateIsSub = function (rowIndex, isCheck) {
-            $scope.mainSettingRelationView[rowIndex].IsChild = isCheck;
+            $scope.mainSettingRelationView[rowIndex].IsSub = isCheck;
             $scope.safeApply();
         };
     };

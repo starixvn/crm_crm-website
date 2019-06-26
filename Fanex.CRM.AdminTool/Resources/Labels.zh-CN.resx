@@ -241,7 +241,7 @@
     <value>设定管理由 {0}</value>
   </data>
   <data name="SettingRelation_AddRelationMessage" xml:space="preserve">
-    <value>新增 &lt;span class="b"&gt;{0}&gt;/span&gt; 副设定</value>
+    <value>新增 &lt;span class="b"&gt;{0}&lt;/span&gt; 副设定</value>
   </data>
   <data name="SettingRelation_AddRelation_UpdateSuccess" xml:space="preserve">
     <value>成功设置关联设定</value>
