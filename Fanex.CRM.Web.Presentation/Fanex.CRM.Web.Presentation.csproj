@@ -1507,6 +1507,11 @@
     <Content Include="Configurations\AppSettings\UATSandBox.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UATSIT.Web.Setting.config" />
     <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
+    <Content Include="Configurations\ConnectionStrings\CN88PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\AppSettings\CN88PRO.Web.Setting.config" />
+    <Content Include="Configurations\Web.CN88PRO.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1515,6 +1520,7 @@
     <Content Include="Configurations\Web.UATSandBox.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <ItemGroup>
