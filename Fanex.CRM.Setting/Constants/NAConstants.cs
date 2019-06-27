@@ -22,7 +22,7 @@ namespace Fanex.CRM.Setting.Constants
 
         public static readonly int ExtentionNA = 2022;
 
-        public static readonly int CN88ExtentionNA = 2055;
+        public static readonly int CN88ExtentionNA = 2056;
 
         public static int GetProductNA(UserRole userRole)
         {
