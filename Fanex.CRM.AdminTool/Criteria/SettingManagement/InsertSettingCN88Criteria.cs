@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertSettingCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
+﻿namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
     using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
@@ -17,9 +7,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
     using Fanex.Data.Repository;
     using System.Collections;
 
-    /// <summary>
-    /// Insert Setting Criteria.
-    /// </summary>
     public class InsertSettingCN88Criteria : BasedCriteria
     {
         public SettingCN88 NewSetting { get; set; }
@@ -51,10 +38,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
             }
         }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
