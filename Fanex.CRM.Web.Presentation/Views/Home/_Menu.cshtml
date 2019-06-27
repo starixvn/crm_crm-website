@@ -43,7 +43,7 @@
 }
 @helper RenderLeafMenu(MenuItem menuItem, int menuLevel, IList<MenuItem> parentMenuList)
     {
-        var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');"; 
+        var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url.Trim()) + "');"; 
        
         var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
         breadscrumbMenuName += (parentMenuList.Count > 0 ?  "," : string.Empty) + 

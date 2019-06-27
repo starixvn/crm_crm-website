@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Get All Communication Tool Criteria.
     /// </summary>
-    public class GetAllCommunicationToolCriteria : CriteriaBase
+    public class GetAllCommunicationToolCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

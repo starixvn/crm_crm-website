@@ -65,5 +65,6 @@ namespace Fanex.CRM.Common.Constants
         public const string SettingLog = "ViewSettingLog";
 
         public const string Updateheadlineinfo = "Updateheadlineinfo";
+
     }
 }

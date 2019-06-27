@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Setting Relation By Name Criteria.
     /// </summary>
-    public class GetSettingRelationByNameCriteria : CriteriaBase
+    public class GetSettingRelationByNameCriteria : BasedLanguageCriteria
     {
         [SpParam(SqlParamName = "settingname")]
         public string SettingName { get; set; }

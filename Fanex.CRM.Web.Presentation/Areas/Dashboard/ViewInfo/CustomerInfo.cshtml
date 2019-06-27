@@ -2,6 +2,7 @@
 @using Fanex.NAP.Core.Business
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 <div class="row panel-group last progressBar">
     <div class="custInfo row content text-right verifiedinfo">
         <div class="row item bar">
@@ -12,7 +13,8 @@
         </div>
         <div class="row item">
             <button class="btn" data-ng-click="editVerifyFlag();">
-                V<span class="hotkey">e</span>rify</button>
+                @Html.Raw(@CommonLabels.Btn_HotKey_Verify)</button>
+                
         </div>
     </div>
 </div>

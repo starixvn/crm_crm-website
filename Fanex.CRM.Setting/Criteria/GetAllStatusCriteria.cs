@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Language Criteria.
     /// </summary>
-    public class GetAllStatusCriteria : CriteriaBase
+    public class GetAllStatusCriteria : BasedLanguageCriteria
     {
         public GetAllStatusCriteria(int statusType)
         {

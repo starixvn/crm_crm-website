@@ -14,6 +14,10 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
     var updateHeadlineInfoPolicy = (Constant.Policy)ViewBag.UpdateHeadlineInfoPolicy;
     var canEditHeadline = (updateHeadlineInfoPolicy == Constant.Policy.Host);
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var hideProvinceClass = isCN88 ? "" : "hide-item";
+    var letsTalkLabel = isCN88 ? Labels.LetsTalk : Labels.BBM;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
@@ -56,7 +60,7 @@
                                 <select id="customerinfodetail-languageoptions" tabindex="7"></select>
                             </div>
                         </div>
-                        <div class="row item">
+                        <div class="row item @hideLicenseeTypeClass">
                             <div class="col-md-3">
                                 <label for="customerinfodetail-licenseeTypeoptions">
                                     @Labels.LicenseeType
@@ -100,7 +104,8 @@
                             <div class="col-md-9">
                                 <selectwithsearchtree text-settings="TextSettings"
                                                       data-ng-model="selectedSite"
-                                                      data-settings="siteDropdownSettings"></selectwithsearchtree>
+                                                      data-settings="siteDropdownSettings"
+                                                      hide-NA="isCN88"></selectwithsearchtree>
                             </div>
                         </div>                      
                                                                   
@@ -422,7 +427,7 @@
                                 <div class="row item">
                                     <div class="col-md-3">
                                         <label for="bbm">
-                                            @Labels.BBM
+                                            @letsTalkLabel
                                         </label>
                                     </div>
                                     <div class="col-md-9">
@@ -500,6 +505,19 @@
                                                tabindex="67" />
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row @hideProvinceClass">
+                                <div class="item col-md-6">
+                                    <div class="col-md-3 widthCol">
+                                        <label for="customerinfodetail-provinceoptions">
+                                            @Labels.Province
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9" data-ng-model="provinceList" dropdown-province-container>
+                                        <select id="customerinfodetail-provinceoptions" class="dropdown-countryinfo" tabindex="66"></select>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -656,5 +674,6 @@
                     };
                     var customerDetail = @Html.Raw(jsonCustomerDetail);
                     var canEditHeadline = '@canEditHeadline' == 'True';
+                    var isCN88 = '@isCN88' == 'True';
                 </script>
             }

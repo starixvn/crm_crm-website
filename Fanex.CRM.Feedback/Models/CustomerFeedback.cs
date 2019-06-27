@@ -37,6 +37,8 @@
 
         public BaseModel Country { get; set; }
 
+        public BaseModel Province { get; set; }
+
         public BaseModel Language { get; set; }
 
         public BaseModel Status { get; set; }

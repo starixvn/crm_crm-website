@@ -9,24 +9,27 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using System.Collections;
-    using System.Collections.Generic;
+    using Common.Criteria;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Update Customer Information Criteria.
     /// </summary>
-    public class UpdateCustomerInfoCriteria : CriteriaBase
+    public class UpdateCustomerInfoCriteria : BasedCriteria
     {
         public int CustomerId { get; set; }
 
         public int SiteSettingId { get; set; }
 
         public int CountryId { get; set; }
+
+        public int ProvinceId { get; set; }
 
         public string FirstName { get; set; }
 
@@ -99,6 +102,7 @@ namespace Fanex.CRM.Customer.Criteria
             var param = new Hashtable();
             param.Add("site", SiteSettingId);
             param.Add("countryid", CountryId);
+            param.Add("provinceid", ProvinceId);
             param.Add("firstname", StringExtension.GetValueNotNull(FirstName));
             param.Add("lastname", StringExtension.GetValueNotNull(LastName));
             param.Add("language", StringExtension.GetValueNotNull(Languages));
@@ -131,6 +135,7 @@ namespace Fanex.CRM.Customer.Criteria
             param.Add("custid", CustomerId);
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
 
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);

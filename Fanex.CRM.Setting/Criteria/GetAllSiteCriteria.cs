@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Site Criteria.
     /// </summary>
-    public class GetAllSiteCriteria : CriteriaBase
+    public class GetAllSiteCriteria : BasedLanguageCriteria
     {
         public GetAllSiteCriteria()
         {

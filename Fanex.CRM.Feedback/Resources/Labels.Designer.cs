@@ -79,6 +79,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto-generated.
+        /// </summary>
+        public static string Auto_Generated {
+            get {
+                return ResourceManager.GetString("Auto_Generated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BBM.
         /// </summary>
         public static string BBM {
@@ -673,6 +682,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lets Talk.
+        /// </summary>
+        public static string LetsTalk {
+            get {
+                return ResourceManager.GetString("LetsTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Type.
         /// </summary>
         public static string Licensee_Type {
@@ -1029,6 +1047,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Province.
+        /// </summary>
+        public static string Province {
+            get {
+                return ResourceManager.GetString("Province", resourceCulture);
             }
         }
         

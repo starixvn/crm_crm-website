@@ -1,16 +1,17 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.Data.Repository;
+    using Setting.Constants;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
-    public class AddGuestFeedbackCriteria : CriteriaBase
+    public class AddGuestFeedbackCriteria : BasedCriteria
     {
         public CustomerInfo CustomerInfo { get; set; }
 
@@ -49,6 +50,8 @@
         public string ExtensionIds { get; set; }
 
         public Country Country { get; set; }
+
+        public Province Province { get; set; }
 
         public Setting Role { get; set; }
 
@@ -103,6 +106,10 @@
             Justification = "Reviewed. Suppression is OK here.")]
         public override Hashtable GetSpParams()
         {
+            var isCN88 = UserRole == Common.Enumerations.UserRole.CN88Staff;
+            var siteId = isCN88 ? SiteConstants.CN88 : 0;
+            var roleId = isCN88 ? RoleIdConstants.CN88Guest : RoleIdConstants.CRMGuest;
+
             var param = new Hashtable();
             param.Add("userid", UserId);
             param.Add("username", CustomerInfo.Name);
@@ -142,7 +149,8 @@
             param.Add("pic3", CustomerInfo.PersonalInfoContacts[2].Phone);
             param.Add("pic4name", CustomerInfo.PersonalInfoContacts[3].Name);
             param.Add("pic4", CustomerInfo.PersonalInfoContacts[3].Phone);
-            param.Add("siteid", 0);
+            param.Add("siteid", siteId);
+            param.Add("roleid", roleId);
             param.Add("isvip", CustomerInfo.IsVIP);
             param.Add("wechat", CustomerInfo.WeChat);
             param.Add("whatsapp", CustomerInfo.WhatsApp);
@@ -154,6 +162,7 @@
             param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(EndTime));
             param.Add("countryid", Country.Id);
+            param.Add("provinceid", Province.Id);
             param.Add("languageid", Language.Id);
             param.Add("responseid", Response.Id);
             param.Add("statusid", Status.Id);

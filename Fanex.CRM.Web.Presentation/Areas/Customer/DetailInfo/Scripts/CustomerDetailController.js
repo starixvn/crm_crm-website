@@ -15,9 +15,11 @@
         $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
         $scope.siteList = null;
         $scope.countryList = null;
+        $scope.provinceList = null;
         $scope.languageList = null;
         $scope.titleList = null;
         $scope.licenseeTypes = [];
+        $scope.isCN88 = isCN88;
 
         $scope.isLoadedAllSettings = false;
         $scope.isSetFocus = false;
@@ -51,6 +53,7 @@
                 $scope.siteList = data.Result.Sites;
                 $scope.titleList = data.Result.Titles;
                 $scope.countryList = data.Result.Countries;
+                $scope.provinceList = data.Result.Provinces;                
                 $scope.languageList = data.Result.Languages;
                 $scope.licenseeTypes = data.Result.LicenseeTypes;
                 $scope.isLoadedAllSettings = true;
@@ -158,6 +161,7 @@
                 HomeAddressLine3: customerDetail.AddressInfo.LineList[2],
                 HomeAddressCity: customerDetail.AddressInfo.City,
                 HomeAddressCountryId: customerDetail.AddressInfo.Country.Id,
+                ProvinceID: customerDetail.AddressInfo.Province ? customerDetail.AddressInfo.Province.Id : 0,
                 HomeAddressPostCode: customerDetail.AddressInfo.PostCode,
                 HomeAddressState: customerDetail.AddressInfo.State,
                 BankAddressLine1: customerDetail.BankInfo.AddressInfo.LineList[0],
@@ -245,6 +249,28 @@
                 $scope.customerDetail.AddressInfo.Country = countryInfo;
             } else {
                 $scope.customerDetail.AddressInfo.Country = {
+                    Id: crmConstants.Enums.Country.NotApply
+                };
+            }
+
+            $scope.$apply();
+        };
+        $scope.updateSelectedProvince = function (provinceInfoId) {
+            provinceInfoId = parseInt(provinceInfoId);
+            var provinceInfo;
+            var provinceListLength = $scope.provinceList.length;
+            for (var i = 0; i < provinceListLength; i++) {
+                var province = $scope.provinceList[i];
+                if (province.Id === provinceInfoId) {
+                    provinceInfo = province;
+                    break;
+                }
+            }
+
+            if (provinceInfo) {
+                $scope.customerDetail.AddressInfo.Province = provinceInfo;
+            } else {
+                $scope.customerDetail.AddressInfo.Province = {
                     Id: crmConstants.Enums.Country.NotApply
                 };
             }

@@ -19,6 +19,7 @@
         addCustomerFeedbackRegister.registerExtensionPicker();
         addCustomerFeedbackRegister.registerSubCategoryPicker();
         addCustomerFeedbackRegister.registerCountryPicker();
+        addCustomerFeedbackRegister.registerProvincePicker();
         addCustomerFeedbackRegister.registerRolePicker();
 
         addCustomerFeedbackRegister.registerSubjectAutoComplete();

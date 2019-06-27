@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Remark.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get remark criteria.
     /// </summary>
-    public class GetRemarkCriteria : CriteriaBase
+    public class GetRemarkCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "CustID")]
         public int CustomerId { get; set; }

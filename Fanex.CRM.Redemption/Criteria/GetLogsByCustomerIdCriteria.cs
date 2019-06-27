@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Redemption.Criteria
 {
-    using System;
     using Fanex.Data.Repository;
+    using System;
 
     /// <summary>
     /// Get Communication Logs By Customer Identity Criteria.

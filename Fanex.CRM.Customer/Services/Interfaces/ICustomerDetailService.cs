@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Services
 {
+    using Common.Enumerations;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -19,6 +20,6 @@ namespace Fanex.CRM.Customer.Services
 
         Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria);
 
-        dynamic GetAllSettings();
+        dynamic GetAllSettings(UserRole userRole);
     }
 }

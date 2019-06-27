@@ -172,8 +172,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Menus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Menus.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\HomeService.cs" />
     <Compile Include="Services\IDashboardService.cs" />
+    <Compile Include="Services\IHomeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
@@ -195,6 +202,14 @@
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />
+    <EmbeddedResource Include="Resources\Labels.zh-TW.resx" />
+    <EmbeddedResource Include="Resources\Menus.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Menus.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Menus.zh-CN.resx" />
+    <EmbeddedResource Include="Resources\Menus.zh-TW.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

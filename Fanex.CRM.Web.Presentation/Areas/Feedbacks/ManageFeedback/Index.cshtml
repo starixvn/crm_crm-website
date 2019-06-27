@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model Fanex.CRM.Feedback.ViewModels.ManageFeedbackViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +9,7 @@
     var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
     bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
     int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
@@ -138,6 +140,7 @@
         var username = '@HttpUtility.JavaScriptStringEncode(Model.CustName)';
         var isGuest = @isGuest;
         var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
+        var isCN88 = '@isCN88' == 'True';
 
         var manageFeedbackResources = {
             All: '@Labels.All',
@@ -154,7 +157,8 @@
             EditMultipleLogsTitle: '@Labels.EditMultipleLogsTitle',
             UpdateSiteLicenseeType: '@Labels.UpdateSiteLicenseeType',
             EditMultipleLogStatusesTitle: '@Labels.EditMultipleLogStatusesTitle',
-            RunningNo: '@Labels.RunningNo'
+            RunningNo: '@Labels.RunningNo',
+            There_is_no_data: '@CommonLabels.There_is_no_data'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",

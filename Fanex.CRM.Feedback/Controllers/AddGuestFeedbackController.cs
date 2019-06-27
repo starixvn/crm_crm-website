@@ -31,6 +31,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Index()
         {
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
         }
 

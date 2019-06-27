@@ -60,10 +60,7 @@
                 Id: 0,
                 Value: ''
             },
-            RoleInfo: {
-                Id: 0,
-                Value: ''
-            },
+            RoleInfo: { Id: 0, Value: ''},
             Response: {
                 Id: 0,
                 Value: ''
@@ -74,6 +71,9 @@
             Country: {
                 Id: 0
             },
+            Province: {
+                Id: 0
+            },
             LicenseeType: {
                 Id: 0
             }
@@ -82,10 +82,13 @@
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.extensionList = null;
         $scope.countryList = null;
+        $scope.provinceList = null;
         $scope.communicationToolList = null;
         $scope.languageList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
+        $scope.isCN88 = isCN88;
+        $scope.CN88SiteId = CN88SiteId;
         
         $scope.betTypeList = null;
         $scope.statusList = null;
@@ -182,6 +185,10 @@
                 Id: $scope.defaultSettings.CountryId
             };
 
+            $scope.communicationLog.Province = {
+                Id: $scope.defaultSettings.ProvinceId
+            };
+
             $scope.communicationLog.SiteInfo = {
                 Id: $scope.defaultSettings.SiteId
             };
@@ -219,6 +226,12 @@
                 if ($scope.copiedCommunicationLog.Country) {
                     $scope.communicationLog.Country = {
                         Id: $scope.copiedCommunicationLog.Country.Id
+                    };
+                }
+
+                if ($scope.copiedCommunicationLog.Province) {
+                    $scope.communicationLog.Province = {
+                        Id: $scope.copiedCommunicationLog.Province.Id
                     };
                 }
 
@@ -395,6 +408,29 @@
             $scope.$apply();
             $scope.updateChangeFlag();
         };
+        $scope.updateSelectedProvince = function (provinceInfoId) {
+            provinceInfoId = parseInt(provinceInfoId);
+            var provinceInfo;
+            var provinceListLength = $scope.provinceList.length;
+            for (var i = 0; i < provinceListLength; i++) {
+                var province = $scope.provinceList[i];
+                if (province.Id === provinceInfoId) {
+                    provinceInfo = province;
+                    break;
+                }
+            }
+
+            if (provinceInfo) {
+                $scope.communicationLog.Province = provinceInfo;
+            } else {
+                $scope.communicationLog.Province = {
+                    Id: crmConstants.Enums.Country.NotApply
+                };
+            }
+
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        };
         $scope.updateSelectedCommunicationTool = function (communicationToolId) {
             communicationToolId = parseInt(communicationToolId);
             var communicationToolInfo;
@@ -558,6 +594,7 @@
                 RelatedCustomerId: $scope.relatedCustomerResultDirective.getRelatedCustomerId(),
                 LanguageId: $scope.communicationLog.LanguageId,
                 CountryId: $scope.communicationLog.Country.Id,
+                ProvinceId: $scope.communicationLog.Province.Id,
                 StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
@@ -842,6 +879,7 @@
                 var allSetting = data.Result;
                 $scope.allSettings = data.Result;
                 $scope.countryList = allSetting.CountryList;
+                $scope.provinceList = allSetting.ProvinceList;
                 $scope.communicationToolList = allSetting.CommunicationToolList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.statusList = allSetting.StatusList;
@@ -850,7 +888,11 @@
                 $scope.responseList = allSetting.ResponseList;
                 $scope.defaultSettings = allSetting.DefaultSettings;
                 $scope.licenseeTypes = allSetting.LicenseeType;
-               
+                
+                if ($scope.isCN88) {
+                    $scope.selectedSite = { Id: $scope.CN88SiteId, Name: "CN88" };
+                }
+                
                 $scope.siteDropdownSettings = {
                     idMember: "Id",
                     nameMember: "Name",

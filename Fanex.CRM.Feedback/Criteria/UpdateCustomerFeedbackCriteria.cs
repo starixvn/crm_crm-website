@@ -116,6 +116,7 @@
                 { "product", ProductsContent },
 
                 { "countryid", Country.Id },
+                { "provinceid", Province.Id },
                 { "languageid", Language.Id },
                 { "statusid", Status.Id },
                 { "roleid", Role.Id },

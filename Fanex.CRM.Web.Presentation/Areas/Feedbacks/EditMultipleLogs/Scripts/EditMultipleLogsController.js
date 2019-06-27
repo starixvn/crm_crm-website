@@ -15,6 +15,7 @@
         $scope.oldmultipleLogs = angular.copy(multipleLogs);
         $scope.extensionList = null;
         $scope.countryList = null;
+        $scope.provinceList = null;
         $scope.communicationToolList = null;
         $scope.languageList = null;
         $scope.mainCategoryList = null;
@@ -40,6 +41,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
+        $scope.isCN88 = isCN88;
 
         $scope.listOfCustomers = '';
         $scope.feedbackList = '';
@@ -164,7 +166,31 @@
             }
 
             $scope.$apply();
-        };        
+        };
+
+        $scope.updateSelectedProvince = function (provinceInfoId) {
+            provinceInfoId = parseInt(provinceInfoId);
+            var provinceInfo;
+            var provinceListLength = $scope.provinceList.length;
+            for (var i = 0; i < provinceListLength; i++) {
+                var province = $scope.provinceList[i];
+                if (province.Id === provinceInfoId) {
+                    provinceInfo = province;
+                    break;
+                }
+            }
+
+            if (provinceInfo) {
+                $scope.multipleLogs.Province = provinceInfo;
+            } else {
+                $scope.multipleLogs.Province = {
+                    Id: crmConstants.Enums.Country.NotApply
+                };
+            }
+
+            $scope.$apply();
+        };
+
         $scope.updateSelectedLanguage = function (languageId) {
             $scope.multipleLogs.Language.Id = languageId;
             $scope.$apply();
@@ -290,6 +316,7 @@
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.multipleLogs.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 CountryId: $scope.multipleLogs.Country.Id,
+                ProvinceId: $scope.multipleLogs.Province.Id,
                 LanguageId: $scope.multipleLogs.Language.Id,
                 StatusId: $scope.multipleLogs.Status.Id,
                 RoleId: $scope.multipleLogs.RoleInfo.Id,
@@ -345,6 +372,7 @@
         };
         $scope.isParamsChange = function () {
             return $scope.multipleLogs.Country.Id !== $scope.oldmultipleLogs.Country.Id ||
+                $scope.multipleLogs.Province.Id !== $scope.oldmultipleLogs.Province.Id ||
                 $scope.multipleLogs.Language.Id !== $scope.oldmultipleLogs.Language.Id ||
                 $scope.multipleLogs.Status.Id !== $scope.oldmultipleLogs.Status.Id ||
                 $scope.multipleLogs.RoleInfo.Id !== $scope.oldmultipleLogs.RoleInfo.Id ||
@@ -537,6 +565,7 @@
                 $scope.allSettings = data.Result;
 
                 $scope.countryList = allSetting.CountryList;
+                $scope.provinceList = allSetting.ProvinceList;
                 $scope.languageList = allSetting.LanguageList;
                 $scope.statusList = allSetting.StatusList;
                 $scope.siteList = allSetting.SiteList;
@@ -625,7 +654,7 @@
             SettingManager.updateSettingSelectList($scope.multipleLogs.RoleInfo, $scope.roleList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.Response, $scope.responseList);
 
-            SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
+            !$scope.isCN88 && SettingManager.updateSettingSelectList($scope.multipleLogs.SiteInfo, $scope.siteList);
             SettingManager.updateSettingSelectList($scope.multipleLogs.LicenseeType, $scope.licenseeTypeOptions.DataList);
         };
 

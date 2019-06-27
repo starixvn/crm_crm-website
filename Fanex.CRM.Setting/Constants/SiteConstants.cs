@@ -23,5 +23,7 @@ namespace Fanex.CRM.Setting.Constants
         public const int IBCGroup = 1;
 
         public const int LicenseeGroup = 2;
+
+        public const int CN88 = 33002;
     }
 }

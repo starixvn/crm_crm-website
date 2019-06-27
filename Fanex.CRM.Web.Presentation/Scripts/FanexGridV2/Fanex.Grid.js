@@ -1109,7 +1109,7 @@ var fanexGridCurrentLanguage = fanexGridCurrentLanguage || {};
                 }
                 columns.push({
                     Name: options.columns[minusMainColumnNumber].Name,
-                    Value: fanexGridCurrentLanguage.noData,
+                    Value: options.noDataText || fanexGridCurrentLanguage.noData,
                     MergeColNumber: (options.columns.length - minusMainColumnNumber),
                     CssClass: cssClass
                 });
@@ -1236,7 +1236,7 @@ var fanexGridCurrentLanguage = fanexGridCurrentLanguage || {};
             }
             else {
                 //// Render There is no data, showNoDataOnFrozen
-                var emptyData = fanexGridCurrentLanguage.noData;
+                var emptyData = options.noDataText || fanexGridCurrentLanguage.noData;
                 if (options.numberOfFrozenColumn > 0) {
                     if (options.showNoDataOnFrozen) {
                         //// Show No Info on the frozen table
@@ -2716,7 +2716,7 @@ if (typeof (fanexGridLanguage) === 'undefined') {
         pageSize: 'Page size',
         goToPage: 'Go To Page',
         pagingText: 'Displaying <b>{0}</b> to <b>{1}</b> of <b>{2}</b> item(s)'
-    };
+    };   
 
     var fanexGridCurrentLanguage = fanexGridLanguage['en-US'];
 }

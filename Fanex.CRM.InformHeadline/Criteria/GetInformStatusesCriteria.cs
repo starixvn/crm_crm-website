@@ -6,12 +6,13 @@
 
 namespace Fanex.CRM.InformHeadline.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class GetInformStatusesCriteria : CriteriaBase
+    public class GetInformStatusesCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "Mode")]
         public bool IsIncludeKeptForRefence { get; set; }

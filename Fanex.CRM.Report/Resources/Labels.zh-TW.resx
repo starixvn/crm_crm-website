@@ -1,0 +1,924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+  <data name="All_Countries" xml:space="preserve">
+    <value>All Countries</value>
+  </data>
+  <data name="All_Languages" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="All_Products" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="All_Sites" xml:space="preserve">
+    <value>All Sites</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="APR" xml:space="preserve">
+    <value>APR</value>
+  </data>
+  <data name="AUG" xml:space="preserve">
+    <value>AUG</value>
+  </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
+  </data>
+  <data name="Bet2" xml:space="preserve">
+    <value>BET2</value>
+  </data>
+  <data name="Bingo" xml:space="preserve">
+    <value>Bingo</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="CasinoDailyDetailTitle" xml:space="preserve">
+    <value>Daily Casino - Related Customer Inquiries Record From {0} To {1}</value>
+  </data>
+  <data name="CasinoDailyStatisticsHint" xml:space="preserve">
+    <value>Filtering by Feedback date</value>
+  </data>
+  <data name="CasinoDailyStatistics_Report" xml:space="preserve">
+    <value>Casino Daily Statistics</value>
+  </data>
+  <data name="CasinoDailySummaryTitle" xml:space="preserve">
+    <value>Daily Summary On Customer Inquiries From {0} To {1}</value>
+  </data>
+  <data name="CasinoDetailExcelName" xml:space="preserve">
+    <value>CasinoDetailReport-{0}-{1}</value>
+  </data>
+  <data name="CasinoSummaryExcelName" xml:space="preserve">
+    <value>CasinoSummaryReport-{0}-{1}</value>
+  </data>
+  <data name="CasinoWeeklyDetailTitle" xml:space="preserve">
+    <value>Weekly Casino - Related Customer Inquiries Record From {0} To {1}</value>
+  </data>
+  <data name="CasinoWeeklyExcelName" xml:space="preserve">
+    <value>CasinoWeeklyReport-{0}-{1}</value>
+  </data>
+  <data name="CasinoWeeklyStatistics_Report" xml:space="preserve">
+    <value>Casino Weekly Statistics</value>
+  </data>
+  <data name="CasinoWeeklySummaryTitle" xml:space="preserve">
+    <value>Weekly Summary Report From {0} To {1}</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CategorySubCategory" xml:space="preserve">
+    <value>Category/Sub-Category</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>Checked</value>
+  </data>
+  <data name="Checker" xml:space="preserve">
+    <value>Checker</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="ClaimedDate" xml:space="preserve">
+    <value>Claimed Date</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="CommunicationFilter_Required" xml:space="preserve">
+    <value>Please choose a communication type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>Communication Type</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
+  <data name="Complaints_Enquiries" xml:space="preserve">
+    <value>Complaints/Enquiries</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact/MSN/Skype/Email/Phone</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Contact Info</value>
+  </data>
+  <data name="Contact_Number" xml:space="preserve">
+    <value>Contact Number</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CreationTime" xml:space="preserve">
+    <value>Creation Time</value>
+  </data>
+  <data name="Creation_Time" xml:space="preserve">
+    <value>Creation Time</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="CustomerReport_SheetName" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
+  <data name="CustomerReport_Title" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
+  <data name="Customer_Report" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
+  <data name="Customer_Type" xml:space="preserve">
+    <value>Customer Type</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="DailyStatisticsReport_ChartSuffix" xml:space="preserve">
+    <value>Feedback(s)</value>
+  </data>
+  <data name="DailyStatisticsReport_DetailTitle" xml:space="preserve">
+    <value>{0} Daily Customer Complaints/Enquiries From {1} To {2}</value>
+  </data>
+  <data name="DailyStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Daily Summary Report From {1} To {2}</value>
+  </data>
+  <data name="Daily_Statistics" xml:space="preserve">
+    <value>Daily Statistics</value>
+  </data>
+  <data name="Daily_Statistics_Report" xml:space="preserve">
+    <value>Daily Statistics Report</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Date_Of_Birth" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DEC" xml:space="preserve">
+    <value>DEC</value>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>Deleted By</value>
+    <comment>#40843</comment>
+  </data>
+  <data name="DeletedFeedbackStatistics" xml:space="preserve">
+    <value>Deleted Feedback Statistics</value>
+    <comment>#40843</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Complaints/Enquiries</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="DetailedChart" xml:space="preserve">
+    <value>Detailed Chart</value>
+  </data>
+  <data name="DirectCustomerReportTitle" xml:space="preserve">
+    <value>Direct Customer Report</value>
+  </data>
+  <data name="DirectCustomerReport_SheetName" xml:space="preserve">
+    <value>Direct Customer Report</value>
+  </data>
+  <data name="DocumentTitle_DynamicReport" xml:space="preserve">
+    <value>CRM System - Dynamic Report</value>
+  </data>
+  <data name="DoneBy" xml:space="preserve">
+    <value>Done By</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="DynamicReport_ChartSuffix" xml:space="preserve">
+    <value> Log(s)</value>
+  </data>
+  <data name="DynamicReport_ExcelTitle" xml:space="preserve">
+    <value>{0}_Communication_Logs_From_{1}_To_{2}</value>
+  </data>
+  <data name="DynamicReport_PeriodReport_Title" xml:space="preserve">
+    <value>{0} Communication Logs for {1}</value>
+  </data>
+  <data name="DynamicReport_SheetName" xml:space="preserve">
+    <value>Dynamic Report</value>
+  </data>
+  <data name="DynamicReport_ShortTitle" xml:space="preserve">
+    <value>{0} To {1}</value>
+  </data>
+  <data name="DynamicReport_Title" xml:space="preserve">
+    <value>{0} Communication Logs From {1} To {2}</value>
+  </data>
+  <data name="DynamicReport_TitleWithNumberOfLog" xml:space="preserve">
+    <value>{0} Communication Logs From {1} To {2} {3}</value>
+  </data>
+  <data name="Dynamic_Report" xml:space="preserve">
+    <value>Dynamic Report</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="End_Time" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>Exclude ignored accounts</value>
+  </data>
+  <data name="Ext" xml:space="preserve">
+    <value>EXT.#</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FEB" xml:space="preserve">
+    <value>FEB</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackDetail" xml:space="preserve">
+    <value>Feedback Detail</value>
+  </data>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>Feedback(s)</value>
+  </data>
+  <data name="FeedbackStatisticDetailExcelName" xml:space="preserve">
+    <value>FeedbackStatisticDetail-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticDetailReport" xml:space="preserve">
+    <value>Feedback Statistic Detail Report</value>
+  </data>
+  <data name="FeedbackStatisticDetailSheetName" xml:space="preserve">
+    <value>Feedback Statistic Detail</value>
+  </data>
+  <data name="FeedbackStatisticDetailTitle" xml:space="preserve">
+    <value>Feedback Statistic Detail Report from {0} to {1}</value>
+  </data>
+  <data name="FeedbackStatisticExcelName" xml:space="preserve">
+    <value>FeedbackStatistic-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticSheetName" xml:space="preserve">
+    <value>Feedback Statistic</value>
+  </data>
+  <data name="FeedbackStatistics_InvalidDuration" xml:space="preserve">
+    <value>'To Duration' must be greater than or equal 'From Duration' .</value>
+  </data>
+  <data name="FeedbackStatisticTitle" xml:space="preserve">
+    <value>Feedback Statistics Report from {0} to {1}</value>
+  </data>
+  <data name="Feedback_Date" xml:space="preserve">
+    <value>Feedback Date</value>
+  </data>
+  <data name="Filtering_by_Feedback_date" xml:space="preserve">
+    <value>Filtering by Feedback date</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Format_Duration" xml:space="preserve">
+    <value>{0}:{1}:{2}</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="FromDuration" xml:space="preserve">
+    <value>From Duration</value>
+  </data>
+  <data name="From_Date" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="From_Month" xml:space="preserve">
+    <value>From Month</value>
+  </data>
+  <data name="From_Week" xml:space="preserve">
+    <value>From Week</value>
+  </data>
+  <data name="From_Year" xml:space="preserve">
+    <value>From Year</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="Grand_Total" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="Groupheadline" xml:space="preserve">
+    <value>Group headline</value>
+  </data>
+  <data name="Group_By" xml:space="preserve">
+    <value>Group By</value>
+  </data>
+  <data name="Group_Headline" xml:space="preserve">
+    <value>Group Headline</value>
+  </data>
+  <data name="HandleBy" xml:space="preserve">
+    <value>Handle By</value>
+  </data>
+  <data name="Handled_By" xml:space="preserve">
+    <value>Handled By</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
+  <data name="Handle_By" xml:space="preserve">
+    <value>Handle By</value>
+  </data>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="IBCBetCasino" xml:space="preserve">
+    <value>IBCBET CASINO</value>
+  </data>
+  <data name="Introduceby" xml:space="preserve">
+    <value>Introduce by</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>item(s)</value>
+  </data>
+  <data name="JAN" xml:space="preserve">
+    <value>JAN</value>
+  </data>
+  <data name="JUL" xml:space="preserve">
+    <value>JUL</value>
+  </data>
+  <data name="JUN" xml:space="preserve">
+    <value>JUN</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="Line_1" xml:space="preserve">
+    <value>Line 1</value>
+  </data>
+  <data name="Line_2" xml:space="preserve">
+    <value>Line 2</value>
+  </data>
+  <data name="Line_3" xml:space="preserve">
+    <value>Line 3</value>
+  </data>
+  <data name="LiveChat" xml:space="preserve">
+    <value>LiveChat</value>
+  </data>
+  <data name="LiveCS" xml:space="preserve">
+    <value>Live Casino</value>
+  </data>
+  <data name="LogStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Daily Log Statistics | {1} - {2}</value>
+  </data>
+  <data name="Log_Statistics_Report" xml:space="preserve">
+    <value>Log Statistics Report</value>
+  </data>
+  <data name="MainCategoryFilter_Required" xml:space="preserve">
+    <value>Please choose a category</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
+  <data name="MAR" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MAY" xml:space="preserve">
+    <value>MAY</value>
+  </data>
+  <data name="MiniGame" xml:space="preserve">
+    <value>Mini Game</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>NA</value>
+  </data>
+  <data name="NoDataFound" xml:space="preserve">
+    <value>無數據</value>
+  </data>
+  <data name="NOV" xml:space="preserve">
+    <value>NOV</value>
+  </data>
+  <data name="No_category_found" xml:space="preserve">
+    <value>No category found.</value>
+  </data>
+  <data name="No_country_found" xml:space="preserve">
+    <value>No country found.</value>
+  </data>
+  <data name="No_language_found" xml:space="preserve">
+    <value>No language found.</value>
+  </data>
+  <data name="No_site_found" xml:space="preserve">
+    <value>No site found.</value>
+  </data>
+  <data name="No_status" xml:space="preserve">
+    <value>No status found</value>
+  </data>
+  <data name="No_status_found" xml:space="preserve">
+    <value>Please select at least one Status!</value>
+  </data>
+  <data name="NumberColumn" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>NUMBER GAME</value>
+  </data>
+  <data name="OCT" xml:space="preserve">
+    <value>OCT</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>Passport</value>
+    <comment>#60341</comment>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Period_type" xml:space="preserve">
+    <value>Period type</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="PIC" xml:space="preserve">
+    <value>PIC</value>
+  </data>
+  <data name="PIC1" xml:space="preserve">
+    <value>PIC 1</value>
+  </data>
+  <data name="PIC2" xml:space="preserve">
+    <value>PIC 2</value>
+  </data>
+  <data name="PIC3" xml:space="preserve">
+    <value>PIC 3</value>
+  </data>
+  <data name="PIC4" xml:space="preserve">
+    <value>PIC 4</value>
+  </data>
+  <data name="Please_choose_one" xml:space="preserve">
+    <value>Please choose one!</value>
+  </data>
+  <data name="Poker" xml:space="preserve">
+    <value>Poker</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Post_Code" xml:space="preserve">
+    <value>Post Code</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductCollapseExpand" xml:space="preserve">
+    <value>Product Collapse/Expand</value>
+  </data>
+  <data name="ProductFilter_Required" xml:space="preserve">
+    <value>Please choose a product</value>
+    <comment>#46902</comment>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="ProductSubProduct" xml:space="preserve">
+    <value>Product/Sub-Product</value>
+  </data>
+  <data name="QQ" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="RedemptionStatisticsDetailReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_Detail_Report</value>
+  </data>
+  <data name="RedemptionStatisticsDetailReportTitle" xml:space="preserve">
+    <value>Redemption Statistics Detail Report</value>
+  </data>
+  <data name="RedemptionStatisticsDetailSheetName" xml:space="preserve">
+    <value>Redemption Statistics Detail</value>
+  </data>
+  <data name="RedemptionStatisticsReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_{0}_{1}</value>
+  </data>
+  <data name="RedemptionStatisticsReportTitle" xml:space="preserve">
+    <value>Redemption Statistics Report from {0} to {1}</value>
+  </data>
+  <data name="RedemptionStatisticsSheetName" xml:space="preserve">
+    <value>Redemption Statistics</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="RelatedCustomer" xml:space="preserve">
+    <value>Related Customer</value>
+  </data>
+  <data name="Report_by" xml:space="preserve">
+    <value>Report By</value>
+  </data>
+  <data name="Report_type" xml:space="preserve">
+    <value>Report type</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+  </data>
+  <data name="Reviewed_By" xml:space="preserve">
+    <value>Reviewed By</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Running_No" xml:space="preserve">
+    <value>Running No.</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>Second</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SEP" xml:space="preserve">
+    <value>SEP</value>
+  </data>
+  <data name="SettlementReport_ChartSuffix" xml:space="preserve">
+    <value> Issue(s)</value>
+  </data>
+  <data name="SettlementReport_ExcelTitle" xml:space="preserve">
+    <value>Settlement_Issues_Report_For_Year_{0}</value>
+  </data>
+  <data name="SettlementReport_SheetName" xml:space="preserve">
+    <value>Settlement Issues Report</value>
+  </data>
+  <data name="SettlementReport_Title" xml:space="preserve">
+    <value>Settlement Issues Report For Year {0}</value>
+  </data>
+  <data name="Settlement_Report" xml:space="preserve">
+    <value>Settlement Report</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="SiteName" xml:space="preserve">
+    <value>Site Name</value>
+    <comment>#60341</comment>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>Solution</value>
+  </data>
+  <data name="Solved" xml:space="preserve">
+    <value>Solved</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="Start_Time" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="StatisticReport_ChartSuffix" xml:space="preserve">
+    <value> Issue(s)</value>
+  </data>
+  <data name="StatisticReport_Error_EmptyMainCategory" xml:space="preserve">
+    <value>Please choose one main category!</value>
+  </data>
+  <data name="StatisticReport_Error_EmptySubCategory" xml:space="preserve">
+    <value>Please choose one sub category!</value>
+  </data>
+  <data name="StatisticReport_ExcelTitle" xml:space="preserve">
+    <value>{0}_Issue_Statistic_Report_From_{1}_To_{2}</value>
+  </data>
+  <data name="StatisticReport_SheetName" xml:space="preserve">
+    <value>Issue Statistic Report</value>
+  </data>
+  <data name="StatisticReport_ShortTitle" xml:space="preserve">
+    <value>{0} To {1}</value>
+  </data>
+  <data name="StatisticReport_Title" xml:space="preserve">
+    <value>{0} Issue Statistic Report From {1} To {2}</value>
+  </data>
+  <data name="StatisticReport_TotalTitle" xml:space="preserve">
+    <value>Total for {0}</value>
+  </data>
+  <data name="Statistic_Report" xml:space="preserve">
+    <value>Statistic Report</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>Sub-Product</value>
+    <comment>#50691</comment>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>Sub Category</value>
+  </data>
+  <data name="SummaryChart" xml:space="preserve">
+    <value>Summary Chart</value>
+  </data>
+  <data name="SummaryReport" xml:space="preserve">
+    <value>Categories Summary</value>
+  </data>
+  <data name="SummaryReportExcelName" xml:space="preserve">
+    <value>Categories_Summary_{0}</value>
+  </data>
+  <data name="SummaryReportTitle" xml:space="preserve">
+    <value>Categories Summary Report For Year {0}</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="Symbol_Extension" xml:space="preserve">
+    <value>EXT.#</value>
+  </data>
+  <data name="Symbol_FullContactFormat" xml:space="preserve">
+    <value>{0}-{1}-{2}</value>
+  </data>
+  <data name="Symbol_IsVIP" xml:space="preserve">
+    <value>√</value>
+  </data>
+  <data name="Symbol_No" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="ToDuration" xml:space="preserve">
+    <value>To Duration</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="To_Date" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="To_Month" xml:space="preserve">
+    <value>To Month</value>
+  </data>
+  <data name="To_Week" xml:space="preserve">
+    <value>To Week</value>
+  </data>
+  <data name="To_Year" xml:space="preserve">
+    <value>To Year</value>
+  </data>
+  <data name="TypeOfContact" xml:space="preserve">
+    <value>Type Of Contact</value>
+  </data>
+  <data name="Type_Of_Contact" xml:space="preserve">
+    <value>Type Of Contact</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ViewChart" xml:space="preserve">
+    <value>View Chart</value>
+  </data>
+  <data name="ViewDetail" xml:space="preserve">
+    <value>View Detail</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="VoidRefund" xml:space="preserve">
+    <value>Void/Refund</value>
+  </data>
+  <data name="WagerReport" xml:space="preserve">
+    <value>Wagers-Related Report</value>
+  </data>
+  <data name="WagerReportExcelName" xml:space="preserve">
+    <value>Wagers_Related_Report_{0}</value>
+  </data>
+  <data name="WagerReportTitle" xml:space="preserve">
+    <value>WAGER ACCEPT, REJECT, VOID/REDUND FOR YEAR {0}</value>
+  </data>
+  <data name="Wagers" xml:space="preserve">
+    <value>Wagers</value>
+  </data>
+  <data name="WeChat" xml:space="preserve">
+    <value>WeChat</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="WeeklyStatisticsReport_ChartSuffix" xml:space="preserve">
+    <value>Feedback(s)</value>
+  </data>
+  <data name="WeeklyStatisticsReport_DetailTitle" xml:space="preserve">
+    <value>{0} Weekly Customer Complaints/Enquiries From {1} To {2}</value>
+  </data>
+  <data name="WeeklyStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Weekly Summary Report From {1} To {2}</value>
+  </data>
+  <data name="Weekly_Statistics" xml:space="preserve">
+    <value>Weekly Statistics</value>
+  </data>
+  <data name="Weekly_Statistics_Report" xml:space="preserve">
+    <value>Weekly Statistics Report</value>
+  </data>
+  <data name="WhatsApp" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+</root>

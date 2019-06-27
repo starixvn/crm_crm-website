@@ -9,27 +9,35 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
-    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
+    using Services;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
-    public class HomeController : ReadOnlyBaseController
+    public class HomeController : BaseController
     {
         private readonly IPermissionService _permissionService;
+        private readonly ILanguageService _langService;
+        private readonly IHomeService _homeService;
 
         public HomeController()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
-        public HomeController(IPermissionService permissionService)
+        public HomeController(
+            IPermissionService permissionService,
+            ILanguageService langService,
+            IHomeService homeService)
         {
             _permissionService = permissionService ?? new PermissionService();
+            _langService = langService ?? new LanguageService();
+            _homeService = homeService ?? new HomeService();
         }
 
         public RedirectResult Index()
@@ -46,12 +54,18 @@ namespace Fanex.CRM.Dashboard.Controllers
         /// Access default page.
         /// </summary>
         /// <returns>Default page.</returns>
-        public ActionResult Default()
+        public ActionResult Default(string language)
         {
+            if (language != null)
+            {
+                _langService.ChangeLanguage(language);
+            }
+
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
-
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.SettingLanguage = AppSession.CurrentUser.Language;
 
             return View("~/Views/Home/Default.cshtml");
         }
@@ -59,12 +73,14 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            return PartialView("~/Views/Home/_Menu.cshtml", AppSession.CurrentUserMenu);
+            var currentUserMenu = _homeService.UpdateMenuLanguage(AppSession.CurrentUserMenu);
+            return PartialView("~/Views/Home/_Menu.cshtml", currentUserMenu);
         }
 
         public PartialViewResult GettingDashboardMenu()
         {
             ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 

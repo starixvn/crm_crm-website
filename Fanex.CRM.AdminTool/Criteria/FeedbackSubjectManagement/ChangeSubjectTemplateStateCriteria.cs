@@ -10,13 +10,13 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
 {
+    using Common.Criteria;
     using System.Collections;
-    using Fanex.Data.Repository;
 
     /// <summary>
     /// Delete Feedback Subject Template Criteria.
     /// </summary>
-    public class ChangeSubjectTemplateStateCriteria : CriteriaBase
+    public class ChangeSubjectTemplateStateCriteria : BasedCriteria
     {
         public int TemplateId { get; set; }
 
@@ -30,6 +30,7 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
         {
             var param = new Hashtable();
             param.Add("templateid", TemplateId);
+            param.Add("UserRole", UserRole);
             param.Add("isactive", IsActive);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);

@@ -52,6 +52,7 @@
             param.Add("relatedcustid", StringExtension.GetValueNotNull(RelatedCustomerId));
             param.Add("languageid", LanguageId);
             param.Add("countryid", CountryId);
+            param.Add("provinceid", ProvinceId);
             param.Add("feedbackdate", StartTime);
             param.Add("resolutiondate", EndTime);
 

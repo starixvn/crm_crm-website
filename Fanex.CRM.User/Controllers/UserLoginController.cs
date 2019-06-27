@@ -6,22 +6,20 @@
 
 namespace Fanex.CRM.User.Controllers
 {
-    using System;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Security;
     using Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.User.Resources;
-    using Fanex.NAP.Core.Web.Session;
     using Models;
     using NAP.Core.Configuration;
     using NAP.Core.Web;
-    using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Services;
+    using System;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Security;
 
     /// <summary>
     /// TODO: Update summary.
@@ -29,16 +27,14 @@ namespace Fanex.CRM.User.Controllers
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
-        private const string LogInViewURL = "~/Areas/User/LogIn/Index.cshtml";
-
+        private const string LogInViewURL = "~/Areas/User/LogIn/Index{0}.cshtml";
+        private const string NotKnowUserRoleUrl = "/Login/NotDetectUserRole";
         private readonly ILocalAuthenticationService _localService;
         private readonly ISSOAuthenticationService _ssoService;
         private readonly ICommonAuthenticationService _authenticationService;
         private readonly IMaintenanceService _maintenanceService;
-        private readonly CurrentSession _napCurrentSession;
-
         public UserLoginController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -46,15 +42,14 @@ namespace Fanex.CRM.User.Controllers
             ILocalAuthenticationService localService,
             ISSOAuthenticationService ssoService,
             ICommonAuthenticationService authenticationService,
-            IMaintenanceService maintenanceService,
-            CurrentSession currentSession)
+            IMaintenanceService maintenanceService
+            )
         {
             _localService = localService ?? new LocalAuthenticationService();
             _ssoService = ssoService ?? new SSOAuthenticationService();
             _authenticationService = authenticationService ?? new CommonAuthenticationService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
 
-            _napCurrentSession = currentSession ?? new CurrentSession();
         }
 
         public string FormToken
@@ -88,9 +83,17 @@ namespace Fanex.CRM.User.Controllers
 
             CreateNewToken();
 
-            return View(LogInViewURL);
+            return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
+                == AppSetting.CN88SiteId ? ".CN88" : ""));
         }
-
+        public ActionResult UnknowUserRole()
+        {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return RedirectToAction("Offline", "Common");
+            }
+            return View("~/Areas/User/LogIn/UnknowUserRole.cshtml");
+        }
         /// <summary>
         /// Lon In Action.
         /// </summary>
@@ -121,14 +124,26 @@ namespace Fanex.CRM.User.Controllers
             localLogin.SiteId = NapSettings.Settings.SiteId;
             localLogin.SessionId = Session.SessionID;
 
-            var loginStatus = _localService.Login(localLogin, _napCurrentSession);
+            var loginStatus = _localService.Login(localLogin);
 
-            if (loginStatus != LoginStatus.LoginSuccessful)
+            return ProcessLoginResult(loginStatus);
+
+        }
+
+        private ActionResult ProcessLoginResult(LoginStatus loginStatus)
+        {
+            if (loginStatus == LoginStatus.LoginSuccessful)
             {
-                return LoginError(GetLoginStatusError(loginStatus));
+                return Redirect(FormsAuthentication.DefaultUrl);
+
             }
 
-            return Redirect(FormsAuthentication.DefaultUrl);
+            if (loginStatus == LoginStatus.NotKnowUserRole)
+            {
+                return RedirectToAction("UnknowUserRole", "UserLogin");
+            }
+
+            return LoginError(GetLoginStatusError(loginStatus));
         }
 
         [AllowAnonymous]
@@ -144,14 +159,9 @@ namespace Fanex.CRM.User.Controllers
             ssoLogin.SiteId = NapSettings.Settings.SiteId;
             ssoLogin.SessionId = Session.SessionID;
 
-            var loginStatus = _ssoService.SingleSignOn(ssoLogin, _napCurrentSession);
+            var loginStatus = _ssoService.SingleSignOn(ssoLogin);
 
-            if (loginStatus != LoginStatus.LoginSuccessful)
-            {
-                return LoginError(GetLoginStatusError(loginStatus));
-            }
-
-            return Redirect(FormsAuthentication.DefaultUrl);
+            return ProcessLoginResult(loginStatus);
         }
 
         /// <summary>
@@ -162,7 +172,7 @@ namespace Fanex.CRM.User.Controllers
         {
             try
             {
-                _authenticationService.Logout(_napCurrentSession);
+                _authenticationService.Logout(AppSession.CurrentUser);
             }
             catch (Exception exception)
             {
@@ -180,11 +190,12 @@ namespace Fanex.CRM.User.Controllers
         [Authorize]
         public ActionResult CheckUserOnlineStatus()
         {
-            var recheckInStatus = _authenticationService.RecheckIn(_napCurrentSession);
+            var user = AppSession.CurrentUser;
+            var recheckInStatus = _authenticationService.RecheckIn(user);
 
             return Json(new
             {
-                OnUserId = _napCurrentSession.OnUserId,
+                user.OnUserId,
                 ErrCode = (int)recheckInStatus,
                 ErrMsg = GetRecheckInStatusError(recheckInStatus)
             });
@@ -212,7 +223,8 @@ namespace Fanex.CRM.User.Controllers
             ViewBag.Message = errorMessage;
             CreateNewToken();
 
-            return View(LogInViewURL);
+            return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
+                == AppSetting.CN88SiteId ? ".CN88" : ""));
         }
 
         private void AddTokenToCookie(string loginToken)
@@ -253,7 +265,7 @@ namespace Fanex.CRM.User.Controllers
                     break;
 
                 case LoginStatus.UserNoAuthorization:
-                    error = ViewResources.You_have_no_authorization;
+                    error = Labels.You_dont_have_permission;
                     break;
 
                 case LoginStatus.UserNoMenuPermission:

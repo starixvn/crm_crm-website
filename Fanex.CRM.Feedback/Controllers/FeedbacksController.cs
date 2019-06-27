@@ -1,6 +1,7 @@
 namespace Fanex.CRM.Feedback.Controllers
 {
     using Common.Models;
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
@@ -51,6 +52,7 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
             ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
         }
 

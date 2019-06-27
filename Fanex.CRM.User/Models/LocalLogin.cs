@@ -6,6 +6,8 @@
 
         public string Password { get; set; }
 
+        public string Language { get; set; }
+
         public string LoginToken { get; set; }
 
         public string Environment { get; set; }

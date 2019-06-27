@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria;
@@ -39,6 +40,12 @@ namespace Fanex.CRM.Customer.Controllers
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.UserName = Request.Params["username"];
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+
+
+
+            //ChangeCulture("fr");
+
 
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }

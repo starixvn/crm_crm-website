@@ -45,7 +45,7 @@
                         },
                         { Name: "ColHandler", Value: info.Handler },
                         { Name: "ColReviewer", Value: info.Reviewer },
-                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">Duplicate</button>' }],
+                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' }],
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }
@@ -83,7 +83,8 @@
                 showHighlightRow: true,
                 headerColumnHeight: 29,
                 bodyRowHeight: 25,
-                showPager: false
+                showPager: false,
+                noDataText: viewResources.There_is_no_data
             };
 
             tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);

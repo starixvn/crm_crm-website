@@ -102,6 +102,7 @@
         $scope.selectedSubCategoryIds = [];
         
         $scope.customersInput = '';
+        $scope.isCN88 = isCN88;
 
         $scope.productChangedHandler = function () {
             $scope.subProductDropdownSettings = {

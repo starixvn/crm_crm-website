@@ -7,7 +7,7 @@ using Fanex.NAP.Core.Web.Attribute;
 namespace Fanex.CRM.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-    public class OverridableNapSupperAuthAttribute : NapSuperAuthAttribute
+    public class OverridableNapSupperAuthAttribute :AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

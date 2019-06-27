@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Customer.Repositories
 {
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Base Customer Repository.
@@ -73,6 +73,10 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 },
+                Province = new BaseModel
+                {
+                    Id = Converter.ToInt(reader["ProvinceID"])
+                },
                 LicenseeType = new BaseModel
                 {
                     Id = Converter.ToInt(reader["LicenseeType"])
@@ -96,7 +100,7 @@ namespace Fanex.CRM.Customer.Repositories
             customer.NickName = customer.Id > 0 ?
                 Converter.ToString2(reader["UserName2"]) :
                 string.Empty;
-            
+
             customer.PersonalInfoContacts.Add(new PersonalInfoContact
             {
                 Name = Converter.ToString2(reader["Pic1Name"]),

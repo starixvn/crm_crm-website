@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Dashboard.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Dashboard Information Criteria.
     /// </summary>
-    public class GetCustomerInfoCriteria : CriteriaBase
+    public class GetCustomerInfoCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }

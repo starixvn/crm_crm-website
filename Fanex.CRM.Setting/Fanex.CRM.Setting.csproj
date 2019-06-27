@@ -123,13 +123,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\CommunicationToolConstants.cs" />
     <Compile Include="Constants\LicenseeTypeConstants.cs" />
     <Compile Include="Constants\CustomerTypeConstants.cs" />
-    <Compile Include="Constants\ExtensionConstants.cs" />
     <Compile Include="Constants\FeedbackStatisticFilterType.cs" />
     <Compile Include="Constants\HeadlineProductStatusConstants.cs" />
     <Compile Include="Constants\HeadlineTypeConstants.cs" />
+    <Compile Include="Constants\NAConstants.cs" />
     <Compile Include="Constants\PeriodTypeConstants.cs" />
     <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
@@ -139,6 +138,7 @@
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Criteria\GetAllProvinceCriteria.cs" />
     <Compile Include="Criteria\GetStationsCriteria.cs" />
     <Compile Include="Criteria\GetAllReportByRedemptionCriteria.cs" />
     <Compile Include="Criteria\GetAllCurrencyRedemptionCriteria.cs" />
@@ -198,6 +198,8 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />
+    <EmbeddedResource Include="Resources\Labels.zh-TW.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,9 @@
 ﻿namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class SubProductCriteria : CriteriaBase
+    public class SubProductCriteria : BasedLanguageCriteria
     {
         [SpParam(SqlParamName = "ProductID")]
         public int ParentId { get; set; }

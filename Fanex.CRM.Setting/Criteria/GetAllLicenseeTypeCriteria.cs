@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Get all Licensee type criteria.
     /// </summary>
-    public class GetAllLicenseeTypeCriteria : CriteriaBase
+    public class GetAllLicenseeTypeCriteria : BasedCriteria
     {
         public override string GetSettingKey()
         {

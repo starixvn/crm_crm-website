@@ -70,6 +70,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto-generated.
+        /// </summary>
+        public static string Auto_Generated {
+            get {
+                return ResourceManager.GetString("Auto_Generated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string Bet_Type {
@@ -570,6 +579,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Province.
+        /// </summary>
+        public static string Province {
+            get {
+                return ResourceManager.GetString("Province", resourceCulture);
             }
         }
         

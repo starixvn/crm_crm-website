@@ -162,6 +162,7 @@
                 ResolutionTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["ResolutionDate"])),
                 SolveTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["SolveDate"])),
                 Country = new BaseModel { Id = Converter.ToInt(reader["CountryId"]) },
+                Province = new BaseModel { Id = Converter.ToInt(reader["ProvinceId"]) },
                 Language = new BaseModel { Id = Converter.ToInt(reader["LanguageId"]) },
                 Status = new BaseModel { Id = Converter.ToInt(reader["StatusId"]) },
                 Role = new BaseModel { Id = Converter.ToInt(reader["RoleId"]) },

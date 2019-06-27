@@ -29,7 +29,7 @@ namespace Fanex.CRM.Common.Services
         /// <returns>Return value.</returns>
         public static T Get<T>(string key)
         {
-            return DeepClone(Cache.Get<T>(key));
+            return DeepClone(Cache.Get<T>(GetKeyForLanguage(key)));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Fanex.CRM.Common.Services
         /// <param name="value">Return value.</param>
         public static void Set<T>(string key, T value)
         {
-            Cache.Set(key, DeepClone(value), TIMEOUT);
+            Cache.Set(GetKeyForLanguage(key), DeepClone(value), TIMEOUT);
         }
 
         /// <summary>
@@ -57,7 +57,20 @@ namespace Fanex.CRM.Common.Services
         /// <param name="key">The key to remove.</param>
         public static void Delete(string key)
         {
-            Cache.Remove(key);
+            Cache.Remove(GetKeyForLanguage(key));
+        }
+
+        private static string GetKeyForLanguage(string key)
+        {
+            var language = AppSession.CurrentUser.Language;
+            if (language != null)
+            {
+                return key + language;
+            }
+            else
+            {
+                return key;
+            }
         }
 
         private static T DeepClone<T>(T source)

@@ -22,7 +22,8 @@
                 gridExpandHeight: 90,
                 showDistinctRow: false,
                 showHighlightRow: false,
-                headerColumnHeight: 29
+                headerColumnHeight: 29,
+                noDataText: latestFeedbackResources.There_is_no_data
             };
         }
 

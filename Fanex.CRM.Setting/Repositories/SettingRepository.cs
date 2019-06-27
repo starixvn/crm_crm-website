@@ -27,7 +27,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var settings = new List<Setting>();
                     while (reader.Read())
@@ -76,7 +76,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var settings = new List<Country>();
                     while (reader.Read())
@@ -88,6 +88,31 @@ namespace Fanex.CRM.Setting.Repositories
                             CountryCode = Converter.ToInt(reader["CountryCode"]),
                             DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
                             IsActive = Converter.ToBool(reader["isActive"])
+                        };
+
+                        settings.Add(setting);
+                    }
+
+                    return settings;
+                }
+            }
+        }
+
+        public IList<Province> GetAllProvinces(GetAllProvinceCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    var settings = new List<Province>();
+                    while (reader.Read())
+                    {
+                        var setting = new Province()
+                        {
+                            Id = Converter.ToInt(reader["ProvinceID"]),
+                            Name = Converter.ToString2(reader["ProvinceName"]),
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            CountryId = Converter.ToInt(reader["CountryID"])
                         };
 
                         settings.Add(setting);
@@ -126,7 +151,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var allLanguage = new List<Setting>();
                     while (reader.Read())
@@ -151,7 +176,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var allCommunicationTool = new List<Setting>();
                     while (reader.Read())
@@ -176,7 +201,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var allMainCategory = new List<Setting>();
                     while (reader.Read())
@@ -285,7 +310,7 @@ namespace Fanex.CRM.Setting.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     var subProducts = new List<Product>();
                     while (reader.Read())

@@ -43,6 +43,7 @@ namespace Fanex.CRM.Customer.Controllers
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.UpdateHeadlineInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.Updateheadlineinfo);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             CustomerInfo customerDetail = _customerService.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {
@@ -70,7 +71,7 @@ namespace Fanex.CRM.Customer.Controllers
 
         public JsonResult AllSettings()
         {
-            return Json(_customerService.GetAllSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_customerService.GetAllSettings(AppSession.CurrentUser.UserRole), JsonRequestBehavior.AllowGet);
         }
     }
 }

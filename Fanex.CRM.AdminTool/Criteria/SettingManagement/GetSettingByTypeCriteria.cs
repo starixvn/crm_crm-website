@@ -10,14 +10,14 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
-    using System.Collections;
+    using Common.Criteria;
     using Fanex.CRM.Common.Models;
-    using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Get Setting By Type Criteria.
     /// </summary>
-    public class GetSettingByTypeCriteria : CriteriaBase
+    public class GetSettingByTypeCriteria : BasedCriteria
     {
         public Setting MainSetting { get; set; }
 
@@ -28,6 +28,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
+            param.Add("UserRole", UserRole);
             return param;
         }
 

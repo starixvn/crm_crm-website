@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Information By Username Criteria.
     /// </summary>
-    public class UpdateCustomerSuggestionCriteria : CriteriaBase
+    public class UpdateCustomerSuggestionCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "userid")]
         public int UserId { get; set; }

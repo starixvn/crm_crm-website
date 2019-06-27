@@ -37,6 +37,7 @@
         };
         $scope.downloadFileOptions = null;
         $scope.isCheckedAll = false;
+        $scope.isCN88 = isCN88;
 
         $scope.initDatePicker = function () {
             $scope.fromDateOptions = {

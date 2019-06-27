@@ -1,8 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class GetFeedbackByIdCriteria : CriteriaBase
+    public class GetFeedbackByIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "FeedbackID")]
         public int Id { get; set; }

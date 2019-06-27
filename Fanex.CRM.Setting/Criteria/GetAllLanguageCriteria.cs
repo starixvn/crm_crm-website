@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Get All Language Criteria.
     /// </summary>
-    public class GetAllLanguageCriteria : CriteriaBase
+    public class GetAllLanguageCriteria : BasedLanguageCriteria
     {
         public override string GetSettingKey()
         {

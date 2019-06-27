@@ -29,18 +29,22 @@ namespace Fanex.CRM.Setting.Services
             {
                 case RoleIdConstants.Member:
                 case RoleIdConstants.CRMMember:
+                case RoleIdConstants.CN88Member:
                     roleName = Labels.Member;
                     break;
                 case RoleIdConstants.Agent:
                 case RoleIdConstants.CRMAgent:
+                case RoleIdConstants.CN88Agent:
                     roleName = Labels.Agent;
                     break;
                 case RoleIdConstants.Master:
                 case RoleIdConstants.CRMMaster:
+                case RoleIdConstants.CN88Master:
                     roleName = Labels.Master;
                     break;
                 case RoleIdConstants.Super:
                 case RoleIdConstants.CRMSuper:
+                case RoleIdConstants.CN88Super:
                     roleName = Labels.Super;
                     break;
                 case RoleIdConstants.Headline:

@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Dashboard.Criteria;
@@ -43,6 +44,7 @@ namespace Fanex.CRM.Dashboard.Controllers
             {
                 return View("~/Views/Home/BlankPage.cshtml");
             }
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Areas/Dashboard/ViewInfo/Index.cshtml", customerId);
         }

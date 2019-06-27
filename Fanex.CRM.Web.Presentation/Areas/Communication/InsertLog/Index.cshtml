@@ -4,13 +4,19 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @using Newtonsoft.Json;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Labels.Edit_Communication_Log;
 
     var customerId = ViewBag.customerId;
-    var jsonLogInfo = JsonConvert.SerializeObject(Model);    
+    var jsonLogInfo = JsonConvert.SerializeObject(Model);
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var hideProvinceClass = isCN88 ? "" : "hide-item";
+    var CN88SiteId = ViewBag.CN88SiteId;
+    var CN88MemberId = ViewBag.CN88MemberId;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -62,14 +68,15 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="communicationLog.EndTime"
                            datetimepicker />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                    <label for="country">
-                        @Labels.Country
+                </div>                
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2  col-xs-2 col-sm-2 col-md-2">
+                    <label for="language">
+                        @Labels.Language
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                     </label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
-                    <select id="country"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
+                    <select id="language" class="languageoptions"></select>
                 </div>
             </div>
             <div class="row row-item">
@@ -84,16 +91,15 @@
                                             data-ng-model="selectedCommunications"
                                             data-settings="communicationDropdownSettings"
                                             ng-change="communicationChangeHandler()"></multileveldropdowntree>
-                </div>
+                </div>                
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                    <label for="language">
-                        @Labels.Language
-                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    <label for="response">
+                        @Labels.Response
                     </label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
-                    <select id="language" class="languageoptions"></select>
-                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
+                    <select id="response"></select>
+                </div> 
             </div>
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -185,27 +191,38 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <selectwithsearchtree text-settings="TextSettings"
                                           data-ng-model="selectedSite"
-                                          data-settings="siteDropdownSettings"></selectwithsearchtree>
+                                          data-settings="siteDropdownSettings"
+                                          hide-NA="isCN88"></selectwithsearchtree>
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="col-xs-2 col-sm-2 col-md-2">
+                    <label for="country">
+                        @Labels.Country
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
+                    <select id="country"></select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
                     <label for="licensee-type">
                         @Labels.Licensee_Type
                     </label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="col-xs-3 col-sm-3 col-md-3 @hideLicenseeTypeClass">
                     <select id="licensee-type" data-ng-model="communicationLog.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
                 </div>
-
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                    <label for="response">
-                        @Labels.Response
+               
+            </div>
+            <div class="row row-item @hideProvinceClass">
+                <div class="col-xs-2 col-sm-2 col-md-2 ">
+                    <label for="province">
+                        @Labels.Province
                     </label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                    <select id="response"></select>
-                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-province data-ng-model="provinceList">
+                    <select id="province"></select>
+                </div>              
             </div>
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -219,7 +236,7 @@
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                     <button class="btn pull-right" data-ng-click="verifyRelatedCustomer()" data-ng-disabled="customersInput === ''">
-                        V<span class="hotkey">e</span>rify
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                     </button>
                 </div>
             </div>
@@ -257,7 +274,7 @@
         <div class="row panel-group">
             <div class="row title">
                 <div class="pull-left hand">
-                    Auto-generated
+                    @Labels.Auto_Generated
                 </div>
             </div>
             <div class="FeedbackDescription row content">
@@ -290,7 +307,7 @@
         </div>
         <div class="row">
             <button class="btn btn-save" data-ng-click="insertLog();">
-                <span class="hotkey">S</span>ave
+                @Html.Raw(@CommonLabels.Btn_HotKey_Save)
             </button>
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
@@ -313,7 +330,10 @@
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var customerId = '@customerId';
         var currentUsername = "@AppSession.CurrentUser.Username";
-        var copiedCommunicationLog = @Html.Raw(jsonLogInfo);        
+        var copiedCommunicationLog = @Html.Raw(jsonLogInfo);
+        var isCN88 = '@isCN88' == 'True';
+        var CN88SiteId = parseInt('@CN88SiteId');
+        var CN88MemberId = parseInt('@CN88MemberId');
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Select: '@Labels.Select',

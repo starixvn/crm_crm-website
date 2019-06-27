@@ -1,12 +1,15 @@
 ﻿@using Fanex.NAP.Core.Business;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Labels.Create_Multiple_Logs;
 
     var customerId = Model;
+    var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -44,7 +47,7 @@
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button class="btn pull-right" data-ng-click="verifyListCustomer()" data-ng-disabled="customersInput === ''">
-                                    V<span class="hotkey">e</span>rify
+                                    @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                                 </button>
                             </div>
                         </div>
@@ -217,26 +220,27 @@
                                 <div class="col-xs-3 col-sm-3 col-md-3">
                                     <selectwithsearchtree text-settings="TextSettings"
                                                           data-ng-model="selectedSite"
-                                                          data-settings="siteDropdownSettings"></selectwithsearchtree>
+                                                          data-settings="siteDropdownSettings"
+                                                          hide-NA="isCN88"></selectwithsearchtree>
                                 </div>
                             </div>
-                            <div class="row item">
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                    <label for="licensee-type">
-                                        @Labels.Licensee_Type
-                                    </label>
-                                </div>
-                                <div class="col-xs-3 col-sm-3 col-md-3">
-                                    <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
-                                </div>
+                            <div class="row item">                                
 
-                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                                <div class="col-xs-2 col-sm-2 col-md-2">
                                     <label for="response">
                                         @Labels.Response
                                     </label>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
                                     <select id="response"></select>
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
+                                    <label for="licensee-type">
+                                        @Labels.Licensee_Type
+                                    </label>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 @hideLicenseeTypeClass">
+                                    <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
                                 </div>
                             </div>
                             <div class="row item">
@@ -257,7 +261,7 @@
                 <div class="row panel-group">
                     <div class="row title">
                         <div class="pull-left hand">
-                            Auto-generated
+                            @Labels.Auto_Generated
                         </div>
                     </div>
                     <div class="FeedbackDescription row content">
@@ -290,7 +294,7 @@
                 </div>
                 <div class="row">
                     <button class="btn btn-save" data-ng-click="insertMultipleLogs();">
-                        <span class="hotkey">S</span>ave
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                     </button>
                 </div>
                 <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
@@ -313,6 +317,7 @@
             var currentTime = '@DateTimeUtilize.CurrentClientTime()';
             var customerId = '@customerId';
             var currentUsername = "@AppSession.CurrentUser.Username";
+            var isCN88 = '@isCN88' == 'True';
             var viewResources = {
                 Symbol_NotApply: '@Labels.Symbol_NotApply',
                 Select: '@Labels.Select',

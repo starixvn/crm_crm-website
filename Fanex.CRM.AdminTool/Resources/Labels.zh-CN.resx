@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveFeedbackSubjectMessage" xml:space="preserve">
+    <value>确认是否要活跃反馈标题草稿 {0}？</value>
+  </data>
+  <data name="ActiveFeedbackSubjectSuccessMessage" xml:space="preserve">
+    <value>成功活跃反馈标题草稿！</value>
+  </data>
+  <data name="ActiveFeedbackSubjectTitle" xml:space="preserve">
+    <value>活跃反馈标题草稿</value>
+  </data>
+  <data name="ActiveSettingSuccessMessage" xml:space="preserve">
+    <value>成功活跃设定！</value>
+  </data>
+  <data name="Active_Setting" xml:space="preserve">
+    <value>活跃设定</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeactiveFeedbackSubjectMessage" xml:space="preserve">
+    <value>确认是否要关闭反馈标题草稿 {0}？</value>
+  </data>
+  <data name="DeactiveFeedbackSubjectSuccessMessage" xml:space="preserve">
+    <value>成功关闭反馈标题草稿！</value>
+  </data>
+  <data name="DeactiveFeedbackSubjectTitle" xml:space="preserve">
+    <value>关闭反馈标题草稿</value>
+  </data>
+  <data name="DeactiveSettingSuccessMessage" xml:space="preserve">
+    <value>成功关闭设定！</value>
+  </data>
+  <data name="Deactive_Setting" xml:space="preserve">
+    <value>关闭设定</value>
+  </data>
+  <data name="Display_Order" xml:space="preserve">
+    <value>显示顺序</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Edit_Feedback_Subject_Template" xml:space="preserve">
+    <value>编辑反馈标题草稿</value>
+  </data>
+  <data name="Edit_Setting_Value" xml:space="preserve">
+    <value>编辑设定值</value>
+  </data>
+  <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
+    <value>请填入反馈标题草稿内容！</value>
+  </data>
+  <data name="FeedbackSubjectManagement_Error_ExceedName" xml:space="preserve">
+    <value>设定名称最长可达 100字元</value>
+  </data>
+  <data name="FeedbackSubjectManagement_Error_ExceedTemplate" xml:space="preserve">
+    <value>标题草稿最长可达 200字元！</value>
+  </data>
+  <data name="FeedbackSubjectManagement_Error_ExceedValue" xml:space="preserve">
+    <value>设定值最长可达 100字元</value>
+  </data>
+  <data name="Feedback_FeedbackSubjectManagement_EditSuccess" xml:space="preserve">
+    <value>成功更新反馈标题草稿！</value>
+  </data>
+  <data name="Feedback_FeedbackSubjectManagement_InsertSuccess" xml:space="preserve">
+    <value>成功输入反馈标题草稿！</value>
+  </data>
+  <data name="Feedback_Subject_Template" xml:space="preserve">
+    <value>反馈标题草稿</value>
+  </data>
+  <data name="Feedback_Subject_Template_Content" xml:space="preserve">
+    <value>反馈标题草稿内容</value>
+  </data>
+  <data name="Insert_New_Feedback_Subject" xml:space="preserve">
+    <value>填入新反馈标题</value>
+  </data>
+  <data name="Insert_New_Feedback_Subject_Template" xml:space="preserve">
+    <value>填入新反馈标题草稿</value>
+  </data>
+  <data name="Insert_New_Setting" xml:space="preserve">
+    <value>填入新设定</value>
+  </data>
+  <data name="Insert_Setting_value_for" xml:space="preserve">
+    <value>填入设定值</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>顺序</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>设定</value>
+  </data>
+  <data name="SettingManagement_ActiveSetting_Message" xml:space="preserve">
+    <value>确认要活跃设定 {0} {1}？</value>
+  </data>
+  <data name="SettingManagement_DeactiveSetting_Message" xml:space="preserve">
+    <value>确认要关闭设定 {0} {1}？</value>
+  </data>
+  <data name="SettingManagement_EditSetting_EditSuccess" xml:space="preserve">
+    <value>成功更新设定！</value>
+  </data>
+  <data name="SettingManagement_Error_DisplayOrder" xml:space="preserve">
+    <value>显示顺序不可超出 2. 100.000.000</value>
+  </data>
+  <data name="SettingManagement_Error_EmptySettingName" xml:space="preserve">
+    <value>设定名称无效</value>
+  </data>
+  <data name="SettingManagement_Error_EmptySettingValue" xml:space="preserve">
+    <value>设定值无效</value>
+  </data>
+  <data name="SettingManagement_Error_ExistedSetting" xml:space="preserve">
+    <value>设定已存在</value>
+  </data>
+  <data name="SettingManagement_InsertSetting_InsertSuccess" xml:space="preserve">
+    <value>成功填入新设定</value>
+  </data>
+  <data name="SettingManagement_ViewListTitle" xml:space="preserve">
+    <value>设定管理由 {0}</value>
+  </data>
+  <data name="SettingRelation_AddRelationMessage" xml:space="preserve">
+    <value>新增 &lt;span class="b"&gt;{0}&gt;/span&gt; 副设定</value>
+  </data>
+  <data name="SettingRelation_AddRelation_UpdateSuccess" xml:space="preserve">
+    <value>成功设置关联设定</value>
+  </data>
+  <data name="SettingRelation_ViewListTitle" xml:space="preserve">
+    <value>设定关联由 {0}</value>
+  </data>
+  <data name="Setting_Id" xml:space="preserve">
+    <value>设定 ID</value>
+  </data>
+  <data name="Setting_Name" xml:space="preserve">
+    <value>设定名称</value>
+  </data>
+  <data name="Setting_Relation_Management" xml:space="preserve">
+    <value>设定关联管理者</value>
+  </data>
+  <data name="Setting_Value" xml:space="preserve">
+    <value>设定值</value>
+  </data>
+  <data name="Sub_setting" xml:space="preserve">
+    <value>副设定</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Template_Content" xml:space="preserve">
+    <value>草稿内容</value>
+  </data>
+  <data name="Template_Id" xml:space="preserve">
+    <value>草稿 ID</value>
+  </data>
+  <data name="Title_AdminTool_FeedbackSubjectManagement" xml:space="preserve">
+    <value>CRM 系统 - 反馈标题管理</value>
+  </data>
+  <data name="Title_AdminTool_SettingManagement" xml:space="preserve">
+    <value>CRM 系统 - 设定管理</value>
+  </data>
+  <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
+    <value>CRM 系统 - 设定关联</value>
+  </data>
+</root>

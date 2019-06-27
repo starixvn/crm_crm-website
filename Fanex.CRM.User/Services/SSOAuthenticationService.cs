@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
-    using System.Linq;
     using Enumerations;
     using Fanex.Common;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
     using NAP.Core.Context;
@@ -11,7 +11,8 @@
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
-    using NAP.Core.Web.Session;
+    using System;
+    using System.Linq;
 
     public class SSOAuthenticationService : ISSOAuthenticationService
     {
@@ -19,23 +20,25 @@
         private readonly IUserService _userService;
         private readonly ISecurityService _securityService;
         private readonly ICurrentContext _currentContext;
-
+        private readonly ICommonAuthenticationService _commonAuthenticationService;
         public SSOAuthenticationService()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public SSOAuthenticationService(
             IUserService userService,
             ISecurityService securityService,
-            ICurrentContext currentContext)
+            ICurrentContext currentContext,
+            ICommonAuthenticationService commonAuthenticationService)
         {
             _userService = userService ?? new UserService();
             _securityService = securityService ?? new SecurityService();
             _currentContext = currentContext ?? new CurrentContext();
+            _commonAuthenticationService = commonAuthenticationService ?? new CommonAuthenticationService();
         }
 
-        public LoginStatus SingleSignOn(SSOLogin ssoLogin, ICurrentSession napCurrentSession)
+        public LoginStatus SingleSignOn(SSOLogin ssoLogin)
         {
             if (ValidateTime(ssoLogin.Time))
             {
@@ -46,14 +49,30 @@
                 if (afterLoginUserId > 0)
                 {
                     var user = _userService.Get(userId);
-                    var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
-                    var userLevel = _userService.GetUserLevel(userId, ssoLogin.SiteId);
+                    if (user != null)
+                    {
+                        var crmUser = new CRMUser(user)
+                        {
+                            OnUserId = afterLoginUserId,
+                            UserRole = _commonAuthenticationService.GetUserRole(user.Id)
+                        };
+                        if (crmUser.UserRole == UserRole.None)
+                        {
+                            return LoginStatus.NotKnowUserRole;
+                        }
+                        var menus = _userService.GetMenuItem(userId, ssoLogin.SiteId, ssoLogin.Environment, true).ToList();
 
-                    AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, user, afterLoginUserId);
-                    AuthencationHelper.AssignCurrentSession(napCurrentSession, user, menus, userLevel, afterLoginUserId, ssoLogin.SessionId);
-                    AuthencationHelper.AssignAppSession(user, menus);
+                        // Set default language for CN88 site to Chinese Simplified
+                        if (crmUser.UserRole == UserRole.CN88Staff)
+                        {
+                            crmUser.Language = "zh-CN";
+                        }
 
-                    return LoginStatus.LoginSuccessful;
+                        AuthencationHelper.SignIn(crmUser);
+                        AuthencationHelper.AssignAppSession(crmUser, menus);
+
+                        return LoginStatus.LoginSuccessful;
+                    }
                 }
             }
 

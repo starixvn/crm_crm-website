@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
 
     /// <summary>
     /// Customer auto suggestion criteria.
     /// </summary>
-    public class CustomerAutoSuggestionCriteria : CriteriaBase
+    public class CustomerAutoSuggestionCriteria : BasedCriteria
     {
         public int UserId { get; set; }
 

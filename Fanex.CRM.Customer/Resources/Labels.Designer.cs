@@ -124,6 +124,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Languages.
+        /// </summary>
+        public static string AllLanguages {
+            get {
+                return ResourceManager.GetString("AllLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Status.
         /// </summary>
         public static string AllStatus {
@@ -178,6 +187,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checker.
         /// </summary>
         public static string Checker {
@@ -219,6 +237,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Communication_Tool {
             get {
                 return ResourceManager.GetString("Communication_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to search guest customer&apos;s information?.
+        /// </summary>
+        public static string ConfirmSearchByGuest {
+            get {
+                return ResourceManager.GetString("ConfirmSearchByGuest", resourceCulture);
             }
         }
         
@@ -511,6 +538,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lets Talk.
+        /// </summary>
+        public static string LetsTalk {
+            get {
+                return ResourceManager.GetString("LetsTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string Level {
@@ -592,7 +628,7 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nick Name.
+        ///   Looks up a localized string similar to Nickname.
         /// </summary>
         public static string Nick_Name {
             get {
@@ -615,6 +651,24 @@ namespace Fanex.CRM.Customer.Resources {
         public static string No_status_found {
             get {
                 return ResourceManager.GetString("No_status_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no information.
+        /// </summary>
+        public static string NoInformation {
+            get {
+                return ResourceManager.GetString("NoInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No languages found..
+        /// </summary>
+        public static string NoLanguage {
+            get {
+                return ResourceManager.GetString("NoLanguage", resourceCulture);
             }
         }
         
@@ -642,6 +696,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string NoPermission {
             get {
                 return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -763,6 +826,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Province.
+        /// </summary>
+        public static string Province {
+            get {
+                return ResourceManager.GetString("Province", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QQ.
         /// </summary>
         public static string QQ {
@@ -795,6 +867,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Remark {
             get {
                 return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search By Guest.
+        /// </summary>
+        public static string SearchByGuest {
+            get {
+                return ResourceManager.GetString("SearchByGuest", resourceCulture);
             }
         }
         

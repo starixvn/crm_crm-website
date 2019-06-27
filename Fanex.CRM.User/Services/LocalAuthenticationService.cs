@@ -1,19 +1,17 @@
 ﻿namespace Fanex.CRM.User.Services
 {
-    using System;
-    using System.Linq;
-    using System.Web;
-    using Common.Services;
     using Enumerations;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
     using Helpers;
     using Models;
     using NAP.Core.Context;
-    using NAP.Core.Models;
     using NAP.Core.Models.ParameterObject;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
-    using NAP.Core.Web.Session;
+    using System;
+    using System.Linq;
 
     public class LocalAuthenticationService : ILocalAuthenticationService
     {
@@ -22,49 +20,54 @@
         private readonly IUserService _userService;
         private readonly ISecurityService _securityService;
         private readonly IGroupService _groupService;
-        private readonly IPermissionService _permissionService;
         private readonly ICurrentContext _currentContext;
-
+        private readonly ICommonAuthenticationService _commonAuthenticationService;
         public LocalAuthenticationService()
             : this(null, null, null, null, null)
         {
         }
 
         public LocalAuthenticationService(
-            IUserService userService, 
+            IUserService userService,
             ISecurityService securityService,
             IGroupService groupService,
-            IPermissionService permissionService,
-            ICurrentContext currentContext)
+            ICurrentContext currentContext,
+            ICommonAuthenticationService commonAuthenticationService
+            )
         {
             _userService = userService ?? new UserService();
             _securityService = securityService ?? new SecurityService();
             _groupService = groupService ?? new GroupService();
-            _permissionService = permissionService ?? new PermissionService();
             _currentContext = currentContext ?? new CurrentContext();
+            _commonAuthenticationService = new CommonAuthenticationService();
         }
 
-        public LoginStatus Login(LocalLogin localLogin, ICurrentSession napCurrentSession)
+        public LoginStatus Login(LocalLogin localLogin)
         {
             var user = _userService.Get(localLogin.Username);
-            var validatedStatus = ValidateUser(user, localLogin);
-
-            if (validatedStatus != LoginStatus.ValidatedSuccess)
-            {
-                return validatedStatus;
-            }
-
-            return ProcessLogin(user, localLogin, napCurrentSession);
-        }
-
-        #region Validation
-
-        private LoginStatus ValidateUser(User user, LocalLogin localLogin)
-        {
             if (user == null)
             {
                 return LoginStatus.InvalidUsernameOrPassword;
             }
+
+            var crmUser = new CRMUser(user);
+            crmUser.Language = localLogin.Language;
+
+            var validatedStatus = ValidateUser(crmUser, localLogin);
+
+            if (validatedStatus == LoginStatus.ValidatedSuccess)
+            {
+                return ProcessLogin(crmUser, localLogin);
+            }
+
+            return validatedStatus;
+
+        }
+
+        #region Validation
+
+        private LoginStatus ValidateUser(CRMUser user, LocalLogin localLogin)
+        {
 
             if (!ValidatePassword(user, localLogin))
             {
@@ -73,7 +76,7 @@
 
             if (!IsExistNapSite(user, localLogin))
             {
-                return LoginStatus.UserSuspended;
+                return LoginStatus.UserNoAuthorization;
             }
 
             if (!IsExistNapGroup(user))
@@ -89,21 +92,21 @@
             return LoginStatus.ValidatedSuccess;
         }
 
-        private bool ValidatePassword(User user, LocalLogin localLogin)
+        private bool ValidatePassword(CRMUser user, LocalLogin localLogin)
         {
             var hashUserPassword = SecurityHelper.HashText(string.Format("{0}{1}", user.Password, localLogin.LoginToken), HashType.Sha256);
 
             return string.Equals(localLogin.Password, hashUserPassword, StringComparison.CurrentCulture);
         }
 
-        private bool IsExistNapSite(User user, LocalLogin localLogin)
+        private bool IsExistNapSite(CRMUser user, LocalLogin localLogin)
         {
             return _userService
                 .GetSiteLevel(user.Id, localLogin.Environment)
                 .FirstOrDefault(s => s.Site.Id == localLogin.SiteId && s.IsActive) != null;
         }
 
-        private bool IsExistNapGroup(User user)
+        private bool IsExistNapGroup(CRMUser user)
         {
             if (user.Group != null)
             {
@@ -118,35 +121,37 @@
             return true;
         }
 
-        private bool IsExistMenuItems(User user, LocalLogin localLogin)
+        private bool IsExistMenuItems(CRMUser user, LocalLogin localLogin)
         {
             return _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).Any(m => m.Parent == null);
         }
 
         #endregion Validation
 
-        private LoginStatus ProcessLogin(User user, LocalLogin localLogin, ICurrentSession napCurrentSession)
+        private LoginStatus ProcessLogin(CRMUser user, LocalLogin localLogin)
         {
+
+            user.UserRole = _commonAuthenticationService.GetUserRole(user.Id);
+
+            if (user.UserRole == UserRole.None)
+            {
+                return LoginStatus.NotKnowUserRole;
+            }
             var onuserid = ProcessNapLogin(user, localLogin);
 
             if (onuserid <= 0)
             {
                 return LoginStatus.InvalidUsernameOrPassword;
             }
-
+            user.OnUserId = onuserid;
             var menus = _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).ToList();
-            var userLevel = _userService.GetUserLevel(user.Id, localLogin.SiteId);
-
-            ClearToken();
-
-            AuthencationHelper.AssignAuthenticationCookie(_currentContext.CurrentDomain.Path, user, onuserid);
-            AuthencationHelper.AssignCurrentSession(napCurrentSession, user, menus, userLevel, onuserid, localLogin.SessionId);
+            AuthencationHelper.SignIn(user);
             AuthencationHelper.AssignAppSession(user, menus);
 
             return LoginStatus.LoginSuccessful;
         }
 
-        private int ProcessNapLogin(User user, LocalLogin localLogin)
+        private int ProcessNapLogin(CRMUser user, LocalLogin localLogin)
         {
             return _securityService.Login(
                 new LoginParameter
@@ -163,21 +168,5 @@
                 });
         }
 
-        #region helper
-
-        private void ClearToken()
-        {
-            var cookies = HttpContext.Current.Request.Cookies;
-            if (cookies[LoginTokenName] != null)
-            {
-                var tokenCookie = new HttpCookie(LoginTokenName);
-                tokenCookie.Expires = DateTime.Now.AddDays(-1);
-
-                HttpContext.Current.Response.Cookies.Add(tokenCookie);
-            }
-
-            HttpContext.Current.Session.Remove(LoginTokenName);
-        }
-        #endregion helper
     }
 }

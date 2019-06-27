@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria.DetailInfo
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Information Detail By Identity Criteria.
     /// </summary>
-    public class GetCustomerInfoDetailByIdCriteria : CriteriaBase
+    public class GetCustomerInfoDetailByIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public string CustomerId { get; set; }

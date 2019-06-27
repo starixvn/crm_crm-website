@@ -1,12 +1,16 @@
 ﻿namespace Fanex.CRM.User.Services
 {
     using Enumerations;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Web.Session;
 
     public interface ICommonAuthenticationService
     {
-        RecheckInStatus RecheckIn(ICurrentSession currentSession);
+        RecheckInStatus RecheckIn(CRMUser user);
 
-        void Logout(ICurrentSession currentSession);
+        void Logout(CRMUser user);
+
+        UserRole GetUserRole(int userID);
     }
 }

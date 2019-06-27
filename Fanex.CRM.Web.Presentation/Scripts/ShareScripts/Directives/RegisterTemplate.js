@@ -552,6 +552,21 @@ function RegisterTemplate(application) {
 
         directiveManager.registerDropdownContainer(self.application, betTypeRegisterParams);
     };
+    self.registerProvincePicker = function () {
+        var provinceRegisterParams = {
+            PlugInName: 'provincePickerContainer',
+            OptionName: 'provinceOptions',
+            PickerId: 'province',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, provinceRegisterParams);
+    };
     self.registerDescriptionHtml = function () {
         var descriptionRegisterParams = {
             PlugInName: 'descriptionEditorContainer',

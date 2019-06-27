@@ -6,11 +6,11 @@
 
 namespace Fanex.CRM.Common.Controllers
 {
-    using System.Web.Mvc;
     using Attributes;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
+    using System.Web.Mvc;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,10 +20,20 @@ namespace Fanex.CRM.Common.Controllers
     public class BaseController : Controller
     {
         private readonly IPermissionService _permissionService;
+        private readonly ILanguageService _langService;
 
         public BaseController()
         {
             _permissionService = new PermissionService();
+            _langService = new LanguageService();
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            var currentLanguage = _langService.GetCurrentLanguage();
+            _langService.SetPageCulture(currentLanguage);
         }
 
         protected IPermissionService PermissionService

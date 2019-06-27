@@ -593,4 +593,13 @@
   <data name="Reviewer" xml:space="preserve">
     <value>Reviewer</value>
   </data>
+  <data name="Province" xml:space="preserve">
+    <value>Province</value>
+  </data>
+  <data name="LetsTalk" xml:space="preserve">
+    <value>Lets Talk</value>
+  </data>
+  <data name="Auto_Generated" xml:space="preserve">
+    <value>Auto-generated</value>
+  </data>
 </root>

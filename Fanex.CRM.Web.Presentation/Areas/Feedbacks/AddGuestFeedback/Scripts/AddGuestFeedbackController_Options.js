@@ -17,6 +17,7 @@
         $scope.statusOptions = null;
 
         $scope.countryOptions = null;
+        $scope.provinceOptions = null;
         $scope.subjectOptions = null;
         $scope.descriptionOptions = null;
         $scope.solutionOptions = null;
@@ -73,6 +74,10 @@
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCountry
             };
+            $scope.provinceOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedProvince
+            }
             $scope.descriptionOptions = {
                 OnChangeEvent: $scope.updateDescription,
                 SelectedText: $scope.addGuestFeedbackParams.Description,

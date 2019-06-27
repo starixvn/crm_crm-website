@@ -121,9 +121,12 @@
     <value>Invalid input!</value>
   </data>
   <data name="Login_SessionTimeout" xml:space="preserve">
-    <value>Login session is timeout</value>
+    <value>Login session is timeout.</value>
+  </data>
+  <data name="You_dont_have_permission" xml:space="preserve">
+    <value>You don't have permission on this system.</value>
   </data>
   <data name="You_have_no_menu_permission" xml:space="preserve">
-    <value>You don't have permission on this system.</value>
+    <value>You don't have permission on any function.</value>
   </data>
 </root>

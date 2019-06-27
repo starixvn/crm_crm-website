@@ -157,6 +157,40 @@ namespace Fanex.CRM.Setting.Services
             return allSites;
         }
 
+        public IList<SiteInfo> GetAllSitesCN88()
+        {
+            var allSites = new List<SiteInfo>
+            {
+                new SiteInfo
+                {
+                    Id = 1,
+                    Name = "CN88",
+                    ChildSites = new List<SiteInfo> {
+                        new SiteInfo
+                        {
+                            Id = 33002,
+                            Name = "CN88"
+                        }
+                    }
+                }
+            };
+
+            return allSites;
+        }
+
+        public IList<SiteSetting> GetAllSiteWithGroupCN88()
+        {
+            return new List<SiteSetting>
+            {
+                new SiteSetting
+                {
+                    Id = 33002,
+                    Name = "CN88",
+                    AliasName = "CN88"
+                }
+            };
+        }
+
         public IList<SiteSetting> GetAllSiteWithGroup()
         {
             var cache = CacheService.Get<IList<SiteSetting>>(GetAllSiteWithGroupSessionKey);
@@ -216,6 +250,12 @@ namespace Fanex.CRM.Setting.Services
             return allCountry;
         }
 
+        public IList<Province> GetAllProvinces()
+        {
+
+            return _settingRepositoryInstance.GetAllProvinces(new GetAllProvinceCriteria());
+        }
+
         public IList<Setting> GetAllLanguages()
         {
             var allLanguages = CacheService.Get<IList<Setting>>(GetAllLanguageSessionKey);
@@ -242,7 +282,7 @@ namespace Fanex.CRM.Setting.Services
                 SettingName = SettingTypeConstants.Extension,
                 ParentId = 0
             })
-            .Where(e => e.Value != "N/A")
+            .Where(e => e.Id != NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole))
             .ToList();
 
             CacheService.Set(GetAllExtensionSessionKey, allExtensions);
@@ -257,7 +297,7 @@ namespace Fanex.CRM.Setting.Services
                 ParentId = 0
             });
 
-            return allExtensions.FirstOrDefault(e => e.Value == "N/A");
+            return allExtensions.FirstOrDefault(e => e.Id == NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole));
         }
 
         public IList<Setting> GetAllCommunicationTools()
@@ -269,7 +309,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
-            tools = tools.Where(t => t.Name != "N/A").OrderBy(s => s.DisplayOrder).ToList();
+            tools = tools.Where(t => t.Id != NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole)).OrderBy(s => s.DisplayOrder).ToList();
             CacheService.Set(GetAllCommunicationToolSessionKey, tools);
 
             return tools;
@@ -283,21 +323,21 @@ namespace Fanex.CRM.Setting.Services
                 ParentId = 0
             });
 
-            return products.FirstOrDefault(p => p.Value == "N/A.");
+            return products.FirstOrDefault(p => p.Id == NAConstants.GetProductNA(AppSession.CurrentUser.UserRole));
         }
 
         public Product GetSubProductNA()
         {
             return _settingRepositoryInstance
                 .GetSubProducts(new SubProductCriteria())
-                .FirstOrDefault(s => s.Value == "N/A.");
+                .FirstOrDefault(s => s.Id == NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole));
         }
 
         public Product GetBettypeNA()
         {
             return _settingRepositoryInstance
                     .GetAllBetType(new GetAllBetTypeCriteria())
-                    .FirstOrDefault(b => b.Name == "N/A.");
+                    .FirstOrDefault(b => b.Id == NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole));
         }
 
         public IList<Setting> GetAllMainCategories()
@@ -398,7 +438,7 @@ namespace Fanex.CRM.Setting.Services
             var parentProducts = GetProductsOnly();
             var subProducts = GetAllSubProducts();
             var products = parentProducts
-                        .Where(p => p.Name != "N/A.")
+                        .Where(p => p.Id != NAConstants.GetProductNA(AppSession.CurrentUser.UserRole))
                         .Select(p =>
                         {
                             p.Name = p.Value;
@@ -431,11 +471,11 @@ namespace Fanex.CRM.Setting.Services
             var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
 
             var products = subProducts
-                        .Where(sp => sp.Name != "N/A.")
+                        .Where(sp => sp.Id != NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole))
                         .Select(sp =>
                         {
                             sp.Name = sp.Value;
-                            sp.ChildSettings = betTypes.Where(s => s.ParentId == sp.Id && s.Name != "N/A.")
+                            sp.ChildSettings = betTypes.Where(s => s.ParentId == sp.Id && s.Id != NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole))
                                                     .Select(s => { s.GrandParentId = sp.ParentId; return s; })
                                                     .OrderBy(s => s.DisplayOrder)
                                                     .ToList();
@@ -457,7 +497,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             var products = GetProductsOnly()
-                              .Where(p => p.Value != "N/A.")
+                              .Where(p => p.Id != NAConstants.GetProductNA(AppSession.CurrentUser.UserRole))
                               .Select(p => { p.Name = p.Value; return p; })
                               .ToList();
 
@@ -475,7 +515,7 @@ namespace Fanex.CRM.Setting.Services
 
             var subProducts = _settingRepositoryInstance
                                 .GetSubProducts(new SubProductCriteria())
-                                .Where(p => p.Value != "N/A." && p.ParentId != 0)
+                                .Where(p => p.Id != NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole) && p.ParentId != 0)
                                 .Select(p => { p.Name = p.Value; return p; })
                                 .ToList();
 
@@ -493,7 +533,7 @@ namespace Fanex.CRM.Setting.Services
 
             var betTypes = _settingRepositoryInstance
                                .GetAllBetType(new GetAllBetTypeCriteria())
-                               .Where(b => b.Name != "N/A.")
+                               .Where(b => b.Id != NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole))
                                .OrderBy(b => b.DisplayOrder)
                                .ToList();
 

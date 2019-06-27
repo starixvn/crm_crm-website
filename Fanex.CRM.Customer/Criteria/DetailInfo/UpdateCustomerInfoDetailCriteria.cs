@@ -210,6 +210,8 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         public bool IsUpdateHeadlineInfo { get; set; }
 
+        public int ProvinceID { get; set; }
+
         public override string GetSettingKey()
         {
             return "Customer_CustomerInfoDetail_Update_New";

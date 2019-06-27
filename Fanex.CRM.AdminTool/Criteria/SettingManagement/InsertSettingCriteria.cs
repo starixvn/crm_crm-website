@@ -10,16 +10,17 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
-    using System.Collections;
+    using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// Insert Setting Criteria.
     /// </summary>
-    public class InsertSettingCriteria : CriteriaBase
+    public class InsertSettingCriteria : BasedCriteria
     {
         public Setting NewSetting { get; set; }
 
@@ -64,6 +65,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 
             param.Add("userid", UserId);
             param.Add("ip", IP);
+            param.Add("UserRole", UserRole);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             return param;

@@ -2,12 +2,16 @@
 {
     using System;
     using System.Text;
+    using System.Threading;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using System.Web.Security;
     using Fanex.CRM.Web.View.AppStart;
     using Fanex.Logging;
+    using Fanex.NAP.Core.Auth;
+    using Fanex.NAP.Core.Web.Auth;
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -28,7 +32,27 @@
                 "{controller}/{action}/{id}",
                  defaultParameter);
         }
+        public override void Init()
+        {
+            base.Init();
+            PostAuthenticateRequest += new EventHandler(MvcApplication_PostAuthenticateRequest);
+        }
 
+        void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                if (authTicket?.Expired == false)
+                {
+                    var identity = new FormsIdentity(authTicket);
+                    var user = new NapPrincipal(identity, AuthInfo.CreateUserData(authTicket.UserData));
+                    Context.User = user;
+                    Thread.CurrentPrincipal = user;
+                }
+            }
+        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

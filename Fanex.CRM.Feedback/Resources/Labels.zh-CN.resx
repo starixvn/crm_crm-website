@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>活跃</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+  <data name="Bet_Type" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>范畴</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>检查</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Communication" xml:space="preserve">
+    <value>通讯</value>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>通讯工具</value>
+  </data>
+  <data name="ConfirmOverrideCRMInfo" xml:space="preserve">
+    <value>现有 CRM 资讯将被覆写。是否要继续？</value>
+  </data>
+  <data name="Confirm_Ignore_MultipleLogs_Changes" xml:space="preserve">
+    <value>通讯栏有修改，是否要忽略修改部分？</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Create_Multiple_Logs" xml:space="preserve">
+    <value>多重日志创建</value>
+  </data>
+  <data name="CSExtension" xml:space="preserve">
+    <value>客服座机号</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="CustomerResponse" xml:space="preserve">
+    <value>客户反应</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>反馈日期</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>已删除</value>
+  </data>
+  <data name="DeletedFeedbackTitle" xml:space="preserve">
+    <value>已删除反馈</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DescriptionMaxLengthError" xml:space="preserve">
+    <value>描述内容最长可达 32,700！</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>细节</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EditMultipleLogStatusesTitle" xml:space="preserve">
+    <value>多重审核及更新状态</value>
+  </data>
+  <data name="EditMultipleLogsTitle" xml:space="preserve">
+    <value>多重编辑日志</value>
+  </data>
+  <data name="Edit_Multiple_Logs" xml:space="preserve">
+    <value>多重编辑日志</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电邮</value>
+  </data>
+  <data name="End_Time" xml:space="preserve">
+    <value>结案时间</value>
+  </data>
+  <data name="Error_EmptyId" xml:space="preserve">
+    <value>请填写身份栏处！</value>
+  </data>
+  <data name="Error_EmptyRemark" xml:space="preserve">
+    <value>请填写描述栏处！</value>
+  </data>
+  <data name="Error_EmptyReview" xml:space="preserve">
+    <value>请填写审核者栏处！</value>
+  </data>
+  <data name="Error_EmptySolution" xml:space="preserve">
+    <value>请填写解答栏处！</value>
+  </data>
+  <data name="Error_EmptySubject" xml:space="preserve">
+    <value>请填写标题！</value>
+  </data>
+  <data name="Error_FeedbackResolutionTime" xml:space="preserve">
+    <value>反馈日期需早于解决时间！</value>
+  </data>
+  <data name="Error_NACommmunicationTool" xml:space="preserve">
+    <value>请筛选通讯工具！</value>
+  </data>
+  <data name="Error_NALanguage" xml:space="preserve">
+    <value>请筛选语系！</value>
+  </data>
+  <data name="Error_NAMainCategory" xml:space="preserve">
+    <value>请筛选主范畴！</value>
+  </data>
+  <data name="Error_NASubCategory" xml:space="preserve">
+    <value>请筛选副范畴！</value>
+  </data>
+  <data name="Error_NA_MainSubCategory" xml:space="preserve">
+    <value>请筛选主范畴 - 副范畴！</value>
+  </data>
+  <data name="Error_VerifyRelatedCustomer" xml:space="preserve">
+    <value>储存此反馈前，请先验证账号</value>
+  </data>
+  <data name="Ext" xml:space="preserve">
+    <value>座机号</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="FeedbackDate" xml:space="preserve">
+    <value>反馈日期</value>
+  </data>
+  <data name="FeedbackDuplicationError" xml:space="preserve">
+    <value>此客户与目录号 {0} 相似日志，是否要创建此日志？</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_AddSuccess" xml:space="preserve">
+    <value>成功新增反馈！</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_NoCreateFeedbackPermission" xml:space="preserve">
+    <value>无权限创建反馈</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission" xml:space="preserve">
+    <value>无权限删除反馈</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission" xml:space="preserve">
+    <value>无权限更新客户</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_NoUpdateCustomerPermission" xml:space="preserve">
+    <value>无权限更新客户</value>
+  </data>
+  <data name="Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission" xml:space="preserve">
+    <value>无权限更新反馈</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="FromCustomer" xml:space="preserve">
+    <value>从 {0}</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>访客</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>处理人员</value>
+  </data>
+  <data name="Helper_RelatedInputMessage" xml:space="preserve">
+    <value>可多重填入客户，以逗号间隔。 如：abc，xyz，以此类推</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>无效</value>
+  </data>
+  <data name="IsRelatedCustomer" xml:space="preserve">
+    <value>有关联客户</value>
+  </data>
+  <data name="IsReviewed" xml:space="preserve">
+    <value>已审核</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>语系</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓氏</value>
+  </data>
+  <data name="LatestFeedbackDocumentTitle" xml:space="preserve">
+    <value>CRM 系统 - 最新反馈</value>
+  </data>
+  <data name="LatestFeedbackReportTitle" xml:space="preserve">
+    <value>最新 {0} 反馈 {1}</value>
+  </data>
+  <data name="Licensee_Type" xml:space="preserve">
+    <value>Licensee Type</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="ListOfCustomers" xml:space="preserve">
+    <value>客户列表</value>
+  </data>
+  <data name="MainCategory" xml:space="preserve">
+    <value>主范畴</value>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>主范畴</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="MultipleEdit" xml:space="preserve">
+    <value>多重编辑</value>
+  </data>
+  <data name="Multiple_Logs_EmptyListOfCustomers" xml:space="preserve">
+    <value>请列出客户！</value>
+  </data>
+  <data name="Multiple_Logs_EmptyRemark" xml:space="preserve">
+    <value>请填写备注栏处！</value>
+  </data>
+  <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
+    <value>请填写审核者栏处！</value>
+  </data>
+  <data name="Multiple_Logs_EmptySolution" xml:space="preserve">
+    <value>请填写解答栏处！</value>
+  </data>
+  <data name="Multiple_Logs_EmptySubject" xml:space="preserve">
+    <value>请填写标题！</value>
+  </data>
+  <data name="Multiple_Logs_ErrorEndTime" xml:space="preserve">
+    <value>开始时间需早于解决时间！</value>
+  </data>
+  <data name="Multiple_Logs_ExcessCurrentTime" xml:space="preserve">
+    <value>请筛选主范畴 - 副范畴！</value>
+  </data>
+  <data name="Multiple_Logs_InsertSuccess" xml:space="preserve">
+    <value>成功创建多重日志！</value>
+  </data>
+  <data name="Multiple_Logs_NACommmunicationTool" xml:space="preserve">
+    <value>请筛选通讯工具！</value>
+  </data>
+  <data name="Multiple_Logs_NACountry" xml:space="preserve">
+    <value>请筛选国家！</value>
+  </data>
+  <data name="Multiple_Logs_NALanguage" xml:space="preserve">
+    <value>请筛选语系！</value>
+  </data>
+  <data name="Multiple_Logs_NAProduct" xml:space="preserve">
+    <value>请筛选语系！</value>
+  </data>
+  <data name="Multiple_Logs_UpdateSuccess" xml:space="preserve">
+    <value>成功更新多重日志！</value>
+  </data>
+  <data name="Multiple_Logs_VerifyRelatedCustomer" xml:space="preserve">
+    <value>储存多重日志前，请先验证账号</value>
+  </data>
+  <data name="NoBettypeError" xml:space="preserve">
+    <value>此产品无投注类别 {0}。请新增一个投注类别或另选其它产品</value>
+  </data>
+  <data name="NoPermissionOnReviewFunction" xml:space="preserve">
+    <value>无权限更新此反馈</value>
+  </data>
+  <data name="NoSubcategoryError" xml:space="preserve">
+    <value>此范畴无副范畴 {0}。请新增一个副范畴或另选其它范畴</value>
+  </data>
+  <data name="NotReviewed" xml:space="preserve">
+    <value>未审核</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OverwriteCRMInfo" xml:space="preserve">
+    <value>覆写现有 CRM 资讯</value>
+  </data>
+  <data name="PassportNumber" xml:space="preserve">
+    <value>护照编号</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>待定</value>
+  </data>
+  <data name="Phone1" xml:space="preserve">
+    <value>电话 1</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>电话 2</value>
+  </data>
+  <data name="Phone3" xml:space="preserve">
+    <value>电话 3</value>
+  </data>
+  <data name="PIC" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="PIC_1" xml:space="preserve">
+    <value>负责人 1</value>
+  </data>
+  <data name="PIC_2" xml:space="preserve">
+    <value>负责人 2</value>
+  </data>
+  <data name="PIC_3" xml:space="preserve">
+    <value>负责人 3</value>
+  </data>
+  <data name="PIC_4" xml:space="preserve">
+    <value>负责人 4</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="QQ" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="RefCodes" xml:space="preserve">
+    <value>参照编号</value>
+  </data>
+  <data name="RelatedCustomer" xml:space="preserve">
+    <value>关联客户</value>
+  </data>
+  <data name="RelatedCustomerNameLengthErrorMessage" xml:space="preserve">
+    <value>客户名字不可多于 50字</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="RequiredFieldTemplate" xml:space="preserve">
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
+  <data name="RequiredInformation" xml:space="preserve">
+    <value>必填此资讯！</value>
+  </data>
+  <data name="ResolutionTime" xml:space="preserve">
+    <value>解决时间</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>反应</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>审核</value>
+  </data>
+  <data name="Reviewed" xml:space="preserve">
+    <value>已审核</value>
+  </data>
+  <data name="ReviewedBy" xml:space="preserve">
+    <value>由 {0} 于 {1} 审核</value>
+  </data>
+  <data name="ReviewedInformation" xml:space="preserve">
+    <value>由 {0} 于 {1} 审核</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>审核者</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="RunningNo" xml:space="preserve">
+    <value>案件编号</value>
+  </data>
+  <data name="RunningNumer" xml:space="preserve">
+    <value>案件号码</value>
+  </data>
+  <data name="SecretCode" xml:space="preserve">
+    <value>暗码</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>解决方案</value>
+  </data>
+  <data name="SolutionMaxLengthError" xml:space="preserve">
+    <value>解决方案最长字元可达 32,700!</value>
+  </data>
+  <data name="Solved" xml:space="preserve">
+    <value>已解决</value>
+  </data>
+  <data name="Start_Time" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>成功新增反馈！</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>副范畴</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="SubProduct" xml:space="preserve">
+    <value>副产品</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>副范畴</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>冻结</value>
+  </data>
+  <data name="Symbol_NA" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>至日期</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>最顶端</value>
+  </data>
+  <data name="UpdateFeedbackSuccessfully" xml:space="preserve">
+    <value>成功更新反馈</value>
+  </data>
+  <data name="UpdateFeedbackTitle" xml:space="preserve">
+    <value>更新反馈</value>
+  </data>
+  <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
+    <value>此功能仅更新状态及审核者。通讯日志及其它资讯将不更新。</value>
+  </data>
+  <data name="UpdateSiteLicenseeType" xml:space="preserve">
+    <value>Update Site/Licensee Type/Role</value>
+  </data>
+  <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
+    <value>Update Site/Licensee Type/Role Successfully!</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>账号</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>贵宾</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="WeChat" xml:space="preserve">
+    <value>微信</value>
+  </data>
+  <data name="WhatsApp" xml:space="preserve">
+    <value>What'sApp</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>雅虎</value>
+  </data>
+</root>

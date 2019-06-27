@@ -99,6 +99,9 @@
             },
             Country: {
                 Id: 0
+            },
+            Province: {
+                Id: 0
             }
         };
         $scope.oldParams = null;
@@ -242,6 +245,7 @@
             $scope.statusOptions.DataList = $scope.allSettings.StatusList;
 
             $scope.countryOptions.DataList = $scope.allSettings.CountryList;
+            $scope.provinceOptions.DataList = $scope.allSettings.ProvinceList;
 
             $scope.subjectOptions = {
                 NumberOfSuggestItems: 15,
@@ -254,7 +258,7 @@
             $scope.communicationDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",
-                sourceData: $scope.allSettings.CommunicationToolList
+                sourceData: $scope.allSettings.CommunicationToolList.slice(0)
             };
 
             $scope.extensionDropdownSettings = {

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using Common.Services;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
@@ -197,7 +198,7 @@
         private IEnumerable<Setting> GetCommunicationTools()
         {
             var tools = _serviceSetting.GetAllCommunicationTools()
-                .Where(r => r.Id != CommunicationToolConstants.NotApply)
+                .Where(r => r.Id != NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole))
                 .ToList();
             tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 

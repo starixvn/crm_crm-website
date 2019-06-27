@@ -61,11 +61,56 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Ignore Changes.
+        /// </summary>
+        public static string Confirm_Ignore_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone or Username or Nickname.
+        /// </summary>
+        public static string DefaultSearchCustomer {
+            get {
+                return ResourceManager.GetString("DefaultSearchCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You&apos;re not authorized on this function!.
         /// </summary>
         public static string Error_500 {
             get {
                 return ResourceManager.GetString("Error_500", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input username!.
+        /// </summary>
+        public static string Error_SearchCustomer_Empty {
+            get {
+                return ResourceManager.GetString("Error_SearchCustomer_Empty", resourceCulture);
             }
         }
         
@@ -133,11 +178,29 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have permission on this function!.
         /// </summary>
         public static string NoPermission {
             get {
                 return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -156,6 +219,15 @@ namespace Fanex.CRM.Infrastructure.Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

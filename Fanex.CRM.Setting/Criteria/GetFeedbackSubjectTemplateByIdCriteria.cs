@@ -9,12 +9,13 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Feedback Subject Template By Identify Criteria.
     /// </summary>
-    public class GetFeedbackSubjectTemplateByIdCriteria : CriteriaBase
+    public class GetFeedbackSubjectTemplateByIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "templateid")]
         public int TemplateId { get; set; }

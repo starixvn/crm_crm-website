@@ -1,24 +1,45 @@
 ﻿@{
     bool hasCustomerInfoPermission = (bool)ViewBag.HasCustomerInfoPermission;
+    var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideClass = isCn88 ? "hide-item" : "";
 }
 <ul class="list-unstyled list-inline" id="ulDashboardMenu">
-    <li class="active" id="liMain"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
-        <span class="hotkey">M</span>ain</a></li>
+    <li class="active" id="liMain">
+        <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
+            @Html.Raw(Resources.Language.Tab_Main)
+        </a>
+    </li>
     @if (hasCustomerInfoPermission)
     {
-        <li id="liDetail"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
-            <span class="hotkey">D</span>etail</a></li>
-        
-        <li id="liCommnunicationLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
-            Communication <span class="hotkey">L</span>og</a></li>
-        
-        <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
-            Special Remar<span class="hotkey">k</span></a></li>
-        
-        <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
-            Redem<span class="hotkey">p</span>tion</a></li>
-        
-        <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
-            Ac<span class="hotkey">t</span>ivity Log</a></li>
+        <li id="liDetail">
+            <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
+                @Html.Raw(Resources.Language.Tab_Detail)                
+            </a>
+        </li>
+
+            <li id="liCommnunicationLog">
+                <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
+                    @Html.Raw(Resources.Language.Tab_CommunicationLog)
+                </a>
+            </li>
+
+            <li id="liSpecialRemark">
+                <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
+                    @Html.Raw(Resources.Language.Tab_SpecialRemark)
+                </a>
+            </li>
+
+            <li id="liRedemption" class="@hideClass">
+                <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
+                    @Html.Raw(Resources.Language.Tab_Redemption)
+                </a>
+            </li>
+
+            <li id="liActivityLog">
+                <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
+                    @Html.Raw(Resources.Language.Tab_ActivityLog)
+                </a>
+            </li>
     }
 </ul>
+

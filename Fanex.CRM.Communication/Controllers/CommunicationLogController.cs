@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Communication.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -11,6 +12,7 @@
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Setting.Constants;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -63,15 +65,19 @@
             {
                 statusList = statusList.Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             }
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+              ? _serviceSetting.GetAllSitesCN88()
+              : _serviceSetting.GetAllSites();
 
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
                 CountryList = _serviceSetting.GetAllCountries(),
+                ProvinceList = _serviceSetting.GetAllProvinces(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
@@ -93,14 +99,19 @@
         [HttpPost]
         public ActionResult AllSettingForInsert(int custId)
         {
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+               ? _serviceSetting.GetAllSitesCN88()
+               : _serviceSetting.GetAllSites();
+
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
                 CountryList = _serviceSetting.GetAllCountries(),
+                ProvinceList = _serviceSetting.GetAllProvinces(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
-                SiteList = _serviceSetting.GetAllSites(),
+                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
@@ -145,6 +156,7 @@
             ViewBag.HasHostCreateUpdatePermission = HasUpdateFeedbackPermission(logInfo.Status.Id);
             ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             ViewBag.IsDeletedFeedbackView = (logInfo.Status.Id == (int)CRMStatus.Deleted).ToString().ToLower();
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
 
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
@@ -164,6 +176,9 @@
         public ActionResult OpenInsertView(int customerId)
         {
             ViewBag.customerId = customerId;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
+            ViewBag.CN88MemberId = RoleIdConstants.CN88Member;
             return View("~/Areas/Communication/InsertLog/Index.cshtml");
         }
 
@@ -175,6 +190,9 @@
                 RunningNumber = logRunningNumber
             });
             ViewBag.customerId = logInfo.CustomerId;
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
+            ViewBag.CN88MemberId = RoleIdConstants.CN88Member;
 
             return View("~/Areas/Communication/InsertLog/Index.cshtml", logInfo);
         }

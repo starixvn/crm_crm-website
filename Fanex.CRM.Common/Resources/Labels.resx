@@ -120,6 +120,42 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Btn_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Btn_HotKey_InsertCase" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;I&lt;/span&gt;nsert Case</value>
+  </data>
+  <data name="Btn_HotKey_Save" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;ave</value>
+  </data>
+  <data name="Btn_HotKey_Submit" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;ubmit</value>
+  </data>
+  <data name="Btn_HotKey_Update" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;U&lt;/span&gt;pdate</value>
+  </data>
+  <data name="Btn_HotKey_Verify" xml:space="preserve">
+    <value>V&lt;span class="hotkey"&gt;e&lt;/span&gt;rify</value>
+  </data>
+  <data name="Btn_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Btn_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Btn_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Btn_Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
@@ -152,5 +188,8 @@
   </data>
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
+  </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>There is no data</value>
   </data>
 </root>

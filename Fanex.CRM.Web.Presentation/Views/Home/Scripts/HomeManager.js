@@ -22,14 +22,14 @@ var HomeManager = function () {
     self.CachedData = {
         /* jshint camelcase: false */
         ViewResources: {
-            DefaultSearchCustomer: "Phone or Username or Nickname",
-            Error_SearchCustomer_Empty: 'Please input username!',
-            OK: "OK",
-            Cancel: "Cancel",
-            Alert: 'Alert',
-            Confirm_Ignore_Changes: 'Confirm Ignore Changes',
-            Yes: 'Yes',
-            No: 'No'
+            DefaultSearchCustomer: viewResources.DefaultSearchCustomer,
+            Error_SearchCustomer_Empty: viewResources.Error_SearchCustomer_Empty,
+            OK: viewResources.OK,
+            Cancel: viewResources.Cancel,
+            Alert: viewResources.Alert,
+            Confirm_Ignore_Changes: viewResources.Confirm_Ignore_Changes,
+            Yes: viewResources.Yes,
+            No: viewResources.No
         },
 
         username: null,

@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account_Holder_Name" xml:space="preserve">
+    <value>账号名</value>
+  </data>
+  <data name="Account_No" xml:space="preserve">
+    <value>账号编号</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>活跃</value>
+  </data>
+  <data name="Add_Feedback" xml:space="preserve">
+    <value>新增反馈</value>
+  </data>
+  <data name="Agent" xml:space="preserve">
+    <value>代理</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>注意</value>
+  </data>
+  <data name="AllStatus" xml:space="preserve">
+    <value>所有状态</value>
+  </data>
+  <data name="All_Languages" xml:space="preserve">
+    <value>所有语系</value>
+  </data>
+  <data name="Bank_Info" xml:space="preserve">
+    <value>银行资讯</value>
+  </data>
+  <data name="Bank_s_Name" xml:space="preserve">
+    <value>银行名字</value>
+  </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
+  </data>
+  <data name="Betting_Code" xml:space="preserve">
+    <value>投注编码</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Checker" xml:space="preserve">
+    <value>检查者</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>市</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>已关</value>
+  </data>
+  <data name="Communication_Info" xml:space="preserve">
+    <value>通讯资讯</value>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>通讯工具</value>
+  </data>
+  <data name="Contact_Number" xml:space="preserve">
+    <value>联络号码</value>
+  </data>
+  <data name="Contact_Number_1" xml:space="preserve">
+    <value>电话 1</value>
+  </data>
+  <data name="Contact_Number_2" xml:space="preserve">
+    <value>电话 2</value>
+  </data>
+  <data name="Contact_Number_3" xml:space="preserve">
+    <value>电话 3</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="CreatedTime" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="CRM_Info" xml:space="preserve">
+    <value>CRM 资讯</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
+    <value>是否要搜索访客信息？</value>
+  </data>
+  <data name="CustomerInfo_DefaultSearchTextbox" xml:space="preserve">
+    <value>搜索...</value>
+  </data>
+  <data name="CustomerInfo_UpdateSuccess" xml:space="preserve">
+    <value>成功更新 CRM 资讯！</value>
+  </data>
+  <data name="Customer_Info" xml:space="preserve">
+    <value>客户资讯</value>
+  </data>
+  <data name="Danger" xml:space="preserve">
+    <value>危险</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详细</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电邮</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>导出文档</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>座机号</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>处理人员</value>
+  </data>
+  <data name="Headline" xml:space="preserve">
+    <value>最高持有者</value>
+  </data>
+  <data name="HeadlineInfo" xml:space="preserve">
+    <value>最高持有者资讯</value>
+  </data>
+  <data name="Home_Address" xml:space="preserve">
+    <value>住家地址</value>
+  </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>忽略</value>
+  </data>
+  <data name="InternalAccount" xml:space="preserve">
+    <value>内部账号</value>
+  </data>
+  <data name="IntroducedBy" xml:space="preserve">
+    <value>介绍人</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>语系</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>姓氏</value>
+  </data>
+  <data name="Latest_Feedback" xml:space="preserve">
+    <value>最新反馈</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>层别</value>
+  </data>
+  <data name="LicenseeType" xml:space="preserve">
+    <value>Licensee Type</value>
+  </data>
+  <data name="Lvl" xml:space="preserve">
+    <value>级别</value>
+  </data>
+  <data name="Manage_Feedback" xml:space="preserve">
+    <value>管理反馈</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>总代理</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>会员</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="Nick_Name" xml:space="preserve">
+    <value>昵称</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>无权限使用此功能！</value>
+  </data>
+  <data name="No_languages_found" xml:space="preserve">
+    <value>无发现语系</value>
+  </data>
+  <data name="No_status_found" xml:space="preserve">
+    <value>无状态发现</value>
+  </data>
+  <data name="Orginal" xml:space="preserve">
+    <value>原版</value>
+  </data>
+  <data name="Other_sports" xml:space="preserve">
+    <value>其它运动</value>
+  </data>
+  <data name="Passport_Number" xml:space="preserve">
+    <value>护照编号</value>
+  </data>
+  <data name="Personal_Info" xml:space="preserve">
+    <value>个人资讯</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="PIC" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="PIC_1" xml:space="preserve">
+    <value>负责人 1</value>
+  </data>
+  <data name="PIC_2" xml:space="preserve">
+    <value>负责人 2</value>
+  </data>
+  <data name="PIC_3" xml:space="preserve">
+    <value>负责人 3</value>
+  </data>
+  <data name="PIC_4" xml:space="preserve">
+    <value>负责人 4</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Postcode" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>产品状态</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>省</value>
+  </data>
+  <data name="QQ" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="Ref_Codes" xml:space="preserve">
+    <value>参照号码</value>
+  </data>
+  <data name="Ref_Codes_2" xml:space="preserve">
+    <value>参照号码 2</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Secret_Code" xml:space="preserve">
+    <value>暗码</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>工作人员</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>州</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Super" xml:space="preserve">
+    <value>超级总代理</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>冻结</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="UpdatedTime" xml:space="preserve">
+    <value>更新时间</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>贵宾</value>
+  </data>
+  <data name="WeChat" xml:space="preserve">
+    <value>微信</value>
+  </data>
+  <data name="WhatsApp" xml:space="preserve">
+    <value>What'sApp</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>雅虎</value>
+  </data>
+  <data name="ConfirmSearchByGuest" xml:space="preserve">
+    <value>是否要搜索访客信息？</value>
+  </data>
+  <data name="NoInformation" xml:space="preserve">
+    <value>无信息</value>
+  </data>
+  <data name="SearchByGuest" xml:space="preserve">
+    <value>搜索访客</value>
+  </data>
+</root>

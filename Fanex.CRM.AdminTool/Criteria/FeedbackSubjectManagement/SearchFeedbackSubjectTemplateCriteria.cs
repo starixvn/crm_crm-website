@@ -10,14 +10,23 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
 {
-    using System.Collections;
+    using Common.Enumerations;
+    using Common.Services;
     using Fanex.CRM.Infrastructure.Models;
+    using System.Collections;
 
     /// <summary>
     /// Search Feedback Subject Template Criteria.
     /// </summary>
     public class SearchFeedbackSubjectTemplateCriteria : PagingCriteria
     {
+        public SearchFeedbackSubjectTemplateCriteria()
+        {
+            UserRole = AppSession.CurrentUser.UserRole;
+        }
+
+        public UserRole UserRole { get; set; }
+
         public string Subject { get; set; }
 
         /// <summary>
@@ -28,6 +37,7 @@ namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
         {
             var param = new Hashtable();
             param.Add("templateid", 0);
+            param.Add("UserRole", UserRole);
             return param;
         }
 
