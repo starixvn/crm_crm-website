@@ -1,6 +1,7 @@
 ﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Models;
+@using Resources;
 @model Fanex.CRM.AdminTool.Models.SettingManagement.SettingItemName
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,20 +27,20 @@
                 <form class="form-horizontal frm" role="form">
                 <div class="form-group">
                     <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Name</label>
+                        @Labels.Setting_Name @Html.Raw(Language.RequiredFieldTemplate)</label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
                             data-ng-model="insertSettingParams.NewSetting.SettingName" disabled="disabled" />
                     </div>
                     <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Name_SC
+                        @Labels.Setting_Name_SC @Html.Raw(Language.RequiredFieldTemplate)
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
                                data-ng-model="insertSettingParams.NewSetting.SettingNameCS" disabled="disabled" />
                     </div>
                     <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Name_TC
+                        @Labels.Setting_Name_TC @Html.Raw(Language.RequiredFieldTemplate)
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
@@ -48,20 +49,20 @@
                 </div>
                 <div class="form-group">
                     <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Value</label>
+                        @Labels.Setting_Value @Html.Raw(Language.RequiredFieldTemplate)</label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
                             data-ng-model="insertSettingParams.NewSetting.SettingValue" />
                     </div>
                     <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Value_SC
+                        @Labels.Setting_Value_SC @Html.Raw(Language.RequiredFieldTemplate)
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
                                data-ng-model="insertSettingParams.NewSetting.SettingValueCS" />
                     </div>
                     <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
-                        @Labels.Setting_Value_TC
+                        @Labels.Setting_Value_TC @Html.Raw(Language.RequiredFieldTemplate)
                     </label>
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
