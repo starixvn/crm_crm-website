@@ -20,7 +20,15 @@
         },
 		new SiteInfo
         {
+            SiteEnvironment = SiteEnvironment.CN88UAT
+        },
+		new SiteInfo
+        {
             SiteEnvironment = SiteEnvironment.SIT
+        },
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.CN88PRO
         },
         new SiteInfo
         {
@@ -42,8 +50,10 @@
 		DEV,
         LOCAL,
         UAT,
+		CN88UAT,
 		SIT,
         PRO,
+		CN88PRO,
         BACKUPMNL,
         MASTER
     }

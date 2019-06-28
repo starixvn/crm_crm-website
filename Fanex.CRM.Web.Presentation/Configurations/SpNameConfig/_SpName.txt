@@ -40,7 +40,9 @@
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.MASTER.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.BACKUPMNL.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.PRO.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.CN88PRO.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.SIT.xml
+// Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.CN88UAT.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.UAT.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.LOCAL.xml
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.xml
