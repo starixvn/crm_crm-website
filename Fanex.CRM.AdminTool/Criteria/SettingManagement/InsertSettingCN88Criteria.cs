@@ -53,7 +53,6 @@
 
             param.Add("userid", UserId);
             param.Add("ip", IP);
-            param.Add("UserRole", UserRole);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             return param;
