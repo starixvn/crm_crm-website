@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>活跃</value>
+  </data>
   <data name="ActiveFeedbackSubjectMessage" xml:space="preserve">
     <value>确认是否要活跃反馈标题草稿 {0}？</value>
   </data>

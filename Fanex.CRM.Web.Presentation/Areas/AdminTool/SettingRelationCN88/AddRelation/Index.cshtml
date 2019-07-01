@@ -2,6 +2,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Models;
 @using Fanex.CRM.Setting.Models;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model Setting
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,7 +26,7 @@
                 </div>
                 <div class="item afterButton">
                     <button id="btn-search" class="btn pull-left" data-ng-click="getMainSettingRelations();">
-                        <span class="hotkey">S</span>earch
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Search)
                     </button>
                 </div>
             </div>
@@ -47,7 +48,7 @@
             </div>
             <div class="row">
                 <button id="btn-update" class="btn pull-left" data-ng-click="addSettingRelations();">
-                    <span class="hotkey">U</span>pdate
+                    @Html.Raw(@CommonLabels.Btn_HotKey_Update)
                 </button>
             </div>
             <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />

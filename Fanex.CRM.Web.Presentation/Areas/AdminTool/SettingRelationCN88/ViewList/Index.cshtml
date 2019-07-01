@@ -1,5 +1,6 @@
 ﻿﻿@using Fanex.CRM.AdminTool.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -20,7 +21,7 @@
                 </div>
                 <div class="item afterButton">
                     <button id="btn-search" class="btn pull-left btn" data-ng-click="getSettingRelations();">
-                        <span class="hotkey">S</span>earch
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Search)
                     </button>
                 </div>
             </div>

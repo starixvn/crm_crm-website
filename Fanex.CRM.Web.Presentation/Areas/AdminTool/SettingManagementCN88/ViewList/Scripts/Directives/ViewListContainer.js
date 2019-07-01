@@ -71,7 +71,7 @@
                 { HeaderText: viewResources.Active, Width: 60, Name: "ColActive", HeaderAlign: "center", CellAlign: "center"}],
                 showTitle: true,
                 titleInfo: {
-                    text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
+                    text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingName])
                 },
                 bodyRows: bodyData,
                 //numberOfFrozenColumn: 1,

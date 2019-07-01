@@ -132,6 +132,9 @@
   <data name="Btn_HotKey_Save" xml:space="preserve">
     <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;ave</value>
   </data>
+  <data name="Btn_HotKey_Search" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;earch</value>
+  </data>
   <data name="Btn_HotKey_Submit" xml:space="preserve">
     <value>&lt;span class="hotkey"&gt;S&lt;/span&gt;ubmit</value>
   </data>

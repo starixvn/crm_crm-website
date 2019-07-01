@@ -123,6 +123,9 @@
   <data name="Btn_Duplicate" xml:space="preserve">
     <value>复制</value>
   </data>
+  <data name="Btn_HotKey_Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
   <data name="Btn_HotKey_Submit" xml:space="preserve">
     <value>提交</value>
   </data>
