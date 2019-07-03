@@ -11,6 +11,8 @@
     {
         public SettingCN88 NewSetting { get; set; }
 
+        public int Type { get; set; }
+
         [SpParam(SqlParamName = "creatorid")]
         public int CreatorId
         {
@@ -50,6 +52,7 @@
             param.Add("settingvaluect", NewSetting.SettingValueCT);
             param.Add("displayorder", NewSetting.DisplayOrder);
             param.Add("parentid", NewSetting.ParentId);
+            param.Add("type", Type);
 
             param.Add("userid", UserId);
             param.Add("ip", IP);

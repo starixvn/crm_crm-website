@@ -24,7 +24,8 @@
                 SettingNameCT: settingInfo.SettingNameCT,
                 SettingValueCT: '',
                 DisplayOrder: ''
-            }
+            },
+            Type: 2
         };
         $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
         $scope.initController = function () {
