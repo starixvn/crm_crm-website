@@ -1,0 +1,69 @@
+﻿﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Title_AdminTool_SettingRelation;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Admin/SettingRelationCN88/ViewListStyles")
+}
+<div data-ng-app="addmintool-settingrelation-application">
+    <div class="viewListController" data-ng-controller="viewListController">
+        <div class="container main">
+            <div class="row filter-frm one-row">
+                <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
+                    <select id="mainsetting">
+                    </select>
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-search" class="btn pull-left btn" data-ng-click="getSettingRelations();">
+                        @Html.Raw(@CommonLabels.Btn_HotKey_Search)
+                    </button>
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="setting-relation-list-container" class="setting-relation-list-container"
+                    data-ng-model="settingRelationView">
+                    <div id="settingrelation-list" class="freegrid display-none">
+                    </div>
+                </div>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Areas/Admin/SettingRelationCN88/ViewListScripts")
+    <script type="text/javascript">
+        parent.document.title = '@Labels.Title_AdminTool_SettingRelation';
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            All: '@Labels.All',
+            Setting: '@Labels.Setting',
+            Relation: '@Labels.Relation',
+            Setting_Id: '@Labels.Setting_Id',
+            Order: '@Labels.Order',
+            ViewListTitle: '@Labels.SettingRelation_ViewListTitle',
+            Setting_Relation_Management: '@Labels.Setting_Relation_Management',
+            English: '@Labels.English',
+            SimplifiedChinese: '@Labels.SimplifiedChinese',
+            TraditionalChinese: '@Labels.TraditionalChinese'
+        };
+    </script>
+}

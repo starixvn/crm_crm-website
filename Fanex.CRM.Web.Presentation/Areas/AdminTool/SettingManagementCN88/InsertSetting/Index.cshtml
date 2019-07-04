@@ -1,0 +1,114 @@
+﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Resources;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Admin/SettingManagementCN88/InsertSettingStyles")
+}
+<div data-ng-app="addmintool-settingmanagement-insertnewsetting-application">
+    <div class="insertSettingController" data-ng-controller="insertSettingController">
+        <div class="container main popup">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal frm" role="form">
+                <div class="form-group">
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_EN @Html.Raw(Language.RequiredFieldTemplate)</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                            data-ng-model="insertSettingParams.NewSetting.SettingName" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_SC @Html.Raw(Language.RequiredFieldTemplate)
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingNameCS" />
+                    </div>
+                    <label for="txtSettingName" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Name_TC @Html.Raw(Language.RequiredFieldTemplate)
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingNameCT" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_EN @Html.Raw(Language.RequiredFieldTemplate)</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                            data-ng-model="insertSettingParams.NewSetting.SettingValue" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_SC @Html.Raw(Language.RequiredFieldTemplate)
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingValueCS" />
+                    </div>
+                    <label for="txtSettingValue" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Setting_Value_TC @Html.Raw(Language.RequiredFieldTemplate)
+                    </label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="insertSettingParams.NewSetting.SettingValueCT" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ddlParent" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Parent</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
+                        <select id="parentsetting">
+                        </select>
+                    </div>
+                    <label for="txtDisplayOrder" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                        @Labels.Display_Order</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
+                            data-ng-model="insertSettingParams.NewSetting.DisplayOrder" maxlength="20" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-10 col-sm-10 col-md-10">
+                        <button type="button" class="btn" data-ng-click="insertSetting();">
+                            <span class="hotkey">S</span>ave
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/Admin/SettingManagementCN88/InsertSettingScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            All: '@Labels.All',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Confirm_Ignore_InsertSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertNewSetting_Changes)',
+            SettingManagement_Error_EmptySettingName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_ExceedName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_ExceedValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)'
+        };
+    </script>
+}

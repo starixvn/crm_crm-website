@@ -10,10 +10,12 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingRelation
 {
-    using System.Collections.Generic;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Models.SettingManagement;
+    using Models.SettingRelation;
+    using System.Collections.Generic;
 
     public interface ISettingRelationService
     {
@@ -21,10 +23,17 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
         IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria);
 
-        IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria);
+        IEnumerable<MainSetting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria);
 
         IEnumerable<SettingRelation> MainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
         Result GetAddSettingRelations(AddSettingRelationsCriteria criteria);
+
+        List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria);
+
+        List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria);
+
+
+        IEnumerable<SettingRelationItem> MainSettingRelationsCN88(GetMainSettingRelationsCriteria criteria);
     }
 }

@@ -7,13 +7,15 @@
                 var dropdown = element.find("#country");
                 dropdown.empty();
                 /* jshint camelcase: false */
-                dropdown.append(
-                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
-                     (crmConstants.Enums.Country.NotApply === scope.communicationLog.Country.Id ?
-                        ' selected="selected"' :
-                        '') +
-                     '>' + viewResources.Symbol_NotApply +
-                '</option>');
+                if (!scope.isCN88) {
+                    dropdown.append(
+                    '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
+                         (crmConstants.Enums.Country.NotApply === scope.communicationLog.Country.Id ?
+                            ' selected="selected"' :
+                            '') +
+                         '>' + viewResources.Symbol_NotApply +
+                    '</option>');
+                }
                 var countryListLength = scope.countryList.length;
                 for (var i = 0; i < countryListLength; i++) {
                     var country = scope.countryList[i];

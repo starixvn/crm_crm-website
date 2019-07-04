@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>活躍</value>
   </data>
   <data name="ActiveFeedbackSubjectMessage" xml:space="preserve">
     <value>Are you sure you want to active Feedback Subject Template {0}?</value>
@@ -182,6 +182,9 @@
   </data>
   <data name="Edit_Setting_Value" xml:space="preserve">
     <value>Edit Setting Value</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
   </data>
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>Please Input Feedback Subject Template Content!</value>
@@ -288,6 +291,9 @@
   <data name="Setting_Value" xml:space="preserve">
     <value>Setting Value</value>
   </data>
+  <data name="SimplifiedChinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>Sub setting</value>
   </data>
@@ -308,5 +314,8 @@
   </data>
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM System - Setting Relation</value>
+  </data>
+  <data name="TraditionalChinese" xml:space="preserve">
+    <value>繁體中文</value>
   </data>
 </root>

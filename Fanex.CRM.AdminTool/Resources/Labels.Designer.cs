@@ -259,6 +259,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Feedback Subject Template Successfully!.
         /// </summary>
         public static string Feedback_FeedbackSubjectManagement_EditSuccess {
@@ -448,6 +457,33 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting Name (EN).
+        /// </summary>
+        public static string Setting_Name_EN {
+            get {
+                return ResourceManager.GetString("Setting_Name_EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Name (SC).
+        /// </summary>
+        public static string Setting_Name_SC {
+            get {
+                return ResourceManager.GetString("Setting_Name_SC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Name (TC).
+        /// </summary>
+        public static string Setting_Name_TC {
+            get {
+                return ResourceManager.GetString("Setting_Name_TC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting Relation Management.
         /// </summary>
         public static string Setting_Relation_Management {
@@ -462,6 +498,33 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Setting_Value {
             get {
                 return ResourceManager.GetString("Setting_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (EN).
+        /// </summary>
+        public static string Setting_Value_EN {
+            get {
+                return ResourceManager.GetString("Setting_Value_EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (SC).
+        /// </summary>
+        public static string Setting_Value_SC {
+            get {
+                return ResourceManager.GetString("Setting_Value_SC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value (TC).
+        /// </summary>
+        public static string Setting_Value_TC {
+            get {
+                return ResourceManager.GetString("Setting_Value_TC", resourceCulture);
             }
         }
         
@@ -574,6 +637,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Simplified Chinese.
+        /// </summary>
+        public static string SimplifiedChinese {
+            get {
+                return ResourceManager.GetString("SimplifiedChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sub setting.
         /// </summary>
         public static string Sub_setting {
@@ -633,6 +705,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Title_AdminTool_SettingRelation {
             get {
                 return ResourceManager.GetString("Title_AdminTool_SettingRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traditional Chinese.
+        /// </summary>
+        public static string TraditionalChinese {
+            get {
+                return ResourceManager.GetString("TraditionalChinese", resourceCulture);
             }
         }
     }

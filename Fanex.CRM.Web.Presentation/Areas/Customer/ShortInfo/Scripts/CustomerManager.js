@@ -255,7 +255,7 @@
             if (!isHavingData) {
                 self.unblockUI();
                 return;
-            }
+            }           
 
             self.getAllSite();
             self.getAllCountry();
@@ -329,9 +329,13 @@
 
         self.renderAllCountryResult = function (result) {
             var siteOptions = '';
-            siteOptions += '<option value="' + crmConstants.Enums.Country.NotApply + '">' +
+            var scope = angular.element($(".customerinfo-container")).scope();            
+            if (!scope.isCN88) {
+                siteOptions += '<option value="' + crmConstants.Enums.Country.NotApply + '">' +
                             self.CacheData.ViewResources.Symbol_NotApply +
                         '</option>';
+            }
+            
             if (result && result.length > 0) {
                 var countryLength = result.length;
                 for (var i = 0; i < countryLength; i++) {

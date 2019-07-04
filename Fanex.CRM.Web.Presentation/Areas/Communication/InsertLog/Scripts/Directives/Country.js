@@ -7,9 +7,11 @@
                 var dropdown = element.find("#country");
                 dropdown.empty();
                 /* jshint camelcase: false */
-                dropdown.append(
-                '<option value="' + crmConstants.Enums.Country.NotApply + '">' + viewResources.Symbol_NotApply +
-                '</option>');
+                if (!scope.isCN88) {
+                    dropdown.append(
+                    '<option value="' + crmConstants.Enums.Country.NotApply + '">' + viewResources.Symbol_NotApply +
+                    '</option>');
+                }
                 var countryListLength = scope.countryList.length;
                 var countryId = scope.communicationLog.Country.Id;
                 for (var i = 0; i < countryListLength; i++) {

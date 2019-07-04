@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -53,13 +54,16 @@
                 });
 
             var countries = ServiceSetting.GetAllCountries();
-            countries.Insert(
-                0,
-                new Country
-                {
-                    Id = 0,
-                    Name = Labels.Symbol_NA
-                });
+            if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
+            {
+                countries.Insert(
+                    0,
+                    new Country
+                    {
+                        Id = 0,
+                        Name = Labels.Symbol_NA
+                    });
+            }
 
             var statusList = ServiceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                                         .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();

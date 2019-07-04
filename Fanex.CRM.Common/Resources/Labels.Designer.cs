@@ -106,6 +106,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;S&lt;/span&gt;earch.
+        /// </summary>
+        public static string Btn_HotKey_Search {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;S&lt;/span&gt;ubmit.
         /// </summary>
         public static string Btn_HotKey_Submit {

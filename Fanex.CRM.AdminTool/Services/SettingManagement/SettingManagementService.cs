@@ -10,9 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingManagement
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Repositories.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
@@ -20,6 +17,10 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
+    using Models.SettingManagement;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Setting Relation Service.
@@ -126,6 +127,53 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return _settingService.GetAllSettings()
                 .Where(s => s.Id == criteria.SettingId)
                 .FirstOrDefault();
+        }
+
+        public SettingCN88 GetSettingCN88ById(GetSettingCN88ByIdCriteria criteria)
+        {
+            return _settingManagementRepository.GetSettingCN88ById(criteria);
+        }
+
+        public List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria)
+        {
+            return _settingManagementRepository.GetMainSettingCN88(criteria);
+        }
+
+        public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
+        {
+            return _settingManagementRepository.GetSettingByTypeCN88(criteria)
+                .Where(s => s.ParentID == 0).ToList();
+        }
+
+        public SettingItemName GetSettingName(GetSettingNameCriteria criteria)
+        {
+            return _settingManagementRepository.GetSettingName(criteria);
+        }
+
+        public Result EditSettingCN88(EditSettingCN88Criteria criteria)
+        {
+            var result = _settingManagementRepository.EditSettingCN88(criteria);
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
+                _settingService.ClearCache();
+            }
+
+            return result;
+        }
+
+        public Result InsertSettingCN88(InsertSettingCN88Criteria criteria)
+        {
+            var result = _settingManagementRepository.InsertSettingCN88(criteria);
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
+                _settingService.ClearCache();
+            }
+
+            return result;
         }
     }
 }

@@ -10,10 +10,11 @@
 
 namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
 {
-    using System.Collections.Generic;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Models.SettingManagement;
+    using System.Collections.Generic;
 
     public interface ISettingRelationRepository
     {
@@ -22,5 +23,9 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
         IEnumerable<SettingRelation> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
         Result AddSettingRelations(AddSettingRelationsCriteria criteria);
+
+        List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria);
+
+        List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria);
     }
 }

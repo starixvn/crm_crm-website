@@ -10,13 +10,15 @@
 
 namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
 {
-    using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using Models.SettingManagement;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Setting Relation Repository.
@@ -71,6 +73,24 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
         public Result AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             return ExecuteNonQuery(criteria);
+        }
+
+        public List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var result = objectDB.Query<MainSetting>(criteria.GetSpParams());
+                return result.ToList();
+            }
+        }
+
+        public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var result = objectDB.Query<SettingItemCN88>(criteria.GetSpParams());
+                return result.ToList();
+            }
         }
     }
 }
