@@ -103,6 +103,7 @@
         
         $scope.customersInput = '';
         $scope.isCN88 = isCN88;
+        $scope.CN88SiteId = CN88SiteId;
 
         $scope.productChangedHandler = function () {
             $scope.subProductDropdownSettings = {
@@ -191,6 +192,10 @@
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
                 $scope.licenseeTypes = allSetting.LicenseeType;
+
+                if ($scope.isCN88) {
+                    $scope.selectedSite = { Id: $scope.CN88SiteId, Name: "CN88" };
+                }
 
                 $scope.siteDropdownSettings = {
                     idMember: "Id",

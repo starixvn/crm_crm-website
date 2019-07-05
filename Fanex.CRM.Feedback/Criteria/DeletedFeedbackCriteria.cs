@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
     using System;
     using System.Collections;
 
-    public class DeletedFeedbackCriteria : CriteriaBase
+    public class DeletedFeedbackCriteria : BasedCriteria
     {
         public string Username { get; set; }
 

@@ -8,6 +8,7 @@
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using Services;
+    using Setting.Constants;
     using Setting.Services;
     using System.Web.Mvc;
 
@@ -34,6 +35,7 @@
         public ActionResult Create()
         {
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
             return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
         }
 
