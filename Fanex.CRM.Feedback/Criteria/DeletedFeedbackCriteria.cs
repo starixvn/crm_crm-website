@@ -47,6 +47,7 @@
             var inputParams = new Hashtable();
             inputParams.Add("fromdate", FromDate);
             inputParams.Add("todate", ToDate);
+            inputParams.Add("userrole", UserRole);
 
             inputParams.Add("username", Username);
             if (IsGuest >= 0)
