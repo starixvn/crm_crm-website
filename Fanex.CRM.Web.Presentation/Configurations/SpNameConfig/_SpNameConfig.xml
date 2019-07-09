@@ -4,6 +4,7 @@
   
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xpre"></SpNameConfig>  
-
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGetUplineList" EnvironmentText="_xpre"></SpNameConfig>
+  
 </Root>

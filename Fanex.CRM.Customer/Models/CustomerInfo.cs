@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Customer.Models
 {
-    using System;
     using Fanex.CRM.Common.Models;
+    using System;
 
     /// <summary>
     /// Customer Information.
@@ -19,5 +19,9 @@ namespace Fanex.CRM.Customer.Models
     public class CustomerInfo : BaseCustomer
     {
         public string BirthDay { get; set; }
+
+        public string CustStatus { get; set; }
+
+        public bool Locked { get; set; }
     }
 }

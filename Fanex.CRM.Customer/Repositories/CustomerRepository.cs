@@ -9,12 +9,12 @@
 
 namespace Fanex.CRM.Customer.Repositories
 {
-    using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Customer Repository.
@@ -34,9 +34,8 @@ namespace Fanex.CRM.Customer.Repositories
                         customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
                         customer.BankInfo.Address = Converter.ToString2(reader["Wire_BankAddress"]);
 
-                        customer.IsActive = Converter.ToInt(reader["Active"]) == 1;
-                        customer.IsClosed = Converter.ToInt(reader["Closed"]) == 1;
-                        customer.IsSuspended = Converter.ToInt(reader["Suspended"]) == 1;
+                        customer.CustStatus = Converter.ToString2(reader["CustStatus"]);
+                        customer.Locked = Converter.ToBool(reader["Locked"]);
                         customer.OriginalDangerLevel = Converter.ToInt(reader["danger"]);
                         customer.ABTDangerLevel = Converter.ToInt(reader["danger2"]);
                         customer.OtherSportsDangerLevel = Converter.ToInt(reader["danger3"]);
@@ -75,9 +74,8 @@ namespace Fanex.CRM.Customer.Repositories
                             {
                                 Id = Converter.ToInt(reader["roleid"])
                             },
-                            IsActive = Converter.ToInt(reader["Active"]) == 1,
-                            IsClosed = Converter.ToInt(reader["Closed"]) == 1,
-                            IsSuspended = Converter.ToInt(reader["Suspended"]) == 1
+                            CustStatus = Converter.ToString2(reader["CustStatus"]),
+                            Locked = Converter.ToBool(reader["Locked"])
                         };
 
                         uplineInfo.Add(customer);
@@ -120,7 +118,7 @@ namespace Fanex.CRM.Customer.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                return objectDB.Query<string>(criteria.GetSpParams());                
+                return objectDB.Query<string>(criteria.GetSpParams());
             }
         }
 

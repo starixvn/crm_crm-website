@@ -34,7 +34,9 @@
                                data-ng-bind="uplineInfo.Name"></a>                            
                         
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="uplineInfo.Status">
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-right status">
+                        {{uplineInfo.CustStatus}}
+                        <span data-ng-if="uplineInfo.Locked">/ <span class="red-color">Locked</span></span>
                     </div>
                 </div>
             </div>
@@ -43,7 +45,9 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-lef username" data-ng-bind="customer.Name">
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="customer.Status">
+                <div class="col-xs-3 col-sm-3 col-md-3 text-right status">
+                    {{customer.CustStatus}}
+                    <span data-ng-if="customer.Locked">/ <span class="red-color">Locked</span></span>
                 </div>
             </div>
             <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member ||
