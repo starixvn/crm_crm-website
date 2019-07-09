@@ -44,6 +44,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.CRM.Web.Presentation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,6 +53,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.CRM.Web.Presentation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -1594,6 +1596,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
+    <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.InformHeadline", "Fanex.CRM.InformHeadline\Fanex.CRM.InformHeadline.csproj", "{136FBFBE-8107-43D2-BCCD-BBD1A7F99E92}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{E41886A3-DB5D-4782-BB3B-8FCECD5E76A3}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\CRMCSharp.ruleset = SonarQube\CRMCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
