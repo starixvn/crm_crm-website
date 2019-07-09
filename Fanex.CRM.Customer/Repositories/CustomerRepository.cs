@@ -35,7 +35,7 @@ namespace Fanex.CRM.Customer.Repositories
                         customer.BankInfo.Address = Converter.ToString2(reader["Wire_BankAddress"]);
 
                         customer.CustStatus = Converter.ToString2(reader["CustStatus"]);
-                        customer.Locked = Converter.ToBool(reader["Locked"]);
+                        customer.Locked = Converter.ToInt(reader["Locked"]) == 1;
                         customer.OriginalDangerLevel = Converter.ToInt(reader["danger"]);
                         customer.ABTDangerLevel = Converter.ToInt(reader["danger2"]);
                         customer.OtherSportsDangerLevel = Converter.ToInt(reader["danger3"]);
@@ -75,7 +75,7 @@ namespace Fanex.CRM.Customer.Repositories
                                 Id = Converter.ToInt(reader["roleid"])
                             },
                             CustStatus = Converter.ToString2(reader["CustStatus"]),
-                            Locked = Converter.ToBool(reader["Locked"])
+                            Locked = Converter.ToInt(reader["Locked"]) == 1
                         };
 
                         uplineInfo.Add(customer);
