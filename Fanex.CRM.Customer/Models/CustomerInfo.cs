@@ -19,9 +19,5 @@ namespace Fanex.CRM.Customer.Models
     public class CustomerInfo : BaseCustomer
     {
         public string BirthDay { get; set; }
-
-        public string CustStatus { get; set; }
-
-        public bool Locked { get; set; }
     }
 }

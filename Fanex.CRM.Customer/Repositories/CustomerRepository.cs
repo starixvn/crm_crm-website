@@ -75,7 +75,7 @@ namespace Fanex.CRM.Customer.Repositories
                                 Id = Converter.ToInt(reader["roleid"])
                             },
                             CustStatus = Converter.ToString2(reader["CustStatus"]),
-                            Locked = Converter.ToInt(reader["Locked"]) == 1
+                            Locked = Converter.ToBool(reader["Locked"])
                         };
 
                         uplineInfo.Add(customer);
