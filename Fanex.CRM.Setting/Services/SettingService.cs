@@ -944,5 +944,13 @@ namespace Fanex.CRM.Setting.Services
             CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
             return feedbackTemplates;
         }
+
+        public IList<SiteInfo> GetAllSitesWithNA()
+        {
+            var sites = GetAllSites();
+            sites.Insert(0, new SiteInfo() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
+
+            return sites;
+        }
     }
 }

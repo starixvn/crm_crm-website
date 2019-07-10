@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using Common.Enumerations;
+    using Common.Services;
     using Excels.CustomerReport;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -33,6 +35,7 @@
 
         public ActionResult Index()
         {
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
             return View("~/Areas/Report/CustomerReport/Index.cshtml");
         }
 
@@ -42,8 +45,10 @@
             var languages = _settingService.GetAllLanguages();
             languages.Insert(0, new Common.Models.Setting() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
-            var sites = _settingService.GetAllSites();
-            sites.Insert(0, new Setting.Models.SiteInfo() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
+            var sites = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+                ? _settingService.GetAllSitesCN88()
+                : _settingService.GetAllSitesWithNA();
+
             var allSetting = new
             {
                 SiteList = sites,

@@ -5,6 +5,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
+    var hideSiteClass = isCn88 ? "hide-item" : "";
+
     ViewBag.Title = Labels.Customer_Report;
 }
 @section Styles{
@@ -57,7 +60,7 @@
                             <select id="language"></select>
                         </div>
                     </div>
-                    <div class="item">
+                    <div class="item @hideSiteClass">
                         <label for="site" class="width-50 pull-left">
                             @Labels.Site
                         </label>
