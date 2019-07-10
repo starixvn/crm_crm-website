@@ -713,12 +713,12 @@ namespace Fanex.CRM.Setting.Services
         {
             return new[]
             {
-                new Setting { Id = RoleIdConstants.Headline, Value = Labels.Headline },
-                new Setting { Id = RoleIdConstants.CN88Super, Value = Labels.Super },
-                new Setting { Id = RoleIdConstants.CN88Master, Value = Labels.Master },
-                new Setting { Id = RoleIdConstants.CN88Agent, Value = Labels.Agent },
-                new Setting { Id = RoleIdConstants.CN88Member, Value = Labels.Member },
-                new Setting { Id = RoleIdConstants.CN88Guest, Value = Labels.Guest }
+                new Setting { Id = 0, Value = Labels.Headline },
+                new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
+                new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
+                new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.Guest, Value = Labels.Guest }
             };
         }
 
