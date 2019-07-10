@@ -22,15 +22,15 @@ namespace Fanex.CRM.Setting.Criteria
 
         public override Hashtable GetSpParams()
         {
-            var hastableParam = new Hashtable();
-            hastableParam.Add("type", ActionType);
-
             if (ActionType == SettingConstants.ActivityLog)
             {
+                var hastableParam = new Hashtable();
                 hastableParam.Add("userrole", UserRole);
+
+                return hastableParam;
             }
 
-            return hastableParam;
+            return null;
         }
 
         /// <summary>

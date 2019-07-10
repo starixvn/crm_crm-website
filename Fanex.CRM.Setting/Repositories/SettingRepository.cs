@@ -271,7 +271,7 @@ namespace Fanex.CRM.Setting.Repositories
 
         public IList<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
-            return ReadBaseModels(criteria, "ActionID", "ActionName", false);
+            return ReadBaseModels(criteria, "ActionID", "ActionName", true);
         }
 
         public IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
