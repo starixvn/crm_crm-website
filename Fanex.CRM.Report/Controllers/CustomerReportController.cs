@@ -49,6 +49,10 @@
                 ? _settingService.GetAllSitesCN88()
                 : _settingService.GetAllSitesWithNA();
 
+            var positions = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+                ? _settingService.GetPositionsCN88()
+                : _settingService.GetPositions();
+
             var allSetting = new
             {
                 SiteList = sites,
@@ -56,7 +60,7 @@
                 LanguageList = languages,
                 CustomerTypeList = _settingService.GetAllCustomerTypes(),
                 VIPTypeList = _settingService.GetAllVIPTypes(),
-                PositionList = _settingService.GetPositions()
+                PositionList = positions
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

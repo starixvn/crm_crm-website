@@ -709,6 +709,19 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
+        public IList<Setting> GetPositionsCN88()
+        {
+            return new[]
+            {
+                new Setting { Id = RoleIdConstants.Headline, Value = Labels.Headline },
+                new Setting { Id = RoleIdConstants.CN88Super, Value = Labels.Super },
+                new Setting { Id = RoleIdConstants.CN88Master, Value = Labels.Master },
+                new Setting { Id = RoleIdConstants.CN88Agent, Value = Labels.Agent },
+                new Setting { Id = RoleIdConstants.CN88Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.CN88Guest, Value = Labels.Guest }
+            };
+        }
+
         public IList<Setting> AllHeadlineType()
         {
             return new List<Setting>()
