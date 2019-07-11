@@ -709,6 +709,19 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
+        public IList<Setting> GetPositionsCN88()
+        {
+            return new[]
+            {
+                new Setting { Id = -1, Value = Labels.Headline },
+                new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
+                new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
+                new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.Guest, Value = Labels.Guest }
+            };
+        }
+
         public IList<Setting> AllHeadlineType()
         {
             return new List<Setting>()
@@ -943,6 +956,14 @@ namespace Fanex.CRM.Setting.Services
 
             CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
             return feedbackTemplates;
+        }
+
+        public IList<SiteInfo> GetAllSitesWithNA()
+        {
+            var sites = GetAllSites();
+            sites.Insert(0, new SiteInfo() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
+
+            return sites;
         }
     }
 }

@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Customer.Models
 {
-    using System;
     using Fanex.CRM.Common.Models;
+    using System;
 
     /// <summary>
     /// Customer Information.

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Fanex.Data.Repository;
+    using Common.Criteria;
     using System;
     using System.Collections;
 
-    public class DeletedFeedbackCriteria : CriteriaBase
+    public class DeletedFeedbackCriteria : BasedCriteria
     {
         public string Username { get; set; }
 
@@ -47,6 +47,7 @@
             var inputParams = new Hashtable();
             inputParams.Add("fromdate", FromDate);
             inputParams.Add("todate", ToDate);
+            inputParams.Add("userrole", UserRole);
 
             inputParams.Add("username", Username);
             if (IsGuest >= 0)

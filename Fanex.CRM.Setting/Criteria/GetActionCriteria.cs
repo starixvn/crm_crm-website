@@ -9,16 +9,29 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Common.Criteria;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.Data.Repository;
+    using System.Collections;
 
     /// <summary>
     /// GetActionCriteria class.
     /// </summary>
-    public class GetActionCriteria : CriteriaBase
+    public class GetActionCriteria : BasedCriteria
     {
-        [SpParam(SqlParamName = "Type")]
         public int ActionType { get; set; }
+
+        public override Hashtable GetSpParams()
+        {
+            if (ActionType == SettingConstants.ActivityLog)
+            {
+                var hastableParam = new Hashtable();
+                hastableParam.Add("userrole", UserRole);
+
+                return hastableParam;
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Gets the setting key.

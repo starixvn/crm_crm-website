@@ -105,5 +105,9 @@ namespace Fanex.CRM.Setting.Services
         IList<Setting> GetMainCategories();
 
         IList<Setting> GetSubCategories();
+
+        IList<SiteInfo> GetAllSitesWithNA();
+
+        IList<Setting> GetPositionsCN88();
     }
 }

@@ -10,6 +10,7 @@
     var customerId = Model;
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
+    var CN88SiteId = ViewBag.CN88SiteId;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
@@ -318,6 +319,7 @@
             var customerId = '@customerId';
             var currentUsername = "@AppSession.CurrentUser.Username";
             var isCN88 = '@isCN88' == 'True';
+            var CN88SiteId = parseInt('@CN88SiteId');
             var viewResources = {
                 Symbol_NotApply: '@Labels.Symbol_NotApply',
                 Select: '@Labels.Select',

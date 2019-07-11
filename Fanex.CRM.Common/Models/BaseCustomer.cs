@@ -143,6 +143,10 @@ namespace Fanex.CRM.Common.Models
 
         public Address AddressInfo { get; set; }
 
+        public string CustStatus { get; set; }
+
+        public bool Locked { get; set; }
+
         /// <summary>
         /// Gets the name of the status.
         /// </summary>
