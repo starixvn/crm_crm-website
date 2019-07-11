@@ -7,7 +7,7 @@
     using Models;
     using System;
 
-    public class InsertMultipleLogsCriteria : UpdateCriteria
+    public class InsertMultipleLogsCriteria : BasedUpdateCriteria
     {
         [SpParam(SqlParamName = "username")]
         public string ListCustomers { get; set; }
