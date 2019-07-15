@@ -2,13 +2,12 @@
 <Root>
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>    
   
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackGetDeleted" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerSearch" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerGetUplineList" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ActivityLogList" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_xpre"></SpNameConfig>
-
-  <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xpre"></SpNameConfig>  
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingUpd" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CN88_SettingIns" EnvironmentText="_uat1"></SpNameConfig>
+  
+  <SpNameConfig Environment="DEV" SpName="Acc_Crm_Rpt_CustomerReport" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatistics" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_uat1"></SpNameConfig>
 
 </Root>

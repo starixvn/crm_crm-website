@@ -713,7 +713,7 @@ namespace Fanex.CRM.Setting.Services
         {
             return new[]
             {
-                new Setting { Id = -1, Value = Labels.Headline },
+                new Setting { Id = -2, Value = Labels.Headline },
                 new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
                 new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
                 new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
