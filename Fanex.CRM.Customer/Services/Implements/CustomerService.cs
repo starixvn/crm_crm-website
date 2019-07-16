@@ -82,7 +82,7 @@ namespace Fanex.CRM.Customer.Services
         {
             var uplineInfoResult = new List<BaseCustomer>();
 
-            var rawData = _customerRepository.GetUplineInfoOfUser(criteria);
+            var rawData = _customerRepository.GetUplineInfoOfUser(criteria).OrderByDescending(r => r.Role.Id);
             foreach (var item in rawData)
             {
                 if (criteria.CustomerId == item.Id || item.Role.Id == RoleIdConstants.Headline)
