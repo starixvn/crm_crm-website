@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Excels.CustomerReport
 {
+    using Common.Enumerations;
+    using Common.Services;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -9,6 +11,7 @@
     using Models.CustomerReport;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
     public class CustomerReportExcel : BaseExcel
@@ -55,15 +58,26 @@
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            var columnHeaders = new string[]
+            var columnHeaders = new List<string>
             {
                 Labels.Headline, Labels.Checker, Labels.Position, Labels.Status, Labels.Username, Labels.First_Name, Labels.Last_Name,
                 Labels.Phone + "1", Labels.Phone + "2", Labels.Phone + "3", Labels.Mobile, Labels.Fax,
                 Labels.Email, Labels.Skype, Labels.MSN, Labels.WhatsApp, Labels.Line,
-                Labels.WeChat, Labels.Yahoo, Labels.BBM, Labels.QQ, Labels.Languages,
+                Labels.WeChat, Labels.Yahoo, Labels.QQ, Labels.Languages,
                 Labels.VIP, Labels.PIC1, Labels.PIC2, Labels.PIC3, Labels.PIC4,
-                Labels.Birthday, Labels.Passport, Labels.SiteName, Labels.Country
+                Labels.Birthday, Labels.Passport
             };
+
+            if (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+            {
+                columnHeaders.Add(Labels.Province);
+            }
+            else
+            {
+                columnHeaders.Insert(19, Labels.BBM);
+                columnHeaders.Add(Labels.SiteName);
+                columnHeaders.Add(Labels.Country);
+            }
 
             foreach (var item in columnHeaders)
             {
@@ -99,7 +113,12 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Line, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.WeChat, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Yahoo, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.BBM, exportExcelInfo.TextStyle);
+
+            if (!(AppSession.CurrentUser.UserRole == UserRole.CN88Staff))
+            {
+                NpoiExtensions.RenderCell(row, currentColumn++, customer.BBM, exportExcelInfo.TextStyle);
+            }
+
             NpoiExtensions.RenderCell(row, currentColumn++, customer.QQ, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Language, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
@@ -109,8 +128,17 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Pic4, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.BirthDay.HasValue ? customer.BirthDay.Value.ToShortFormatedDate() : string.Empty, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Passport, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn, customer.CountryName, exportExcelInfo.TextStyle);
+
+            if (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+            {
+                NpoiExtensions.RenderCell(row, currentColumn++, customer.ProvinceName, exportExcelInfo.TextStyle);
+            }
+            else
+            {
+                NpoiExtensions.RenderCell(row, currentColumn++, customer.SiteName, exportExcelInfo.TextStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, customer.CountryName, exportExcelInfo.TextStyle);
+            }
+
             exportExcelInfo.CurrentRow++;
         }
 
