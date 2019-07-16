@@ -22,6 +22,7 @@
             IsResize: false,
             IsUpdateGrid: false
         };
+        $scope.isCN88 = isCN88;
 
         $scope.searchCriteria = {
             Username: '',

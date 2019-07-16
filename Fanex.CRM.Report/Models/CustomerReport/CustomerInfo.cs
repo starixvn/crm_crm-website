@@ -66,5 +66,7 @@
         public string SiteName { get; set; }
 
         public string CountryName { get; set; }
+
+        public string ProvinceName { get; set; }
     }
 }

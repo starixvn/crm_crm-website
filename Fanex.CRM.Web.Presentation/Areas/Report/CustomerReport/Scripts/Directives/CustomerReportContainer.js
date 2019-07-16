@@ -23,43 +23,52 @@
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
+                    var columns = [
+                        { Name: "ColHeadline", Value: customer.Headline },
+                        { Name: "ColChecker", Value: customer.Checker },
+                        { Name: "ColPosition", Value: customer.Position },
+                        { Name: "ColStatus", Value: customer.Status },
+                        { Name: "ColUsername", Value: customer.Username },
+                        { Name: "ColFirstname", Value: customer.FirstName },
+                        { Name: "ColLastname", Value: customer.LastName },
+                        { Name: "ColPhone1", Value: customer.Phone1 },
+                        { Name: "ColPhone2", Value: customer.Phone2 },
+                        { Name: "ColPhone3", Value: customer.Phone3 },
+                        { Name: "ColMobile", Value: customer.Mobile },
+                        { Name: "ColFax", Value: customer.Fax },
+                        { Name: "ColEmail", Value: customer.Email },
+                        { Name: "ColSkype", Value: customer.Skype },
+                        { Name: "ColMSN", Value: customer.MSN },
+                        { Name: "ColWhatsApp", Value: customer.WhatsApp },
+                        { Name: "ColLine", Value: customer.Line },
+                        { Name: "ColWeChat", Value: customer.WeChat },
+                        { Name: "ColYahoo", Value: customer.Yahoo },
+                        { Name: "ColQQ", Value: customer.QQ },
+                        { Name: "ColLanguage", Value: customer.Language },
+                        {
+                            Name: "ColVIP",
+                            TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
+                            Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
+                        },
+                        { Name: "ColPIC1", Value: customer.Pic1 },
+                        { Name: "ColPIC2", Value: customer.Pic2 },
+                        { Name: "ColPIC3", Value: customer.Pic3 },
+                        { Name: "ColPIC4", Value: customer.Pic4 },
+                        { Name: "ColBirthday", Value: customer.BirthDay },
+                        { Name: "ColPassport", Value: customer.Passport }                        
+                    ];
+
+                    if (cachedData.scope.isCN88) {
+                        columns.push({ Name: "ColProvince", Value: customer.ProvinceName });
+                    }
+                    else {
+                        columns.splice(19, 0, { Name: "ColBBM", Value: customer.BBM })
+                        columns.push({ Name: "ColSiteName", Value: customer.SiteName });
+                        columns.push({ Name: "ColCountry", Value: customer.CountryName });
+                    }
+
                     bodyData.push({
-                        Columns: [
-                            { Name: "ColHeadline", Value: customer.Headline },
-                            { Name: "ColChecker", Value: customer.Checker },
-                            { Name: "ColPosition", Value: customer.Position },
-                            { Name: "ColStatus", Value: customer.Status },
-                            { Name: "ColUsername", Value: customer.Username },
-                            { Name: "ColFirstname", Value: customer.FirstName },
-                            { Name: "ColLastname", Value: customer.LastName },
-                            { Name: "ColPhone1", Value: customer.Phone1 },
-                            { Name: "ColPhone2", Value: customer.Phone2 },
-                            { Name: "ColPhone3", Value: customer.Phone3 },
-                            { Name: "ColMobile", Value: customer.Mobile },
-                            { Name: "ColFax", Value: customer.Fax },
-                            { Name: "ColEmail", Value: customer.Email },
-                            { Name: "ColSkype", Value: customer.Skype },
-                            { Name: "ColMSN", Value: customer.MSN },
-                            { Name: "ColWhatsApp", Value: customer.WhatsApp },
-                            { Name: "ColLine", Value: customer.Line },
-                            { Name: "ColWeChat", Value: customer.WeChat },
-                            { Name: "ColYahoo", Value: customer.Yahoo },
-                            { Name: "ColBBM", Value: customer.BBM },
-                            { Name: "ColQQ", Value: customer.QQ },
-                            { Name: "ColLanguage", Value: customer.Language },
-                            {
-                                Name: "ColVIP",
-                                TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
-                                Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
-                            },
-                            { Name: "ColPIC1", Value: customer.Pic1 },
-                            { Name: "ColPIC2", Value: customer.Pic2 },
-                            { Name: "ColPIC3", Value: customer.Pic3 },
-                            { Name: "ColPIC4", Value: customer.Pic4 },
-                            { Name: "ColBirthday", Value: customer.BirthDay },
-                            { Name: "ColPassport", Value: customer.Passport },
-                            { Name: "ColSiteName", Value: customer.SiteName },
-                            { Name: "ColCountry", Value: customer.CountryName }]
+                        Columns: columns
                     });
                 }
             }
@@ -83,7 +92,6 @@
                 { HeaderText: viewResources.Line, Width: 80, Name: "ColLine", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.WeChat, Width: 80, Name: "ColWeChat", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Yahoo, Width: 80, Name: "ColYahoo", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.BBM, Width: 80, Name: "ColBBM", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.QQ, Width: 80, Name: "ColQQ", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Languages, Width: 200, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left" },
@@ -92,9 +100,17 @@
                 { HeaderText: viewResources.PIC3, Width: 180, Name: "ColPIC3", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
-                { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" }];
+                { HeaderText: viewResources.Passport, Width: 140, Name: "ColPassport", HeaderAlign: "center", CellAlign: "left" }];
+
+            if (cachedData.scope.isCN88) {
+                headerColumns.push({ HeaderText: viewResources.Province, Width: 100, Name: "ColProvince", HeaderAlign: "center", CellAlign: "left" });
+            }
+            else {
+                headerColumns.splice(19, 0, { HeaderText: viewResources.BBM, Width: 80, Name: "ColBBM", HeaderAlign: "center", CellAlign: "left" })
+                headerColumns.push({ HeaderText: viewResources.SiteName, Width: 100, Name: "ColSiteName", HeaderAlign: "center", CellAlign: "left" });
+                headerColumns.push({ HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" });
+            }
+
 
             var gridOptions = {
                 columns: headerColumns,

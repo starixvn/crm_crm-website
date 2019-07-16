@@ -9,5 +9,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" EnvironmentText="_uat1"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatistics" EnvironmentText="_uat1"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" EnvironmentText="_uat1"></SpNameConfig>
-
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_FeedbackStatistics" EnvironmentText="_uat1"></SpNameConfig>
+  
 </Root>
