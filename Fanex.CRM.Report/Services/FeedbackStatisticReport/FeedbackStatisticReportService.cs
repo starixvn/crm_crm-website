@@ -45,6 +45,11 @@
             return _settingService.GetFeedbackStatisticFilterTypes();
         }
 
+        public BaseModel[] GetFeedbackStatisticFilterTypeCN88()
+        {
+            return _settingService.GetFeedbackStatisticFilterTypesCN88();
+        }
+
         public FeedbackStatistic GetFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());

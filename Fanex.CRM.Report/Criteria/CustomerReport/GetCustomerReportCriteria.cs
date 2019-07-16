@@ -1,8 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Criteria.CustomerReport
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class GetCustomerReportCriteria : CriteriaBase
+    public class GetCustomerReportCriteria : BasedCriteria
     {
         private string _siteIds;
 

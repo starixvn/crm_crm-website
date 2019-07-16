@@ -908,6 +908,22 @@ namespace Fanex.CRM.Setting.Services
             };
         }
 
+        public BaseModel[] GetFeedbackStatisticFilterTypesCN88()
+        {
+            return new BaseModel[]
+            {
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCreator, Name = Labels.ByCreator },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByRole, Name = Labels.ByRole },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByStatus, Name = Labels.ByStatus },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByResponse, Name = Labels.ByResponse },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByProduct, Name = Labels.ByProduct },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCategory, Name = Labels.ByCategory },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCommunicationTool, Name = Labels.ByCommunicationTool },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByProvince, Name = Labels.ByProvince },
+            };
+        }
+
+
         public void ClearCache()
         {
             CacheService.Clear();
