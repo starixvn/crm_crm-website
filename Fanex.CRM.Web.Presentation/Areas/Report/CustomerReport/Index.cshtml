@@ -122,6 +122,8 @@
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var isCN88 = '@isCn88' == 'True';
+
         var viewResources = {
             All: '@Labels.All',
             All_Languages: '@Labels.All_Languages',
@@ -174,7 +176,8 @@
             Passport: '@Labels.Passport',
             SiteName: '@Labels.SiteName',
             Position: '@Labels.Position',
-            Status: '@Labels.Status'
+            Status: '@Labels.Status',
+            Province: '@Labels.Province'
         };
     </script>
 }

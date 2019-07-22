@@ -76,6 +76,8 @@ namespace Fanex.CRM.Setting.Services
 
         BaseModel[] GetFeedbackStatisticFilterTypes();
 
+        BaseModel[] GetFeedbackStatisticFilterTypesCN88();
+
         void ClearCache();
 
         IList<Setting> GetMainSettings();

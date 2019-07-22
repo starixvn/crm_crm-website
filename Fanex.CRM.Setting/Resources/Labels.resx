@@ -141,6 +141,9 @@
   <data name="ByProduct" xml:space="preserve">
     <value>By Product</value>
   </data>
+  <data name="ByProvince" xml:space="preserve">
+    <value>By Province</value>
+  </data>
   <data name="ByResponse" xml:space="preserve">
     <value>By Response</value>
   </data>

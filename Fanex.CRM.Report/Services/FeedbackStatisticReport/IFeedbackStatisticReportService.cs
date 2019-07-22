@@ -9,6 +9,8 @@
     {
         BaseModel[] GetFeedbackStatisticFilterType();
 
+        BaseModel[] GetFeedbackStatisticFilterTypeCN88();
+
         FeedbackStatistic GetFeedbackStatistic(GetFeedbackStatisticCriteria criteria);
 
         void ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria);

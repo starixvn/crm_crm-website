@@ -24,5 +24,6 @@ namespace Fanex.CRM.Setting.Constants
         public const int ByCategory = 8;
         public const int ByLicensees = 9;
         public const int ByCommunicationTool = 10;
+        public const int ByProvince = 11;
     }
 }

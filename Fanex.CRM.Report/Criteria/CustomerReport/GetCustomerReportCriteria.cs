@@ -1,8 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Criteria.CustomerReport
 {
+    using Common.Criteria;
     using Fanex.Data.Repository;
 
-    public class GetCustomerReportCriteria : CriteriaBase
+    public class GetCustomerReportCriteria : BasedCriteria
     {
         private string _siteIds;
 
@@ -51,7 +52,7 @@
         {
             get
             {
-                return string.IsNullOrEmpty(_positionIds) ? string.Empty : _positionIds.Replace("-1", "0").Replace("5", "5,6,7,8,9,10");
+                return string.IsNullOrEmpty(_positionIds) ? string.Empty : _positionIds.Replace("-2", "0").Replace("5", "5,6,7,8,9,10");
             }
 
             set

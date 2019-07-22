@@ -713,7 +713,7 @@ namespace Fanex.CRM.Setting.Services
         {
             return new[]
             {
-                new Setting { Id = -1, Value = Labels.Headline },
+                new Setting { Id = -2, Value = Labels.Headline },
                 new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
                 new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
                 new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
@@ -907,6 +907,22 @@ namespace Fanex.CRM.Setting.Services
                 new BaseModel { Id = FeedbackStatisticFilterType.ByCommunicationTool, Name = Labels.ByCommunicationTool },
             };
         }
+
+        public BaseModel[] GetFeedbackStatisticFilterTypesCN88()
+        {
+            return new BaseModel[]
+            {
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCreator, Name = Labels.ByCreator },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByRole, Name = Labels.ByRole },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByStatus, Name = Labels.ByStatus },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByResponse, Name = Labels.ByResponse },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByProduct, Name = Labels.ByProduct },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCategory, Name = Labels.ByCategory },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCommunicationTool, Name = Labels.ByCommunicationTool },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByProvince, Name = Labels.ByProvince },
+            };
+        }
+
 
         public void ClearCache()
         {

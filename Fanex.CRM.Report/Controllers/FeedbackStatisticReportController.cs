@@ -1,6 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using Common.Enumerations;
     using Common.Models;
+    using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
@@ -31,7 +33,10 @@
 
         public ActionResult Index()
         {
-            var settings = _feedbackStatisticService.GetFeedbackStatisticFilterType();
+            var settings = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
+                ? _feedbackStatisticService.GetFeedbackStatisticFilterTypeCN88()
+                : _feedbackStatisticService.GetFeedbackStatisticFilterType();
+
             return View("~/Areas/Report/FeedbackStatistics/Index.cshtml", settings);
         }
 
