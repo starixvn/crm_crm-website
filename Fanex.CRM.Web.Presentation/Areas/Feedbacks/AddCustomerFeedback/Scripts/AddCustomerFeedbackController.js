@@ -394,7 +394,12 @@
             }
 
             $uiBlockerService.unblockUI();
-            $scope.checkDuplicationThenCreateFeedback(params);
+
+            parent.dialogManager.confirm(viewResources.Confirm_Changes, viewResources.Confirm_Changes_Message,
+                  function (result) {
+                      $scope.checkDuplicationThenCreateFeedback(params);
+                  }
+              );           
         };
 
         $scope.checkDuplicationThenCreateFeedback = function (params) {

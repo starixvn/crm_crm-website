@@ -295,6 +295,24 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Changes.
+        /// </summary>
+        public static string Confirm_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes in the feedback. Are you sure you want to save these changes?.
+        /// </summary>
+        public static string Confirm_Changes_Message {
+            get {
+                return ResourceManager.GetString("Confirm_Changes_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_EditCommunication_Changes {

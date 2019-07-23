@@ -602,4 +602,13 @@
   <data name="Auto_Generated" xml:space="preserve">
     <value>Auto-generated</value>
   </data>
+  <data name="Confirm_Changes" xml:space="preserve">
+    <value>Confirm Changes</value>
+  </data>
+  <data name="Confirm_Changes_Message" xml:space="preserve">
+    <value>There are some changes in the feedback. Are you sure you want to save these changes?</value>
+  </data>
+  <data name="Remark_Multiple_Log_Note" xml:space="preserve">
+    <value>This entry is created by Multiple Logs</value>
+  </data>
 </root>
