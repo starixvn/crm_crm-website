@@ -163,7 +163,7 @@ moment,currentDate, fromDateDefault, toDateDefault */
                             popupElement.addClass('display-none').html('');
                         },
                         buttons: [{
-                            text: viewResources.Closed,
+                            text: viewResources.Close,
                             click: function () {
                                 popupElement.dialog('close');
                             }

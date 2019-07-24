@@ -224,7 +224,7 @@
                     popupElement.addClass('display-none').html('');
                 },
                 buttons: [{
-                    text: deletedFeedbackResources.Closed,
+                    text: deletedFeedbackResources.Close,
                     click: function () {
                         popupElement.dialog('close');
                     }

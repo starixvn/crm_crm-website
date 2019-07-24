@@ -2,6 +2,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Report.Helpers;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var clientDate = DateTimeUtilize.CurrentClientTime().ToShortFormatedDate();
@@ -79,7 +80,7 @@
             Customer: '@Labels.Customer',
             RelatedCustomer: '@Labels.RelatedCustomer',
             FeedbackDetail: '@Labels.FeedbackDetail',
-            Closed: '@Labels.Closed'
+            Close: '@CommonLabels.Btn_Close'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",

@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.Language.Title_DeletedFeedback;
@@ -116,7 +117,7 @@
             RelatedCustomer: '@Labels.RelatedCustomer',
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle',
             DeletedFeedbackTitle: '@Labels.DeletedFeedbackTitle',
-            Closed: '@Labels.Closed'
+            Close: '@CommonLabels.Btn_Close'
         };
     </script>
 }

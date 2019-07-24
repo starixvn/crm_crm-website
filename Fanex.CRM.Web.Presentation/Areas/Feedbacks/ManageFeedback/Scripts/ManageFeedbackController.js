@@ -334,7 +334,7 @@
                     popupElement.addClass('display-none').html('');
                 },
                 buttons: [{
-                    text: manageFeedbackResources.Closed,
+                    text: manageFeedbackResources.Close,
                     click: function () {
                         popupElement.dialog('close');
                     }

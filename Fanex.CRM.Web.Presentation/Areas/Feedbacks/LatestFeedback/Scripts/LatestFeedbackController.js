@@ -73,7 +73,7 @@
                     popupElement.addClass('display-none').html('');
                 },
                 buttons: [{
-                    text: latestFeedbackResources.Closed,
+                    text: latestFeedbackResources.Close,
                     click: function () {
                         popupElement.dialog('close');
                     }

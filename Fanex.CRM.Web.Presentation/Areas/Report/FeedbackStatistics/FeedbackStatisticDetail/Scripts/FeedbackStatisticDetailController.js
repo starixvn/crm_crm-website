@@ -60,7 +60,7 @@
                             popupElement.addClass('display-none').html('');
                         },
                         buttons: [{
-                            text: feedbackStatisticDetailResources.Closed,
+                            text: feedbackStatisticDetailResources.Close,
                             click: function () {
                                 popupElement.dialog('close');
                             }
