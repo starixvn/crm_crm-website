@@ -169,7 +169,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm Changes.
+        ///   Looks up a localized string similar to Confirmation.
         /// </summary>
         public static string Confirm_Changes {
             get {
@@ -178,7 +178,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are some changes in the feedback. Are you sure you want to save these changes?.
+        ///   Looks up a localized string similar to Are you sure you want to Add or Update the Feedback/Log?.
         /// </summary>
         public static string Confirm_Changes_Message {
             get {

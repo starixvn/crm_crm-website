@@ -369,9 +369,9 @@
     <value>Auto-generated</value>
   </data>
   <data name="Confirm_Changes" xml:space="preserve">
-    <value>Confirm Changes</value>
+    <value>Confirmation</value>
   </data>
   <data name="Confirm_Changes_Message" xml:space="preserve">
-    <value>There are some changes in the feedback. Are you sure you want to save these changes?</value>
+    <value>Are you sure you want to Add or Update the Feedback/Log?</value>
   </data>
 </root>
