@@ -11,7 +11,7 @@
                     { HeaderText: latestFeedbackResources.Feedback, Width: 450, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
+                    { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }],
                 showTitle: true,
                 titleInfo: {
                     showExcelButton: true
@@ -37,12 +37,12 @@
                 fb = feedbacks[i];
 
                 currentRow = [
-                { Name: 'ColRunningNo', Value: fb.FeedbackId },
-                { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
-                { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
-                { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
-                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap' }
-            ];
+                    { Name: 'ColRunningNo', Value: fb.FeedbackId },
+                    { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
+                    { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
+                    { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
+                    { Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' }
+                ];
 
                 status = fb.Status ? fb.Status.toLowerCase() : '';
                 cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
@@ -67,19 +67,30 @@
 
             tableLatestFeedback = element.find('#table-latest-feedback');
             tableLatestFeedback
-            .empty()
-            .removeClass('hide')
-            .fanexGrid(gridOptions);
+                .empty()
+                .removeClass('hide')
+                .fanexGrid(gridOptions);
 
             if (bodyData.length > 0) {
                 var tooltips = $('.desTooltip');
                 tooltips.unbind('click')
-                .bind('click', function () {
-                    var $this = $(this);
-                    $(".tipsy").remove();
-                    scope.openEditFeedbackPopup($this.data('id'));
-                })
-                .tipsy({ fade: true, gravity: 'nw', html: true, title: function () { return feedbacks[$(this).data('index')].DescriptionTooltip; } });
+                    .bind('click', function () {
+                        var $this = $(this);
+                        $(".tipsy").remove();
+                        scope.openEditFeedbackPopup($this.data('id'));
+                    }).tipsy({
+                        fade: true,
+                        gravity: 'nw',
+                        html: true,
+                        title: function () {
+                            return feedbacks[$(this).data('index')].DescriptionTooltip;
+                        }
+                    });
+
+                $('.viewRelatedCustomer').unbind('click')
+                    .bind('click', function () {
+                        scope.showRelatedCustomer($(this).data('id'));
+                    });
             }
         }
 
@@ -96,9 +107,25 @@
                 <div>Solving Duration: ' + feedback.DurationTime + '</div>';
 
             var reviewer = (feedback.ReviewerName && feedback.ReviewerName.length > 0) ?
-            '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
-            '';
+                '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
+                '';
             return html + reviewer + '</div></div>';
+        }
+
+        function renderRelatedCustomerColumn(feedback) {
+            var html = feedback.Username;
+
+            if (!feedback.IsRelated) {
+                var customers = feedback.RelatedCustomer.split(',');
+                if (customers.length > 20) {
+                    html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
+                        + customers.length + ' customers</a>';
+                } else {
+                    html = customers.join(', ');
+                }
+            }
+
+            return html;
         }
 
         return {

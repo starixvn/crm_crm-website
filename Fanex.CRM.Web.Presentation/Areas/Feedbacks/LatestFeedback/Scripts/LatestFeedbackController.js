@@ -5,7 +5,7 @@
     username,
     tops */
     angular.module('feedback-latest-application').controller('latestFeedbackController', ['$scope', 'latestFeedbackService', '$uiBlockerService', function (
-    $scope, latestFeedbackService, $uiBlockerService) {
+        $scope, latestFeedbackService, $uiBlockerService) {
         $scope.custId = custId;
         $scope.username = username;
 
@@ -22,13 +22,13 @@
             }
 
             latestFeedbackService.getLatestFeedback(criteria)
-            .then(function (data) {
-                $scope.report = data.Result;
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                .then(function (data) {
+                    $scope.report = data.Result;
+                    $uiBlockerService.unblockUI();
+                },
+                function () {
+                    $uiBlockerService.unblockUI();
+                });
         };
 
         $scope.openEditFeedbackPopup = function (id) {
@@ -55,8 +55,34 @@
             $scope.$apply();
         };
 
+        $scope.showRelatedCustomer = function (feedbackId) {
+            var index = $scope.report.Feedbacks.findIndex(feedback => feedback.FeedbackId === feedbackId);
+            var popupElement = parent.$('#div-resultpopup');
+            popupElement.removeClass('display-none').html($scope.report.Feedbacks[index].RelatedCustomer.split(',').join(', '));
+            popupElement.dialog({
+                width: 900,
+                minHeight: 300,
+                maxHeight: 500,
+                zIndex: 500,
+                position: { my: 'center', at: 'center' },
+                resizable: true,
+                modal: true,
+                title: latestFeedbackResources.RelatedCustomer,
+                close: function (event, ui) {
+                    popupElement.dialog('destroy');
+                    popupElement.addClass('display-none').html('');
+                },
+                buttons: [{
+                    text: latestFeedbackResources.Closed,
+                    click: function () {
+                        popupElement.dialog('close');
+                    }
+                }]
+            });
+        };
+
         angular.element(document).ready(function () {
             $scope.getLatestFeedback();
         });
-    } ]);
+    }]);
 })();

@@ -1,5 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Common.Repositories;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
@@ -8,10 +12,6 @@
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Infrastructure.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class FeedbackRepository : BaseRepository, IFeedbackRepository
     {
@@ -45,7 +45,7 @@
                     var feedbacks = multi.Read<DeletedFeedback>();
                     var settings = multi.Read<SettingItem>();
 
-                    return GenerateFeedBackDetailWithSetting(feedbacks, settings); ;
+                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
         }

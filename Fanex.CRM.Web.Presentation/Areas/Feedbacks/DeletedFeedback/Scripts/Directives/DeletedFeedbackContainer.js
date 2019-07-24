@@ -23,7 +23,7 @@
                     { HeaderText: deletedFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: deletedFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: deletedFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: deletedFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left'}],
+                    { HeaderText: deletedFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }],
                 showTitle: true,
                 titleInfo: {
                     text: deletedFeedbackResources.DeletedFeedbackTitle,
@@ -62,12 +62,13 @@
             var fb;
             for (var i = 0; i < fbLength; i++) {
                 fb = feedbacks[i];
-                bodyData.push({ Columns: [
-                { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
-                { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
-                { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
-                { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
-                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap'}]
+                bodyData.push({
+                    Columns: [
+                        { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
+                        { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
+                        { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
+                        { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
+                        { Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' }]
                 });
             }
 
@@ -84,16 +85,20 @@
 
             tableDeletedFeedback = element.find('#table-deleted-feedback');
             tableDeletedFeedback
-            .empty()
-            .removeClass('hide')
-            .fanexGrid(gridOptions);
+                .empty()
+                .removeClass('hide')
+                .fanexGrid(gridOptions);
 
             if (totalItems > 0) {
-                $('.desTooltip')
-                .unbind('click')
-                .bind('click', function () {
-                    scope.openEditFeedbackPopup($(this).data('id'));
-                });
+                $('.desTooltip').unbind('click')
+                    .bind('click', function () {
+                        scope.openEditFeedbackPopup($(this).data('id'));
+                    });
+
+                $('.viewRelatedCustomer').unbind('click')
+                    .bind('click', function () {
+                        scope.showRelatedCustomer($(this).data('id'));
+                    });
             }
         }
 
@@ -109,9 +114,25 @@
                 <div>By <span class="b">' + feedback.CreatorName + '</span> on ' + feedback.CreateDateString + '</div>';
 
             var reviewer = (feedback.ReviewerName && feedback.ReviewerName.length > 0) ?
-        '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
-        '';
+                '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
+                '';
             return html + reviewer + '</div></div>';
+        }
+
+        function renderRelatedCustomerColumn(feedback) {
+            var html = feedback.Username;
+
+            if (!feedback.IsRelated) {
+                var customers = feedback.RelatedCustomer.split(',');
+                if (customers.length > 20) {
+                    html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
+                        + customers.length + ' customers</a>';
+                } else {
+                    html = customers.join(', ');
+                }
+            }
+
+            return html;
         }
 
         return {

@@ -9,7 +9,7 @@
     currentTime */
     /* jshint camelcase: false */
     angular.module('deleted-feedback-application').controller('deletedFeedbackController', ['$scope', 'deletedFeedbackService', '$uiBlockerService', function (
-    $scope, deletedFBService, $uiBlockerService) {
+        $scope, deletedFBService, $uiBlockerService) {
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.subCategoryOptions = null;
@@ -104,53 +104,53 @@
             $scope.$apply();
         };
 
-    $scope.updateSelectedMainCategory = function (mainCategory) {
-        $scope.searchCriteria.MainCategory = mainCategory;        
-        $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-        $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
-        $scope.$apply();
-    };
+        $scope.updateSelectedMainCategory = function (mainCategory) {
+            $scope.searchCriteria.MainCategory = mainCategory;
+            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
+            $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
+            $scope.$apply();
+        };
 
-    $scope.updateSelectedSubCategory = function (subCategory) {
-        $scope.searchCriteria.SubCategory = subCategory;
-        $scope.$apply();
-    };
+        $scope.updateSelectedSubCategory = function (subCategory) {
+            $scope.searchCriteria.SubCategory = subCategory;
+            $scope.$apply();
+        };
 
-    $scope.getAllSetting = function () {
-        deletedFBService.getAllSetting()
-            .then(function (data) {
-                var settings = data.Result;
-                $scope.settings = data.Result;
-                $scope.customerTypes = settings.CustomerType;
-                $scope.reviews = settings.Review;
-                $scope.responses = settings.CustomerResponse;
-                $scope.communications = settings.Communication;
+        $scope.getAllSetting = function () {
+            deletedFBService.getAllSetting()
+                .then(function (data) {
+                    var settings = data.Result;
+                    $scope.settings = data.Result;
+                    $scope.customerTypes = settings.CustomerType;
+                    $scope.reviews = settings.Review;
+                    $scope.responses = settings.CustomerResponse;
+                    $scope.communications = settings.Communication;
 
-                $scope.mainCategoryOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedMainCategory
-                };
-                $scope.subCategoryOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedSubCategory
-                };
+                    $scope.mainCategoryOptions = {
+                        DataList: [],
+                        OnChangeEvent: $scope.updateSelectedMainCategory
+                    };
+                    $scope.subCategoryOptions = {
+                        DataList: [],
+                        OnChangeEvent: $scope.updateSelectedSubCategory
+                    };
 
-                $scope.mainCategoryOptions.DataList = settings.MainCategory;
-                $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
+                    $scope.mainCategoryOptions.DataList = settings.MainCategory;
+                    $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
 
-                // Set default item of <select>.
-                $scope.searchCriteria.IsReviewed = $scope.reviews[0];
-                $scope.searchCriteria.Response = $scope.responses[0];
-                $scope.searchCriteria.Communication = $scope.communications[0];
-                $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
-                $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
-                $scope.searchCriteria.IsGuest = $scope.customerTypes[0];
+                    // Set default item of <select>.
+                    $scope.searchCriteria.IsReviewed = $scope.reviews[0];
+                    $scope.searchCriteria.Response = $scope.responses[0];
+                    $scope.searchCriteria.Communication = $scope.communications[0];
+                    $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
+                    $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
+                    $scope.searchCriteria.IsGuest = $scope.customerTypes[0];
 
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                    $uiBlockerService.unblockUI();
+                },
+                    function () {
+                        $uiBlockerService.unblockUI();
+                    });
         };
 
         $scope.filterManageFeedback = function () {
@@ -178,33 +178,59 @@
             $scope.cachedCriteria.FromCache = $scope.cachedCriteria.PageIndex !== 1;
 
             deletedFBService.searchDeletedFeedback($scope.cachedCriteria)
-            .then(function (data) {
-                $scope.report = data.Result;
-                $scope.report.Settings = $scope.settings;
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
+                .then(function (data) {
+                    $scope.report = data.Result;
+                    $scope.report.Settings = $scope.settings;
+                    $uiBlockerService.unblockUI();
+                },
+                    function () {
+                        $uiBlockerService.unblockUI();
+                    });
+        };
+
+        $scope.openEditFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id + '&isDeletedFeedbackView=true';
+            var maxWidthOfPopUp = 987;
+            var maxHeightOfPopUp = $(parent.document).height();
+            parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
+                $scope.searchDeletedFeedback();
             });
         };
 
-    $scope.openEditFeedbackPopup = function (id) {
-        var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id + '&isDeletedFeedbackView=true';
-        var maxWidthOfPopUp = 987;
-        var maxHeightOfPopUp = $(parent.document).height();
-        parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
-            $scope.searchDeletedFeedback();
-        });
-    };
+        $scope.exportFeedbackExcel = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "Feedbacks/ExportDeletedFeedbacks",
+                Params: $scope.cachedCriteria
+            };
 
-    $scope.exportFeedbackExcel = function () {
-        $scope.downloadFileOptions = {
-            URL: window.rootUrl + "Feedbacks/ExportDeletedFeedbacks",
-            Params: $scope.cachedCriteria
+            $scope.$apply();
         };
 
-        $scope.$apply();
-    };
+        $scope.showRelatedCustomer = function (feedbackId) {
+            var index = $scope.report.Feedbacks.findIndex(feedback => feedback.FeedbackId === feedbackId);
+            var popupElement = parent.$('#div-resultpopup');
+            popupElement.removeClass('display-none').html($scope.report.Feedbacks[index].RelatedCustomer.split(',').join(', '));
+            popupElement.dialog({
+                width: 900,
+                minHeight: 300,
+                maxHeight: 500,
+                zIndex: 500,
+                position: { my: 'center', at: 'center' },
+                resizable: true,
+                modal: true,
+                title: deletedFeedbackResources.RelatedCustomer,
+                close: function (event, ui) {
+                    popupElement.dialog('destroy');
+                    popupElement.addClass('display-none').html('');
+                },
+                buttons: [{
+                    text: deletedFeedbackResources.Closed,
+                    click: function () {
+                        popupElement.dialog('close');
+                    }
+                }]
+            });
+        };
 
         angular.element(document).ready(function () {
             $uiBlockerService.blockUI();
@@ -212,5 +238,5 @@
             $scope.initDatePicker();
             $scope.getAllSetting();
         });
-    } ]);
+    }]);
 })();

@@ -3,9 +3,7 @@
 @model IList<Fanex.CRM.Infrastructure.Models.BaseModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     ViewBag.Title = Labels.LatestFeedbackDocumentTitle;
-
     var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 @section Styles{
@@ -17,8 +15,7 @@
             <div class="row">
                 <label for="top">@Labels.Top</label>
                 <select id="top" class="sel-top" data-ng-model="top" data-ng-options="a.Name for a in tops"
-                    data-ng-change="getLatestFeedback()">
-                </select>
+                        data-ng-change="getLatestFeedback()"></select>
             </div>
         </div>
         <div class="row">
@@ -51,7 +48,8 @@
             RelatedCustomer: '@Labels.RelatedCustomer',
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle',
             RunningNo: '@Labels.RunningNo',
-            There_is_no_data: '@CommonLabels.There_is_no_data'
+            There_is_no_data: '@CommonLabels.There_is_no_data',
+            Closed: '@CommonLabels.Closed'
         };
     </script>
 }
