@@ -23,7 +23,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
         IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria);
 
-        IEnumerable<MainSetting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria);
+        IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria);
 
         IEnumerable<SettingRelation> MainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
