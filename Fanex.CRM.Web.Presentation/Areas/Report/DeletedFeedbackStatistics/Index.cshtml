@@ -2,11 +2,10 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Report.Helpers;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     var clientDate = DateTimeUtilize.CurrentClientTime().ToShortFormatedDate();
-    
     var year = DateTime.Now.Year;
     var month = DateTime.Today.Month;
     var fromDate = new DateTime(year, month, 1).AddMonths(-1).ToShortDateString();
@@ -20,34 +19,35 @@
     <div class="main container" data-ng-controller="deletedFeedbackStatisticsController">
         <div class="filter-frm one-row">
             <form novalidate>
-            <div class="row row-item">
-                <div class="item">
-                    <label class="handler-label" for="handler">@Labels.Handler</label>
-                    <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler"/>
-                </div>
-                <div class="item">
-                    <label for="fromDate">@Labels.From</label>
-                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                        <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                <div class="row row-item">
+                    <div class="item">
+                        <label class="handler-label" for="handler">@Labels.Handler</label>
+                        <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
+                    </div>
+                    <div class="item">
+                        <label for="fromDate">@Labels.From</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="toDate">@Labels.To</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
-                <div class="item">
-                    <label for="toDate">@Labels.To</label>
-                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                        <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="deletedBy">@Labels.DeletedBy</label>
+                        <input type="text" class="textbox" id="deletedBy" data-ng-model="searchCriteria.DeletedBy" />
+                    </div>
+                    <div class="item">
+                        <button class="btn" data-ng-click="getReport();">
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="row row-item">
-                <div class="item">
-                    <label for="deletedBy">@Labels.DeletedBy</label>
-                    <input type="text" class="textbox" id="deletedBy" data-ng-model="searchCriteria.DeletedBy"/>
-                </div>
-                <div class="item">
-                    <button class="btn" data-ng-click="getReport();">
-                        <span class="hotkey">S</span>ubmit</button>
-                </div>
-            </div>
             </form>
         </div>
         <div>
@@ -72,7 +72,6 @@
         var viewResources = {
             All: '@Labels.All',
             Grand_Total: '@Labels.Grand_Total',
-
             Date: '@Labels.Date',
             Handler: '@Labels.Handler',
             DeletedBy: '@Labels.DeletedBy',
@@ -80,7 +79,8 @@
             Category: '@Labels.Category',
             Customer: '@Labels.Customer',
             RelatedCustomer: '@Labels.RelatedCustomer',
-            FeedbackDetail: '@Labels.FeedbackDetail'
+            FeedbackDetail: '@Labels.FeedbackDetail',
+            Close: '@CommonLabels.Btn_Close'
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",

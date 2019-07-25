@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Setting.Repositories
 {
+    using Common.Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -17,6 +18,7 @@ namespace Fanex.CRM.Setting.Repositories
     using Fanex.Data;
     using Fanex.Data.Repository;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Setting Repository.
@@ -250,7 +252,15 @@ namespace Fanex.CRM.Setting.Repositories
 
         public IList<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
         {
-            return ReadBaseModels(criteria, "StatusId", "Name");
+            var data = ReadBaseModels(criteria, "StatusId", "Name");
+            var closedStatus = data.Where(d => d.Id == (int)CRMStatus.Closed).FirstOrDefault();
+            if (closedStatus != null)
+            {
+                data.Remove(closedStatus);
+                data.Insert(0, closedStatus);
+            }
+
+            return data;
         }
 
         public IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria)

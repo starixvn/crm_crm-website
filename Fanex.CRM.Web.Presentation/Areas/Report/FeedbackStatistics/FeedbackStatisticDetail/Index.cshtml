@@ -1,35 +1,34 @@
 ﻿@using Fanex.CRM.Report.Resources
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @model Fanex.CRM.Report.Criteria.FeedbackStatisticReport.GetFeedbackStatisticDetailCriteria
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     ViewBag.Title = Resources.Language.Title_Report_FeedbackStatistics;
-    
     var criteria = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 @section Styles{
-@RazorHelper.RenderStyles("~/bundles/Report/FeedbackStatisticDetailStyles")
+    @RazorHelper.RenderStyles("~/bundles/Report/FeedbackStatisticDetailStyles")
 }
 <div data-ng-app="feedback-statistic-detail-application">
-<div data-ng-controller="feedbackStatisticDetailController">
-    <div class="main container">
-        <div class="row">
-            <div table-feedback-statistic-detail-container data-ng-model="feedbackStatisticDetail">
-                <div id="table-feedback-statistic-detail" class="freegrid hide"></div>
+    <div data-ng-controller="feedbackStatisticDetailController">
+        <div class="main container">
+            <div class="row">
+                <div table-feedback-statistic-detail-container data-ng-model="feedbackStatisticDetail">
+                    <div id="table-feedback-statistic-detail" class="freegrid hide"></div>
+                </div>
+            </div>
+            <div class="download-file-container hide" data-ng-model="downloadFileOptions">
+                <iframe id="downloadFileContainer" width="0" height="0"></iframe>
             </div>
         </div>
-        <div class="download-file-container hide" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0"></iframe>
-        </div>
-    </div>  
-</div>
+    </div>
 </div>
 @section Scripts {
-@RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
-        "~/CRM/DownLoadFile/Scripts",
-        "~/bundles/Report/FeedbackStatisticDetailScripts")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+            "~/CRM/DownLoadFile/Scripts",
+            "~/bundles/Report/FeedbackStatisticDetailScripts")
 
-        <script type="text/javascript">
+    <script type="text/javascript">
        window.rootUrl = '@Url.Content("~")';
        var criteria = @Html.Raw(criteria);
        var feedbackStatisticDetailResources = {
@@ -38,7 +37,8 @@
             Category: '@Labels.Category',
             SubCategory: '@Labels.SubCategory',
             Status: '@Labels.Status',
-            RelatedCustomer: '@Labels.RelatedCustomer'
+            RelatedCustomer: '@Labels.RelatedCustomer',
+            Close: '@CommonLabels.Btn_Close'
         };
-   </script>
+    </script>
 }

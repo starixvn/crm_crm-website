@@ -18,9 +18,9 @@
             }
 
             var columns = [
-            { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];           
+                { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left' }];
 
             columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({
@@ -73,12 +73,11 @@
                     cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
                     currentRow = [
                         { Name: 'ColFeedback', Value: renderFeedbackColumn(feedback) },
-                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap'}];                   
+                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap' }];
 
                     currentRow.push({ Name: 'ColMainCategory', Value: nameMapping.renderCategoryColumn(feedback, mainCategories, true) });
                     currentRow.push({ Name: 'ColStatus', Value: feedback.Status });
-                    currentRow.push({ Name: 'ColRelatedCustomer', 
-                        Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap' });
+                    currentRow.push({ Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(feedback), CssClass: 'word-wrap' });
 
                     bodyData.push({ Columns: currentRow, CssClass: cssClass });
                 }
@@ -100,15 +99,15 @@
                 <div>Solving Duration: ' + feedback.DurationTime + '</div>';
 
             var reviewer = (feedback.ReviewerName && feedback.ReviewerName.length > 0) ?
-        '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
-        '';
+                '<div>Reviewed by <span class="b">' + feedback.ReviewerName + '</span> on ' + feedback.SolveDateString + '</div>' :
+                '';
             return html + reviewer + '</div></div>';
         }
 
         function renderFeedbackStatisticDetail(scope, element) {
             isShowSubCategory = scope.searchCriteria.MainCategoryId === 0 &&
-            scope.searchCriteria.SubCategoryId === 0 &&
-            scope.searchCriteria.ValueId === 0;
+                scope.searchCriteria.SubCategoryId === 0 &&
+                scope.searchCriteria.ValueId === 0;
             var report = scope.feedbackStatisticDetail;
             var bodyData = getGridBody(scope, report.Feedbacks, scope.mainCategory);
 
@@ -124,6 +123,26 @@
             }
 
             tableFeedbackStatisticDetail.empty().removeClass('hide').fanexGrid(gridOptions);
+            $('.viewRelatedCustomer').unbind('click')
+                .bind('click', function () {
+                    scope.showRelatedCustomer($(this).data('id'));
+                });
+        }
+
+        function renderRelatedCustomerColumn(feedback) {
+            var html = feedback.Username;
+
+            if (!feedback.IsRelated) {
+                var customers = feedback.RelatedCustomer ? feedback.RelatedCustomer.split(',') : [];
+                if (customers.length > 20) {
+                    html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
+                        + customers.length + ' customers</a>';
+                } else {
+                    html = customers.join(', ');
+                }
+            }
+
+            return html;
         }
 
         return {

@@ -11,8 +11,8 @@
     createUpdateFeedbackPermission,
     isGuest */
     /* jshint camelcase: false */
-    angular.module('feedback-manage-application').controller('manageFeedbackController',['$scope', 'manageFeedbackService', '$uiBlockerService', '$resultMessageService', function (
-    $scope, manageFBService, $uiBlockerService, $resultMessageService) {
+    angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', '$resultMessageService', function (
+        $scope, manageFBService, $uiBlockerService, $resultMessageService) {
         $scope.isSetFocus = false;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
@@ -103,47 +103,47 @@
 
         $scope.getAllSetting = function () {
             manageFBService.getAllSetting()
-            .then(function (data) {
-                var settings = data.Result;
-                $scope.settings = data.Result;
-                $scope.customerTypes = settings.CustomerType;
-                $scope.reviews = settings.Review;
-                $scope.responses = settings.CustomerResponse;
-                $scope.communications = settings.Communication;
-                $scope.statusList = settings.Status;
+                .then(function (data) {
+                    var settings = data.Result;
+                    $scope.settings = data.Result;
+                    $scope.customerTypes = settings.CustomerType;
+                    $scope.reviews = settings.Review;
+                    $scope.responses = settings.CustomerResponse;
+                    $scope.communications = settings.Communication;
+                    $scope.statusList = settings.Status;
 
-                $scope.mainCategoryOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedMainCategory
-                };
-                $scope.subCategoryOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedSubCategory
-                };
+                    $scope.mainCategoryOptions = {
+                        DataList: [],
+                        OnChangeEvent: $scope.updateSelectedMainCategory
+                    };
+                    $scope.subCategoryOptions = {
+                        DataList: [],
+                        OnChangeEvent: $scope.updateSelectedSubCategory
+                    };
 
-                $scope.mainCategoryOptions.DataList = settings.MainCategory;
-                $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
+                    $scope.mainCategoryOptions.DataList = settings.MainCategory;
+                    $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
 
-                // Set default item of <select>.
-                $scope.searchCriteria.IsReviewed = $scope.reviews[0];
-                $scope.searchCriteria.Response = $scope.responses[0];
-                $scope.searchCriteria.Communication = $scope.communications[0];
-                $scope.searchCriteria.Status = $scope.statusList[0];
-                $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
-                $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
+                    // Set default item of <select>.
+                    $scope.searchCriteria.IsReviewed = $scope.reviews[0];
+                    $scope.searchCriteria.Response = $scope.responses[0];
+                    $scope.searchCriteria.Communication = $scope.communications[0];
+                    $scope.searchCriteria.Status = $scope.statusList[0];
+                    $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
+                    $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
 
-                if (username && username.length !== 0) {
-                    $scope.searchCriteria.IsGuest = $scope.customerTypes[isGuest + 1];
-                }
-                else {
-                    $scope.searchCriteria.IsGuest = $scope.customerTypes[0];
-                }
+                    if (username && username.length !== 0) {
+                        $scope.searchCriteria.IsGuest = $scope.customerTypes[isGuest + 1];
+                    }
+                    else {
+                        $scope.searchCriteria.IsGuest = $scope.customerTypes[0];
+                    }
 
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                    $uiBlockerService.unblockUI();
+                },
+                    function () {
+                        $uiBlockerService.unblockUI();
+                    });
         };
 
         $scope.filterManageFeedback = function () {
@@ -172,14 +172,14 @@
                 ItemsPerPage: $scope.searchCriteria.ItemsPerPage
             };
             manageFBService.searchManageFeedback(criteria)
-            .then(function (data) {
-                $scope.report = data.Result;
-                $scope.report.MainCategory = $scope.settings.MainCategory;
-                $uiBlockerService.unblockUI();
-            },
-            function () {
-                $uiBlockerService.unblockUI();
-            });
+                .then(function (data) {
+                    $scope.report = data.Result;
+                    $scope.report.MainCategory = $scope.settings.MainCategory;
+                    $uiBlockerService.unblockUI();
+                },
+                function () {
+                    $uiBlockerService.unblockUI();
+                });
         };
         $scope.openEditFeedbackPopup = function (id) {
             var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
@@ -199,7 +199,7 @@
 
         $scope.openEditMultipleLogs = function () {
             var selectedFeedbacks = $scope.getSelectedFeedbacks();
-            if(selectedFeedbacks.length === 0) {
+            if (selectedFeedbacks.length === 0) {
                 return;
             }
 
@@ -225,7 +225,7 @@
             var maxHeightOfPopUp = 290;
 
             parent.OpenPopup(url, manageFeedbackResources.EditMultipleLogStatusesTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, parent.window, 2000, null, $scope.closeEditView);
-        }
+        };
 
         $scope.updateSiteLicenseeType = function () {
             var selectedFeedbacks = $scope.getSelectedFeedbacks();
@@ -239,17 +239,17 @@
 
             $uiBlockerService.blockUI();
             manageFBService.updateSiteLicenseeType(criteria)
-              .then(
-                function (data) {
-                  $resultMessageService.showMessage({
-                      messageType: crmConstants.Enums.MessageType.Success,
-                      message: data.Result.Message
-                  });                  
-                  $scope.searchManageFeedback();
-                },
-                function (data) {
-                    $uiBlockerService.unblockUI();
-                });
+                .then(
+                    function (data) {
+                        $resultMessageService.showMessage({
+                            messageType: crmConstants.Enums.MessageType.Success,
+                            message: data.Result.Message
+                        });
+                        $scope.searchManageFeedback();
+                    },
+                    function (data) {
+                        $uiBlockerService.unblockUI();
+                    });
         };
 
         $scope.checkActionItem = function (id) {
@@ -280,10 +280,10 @@
             return $scope.isCheckedAll;
         };
 
-        $scope.getSelectedFeedbacks = function() {
+        $scope.getSelectedFeedbacks = function () {
             var selectedFeedbacks = [];
             angular.forEach($scope.report.Feedbacks, function (feedback) {
-                if(feedback.IsChecked) {
+                if (feedback.IsChecked) {
                     this.push({ FeedbackId: feedback.FeedbackId, UserName: feedback.Username });
                 }
             }, selectedFeedbacks);
@@ -316,11 +316,37 @@
             $scope.$apply();
         };
 
+        $scope.showRelatedCustomer = function (feedbackId) {
+            var index = $scope.report.Feedbacks.findIndex(feedback => feedback.FeedbackId === feedbackId);
+            var popupElement = parent.$('#div-resultpopup');
+            popupElement.removeClass('display-none').html($scope.report.Feedbacks[index].RelatedCustomer.split(',').join(', '));
+            popupElement.dialog({
+                width: 900,
+                minHeight: 300,
+                maxHeight: 500,
+                zIndex: 500,
+                position: { my: 'center', at: 'center' },
+                resizable: true,
+                modal: true,
+                title: manageFeedbackResources.RelatedCustomer,
+                close: function (event, ui) {
+                    popupElement.dialog('destroy');
+                    popupElement.addClass('display-none').html('');
+                },
+                buttons: [{
+                    text: manageFeedbackResources.Close,
+                    click: function () {
+                        popupElement.dialog('close');
+                    }
+                }]
+            });
+        };
+
         angular.element(document).ready(function () {
             $uiBlockerService.blockUI();
 
             $scope.initDatePicker();
             $scope.getAllSetting();
         });
-    } ]);
+    }]);
 })();

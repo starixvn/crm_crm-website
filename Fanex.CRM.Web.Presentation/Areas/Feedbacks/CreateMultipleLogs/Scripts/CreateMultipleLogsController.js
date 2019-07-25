@@ -64,7 +64,7 @@
                 Value: ''
             },
             Subject: '',
-            Remark: '',
+            Remark: "<div><font color=\"#ff0000\">" + viewResources.Remark_Multiple_Log_Note + "</font></div><br/>",
             Solution: ''
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
@@ -542,7 +542,12 @@
                 Categories: params.Categories
             };
 
-            callCreateMultipleLogs(params);            
+            parent.dialogManager.confirm(viewResources.Confirm_Changes, viewResources.Confirm_Changes_Message,
+                  function (result) {
+                      callCreateMultipleLogs(params);
+                  }
+              );
+            
         }
 
         var callCreateMultipleLogs = function (params) {

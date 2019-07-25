@@ -368,4 +368,10 @@
   <data name="Auto_Generated" xml:space="preserve">
     <value>Auto-generated</value>
   </data>
+  <data name="Confirm_Changes" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="Confirm_Changes_Message" xml:space="preserve">
+    <value>Are you sure you want to Add or Update the Feedback/Log?</value>
+  </data>
 </root>

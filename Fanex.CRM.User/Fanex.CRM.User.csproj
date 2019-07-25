@@ -174,7 +174,11 @@
     <Compile Include="Services\LocalAuthenticationService.cs" />
     <Compile Include="Services\SSOAuthenticationService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -169,6 +169,24 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string Confirm_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to Add or Update the Feedback/Log?.
+        /// </summary>
+        public static string Confirm_Changes_Message {
+            get {
+                return ResourceManager.GetString("Confirm_Changes_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_MultipleLogs_Changes {
@@ -1110,6 +1128,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Remark {
             get {
                 return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This entry is created by Multiple Logs.
+        /// </summary>
+        public static string Remark_Multiple_Log_Note {
+            get {
+                return ResourceManager.GetString("Remark_Multiple_Log_Note", resourceCulture);
             }
         }
         

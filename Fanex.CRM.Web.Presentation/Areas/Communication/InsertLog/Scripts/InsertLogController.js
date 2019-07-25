@@ -614,7 +614,11 @@
             };
 
             if ($scope.validateInsertLogCriteria(insertCriteria)) {
-                $scope.checkDuplicationThenCreateFeedback(insertCriteria);               
+                parent.dialogManager.confirm(viewResources.Confirm_Changes, viewResources.Confirm_Changes_Message,
+                    function (result) {
+                        $scope.checkDuplicationThenCreateFeedback(insertCriteria);
+                    }
+                );                
             }
         };
 

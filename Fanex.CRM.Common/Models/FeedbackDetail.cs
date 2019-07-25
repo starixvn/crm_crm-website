@@ -1,22 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackDetail.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.15">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Models
+﻿namespace Fanex.CRM.Common.Models
 {
-    using Fanex.CRM.Common.Helpers;
     using System;
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
+    using Fanex.CRM.Common.Helpers;
 
-    /// <summary>
-    /// Feedback detail.
-    /// </summary>
     [Serializable]
     public class FeedbackDetail
     {
@@ -24,6 +12,7 @@ namespace Fanex.CRM.Common.Models
         {
             this.Settings = new List<SettingItem>();
         }
+
         public int FeedbackId { get; set; }
 
         public string Username { get; set; }

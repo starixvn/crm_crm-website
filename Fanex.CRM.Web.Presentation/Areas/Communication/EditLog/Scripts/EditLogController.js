@@ -445,16 +445,20 @@
             };
 
             if ($scope.validateUpdateLogCriteria(updateCriteria)) {
-                $scope.BlockUI();
-                $editLogService.updateLog(updateCriteria, isDeletedStatus)
-                .then(function (data) {
-                    var updateResult = data.Result;
-                    $scope.showUpdateResult(updateResult);
-                    $scope.unblockUI();
-                },
-                function () {
-                    $scope.unblockUI();
-                });
+                parent.dialogManager.confirm(viewResources.Confirm_Changes, viewResources.Confirm_Changes_Message,
+                     function (result) {
+                         $scope.BlockUI();
+                         $editLogService.updateLog(updateCriteria, isDeletedStatus)
+                         .then(function (data) {
+                             var updateResult = data.Result;
+                             $scope.showUpdateResult(updateResult);
+                             $scope.unblockUI();
+                         },
+                         function () {
+                             $scope.unblockUI();
+                         });
+                     }
+                 );
             }
         };
         $scope.showUpdateResult = function (updateResult) {

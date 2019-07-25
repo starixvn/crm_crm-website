@@ -65,11 +65,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return result;
         }
 
-        public IEnumerable<MainSetting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
+        public IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
         {
-            var mainSetting = GetMainSettingCN88(new GetMainSettingCriteria());
+            var mainSetting = GetMainSettings();
             return mainSetting
-                .Where(s => !string.Equals(s.SettingNameEn, criteria.MainSetting.SettingType, StringComparison.Ordinal))
+                .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
                 .ToList();
         }
 

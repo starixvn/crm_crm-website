@@ -120,6 +120,9 @@
   <data name="Btn_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="Btn_Duplicate" xml:space="preserve">
     <value>复制</value>
   </data>
