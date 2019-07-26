@@ -1,11 +1,11 @@
 ﻿namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
 {
+    using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Entities.RedemptionStatistics;
     using Fanex.Data;
-    using System.Collections.Generic;
 
     public class RedemptionStatisticsRepository : IRedemptionStatisticsRepository
     {

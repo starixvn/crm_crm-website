@@ -1,15 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionLogService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Redemption.Services.RedemptionLog
+﻿namespace Fanex.CRM.Redemption.Services.RedemptionLog
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
@@ -19,30 +15,25 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    /// <summary>
-    /// Redemption Log Service.
-    /// </summary>
     public class RedemptionLogService : IRedemptionLogService
     {
         private readonly IRedemptionLogRepository _logRepositoryInstance;
+        private readonly ISettingService _serviceSetting;
+        private readonly IBaseService baseService;
 
-        private ISettingService _serviceSetting;
-
-        public RedemptionLogService()
-            : this(null, null)
+        public RedemptionLogService() : this(null, null, null)
         {
         }
 
         public RedemptionLogService(
             IRedemptionLogRepository logRepositoryInstance,
+            IBaseService baseService,
             ISettingService serviceSetting)
         {
             _logRepositoryInstance = logRepositoryInstance ?? new RedemptionLogRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         private IEnumerable<BaseModel> GetRedemptionCurrencies()
@@ -72,10 +63,10 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
             return _logRepositoryInstance.GetLogById(criteria);
         }
 
-        public Result UpdateLog(UpdateLogCriteria criteria)
+        public CommandResult UpdateLog(UpdateLogCriteria criteria)
         {
             criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
-            var result = _logRepositoryInstance.UpdateLog(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Redemption_Log_UpdateSuccess;
@@ -84,10 +75,10 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
             return result;
         }
 
-        public Result InsertLog(InsertLogCriteria criteria)
+        public CommandResult InsertLog(InsertLogCriteria criteria)
         {
             criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
-            var result = _logRepositoryInstance.InsertLog(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Redemption_Log_InsertSuccess;

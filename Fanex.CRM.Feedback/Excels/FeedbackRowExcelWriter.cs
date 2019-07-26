@@ -1,12 +1,12 @@
 ﻿namespace Fanex.CRM.Feedback.Excels
 {
+    using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
 
     public class FeedbackRowExcelWriter
     {

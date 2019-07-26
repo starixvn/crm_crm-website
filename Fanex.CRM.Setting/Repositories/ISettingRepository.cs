@@ -1,19 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ISettingRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Repositories
+﻿namespace Fanex.CRM.Setting.Repositories
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
-    using System.Collections.Generic;
 
     public interface ISettingRepository
     {
@@ -37,10 +28,6 @@ namespace Fanex.CRM.Setting.Repositories
 
         IList<BaseModel> GetAllStatus(GetAllStatusCriteria criteria);
 
-        IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria);
-
-        IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
-
         IList<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
         IEnumerable<Product> GetAllBetType(GetAllBetTypeCriteria criteria);
@@ -52,8 +39,6 @@ namespace Fanex.CRM.Setting.Repositories
         IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria);
 
         IList<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
-
-        IEnumerable<Station> GetStations(GetStationsCriteria criteria);
 
         IEnumerable<Product> GetSubProducts(SubProductCriteria criteria);
     }

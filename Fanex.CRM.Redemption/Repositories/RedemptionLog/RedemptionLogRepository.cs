@@ -1,30 +1,17 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionLogRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
+﻿namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
 {
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
     using Fanex.Data;
 
-    /// <summary>
-    /// Redemption Log Repository.
-    /// </summary>
-    public class RedemptionLogRepository : BaseRepository, IRedemptionLogRepository
+    public class RedemptionLogRepository : IRedemptionLogRepository
     {
         public IEnumerable<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
@@ -86,16 +73,6 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
             }
 
             return new LogInfo();
-        }
-
-        public Result UpdateLog(UpdateLogCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        public Result InsertLog(InsertLogCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
         }
     }
 }

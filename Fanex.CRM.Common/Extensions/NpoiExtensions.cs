@@ -1,12 +1,3 @@
-// --------------------------------------------------------------------------
-// <copyright file="NpoiExcelExtensions.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
 namespace Fanex.CRM.Common.Extensions
 {
     using System;
@@ -14,16 +5,13 @@ namespace Fanex.CRM.Common.Extensions
     using System.Web;
     using Fanex.Common;
     using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Resources;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class NpoiExtensions
     {
         public const int FontWidth = 30;
@@ -46,23 +34,22 @@ namespace Fanex.CRM.Common.Extensions
         public static readonly Color GroupBackgroundColor = Color.FromArgb(215, 215, 215);
         public static readonly Color TotalColumnBackgroundColor = Color.FromArgb(240, 237, 196);
 
-        public static readonly short HeaderTitleColorIndex = (short)HSSFColor.Pink.Index;
-        public static readonly short BorderColorIndex = (short)HSSFColor.Grey80Percent.Index;
-        public static readonly short BackgroundColorIndex = (short)HSSFColor.White.Index;
-        public static readonly short EvenRowColorIndex = (short)HSSFColor.Coral.Index;
-        public static readonly short SubTotalRowColorIndex = (short)HSSFColor.DarkTeal.Index;
-        public static readonly short TotalRowColorIndex = (short)HSSFColor.DarkRed.Index;
-        public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DarkYellow.Index;
-        public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CornflowerBlue.Index;
-        public static readonly short GroupColorIndex = (short)HSSFColor.Blue.Index;
-        public static readonly short GroupBackgroundColorIndex = (short)HSSFColor.DarkGreen.Index;
-        public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.White.Index;
-        public static readonly short PendingStatusColorIndex = (short)HSSFColor.LightYellow.Index;
-        public static readonly short CloseStatusColorIndex = (short)HSSFColor.Grey25Percent.Index;
-        public static readonly short TotalColumnBackgroundIndex = (short)HSSFColor.Yellow.Index;
+        public static readonly short HeaderTitleColorIndex = HSSFColor.Pink.Index;
+        public static readonly short BorderColorIndex = HSSFColor.Grey80Percent.Index;
+        public static readonly short BackgroundColorIndex = HSSFColor.White.Index;
+        public static readonly short EvenRowColorIndex = HSSFColor.Coral.Index;
+        public static readonly short SubTotalRowColorIndex = HSSFColor.DarkTeal.Index;
+        public static readonly short TotalRowColorIndex = HSSFColor.DarkRed.Index;
+        public static readonly short GrandTotalRowColorIndex = HSSFColor.DarkYellow.Index;
+        public static readonly short GrandTotalSeparatorColorIndex = HSSFColor.CornflowerBlue.Index;
+        public static readonly short GroupColorIndex = HSSFColor.Blue.Index;
+        public static readonly short GroupBackgroundColorIndex = HSSFColor.DarkGreen.Index;
+        public static readonly short GrandTotalTextColorIndex = HSSFColor.White.Index;
+        public static readonly short PendingStatusColorIndex = HSSFColor.LightYellow.Index;
+        public static readonly short CloseStatusColorIndex = HSSFColor.Grey25Percent.Index;
+        public static readonly short TotalColumnBackgroundIndex = HSSFColor.Yellow.Index;
 
         private const string IntNumberFormat = "#,##0";
-        private const string TwoDecimalDigitNumber = "##,##0.00";
         private const string NegativeNumberFormat = "[>=0]#,##0{0}_);[RED][<0]-#,##0{1}";
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
         private const string PositiveNumberFormat = "[RED][>0]#,##0{0}_);[<0]-#,##0{1};#,##0{2}";
@@ -97,14 +84,6 @@ namespace Fanex.CRM.Common.Extensions
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, TotalColumnBackgroundColor, TotalColumnBackgroundIndex);
         }
 
-        /// <summary>
-        /// Style for header.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <param name="excelStyleParam">The excel style parameter.</param>
-        /// <returns>
-        /// The cell style.
-        /// </returns>
         public static ICellStyle GetHeaderStyle(
             HSSFWorkbook excelFile,
             ExcelStyleParam excelStyleParam)
@@ -116,7 +95,7 @@ namespace Fanex.CRM.Common.Extensions
             font.FontHeightInPoints = FontSize;
             font.FontName = FontName;
 
-            cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
+            cellStyle.FillForegroundColor = HeaderTitleColorIndex;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = excelStyleParam.Alignment != null ?
                 MappingHorizontalAlignmentType(excelStyleParam.Alignment) :
@@ -127,15 +106,6 @@ namespace Fanex.CRM.Common.Extensions
             return cellStyle;
         }
 
-        /// <summary>
-        /// Style for text.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <param name="cellColor">The color of cell.</param>
-        /// <param name="isBold">Check bold.</param>
-        /// <param name="align">Align text(value is right, left or center).</param>
-        /// <param name="fontColor">The color of font.</param>
-        /// <returns>The cell style.</returns>
         public static ICellStyle GetTextStyle(
             HSSFWorkbook excelFile,
             short cellColor,
@@ -163,16 +133,6 @@ namespace Fanex.CRM.Common.Extensions
             return cellStyle;
         }
 
-        /// <summary>
-        /// Creates the decimal number style.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <param name="backgroundColorIndex">Index of the background color.</param>
-        /// <param name="textAlign">The text align.</param>
-        /// <param name="isBold">If set to <c>true</c> [is bold].</param>
-        /// <param name="isNegative">If set to <c>true</c> [is negative].</param>
-        /// <param name="isPositive">If set to <c>true</c> [is positive].</param>
-        /// <returns>Decimal number style.</returns>
         public static ICellStyle CreateDecimalNumberStyle(
             HSSFWorkbook excelFile,
             short backgroundColorIndex,
@@ -201,17 +161,6 @@ namespace Fanex.CRM.Common.Extensions
             return decimalNumberStyle;
         }
 
-        /// <summary>
-        /// Style for number value.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <param name="cellColor">The cell color.</param>
-        /// <param name="isBold">Check bold.</param>
-        /// <param name="alignment">The alignment.</param>
-        /// <param name="fontColor">The font color.</param>
-        /// <returns>
-        /// The cell style.
-        /// </returns>
         public static ICellStyle GetIntegerNumberStyle(
             HSSFWorkbook excelFile,
             short cellColor,
@@ -241,13 +190,6 @@ namespace Fanex.CRM.Common.Extensions
             return cellStyle;
         }
 
-        /// <summary>
-        /// Render cell.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="cellRangeAddress">The cell range address.</param>
-        /// <param name="cellValue">The label of cell.</param>
-        /// <param name="cellStyle">The style of cell.</param>
         public static void RenderMergedCells(
             ExportExcelInfo exportExcelInfo,
             CellRangeAddress cellRangeAddress,
@@ -280,11 +222,6 @@ namespace Fanex.CRM.Common.Extensions
             }
         }
 
-        /// <summary>
-        /// Renders the no information message.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="currentRow">The current row.</param>
         public static void RenderNoInfoMessage(ExportExcelInfo exportExcelInfo, int currentRow)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
@@ -297,13 +234,6 @@ namespace Fanex.CRM.Common.Extensions
             RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
 
-        /// <summary>
-        /// Renders the cell.
-        /// </summary>
-        /// <param name="row">The row of report.</param>
-        /// <param name="currentColumn">The current column.</param>
-        /// <param name="cellValue">The cell value.</param>
-        /// <param name="cellStyle">The cell style.</param>
         public static void RenderCell(IRow row, int currentColumn, object cellValue, ICellStyle cellStyle)
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
@@ -313,11 +243,6 @@ namespace Fanex.CRM.Common.Extensions
             currentColumn += 1;
         }
 
-        /// <summary>
-        /// Sets the cell value.
-        /// </summary>
-        /// <param name="cell">The target cell.</param>
-        /// <param name="cellValue">The cell value.</param>
         public static void SetCellValue(ICell cell, object cellValue)
         {
             if (cellValue is string)
@@ -359,11 +284,6 @@ namespace Fanex.CRM.Common.Extensions
             workbook.Write(response.OutputStream);
         }
 
-        /// <summary>
-        /// Set border to cell.
-        /// </summary>
-        /// <param name="cellStyle">The cell style.</param>
-        /// <returns>The style of cell.</returns>
         public static ICellStyle SetBorderToCell(ICellStyle cellStyle)
         {
             cellStyle.BorderBottom = BorderStyle.Thin;
@@ -371,21 +291,14 @@ namespace Fanex.CRM.Common.Extensions
             cellStyle.BorderRight = BorderStyle.Thin;
             cellStyle.BorderTop = BorderStyle.Thin;
 
-            cellStyle.BottomBorderColor = (short)BorderColorIndex;
-            cellStyle.LeftBorderColor = (short)BorderColorIndex;
-            cellStyle.RightBorderColor = (short)BorderColorIndex;
-            cellStyle.TopBorderColor = (short)BorderColorIndex;
+            cellStyle.BottomBorderColor = BorderColorIndex;
+            cellStyle.LeftBorderColor = BorderColorIndex;
+            cellStyle.RightBorderColor = BorderColorIndex;
+            cellStyle.TopBorderColor = BorderColorIndex;
 
             return cellStyle;
         }
 
-        /// <summary>
-        /// Set border to first grand total cell.
-        /// </summary>
-        /// <param name="cellStyle">The cell style.</param>
-        /// <returns>
-        /// The style of cell.
-        /// </returns>
         public static ICellStyle SetBorderToFirstGrandTotalCell(ICellStyle cellStyle)
         {
             cellStyle.BorderBottom = BorderStyle.Thin;
@@ -393,10 +306,10 @@ namespace Fanex.CRM.Common.Extensions
             cellStyle.BorderRight = BorderStyle.Thin;
             cellStyle.BorderTop = BorderStyle.Thin;
 
-            cellStyle.BottomBorderColor = (short)BorderColorIndex;
-            cellStyle.LeftBorderColor = (short)BorderColorIndex;
-            cellStyle.RightBorderColor = (short)BorderColorIndex;
-            cellStyle.TopBorderColor = (short)GrandTotalSeparatorColorIndex;
+            cellStyle.BottomBorderColor = BorderColorIndex;
+            cellStyle.LeftBorderColor = BorderColorIndex;
+            cellStyle.RightBorderColor = BorderColorIndex;
+            cellStyle.TopBorderColor = GrandTotalSeparatorColorIndex;
 
             return cellStyle;
         }
@@ -412,11 +325,6 @@ namespace Fanex.CRM.Common.Extensions
             return excelReportName.Replace(" ", "_").Replace("/", "_");
         }
 
-        /// <summary>
-        /// Mappings the type of the horizontal alignment.
-        /// </summary>
-        /// <param name="alignment">The alignment.</param>
-        /// <returns>The NPOI horizontal alignment.</returns>
         public static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment? alignment)
         {
             if (alignment == null)
@@ -428,20 +336,18 @@ namespace Fanex.CRM.Common.Extensions
             {
                 case CRMHorizontalAlignment.Right:
                     return HorizontalAlignment.Right;
+
                 case CRMHorizontalAlignment.Center:
                     return HorizontalAlignment.Center;
+
                 case CRMHorizontalAlignment.Left:
                     return HorizontalAlignment.Left;
+
                 default:
                     return HorizontalAlignment.Left;
             }
         }
 
-        /// <summary>
-        /// Mappings the type of the vertical alignment.
-        /// </summary>
-        /// <param name="alignment">The alignment.</param>
-        /// <returns>The NPOI vertical alignment.</returns>
         public static VerticalAlignment MappingVerticalAlignmentType(CRMVerticalAlignment alignment)
         {
             // Vertical Alignment NPOI 2.0.1+ issue.
@@ -449,26 +355,24 @@ namespace Fanex.CRM.Common.Extensions
             {
                 case CRMVerticalAlignment.Top:
                     return VerticalAlignment.Bottom;
+
                 case CRMVerticalAlignment.Center:
                     return VerticalAlignment.Top;
+
                 case CRMVerticalAlignment.Bottom:
                     return VerticalAlignment.Bottom;
+
                 case CRMVerticalAlignment.Justify:
                     return VerticalAlignment.Justify;
+
                 case CRMVerticalAlignment.Distributed:
                     return VerticalAlignment.Distributed;
+
                 default:
                     return VerticalAlignment.Top;
             }
         }
 
-        /// <summary>
-        /// Gets the number format.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <param name="isNegative">If set to <c>true</c> [is negative].</param>
-        /// <param name="isPositive">If set to <c>true</c> [is positive].</param>
-        /// <returns>The number format.</returns>
         public static short GetNumerFormat(HSSFWorkbook excelFile, bool isNegative, bool isPositive)
         {
             IDataFormat dataFormat = excelFile.CreateDataFormat();
@@ -490,11 +394,6 @@ namespace Fanex.CRM.Common.Extensions
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
         }
 
-        /// <summary>
-        /// Renders the empty row.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="rowIndex">Index of the row.</param>
         public static void RenderEmptyRow(ExportExcelInfo exportExcelInfo, int rowIndex)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
@@ -506,25 +405,11 @@ namespace Fanex.CRM.Common.Extensions
             RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 
-        /// <summary>
-        /// Style for number value.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <returns>
-        /// The cell style.
-        /// </returns>
         public static ICellStyle GetIntegerNumberStyleGrandTotal(HSSFWorkbook excelFile)
         {
             return GetIntegerNumberStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Right, GrandTotalTextColorIndex);
         }
 
-        /// <summary>
-        /// Style for text.
-        /// </summary>
-        /// <param name="excelFile">The excel file.</param>
-        /// <returns>
-        /// The cell style.
-        /// </returns>
         public static ICellStyle GetTextStyleGrandTotal(HSSFWorkbook excelFile)
         {
             return GetTextStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Left, GrandTotalTextColorIndex);

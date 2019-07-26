@@ -1,6 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Helpers
 {
-    using Fanex.CRM.Infrastructure.Resources;
+    using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Report.Enums;
 
     public static class ReportHelper

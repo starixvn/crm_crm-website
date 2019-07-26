@@ -1,14 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Services
+﻿namespace Fanex.CRM.Customer.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
@@ -20,29 +13,25 @@ namespace Fanex.CRM.Customer.Services
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
     using Setting.Constants;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    /// <summary>
-    /// Customer Service.
-    /// </summary>
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
-
         private readonly ISettingService _settingService;
+        private readonly IBaseService baseService;
 
-        public CustomerService()
-            : this(null, null)
+        public CustomerService() : this(null, null, null)
         {
         }
 
         public CustomerService(
             ICustomerRepository customerRepositoryInstance,
+            IBaseService baseService,
             ISettingService settingService)
         {
             _customerRepository = customerRepositoryInstance ?? new CustomerRepository();
             _settingService = settingService ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
@@ -106,9 +95,9 @@ namespace Fanex.CRM.Customer.Services
             return uplineInfoResult;
         }
 
-        public Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
+        public CommandResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
-            var result = _customerRepository.UpdateCustomerInfo(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.CustomerInfo_UpdateSuccess;
@@ -119,7 +108,7 @@ namespace Fanex.CRM.Customer.Services
 
         public IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
         {
-            return _customerRepository.GetCustomersByUsername(criteria);
+            return baseService.GetData<string>(criteria);
         }
 
         public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)

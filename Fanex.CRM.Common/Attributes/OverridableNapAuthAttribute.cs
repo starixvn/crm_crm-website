@@ -1,11 +1,11 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using Fanex.CRM.Infrastructure.Constants;
-using Fanex.CRM.Infrastructure.Resources;
-using Fanex.NAP.Core.Web.Attribute;
-
-namespace Fanex.CRM.Common.Attributes
+﻿namespace Fanex.CRM.Common.Attributes
 {
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
+    using Fanex.CRM.Common.Resources;
+    using Fanex.NAP.Core.Web.Attribute;
+
     public class OverridableNapAuthAttribute : NapAuthAttribute
     {
         protected override void HandleForbiddenAjaxRequest(AuthorizationContext filterContext, HttpResponseBase response)
@@ -15,12 +15,12 @@ namespace Fanex.CRM.Common.Attributes
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = new
                 {
-                    Code = ErrorCodeConstants.NoPermission,
+                    Code = (int)HttpStatusCode.Forbidden,
                     Message = Labels.NoPermission
                 }
             };
 
-            filterContext.HttpContext.Response.StatusCode = 403;
+            filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
         }
-    } 
+    }
 }

@@ -5,7 +5,6 @@
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.StatisticReport;
     using NPOI.SS.UserModel;
-    using System.Diagnostics.CodeAnalysis;
 
     public class TotalRowExcelWriter
     {
@@ -46,9 +45,6 @@
 
         public ICellStyle CenterTextStyle { get; set; }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(ExportExcelInfo exportExcelInfo, StatisticReportInfo info)
         {
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);

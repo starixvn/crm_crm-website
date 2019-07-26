@@ -1,28 +1,15 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Repositories
+﻿namespace Fanex.CRM.Setting.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Common.Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    /// <summary>
-    /// Setting Repository.
-    /// </summary>
     public class SettingRepository : ISettingRepository
     {
         public List<Setting> GetAllSettings(GetAllSettingCriteria criteria)
@@ -58,7 +45,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var settings = new List<T>();
                     while (reader.Read())
                     {
-                        var setting = new T()
+                        var setting = new T
                         {
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
@@ -83,7 +70,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var settings = new List<Country>();
                     while (reader.Read())
                     {
-                        var setting = new Country()
+                        var setting = new Country
                         {
                             Id = Converter.ToInt(reader["CountryID"]),
                             Name = Converter.ToString2(reader["CountryName"]),
@@ -109,7 +96,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var settings = new List<Province>();
                     while (reader.Read())
                     {
-                        var setting = new Province()
+                        var setting = new Province
                         {
                             Id = Converter.ToInt(reader["ProvinceID"]),
                             Name = Converter.ToString2(reader["ProvinceName"]),
@@ -134,7 +121,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var settingRelations = new List<Setting>();
                     while (reader.Read())
                     {
-                        var settingInfo = new Setting()
+                        var settingInfo = new Setting
                         {
                             Id = Converter.ToInt(reader["SettingID"]),
                             ParentId = Converter.ToInt(reader["ParentId"]),
@@ -158,7 +145,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var allLanguage = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Setting
                         {
                             Id = Converter.ToInt(reader["LanguageId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -183,7 +170,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var allCommunicationTool = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Setting
                         {
                             Id = Converter.ToInt(reader["CommunicationId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -208,7 +195,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var allMainCategory = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Setting
                         {
                             Id = Converter.ToInt(reader["MainCategoryId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -233,7 +220,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var allSubCategory = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new Setting()
+                        var setting = new Setting
                         {
                             ParentId = Converter.ToInt(reader["MainCategoryID"]),
                             Id = Converter.ToInt(reader["SubCategoryId"]),
@@ -263,22 +250,6 @@ namespace Fanex.CRM.Setting.Repositories
             return data;
         }
 
-        public IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria)
-        {
-            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Status>(criteria.GetSpParams());
-            }
-        }
-
-        public IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
-        {
-            using (var obj = new ObjectDb(criteria.GetSettingKey(), 500))
-            {
-                return obj.Query<FeedbackTemplate>(criteria.GetSpParams());
-            }
-        }
-
         public IList<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
             return ReadBaseModels(criteria, "ActionID", "ActionName", true);
@@ -299,7 +270,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var allBetType = new List<Product>();
                     while (reader.Read())
                     {
-                        var setting = new Product()
+                        var setting = new Product
                         {
                             Id = Converter.ToInt(reader["BetTypeId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -325,7 +296,7 @@ namespace Fanex.CRM.Setting.Repositories
                     var subProducts = new List<Product>();
                     while (reader.Read())
                     {
-                        subProducts.Add(new Product()
+                        subProducts.Add(new Product
                         {
                             Id = Converter.ToInt(reader["SubProductID"]),
                             Value = Converter.ToString2(reader["Name"]),
@@ -353,14 +324,6 @@ namespace Fanex.CRM.Setting.Repositories
         public IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria)
         {
             return ReadBaseModels(criteria, "CurrencyId", "Currency");
-        }
-
-        public IEnumerable<Station> GetStations(GetStationsCriteria criteria)
-        {
-            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<Station>(criteria.GetSpParams());
-            }
         }
 
         private static IList<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)

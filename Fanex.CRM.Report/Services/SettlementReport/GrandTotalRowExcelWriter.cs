@@ -6,7 +6,6 @@
     using Fanex.CRM.Report.Models.SettlementReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.Diagnostics.CodeAnalysis;
 
     public class GrandTotalRowExcelWriter : SettlementReportExportExcelService
     {
@@ -40,9 +39,6 @@
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
             ExportExcelInfo exportExcelInfo,
             SettlementReportInfo info,

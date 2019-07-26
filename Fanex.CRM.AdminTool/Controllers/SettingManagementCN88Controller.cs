@@ -1,33 +1,19 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingManagementController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Controllers
+﻿namespace Fanex.CRM.AdminTool.Controllers
 {
+    using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// Setting Management Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Read)]
     public class SettingManagementCN88Controller : ReadOnlyBaseController
     {
-        private ISettingManagementService _settingManagementService;
+        private readonly ISettingManagementService _settingManagementService;
 
         public SettingManagementCN88Controller()
             : this(null)
@@ -124,7 +110,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
         {
-            Result result = _settingManagementService.DeleteSetting(criteria);
+            CommandResult result = _settingManagementService.DeleteSetting(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

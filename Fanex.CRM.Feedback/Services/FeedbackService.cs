@@ -1,5 +1,8 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Common.Services;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -12,31 +15,31 @@
     using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
     using Infrastructure.Constants;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class FeedbackService : IFeedbackService
     {
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
+        private readonly IBaseService baseService;
 
-        public FeedbackService()
-            : this(null, null)
+        public FeedbackService() : this(null, null, null)
         {
         }
 
-        public FeedbackService(IFeedbackRepository feedbackRepository, ISettingService serviceSetting)
+        public FeedbackService(IFeedbackRepository feedbackRepository,
+            IBaseService baseService,
+            ISettingService serviceSetting)
         {
             _feedbackRepository = feedbackRepository ?? new FeedbackRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public IEnumerable<BaseModel> GetTopItems
         {
             get
             {
-                return new List<BaseModel>()
+                return new List<BaseModel>
                 {
                     new BaseModel { Id = 10, Name = "10" },
                     new BaseModel { Id = 20, Name = "20" },
@@ -92,9 +95,9 @@
             return feedbacks;
         }
 
-        public Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
+        public CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
         {
-            var result = _feedbackRepository.UpdateSiteLicenseeTypes(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.UpdateSiteLicenseeTypeSuccess;
@@ -215,6 +218,6 @@
             return status;
         }
 
-        #endregion
+        #endregion Setting helper methods
     }
 }

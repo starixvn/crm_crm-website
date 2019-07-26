@@ -1,48 +1,36 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RemarkService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Remark.Services
+﻿namespace Fanex.CRM.Remark.Services
 {
     using System.Collections.Generic;
     using System.Text;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Remark service class.
-    /// </summary>
     public class RemarkService : IRemarkService
     {
         private readonly IRemarkRepository _remarkRepository;
+        private readonly IBaseService baseService;
 
-        public RemarkService()
-            : this(null)
+        public RemarkService() : this(null, null)
         {
         }
 
-        public RemarkService(IRemarkRepository remarkRepository)
+        public RemarkService(IRemarkRepository remarkRepository, IBaseService baseService)
         {
             _remarkRepository = remarkRepository ?? new RemarkRepository();
+            this.baseService = baseService ?? new BaseService();
         }
-
-        #region IRemarkService Members
 
         public Remarks GetRemarks(ICriteria criteria)
         {
             return _remarkRepository.GetRemarks(criteria);
         }
 
-        public Result UpdateRemarks(Remarks criteria)
+        public CommandResult UpdateRemarks(Remarks criteria)
         {
             var xmlContent = new StringBuilder(1024);
             xmlContent.Append("<Remarks>");
@@ -58,13 +46,13 @@ namespace Fanex.CRM.Remark.Services
 
             xmlContent.Append("</Remarks>");
 
-            UpdateRemarkCriteria updateCriteria = new UpdateRemarkCriteria
+            var updateCriteria = new UpdateRemarkCriteria
             {
                 CustId = criteria.CustId,
                 Remarks = xmlContent.ToString()
             };
 
-            return _remarkRepository.UpdateRemarks(updateCriteria);
+            return baseService.ExecuteNonQuery(updateCriteria);
         }
 
         private static void BuildRemarksXml(StringBuilder xmlContent, IEnumerable<string> remarks, bool isSpecial)
@@ -79,7 +67,5 @@ namespace Fanex.CRM.Remark.Services
                 }
             }
         }
-
-        #endregion
     }
 }

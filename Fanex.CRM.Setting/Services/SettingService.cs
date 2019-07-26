@@ -1,14 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Services
+﻿namespace Fanex.CRM.Setting.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -18,15 +12,8 @@ namespace Fanex.CRM.Setting.Services
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories;
     using Fanex.CRM.Setting.Resources;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
-    /// <summary>
-    /// Setting Service.
-    /// </summary>
-    public class SettingService : ServiceBase, ISettingService
+    public class SettingService : ISettingService
     {
         public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string GetAllCountrySessionKey = "Fanex.CRM.Setting.GetAllCountrySessionKey";
@@ -62,22 +49,18 @@ namespace Fanex.CRM.Setting.Services
         public const string GetSubCategorySessionKey = "Fanex.CRM.Setting.GetSubCategorySessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
+        private readonly IBaseService baseService;
 
-        public SettingService()
-            : this(null)
+        public SettingService() : this(null, null)
         {
         }
 
-        public SettingService(ISettingRepository settingRepositoryInstance)
+        public SettingService(ISettingRepository settingRepositoryInstance, IBaseService baseService)
         {
             _settingRepositoryInstance = settingRepositoryInstance ?? new SettingRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
-        /// <summary>
-        /// Gets the name of the period type.
-        /// </summary>
-        /// <param name="periodType">Type of the period.</param>
-        /// <returns>The name of the period type.</returns>
         public static string GetPeriodTypeName(int periodType)
         {
             switch (periodType)
@@ -99,19 +82,12 @@ namespace Fanex.CRM.Setting.Services
             }
         }
 
-        /// <summary>
-        /// Gets the setting by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The setting by identifier.</returns>
         public Setting GetSettingById(GetSettingByIdCriteria criteria)
         {
-            var setting = GetAllSettings().Where(s => s.Id == criteria.SettingId)
-                .FirstOrDefault();
+            var setting = GetAllSettings().FirstOrDefault(s => s.Id == criteria.SettingId);
             return setting ?? new Setting
             {
                 Value = Labels.Symbol_NotApply
-
             };
         }
 
@@ -134,8 +110,9 @@ namespace Fanex.CRM.Setting.Services
             {
                 return cache;
             }
+            var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
 
-            var allSites = (from n in GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria())
+            var allSites = (from n in sites
                             where n.IsActive
                             group n by n.IsLicensee into g
                             orderby g.Key
@@ -150,7 +127,6 @@ namespace Fanex.CRM.Setting.Services
                                                   Id = c.Id,
                                                   Name = c.Name
                                               }).ToList()
-
                             }).ToList();
 
             CacheService.Set(GetAllSiteSessionKey, allSites);
@@ -200,7 +176,7 @@ namespace Fanex.CRM.Setting.Services
             }
 
             var sites = new List<SiteSetting>();
-            var rawdata = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
+            var rawdata = baseService.GetData<SiteInfo>(new GetAllSiteCriteria());
             foreach (var item in rawdata)
             {
                 var group = item.IsLicensee ? Labels.Licensee : Labels.Credit;
@@ -252,7 +228,6 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<Province> GetAllProvinces()
         {
-
             return _settingRepositoryInstance.GetAllProvinces(new GetAllProvinceCriteria());
         }
 
@@ -452,13 +427,6 @@ namespace Fanex.CRM.Setting.Services
             return products;
         }
 
-        /// <summary>
-        /// Gets all product.
-        /// </summary>
-        /// <returns>All product.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IList<Product> GetAllSubProducts()
         {
             var cache = CacheService.Get<IList<Product>>(GetAllSubProductSessionKey);
@@ -541,14 +509,6 @@ namespace Fanex.CRM.Setting.Services
             return betTypes;
         }
 
-
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <param name="statusType">Type of the status.</param>
-        /// <returns>
-        /// All status.
-        /// </returns>
         public List<BaseModel> GetAllStatuses(int statusType)
         {
             string key = GetAllStatusSessionKey;
@@ -573,25 +533,16 @@ namespace Fanex.CRM.Setting.Services
             return allStatus;
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <param name="statusType">Type of the status.</param>
-        /// <returns>
-        /// All status.
-        /// </returns>
         public IList<Status> GetInformHeadlineStatuses()
         {
-            string key = GetInformHeadlineStatusesSessionKey;
-
+            const string key = GetInformHeadlineStatusesSessionKey;
             var allStatus = CacheService.Get<IList<Status>>(key);
             if (allStatus != null)
             {
                 return allStatus;
             }
 
-            allStatus = _settingRepositoryInstance
-                .GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
+            allStatus = baseService.GetData<Status>(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
                 .OrderBy(s => s.DisplayOrder)
                 .ToList();
             CacheService.Set(key, allStatus);
@@ -599,14 +550,9 @@ namespace Fanex.CRM.Setting.Services
             return allStatus;
         }
 
-        /// <summary>
-        /// All the currency redemption.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Setting Info List.</returns>
         public List<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
-            string key = GetAllCurrencyRedemptionSessionKey;
+            const string key = GetAllCurrencyRedemptionSessionKey;
             var currencies = CacheService.Get<List<BaseModel>>(key);
             if (currencies == null)
             {
@@ -724,7 +670,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<Setting> AllHeadlineType()
         {
-            return new List<Setting>()
+            return new List<Setting>
             {
                 new Setting
                 {
@@ -746,7 +692,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<BaseModel> GetAllLicenseeTypes()
         {
-            string key = GetAllLicenseeTypeSessionKey;
+            const string key = GetAllLicenseeTypeSessionKey;
             var cache = CacheService.Get<IList<BaseModel>>(key);
             if (cache != null)
             {
@@ -766,15 +712,9 @@ namespace Fanex.CRM.Setting.Services
             return licenseeTypes;
         }
 
-        /// <summary>
-        /// Gets all currency.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="hasDefaultOption">Has N/A option or not.</param>
-        /// <returns>The currency list.</returns>
         public IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
         {
-            string key = GetAllCurrencySessionKey;
+            const string key = GetAllCurrencySessionKey;
             var cache = CacheService.Get<IList<BaseModel>>(key);
             if (cache != null)
             {
@@ -838,7 +778,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<Setting> GetAllSiteTypes()
         {
-            return new List<Setting>()
+            return new List<Setting>
             {
                 new Setting { Id = SiteConstants.All, Value = Labels.All },
                 new Setting { Id = SiteConstants.NA, Value = Labels.Symbol_NotApply },
@@ -851,7 +791,7 @@ namespace Fanex.CRM.Setting.Services
         {
             try
             {
-                string cachedKey = GetAllInformHeadlineSettingKey;
+                const string cachedKey = GetAllInformHeadlineSettingKey;
                 var settings = CacheService.Get<InformHeadlineSetting>(cachedKey);
                 if (settings != null)
                 {
@@ -872,7 +812,7 @@ namespace Fanex.CRM.Setting.Services
                     Position = roles,
                     Currency = GetAllCurrencies(new GetAllCurrencyCriteria()),
                     Site = GetAllSites().ElementAt(0).ChildSites.Select(s => new BaseModel { Id = s.Id, Name = s.Name }).ToList(),
-                    ProductStatus = new List<BaseModel>()
+                    ProductStatus = new List<BaseModel>
                     {
                         new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },
                         new BaseModel { Id = HeadlineProductStatusConstants.Enable, Name = Labels.Enable },
@@ -893,8 +833,7 @@ namespace Fanex.CRM.Setting.Services
 
         public BaseModel[] GetFeedbackStatisticFilterTypes()
         {
-            return new BaseModel[]
-            {
+            return new[] {
                 new BaseModel { Id = FeedbackStatisticFilterType.ByCreator, Name = Labels.ByCreator },
                 new BaseModel { Id = FeedbackStatisticFilterType.ByCountry, Name = Labels.ByCountry },
                 new BaseModel { Id = FeedbackStatisticFilterType.ByRole, Name = Labels.ByRole },
@@ -910,7 +849,7 @@ namespace Fanex.CRM.Setting.Services
 
         public BaseModel[] GetFeedbackStatisticFilterTypesCN88()
         {
-            return new BaseModel[]
+            return new[]
             {
                 new BaseModel { Id = FeedbackStatisticFilterType.ByCreator, Name = Labels.ByCreator },
                 new BaseModel { Id = FeedbackStatisticFilterType.ByRole, Name = Labels.ByRole },
@@ -922,7 +861,6 @@ namespace Fanex.CRM.Setting.Services
                 new BaseModel { Id = FeedbackStatisticFilterType.ByProvince, Name = Labels.ByProvince },
             };
         }
-
 
         public void ClearCache()
         {
@@ -946,7 +884,7 @@ namespace Fanex.CRM.Setting.Services
 
         public IList<Station> GetStations()
         {
-            return _settingRepositoryInstance.GetStations(new GetStationsCriteria()).ToList();
+            return baseService.GetData<Station>(new GetStationsCriteria()).ToList();
         }
 
         private void GetSubSetting(string key, IList<Setting> settingList, IEnumerable<Setting> allSettings)
@@ -965,7 +903,7 @@ namespace Fanex.CRM.Setting.Services
 
         private IList<FeedbackTemplate> GetFeedbackSubjectTemplates()
         {
-            var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
+            var feedbackTemplates = baseService.GetData<FeedbackTemplate>(new GetFeedbackSubjectTemplateByIdCriteria
             {
                 TemplateId = 0
             }).Where(s => s.IsActive).ToList();
@@ -977,7 +915,7 @@ namespace Fanex.CRM.Setting.Services
         public IList<SiteInfo> GetAllSitesWithNA()
         {
             var sites = GetAllSites();
-            sites.Insert(0, new SiteInfo() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
+            sites.Insert(0, new SiteInfo { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
             return sites;
         }

@@ -1,31 +1,30 @@
 ﻿namespace Fanex.CRM.Report.Services.WagerReport
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.WagerReport;
+    using Fanex.CRM.Report.Entities.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;
-    using Fanex.CRM.Report.Repositories.WagerReport;
     using Fanex.CRM.Report.Resources;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class WagerReportService : IWagerReportService
     {
-        private readonly IWagerReportRepository _wagerRepository;
+        private readonly IBaseService baseService;
 
-        public WagerReportService()
-            : this(null)
+        public WagerReportService() : this(null)
         {
         }
 
-        public WagerReportService(IWagerReportRepository wagerReportRepository)
+        public WagerReportService(IBaseService baseService)
         {
-            _wagerRepository = wagerReportRepository ?? new WagerReportRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public WagerReportModel GetWagerReport(GetWagerReportCriteria criteria)
@@ -70,7 +69,6 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private WagerReportModel ParseWagerReport(GetWagerReportCriteria criteria)
         {
             Wager wager = null;
@@ -84,7 +82,7 @@
             };
             int grandTotal = 0;
 
-            var rawData = _wagerRepository.GetWagerReport(criteria)
+            var rawData = baseService.GetData<WagerRawData>(criteria)
                 .GroupBy(w => w.Month);
             foreach (var month in rawData)
             {

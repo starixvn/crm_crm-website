@@ -1,18 +1,18 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using System;
+    using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System;
-    using System.Web.Mvc;
 
     public class UpdateCustomerFeedbackController : ReadOnlyBaseController
     {
@@ -88,11 +88,11 @@
         {
             try
             {
-                Result result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
+                CommandResult result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
                 if (result.Code == ErrorCodeConstants.NoneError)
                 {
                     _updateCustomerFeedbackService.UpdateFeedback(criteria);
-                    result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
+                    result = new CommandResult(criteria.ErrorCode, criteria.ErrorMessage);
                 }
 
                 return Json(result, JsonRequestBehavior.DenyGet);
@@ -108,26 +108,26 @@
             }
         }
 
-        private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
+        private CommandResult CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
             if (!HasHostCreateUpdateFeedbackPermission())
             {
-                return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
+                return new CommandResult(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
             if (!HasHostDeleteFeedbackPermission() && IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus))
             {
-                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
+                return new CommandResult(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
             if (!HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host) &&
                 criteria.UpdateReviewMode != (int)ReviewMode.NotUpdate)
             {
-                return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
+                return new CommandResult(permissionError, Labels.NoPermissionOnReviewFunction);
             }
 
-            return new Result();
+            return new CommandResult();
         }
     }
 }

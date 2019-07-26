@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Excels.CustomerReport
 {
+    using System.Collections.Generic;
     using Common.Enumerations;
     using Common.Services;
     using Fanex.CRM.Common.Excel;
@@ -11,8 +12,6 @@
     using Models.CustomerReport;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
     public class CustomerReportExcel : BaseExcel
     {
@@ -42,7 +41,7 @@
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
-            var columnWidths = new int[]
+            var columnWidths = new[]
             {
                 160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200, 150, 150, 150, 150,
                 150, 150, 150, 150, 150, 80, 200, 200, 200, 200, 140, 160, 160, 140
@@ -142,9 +141,6 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void RenderBody(ExportExcelInfo exportExcelInfo)
         {
             if (_customerReportInfo.CustomerList.Count == 0)

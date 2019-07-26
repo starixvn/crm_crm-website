@@ -1,5 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Excels.DeletedFeedbackStatistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -9,9 +12,6 @@
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class DeletedFeedbackStatisticsExcel : BaseExcel
     {
@@ -143,7 +143,7 @@
             var font = _exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExtensions.FontSize;
             font.FontName = NpoiExtensions.FontName;
-            font.Color = (short)HSSFColor.Blue.Index;
+            font.Color = HSSFColor.Blue.Index;
             font.Boldweight = (short)FontBoldWeight.Bold;
 
             cellStyle.SetFont(font);

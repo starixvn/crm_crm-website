@@ -8,7 +8,6 @@
     using Models.DirectCustomerReport;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System.Diagnostics.CodeAnalysis;
 
     public class DirectCustomerReportExcel : BaseExcel
     {
@@ -37,7 +36,7 @@
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
-            var columnWidths = new int[]
+            var columnWidths = new[]
             {
                 160, 160, 120, 120, 160, 160, 160, 200, 200, 200, 200, 200, 200,
                 200, 200, 200, 200, 200, 200, 200,
@@ -54,7 +53,7 @@
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            var columnHeaders = new string[]
+            var columnHeaders = new[]
             {
                 Labels.Groupheadline, Labels.Username, Labels.Status, Labels.Site, Labels.Currency, Labels.Position, Labels.Introduceby,
                 Labels.Language, Labels.Country, Labels.Checker, Labels.VIP, Labels.First_Name, Labels.Last_Name,
@@ -112,9 +111,6 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void RenderBody(ExportExcelInfo exportExcelInfo)
         {
             if (_customerReportInfo.CustomerList.Count == 0)

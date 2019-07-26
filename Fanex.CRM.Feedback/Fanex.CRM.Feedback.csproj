@@ -196,10 +196,6 @@
     <Compile Include="Models\FeedbackDuplicationResult.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AddCustomerFeedback\AddCustomerFeedbackRepository.cs" />
-    <Compile Include="Repositories\AddCustomerFeedback\IAddCustomerFeedbackRepository.cs" />
-    <Compile Include="Repositories\AddGuestFeedback\AddGuestFeedbackRepository.cs" />
-    <Compile Include="Repositories\AddGuestFeedback\IAddGuestFeedbackRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
     <Compile Include="Repositories\MultipleLogs\IMultipleLogsRepository.cs" />

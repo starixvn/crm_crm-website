@@ -126,6 +126,12 @@
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
+  <data name="DefaultSearchCustomer" xml:space="preserve">
+    <value>電話 / 用戶名 / 昵稱</value>
+  </data>
+  <data name="Error_500" xml:space="preserve">
+    <value>無權限使用此功能！</value>
+  </data>
   <data name="Error_ArgumentEmpty" xml:space="preserve">
     <value>"{0}" cannot be blank.</value>
   </data>
@@ -153,10 +159,40 @@
   <data name="Error_InvalidUrl" xml:space="preserve">
     <value>"{0}" is not a valid web url.</value>
   </data>
+  <data name="Error_Server" xml:space="preserve">
+    <value>抱歉，要求處理過程中出現報錯，請聯系管理人員。</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>訪客</value>
+  </data>
+  <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
+    <value>顯示/隱藏左側</value>
+  </data>
+  <data name="IBC" xml:space="preserve">
+    <value>IBC</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>代理商</value>
+  </data>
+  <data name="MBC" xml:space="preserve">
+    <value>勁博</value>
+  </data>
+  <data name="Message_ViewChart_FromToDate" xml:space="preserve">
+    <value>{0} 至 {1}</value>
+  </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>無權限使用此功能！</value>
+  </data>
+  <data name="ResultMessage_NoInfo" xml:space="preserve">
+    <value>無數據</value>
+  </data>
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
   </data>
   <data name="There_is_no_data" xml:space="preserve">
     <value>無數據</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>歡迎</value>
   </data>
 </root>

@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetAllReportByRedemptionCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ken.Nguyen" date="2014.11.14">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Criteria
+﻿namespace Fanex.CRM.Setting.Criteria
 {
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get All Report By Redemption Statistics Criteria.
-    /// </summary>
     public class GetAllReportByRedemptionCriteria : CriteriaBase
     {
         public static List<BaseModel> ReportByList
@@ -47,6 +35,6 @@ namespace Fanex.CRM.Setting.Criteria
         public override string GetSettingKey()
         {
             return "Redemption_Statisics_GetReportBy";
-        } 
+        }
     }
 }

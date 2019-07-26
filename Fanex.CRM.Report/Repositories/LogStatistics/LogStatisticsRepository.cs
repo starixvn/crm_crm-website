@@ -1,28 +1,15 @@
 ﻿namespace Fanex.CRM.Report.Repositories.LogStatistics
 {
+    using System.Collections.Generic;
+    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
-    using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.Data;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
 
     public class LogStatisticsRepository : ILogStatisticsRepository
     {
-        public IEnumerable<LogStatisticsEntity> GetReportData(LogStatisticsCriteria criteria)
-        {
-            using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return objectDb.Query<LogStatisticsEntity>(criteria.GetSpParams());
-            }
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<StatisticsDetailbyDateModel> GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
             var feedbacks = new List<StatisticsDetailbyDateModel>();

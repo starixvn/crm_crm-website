@@ -70,6 +70,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Btn_Cancel {
@@ -196,11 +205,47 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed.
         /// </summary>
         public static string Closed {
             get {
                 return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Ignore Changes.
+        /// </summary>
+        public static string Confirm_Ignore_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone or Username or Nickname.
+        /// </summary>
+        public static string DefaultSearchCustomer {
+            get {
+                return ResourceManager.GetString("DefaultSearchCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;re not authorized on this function!.
+        /// </summary>
+        public static string Error_500 {
+            get {
+                return ResourceManager.GetString("Error_500", resourceCulture);
             }
         }
         
@@ -286,6 +331,114 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please input username!.
+        /// </summary>
+        public static string Error_SearchCustomer_Empty {
+            get {
+                return ResourceManager.GetString("Error_SearchCustomer_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request, please notify the administrators..
+        /// </summary>
+        public static string Error_Server {
+            get {
+                return ResourceManager.GetString("Error_Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guest.
+        /// </summary>
+        public static string Guest {
+            get {
+                return ResourceManager.GetString("Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show/Hide Left Panel.
+        /// </summary>
+        public static string Home_Index_CollapseExpandLeftPanel {
+            get {
+                return ResourceManager.GetString("Home_Index_CollapseExpandLeftPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBC.
+        /// </summary>
+        public static string IBC {
+            get {
+                return ResourceManager.GetString("IBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee.
+        /// </summary>
+        public static string Licensee {
+            get {
+                return ResourceManager.GetString("Licensee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MBC.
+        /// </summary>
+        public static string MBC {
+            get {
+                return ResourceManager.GetString("MBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} To {1}.
+        /// </summary>
+        public static string Message_ViewChart_FromToDate {
+            get {
+                return ResourceManager.GetString("Message_ViewChart_FromToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission on this function!.
+        /// </summary>
+        public static string NoPermission {
+            get {
+                return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no data..
+        /// </summary>
+        public static string ResultMessage_NoInfo {
+            get {
+                return ResourceManager.GetString("ResultMessage_NoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suspended.
         /// </summary>
         public static string Suspended {
@@ -300,6 +453,24 @@ namespace Fanex.CRM.Common.Resources {
         public static string There_is_no_data {
             get {
                 return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

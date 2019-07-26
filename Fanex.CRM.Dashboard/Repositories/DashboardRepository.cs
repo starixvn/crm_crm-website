@@ -1,42 +1,20 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DashboardRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Dashboard.Repositories
+﻿namespace Fanex.CRM.Dashboard.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
-    /// <summary>
-    /// Dashboard Repository.
-    /// </summary>
-    public class DashboardRepository : BaseRepository, IDashboardRepository
+    public class DashboardRepository : IDashboardRepository
     {
-        public IEnumerable<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
-        {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return objectDB.Query<string>(criteria.GetSpParams());
-            }
-        }
-
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
@@ -103,14 +81,6 @@ namespace Fanex.CRM.Dashboard.Repositories
             }
         }
 
-        public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private CustomerInfo ReadCustomerInfo(IDataReader reader)
         {
             var customerInfo = new CustomerInfo
@@ -138,9 +108,6 @@ namespace Fanex.CRM.Dashboard.Repositories
             return customerInfo;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private RedemptionLogInfo ReadRedemptionLog(IDataReader reader)
         {
             var redemptionLog = new RedemptionLogInfo
@@ -160,9 +127,6 @@ namespace Fanex.CRM.Dashboard.Repositories
             return redemptionLog;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private CommunicationLogInfo ReadCommunicationLog(IDataReader reader)
         {
             var durationTime = Converter.ToString2(reader["Duration"]);

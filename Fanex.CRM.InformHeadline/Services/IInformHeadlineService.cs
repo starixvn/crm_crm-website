@@ -1,21 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IInformHeadlineService.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Services
+﻿namespace Fanex.CRM.InformHeadline.Services
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface IInformHeadlineService
     {
         IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
@@ -28,7 +19,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName);
 
-        Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
+        CommandResult UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
         IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
 
@@ -40,11 +31,11 @@ namespace Fanex.CRM.InformHeadline.Services
 
         TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);
 
-        Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria);
+        CommandResult UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria);
 
-        Result InsertInformHeadline(InsertInformHeadlineCriteria criteria);
+        CommandResult InsertInformHeadline(InsertInformHeadlineCriteria criteria);
 
-        Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
+        CommandResult UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
 
         IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
 

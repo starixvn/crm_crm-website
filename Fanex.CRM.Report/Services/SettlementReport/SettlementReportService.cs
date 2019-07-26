@@ -1,5 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Services.SettlementReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
@@ -12,19 +15,23 @@
     using Fanex.CRM.Setting.Constants;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
-    public class SettlementReportService : ServiceBase, ISettlementReportService
+    public class SettlementReportService : ISettlementReportService
     {
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
+        private readonly IBaseService baseService;
+
+        public SettlementReportService() : this(null)
+        {
+        }
+
+        public SettlementReportService(IBaseService baseService)
+        {
+            this.baseService = baseService ?? new BaseService();
+        }
+
         public SettlementReportInfo GetSettlementReport(GetSettlementReportCriteria criteria)
         {
-            var rawData = GetDynamicData<SettlementReportEntity>(criteria).ToList();
+            var rawData = baseService.GetData<SettlementReportEntity>(criteria).ToList();
             var countryList = rawData
                .Select(settlementReportEntity => new Country
                {
@@ -109,9 +116,6 @@
             return dummyCountries;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private SettlementReportInfo MappingDataSettlementReport(
             List<SettlementReportEntity> rawData,
             Dictionary<int, int> countryDictionary,
@@ -175,9 +179,6 @@
             return settlementReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private SettlementReportInfo GetChartInfo(SettlementReportInfo settlementReport)
         {
             var chartInfo = new SettlementReportInfo
@@ -218,9 +219,6 @@
             return chartInfo;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         private void ExportSettlementReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,

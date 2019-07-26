@@ -1,33 +1,15 @@
 ﻿namespace Fanex.CRM.Feedback.Repositories
 {
+    using System.Data;
     using Common.Helpers;
     using Common.Models;
     using Criteria;
     using Data;
     using Fanex.Common;
-    using Fanex.CRM.Common.Repositories;
-    using Fanex.CRM.Infrastructure.Models;
     using Infrastructure.Extensions;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
 
-    public class MultipleLogsRepository : BaseRepository, IMultipleLogsRepository
+    public class MultipleLogsRepository : IMultipleLogsRepository
     {
-        public Result InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        public Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        public Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
         public BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
@@ -61,9 +43,6 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLog MappingLogData(IDataReader reader)
         {
             var logInfo = new BaseCommunicationLog

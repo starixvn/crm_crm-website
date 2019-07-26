@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetInformHeadlinesCriteria.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Criteria
+﻿namespace Fanex.CRM.InformHeadline.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class GetInformHeadlinesCriteria : CriteriaBase
     {
         public override string GetSettingKey()

@@ -1,49 +1,45 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="InformHeadlineService.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Services
+﻿namespace Fanex.CRM.InformHeadline.Services
 {
+    using System.Collections.Generic;
+    using System.Text;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.InformHeadline.Resources;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
-    using System.Collections.Generic;
-    using System.Text;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class InformHeadlineService : IInformHeadlineService
     {
         private readonly IInformHeadlineRepository _informHeadlineRepository;
         private readonly ISettingService _settingServices;
+        private readonly IBaseService baseService;
 
-        public InformHeadlineService()
-            : this(null, null)
+        public InformHeadlineService() : this(null, null, null)
         {
         }
 
-        public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingServices)
+        public InformHeadlineService(
+            IInformHeadlineRepository informHeadlineRepository,
+            IBaseService baseService,
+            ISettingService settingServices)
         {
             _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository();
             _settingServices = settingServices ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         #region Inform headline list
 
         public IEnumerable<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false)
         {
-            return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()
+            return baseService.GetData<InformStatus>(new GetInformStatusesCriteria
             {
                 IsIncludeKeptForRefence = isIncludeKeptForRefence
             });
@@ -51,17 +47,17 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
         {
-            return _informHeadlineRepository.GetInforms(criteria);
+            return baseService.GetData<InformHeadline>(criteria);
         }
 
-        public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
+        public CommandResult UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
-            return _informHeadlineRepository.UpdateInformStatus(criteria);
+            return baseService.ExecuteNonQuery(criteria);
         }
 
         public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
         {
-            var data = _informHeadlineRepository.GetInforms(criteria);
+            var data = baseService.GetData<InformHeadline>(criteria);
 
             return new InformHeadlineExcel(data, fileName);
         }
@@ -70,7 +66,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region New Inform headline
 
-        public Result InsertInformHeadline(InsertInformHeadlineCriteria criteria)
+        public CommandResult InsertInformHeadline(InsertInformHeadlineCriteria criteria)
         {
             var result = _informHeadlineRepository.InsertInformHeadline(criteria);
 
@@ -79,28 +75,30 @@ namespace Fanex.CRM.InformHeadline.Services
                 return result;
             }
 
-            var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
-            updateContentCriteria.Informs = criteria.Informs;
-            updateContentCriteria.TitleId = (int)result.ExtendedData;
+            var updateContentCriteria = new UpdateContentInformHeadlineCriteria
+            {
+                Informs = criteria.Informs,
+                TitleId = (int)result.ExtendedData
+            };
 
             return UpdateContentInformHeadline(updateContentCriteria);
         }
 
         public IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
-            return _informHeadlineRepository.GetNewInforms(criteria);
+            return baseService.GetData<NewInform>(criteria);
         }
 
         public dynamic GetNewInformSettings()
         {
             return new
             {
-                Sites = _settingServices.GetAllSites(new GetAllSiteCriteria()
+                Sites = _settingServices.GetAllSites(new GetAllSiteCriteria
                 {
                     LicenseeType = LicenseeTypeConstants.Credit
                 }),
                 Currencies = _settingServices.GetAllCurrencies(
-                    new GetAllCurrencyCriteria()
+                    new GetAllCurrencyCriteria
                     {
                         IsTest = true
                     },
@@ -113,7 +111,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
         {
-            var data = _informHeadlineRepository.GetNewInforms(criteria);
+            var data = baseService.GetData<NewInform>(criteria);
 
             return new NewInformHeadlineExcel(criteria.Title, data, fileName);
         }
@@ -122,27 +120,27 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region Update Inform headline
 
-        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        public CommandResult UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
         {
             criteria.Content = BuildUpdateInformsXml(criteria.Informs);
-            return _informHeadlineRepository.UpdateInformHeadline(criteria);
+            return baseService.ExecuteNonQuery(criteria);
         }
 
         public IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
         {
-            return _informHeadlineRepository.GetUpdateInforms(criteria);
+            return baseService.GetData<UpdateInform>(criteria);
         }
 
-        public Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
+        public CommandResult UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
         {
             criteria.Content = BuildContentInformsXml(criteria.Informs);
-            return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
+            return baseService.ExecuteNonQuery(criteria);
         }
 
         public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
         {
-            var data = _informHeadlineRepository.GetUpdateInforms(criteria);
-            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
+            var data = baseService.GetData<UpdateInform>(criteria);
+            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
             {
                 TitleId = criteria.TitleId
             });
@@ -153,36 +151,23 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region Contact Inform headline
 
-        /// <summary>
-        /// Get informs for contact page.
-        /// </summary>
-        /// <param name="criteria">Get informs criteria.</param>
-        /// <returns>List of informs.</returns>
         public IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
         {
-            return _informHeadlineRepository.GetContactInforms(criteria);
+            criteria.UserName = criteria.UserName ?? string.Empty;
+            return baseService.GetData<UpdateInform>(criteria);
         }
 
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
         public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
         {
-            var data = _informHeadlineRepository.GetContactInforms(criteria);
-            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
+            criteria.UserName = criteria.UserName ?? string.Empty;
+            var data = baseService.GetData<UpdateInform>(criteria);
+            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
             {
                 TitleId = criteria.TitleId
             });
             return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
         }
 
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <returns>The object with all settings.</returns>
         public dynamic GetContactInformSettings()
         {
             return new
@@ -200,7 +185,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
         {
-            return _informHeadlineRepository.GetTileDetail(criteria);
+            return baseService.GetDataEntity<TitleDetail>(criteria);
         }
 
         public IEnumerable<Status> GetProductStatuses()
@@ -210,7 +195,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 productStatuses.Insert(
                     0,
-                    new Status()
+                    new Status
                     {
                         StatusId = 0,
                         Name = Labels.NA,
@@ -221,10 +206,6 @@ namespace Fanex.CRM.InformHeadline.Services
             return productStatuses;
         }
 
-        /// <summary>
-        /// Get stations.
-        /// </summary>
-        /// <returns>List of stations.</returns>
         public IEnumerable<Station> GetStations()
         {
             return _settingServices.GetStations();
@@ -232,11 +213,6 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #endregion Common
 
-        /// <summary>
-        /// Build update inform XML.
-        /// </summary>
-        /// <param name="informs">List of inform.</param>
-        /// <returns>XML string.</returns>
         private static string BuildUpdateInformsXml(IList<UpdateInform> informs)
         {
             if (informs == null)
@@ -261,11 +237,6 @@ namespace Fanex.CRM.InformHeadline.Services
             return builder.Append("</Content>").ToString();
         }
 
-        /// <summary>
-        /// Build update inform XML.
-        /// </summary>
-        /// <param name="informs">List of inform.</param>
-        /// <returns>XML string.</returns>
         private static string BuildContentInformsXml(IList<UpdateInform> informs)
         {
             if (informs == null)

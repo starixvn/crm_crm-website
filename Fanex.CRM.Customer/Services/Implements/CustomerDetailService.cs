@@ -1,44 +1,34 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerDetailService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Services
+﻿namespace Fanex.CRM.Customer.Services
 {
     using Common.Enumerations;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
 
-    /// <summary>
-    /// Customer Detail Service.
-    /// </summary>
     public class CustomerDetailService : ICustomerDetailService
     {
         private readonly ICustomerDetailRepository _customerRepositoryInstance;
-
         private readonly ISettingService _settingService;
+        private readonly IBaseService baseService;
 
-        public CustomerDetailService()
-            : this(null, null)
+        public CustomerDetailService() : this(null, null, null)
         {
         }
 
         public CustomerDetailService(
             ICustomerDetailRepository customerRepositoryInstance,
+            IBaseService baseService,
             ISettingService settingService)
         {
             _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerDetailRepository();
             _settingService = settingService ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
@@ -57,9 +47,9 @@ namespace Fanex.CRM.Customer.Services
             return customerInfo;
         }
 
-        public Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
+        public CommandResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            var updateResult = _customerRepositoryInstance.UpdateCustomerInfoDetail(criteria);
+            CommandResult updateResult = baseService.ExecuteNonQuery(criteria);
             if (updateResult.Code == ErrorCodeConstants.NoneError)
             {
                 updateResult.Message = Labels.CustomerInfo_UpdateSuccess;

@@ -1,15 +1,15 @@
 ﻿namespace Fanex.CRM.Report.Repositories.FeedbackStatisticReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
 
     public class FeedbackStatisticReportRepository : IFeedbackStatisticReportRepository
     {

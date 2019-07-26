@@ -262,13 +262,9 @@
     <Compile Include="Repositories\FeedbackStatisticReport\FeedbackStatisticReportRepository.cs" />
     <Compile Include="Repositories\StatisticReport\IStatisticReportRepository.cs" />
     <Compile Include="Repositories\StatisticReport\StatisticReportRepository.cs" />
-    <Compile Include="Repositories\SummaryReport\SummaryReportRepository.cs" />
-    <Compile Include="Repositories\WagerReport\WagerReportRepository.cs" />
     <Compile Include="Repositories\CustomerReport\ICustomerReportRepository.cs" />
     <Compile Include="Repositories\DynamicReport\IDynamicReportRepository.cs" />
     <Compile Include="Repositories\FeedbackStatisticReport\IFeedbackStatisticReportRepository.cs" />
-    <Compile Include="Repositories\SummaryReport\ISummaryReportRepository.cs" />
-    <Compile Include="Repositories\WagerReport\IWagerReportRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

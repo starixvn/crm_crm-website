@@ -1,31 +1,14 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BaseCustomerRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Repositories
+﻿namespace Fanex.CRM.Customer.Repositories
 {
+    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// Base Customer Repository.
-    /// </summary>
-    public class BaseCustomerRepository : BaseRepository
+    public class BaseCustomerRepository
     {
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         public CustomerInfo ReadCustomerBasicInformation(IDataReader reader)
         {
             var customer = new CustomerInfo

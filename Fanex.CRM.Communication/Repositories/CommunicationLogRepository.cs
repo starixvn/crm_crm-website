@@ -1,21 +1,18 @@
 ﻿namespace Fanex.CRM.Communication.Repositories
 {
-    using Fanex.Common;
-    using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Repositories;
-    using Fanex.CRM.Communication.Criteria;
-    using Fanex.CRM.Communication.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Fanex.Common;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Communication.Criteria;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.Data;
 
-    public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
+    public class CommunicationLogRepository : ICommunicationLogRepository
     {
         public IEnumerable<BaseCommunicationLog> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
@@ -96,27 +93,6 @@
             }
         }
 
-        public Result UpdateLog(UpdateLogCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        public Result InsertLog(InsertLogCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
-        }
-
-        public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)
-        {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return objectDB.QueryEntity<CustomerDefaultSetting>(criteria.GetSpParams());
-            }
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLog MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = Converter.ToString2(reader["Duration"]);
@@ -141,9 +117,6 @@
             return logInfo;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLog MappingDataFromSqlToLogInfoObjectById(IDataReader reader)
         {
             var logInfo = new BaseCommunicationLog

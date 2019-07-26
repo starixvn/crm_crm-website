@@ -14,6 +14,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
@@ -76,7 +77,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
-            Result result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
+            CommandResult result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

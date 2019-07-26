@@ -2,20 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Common.Repositories;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using Infrastructure.Models;
 
-    public class FeedbackRepository : BaseRepository, IFeedbackRepository
+    public class FeedbackRepository : IFeedbackRepository
     {
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
@@ -48,11 +44,6 @@
                     return GenerateFeedBackDetailWithSetting(feedbacks, settings);
                 }
             }
-        }
-
-        public Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
         }
 
         public int CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)

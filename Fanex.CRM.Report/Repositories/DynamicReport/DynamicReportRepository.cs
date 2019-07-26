@@ -1,5 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Repositories.DynamicReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using Common.Models;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
@@ -7,10 +11,6 @@
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
 
     public class DynamicReportRepository : IDynamicReportRepository
     {

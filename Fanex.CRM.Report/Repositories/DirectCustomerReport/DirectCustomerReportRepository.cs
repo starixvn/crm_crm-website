@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Report.Repositories.CustomerReport
 {
+    using System.Collections.Generic;
     using Criteria.DirectCustomerReport;
     using Fanex.Common;
     using Fanex.Data;
     using Models.DirectCustomerReport;
-    using System.Collections.Generic;
 
     public class DirectCustomerReportRepository : IDirectCustomerReportRepository
     {

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Models
 {
-    using Fanex.CRM.Infrastructure.Models;
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
 
     [Serializable]
     public class CategoryIssuesInfo : BaseModel

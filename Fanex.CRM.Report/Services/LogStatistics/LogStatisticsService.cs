@@ -1,6 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Services.LogStatistics
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
@@ -10,22 +13,22 @@
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.CRM.Report.Repositories.LogStatistics;
     using Fanex.CRM.Report.Resources;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class LogStatisticsService : ILogStatisticsService
     {
         private readonly ILogStatisticsRepository _logStatisticsRepository;
+        private readonly IBaseService baseService;
 
-        public LogStatisticsService()
-            : this(null)
+        public LogStatisticsService() : this(null, null)
         {
         }
 
-        public LogStatisticsService(ILogStatisticsRepository logStatisticsRepository)
+        public LogStatisticsService(
+            ILogStatisticsRepository logStatisticsRepository,
+            IBaseService baseService)
         {
             _logStatisticsRepository = logStatisticsRepository ?? new LogStatisticsRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public LogStatisticsViewModel GetReportData(LogStatisticsCriteria criteria)
@@ -38,7 +41,7 @@
 
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-            var repositoryResult = _logStatisticsRepository.GetReportData(criteria);
+            var repositoryResult = baseService.GetData<LogStatisticsEntity>(criteria);
 
             var logStatistic = new LogStatisticsViewModel
             {
@@ -174,9 +177,6 @@
 
         #endregion GetReportData private methods
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public StatisticsDetailReportByDateModel GetReportDetail(LogStatisticsReportDetailCriteria criteria)
         {
             var reportTitle = string.Format(

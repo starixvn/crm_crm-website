@@ -128,7 +128,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
         {
-            Result result = _settingManagementService.DeleteSetting(criteria);
+            CommandResult result = _settingManagementService.DeleteSetting(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

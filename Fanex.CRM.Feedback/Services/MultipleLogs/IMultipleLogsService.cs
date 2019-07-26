@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using System.Collections.Generic;
     using Common.Models;
     using Criteria;
     using Infrastructure.Models;
-    using System.Collections.Generic;
 
     public interface IMultipleLogsService
     {
@@ -11,12 +11,12 @@
 
         IList<BaseModel> AllStatusForEdit { get; }
 
-        Result InsertMultpleLogs(InsertMultipleLogsCriteria criteria);
+        CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria);
 
-        Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria);
+        CommandResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria);
 
         BaseCommunicationLog GetLogByFeedbackId(GetLogByFeedbackIdCriteria criteria);
 
-        Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria);
+        CommandResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria);
     }
 }

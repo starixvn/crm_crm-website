@@ -1,10 +1,12 @@
 ﻿namespace Fanex.CRM.Report.Services.StatisticReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -18,12 +20,8 @@
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
-    public class StatisticReportService : ServiceBase, IStatisticReportService
+    public class StatisticReportService : IStatisticReportService
     {
         private readonly ISettingService _serviceSetting;
         private readonly IStatisticReportRepository _statisticReportRepository;
@@ -43,18 +41,19 @@
         {
             try
             {
-                var allPeriodType = new List<Setting>();
-                allPeriodType.Add(new Setting
+                var allPeriodType = new List<Setting>
                 {
-                    Id = PeriodTypeConstants.Daily,
-                    Name = Labels.Daily
-                });
-
-                allPeriodType.Add(new Setting
-                {
-                    Id = PeriodTypeConstants.Monthly,
-                    Name = Labels.Monthly
-                });
+                    new Setting
+                    {
+                        Id = PeriodTypeConstants.Daily,
+                        Name = Labels.Daily
+                    },
+                    new Setting
+                    {
+                        Id = PeriodTypeConstants.Monthly,
+                        Name = Labels.Monthly
+                    }
+                };
 
                 return allPeriodType;
             }
@@ -65,9 +64,6 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public List<Setting> AllMainCategory()
         {
             try
@@ -122,9 +118,6 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public StatisticReportInfo StatisticReport(GetStatisticReportCriteria criteria)
         {
             StatisticReportInfo statisticReport;
@@ -213,9 +206,6 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByMonthly(
             IList<StatisticReportEntity> rawData,
             IList<Country> countryList,
@@ -293,9 +283,6 @@
             return statisticReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByDaily(
             IList<StatisticReportEntity> rawData,
             IList<Country> countryList,
@@ -360,9 +347,6 @@
             return statisticReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private IList<StatisticReportInfo> GetPagingLogList(
             GetStatisticReportCriteria criteria,
             IList<StatisticReportInfo> statisticReportList)
@@ -409,9 +393,6 @@
             return dummyCountries;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, IDictionary<int, int> countryDictionary)
         {
             var chartInfo = new StatisticReportInfo
@@ -465,9 +446,6 @@
             return chartInfo;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         private void ExportStatisticReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,

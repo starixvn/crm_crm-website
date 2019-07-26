@@ -1,20 +1,20 @@
 ﻿namespace Fanex.CRM.Communication.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     using Setting.Constants;
-    using System.Linq;
-    using System.Web.Mvc;
 
     public class CommunicationLogController : ReadOnlyBaseController
     {
@@ -141,7 +141,6 @@
                 Logs = logs
             };
 
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -211,7 +210,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
-            Result updateResult = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
+            CommandResult updateResult = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
             if (updateResult.Code == ErrorCodeConstants.NoneError)
             {
                 updateResult = _communicationServiceLog.UpdateLog(criteria);
@@ -220,34 +219,34 @@
             return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
-        private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
+        private CommandResult CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
             if (!HasHostCreateUpdateFeedbackPermission())
             {
-                return new Result(permissionError, Labels.Communication_Logs_NoUpdatePermission);
+                return new CommandResult(permissionError, Labels.Communication_Logs_NoUpdatePermission);
             }
 
             if (!HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host) &&
                 IsRelatedDeletedStatus(criteria.StatusId, isDeletedStatus))
             {
-                return new Result(permissionError, Labels.Communication_Logs_NoDeletePermission);
+                return new CommandResult(permissionError, Labels.Communication_Logs_NoDeletePermission);
             }
 
             if (!HasHostPermission(FunctionPermissions.ReviewFeedback) &&
                 criteria.UpdateReviewedMode != UpdateReviewedModeConstants.NotChange)
             {
-                return new Result(permissionError, Labels.Communication_Logs_NoReviewPermission);
+                return new CommandResult(permissionError, Labels.Communication_Logs_NoReviewPermission);
             }
 
-            return new Result();
+            return new CommandResult();
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            Result insertResult = _communicationServiceLog.InsertLog(criteria);
+            CommandResult insertResult = _communicationServiceLog.InsertLog(criteria);
             return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 

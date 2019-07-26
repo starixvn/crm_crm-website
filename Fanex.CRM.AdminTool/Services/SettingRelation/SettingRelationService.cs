@@ -1,51 +1,38 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingRelationService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Services.SettingRelation
+﻿namespace Fanex.CRM.AdminTool.Services.SettingRelation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Repositories.SettingRelation;
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
     using Models.SettingManagement;
     using Models.SettingRelation;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    /// <summary>
-    /// Setting Relation Service.
-    /// </summary>
     public class SettingRelationService : ISettingRelationService
     {
         private const string AllSettingRelationSessionKey = "Fanex.CRM.AdminTool.Services.SettingRelation.GetAllSettingRelationSessionKey";
 
-        private ISettingRelationRepository _settingRelationRepository;
+        private readonly ISettingRelationRepository _settingRelationRepository;
+        private readonly ISettingService _settingService;
+        private readonly IBaseService baseService;
 
-        private ISettingService _settingService;
-
-        public SettingRelationService()
-            : this(null, null)
+        public SettingRelationService() : this(null, null, null)
         {
         }
 
         public SettingRelationService(
             ISettingRelationRepository settingRelationRepository,
+            IBaseService baseService,
             ISettingService settingService)
         {
             _settingRelationRepository = settingRelationRepository ?? new SettingRelationRepository();
             _settingService = settingService ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public IEnumerable<Setting> GetMainSettings()
@@ -78,9 +65,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return _settingRelationRepository.GetMainSettingRelations(criteria);
         }
 
-        public Result GetAddSettingRelations(AddSettingRelationsCriteria criteria)
+        public CommandResult GetAddSettingRelations(AddSettingRelationsCriteria criteria)
         {
-            var result = _settingRelationRepository.AddSettingRelations(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
@@ -93,12 +80,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
         public IEnumerable<SettingRelationItem> MainSettingRelationsCN88(GetMainSettingRelationsCriteria criteria)
         {
-            var parentSetting = _settingRelationRepository.GetSettingByTypeCN88(new GetSettingByTypeCN88Criteria
+            var parentSetting = baseService.GetData<SettingItemCN88>(new GetSettingByTypeCN88Criteria
             {
                 SettingName = criteria.ParentName
             });
 
-            var settingByTypeData = _settingRelationRepository.GetSettingByTypeCN88(new GetSettingByTypeCN88Criteria
+            var settingByTypeData = baseService.GetData<SettingItemCN88>(new GetSettingByTypeCN88Criteria
             {
                 SettingName = criteria.MainSetting.SettingType
             });
@@ -126,20 +113,19 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
         public List<MainSetting> GetMainSettingCN88(GetMainSettingCriteria criteria)
         {
-            return _settingRelationRepository.GetMainSettingCN88(criteria);
+            return baseService.GetData<MainSetting>(criteria).ToList();
         }
 
         public List<SettingItemCN88> GetSettingByTypeCN88(GetSettingByTypeCN88Criteria criteria)
         {
-            var data = _settingRelationRepository.GetSettingByTypeCN88(criteria);
+            var data = baseService.GetData<SettingItemCN88>(criteria);
             var result = data
                 .Where(s => s.ParentID == 0)
                 .Select(s =>
                 {
                     s.ChildSettings = data.Where(c => c.ParentID == s.SettingID).ToList();
                     return s;
-                })
-                .ToList();
+                }).ToList();
 
             return result;
         }
@@ -176,8 +162,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                         DisplayOrder = parent.DisplayOrder,
                         Value = setting.Value,
                         SettingType = setting.SettingType
-                    })
-                    .OrderBy(s => s.DisplayOrder);
+                    }).OrderBy(s => s.DisplayOrder);
 
             return query.ToList();
         }

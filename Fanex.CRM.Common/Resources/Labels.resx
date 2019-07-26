@@ -120,6 +120,9 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
   <data name="Btn_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -162,8 +165,20 @@
   <data name="Btn_Verify" xml:space="preserve">
     <value>Verify</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
+  </data>
+  <data name="Confirm_Ignore_Changes" xml:space="preserve">
+    <value>Confirm Ignore Changes</value>
+  </data>
+  <data name="DefaultSearchCustomer" xml:space="preserve">
+    <value>Phone or Username or Nickname</value>
+  </data>
+  <data name="Error_500" xml:space="preserve">
+    <value>You're not authorized on this function!</value>
   </data>
   <data name="Error_ArgumentEmpty" xml:space="preserve">
     <value>"{0}" cannot be blank.</value>
@@ -192,10 +207,52 @@
   <data name="Error_InvalidUrl" xml:space="preserve">
     <value>"{0}" is not a valid web url.</value>
   </data>
+  <data name="Error_SearchCustomer_Empty" xml:space="preserve">
+    <value>Please input username!</value>
+  </data>
+  <data name="Error_Server" xml:space="preserve">
+    <value>Sorry, an error occurred while processing your request, please notify the administrators.</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
+    <value>Show/Hide Left Panel</value>
+  </data>
+  <data name="IBC" xml:space="preserve">
+    <value>IBC</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>Licensee</value>
+  </data>
+  <data name="MBC" xml:space="preserve">
+    <value>MBC</value>
+  </data>
+  <data name="Message_ViewChart_FromToDate" xml:space="preserve">
+    <value>{0} To {1}</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>You don't have permission on this function!</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ResultMessage_NoInfo" xml:space="preserve">
+    <value>There is no data.</value>
+  </data>
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
   </data>
   <data name="There_is_no_data" xml:space="preserve">
     <value>There is no data</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

@@ -1,5 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
     using Fanex.Common;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Extensions;
@@ -20,13 +24,8 @@
     using Fanex.Excel.Repositories.CustomColors;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Web;
 
-    public class RedemptionStatisticsService : /*BaseService,*/ IRedemptionStatisticsService
+    public class RedemptionStatisticsService : IRedemptionStatisticsService
     {
         private readonly ISettingService _serviceSetting;
         private readonly IRedemptionStatisticsRepository _redemptionRepository;
@@ -95,21 +94,20 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            var gridOptions = new GridOptions();
-            gridOptions.Columns = this.GenSummaryHeaderRow();
-            gridOptions.ShowDistinctRow = true;
-            gridOptions.ShowHighlightRow = true;
-            gridOptions.ShowTitle = true;
-            gridOptions.ShowFooter = true;
-            gridOptions.TitleInfoText = string.Format(
+            var gridOptions = new GridOptions
+            {
+                Columns = this.GenSummaryHeaderRow(),
+                ShowDistinctRow = true,
+                ShowHighlightRow = true,
+                ShowTitle = true,
+                ShowFooter = true,
+                TitleInfoText = string.Format(
                 Labels.RedemptionStatisticsReportTitle,
                 criteria.FromDate.ToShortFormatedDate(),
-                criteria.ToDate.ToShortFormatedDate());
+                criteria.ToDate.ToShortFormatedDate())
+            };
 
             IDictionary<string, decimal> totalHash = new Dictionary<string, decimal>();
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
@@ -233,23 +231,27 @@
 
         private List<HeaderColumns> GenSummaryHeaderRow()
         {
-            var headerRow = new List<HeaderColumns>();
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Date, Name = Labels.Date, Width = 200 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 150 });
-            headerRow.Add(new HeaderColumns(Labels.Amount, Labels.Amount, 150, HAlignment.Left, "center", ExcelCellType.Double));
+            var headerRow = new List<HeaderColumns>
+            {
+                new HeaderColumns { HeaderText = Labels.Date, Name = Labels.Date, Width = 200 },
+                new HeaderColumns { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 150 },
+                new HeaderColumns(Labels.Amount, Labels.Amount, 150, HAlignment.Left, "center", ExcelCellType.Double)
+            };
             return headerRow;
         }
 
         private List<HeaderColumns> GenDetailHeaderRow()
         {
-            var headerRow = new List<HeaderColumns>();
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.ClaimedDate, Name = Labels.ClaimedDate, Width = 100 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Customer, Name = Labels.Customer, Width = 150 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Subject, Name = Labels.Subject, Width = 350 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 80 });
-            headerRow.Add(new HeaderColumns(Labels.Amount, Labels.Amount, 100, HAlignment.Left, "center", ExcelCellType.Double));
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Status, Name = Labels.Status, Width = 80 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.DoneBy, Name = Labels.DoneBy, Width = 100 });
+            var headerRow = new List<HeaderColumns>
+            {
+                new HeaderColumns { HeaderText = Labels.ClaimedDate, Name = Labels.ClaimedDate, Width = 100 },
+                new HeaderColumns { HeaderText = Labels.Customer, Name = Labels.Customer, Width = 150 },
+                new HeaderColumns { HeaderText = Labels.Subject, Name = Labels.Subject, Width = 350 },
+                new HeaderColumns { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 80 },
+                new HeaderColumns(Labels.Amount, Labels.Amount, 100, HAlignment.Left, "center", ExcelCellType.Double),
+                new HeaderColumns { HeaderText = Labels.Status, Name = Labels.Status, Width = 80 },
+                new HeaderColumns { HeaderText = Labels.DoneBy, Name = Labels.DoneBy, Width = 100 }
+            };
             return headerRow;
         }
 
@@ -259,16 +261,16 @@
             int currentColIndex = 0;
             var align = HAlignment.Center;
 
-            var clickDateFormat = "<span class=\"detail-date link\" " +
+            const string ClickDateFormat = "<span class=\"detail-date link\" " +
                                     "data-currency=\"{0}\" data-currency-id=\"{1}\" data-month=\"{2}\" data-year=\"{3}\">{4}</span>";
-            var clickCurrencyFormat = "<span class=\"detail-currency link\" " +
+            const string ClickCurrencyFormat = "<span class=\"detail-currency link\" " +
                                     "data-currency=\"{0}\" data-currency-id=\"{1}\" data-month=\"{2}\" data-year=\"{3}\">{4}</span>";
-            var dateIdFormat = "{0} {1}";
+            const string DateIdFormat = "{0} {1}";
 
-            var dateId = item.Month == 0 ? item.Year.ToString() : string.Format(dateIdFormat, DateTimeUtilize.GetMonthName(item.Month), item.Year);
-            var dateSpan = string.Format(clickDateFormat, string.Empty, 0, item.Month, item.Year, dateId);
+            var dateId = item.Month == 0 ? item.Year.ToString() : string.Format(DateIdFormat, DateTimeUtilize.GetMonthName(item.Month), item.Year);
+            var dateSpan = string.Format(ClickDateFormat, string.Empty, 0, item.Month, item.Year, dateId);
             var currencySpan = string.Format(
-                clickCurrencyFormat,
+                ClickCurrencyFormat,
                 item.Currency,
                 item.CurrencyId,
                 0,
@@ -340,18 +342,6 @@
             return dataRow;
         }
 
-        /// <summary>
-        /// Creates the columns.
-        /// </summary>
-        /// <param name="colIndex">Index of the col.</param>
-        /// <param name="name">The column name.</param>
-        /// <param name="value">The column value.</param>
-        /// <param name="excelValue">The excel value.</param>
-        /// <param name="cellClass">The cell class.</param>
-        /// <param name="cellAlign">The cell align.</param>
-        /// <param name="isBold">If set to <c>true</c> [is bold].</param>
-        /// <param name="mergeNum">The merge number.</param>
-        /// <returns>The Created Column.</returns>
         private Columns CreateColumns(
             int colIndex,
             string name,

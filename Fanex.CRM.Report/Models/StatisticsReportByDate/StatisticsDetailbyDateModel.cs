@@ -1,12 +1,12 @@
 ﻿namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
+    using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Helpers;
-    using System;
-    using System.Collections.Generic;
 
     [Serializable]
     public class StatisticsDetailbyDateModel
@@ -47,7 +47,7 @@
 
         public string Bbm { get; set; }
 
-        #endregion
+        #endregion Communication
 
         public DateTime StartDate { get; set; }
 

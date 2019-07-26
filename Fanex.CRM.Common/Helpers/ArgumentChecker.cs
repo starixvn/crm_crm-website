@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ArgumentChecker.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Helpers
+﻿namespace Fanex.CRM.Common.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +7,7 @@ namespace Fanex.CRM.Common.Helpers
     using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
 
-    /// <summary>
-    /// Check class.
-    /// </summary>
     public static class ArgumentChecker
     {
         [DebuggerStepThrough]
@@ -143,7 +130,7 @@ namespace Fanex.CRM.Common.Helpers
         [DebuggerStepThrough]
         public static void IsNotInPast(DateTime argument, string argumentName)
         {
-            if (argument < SystemTime.Now())
+            if (argument < DateTime.UtcNow)
             {
                 throw new ArgumentOutOfRangeException(argumentName);
             }
@@ -152,7 +139,7 @@ namespace Fanex.CRM.Common.Helpers
         [DebuggerStepThrough]
         public static void IsNotInFuture(DateTime argument, string argumentName)
         {
-            if (argument > SystemTime.Now())
+            if (argument > DateTime.UtcNow)
             {
                 throw new ArgumentOutOfRangeException(argumentName);
             }

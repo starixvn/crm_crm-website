@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Excels.LogStatistics
 {
+    using System.Linq;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -9,7 +10,6 @@
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.Linq;
 
     public class LogStatisticsExcel : BaseExcel
     {

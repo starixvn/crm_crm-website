@@ -1,40 +1,30 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackSubjectManagementService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
+﻿namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
 {
     using System.Linq;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Resources;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services;
 
-    /// <summary>
-    /// Feedback Subject Management Service.
-    /// </summary>
     public class FeedbackSubjectManagementService : IFeedbackSubjectManagementService
     {
-        private IFeedbackSubjectManagementRepository _feedbackSubjectManagementRepository;
+        private readonly IFeedbackSubjectManagementRepository _feedbackSubjectManagementRepository;
+        private readonly IBaseService baseService;
 
-        public FeedbackSubjectManagementService()
-            : this(null)
+        public FeedbackSubjectManagementService() : this(null, null)
         {
         }
 
-        public FeedbackSubjectManagementService(IFeedbackSubjectManagementRepository feedbackSubjectManagementRepository)
+        public FeedbackSubjectManagementService(
+            IFeedbackSubjectManagementRepository feedbackSubjectManagementRepository,
+            IBaseService baseService)
         {
             _feedbackSubjectManagementRepository = feedbackSubjectManagementRepository ?? new FeedbackSubjectManagementRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public FeedbackSubjectTemplateView SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
@@ -47,9 +37,9 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             };
         }
 
-        public Result ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
+        public CommandResult ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
-            var result = _feedbackSubjectManagementRepository.ChangeTemplateState(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = criteria.IsActive ?
@@ -62,9 +52,9 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             return result;
         }
 
-        public Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
+        public CommandResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
-            var result = _feedbackSubjectManagementRepository.EditTemplate(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_EditSuccess;
@@ -74,9 +64,9 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             return result;
         }
 
-        public Result InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
+        public CommandResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
-            var result = _feedbackSubjectManagementRepository.InsertTemplate(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_InsertSuccess;

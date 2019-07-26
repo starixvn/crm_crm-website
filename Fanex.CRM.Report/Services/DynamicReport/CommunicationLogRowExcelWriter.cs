@@ -1,5 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -8,9 +11,6 @@
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
     public class CommunicationLogRowExcelWriter
     {

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using System.Collections.Generic;
 
     public interface IFeedbackService
     {
@@ -18,7 +18,7 @@
 
         IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria);
 
-        Result UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
+        CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
 
         FeedbackDuplicationResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria);
     }

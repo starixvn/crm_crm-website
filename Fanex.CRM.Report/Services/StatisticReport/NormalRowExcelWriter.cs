@@ -6,7 +6,6 @@
     using Fanex.CRM.Report.Models.StatisticReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using System.Diagnostics.CodeAnalysis;
 
     public class NormalRowExcelWriter
     {
@@ -36,9 +35,6 @@
             _centerTextStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
             ExportExcelInfo exportExcelInfo,
             StatisticReportInfo info,

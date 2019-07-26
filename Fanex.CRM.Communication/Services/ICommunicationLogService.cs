@@ -1,10 +1,10 @@
 namespace Fanex.CRM.Communication.Services
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using System.Collections.Generic;
 
     public interface ICommunicationLogService
     {
@@ -16,9 +16,9 @@ namespace Fanex.CRM.Communication.Services
 
         BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
-        Result UpdateLog(UpdateLogCriteria criteria);
+        CommandResult UpdateLog(UpdateLogCriteria criteria);
 
-        Result InsertLog(InsertLogCriteria criteria);
+        CommandResult InsertLog(InsertLogCriteria criteria);
 
         CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria);
     }

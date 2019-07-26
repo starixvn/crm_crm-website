@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Extensions;
@@ -9,7 +10,6 @@
     using Fanex.Excel.Extensions;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
     [NapAuth(FunctionKey = FunctionPermissions.RedemptionStatistics, Policy = Constant.Policy.Read)]
     public class RedemptionStatisticsReportController : ReadOnlyBaseController

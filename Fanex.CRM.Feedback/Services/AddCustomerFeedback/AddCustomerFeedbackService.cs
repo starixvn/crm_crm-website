@@ -1,29 +1,27 @@
 ﻿namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
 {
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Criteria;
-    using Fanex.CRM.Feedback.Repositories.AddCustomerFeedback;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
 
     public class AddCustomerFeedbackService : IAddCustomerFeedbackService
     {
-        private readonly IAddCustomerFeedbackRepository _addCustomerFeedbackRepository;
+        private readonly IBaseService baseService;
 
-        public AddCustomerFeedbackService()
-            : this(null)
+        public AddCustomerFeedbackService() : this(null)
         {
         }
 
-        public AddCustomerFeedbackService(
-            IAddCustomerFeedbackRepository addCustomerFeedbackRepository)
+        public AddCustomerFeedbackService(IBaseService baseService)
         {
-            _addCustomerFeedbackRepository = addCustomerFeedbackRepository ?? new AddCustomerFeedbackRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
-        public Result AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
+        public CommandResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            var result = _addCustomerFeedbackRepository.AddCustomerFeedback(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;

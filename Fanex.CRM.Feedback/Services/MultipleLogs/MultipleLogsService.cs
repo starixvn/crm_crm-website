@@ -1,35 +1,37 @@
 ﻿namespace Fanex.CRM.Feedback.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Common.Helpers;
     using Common.Models;
     using Criteria;
+    using Fanex.CRM.Common.Services;
     using Infrastructure.Constants;
     using Infrastructure.Models;
     using Repositories;
     using Resources;
     using Setting.Constants;
     using Setting.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class MultipleLogsService : IMultipleLogsService
     {
         private readonly IMultipleLogsRepository _multipleLogsRepository;
+        private readonly ISettingService _serviceSetting;
+        private readonly IBaseService baseService;
 
-        private ISettingService _serviceSetting;
-
-        public MultipleLogsService()
-            : this(null, null)
+        public MultipleLogsService() : this(null, null, null)
         {
         }
 
         public MultipleLogsService(
             IMultipleLogsRepository multipleLogsRepository,
+            IBaseService baseService,
             ISettingService serviceSetting)
         {
             _multipleLogsRepository = multipleLogsRepository ?? new MultipleLogsRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public IList<BaseModel> AllStatusForInsert
@@ -48,20 +50,20 @@
             }
         }
 
-        public Result InsertMultpleLogs(InsertMultipleLogsCriteria criteria)
+        public CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
             criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
             if (DateTime.Now < criteria.StartTime)
             {
-                return new Result
+                return new CommandResult
                 {
                     Code = ErrorCodeConstants.ServerError,
                     Message = Labels.Multiple_Logs_ExcessCurrentTime
                 };
             }
 
-            var result = _multipleLogsRepository.InsertMultipleLogs(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Multiple_Logs_InsertSuccess;
@@ -70,20 +72,20 @@
             return result;
         }
 
-        public Result UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
+        public CommandResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
             criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
             if (DateTime.Now < criteria.StartTime)
             {
-                return new Result
+                return new CommandResult
                 {
                     Code = ErrorCodeConstants.ServerError,
                     Message = Labels.Multiple_Logs_ExcessCurrentTime
                 };
             }
 
-            var result = _multipleLogsRepository.UpdateMultipleLogs(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Multiple_Logs_UpdateSuccess;
@@ -92,9 +94,9 @@
             return result;
         }
 
-        public Result UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
+        public CommandResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
         {
-            var result = _multipleLogsRepository.UpdateMultipleLogStatuses(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Multiple_Logs_UpdateSuccess;

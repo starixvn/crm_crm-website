@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
-    using System.Collections.Generic;
 
     public interface IFeedbackStatisticReportService
     {

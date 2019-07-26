@@ -156,6 +156,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Attributes\OverridableNapAuthAttribute.cs" />
     <Compile Include="Attributes\OverridableNapSupperAuthAttribute.cs" />
     <Compile Include="Constants\FunctionPermissions.cs" />
@@ -180,7 +181,6 @@
     <Compile Include="Extensions\NpoiExtensions.cs" />
     <Compile Include="Extensions\HashtableExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
-    <Compile Include="Helpers\ChartHelper.cs" />
     <Compile Include="Helpers\ArgumentChecker.cs" />
     <Compile Include="Helpers\DateTimeUtilize.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
@@ -192,6 +192,7 @@
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BaseCustomer.cs" />
     <Compile Include="Models\BaseCommunicationLog.cs" />
+    <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CRMUser.cs" />
     <Compile Include="Models\Fax.cs" />
@@ -223,11 +224,10 @@
     </Compile>
     <Compile Include="Services\ILanguageService.cs" />
     <Compile Include="Services\IPermissionService.cs" />
-    <Compile Include="Services\IServiceBase.cs" />
     <Compile Include="Services\LanguageService.cs" />
     <Compile Include="Services\LoggingHelper.cs" />
     <Compile Include="Services\PermissionService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
@@ -246,7 +246,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Fanex.CRM.Common.ruleset" />
-    <None Include="Resources\app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

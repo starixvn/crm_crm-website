@@ -111,38 +111,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ErrorCodeConstants.cs" />
-    <Compile Include="Constants\HttpMethodConstants.cs" />
-    <Compile Include="Constants\RequestHeaderTypeConstants.cs" />
-    <Compile Include="Constants\SortDirectionConstants.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Helpers\LogExtensions.cs" />
-    <Compile Include="Helpers\SystemTime.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CRMHorizontalAlignment.cs" />
     <Compile Include="Models\CRMVerticalAlignment.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PagingCriteria.cs" />
     <Compile Include="Models\PeriodRange.cs" />
-    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TimeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Labels.Designer.cs">
-      <DependentUpon>Labels.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Attributes\HandleAjaxErrorAttribute.cs" />
     <Compile Include="ActionResults\JsonWithoutNullField.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Labels.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />
-    <EmbeddedResource Include="Resources\Labels.zh-TW.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

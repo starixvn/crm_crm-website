@@ -1,5 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Services.SummaryReport
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -7,20 +10,16 @@
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.SummaryReport;
+    using Fanex.CRM.Report.Entities.SummaryReport;
     using Fanex.CRM.Report.Models.SummaryReport;
-    using Fanex.CRM.Report.Repositories.SummaryReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Services;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class SummaryReportService : ISummaryReportService
     {
-        private readonly ISummaryReportRepository _summaryRepository;
+        private readonly IBaseService baseService;
         private readonly ISettingService _settingServices;
 
         public SummaryReportService()
@@ -28,9 +27,9 @@
         {
         }
 
-        public SummaryReportService(ISummaryReportRepository summaryRepository, ISettingService settingServices)
+        public SummaryReportService(IBaseService baseService, ISettingService settingServices)
         {
-            _summaryRepository = summaryRepository ?? new SummaryReportRepository();
+            this.baseService = baseService ?? new BaseService();
             _settingServices = settingServices ?? new SettingService();
         }
 
@@ -96,7 +95,6 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private SummaryReportModel ParseSummaryReport(GetSummaryReportCriteria criteria)
         {
             if (string.IsNullOrWhiteSpace(criteria.Categories))
@@ -111,10 +109,10 @@
             IList<CategorySummary> categorySummaries = new List<CategorySummary>();
 
             // Filter.
-            int[] categoryIds = criteria.Categories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+            int[] categoryIds = criteria.Categories.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
             .Select(c => int.Parse(c))
             .ToArray();
-            var rawData = _summaryRepository.GetSummaryReport(criteria)
+            var rawData = baseService.GetData<SummaryRawData>(criteria)
             .Where(c => categoryIds.Contains(c.MainCategoryId))
             .ToList();
 
@@ -193,7 +191,7 @@
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var columnWidths = new List<int>() { 300 };
+            var columnWidths = new List<int> { 300 };
             columnWidths.AddRange(Enumerable.Repeat(80, 12));
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
@@ -218,7 +216,6 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
         {
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
@@ -395,6 +392,6 @@
             NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        #endregion
+        #endregion Export excel helper
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Report.Services.DynamicReport
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.Excel.Models;
     using NPOI.SS.UserModel;
-    using System.Collections.Generic;
 
     public interface IRedemptionStatisticsService
     {

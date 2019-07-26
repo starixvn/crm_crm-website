@@ -1,7 +1,11 @@
 namespace Fanex.CRM.Communication.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories;
@@ -10,27 +14,25 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class CommunicationLogService : ICommunicationLogService
     {
         private readonly ICommunicationLogRepository _communicationRepositoryLog;
-
         private readonly ISettingService _serviceSetting;
+        private readonly IBaseService baseService;
 
-        public CommunicationLogService()
-            : this(null, null)
+        public CommunicationLogService() : this(null, null, null)
         {
         }
 
         public CommunicationLogService(
             ICommunicationLogRepository communicationRepositoryInstance,
+            IBaseService baseService,
             ISettingService serviceSetting)
         {
             _communicationRepositoryLog = communicationRepositoryInstance ?? new CommunicationLogRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public IList<BaseModel> AllStatusForEdit
@@ -76,8 +78,8 @@ namespace Fanex.CRM.Communication.Services
             var siteSettings = _serviceSetting.GetAllSiteWithGroup().Where(s => s.IsActive);
 
             var site = siteSettings.FirstOrDefault(s => s.Id == log.SiteInfo.Id);
-            log.SiteInfo.Name = site == null ? null : site.Name;
-            log.SiteInfo.AliasName = site == null ? null : site.AliasName;
+            log.SiteInfo.Name = site?.Name;
+            log.SiteInfo.AliasName = site?.AliasName;
 
             var licenseeType = settings.FirstOrDefault(s => s.Id == log.LicenseeType.Id);
             log.LicenseeType.Name = licenseeType == null ? Labels.Symbol_NotApply : licenseeType.Value;
@@ -90,7 +92,7 @@ namespace Fanex.CRM.Communication.Services
             log.RoleInfo.Name = settings.First(s => s.Id == log.RoleInfo.Id).Value;
         }
 
-        public Result UpdateLog(UpdateLogCriteria criteria)
+        public CommandResult UpdateLog(UpdateLogCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
             criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
@@ -102,15 +104,14 @@ namespace Fanex.CRM.Communication.Services
 
             if (DateTime.Now < criteria.StartTime)
             {
-                return new Result
+                return new CommandResult
                 {
                     Code = ErrorCodeConstants.ServerError,
                     Message = Labels.Communication_Log_ExcessCurrentTime
                 };
             }
 
-            var result = _communicationRepositoryLog.UpdateLog(criteria);
-
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Communication_Logs_UpdateSuccess;
@@ -119,20 +120,20 @@ namespace Fanex.CRM.Communication.Services
             return result;
         }
 
-        public Result InsertLog(InsertLogCriteria criteria)
+        public CommandResult InsertLog(InsertLogCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
             criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
             if (DateTime.Now < criteria.StartTime)
             {
-                return new Result
+                return new CommandResult
                 {
                     Code = ErrorCodeConstants.ServerError,
                     Message = Labels.Communication_Log_ExcessCurrentTime
                 };
             }
 
-            var result = _communicationRepositoryLog.InsertLog(criteria);
+            CommandResult result = baseService.ExecuteNonQuery(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.Communication_Logs_InsertSuccess;
@@ -143,7 +144,7 @@ namespace Fanex.CRM.Communication.Services
 
         public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)
         {
-            return _communicationRepositoryLog.GetCustomerDefaultSetting(criteria);
+            return baseService.GetDataEntity<CustomerDefaultSetting>(criteria);
         }
     }
 }

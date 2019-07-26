@@ -1,14 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerDetailRepository.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Repositories
+﻿namespace Fanex.CRM.Customer.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
@@ -16,13 +10,7 @@ namespace Fanex.CRM.Customer.Repositories
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
 
-    /// <summary>
-    /// Customer Detail Repository.
-    /// </summary>
     public class CustomerDetailRepository : BaseCustomerRepository, ICustomerDetailRepository
     {
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
@@ -53,11 +41,6 @@ namespace Fanex.CRM.Customer.Repositories
                     return customer;
                 }
             }
-        }
-
-        public Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
-        {
-            return ExecuteNonQuery(criteria);
         }
 
         private CustomerInfo ReadCustomer(IDataReader reader)

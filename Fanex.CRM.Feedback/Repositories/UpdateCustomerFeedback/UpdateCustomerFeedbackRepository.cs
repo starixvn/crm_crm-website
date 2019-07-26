@@ -1,5 +1,9 @@
 ﻿namespace Fanex.CRM.Feedback.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -9,11 +13,6 @@
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class UpdateCustomerFeedbackRepository : IUpdateCustomerFeedbackRepository
     {
@@ -79,7 +78,6 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private CustomerInfo GetCustomerInfo(IDataReader reader)
         {
             var birthday = Converter.ToDateTime(reader["Birthday"]);
