@@ -88,15 +88,6 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
-        /// </summary>
-        public static string Btn_Close {
-            get {
-                return ResourceManager.GetString("Btn_Close", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Duplicate.
         /// </summary>
         public static string Btn_Duplicate {
@@ -214,6 +205,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed.
         /// </summary>
         public static string Closed {
@@ -232,11 +232,29 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone or Username or Nickname.
         /// </summary>
         public static string DefaultSearchCustomer {
             get {
                 return ResourceManager.GetString("DefaultSearchCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edited By.
+        /// </summary>
+        public static string EditedBy {
+            get {
+                return ResourceManager.GetString("EditedBy", resourceCulture);
             }
         }
         
@@ -376,6 +394,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inform Headlines.
+        /// </summary>
+        public static string InformHeadlines {
+            get {
+                return ResourceManager.GetString("InformHeadlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee.
         /// </summary>
         public static string Licensee {
@@ -421,11 +448,29 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number Of Removed Edited Accounts.
+        /// </summary>
+        public static string NumberOfRemovedEditedAccounts {
+            get {
+                return ResourceManager.GetString("NumberOfRemovedEditedAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed Edited Accounts Logs.
+        /// </summary>
+        public static string RemovedEditedAccountsLogs {
+            get {
+                return ResourceManager.GetString("RemovedEditedAccountsLogs", resourceCulture);
             }
         }
         

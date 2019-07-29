@@ -19,7 +19,7 @@
                 var value = item[valueProperty];
                 html += '<option value="' + item[valueProperty] + '" ' +
                     (value && selectedValue && value.toString() === selectedValue.toString() ? 'selected' : '') +
-                     ' >' + item[textProperty] + '</option>';
+                    ' >' + item[textProperty] + '</option>';
             }
             html += '</select>';
 
@@ -27,11 +27,11 @@
         }
         function htmlEncode(value) {
             return String(value)
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
         }
         function htmlDecode(value) {
             return $('<div/>').html(value).text();
@@ -55,22 +55,22 @@
             }
             else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
                 html = '<div class="checkbox display-inline-block"><label><input class="iskeep" value="true" type="checkbox" data-binding-name="IsKeep" />' +
-                                            viewResources.KeepThisAccount + '</label></div>';
+                    viewResources.KeepThisAccount + '</label></div>';
             }
 
             return html + generateDropdown(_selfScope.$parent.informStatuses,
-                                    "InformHeadlineStatusId", "SettingId", "SettingValue",
-                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
+                "InformHeadlineStatusId", "SettingId", "SettingValue",
+                columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
         }
 
         function renderExtensionDropdownCell(columnModel) {
             return renderDropdownCell(columnModel, _selfScope.$parent.stations,
-            "Extension", "StationId", "Name", columnModel.Value.Extension);
+                "Extension", "StationId", "Name", columnModel.Value.Extension);
         }
 
         function renderProductStatusDropdownCell(columnModel) {
             return renderDropdownCell(columnModel, _selfScope.$parent.productStatuses,
-            "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+                "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
         }
 
         function renderRemarkCell(columnModel) {
@@ -130,7 +130,6 @@
             var rowsCount = scope.dataSource.length;
             var firstRowIndex = pageIndex * pageSize;
             if (rowsCount >= firstRowIndex) {
-
                 var lastRowIndex = firstRowIndex + pageSize;
                 if (lastRowIndex > rowsCount) {
                     lastRowIndex = rowsCount;
@@ -145,8 +144,9 @@
 
                     bodyData.push({
                         Columns: [
-                            { Name: "DirectAccount", Value: item.Case === 0 ?
-                                userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>'
+                            {
+                                Name: "DirectAccount", Value: item.Case === 0 ?
+                                    userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>'
                             },
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.ClientUpdatedTime },
@@ -176,8 +176,10 @@
                 columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", 
-                        FormatDateTime: "MMM DD, YYYY hh:mm:ss A" },
+                    {
+                        HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center",
+                        FormatDateTime: "MMM DD, YYYY hh:mm:ss A"
+                    },
                     { HeaderText: viewResources.Remark, Width: 420, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 110, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },

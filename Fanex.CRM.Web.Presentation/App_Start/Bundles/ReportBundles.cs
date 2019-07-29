@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ReportBundles.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.08.01">Created</change>
-// </history>
-
-namespace Fanex.CRM.Report
+﻿namespace Fanex.CRM.Web.View.AppStart
 {
+    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
-    using System.Web.Optimization;
 
-    /// <summary>
-    /// Bundle Config of Report.
-    /// </summary>
     public static class ReportBundles
     {
         public static void RegisterBundles(BundleCollection bundles)
@@ -27,11 +15,6 @@ namespace Fanex.CRM.Report
             RegisterDeletedFeedbackStatisticsBundles(bundles);
         }
 
-
-        /// <summary>
-        /// Registers the feedback statistic bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterFeedbackStatisticBundles(BundleCollection bundles)
         {
             AddAndInclude(
@@ -51,10 +34,6 @@ namespace Fanex.CRM.Report
                 "~/Areas/Report/FeedbackStatistics/Scripts/Directives/*.js"));
         }
 
-        /// <summary>
-        /// Registers the feedback statistic detail bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterFeedbackStatisticDetailBundles(BundleCollection bundles)
         {
             AddAndInclude(
@@ -77,10 +56,6 @@ namespace Fanex.CRM.Report
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/Directives/*.js"));
         }
 
-        /// <summary>
-        /// Registers the log statistics bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterLogStatisticsBundles(BundleCollection bundles)
         {
             AddAndInclude(

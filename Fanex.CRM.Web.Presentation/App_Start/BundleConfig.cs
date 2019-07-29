@@ -1,35 +1,11 @@
-// --------------------------------------------------------------------------
-// <copyright file="BundleConfig.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
 namespace Fanex.CRM.Web.View.AppStart
 {
+    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
-    using Fanex.CRM.AdminTool;
-    using Fanex.CRM.Feedback.Bundles;
-    using Fanex.CRM.InformHeadline;
-    using Fanex.CRM.Report;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Web.Optimization;
 
-    /// <summary>
-    /// Bundle Config.
-    /// </summary>
     public static class BundleConfig
     {
-        /// <summary>
-        /// Registers the bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-             "SP2101:MethodMustNotContainMoreLinesThan",
-             Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.AddAndInclude(
@@ -38,7 +14,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
                 "~/Content/vendors/jqueryui/jquery-ui.min.css",
-                "~/Content/site/customizeJqueryUI.less");
+                "~/Content/site/customizeJqueryUI.less",
+                "~/Content/site/bootstrap-modal.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.js"));
@@ -74,7 +51,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/FanexGridV2/moment.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
-                "~/Scripts/AngularJS/angular.min.js"));
+                "~/Scripts/AngularJS/angular.min.js",
+                "~/Scripts/AngularJS/ui-bootstrap-tpls-0.12.1.min.js"));
 
             bundles.AddAndInclude(
                 "~/Styles/FanexMultipleSelect",
@@ -138,10 +116,6 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_FanexGrid(bundles);
         }
 
-        /// <summary>
-        /// Registers the bundles customer short information.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Customer_ShortInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
@@ -180,10 +154,6 @@ namespace Fanex.CRM.Web.View.AppStart
                      "~/Scripts/jquery-ui-timepicker-addon.js"));
         }
 
-        /// <summary>
-        /// Registers the bundles communication log view log.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLogScripts").Include(
@@ -199,10 +169,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Communication/ViewLog/Styles/Communication.less");
         }
 
-        /// <summary>
-        /// Registers the bundles communication log edit.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
@@ -225,10 +191,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less");
         }
 
-        /// <summary>
-        /// Registers the bundles communication log insert.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
@@ -250,10 +212,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less");
         }
 
-        /// <summary>
-        /// Registers the bundles communication log view detail by identify.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
@@ -280,10 +238,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Communication/ViewDetailById/Styles/ViewDetailById.less");
         }
 
-        /// <summary>
-        /// Registers the bundles redemption view log.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLogScripts").Include(
@@ -298,10 +252,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Redemption/ViewLog/Styles/Redemption.less");
         }
 
-        /// <summary>
-        /// Registers the bundles redemption insert log.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Redemption_InsertLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/InsertLogScripts").Include(
@@ -316,10 +266,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Redemption/InsertLog/Styles/Redemption.less");
         }
 
-        /// <summary>
-        /// Registers the bundles redemption edit log.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLogScripts").Include(
@@ -334,10 +280,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Redemption/EditLog/Styles/Redemption.less");
         }
 
-        /// <summary>
-        /// Registers the bundles remark.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Remark(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Remark/RemarkScripts").Include(
@@ -353,10 +295,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Remark/Styles/remark.less");
         }
 
-        /// <summary>
-        /// Registers the activity log bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_ActivityLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/ActivityLogScripts").Include(
@@ -379,10 +317,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/ActionLog/ActivityLog/Styles/activityLog.less");
         }
 
-        /// <summary>
-        /// Registers the bundles_ setting log.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_SettingLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/SettingLogScripts").Include(
@@ -405,10 +339,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/ActionLog/SettingLog/Styles/settingLog.less");
         }
 
-        /// <summary>
-        /// Registers the bundles dashboard view information.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
@@ -424,10 +354,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Dashboard/ViewInfo/Styles/StyleSheet.less");
         }
 
-        /// <summary>
-        /// Registers the bundles dashboard verify flag.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
@@ -443,10 +369,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less");
         }
 
-        /// <summary>
-        /// Registers the bundles dynamic report.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
@@ -475,10 +397,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less");
         }
 
-        /// <summary>
-        /// Registers the bundles_ report_ redemption statistics.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_RedemptionStatistics(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/RedemptionStatisticsScripts").Include(
@@ -504,10 +422,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/RedemptionStatistics/Styles/RedemptionStatistics.less");
         }
 
-        /// <summary>
-        /// Registers the bundles customer report.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_CustomerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/CustomerReportScripts").Include(
@@ -549,10 +463,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/DirectCustomerReport/Styles/DirectCustomerReport.less");
         }
 
-        /// <summary>
-        /// Registers the bundles chart.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Chart(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/CRM/Chart/Scripts").Include(
@@ -560,10 +470,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/Chart/ChartJs/CRMChart.js"));
         }
 
-        /// <summary>
-        /// Registers the user log in bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_User_LogIn(ref BundleCollection bundles)
         {
             bundles.AddAndInclude(
@@ -571,10 +477,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/User/LogIn/Styles/login.less");
         }
 
-        /// <summary>
-        /// Registers the bundles download file.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_DownLoadFile(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/CRM/DownLoadFile/Scripts").Include(
@@ -582,10 +484,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DownloadFile.js"));
         }
 
-        /// <summary>
-        /// Registers the settlement report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_SettlementReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/SettlementReportScripts").Include(
@@ -605,10 +503,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/SettlementReport/Styles/SettlementReport.less");
         }
 
-        /// <summary>
-        /// Registers the statistic report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_StatisticReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
@@ -630,10 +524,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/StatisticReport/Styles/StatisticReport.less");
         }
 
-        /// <summary>
-        /// Registers the result message bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_ResultMessage(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Scripts/ShareScripts/Applications/ResultMessageScripts").Include(
@@ -650,10 +540,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/FanexGridV2/numeral.js"));
         }
 
-        /// <summary>
-        /// Registers the bundles FANEX grid.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_FanexGrid(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/FanexGridScripts").Include(
@@ -668,10 +554,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/site/customizeFanexGridV2.less");
         }
 
-        /// <summary>
-        /// Registers the bundles_ report_ wager report.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_WagerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/WagerReportScripts").Include(
@@ -693,10 +575,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less");
         }
 
-        /// <summary>
-        /// Registers the bundles_ report_ summary report.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/SummaryReportScripts").Include(
@@ -720,21 +598,10 @@ namespace Fanex.CRM.Web.View.AppStart
         }
     }
 
-    /// <summary>
-    /// Bundle Collection extension.
-    /// </summary>
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Need to review here.")]
     internal static class BundleExtensions
     {
         private static CssRewriteUrlTransformWrapper _cssRewriteUrlTransformWrapper = new CssRewriteUrlTransformWrapper();
 
-        /// <summary>
-        /// Creates a bundle, include the virtual paths to the created bundle,
-        /// and add it to the bundle collection.
-        /// </summary>
-        /// <param name="bundles">The bundle collection which the virtual paths are included.</param>
-        /// <param name="bundleVirtualPath">Virtual path of the created bundle.</param>
-        /// <param name="virtualPaths">The virtual paths that needed to add to bundle collection.</param>
         public static void AddAndInclude(
             this BundleCollection bundles,
             string bundleVirtualPath,

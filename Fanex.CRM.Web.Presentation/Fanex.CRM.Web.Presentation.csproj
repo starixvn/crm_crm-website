@@ -240,8 +240,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.zh-TW.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\Bundles\AdminToolBundles.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
+    <Compile Include="App_Start\Bundles\FeedbackBundles.cs" />
+    <Compile Include="App_Start\Bundles\InformHeadlineBundles.cs" />
+    <Compile Include="App_Start\Bundles\ReportBundles.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -615,6 +619,9 @@
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\edit.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\open-case.png" />
+    <Content Include="Areas\InformHeadline\ViewLogs\logs-controller.js" />
+    <None Include="Areas\InformHeadline\ViewLogs\_Logs.cshtml" />
+    <Content Include="Areas\InformHeadline\ViewLogs\logs-grid-directive.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
@@ -870,6 +877,7 @@
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-0.12.1.min.js" />
     <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />
     <Content Include="Scripts\Chart\ChartJs\CRMChart.js" />
     <Content Include="Scripts\Chart\ChartJs\excanvas.js" />
@@ -1153,25 +1161,6 @@
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_60_4264ac_40x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_75_5476bb_40x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_90_466bb9_40x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_90_aaaaaa_40x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_glass_45_f4f3f1_1x400.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_highlight-soft_90_999999_1x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_4264ac_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_c6cddc_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_cbd4e6_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_d0d9ec_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\lib\jquery-ui\jquery-ui-1.8.23.smoothness.css" />
-    <Content Include="Content\lib\jquery-ui\jquery-ui-1.9.1.custom.css" />
-    <Content Include="Content\lib\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
-    <Content Include="Content\lib\jquery-ui\jquery.selectBoxIt.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\autocomplete\autocomplete.js" />
     <Content Include="Scripts\autocomplete\jquery.autocomplete.client.js" />
@@ -1585,6 +1574,7 @@
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
+    <Content Include="Content\site\bootstrap-modal.less" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>
   <ItemGroup>

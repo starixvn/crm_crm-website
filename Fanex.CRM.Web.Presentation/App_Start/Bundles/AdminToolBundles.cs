@@ -1,27 +1,11 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AdminToolBundles.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.08.01">Created</change>
-// </history>
-
-namespace Fanex.CRM.AdminTool
+﻿namespace Fanex.CRM.Web.View.AppStart
 {
+    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
-    using System.Web.Optimization;
 
-    /// <summary>
-    /// Bundle Config of Report.
-    /// </summary>
     public static class AdminToolBundles
     {
-        /// <summary>
-        /// Registers the bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             RegisterFeedbackSubjectManagementBundles(bundles);
@@ -48,10 +32,6 @@ namespace Fanex.CRM.AdminTool
             RegisterSettingManagementCN88EditSettingBundles(bundles);
         }
 
-        /// <summary>
-        /// Register Feedback Subject Management Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterFeedbackSubjectManagementBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/ViewListScripts").Include(
@@ -78,10 +58,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Styles/ViewList.less");
         }
 
-        /// <summary>
-        /// Register Delete Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterDeleteFeedbackSubjectTemplateBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateScripts").Include(
@@ -97,10 +73,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Styles/ChangeTemplateState.less");
         }
 
-        /// <summary>
-        /// Register Edit Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterEditFeedbackSubjectTemplateBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/EditTemplateScripts").Include(
@@ -121,10 +93,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Styles/EditTemplate.less");
         }
 
-        /// <summary>
-        /// Register Insert Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterInsertFeedbackSubjectTemplateBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/FeedbackSubjectManagement/InsertTemplateScripts").Include(
@@ -145,10 +113,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Styles/InsertTemplate.less");
         }
 
-        /// <summary>
-        /// Register Setting Relation View List Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingRelationViewListBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelation/ViewListScripts").Include(
@@ -173,10 +137,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingRelation/ViewList/Styles/ViewList.less");
         }
 
-        /// <summary>
-        /// Register Add Relation Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAddSettingRelationBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelation/AddRelationScripts").Include(
@@ -201,10 +161,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Styles/AddRelation.less");
         }
 
-        /// <summary>
-        /// Register Setting Management View List Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementViewListBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/ViewListScripts").Include(
@@ -229,10 +185,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
         }
 
-        /// <summary>
-        /// Register Setting Management Insert Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementInsertSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/InsertSettingScripts").Include(
@@ -259,10 +211,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagement/InsertSetting/Styles/InsertSetting.less");
         }
 
-        /// <summary>
-        /// Register Setting Management Insert Sub Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementInsertSubSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/InsertSubSettingScripts").Include(
@@ -289,10 +237,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
         }
 
-        /// <summary>
-        /// Register Delete Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/DeleteSettingScripts").Include(
@@ -308,10 +252,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Styles/DeleteSetting.less");
         }
 
-        /// <summary>
-        /// Register Setting Management Edit Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementEditSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/EditSettingScripts").Include(
@@ -384,10 +324,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingRelationCN88/ViewList/Styles/ViewList.less");
         }
 
-        /// <summary>
-        /// Register Add Relation Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAddSettingRelationCN88Bundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelationCN88/AddRelationScripts").Include(
@@ -412,10 +348,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Styles/AddRelation.less");
         }
 
-        /// <summary>
-        /// Register Setting Management View List Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementCN88ViewListBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/ViewListScripts").Include(
@@ -440,10 +372,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagementCN88/ViewList/Styles/ViewList.less");
         }
 
-        /// <summary>
-        /// Register Setting Management Insert Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementCN88InsertSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/InsertSettingScripts").Include(
@@ -470,10 +398,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Styles/InsertSetting.less");
         }
 
-        /// <summary>
-        /// Register Setting Management Insert Sub Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementCN88InsertSubSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/InsertSubSettingScripts").Include(
@@ -500,10 +424,6 @@ namespace Fanex.CRM.AdminTool
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Styles/InsertSubSetting.less");
         }
 
-        /// <summary>
-        /// Register Delete Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterSettingManagementCN88DeleteSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagementCN88/DeleteSettingScripts").Include(

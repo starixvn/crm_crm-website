@@ -1,22 +1,9 @@
-// --------------------------------------------------------------------------
-// <copyright file="FeedbackBundles.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Feedback.Bundles
+﻿namespace Fanex.CRM.Web.View.AppStart
 {
+    using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
-    using System.Web.Optimization;
 
-    /// <summary>
-    /// Feedback Bundles.
-    /// </summary>
     public static class FeedbackBundles
     {
         public static void RegisterAll(BundleCollection bundles)
@@ -32,10 +19,6 @@ namespace Fanex.CRM.Feedback.Bundles
             RegisterEditMultipleLogStatusesBundles(bundles);
         }
 
-        /// <summary>
-        /// Registers the manage feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterManageFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts").Include(
@@ -59,10 +42,6 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/ManageFeedback/Styles/StyleSheet.less");
         }
 
-        /// <summary>
-        /// Registers the add customer feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAddCustomerFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
@@ -98,10 +77,6 @@ namespace Fanex.CRM.Feedback.Bundles
                "~/Areas/Feedbacks/AddCustomerFeedback/Styles/AddCustomerFeedback.less");
         }
 
-        /// <summary>
-        /// Registers the add guest feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
@@ -136,10 +111,6 @@ namespace Fanex.CRM.Feedback.Bundles
                "~/Areas/Feedbacks/AddGuestFeedback/Styles/AddGuestFeedback.less");
         }
 
-        /// <summary>
-        /// Registers the latest feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterLatestFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
@@ -160,10 +131,6 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
-        /// <summary>
-        /// Registers the deleted feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterDeletedFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts").Include(
@@ -187,10 +154,6 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/DeletedFeedback/Styles/StyleSheet.less");
         }
 
-        /// <summary>
-        /// Registers the update customer feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterUpdateCustomerFeedbackBundles(BundleCollection bundles)
         {
             AddAndInclude(

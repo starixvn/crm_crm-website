@@ -1,0 +1,14 @@
+﻿@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+
+<div id="template-logs" style="display: none">
+    <div class="modal-header">
+        @CommonLabels.InformHeadlines - @CommonLabels.RemovedEditedAccountsLogs
+        <span class="icon-close" ng-click="logsCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+            <div logs-grid ng-model="logsCtrl.data" class="freegrid display-none"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="logsCtrl.close()">@CommonLabels.Close</button>
+    </div>
+</div>

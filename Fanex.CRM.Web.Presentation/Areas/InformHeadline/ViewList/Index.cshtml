@@ -1,11 +1,10 @@
-﻿﻿@using Fanex.CRM.InformHeadline.Resources;
+﻿@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+﻿@using Fanex.CRM.InformHeadline.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
-@{    
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.InformHeadlines;
-}    
+}
 @section Styles{
 
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css",
@@ -13,55 +12,66 @@
         "~/Areas/InformHeadline/ViewListStyles")
 }
 <div data-ng-app="informHeadlineApplication">
-<div data-ng-controller="ViewListController" 
-    data-ng-init="contactPolicy='@ViewBag.ContactPolicy';searchPolicy='@ViewBag.SearchPolicy';">
+    <div data-ng-controller="ViewListController"
+         data-ng-init="contactPolicy='@ViewBag.ContactPolicy';searchPolicy='@ViewBag.SearchPolicy';">
 
-    @if (ViewBag.ContactPolicy != "None" || ViewBag.SearchPolicy != "None")
-    {
-     <div class="row download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-        </div>
-       <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">      
-          <li class="status-closed"><a data-status="0" class="open-menu-item" tabindex="-1" href="#">Open case</a></li>
-          <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
-          <li class="divider"></li>
-          <li><a class="close-menu-item" data-status="1" tabindex="-1" href="#">Close case</a></li>
-        </ul>
-      </div>    
-    <div class="container main">
-        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="messageResultOptions.Message">
+        @if (ViewBag.ContactPolicy != "None" || ViewBag.SearchPolicy != "None")
+        {
+            <div class="row download-file-container" data-ng-model="downloadFileOptions">
+                <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+            </div>
+            <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">
+                    <li class="status-closed"><a data-status="0" class="open-menu-item" tabindex="-1" href="#">Open case</a></li>
+                    <li class="status-closed"><a class="view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+
+                    <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
+                    <li class="divider"></li>
+                    <li><a class="view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+                    <li class="divider"></li>
+                    <li><a class="close-menu-item" data-status="1" tabindex="-1" href="#">Close case</a></li>
+                </ul>
+            </div>
+            <div class="container main">
+                <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                             class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                            <div data-ng-bind="messageResultOptions.Message">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
-                <div id="inform-headline-list" class="freegrid display-none">
+                <div class="row">
+                    <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
+                        <div id="inform-headline-list" class="freegrid display-none"></div>
+                    </div>
                 </div>
+                @if (ViewBag.SearchPolicy == "Host")
+                {
+                    <div class="row btn-group">
+                        <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
+                            @Labels.NewCase
+                        </button>
+                    </div>
+                }
             </div>
-        </div>
-        @if (ViewBag.SearchPolicy == "Host")
+        }
+        else
         {
-            <div class="row btn-group">
-                <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
-                    @Labels.NewCase</button>
-            </div>        
+            <div class="text-center text-danger">@Fanex.CRM.Common.Resources.Labels.NoPermission</div>
         }
     </div>
-       
-    @section Scripts {
-        @RazorHelper.RenderScripts(          
-            "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-            "~/Scripts/FanexGridV2/NumeralScripts",
-            "~/Scripts/FanexGridScripts",
-            "~/CRM/DownLoadFile/Scripts",
-            "~/Bundles/InformHeadline/ViewListScripts")    
-        <script type="text/javascript">
+</div>
+@Html.Partial("~/Areas/InformHeadline/ViewLogs/_Logs.cshtml")
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/Bundles/InformHeadline/ViewListScripts")
+    <script type="text/javascript">
             parent.document.title = '@Labels.InformHeadlines';
             var viewResources = {
                 Edit: '@Labels.Edit',
@@ -81,14 +91,10 @@
                 UpdateFailed: '@Labels.UpdateFailed',
                 NewInformHeadlines: '@Labels.NewInformHeadlines',
                 UpdateInformHeadlines: '@Labels.UpdateInformHeadlines',
-                EditNumberOfAccounts: '@Labels.EditNumberOfAccounts'
+                EditNumberOfAccounts: '@Labels.EditNumberOfAccounts',
+                Date: '@CommonLabels.Date',
+                EditedBy: '@CommonLabels.EditedBy',
+                NumberOfRemovedEditedAccounts: '@CommonLabels.NumberOfRemovedEditedAccounts'
             };
-        </script>   
-        }     
-    }
-    else
-    {
-        <div class="text-center text-danger">@Fanex.CRM.Common.Resources.Labels.NoPermission</div>
-    }
-</div>
-</div>
+    </script>
+}

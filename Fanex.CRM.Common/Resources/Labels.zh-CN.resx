@@ -120,9 +120,6 @@
   <data name="Btn_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Btn_Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="Btn_Duplicate" xml:space="preserve">
     <value>复制</value>
   </data>
@@ -144,8 +141,17 @@
   <data name="Btn_Verify" xml:space="preserve">
     <value>验证</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="DefaultSearchCustomer" xml:space="preserve">
     <value>电话 / 用户名 / 昵称</value>
+  </data>
+  <data name="EditedBy" xml:space="preserve">
+    <value>Edited By</value>
   </data>
   <data name="Error_500" xml:space="preserve">
     <value>无权限使用此功能！</value>
@@ -192,6 +198,9 @@
   <data name="IBC" xml:space="preserve">
     <value>IBC</value>
   </data>
+  <data name="InformHeadlines" xml:space="preserve">
+    <value>Inform Headlines</value>
+  </data>
   <data name="Licensee" xml:space="preserve">
     <value>代理商</value>
   </data>
@@ -203,6 +212,12 @@
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>无权限使用此功能！</value>
+  </data>
+  <data name="NumberOfRemovedEditedAccounts" xml:space="preserve">
+    <value>Number Of Removed Edited Accounts</value>
+  </data>
+  <data name="RemovedEditedAccountsLogs" xml:space="preserve">
+    <value>Removed Edited Accounts Logs</value>
   </data>
   <data name="ResultMessage_NoInfo" xml:space="preserve">
     <value>无数据</value>
