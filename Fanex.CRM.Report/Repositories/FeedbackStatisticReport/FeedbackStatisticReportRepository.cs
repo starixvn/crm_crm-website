@@ -6,7 +6,6 @@
     using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.Data;
     using Fanex.Data.Repository;

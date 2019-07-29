@@ -6,12 +6,11 @@
     using System.Drawing;
     using System.Linq;
     using Common.Services;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.DynamicReport;
@@ -26,14 +25,11 @@
 
     public class DynamicReportService : IDynamicReportService
     {
-        private readonly short _closedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
-
-        private readonly short _checkedBackgroundColorIndex = (short)HSSFColor.LightOrange.Index;
-
-        private readonly short _pendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
+        private readonly short _closedBackgroundColorIndex = HSSFColor.DarkTeal.Index;
+        private readonly short _checkedBackgroundColorIndex = HSSFColor.LightOrange.Index;
+        private readonly short _pendingBackgroundColorIndex = HSSFColor.Orange.Index;
 
         private readonly IDynamicReportRepository _dynamicReportRepository;
-
         private readonly ISettingService _serviceSetting;
 
         private ICellStyle periodGroupTitleStyle;
@@ -716,7 +712,7 @@
         private void InitPeriodGroupTitleStyle(ExportExcelInfo exportExcelInfo)
         {
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
-            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
+            var periodGroupBackgroundColorIndex = HSSFColor.DarkYellow.Index;
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
             periodGroupTitleStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
@@ -726,7 +722,7 @@
             var font = exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExtensions.FontSize;
             font.FontName = NpoiExtensions.FontName;
-            font.Color = (short)HSSFColor.Blue.Index;
+            font.Color = HSSFColor.Blue.Index;
             font.Boldweight = (short)FontBoldWeight.Bold;
             periodGroupTitleStyle.SetFont(font);
             NpoiExtensions.SetBorderToCell(periodGroupTitleStyle);

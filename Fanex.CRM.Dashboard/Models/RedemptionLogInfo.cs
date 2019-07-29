@@ -2,7 +2,6 @@
 {
     using System;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
 
     [Serializable]
     public class RedemptionLogInfo

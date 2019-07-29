@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Common;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     public class CustomerDetailRepository : BaseCustomerRepository, ICustomerDetailRepository

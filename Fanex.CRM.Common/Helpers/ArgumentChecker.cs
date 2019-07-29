@@ -6,7 +6,6 @@
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
 
     public static class ArgumentChecker
     {

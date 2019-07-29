@@ -4,7 +4,6 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
-    using Fanex.CRM.Infrastructure.Models;
 
     public interface ICommunicationLogService
     {

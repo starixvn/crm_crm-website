@@ -11,13 +11,12 @@ namespace Fanex.CRM.Communication.Models
         [XmlIgnore]
         public string SubCategoryID { get; set; }
 
-
         [XmlAttribute("MainCategoryID")]
         public string MainCategoryIDContent
         {
             get
             {
-                return this.MainCategoryID == null ? string.Empty : this.MainCategoryID;
+                return MainCategoryID ?? string.Empty;
             }
 
             set { }
@@ -28,7 +27,7 @@ namespace Fanex.CRM.Communication.Models
         {
             get
             {
-                return this.SubCategoryID == null ? string.Empty : this.SubCategoryID;
+                return SubCategoryID ?? string.Empty;
             }
 
             set { }

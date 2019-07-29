@@ -1,17 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Site.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Common.Models
+﻿namespace Fanex.CRM.Common.Models
 {
     using System;
-    using Fanex.CRM.Infrastructure.Models;
 
-    /// <summary>
-    /// Setting Information.
-    /// </summary>
     [Serializable]
     public class Site : BaseModel
     {

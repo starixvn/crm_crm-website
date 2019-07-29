@@ -6,8 +6,6 @@
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Resources;
     using Models.CustomerReport;
     using NPOI.HSSF.UserModel;

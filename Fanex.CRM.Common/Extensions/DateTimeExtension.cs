@@ -1,20 +1,8 @@
-// --------------------------------------------------------------------------
-// <copyright file="DateTimeExtension.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Infrastructure.Extensions
+﻿namespace Fanex.CRM.Common.Extensions
 {
     using System;
     using System.Diagnostics;
 
-    /// <summary>
-    /// Date Time Extension.
-    /// </summary>
     public static class DateTimeExtension
     {
         public const string ShortDateFormat = "MMM dd, yyyy";

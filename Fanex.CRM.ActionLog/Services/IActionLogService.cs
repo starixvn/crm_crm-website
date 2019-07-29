@@ -2,7 +2,7 @@
 {
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
     public interface IActionLogService
     {

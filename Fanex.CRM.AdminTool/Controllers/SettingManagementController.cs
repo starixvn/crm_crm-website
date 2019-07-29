@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingManagementController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Controllers
+﻿namespace Fanex.CRM.AdminTool.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
@@ -17,17 +7,13 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
 
-    /// <summary>
-    /// Setting Management Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Read)]
     public class SettingManagementController : ReadOnlyBaseController
     {
-        private ISettingManagementService _settingManagementService;
+        private readonly ISettingManagementService _settingManagementService;
 
         public SettingManagementController()
             : this(null)

@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Entities.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;

@@ -8,7 +8,6 @@
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Setting.Services;
     using Models.SettingManagement;
     using Models.SettingRelation;
@@ -68,7 +67,7 @@
         public CommandResult GetAddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
                 CacheService.Delete(AllSettingRelationSessionKey);

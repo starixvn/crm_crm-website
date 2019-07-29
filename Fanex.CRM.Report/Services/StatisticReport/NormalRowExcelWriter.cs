@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Services.StatisticReport
 {
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.StatisticReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

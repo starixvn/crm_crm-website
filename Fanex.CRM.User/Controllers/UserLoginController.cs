@@ -1,14 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UserLoginController.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.User.Controllers
+﻿namespace Fanex.CRM.User.Controllers
 {
+    using System;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Security;
     using Enumerations;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.User.Resources;
     using Models;
     using NAP.Core.Configuration;
@@ -16,23 +14,16 @@ namespace Fanex.CRM.User.Controllers
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Services;
-    using System;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Security;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";
         private const string LogInViewURL = "~/Areas/User/LogIn/Index{0}.cshtml";
-        private const string NotKnowUserRoleUrl = "/Login/NotDetectUserRole";
         private readonly ILocalAuthenticationService _localService;
         private readonly ISSOAuthenticationService _ssoService;
         private readonly ICommonAuthenticationService _authenticationService;
         private readonly IMaintenanceService _maintenanceService;
+
         public UserLoginController()
             : this(null, null, null, null)
         {
@@ -49,7 +40,6 @@ namespace Fanex.CRM.User.Controllers
             _ssoService = ssoService ?? new SSOAuthenticationService();
             _authenticationService = authenticationService ?? new CommonAuthenticationService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
-
         }
 
         public string FormToken
@@ -70,10 +60,6 @@ namespace Fanex.CRM.User.Controllers
             }
         }
 
-        /// <summary>
-        /// Login Page.
-        /// </summary>
-        /// <returns>Return view.</returns>
         public ActionResult Index()
         {
             if (_maintenanceService.IsUnderMaintenance())
@@ -86,6 +72,7 @@ namespace Fanex.CRM.User.Controllers
             return View(string.Format(LogInViewURL, NapSettings.Settings.SiteId.ToString()
                 == AppSetting.CN88SiteId ? ".CN88" : ""));
         }
+
         public ActionResult UnknowUserRole()
         {
             if (_maintenanceService.IsUnderMaintenance())
@@ -94,13 +81,7 @@ namespace Fanex.CRM.User.Controllers
             }
             return View("~/Areas/User/LogIn/UnknowUserRole.cshtml");
         }
-        /// <summary>
-        /// Lon In Action.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <param name="loginToken">The login token.</param>
-        /// <returns>The log in result.</returns>
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Index(LocalLogin localLogin)
@@ -127,7 +108,6 @@ namespace Fanex.CRM.User.Controllers
             var loginStatus = _localService.Login(localLogin);
 
             return ProcessLoginResult(loginStatus);
-
         }
 
         private ActionResult ProcessLoginResult(LoginStatus loginStatus)
@@ -135,7 +115,6 @@ namespace Fanex.CRM.User.Controllers
             if (loginStatus == LoginStatus.LoginSuccessful)
             {
                 return Redirect(FormsAuthentication.DefaultUrl);
-
             }
 
             if (loginStatus == LoginStatus.NotKnowUserRole)
@@ -164,10 +143,6 @@ namespace Fanex.CRM.User.Controllers
             return ProcessLoginResult(loginStatus);
         }
 
-        /// <summary>
-        /// Log out action.
-        /// </summary>
-        /// <returns>Log out result.</returns>
         public ActionResult LogOut()
         {
             try
@@ -182,10 +157,6 @@ namespace Fanex.CRM.User.Controllers
             return RedirectToAction("Index", "UserLogin");
         }
 
-        /// <summary>
-        /// Checks the user online status.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [Authorize]
         public ActionResult CheckUserOnlineStatus()
@@ -251,7 +222,7 @@ namespace Fanex.CRM.User.Controllers
             Response.Cookies.Set(responseCookie);
         }
 
-        private string GetLoginStatusError(LoginStatus loginStatus)
+        private static string GetLoginStatusError(LoginStatus loginStatus)
         {
             string error = string.Empty;
             switch (loginStatus)
@@ -273,13 +244,14 @@ namespace Fanex.CRM.User.Controllers
                     break;
 
                 default:
+                    // nothing
                     break;
             }
 
             return error;
         }
 
-        private string GetRecheckInStatusError(RecheckInStatus recheckInStatus)
+        private static string GetRecheckInStatusError(RecheckInStatus recheckInStatus)
         {
             string error = string.Empty;
             switch (recheckInStatus)
@@ -297,6 +269,7 @@ namespace Fanex.CRM.User.Controllers
                     break;
 
                 default:
+                    // nothing
                     break;
             }
 

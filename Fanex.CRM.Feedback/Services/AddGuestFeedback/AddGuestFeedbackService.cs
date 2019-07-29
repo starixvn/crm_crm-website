@@ -4,7 +4,6 @@
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
-    using Fanex.CRM.Infrastructure.Constants;
 
     public class AddGuestFeedbackService : IAddGuestFeedbackService
     {
@@ -22,7 +21,7 @@
         public CommandResult AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;
             }

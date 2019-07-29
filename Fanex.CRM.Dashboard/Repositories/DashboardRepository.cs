@@ -5,12 +5,11 @@
     using System.Data;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     public class DashboardRepository : IDashboardRepository

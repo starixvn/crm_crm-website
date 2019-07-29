@@ -7,7 +7,6 @@
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories;
     using Fanex.CRM.Dashboard.Resources;
-    using Fanex.CRM.Infrastructure.Constants;
 
     public class DashboardService : IDashboardService
     {
@@ -47,7 +46,7 @@
         public CommandResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
             }

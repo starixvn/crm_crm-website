@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using System;
+    using System.Net;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -9,7 +10,6 @@
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services.AddCustomerFeedback;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -55,7 +55,7 @@
             try
             {
                 var insertResult = CheckAddCustomerFeedbackPermission();
-                if (insertResult.Code == ErrorCodeConstants.NoneError)
+                if (insertResult.IsSuccessful)
                 {
                     insertResult = _feedbackService.AddCustomerFeedback(criteria);
                 }
@@ -77,7 +77,7 @@
         {
             if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
-                return new CommandResult(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
+                return new CommandResult((int)HttpStatusCode.Forbidden, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
             return new CommandResult();

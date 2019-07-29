@@ -1349,10 +1349,6 @@
       <Project>{136FBFBE-8107-43D2-BCCD-BBD1A7F99E92}</Project>
       <Name>Fanex.CRM.InformHeadline</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
-      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
-      <Name>Fanex.CRM.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>
       <Name>Fanex.CRM.Redemption</Name>

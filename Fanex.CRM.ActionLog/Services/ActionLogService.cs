@@ -6,10 +6,10 @@
     using System.Xml;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
 
     public class ActionLogService : IActionLogService
     {

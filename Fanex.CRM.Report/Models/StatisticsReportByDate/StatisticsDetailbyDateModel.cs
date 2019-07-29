@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Helpers;
 
     [Serializable]

@@ -5,7 +5,6 @@
     using Common.Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.Data;
     using Fanex.Data.Repository;

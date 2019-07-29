@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
 
     [Serializable]
     public class DynamicReportInfo : BaseCommunicationLog

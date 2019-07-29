@@ -8,9 +8,7 @@
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Entities.RedemptionStatistics;
     using Fanex.CRM.Report.Repositories.RedemptionStatisticsReport;

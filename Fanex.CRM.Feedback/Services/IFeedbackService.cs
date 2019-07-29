@@ -4,7 +4,6 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.CRM.Infrastructure.Models;
 
     public interface IFeedbackService
     {

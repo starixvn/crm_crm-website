@@ -7,7 +7,6 @@
     using Common.Models;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.Data;

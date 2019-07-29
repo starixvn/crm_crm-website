@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Dashboard.Models
 {
     using System;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
     [Serializable]
     public class CustomerInfo : BaseModel

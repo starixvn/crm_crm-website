@@ -1,40 +1,31 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="NewInformHeadlineExcel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Excel
+﻿namespace Fanex.CRM.InformHeadline.Excel
 {
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Web;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Resources;
     using Fanex.CRM.InformHeadline.Services;
-    using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class NewInformHeadlineExcel : BaseExcel
     {
-        private static readonly int[] ColumnWidths = new int[] { 280, 120, 120, 300, 120, 120, 120 };
+        private static readonly int[] ColumnWidths = new[] { 280, 120, 120, 300, 120, 120, 120 };
 
         private static readonly Color HeadlineStatusColor = Color.FromArgb(208, 230, 244);
         private static readonly Color NormalStatusColor = Color.FromArgb(241, 241, 241);
 
-        private readonly string[] _columnHeaders = new string[]
+        private readonly string[] _columnHeaders = new[]
             {
-                Labels.DirectAccount, 
+                Labels.DirectAccount,
                 Labels.Status,
                 Labels.UpdatedTime,
                 Labels.Remark,
@@ -42,7 +33,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.Extension,
                 Labels.ProductStatus
             };
-        
+
         private readonly IInformHeadlineService _informService;
 
         private IEnumerable<InformStatus> _informStatuses;
@@ -58,9 +49,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             _informStatuses = _informService.GetInformStatuses();
         }
 
-        /// <summary>
-        /// Build excel workbook.
-        /// </summary>
         public override void BuildWorkBook()
         {
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
@@ -85,11 +73,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             }
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void GenerateTitle(ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -108,18 +91,14 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
-                exportExcelInfo.CurrentRow, 
-                exportExcelInfo.CurrentRow + 1, 
-                exportExcelInfo.StartColumn, 
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
             NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, HttpUtility.HtmlDecode(title), headerStyle);
             exportExcelInfo.CurrentRow += 2;
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
         private void GenerateHeader(ExportExcelInfo exportExcelInfo)
         {
             int currentRow = exportExcelInfo.CurrentRow;
@@ -139,11 +118,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="informs">The weekly categories.</param>
         private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<NewInform> informs)
         {
             exportExcelInfo.ResetCurrentColumn();

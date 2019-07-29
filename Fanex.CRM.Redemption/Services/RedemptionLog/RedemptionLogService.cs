@@ -6,8 +6,6 @@
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
     using Fanex.CRM.Redemption.Repositories.RedemptionLog;
@@ -67,7 +65,7 @@
         {
             criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Redemption_Log_UpdateSuccess;
             }
@@ -79,7 +77,7 @@
         {
             criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Redemption_Log_InsertSuccess;
             }

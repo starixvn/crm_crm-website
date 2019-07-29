@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Models.DeletedFeedbackStatistics
 {
     using Common.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Common.Extensions;
     using System;
     using System.Collections.Generic;
 

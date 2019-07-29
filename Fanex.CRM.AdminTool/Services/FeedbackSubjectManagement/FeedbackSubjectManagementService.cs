@@ -7,7 +7,6 @@
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Setting.Services;
 
     public class FeedbackSubjectManagementService : IFeedbackSubjectManagementService
@@ -40,7 +39,7 @@
         public CommandResult ChangeTemplateState(ChangeSubjectTemplateStateCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = criteria.IsActive ?
                     Labels.ActiveFeedbackSubjectSuccessMessage :
@@ -55,7 +54,7 @@
         public CommandResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_EditSuccess;
                 CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
@@ -67,7 +66,7 @@
         public CommandResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_InsertSuccess;
                 CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);

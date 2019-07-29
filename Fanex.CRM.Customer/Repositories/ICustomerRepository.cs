@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Customer.Repositories
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Infrastructure.Models;
 
     public interface ICustomerRepository
     {

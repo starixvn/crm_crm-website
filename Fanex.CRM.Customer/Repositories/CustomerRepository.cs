@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     public class CustomerRepository : BaseCustomerRepository, ICustomerRepository

@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Entities.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;

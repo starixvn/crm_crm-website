@@ -4,9 +4,9 @@ namespace Fanex.CRM.Common.Extensions
     using System.Drawing;
     using System.Web;
     using Fanex.Common;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Resources;
-    using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;

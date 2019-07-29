@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Common.Helpers
 {
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Common.Extensions;
     using System;
 
     /// <summary>

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
     [Serializable]
     public class FeedbackStatistic

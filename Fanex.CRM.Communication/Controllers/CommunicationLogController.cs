@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Communication.Controllers
 {
     using System.Linq;
+    using System.Net;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -10,7 +11,6 @@
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
@@ -211,7 +211,7 @@
         public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
             CommandResult updateResult = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
-            if (updateResult.Code == ErrorCodeConstants.NoneError)
+            if (updateResult.IsSuccessful)
             {
                 updateResult = _communicationServiceLog.UpdateLog(criteria);
             }
@@ -221,7 +221,7 @@
 
         private CommandResult CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
-            int permissionError = ErrorCodeConstants.NoPermission;
+            const int permissionError = (int)HttpStatusCode.Forbidden;
             if (!HasHostCreateUpdateFeedbackPermission())
             {
                 return new CommandResult(permissionError, Labels.Communication_Logs_NoUpdatePermission);

@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Setting.Services;
     using Models.SettingManagement;
 
@@ -42,10 +42,10 @@
         public CommandResult InsertSetting(InsertSettingCriteria criteria)
         {
             var result = IsExistedSetting(criteria.NewSetting) ?
-                new CommandResult(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
+                new CommandResult((int)HttpStatusCode.InternalServerError, Labels.SettingManagement_Error_ExistedSetting) :
                 baseService.ExecuteNonQuery(criteria);
 
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
                 _settingService.ClearCache();
@@ -78,7 +78,7 @@
         public CommandResult DeleteSetting(DeleteSettingCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = criteria.OldSetting.IsActive ?
                     Labels.DeactiveSettingSuccessMessage : Labels.ActiveSettingSuccessMessage;
@@ -92,10 +92,10 @@
         {
             var result = !string.Equals(criteria.OldSetting.Value, criteria.UpdatedSetting.Value, StringComparison.OrdinalIgnoreCase) &&
                 IsExistedSetting(criteria.UpdatedSetting) ?
-                new CommandResult(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
+                new CommandResult((int)HttpStatusCode.InternalServerError, Labels.SettingManagement_Error_ExistedSetting) :
                 baseService.ExecuteNonQuery(criteria);
 
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
                 _settingService.ClearCache();
@@ -134,7 +134,7 @@
         public CommandResult EditSettingCN88(EditSettingCN88Criteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
                 _settingService.ClearCache();
@@ -146,7 +146,7 @@
         public CommandResult InsertSettingCN88(InsertSettingCN88Criteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
                 _settingService.ClearCache();

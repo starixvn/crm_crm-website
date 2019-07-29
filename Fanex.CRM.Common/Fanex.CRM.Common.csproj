@@ -156,6 +156,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\JsonWithoutNullField.cs" />
     <Compile Include="Attributes\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Attributes\OverridableNapAuthAttribute.cs" />
     <Compile Include="Attributes\OverridableNapSupperAuthAttribute.cs" />
@@ -169,17 +170,23 @@
     <Compile Include="Criteria\BasedLanguageCriteria.cs" />
     <Compile Include="Criteria\BasedUpdateCriteria.cs" />
     <Compile Include="Criteria\LanguageCriteria.cs" />
+    <Compile Include="Criteria\PagingCriteria.cs" />
     <Compile Include="Criteria\UpdateCriteria.cs" />
     <Compile Include="Enumerations\AuthenticationType.cs" />
+    <Compile Include="Enumerations\CRMHorizontalAlignment.cs" />
     <Compile Include="Enumerations\CRMStatus.cs" />
+    <Compile Include="Enumerations\CRMVerticalAlignment.cs" />
     <Compile Include="Enumerations\ReportType.cs" />
     <Compile Include="Enumerations\ReviewMode.cs" />
     <Compile Include="Enumerations\UserRole.cs" />
     <Compile Include="Excel\BaseExcel.cs" />
+    <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
+    <Compile Include="Extensions\LogExtensions.cs" />
     <Compile Include="Extensions\NameMapping.cs" />
     <Compile Include="Extensions\NpoiExtensions.cs" />
     <Compile Include="Extensions\HashtableExtension.cs" />
+    <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Helpers\ArgumentChecker.cs" />
     <Compile Include="Helpers\DateTimeUtilize.cs" />
@@ -192,6 +199,7 @@
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BaseCustomer.cs" />
     <Compile Include="Models\BaseCommunicationLog.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CRMUser.cs" />
@@ -199,6 +207,8 @@
     <Compile Include="Models\FeedbackDetail.cs" />
     <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
     <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
+    <Compile Include="Models\PagedList.cs" />
+    <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\PersonalInfoContact.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\Province.cs" />
@@ -209,6 +219,7 @@
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SettingRelation.cs" />
     <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\TimeInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -228,12 +239,6 @@
     <Compile Include="Services\LoggingHelper.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\BaseService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
-      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
-      <Name>Fanex.CRM.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />

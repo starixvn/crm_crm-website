@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using System;
+    using System.Net;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -10,7 +11,6 @@
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -89,7 +89,7 @@
             try
             {
                 CommandResult result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
-                if (result.Code == ErrorCodeConstants.NoneError)
+                if (result.IsSuccessful)
                 {
                     _updateCustomerFeedbackService.UpdateFeedback(criteria);
                     result = new CommandResult(criteria.ErrorCode, criteria.ErrorMessage);
@@ -110,7 +110,7 @@
 
         private CommandResult CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
-            int permissionError = ErrorCodeConstants.NoPermission;
+            const int permissionError = (int)HttpStatusCode.Forbidden;
             if (!HasHostCreateUpdateFeedbackPermission())
             {
                 return new CommandResult(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);

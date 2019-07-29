@@ -1,20 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackSubjectTemplateInfo.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement
+﻿namespace Fanex.CRM.AdminTool.Models.FeedbackSubjectManagement
 {
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
-    /// <summary>
-    /// Feedback Subject Template Information.
-    /// </summary>
     public class FeedbackSubjectTemplate : BaseModel
     {
         public string TemplateContent { get; set; }

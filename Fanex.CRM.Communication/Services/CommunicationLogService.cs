@@ -3,6 +3,7 @@ namespace Fanex.CRM.Communication.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
@@ -10,8 +11,6 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories;
     using Fanex.CRM.Communication.Resources;
-    using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
 
@@ -106,13 +105,13 @@ namespace Fanex.CRM.Communication.Services
             {
                 return new CommandResult
                 {
-                    Code = ErrorCodeConstants.ServerError,
+                    Code = (int)HttpStatusCode.InternalServerError,
                     Message = Labels.Communication_Log_ExcessCurrentTime
                 };
             }
 
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Communication_Logs_UpdateSuccess;
             }
@@ -128,13 +127,13 @@ namespace Fanex.CRM.Communication.Services
             {
                 return new CommandResult
                 {
-                    Code = ErrorCodeConstants.ServerError,
+                    Code = (int)HttpStatusCode.InternalServerError,
                     Message = Labels.Communication_Log_ExcessCurrentTime
                 };
             }
 
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Communication_Logs_InsertSuccess;
             }

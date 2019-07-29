@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Common.Models;
     using Criteria;
-    using Infrastructure.Models;
 
     public interface IMultipleLogsService
     {

@@ -10,11 +10,9 @@
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
-    using Infrastructure.Constants;
 
     public class FeedbackService : IFeedbackService
     {
@@ -98,7 +96,7 @@
         public CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.UpdateSiteLicenseeTypeSuccess;
             }

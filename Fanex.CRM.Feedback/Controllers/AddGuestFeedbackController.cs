@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
     using System;
+    using System.Net;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -9,7 +10,6 @@
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services.AddCustomerFeedback;
-    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -41,7 +41,7 @@
             try
             {
                 var result = CheckAddCustomerFeedbackPermission(criteria);
-                if (result.Code == ErrorCodeConstants.NoneError)
+                if (result.IsSuccessful)
                 {
                     result = _feedbackService.AddGuestFeedback(criteria);
                 }
@@ -63,18 +63,18 @@
         {
             if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
-                return new CommandResult(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
+                return new CommandResult((int)HttpStatusCode.Forbidden, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
             if (criteria.Status.Id == (int)CRMStatus.Deleted &&
                 !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
             {
-                return new CommandResult(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
+                return new CommandResult((int)HttpStatusCode.Forbidden, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
             if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
-                return new CommandResult(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
+                return new CommandResult((int)HttpStatusCode.Forbidden, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
             }
 
             return new CommandResult();

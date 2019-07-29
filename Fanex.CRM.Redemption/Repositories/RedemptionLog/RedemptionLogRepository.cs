@@ -5,8 +5,6 @@
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
     using Fanex.Data;

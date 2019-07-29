@@ -7,7 +7,7 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Entities.SettlementReport;
     using Fanex.CRM.Report.Models.SettlementReport;

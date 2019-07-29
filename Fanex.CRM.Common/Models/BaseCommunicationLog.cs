@@ -1,21 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BaseCommunicationLogInfo.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Models
+﻿namespace Fanex.CRM.Common.Models
 {
-    using Fanex.CRM.Infrastructure.Models;
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Base Communication Log Information.
-    /// </summary>
     [Serializable]
     public class BaseCommunicationLog
     {
@@ -78,7 +65,7 @@ namespace Fanex.CRM.Common.Models
 
         public Setting LicenseeType { get; set; }
 
-        public System.Collections.Generic.IEnumerable<BaseModel> RelatedCustomers { get; set; }
+        public IEnumerable<BaseModel> RelatedCustomers { get; set; }
 
         public string Remark { get; set; }
 

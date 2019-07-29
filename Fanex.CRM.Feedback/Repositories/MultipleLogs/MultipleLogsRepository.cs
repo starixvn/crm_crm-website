@@ -6,7 +6,7 @@
     using Criteria;
     using Data;
     using Fanex.Common;
-    using Infrastructure.Extensions;
+    using Common.Extensions;
 
     public class MultipleLogsRepository : IMultipleLogsRepository
     {

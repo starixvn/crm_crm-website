@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Setting.Criteria
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
     using Fanex.Data.Repository;
 
     public class GetAllReportByRedemptionCriteria : CriteriaBase

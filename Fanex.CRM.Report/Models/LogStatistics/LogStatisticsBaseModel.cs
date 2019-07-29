@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Models.LogStatistics
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
     public class LogStatisticsBaseModel : BaseModel
     {

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.CRM.Setting.Models
 {
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Common.Models;
 
     public class SiteSetting : BaseModel
     {

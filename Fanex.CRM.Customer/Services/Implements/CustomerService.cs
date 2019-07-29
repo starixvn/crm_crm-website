@@ -8,8 +8,6 @@
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
-    using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
     using Setting.Constants;
@@ -98,7 +96,7 @@
         public CommandResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.CustomerInfo_UpdateSuccess;
             }

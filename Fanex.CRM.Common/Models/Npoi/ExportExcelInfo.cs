@@ -1,24 +1,12 @@
-// --------------------------------------------------------------------------
-// <copyright file="ExportExcelInfo.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
 namespace Fanex.CRM.Common.Models.Npoi
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    /// <summary>
-    /// Base Model.
-    /// </summary>
     public class ExportExcelInfo
     {
         public HSSFWorkbook ExcelFile { get; set; }
@@ -59,11 +47,6 @@ namespace Fanex.CRM.Common.Models.Npoi
             CurrentColumn = StartColumn;
         }
 
-        /// <summary>
-        /// Renders the cell.
-        /// </summary>
-        /// <param name="cellValue">The cell value.</param>
-        /// <param name="cellStyle">The cell style.</param>
         public void RenderCell(object cellValue, ICellStyle cellStyle)
         {
             ICell cell = Row.GetCell(CurrentColumn) ?? Row.CreateCell(CurrentColumn);

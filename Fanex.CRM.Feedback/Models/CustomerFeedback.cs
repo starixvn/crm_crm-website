@@ -1,8 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Models
 {
-    using Common.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using System.Collections.Generic;
+    using Common.Models;
 
     public class CustomerFeedback
     {

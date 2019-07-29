@@ -5,12 +5,11 @@
     using System.Data;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
 

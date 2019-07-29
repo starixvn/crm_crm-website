@@ -1,21 +1,12 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AppSession.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Common.Services
+﻿namespace Fanex.CRM.Common.Services
 {
-    using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using NAP.Core.Models;
     using System.Collections.Generic;
     using System.Web;
     using System.Web.SessionState;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Models;
+    using NAP.Core.Models;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class AppSession
     {
         private const string CurrentLogInUserKey = "CurrentLogInUser";
@@ -44,12 +35,6 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        /// <summary>
-        /// Gets or sets current login user.
-        /// </summary>
-        /// <value>
-        /// The current user.
-        /// </value>
         public static CRMUser CurrentUser
         {
             get
@@ -63,12 +48,6 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        /// <summary>
-        /// Gets or sets menu of current login user.
-        /// </summary>
-        /// <value>
-        /// The current user menu.
-        /// </value>
         public static IList<MenuItem> CurrentUserMenu
         {
             get

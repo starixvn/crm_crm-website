@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Excels.CustomerReport
 {
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Resources;
     using Models.DirectCustomerReport;
     using NPOI.HSSF.UserModel;

@@ -3,12 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using Common.Helpers;
     using Common.Models;
     using Criteria;
     using Fanex.CRM.Common.Services;
-    using Infrastructure.Constants;
-    using Infrastructure.Models;
     using Repositories;
     using Resources;
     using Setting.Constants;
@@ -58,13 +57,13 @@
             {
                 return new CommandResult
                 {
-                    Code = ErrorCodeConstants.ServerError,
+                    Code = (int)HttpStatusCode.InternalServerError,
                     Message = Labels.Multiple_Logs_ExcessCurrentTime
                 };
             }
 
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Multiple_Logs_InsertSuccess;
             }
@@ -80,13 +79,13 @@
             {
                 return new CommandResult
                 {
-                    Code = ErrorCodeConstants.ServerError,
+                    Code = (int)HttpStatusCode.InternalServerError,
                     Message = Labels.Multiple_Logs_ExcessCurrentTime
                 };
             }
 
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Multiple_Logs_UpdateSuccess;
             }
@@ -97,7 +96,7 @@
         public CommandResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
         {
             CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.Code == ErrorCodeConstants.NoneError)
+            if (result.IsSuccessful)
             {
                 result.Message = Labels.Multiple_Logs_UpdateSuccess;
             }

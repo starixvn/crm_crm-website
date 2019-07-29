@@ -1,47 +1,38 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateInformHeadlineExcel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Excel
+﻿namespace Fanex.CRM.InformHeadline.Excel
 {
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Resources;
     using Fanex.CRM.InformHeadline.Services;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class UpdateInformHeadlineExcel : BaseExcel
     {
         private const int KeptForReferenceStatusId = 45007;
 
-        private static readonly int[] InformSpecialCases = new int[] { 1, 5, 12 };
+        private static readonly int[] InformSpecialCases = new[] { 1, 5, 12 };
 
-        private static readonly int[] ColumnWidths = new int[] { 280, 120, 170, 500, 120, 120, 120 };
+        private static readonly int[] ColumnWidths = new[] { 280, 120, 170, 500, 120, 120, 120 };
 
         private static readonly Color UpdatedBackColor = Color.FromArgb(246, 211, 207);
         private static readonly Color HeadlineBackColor = Color.FromArgb(208, 230, 244);
         private static readonly Color NormalBackColor = Color.FromArgb(241, 241, 241);
 
-        private readonly string[] _columnHeaders = new string[]
+        private readonly string[] _columnHeaders = new[]
             {
-                Labels.DirectAccount, 
+                Labels.DirectAccount,
                 Labels.Status,
                 Labels.UpdatedTime,
                 Labels.Remark,
@@ -49,7 +40,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.Extension,
                 Labels.ProductStatus
             };
-        
+
         private readonly IInformHeadlineService _informService;
 
         private IEnumerable<InformStatus> _informStatuses;
@@ -78,9 +69,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             _stations = _informService.GetStations();
         }
 
-        /// <summary>
-        /// Build excel workbook.
-        /// </summary>
         public override void BuildWorkBook()
         {
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
@@ -115,10 +103,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             return Regex.Replace(text, @"\r\n?|\n", "\r\n");
         }
 
-        /// <summary>
-        /// Initialize Body Row Styles.
-        /// </summary>
-        /// <param name="exportExcelInfo">Export Excel Info.</param>
         private void InitializeBodyRowStyles(ExportExcelInfo exportExcelInfo)
         {
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, UpdatedBackColor, HSSFColor.Coral.Index);
@@ -135,11 +119,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             _normalCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, CRMHorizontalAlignment.Center);
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary title.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="title">The title.</param>
         private void GenerateTitle(ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
@@ -158,24 +137,20 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
-                exportExcelInfo.CurrentRow, 
-                exportExcelInfo.CurrentRow + 1, 
-                exportExcelInfo.StartColumn, 
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
             NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, HttpUtility.HtmlDecode(title), headerStyle);
             exportExcelInfo.CurrentRow += 2;
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary header.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
         private void GenerateHeader(ExportExcelInfo exportExcelInfo)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());            
+            var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
             foreach (var columnHeader in _columnHeaders)
@@ -188,11 +163,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Generates the casino weekly summary body.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel info.</param>
-        /// <param name="informs">The weekly categories.</param>
         private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<UpdateInform> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
@@ -201,7 +171,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             ISheet worksheet = exportExcelInfo.Worksheet;
             InitializeBodyRowStyles(exportExcelInfo);
             foreach (var inform in informs)
-            { 
+            {
                 var row = worksheet.CreateRow(currentRow);
                 RenderBodyRow(inform, row, currentColumn);
 
@@ -212,12 +182,6 @@ namespace Fanex.CRM.InformHeadline.Excel
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        /// <summary>
-        /// Render body rows.
-        /// </summary>
-        /// <param name="inform">Inform headline data.</param>
-        /// <param name="row">Excel row.</param>
-        /// <param name="currentColumn">Current column index.</param>
         private void RenderBodyRow(UpdateInform inform, IRow row, int currentColumn)
         {
             ICellStyle leftAlignStyle;

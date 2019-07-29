@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Entities.LogStatistics;
     using Fanex.CRM.Report.Helpers;
