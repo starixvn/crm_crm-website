@@ -78,7 +78,7 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -112,9 +112,9 @@
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, _closedStatusColor, HSSFColor.Grey25Percent.Index);
 
             ICellStyle openedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index);
-            ICellStyle openedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, CRMHorizontalAlignment.Center);
+            ICellStyle openedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, ExcelHorizontalAlignment.Center);
             ICellStyle closedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index);
-            ICellStyle closedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, CRMHorizontalAlignment.Center);
+            ICellStyle closedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, ExcelHorizontalAlignment.Center);
 
             foreach (var inform in informs)
             {
@@ -153,7 +153,7 @@
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
+        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, ExcelHorizontalAlignment align = ExcelHorizontalAlignment.Left)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,

@@ -4,6 +4,6 @@
 
     public class ExcelStyleParam
     {
-        public CRMHorizontalAlignment? Alignment { get; set; }
+        public ExcelHorizontalAlignment? Alignment { get; set; }
     }
 }

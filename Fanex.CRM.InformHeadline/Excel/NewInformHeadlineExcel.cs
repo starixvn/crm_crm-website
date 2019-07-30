@@ -82,14 +82,14 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
             GenerateInformHeadlineTitle(exportExcelInfo, _informHeadlineTitle);
         }
 
         private void GenerateInformHeadlineTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow,
                 exportExcelInfo.CurrentRow + 1,
@@ -129,10 +129,10 @@
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, NormalStatusColor, HSSFColor.Grey25Percent.Index);
 
             ICellStyle headlineLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index);
-            ICellStyle headlineCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, CRMHorizontalAlignment.Center);
+            ICellStyle headlineCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, ExcelHorizontalAlignment.Center);
 
             ICellStyle normalLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index);
-            ICellStyle normalCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, CRMHorizontalAlignment.Center);
+            ICellStyle normalCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, ExcelHorizontalAlignment.Center);
 
             foreach (var inform in informs)
             {
@@ -166,7 +166,7 @@
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
+        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, ExcelHorizontalAlignment align = ExcelHorizontalAlignment.Left)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,

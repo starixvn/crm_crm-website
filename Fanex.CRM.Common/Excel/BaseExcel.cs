@@ -1,23 +1,14 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BaseExcel.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Common.Excel
+﻿namespace Fanex.CRM.Common.Excel
 {
     using Fanex.CRM.Common.Extensions;
     using NPOI.HSSF.UserModel;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public abstract class BaseExcel
     {
         protected const string IntegerFormat = "#,#0";
 
         private readonly string _excelFileName;
-        
+
         private readonly HSSFWorkbook _workBook;
 
         protected BaseExcel(string excelFileName)
@@ -39,7 +30,7 @@ namespace Fanex.CRM.Common.Excel
         public abstract void BuildWorkBook();
 
         public virtual void ResponseStreamExcel()
-        {          
+        {
             NpoiExtensions.ResponseStreamExcel(WorkBook, _excelFileName);
         }
     }

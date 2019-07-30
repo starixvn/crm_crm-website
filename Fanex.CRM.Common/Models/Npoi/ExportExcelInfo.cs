@@ -51,7 +51,7 @@ namespace Fanex.CRM.Common.Models.Npoi
         {
             ICell cell = Row.GetCell(CurrentColumn) ?? Row.CreateCell(CurrentColumn);
             NpoiExtensions.SetCellValue(cell, cellValue);
-            cellStyle.VerticalAlignment = NpoiExtensions.MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = NpoiExtensions.MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             CurrentColumn += 1;
         }

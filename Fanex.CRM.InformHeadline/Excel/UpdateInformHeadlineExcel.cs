@@ -110,13 +110,13 @@
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, NormalBackColor, HSSFColor.Grey25Percent.Index);
 
             _updatedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Coral.Index);
-            _updatedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Coral.Index, CRMHorizontalAlignment.Center);
+            _updatedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Coral.Index, ExcelHorizontalAlignment.Center);
 
             _headlineLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index);
-            _headlineCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, CRMHorizontalAlignment.Center);
+            _headlineCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, ExcelHorizontalAlignment.Center);
 
             _normalLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index);
-            _normalCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, CRMHorizontalAlignment.Center);
+            _normalCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Grey25Percent.Index, ExcelHorizontalAlignment.Center);
         }
 
         private void GenerateTitle(ExportExcelInfo exportExcelInfo, string title)
@@ -128,14 +128,14 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
             GenerateInformHeadlineTitle(exportExcelInfo, _informHeadlineTitle);
         }
 
         private void GenerateInformHeadlineTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow,
                 exportExcelInfo.CurrentRow + 1,
@@ -233,7 +233,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
         }
 
-        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
+        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, ExcelHorizontalAlignment align = ExcelHorizontalAlignment.Left)
         {
             var cellStyle = NpoiExtensions.GetTextStyle(
                 workbook,

@@ -331,7 +331,7 @@
                 workbook,
                 NpoiExtensions.GroupBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Left,
+                ExcelHorizontalAlignment.Left,
                 NpoiExtensions.GroupColorIndex);
         }
 
@@ -341,7 +341,7 @@
             workbook,
             NpoiExtensions.GroupBackgroundColorIndex,
             true,
-            CRMHorizontalAlignment.Right,
+            ExcelHorizontalAlignment.Right,
             NpoiExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExtensions.FontSize;
@@ -360,7 +360,7 @@
             workbook,
             NpoiExtensions.GrandTotalRowColorIndex,
             true,
-            CRMHorizontalAlignment.Left,
+            ExcelHorizontalAlignment.Left,
             NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -370,7 +370,7 @@
             workbook,
             NpoiExtensions.BackgroundColorIndex,
             false,
-            CRMHorizontalAlignment.Left);
+            ExcelHorizontalAlignment.Left);
         }
 
         private static ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
@@ -379,7 +379,7 @@
             workbook,
             NpoiExtensions.BackgroundColorIndex,
             false,
-            CRMHorizontalAlignment.Right);
+            ExcelHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
@@ -388,7 +388,7 @@
             workbook,
             NpoiExtensions.GrandTotalRowColorIndex,
             true,
-            CRMHorizontalAlignment.Right,
+            ExcelHorizontalAlignment.Right,
             NpoiExtensions.GrandTotalTextColorIndex);
         }
 

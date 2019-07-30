@@ -16,7 +16,7 @@
                 exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             _cellStyle.WrapText = true;
         }
 

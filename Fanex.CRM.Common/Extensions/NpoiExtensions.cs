@@ -99,8 +99,8 @@ namespace Fanex.CRM.Common.Extensions
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = excelStyleParam.Alignment != null ?
                 MappingHorizontalAlignmentType(excelStyleParam.Alignment) :
-                MappingHorizontalAlignmentType(CRMHorizontalAlignment.Center);
-            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+                MappingHorizontalAlignmentType(ExcelHorizontalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -110,7 +110,7 @@ namespace Fanex.CRM.Common.Extensions
             HSSFWorkbook excelFile,
             short cellColor,
             bool isBold,
-            CRMHorizontalAlignment align,
+            ExcelHorizontalAlignment align,
             short fontColor = 8)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
@@ -127,7 +127,7 @@ namespace Fanex.CRM.Common.Extensions
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = MappingHorizontalAlignmentType(align);
-            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -136,7 +136,7 @@ namespace Fanex.CRM.Common.Extensions
         public static ICellStyle CreateDecimalNumberStyle(
             HSSFWorkbook excelFile,
             short backgroundColorIndex,
-            CRMHorizontalAlignment textAlign,
+            ExcelHorizontalAlignment textAlign,
             bool isBold,
             bool isNegative,
             bool isPositive)
@@ -155,7 +155,7 @@ namespace Fanex.CRM.Common.Extensions
             decimalNumberStyle.FillForegroundColor = backgroundColorIndex;
             decimalNumberStyle.FillPattern = FillPattern.SolidForeground;
             decimalNumberStyle.Alignment = MappingHorizontalAlignmentType(textAlign);
-            decimalNumberStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            decimalNumberStyle.VerticalAlignment = MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             decimalNumberStyle.SetFont(font);
             SetBorderToCell(decimalNumberStyle);
             return decimalNumberStyle;
@@ -165,7 +165,7 @@ namespace Fanex.CRM.Common.Extensions
             HSSFWorkbook excelFile,
             short cellColor,
             bool isBold,
-            CRMHorizontalAlignment alignment,
+            ExcelHorizontalAlignment alignment,
             short fontColor = 8)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
@@ -183,7 +183,7 @@ namespace Fanex.CRM.Common.Extensions
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = MappingHorizontalAlignmentType(alignment);
-            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             cellStyle.DataFormat = dataFormat.GetFormat(IntNumberFormat);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -229,7 +229,7 @@ namespace Fanex.CRM.Common.Extensions
                 currentRow,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, ExcelHorizontalAlignment.Center);
 
             RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
@@ -238,7 +238,7 @@ namespace Fanex.CRM.Common.Extensions
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             SetCellValue(cell, cellValue);
-            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(ExcelVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             currentColumn += 1;
         }
@@ -325,7 +325,7 @@ namespace Fanex.CRM.Common.Extensions
             return excelReportName.Replace(" ", "_").Replace("/", "_");
         }
 
-        public static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment? alignment)
+        public static HorizontalAlignment MappingHorizontalAlignmentType(ExcelHorizontalAlignment? alignment)
         {
             if (alignment == null)
             {
@@ -334,13 +334,13 @@ namespace Fanex.CRM.Common.Extensions
 
             switch (alignment)
             {
-                case CRMHorizontalAlignment.Right:
+                case ExcelHorizontalAlignment.Right:
                     return HorizontalAlignment.Right;
 
-                case CRMHorizontalAlignment.Center:
+                case ExcelHorizontalAlignment.Center:
                     return HorizontalAlignment.Center;
 
-                case CRMHorizontalAlignment.Left:
+                case ExcelHorizontalAlignment.Left:
                     return HorizontalAlignment.Left;
 
                 default:
@@ -348,24 +348,24 @@ namespace Fanex.CRM.Common.Extensions
             }
         }
 
-        public static VerticalAlignment MappingVerticalAlignmentType(CRMVerticalAlignment alignment)
+        public static VerticalAlignment MappingVerticalAlignmentType(ExcelVerticalAlignment alignment)
         {
             // Vertical Alignment NPOI 2.0.1+ issue.
             switch (alignment)
             {
-                case CRMVerticalAlignment.Top:
+                case ExcelVerticalAlignment.Top:
                     return VerticalAlignment.Bottom;
 
-                case CRMVerticalAlignment.Center:
+                case ExcelVerticalAlignment.Center:
                     return VerticalAlignment.Top;
 
-                case CRMVerticalAlignment.Bottom:
+                case ExcelVerticalAlignment.Bottom:
                     return VerticalAlignment.Bottom;
 
-                case CRMVerticalAlignment.Justify:
+                case ExcelVerticalAlignment.Justify:
                     return VerticalAlignment.Justify;
 
-                case CRMVerticalAlignment.Distributed:
+                case ExcelVerticalAlignment.Distributed:
                     return VerticalAlignment.Distributed;
 
                 default:
@@ -401,18 +401,18 @@ namespace Fanex.CRM.Common.Extensions
                 rowIndex,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, ExcelHorizontalAlignment.Center);
             RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 
         public static ICellStyle GetIntegerNumberStyleGrandTotal(HSSFWorkbook excelFile)
         {
-            return GetIntegerNumberStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Right, GrandTotalTextColorIndex);
+            return GetIntegerNumberStyle(excelFile, GrandTotalRowColorIndex, true, ExcelHorizontalAlignment.Right, GrandTotalTextColorIndex);
         }
 
         public static ICellStyle GetTextStyleGrandTotal(HSSFWorkbook excelFile)
         {
-            return GetTextStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Left, GrandTotalTextColorIndex);
+            return GetTextStyle(excelFile, GrandTotalRowColorIndex, true, ExcelHorizontalAlignment.Left, GrandTotalTextColorIndex);
         }
     }
 }

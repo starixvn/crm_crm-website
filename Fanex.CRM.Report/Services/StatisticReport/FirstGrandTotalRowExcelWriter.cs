@@ -22,19 +22,19 @@
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                true,
-               CRMHorizontalAlignment.Right,
+               ExcelHorizontalAlignment.Right,
                NpoiExtensions.GrandTotalTextColorIndex);
             TextStyle = NpoiExtensions.GetTextStyle(
                  _exportExcelInfo.ExcelFile,
                  _rowBackgroundColorIndex,
                  true,
-                 CRMHorizontalAlignment.Left,
+                 ExcelHorizontalAlignment.Left,
                  NpoiExtensions.GrandTotalTextColorIndex);
             CenterTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Center,
+                ExcelHorizontalAlignment.Center,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
     }

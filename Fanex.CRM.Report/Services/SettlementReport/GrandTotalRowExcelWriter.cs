@@ -29,13 +29,13 @@
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Center,
+                ExcelHorizontalAlignment.Center,
                 NpoiExtensions.GrandTotalTextColorIndex);
             _centerIntStyle = NpoiExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Center,
+                ExcelHorizontalAlignment.Center,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 

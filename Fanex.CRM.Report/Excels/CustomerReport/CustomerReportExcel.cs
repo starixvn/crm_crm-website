@@ -155,23 +155,23 @@
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.BackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             var centerTextStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.BackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
 
             var evenRowTextStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.EvenRowColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             var evenRowCenterTextStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.EvenRowColorIndex,
                 false,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
 
             var totalRows = _customerReportInfo.CustomerList.Count;
             var numberOfSheet = (totalRows / NpoiExtensions.MaxRowPerSheet) +

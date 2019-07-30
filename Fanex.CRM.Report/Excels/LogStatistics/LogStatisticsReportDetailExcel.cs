@@ -99,9 +99,9 @@
         private void GenerateReportDetail(ExportExcelInfo exportExcelInfo)
         {
             var textStyle =
-                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
             var centerTextStyle =
-                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+                NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, ExcelHorizontalAlignment.Center);
             var childReportLength = _logStatisticsReportDetail.ChildReports.Count;
             var numberOfSheet = (childReportLength / NpoiExtensions.MaxRowPerSheet) + (childReportLength % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
 

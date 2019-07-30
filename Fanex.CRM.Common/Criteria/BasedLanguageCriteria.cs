@@ -1,9 +1,9 @@
-﻿using Fanex.CRM.Common.Enumerations;
-using Fanex.CRM.Common.Services;
-using Fanex.Data.Repository;
-
-namespace Fanex.CRM.Common.Criteria
+﻿namespace Fanex.CRM.Common.Criteria
 {
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
+    using Fanex.Data.Repository;
+
     public class BasedLanguageCriteria : CriteriaBase
     {
         public BasedLanguageCriteria()

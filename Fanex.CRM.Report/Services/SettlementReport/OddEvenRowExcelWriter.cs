@@ -27,15 +27,15 @@
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
-               CRMHorizontalAlignment.Right);
+               ExcelHorizontalAlignment.Right);
             _centerIntStyle = NpoiExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
 
-            _textStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+            _textStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
+            _centerTextStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, ExcelHorizontalAlignment.Center);
         }
 
         public void WriteRow(

@@ -260,7 +260,7 @@
                 workbook,
                 GetRowColorIndex(),
                 true,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
         }
 
         private static ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
@@ -269,7 +269,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Center,
+                ExcelHorizontalAlignment.Center,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -279,7 +279,7 @@
                 workbook,
                 GetRowColorIndex(),
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
         }
 
         private static ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
@@ -288,7 +288,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Left,
+                ExcelHorizontalAlignment.Left,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -298,7 +298,7 @@
                 workbook,
                 GetRowColorIndex(),
                 false,
-                CRMHorizontalAlignment.Right);
+                ExcelHorizontalAlignment.Right);
         }
 
         private static ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
@@ -307,7 +307,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Right,
+                ExcelHorizontalAlignment.Right,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -317,7 +317,7 @@
                 workbook,
                 GetRowColorIndex(),
                 true,
-                CRMHorizontalAlignment.Right);
+                ExcelHorizontalAlignment.Right);
         }
 
         private static ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
@@ -326,7 +326,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Right,
+                ExcelHorizontalAlignment.Right,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 

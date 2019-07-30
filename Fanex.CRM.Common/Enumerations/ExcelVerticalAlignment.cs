@@ -1,6 +1,6 @@
 ﻿namespace Fanex.CRM.Common.Enumerations
 {
-    public enum CRMVerticalAlignment
+    public enum ExcelVerticalAlignment
     {
         Center,
         Top,

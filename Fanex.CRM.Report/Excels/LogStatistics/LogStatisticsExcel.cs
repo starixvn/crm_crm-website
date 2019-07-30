@@ -59,7 +59,7 @@
             int currentRowIndex = exportExcelInfo.CurrentRow;
 
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle titleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle titleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Left });
             exportExcelInfo.RenderHeaderTitle(title, titleStyle);
             currentRowIndex += 2;
 
@@ -110,18 +110,18 @@
         {
             NpoiExtensions.SetTotalColumnBackgroundColorIndex(excelInfo);
 
-            var mainTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var mainNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var mainTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var mainTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
+            var mainNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, ExcelHorizontalAlignment.Center);
+            var mainTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, ExcelHorizontalAlignment.Center);
 
             var font = excelInfo.ExcelFile.CreateFont();
             SetFontStyleForMainCategory(font, mainTextStyle);
             SetFontStyleForMainCategory(font, mainNumberStyle);
             SetFontStyleForMainCategory(font, mainTotalCellStyle);
 
-            var subTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
-            var subNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
-            var subTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, CRMHorizontalAlignment.Center);
+            var subTextStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
+            var subNumberStyle = NpoiExtensions.GetIntegerNumberStyle(excelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, ExcelHorizontalAlignment.Center);
+            var subTotalCellStyle = NpoiExtensions.GetTextStyle(excelInfo.ExcelFile, NpoiExtensions.TotalColumnBackgroundIndex, false, ExcelHorizontalAlignment.Center);
 
             var mainCategories = _logStatisticsReport.MainCategories;
             foreach (var mainCategory in mainCategories)

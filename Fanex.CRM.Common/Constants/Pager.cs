@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Pager.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.12.09">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Constants
+﻿namespace Fanex.CRM.Common.Constants
 {
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Pager class.
-    /// </summary>
     public static class Pager
     {
         public const int DefaultItemsPerPage = 50;

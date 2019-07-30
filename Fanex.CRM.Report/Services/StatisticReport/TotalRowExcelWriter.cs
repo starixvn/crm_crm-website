@@ -25,18 +25,18 @@
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
-                CRMHorizontalAlignment.Right);
+                ExcelHorizontalAlignment.Right);
 
             TextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             CenterTextStyle = NpoiExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
         }
 
         public ICellStyle IntStyle { get; set; }

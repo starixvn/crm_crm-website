@@ -1,9 +1,9 @@
-﻿using Fanex.CRM.Common.Models;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fanex.CRM.Common.Extensions
+﻿namespace Fanex.CRM.Common.Extensions
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.CRM.Common.Models;
+
     public static class NameMapping
     {
         public static string[] GetCategoryContent(

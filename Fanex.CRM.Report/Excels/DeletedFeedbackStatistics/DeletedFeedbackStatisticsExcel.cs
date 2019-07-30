@@ -102,7 +102,7 @@
             NpoiExtensions.SetGroupBackgroundColorIndex(_exportExcelInfo);
             var groupStyle = GetGroupedHandlerStyle();
 
-            var feedbackStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var feedbackStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
             feedbackStyle.WrapText = true;
 
             var feedbackGroups = _deletedFeedbackStatisticsReport.DeletedFeedbackByHandlers;
@@ -139,7 +139,7 @@
 
         private ICellStyle GetGroupedHandlerStyle()
         {
-            var cellStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            var cellStyle = NpoiExtensions.GetTextStyle(_exportExcelInfo.ExcelFile, NpoiExtensions.GroupBackgroundColorIndex, false, ExcelHorizontalAlignment.Left);
             var font = _exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExtensions.FontSize;
             font.FontName = NpoiExtensions.FontName;

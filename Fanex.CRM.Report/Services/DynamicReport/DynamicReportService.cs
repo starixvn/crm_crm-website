@@ -700,7 +700,7 @@
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             var font = exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExtensions.FontSize;
             font.FontName = NpoiExtensions.FontName;

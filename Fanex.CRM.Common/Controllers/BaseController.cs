@@ -1,20 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BaseController.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.Common.Controllers
+﻿namespace Fanex.CRM.Common.Controllers
 {
+    using System.Web.Mvc;
     using Attributes;
     using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     [OverridableNapSupperAuth]
     [CheckUMFilter]
     public class BaseController : Controller
@@ -36,21 +27,8 @@ namespace Fanex.CRM.Common.Controllers
             _langService.SetPageCulture(currentLanguage);
         }
 
-        protected IPermissionService PermissionService
-        {
-            get
-            {
-                return _permissionService;
-            }
-        }
+        protected IPermissionService PermissionService => _permissionService;
 
-        /// <summary>
-        /// HasPermission: check that user has permission to access one menu link.
-        /// </summary>
-        /// <param name="functionName">Name of the function.</param>
-        /// <returns>
-        /// Has Read Permission indicator.
-        /// </returns>
         public bool HasReadPermission(string functionName)
         {
             return PermissionService.HasReadPermission(functionName);

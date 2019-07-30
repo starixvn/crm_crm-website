@@ -217,7 +217,7 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -339,7 +339,7 @@
                 workbook,
                 NpoiExtensions.GroupBackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Left,
+                ExcelHorizontalAlignment.Left,
                 NpoiExtensions.GroupColorIndex);
         }
 
@@ -349,7 +349,7 @@
                 workbook,
                 NpoiExtensions.BackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
         }
 
         private static ICellStyle ResolveCellStyle(HSSFWorkbook workbook)
@@ -358,7 +358,7 @@
                 workbook,
                 NpoiExtensions.BackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
         }
 
         private static ICellStyle SubTotalCellStyle(HSSFWorkbook workbook)
@@ -367,7 +367,7 @@
                 workbook,
                 NpoiExtensions.BackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
         }
 
         private static ICellStyle SubTotalResolveCellStyle(HSSFWorkbook workbook)
@@ -376,7 +376,7 @@
                 workbook,
                 NpoiExtensions.BackgroundColorIndex,
                 true,
-                CRMHorizontalAlignment.Center);
+                ExcelHorizontalAlignment.Center);
         }
 
         private static ICellStyle TotalSubCategoryCellStyle(HSSFWorkbook workbook)
@@ -385,7 +385,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Left,
+                ExcelHorizontalAlignment.Left,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -395,7 +395,7 @@
                 workbook,
                 NpoiExtensions.GrandTotalRowColorIndex,
                 true,
-                CRMHorizontalAlignment.Center,
+                ExcelHorizontalAlignment.Center,
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
@@ -422,7 +422,7 @@
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -528,17 +528,17 @@
                 workbook,
                 NpoiExtensions.BackgroundColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
             _feedbackDetailPendingTextStyle = NpoiExtensions.GetTextStyle(
                   workbook,
                   NpoiExtensions.PendingStatusColorIndex,
                   false,
-                  CRMHorizontalAlignment.Left);
+                  ExcelHorizontalAlignment.Left);
             _feedbackDetailClosedTextStyle = NpoiExtensions.GetTextStyle(
                 workbook,
                 NpoiExtensions.CloseStatusColorIndex,
                 false,
-                CRMHorizontalAlignment.Left);
+                ExcelHorizontalAlignment.Left);
 
             _feedbackDetailTextStyle.WrapText = true;
             _feedbackDetailPendingTextStyle.WrapText = true;
