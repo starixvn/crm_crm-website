@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateInformStatusCriteria.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Criteria
+﻿namespace Fanex.CRM.InformHeadline.Criteria
 {
     using Fanex.CRM.Common.Criteria;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class UpdateInformStatusCriteria : UpdateCriteria
     {
         public int TitleId { get; set; }

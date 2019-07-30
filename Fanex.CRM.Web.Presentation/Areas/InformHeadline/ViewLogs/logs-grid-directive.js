@@ -44,8 +44,8 @@
             var gridOptions = {
                 columns: [
                     {
-                        HeaderText: viewResources.Date, Width: 100, MaxResizeWidth: 200, Name: 'Date',
-                        HeaderAlign: 'center', CellAlign: 'center', FormatDateTime: 'MMM DD, YYYY hh:mm:ss A', CanResize: true
+                        HeaderText: viewResources.ClientDate, Width: 100, MaxResizeWidth: 200, Name: 'Date',
+                        HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                     },
                     {
                         HeaderText: viewResources.EditedBy, Width: 100, Name: 'EditedBy',

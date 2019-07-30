@@ -27,6 +27,7 @@
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListService.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js",
+                "~/Areas/InformHeadline/ViewLogs/logs-factory.js",
                 "~/Areas/InformHeadline/ViewLogs/logs-controller.js",
                 "~/Areas/InformHeadline/ViewLogs/logs-grid-directive.js",
                 "~/Areas/InformHeadline/ViewLogs/log-details-controller.js",

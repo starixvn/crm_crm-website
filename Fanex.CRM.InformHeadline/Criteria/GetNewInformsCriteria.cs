@@ -1,16 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetNewInformsCriteria.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Criteria
+﻿namespace Fanex.CRM.InformHeadline.Criteria
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class GetNewInformsCriteria : CriteriaBase
     {
         [SpParam(Ignored = true)]

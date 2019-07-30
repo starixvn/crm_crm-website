@@ -6,23 +6,16 @@
     public static class DateTimeExtension
     {
         public const string ShortDateFormat = "MMM dd, yyyy";
-
         public const string MonthFormat = "MMM";
-
         public const string ShortDateFormatWithSlash = "MM/dd/yyyy";
-
         public const string LongDateTimeFormat = "MMM dd, yyyy hh:mm tt";
-
+        public const string FullDateTimeFormat = "MMM dd, yyyy hh:mm:ss tt";
         public const string MonthYearFormat = "MMM yyyy";
-
         public const string HourMinuteFormat = "HH:mm";
-
         public const string HourMinuteMiddayTypeFormat = "hh:mm tt";
 
         private const int NumberDayInWeek = 7;
-
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
-
         private static readonly DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, 999);
 
         [DebuggerStepThrough]
@@ -60,6 +53,11 @@
         public static string ToLongFormatedDateTime(this DateTime date)
         {
             return date.ToString(LongDateTimeFormat);
+        }
+
+        public static string ToFullFormatedDateTime(this DateTime date)
+        {
+            return date.ToString(FullDateTimeFormat);
         }
 
         public static string ToMonth(this DateTime date)

@@ -13,7 +13,7 @@
     using Fanex.NAP.Core.Auth;
     using Fanex.NAP.Core.Web.Auth;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -32,13 +32,14 @@
                 "{controller}/{action}/{id}",
                  defaultParameter);
         }
+
         public override void Init()
         {
             base.Init();
-            PostAuthenticateRequest += new EventHandler(MvcApplication_PostAuthenticateRequest);
+            PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;
         }
 
-        void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
+        private void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
         {
             HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
@@ -53,6 +54,7 @@
                 }
             }
         }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

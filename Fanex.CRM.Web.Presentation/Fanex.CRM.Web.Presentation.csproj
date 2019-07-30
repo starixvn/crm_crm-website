@@ -623,6 +623,7 @@
     <Content Include="Areas\InformHeadline\ViewLogs\log-details-controller.js" />
     <Content Include="Areas\InformHeadline\ViewLogs\logs-controller.js" />
     <Content Include="Areas\InformHeadline\ViewLogs\log-details-grid-directive.js" />
+    <Content Include="Areas\InformHeadline\ViewLogs\logs-factory.js" />
     <Content Include="Areas\InformHeadline\ViewLogs\_LogDetails.cshtml" />
     <None Include="Areas\InformHeadline\ViewLogs\_Logs.cshtml" />
     <Content Include="Areas\InformHeadline\ViewLogs\logs-grid-directive.js" />

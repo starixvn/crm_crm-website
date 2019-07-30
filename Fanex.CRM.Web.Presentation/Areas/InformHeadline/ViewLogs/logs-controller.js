@@ -2,17 +2,12 @@
     'use strict';
 
     angular.module('informHeadlineApplication').controller('LogsController', logsController);
-    logsController.$inject = ['$modal', '$modalInstance', 'titleId'];
+    logsController.$inject = ['$modal', '$modalInstance', '$uiBlockerService', 'logsFactory', 'titleId'];
 
-    function logsController($modal, $modalInstance, titleId) {
+    function logsController($modal, $modalInstance, $uiBlockerService, logsFactory, titleId) {
         var vm = this;
 
-        vm.data = [
-            { Date: new Date(), EditedBy: 'CCSABC', Totals: 5 },
-            { Date: new Date(), EditedBy: 'CCSABC', Totals: 3 },
-            { Date: new Date(), EditedBy: 'CCSABC', Totals: 4 },
-            { Date: new Date(), EditedBy: 'CCSABC', Totals: 4 }
-        ];
+        vm.data = [];
 
         vm.close = function () {
             $modalInstance.close();
@@ -27,5 +22,25 @@
                 windowClass: 'log-details-modal'
             });
         };
+
+        function getRemovedAccountLogs() {
+            $uiBlockerService.blockUI();
+
+            var params = { titleId: titleId };
+            logsFactory.getRemovedAccountLogs(params)
+                .then(function (data) {
+                    vm.data = data.Result;
+                    $uiBlockerService.unblockUI();
+                }, function () {
+                    vm.data = [];
+                    $uiBlockerService.unblockUI();
+                });
+        }
+
+        function initialize() {
+            getRemovedAccountLogs();
+        }
+
+        initialize();
     }
 })(angular);

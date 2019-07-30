@@ -1,17 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="InformHeadline.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Models
+﻿namespace Fanex.CRM.InformHeadline.Models
 {
     using System;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class InformHeadline
     {
         public int TitleId { get; set; }
@@ -24,7 +16,7 @@ namespace Fanex.CRM.InformHeadline.Models
         {
             get
             {
-                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(CreatedDate).ToString("MMM dd, yyyy");
+                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(CreatedDate).ToShortFormatedDate();
             }
         }
 

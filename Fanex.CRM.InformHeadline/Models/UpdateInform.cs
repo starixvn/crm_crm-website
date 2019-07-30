@@ -1,17 +1,9 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateInform.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Models
+﻿namespace Fanex.CRM.InformHeadline.Models
 {
     using System;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class UpdateInform
     {
         private const int NeverTouchStatusId = 45006;
@@ -38,7 +30,8 @@ namespace Fanex.CRM.InformHeadline.Models
         {
             get
             {
-                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy hh:mm:ss tt") : null;
+                return UpdatedTime.HasValue
+                    ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToFullFormatedDateTime() : string.Empty;
             }
         }
 

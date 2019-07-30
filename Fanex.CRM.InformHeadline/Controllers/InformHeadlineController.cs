@@ -1,29 +1,21 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="InformHeadlineController.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Controllers
+﻿namespace Fanex.CRM.InformHeadline.Controllers
 {
+    using System.Collections.Generic;
     using System.Web;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.InformHeadline.Criteria;
+    using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class InformHeadlineController : ReadOnlyBaseController
     {
         private readonly IInformHeadlineService _informHeadlineService;
 
-        public InformHeadlineController()
-            : this(null)
+        public InformHeadlineController() : this(null)
         {
         }
 
@@ -34,10 +26,6 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         #region InformHeadline Cases
 
-        /// <summary>
-        /// Index action.
-        /// </summary>
-        /// <returns>Action Result.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult Index()
@@ -222,5 +210,12 @@ namespace Fanex.CRM.InformHeadline.Controllers
         }
 
         #endregion Common
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
+        public JsonResult GetRemovedAccountLogs(int titleId)
+        {
+            IEnumerable<RemovedAccountLog> logs = _informHeadlineService.GetRemovedAccountLogs(titleId);
+            return Json(logs, JsonRequestBehavior.AllowGet);
+        }
     }
 }

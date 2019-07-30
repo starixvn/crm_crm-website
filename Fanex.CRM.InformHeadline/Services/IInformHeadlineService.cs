@@ -44,5 +44,7 @@
         IEnumerable<Status> GetProductStatuses();
 
         IEnumerable<Station> GetStations();
+
+        IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(int titleId);
     }
 }

@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateInformHeadlineCriteria.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Criteria
+﻿namespace Fanex.CRM.InformHeadline.Criteria
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -12,9 +6,6 @@ namespace Fanex.CRM.InformHeadline.Criteria
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class UpdateInformHeadlineCriteria : UpdateCriteria
     {
         public string TitleId { get; set; }
@@ -32,16 +23,12 @@ namespace Fanex.CRM.InformHeadline.Criteria
         public bool ChangeFilter { get; set; }
 
         public string Content { get; set; }
-        
+
         public bool ExcludeIgnoredAccounts { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<UpdateInform> Informs { get; set; }
 
-        /// <summary>
-        /// Get SP parameters.
-        /// </summary>
-        /// <returns>Hash table parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();

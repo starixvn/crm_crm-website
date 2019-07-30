@@ -1,14 +1,5 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TitleDetail.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.CRM.InformHeadline.Models
+﻿namespace Fanex.CRM.InformHeadline.Models
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class TitleDetail
     {
         public int TitleId { get; set; }

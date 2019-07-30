@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.InformHeadline.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
     using Fanex.CRM.Common.Helpers;
@@ -212,6 +213,19 @@
         }
 
         #endregion Common
+
+        public IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(int titleId)
+        {
+            var today = DateTime.Now;
+            return new List<RemovedAccountLog>
+            {
+                new RemovedAccountLog { Date = today, EditedBy = "CCSABC", Totals = 5 },
+                new RemovedAccountLog { Date = today.AddDays(1), EditedBy = "CCSABC1", Totals = 3 },
+                new RemovedAccountLog { Date = today.AddDays(-1), EditedBy = "CCSABC2", Totals = 4 },
+                new RemovedAccountLog { Date = today.AddDays(-2), EditedBy = "CCSABC3", Totals = 4 },
+                new RemovedAccountLog { Date = today.AddDays(1), EditedBy = "CCSABC4", Totals = 5 }
+            };
+        }
 
         private static string BuildUpdateInformsXml(IList<UpdateInform> informs)
         {
