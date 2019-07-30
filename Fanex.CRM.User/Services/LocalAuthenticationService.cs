@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.User.Services
 {
+    using System;
+    using System.Linq;
     using Enumerations;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
@@ -10,18 +12,15 @@
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using NAP.Core.Web.Context;
-    using System;
-    using System.Linq;
 
     public class LocalAuthenticationService : ILocalAuthenticationService
     {
-        private const string LoginTokenName = "__SecureFormToken";
-
         private readonly IUserService _userService;
         private readonly ISecurityService _securityService;
         private readonly IGroupService _groupService;
         private readonly ICurrentContext _currentContext;
         private readonly ICommonAuthenticationService _commonAuthenticationService;
+
         public LocalAuthenticationService()
             : this(null, null, null, null, null)
         {
@@ -50,8 +49,10 @@
                 return LoginStatus.InvalidUsernameOrPassword;
             }
 
-            var crmUser = new CRMUser(user);
-            crmUser.Language = localLogin.Language;
+            var crmUser = new CRMUser(user)
+            {
+                Language = localLogin.Language
+            };
 
             var validatedStatus = ValidateUser(crmUser, localLogin);
 
@@ -61,14 +62,12 @@
             }
 
             return validatedStatus;
-
         }
 
         #region Validation
 
         private LoginStatus ValidateUser(CRMUser user, LocalLogin localLogin)
         {
-
             if (!ValidatePassword(user, localLogin))
             {
                 return LoginStatus.InvalidUsernameOrPassword;
@@ -92,9 +91,9 @@
             return LoginStatus.ValidatedSuccess;
         }
 
-        private bool ValidatePassword(CRMUser user, LocalLogin localLogin)
+        private static bool ValidatePassword(CRMUser user, LocalLogin localLogin)
         {
-            var hashUserPassword = SecurityHelper.HashText(string.Format("{0}{1}", user.Password, localLogin.LoginToken), HashType.Sha256);
+            var hashUserPassword = SecurityHelper.HashText(string.Format("{0}{1}", user.Password, localLogin.LoginToken));
 
             return string.Equals(localLogin.Password, hashUserPassword, StringComparison.CurrentCulture);
         }
@@ -130,7 +129,6 @@
 
         private LoginStatus ProcessLogin(CRMUser user, LocalLogin localLogin)
         {
-
             user.UserRole = _commonAuthenticationService.GetUserRole(user.Id);
 
             if (user.UserRole == UserRole.None)
@@ -167,6 +165,5 @@
                     Platform = _currentContext.Platform
                 });
         }
-
     }
 }

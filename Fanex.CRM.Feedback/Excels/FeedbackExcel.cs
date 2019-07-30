@@ -1,16 +1,16 @@
 ﻿namespace Fanex.CRM.Feedback.Excels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Feedback.Resources;
     using NPOI.HSSF.Util;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text.RegularExpressions;
 
     public class FeedbackExcel : BaseExcel
     {
@@ -46,9 +46,9 @@
 
         public FeedbackRowExcelWriter PendingRowWriter { get; set; }
 
-        protected readonly short ClosedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
-        protected readonly short CheckedBackgroundColorIndex = (short)HSSFColor.LightOrange.Index;
-        protected readonly short PendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
+        protected readonly short ClosedBackgroundColorIndex = HSSFColor.DarkTeal.Index;
+        protected readonly short CheckedBackgroundColorIndex = HSSFColor.LightOrange.Index;
+        protected readonly short PendingBackgroundColorIndex = HSSFColor.Orange.Index;
 
         public override void BuildWorkBook()
         {
@@ -109,8 +109,7 @@
         {
             InitWriter();
             var totalRows = _feedbacks.Count();
-            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-            var numberOfSheet = (totalRows / maxRowPerSheet) + (totalRows % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (totalRows / NpoiExtensions.MaxRowPerSheet) + (totalRows % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
 
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
@@ -122,8 +121,8 @@
                 ExportExcelInfo.CurrentRow = 0;
                 CreateSheetHeader();
 
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < totalRows; i++)
                 {
                     var feedback = _feedbacks.ElementAt(i);

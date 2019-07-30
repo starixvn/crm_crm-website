@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
@@ -157,9 +156,8 @@
             else
             {
                 var totalRow = report.TotalItems;
-                var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-                var extraSheet = totalRow % maxRowPerSheet != 0 ? 1 : 0;
-                var numberOfSheet = (totalRow / maxRowPerSheet) + extraSheet;
+                var extraSheet = totalRow % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0;
+                var numberOfSheet = (totalRow / NpoiExtensions.MaxRowPerSheet) + extraSheet;
 
                 for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
                 {
@@ -168,8 +166,8 @@
                     Labels.FeedbackStatisticDetailSheetName;
                     exportExcelInfo.CreateSheet(sheetName);
 
-                    var startIndex = sheetIndex * maxRowPerSheet;
-                    var endIndex = startIndex + maxRowPerSheet;
+                    var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                    var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                     if (endIndex > totalRow)
                     {
                         endIndex = totalRow;
@@ -185,10 +183,9 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
-        private string FormatReportDate(DateTime date)
+        private static string FormatReportDate(DateTime date)
         {
-            string pattern = "MMddyyyy";
-            return date.ToString(pattern);
+            return date.ToString("MMddyyyy");
         }
 
         private IList<FeedbackDetail> GetFeedbackDetail(GetFeedbackStatisticDetailCriteria criteria)
@@ -220,11 +217,11 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        private void GenerateFeedbackStatisticHeader(ExportExcelInfo exportExcelInfo, IList<BaseModel> usernames)
+        private static void GenerateFeedbackStatisticHeader(ExportExcelInfo exportExcelInfo, IList<BaseModel> usernames)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
@@ -244,8 +241,7 @@
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private void GenerateFeedbackStatisticBody(ExportExcelInfo exportExcelInfo, IList<FeedbackCategory> feedbackCategories)
+        private static void GenerateFeedbackStatisticBody(ExportExcelInfo exportExcelInfo, IList<FeedbackCategory> feedbackCategories)
         {
             int currentColumn;
             int currentRow = exportExcelInfo.CurrentRow;
@@ -256,7 +252,7 @@
             ICellStyle subTotalResolveCellStyle = SubTotalResolveCellStyle(exportExcelInfo.ExcelFile);
 
             string categoryPattern = "{0} - {1} " + Labels.Items;
-            string subCategoryPattern = "{0} ({1})";
+            const string subCategoryPattern = "{0} ({1})";
 
             foreach (var category in feedbackCategories)
             {
@@ -318,7 +314,7 @@
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private void GenerateFeedbackStatisticFooter(ExportExcelInfo exportExcelInfo, int[] grandTotals)
+        private static void GenerateFeedbackStatisticFooter(ExportExcelInfo exportExcelInfo, int[] grandTotals)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
@@ -337,7 +333,7 @@
             }
         }
 
-        private ICellStyle CategoryCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle CategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -347,7 +343,7 @@
                 NpoiExtensions.GroupColorIndex);
         }
 
-        private ICellStyle SubCategoryCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle SubCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -356,7 +352,7 @@
                 CRMHorizontalAlignment.Left);
         }
 
-        private ICellStyle ResolveCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle ResolveCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -365,7 +361,7 @@
                 CRMHorizontalAlignment.Center);
         }
 
-        private ICellStyle SubTotalCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle SubTotalCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -374,7 +370,7 @@
                 CRMHorizontalAlignment.Left);
         }
 
-        private ICellStyle SubTotalResolveCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle SubTotalResolveCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -383,7 +379,7 @@
                 CRMHorizontalAlignment.Center);
         }
 
-        private ICellStyle TotalSubCategoryCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle TotalSubCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -393,7 +389,7 @@
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        private ICellStyle GrandTotalResolveCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GrandTotalResolveCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -426,7 +422,7 @@
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
             NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -434,7 +430,7 @@
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 
-        private void GenerateFeedbackStatisticDetailHeader(ExportExcelInfo exportExcelInfo)
+        private static void GenerateFeedbackStatisticDetailHeader(ExportExcelInfo exportExcelInfo)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;

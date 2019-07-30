@@ -1,9 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 {
-    using Common.Criteria;
-    using Fanex.Data.Repository;
     using System;
     using System.Collections;
+    using Common.Criteria;
+    using Fanex.Data.Repository;
 
     public class GetFeedbackStatisticCriteria : BasedCriteria
     {
@@ -38,8 +38,8 @@
                 { "type", SelectionType },
                 { "fromdate", FromDate },
                 { "todate", ToDate },
-                { "fromduration", FromDuration == null ? string.Empty : FromDuration },
-                { "toduration", ToDuration == null ? string.Empty : ToDuration },
+                { "fromduration", FromDuration ?? string.Empty },
+                { "toduration", ToDuration ?? string.Empty },
                 { "userrole", UserRole }
             };
         }

@@ -188,7 +188,7 @@
 
         #region Export excel helper
 
-        private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
+        private static void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             var columnWidths = new List<int> { 300 };
@@ -199,7 +199,7 @@
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        private void ExportHeader(ref ExportExcelInfo exportExcelInfo, IList<string> months)
+        private static void ExportHeader(ref ExportExcelInfo exportExcelInfo, IList<string> months)
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -216,7 +216,7 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
+        private static void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
         {
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle categoryCellStyle = GetCategoryCellStyle(workbook);
@@ -325,7 +325,7 @@
             }
         }
 
-        private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -335,7 +335,7 @@
                 NpoiExtensions.GroupColorIndex);
         }
 
-        private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
             ICellStyle cellStyle = NpoiExtensions.GetIntegerNumberStyle(
             workbook,
@@ -354,7 +354,7 @@
             return cellStyle;
         }
 
-        private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
             workbook,
@@ -364,7 +364,7 @@
             NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
             workbook,
@@ -373,7 +373,7 @@
             CRMHorizontalAlignment.Left);
         }
 
-        private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
             workbook,

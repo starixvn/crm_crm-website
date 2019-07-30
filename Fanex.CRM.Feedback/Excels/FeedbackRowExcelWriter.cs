@@ -41,12 +41,12 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        protected string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
+        protected static string[] BuildCategoryContent(FeedbackDetail feedback, IEnumerable<Setting> mainCategories)
         {
             return NameMapping.GetCategoryContent(feedback.Settings, mainCategories);
         }
 
-        protected string GetFeedbackCellValue(FeedbackDetail feedback)
+        protected static string GetFeedbackCellValue(FeedbackDetail feedback)
         {
             var cellValue = string.Format(
                 "{0}\n{1}\n{2}\n{3}",
@@ -64,7 +64,7 @@
             return cellValue;
         }
 
-        protected string GetCategoryCellValue(FeedbackDetail feedback)
+        protected static string GetCategoryCellValue(FeedbackDetail feedback)
         {
             return string.Format("{0}\n{1}", feedback.MainCategory, feedback.SubCategory);
         }

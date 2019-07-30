@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Models;
     using Common.Services;
@@ -11,8 +13,6 @@
     using Fanex.NAP.Core.Web.Attribute;
     using Models.FeedbackStatisticReport;
     using Setting.Services;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
 
     [NapAuth(FunctionKey = FunctionPermissions.FeedbackStatistics, Policy = Constant.Policy.Read)]
     public class FeedbackStatisticReportController : ReadOnlyBaseController
@@ -20,15 +20,16 @@
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
         public readonly ISettingService _serviceSetting;
 
-        public FeedbackStatisticReportController()
-            : this(null)
+        public FeedbackStatisticReportController() : this(null, null)
         {
         }
 
-        public FeedbackStatisticReportController(IFeedbackStatisticReportService feedbackStatisticService)
+        public FeedbackStatisticReportController(
+            IFeedbackStatisticReportService feedbackStatisticService,
+            ISettingService serviceSetting)
         {
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
-            _serviceSetting = new SettingService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         public ActionResult Index()

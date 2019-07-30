@@ -1,13 +1,12 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Fanex.CRM.Common.Services;
-using Fanex.NAP.Core.Web.Attribute;
-
-namespace Fanex.CRM.Common.Attributes
+﻿namespace Fanex.CRM.Common.Attributes
 {
+    using System;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using Fanex.CRM.Common.Services;
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-    public class OverridableNapSupperAuthAttribute :AuthorizeAttribute
+    public class OverridableNapSupperAuthAttribute : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

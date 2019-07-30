@@ -1,15 +1,6 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingRelationController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Controllers
+﻿namespace Fanex.CRM.AdminTool.Controllers
 {
+    using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Services.SettingRelation;
     using Fanex.CRM.Common.Constants;
@@ -17,18 +8,13 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
     using NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// Setting Relation Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.SettingRelationManagement, Policy = Constant.Policy.Read)]
     public class SettingRelationController : ReadOnlyBaseController
     {
-        private ISettingRelationService _settingRelationService;
+        private readonly ISettingRelationService _settingRelationService;
 
-        public SettingRelationController()
-            : this(null)
+        public SettingRelationController() : this(null)
         {
         }
 

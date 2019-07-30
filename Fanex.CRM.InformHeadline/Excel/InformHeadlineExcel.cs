@@ -58,7 +58,7 @@
 
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data.Count() == 0)
+            if (!_data.Any())
             {
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -78,7 +78,7 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -153,7 +153,7 @@
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
+        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,

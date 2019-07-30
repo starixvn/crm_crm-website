@@ -1,7 +1,7 @@
-﻿using System.Xml.Serialization;
-
-namespace Fanex.CRM.Feedback.Models
+﻿namespace Fanex.CRM.Feedback.Models
 {
+    using System.Xml.Serialization;
+
     [XmlType("Category")]
     public class CategoryFilter
     {
@@ -11,13 +11,12 @@ namespace Fanex.CRM.Feedback.Models
         [XmlIgnore]
         public string SubCategoryID { get; set; }
 
-
         [XmlAttribute("MainCategoryID")]
         public string MainCategoryIDContent
         {
             get
             {
-                return this.MainCategoryID == null ? string.Empty : this.MainCategoryID;
+                return MainCategoryID ?? string.Empty;
             }
 
             set { }
@@ -28,7 +27,7 @@ namespace Fanex.CRM.Feedback.Models
         {
             get
             {
-                return this.SubCategoryID == null ? string.Empty : this.SubCategoryID;
+                return SubCategoryID ?? string.Empty;
             }
 
             set { }

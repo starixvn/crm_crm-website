@@ -37,7 +37,9 @@
             }
         }
 
-        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        private static IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(
+            IEnumerable<FeedbackDetail> feedbacks,
+            IEnumerable<SettingItem> settings)
         {
             Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
             {

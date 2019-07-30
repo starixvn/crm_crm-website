@@ -257,8 +257,6 @@
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Center;
-
             const string ClickDateFormat = "<span class=\"detail-date link\" " +
                                     "data-currency=\"{0}\" data-currency-id=\"{1}\" data-month=\"{2}\" data-year=\"{3}\">{4}</span>";
             const string ClickCurrencyFormat = "<span class=\"detail-currency link\" " +
@@ -275,8 +273,8 @@
                 0,
                 item.Currency);
 
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, dateSpan, dateId, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currencySpan, item.Currency, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, dateSpan, dateId, string.Empty, HAlignment.Center));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currencySpan, item.Currency, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
 
             return dataRow;
@@ -286,8 +284,6 @@
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Center;
-
             if (mergeNum > 0)
             {
                 dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, Labels.Total, null, string.Empty, HAlignment.Right, true, mergeNum));
@@ -298,7 +294,7 @@
                 currentColIndex++;
             }
 
-            var currencyColumn = this.CreateColumns(currentColIndex, Labels.Currency, currency, null, string.Empty, align, true);
+            var currencyColumn = this.CreateColumns(currentColIndex, Labels.Currency, currency, null, string.Empty, HAlignment.Center, true);
             currencyColumn.ColumnIndex = currentColIndex;
             currentColIndex++;
 
@@ -314,8 +310,6 @@
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Center;
-
             var claimTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(item.ClaimTime).ToShortFormatedDate();
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, claimTime, null, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, HAlignment.Left));
@@ -326,9 +320,9 @@
                 item.Subject,
                 "subject-wordwrap",
                 HAlignment.Left));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(
                 currentColIndex++,
                 Labels.DoneBy,

@@ -54,7 +54,7 @@
             }
         }
 
-        private bool IsCorrectTemplate(string templateContent, string subject)
+        private static bool IsCorrectTemplate(string templateContent, string subject)
         {
             return string.IsNullOrEmpty(subject) ||
                  templateContent.ToLower().Contains(subject.Trim().ToLower());

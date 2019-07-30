@@ -8,7 +8,6 @@ namespace Fanex.CRM.InformHeadline.Controllers
 {
     using System.Web;
     using System.Web.Mvc;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.InformHeadline.Criteria;
@@ -215,7 +214,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         public ActionResult GetTitleDetail(int titleId)
         {
             var title = _informHeadlineService.GetTitleDetail(
-                            new GetTitleDetailCriteria()
+                            new GetTitleDetailCriteria
                             {
                                 TitleId = titleId
                             });

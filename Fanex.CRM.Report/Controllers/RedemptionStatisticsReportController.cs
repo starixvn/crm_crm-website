@@ -62,7 +62,7 @@
         [HttpGet]
         public ActionResult ExportSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            var excelFileName = this.GetSummaryFileName(criteria);
+            var excelFileName = GetSummaryFileName(criteria);
             criteria.Subject = criteria.Subject ?? string.Empty;
 
             NpoiExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), excelFileName);
@@ -89,9 +89,9 @@
             return View("~/Areas/Report/RedemptionStatistics/Index.cshtml");
         }
 
-        private string GetSummaryFileName(GetRedemptionStatisticsSummaryCriteria criteria)
+        private static string GetSummaryFileName(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            string pattern = "yyyyMMdd";
+            const string pattern = "yyyyMMdd";
             return string.Format(
                 Labels.RedemptionStatisticsReportFilename,
                 criteria.FromDate.ToString(pattern),

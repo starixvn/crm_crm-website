@@ -77,7 +77,7 @@
             DirectCustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExtensions.RenderCell(row, currentColumn++, (customer.GroupHeadline == null ? "not assign group" : customer.GroupHeadline), exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, (customer.GroupHeadline ?? "not assign group"), exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Status, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Site, exportExcelInfo.TextStyle);
@@ -168,14 +168,7 @@
                     var customer = _customerReportInfo.CustomerList[i];
 
                     var isEvenRow = (i + 1) % 2 == 0;
-                    if (isEvenRow)
-                    {
-                        exportExcelInfo.TextStyle = evenRowTextStyle;
-                    }
-                    else
-                    {
-                        exportExcelInfo.TextStyle = textStyle;
-                    }
+                    exportExcelInfo.TextStyle = isEvenRow ? evenRowTextStyle : textStyle;
 
                     RenderRow(
                         exportExcelInfo,

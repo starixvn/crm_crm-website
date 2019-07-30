@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Services;
     using Excels.CustomerReport;
@@ -11,7 +12,6 @@
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     using Resources;
-    using System.Web.Mvc;
 
     [NapAuth(FunctionKey = FunctionPermissions.CustomerReport, Policy = Constant.Policy.Read)]
     public class CustomerReportController : ReadOnlyBaseController
@@ -43,7 +43,7 @@
         public ActionResult AllSetting()
         {
             var languages = _settingService.GetAllLanguages();
-            languages.Insert(0, new Common.Models.Setting() { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
+            languages.Insert(0, new Common.Models.Setting { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
             var sites = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
                 ? _settingService.GetAllSitesCN88()

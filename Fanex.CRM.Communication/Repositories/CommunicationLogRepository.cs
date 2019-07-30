@@ -170,13 +170,16 @@
             return logInfo;
         }
 
-        private IEnumerable<BaseCommunicationLog> GenerateFeedBackDetailWithSetting(IEnumerable<BaseCommunicationLog> feedbacks, IEnumerable<SettingItem> settings)
+        private static IEnumerable<BaseCommunicationLog> GenerateFeedBackDetailWithSetting(
+            IEnumerable<BaseCommunicationLog> feedbacks,
+            IEnumerable<SettingItem> settings)
         {
-            Func<BaseCommunicationLog, List<SettingItem>, BaseCommunicationLog> regenerateFeedBackDetail = delegate (BaseCommunicationLog f, List<SettingItem> s)
-            {
-                f.Settings = s;
-                return f;
-            };
+            Func<BaseCommunicationLog, List<SettingItem>, BaseCommunicationLog> regenerateFeedBackDetail =
+                delegate (BaseCommunicationLog f, List<SettingItem> s)
+                {
+                    f.Settings = s;
+                    return f;
+                };
             var result = from f in feedbacks
                          join s in settings on f.RunningNumber equals s.FeedbackID
                          select new { f, s } into t1

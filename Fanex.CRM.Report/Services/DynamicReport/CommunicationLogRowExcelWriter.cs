@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -41,9 +40,6 @@
                 CRMHorizontalAlignment.Center);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
             ExportExcelInfo exportExcelInfo,
             DynamicReportInfo info,

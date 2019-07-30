@@ -1,7 +1,7 @@
-﻿using System.Xml.Serialization;
-
-namespace Fanex.CRM.Communication.Models
+﻿namespace Fanex.CRM.Communication.Models
 {
+    using System.Xml.Serialization;
+
     [XmlType("Product")]
     public class ProductFilter
     {
@@ -19,7 +19,7 @@ namespace Fanex.CRM.Communication.Models
         {
             get
             {
-                return this.ProductId == null ? string.Empty : this.ProductId;
+                return ProductId ?? string.Empty;
             }
 
             set { }
@@ -30,7 +30,7 @@ namespace Fanex.CRM.Communication.Models
         {
             get
             {
-                return this.SubProductId == null ? string.Empty : this.SubProductId;
+                return SubProductId ?? string.Empty;
             }
 
             set { }
@@ -41,7 +41,7 @@ namespace Fanex.CRM.Communication.Models
         {
             get
             {
-                return this.BettypeId == null ? string.Empty : this.BettypeId;
+                return BettypeId ?? string.Empty;
             }
 
             set { }

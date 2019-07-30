@@ -103,9 +103,7 @@
             var centerTextStyle =
                 NpoiExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var childReportLength = _logStatisticsReportDetail.ChildReports.Count;
-            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-            var numberOfSheet = (childReportLength / maxRowPerSheet) +
-                (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (childReportLength / NpoiExtensions.MaxRowPerSheet) + (childReportLength % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
 
             var generalSheetName = GetSheetname();
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
@@ -117,8 +115,8 @@
 
                 exportExcelInfo.CurrentRow = 0;
                 GenerateTitle(exportExcelInfo);
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < childReportLength; i++)
                 {
                     GenerateDetailReportRowData(_logStatisticsReportDetail.ChildReports[i], exportExcelInfo, textStyle, centerTextStyle);

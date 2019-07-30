@@ -442,10 +442,13 @@
                         .Select(sp =>
                         {
                             sp.Name = sp.Value;
-                            sp.ChildSettings = betTypes.Where(s => s.ParentId == sp.Id && s.Id != NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole))
-                                                    .Select(s => { s.GrandParentId = sp.ParentId; return s; })
-                                                    .OrderBy(s => s.DisplayOrder)
-                                                    .ToList();
+                            sp.ChildSettings = betTypes
+                                    .Where(s => s.ParentId == sp.Id && s.Id != NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole))
+                                    .Select(s =>
+                                    {
+                                        s.GrandParentId = sp.ParentId;
+                                        return s;
+                                    }).OrderBy(s => s.DisplayOrder).ToList();
 
                             return sp;
                         })
@@ -465,8 +468,11 @@
 
             var products = GetProductsOnly()
                               .Where(p => p.Id != NAConstants.GetProductNA(AppSession.CurrentUser.UserRole))
-                              .Select(p => { p.Name = p.Value; return p; })
-                              .ToList();
+                              .Select(p =>
+                              {
+                                  p.Name = p.Value;
+                                  return p;
+                              }).ToList();
 
             CacheService.Set(GetProductsSessionKey, products);
             return products;
@@ -483,8 +489,11 @@
             var subProducts = _settingRepositoryInstance
                                 .GetSubProducts(new SubProductCriteria())
                                 .Where(p => p.Id != NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole) && p.ParentId != 0)
-                                .Select(p => { p.Name = p.Value; return p; })
-                                .ToList();
+                                .Select(p =>
+                                {
+                                    p.Name = p.Value;
+                                    return p;
+                                }).ToList();
 
             CacheService.Set(GetSubProductsSessionKey, subProducts);
             return subProducts;
@@ -754,7 +763,7 @@
                 feedbackTemplates = GetFeedbackSubjectTemplates();
             }
 
-            return (feedbackTemplates != null && feedbackTemplates.Count() > 0) ?
+            return (feedbackTemplates != null && feedbackTemplates.Any()) ?
                         feedbackTemplates.Skip((criteria.PagingIndex - 1) * multipleNum).Take(criteria.PagingIndex * multipleNum).ToList() :
                         new List<FeedbackTemplate>();
         }

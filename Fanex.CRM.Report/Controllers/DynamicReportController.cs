@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Mvc;
     using Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -9,8 +11,6 @@
     using Fanex.NAP.Core.Web.Attribute;
     using Models;
     using Setting.Services;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public class DynamicReportController : ReadOnlyBaseController
     {
@@ -29,7 +29,6 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
-
         public ActionResult Index()
         {
             return View("~/Areas/Report/DynamicReport/Index.cshtml");
@@ -37,7 +36,6 @@
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
-
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -57,8 +55,7 @@
         }
 
         [HttpPost]
-        [OverridableNapAuthAttribute(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
-
+        [OverridableNapAuth(FunctionKey = FunctionPermissions.DynamicReport, Policy = Constant.Policy.Read)]
         public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
         {
             if (criteria.IsValid())

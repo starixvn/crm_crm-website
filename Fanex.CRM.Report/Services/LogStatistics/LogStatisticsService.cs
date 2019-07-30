@@ -90,7 +90,7 @@
             }).ToList();
         }
 
-        private List<int> GetSumOfCommunicationByProductForSubCategory(
+        private static List<int> GetSumOfCommunicationByProductForSubCategory(
             IGrouping<int, LogStatisticsEntity> subCategoryGroup)
         {
             var communicatonToolGroup = subCategoryGroup.GroupBy(data => data.ProductId).ToList();
@@ -98,7 +98,7 @@
             return communicatonToolGroup.Select(data => data.Sum(p => p.Total)).ToList();
         }
 
-        private List<int> GetNumberOfCommunicationForSubCategory(
+        private static List<int> GetNumberOfCommunicationForSubCategory(
             IGrouping<int, LogStatisticsEntity> subCategoryGroup)
         {
             List<int> numberOfCommunication = new List<int>();
@@ -113,7 +113,7 @@
             return numberOfCommunication;
         }
 
-        private void SumTotalCommunicationForMainCategory(IEnumerable<LogStatisticsMainCategory> mainCategories)
+        private static void SumTotalCommunicationForMainCategory(IEnumerable<LogStatisticsMainCategory> mainCategories)
         {
             foreach (var mainCategory in mainCategories)
             {
@@ -125,7 +125,7 @@
             }
         }
 
-        private void SumCommunicationCountForMainCategory(
+        private static void SumCommunicationCountForMainCategory(
             LogStatisticsBaseModel mainCategory, IEnumerable<int> numBerOfCommunicationBySubCategory)
         {
             var totalNumBerOfCommunicationBySubCategory = numBerOfCommunicationBySubCategory.Count();
@@ -138,7 +138,7 @@
             mainCategory.ListOfCommunicationCount = listOfCommunicationCount;
         }
 
-        private void SumCommunicationCountByProductForMainCategory(
+        private static void SumCommunicationCountByProductForMainCategory(
             LogStatisticsBaseModel mainCategory, IEnumerable<int> sumOfCommunicationBySubCategory)
         {
             var totalSumOfCommunicationBySubCategory = sumOfCommunicationBySubCategory.Count();

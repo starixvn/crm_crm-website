@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="StringExtension.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Extensions
+﻿namespace Fanex.CRM.Common.Extensions
 {
     using System;
     using System.Collections.Generic;
@@ -20,9 +11,6 @@ namespace Fanex.CRM.Common.Extensions
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Resources;
 
-    /// <summary>
-    /// String Extension.
-    /// </summary>
     public static class StringExtension
     {
         private static readonly Regex WebUrlExpression =
@@ -84,11 +72,6 @@ namespace Fanex.CRM.Common.Extensions
             return string.Format(CurrentCulture, target, args);
         }
 
-        /// <summary>
-        /// Hashes the specified target.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>Hash result.</returns>
         [DebuggerStepThrough]
         public static string Hash(this string target)
         {
@@ -120,11 +103,6 @@ namespace Fanex.CRM.Common.Extensions
             return StripHTMLExpression.Replace(target, string.Empty);
         }
 
-        /// <summary>
-        /// To the unique identifier.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>Convert result.</returns>
         [DebuggerStepThrough]
         public static Guid ToGuid(this string target)
         {
@@ -141,21 +119,13 @@ namespace Fanex.CRM.Common.Extensions
                 }
                 catch (FormatException)
                 {
+                    // nothing
                 }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// To the enumeration.
-        /// </summary>
-        /// <typeparam name="T">Type value.</typeparam>
-        /// <param name="target">The target.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>
-        /// Convert result.
-        /// </returns>
         [DebuggerStepThrough]
         public static T ToEnum<T>(this string target, T defaultValue) where T : IComparable, IFormattable
         {
@@ -169,6 +139,7 @@ namespace Fanex.CRM.Common.Extensions
                 }
                 catch (ArgumentException)
                 {
+                    // nothing
                 }
             }
 
@@ -203,25 +174,12 @@ namespace Fanex.CRM.Common.Extensions
             return target;
         }
 
-        /// <summary>
-        /// Regexes the match.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="pattern">The pattern.</param>
-        /// <param name="options">The options.</param>
-        /// <param name="groupName">Name of the group.</param>
-        /// <returns>Match result.</returns>
         [DebuggerStepThrough]
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
         {
-            if (string.IsNullOrWhiteSpace(groupName))
-            {
-                return Regex.Match(value, pattern, options).Value;
-            }
-            else
-            {
-                return Regex.Match(value, pattern, options).Groups[groupName].Value;
-            }
+            return string.IsNullOrWhiteSpace(groupName)
+                ? Regex.Match(value, pattern, options).Value
+                : Regex.Match(value, pattern, options).Groups[groupName].Value;
         }
 
         [DebuggerStepThrough]
@@ -242,13 +200,6 @@ namespace Fanex.CRM.Common.Extensions
             return RegexMatch(value, pattern, RegexOptions.None, groupName);
         }
 
-        /// <summary>
-        /// Returns true if there is a match from the regex pattern.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="pattern">The pattern.</param>
-        /// <param name="options">The options.</param>
-        /// <returns>Checking result.</returns>
         [DebuggerStepThrough]
         public static bool IsRegexMatch(this string value, string pattern, RegexOptions options)
         {
@@ -261,14 +212,6 @@ namespace Fanex.CRM.Common.Extensions
             return value.IsRegexMatch(pattern, RegexOptions.None);
         }
 
-        /// <summary>
-        /// Returns a string where matching patterns are replaced by the replacement string.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="pattern">The regex pattern for matching the items to be replaced.</param>
-        /// <param name="replacement">The string to replace matching items.</param>
-        /// <param name="options">The options.</param>
-        /// <returns>Replace result.</returns>
         [DebuggerStepThrough]
         public static string RegexReplace(this string value, string pattern, string replacement, RegexOptions options)
         {
@@ -281,19 +224,6 @@ namespace Fanex.CRM.Common.Extensions
             return Regex.Replace(value, pattern, replacement, RegexOptions.None);
         }
 
-        /// <summary>
-        /// Indicates whether the current string matches the supplied wildcard pattern.  Behaves the same
-        /// as VB's "Like" Operator.
-        /// </summary>
-        /// <param name="s">The string instance where the extension method is called.</param>
-        /// <param name="wildcardPattern">The wildcard pattern to match. Syntax matches VB's Like operator.</param>
-        /// <returns>
-        /// True if the string matches the supplied pattern, false otherwise.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">Argument Exception.</exception>
-        /// <remarks>
-        /// See http://MSDN.microsoft.com/en-us/library/SWF8KAXW(v=VS.100).ASPX.
-        /// </remarks>
         public static bool IsLike(this string s, string wildcardPattern)
         {
             if (s == null || string.IsNullOrEmpty(wildcardPattern))
@@ -327,7 +257,7 @@ namespace Fanex.CRM.Common.Extensions
 
         public static string GetValueNotNull(string value)
         {
-            return value == null ? string.Empty : value;
+            return value ?? string.Empty;
         }
     }
 }

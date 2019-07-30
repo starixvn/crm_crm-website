@@ -30,7 +30,6 @@
             };
 
             RenderBody(exportExcelInfo);
-            string reportName = Labels.CustomerReport_Title;
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExtensions.StandardizeExcelReportName(ExcelFileName));
         }
 
@@ -111,7 +110,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, customer.WeChat, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, customer.Yahoo, exportExcelInfo.TextStyle);
 
-            if (!(AppSession.CurrentUser.UserRole == UserRole.CN88Staff))
+            if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
             {
                 NpoiExtensions.RenderCell(row, currentColumn++, customer.BBM, exportExcelInfo.TextStyle);
             }
@@ -196,14 +195,7 @@
                     var customer = _customerReportInfo.CustomerList[i];
 
                     var isEvenRow = (i + 1) % 2 == 0;
-                    if (isEvenRow)
-                    {
-                        exportExcelInfo.TextStyle = evenRowTextStyle;
-                    }
-                    else
-                    {
-                        exportExcelInfo.TextStyle = textStyle;
-                    }
+                    exportExcelInfo.TextStyle = isEvenRow ? evenRowTextStyle : textStyle;
 
                     RenderRow(
                         exportExcelInfo,

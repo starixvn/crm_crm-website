@@ -57,7 +57,9 @@
             }
         }
 
-        private IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<SettingItem> settings)
+        private static IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(
+            IEnumerable<FeedbackDetail> feedbacks,
+            IEnumerable<SettingItem> settings)
         {
             Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
             {
@@ -73,7 +75,9 @@
             return result.ToList();
         }
 
-        private IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(IEnumerable<DeletedFeedback> feedbacks, IEnumerable<SettingItem> settings)
+        private static IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(
+            IEnumerable<DeletedFeedback> feedbacks,
+            IEnumerable<SettingItem> settings)
         {
             Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateFeedBackDetail = delegate (DeletedFeedback f, List<SettingItem> s)
             {

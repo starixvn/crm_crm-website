@@ -44,7 +44,7 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);
         }
 
-        private void SetColumnsWidth(ExportExcelInfo exportExcelInfo)
+        private static void SetColumnsWidth(ExportExcelInfo exportExcelInfo)
         {
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
@@ -59,7 +59,7 @@
             int currentRowIndex = exportExcelInfo.CurrentRow;
 
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle titleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle titleStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
             exportExcelInfo.RenderHeaderTitle(title, titleStyle);
             currentRowIndex += 2;
 
@@ -192,11 +192,11 @@
             excelInfo.CurrentRow++;
         }
 
-        private void SetFontStyleForMainCategory(IFont font, ICellStyle cellStyle)
+        private static void SetFontStyleForMainCategory(IFont font, ICellStyle cellStyle)
         {
             font.FontHeightInPoints = NpoiExtensions.FontSize;
             font.FontName = NpoiExtensions.FontName;
-            font.Color = (short)HSSFColor.Blue.Index;
+            font.Color = HSSFColor.Blue.Index;
             font.Boldweight = (short)FontBoldWeight.Bold;
 
             cellStyle.SetFont(font);

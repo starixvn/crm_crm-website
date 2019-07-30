@@ -1,14 +1,6 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerSettingDetailController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Controllers
+﻿namespace Fanex.CRM.Customer.Controllers
 {
+    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
@@ -17,16 +9,12 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// Customer Setting Detail Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CustomerSettingDetailController : ReadOnlyBaseController
     {
         private readonly IPermissionService _permissionService;
-        private ICustomerDetailService _customerService;
+        private readonly ICustomerDetailService _customerService;
 
         public CustomerSettingDetailController()
             : this(null, null)

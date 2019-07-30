@@ -128,17 +128,17 @@
 
         #region Export excel helper
 
-        private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
+        private static void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var columnWidths = new List<int>() { 200, 200, 200, 200 };
+            var columnWidths = new List<int> { 200, 200, 200, 200 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
             ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
-        private void ExportHeader(ref ExportExcelInfo exportExcelInfo)
+        private static void ExportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -155,7 +155,7 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<WagerByMonth> wagerByMonths)
+        private static void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<WagerByMonth> wagerByMonths)
         {
             ICellStyle monthCellStyle, wagersCellStyle, amountCellStyle, totalCellStyle;
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
@@ -206,7 +206,7 @@
             }
         }
 
-        private void ExportFooter(ref ExportExcelInfo exportExcelInfo, WagerByMonth total)
+        private static void ExportFooter(ref ExportExcelInfo exportExcelInfo, WagerByMonth total)
         {
             int mergeRowNumber = total.Wagers.Count;
             int currentRow = exportExcelInfo.CurrentRow;
@@ -249,12 +249,12 @@
             NpoiExtensions.RenderMergedCells(exportExcelInfo, totalCellRange, total.Total, totalCellStyle);
         }
 
-        private short GetRowColorIndex()
+        private static short GetRowColorIndex()
         {
             return NpoiExtensions.BackgroundColorIndex;
         }
 
-        private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -263,7 +263,7 @@
                 CRMHorizontalAlignment.Center);
         }
 
-        private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -273,7 +273,7 @@
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetWagersCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -282,7 +282,7 @@
                 CRMHorizontalAlignment.Left);
         }
 
-        private ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetTextStyle(
                 workbook,
@@ -292,7 +292,7 @@
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        private ICellStyle GetAmountCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetAmountCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -301,7 +301,7 @@
                 CRMHorizontalAlignment.Right);
         }
 
-        private ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -311,7 +311,7 @@
                 NpoiExtensions.GrandTotalTextColorIndex);
         }
 
-        private ICellStyle GetTotalCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetTotalCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,
@@ -320,7 +320,7 @@
                 CRMHorizontalAlignment.Right);
         }
 
-        private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
+        private static ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExtensions.GetIntegerNumberStyle(
                 workbook,

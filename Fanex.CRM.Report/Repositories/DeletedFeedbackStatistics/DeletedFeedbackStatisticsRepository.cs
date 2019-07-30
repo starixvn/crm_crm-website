@@ -1,12 +1,12 @@
 ﻿namespace Fanex.CRM.Report.Repositories.DeletedFeedbackStatistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Common.Models;
     using Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics;
     using Fanex.CRM.Report.Models.DeletedFeedbackStatistics;
     using Fanex.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class DeletedFeedbackStatisticsRepository : IDeletedFeedbackStatisticsRepository
     {
@@ -24,7 +24,9 @@
             }
         }
 
-        private IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(IEnumerable<DeletedFeedback> feedbacks, IEnumerable<SettingItem> settings)
+        private static IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(
+            IEnumerable<DeletedFeedback> feedbacks,
+            IEnumerable<SettingItem> settings)
         {
             Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateFeedBackDetail = delegate (DeletedFeedback f, List<SettingItem> s)
             {

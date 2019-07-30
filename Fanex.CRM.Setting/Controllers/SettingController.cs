@@ -1,31 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Controllers
+﻿namespace Fanex.CRM.Setting.Controllers
 {
+    using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Services;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// Setting Controller.
-    /// </summary>
     public class SettingController : ReadOnlyBaseController
     {
-        private ISettingService _settingServiceInstance;
+        private readonly ISettingService _settingServiceInstance;
 
-        public SettingController()
-            : this(null)
+        public SettingController() : this(null)
         {
         }
 

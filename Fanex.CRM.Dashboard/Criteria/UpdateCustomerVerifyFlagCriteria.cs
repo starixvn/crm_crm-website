@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerVerifyFlagCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Dashboard.Criteria
+﻿namespace Fanex.CRM.Dashboard.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Customer Dashboard Information Criteria.
-    /// </summary>
     public class UpdateCustomerVerifyFlagCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "custid")]
@@ -33,21 +21,9 @@ namespace Fanex.CRM.Dashboard.Criteria
 
         public bool IsVerifyGivenCredit { get; set; }
 
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int UserId => AppSession.CurrentUser.Id;
 
-        public string IP
-        {
-            get
-            {
-                return IPHelper.ClientIP;
-            }
-        }
+        public string IP => IPHelper.ClientIP;
 
         [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }

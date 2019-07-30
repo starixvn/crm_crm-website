@@ -1,14 +1,6 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerSettingController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Controllers
+﻿namespace Fanex.CRM.Customer.Controllers
 {
+    using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -16,15 +8,11 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// Customer Setting Controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CustomerSettingController : BaseController
     {
-        private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
         public CustomerSettingController()
             : this(null)
@@ -41,11 +29,6 @@ namespace Fanex.CRM.Customer.Controllers
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.UserName = Request.Params["username"];
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-
-
-
-            //ChangeCulture("fr");
-
 
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }

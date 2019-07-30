@@ -7,7 +7,6 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Entities.SettlementReport;
     using Fanex.CRM.Report.Models.SettlementReport;
@@ -74,7 +73,7 @@
             NpoiExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
-        private List<SettlementReportInfo> GetPagingLogList(
+        private static List<SettlementReportInfo> GetPagingLogList(
             GetSettlementReportCriteria criteria,
             List<SettlementReportInfo> settlementReportList)
         {
@@ -83,7 +82,7 @@
                 .ToList();
         }
 
-        private Dictionary<int, int> GetCountryDictionary(List<Country> countryList)
+        private static Dictionary<int, int> GetCountryDictionary(List<Country> countryList)
         {
             Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
@@ -219,7 +218,7 @@
             return chartInfo;
         }
 
-        private void ExportSettlementReportBody(
+        private static void ExportSettlementReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
@@ -239,9 +238,7 @@
             var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
             var firstGrandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, true);
             var grandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, false);
-            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-            var numberOfSheet = (monthReportLength / maxRowPerSheet) +
-                (monthReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (monthReportLength / NpoiExtensions.MaxRowPerSheet) + (monthReportLength % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
             int countryReportLength;
             SettlementReportInfo countryReport;
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
@@ -252,8 +249,8 @@
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
                 exportExcelInfo.CurrentRow = 0;
                 ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < monthReportLength; i++)
                 {
                     var monthReport = settlementReport.ChildReports[i];
@@ -279,7 +276,7 @@
             }
         }
 
-        private void ExportSettlementReportHeader(
+        private static void ExportSettlementReportHeader(
             ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)

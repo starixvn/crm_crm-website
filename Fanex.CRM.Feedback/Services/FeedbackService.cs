@@ -173,7 +173,7 @@
                 Name = Labels.All,
             };
 
-            var mainCategories = new List<Setting>()
+            var mainCategories = new List<Setting>
             {
                 new Setting
                 {

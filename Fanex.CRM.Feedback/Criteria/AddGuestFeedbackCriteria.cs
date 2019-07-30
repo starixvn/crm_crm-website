@@ -1,15 +1,14 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Setting.Constants;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
     public class AddGuestFeedbackCriteria : BasedCriteria
     {
@@ -71,39 +70,18 @@
 
         public string ReviewerId { get; set; }
 
-        public int CreatorId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int CreatorId => AppSession.CurrentUser.Id;
 
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int UserId => AppSession.CurrentUser.Id;
 
         public string AutoField { get; set; }
 
-        public string IP
-        {
-            get
-            {
-                return IPHelper.ClientIP;
-            }
-        }
+        public string IP => IPHelper.ClientIP;
 
         public int ErrorCode { get; set; }
 
         public string ErrorMessage { get; set; }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public override Hashtable GetSpParams()
         {
             var isCN88 = UserRole == Common.Enumerations.UserRole.CN88Staff;

@@ -44,7 +44,6 @@
                     hashAlgorithm = new SHA512Managed();
                     break;
 
-                case HashType.MD5:
                 default:
                     hashAlgorithm = new MD5CryptoServiceProvider();
                     break;

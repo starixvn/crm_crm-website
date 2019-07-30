@@ -254,7 +254,7 @@
 
                 dateReport.PeriodRange.FromDateString = dateReport.PeriodRange.FromDate.ToShortFormatedDate();
                 dateReport.PeriodRange.ToDateString = dateReport.PeriodRange.ToDate.ToShortFormatedDate();
-                var timeGroups = dateGroup.ToList()
+                var timeGroups = dateGroup
                      .OrderBy(data => data.DateTime.Hour)
                      .GroupBy(data => new DateTime(
                         dateGroup.Key.Year,
@@ -313,20 +313,18 @@
             {
                 var dateReport = new StatisticReportInfo
                 {
-                    ShortName = dateGroup.Key.ToString(),
+                    ShortName = dateGroup.Key,
                     ChildReports = new List<StatisticReportInfo>(),
                     Total = new StatisticReportInfo
                     {
                         ShortName = string.Format(
                             Labels.StatisticReport_TotalTitle,
-                            dateGroup.Key.ToString()),
+                            dateGroup.Key),
                         ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     }
                 };
 
-                var timeGroups = dateGroup.ToList()
-                    .OrderBy(data => data.DateTime.Hour)
-                    .GroupBy(data => data.DateTime.Hour);
+                var timeGroups = dateGroup.OrderBy(data => data.DateTime.Hour).GroupBy(data => data.DateTime.Hour);
                 foreach (var timeGroup in timeGroups)
                 {
                     var timeReport = new StatisticReportInfo
@@ -345,7 +343,7 @@
             return statisticReport;
         }
 
-        private IList<StatisticReportInfo> GetPagingLogList(
+        private static IList<StatisticReportInfo> GetPagingLogList(
             GetStatisticReportCriteria criteria,
             IList<StatisticReportInfo> statisticReportList)
         {
@@ -354,7 +352,7 @@
                 .ToList();
         }
 
-        private IDictionary<int, int> GetCountryDictionary(IList<Country> countryList)
+        private static IDictionary<int, int> GetCountryDictionary(IList<Country> countryList)
         {
             var countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
@@ -473,10 +471,7 @@
             var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
             NpoiExtensions.SetTotalColorIndex(exportExcelInfo);
             NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-
-            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-            var numberOfSheet = (childReportLength / maxRowPerSheet) +
-                (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (childReportLength / NpoiExtensions.MaxRowPerSheet) + (childReportLength % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
@@ -486,8 +481,8 @@
                 exportExcelInfo.CurrentRow = 0;
                 ExportStatisticReportHeader(ref exportExcelInfo, criteria, statisticReport, countryList);
 
-                var startIndex = sheetIndex * maxRowPerSheet;
-                var endIndex = startIndex + maxRowPerSheet;
+                var startIndex = sheetIndex * NpoiExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExtensions.MaxRowPerSheet;
                 for (var i = startIndex; i < endIndex && i < childReportLength; i++)
                 {
                     var dateReport = statisticReport.ChildReports[i];
@@ -517,7 +512,7 @@
             ICellStyle leftHeaderStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 100 : 160) * NpoiExtensions.FontWidth);
             for (var i = 0; i < exportExcelInfo.MaxColumnIndex - 1; i++)
             {

@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerSuggestionCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.07.25">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Criteria
+﻿namespace Fanex.CRM.Customer.Criteria
 {
     using Common.Criteria;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Customer Suggestion Criteria.
-    /// </summary>
     public class CustomerSuggestionCriteria : BasedCriteria
     {
         public int UserId { get; set; }

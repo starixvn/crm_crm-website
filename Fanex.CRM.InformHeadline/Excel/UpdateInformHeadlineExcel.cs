@@ -83,7 +83,7 @@
 
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count() == 0)
+            if (_data == null || !_data.Any())
             {
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -128,14 +128,14 @@
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
             GenerateInformHeadlineTitle(exportExcelInfo, _informHeadlineTitle);
         }
 
         private void GenerateInformHeadlineTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow,
                 exportExcelInfo.CurrentRow + 1,
@@ -203,7 +203,7 @@
                 centerAlignStyle = _normalCenterAlignStyle;
             }
 
-            var username = string.IsNullOrEmpty(inform.UserName) == false ? inform.UserName :
+            var username = !string.IsNullOrEmpty(inform.UserName) ? inform.UserName :
                     (InformSpecialCases.Contains(inform.Case) ? inform.OldUserName : inform.NewUserName);
 
             var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceStatusId;
@@ -233,7 +233,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
         }
 
-        private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
+        private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
             var cellStyle = NpoiExtensions.GetTextStyle(
                 workbook,
@@ -246,19 +246,19 @@
 
         private string GetInformStatusName(int id)
         {
-            var item = _informStatuses.Where(x => x.SettingId == id).FirstOrDefault();
+            var item = _informStatuses.FirstOrDefault(x => x.SettingId == id);
             return item == null ? string.Empty : item.SettingValue;
         }
 
         private string GetProductStatusName(int id)
         {
-            var item = _productStatuses.Where(x => x.StatusId == id).FirstOrDefault();
+            var item = _productStatuses.FirstOrDefault(x => x.StatusId == id);
             return item == null ? Labels.NA : item.Name;
         }
 
         private string GetStationName(int id)
         {
-            var item = _stations.Where(x => x.StationId == id).FirstOrDefault();
+            var item = _stations.FirstOrDefault(x => x.StationId == id);
             return item == null ? Labels.NA : item.Name;
         }
     }

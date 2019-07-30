@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Redemption.Controllers
+﻿namespace Fanex.CRM.Redemption.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
@@ -17,15 +8,11 @@ namespace Fanex.CRM.Redemption.Controllers
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    /// <summary>
-    /// Redemption Controller.
-    /// </summary>
     public class RedemptionController : ReadOnlyBaseController
     {
-        private IRedemptionLogService _logService;
+        private readonly IRedemptionLogService _logService;
 
-        public RedemptionController()
-            : this(null)
+        public RedemptionController() : this(null)
         {
         }
 

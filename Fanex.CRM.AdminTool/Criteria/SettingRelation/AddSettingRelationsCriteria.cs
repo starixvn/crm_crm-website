@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AddSettingRelationsCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
+﻿namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -17,9 +7,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get All Setting Criteria.
-    /// </summary>
     public class AddSettingRelationsCriteria : CriteriaBase
     {
         public int ParentId { get; set; }
@@ -28,34 +15,12 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 
         public List<Setting> SubSettings { get; set; }
 
-        public int CreatorId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int CreatorId => AppSession.CurrentUser.Id;
 
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int UserId => AppSession.CurrentUser.Id;
 
-        public string IP
-        {
-            get
-            {
-                return IPHelper.ClientIP;
-            }
-        }
+        public string IP => IPHelper.ClientIP;
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
@@ -80,10 +45,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
             return true;
         }
 
-        /// <summary>
-        /// Gets the setting identifiers.
-        /// </summary>
-        /// <returns>The setting identifiers.</returns>
         private string GetSettingId()
         {
             if (SubSettings == null)

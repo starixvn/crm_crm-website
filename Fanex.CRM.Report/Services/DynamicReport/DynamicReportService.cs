@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Linq;
     using Common.Services;
@@ -77,7 +76,7 @@
         public IEnumerable<Product> GetAllSubProducts()
         {
             var subProducts = _serviceSetting.GetAllSubProducts();
-            var notApplyItem = subProducts.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+            var notApplyItem = subProducts.FirstOrDefault(x => x.Id == SettingConstants.NotApply);
 
             if (notApplyItem == null)
             {
@@ -169,7 +168,7 @@
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
             var rawData = _serviceSetting.GetAllCommunicationTools();
-            var item = rawData.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
+            var item = rawData.FirstOrDefault(x => x.Id == SettingConstants.NotApply);
 
             if (item == null)
             {
@@ -241,9 +240,6 @@
             return extensions;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria)
         {
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
@@ -342,9 +338,6 @@
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByYearly(
             IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
@@ -364,7 +357,7 @@
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData.Count() == 0)
+            if (!rawData.Any())
             {
                 return dynamicReport;
             }
@@ -403,9 +396,6 @@
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByMonthly(
             IEnumerable<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
@@ -425,7 +415,7 @@
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData.Count() == 0)
+            if (!rawData.Any())
             {
                 return dynamicReport;
             }
@@ -482,7 +472,7 @@
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData.Count() == 0)
+            if (!rawData.Any())
             {
                 return dynamicReport;
             }
@@ -513,7 +503,7 @@
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData.Count() == 0)
+            if (!rawData.Any())
             {
                 return dynamicReport;
             }
@@ -523,10 +513,7 @@
             return dynamicReport;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportDynamicReportHeader(
+        private static void ExportDynamicReportHeader(
             ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
@@ -595,9 +582,6 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportBody(
             ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
@@ -631,9 +615,7 @@
 
             var totalPeriodGroupTitle = dynamicReport.ChildReports.Count;
             var totalItems = dynamicReport.TotalChildReports + totalPeriodGroupTitle;
-            var maxRowPerSheet = NpoiExtensions.MaxRowPerSheet;
-            var numberOfSheet = (totalItems / maxRowPerSheet) +
-                (totalItems % maxRowPerSheet != 0 ? 1 : 0);
+            var numberOfSheet = (totalItems / NpoiExtensions.MaxRowPerSheet) + (totalItems % NpoiExtensions.MaxRowPerSheet != 0 ? 1 : 0);
 
             var mainCategoryCount = dynamicReport.ChildReports.Count;
 
@@ -652,7 +634,7 @@
 
                 currentExportedItemCount = 0;
 
-                for (var i = currentIndexOfMainCategory; i < mainCategoryCount && currentExportedItemCount < maxRowPerSheet; i++)
+                for (var i = currentIndexOfMainCategory; i < mainCategoryCount && currentExportedItemCount < NpoiExtensions.MaxRowPerSheet; i++)
                 {
                     var periodReport = dynamicReport.ChildReports[i];
                     var childsLength = periodReport.ChildReports.Count;
@@ -672,7 +654,7 @@
                     exportExcelInfo.CurrentRow += 2;
                     currentExportedItemCount++;
 
-                    for (var j = currentIndexOfDetailItem; j < childsLength && currentExportedItemCount <= maxRowPerSheet; j++)
+                    for (var j = currentIndexOfDetailItem; j < childsLength && currentExportedItemCount <= NpoiExtensions.MaxRowPerSheet; j++)
                     {
                         exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                         exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
@@ -712,7 +694,7 @@
         private void InitPeriodGroupTitleStyle(ExportExcelInfo exportExcelInfo)
         {
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
-            var periodGroupBackgroundColorIndex = HSSFColor.DarkYellow.Index;
+            const short periodGroupBackgroundColorIndex = HSSFColor.DarkYellow.Index;
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
             periodGroupTitleStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
@@ -741,9 +723,6 @@
                 exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private List<DynamicReportInfo> GetPagingLogList(
             GetDynamicReportCriteria criteria,
             List<DynamicReportInfo> dynamicReportList)
@@ -819,7 +798,7 @@
                         Labels.DynamicReport_PeriodReport_Title,
                         groupTypeName,
                         periodGroup.Key),
-                    ShortName = periodGroup.Key.ToString(),
+                    ShortName = periodGroup.Key,
                     ChildReports = new List<DynamicReportInfo>()
                 };
 

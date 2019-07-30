@@ -1,13 +1,12 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data.Repository;
-    using System;
-    using System.Collections;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     public class UpdateCustomerFeedbackCriteria : CustomerFeedback, ICriteria
     {
@@ -58,7 +57,6 @@
             return "FeedbackInfoUpd";
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public Hashtable GetSpParams()
         {
             int userId = AppSession.CurrentUser.Id;
@@ -173,7 +171,7 @@
 
         private string GetRelatedCustomerId()
         {
-            if (HasRelated && RelatedCustomers != null && RelatedCustomers.Count() > 0)
+            if (HasRelated && RelatedCustomers != null && RelatedCustomers.Any())
             {
                 return string.Join(",", RelatedCustomers.Select(c => c.Id));
             }

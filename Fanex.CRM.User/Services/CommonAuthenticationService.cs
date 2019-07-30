@@ -1,41 +1,36 @@
 ﻿namespace Fanex.CRM.User.Services
 {
+    using System.Web.Security;
     using Enumerations;
-    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Helpers;
-    using Fanex.NAP.Core.Models.ValueObject;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
-    using System.Web.Security;
-    using System.Linq;
+
     public class CommonAuthenticationService : ICommonAuthenticationService
     {
         private readonly ISiteService _siteService;
         private readonly ISecurityService _securityService;
         private readonly IMaintenanceService _maintenanceService;
-        private readonly IUserService _userService;
-        public CommonAuthenticationService()
-            : this(null, null, null, null)
+
+        public CommonAuthenticationService() : this(null, null, null)
         {
         }
 
         public CommonAuthenticationService(
             ISiteService siteService,
             ISecurityService securityService,
-            IMaintenanceService maintenanceService,
-            IUserService userService
+            IMaintenanceService maintenanceService
             )
         {
             _siteService = siteService ?? new SiteService();
             _securityService = securityService ?? new SecurityService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
-            _userService = userService ?? new UserService();
         }
 
         public RecheckInStatus RecheckIn(CRMUser user)

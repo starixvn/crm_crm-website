@@ -22,10 +22,10 @@
                     {
                         settings.Add(new Setting
                         {
-                            Id = Converter.ToInt(reader["settingid"], 0),
+                            Id = Converter.ToInt(reader["settingid"]),
                             SettingType = Converter.ToString2(reader["settingname"]),
                             Value = Converter.ToString2(reader["settingvalue"]),
-                            DisplayOrder = Converter.ToInt(reader["displayorder"], 0),
+                            DisplayOrder = Converter.ToInt(reader["displayorder"]),
                             IsActive = Converter.ToBool(reader["isactive"])
                         });
                     }
@@ -239,7 +239,7 @@
         public IList<BaseModel> GetAllStatus(GetAllStatusCriteria criteria)
         {
             var data = ReadBaseModels(criteria, "StatusId", "Name");
-            var closedStatus = data.Where(d => d.Id == (int)CRMStatus.Closed).FirstOrDefault();
+            var closedStatus = data.FirstOrDefault(d => d.Id == (int)CRMStatus.Closed);
             if (closedStatus != null)
             {
                 data.Remove(closedStatus);
@@ -251,7 +251,7 @@
 
         public IList<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
-            return ReadBaseModels(criteria, "ActionID", "ActionName", true);
+            return ReadBaseModels(criteria, "ActionID", "ActionName");
         }
 
         public IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)

@@ -1,29 +1,28 @@
 ﻿namespace Fanex.CRM.Report.Helpers
 {
+    using System.Text;
+    using System.Web;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Resources;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Web;
 
     public static class FieldHelper
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Need Review.")]
         public static string GenerateContactInfo(BaseCustomer customerInfo)
         {
-            string pattern = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}";
+            const string pattern = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}";
 
             int index = 0;
-            string phone = string.Empty;
+            var phone = new StringBuilder();
             foreach (var item in customerInfo.PhoneInfo)
             {
-                phone += JoinCommunication(Labels.Phone + (++index).ToString(), item.ToString());
+                phone.Append(JoinCommunication(Labels.Phone + (++index).ToString(), item.ToString()));
             }
 
             index = 0;
-            string pic = string.Empty;
+            var pic = new StringBuilder();
             foreach (var item in customerInfo.PersonalInfoContacts)
             {
-                pic += JoinCommunication(Labels.PIC + (++index).ToString(), item.ToString());
+                pic.Append(JoinCommunication(Labels.PIC + (++index).ToString(), item.ToString()));
             }
 
             return string.Format(

@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackStatisticFilterType.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Constants
+﻿namespace Fanex.CRM.Setting.Constants
 {
-    /// <summary>
-    /// Feedback statistic filter type.
-    /// </summary>
     public static class FeedbackStatisticFilterType
     {
         public const int ByCreator = 1;

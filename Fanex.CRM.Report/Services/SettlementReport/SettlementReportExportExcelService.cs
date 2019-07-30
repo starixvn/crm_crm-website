@@ -7,13 +7,6 @@
 
     public class SettlementReportExportExcelService
     {
-        /// <summary>
-        /// Exports the column.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="rowSpan">The row span.</param>
-        /// <param name="cellValue">The cell value.</param>
-        /// <param name="cellStyle">The cell style.</param>
         public void ExportColumn(
             ExportExcelInfo exportExcelInfo,
             int rowSpan,

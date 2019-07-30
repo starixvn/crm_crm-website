@@ -1,16 +1,12 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Fanex.CRM.Feedback.Models;
     using System.Collections;
-    using System.Diagnostics.CodeAnalysis;
+    using Fanex.CRM.Feedback.Models;
 
     public class AddCustomerFeedbackCriteria : AddGuestFeedbackCriteria
     {
         public bool OverrideCRMInfo { get; set; }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public override Hashtable GetSpParams()
         {
             var param = base.GetSpParams();

@@ -8,7 +8,7 @@
     using Fanex.CRM.Common.Models;
     using NAP.Core.Models;
     using NAP.Core.Web.Auth;
-    using System.Security.Principal;
+
     public static class AuthencationHelper
     {
         public static void SignIn(CRMUser user)
@@ -35,8 +35,8 @@
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
 
             HttpContext.Current.Response.Cookies.Set(cookie);
-
         }
+
         public static void ClearCookies()
         {
             var cache = HttpContext.Current.Response.Cache;
@@ -54,6 +54,7 @@
                 HttpContext.Current.Response.Cookies.Add(item);
             }
         }
+
         public static void AssignAppSession(CRMUser user, IList<MenuItem> menuItems)
         {
             AppSession.CurrentUserMenu = menuItems;

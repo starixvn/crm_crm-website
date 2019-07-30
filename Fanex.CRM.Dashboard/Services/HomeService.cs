@@ -1,10 +1,10 @@
-﻿using Fanex.NAP.Core.Models;
-using System.Collections.Generic;
-using System.Resources;
-using System.Text.RegularExpressions;
-
-namespace Fanex.CRM.Dashboard.Services
+﻿namespace Fanex.CRM.Dashboard.Services
 {
+    using System.Collections.Generic;
+    using System.Resources;
+    using System.Text.RegularExpressions;
+    using Fanex.NAP.Core.Models;
+
     public class HomeService : IHomeService
     {
         public IList<MenuItem> UpdateMenuLanguage(IList<MenuItem> menus)
@@ -31,7 +31,6 @@ namespace Fanex.CRM.Dashboard.Services
                     Policy = menuItem.Policy,
                     Site = menuItem.Site,
                     Url = menuItem.Url
-
                 };
 
                 newMenus.Add(newMenuItem);
@@ -40,12 +39,12 @@ namespace Fanex.CRM.Dashboard.Services
             return newMenus;
         }
 
-        private string UpdateMenuName(string name, ResourceManager rm)
+        private static string UpdateMenuName(string name, ResourceManager rm)
         {
             var key = Regex.Replace(name.Trim(), "-| ", "_");
             var newName = rm.GetString(key);
 
-            return newName == null ? name : newName;
+            return newName ?? name;
         }
     }
 }

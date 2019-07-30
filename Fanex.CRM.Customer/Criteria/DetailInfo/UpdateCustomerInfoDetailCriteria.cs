@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateCustomerInfoDetailCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Customer.Criteria.DetailInfo
+﻿namespace Fanex.CRM.Customer.Criteria.DetailInfo
 {
     using Fanex.CRM.Common.Criteria;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update Customer Information Detail Criteria.
-    /// </summary>
     public class UpdateCustomerInfoDetailCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "custid")]

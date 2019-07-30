@@ -62,7 +62,7 @@
                 currentColumn++;
             }
 
-            NpoiExtensions.RenderCell(row, currentColumn, (int)info.NumberOfIssues, IntStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, IntStyle);
             currentColumn++;
             exportExcelInfo.CurrentRow += 1;
         }

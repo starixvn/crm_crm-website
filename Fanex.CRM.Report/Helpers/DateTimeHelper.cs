@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
 
-    public class DateTimeHelper
+    public static class DateTimeHelper
     {
         public static DateTime GetFirstDayOfWeek(DateTime dayInWeek)
         {
