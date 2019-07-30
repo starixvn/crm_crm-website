@@ -619,7 +619,11 @@
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\edit.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\open-case.png" />
+    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\view-detail.png" />
+    <Content Include="Areas\InformHeadline\ViewLogs\log-details-controller.js" />
     <Content Include="Areas\InformHeadline\ViewLogs\logs-controller.js" />
+    <Content Include="Areas\InformHeadline\ViewLogs\log-details-grid-directive.js" />
+    <Content Include="Areas\InformHeadline\ViewLogs\_LogDetails.cshtml" />
     <None Include="Areas\InformHeadline\ViewLogs\_Logs.cshtml" />
     <Content Include="Areas\InformHeadline\ViewLogs\logs-grid-directive.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />

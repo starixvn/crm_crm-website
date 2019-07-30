@@ -150,6 +150,9 @@
   <data name="DefaultSearchCustomer" xml:space="preserve">
     <value>电话 / 用户名 / 昵称</value>
   </data>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
+  </data>
   <data name="EditedBy" xml:space="preserve">
     <value>Edited By</value>
   </data>
@@ -189,8 +192,14 @@
   <data name="Error_Server" xml:space="preserve">
     <value>抱歉，要求处理过程中出现报错，请联系管理人员。</value>
   </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
   <data name="Guest" xml:space="preserve">
     <value>访客</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
   </data>
   <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
     <value>显示/隐藏左侧</value>
@@ -216,17 +225,29 @@
   <data name="NumberOfRemovedEditedAccounts" xml:space="preserve">
     <value>Number Of Removed Edited Accounts</value>
   </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>Product Status</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
   <data name="RemovedEditedAccountsLogs" xml:space="preserve">
     <value>Removed Edited Accounts Logs</value>
   </data>
   <data name="ResultMessage_NoInfo" xml:space="preserve">
     <value>无数据</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Suspended" xml:space="preserve">
     <value>冻结</value>
   </data>
   <data name="There_is_no_data" xml:space="preserve">
     <value>无数据</value>
+  </data>
+  <data name="UpdatedTime" xml:space="preserve">
+    <value>Updated Time</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>欢迎</value>

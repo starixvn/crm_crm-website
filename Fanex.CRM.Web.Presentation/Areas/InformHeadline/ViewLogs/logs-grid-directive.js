@@ -24,7 +24,7 @@
                         Columns: [
                             { Name: 'Date', Value: item.Date },
                             { Name: 'EditedBy', Value: item.EditedBy },
-                            { Name: 'Totals', Value: '<a href="javascript:;">' + item.Totals + '</a>' }
+                            { Name: 'Totals', Value: '<a class="log-details" href="javascript:;">' + item.Totals + '</a>' }
                         ],
                         CustomAttr: 'data-rowindex=' + i
                     });
@@ -44,7 +44,7 @@
             var gridOptions = {
                 columns: [
                     {
-                        HeaderText: viewResources.Date, Width: 200, MaxResizeWidth: 200, Name: 'Date',
+                        HeaderText: viewResources.Date, Width: 100, MaxResizeWidth: 200, Name: 'Date',
                         HeaderAlign: 'center', CellAlign: 'center', FormatDateTime: 'MMM DD, YYYY hh:mm:ss A', CanResize: true
                     },
                     {
@@ -80,13 +80,18 @@
             };
 
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+            $('a.log-details').off('click').on('click', function () {
+                scope.onViewDetails();
+            });
         }
 
         return {
             restrict: 'A',
             require: '^ngModel',
             scope: {
-                dataSources: '=ngModel'
+                dataSources: '=ngModel',
+                onViewDetails: '='
             },
             link: function (scope, element) {
                 scope.$watch('dataSources', function (oldval, newval) {

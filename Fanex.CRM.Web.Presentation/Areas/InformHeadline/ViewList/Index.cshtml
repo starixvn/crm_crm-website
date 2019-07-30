@@ -23,11 +23,11 @@
             <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">
                     <li class="status-closed"><a data-status="0" class="open-menu-item" tabindex="-1" href="#">Open case</a></li>
-                    <li class="status-closed"><a class="view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+                    <li class="status-closed"><a class="view-logs view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
 
                     <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
                     <li class="divider"></li>
-                    <li><a class="view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+                    <li><a class="view-logs view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
                     <li class="divider"></li>
                     <li><a class="close-menu-item" data-status="1" tabindex="-1" href="#">Close case</a></li>
                 </ul>
@@ -64,6 +64,7 @@
     </div>
 </div>
 @Html.Partial("~/Areas/InformHeadline/ViewLogs/_Logs.cshtml")
+@Html.Partial("~/Areas/InformHeadline/ViewLogs/_LogDetails.cshtml")
 @section Scripts {
     @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
@@ -72,29 +73,35 @@
         "~/CRM/DownLoadFile/Scripts",
         "~/Bundles/InformHeadline/ViewListScripts")
     <script type="text/javascript">
-            parent.document.title = '@Labels.InformHeadlines';
-            var viewResources = {
-                Edit: '@Labels.Edit',
-                InformHeadlinesCases: '@Labels.InformHeadlinesCases',
-                Title: '@Labels.Title',
-                CreatedDate: '@Labels.CreatedDate',
-                NoDirectAccounts: '@Labels.NoDirectAccounts',
-                Status: '@Labels.Status',
-                Done: '@Labels.Done',
-                RequestToCallBack: '@Labels.RequestToCallBack',
-                NoNeedToCall: '@Labels.NoNeedToCall',
-                NoReply: '@Labels.NoReply',
-                Uncontactable: '@Labels.Uncontactable',
-                InternalAccount: '@Labels.InternalAccount',
-                NeverTouch: '@Labels.NeverTouch',
-                KeptForReference: '@Labels.KeptForReference',
-                UpdateFailed: '@Labels.UpdateFailed',
-                NewInformHeadlines: '@Labels.NewInformHeadlines',
-                UpdateInformHeadlines: '@Labels.UpdateInformHeadlines',
-                EditNumberOfAccounts: '@Labels.EditNumberOfAccounts',
-                Date: '@CommonLabels.Date',
-                EditedBy: '@CommonLabels.EditedBy',
-                NumberOfRemovedEditedAccounts: '@CommonLabels.NumberOfRemovedEditedAccounts'
-            };
+        parent.document.title = '@Labels.InformHeadlines';
+        var viewResources = {
+            Edit: '@Labels.Edit',
+            InformHeadlinesCases: '@Labels.InformHeadlinesCases',
+            Title: '@Labels.Title',
+            CreatedDate: '@Labels.CreatedDate',
+            NoDirectAccounts: '@Labels.NoDirectAccounts',
+            Status: '@CommonLabels.Status',
+            Done: '@Labels.Done',
+            RequestToCallBack: '@Labels.RequestToCallBack',
+            NoNeedToCall: '@Labels.NoNeedToCall',
+            NoReply: '@Labels.NoReply',
+            Uncontactable: '@Labels.Uncontactable',
+            InternalAccount: '@Labels.InternalAccount',
+            NeverTouch: '@Labels.NeverTouch',
+            KeptForReference: '@Labels.KeptForReference',
+            UpdateFailed: '@Labels.UpdateFailed',
+            NewInformHeadlines: '@Labels.NewInformHeadlines',
+            UpdateInformHeadlines: '@Labels.UpdateInformHeadlines',
+            EditNumberOfAccounts: '@Labels.EditNumberOfAccounts',
+            Date: '@CommonLabels.Date',
+            EditedBy: '@CommonLabels.EditedBy',
+            NumberOfRemovedEditedAccounts: '@CommonLabels.NumberOfRemovedEditedAccounts',
+            DirectAccount: '@CommonLabels.DirectAccount',
+            UpdatedTime: '@CommonLabels.UpdatedTime',
+            Remark: '@CommonLabels.Remark',
+            Handler: '@CommonLabels.Handler',
+            Extension: '@CommonLabels.Extension',
+            ProductStatus: '@CommonLabels.ProductStatus'
+        };
     </script>
 }

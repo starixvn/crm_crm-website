@@ -1,9 +1,7 @@
 ﻿@using Fanex.CRM.InformHeadline.Resources;
 @using Fanex.CRM.Common.Extensions;
-@{    
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.InformHeadlines;
 }
 @section Styles{
@@ -17,7 +15,7 @@
         <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                     <div data-ng-bind="messageResultOptions.Message">
                     </div>
                 </div>
@@ -29,101 +27,96 @@
         <div class="container main">
             <div class="row filter-frm one-row ">
                 <form>
-                <div class="row row-item">
-                    <div class="input-group" style="width: 100%">
-                        <input type="text" id="txtTitle" placeholder="@Labels.Title" class="textbox" data-ng-model="titleDetail.Title" />
-                        <i style="padding: 0px" class="input-group-addon btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
-                    </div>
-                </div>
-                <div class="row row-item">
-                    <div class="item">
-                        <label for="txtfromdate" class="width-70">
-                            @Labels.Currency</label>
-                        <div class="display-inline-block">
-                            <dropdowntree ng-model="selectedCurrencies" data-settings="currencyDropdownSettings"></dropdowntree>
+                    <div class="row row-item">
+                        <div class="input-group" style="width: 100%">
+                            <input type="text" id="txtTitle" placeholder="@Labels.Title" class="textbox" data-ng-model="titleDetail.Title" />
+                            <i style="padding: 0px" class="input-group-addon btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="txtfromdate" class="width-70">
-                            @Labels.Position</label>
-                        <div class="display-inline-block">
-                            <dropdowntree ng-model="selectedPositions" data-settings="positionDropdownSettings"></dropdowntree>
+                    <div class="row row-item">
+                        <div class="item">
+                            <label for="txtfromdate" class="width-70">@Labels.Currency</label>
+                            <div class="display-inline-block">
+                                <dropdowntree ng-model="selectedCurrencies" data-settings="currencyDropdownSettings"></dropdowntree>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="txtfromdate" class="width-70">@Labels.Position</label>
+                            <div class="display-inline-block">
+                                <dropdowntree ng-model="selectedPositions" data-settings="positionDropdownSettings"></dropdowntree>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="txtfromdate" class="width-70">@Labels.Site</label>
+                            <div class="display-inline-block">
+                                <dropdowntree ng-model="selectedSites" data-settings="siteDropdownSettings"></dropdowntree>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <button class="btn" data-ng-click="getInforms()">@Labels.Search</button>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="txtfromdate" class="width-70">
-                            @Labels.Site</label>
-                        <div class="display-inline-block">
-                            <dropdowntree ng-model="selectedSites" data-settings="siteDropdownSettings"></dropdowntree>
+                    <div class="row row-item">
+                        <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                            <label for="main-category" class="width-80">@Labels.DirectAccounts</label>
+                            <div class="display-inline-block">
+                                <input id="headlineCheckBox" checked type="checkbox" data-ng-model="headlineChecked" />
+                                <label for="headlineCheckBox" class="width-80">@Labels.Headline</label>
+                                <input id="directCheckBox" checked type="checkbox" data-ng-model="directChecked" />
+                                <label for="directCheckBox" class="width-80">@Labels.WithoutAnyGroup</label>
+                                <input id="ignoreCheckBox" checked type="checkbox" data-ng-model="excludeIgnoredAccounts" />
+                                <label for="ignoreCheckBox" class="width-80">@Labels.ExcludeIgnoredAccounts</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <button class="btn" data-ng-click="getInforms()">@Labels.Search</button>
-                    </div>
-                </div>
-                <div class="row row-item">
-                    <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                        <label for="main-category" class="width-80">@Labels.DirectAccounts</label>
-                        <div class="display-inline-block">
-                            <input id="headlineCheckBox" checked type="checkbox" data-ng-model="headlineChecked" />
-                            <label for="headlineCheckBox" class="width-80">@Labels.Headline</label>
-                            <input id="directCheckBox" checked type="checkbox" data-ng-model="directChecked" />
-                            <label for="directCheckBox" class="width-80">@Labels.WithoutAnyGroup</label>
-                            <input id="ignoreCheckBox" checked type="checkbox" data-ng-model="excludeIgnoredAccounts" />
-                            <label for="ignoreCheckBox" class="width-80">@Labels.ExcludeIgnoredAccounts</label>
-                        </div>
-                    </div>
-                </div>
                 </form>
             </div>
             <div class="row">
-                <div id="inform-headline-list-container" inform-headline-list-container  data-ng-model="listData" updated-items="updatedItems">
-                    <div id="inform-headline-list" class="freegrid display-none">
-                    </div>
+                <div id="inform-headline-list-container" inform-headline-list-container data-ng-model="listData" updated-items="updatedItems">
+                    <div id="inform-headline-list" class="freegrid display-none"></div>
                 </div>
-            </div> 
+            </div>
             <div class="row btn-group" data-ng-show="showSaveButton">
-                <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">
-                    @Labels.Save</button>
-            </div>              
+                <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">@Labels.Save</button>
+            </div>
         </div>
-        @section Scripts {
-            @RazorHelper.RenderScripts(
-                "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-                "~/Scripts/FanexGridScripts",
-                "~/CRM/DownLoadFile/Scripts",
-                "~/Bundles/InformHeadline/UpdateInformScripts")
-            
-            <script type="text/javascript">
-                parent.document.title = '@Labels.InformHeadlines';
-                var viewResources = {
-                    Status: '@Labels.Status',
-                    Title: '@Labels.Title',
-                    Status: '@Labels.Status',
-                    Search: '@Labels.Search',
-                    Currency: '@Labels.Currency',
-                    Position: '@Labels.Position',
-                    Site: '@Labels.Site',
-                    DirectAccounts: '@Labels.DirectAccounts',
-                    DirectAccount: '@Labels.DirectAccount',
-                    Headline: '@Labels.Headline',
-                    WithoutAnyGroup: '@Labels.WithoutAnyGroup',
-                    UpdatedTime: '@Labels.UpdatedTime',
-                    Remark: '@Labels.Remark',
-                    Handler: '@Labels.Handler',
-                    Extension: '@Labels.Extension',
-                    ProductStatus: '@Labels.ProductStatus',
-                    Save: '@Labels.Save',
-                    NewInformHeadlines: '@Labels.NewInformHeadlines',
-                    KeepThisAccount: '@Labels.KeepThisAccount',
-                    KeptForReference: '@Labels.KeptForReference',
-                    ChangedHeadlineCase1: "@Html.Raw(Labels.ChangedHeadlineCase1)",
-                    ChangedHeadlineCase2: "@Html.Raw(Labels.ChangedHeadlineCase2)",
-                    ChangedHeadlineCase3: "@Html.Raw(Labels.ChangedHeadlineCase3)",
-                    ChangedHeadlineCase4: "@Html.Raw(Labels.ChangedHeadlineCase4)",
-                    ChangedHeadlineCase5: "@Html.Raw(Labels.ChangedHeadlineCase5)"                                 
-                };
-            </script>
-        }
     </div>
 </div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/Bundles/InformHeadline/UpdateInformScripts")
+
+    <script type="text/javascript">
+        parent.document.title = '@Labels.InformHeadlines';
+        var viewResources = {
+            Status: '@Labels.Status',
+            Title: '@Labels.Title',
+            Status: '@Labels.Status',
+            Search: '@Labels.Search',
+            Currency: '@Labels.Currency',
+            Position: '@Labels.Position',
+            Site: '@Labels.Site',
+            DirectAccounts: '@Labels.DirectAccounts',
+            DirectAccount: '@Labels.DirectAccount',
+            Headline: '@Labels.Headline',
+            WithoutAnyGroup: '@Labels.WithoutAnyGroup',
+            UpdatedTime: '@Labels.UpdatedTime',
+            Remark: '@Labels.Remark',
+            Handler: '@Labels.Handler',
+            Extension: '@Labels.Extension',
+            ProductStatus: '@Labels.ProductStatus',
+            Save: '@Labels.Save',
+            NewInformHeadlines: '@Labels.NewInformHeadlines',
+            KeepThisAccount: '@Labels.KeepThisAccount',
+            KeptForReference: '@Labels.KeptForReference',
+            ChangedHeadlineCase1: "@Html.Raw(Labels.ChangedHeadlineCase1)",
+            ChangedHeadlineCase2: "@Html.Raw(Labels.ChangedHeadlineCase2)",
+            ChangedHeadlineCase3: "@Html.Raw(Labels.ChangedHeadlineCase3)",
+            ChangedHeadlineCase4: "@Html.Raw(Labels.ChangedHeadlineCase4)",
+            ChangedHeadlineCase5: "@Html.Raw(Labels.ChangedHeadlineCase5)"
+        };
+    </script>
+}

@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('informHeadlineApplication').controller('LogsController', logsController);
-    logsController.$inject = ['$modalInstance', 'titleId'];
+    logsController.$inject = ['$modal', '$modalInstance', 'titleId'];
 
-    function logsController($modalInstance, titleId) {
+    function logsController($modal, $modalInstance, titleId) {
         var vm = this;
 
         vm.data = [
@@ -16,6 +16,16 @@
 
         vm.close = function () {
             $modalInstance.close();
+        };
+
+        vm.viewLogDetails = function () {
+            $modal.open({
+                template: angular.element('#template-log-details').html(),
+                controller: 'LogDetailsController as logDetailsCtrl',
+                backdrop: 'static',
+                size: 'lg',
+                windowClass: 'log-details-modal'
+            });
         };
     }
 })(angular);

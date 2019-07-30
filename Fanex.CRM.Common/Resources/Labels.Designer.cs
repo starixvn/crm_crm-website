@@ -250,6 +250,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Account.
+        /// </summary>
+        public static string DirectAccount {
+            get {
+                return ResourceManager.GetString("DirectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edited By.
         /// </summary>
         public static string EditedBy {
@@ -367,11 +376,29 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        public static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guest.
         /// </summary>
         public static string Guest {
             get {
                 return ResourceManager.GetString("Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handler.
+        /// </summary>
+        public static string Handler {
+            get {
+                return ResourceManager.GetString("Handler", resourceCulture);
             }
         }
         
@@ -466,6 +493,24 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Status.
+        /// </summary>
+        public static string ProductStatus {
+            get {
+                return ResourceManager.GetString("ProductStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removed Edited Accounts Logs.
         /// </summary>
         public static string RemovedEditedAccountsLogs {
@@ -484,6 +529,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suspended.
         /// </summary>
         public static string Suspended {
@@ -498,6 +552,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string There_is_no_data {
             get {
                 return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated Time.
+        /// </summary>
+        public static string UpdatedTime {
+            get {
+                return ResourceManager.GetString("UpdatedTime", resourceCulture);
             }
         }
         

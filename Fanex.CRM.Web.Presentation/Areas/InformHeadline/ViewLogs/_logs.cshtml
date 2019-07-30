@@ -6,7 +6,8 @@
         <span class="icon-close" ng-click="logsCtrl.close()"></span>
     </div>
     <div class="modal-body">
-            <div logs-grid ng-model="logsCtrl.data" class="freegrid display-none"></div>
+        <div class="freegrid display-none"
+             logs-grid ng-model="logsCtrl.data" data-on-view-details="logsCtrl.viewLogDetails"></div>
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="logsCtrl.close()">@CommonLabels.Close</button>
