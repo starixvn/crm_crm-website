@@ -230,7 +230,7 @@
             NpoiExtensions.RenderCell(row, currentColumn++, NormalizeLineBreaks(HttpUtility.HtmlDecode(inform.Remark)), leftAlignStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, inform.Handler, leftAlignStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, stationName, centerAlignStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
+            NpoiExtensions.RenderCell(row, currentColumn, productStatusName, centerAlignStyle);
         }
 
         private static ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, ExcelHorizontalAlignment align = ExcelHorizontalAlignment.Left)

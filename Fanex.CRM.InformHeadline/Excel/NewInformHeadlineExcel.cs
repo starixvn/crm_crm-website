@@ -157,7 +157,7 @@
                 NpoiExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
                 NpoiExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
                 NpoiExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
-                NpoiExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, string.Empty, centerAlignStyle);
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;

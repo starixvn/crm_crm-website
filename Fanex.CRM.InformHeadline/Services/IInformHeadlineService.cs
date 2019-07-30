@@ -11,8 +11,6 @@
     {
         IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
-        InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
-
         NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName);
 
         UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName);

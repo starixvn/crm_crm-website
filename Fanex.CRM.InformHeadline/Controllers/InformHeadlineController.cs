@@ -14,14 +14,18 @@
     public class InformHeadlineController : ReadOnlyBaseController
     {
         private readonly IInformHeadlineService _informHeadlineService;
+        private readonly IExportInformHeadlineService exportInformHeadlineService;
 
-        public InformHeadlineController() : this(null)
+        public InformHeadlineController() : this(null, null)
         {
         }
 
-        public InformHeadlineController(IInformHeadlineService informHeadlineService)
+        public InformHeadlineController(
+            IInformHeadlineService informHeadlineService,
+            IExportInformHeadlineService exportInformHeadlineService)
         {
             _informHeadlineService = informHeadlineService ?? new InformHeadlineService();
+            this.exportInformHeadlineService = exportInformHeadlineService ?? new ExportInformHeadlineService();
         }
 
         #region InformHeadline Cases
@@ -49,12 +53,12 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
-        public void ExportInforms(GetInformHeadlinesCriteria criteria)
+        public ActionResult ExportInforms(GetInformHeadlinesCriteria criteria)
         {
-            const string FILENAME = "InformHeadlines";
-            var excel = _informHeadlineService.GetInformHeadlineExcel(criteria, FILENAME);
-            excel.BuildWorkBook();
-            excel.ResponseStreamExcel();
+            IEnumerable<InformHeadline> informHeadlines = _informHeadlineService.GetInforms(criteria);
+            byte[] bytes = exportInformHeadlineService.Export(informHeadlines);
+
+            return File(bytes, "application/vnd.ms-excel", "InformHeadlines.xls");
         }
 
         [HttpPost]

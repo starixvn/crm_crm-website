@@ -269,9 +269,9 @@ namespace Fanex.CRM.Common.Extensions
             {
                 cell.SetCellValue((bool)cellValue);
             }
-            else if (cellValue is System.DateTime)
+            else if (cellValue is DateTime)
             {
-                cell.SetCellValue((System.DateTime)cellValue);
+                cell.SetCellValue((DateTime)cellValue);
             }
         }
 

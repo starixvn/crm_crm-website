@@ -56,13 +56,6 @@
             return baseService.ExecuteNonQuery(criteria);
         }
 
-        public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
-        {
-            var data = baseService.GetData<InformHeadline>(criteria);
-
-            return new InformHeadlineExcel(data, fileName);
-        }
-
         #endregion Inform headline list
 
         #region New Inform headline
