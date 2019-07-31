@@ -1576,6 +1576,7 @@
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
     <Content Include="Content\site\bootstrap-modal.less" />
+    <Content Include="ExcelTemplates\UpdateInformHeadline.xlsx" />
     <None Include="ExcelTemplates\InformHeadline.xlsx" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
   </ItemGroup>

@@ -10,12 +10,12 @@
     using OfficeOpenXml;
     using CommonLabels = Common.Resources.Labels;
 
-    public interface IExportInformHeadlineService
+    public partial interface IExportInformHeadlineService
     {
         byte[] Export(IEnumerable<InformHeadline> informHeadlines);
     }
 
-    public class ExportInformHeadlineService : IExportInformHeadlineService
+    public partial class ExportInformHeadlineService : IExportInformHeadlineService
     {
         private readonly string[] ColumnHeaders = new[]
         {
@@ -33,17 +33,17 @@
             Labels.KeptForReference
         };
 
-        private const byte TotalColumns = 12;
-        private const byte StartBodyRowIndex = 4;
-        private const byte OpenRowIndex = 4;
-        private const byte ClosedRowIndex = 5;
-        private const byte NoDataRowIndex = 6;
-        private const byte HeaderRowHeight = 30;
-        private const byte MinimumWidth = 20;
-        private const byte MaximumWidth = 50;
-
         public byte[] Export(IEnumerable<InformHeadline> informHeadlines)
         {
+            const byte TotalColumns = 12;
+            const byte HeaderRowIndex = 3;
+            const byte BodyRowIndex = 4;
+            const byte OpenRowIndex = 4;
+            const byte ClosedRowIndex = 5;
+            const byte NoDataRowIndex = 6;
+            const byte HeaderRowHeight = 30;
+            const byte MinimumWidth = 20;
+            const byte MaximumWidth = 50;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/ExcelTemplates/InformHeadline.xlsx");
             using (var templatePackage = new ExcelPackage(new FileInfo(templatePath)))
             {
@@ -58,9 +58,9 @@
                     template.Cells[rowIndex, colIndex, rowIndex + 1, TotalColumns].Copy(worksheet.Cells[rowIndex, colIndex, rowIndex + 1, TotalColumns]);
                     worksheet.Cells[rowIndex, colIndex].Value = Labels.InformHeadlinesCases;
                     worksheet.Row(rowIndex).Height = HeaderRowHeight;
-                    rowIndex += 2;
 
                     // header
+                    rowIndex = HeaderRowIndex;
                     template.Cells[rowIndex, colIndex, rowIndex, TotalColumns].Copy(worksheet.Cells[rowIndex, colIndex, rowIndex, TotalColumns]);
                     foreach (string columnHeader in ColumnHeaders)
                     {
@@ -107,7 +107,7 @@
                     }
 
                     worksheet.Cells.AutoFitColumns(MinimumWidth, MaximumWidth);
-                    worksheet.View.FreezePanes(StartBodyRowIndex, 1);
+                    worksheet.View.FreezePanes(BodyRowIndex, 1);
                     return xlPackage.GetAsByteArray();
                 }
             }

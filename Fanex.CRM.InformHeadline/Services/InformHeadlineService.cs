@@ -7,7 +7,6 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.InformHeadline.Criteria;
-    using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.InformHeadline.Resources;
@@ -103,13 +102,6 @@
             };
         }
 
-        public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
-        {
-            var data = baseService.GetData<NewInform>(criteria);
-
-            return new NewInformHeadlineExcel(criteria.Title, data, fileName);
-        }
-
         #endregion New Inform headline
 
         #region Update Inform headline
@@ -131,16 +123,6 @@
             return baseService.ExecuteNonQuery(criteria);
         }
 
-        public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
-        {
-            var data = baseService.GetData<UpdateInform>(criteria);
-            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
-            {
-                TitleId = criteria.TitleId
-            });
-            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
-        }
-
         #endregion Update Inform headline
 
         #region Contact Inform headline
@@ -149,17 +131,6 @@
         {
             criteria.UserName = criteria.UserName ?? string.Empty;
             return baseService.GetData<UpdateInform>(criteria);
-        }
-
-        public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
-        {
-            criteria.UserName = criteria.UserName ?? string.Empty;
-            var data = baseService.GetData<UpdateInform>(criteria);
-            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
-            {
-                TitleId = criteria.TitleId
-            });
-            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
         }
 
         public dynamic GetContactInformSettings()
@@ -177,8 +148,12 @@
 
         #region Common
 
-        public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
+        public TitleDetail GetTitleDetail(int titleId)
         {
+            var criteria = new GetTitleDetailCriteria
+            {
+                TitleId = titleId
+            };
             return baseService.GetDataEntity<TitleDetail>(criteria);
         }
 

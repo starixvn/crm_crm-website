@@ -8,6 +8,7 @@
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Services;
+    using Fanex.CRM.Setting.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -98,12 +99,13 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
-        public void ExportNewInforms(GetNewInformsCriteria criteria)
+        public ActionResult ExportNewInforms(GetNewInformsCriteria criteria)
         {
-            const string FILENAME = "NewInformHeadlines";
-            var excel = _informHeadlineService.GetNewInformHeadlineExcel(criteria, FILENAME);
-            excel.BuildWorkBook();
-            excel.ResponseStreamExcel();
+            IEnumerable<NewInform> informHeadlines = _informHeadlineService.GetNewInforms(criteria);
+            IEnumerable<InformStatus> informStatuses = _informHeadlineService.GetInformStatuses();
+            byte[] bytes = exportInformHeadlineService.ExportNewInform(criteria.Title, informHeadlines, informStatuses);
+
+            return File(bytes, "application/vnd.ms-excel", "NewInformHeadlines.xls");
         }
 
         #endregion New Inform
@@ -128,12 +130,16 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
-        public void ExportUpdateInforms(GetUpdateInformsCriteria criteria)
+        public ActionResult ExportUpdateInforms(GetUpdateInformsCriteria criteria)
         {
-            const string FILENAME = "UpdateInformHeadlines";
-            var excel = _informHeadlineService.GetUpdateInformHeadlineExcel(criteria, FILENAME);
-            excel.BuildWorkBook();
-            excel.ResponseStreamExcel();
+            TitleDetail title = _informHeadlineService.GetTitleDetail(criteria.TitleId);
+            IEnumerable<UpdateInform> informHeadlines = _informHeadlineService.GetUpdateInforms(criteria);
+            IEnumerable<InformStatus> informStatuses = _informHeadlineService.GetInformStatuses();
+            IEnumerable<Status> productStatuses = _informHeadlineService.GetProductStatuses();
+            IEnumerable<Station> stations = _informHeadlineService.GetStations();
+            byte[] bytes = exportInformHeadlineService.ExportUpdateInform(title.Title, informHeadlines, informStatuses, productStatuses, stations);
+
+            return File(bytes, "application/vnd.ms-excel", "UpdateInformHeadlines.xls");
         }
 
         [HttpPost]
@@ -175,12 +181,16 @@
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
-        public void ExportContactInforms(GetContactInformsCriteria criteria)
+        public ActionResult ExportContactInforms(GetContactInformsCriteria criteria)
         {
-            const string FILENAME = "ContactInformHeadlines";
-            var excel = _informHeadlineService.GetContactInformHeadlineExcel(criteria, FILENAME);
-            excel.BuildWorkBook();
-            excel.ResponseStreamExcel();
+            TitleDetail title = _informHeadlineService.GetTitleDetail(criteria.TitleId);
+            IEnumerable<UpdateInform> informHeadlines = _informHeadlineService.GetContactInforms(criteria);
+            IEnumerable<InformStatus> informStatuses = _informHeadlineService.GetInformStatuses();
+            IEnumerable<Status> productStatuses = _informHeadlineService.GetProductStatuses();
+            IEnumerable<Station> stations = _informHeadlineService.GetStations();
+            byte[] bytes = exportInformHeadlineService.ExportUpdateInform(title.Title, informHeadlines, informStatuses, productStatuses, stations);
+
+            return File(bytes, "application/vnd.ms-excel", "ContactInformHeadlines.xls");
         }
 
         #endregion Contact Informs
@@ -205,18 +215,14 @@
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         public ActionResult GetTitleDetail(int titleId)
         {
-            var title = _informHeadlineService.GetTitleDetail(
-                            new GetTitleDetailCriteria
-                            {
-                                TitleId = titleId
-                            });
+            TitleDetail title = _informHeadlineService.GetTitleDetail(titleId);
             return Json(title, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Common
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
-        public JsonResult GetRemovedAccountLogs(int titleId)
+        public ActionResult GetRemovedAccountLogs(int titleId)
         {
             IEnumerable<RemovedAccountLog> logs = _informHeadlineService.GetRemovedAccountLogs(titleId);
             return Json(logs, JsonRequestBehavior.AllowGet);

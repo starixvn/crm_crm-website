@@ -22,7 +22,7 @@
                     var item = scope.dataSources[i];
                     bodyData.push({
                         Columns: [
-                            { Name: 'Date', Value: item.Date },
+                            { Name: 'Date', Value: item.ClientDate },
                             { Name: 'EditedBy', Value: item.EditedBy },
                             { Name: 'Totals', Value: '<a class="log-details" href="javascript:;">' + item.Totals + '</a>' }
                         ],
@@ -44,7 +44,7 @@
             var gridOptions = {
                 columns: [
                     {
-                        HeaderText: viewResources.ClientDate, Width: 100, MaxResizeWidth: 200, Name: 'Date',
+                        HeaderText: viewResources.Date, Width: 100, MaxResizeWidth: 200, Name: 'Date',
                         HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                     },
                     {

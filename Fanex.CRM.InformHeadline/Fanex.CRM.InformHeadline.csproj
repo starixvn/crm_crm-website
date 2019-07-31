@@ -168,8 +168,6 @@
     <Compile Include="Criteria\GetNewInformsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformStatusCriteria.cs" />
     <Compile Include="Criteria\GetInformHeadlinesCriteria.cs" />
-    <Compile Include="Excel\UpdateInformHeadlineExcel.cs" />
-    <Compile Include="Excel\NewInformHeadlineExcel.cs" />
     <Compile Include="Models\RemovedAccountLog.cs" />
     <Compile Include="Models\TitleDetail.cs" />
     <Compile Include="Models\UpdateInform.cs" />
@@ -184,6 +182,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Services\ExportNewInformHeadlineService.cs" />
+    <Compile Include="Services\ExportUpdateInformHeadlineService.cs" />
     <Compile Include="Services\ExportInformHeadlineService.cs" />
     <Compile Include="Services\IInformHeadlineService.cs" />
     <Compile Include="Services\InformHeadlineService.cs" />

@@ -3,19 +3,12 @@
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.InformHeadline.Criteria;
-    using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.Setting.Models;
 
     public interface IInformHeadlineService
     {
         IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
-
-        NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName);
-
-        UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName);
-
-        UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName);
 
         CommandResult UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
@@ -27,7 +20,7 @@
 
         IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
 
-        TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);
+        TitleDetail GetTitleDetail(int titleId);
 
         CommandResult UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria);
 
