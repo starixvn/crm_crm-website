@@ -11,9 +11,18 @@
                 { "Id": 4, "Name": "Super" },
                 { "Id": 3, "Name": "Master" },
                 { "Id": 2, "Name": "Agent" },
-                { "Id": 1, "Name": "Member" }
+                { "Id": 1, "Name": "Member" },
+                { "Id": 0, "Name": "Guest" }
             ];
         };
+
+        serviceInstance.getVips = function () {
+            return [
+                { "Id": 2, "Name": "All" },
+                { "Id": 1, "Name": "Yes" },
+                { "Id": 0, "Name": "No" }
+            ];
+        }
 
         serviceInstance.getInforms = function (params) {
             var url = window.rootUrl + "InformHeadline/GetNewInforms";

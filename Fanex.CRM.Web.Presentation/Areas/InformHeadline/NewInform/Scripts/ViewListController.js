@@ -27,7 +27,6 @@
         $scope.headlineChecked = true;
         $scope.directChecked = true;
         $scope.excludeIgnoredAccounts = true;
-        $scope.vipChecked = true;
 
         var _searchCriteria = {};
 
@@ -43,6 +42,8 @@
         function getAllSettings() {
             $uiBlockerService.blockUI();
             $scope.positionDropdownSettings.sourceData = newInformService.getPositions();
+            $scope.vipSetting = newInformService.getVips();
+            $scope.selectedVip = $scope.vipSetting[0];
             newInformService.getAllSettings()
             .then(function (data) {
                 var allSetting = data.Result;
@@ -83,7 +84,7 @@
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: getAccountType(),
                 ExcludeIgnoredAccounts: $scope.excludeIgnoredAccounts,
-                IsVip: $scope.vipChecked,
+                IsVip: $scope.selectedVip.Id,
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };

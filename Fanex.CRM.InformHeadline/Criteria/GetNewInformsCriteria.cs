@@ -18,7 +18,7 @@
         [SpParam(SqlParamName = "ignored")]
         public bool ExcludeIgnoredAccounts { get; set; }
 
-        public bool IsVip { get; set; }
+        public int IsVip { get; set; }
 
         public int PageIndex { get; set; }
 
