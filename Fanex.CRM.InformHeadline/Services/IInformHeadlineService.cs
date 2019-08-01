@@ -36,6 +36,8 @@
 
         IEnumerable<Station> GetStations();
 
-        IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(int titleId);
+        IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria);
+
+        IEnumerable<RemovedAccountLogDetails> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria);
     }
 }

@@ -8,11 +8,13 @@
     [Serializable]
     public class RemovedAccountLog
     {
-        [JsonIgnore]
-        public DateTime Date { get; set; }
+        public int LogId { get; set; }
 
-        public string ClientDate => DateTimeUtilize.ChangeTimeZoneToClientDateTime(Date).ToFullFormatedDateTime();
-        public string EditedBy { get; set; }
+        [JsonIgnore]
+        public DateTime LogDate { get; set; }
+
+        public string ClientLogDate => DateTimeUtilize.ChangeTimeZoneToClientDateTime(LogDate).ToFullFormatedDateTime();
+        public string Username { get; set; }
         public int Totals { get; set; }
     }
 }

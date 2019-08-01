@@ -10,8 +10,14 @@
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
+        function getRemovedAccountLogDetails(params) {
+            var url = window.rootUrl + 'InformHeadline/GetRemovedAccountLogDetails';
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        }
+
         return {
-            getRemovedAccountLogs: getRemovedAccountLogs
+            getRemovedAccountLogs: getRemovedAccountLogs,
+            getRemovedAccountLogDetails: getRemovedAccountLogDetails
         };
     }
 })(angular);

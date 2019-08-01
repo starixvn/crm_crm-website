@@ -5,39 +5,26 @@
     logDetailsGrid.$inject = [];
 
     function logDetailsGrid() {
-        var MIN_PAGE_SIZE = 100;
-        var MAX_PAGE_SIZE = 300;
+        function generateBodyRows(scope) {
+            var rows = [];
+            var totalItems = scope.dataSources.length;
 
-        function generateBodyRows(scope, pageIndex, pageSize) {
-            var bodyData = [];
-            var rowsCount = scope.dataSources.length;
-            var firstRowIndex = pageIndex * pageSize;
-            if (rowsCount >= firstRowIndex) {
-                var lastRowIndex = firstRowIndex + pageSize;
-                if (lastRowIndex > rowsCount) {
-                    lastRowIndex = rowsCount;
-                }
-
-                var remark = 'remark remark remark remark remark \n remark remark remark remark remark \n remark remark remark remark remark';
-
-                for (var i = firstRowIndex; i < lastRowIndex; i++) {
-                    var item = scope.dataSources[i];
-                    bodyData.push({
-                        Columns: [
-                            { Name: 'DirectAccount', Value: item.EditedBy },
-                            { Name: 'Status', Value: 'Open' },
-                            { Name: 'UpdatedTime', Value: item.Date },
-                            { Name: 'Remark', Value: remark },
-                            { Name: 'Handler', Value: item.EditedBy },
-                            { Name: 'Extension', Value: '111' },
-                            { Name: 'ProductStatus', Value: 'Enabled' }
-                        ],
-                        CustomAttr: 'data-rowindex=' + i
-                    });
-                }
+            for (var i = 0; i < totalItems; i++) {
+                var item = scope.dataSources[i];
+                rows.push({
+                    Columns: [
+                        { Name: 'DirectAccount', Value: item.DirectAccount },
+                        { Name: 'Status', Value: item.Status },
+                        { Name: 'UpdatedTime', Value: item.ClientUpdatedTime },
+                        { Name: 'Remark', Value: item.Remark },
+                        { Name: 'Handler', Value: item.Handler },
+                        { Name: 'Extension', Value: item.Extension },
+                        { Name: 'ProductStatus', Value: item.ProductStatus }
+                    ]
+                });
             }
 
-            return bodyData;
+            return rows;
         }
 
         function renderGrid(scope, element) {
@@ -69,25 +56,19 @@
                     { HeaderText: viewResources.Extension, Width: 80, Name: 'Extension', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: viewResources.ProductStatus, Width: 100, Name: 'ProductStatus', HeaderAlign: 'center', CellAlign: 'center' }
                 ],
-                bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
+                bodyRows: generateBodyRows(scope, 0),
                 bodyRowHeight: 20,
                 gridExpandHeight: 250,
                 autoResizeColumn: true,
                 showPager: true,
                 customPager: true,
                 pagerOption: {
-                    itemsPerPage: MIN_PAGE_SIZE,
-                    maxItemsPerPage: MAX_PAGE_SIZE,
-                    currentPage: 0,
+                    itemsPerPage: scope.pagerOption.itemsPerPage,
+                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    currentPage: scope.pagerOption.pageIndex,
                     totalItem: scope.dataSources.length,
-                    startPerPage: MIN_PAGE_SIZE,
-                    pageStep: MIN_PAGE_SIZE,
                     pagerSelectCallBack: function (pageIndex, pageSize) {
-                        gridOptions.pagerOption.itemsPerPage = pageSize;
-                        gridOptions.pagerOption.pageSize = pageSize;
-                        gridOptions.pagerOption.currentPage = pageIndex;
-                        gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
-                        $(element).fanexGrid(gridOptions);
+                        scope.onPageChange(pageIndex, pageSize);
                     }
                 }
             };
@@ -99,7 +80,9 @@
             restrict: 'A',
             require: '^ngModel',
             scope: {
-                dataSources: '=ngModel'
+                dataSources: '=ngModel',
+                pagerOption: '=',
+                onPageChange: '='
             },
             link: function (scope, element) {
                 scope.$watch('dataSources', function (oldval, newval) {

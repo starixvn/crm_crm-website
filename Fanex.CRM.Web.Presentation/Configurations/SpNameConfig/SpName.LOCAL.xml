@@ -192,6 +192,12 @@
       <Mapping DataField="Cases" ObjectProperty="Case" />
     </Setting>
     <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineLogSel" SpName="Acc_CRM_InformHeadlineLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="NumAcc" ObjectProperty="Totals" />
+    </Setting>
+    <Setting Key="Acc_CRM_InformHeadlineHistorySel" SpName="Acc_CRM_InformHeadlineHistorySel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="DirectAcc" ObjectProperty="DirectAccount" />
+    </Setting>
   </Function>
 </Functions>
 		

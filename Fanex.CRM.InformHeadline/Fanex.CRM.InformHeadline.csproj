@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="Controllers\InformHeadlineController.cs" />
     <Compile Include="Criteria\GetContactInformsCriteria.cs" />
+    <Compile Include="Criteria\GetRemovedAccountLogDetailsCriteria.cs" />
     <Compile Include="Criteria\GetRemovedAccountLogsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\InsertInformHeadlineCriteria.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Criteria\GetNewInformsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformStatusCriteria.cs" />
     <Compile Include="Criteria\GetInformHeadlinesCriteria.cs" />
+    <Compile Include="Models\RemovedAccountLogDetails.cs" />
     <Compile Include="Models\RemovedAccountLog.cs" />
     <Compile Include="Models\TitleDetail.cs" />
     <Compile Include="Models\UpdateInform.cs" />

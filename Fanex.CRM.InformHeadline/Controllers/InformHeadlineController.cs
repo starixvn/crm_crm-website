@@ -222,9 +222,16 @@
         #endregion Common
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
-        public ActionResult GetRemovedAccountLogs(int titleId)
+        public JsonResult GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria)
         {
-            IEnumerable<RemovedAccountLog> logs = _informHeadlineService.GetRemovedAccountLogs(titleId);
+            IEnumerable<RemovedAccountLog> logs = _informHeadlineService.GetRemovedAccountLogs(criteria);
+            return Json(logs, JsonRequestBehavior.AllowGet);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
+        public ActionResult GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria)
+        {
+            IEnumerable<RemovedAccountLogDetails> logs = _informHeadlineService.GetRemovedAccountLogDetails(criteria);
             return Json(logs, JsonRequestBehavior.AllowGet);
         }
     }

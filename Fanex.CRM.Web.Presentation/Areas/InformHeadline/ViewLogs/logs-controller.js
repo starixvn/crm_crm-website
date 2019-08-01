@@ -7,26 +7,46 @@
     function logsController($modal, $modalInstance, $uiBlockerService, logsFactory, titleId) {
         var vm = this;
 
+        vm.pagerOption = {
+            pageIndex: 0,
+            itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage
+        };
         vm.data = [];
 
         vm.close = function () {
             $modalInstance.close();
         };
 
-        vm.viewLogDetails = function () {
+        vm.viewLogDetails = function (logid) {
             $modal.open({
                 template: angular.element('#template-log-details').html(),
                 controller: 'LogDetailsController as logDetailsCtrl',
                 backdrop: 'static',
                 size: 'lg',
-                windowClass: 'log-details-modal'
+                windowClass: 'log-details-modal',
+                resolve: {
+                    logid: function () {
+                        return logid;
+                    }
+                }
             });
         };
 
-        function getRemovedAccountLogs() {
+        vm.getRemovedAccountLogs = function (pageIndex, itemsPerPage) {
+            vm.pagerOption.pageIndex = pageIndex;
+            vm.pagerOption.itemsPerPage = itemsPerPage;
+
+            getRemovedAccountLogs(pageIndex + 1, itemsPerPage);
+        };
+
+        function getRemovedAccountLogs(pageIndex, itemsPerPage) {
             $uiBlockerService.blockUI();
 
-            var params = { titleId: titleId };
+            var params = {
+                titleId: titleId,
+                pageIndex: pageIndex,
+                itemsPerPage: itemsPerPage
+            };
             logsFactory.getRemovedAccountLogs(params)
                 .then(function (data) {
                     vm.data = data.Result;
@@ -38,7 +58,7 @@
         }
 
         function initialize() {
-            getRemovedAccountLogs();
+            getRemovedAccountLogs(vm.pagerOption.pageIndex, vm.pagerOption.itemsPerPage);
         }
 
         initialize();

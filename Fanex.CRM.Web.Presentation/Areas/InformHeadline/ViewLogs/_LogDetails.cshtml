@@ -6,7 +6,9 @@
         <span class="icon-close" ng-click="logDetailsCtrl.close()"></span>
     </div>
     <div class="modal-body">
-            <div log-details-grid ng-model="logDetailsCtrl.data" class="freegrid display-none"></div>
+        <div class="freegrid display-none"
+             log-details-grid ng-model="logDetailsCtrl.data" data-pager-option="logsCtrl.pagerOption"
+             data-on-page-change="logsCtrl.getRemovedAccountLogs"></div>
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="logDetailsCtrl.close()">@CommonLabels.Close</button>

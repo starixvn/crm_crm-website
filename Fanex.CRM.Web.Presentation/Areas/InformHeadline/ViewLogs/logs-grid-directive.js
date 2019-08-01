@@ -5,33 +5,23 @@
     logsGrid.$inject = [];
 
     function logsGrid() {
-        var MIN_PAGE_SIZE = 100;
-        var MAX_PAGE_SIZE = 300;
+        function generateBodyRows(scope) {
+            var rows = [];
+            var totalItems = scope.dataSources.length;
 
-        function generateBodyRows(scope, pageIndex, pageSize) {
-            var bodyData = [];
-            var rowsCount = scope.dataSources.length;
-            var firstRowIndex = pageIndex * pageSize;
-            if (rowsCount >= firstRowIndex) {
-                var lastRowIndex = firstRowIndex + pageSize;
-                if (lastRowIndex > rowsCount) {
-                    lastRowIndex = rowsCount;
-                }
-
-                for (var i = firstRowIndex; i < lastRowIndex; i++) {
-                    var item = scope.dataSources[i];
-                    bodyData.push({
-                        Columns: [
-                            { Name: 'Date', Value: item.ClientDate },
-                            { Name: 'EditedBy', Value: item.EditedBy },
-                            { Name: 'Totals', Value: '<a class="log-details" href="javascript:;">' + item.Totals + '</a>' }
-                        ],
-                        CustomAttr: 'data-rowindex=' + i
-                    });
-                }
+            for (var i = 0; i < totalItems; i++) {
+                var item = scope.dataSources[i];
+                rows.push({
+                    Columns: [
+                        { Name: 'Date', Value: item.ClientLogDate },
+                        { Name: 'EditedBy', Value: item.Username },
+                        { Name: 'Totals', Value: '<a class="log-details" href="javascript:;">' + item.Totals + '</a>' }
+                    ],
+                    CustomAttr: 'data-log-id=' + item.LogId
+                });
             }
 
-            return bodyData;
+            return rows;
         }
 
         function renderGrid(scope, element) {
@@ -56,25 +46,19 @@
                         HeaderAlign: 'center', CellAlign: 'center'
                     }
                 ],
-                bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
+                bodyRows: generateBodyRows(scope),
                 bodyRowHeight: 20,
                 gridExpandHeight: 250,
                 autoResizeColumn: true,
                 showPager: true,
                 customPager: true,
                 pagerOption: {
-                    itemsPerPage: MIN_PAGE_SIZE,
-                    maxItemsPerPage: MAX_PAGE_SIZE,
-                    currentPage: 0,
+                    itemsPerPage: scope.pagerOption.itemsPerPage,
+                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    currentPage: scope.pagerOption.pageIndex,
                     totalItem: scope.dataSources.length,
-                    startPerPage: MIN_PAGE_SIZE,
-                    pageStep: MIN_PAGE_SIZE,
                     pagerSelectCallBack: function (pageIndex, pageSize) {
-                        gridOptions.pagerOption.itemsPerPage = pageSize;
-                        gridOptions.pagerOption.pageSize = pageSize;
-                        gridOptions.pagerOption.currentPage = pageIndex;
-                        gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
-                        $(element).fanexGrid(gridOptions);
+                        scope.onPageChange(pageIndex, pageSize);
                     }
                 }
             };
@@ -82,7 +66,8 @@
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
             $('a.log-details').off('click').on('click', function () {
-                scope.onViewDetails();
+                var logid = $(this).closest('tr').data('log-id');
+                scope.onViewDetails(logid);
             });
         }
 
@@ -91,6 +76,8 @@
             require: '^ngModel',
             scope: {
                 dataSources: '=ngModel',
+                pagerOption: '=',
+                onPageChange: '=',
                 onViewDetails: '='
             },
             link: function (scope, element) {

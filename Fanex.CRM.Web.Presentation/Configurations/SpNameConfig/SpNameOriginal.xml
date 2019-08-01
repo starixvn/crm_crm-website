@@ -38,22 +38,22 @@
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Rpt_FeedbackStatisticDetails" SpName="Acc_CRM_Rpt_FeedbackStatisticDetails" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Creator" ObjectProperty="CreatorName" />
       <Mapping DataField="MainCategory" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubCategory" ObjectProperty="SettingIdLv2" />
     </Setting>
-    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted"  DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted"  DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop"  DbName="DBCRM.bodb_CRM.bodbAdminNet"  >
+    <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop"  DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
@@ -65,16 +65,16 @@
     <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
-    </Setting>  
-    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    </Setting>
+    <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
-    </Setting>    
+    </Setting>
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdateSiteLicenseeTypes" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -85,10 +85,9 @@
     <Setting Key="Acc_CRM_CN88_SettingSelBySettingID" SpName="Acc_CRM_CN88_SettingSelBySettingID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingSelBySettingName" SpName="Acc_CRM_CN88_SettingSelBySettingName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingIns" SpName="Acc_CRM_CN88_SettingIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
+    <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-
 
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -114,10 +113,10 @@
   <Function Name="Settings">
     <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingIns" SpName="Acc_CRM_SettingIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
+    <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SiteID" ObjectProperty="Id" />
       <Mapping DataField="SiteName" ObjectProperty="Name" />
     </Setting>
@@ -152,9 +151,9 @@
       <Mapping DataField="CountryName" ObjectProperty="Country" />
       <Mapping DataField="IsVIP" ObjectProperty="VIP" />
       <Mapping DataField="Phone" ObjectProperty="Phone1" />
-      <Mapping DataField="MobilePhone" ObjectProperty="Mobile" />      
+      <Mapping DataField="MobilePhone" ObjectProperty="Mobile" />
     </Setting>
-    <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Month" ObjectProperty="Month" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
@@ -167,7 +166,7 @@
     <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatistic" SpName="Acc_CRM_Rpt_DailyStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_LogStatisticDetail" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Report_DeletedFeedbackStatistics" SpName="Acc_CRM_Rpt_DeletedFeedbackStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingID" ObjectProperty="SettingIdLv1" />
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
@@ -189,13 +188,13 @@
     <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Currency" ObjectProperty="Currencies" />
       <Mapping DataField="Site" ObjectProperty="Sites" />
       <Mapping DataField="Position" ObjectProperty="Positions" />
       <Mapping DataField="ExcludeIgnored" ObjectProperty="ExcludeIgnoredAccounts" />
     </Setting>
-    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />
       <Mapping DataField="CustID_New" ObjectProperty="NewCustId" />
       <Mapping DataField="Username_Old" ObjectProperty="OldUserName" />
@@ -203,5 +202,11 @@
       <Mapping DataField="Cases" ObjectProperty="Case" />
     </Setting>
     <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineLogSel" SpName="Acc_CRM_InformHeadlineLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="NumAcc" ObjectProperty="Totals" />
+    </Setting>
+    <Setting Key="Acc_CRM_InformHeadlineHistorySel" SpName="Acc_CRM_InformHeadlineHistorySel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="DirectAcc" ObjectProperty="DirectAccount" />
+    </Setting>
   </Function>
 </Functions>
