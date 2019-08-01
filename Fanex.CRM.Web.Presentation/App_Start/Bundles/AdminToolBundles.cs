@@ -52,9 +52,9 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Styles/ViewList.less");
         }
 

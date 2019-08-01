@@ -7,7 +7,7 @@
 }
 @section Styles{
 
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css",
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
         "~/Content/site/customizeFanexGridV2.less",
         "~/Areas/InformHeadline/ViewListStyles")
 }
@@ -63,12 +63,12 @@
         }
     </div>
 </div>
-@Html.Partial("~/Areas/InformHeadline/ViewLogs/_Logs.cshtml")
-@Html.Partial("~/Areas/InformHeadline/ViewLogs/_LogDetails.cshtml")
+@Html.Partial("~/Areas/InformHeadline/ViewList/_Logs.cshtml")
+@Html.Partial("~/Areas/InformHeadline/ViewList/_LogDetails.cshtml")
 @section Scripts {
     @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/wwwroot/sources/libs/FanexGrid/NumeralScripts",
         "~/Scripts/FanexGridScripts",
         "~/CRM/DownLoadFile/Scripts",
         "~/Bundles/InformHeadline/ViewListScripts")

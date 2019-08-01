@@ -39,9 +39,9 @@
             AddAndInclude(
                 bundles,
                 "~/bundles/Report/FeedbackStatisticDetailStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Styles/styles.less");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/FeedbackStatisticDetailScripts").Include(
@@ -61,9 +61,9 @@
             AddAndInclude(
                 bundles,
                 "~/bundles/Report/LogStatisticsStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/LogStatistics/Styles/LogStatistics.less",
                 "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
 
@@ -87,9 +87,9 @@
             AddAndInclude(
                 bundles,
                 "~/bundles/Report/DeletedFeedbackStatisticsStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/DeletedFeedbackStatistics/Styles/deletedFeedbackStatistics.less");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/DeletedFeedbackStatisticsScripts").Include(

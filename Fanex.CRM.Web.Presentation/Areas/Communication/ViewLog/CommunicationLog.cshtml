@@ -15,8 +15,8 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Communication/ViewLogStyles")
 }
@@ -78,9 +78,9 @@
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/Areas/Communication/ViewLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;

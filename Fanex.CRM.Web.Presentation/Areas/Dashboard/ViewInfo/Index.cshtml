@@ -11,8 +11,8 @@
     var customerId = JsonConvert.SerializeObject(Model);
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Dashboard/ViewInfoStyles")
 }
@@ -47,10 +47,10 @@
 </div>
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

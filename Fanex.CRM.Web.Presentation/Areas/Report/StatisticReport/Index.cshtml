@@ -9,8 +9,8 @@
     ViewBag.Title = Labels.Statistic_Report;
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
     @RazorHelper.RenderStyles("~/Areas/Report/StatisticReportStyles")
@@ -112,7 +112,7 @@
     </div>
 </div>
 @section Scripts {
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
     @RazorHelper.RenderScripts("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")

@@ -14,7 +14,7 @@
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Redemption/ViewLogStyles")
 }
@@ -71,9 +71,9 @@
     </div>
 </div>
 @section Scripts {
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
-    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Redemption/ViewLogScripts")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts", "~/Areas/Redemption/ViewLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

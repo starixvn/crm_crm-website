@@ -27,16 +27,12 @@
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListService.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js",
-                "~/Areas/InformHeadline/ViewLogs/logs-factory.js",
-                "~/Areas/InformHeadline/ViewLogs/logs-controller.js",
-                "~/Areas/InformHeadline/ViewLogs/logs-grid-directive.js",
-                "~/Areas/InformHeadline/ViewLogs/log-details-controller.js",
-                "~/Areas/InformHeadline/ViewLogs/log-details-grid-directive.js"));
+                "~/wwwroot/dist/js/inform.headline.logs.js"));
 
             AddAndInclude(
                 bundles,
                 "~/Areas/InformHeadline/ViewListStyles",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
         }
 
@@ -58,7 +54,7 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/InformHeadline/NewInformStyles",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/NewInform/Styles/ViewList.less");
         }
 
@@ -81,7 +77,7 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/InformHeadline/ContactInformStyles",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/ContactInform/Styles/ViewList.less");
         }
 
@@ -103,7 +99,7 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/InformHeadline/UpdateInformStyles",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/UpdateInform/Styles/ViewList.less");
         }
 

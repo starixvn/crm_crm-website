@@ -48,7 +48,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js",
-                "~/Scripts/FanexGridV2/moment.js"));
+                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.min.js",
@@ -64,9 +64,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridScripts").Include(
-                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
-                "~/Scripts/FanexGridV2/Fanex.Grid.js",
-                "~/Scripts/FanexGridV2/moment.js"));
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
+                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
@@ -298,9 +298,9 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_ActivityLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/ActivityLogScripts").Include(
-                "~/Scripts/FanexGridV2/Fanex.Grid.js",
-                "~/Scripts/FanexGridV2/moment.js",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
+                "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/ActionLog/Common/Scripts/*.js",
                 "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
@@ -311,18 +311,18 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/ActionLog/ActivityLogStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/ActionLog/ActivityLog/Styles/activityLog.less");
         }
 
         private static void RegisterBundles_SettingLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/SettingLogScripts").Include(
-                "~/Scripts/FanexGridV2/Fanex.Grid.js",
-                "~/Scripts/FanexGridV2/moment.js",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
+                "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/ActionLog/Common/Scripts/*.js",
                 "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
@@ -333,9 +333,9 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/ActionLog/SettingLogStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/ActionLog/SettingLog/Styles/settingLog.less");
         }
 
@@ -357,7 +357,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
-                "~/Scripts/FanexGridV2/numeral.js",
+                "~/wwwroot/sources/libs/FanexGrid/numeral.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
@@ -536,21 +536,21 @@ namespace Fanex.CRM.Web.View.AppStart
 
         private static void RegisterBundles_Numeral(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/NumeralScripts").Include(
-                "~/Scripts/FanexGridV2/numeral.js"));
+            bundles.Add(new ScriptBundle("~/wwwroot/sources/libs/FanexGrid/NumeralScripts").Include(
+                "~/wwwroot/sources/libs/FanexGrid/numeral.js"));
         }
 
         private static void RegisterBundles_FanexGrid(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/FanexGridScripts").Include(
-                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
-                "~/Scripts/FanexGridV2/Fanex.Grid.js",
-                "~/Scripts/FanexGridV2/moment.js"));
+            bundles.Add(new ScriptBundle("~/wwwroot/sources/libs/FanexGrid/FanexGridScripts").Include(
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
+                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
 
             bundles.AddAndInclude(
-                "~/Scripts/FanexGridV2/FanexGridStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/FanexGridStyles",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Content/site/customizeFanexGridV2.less");
         }
 
@@ -569,9 +569,9 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/Report/WagerReportStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less");
         }
 
@@ -591,9 +591,9 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/Report/SummaryReportStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less");
         }
     }

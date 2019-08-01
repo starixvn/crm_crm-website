@@ -1,0 +1,20 @@
+﻿.btn {
+    background-color: #466ab6;
+    border-color: #3c5b9c;
+    border-radius: 0;
+    height: 25px;
+    color: $white;
+    font-size: $font-size;
+    padding: 2px 12px;
+    outline: none;
+
+    &:hover {
+        background-color: #274b86;
+        color: $white;
+    }
+
+    &:focus, &:active {
+        background-color: #466ab6;
+        color: $white;
+    }
+}

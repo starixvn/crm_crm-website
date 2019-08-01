@@ -36,9 +36,9 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Feedbacks/ManageFeedback/Styles/StyleSheet.less");
         }
 
@@ -48,7 +48,7 @@
                 .Include(
                     "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/Scripts/FanexGridV2/moment.js",
+                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -83,7 +83,7 @@
                 .Include(
                     "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/Scripts/FanexGridV2/moment.js",
+                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -126,7 +126,7 @@
                 bundles,
                 "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles",
                 "~/Scripts/Tipsy-Tooltip/tipsy.css",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
@@ -148,9 +148,9 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Feedbacks/DeletedFeedback/Styles/StyleSheet.less");
         }
 
@@ -166,7 +166,7 @@
                     "~/Scripts/AngularJS/sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
-                    "~/Scripts/FanexGridV2/moment.js",
+                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
