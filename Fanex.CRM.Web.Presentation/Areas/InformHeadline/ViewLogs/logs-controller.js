@@ -58,7 +58,7 @@
         }
 
         function initialize() {
-            getRemovedAccountLogs(vm.pagerOption.pageIndex, vm.pagerOption.itemsPerPage);
+            getRemovedAccountLogs(vm.pagerOption.pageIndex + 1, vm.pagerOption.itemsPerPage);
         }
 
         initialize();

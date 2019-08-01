@@ -4,12 +4,12 @@
 
     public class GetRemovedAccountLogDetailsCriteria : CriteriaBase
     {
-        public int TitleId { get; set; }
+        public int LogId { get; set; }
         public int PageIndex { get; set; }
         public int ItemsPerPage { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_InformHeadlineHistorySel";
 
-        public override bool IsValid() => TitleId > 0;
+        public override bool IsValid() => LogId > 0;
     }
 }

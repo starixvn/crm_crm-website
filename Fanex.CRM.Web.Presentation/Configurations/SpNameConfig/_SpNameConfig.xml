@@ -3,6 +3,7 @@
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineSearchUpd" EnvironmentText="_uat3"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineLogSel" EnvironmentText="_uat3"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_InformHeadlineHistorySel" EnvironmentText="_uat3"></SpNameConfig>
 </Root>

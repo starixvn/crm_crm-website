@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('informHeadlineApplication').controller('LogDetailsController', logDetailsController);
-    logDetailsController.$inject = ['$modalInstance', '$uiBlockerService', 'logid'];
+    logDetailsController.$inject = ['$modalInstance', '$uiBlockerService', 'logsFactory', 'logid'];
 
-    function logDetailsController($modalInstance, $uiBlockerService, logid) {
+    function logDetailsController($modalInstance, $uiBlockerService, logsFactory, logid) {
         var vm = this;
 
         vm.pagerOption = {
@@ -43,7 +43,7 @@
         }
 
         function initialize() {
-            getRemovedAccountLogDetails(vm.pagerOption.pageIndex, vm.pagerOption.itemsPerPage);
+            getRemovedAccountLogDetails(vm.pagerOption.pageIndex + 1, vm.pagerOption.itemsPerPage);
         }
 
         initialize();

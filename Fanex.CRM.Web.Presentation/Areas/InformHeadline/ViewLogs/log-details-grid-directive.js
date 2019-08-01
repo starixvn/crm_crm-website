@@ -52,7 +52,10 @@
                         HeaderText: viewResources.Remark, Width: 200, MaxResizeWidth: 300, Name: 'Remark',
                         HeaderAlign: 'center', CellAlign: 'left', CanResize: true
                     },
-                    { HeaderText: viewResources.Handler, Width: 100, Name: 'Handler', HeaderAlign: 'center', CellAlign: 'center' },
+                    {
+                        HeaderText: viewResources.Handler, Width: 100, MaxResizeWidth: 200, Name: 'Handler',
+                        HeaderAlign: 'center', CellAlign: 'center', CanResize: true
+                    },
                     { HeaderText: viewResources.Extension, Width: 80, Name: 'Extension', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: viewResources.ProductStatus, Width: 100, Name: 'ProductStatus', HeaderAlign: 'center', CellAlign: 'center' }
                 ],
