@@ -14,8 +14,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
                 "~/Content/vendors/jqueryui/jquery-ui.min.css",
-                "~/Content/site/customizeJqueryUI.less",
-                "~/Content/site/bootstrap-modal.less");
+                "~/Content/site/customizeJqueryUI.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.js"));

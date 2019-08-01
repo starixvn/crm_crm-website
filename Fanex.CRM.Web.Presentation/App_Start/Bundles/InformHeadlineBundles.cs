@@ -32,7 +32,8 @@
             AddAndInclude(
                 bundles,
                 "~/Areas/InformHeadline/ViewListStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                "~/wwwroot/dist/styles/inform.headline.css",
+                "~/Content/site/customizeFanexGridV2.less",
                 "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
         }
 

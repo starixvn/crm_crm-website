@@ -621,6 +621,11 @@
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\open-case.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\view-detail.png" />
     <Content Include="wwwroot\dist\js\inform.headline.logs.js" />
+    <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\dist\styles\inform.headline.css" />
+    <Content Include="wwwroot\dist\styles\inform.headline.js" />
+    <Content Include="wwwroot\dist\styles\main.css" />
+    <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\index.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\log-details-controller.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\logs-controller.js" />
@@ -1138,7 +1143,6 @@
     <Content Include="Areas\Redemption\EditLog\Index.cshtml" />
     <Content Include="Areas\Remark\Styles\remark.less" />
     <Content Include="Content\site\common.less" />
-    <Content Include="Content\site\customizeFanexGrid.less" />
     <Content Include="Content\site\customizeJqueryUI.less" />
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\addnew-ico.png" />
@@ -1334,14 +1338,20 @@
     <Content Include="wwwroot\sources\styles\components\_table.scss" />
     <Content Include="wwwroot\dist\js\inform.headline.logs.js.map" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.less" />
+    <Content Include="wwwroot\sources\styles\main.scss" />
+    <Content Include="wwwroot\sources\styles\pages\inform-headline.scss" />
+    <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\dist\styles\inform.headline.js.map" />
+    <Content Include="wwwroot\dist\styles\main.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="wwwroot\dist\styles\" />
     <Folder Include="wwwroot\dist\vendors\" />
     <Folder Include="wwwroot\sources\js\shared\" />
     <Folder Include="wwwroot\sources\styles\images\" />
-    <Folder Include="wwwroot\sources\styles\pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1598,7 +1608,6 @@
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
-    <Content Include="Content\site\bootstrap-modal.less" />
     <Content Include="ExcelTemplates\UpdateInformHeadline.xlsx" />
     <None Include="ExcelTemplates\InformHeadline.xlsx" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />

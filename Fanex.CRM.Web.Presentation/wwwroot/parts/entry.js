@@ -5,8 +5,8 @@ const styleDistPath = 'styles';
 
 module.exports = {
     client: {
-        //[`${styleDistPath}/main`]: `${styleSourcePath}/main.scss`,
-        //[`${styleDistPath}/home.index`]: `${styleSourcePath}/pages/home.index.scss`,
+        [`${styleDistPath}/main`]: `${styleSourcePath}/main.scss`,
+        [`${styleDistPath}/inform.headline`]: `${styleSourcePath}/pages/inform-headline.scss`,
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',

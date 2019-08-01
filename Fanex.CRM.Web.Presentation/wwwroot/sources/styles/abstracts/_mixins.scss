@@ -66,3 +66,11 @@
     -o-transition: -o-transform $transition;
     transition: transform $transition;
 }
+
+@mixin gradient-vertical($startColor: #555, $endColor: #333) {
+    background: $endColor;
+    background: -webkit-linear-gradient($startColor, $endColor); /* For Safari */
+    background: -o-linear-gradient($startColor, $endColor); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($startColor, $endColor); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($startColor, $endColor);
+}
