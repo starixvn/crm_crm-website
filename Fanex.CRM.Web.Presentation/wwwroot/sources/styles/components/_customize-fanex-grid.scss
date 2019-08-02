@@ -1,0 +1,162 @@
+﻿.grid-title {
+    @include gradient-vertical(#ececec, #e1e1e1);
+    border-color: #b7b7b7;
+    border-bottom: none;
+    height: 30px;
+    margin-bottom: 0;
+
+    .grid-title-label {
+        color: $title-table-color;
+        font-size: $font-size + 1;
+        font-weight: bold;
+        background: none;
+        padding-left: 10px;
+    }
+
+    .grid-toolbox {
+        padding-top: 6px;
+    }
+}
+
+.freegrid {
+    border-color: #b7b7b7;
+    @include box-sizing(content-box);
+
+    *, *:before, *:after {
+        @include box-sizing(content-box);
+    }
+
+    .free-top-right {
+        *, *:before, *:after {
+            @include box-sizing(border-box);
+        }
+    }
+
+    .grid-container.container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .free-top-left table thead th, .col_header table thead th {
+        border-color: $header-table-border;
+        background: $header-table-bg;
+        color: $header-table-color;
+        font-size: $font-size;
+    }
+
+    thead th, .grid-fixed-table thead th, td, .grid-fixed-table td {
+        font-size: $font-size;
+    }
+
+    td {
+        color: $table-color;
+    }
+
+    .free-top-right table {
+        thead th {
+            background: $header-table-bg;
+            border-left: 1px solid $header-table-border;
+            height: 34px !important;
+        }
+    }
+
+    .freegrid-even td {
+        background-color: #ebf1f3;
+    }
+
+    .parent-level-0 td {
+        background-color: #e3e3e3;
+        color: #0054A6;
+    }
+
+    .row-footer-background {
+        border-color: $table-border;
+    }
+
+    .row_footer table thead th, .col_footer table thead th {
+        background: #c0cae3 !important;
+        border-color: $table-border !important;
+        color: #0054a6;
+    }
+
+    .col_footer table thead th {
+        color: #363636;
+    }
+
+    .grid-pager {
+        .grid-pager-content {
+            padding-top: 3px;
+        }
+
+        #pagination {
+            font-size: $font-size;
+
+            div.itemperpage {
+                color: $table-color;
+                font-weight: normal;
+                margin-top: 1px;
+            }
+
+            #itemperpage {
+                @include border-radius(2px);
+                font-size: $font-size;
+                height: 19px;
+                border-color: $border-color;
+            }
+
+            .numberlist {
+                background-color: #fff;
+                .border-radius(2px);
+                height: 21px;
+                padding: 0;
+                border-color: $border-color;
+
+                ul li {
+                    height: 100%;
+                    padding: 0;
+
+                    &.sep {
+                        background: none;
+                        border-right: 1px solid #cfcfcf;
+                    }
+                }
+
+                .current.prev, .prev {
+                    border-right: 1px solid #cfcfcf;
+                }
+
+                a:hover, .current {
+                    background: #4869b8;
+                    @include border-radius(0);
+                    margin: 0;
+                }
+
+                .current.prev, .current.next {
+                    background: none;
+                    color: $primary-color;
+                }
+
+                span, a, a:hover {
+                    padding: 2px 7px;
+                    height: 17px;
+                    margin-right: 0;
+                    font-weight: normal;
+                }
+            }
+
+            .gotopage_box {
+                td {
+                    font-size: $font-size;
+                }
+
+                .go-to-page-text {
+                    padding: 0 10px !important;
+                }
+            }
+
+            .txt {
+                padding: 0 5px !important;
+            }
+        }
+    }
+}

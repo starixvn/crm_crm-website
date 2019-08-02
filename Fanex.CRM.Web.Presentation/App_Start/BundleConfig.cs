@@ -16,12 +16,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/vendors/jqueryui/jquery-ui.min.css",
                 "~/Content/site/customizeJqueryUI.less");
 
-            bundles.Add(new ScriptBundle("~/scripts/headload").Include(
-                "~/Scripts/head.load.js"));
+            bundles.Add(new ScriptBundle("~/scripts/headload").Include("~/Scripts/head.load.js"));
 
-            bundles.Add(new ScriptBundle("~/scripts/respond").Include(
-                "~/Scripts/respond.js",
-                "~/Scripts/head.js"));
+            bundles.Add(new ScriptBundle("~/scripts/respond").Include("~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
                 "~/Scripts/showhidepopup.js",

@@ -679,6 +679,8 @@
     <Content Include="wwwroot\sources\libs\FanexGrid\moment.min.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.min.js" />
+    <Content Include="wwwroot\sources\styles\images\chart.svg" />
+    <Content Include="wwwroot\sources\styles\images\edit.svg" />
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
     <Content Include="wwwroot\webpack.config.vendor.js" />
@@ -1115,7 +1117,6 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Content\site\mixins.less" />
-    <Content Include="Content\site\reportgrid.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Scripts\Vendors\jqueryui\jquery-ui.min.js" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
@@ -1170,7 +1171,6 @@
     <Content Include="Content\site\Images\view-detail.png" />
     <Content Include="Content\site\Images\WebResource.axd.png" />
     <Content Include="Content\site\Message.less" />
-    <Content Include="Content\site\table.less" />
     <Content Include="Content\bootstrap\css\bootstrap-ie7.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
@@ -1247,28 +1247,6 @@
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_tab_left.png" />
     <Content Include="packages.config" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_0078a3_1x400.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_f58400_1x400.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_ffc73d_1x400.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_333333_500x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_504e4e_500x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_555855_500x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_000000_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_4b4444_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_726e6e_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_808080_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_9c9c9c_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_30_f58400_1x100.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-icons_4b8e0b_256x240.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-icons_a83300_256x240.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-icons_cccccc_256x240.png" />
-    <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
     <Content Include="Views\Home\Styles\Images\chinese-flag.png" />
@@ -1346,12 +1324,12 @@
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="wwwroot\dist\styles\inform.headline.js.map" />
     <Content Include="wwwroot\dist\styles\main.js.map" />
+    <Content Include="wwwroot\sources\styles\components\_customize-fanex-grid.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="wwwroot\dist\vendors\" />
     <Folder Include="wwwroot\sources\js\shared\" />
-    <Folder Include="wwwroot\sources\styles\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

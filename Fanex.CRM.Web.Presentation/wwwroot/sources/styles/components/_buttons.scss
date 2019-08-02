@@ -1,7 +1,7 @@
 ﻿.btn {
     background-color: #466ab6;
     border-color: #3c5b9c;
-    border-radius: 0;
+    @include border-radius(0);
     height: 25px;
     color: $white;
     font-size: $font-size;
