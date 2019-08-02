@@ -28,13 +28,6 @@
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js",
                 "~/wwwroot/dist/js/inform.headline.logs.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/InformHeadline/ViewListStyles",
-                "~/wwwroot/dist/styles/inform.headline.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
         }
 
         private static void RegisterNewInformBundles(BundleCollection bundles)

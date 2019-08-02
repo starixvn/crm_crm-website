@@ -6,8 +6,7 @@
     ViewBag.Title = Labels.InformHeadlines;
 }
 @section Styles{
-
-    @RazorHelper.RenderStyles("~/Areas/InformHeadline/ViewListStyles")
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/inform.headline.css" />
 }
 <div data-ng-app="informHeadlineApplication">
     <div data-ng-controller="ViewListController"
@@ -20,14 +19,35 @@
             </div>
             <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">
-                    <li class="status-closed"><a data-status="0" class="open-menu-item" tabindex="-1" href="#">Open case</a></li>
-                    <li class="status-closed"><a class="view-logs view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+                    <li class="status-closed">
+                        <a data-status="0" class="open-menu-item" tabindex="-1" href="#">
+                            <i class="fa fa-folder-open"></i> Open case
+                        </a>
+                    </li>
+                    <li class="status-closed divider"></li>
+                    <li class="status-closed">
+                        <a class="view-logs" tabindex="-1" href="#">
+                            <i class="fa fa-list-alt"></i> @CommonLabels.RemovedEditedAccountsLogs
+                        </a>
+                    </li>
 
-                    <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
+                    <li>
+                        <a class="edit-menu-item" tabindex="-1" href="#">
+                            <i class="fa fa-pencil-square-o"></i> Edit number of account
+                        </a>
+                    </li>
                     <li class="divider"></li>
-                    <li><a class="view-logs view-logs" tabindex="-1" href="#">@CommonLabels.RemovedEditedAccountsLogs</a></li>
+                    <li>
+                        <a class="view-logs" tabindex="-1" href="#">
+                            <i class="fa fa-list-alt"></i> @CommonLabels.RemovedEditedAccountsLogs
+                        </a>
+                    </li>
                     <li class="divider"></li>
-                    <li><a class="close-menu-item" data-status="1" tabindex="-1" href="#">Close case</a></li>
+                    <li>
+                        <a class="close-menu-item" data-status="1" tabindex="-1" href="#">
+                            <i class="fa fa-times"></i> Close case
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="container main">

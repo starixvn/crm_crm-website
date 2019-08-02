@@ -1,8 +1,75 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
+
 @import '../../libs/FanexGrid/Fanex.Grid.css';
 @import '../../libs/FanexGrid/Fanex.Pagination.css';
 
+$fanex-grid-images-path: '../images';
 @import '../components/buttons';
 @import '../components/modal';
+@import '../components/customize-fanex-grid';
+
+.freegrid {
+    .parent-level-0 td {
+        color: #5f5f5f;
+        font-weight: normal;
+    }
+
+    .grid-container {
+        a:focus {
+            color: #0255a5;
+        }
+
+        .status-open td {
+            background-color: rgb(240, 237, 196);
+        }
+
+        .status-closed td {
+            background-color: rgb(242, 242, 242);
+        }
+
+        .action-button {
+            background: url(../images/list.png) no-repeat scroll left center;
+            border: 0px;
+        }
+    }
+}
+
+.dropdown-menu {
+    li {
+        &:hover {
+            background-color: #eee;
+        }
+
+        a {
+            font-size: $font-size;
+            padding-left: 10px;
+
+            i.fa {
+                margin-right: 5px;
+                font-size: 13px;
+
+                &.fa-pencil-square-o, &.fa-list-alt {
+                    color: #0789d1
+                }
+
+                &.fa-folder-open {
+                    color: #cabc04;
+                }
+
+                &.fa-times {
+                    color: #de5144;
+                }
+            }
+        }
+    }
+}
+
+.log-details-modal {
+    .modal-dialog {
+        width: 1000px;
+    }
+}

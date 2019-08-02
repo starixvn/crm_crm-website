@@ -27,7 +27,7 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
 
                 bodyData.push({
                     Columns: [
-                        { Name: "Edit", Value: '<button type="button" class="actionButton">&nbsp;</button>' },
+                        { Name: "Edit", Value: '<button type="button" class="action-button">&nbsp;</button>' },
                         { Name: "Title", Value: canContact ? '<a class="title" href="javascript:void(0)">' + item.Title + '</a>' : item.Title },
                         { Name: "CreatedDate", Value: item.ClientCreatedDate },
                         { Name: "NoDirectAccounts", Value: item.Total },
@@ -154,7 +154,7 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
                     scope.updateInformStatus(titleId, status);
                 }
             });
-            $table.on("click", ".actionButton", function (e) {
+            $table.on("click", ".action-button", function (e) {
                 var $target = angular.element(e.target);
                 var titleId = $target.closest("tr").data("title-id");
                 $contextMenu.data("title-id", titleId);

@@ -615,11 +615,6 @@
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\edit.png" />
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\open-case.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\close-case.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\edit.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\list.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\open-case.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\view-detail.png" />
     <Content Include="wwwroot\dist\js\inform.headline.logs.js" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
@@ -679,8 +674,8 @@
     <Content Include="wwwroot\sources\libs\FanexGrid\moment.min.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.min.js" />
-    <Content Include="wwwroot\sources\styles\images\chart.svg" />
-    <Content Include="wwwroot\sources\styles\images\edit.svg" />
+    <Content Include="wwwroot\sources\styles\images\excel.png" />
+    <Content Include="wwwroot\sources\styles\images\list.png" />
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
     <Content Include="wwwroot\webpack.config.vendor.js" />
@@ -1328,6 +1323,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
     <Folder Include="wwwroot\sources\js\shared\" />
   </ItemGroup>
@@ -1454,9 +1450,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\ViewList\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\InformHeadline\ViewList\Styles\ViewList.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\Web.config" />

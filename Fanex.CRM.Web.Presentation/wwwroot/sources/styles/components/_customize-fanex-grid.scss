@@ -1,4 +1,6 @@
-﻿.grid-title {
+﻿$fanex-grid-images-path: '../images' !default;
+
+.grid-title {
     @include gradient-vertical(#ececec, #e1e1e1);
     border-color: #b7b7b7;
     border-bottom: none;
@@ -15,6 +17,15 @@
 
     .grid-toolbox {
         padding-top: 6px;
+    }
+
+    .btnExcel {
+        background: url(#{$fanex-grid-images-path}/excel.png) no-repeat;
+        height: 18px;
+
+        &:hover {
+            background: url(#{$fanex-grid-images-path}/excel.png) -20px 0 no-repeat;
+        }
     }
 }
 
@@ -105,8 +116,8 @@
             }
 
             .numberlist {
-                background-color: #fff;
-                .border-radius(2px);
+                background-color: $white;
+                @include border-radius(2px);
                 height: 21px;
                 padding: 0;
                 border-color: $border-color;
@@ -133,7 +144,7 @@
 
                 .current.prev, .current.next {
                     background: none;
-                    color: $primary-color;
+                    color: $color-primary;
                 }
 
                 span, a, a:hover {
