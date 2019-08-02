@@ -1,5 +1,40 @@
 ﻿
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Generated helper templates
 // Generated items
 // Fanex.CRM.Web.Presentation\Configurations\SpNameConfig\SpName.MASTER.xml

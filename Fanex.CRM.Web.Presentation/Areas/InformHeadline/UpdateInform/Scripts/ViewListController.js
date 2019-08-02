@@ -116,7 +116,8 @@
                 function getAllSettings() {
                     $uiBlockerService.blockUI();
                     createPositionDropdownSettings(updateInformService.getPositions(), $scope.titleDetail.Positions);
-
+                    $scope.vipSetting = updateInformService.getVips();
+                    $scope.selectedVip = $scope.vipSetting[0];
                     updateInformService.getAllSettings()
                         .then(function (data) {
                             var allSetting = data.Result;
@@ -148,6 +149,7 @@
                         Level: $scope.selectedPositions.toString(),
                         TypeAccount: getAccountType(),
                         ExcludeIgnoredAccounts: $scope.excludeIgnoredAccounts,
+                        IsVip: $scope.selectedVip.Id,
                         PageIndex: 1,
                         ItemsPerPage: 10000
                     };

@@ -53,6 +53,15 @@
                             </div>
                         </div>
                         <div class="item">
+                            <label for="txtfromdate" class="width-70">
+                                @Labels.VIP
+                            </label>
+                            <div class="display-inline-block">
+                                <select id="isvip" data-ng-model="selectedVip"
+                                        data-ng-options="c.Name for c in vipSetting track by c.Id"></select>
+                            </div>
+                        </div>
+                        <div class="item">
                             <button class="btn" data-ng-click="getInforms()">@Labels.Search</button>
                         </div>
                     </div>

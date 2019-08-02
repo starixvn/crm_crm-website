@@ -138,15 +138,13 @@
                 for (var i = firstRowIndex; i < lastRowIndex; i++) {
                     var item = scope.dataSource[i];
 
-                    var isUseOld = item.Case === 1 || item.Case === 5;
-                    var userName = item.HeadlineId > 0 ? item.UserName : (isUseOld ? item.OldUserName : item.NewUserName);
-                    var headlineId = item.HeadlineId > 0 ? item.HeadlineId : (isUseOld ? item.OldCustId : item.NewCustId);
+                    var userName = item.UserName;
+                    var headlineId = item.HeadlineId;
 
                     bodyData.push({
                         Columns: [
                             {
-                                Name: "DirectAccount", Value: item.Case === 0 ?
-                                    userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>'
+                                Name: "DirectAccount", Value: item.UserName
                             },
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.ClientUpdatedTime },
@@ -155,8 +153,8 @@
                             { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
                             { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },
                         ],
-                        CssClass: item.Case > 0 ? 'updated' : (item.GroupId > 0 ? 'headline' : 'direct'),
-                        CustomAttr: 'data-headline-id=' + headlineId + ' data-rowindex=' + i
+                        CssClass: item.GroupId > 0 ? 'headline' : 'direct',
+                        CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
                     });
                 }
             }

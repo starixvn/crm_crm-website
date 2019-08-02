@@ -14,7 +14,7 @@
 
         public string Site { get; set; }
 
-        public bool ChangeFilter { get; set; }
+        public int IsVip { get; set; }
 
         [SpParam(SqlParamName = "ignored")]
         public bool ExcludeIgnoredAccounts { get; set; }
