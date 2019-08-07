@@ -184,13 +184,7 @@
       <Mapping DataField="Position" ObjectProperty="Positions" />
       <Mapping DataField="ExcludeIgnored" ObjectProperty="ExcludeIgnoredAccounts" />
     </Setting>
-    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_uat3" DbName="DBCRM.bodb_CRM.bodbAdminNet">
-      <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />
-      <Mapping DataField="CustID_New" ObjectProperty="NewCustId" />
-      <Mapping DataField="Username_Old" ObjectProperty="OldUserName" />
-      <Mapping DataField="Username_New" ObjectProperty="NewUserName" />
-      <Mapping DataField="Cases" ObjectProperty="Case" />
-    </Setting>
+    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_uat3" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd_uat3" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineLogSel" SpName="Acc_CRM_InformHeadlineLogSel_uat3" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="NumAcc" ObjectProperty="Totals" />
