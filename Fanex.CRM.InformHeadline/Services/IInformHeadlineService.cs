@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.InformHeadline.Services
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.InformHeadline.Criteria;
@@ -36,8 +37,8 @@
 
         IEnumerable<Station> GetStations();
 
-        IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria);
+        Tuple<IEnumerable<RemovedAccountLog>, int> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria);
 
-        IEnumerable<RemovedAccountLogDetails> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria);
+        Tuple<IEnumerable<RemovedAccountLogDetails>, int> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria);
     }
 }

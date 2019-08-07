@@ -616,6 +616,7 @@
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\open-case.png" />
     <Content Include="wwwroot\dist\js\inform.headline.logs.js" />
+    <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
     <Content Include="wwwroot\dist\styles\inform.headline.js" />
@@ -679,7 +680,7 @@
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
     <Content Include="wwwroot\webpack.config.vendor.js" />
-    <None Include="Areas\InformHeadline\ViewList\_Logs.cshtml" />
+    <Content Include="Areas\InformHeadline\ViewList\_Logs.cshtml" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\logs-grid-directive.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
@@ -1580,8 +1581,12 @@
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
     <Content Include="ExcelTemplates\UpdateInformHeadline.xlsx" />
-    <None Include="ExcelTemplates\InformHeadline.xlsx" />
+    <Content Include="ExcelTemplates\InformHeadline.xlsx" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
+    <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

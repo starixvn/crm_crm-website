@@ -26,26 +26,31 @@
 
         public bool ExcludeIgnoredAccounts { get; set; }
 
+        public byte IsVip { get; set; }
+
         [SpParam(Ignored = true)]
         public IList<UpdateInform> Informs { get; set; }
 
         public override Hashtable GetSpParams()
         {
-            var param = new Hashtable();
-            param.Add("titleid", TitleId);
-            param.Add("title", Title);
-            param.Add("Currency", Currency);
-            param.Add("Level", Level);
-            param.Add("Site", Site);
-            param.Add("TypeAccount", TypeAccount);
-            param.Add("ExcludeIgnored", ExcludeIgnoredAccounts);
-            param.Add("changefilter", ChangeFilter);
-            param.Add("Content", Content);
-            param.Add("UserId", UserId);
-            param.Add("ip", IP);
+            var param = new Hashtable
+            {
+                { "titleid", TitleId },
+                { "title", Title },
+                { "Currency", Currency },
+                { "Level", Level },
+                { "Site", Site },
+                { "TypeAccount", TypeAccount },
+                { "ExcludeIgnored", ExcludeIgnoredAccounts },
+                { "changefilter", ChangeFilter },
+                { "Content", Content },
+                { "UserId", UserId },
+                { "ip", IP },
+                { "IsVip", IsVip },
 
-            param.Add("errcode", ErrorCode);
-            param.Add("errmsg", ErrorMessage);
+                { "errcode", ErrorCode },
+                { "errmsg", ErrorMessage }
+            };
             return param;
         }
 

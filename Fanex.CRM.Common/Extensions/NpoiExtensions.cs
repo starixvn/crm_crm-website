@@ -4,6 +4,7 @@ namespace Fanex.CRM.Common.Extensions
     using System.Drawing;
     using System.Web;
     using Fanex.Common;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Resources;
@@ -279,7 +280,7 @@ namespace Fanex.CRM.Common.Extensions
         {
             var response = HttpContext.Current.Response;
             response.Clear();
-            response.ContentType = "application/vnd.ms-excel";
+            response.ContentType = MimeType.XLS;
             response.AddHeader("Content-Disposition", string.Format("attachment; filename={0}.xls", fileName));
             workbook.Write(response.OutputStream);
         }

@@ -161,6 +161,7 @@
     <Compile Include="Attributes\OverridableNapAuthAttribute.cs" />
     <Compile Include="Attributes\OverridableNapSupperAuthAttribute.cs" />
     <Compile Include="Constants\FunctionPermissions.cs" />
+    <Compile Include="Constants\MimeType.cs" />
     <Compile Include="Constants\Pager.cs" />
     <Compile Include="Constants\UpdateReviewedModeConstants.cs" />
     <Compile Include="Controllers\ReadOnlyBaseController.cs" />

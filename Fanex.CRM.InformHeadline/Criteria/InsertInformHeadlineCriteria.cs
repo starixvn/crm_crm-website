@@ -18,7 +18,7 @@
 
         public int TypeAccount { get; set; }
 
-        public bool IsVip { get; set; }
+        public byte IsVip { get; set; }
 
         public bool ExcludeIgnoredAccounts { get; set; }
 
@@ -27,19 +27,21 @@
 
         public override Hashtable GetSpParams()
         {
-            var param = new Hashtable();
-            param.Add("title", Title);
-            param.Add("Currency", Currency);
-            param.Add("Level", Level);
-            param.Add("Site", Site);
-            param.Add("TypeAccount", TypeAccount);
-            param.Add("ExcludeIgnored", ExcludeIgnoredAccounts);
-            param.Add("UserId", UserId);
-            param.Add("IsVip", IsVip);
-            param.Add("ip", IP);
+            var param = new Hashtable
+            {
+                { "title", Title },
+                { "Currency", Currency },
+                { "Level", Level },
+                { "Site", Site },
+                { "TypeAccount", TypeAccount },
+                { "ExcludeIgnored", ExcludeIgnoredAccounts },
+                { "UserId", UserId },
+                { "IsVip", IsVip },
+                { "ip", IP },
 
-            param.Add("errcode", ErrorCode);
-            param.Add("errmsg", ErrorMessage);
+                { "errcode", ErrorCode },
+                { "errmsg", ErrorMessage }
+            };
             return param;
         }
 

@@ -5,14 +5,12 @@
     /* jshint camelcase: false,
     unused: vars */
     angular.module('updateInformApplication').directive('informHeadlineListContainer', function () {
-        var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
         var MIN_PAGE_SIZE = 100;
         var MAX_PAGE_SIZE = 300;
-        var INFORM_SPECIAL_CASE = [1, 5, 12];
         var _selfScope;
 
-        function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
-            var html = '<select ' + (disabled ? 'disabled' : '') + '  data-binding-name="' + bindingName + '" style="width: 100px">';
+        function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
+            var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
@@ -36,41 +34,21 @@
         function htmlDecode(value) {
             return $('<div/>').html(value).text();
         }
-        function hasKeepThisAccountOption(caseId) {
-            return INFORM_SPECIAL_CASE.indexOf(parseInt(caseId)) > -1;
-        }
 
-        function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
-            if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_STATUS_ID) {
-                return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
-            }
-
-            return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, columnModel.Value.Case > 0);
+        function renderDropdownCell(data, bindingName, valueProperty, textProperty, selectedValue) {
+            return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue);
         }
 
         function renderStatusDropdownCell(columnModel) {
-            var html = "";
-            if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_STATUS_ID) {
-                return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
-            }
-            else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
-                html = '<div class="checkbox display-inline-block"><label><input class="iskeep" value="true" type="checkbox" data-binding-name="IsKeep" />' +
-                    viewResources.KeepThisAccount + '</label></div>';
-            }
-
-            return html + generateDropdown(_selfScope.$parent.informStatuses,
-                "InformHeadlineStatusId", "SettingId", "SettingValue",
-                columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
+            return generateDropdown(_selfScope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
         }
 
         function renderExtensionDropdownCell(columnModel) {
-            return renderDropdownCell(columnModel, _selfScope.$parent.stations,
-                "Extension", "StationId", "Name", columnModel.Value.Extension);
+            return renderDropdownCell(_selfScope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
         }
 
         function renderProductStatusDropdownCell(columnModel) {
-            return renderDropdownCell(columnModel, _selfScope.$parent.productStatuses,
-                "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+            return renderDropdownCell(_selfScope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
         }
 
         function renderRemarkCell(columnModel) {
@@ -138,9 +116,6 @@
                 for (var i = firstRowIndex; i < lastRowIndex; i++) {
                     var item = scope.dataSource[i];
 
-                    var userName = item.UserName;
-                    var headlineId = item.HeadlineId;
-
                     bodyData.push({
                         Columns: [
                             {
@@ -151,7 +126,7 @@
                             { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },
                             { Name: "Handler", Value: item.Handler },
                             { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
-                            { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },
+                            { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell }
                         ],
                         CssClass: item.GroupId > 0 ? 'headline' : 'direct',
                         CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
@@ -243,7 +218,9 @@
                     var bindingName = $target.data("binding-name");
 
                     var dataItem = scope.dataSource[rowIndex];
-                    dataItem[bindingName] = $target.is(":checkbox") ? $target.is(":checked") : (useHtmlEncode ? htmlEncode($target.val()) : $target.val());
+                    dataItem[bindingName] = $target.is(":checkbox")
+                        ? $target.is(":checked")
+                        : useHtmlEncode ? htmlEncode($target.val()) : $target.val();
                     scope.updatedItems[headlineId] = dataItem;
                 }
 

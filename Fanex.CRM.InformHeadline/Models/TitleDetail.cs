@@ -15,5 +15,6 @@
         public string Positions { get; set; }
 
         public bool ExcludeIgnoredAccounts { get; set; }
+        public byte IsVip { get; set; }
     }
 }

@@ -12,6 +12,7 @@
             itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage
         };
         vm.data = [];
+        vm.totalItems = 0;
 
         vm.close = function () {
             $modalInstance.close();
@@ -34,10 +35,12 @@
             };
             logsFactory.getRemovedAccountLogDetails(params)
                 .then(function (data) {
-                    vm.data = data.Result;
+                    vm.data = data.Result.Items;
+                    vm.totalItems = data.Result.TotalItems;
                     $uiBlockerService.unblockUI();
                 }, function () {
                     vm.data = [];
+                    vm.totalItems = 0;
                     $uiBlockerService.unblockUI();
                 });
         }

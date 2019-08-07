@@ -7,7 +7,9 @@
     </div>
     <div class="modal-body">
         <div class="freegrid display-none"
-             log-details-grid ng-model="logDetailsCtrl.data" data-pager-option="logDetailsCtrl.pagerOption"
+             log-details-grid ng-model="logDetailsCtrl.data"
+             data-pager-option="logDetailsCtrl.pagerOption"
+             data-total-items="logDetailsCtrl.totalItems"
              data-on-page-change="logDetailsCtrl.getRemovedAccountLogs"></div>
     </div>
     <div class="modal-footer">

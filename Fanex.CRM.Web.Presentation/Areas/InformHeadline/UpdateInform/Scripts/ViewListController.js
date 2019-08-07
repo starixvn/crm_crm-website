@@ -58,6 +58,7 @@
                             $uiBlockerService.unblockUI();
                         });
                 }
+
                 function isFilterChanged() {
                     var titleDetail = $scope.titleDetail;
 
@@ -65,8 +66,10 @@
                         _searchCriteria.Site !== titleDetail.Sites ||
                         _searchCriteria.TypeAccount !== titleDetail.TypeAccount ||
                         _searchCriteria.Level !== titleDetail.Positions ||
-                        _searchCriteria.ExcludeIgnoredAccounts !== titleDetail.ExcludeIgnoredAccounts;
+                        _searchCriteria.ExcludeIgnoredAccounts !== titleDetail.ExcludeIgnoredAccounts ||
+                        _searchCriteria.IsVip !== titleDetail.IsVip;
                 }
+
                 function createCurrencyDropdownSettings(sourceData, currencyIds) {
                     $scope.currencyDropdownSettings = {
                         sourceData: sourceData,
@@ -117,7 +120,9 @@
                     $uiBlockerService.blockUI();
                     createPositionDropdownSettings(updateInformService.getPositions(), $scope.titleDetail.Positions);
                     $scope.vipSetting = updateInformService.getVips();
-                    $scope.selectedVip = $scope.vipSetting[0];
+
+                    var index = $scope.vipSetting.findIndex(item => item.Id === $scope.titleDetail.IsVip);
+                    $scope.selectedVip = $scope.vipSetting[index > -1 ? index : 0];
                     updateInformService.getAllSettings()
                         .then(function (data) {
                             var allSetting = data.Result;
@@ -135,10 +140,9 @@
                                 $scope.titleDetail.TypeAccount === BOTH_ACCOUNT_TYPE;
 
                             $timeout($scope.getInforms, 2000);
-                        },
-                            function () {
-                                $uiBlockerService.unblockUI();
-                            });
+                        }, function () {
+                            $uiBlockerService.unblockUI();
+                        });
                 }
 
                 function refreshSearchCriteria() {
@@ -186,6 +190,7 @@
                         Params: _searchCriteria
                     };
                 };
+
                 $scope.getInforms = function () {
                     refreshSearchCriteria();
 
@@ -204,13 +209,13 @@
                             $scope.listData = data.Result.Items;
                             $scope.showSaveButton = data.Result.Items.length > 0;
                             $uiBlockerService.unblockUI();
-                        },
-                            function () {
-                                $scope.listData = null;
-                                $scope.showSaveButton = false;
-                                $uiBlockerService.unblockUI();
-                            });
+                        }, function () {
+                            $scope.listData = null;
+                            $scope.showSaveButton = false;
+                            $uiBlockerService.unblockUI();
+                        });
                 };
+
                 $scope.updateInforms = function () {
                     refreshSearchCriteria();
                     var title = $scope.titleDetail.Title;
@@ -232,6 +237,14 @@
                         }
                     }
 
+                    var totalItems = $scope.listData !== null ? $scope.listData.length : 0;
+                    for (var i = 0; i < totalItems; i++) {
+                        var index = items.findIndex(x => x.HeadlineId === $scope.listData[i].HeadlineId);
+                        if (index === -1) {
+                            items.push($scope.listData[i]);
+                        }
+                    }
+
                     _searchCriteria.Title = title.trim();
                     _searchCriteria.Informs = items;
                     _searchCriteria.ChangeFilter = isFilterChanged();
@@ -245,32 +258,30 @@
                                 });
                             }, sharedScriptManager.cachedData.alertSuccessTime);
                             $uiBlockerService.unblockUI();
-                        },
-                            function () {
-                                $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
-                                setTimeout(function () {
-                                    $scope.$apply(function () {
-                                        $scope.messageResultOptions.IsShowMessage = false;
-                                    });
-                                }, sharedScriptManager.cachedData.alertSuccessTime);
-                                $uiBlockerService.unblockUI();
-                            });
+                        }, function () {
+                            $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
+                            setTimeout(function () {
+                                $scope.$apply(function () {
+                                    $scope.messageResultOptions.IsShowMessage = false;
+                                });
+                            }, sharedScriptManager.cachedData.alertSuccessTime);
+                            $uiBlockerService.unblockUI();
+                        });
                 };
+
                 $scope.updateInformStatus = function (titleId, status) {
                     $uiBlockerService.blockUI();
 
                     updateInformService.updateInformStatus({
                         titleId: titleId,
                         statusType: status.toString() === "1" // false : Open, true: Close
-                    })
-                        .then(function (data) {
-                            if (data.Result.Code > 0) {
-                                handleUpdateFailed();
-                            } else {
-                                $scope.getDirectAccounts();
-                            }
-                        },
-                            handleUpdateFailed);
+                    }).then(function (data) {
+                        if (data.Result.Code > 0) {
+                            handleUpdateFailed();
+                        } else {
+                            $scope.getDirectAccounts();
+                        }
+                    }, handleUpdateFailed);
                 };
 
                 // New inform cases popup
@@ -280,15 +291,13 @@
                     updateInformService.updateInformStatus({
                         titleId: titleId,
                         statusType: status.toString() === "1" // false : Open, true: Close
-                    })
-                        .then(function (data) {
-                            if (data.Result.Code > 0) {
-                                handleUpdateFailed();
-                            } else {
-                                $scope.getDirectAccounts();
-                            }
-                        },
-                            handleUpdateFailed);
+                    }).then(function (data) {
+                        if (data.Result.Code > 0) {
+                            handleUpdateFailed();
+                        } else {
+                            $scope.getDirectAccounts();
+                        }
+                    }, handleUpdateFailed);
                 };
 
                 angular.element(document).ready(function () {

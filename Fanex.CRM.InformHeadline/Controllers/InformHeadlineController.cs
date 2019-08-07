@@ -1,10 +1,12 @@
 ﻿namespace Fanex.CRM.InformHeadline.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Web;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Services;
@@ -59,7 +61,7 @@
             IEnumerable<InformHeadline> informHeadlines = _informHeadlineService.GetInforms(criteria);
             byte[] bytes = exportInformHeadlineService.Export(informHeadlines);
 
-            return File(bytes, "application/vnd.ms-excel", "InformHeadlines.xls");
+            return File(bytes, MimeType.XLS, "InformHeadlines.xls");
         }
 
         [HttpPost]
@@ -85,7 +87,7 @@
         [HttpPost]
         public ActionResult GetNewInforms(GetNewInformsCriteria criteria)
         {
-            var data = _informHeadlineService.GetNewInforms(criteria);
+            IEnumerable<NewInform> data = _informHeadlineService.GetNewInforms(criteria);
             var result = new { Items = data };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -95,7 +97,8 @@
         public ActionResult InsertInforms(InsertInformHeadlineCriteria criteria)
         {
             criteria.Title = HttpUtility.HtmlEncode(criteria.Title);
-            return Json(_informHeadlineService.InsertInformHeadline(criteria), JsonRequestBehavior.DenyGet);
+            CommandResult commandResult = _informHeadlineService.InsertInformHeadline(criteria);
+            return Json(commandResult, JsonRequestBehavior.DenyGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
@@ -105,7 +108,7 @@
             IEnumerable<InformStatus> informStatuses = _informHeadlineService.GetInformStatuses();
             byte[] bytes = exportInformHeadlineService.ExportNewInform(criteria.Title, informHeadlines, informStatuses);
 
-            return File(bytes, "application/vnd.ms-excel", "NewInformHeadlines.xls");
+            return File(bytes, MimeType.XLS, "NewInformHeadlines.xls");
         }
 
         #endregion New Inform
@@ -124,7 +127,7 @@
         [HttpPost]
         public ActionResult GetUpdateInforms(GetUpdateInformsCriteria criteria)
         {
-            var data = _informHeadlineService.GetUpdateInforms(criteria);
+            IEnumerable<UpdateInform> data = _informHeadlineService.GetUpdateInforms(criteria);
             var result = new { Items = data };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -139,14 +142,15 @@
             IEnumerable<Station> stations = _informHeadlineService.GetStations();
             byte[] bytes = exportInformHeadlineService.ExportUpdateInform(title.Title, informHeadlines, informStatuses, productStatuses, stations);
 
-            return File(bytes, "application/vnd.ms-excel", "UpdateInformHeadlines.xls");
+            return File(bytes, MimeType.XLS, "UpdateInformHeadlines.xls");
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Host)]
         public ActionResult UpdateContentInforms(UpdateContentInformHeadlineCriteria criteria)
         {
-            return Json(_informHeadlineService.UpdateContentInformHeadline(criteria), JsonRequestBehavior.DenyGet);
+            CommandResult commandResult = _informHeadlineService.UpdateContentInformHeadline(criteria);
+            return Json(commandResult, JsonRequestBehavior.DenyGet);
         }
 
         [HttpPost]
@@ -154,7 +158,8 @@
         public ActionResult UpdateInforms(UpdateInformHeadlineCriteria criteria)
         {
             criteria.Title = HttpUtility.HtmlEncode(criteria.Title);
-            return Json(_informHeadlineService.UpdateInformHeadline(criteria), JsonRequestBehavior.DenyGet);
+            CommandResult commandResult = _informHeadlineService.UpdateInformHeadline(criteria);
+            return Json(commandResult, JsonRequestBehavior.DenyGet);
         }
 
         #endregion Update Inform
@@ -175,7 +180,7 @@
         [HttpPost]
         public ActionResult GetContactInforms(GetContactInformsCriteria criteria)
         {
-            var data = _informHeadlineService.GetContactInforms(criteria);
+            IEnumerable<UpdateInform> data = _informHeadlineService.GetContactInforms(criteria);
             var result = new { Items = data };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -190,7 +195,7 @@
             IEnumerable<Station> stations = _informHeadlineService.GetStations();
             byte[] bytes = exportInformHeadlineService.ExportUpdateInform(title.Title, informHeadlines, informStatuses, productStatuses, stations);
 
-            return File(bytes, "application/vnd.ms-excel", "ContactInformHeadlines.xls");
+            return File(bytes, MimeType.XLS, "ContactInformHeadlines.xls");
         }
 
         #endregion Contact Informs
@@ -224,15 +229,15 @@
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         public JsonResult GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria)
         {
-            IEnumerable<RemovedAccountLog> logs = _informHeadlineService.GetRemovedAccountLogs(criteria);
-            return Json(logs, JsonRequestBehavior.AllowGet);
+            Tuple<IEnumerable<RemovedAccountLog>, int> logs = _informHeadlineService.GetRemovedAccountLogs(criteria);
+            return Json(new { Items = logs.Item1, TotalItems = logs.Item2 }, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         public ActionResult GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria)
         {
-            IEnumerable<RemovedAccountLogDetails> logs = _informHeadlineService.GetRemovedAccountLogDetails(criteria);
-            return Json(logs, JsonRequestBehavior.AllowGet);
+            Tuple<IEnumerable<RemovedAccountLogDetails>, int> logs = _informHeadlineService.GetRemovedAccountLogDetails(criteria);
+            return Json(new { Items = logs.Item1, TotalItems = logs.Item2 }, JsonRequestBehavior.AllowGet);
         }
     }
 }

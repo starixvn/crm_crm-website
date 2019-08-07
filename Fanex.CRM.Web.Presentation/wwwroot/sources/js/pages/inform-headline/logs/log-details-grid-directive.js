@@ -69,7 +69,7 @@
                     itemsPerPage: scope.pagerOption.itemsPerPage,
                     itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                     currentPage: scope.pagerOption.pageIndex,
-                    totalItem: scope.dataSources.length,
+                    totalItem: scope.totalItems,
                     pagerSelectCallBack: function (pageIndex, pageSize) {
                         scope.onPageChange(pageIndex, pageSize);
                     }
@@ -84,6 +84,7 @@
             require: '^ngModel',
             scope: {
                 dataSources: '=ngModel',
+                totalItems: '=',
                 pagerOption: '=',
                 onPageChange: '='
             },

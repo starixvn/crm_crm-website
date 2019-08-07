@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.InformHeadline.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
     using Fanex.CRM.Common.Helpers;
@@ -181,14 +182,16 @@
 
         #endregion Common
 
-        public IEnumerable<RemovedAccountLog> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria)
+        public Tuple<IEnumerable<RemovedAccountLog>, int> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria)
         {
-            return baseService.GetData<RemovedAccountLog>(criteria);
+            IEnumerable<RemovedAccountLog> logs = _informHeadlineRepository.GetRemovedAccountLogs(criteria);
+            return new Tuple<IEnumerable<RemovedAccountLog>, int>(logs, criteria.TotalRows);
         }
 
-        public IEnumerable<RemovedAccountLogDetails> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria)
+        public Tuple<IEnumerable<RemovedAccountLogDetails>, int> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria)
         {
-            return baseService.GetData<RemovedAccountLogDetails>(criteria);
+            IEnumerable<RemovedAccountLogDetails> logs = _informHeadlineRepository.GetRemovedAccountLogDetails(criteria);
+            return new Tuple<IEnumerable<RemovedAccountLogDetails>, int>(logs, criteria.TotalRows);
         }
 
         private static string BuildUpdateInformsXml(IList<UpdateInform> informs)
@@ -202,14 +205,13 @@
             foreach (var item in informs)
             {
                 builder.AppendFormat(
-                    "<Headline HeadlineID = '{0}' GroupID = '{1}' StatusID = '{2}' Remark = '{3}' Extension = '{4}' ProductStatus = '{5}' IsKeep='{6}' />",
-                    item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
+                    "<Headline HeadlineID='{0}' GroupID='{1}' StatusID='{2}' Remark='{3}' Extension='{4}' ProductStatus='{5}' />",
+                    item.HeadlineId,
                     item.GroupId,
                     item.InformHeadlineStatusId,
                     HtmlHelper.ReplaceBreaklineXml(item.Remark),
                     item.Extension,
-                    item.ProductStatus,
-                    item.IsKeep ? 1 : 0);
+                    item.ProductStatus);
             }
 
             return builder.Append("</Content>").ToString();
@@ -226,8 +228,8 @@
             foreach (var item in informs)
             {
                 builder.AppendFormat(
-                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
-                    item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
+                    "<Headline HeadlineID='{0}' StatusID='{1}' Remark='{2}' Extension='{3}' ProductStatus='{4}' />",
+                    item.HeadlineId,
                     item.InformHeadlineStatusId,
                     HtmlHelper.ReplaceBreaklineXml(item.Remark),
                     item.Extension,

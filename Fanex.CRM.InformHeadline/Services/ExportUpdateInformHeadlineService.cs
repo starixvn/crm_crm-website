@@ -22,7 +22,6 @@
 
     public partial class ExportInformHeadlineService : IExportInformHeadlineService
     {
-        private readonly int[] InformSpecialCases = new[] { 1, 5, 12 };
         private readonly int[] UpdateColumnWidths = new[] { 20, 15, 20, 60, 15, 15, 15 };
 
         private readonly string[] UpdateColumnHeaders = new[]
@@ -41,7 +40,6 @@
         private const byte UpdateInformTitleRowIndex = 3;
         private const byte UpdateInformHeaderRowIndex = 4;
         private const byte UpdateInformBodyRowIndex = 5;
-        private const byte UpdateInformUpdatedRowIndex = 5;
         private const byte UpdateInformHeadlineRowIndex = 6;
         private const byte UpdateInformNormalRowIndex = 7;
         private const byte UpdateInformNoDataRowIndex = 8;
@@ -119,12 +117,7 @@
             IEnumerable<Station> stations)
         {
             var colIndex = 1;
-            if (informHeadline.Case > 0)
-            {
-                template.Cells[UpdateInformUpdatedRowIndex, colIndex, UpdateInformUpdatedRowIndex, UpdateInformTotalColumns]
-                    .Copy(worksheet.Cells[rowIndex, colIndex, rowIndex, UpdateInformTotalColumns]);
-            }
-            else if (informHeadline.GroupId > 0)
+            if (informHeadline.GroupId > 0)
             {
                 template.Cells[UpdateInformHeadlineRowIndex, colIndex, UpdateInformHeadlineRowIndex, UpdateInformTotalColumns]
                     .Copy(worksheet.Cells[rowIndex, colIndex, rowIndex, UpdateInformTotalColumns]);
@@ -136,39 +129,17 @@
             }
             var isKeepForReference = informHeadline.InformHeadlineStatusId == KeptForReferenceStatusId;
 
-            var informStatus = string.Empty;
-            if (isKeepForReference)
-            {
-                informStatus = Labels.KeptForReference;
-            }
-            else if (InformSpecialCases.Contains(informHeadline.Case))
-            {
-                informStatus = Labels.KeepThisAccount;
-            }
-            else
-            {
-                informStatus = GetInformStatus(informStatuses, informHeadline.InformHeadlineStatusId);
-            }
+            var informStatus = isKeepForReference ? Labels.KeptForReference : GetInformStatus(informStatuses, informHeadline.InformHeadlineStatusId);
 
             var station = isKeepForReference ? Labels.KeptForReference : GetStation(stations, informHeadline.Extension);
             var productStatus = isKeepForReference ? Labels.KeptForReference : GetProductStatus(productStatuses, informHeadline.ProductStatus);
-            worksheet.Cells[rowIndex, colIndex++].Value = GetUsername(informHeadline);
+            worksheet.Cells[rowIndex, colIndex++].Value = informHeadline.UserName;
             worksheet.Cells[rowIndex, colIndex++].Value = informStatus;
             worksheet.Cells[rowIndex, colIndex++].Value = string.Format("{0:MMM dd, yyyy}", informHeadline.ClientUpdatedTime);
             worksheet.Cells[rowIndex, colIndex++].Value = HttpUtility.HtmlDecode(informHeadline.Remark);
             worksheet.Cells[rowIndex, colIndex++].Value = informHeadline.Handler;
             worksheet.Cells[rowIndex, colIndex++].Value = station;
             worksheet.Cells[rowIndex, colIndex].Value = productStatus;
-        }
-
-        private string GetUsername(UpdateInform informHeadline)
-        {
-            if (!string.IsNullOrEmpty(informHeadline.UserName))
-            {
-                return informHeadline.UserName;
-            }
-
-            return InformSpecialCases.Contains(informHeadline.Case) ? informHeadline.OldUserName : informHeadline.NewUserName;
         }
 
         private static string GetInformStatus(IEnumerable<InformStatus> informStatuses, int id)
