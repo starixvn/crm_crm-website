@@ -38,8 +38,8 @@
                         HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                     },
                     {
-                        HeaderText: viewResources.EditedBy, Width: 100, Name: 'EditedBy',
-                        HeaderAlign: 'center', CellAlign: 'center'
+                        HeaderText: viewResources.EditedBy, Width: 100, MaxResizeWidth: 200, Name: 'EditedBy',
+                        HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                     },
                     {
                         HeaderText: viewResources.NumberOfRemovedEditedAccounts, Width: 150, Name: 'Totals',
