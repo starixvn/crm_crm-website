@@ -216,26 +216,8 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
-  <data name="ChangedHeadlineCase1" xml:space="preserve">
-    <value>Direct account (A) is now inactive.</value>
-  </data>
-  <data name="ChangedHeadlineCase2" xml:space="preserve">
-    <value>Direct account (A) is now active.</value>
-  </data>
-  <data name="ChangedHeadlineCase3" xml:space="preserve">
-    <value>This group headline is changed from (A) to (B).</value>
-  </data>
-  <data name="ChangedHeadlineCase4" xml:space="preserve">
-    <value>This direct account (A) is now headline.</value>
-  </data>
-  <data name="ChangedHeadlineCase5" xml:space="preserve">
-    <value>Direct account (A) is now inactive.</value>
-  </data>
   <data name="KeptForReference" xml:space="preserve">
     <value>Kept for reference</value>
-  </data>
-  <data name="KeepThisAccount" xml:space="preserve">
-    <value>Keep this account</value>
   </data>
   <data name="EditNumberOfAccounts" xml:space="preserve">
     <value>Edit Number of Accounts</value>

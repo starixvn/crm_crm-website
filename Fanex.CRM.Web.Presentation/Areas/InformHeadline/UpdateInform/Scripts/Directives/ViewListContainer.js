@@ -55,46 +55,7 @@
             return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
         }
 
-        function getDescriptionCase(dataItem, caseId) {
-            var message = viewResources['ChangedHeadlineCase' + caseId];
-            switch (parseInt(caseId)) {
-                case 1:
-                case 5:
-                    {
-                        message = message.replace('(A)', dataItem.OldUserName || dataItem.UserName);
-                        break;
-                    }
-                case 2:
-                case 4:
-                    {
-                        message = message.replace('(A)', dataItem.NewUserName || dataItem.UserName);
-                        break;
-                    }
-                case 3:
-                    {
-                        message = message.replace('(A)', dataItem.OldUserName);
-                        message = message.replace('(B)', dataItem.NewUserName);
-                        break;
-                    }
-                default:
-                    break;
-            }
-
-            return message;
-        }
-
-        function addTooltip(e) {
-            var $target = angular.element(e.target);
-            var rowIndex = parseInt($target.closest("tr").data("rowindex"));
-            var caseId = $target.data("case");
-            var message = getDescriptionCase(_selfScope.dataSource[rowIndex], caseId);
-
-            $target.attr("data-original-title", message).tooltip({ placement: "right" }).tooltip("show");
-            $target.unbind("hover", addTooltip);
-        }
-
         function loadCompleted($table) {
-            $table.find(".description-tooltip").hover(addTooltip);
             $("textarea").each(function () {
                 $(this).height(this.scrollHeight);
             });
@@ -159,12 +120,7 @@
                     { HeaderText: viewResources.ProductStatus, Width: 110, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
                 bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
-                numberOfFrozenColumn: 0,
                 fullWidth: true,
-                showDistinctRow: false,
-                showHighlightRow: true,
-                showTree: true,
-                treeParentPaddingLeft: 5,
                 headerColumnHeight: 29,
                 bodyRowHeight: 20,
                 gridExpandHeight: 250,

@@ -19,7 +19,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -57,51 +57,6 @@ namespace Fanex.CRM.InformHeadline.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Direct account (A) is now inactive..
-        /// </summary>
-        public static string ChangedHeadlineCase1 {
-            get {
-                return ResourceManager.GetString("ChangedHeadlineCase1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Direct account (A) is now active..
-        /// </summary>
-        public static string ChangedHeadlineCase2 {
-            get {
-                return ResourceManager.GetString("ChangedHeadlineCase2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This group headline is changed from (A) to (B)..
-        /// </summary>
-        public static string ChangedHeadlineCase3 {
-            get {
-                return ResourceManager.GetString("ChangedHeadlineCase3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This direct account (A) is now headline..
-        /// </summary>
-        public static string ChangedHeadlineCase4 {
-            get {
-                return ResourceManager.GetString("ChangedHeadlineCase4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Direct account (A) is now inactive..
-        /// </summary>
-        public static string ChangedHeadlineCase5 {
-            get {
-                return ResourceManager.GetString("ChangedHeadlineCase5", resourceCulture);
             }
         }
         
@@ -228,15 +183,6 @@ namespace Fanex.CRM.InformHeadline.Resources {
         public static string InternalAccount {
             get {
                 return ResourceManager.GetString("InternalAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keep this account.
-        /// </summary>
-        public static string KeepThisAccount {
-            get {
-                return ResourceManager.GetString("KeepThisAccount", resourceCulture);
             }
         }
         

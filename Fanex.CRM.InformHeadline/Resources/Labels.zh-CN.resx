@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangedHeadlineCase1" xml:space="preserve">
-    <value>Direct account (A) is now inactive.</value>
-  </data>
-  <data name="ChangedHeadlineCase2" xml:space="preserve">
-    <value>Direct account (A) is now active.</value>
-  </data>
-  <data name="ChangedHeadlineCase3" xml:space="preserve">
-    <value>This group headline is changed from (A) to (B).</value>
-  </data>
-  <data name="ChangedHeadlineCase4" xml:space="preserve">
-    <value>This direct account (A) is now headline.</value>
-  </data>
-  <data name="ChangedHeadlineCase5" xml:space="preserve">
-    <value>Direct account (A) is now inactive.</value>
-  </data>
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
@@ -173,9 +158,6 @@
   </data>
   <data name="InternalAccount" xml:space="preserve">
     <value>Internal account</value>
-  </data>
-  <data name="KeepThisAccount" xml:space="preserve">
-    <value>Keep this account</value>
   </data>
   <data name="KeptForReference" xml:space="preserve">
     <value>Kept for reference</value>

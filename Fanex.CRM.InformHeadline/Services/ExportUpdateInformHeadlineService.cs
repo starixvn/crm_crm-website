@@ -127,19 +127,14 @@
                 template.Cells[UpdateInformNormalRowIndex, colIndex, UpdateInformNormalRowIndex, UpdateInformTotalColumns]
                     .Copy(worksheet.Cells[rowIndex, colIndex, rowIndex, UpdateInformTotalColumns]);
             }
-            var isKeepForReference = informHeadline.InformHeadlineStatusId == KeptForReferenceStatusId;
 
-            var informStatus = isKeepForReference ? Labels.KeptForReference : GetInformStatus(informStatuses, informHeadline.InformHeadlineStatusId);
-
-            var station = isKeepForReference ? Labels.KeptForReference : GetStation(stations, informHeadline.Extension);
-            var productStatus = isKeepForReference ? Labels.KeptForReference : GetProductStatus(productStatuses, informHeadline.ProductStatus);
             worksheet.Cells[rowIndex, colIndex++].Value = informHeadline.UserName;
-            worksheet.Cells[rowIndex, colIndex++].Value = informStatus;
+            worksheet.Cells[rowIndex, colIndex++].Value = GetInformStatus(informStatuses, informHeadline.InformHeadlineStatusId);
             worksheet.Cells[rowIndex, colIndex++].Value = string.Format("{0:MMM dd, yyyy}", informHeadline.ClientUpdatedTime);
             worksheet.Cells[rowIndex, colIndex++].Value = HttpUtility.HtmlDecode(informHeadline.Remark);
             worksheet.Cells[rowIndex, colIndex++].Value = informHeadline.Handler;
-            worksheet.Cells[rowIndex, colIndex++].Value = station;
-            worksheet.Cells[rowIndex, colIndex].Value = productStatus;
+            worksheet.Cells[rowIndex, colIndex++].Value = GetStation(stations, informHeadline.Extension);
+            worksheet.Cells[rowIndex, colIndex].Value = GetProductStatus(productStatuses, informHeadline.ProductStatus);
         }
 
         private static string GetInformStatus(IEnumerable<InformStatus> informStatuses, int id)
