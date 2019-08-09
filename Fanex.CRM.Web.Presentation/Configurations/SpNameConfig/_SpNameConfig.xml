@@ -2,17 +2,17 @@
 <Root>
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
   
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_CommunicationLogIns" EnvironmentText="_uat3"></SpNameConfig>
   
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_CustomerRemarkUpd" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_CustomerUpdateBasicInfo" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_CustomerInformationVerify" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_CustomerRemarkUpd" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_CustomerUpdateBasicInfo" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_CustomerInformationVerify" EnvironmentText="_uat3"></SpNameConfig>
 
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineIns" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineSearchSel" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineSearchUpd" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformTitleDetail" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineHistorySel" EnvironmentText="_uat3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL, DEV" SpName="Acc_CRM_InformHeadlineLogSel" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineIns" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineSearchSel" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineSearchUpd" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineSel" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformTitleDetail" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineHistorySel" EnvironmentText="_uat3"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineLogSel" EnvironmentText="_uat3"></SpNameConfig>
 </Root>
