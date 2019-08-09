@@ -7,6 +7,7 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.InformHeadline.Criteria;
+    using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.InformHeadline.Resources;
@@ -53,6 +54,13 @@
         public CommandResult UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
             return baseService.ExecuteNonQuery(criteria);
+        }
+
+        public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
+        {
+            var data = baseService.GetData<InformHeadline>(criteria);
+
+            return new InformHeadlineExcel(data, fileName);
         }
 
         #endregion Inform headline list
@@ -102,6 +110,13 @@
             };
         }
 
+        public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
+        {
+            var data = baseService.GetData<NewInform>(criteria);
+
+            return new NewInformHeadlineExcel(criteria.Title, data, fileName);
+        }
+
         #endregion New Inform headline
 
         #region Update Inform headline
@@ -123,6 +138,16 @@
             return baseService.ExecuteNonQuery(criteria);
         }
 
+        public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
+        {
+            var data = baseService.GetData<UpdateInform>(criteria);
+            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
+            {
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
+        }
+
         #endregion Update Inform headline
 
         #region Contact Inform headline
@@ -142,6 +167,17 @@
                 ProductStatuses = GetProductStatuses(),
                 Stations = GetStations()
             };
+        }
+
+        public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
+        {
+            criteria.UserName = criteria.UserName ?? string.Empty;
+            var data = baseService.GetData<UpdateInform>(criteria);
+            var titleDetail = baseService.GetDataEntity<TitleDetail>(new GetTitleDetailCriteria
+            {
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
         }
 
         #endregion Contact Inform headline

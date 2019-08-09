@@ -1568,8 +1568,6 @@
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
-    <Content Include="ExcelTemplates\UpdateInformHeadline.xlsx" />
-    <Content Include="ExcelTemplates\InformHeadline.xlsx" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.eot" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.ttf" />

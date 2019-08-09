@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.InformHeadline.Criteria;
+    using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.Setting.Models;
 
@@ -40,5 +41,13 @@
         Tuple<IEnumerable<RemovedAccountLog>, int> GetRemovedAccountLogs(GetRemovedAccountLogsCriteria criteria);
 
         Tuple<IEnumerable<RemovedAccountLogDetails>, int> GetRemovedAccountLogDetails(GetRemovedAccountLogDetailsCriteria criteria);
+
+        InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
+
+        NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName);
+
+        UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName);
+
+        UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName);
     }
 }
