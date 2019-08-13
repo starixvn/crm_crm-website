@@ -1,6 +1,7 @@
-﻿(function () {
-    "use strict";
-    angular.module('feedback-manage-application').directive('numberOnlyInput', function () {
+﻿(function (angular) {
+    'use strict';
+
+    angular.module('manageFeedbackModule').directive('numberOnlyInput', function () {
         return {
             restrict: 'A',
             template: '<input type="text" id="{{inputId}}" class="{{inputClass}}" ng-model="inputValue" />',
@@ -24,4 +25,4 @@
             }
         };
     });
-})();
+})(angular);

@@ -26,10 +26,7 @@
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Feedbacks/ManageFeedback/Scripts/ManageFeedbackApplication.js",
-                "~/Areas/Feedbacks/ManageFeedback/Scripts/ManageFeedbackController.js",
-                "~/Areas/Feedbacks/ManageFeedback/Scripts/ManageFeedbackService.js",
-                "~/Areas/Feedbacks/ManageFeedback/Scripts/Directives/*.js"));
+                "~/wwwroot/dist/js/manage.feedback.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles",

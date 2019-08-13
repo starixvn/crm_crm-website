@@ -572,11 +572,6 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_updateSite.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
@@ -605,12 +600,21 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
+    <Content Include="wwwroot\dist\js\manage.feedback.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
     <Content Include="wwwroot\dist\styles\inform.headline.js" />
     <Content Include="wwwroot\dist\styles\main.css" />
     <Content Include="wwwroot\dist\styles\main.js" />
+    <Content Include="wwwroot\dist\styles\manage.feedback.css" />
+    <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\number-input-directive.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-controller.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\inform-headline-factory.js" />
@@ -1572,6 +1576,9 @@
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff2" />
     <Content Include="wwwroot\dist\js\inform.headline.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\manage-feedback.scss" />
+    <Content Include="wwwroot\dist\js\manage.feedback.js.map" />
+    <Content Include="wwwroot\dist\styles\manage.feedback.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
