@@ -1,22 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="PermissionService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Services
+﻿namespace Fanex.CRM.Common.Services
 {
     using Fanex.NAP.Core.Business;
     using NAP.Core.Configuration;
     using NAP.Core.Service.Impl;
     using NAP.Core.Service.Interface;
 
-    /// <summary>
-    /// Permission Service.
-    /// </summary>
     public class PermissionService : IPermissionService
     {
         private readonly IUserService _userService;

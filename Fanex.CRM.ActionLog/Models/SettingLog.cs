@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SettingLog.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
-// </history>
-
-namespace Fanex.CRM.ActionLog.Models
+﻿namespace Fanex.CRM.ActionLog.Models
 {
     using System;
 
-    /// <summary>
-    /// Setting Log model.
-    /// </summary>
     [Serializable]
     public class SettingLog : ActionLog
     {

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateLogCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Redemption.Criteria
+﻿namespace Fanex.CRM.Redemption.Criteria
 {
     using System;
     using System.Collections;
@@ -15,9 +6,6 @@ namespace Fanex.CRM.Redemption.Criteria
     using Fanex.CRM.Common.Extensions;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update Log Criteria.
-    /// </summary>
     public class UpdateLogCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "Id")]
@@ -44,10 +32,6 @@ namespace Fanex.CRM.Redemption.Criteria
         [SpParam(SqlParamName = "amount")]
         public decimal Amount { get; set; }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();

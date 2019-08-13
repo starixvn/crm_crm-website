@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetSettingLogCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
-// </history>
-
-using System;
-using Fanex.CRM.Common.Criteria;
-using Fanex.Data.Repository;
-
-namespace Fanex.CRM.ActionLog.Criteria
+﻿namespace Fanex.CRM.ActionLog.Criteria
 {
-    /// <summary>
-    /// Get Setting Log criteria.
-    /// </summary>
+    using System;
+    using Fanex.CRM.Common.Criteria;
+    using Fanex.Data.Repository;
+
     public class GetSettingLogCriteria : BasedCriteria
     {
         public string Username { get; set; }

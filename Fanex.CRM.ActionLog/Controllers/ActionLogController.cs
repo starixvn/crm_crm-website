@@ -1,25 +1,13 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ActionLogController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
-// </history>
-
-namespace Fanex.CRM.ActionLog.Controllers
+﻿namespace Fanex.CRM.ActionLog.Controllers
 {
+    using System.Web.Mvc;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using System.Web.Mvc;
 
-    /// <summary>
-    /// ActionLog Controller controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class ActionLogController : ReadOnlyBaseController
     {
@@ -41,11 +29,6 @@ namespace Fanex.CRM.ActionLog.Controllers
             return View("~/Areas/ActionLog/ActivityLog/Index.cshtml", customerId);
         }
 
-        /// <summary>
-        /// Gets the activity log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
@@ -70,11 +53,6 @@ namespace Fanex.CRM.ActionLog.Controllers
             return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
         }
 
-        /// <summary>
-        /// Gets the setting log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)

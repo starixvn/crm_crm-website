@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ActionLog.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
-// </history>
-
-namespace Fanex.CRM.ActionLog.Models
+﻿namespace Fanex.CRM.ActionLog.Models
 {
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Common.Helpers;
 
-    /// <summary>
-    /// Action Log class.
-    /// </summary>
     [Serializable]
     public class ActionLog
     {
@@ -28,9 +16,9 @@ namespace Fanex.CRM.ActionLog.Models
 
         public DateTime LogDate { get; set; }
 
-        public string LogDateString 
+        public string LogDateString
         {
-            get 
+            get
             {
                 return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(LogDate);
             }

@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateRemarkCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Remark.Criteria
+﻿namespace Fanex.CRM.Remark.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update remarks criteria.
-    /// </summary>
     public class UpdateRemarkCriteria : CriteriaBase
     {
         public int CustId { get; set; }

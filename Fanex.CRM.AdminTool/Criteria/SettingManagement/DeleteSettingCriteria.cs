@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeleteSettingCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
+﻿namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
     using System.Collections;
     using Fanex.CRM.Common.Criteria;
@@ -16,9 +6,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Delete Setting Criteria.
-    /// </summary>
     public class DeleteSettingCriteria : BasedUpdateCriteria
     {
         public Setting OldSetting { get; set; }
@@ -32,10 +19,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
             }
         }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();

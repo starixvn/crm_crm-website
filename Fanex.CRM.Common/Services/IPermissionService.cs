@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IPermissionService.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Common.Services
+﻿namespace Fanex.CRM.Common.Services
 {
     using Fanex.NAP.Core.Business;
 

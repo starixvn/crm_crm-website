@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RemarkController.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.02.10">Created</change>
-// </history>
-
-namespace Fanex.CRM.Remark.Controllers
+﻿namespace Fanex.CRM.Remark.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
@@ -18,9 +9,6 @@ namespace Fanex.CRM.Remark.Controllers
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    /// <summary>
-    /// Remark controller.
-    /// </summary>
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class RemarkController : ReadOnlyBaseController
     {
@@ -35,7 +23,7 @@ namespace Fanex.CRM.Remark.Controllers
         {
             _remarkService = remarkService ?? new RemarkService();
         }
-        
+
         [HttpGet]
         public ActionResult Index(int customerId)
         {
