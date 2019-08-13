@@ -1,22 +1,22 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('informHeadlineApplication').directive('logDetailsGrid', logDetailsGrid);
+    angular.module('informHeadlineModule').directive('logDetailsGrid', logDetailsGrid);
     logDetailsGrid.$inject = [];
 
     function logDetailsGrid() {
         function generateBodyRows(scope) {
-            var rows = [];
-            var totalItems = scope.dataSources.length;
+            let rows = [];
+            const totalItems = scope.dataSources.length;
 
             for (var i = 0; i < totalItems; i++) {
-                var item = scope.dataSources[i];
+                const item = scope.dataSources[i];
                 rows.push({
                     Columns: [
                         { Name: 'DirectAccount', Value: item.DirectAccount },
                         { Name: 'Status', Value: item.Status },
                         { Name: 'UpdatedTime', Value: item.ClientUpdatedTime },
-                        { Name: 'Remark', Value: item.Remark },
+                        { Name: 'Remark', Value: item.Remark, CssClass: 'remark-cell' },
                         { Name: 'Handler', Value: item.Handler },
                         { Name: 'Extension', Value: item.Extension },
                         { Name: 'ProductStatus', Value: item.ProductStatus }
@@ -34,7 +34,7 @@
 
             $(element).empty();
 
-            var gridOptions = {
+            const gridOptions = {
                 columns: [
                     {
                         HeaderText: viewResources.DirectAccount, Width: 100, MaxResizeWidth: 200, Name: 'DirectAccount',
@@ -44,14 +44,8 @@
                         HeaderText: viewResources.Status, Width: 80, MaxResizeWidth: 120, Name: 'Status',
                         HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                     },
-                    {
-                        HeaderText: viewResources.UpdatedTime, Width: 100, Name: 'UpdatedTime',
-                        HeaderAlign: 'center', CellAlign: 'center', FormatDateTime: 'MMM DD, YYYY hh:mm:ss A'
-                    },
-                    {
-                        HeaderText: viewResources.Remark, Width: 200, MaxResizeWidth: 300, Name: 'Remark',
-                        HeaderAlign: 'center', CellAlign: 'left', CanResize: true
-                    },
+                    { HeaderText: viewResources.ClientUpdatedTime, Width: 100, Name: 'UpdatedTime', HeaderAlign: 'center', CellAlign: 'center' },
+                    { HeaderText: viewResources.Remark, Width: 300, Name: 'Remark', HeaderAlign: 'center', CellAlign: 'left' },
                     {
                         HeaderText: viewResources.Handler, Width: 100, MaxResizeWidth: 200, Name: 'Handler',
                         HeaderAlign: 'center', CellAlign: 'center', CanResize: true

@@ -1,8 +1,6 @@
 ﻿namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class FeedbackBundles
     {
@@ -33,8 +31,7 @@
                 "~/Areas/Feedbacks/ManageFeedback/Scripts/ManageFeedbackService.js",
                 "~/Areas/Feedbacks/ManageFeedback/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -71,8 +68,8 @@
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_HotkeyFunctions.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/Directives/*.js"));
-            AddAndInclude(
-               bundles,
+
+            bundles.AddAndInclude(
                "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles",
                "~/Areas/Feedbacks/AddCustomerFeedback/Styles/AddCustomerFeedback.less");
         }
@@ -105,8 +102,8 @@
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_HotkeyFunctions.js",
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController.js",
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/Directives/*.js"));
-            AddAndInclude(
-               bundles,
+
+            bundles.AddAndInclude(
                "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackStyles",
                "~/Areas/Feedbacks/AddGuestFeedback/Styles/AddGuestFeedback.less");
         }
@@ -122,8 +119,7 @@
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles",
                 "~/Scripts/Tipsy-Tooltip/tipsy.css",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
@@ -145,8 +141,7 @@
                 "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackService.js",
                 "~/Areas/Feedbacks/DeletedFeedback/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -156,8 +151,7 @@
 
         private static void RegisterUpdateCustomerFeedbackBundles(BundleCollection bundles)
         {
-            AddAndInclude(
-               bundles,
+            bundles.AddAndInclude(
                "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles",
                "~/Areas/Feedbacks/UpdateCustomerFeedback/Styles/Styles.less");
 
@@ -202,8 +196,7 @@
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/CreateMultipleLogsStyles",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Styles/CreateMultipleLogs.less");
         }
@@ -226,8 +219,7 @@
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsController.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/EditMultipleLogsStyles",
                 "~/Areas/Feedbacks/EditMultipleLogs/Styles/EditMultipleLogs.less");
         }
@@ -247,19 +239,9 @@
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesController.js",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Feedbacks/EditMultipleLogStatusesStyles",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Styles/EditMultipleLogStatuses.less");
-        }
-
-        private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
-        {
-            bundles.Add(new Bundle(bundleVirtualPath)
-            {
-                Transforms = { new StyleTransformer(), new CssMinify() },
-                Orderer = new NullOrderer()
-            }.Include(virtualPaths));
         }
     }
 }

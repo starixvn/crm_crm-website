@@ -51,7 +51,7 @@
             function pageSelected(page_id, evt) {
                 currentPage = page_id;
                 //drawLinks();
-                var continuePropagation = opts.callback(page_id, opts.itemsPerPage, panel);
+                var continuePropagation = opts.callback(parseInt(page_id), parseInt(opts.itemsPerPage), panel);
                 if (!continuePropagation) {
                     if (evt.stopPropagation) {
                         evt.stopPropagation();
@@ -246,7 +246,7 @@
                 opts.itemsPerPage = $(obj).val();
                 drawLinks();
                 //alert(opts.currentPage);
-                opts.callback(opts.currentPage, opts.itemsPerPage, this);
+                opts.callback(parseInt(opts.currentPage), parseInt(opts.itemsPerPage), this);
             }
             // Extract currentPage from options
             var currentPage = opts.currentPage;

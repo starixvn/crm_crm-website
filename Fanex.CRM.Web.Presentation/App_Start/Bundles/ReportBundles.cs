@@ -1,8 +1,6 @@
 ﻿namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class ReportBundles
     {
@@ -17,8 +15,7 @@
 
         private static void RegisterFeedbackStatisticBundles(BundleCollection bundles)
         {
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/bundles/Report/FeedbackStatisticStyles",
                 "~/Areas/Report/FeedbackStatistics/Styles/styles.less");
 
@@ -36,8 +33,7 @@
 
         private static void RegisterFeedbackStatisticDetailBundles(BundleCollection bundles)
         {
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/bundles/Report/FeedbackStatisticDetailStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -58,8 +54,7 @@
 
         private static void RegisterLogStatisticsBundles(BundleCollection bundles)
         {
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/bundles/Report/LogStatisticsStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -84,8 +79,7 @@
 
         private static void RegisterDeletedFeedbackStatisticsBundles(BundleCollection bundles)
         {
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/bundles/Report/DeletedFeedbackStatisticsStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -100,18 +94,6 @@
                 "~/Areas/Report/DeletedFeedbackStatistics/Scripts/DeletedFeedbackStatisticsService.js",
                 "~/Areas/Report/DeletedFeedbackStatistics/Scripts/DeletedFeedbackStatisticsController.js",
                 "~/Areas/Report/DeletedFeedbackStatistics/Scripts/Directives/*.js"));
-        }
-
-        private static void AddAndInclude(
-            BundleCollection bundles,
-            string bundleVirtualPath,
-            params string[] virtualPaths)
-        {
-            bundles.Add(new Bundle(bundleVirtualPath)
-            {
-                Transforms = { new StyleTransformer(), new CssMinify() },
-                Orderer = new NullOrderer()
-            }.Include(virtualPaths));
         }
     }
 }

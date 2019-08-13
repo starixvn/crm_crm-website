@@ -1,6 +1,5 @@
 ﻿@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 ﻿@using Fanex.CRM.InformHeadline.Resources;
-@using Fanex.CRM.Common.Extensions;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.InformHeadlines;
@@ -8,67 +7,64 @@
 @section Styles{
     <link rel="stylesheet" href="~/wwwroot/dist/styles/inform.headline.css" />
 }
-<div data-ng-app="informHeadlineApplication">
-    <div data-ng-controller="ViewListController"
-         data-ng-init="contactPolicy='@ViewBag.ContactPolicy';searchPolicy='@ViewBag.SearchPolicy';">
+<div ng-app="informHeadlineModule">
+    <div ng-controller="InformHeadlineController"
+         ng-init="contactPolicy='@ViewBag.ContactPolicy';searchPolicy='@ViewBag.SearchPolicy';">
 
         @if (ViewBag.ContactPolicy != "None" || ViewBag.SearchPolicy != "None")
         {
-            <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <div class="row download-file-container" ng-model="downloadFileOptions">
                 <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
             </div>
             <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">
                     <li class="status-closed">
-                        <a data-status="0" class="open-menu-item" tabindex="-1" href="#">
+                        <a data-status="0" class="open-menu-item" tabindex="-1" href="javascript:;">
                             <i class="fa fa-folder-open"></i> Open case
                         </a>
                     </li>
                     <li class="status-closed divider"></li>
                     <li class="status-closed">
-                        <a class="view-logs" tabindex="-1" href="#">
+                        <a class="view-logs" tabindex="-1" href="javascript:;">
                             <i class="fa fa-list-alt"></i> @CommonLabels.RemovedEditedAccountsLogs
                         </a>
                     </li>
 
                     <li>
-                        <a class="edit-menu-item" tabindex="-1" href="#">
+                        <a class="edit-menu-item" tabindex="-1" href="javascript:;">
                             <i class="fa fa-pencil-square-o"></i> Edit number of account
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a class="view-logs" tabindex="-1" href="#">
+                        <a class="view-logs" tabindex="-1" href="javascript:;">
                             <i class="fa fa-list-alt"></i> @CommonLabels.RemovedEditedAccountsLogs
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a class="close-menu-item" data-status="1" tabindex="-1" href="#">
+                        <a class="close-menu-item" data-status="1" tabindex="-1" href="javascript:;">
                             <i class="fa fa-times"></i> Close case
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="container main">
-                <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="row row-item" ng-show="messageResultOptions.IsShowMessage">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        <div ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
                              class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                            <div data-ng-bind="messageResultOptions.Message">
-                            </div>
+                            <div ng-bind="messageResultOptions.Message"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
-                        <div id="inform-headline-list" class="freegrid display-none"></div>
-                    </div>
+                    <div inform-headline-grid data-ng-model="listData" class="freegrid inform-headline-grid display-none"></div>
                 </div>
                 @if (ViewBag.SearchPolicy == "Host")
                 {
                     <div class="row btn-group">
-                        <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
+                        <button id="buttoninsert" class="btn" ng-click="showAddCaseDialog()">
                             @Labels.NewCase
                         </button>
                     </div>
@@ -77,18 +73,18 @@
         }
         else
         {
-            <div class="text-center text-danger">@Fanex.CRM.Common.Resources.Labels.NoPermission</div>
+            <div class="text-center text-danger">@CommonLabels.NoPermission</div>
         }
     </div>
 </div>
-@Html.Partial("~/Areas/InformHeadline/ViewList/_Logs.cshtml")
-@Html.Partial("~/Areas/InformHeadline/ViewList/_LogDetails.cshtml")
+@Html.Partial("~/Areas/InformHeadline/_Logs.cshtml")
+@Html.Partial("~/Areas/InformHeadline/_LogDetails.cshtml")
 @section Scripts {
     @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/CRM/DownLoadFile/Scripts",
         "~/wwwroot/sources/libs/FanexGrid/NumeralScripts",
         "~/Scripts/FanexGridScripts",
-        "~/CRM/DownLoadFile/Scripts",
         "~/Bundles/InformHeadline/ViewListScripts")
     <script type="text/javascript">
         parent.document.title = '@Labels.InformHeadlines';

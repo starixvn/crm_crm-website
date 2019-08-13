@@ -79,11 +79,6 @@
         }
     }
 
-    .grid-container.container {
-        margin: 0;
-        padding: 0;
-    }
-
     .free-top-left table thead th, .col_header table thead th {
         border-color: @header-table-border;
         background: @header-table-bg;
@@ -103,7 +98,6 @@
         thead th {
             background: @header-table-bg;
             border-left: 1px solid @header-table-border;
-            height: 34px !important;
         }
     }
 
@@ -196,6 +190,10 @@
             ul li {
                 height: 100%;
                 padding: 0;
+
+                .go-to-page {
+                    border-right: 1px solid #cfcfcf;
+                }
 
                 &.sep {
                     background: none;

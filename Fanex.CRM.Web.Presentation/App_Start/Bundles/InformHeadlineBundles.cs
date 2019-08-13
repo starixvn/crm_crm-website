@@ -1,8 +1,6 @@
 ﻿namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class InformHeadlineBundles
     {
@@ -23,11 +21,7 @@
                 "~/Content/bootstrap/js/bootstrap.min.js",
                 "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListApplication.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListService.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js",
-                "~/wwwroot/dist/js/inform.headline.logs.js"));
+                "~/wwwroot/dist/js/inform.headline.js"));
         }
 
         private static void RegisterNewInformBundles(BundleCollection bundles)
@@ -45,8 +39,7 @@
                 "~/Areas/InformHeadline/NewInform/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/NewInform/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/InformHeadline/NewInformStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/NewInform/Styles/ViewList.less");
@@ -68,8 +61,7 @@
                 "~/Areas/InformHeadline/ContactInform/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/ContactInform/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/InformHeadline/ContactInformStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/ContactInform/Styles/ViewList.less");
@@ -90,20 +82,10 @@
                 "~/Areas/InformHeadline/UpdateInform/Scripts/ViewListController.js",
                 "~/Areas/InformHeadline/UpdateInform/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/InformHeadline/UpdateInformStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/UpdateInform/Styles/ViewList.less");
-        }
-
-        private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
-        {
-            bundles.Add(new Bundle(bundleVirtualPath)
-            {
-                Transforms = { new StyleTransformer(), new CssMinify() },
-                Orderer = new NullOrderer()
-            }.Include(virtualPaths));
         }
     }
 }

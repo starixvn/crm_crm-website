@@ -1,8 +1,6 @@
 ﻿namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class AdminToolBundles
     {
@@ -49,8 +47,7 @@
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Scripts/ViewListController.js",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
@@ -67,8 +64,7 @@
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Scripts/ChangeTemplateStateService.js",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Scripts/ChangeTemplateStateController.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/FeedbackSubjectManagement/ChangeTemplateStateStyles",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/ChangeTemplateState/Styles/ChangeTemplateState.less");
         }
@@ -87,8 +83,7 @@
                 "~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Scripts/EditTemplateController.js",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/FeedbackSubjectManagement/EditTemplateStyles",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Styles/EditTemplate.less");
         }
@@ -107,8 +102,7 @@
                 "~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Scripts/InsertTemplateController.js",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/FeedbackSubjectManagement/InsertTemplateStyles",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Styles/InsertTemplate.less");
         }
@@ -131,8 +125,7 @@
                 "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListController_HotKey.js",
                 "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingRelation/ViewListStyles",
                 "~/Areas/AdminTool/SettingRelation/ViewList/Styles/ViewList.less");
         }
@@ -155,9 +148,8 @@
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationController_HotKey.js",
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingRelation/AddRelationStyles",
+            bundles.AddAndInclude(
+                 "~/Areas/Admin/SettingRelation/AddRelationStyles",
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Styles/AddRelation.less");
         }
 
@@ -179,8 +171,7 @@
                 "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_HotKey.js",
                 "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/ViewListStyles",
                 "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
         }
@@ -205,8 +196,7 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/InsertSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/InsertSetting/Styles/InsertSetting.less");
         }
@@ -231,8 +221,7 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
         }
@@ -246,8 +235,7 @@
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingService.js",
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingController.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/DeleteSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Styles/DeleteSetting.less");
         }
@@ -270,8 +258,7 @@
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/EditSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
         }
@@ -294,8 +281,7 @@
                 "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/EditSettingStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/EditSetting/Styles/EditSetting.less");
         }
@@ -318,8 +304,7 @@
                 "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/ViewListController_HotKey.js",
                 "~/Areas/AdminTool/SettingRelationCN88/ViewList/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingRelationCN88/ViewListStyles",
                 "~/Areas/AdminTool/SettingRelationCN88/ViewList/Styles/ViewList.less");
         }
@@ -342,8 +327,7 @@
                 "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/AddRelationController_HotKey.js",
                 "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingRelationCN88/AddRelationStyles",
                 "~/Areas/AdminTool/SettingRelationCN88/AddRelation/Styles/AddRelation.less");
         }
@@ -366,8 +350,7 @@
                 "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/ViewListController_HotKey.js",
                 "~/Areas/AdminTool/SettingManagementCN88/ViewList/Scripts/Directives/*.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/ViewListStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/ViewList/Styles/ViewList.less");
         }
@@ -392,8 +375,7 @@
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/InsertSettingStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSetting/Styles/InsertSetting.less");
         }
@@ -418,8 +400,7 @@
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/InsertSubSettingStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/InsertSubSetting/Styles/InsertSubSetting.less");
         }
@@ -433,19 +414,9 @@
                 "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Scripts/DeleteSettingService.js",
                 "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Scripts/DeleteSettingController.js"));
 
-            AddAndInclude(
-                bundles,
+            bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/DeleteSettingStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Styles/DeleteSetting.less");
-        }
-
-        private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
-        {
-            bundles.Add(new Bundle(bundleVirtualPath)
-            {
-                Transforms = { new StyleTransformer(), new CssMinify() },
-                Orderer = new NullOrderer()
-            }.Include(virtualPaths));
         }
     }
 }

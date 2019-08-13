@@ -13,27 +13,34 @@ $fanex-grid-images-path: '../images';
 @import '../components/customize-fanex-grid';
 
 .freegrid {
-    .parent-level-0 td {
-        color: #5f5f5f;
-        font-weight: normal;
+    &.inform-headline-grid {
+        .grid-container {
+            a:focus {
+                color: #0255a5;
+            }
+
+            .status-open td {
+                background-color: rgb(240, 237, 196);
+            }
+
+            .status-closed td {
+                background-color: rgb(242, 242, 242);
+            }
+
+            .action-button {
+                background: url(../images/list.png) no-repeat scroll left center;
+                border: 0px;
+            }
+        }
     }
 
-    .grid-container {
-        a:focus {
-            color: #0255a5;
-        }
-
-        .status-open td {
-            background-color: rgb(240, 237, 196);
-        }
-
-        .status-closed td {
-            background-color: rgb(242, 242, 242);
-        }
-
-        .action-button {
-            background: url(../images/list.png) no-repeat scroll left center;
-            border: 0px;
+    &.log-details-grid {
+        .grid-container {
+            .remark-cell {
+                max-width: 300px;
+                word-wrap: break-word;
+                -ms-word-break: break-all;
+            }
         }
     }
 }

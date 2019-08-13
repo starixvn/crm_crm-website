@@ -1,11 +1,11 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('informHeadlineApplication').controller('LogsController', logsController);
-    logsController.$inject = ['$modal', '$modalInstance', '$uiBlockerService', 'logsFactory', 'titleId'];
+    angular.module('informHeadlineModule').controller('LogsController', logsController);
+    logsController.$inject = ['$modal', '$modalInstance', '$uiBlockerService', 'informHeadlineFactory', 'titleId'];
 
-    function logsController($modal, $modalInstance, $uiBlockerService, logsFactory, titleId) {
-        var vm = this;
+    function logsController($modal, $modalInstance, $uiBlockerService, informHeadlineFactory, titleId) {
+        let vm = this;
 
         vm.pagerOption = {
             pageIndex: 0,
@@ -43,12 +43,12 @@
         function getRemovedAccountLogs(pageIndex, itemsPerPage) {
             $uiBlockerService.blockUI();
 
-            var params = {
+            const params = {
                 titleId: titleId,
                 pageIndex: pageIndex,
                 itemsPerPage: itemsPerPage
             };
-            logsFactory.getRemovedAccountLogs(params)
+            informHeadlineFactory.getRemovedAccountLogs(params)
                 .then(function (data) {
                     vm.data = data.Result.Items;
                     vm.totalItems = data.Result.TotalItems;

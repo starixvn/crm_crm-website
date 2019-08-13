@@ -120,9 +120,7 @@
                     { HeaderText: viewResources.ProductStatus, Width: 110, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
                 bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
-                fullWidth: true,
-                headerColumnHeight: 29,
-                bodyRowHeight: 20,
+                showDistinctRow: false,
                 gridExpandHeight: 250,
                 showPager: true,
                 customPager: true,

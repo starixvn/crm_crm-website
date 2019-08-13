@@ -93,14 +93,7 @@
                     { HeaderText: viewResources.ProductStatus, Width: 110, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
                 bodyRows: bodyData,
-                numberOfFrozenColumn: 0,
-                fullWidth: true,
                 showDistinctRow: false,
-                showHighlightRow: true,
-                showTree: true,
-                treeParentPaddingLeft: 5,
-                headerColumnHeight: 29,
-                bodyRowHeight: 20,
                 gridExpandHeight: 250,
                 showPager: true,
                 pagerOption: {

@@ -242,6 +242,7 @@
     </Compile>
     <Compile Include="App_Start\Bundles\AdminToolBundles.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Bundles\BundleExtensions.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
     <Compile Include="App_Start\Bundles\FeedbackBundles.cs" />
     <Compile Include="App_Start\Bundles\InformHeadlineBundles.cs" />
@@ -603,21 +604,25 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
-    <Content Include="wwwroot\dist\js\inform.headline.logs.js" />
+    <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
     <Content Include="wwwroot\dist\styles\inform.headline.js" />
     <Content Include="wwwroot\dist\styles\main.css" />
     <Content Include="wwwroot\dist\styles\main.js" />
-    <Content Include="wwwroot\sources\js\pages\inform-headline\logs\index.js" />
+    <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\inform-headline\inform-headline-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\inform-headline\index.js" />
+    <Content Include="wwwroot\sources\js\pages\inform-headline\inform-headline-module.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\log-details-controller.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\logs-controller.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\log-details-grid-directive.js" />
-    <Content Include="wwwroot\sources\js\pages\inform-headline\logs\logs-factory.js" />
-    <Content Include="Areas\InformHeadline\ViewList\_LogDetails.cshtml" />
+    <Content Include="Areas\InformHeadline\_LogDetails.cshtml" />
     <Content Include="wwwroot\parts\constant.js" />
     <Content Include="wwwroot\parts\entry.js" />
+    <Content Include="wwwroot\sources\js\shared\common-functions.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Pagination.css" />
@@ -668,7 +673,7 @@
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
     <Content Include="wwwroot\webpack.config.vendor.js" />
-    <Content Include="Areas\InformHeadline\ViewList\_Logs.cshtml" />
+    <Content Include="Areas\InformHeadline\_Logs.cshtml" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\logs\logs-grid-directive.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
@@ -775,10 +780,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\Directives\ViewListContainer.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\User\LogIn\Styles\Images\chinese-flag.png" />
     <Content Include="Areas\User\LogIn\Styles\Images\english-flag.png" />
     <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
@@ -1298,8 +1299,6 @@
     <Content Include="wwwroot\sources\styles\components\_icons.scss" />
     <Content Include="wwwroot\sources\styles\components\_modal.scss" />
     <Content Include="wwwroot\sources\styles\components\_table.scss" />
-    <Content Include="wwwroot\dist\js\inform.headline.logs.js.map" />
-    <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.less" />
     <Content Include="wwwroot\sources\styles\main.scss" />
     <Content Include="wwwroot\sources\styles\pages\inform-headline.scss" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.eot" />
@@ -1314,7 +1313,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
-    <Folder Include="wwwroot\sources\js\shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1438,7 +1436,7 @@
     <Content Include="App_Code\RazorHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\InformHeadline\ViewList\Index.cshtml" />
+    <Content Include="Areas\InformHeadline\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\Web.config" />
@@ -1573,6 +1571,7 @@
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.ttf" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\dist\js\inform.headline.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

@@ -1,8 +1,6 @@
 namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Web.Optimization;
-    using BundleTransformer.Core.Orderers;
-    using BundleTransformer.Core.Transformers;
 
     public static class BundleConfig
     {
@@ -591,30 +589,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less");
-        }
-    }
-
-    internal static class BundleExtensions
-    {
-        private static CssRewriteUrlTransformWrapper _cssRewriteUrlTransformWrapper = new CssRewriteUrlTransformWrapper();
-
-        public static void AddAndInclude(
-            this BundleCollection bundles,
-            string bundleVirtualPath,
-            params string[] virtualPaths)
-        {
-            var bundle = new Bundle(bundleVirtualPath)
-            {
-                Transforms = { new StyleTransformer(), new CssMinify() },
-                Orderer = new NullOrderer()
-            };
-
-            foreach (var path in virtualPaths)
-            {
-                bundle.Include(path, _cssRewriteUrlTransformWrapper);
-            }
-
-            bundles.Add(bundle);
         }
     }
 }

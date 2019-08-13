@@ -10,6 +10,6 @@ module.exports = {
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',
-        [`${jsDistPath}/inform.headline.logs`]: `${jsSourcePath}/inform-headline/logs/index.js`
+        [`${jsDistPath}/inform.headline`]: `${jsSourcePath}/inform-headline/index.js`
     }
 };

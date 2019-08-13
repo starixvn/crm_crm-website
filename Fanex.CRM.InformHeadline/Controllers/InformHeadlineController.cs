@@ -38,7 +38,7 @@
             ViewBag.ContactPolicy = contactPolicy.ToString();
             ViewBag.SearchPolicy = searchPolicy.ToString();
 
-            return View("~/Areas/InformHeadline/ViewList/Index.cshtml");
+            return View("~/Areas/InformHeadline/Index.cshtml");
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]

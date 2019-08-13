@@ -1,16 +1,16 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('informHeadlineApplication').directive('logsGrid', logsGrid);
+    angular.module('informHeadlineModule').directive('logsGrid', logsGrid);
     logsGrid.$inject = [];
 
     function logsGrid() {
         function generateBodyRows(scope) {
-            var rows = [];
-            var totalItems = scope.dataSources.length;
+            let rows = [];
+            const totalItems = scope.dataSources.length;
 
-            for (var i = 0; i < totalItems; i++) {
-                var item = scope.dataSources[i];
+            for (let i = 0; i < totalItems; i++) {
+                const item = scope.dataSources[i];
                 rows.push({
                     Columns: [
                         { Name: 'Date', Value: item.ClientLogDate },
@@ -31,7 +31,7 @@
 
             $(element).empty();
 
-            var gridOptions = {
+            const gridOptions = {
                 columns: [
                     {
                         HeaderText: viewResources.Date, Width: 100, MaxResizeWidth: 200, Name: 'Date',
@@ -66,7 +66,7 @@
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
             $('a.log-details').off('click').on('click', function () {
-                var logid = $(this).closest('tr').data('log-id');
+                const logid = $(this).closest('tr').data('log-id');
                 scope.onViewDetails(logid);
             });
         }
