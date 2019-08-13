@@ -9,7 +9,6 @@ namespace Fanex.CRM.Feedback.Criteria
         [SpParam(SqlParamName = "listfeedbackid")]
         public string ListFeedbackId { get; set; }
 
-
         [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
 
@@ -30,5 +29,7 @@ namespace Fanex.CRM.Feedback.Criteria
         {
             return "UpdMultipleReviewAndStatus";
         }
+
+        public override bool IsValid() => true;
     }
 }

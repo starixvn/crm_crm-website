@@ -13,9 +13,6 @@
             return "Customer_CustomerInfoDetail_GetInfoById_New";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

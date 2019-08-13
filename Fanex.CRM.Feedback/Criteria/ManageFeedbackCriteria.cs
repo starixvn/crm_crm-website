@@ -89,5 +89,7 @@
         {
             return "ManageFeedbackList";
         }
+
+        public override bool IsValid() => true;
     }
 }

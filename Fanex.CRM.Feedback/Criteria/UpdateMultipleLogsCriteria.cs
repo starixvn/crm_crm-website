@@ -101,5 +101,7 @@
         {
             return "MultipleLogsUpdate";
         }
+
+        public override bool IsValid() => true;
     }
 }

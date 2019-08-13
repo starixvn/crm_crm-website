@@ -100,5 +100,7 @@
         {
             return "MultipleLogsInsert";
         }
+
+        public override bool IsValid() => true;
     }
 }

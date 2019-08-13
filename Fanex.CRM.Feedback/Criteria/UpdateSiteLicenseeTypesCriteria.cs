@@ -10,5 +10,7 @@ namespace Fanex.CRM.Feedback.Criteria
         {
             return "UpdateSiteLicenseeTypes";
         }
+
+        public override bool IsValid() => true;
     }
 }

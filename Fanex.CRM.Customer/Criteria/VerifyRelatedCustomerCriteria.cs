@@ -12,5 +12,7 @@
         {
             return "CustomerVerify";
         }
+
+        public override bool IsValid() => true;
     }
 }

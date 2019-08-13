@@ -9,9 +9,6 @@ namespace Fanex.CRM.Setting.Criteria
             return "Acc_CRM_ProvinceSel";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

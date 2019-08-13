@@ -19,9 +19,6 @@
             return "Customer_CustomerInfo_UpdateCustomerSuggestion";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

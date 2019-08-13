@@ -36,5 +36,7 @@
         {
             return "Redemption_Statisics_GetReportBy";
         }
+
+        public override bool IsValid() => true;
     }
 }

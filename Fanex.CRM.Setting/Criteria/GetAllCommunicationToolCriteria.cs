@@ -9,9 +9,6 @@
             return "Setting_SettingInfo_GetAllCommunicationTool";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

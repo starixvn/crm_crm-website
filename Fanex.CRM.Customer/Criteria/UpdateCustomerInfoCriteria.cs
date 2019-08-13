@@ -131,9 +131,6 @@
             return "Customer_CustomerInfo_Update";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }
