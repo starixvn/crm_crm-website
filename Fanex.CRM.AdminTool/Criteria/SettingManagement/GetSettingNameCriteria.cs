@@ -11,9 +11,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
             return "Acc_CRM_CN88_SettingNameSelByName";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

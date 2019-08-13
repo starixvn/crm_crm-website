@@ -36,9 +36,6 @@
             return "Customer_Dashboard_UpdateVerifyFlag";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

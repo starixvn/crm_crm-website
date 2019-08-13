@@ -1,24 +1,14 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetAllStatusInformHeadlineCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Kan.Nguyen" date="2014.05.12">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Criteria
+﻿namespace Fanex.CRM.Setting.Criteria
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// GetAllStatusInformHeadline Criteria.
-    /// </summary>
     public class GetAllStatusInformHeadlineCriteria : CriteriaBase
     {
         public override string GetSettingKey()
         {
             return "Customer_InformHeadline_StatusList";
-        } 
+        }
+
+        public override bool IsValid() => true;
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 {
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class GetRedemptionStatisticsSummaryCriteria : CriteriaBase
     {
@@ -28,9 +28,6 @@
             return "Report_RedemptionStatistics_GetSummaryReport";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

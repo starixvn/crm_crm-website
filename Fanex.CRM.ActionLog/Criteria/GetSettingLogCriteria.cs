@@ -7,9 +7,9 @@
 //   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
 // </history>
 
+using System;
 using Fanex.CRM.Common.Criteria;
 using Fanex.Data.Repository;
-using System;
 
 namespace Fanex.CRM.ActionLog.Criteria
 {
@@ -37,9 +37,6 @@ namespace Fanex.CRM.ActionLog.Criteria
             return "Acc_CRM_LogActionSettingList";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

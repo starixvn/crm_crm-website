@@ -13,9 +13,6 @@
             return "Acc_CRM_InformTitleStatusUpd";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

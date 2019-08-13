@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Report.Criteria.StatisticReport
 {
+    using System;
+    using System.Collections;
     using Common.Criteria;
     using Fanex.CRM.Setting.Constants;
     using Fanex.Data.Repository;
-    using System;
-    using System.Collections;
 
     public class GetStatisticReportCriteria : BasedCriteria
     {
@@ -37,10 +37,7 @@
             return "Report_StatisticReport_GetReport";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
 
         public override Hashtable GetSpParams()
         {

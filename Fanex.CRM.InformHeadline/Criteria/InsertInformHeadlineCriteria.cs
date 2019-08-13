@@ -50,9 +50,6 @@
             return "Acc_CRM_InformHeadlineIns";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

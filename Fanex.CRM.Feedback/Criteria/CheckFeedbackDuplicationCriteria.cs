@@ -1,9 +1,9 @@
-﻿using Fanex.CRM.Common.Helpers;
-using Fanex.CRM.Feedback.Models;
-using Fanex.Data.Repository;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fanex.CRM.Common.Helpers;
+using Fanex.CRM.Feedback.Models;
+using Fanex.Data.Repository;
 
 namespace Fanex.CRM.Feedback.Criteria
 {
@@ -42,9 +42,6 @@ namespace Fanex.CRM.Feedback.Criteria
             return "Acc_CRM_FeedbackDoubleCheck";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

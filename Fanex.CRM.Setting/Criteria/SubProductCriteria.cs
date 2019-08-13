@@ -13,9 +13,6 @@
             return "Setting_SettingInfo_GetAllSubProduct";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

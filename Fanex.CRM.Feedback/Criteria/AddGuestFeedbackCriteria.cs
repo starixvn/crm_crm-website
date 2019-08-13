@@ -175,9 +175,6 @@
             return "Acc_CRM_GuestFeedbackIns";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

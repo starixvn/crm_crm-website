@@ -22,9 +22,6 @@ namespace Fanex.CRM.Report.Criteria.DirectCustomerReport
             return "Acc_Crm_Rpt_DirectCustomerReport";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

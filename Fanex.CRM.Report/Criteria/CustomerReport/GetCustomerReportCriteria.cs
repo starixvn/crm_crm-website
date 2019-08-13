@@ -85,9 +85,6 @@
             return "Acc_Crm_Rpt_CustomerReport";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

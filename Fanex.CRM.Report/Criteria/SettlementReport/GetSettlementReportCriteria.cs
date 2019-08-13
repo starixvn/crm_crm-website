@@ -29,9 +29,6 @@
             return "Report_SettlementReport_GetReport";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

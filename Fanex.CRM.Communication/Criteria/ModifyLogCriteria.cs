@@ -1,12 +1,9 @@
 ﻿namespace Fanex.CRM.Communication.Criteria
 {
+    using System;
     using Fanex.CRM.Common.Criteria;
     using Fanex.Data.Repository;
-    using System;
 
-    /// <summary>
-    /// Modify Criteria.
-    /// </summary>
     public class ModifyLogCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "custid")]
@@ -53,9 +50,6 @@
         [SpParam(SqlParamName = "subject")]
         public string Subject { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

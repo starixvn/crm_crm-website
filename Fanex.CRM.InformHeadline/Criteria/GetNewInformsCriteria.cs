@@ -29,9 +29,6 @@
             return "Acc_CRM_InformHeadlineSel";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

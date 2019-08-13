@@ -1,22 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetMainSettingRelationsCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
-// </history>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
+﻿namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 {
+    using System.Collections;
     using Common.Criteria;
     using Fanex.CRM.Common.Models;
-    using System.Collections;
 
-    /// <summary>
-    /// Get Main Setting Relation Criteria.
-    /// </summary>
     public class GetMainSettingRelationsCriteria : BasedLanguageCriteria
     {
         public int ParentId { get; set; }
@@ -25,10 +12,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 
         public Setting MainSetting { get; set; }
 
-        /// <summary>
-        /// Gets the SP parameters.
-        /// </summary>
-        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
@@ -43,9 +26,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
             return "Acc_CRM_SettingGetRelationBySettingName";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

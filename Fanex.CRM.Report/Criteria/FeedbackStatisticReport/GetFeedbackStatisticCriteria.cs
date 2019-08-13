@@ -43,5 +43,7 @@
                 { "userrole", UserRole }
             };
         }
+
+        public override bool IsValid() => true;
     }
 }

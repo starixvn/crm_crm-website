@@ -59,9 +59,6 @@
             return "Acc_CRM_InformHeadlineSearchUpd";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

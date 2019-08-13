@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetLogsByCustomerIdCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Redemption.Criteria
+﻿namespace Fanex.CRM.Redemption.Criteria
 {
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Communication Logs By Customer Identity Criteria.
-    /// </summary>
     public class GetLogsByCustomerIdCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "custid")]
@@ -34,9 +22,6 @@ namespace Fanex.CRM.Redemption.Criteria
             return "Redemption_Log_GetInfoByCustomerId";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

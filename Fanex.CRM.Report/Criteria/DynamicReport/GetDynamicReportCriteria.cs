@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Report.Criteria.DynamicReport
 {
+    using System;
     using Common.Criteria;
     using Fanex.Data.Repository;
-    using System;
 
     public class GetDynamicReportCriteria : BasedCriteria
     {

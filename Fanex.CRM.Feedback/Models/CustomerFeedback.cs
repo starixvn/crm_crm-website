@@ -48,7 +48,7 @@
 
         public bool HasRelated { get; set; }
 
-        public System.Collections.Generic.IEnumerable<BaseModel> RelatedCustomers { get; set; }
+        public IEnumerable<BaseModel> RelatedCustomers { get; set; }
 
         public string Subject { get; set; }
 

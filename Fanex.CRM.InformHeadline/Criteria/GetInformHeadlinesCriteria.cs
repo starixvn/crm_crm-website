@@ -9,9 +9,6 @@
             return "Acc_CRM_InformHeadlineList";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Common.Criteria;
     using System;
     using System.Collections;
+    using Common.Criteria;
 
     public class DeletedFeedbackCriteria : BasedCriteria
     {

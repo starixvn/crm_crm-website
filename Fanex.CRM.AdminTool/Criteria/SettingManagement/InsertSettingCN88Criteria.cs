@@ -1,11 +1,11 @@
 ﻿namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
+    using System.Collections;
     using Common.Criteria;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
-    using System.Collections;
 
     public class InsertSettingCN88Criteria : BasedCriteria
     {
@@ -66,9 +66,6 @@
             return "Acc_CRM_CN88_SettingIns";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

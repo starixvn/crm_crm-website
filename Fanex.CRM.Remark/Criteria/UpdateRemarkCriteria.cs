@@ -47,9 +47,6 @@ namespace Fanex.CRM.Remark.Criteria
             return "Acc_CRM_CustomerRemarkUpd";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

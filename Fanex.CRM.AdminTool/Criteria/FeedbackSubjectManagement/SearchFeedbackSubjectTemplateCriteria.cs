@@ -29,9 +29,6 @@
             return "Setting_FeedbackTemplateSubject_Get";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

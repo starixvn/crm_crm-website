@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Criteria.DeletedFeedbackStatistics
 {
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class DeletedFeedbackStatisticsCriteria : CriteriaBase
     {

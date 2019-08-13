@@ -1,11 +1,11 @@
 ﻿namespace Fanex.CRM.Communication.Criteria
 {
+    using System.Collections;
     using Common.Helpers;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
     using Models;
-    using System.Collections;
 
     public class InsertLogCriteria : ModifyLogCriteria
     {

@@ -70,9 +70,6 @@ namespace Fanex.CRM.Redemption.Criteria
             return "Redemption_Log_Insert";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

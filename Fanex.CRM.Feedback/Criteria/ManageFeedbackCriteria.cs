@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using System;
+    using System.Collections;
     using Common.Criteria;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
-    using System;
-    using System.Collections;
 
     public class ManageFeedbackCriteria : BasedCriteria
     {
@@ -89,7 +89,5 @@
         {
             return "ManageFeedbackList";
         }
-
-        public override bool IsValid() => true;
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.CRM.Communication.Criteria
 {
+    using System;
     using Common.Criteria;
     using Fanex.Data.Repository;
-    using System;
 
     public class GetLogsByCustomerIdCriteria : BasedCriteria
     {
@@ -26,9 +26,6 @@
             return "Communication_Log_GetInfoByCustomerId";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

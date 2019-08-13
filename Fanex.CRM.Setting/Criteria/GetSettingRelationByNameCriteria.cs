@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetSettingRelationByNameCriteria.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
-// </history>
-
-namespace Fanex.CRM.Setting.Criteria
+﻿namespace Fanex.CRM.Setting.Criteria
 {
     using Common.Criteria;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Setting Relation By Name Criteria.
-    /// </summary>
     public class GetSettingRelationByNameCriteria : BasedLanguageCriteria
     {
         [SpParam(SqlParamName = "settingname")]
@@ -28,9 +16,6 @@ namespace Fanex.CRM.Setting.Criteria
             return "Acc_CRM_SettingGetRelationBySettingName";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

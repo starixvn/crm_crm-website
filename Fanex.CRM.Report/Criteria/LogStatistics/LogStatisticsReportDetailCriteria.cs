@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Criteria.LogStatistics
 {
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class LogStatisticsReportDetailCriteria : CriteriaBase
     {

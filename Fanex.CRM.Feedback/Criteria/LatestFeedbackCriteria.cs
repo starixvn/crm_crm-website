@@ -1,7 +1,7 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
-    using Common.Criteria;
     using System.Collections;
+    using Common.Criteria;
 
     public class LatestFeedbackCriteria : BasedCriteria
     {

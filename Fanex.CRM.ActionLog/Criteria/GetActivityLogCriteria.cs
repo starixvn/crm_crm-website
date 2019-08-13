@@ -33,9 +33,6 @@ namespace Fanex.CRM.ActionLog.Criteria
             return "Acc_CRM_LogActionActivityList";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

@@ -13,9 +13,6 @@
             return "Acc_CRM_InformHeadlineStatusSel";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }
