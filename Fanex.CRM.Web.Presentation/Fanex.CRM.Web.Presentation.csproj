@@ -572,8 +572,6 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_updateSite.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />
@@ -673,6 +671,7 @@
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.min.js" />
     <Content Include="wwwroot\sources\styles\images\excel.png" />
+    <Content Include="wwwroot\sources\styles\images\icon-edit.png" />
     <Content Include="wwwroot\sources\styles\images\list.png" />
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
@@ -767,7 +766,6 @@
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />

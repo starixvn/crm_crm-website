@@ -27,13 +27,6 @@
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/wwwroot/dist/js/manage.feedback.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
-                "~/Areas/Feedbacks/ManageFeedback/Styles/StyleSheet.less");
         }
 
         private static void RegisterAddCustomerFeedbackBundles(BundleCollection bundles)
