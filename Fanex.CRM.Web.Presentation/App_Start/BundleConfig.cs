@@ -46,7 +46,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.min.js",
-                "~/Scripts/AngularJS/ui-bootstrap-tpls-0.12.1.min.js"));
+                "~/Scripts/AngularJS/ui-bootstrap-tpls-1.0.3.min.js"));
 
             bundles.AddAndInclude(
                 "~/Styles/FanexMultipleSelect",
@@ -209,7 +209,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
-                "~/Scripts/AngularJS/sanitize.js",
+                "~/Scripts/AngularJS/angular-sanitize.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -336,7 +336,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
-                "~/Scripts/AngularJS/sanitize.js",
+                "~/Scripts/AngularJS/angular-sanitize.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardApplication.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardService.js",

@@ -603,8 +603,8 @@
                 <div class="row title">
                     <div class="pull-left" style="width: 45px;">
                         <label for="chkisreview" class="hand">@Labels.Review</label>
-                        <input type="checkbox" class="review" id="chkisreview" data-ng-disabled="!hasReviewPermission"
-                               data-ng-model="feedback.IsReviewed" data-ng-click="panelManager.review = !panelManager.review" />
+                        <input type="checkbox" class="review" id="chkisreview" ng-disabled="!hasReviewPermission"
+                               ng-model="feedback.IsReviewed" ng-change="panelManager.review = !panelManager.review" />
                     </div>
                     <span class="reviewedby" data-ng-show="feedback.ReviewerId > 0" data-ng-bind="reviewedBy">
                     </span><span class="errormsg" style="margin-left: 25px;" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>

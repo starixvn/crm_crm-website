@@ -597,6 +597,10 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
+    <Content Include="Scripts\AngularJS\angular-sanitize.js" />
+    <Content Include="Scripts\AngularJS\angular.js" />
+    <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
+    <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
@@ -926,9 +930,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js" />
-    <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
-    <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-0.12.1.min.js" />
     <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />
     <Content Include="Scripts\Chart\ChartJs\CRMChart.js" />
     <Content Include="Scripts\Chart\ChartJs\excanvas.js" />
@@ -1577,6 +1579,8 @@
     <Content Include="wwwroot\sources\styles\pages\manage-feedback.scss" />
     <Content Include="wwwroot\dist\js\manage.feedback.js.map" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js.map" />
+    <Content Include="Scripts\AngularJS\angular.min.js.map" />
+    <Content Include="Scripts\AngularJS\angular-sanitize.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('informHeadlineModule').controller('LogsController', logsController);
-    logsController.$inject = ['$modal', '$modalInstance', '$uiBlockerService', 'informHeadlineFactory', 'titleId'];
+    logsController.$inject = ['$uibModal', '$uibModalInstance', '$uiBlockerService', 'informHeadlineFactory', 'titleId'];
 
-    function logsController($modal, $modalInstance, $uiBlockerService, informHeadlineFactory, titleId) {
+    function logsController($uibModal, $uibModalInstance, $uiBlockerService, informHeadlineFactory, titleId) {
         let vm = this;
 
         vm.pagerOption = {
@@ -15,16 +15,17 @@
         vm.totalItems = 0;
 
         vm.close = function () {
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
 
         vm.viewLogDetails = function (logid) {
-            $modal.open({
+            $uibModal.open({
                 template: angular.element('#template-log-details').html(),
                 controller: 'LogDetailsController as logDetailsCtrl',
                 backdrop: 'static',
                 size: 'lg',
                 windowClass: 'log-details-modal',
+                appendTo: window.parent.$('body'),
                 resolve: {
                     logid: function () {
                         return logid;

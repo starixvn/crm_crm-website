@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('informHeadlineModule').controller('LogDetailsController', logDetailsController);
-    logDetailsController.$inject = ['$modalInstance', '$uiBlockerService', 'informHeadlineFactory', 'logid'];
+    logDetailsController.$inject = ['$uibModalInstance', '$uiBlockerService', 'informHeadlineFactory', 'logid'];
 
-    function logDetailsController($modalInstance, $uiBlockerService, informHeadlineFactory, logid) {
+    function logDetailsController($uibModalInstance, $uiBlockerService, informHeadlineFactory, logid) {
         let vm = this;
 
         vm.pagerOption = {
@@ -15,7 +15,7 @@
         vm.totalItems = 0;
 
         vm.close = function () {
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
 
         vm.getRemovedAccountLogDetails = function (pageIndex, itemsPerPage) {

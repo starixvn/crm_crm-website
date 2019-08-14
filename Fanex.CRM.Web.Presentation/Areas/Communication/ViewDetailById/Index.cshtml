@@ -254,10 +254,9 @@
                 <label for="review">
                     @Labels.Reviewed
                 </label>
-                <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
-                       data-ng-model="communicationLog.IsReviewed" disabled="disabled" />
-                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !communicationLog.IsReviewed }"
-                       data-ng-bind="getReviewedInfo();">
+                <input id="review" type="checkbox" class="review" ng-model="communicationLog.IsReviewed" disabled="disabled" />
+                <label class="label-reivewedbyinfo" ng-class="{'display-none': !communicationLog.IsReviewed }"
+                       ng-bind="getReviewedInfo();">
                 </label>
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">

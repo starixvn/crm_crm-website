@@ -307,11 +307,10 @@
             <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
                 <div class="pull-left">
                     <label for="review">@Labels.Reviewed</label>
-                    <input id="review" type="checkbox" class="review" data-ng-click="multipleLogs.IsReviewed=!multipleLogs.IsReviewed;"
-                           data-ng-model="multipleLogs.IsReviewed" data-ng-disabled="!hasReviewPermission" />
-                    <span class="errormsg" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
-                    <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
-                           data-ng-bind="getReviewedInfo();">
+                    <input id="review" type="checkbox" class="review" ng-model="multipleLogs.IsReviewed" ng-disabled="!hasReviewPermission" />
+                    <span class="errormsg" ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
+                    <label class="label-reivewedbyinfo" ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
+                           ng-bind="getReviewedInfo();">
                     </label>
                 </div>
                 <div class="pull-right">

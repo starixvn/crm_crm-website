@@ -65,7 +65,7 @@
 
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            $('a.log-details').off('click').on('click', function () {
+            $('a.log-details', $(element)).off('click').on('click', function () {
                 const logid = $(this).closest('tr').data('log-id');
                 scope.onViewDetails(logid);
             });

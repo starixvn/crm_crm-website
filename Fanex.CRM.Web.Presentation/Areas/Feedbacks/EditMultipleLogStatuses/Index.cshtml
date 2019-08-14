@@ -49,24 +49,23 @@
         <div class="row panel-group last">
             <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
                 <label for="review">@Labels.Reviewed</label>
-                <input id="review" type="checkbox" class="review" data-ng-click="multipleLogs.IsReviewed=!multipleLogs.IsReviewed;"
-                       data-ng-model="multipleLogs.IsReviewed" data-ng-disabled="!hasReviewPermission" />
-                <span class="errormsg" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
-                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
-                       data-ng-bind="getReviewedInfo();">
+                <input id="review" type="checkbox" class="review" ng-model="multipleLogs.IsReviewed" ng-disabled="!hasReviewPermission" />
+                <span class="errormsg" ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
+                <label class="label-reivewedbyinfo" ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
+                       ng-bind="getReviewedInfo();">
                 </label>
             </div>
             <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
                 @Html.Raw(Model.Review)
             </div>
-            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
-                <div id="revieweditorboxcontainer" data-ng-model="multipleLogs.Review" review-editor-container></div>
+            <div class="row content multi-text" ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
+                <div id="revieweditorboxcontainer" ng-model="multipleLogs.Review" review-editor-container></div>
             </div>
         </div>
         @if (hasUpdateMultipleLogsPermission)
         {
             <div class="row">
-                <button class="btn btn-save" data-ng-click="editMultipleLogs();">
+                <button class="btn btn-save" data-ng-click="editMultipleLogs()">
                     <span class="hotkey">S</span>ave
                 </button>
             </div>

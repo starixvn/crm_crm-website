@@ -33,7 +33,7 @@
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
                 .Include(
-                    "~/Scripts/AngularJS/sanitize.js",
+                    "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/wwwroot/sources/libs/FanexGrid/moment.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
@@ -68,7 +68,7 @@
         {
             bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
-                    "~/Scripts/AngularJS/sanitize.js",
+                    "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/wwwroot/sources/libs/FanexGrid/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -147,7 +147,7 @@
 
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
                 .Include(
-                    "~/Scripts/AngularJS/sanitize.js",
+                    "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
                     "~/wwwroot/sources/libs/FanexGrid/moment.js",

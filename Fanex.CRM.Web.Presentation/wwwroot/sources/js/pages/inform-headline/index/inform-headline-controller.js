@@ -3,9 +3,9 @@
     /* global sharedScriptManager, hotKeyManager, viewResources, Site */
 
     angular.module('informHeadlineModule').controller('InformHeadlineController', informHeadlineController);
-    informHeadlineController.$inject = ['$scope', '$modal', '$uiBlockerService', 'informHeadlineFactory'];
+    informHeadlineController.$inject = ['$scope', '$uibModal', '$uiBlockerService', 'informHeadlineFactory'];
 
-    function informHeadlineController($scope, $modal, $uiBlockerService, informHeadlineFactory) {
+    function informHeadlineController($scope, $uibModal, $uiBlockerService, informHeadlineFactory) {
         const POPUP_WIDTH = 1200, POPUP_HEIGHT = 800;
 
         $scope.contactPolicy = null;
@@ -127,11 +127,12 @@
         };
 
         $scope.viewLogs = function (titleId) {
-            $modal.open({
+            $uibModal.open({
                 template: angular.element('#template-logs').html(),
                 controller: 'LogsController as logsCtrl',
                 backdrop: 'static',
                 size: 'lg',
+                appendTo: window.parent.$('body'),
                 resolve: {
                     titleId: function () {
                         return titleId;
@@ -142,6 +143,9 @@
 
         angular.element(document).ready(function () {
             $scope.initController();
+
+            const style = $('head link[href*="inform.headline.css"]').clone();
+            window.parent.$('head').append(style);
         });
     }
 })(angular);
