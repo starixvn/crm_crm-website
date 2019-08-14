@@ -7,22 +7,10 @@
     public class UpdateCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "userid")]
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public int UserId => AppSession.CurrentUser.Id;
 
         [SpParam(SqlParamName = "ip")]
-        public string IP
-        {
-            get
-            {
-                return IPHelper.ClientIP;
-            }
-        }
+        public string IP => IPHelper.ClientIP;
 
         [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }

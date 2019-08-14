@@ -232,6 +232,24 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Multiple Updates.
+        /// </summary>
+        public static string ConfirmMultipleUpdates {
+            get {
+                return ResourceManager.GetString("ConfirmMultipleUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These changes will be applied to all selected feedbacks. Are you sure you want to save these changes?.
+        /// </summary>
+        public static string ConfirmMultipleUpdatesMessage {
+            get {
+                return ResourceManager.GetString("ConfirmMultipleUpdatesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -462,6 +480,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least a field to update!.
+        /// </summary>
+        public static string NoFieldSelectedMessage {
+            get {
+                return ResourceManager.GetString("NoFieldSelectedMessage", resourceCulture);
             }
         }
         

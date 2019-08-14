@@ -2,22 +2,20 @@
 @import "../../../../Content/site/mixins.less";
 
 #remarkeditorbox,
-#solutioneditorbox
-{
-    width:auto; 
-    height:190px; 
-    min-width:710px;
-    width:944px;
+#solutioneditorbox {
+    width: auto;
+    height: 190px;
+    min-width: 710px;
+    width: 944px;
     border: 1px solid @border-color;
     margin: 2px 3px;
 }
 
-#revieweditorbox
-{
-    height:60px; 
-     width:auto; 
-    min-width:710px;
-    width:944px;
+#revieweditorbox {
+    height: 60px;
+    width: auto;
+    min-width: 710px;
+    width: 944px;
     border: 1px solid @border-color;
     margin: 2px 3px;
 }
@@ -30,7 +28,7 @@
     margin-top: 26px;
 }
 
-.display-none  {
+.display-none {
     display: none;
 }
 
@@ -74,18 +72,17 @@ div.jHtmlAreaColorPickerMenu {
 }
 
 .remarktitle,
-.solutiontitle
-{
+.solutiontitle {
     cursor: pointer;
 }
 
-.list-customer{
+.list-customer {
     width: 100%;
     padding-left: 5px;
     padding-right: 5px;
 }
 
-.footer-div{
+.footer-div {
     margin-bottom: 10px;
 }
 
@@ -94,13 +91,36 @@ div.jHtmlAreaColorPickerMenu {
     height: 18px;
     vertical-align: middle;
     background: url(images/warning.png) no-repeat left;
-    padding: 8px; 
+    padding: 8px;
     padding-left: 18px;
     margin-left: 2px;
 }
 
-.auto-generated-text{
+.auto-generated-text {
     margin-left: 10px;
     width: 99%;
     resize: none;
+}
+
+.edit-multiple-logs {
+    .select-all-field {
+        float: right;
+
+        input {
+            float: none;
+            margin-left: 0;
+        }
+    }
+
+    .group-field {
+        display: flex;
+
+        .field {
+            width: 90%;
+        }
+
+        .selected-field {
+            margin-left: 5px;
+        }
+    }
 }

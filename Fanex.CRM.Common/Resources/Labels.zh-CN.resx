@@ -144,6 +144,12 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="ConfirmMultipleUpdates" xml:space="preserve">
+    <value>Confirm Multiple Updates</value>
+  </data>
+  <data name="ConfirmMultipleUpdatesMessage" xml:space="preserve">
+    <value>These changes will be applied to all selected feedbacks. Are you sure you want to save these changes?</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -218,6 +224,9 @@
   </data>
   <data name="Message_ViewChart_FromToDate" xml:space="preserve">
     <value>{0} 至 {1}</value>
+  </data>
+  <data name="NoFieldSelectedMessage" xml:space="preserve">
+    <value>Please select at least a field to update!</value>
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>无权限使用此功能！</value>

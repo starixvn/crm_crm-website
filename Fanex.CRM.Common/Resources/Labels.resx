@@ -171,6 +171,12 @@
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
+  <data name="ConfirmMultipleUpdates" xml:space="preserve">
+    <value>Confirm Multiple Updates</value>
+  </data>
+  <data name="ConfirmMultipleUpdatesMessage" xml:space="preserve">
+    <value>These changes will be applied to all selected feedbacks. Are you sure you want to save these changes?</value>
+  </data>
   <data name="Confirm_Ignore_Changes" xml:space="preserve">
     <value>Confirm Ignore Changes</value>
   </data>
@@ -251,6 +257,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NoFieldSelectedMessage" xml:space="preserve">
+    <value>Please select at least a field to update!</value>
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this function!</value>

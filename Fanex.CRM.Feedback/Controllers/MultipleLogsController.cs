@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
     using Common.Enumerations;
@@ -10,12 +11,10 @@
     using Services;
     using Setting.Constants;
     using Setting.Services;
-    using System.Web.Mvc;
 
     public class MultipleLogsController : ReadOnlyBaseController
     {
         private readonly IMultipleLogsService _multipleLogsService;
-
         private readonly ISettingService _serviceSetting;
 
         public MultipleLogsController()
