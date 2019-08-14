@@ -221,7 +221,6 @@
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesApplication.js",

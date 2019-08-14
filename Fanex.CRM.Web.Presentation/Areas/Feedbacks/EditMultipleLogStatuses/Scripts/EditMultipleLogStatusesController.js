@@ -46,24 +46,6 @@
             };
             /* jshint camelcase: false */
 
-            $scope.updateSelectedStatus = function (statusId) {
-                statusId = parseInt(statusId);
-                var statusInfo;
-                var statusListLength = $scope.statusList.length;
-                for (var i = 0; i < statusListLength; i++) {
-                    var status = $scope.statusList[i];
-                    if (status.Id === statusId) {
-                        statusInfo = status;
-                        break;
-                    }
-                }
-
-                if (statusInfo) {
-                    $scope.multipleLogs.Status = statusInfo;
-                    $scope.$apply();
-                }
-            };
-
             $scope.updateReview = function (review) {
                 $scope.multipleLogs.Review = review;
             };
