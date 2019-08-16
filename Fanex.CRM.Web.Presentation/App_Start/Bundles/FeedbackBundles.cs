@@ -201,6 +201,7 @@
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Scripts/ShareScripts/Directives/RawHtml.js",
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsApplication.js",

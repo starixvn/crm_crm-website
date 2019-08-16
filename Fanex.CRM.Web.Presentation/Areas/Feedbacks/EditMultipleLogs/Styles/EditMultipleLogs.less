@@ -96,12 +96,6 @@ div.jHtmlAreaColorPickerMenu {
     margin-left: 2px;
 }
 
-.auto-generated-text {
-    margin-left: 10px;
-    width: 99%;
-    resize: none;
-}
-
 .edit-multiple-logs {
     .select-all-field {
         float: right;
@@ -119,8 +113,25 @@ div.jHtmlAreaColorPickerMenu {
             width: 90%;
         }
 
+        input.field[disabled], select.field[disabled] {
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         .selected-field {
             margin-left: 5px;
+        }
+    }
+
+    .preview, .auto-generated {
+        padding: 4px 9px;
+    }
+
+    .auto-generated {
+        textarea {
+            width: 100%;
+            resize: none;
         }
     }
 

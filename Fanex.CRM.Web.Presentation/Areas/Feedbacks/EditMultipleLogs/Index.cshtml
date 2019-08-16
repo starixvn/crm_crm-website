@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <input type="text" id="startTime" class="txtcalendar textbox timepicker field" readonly
-                                   onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
+                                   ng-disabled="!selectFields.isUpdateStartTime" data-ng-model="multipleLogs.StartTime" datetimepicker />
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateStartTime" ng-change="onSelectField('isUpdateStartTime')" />
                         </div>
@@ -63,10 +63,11 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateExtension"
                                                     data-ng-model="selectedExtensions"
                                                     data-settings="extensionDropdownSettings"></multileveldropdowntree>
                             <input type="checkbox" class="selected-field"
-                                   ng-model="selectFields.isUpdateExtensions" ng-change="onSelectField('isUpdateExtensions')" />
+                                   ng-model="selectFields.isUpdateExtension" ng-change="onSelectField('isUpdateExtensions')" />
                         </div>
                     </div>
                     <div class="row item">
@@ -75,7 +76,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <input type="text" id="endTime" class="txtcalendar textbox timepicker field"
-                                   readonly data-ng-model="multipleLogs.EndTime" datetimepicker />
+                                   readonly ng-disabled="!selectFields.isUpdateEndTime" ng-model="multipleLogs.EndTime" datetimepicker />
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateEndTime" ng-change="onSelectField('isUpdateEndTime')" />
                         </div>
@@ -83,7 +84,7 @@
                             <label for="response">@Labels.Response</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select class="field" id="response"
+                            <select class="field" id="response" ng-disabled="!selectFields.isUpdateResponse"
                                     ng-model="multipleLogs.Response" ng-options="item.Value for item in responseList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateResponse" ng-change="onSelectField('isUpdateResponse')" />
@@ -98,10 +99,11 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateCommunication"
                                                     data-ng-model="selectedCommunications"
                                                     data-settings="communicationDropdownSettings"></multileveldropdowntree>
                             <input type="checkbox" class="selected-field"
-                                   ng-model="selectFields.isUpdateCommunications" ng-change="onSelectField('isUpdateCommunications')" />
+                                   ng-model="selectFields.isUpdateCommunication" ng-change="onSelectField('isUpdateCommunications')" />
                         </div>
                         <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                             <label for="language">
@@ -110,7 +112,7 @@
                             </label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select id="language" class="languageoptions field"
+                            <select id="language" class="languageoptions field" ng-disabled="!selectFields.isUpdateLanguage"
                                     ng-model="multipleLogs.Language" ng-options="item.Name for item in languageList track by item.Id">
                             </select>
                             <input type="checkbox" class="selected-field"
@@ -126,6 +128,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateCategory"
                                                     data-ng-model="selectedCategories"
                                                     data-ng-change="categoryChangedHandler()"
                                                     data-settings="categoryDropdownSettings"
@@ -141,6 +144,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateCategory"
                                                     data-ng-change="subCategoryChangedHandler()"
                                                     data-ng-model="selectedSubCategories"
                                                     data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
@@ -153,6 +157,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateProduct"
                                                     data-ng-model="selectedProducts"
                                                     data-ng-change="productChangedHandler()"
                                                     data-settings="productDropdownSettings"></multileveldropdowntree>
@@ -164,6 +169,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateProduct"
                                                     data-ng-model="selectedSubProducts"
                                                     data-ng-change="subProductChangedHandler()"
                                                     data-settings="subProductDropdownSettings"></multileveldropdowntree>
@@ -175,7 +181,7 @@
                             <label for="status">@Labels.Status</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select id="status" class="field"
+                            <select id="status" class="field" ng-disabled="!selectFields.isUpdateStatus"
                                     ng-model="multipleLogs.Status" ng-options="item.Name for item in statusList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateStatus" ng-change="onSelectField('isUpdateStatus')" />
@@ -185,6 +191,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <multileveldropdowntree class="field" text-settings="TextSettings"
+                                                    ng-disabled="!selectFields.isUpdateProduct"
                                                     data-ng-model="selectedBettypes"
                                                     data-settings="bettypeDropdownSettings"
                                                     data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
@@ -196,7 +203,7 @@
                             <label for="role">@Labels.Role</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select id="role" class="field"
+                            <select id="role" class="field" ng-disabled="!selectFields.isUpdateRole"
                                     ng-model="multipleLogs.RoleInfo" ng-options="item.Value for item in roleList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateRole" ng-change="onSelectField('isUpdateRole')" />
@@ -206,6 +213,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <selectwithsearchtree class="field" text-settings="TextSettings"
+                                                  ng-disabled="!selectFields.isUpdateSite"
                                                   data-ng-model="selectedSite"
                                                   data-settings="siteDropdownSettings"
                                                   hide-NA="isCN88"></selectwithsearchtree>
@@ -218,7 +226,7 @@
                             <label for="country">@Labels.Country</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select id="country" class="field"
+                            <select id="country" class="field" ng-disabled="!selectFields.isUpdateCountry"
                                     ng-model="multipleLogs.Country" ng-options="item.Name for item in countryList track by item.Id">
                             </select>
                             <input type="checkbox" class="selected-field"
@@ -229,8 +237,8 @@
                             <label for="licensee-type">@Labels.Licensee_Type</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 @hideLicenseeTypeClass group-field">
-                            <select id="licensee-type" ng-model="multipleLogs.LicenseeType" class="field"
-                                    ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
+                            <select id="licensee-type" class="field" ng-disabled="!selectFields.isUpdateLicenseeType"
+                                    ng-model="multipleLogs.LicenseeType" ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateLicenseeType" ng-change="onSelectField('isUpdateLicenseeType')" />
                         </div>
@@ -240,7 +248,7 @@
                             <label for="province">@Labels.Province</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
-                            <select id="province" class="field"
+                            <select id="province" class="field" ng-disabled="!selectFields.isUpdateProvince"
                                     ng-model="multipleLogs.Province" ng-options="item.Name for item in provinceList track by item.Id">
                             </select>
                             <input type="checkbox" class="selected-field"
@@ -255,8 +263,8 @@
                             </label>
                         </div>
                         <div class="col-xs-9 col-sm-9 col-md-9 subject-container group-field">
-                            <input type="text" class="textbox field" id="subject" data-ng-model="multipleLogs.Subject"
-                                   subject-auto-complete />
+                            <input type="text" class="textbox field" id="subject" ng-model="multipleLogs.Subject"
+                                   subject-auto-complete ng-disabled="!selectFields.isUpdateSubject" />
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateSubject" ng-change="onSelectField('isUpdateSubject')" />
                         </div>
@@ -276,10 +284,8 @@
                     <input type="checkbox" ng-model="selectFields.isUpdateAutoField" ng-change="onSelectField('isUpdateAutoGenerated')" />
                 </div>
             </div>
-            <div class="FeedbackDescription row content">
-                <div class="" id="">
-                    <textarea rows="3" class="auto-generated-text" data-ng-model="autoGeneratedText"></textarea>
-                </div>
+            <div class="row content auto-generated">
+                <textarea rows="3" ng-disabled="!selectFields.isUpdateAutoField" ng-model="autoGeneratedText"></textarea>
             </div>
         </div>
         <div class="row panel-group">
@@ -293,8 +299,9 @@
                     <input type="checkbox" ng-model="selectFields.isUpdateRemark" ng-change="onSelectField('isUpdateRemark')" />
                 </div>
             </div>
-            <div class="row content multi-text" data-ng-show="isShowRemarkBox">
-                <div id="remarkeditorboxcontainer" data-ng-model="multipleLogs.Remark" remark-editor-container></div>
+            <div class="row content multi-text">
+                <div ng-show="!selectFields.isUpdateRemark" class="raw-html-directive preview" ng-model="multipleLogs.Remark"></div>
+                <div id="remarkeditorboxcontainer" ng-show="selectFields.isUpdateRemark" ng-model="multipleLogs.Remark" remark-editor-container></div>
             </div>
         </div>
         <div class="row panel-group last">
@@ -308,15 +315,17 @@
                     <input type="checkbox" ng-model="selectFields.isUpdateSolution" ng-change="onSelectField('isUpdateSolution')" />
                 </div>
             </div>
-            <div class="row content multi-text" data-ng-show="isShowSolutionBox">
-                <div id="solutionkeditorboxcontainer" data-ng-model="multipleLogs.Solution" solution-editor-container></div>
+            <div class="row content multi-text">
+                <div ng-show="!selectFields.isUpdateSolution" class="raw-html-directive preview" ng-model="multipleLogs.Solution"></div>
+                <div id="solutionkeditorboxcontainer" ng-show="selectFields.isUpdateSolution" ng-model="multipleLogs.Solution" solution-editor-container></div>
             </div>
         </div>
         <div class="row panel-group last">
             <div class="row title" data-ng-class="!hasReviewPermission || !multipleLogs.IsReviewed ? 'border-bottom-none' : ''">
                 <div class="pull-left">
                     <label for="review">@Labels.Reviewed</label>
-                    <input id="review" type="checkbox" class="review" ng-model="multipleLogs.IsReviewed" ng-disabled="!hasReviewPermission" />
+                    <input id="review" type="checkbox" class="review" ng-model="multipleLogs.IsReviewed"
+                           ng-disabled="!hasReviewPermission || !selectFields.isUpdateReviewed" />
                     <span class="errormsg" ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
                     <label class="label-reivewedbyinfo" ng-class="{'display-none': !oldmultipleLogs.IsReviewed || !requiredManager.review}"
                            ng-bind="getReviewedInfo();">
@@ -329,14 +338,15 @@
             <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
                 @Html.Raw(Model.Review)
             </div>
-            <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
-                <div id="revieweditorboxcontainer" data-ng-model="multipleLogs.Review" review-editor-container></div>
+            <div class="row content multi-text" ng-class="{'display-none': !hasReviewPermission || !multipleLogs.IsReviewed}">
+                <div ng-show="!selectFields.isUpdateReviewed" class="raw-html-directive preview" ng-model="multipleLogs.Review"></div>
+                <div id="revieweditorboxcontainer" ng-show="selectFields.isUpdateReviewed" ng-model="multipleLogs.Review" review-editor-container></div>
             </div>
         </div>
         @if (hasUpdateMultipleLogsPermission)
         {
             <div class="row btn-group">
-                <button class="btn btn-save" data-ng-click="editMultipleLogs();">
+                <button class="btn btn-save" ng-click="editMultipleLogs()">
                     @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>

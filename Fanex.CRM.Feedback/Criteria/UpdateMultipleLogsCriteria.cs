@@ -90,12 +90,12 @@
         [SpParam(SqlParamName = "CommunicationId")]
         public string CommunicationIds { get; set; }
         [SpParam(SqlParamName = "IsUpdateCommunicationId")]
-        public bool IsUpdateCommunications { get; set; }
+        public bool IsUpdateCommunication { get; set; }
 
         [SpParam(SqlParamName = "StationId")]
         public string ExtensionIds { get; set; }
         [SpParam(SqlParamName = "IsUpdateStationId")]
-        public bool IsUpdateExtensions { get; set; }
+        public bool IsUpdateExtension { get; set; }
 
         public int ReviewerId => IsReviewed ? AppSession.CurrentUser.Id : 0;
 
