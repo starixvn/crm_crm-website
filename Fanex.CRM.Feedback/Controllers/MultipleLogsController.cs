@@ -6,6 +6,7 @@
     using Common.Enumerations;
     using Common.Services;
     using Criteria;
+    using Fanex.CRM.Common.Models;
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using Services;
@@ -138,27 +139,27 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult InsertMultipleLogs(InsertMultipleLogsCriteria criteria)
         {
-            var insertResult = _multipleLogsService.InsertMultpleLogs(criteria);
+            CommandResult commandResult = _multipleLogsService.InsertMultpleLogs(criteria);
 
-            return Json(insertResult);
+            return Json(commandResult);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
         {
-            var updateResult = _multipleLogsService.UpdateMultipleLogs(criteria);
+            CommandResult commandResult = _multipleLogsService.UpdateMultipleLogs(criteria);
 
-            return Json(updateResult);
+            return Json(commandResult);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusesCriteria criteria)
         {
-            var updateResult = _multipleLogsService.UpdateMultipleLogStatuses(criteria);
+            CommandResult commandResult = _multipleLogsService.UpdateMultipleLogStatuses(criteria);
 
-            return Json(updateResult);
+            return Json(commandResult);
         }
     }
 }

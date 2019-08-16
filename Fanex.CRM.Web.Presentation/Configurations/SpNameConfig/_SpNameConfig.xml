@@ -15,4 +15,6 @@
   <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformTitleDetail" EnvironmentText="_uat3"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineHistorySel" EnvironmentText="_uat3"></SpNameConfig>
   <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_InformHeadlineLogSel" EnvironmentText="_uat3"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_uat4"></SpNameConfig>
 </Root>

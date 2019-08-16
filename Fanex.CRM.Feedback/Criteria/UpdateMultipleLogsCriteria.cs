@@ -11,78 +11,95 @@
     public class UpdateMultipleLogsCriteria : UpdateCriteria
     {
         public string ListFeedbackId { get; set; }
+
         public int CountryId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateCountryId")]
+        public bool IsUpdateCountry { get; set; }
+
         public int ProvinceId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateProvinceId")]
+        public bool IsUpdateProvince { get; set; }
+
         public int SiteId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateSiteId")]
+        public bool IsUpdateSite { get; set; }
+
         public string Subject { get; set; }
+        public bool IsUpdateSubject { get; set; }
+
         public int LanguageId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateLanguageId")]
+        public bool IsUpdateLanguage { get; set; }
 
-        [SpParam(SqlParamName = "feedbackdate")]
+        [SpParam(SqlParamName = "FeedbackDate")]
         public DateTime StartTime { get; set; }
+        [SpParam(SqlParamName = "IsUpdateFeedbackDate")]
+        public bool IsUpdateStartTime { get; set; }
 
-        [SpParam(SqlParamName = "resolutiondate")]
+        [SpParam(SqlParamName = "ResolutionDate")]
         public DateTime EndTime { get; set; }
+        [SpParam(SqlParamName = "IsUpdateResolutionDate")]
+        public bool IsUpdateEndTime { get; set; }
 
         public int RoleId { get; set; }
-        public int ResponseId { get; set; }
-        public int StatusId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateRoleId")]
+        public bool IsUpdateRole { get; set; }
 
-        [SpParam(SqlParamName = "description")]
+        public int ResponseId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateResponseId")]
+        public bool IsUpdateResponse { get; set; }
+
+        public int StatusId { get; set; }
+        [SpParam(SqlParamName = "IsUpdateStatusId")]
+        public bool IsUpdateStatus { get; set; }
+
+        [SpParam(SqlParamName = "Description")]
         public string Remark { get; set; }
+        [SpParam(SqlParamName = "IsUpdateDescription")]
+        public bool IsUpdateRemark { get; set; }
 
         public string Solution { get; set; }
+        public bool IsUpdateSolution { get; set; }
 
-        [SpParam(SqlParamName = "licenseetype")]
+        [SpParam(SqlParamName = "LicenseeType")]
         public int LicenseeTypeId { get; set; }
+        public bool IsUpdateLicenseeType { get; set; }
 
         public bool IsReviewed { get; set; }
         public string Review { get; set; }
+        [SpParam(SqlParamName = "IsUpdateReview")]
+        public bool IsUpdateReviewed { get; set; }
+
         public string AutoField { get; set; }
+        public bool IsUpdateAutoField { get; set; }
 
         [SpParam(Ignored = true)]
         public IEnumerable<ProductFilter> Products { get; set; }
 
-        [SpParam(SqlParamName = "product")]
+        [SpParam(SqlParamName = "Product")]
         public string ProductsContent => SerializerHelper.SerializeList(Products);
+        public bool IsUpdateProduct { get; set; }
 
         [SpParam(Ignored = true)]
         public IEnumerable<CategoryFilter> Categories { get; set; }
 
-        [SpParam(SqlParamName = "category")]
+        [SpParam(SqlParamName = "Category")]
         public string CategoriesContent => SerializerHelper.SerializeList(Categories);
+        public bool IsUpdateCategory { get; set; }
 
-        [SpParam(SqlParamName = "communicationid")]
+        [SpParam(SqlParamName = "CommunicationId")]
         public string CommunicationIds { get; set; }
+        [SpParam(SqlParamName = "IsUpdateCommunicationId")]
+        public bool IsUpdateCommunications { get; set; }
 
-        [SpParam(SqlParamName = "stationid")]
+        [SpParam(SqlParamName = "StationId")]
         public string ExtensionIds { get; set; }
+        [SpParam(SqlParamName = "IsUpdateStationId")]
+        public bool IsUpdateExtensions { get; set; }
 
         public int ReviewerId => IsReviewed ? AppSession.CurrentUser.Id : 0;
 
         public int UpdateReviewedMode { get; set; }
-
-        public bool IsUpdateStartTime { get; set; }
-        public bool IsUpdateExtensions { get; set; }
-        public bool IsUpdateEndTime { get; set; }
-        public bool IsUpdateResponse { get; set; }
-        public bool IsUpdateCommunications { get; set; }
-        public bool IsUpdateLanguage { get; set; }
-        public bool IsUpdateCategories { get; set; }
-        public bool IsUpdateSubCategories { get; set; }
-        public bool IsUpdateProducts { get; set; }
-        public bool IsUpdateSubProducts { get; set; }
-        public bool IsUpdateStatus { get; set; }
-        public bool IsUpdateBettypes { get; set; }
-        public bool IsUpdateRole { get; set; }
-        public bool IsUpdateSite { get; set; }
-        public bool IsUpdateCountry { get; set; }
-        public bool IsUpdateLicenseeType { get; set; }
-        public bool IsUpdateProvince { get; set; }
-        public bool IsUpdateSubject { get; set; }
-        public bool IsUpdateAutoGenerated { get; set; }
-        public bool IsUpdateRemark { get; set; }
-        public bool IsUpdateSolution { get; set; }
-        public bool IsUpdateReviewed { get; set; }
 
         public override string GetSettingKey() => "MultipleLogsUpdate";
 
