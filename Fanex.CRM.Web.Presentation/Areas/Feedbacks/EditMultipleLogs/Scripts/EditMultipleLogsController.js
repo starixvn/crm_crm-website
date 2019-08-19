@@ -72,7 +72,6 @@
                 isUpdateProvince: false,
                 isUpdateSubject: false,
                 isUpdateAutoField: false,
-                isUpdateRemark: false,
                 isUpdateSolution: false,
                 isUpdateReviewed: false
             };
@@ -364,7 +363,7 @@
                 }
 
                 $scope.requiredManager.remark = !($.trim(criteria.Remark) === '' || criteria.Remark === '<br>');
-                if (result && $scope.selectFields.isUpdateRemark && !$scope.requiredManager.remark) {
+                if (result && $scope.selectFields.isUpdateAutoField && !$scope.requiredManager.remark) {
                     $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                     result = false;
                 }

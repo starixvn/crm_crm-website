@@ -56,7 +56,7 @@
         [SpParam(SqlParamName = "Description")]
         public string Remark { get; set; }
         [SpParam(SqlParamName = "IsUpdateDescription")]
-        public bool IsUpdateRemark { get; set; }
+        public bool IsUpdateRemark => IsUpdateAutoField;
 
         public string Solution { get; set; }
         public bool IsUpdateSolution { get; set; }
