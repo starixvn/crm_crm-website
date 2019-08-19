@@ -2,9 +2,11 @@
 {
     using System.Web.Mvc;
     using Fanex.CRM.ActionLog.Criteria;
+    using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.ActionLog.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -32,7 +34,7 @@
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
-            var activityLogs = _actionLogService.GetActivityLogs(criteria);
+            PagedList<ActionLog> activityLogs = _actionLogService.GetActivityLogs(criteria);
 
             var jsonResult = Json(
                 new

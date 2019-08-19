@@ -60,7 +60,8 @@
 
         private static void FilterOldNewResults(ActionLog log)
         {
-            string oldValue = log.OldValues, newValue = log.NewValues;
+            string oldValue = log.OldValues;
+            string newValue = log.NewValues;
             if (string.Equals(oldValue, newValue, StringComparison.OrdinalIgnoreCase))
             {
                 return;
@@ -109,6 +110,12 @@
 
             foreach (XmlNode node in document.ChildNodes[0].ChildNodes)
             {
+                if (AppSession.CurrentUser.UserRole == Common.Enumerations.UserRole.NormalStaff
+                    && string.Equals(node.Name, "ProvinceId", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
                 if (!results.ContainsKey(node.Name))
                 {
                     results.Add(node.Name, node.InnerText);
