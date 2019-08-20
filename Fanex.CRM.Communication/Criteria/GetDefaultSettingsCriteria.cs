@@ -11,9 +11,6 @@
             return "Communication_Log_GetDefaultSettings";
         }
 
-        public override bool IsValid()
-        {
-            return CustId > 0;
-        }
+        public override bool IsValid() => true;
     }
 }
