@@ -164,6 +164,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
+    <Compile Include="Criteria\CheckDirectAccountCriteria.cs" />
     <Compile Include="Criteria\CustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\CustomerSuggestionCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />

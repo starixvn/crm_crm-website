@@ -4,11 +4,11 @@
     using System.Collections;
     using System.Collections.Generic;
     using Common.Criteria;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
-    using Setting.Constants;
 
     public class AddGuestFeedbackCriteria : BasedCriteria
     {

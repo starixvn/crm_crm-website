@@ -126,10 +126,8 @@
     <Compile Include="Constants\HeadlineTypeConstants.cs" />
     <Compile Include="Constants\NAConstants.cs" />
     <Compile Include="Constants\PeriodTypeConstants.cs" />
-    <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
     <Compile Include="Constants\SettingTypeConstants.cs" />
-    <Compile Include="Constants\SiteConstants.cs" />
     <Compile Include="Constants\TitleConstants.cs" />
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />

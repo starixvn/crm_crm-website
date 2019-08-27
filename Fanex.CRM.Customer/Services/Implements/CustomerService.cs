@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
@@ -10,7 +11,6 @@
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
-    using Setting.Constants;
 
     public class CustomerService : ICustomerService
     {

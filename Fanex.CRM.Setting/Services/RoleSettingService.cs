@@ -1,6 +1,6 @@
 ﻿namespace Fanex.CRM.Setting.Services
 {
-    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Setting.Resources;
 
     public static class RoleSettingService

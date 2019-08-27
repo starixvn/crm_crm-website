@@ -493,8 +493,6 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailService.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
-    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -526,7 +524,6 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_Options.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_Update.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\AddGuestFeedbackDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />

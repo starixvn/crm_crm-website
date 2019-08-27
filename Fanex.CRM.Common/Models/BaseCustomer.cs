@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Resources;
 
     [Serializable]
@@ -51,6 +52,11 @@
         public bool IsSuspended { get; set; }
 
         public bool IsIgnored { get; set; }
+
+        public bool IsSuper => Role != null
+            && (Role.Id == RoleIdConstants.Super || Role.Id == RoleIdConstants.CRMSuper || Role.Id == RoleIdConstants.CN88Super);
+
+        public bool IsDirectAccount { get; set; }
 
         public string Status
         {

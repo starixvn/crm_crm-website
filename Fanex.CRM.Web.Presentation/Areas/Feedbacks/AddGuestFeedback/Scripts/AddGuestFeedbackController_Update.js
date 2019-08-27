@@ -15,8 +15,8 @@
         $scope.updateBirthday = function (birthday) {
             $scope.customerInfo.BirthDay = birthday ? sharedScriptManager.formatTimeToSendToServer(birthday) : null;
             $scope.customerInfo.BirthDayString = birthday ?
-            moment(new Date(birthday)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
-            null;
+                moment(new Date(birthday)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                null;
         };
         $scope.updateDescription = function (description) {
             $scope.descriptionOptions.SelectedText = description;
@@ -40,7 +40,7 @@
         };
         $scope.updateSelectedResponse = function (response) {
             $scope.addGuestFeedbackParams.Response = response;
-        };       
+        };
         $scope.updateSelectedStatus = function (status) {
             $scope.addGuestFeedbackParams.Status = status;
         };

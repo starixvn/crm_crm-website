@@ -6,7 +6,7 @@
     public class GetCustomerInfoDetailByIdCriteria : BasedCriteria
     {
         [SpParam(SqlParamName = "custid")]
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         public override string GetSettingKey()
         {

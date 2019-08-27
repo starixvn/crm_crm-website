@@ -1,5 +1,4 @@
-﻿/*global angular */
-(function () {
+﻿(function (angular) {
     "use strict";
     angular.module('multileveldropdown', [])
         .filter("itemFormatFilter", function () {
@@ -175,8 +174,8 @@
                                     delete cloneItem[scope._settings.childrenMember];
                                     cloneItem.parent = item.parent;
                                     checkedItems.push(scope._settings.selectedMember ?
-                                                      cloneItem[scope._settings.selectedMember] :
-                                                      cloneItem);
+                                        cloneItem[scope._settings.selectedMember] :
+                                        cloneItem);
                                 }
 
                                 if (item.children && item.children.length > 0) {
@@ -187,8 +186,8 @@
                                 } else {
                                     if (item.checked) {
                                         leafCheckedItems.push(scope._settings.selectedMember ?
-                                                              item.model[scope._settings.selectedMember] :
-                                                              item.model);
+                                            item.model[scope._settings.selectedMember] :
+                                            item.model);
                                         leafCheckedNames.push(item.model[scope._settings.nameMember]);
                                     }
                                 }
@@ -386,8 +385,8 @@
                                     if (newVal.length < scope.items.length) {
                                         scope.checkedAll = false;
                                     }
-                                }                               
-                              
+                                }
+
                                 changeHandler();
 
                                 scope.header = getHeaderText(scope.selectedItems);
@@ -471,70 +470,69 @@
                 };
             }
         ])
+        .directive('multileveldropdownPopup', ['$document',
+            function ($document) {
+                return {
+                    restrict: 'E',
+                    replace: true,
+                    scope: false,
+                    template: '<div><div ng-include="_settings.templateUrl"></div><div>',
+                    link: function (scope, element) {
+                        var onOpenHandler = scope.ngOnOpen || angular.noop;
+                        var onCloseHandler = scope.ngOnClose || angular.noop;
+                        var dropdownElement;
 
-    .directive('multileveldropdownPopup', ['$document',
-        function ($document) {
-            return {
-                restrict: 'E',
-                replace: true,
-                scope: false,
-                template: '<div><div ng-include="_settings.templateUrl"></div><div>',
-                link: function (scope, element) {
-                    var onOpenHandler = scope.ngOnOpen || angular.noop;
-                    var onCloseHandler = scope.ngOnClose || angular.noop;
-                    var dropdownElement;
+                        function isElementInArray(element, elementArray) {
+                            for (var i = 0; i < elementArray.length; i++) {
+                                if (element === elementArray[i]) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
 
-                    function isElementInArray(element, elementArray) {
-                        for (var i = 0; i < elementArray.length; i++) {
-                            if (element === elementArray[i]) {
-                                return true;
+                        function assignDropdownElement() {
+                            if (!dropdownElement) {
+                                dropdownElement = angular.element(element[0].querySelector('.dropdown'));
                             }
                         }
-                        return false;
-                    }
 
-                    function assignDropdownElement() {
-                        if (!dropdownElement) {
-                            dropdownElement = angular.element(element[0].querySelector('.dropdown'));
-                        }
-                    }
+                        scope.toggleSelect = function (isDisabled) {
+                            if (isDisabled) {
+                                return;
+                            }
 
-                    scope.toggleSelect = function (isDisabled) {
-                        if (isDisabled) {
-                            return;
-                        }
+                            assignDropdownElement();
+                            if (dropdownElement.hasClass('open')) {
+                                dropdownElement.removeClass('open');
+                                $document.unbind('click', clickHandler);
+                                onCloseHandler();
+                            } else {
+                                dropdownElement.addClass('open');
+                                $document.bind('click', clickHandler);
+                                scope.focusSearchBox();
+                                onOpenHandler();
+                            }
+                        };
 
-                        assignDropdownElement();
-                        if (dropdownElement.hasClass('open')) {
+                        function clickHandler(event) {
+                            if (isElementInArray(event.target, element.find(event.target.tagName))) {
+                                return;
+                            }
                             dropdownElement.removeClass('open');
                             $document.unbind('click', clickHandler);
                             onCloseHandler();
-                        } else {
-                            dropdownElement.addClass('open');
-                            $document.bind('click', clickHandler);
-                            scope.focusSearchBox();
-                            onOpenHandler();
+                            scope.$apply();
                         }
-                    };
 
-                    function clickHandler(event) {
-                        if (isElementInArray(event.target, element.find(event.target.tagName))) {
-                            return;
-                        }
-                        dropdownElement.removeClass('open');
-                        $document.unbind('click', clickHandler);
-                        onCloseHandler();
-                        scope.$apply();
+                        scope.focusSearchBox = function focusSearchBox() {
+                            var searchBox = dropdownElement.find('input')[0];
+                            if (searchBox) {
+                                searchBox.focus();
+                            }
+                        };
                     }
-
-                    scope.focusSearchBox = function focusSearchBox() {
-                        var searchBox = dropdownElement.find('input')[0];
-                        if (searchBox) {
-                            searchBox.focus();
-                        }
-                    };
-                }
-            };
-        }
-    ]);
-}());
+                };
+            }
+        ]);
+}(angular));
