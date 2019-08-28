@@ -52,7 +52,7 @@
                 priv.attachEditorEvents.call(this, opts);
 
                 // Fix total height to match TextArea
-                if (jQuery.browser.msie && jQuery.browser.version.indexOf("7.") == 0) {
+                if (jQuery.browser.msie && jQuery.browser.version.indexOf("7.") === 0) {
                     iframe.height(iframe.height() + 1);
                 }
                 else {
@@ -84,10 +84,16 @@
             return this.queryCommandValue(a);
         },
         getSelectedHTML: function () {
+            var selection = this.getRange();
+
+            if (selection === null) {
+                return '';
+            }
+
             if ($.browser.msie) {
-                return this.getRange().htmlText;
+                return selection.htmlText;
             } else {
-                var elem = this.getRange().cloneContents();
+                var elem = selection.cloneContents();
                 return $("<p/>").append($(elem)).html();
             }
         },
@@ -102,8 +108,15 @@
         getRange: function () {
             var s = this.getSelection();
             if (!s) { return null; }
-            //return (s.rangeCount > 0) ? s.getRangeAt(0) : s.createRange();
-            return (s.getRangeAt) ? s.getRangeAt(0) : s.createRange();
+            if (s.getRangeAt) {
+                if (s.rangeCount > 0) {
+                    return s.getRangeAt(0);
+                }
+            }
+            if (s.createRange) {
+                return s.createRange();
+            }
+            return null;
         },
         html: function (v) {
             if (v) {
