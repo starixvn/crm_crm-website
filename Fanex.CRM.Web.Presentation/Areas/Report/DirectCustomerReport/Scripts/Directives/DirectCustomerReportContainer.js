@@ -24,17 +24,18 @@
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
                     var customer = customerReport.CustomerList[i];
+                    var languages = customer.Languages !== null ? customer.Languages.split(',') : [];
                     bodyData.push({
                         Columns: [
                             { Name: "No", Value: baseIndex + i },
-                            { Name: "GroupHeadline", Value: (customer.GroupHeadline == null ? "not assign group" : customer.GroupHeadline) },
+                            { Name: "GroupHeadline", Value: customer.GroupHeadline === null ? "not assign group" : customer.GroupHeadline },
                             { Name: "Username", Value: customer.Username },
                             { Name: "Status", Value: customer.Status },
                             { Name: "Site", Value: customer.Site },
                             { Name: "Currency", Value: customer.Currency },
                             { Name: "Position", Value: customer.Position },
                             { Name: "IntroduceBy", Value: customer.IntroduceBy },
-                            { Name: "Languages", Value: customer.Languages },
+                            { Name: "Languages", Value: languages.join(', ') },
                             { Name: "Country", Value: customer.Country },
                             { Name: "Checker", Value: customer.Checker },
                             {

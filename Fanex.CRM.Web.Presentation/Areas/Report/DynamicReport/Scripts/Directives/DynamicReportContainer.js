@@ -13,70 +13,69 @@
 
         function getGridHeight() {
             return selfScope.isShowFilter ?
-            245 + crmConstants.MarginBottomPage :
-            65 + crmConstants.MarginBottomPage;
+                245 + crmConstants.MarginBottomPage :
+                65 + crmConstants.MarginBottomPage;
         }
 
         function getGripOtions(dynamicReport, mainCategory) {
             var bodyData = [];
-            var footerData = [];
             var childReportLength = dynamicReport ? dynamicReport.ChildReports.length : 0;
             if (childReportLength > 0) {
                 for (var i = 0; i < childReportLength; i++) {
                     var periodReport = dynamicReport.ChildReports[i];
                     var currentRow =
-                {
-                    Columns: [{
-                        Name: "ColNo",
-                        Value: sharedScriptManager.stringFormat("{0} [{1}]",
-                            [periodReport.Name, periodReport.TotalChildReports]),
-                        MergeColNumber: 10
-                    }],
-                    SubRows: []
-                };
+                    {
+                        Columns: [{
+                            Name: "ColNo",
+                            Value: sharedScriptManager.stringFormat("{0} [{1}]",
+                                [periodReport.Name, periodReport.TotalChildReports]),
+                            MergeColNumber: 10
+                        }],
+                        SubRows: []
+                    };
 
                     var childsLength = periodReport.ChildReports.length;
                     var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
-                    0 :
-                    periodReport.StartChildIndex;
+                        0 :
+                        periodReport.StartChildIndex;
 
                     for (var j = 0; j < childsLength; j++) {
                         var info = periodReport.ChildReports[j];
                         var currentSubRow =
-                    {
-                        Columns: [
-                            {
-                                Name: "ColNo",
-                                Value: startSplittingIndex + j + 1,
-                                CellAlign: "center"
-                            },
-                            {
-                                Name: "ColRunningNumber",
-                                Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
-                                    i + '" data-logindex="' + j + '">' + info.RunningNumber + '</span>',
-                                TdClass: 'viewcommunicationlog-link-td'
-                            },
-                            {
-                                Name: "ColFeedbackDate",
-                                Value: moment(new Date(info.PeriodRange.FromDateString))
-                                    .format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
-                            },
-                            {
-                                Name: "ColCategory",
-                                Value: nameMapping.renderCategoryColumn(info, mainCategory, true)
-                            },
-                            { Name: "ColSubject", Value: info.Subject },
-                            { Name: "ColStatus", Value: info.StatusName },
-                            {
-                                Name: "ColDuration",
-                                Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
-                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
-                            },
-                            { Name: "ColUsername", Value: info.Username },
-                            { Name: "ColHandler", Value: info.Handler },
-                            { Name: "ColReviewer", Value: info.Reviewer}],
-                        CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
-                    };
+                        {
+                            Columns: [
+                                {
+                                    Name: "ColNo",
+                                    Value: startSplittingIndex + j + 1,
+                                    CellAlign: "center"
+                                },
+                                {
+                                    Name: "ColRunningNumber",
+                                    Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
+                                        i + '" data-logindex="' + j + '">' + info.RunningNumber + '</span>',
+                                    TdClass: 'viewcommunicationlog-link-td'
+                                },
+                                {
+                                    Name: "ColFeedbackDate",
+                                    Value: moment(new Date(info.PeriodRange.FromDateString))
+                                        .format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                                },
+                                {
+                                    Name: "ColCategory",
+                                    Value: nameMapping.renderCategoryColumn(info, mainCategory, true)
+                                },
+                                { Name: "ColSubject", Value: info.Subject },
+                                { Name: "ColStatus", Value: info.StatusName },
+                                {
+                                    Name: "ColDuration",
+                                    Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                                        [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                                },
+                                { Name: "ColUsername", Value: info.Username },
+                                { Name: "ColHandler", Value: info.Handler },
+                                { Name: "ColReviewer", Value: info.Reviewer }],
+                            CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
+                        };
 
                         currentRow.SubRows.push(currentSubRow);
                     }
@@ -98,11 +97,11 @@
                     CellAlign: "left"
                 },
                 { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Status, Width: 80, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Username, Width: 100, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
+                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left" }],
                 showTitle: true,
                 titleInfo: {
                     text: dynamicReport ?
@@ -117,15 +116,12 @@
                     customButtons: viewChartIcon
                 },
                 bodyRows: bodyData,
-                footerRows: footerData,
                 numberOfFrozenColumn: 0,
                 fullWidth: true,
                 fullHeight: true,
                 gridExpandHeight: getGridHeight(),
                 showDistinctRow: false,
                 showHighlightRow: true,
-                headerColumnHeight: 29,
-                bodyRowHeight: 29,
                 showPager: true,
                 showTree: true,
                 treeParentPaddingLeft: 5,
@@ -213,7 +209,7 @@
             var xAxisCategories = [];
             xAxisCategories.push(chartInfo ? chartInfo.ShortName : "");
             return xAxisCategories;
-        }        
+        }
 
         function getChartDatasets(chartInfo, crmChart) {
             var chartSeries = [];

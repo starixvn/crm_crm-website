@@ -3,4 +3,5 @@
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_CheckDirectAccount" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL, DEV, UAT" SpName="Acc_CRM_StatusList" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

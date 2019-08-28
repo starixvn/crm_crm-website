@@ -9,6 +9,6 @@
 
         public override string GetSettingKey() => "Customer_CheckDirectAccount";
 
-        public override bool IsValid() => true;
+        public override bool IsValid() => CustomerId > 0;
     }
 }

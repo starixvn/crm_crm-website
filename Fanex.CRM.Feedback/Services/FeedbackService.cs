@@ -120,7 +120,7 @@
             foreach (var feedback in feedbacks)
             {
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
-                var autoFieldText = String.IsNullOrEmpty(feedback.AutoField) ?
+                var autoFieldText = string.IsNullOrEmpty(feedback.AutoField) ?
                         string.Empty :
                         (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.AutoField, "<br>") + "<br><br>";
                 feedback.DescriptionTooltip = autoFieldText + feedback.Description;

@@ -5,7 +5,7 @@
     sharedScriptManager,
     viewResources */
     /* jshint camelcase: false */
-    angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {        
+    angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {
         function renderCommunicationLogs(scope, element) {
             if (scope.communicationLogs == null) {
                 return;
@@ -23,29 +23,29 @@
                     var info = logList[i];
                     bodyData.push({
                         Columns: [
-                        {
-                            Name: "ColRunningNumber",
-                            Value: '<span class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</span>',
-                            TdClass: 'editlog-link-td'
-                        },
-                        {
-                            Name: "ColFeedbackDate",
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
-                        },
-                        {
-                            Name: "ColCategory",
-                            Value: nameMapping.renderCategoryColumn(info, scope.mainCategory)
-                        },
-                        { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
-                        { Name: "ColStatus", Value: info.StatusName },
-                        {
-                            Name: "ColDuration",
-                            Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
-                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
-                        },
-                        { Name: "ColHandler", Value: info.Handler },
-                        { Name: "ColReviewer", Value: info.Reviewer },
-                        { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' }],
+                            {
+                                Name: "ColRunningNumber",
+                                Value: '<span class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</span>',
+                                TdClass: 'editlog-link-td'
+                            },
+                            {
+                                Name: "ColFeedbackDate",
+                                Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                            },
+                            {
+                                Name: "ColCategory",
+                                Value: nameMapping.renderCategoryColumn(info, scope.mainCategory)
+                            },
+                            { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
+                            { Name: "ColStatus", Value: info.StatusName },
+                            {
+                                Name: "ColDuration",
+                                Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                                    [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                            },
+                            { Name: "ColHandler", Value: info.Handler },
+                            { Name: "ColReviewer", Value: info.Reviewer },
+                            { Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' }],
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }
@@ -62,7 +62,7 @@
                     CellAlign: "left"
                 },
                 { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Status, Width: 80, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left" },
@@ -78,7 +78,7 @@
                 fullHeight: false,
 
                 gridHeight: $(window).height() - $("#table-redemption-logs").height() -
-                $(".specialRemark").height() - 120,
+                    $(".specialRemark").height() - 120,
                 showDistinctRow: false,
                 showHighlightRow: true,
                 headerColumnHeight: 29,
@@ -104,8 +104,6 @@
             duplicateBtns.click(function () {
                 scope.duplicateCommunicationLog($(this).attr("data-logid"));
             });
-
-
         }
 
         return {
