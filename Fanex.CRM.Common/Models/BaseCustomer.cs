@@ -58,6 +58,9 @@
 
         public bool IsDirectAccount { get; set; }
 
+        public bool IsGuest => Role != null
+            && (Role.Id == RoleIdConstants.Guest || Role.Id == RoleIdConstants.CRMGuest || Role.Id == RoleIdConstants.CN88Guest);
+
         public string Status
         {
             get

@@ -94,7 +94,7 @@
                                                       hide-NA="isCN88"></selectwithsearchtree>
                             </div>
                         </div>
-                        @if (!Model.HeadLine && (Model.IsSuper || Model.IsDirectAccount))
+                        @if (!Model.HeadLine && (Model.IsSuper || Model.IsDirectAccount || Model.IsGuest))
                         {
                             <div class="row item direct-accounts-guests">
                                 <div class="col-md-2">
