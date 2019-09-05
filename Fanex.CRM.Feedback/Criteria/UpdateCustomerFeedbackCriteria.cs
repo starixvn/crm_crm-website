@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
@@ -18,7 +19,7 @@
 
         public byte UpdateReviewMode { get; set; }
 
-        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+        public IEnumerable<ProductFilter> Products { get; set; }
 
         public string ProductsContent
         {
@@ -28,7 +29,7 @@
             }
         }
 
-        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
+        public IEnumerable<CategoryFilter> Categories { get; set; }
 
         public string CategoriesContent
         {
@@ -129,19 +130,18 @@
                 { "errmsg", ErrorMessage }
         };
 
-            DateTime birthday, feedbackTime, resolutionTime;
             var sqlMinDate = new DateTime(1900, 1, 1);
-            if (DateTime.TryParse(CustomerInfo.BirthDayString, out birthday) && birthday >= sqlMinDate)
+            if (DateTime.TryParse(CustomerInfo.BirthDayString, out DateTime birthday) && birthday >= sqlMinDate)
             {
                 inputParams.Add("birthday", birthday);
             }
 
-            if (DateTime.TryParse(FeedbackTimeString, out feedbackTime))
+            if (DateTime.TryParse(FeedbackTimeString, out DateTime feedbackTime))
             {
                 inputParams.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(feedbackTime));
             }
 
-            if (DateTime.TryParse(ResolutionTimeString, out resolutionTime))
+            if (DateTime.TryParse(ResolutionTimeString, out DateTime resolutionTime))
             {
                 inputParams.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(resolutionTime));
             }

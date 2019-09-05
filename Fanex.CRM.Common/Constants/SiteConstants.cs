@@ -1,4 +1,4 @@
-﻿namespace Fanex.CRM.Setting.Constants
+﻿namespace Fanex.CRM.Common.Constants
 {
     public static class SiteConstants
     {

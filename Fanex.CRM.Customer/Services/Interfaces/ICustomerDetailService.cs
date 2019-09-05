@@ -12,5 +12,7 @@
         CommandResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria);
 
         dynamic GetAllSettings(UserRole userRole);
+
+        bool CheckDirectAccount(int customerId);
     }
 }

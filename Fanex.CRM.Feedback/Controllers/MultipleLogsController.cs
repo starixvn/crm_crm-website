@@ -10,7 +10,6 @@
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using Services;
-    using Setting.Constants;
     using Setting.Services;
 
     public class MultipleLogsController : ReadOnlyBaseController

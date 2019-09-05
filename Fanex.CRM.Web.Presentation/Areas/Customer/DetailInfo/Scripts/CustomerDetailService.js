@@ -27,9 +27,9 @@
             return deferred.promise;
         };
 
-        serviceInstance.updateCustomerInfoDetail = function (updatedCustomerInfoDetailParams) {
+        serviceInstance.updateCustomerInfoDetail = function (params) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerSettingDetail/UpdateCustomerInfoDetail", updatedCustomerInfoDetailParams)
+            $http.post(window.rootUrl + "CustomerSettingDetail/UpdateCustomerInfoDetail", params)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

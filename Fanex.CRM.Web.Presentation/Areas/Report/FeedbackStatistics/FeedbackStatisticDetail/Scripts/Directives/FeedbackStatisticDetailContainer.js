@@ -22,7 +22,7 @@
                 { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left' }];
 
-            columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
+            columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 100, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({
                 HeaderText: feedbackStatisticDetailResources.RelatedCustomer,
                 Width: 130, Name: 'ColRelatedCustomer',
@@ -40,15 +40,8 @@
                     }
                 },
                 bodyRows: bodyData,
-                showFooter: false,
-                fullWidth: true,
-                fullHeight: true,
-                gridExpandHeight: 35,
                 showDistinctRow: false,
                 showHighlightRow: false,
-                numberOfFrozenColumn: 1,
-                headerColumnHeight: 29,
-                autoFixFrozenRowHeight: true,
                 showPager: true,
                 customPager: true,
                 pagerOption: {

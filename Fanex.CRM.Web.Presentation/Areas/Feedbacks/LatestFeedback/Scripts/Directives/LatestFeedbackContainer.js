@@ -8,9 +8,9 @@
             return {
                 columns: [
                     { HeaderText: latestFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: latestFeedbackResources.Feedback, Width: 450, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
+                    { HeaderText: latestFeedbackResources.Feedback, Width: 400, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
-                    { HeaderText: latestFeedbackResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
+                    { HeaderText: latestFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }],
                 showTitle: true,
                 titleInfo: {

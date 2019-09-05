@@ -3,6 +3,7 @@
     using Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
@@ -32,15 +33,16 @@
 
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            var customerInfo = _customerRepositoryInstance.GetCustomerInfoDetailById(criteria);
+            CustomerInfo customerInfo = _customerRepositoryInstance.GetCustomerInfoDetailById(criteria);
             if (customerInfo != null)
             {
                 customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
+                Setting siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                 {
                     SettingId = customerInfo.SiteSetting.Id
                 });
                 customerInfo.SiteSetting.Name = siteSetting.Value;
+                customerInfo.IsDirectAccount = CheckDirectAccount(criteria.CustomerId);
             }
 
             return customerInfo;
@@ -68,6 +70,16 @@
                 Countries = _settingService.GetAllCountries(),
                 Provinces = _settingService.GetAllProvinces()
             };
+        }
+
+        public bool CheckDirectAccount(int customerId)
+        {
+            var criteria = new CheckDirectAccountCriteria
+            {
+                CustomerId = customerId
+            };
+
+            return baseService.GetDataEntity<bool>(criteria);
         }
     }
 }

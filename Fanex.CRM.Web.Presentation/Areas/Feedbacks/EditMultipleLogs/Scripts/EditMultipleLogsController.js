@@ -115,7 +115,7 @@
                 $editMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
                     .then(function (data) {
                         var feedbackSubjectTemplate = data.Result;
-                        if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                        if (feedbackSubjectTemplate !== null && feedbackSubjectTemplate.length > 0) {
                             $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
                         }
 

@@ -27,7 +27,7 @@
             _customerService = customerService ?? new CustomerDetailService();
         }
 
-        public ActionResult Index(string customerId)
+        public ActionResult Index(int customerId)
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.UpdateHeadlineInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.Updateheadlineinfo);

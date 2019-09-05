@@ -93,7 +93,7 @@
                 Gravity: 'nw',
                 Title: viewResources.Helper_RelatedInputMessage,
                 IsUpdateTip: true
-            };            
+            };
         };
     };
 })();

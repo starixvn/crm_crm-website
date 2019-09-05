@@ -1,5 +1,4 @@
-.group-header
-{
+.group-header {
     cursor: pointer;
 }
 
@@ -8,13 +7,23 @@
 }
 
 .panel-group {
-    .checkbox {
-        margin: 0 0 0 9px;
+    .personal-info, .headline-info {
+        .checkbox {
+            margin: 0 0 0 9px;
 
-        input[type="checkbox"] {
-            margin-top: 3px;
+            input[type="checkbox"] {
+                margin-top: 3px;
+            }
         }
-    }   
+    }
+
+    .personal-info {
+        .direct-accounts-guests {
+            .checkbox {
+                margin: 0;
+            }
+        }
+    }
 }
 
 .widthCol {
@@ -25,10 +34,10 @@
     width: 8%;
 }
 
-.vip-row{
+.vip-row {
     padding-top: 5px;
 }
 
-.hide-item{
+.hide-item {
     display: none;
 }

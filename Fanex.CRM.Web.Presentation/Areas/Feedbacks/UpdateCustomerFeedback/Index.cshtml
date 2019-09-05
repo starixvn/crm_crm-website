@@ -25,9 +25,8 @@
 }
 <div data-ng-app="feedbacks-updatecustomerfeedback-application">
     <div data-ng-controller="updateCustomerFeedbackController">
-        <div class="main container popup">
-            <div alert-box-container>
-            </div>
+        <div class="main container popup update-customer-feedback">
+            <div alert-box-container></div>
             <div class="row panel-group" data-ng-class="panelManager.customer ? '' : 'consecutive-container-before'">
                 <div class="row title hand" data-ng-click="panelManager.customer = !panelManager.customer">
                     <b>
@@ -62,11 +61,6 @@
                             </div>
                         </div>
                         <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <label for="isVIP" class="labelforcheckbox checkbox">
-                                    <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="feedback.CustomerInfo.IsVIP" />@Labels.VIP
-                                </label>
-                            </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
                                     <input type="checkbox" id="chkIsOverrideCrmInfo" tabindex="12" data-ng-model="feedback.OverrideCRMInfo" />@Labels.OverwriteCRMInfo
@@ -121,7 +115,7 @@
                                     @if (!isCn88)
                                     {
                                         <option value="">-- @Labels.Select --</option>
-                                    }                                    
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -364,7 +358,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="row item">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlrole">@Labels.Role</label>
@@ -373,8 +367,6 @@
                                     <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settings.Roles track by s.Id"></select>
                                 </div>
                             </div>
-                            
-                           
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="row item">
@@ -469,7 +461,7 @@
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id"></select>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="row item @hideProvinceClass">
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlprovince">@Labels.Province</label>
