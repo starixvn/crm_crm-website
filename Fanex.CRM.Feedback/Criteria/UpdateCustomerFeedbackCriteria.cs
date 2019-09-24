@@ -43,6 +43,8 @@
 
         public string ExtensionIds { get; set; }
 
+        public int NumberOfInquiries { get; set; }
+
         public Hashtable AddSpParams(Hashtable storeProcParamName)
         {
             throw new NotImplementedException();
@@ -113,6 +115,7 @@
                 { "stationid", ExtensionIds },
                 { "category", CategoriesContent },
                 { "product", ProductsContent },
+                { "NumberOfInquiries", NumberOfInquiries},
 
                 { "countryid", Country.Id },
                 { "provinceid", Province.Id },

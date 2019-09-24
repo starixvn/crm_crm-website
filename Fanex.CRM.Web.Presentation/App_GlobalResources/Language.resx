@@ -550,4 +550,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Tab_SpecialRemark" xml:space="preserve">
     <value>Special Remar&lt;span class="hotkey"&gt;k&lt;/span&gt;</value>
   </data>
+  <data name="NoOfInquiries" xml:space="preserve">
+    <value>No. of Inquiries</value>
+  </data>
 </root>

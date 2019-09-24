@@ -102,7 +102,8 @@
                     },
                     Province: {
                         Id: 0
-                    }
+                    },
+                    NumberOfInquiries: null
                 };
                 $scope.oldParams = null;
                 $scope.initController = function () {

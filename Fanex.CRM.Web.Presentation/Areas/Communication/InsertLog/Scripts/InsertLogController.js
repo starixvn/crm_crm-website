@@ -610,7 +610,8 @@
                 CommunicationIds: $scope.GetCommunicationParams(),
                 ExtensionIds: $scope.GetExtensionParams(),
                 Products: $scope.GetProductParams(),
-                Categories: $scope.GetCategoryParams()
+                Categories: $scope.GetCategoryParams(),
+                NumberOfInquiries: $scope.communicationLog.NumberOfInquiries
             };
 
             if ($scope.validateInsertLogCriteria(insertCriteria)) {

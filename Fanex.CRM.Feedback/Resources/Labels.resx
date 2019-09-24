@@ -611,4 +611,7 @@
   <data name="Remark_Multiple_Log_Note" xml:space="preserve">
     <value>This entry is created by Multiple Logs</value>
   </data>
+  <data name="NoOfInquiries" xml:space="preserve">
+    <value>No. of Inquiries</value>
+  </data>
 </root>
