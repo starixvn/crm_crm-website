@@ -15,6 +15,7 @@
             RegisterCreateMultipleLogsBundles(bundles);
             RegisterEditMultipleLogsBundles(bundles);
             RegisterEditMultipleLogStatusesBundles(bundles);
+            RegisterQuickUpdateFeedbackBundles(bundles);
         }
 
         private static void RegisterManageFeedbackBundles(BundleCollection bundles)
@@ -232,6 +233,24 @@
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/EditMultipleLogStatusesStyles",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Styles/EditMultipleLogStatuses.less");
+        }
+
+        private static void RegisterQuickUpdateFeedbackBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/QuickUpdateFeedbackScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/SettingManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackApplication.js",
+                "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackController.js",
+                "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackService.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Feedbacks/QuickUpdateFeedbackStyles",
+                "~/Areas/Feedbacks/QuickUpdate/Styles/QuickUpdateFeedback.less");
         }
     }
 }

@@ -1096,6 +1096,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quick update.
+        /// </summary>
+        public static string QuickUpdateTitle {
+            get {
+                return ResourceManager.GetString("QuickUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ref Codes.
         /// </summary>
         public static string RefCodes {
@@ -1443,6 +1452,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

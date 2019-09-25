@@ -614,4 +614,10 @@
   <data name="NoOfInquiries" xml:space="preserve">
     <value>No. of Inquiries</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="QuickUpdateTitle" xml:space="preserve">
+    <value>Quick update</value>
+  </data>
 </root>

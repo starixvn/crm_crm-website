@@ -1,0 +1,55 @@
+﻿@using Fanex.NAP.Core.Business;
+@using Fanex.CRM.Common.Helpers;
+@using Fanex.CRM.Common.Services;
+@using Newtonsoft.Json;
+@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/QuickUpdateFeedbackStyles")
+}
+<div data-ng-app="quick-update-feedback-application">
+    <div class="main popup container" data-ng-controller="quickUpdateFeedbackController">
+        <div class="row panel-group" data-ng-show="isShowResultMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="resultMessage"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row item">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <label for="ddlinquiries">@Labels.NoOfInquiries</label>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <input class="textbox" type="number" name="input" min="1" max="1000000" data-ng-model="feedback.NoInquiries" />
+            </div>
+        </div>
+
+        <div class="row btn-group">
+            <button class="btn" data-ng-click="updateFeedback();">
+                @Html.Raw(@CommonLabels.Btn_HotKey_Save)
+            </button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
+    @RazorHelper.RenderScripts("~/Scripts/common.js")
+    @RazorHelper.RenderScripts("~/Areas/Feedbacks/QuickUpdateFeedbackScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var feedbackId = '@ViewBag.feedbackId';
+        var viewResources = {
+            UpdateFeedbackSuccessfully: '@Labels.UpdateFeedbackSuccessfully'
+        };
+    </script>
+}

@@ -35,6 +35,14 @@ $fanex-grid-images-path: '../images';
     .closed td {
         background-color: #ddd;
     }
+
+    .updateIcon {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        background: url(#{$fanex-grid-images-path}/icon-edit.png) no-repeat;
+        cursor: pointer;
+    }
 }
 
 /* Filter */

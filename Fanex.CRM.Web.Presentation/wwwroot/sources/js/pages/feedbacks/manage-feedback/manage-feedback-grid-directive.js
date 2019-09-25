@@ -24,6 +24,7 @@
                         Width: 50,
                         HeaderAlign: 'center', CellAlign: 'center'
                     },
+                    { HeaderText: manageFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: manageFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
@@ -65,6 +66,7 @@
                 fb = feedbacks[i];
                 currentRow = [
                     { Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' },
+                    { Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>'},
                     { Name: 'ColRunningNo', Value: fb.FeedbackId },
                     { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                     { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
@@ -137,6 +139,12 @@
                 $('.viewRelatedCustomer').unbind('click')
                     .bind('click', function () {
                         scope.showRelatedCustomer($(this).data('id'));
+                    });
+
+                $('.updateIcon')
+                    .unbind('click')
+                    .bind('click', function () {
+                        scope.openQuickUpdateFeedbackPopup($(this).data('id'));
                     });
             }
         }
