@@ -78,7 +78,7 @@
 
         public string IP => IPHelper.ClientIP;
 
-        public int NumberOfInquiries { get; set; }
+        public int NoInquiries { get; set; }
 
         public int ErrorCode { get; set; }
 
@@ -164,7 +164,7 @@
                 param.Add("review", Review);
                 param.Add("reviewerid", ReviewerId);
             }
-            param.Add("NumberOfInquiries", NumberOfInquiries);
+            param.Add("NoInquiries", NoInquiries);
 
             param.Add("creatorid", CreatorId);
             param.Add("ip", IP);

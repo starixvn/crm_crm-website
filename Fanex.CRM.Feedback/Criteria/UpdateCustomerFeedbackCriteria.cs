@@ -43,7 +43,7 @@
 
         public string ExtensionIds { get; set; }
 
-        public int NumberOfInquiries { get; set; }
+        public int NoInquiries { get; set; }
 
         public Hashtable AddSpParams(Hashtable storeProcParamName)
         {
@@ -115,7 +115,7 @@
                 { "stationid", ExtensionIds },
                 { "category", CategoriesContent },
                 { "product", ProductsContent },
-                { "NumberOfInquiries", NumberOfInquiries},
+                { "NoInquiries", NoInquiries},
 
                 { "countryid", Country.Id },
                 { "provinceid", Province.Id },

@@ -60,7 +60,7 @@
         [SpParam(SqlParamName = "stationid")]
         public string ExtensionIds { get; set; }
 
-        public int NumberOfInquiries { get; set; }
+        public int NoInquiries { get; set; }
 
         public override string GetSettingKey()
         {

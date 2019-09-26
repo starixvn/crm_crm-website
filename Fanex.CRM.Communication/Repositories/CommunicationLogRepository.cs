@@ -160,6 +160,7 @@
                 },
                 CustomerId = Converter.ToInt(reader["CustId"]),
                 CustomerName = Converter.ToString2(reader["UserName"]),
+                NoInquiries = Converter.ToInt(reader["NoInquiries"]),
 
                 Reviewer = Converter.ToString2(reader["reviewer"]),
                 ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["SolveDate"])).ToLongFormatedDateTime(),

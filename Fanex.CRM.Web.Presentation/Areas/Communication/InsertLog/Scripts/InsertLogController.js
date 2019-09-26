@@ -611,7 +611,7 @@
                 ExtensionIds: $scope.GetExtensionParams(),
                 Products: $scope.GetProductParams(),
                 Categories: $scope.GetCategoryParams(),
-                NumberOfInquiries: $scope.communicationLog.NumberOfInquiries
+                NoInquiries: $scope.communicationLog.NoInquiries
             };
 
             if ($scope.validateInsertLogCriteria(insertCriteria)) {

@@ -66,7 +66,7 @@
             Subject: '',
             Remark: "<div><font color=\"#ff0000\">" + viewResources.Remark_Multiple_Log_Note + "</font></div><br/>",
             Solution: '',
-            NumberOfInquiries: null
+            NoInquiries: null
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         $scope.extensionList = null;
@@ -531,7 +531,7 @@
                 ExtensionIds: $scope.GetExtensionParams(),
                 Products: $scope.GetProductParams(),
                 Categories: $scope.GetCategoryParams(),
-                NumberOfInquiries: $scope.multipleLogs.NumberOfInquiries
+                NoInquiries: $scope.multipleLogs.NoInquiries
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
                 $scope.checkDuplicationThenCreateFeedback(insertCriteria);

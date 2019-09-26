@@ -45,7 +45,7 @@
         [SpParam(SqlParamName = "autofield")]
         public string AutoField { get; set; }
 
-        public int NumberOfInquiries { get; set; }
+        public int NoInquiries { get; set; }
 
         public override Hashtable GetSpParams()
         {
@@ -74,7 +74,7 @@
             param.Add("userid", UserId);
             param.Add("ip", IP);
             param.Add("autofield", AutoField);
-            param.Add("NumberOfInquiries", NumberOfInquiries);
+            param.Add("NoInquiries", NoInquiries);
 
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);
