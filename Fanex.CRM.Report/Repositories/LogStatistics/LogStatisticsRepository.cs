@@ -61,7 +61,8 @@
                             CategoryID = Converter.ToInt(reader["CategoryID"]),
                             SubCategoryID = Converter.ToInt(reader["SubCategoryID"]),
                             CommunicationID = Converter.ToInt(reader["CommunicationID"]),
-                            StationID = Converter.ToInt(reader["StationID"])
+                            StationID = Converter.ToInt(reader["StationID"]),
+                            NoInquiries = Converter.ToInt(reader["NoInquiries"])
                         };
 
                         var autoFieldText = string.IsNullOrEmpty(statisticsDetail.AutoField) ?

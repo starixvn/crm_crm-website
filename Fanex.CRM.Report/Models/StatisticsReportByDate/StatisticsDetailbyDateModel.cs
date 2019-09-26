@@ -163,5 +163,7 @@
         public int CommunicationID { get; set; }
 
         public int StationID { get; set; }
+
+        public int NoInquiries { get; set; }
     }
 }
