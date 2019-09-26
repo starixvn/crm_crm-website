@@ -8,6 +8,7 @@
             return {
                 columns: [
                     { HeaderText: latestFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
+                    { HeaderText: latestFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: latestFeedbackResources.Feedback, Width: 400, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: latestFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
@@ -38,6 +39,7 @@
 
                 currentRow = [
                     { Name: 'ColRunningNo', Value: fb.FeedbackId },
+                    { Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' },
                     { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
                     { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
                     { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
@@ -85,6 +87,12 @@
                         title: function () {
                             return feedbacks[$(this).data('index')].DescriptionTooltip;
                         }
+                    });
+
+                $('.updateIcon')
+                    .unbind('click')
+                    .bind('click', function () {
+                        scope.openQuickUpdateFeedbackPopup($(this).data('id'));
                     });
 
                 $('.viewRelatedCustomer').unbind('click')

@@ -40,6 +40,26 @@
             });
         };
 
+        $scope.openQuickUpdateFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'QuickUpdateFeedback/Index?feedbackId=' + id;
+            var maxWidthOfPopUp = 400;
+            var maxHeightOfPopUp = 150;
+
+            parent.OpenPopup(
+                url,
+                latestFeedbackResources.QuickUpdateTitle,
+                maxWidthOfPopUp,
+                maxHeightOfPopUp,
+                true,
+                false,
+                parent.window,
+                2000,
+                null,
+                function () {
+                    $scope.getLatestFeedback();
+                });
+        };
+
         $scope.exportFeedbackExcel = function () {
             var criteria = { top: $scope.top.Id };
             if ($scope.custId !== 0) {

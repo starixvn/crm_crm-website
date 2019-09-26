@@ -619,6 +619,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quick update.
+        /// </summary>
+        public static string QuickUpdateTitle {
+            get {
+                return ResourceManager.GetString("QuickUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Related To.
         /// </summary>
         public static string Related_To {
@@ -822,6 +831,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string To_date {
             get {
                 return ResourceManager.GetString("To_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

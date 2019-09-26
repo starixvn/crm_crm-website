@@ -28,6 +28,7 @@
                                 Value: '<span class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</span>',
                                 TdClass: 'editlog-link-td'
                             },
+                            { Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + info.RunningNumber + '"></span>' },
                             {
                                 Name: "ColFeedbackDate",
                                 Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
@@ -53,6 +54,7 @@
 
             var gridOptions = {
                 columns: [{ HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
@@ -98,6 +100,12 @@
             editLogRows.dblclick(function () {
                 scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logid"));
             });
+
+            tableCommunicationLogs.find('.updateIcon')
+                .unbind('click')
+                .bind('click', function () {
+                    scope.openQuickUpdateFeedbackPopup($(this).data('id'));
+                });
 
             var duplicateBtns = tableCommunicationLogs.find(".duplicate-btn");
             duplicateBtns.unbind("click");

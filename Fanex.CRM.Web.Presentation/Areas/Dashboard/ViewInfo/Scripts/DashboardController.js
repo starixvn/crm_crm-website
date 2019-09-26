@@ -215,6 +215,24 @@
                 $scope.beforeCloseEditCommunicationLogView);
         };
 
+        $scope.openQuickUpdateFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'QuickUpdateFeedback/Index?feedbackId=' + id;
+            var maxWidthOfPopUp = 400;
+            var maxHeightOfPopUp = 150;
+
+            parent.OpenPopup(
+                url,
+                viewResources.QuickUpdateTitle,
+                maxWidthOfPopUp,
+                maxHeightOfPopUp,
+                true,
+                false,
+                parent.window,
+                2000,
+                null,
+                $scope.closeEditCommunicationLogView);
+        };
+
         $scope.duplicateCommunicationLog = function (logId) {            
             parent.homeManager.CachedData.shouldReloadView = false;
             var url = window.rootUrl + "CommunicationLog/OpenDuplicateView?" + $.param({

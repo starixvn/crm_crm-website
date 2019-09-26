@@ -381,10 +381,6 @@
             });
         };
 
-        $scope.showUpdatePopup = function () {
-            console.log("show update");
-        }
-
         angular.element(document).ready(function () {
             $uiBlockerService.blockUI();
 
