@@ -14,6 +14,8 @@
     function ($scope, $http, $editLogService) {
         /* jshint maxstatements: 80 */
         $scope.communicationLog = communicationLog;
+        $scope.communicationLog.NoInquiries = $scope.communicationLog.NoInquiries === 0 ? null : $scope.communicationLog.NoInquiries;
+
         $scope.oldCommunicationLog = angular.copy(communicationLog);
         $scope.extensionList = null;
         $scope.countryList = null;

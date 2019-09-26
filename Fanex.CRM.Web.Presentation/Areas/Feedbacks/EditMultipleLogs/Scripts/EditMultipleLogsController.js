@@ -11,6 +11,8 @@
     angular.module('edit-multiple-logs-application').controller('editMultipleLogsController', ['$scope', '$editMultipleLogsService',
         function ($scope, $editMultipleLogsService) {
             $scope.multipleLogs = multipleLogs;
+            $scope.multipleLogs.NoInquiries = $scope.multipleLogs.NoInquiries === 0 ? null : $scope.multipleLogs.NoInquiries;
+
             $scope.oldmultipleLogs = angular.copy(multipleLogs);
             $scope.extensionList = null;
             $scope.countryList = null;

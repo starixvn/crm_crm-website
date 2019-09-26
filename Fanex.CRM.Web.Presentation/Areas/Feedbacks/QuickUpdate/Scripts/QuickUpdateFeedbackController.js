@@ -22,10 +22,11 @@
                     .then(function (data) {
                         $scope.unblockUI();
                         $scope.feedback = data.Result;
+                        $scope.feedback.NoInquiries = $scope.feedback.NoInquiries === 0 ? null : $scope.feedback.NoInquiries;
                     }, function () {
                         $scope.unblockUI();
                     });
-            }
+            };
 
             $scope.updateFeedback = function () {
                 $scope.BlockUI();
