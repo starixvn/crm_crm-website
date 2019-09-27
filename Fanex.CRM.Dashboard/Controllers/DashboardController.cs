@@ -34,6 +34,7 @@
                 return View("~/Views/Home/BlankPage.cshtml");
             }
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
 
             return View("~/Areas/Dashboard/ViewInfo/Index.cshtml", customerId);
         }

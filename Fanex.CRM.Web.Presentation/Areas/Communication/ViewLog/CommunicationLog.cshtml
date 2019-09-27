@@ -13,6 +13,7 @@
 
     var customerId = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
+    var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -88,6 +89,8 @@
         var customerId = @customerId;
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
+
         var viewResources = {
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_No: '@Labels.Running_No',

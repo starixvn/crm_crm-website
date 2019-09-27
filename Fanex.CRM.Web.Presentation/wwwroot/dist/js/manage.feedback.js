@@ -12904,13 +12904,27 @@ __webpack_require__(/*! ./manage-feedback-controller */ "./sources/js/pages/feed
                 return false;
             }
 
+            var columns = [];
+            columns.push({
+                HeaderText: '<input type="checkbox" class="checkActionAll"/>',
+                Name: "Edit",
+                Width: 50,
+                HeaderAlign: 'center', CellAlign: 'center'
+            });
+
+            if (scope.createUpdateFeedbackPermission) {
+                columns.push({ HeaderText: manageFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' });
+            }
+
+            columns.push({ HeaderText: manageFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' });
+            columns.push({ HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' });
+            columns.push({ HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' });
+            columns.push({ HeaderText: manageFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' });
+            columns.push({ HeaderText: manageFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
+            columns.push({ HeaderText: manageFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' });
+
             return {
-                columns: [{
-                    HeaderText: '<input type="checkbox" class="checkActionAll"/>',
-                    Name: "Edit",
-                    Width: 50,
-                    HeaderAlign: 'center', CellAlign: 'center'
-                }, { HeaderText: manageFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' }, { HeaderText: manageFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' }, { HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' }, { HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' }, { HeaderText: manageFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' }, { HeaderText: manageFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' }, { HeaderText: manageFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }],
+                columns: columns,
                 showTitle: true,
                 titleInfo: {
                     text: renderTitle(scope),
@@ -12936,7 +12950,7 @@ __webpack_require__(/*! ./manage-feedback-controller */ "./sources/js/pages/feed
             };
         }
 
-        function getGridBody(feedbacks, mainCategories) {
+        function getGridBody(feedbacks, mainCategories, scope) {
             var fbLength = feedbacks.length;
             if (fbLength === 0) {
                 return [];
@@ -12946,7 +12960,19 @@ __webpack_require__(/*! ./manage-feedback-controller */ "./sources/js/pages/feed
             var fb, currentRow, status, cssClass;
             for (var i = 0; i < fbLength; i++) {
                 fb = feedbacks[i];
-                currentRow = [{ Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' }, { Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' }, { Name: 'ColRunningNo', Value: fb.FeedbackId }, { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) }, { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' }, { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) }, { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' }, { Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' }];
+                currentRow = [];
+                currentRow.push({ Name: 'Edit', Value: '<input type="checkbox" class="checkActionItem" data-id="' + fb.FeedbackId + '" />' });
+
+                if (scope.createUpdateFeedbackPermission) {
+                    currentRow.push({ Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' });
+                }
+
+                currentRow.push({ Name: 'ColRunningNo', Value: fb.FeedbackId });
+                currentRow.push({ Name: 'ColFeedback', Value: renderFeedbackColumn(fb) });
+                currentRow.push({ Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' });
+                currentRow.push({ Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) });
+                currentRow.push({ Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' });
+                currentRow.push({ Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' });
 
                 status = fb.Status ? fb.Status.toLowerCase() : '';
                 cssClass = status !== 'pending' && status !== 'closed' ? '' : status;
@@ -12963,7 +12989,7 @@ __webpack_require__(/*! ./manage-feedback-controller */ "./sources/js/pages/feed
 
             var totalItems = report.TotalItems;
             var feedbacks = totalItems > 0 ? report.Feedbacks : [];
-            var bodyData = getGridBody(feedbacks, report.MainCategories);
+            var bodyData = getGridBody(feedbacks, report.MainCategories, scope);
             gridOptions = getGridOptions(scope, bodyData, totalItems);
 
             tableManageFeedback = element.find('#table-manage-feedback');

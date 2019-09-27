@@ -28,6 +28,7 @@
             MaxFromDate: new Date(currentDate),
             Handler: ''
         };
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
 
         $scope.initController = function () {
             $scope.getAllStatus();

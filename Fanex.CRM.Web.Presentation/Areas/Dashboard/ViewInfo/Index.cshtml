@@ -7,6 +7,7 @@
     ViewBag.Title = Resources.Language.Title_MainTab;
     var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
     var hideRedemptionClass = isCN88 ? "hide-item" : "";
+    var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
 
     var customerId = JsonConvert.SerializeObject(Model);
 }
@@ -55,6 +56,8 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
+        var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
+
         var viewResources = {
             Last_5_Redemption_Log: '@Labels.Last_5_Redemption_Log',
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',

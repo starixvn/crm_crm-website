@@ -13,28 +13,28 @@
             switch (sortInfo.sortDataType) {
                 case sortDataTypeEnums.Number:
                     isGreaterThan = (sortInfo.sortFactor === 0 || valueB === valueA) ?
-                                0 :
-                                (valueA - valueB) * sortInfo.sortFactor > 0 ?
-                                1 :
-                                -1;
+                        0 :
+                        (valueA - valueB) * sortInfo.sortFactor > 0 ?
+                            1 :
+                            -1;
                     break;
                 case sortDataTypeEnums.String:
                     isGreaterThan = (sortInfo.sortFactor === 0 || valueB === valueA) ?
-                                0 :
-                                (valueB < valueA && sortInfo.sortFactor === 1) ||
-                                (valueA < valueB && sortInfo.sortFactor === -1) ?
-                                1 :
-                                -1;
+                        0 :
+                        (valueB < valueA && sortInfo.sortFactor === 1) ||
+                            (valueA < valueB && sortInfo.sortFactor === -1) ?
+                            1 :
+                            -1;
                     break;
                 case sortDataTypeEnums.Date:
                     var dateA = new Date(valueA);
                     var dateB = new Date(valueB);
                     isGreaterThan = (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
-                                0 :
-                                (dateB < dateA && sortInfo.sortFactor === 1) ||
-                                (dateA < dateB && sortInfo.sortFactor === -1) ?
-                                1 :
-                                -1;
+                        0 :
+                        (dateB < dateA && sortInfo.sortFactor === 1) ||
+                            (dateA < dateB && sortInfo.sortFactor === -1) ?
+                            1 :
+                            -1;
                     break;
             }
 
@@ -42,7 +42,7 @@
         }
 
         function getGridOptions_MappingSortInfo(columnName,
-        currentDirection) {
+            currentDirection) {
             var sortDirectionEnums = crmConstants.Enums.SortDirection;
             var sortDataTypeEnums = crmConstants.Enums.SortDataType;
             var sortInfo = {
@@ -104,9 +104,9 @@
 
         function sortReport(sortInfo, cachedLogs) {
             if (sortInfo.sortField === "Subject" ||
-            sortInfo.sortField === "StatusName" ||
-            sortInfo.sortField === "Handler" ||
-            sortInfo.sortField === "Reviewer") {
+                sortInfo.sortField === "StatusName" ||
+                sortInfo.sortField === "Handler" ||
+                sortInfo.sortField === "Reviewer") {
                 return cachedLogs.sort(function (elementA, elementB) {
                     var valueA = elementA[sortInfo.sortField].toLowerCase();
                     var valueB = elementB[sortInfo.sortField].toLowerCase();
@@ -116,7 +116,7 @@
             }
 
             if (sortInfo.sortField === "RunningNumber" ||
-            sortInfo.sortField === "FeedbackDate") {
+                sortInfo.sortField === "FeedbackDate") {
                 return cachedLogs.sort(function (elementA, elementB) {
                     var valueA = elementA[sortInfo.sortField];
                     var valueB = elementB[sortInfo.sortField];
@@ -142,9 +142,9 @@
                     var dateA = new Date(1, 1, 1, valueA.Hours, valueA.Minutes, valueA.Seconds);
                     var dateB = new Date(1, 1, 1, valueB.Hours, valueB.Minutes, valueB.Seconds);
                     var isGreaterThan =
-                                (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
-                                0 :
-                                (dateB < dateA && sortInfo.sortFactor === 1) ||
+                        (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                            0 :
+                            (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
                                 1 :
                                 -1;
@@ -156,42 +156,48 @@
         }
 
         /* jshint camelcase: false */
-        function getGridOptions_SortedAndPagingData(sortInfo) {
+        function getGridOptions_SortedAndPagingData(sortInfo, scope) {
             var logList = sortReport(sortInfo, cachedLogs);
             var bodyData = [];
             if (logList && logList.length > 0) {
                 var logLength = logList.length;
                 for (var i = 0; i < logLength; i++) {
                     var info = logList[i];
-                    bodyData.push({
-                        Columns: [
-                        {
-                            Name: "ColRunningNumber",
-                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
-                            TdClass: 'editlog-link-td'
-                        },
-                        {
+                    var columns = [];
+                    columns.push({
+                        Name: "ColRunningNumber",
+                        Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
+                        TdClass: 'editlog-link-td'
+                    });
+
+                    if (scope.createUpdateFeedbackPermission) {
+                        columns.push({
                             Name: "ColUpdate",
                             Value: '<span class="updateIcon"  data-id="' + info.RunningNumber + '"></span>'
-                        },
-                        {
-                            Name: "ColFeedbackDate",
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
-                        },
-                        {
-                            Name: "ColCategory",
-                            Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                                (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
-                        },
-                        { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
-                        { Name: "ColStatus", Value: info.StatusName },
-                        {
-                            Name: "ColDuration",
-                            Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
-                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
-                        },
-                        { Name: "ColHandler", Value: info.Handler },
-                        { Name: "ColReviewer", Value: info.Reviewer}],
+                        });
+                    }
+
+                    columns.push({
+                        Name: "ColFeedbackDate",
+                        Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                    });
+                    columns.push({
+                        Name: "ColCategory",
+                        Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
+                            (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                    });
+                    columns.push({ Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) });
+                    columns.push({ Name: "ColStatus", Value: info.StatusName });
+                    columns.push({
+                        Name: "ColDuration",
+                        Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                            [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                    });
+                    columns.push({ Name: "ColHandler", Value: info.Handler });
+                    columns.push({ Name: "ColReviewer", Value: info.Reviewer });
+
+                    bodyData.push({
+                        Columns: columns,
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }
@@ -216,56 +222,69 @@
                 var logLength = logList.length;
                 for (var i = 0; i < logLength; i++) {
                     var info = logList[i];
-                    bodyData.push({
-                        Columns: [
-                        {
-                            Name: "ColRunningNumber",
-                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
-                            TdClass: 'editlog-link-td'
-                        },
-                        {
+                    var dataColumns = [];
+                    dataColumns.push({
+                        Name: "ColRunningNumber",
+                        Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
+                        TdClass: 'editlog-link-td'
+                    });
+
+                    if (scope.createUpdateFeedbackPermission) {
+                        dataColumns.push({
                             Name: "ColUpdate",
                             Value: '<span class="updateIcon"  data-id="' + info.RunningNumber + '"></span>'
-                        },
-                        {
-                            Name: "ColFeedbackDate",
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
-                        },
-                        {
-                            Name: "ColCategory",
-                            Value: nameMapping.renderCategoryColumn(info, scope.mainCategory, true)
-                        },
-                        { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
-                        { Name: "ColStatus", Value: info.StatusName },
-                        {
-                            Name: "ColDuration",
-                            Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
-                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
-                        },
-                        { Name: "ColHandler", Value: info.Handler },
-                        { Name: "ColReviewer", Value: info.Reviewer}],
+                        });
+                    }
+
+                    dataColumns.push({
+                        Name: "ColFeedbackDate",
+                        Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                    });
+                    dataColumns.push({
+                        Name: "ColCategory",
+                        Value: nameMapping.renderCategoryColumn(info, scope.mainCategory, true)
+                    });
+                    dataColumns.push({ Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) });
+                    dataColumns.push({ Name: "ColStatus", Value: info.StatusName });
+                    dataColumns.push({
+                        Name: "ColDuration",
+                        Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                            [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                    });
+                    dataColumns.push({ Name: "ColHandler", Value: info.Handler });
+                    dataColumns.push({ Name: "ColReviewer", Value: info.Reviewer });
+
+                    bodyData.push({
+                        Columns: dataColumns,
                         CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                     });
                 }
             }
 
+            var columns = [];
+            columns.push({ HeaderText: viewResources.Running_No, Width: 100, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left", Sort: true });
+
+            if (scope.createUpdateFeedbackPermission) {
+                columns.push({ HeaderText: viewResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' });
+            }
+
+            columns.push({ HeaderText: viewResources.Feedback_Date, Width: 110, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center", Sort: true });
+            columns.push({
+                HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
+                Width: 220,
+                Name: "ColCategory",
+                HeaderAlign: "center",
+                CellAlign: "left",
+                Sort: true
+            });
+            columns.push({ HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true });
+            columns.push({ HeaderText: viewResources.Status, Width: 70, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true });
+            columns.push({ HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center", Sort: true });
+            columns.push({ HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left", Sort: true });
+            columns.push({ HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left", Sort: true });
+
             var gridOptions = {
-                columns: [{ HeaderText: viewResources.Running_No, Width: 100, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' },
-                { HeaderText: viewResources.Feedback_Date, Width: 110, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                {
-                    HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 220,
-                    Name: "ColCategory",
-                    HeaderAlign: "center",
-                    CellAlign: "left",
-                    Sort: true
-                },
-                { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Status, Width: 70, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left", Sort: true}],
+                columns: columns,
                 showTitle: true,
                 titleInfo: {
                     text: viewResources.Customer_Communication_Logs
@@ -294,7 +313,7 @@
                     /* jshint unused: false */
                     var sortInfo = getGridOptions_MappingSortInfo(columnName,
                         currentDirection);
-                    var bodyRows = getGridOptions_SortedAndPagingData(sortInfo);
+                    var bodyRows = getGridOptions_SortedAndPagingData(sortInfo, scope);
                     return bodyRows;
                 },
                 afterGridSorted: function (currentBodyRows, columnName, currentDirection) {

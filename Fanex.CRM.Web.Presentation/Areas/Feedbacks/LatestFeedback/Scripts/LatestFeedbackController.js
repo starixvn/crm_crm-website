@@ -8,7 +8,7 @@
         $scope, latestFeedbackService, $uiBlockerService) {
         $scope.custId = custId;
         $scope.username = username;
-
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
         $scope.tops = tops;
         $scope.top = $scope.tops[0];
         $scope.report;

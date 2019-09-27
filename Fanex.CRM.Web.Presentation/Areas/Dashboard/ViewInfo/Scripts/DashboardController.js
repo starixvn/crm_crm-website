@@ -11,6 +11,7 @@
         $http,
         $dashboardService) {
         $scope.customerId = customerId;
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
 
         $scope.customerInfo = null;
         $scope.customerRemarks = null;

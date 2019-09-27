@@ -4,15 +4,21 @@
     sharedScriptManager */
     angular.module('feedback-latest-application').directive('tableLatestFeedbackContainer', function () {
         var gridOptions, tableLatestFeedback;
-        function getGridOptions() {
+        function getGridOptions(scope) {
+            var columns = [];
+            columns.push({ HeaderText: latestFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' });
+
+            if (scope.createUpdateFeedbackPermission) {
+                columns.push({ HeaderText: latestFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' });
+            }
+
+            columns.push({ HeaderText: latestFeedbackResources.Feedback, Width: 400, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' });
+            columns.push({ HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' });
+            columns.push({ HeaderText: latestFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
+            columns.push({ HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' });
+
             return {
-                columns: [
-                    { HeaderText: latestFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: latestFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: latestFeedbackResources.Feedback, Width: 400, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
-                    { HeaderText: latestFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' },
-                    { HeaderText: latestFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: latestFeedbackResources.RelatedCustomer, Width: 160, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }],
+                columns: columns,
                 showTitle: true,
                 titleInfo: {
                     showExcelButton: true
@@ -28,7 +34,7 @@
             };
         }
 
-        function getGridBody(feedbacks, mainCategories) {
+        function getGridBody(feedbacks, mainCategories, scope) {
             var fbLength = feedbacks.length;
             if (fbLength === 0) { return []; }
 
@@ -36,15 +42,17 @@
             var fb, currentRow, status, cssClass;
             for (var i = 0; i < fbLength; i++) {
                 fb = feedbacks[i];
+                currentRow = [];
+                currentRow.push({ Name: 'ColRunningNo', Value: fb.FeedbackId });
 
-                currentRow = [
-                    { Name: 'ColRunningNo', Value: fb.FeedbackId },
-                    { Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' },
-                    { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
-                    { Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) },
-                    { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
-                    { Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' }
-                ];
+                if (scope.createUpdateFeedbackPermission) {
+                    currentRow.push({ Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' });
+                }                
+
+                currentRow.push({ Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) });
+                currentRow.push({ Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) });
+                currentRow.push({ Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' });
+                currentRow.push({ Name: 'ColRelatedCustomer', Value: renderRelatedCustomerColumn(fb), CssClass: 'word-wrap' });
 
                 status = fb.Status ? fb.Status.toLowerCase() : '';
                 cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
@@ -58,9 +66,9 @@
             if (!report) { return; }
 
             var feedbacks = report.Feedbacks;
-            var bodyData = getGridBody(feedbacks, report.MainCategories);
+            var bodyData = getGridBody(feedbacks, report.MainCategories, scope);
 
-            gridOptions = gridOptions || getGridOptions();
+            gridOptions = gridOptions || getGridOptions(scope);
             gridOptions.bodyRows = bodyData;
             gridOptions.titleInfo.text = report.Title;
             gridOptions.titleInfo.exportExcelFunction = function () {

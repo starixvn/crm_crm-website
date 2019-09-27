@@ -81,6 +81,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             ViewBag.CustId = custId;
             ViewBag.Username = custName;
+            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTopItems);
         }
 
