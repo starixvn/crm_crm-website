@@ -12,7 +12,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackQuickSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CustomerFeedbackQuickUpd" EnvironmentText="_xtest"></SpNameConfig>
-
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" EnvironmentText="_xtest"></SpNameConfig>

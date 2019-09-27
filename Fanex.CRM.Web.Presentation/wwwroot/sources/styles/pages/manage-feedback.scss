@@ -37,11 +37,15 @@ $fanex-grid-images-path: '../images';
     }
 
     .updateIcon {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         display: inline-block;
-        background: url(#{$fanex-grid-images-path}/icon-edit.png) no-repeat;
+        background: url(#{$fanex-grid-images-path}/quick-edit.png) no-repeat;
         cursor: pointer;
+    }
+
+    .updateIcon:hover {
+        background: url(#{$fanex-grid-images-path}/quick-edit-hover.png) no-repeat;
     }
 }
 

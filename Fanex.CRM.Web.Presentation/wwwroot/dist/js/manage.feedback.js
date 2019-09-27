@@ -12774,10 +12774,6 @@ __webpack_require__(/*! ./manage-feedback-controller */ "./sources/js/pages/feed
             });
         };
 
-        $scope.showUpdatePopup = function () {
-            console.log("show update");
-        };
-
         angular.element(document).ready(function () {
             $uiBlockerService.blockUI();
 
