@@ -8,7 +8,7 @@
 
     public class LatestFeedbackExcel : FeedbackExcel
     {
-        private const int ColumnsCount = 4;
+        private const int ColumnsCount = 5;
 
         public LatestFeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, string excelFileName, IEnumerable<Setting> mainCategories)
             : base(feedbacks, mainCategories, excelFileName, ColumnsCount)
@@ -18,6 +18,7 @@
         protected override void SetColumnsWidth()
         {
             ExportExcelInfo.ResetCurrentColumn();
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 200);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 400);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 350);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 100);
@@ -32,6 +33,7 @@
             headerStyle.WrapText = true;
 
             var row = ExportExcelInfo.Worksheet.CreateRow(ExportExcelInfo.CurrentRow);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RunningNo, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
