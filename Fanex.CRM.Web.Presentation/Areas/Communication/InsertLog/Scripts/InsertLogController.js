@@ -127,6 +127,16 @@
             $scope.getNumberOfFeedbackSubjectTemplate();            
         };
 
+        $scope.validateInquiriesInput = function (event) {
+            if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                return;
+            }
+
+            if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                event.preventDefault();
+            }
+        };
+
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
             $scope.BlockUI();
             $insertLogService.getNumberOfFeedbackSubjectTemplate()

@@ -54,6 +54,16 @@
                 $scope.feedbackSubjectTemplateTotalPage = 0;
                 $scope.isLoadedFeedbackSubjectTemplate = false;
 
+                $scope.validateInquiriesInput = function (event) {
+                    if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                        return;
+                    }
+
+                    if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                        event.preventDefault();
+                    }
+                };
+
                 // Subject functions.
                 $scope.updateSelectedSubject = function (subject) {
                     $scope.feedback.Subject = subject;

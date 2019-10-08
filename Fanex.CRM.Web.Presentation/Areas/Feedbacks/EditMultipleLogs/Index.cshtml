@@ -247,6 +247,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">                           
                             <input class="field" type="number" name="input" 
+                                   ng-keydown="validateInquiriesInput($event);"
                                    oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000"
                                    ng-disabled="!selectFields.isUpdateNoInquiries"
                                    data-ng-model="multipleLogs.NoInquiries" />

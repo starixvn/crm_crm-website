@@ -685,6 +685,16 @@
                     }
                 };
 
+                $scope.validateInquiriesInput = function (event) {
+                    if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                        return;
+                    }
+
+                    if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                        event.preventDefault();
+                    }                                       
+                };
+
                 angular.element(document).ready(function () {
                     registerOptions($scope);
                     registerUpdateFunctions($scope);

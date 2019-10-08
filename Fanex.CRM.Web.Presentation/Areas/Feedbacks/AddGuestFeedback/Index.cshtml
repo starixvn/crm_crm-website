@@ -408,7 +408,7 @@
                                     <label for="ddlinquiries">@Language.NoOfInquiries</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8" >
-                                    <input class="textbox" type="number" name="input" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="addGuestFeedbackParams.NoInquiries"/>
+                                    <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="addGuestFeedbackParams.NoInquiries"/>
                                 </div>
                             </div>
                         </div>
