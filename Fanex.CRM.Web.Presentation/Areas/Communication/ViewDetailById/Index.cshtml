@@ -209,7 +209,7 @@
                         </label>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <input disabled class="textbox" type="number" name="input" min="1" max="1000000" data-ng-model="communicationLog.NoInquiries" />
+                        <input disabled class="textbox" type="number" name="input" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="communicationLog.NoInquiries" />
                     </div>                   
                 </div>
                 <div class="row row-item item">
