@@ -102,7 +102,7 @@
             return sortInfo;
         }
 
-        function sortReport(sortInfo, cachedLogs) {
+        function sortReport(sortInfo, cachedLogs, scope) {
             if (sortInfo.sortField === "Subject" ||
                 sortInfo.sortField === "StatusName" ||
                 sortInfo.sortField === "Handler" ||
@@ -127,8 +127,8 @@
 
             if (sortInfo.sortField === "Category") {
                 return cachedLogs.sort(function (elementA, elementB) {
-                    var valueA = (elementA.MainCategory.Name + "<br/>" + elementA.SubCategory.Name);
-                    var valueB = (elementB.MainCategory.Name + "<br/>" + elementB.SubCategory.Name);
+                    var valueA = nameMapping.renderCategoryColumn(elementA, scope.mainCategory, true);
+                    var valueB = nameMapping.renderCategoryColumn(elementB, scope.mainCategory, true);
                     var isGreaterThan = compareValues(sortInfo, valueA, valueB);
                     return isGreaterThan;
                 });
@@ -157,7 +157,7 @@
 
         /* jshint camelcase: false */
         function getGridOptions_SortedAndPagingData(sortInfo, scope) {
-            var logList = sortReport(sortInfo, cachedLogs);
+            var logList = sortReport(sortInfo, cachedLogs, scope);
             var bodyData = [];
             if (logList && logList.length > 0) {
                 var logLength = logList.length;
@@ -183,8 +183,7 @@
                     });
                     columns.push({
                         Name: "ColCategory",
-                        Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                            (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                        Value: nameMapping.renderCategoryColumn(info, scope.mainCategory, true)
                     });
                     columns.push({ Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) });
                     columns.push({ Name: "ColStatus", Value: info.StatusName });
