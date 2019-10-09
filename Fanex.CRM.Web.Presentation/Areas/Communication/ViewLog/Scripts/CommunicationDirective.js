@@ -327,6 +327,13 @@
                     editLogRows.dblclick(function () {
                         scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
                     });
+
+                    tableCommunicationLogs.find('.updateIcon')
+                        .unbind('click')
+                        .bind('click', function () {
+                            scope.openQuickUpdateFeedbackPopup($(this).data('id'));
+                        });
+
                     return currentBodyRows;
                 }
             }
