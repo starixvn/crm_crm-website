@@ -488,6 +488,14 @@
                                     <select id="province" tabindex="68"></select>
                                 </div>
                             </div>
+                            <div class="row item">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <label for="ddlinquiries">@Language.NoOfInquiries</label>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="addCustomerFeedbackParams.NoInquiries" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

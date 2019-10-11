@@ -18,7 +18,7 @@
         private readonly IEnumerable<FeedbackDetail> _feedbacks;
         private readonly IEnumerable<Setting> _mainCategories;
 
-        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<Setting> mainCategories, string title, int columnsCount = 5)
+        public FeedbackExcel(IEnumerable<FeedbackDetail> feedbacks, IEnumerable<Setting> mainCategories, string title, int columnsCount = 6)
             : base(Regex.Replace(title, @"\W+", "_"))
         {
             _feedbacks = feedbacks;
@@ -60,6 +60,7 @@
         protected virtual void SetColumnsWidth()
         {
             ExportExcelInfo.ResetCurrentColumn();
+            ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 200);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 400);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 150);
             ExportExcelInfo.SetColumnWidthByFontWidth(ExportExcelInfo.CurrentColumn++, 350);
@@ -88,6 +89,7 @@
             headerStyle.WrapText = true;
 
             var row = ExportExcelInfo.Worksheet.CreateRow(ExportExcelInfo.CurrentRow);
+            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RunningNo, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);

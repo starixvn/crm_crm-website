@@ -374,4 +374,13 @@
   <data name="Confirm_Changes_Message" xml:space="preserve">
     <value>Are you sure you want to Add or Update the Feedback/Log?</value>
   </data>
+  <data name="NoOfInquiries" xml:space="preserve">
+    <value>No. of Inquiries</value>
+  </data>
+  <data name="QuickUpdateTitle" xml:space="preserve">
+    <value>Quick update</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
 </root>

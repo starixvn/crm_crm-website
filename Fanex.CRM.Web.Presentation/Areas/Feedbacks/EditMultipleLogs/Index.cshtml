@@ -113,8 +113,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <select id="language" class="languageoptions field" ng-disabled="!selectFields.isUpdateLanguage"
-                                    ng-model="multipleLogs.Language" ng-options="item.Name for item in languageList track by item.Id">
-                            </select>
+                                    ng-model="multipleLogs.Language" ng-options="item.Name for item in languageList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateLanguage" ng-change="onSelectField('isUpdateLanguage')" />
                         </div>
@@ -227,8 +226,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <select id="country" class="field" ng-disabled="!selectFields.isUpdateCountry"
-                                    ng-model="multipleLogs.Country" ng-options="item.Name for item in countryList track by item.Id">
-                            </select>
+                                    ng-model="multipleLogs.Country" ng-options="item.Name for item in countryList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateCountry" ng-change="onSelectField('isUpdateCountry')" />
                         </div>
@@ -243,14 +241,27 @@
                                    ng-model="selectFields.isUpdateLicenseeType" ng-change="onSelectField('isUpdateLicenseeType')" />
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <label for="country">@Labels.NoOfInquiries</label>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 group-field">                           
+                            <input class="field" type="number" name="input" 
+                                   ng-keydown="validateInquiriesInput($event);"
+                                   oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000"
+                                   ng-disabled="!selectFields.isUpdateNoInquiries"
+                                   data-ng-model="multipleLogs.NoInquiries" />
+                            <input type="checkbox" class="selected-field"
+                                   ng-model="selectFields.isUpdateNoInquiries" ng-change="onSelectField('isUpdateNoInquiries')" />
+                        </div>                        
+                    </div>
                     <div class="row item @hideProvinceClass">
                         <div class="col-xs-2 col-sm-2 col-md-2">
                             <label for="province">@Labels.Province</label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 group-field">
                             <select id="province" class="field" ng-disabled="!selectFields.isUpdateProvince"
-                                    ng-model="multipleLogs.Province" ng-options="item.Name for item in provinceList track by item.Id">
-                            </select>
+                                    ng-model="multipleLogs.Province" ng-options="item.Name for item in provinceList track by item.Id"></select>
                             <input type="checkbox" class="selected-field"
                                    ng-model="selectFields.isUpdateProvince" ng-change="onSelectField('isUpdateProvince')" />
                         </div>

@@ -44,6 +44,7 @@
             if (childReportLength > 0) {
                 for (var i = 0; i < childReportLength; i++) {
                     var info = report.ChildReports[i];
+                    var noInquiries = info.NoInquiries === 0 ? "-" : info.NoInquiries;
 
                     bodyData.push({
                         Columns: [{ Name: "ColDate", Value: info.StartDateString },
@@ -69,6 +70,7 @@
                     { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, scope.detailReportOptions.mainCategory) },
                     { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
                     { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
+                    { Name: "ColInquiries", Value: noInquiries, CssClass: 'word-wrap-remark' },
                     { Name: "ColStatus", Value: info.StatusName },
                     { Name: "ColResponse", Value: info.Response.Name },
                     { Name: "ColHandler", Value: info.Handler },
@@ -97,6 +99,7 @@
                 { HeaderText: "Sub-Category", Width: 200, Name: "ColSubCategory", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Complaints_Enquiries, Width: 480, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Solution, Width: 480, Name: "ColSolution", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.NoOfInquiries, Width: 60, Name: "ColInquiries", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Response, Width: 60, Name: "ColResponse", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handle_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "center" },

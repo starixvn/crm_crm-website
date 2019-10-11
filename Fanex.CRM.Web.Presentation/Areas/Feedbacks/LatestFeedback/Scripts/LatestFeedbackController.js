@@ -8,7 +8,7 @@
         $scope, latestFeedbackService, $uiBlockerService) {
         $scope.custId = custId;
         $scope.username = username;
-
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
         $scope.tops = tops;
         $scope.top = $scope.tops[0];
         $scope.report;
@@ -38,6 +38,26 @@
             parent.OpenPopup(url, latestFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
                 $scope.getLatestFeedback();
             });
+        };
+
+        $scope.openQuickUpdateFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'QuickUpdateFeedback/Index?feedbackId=' + id;
+            var maxWidthOfPopUp = 400;
+            var maxHeightOfPopUp = 150;
+
+            parent.OpenPopup(
+                url,
+                latestFeedbackResources.QuickUpdateTitle,
+                maxWidthOfPopUp,
+                maxHeightOfPopUp,
+                true,
+                false,
+                parent.window,
+                2000,
+                null,
+                function () {
+                    $scope.getLatestFeedback();
+                });
         };
 
         $scope.exportFeedbackExcel = function () {

@@ -19,7 +19,7 @@ namespace Fanex.CRM.Dashboard.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -286,6 +286,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quick update.
+        /// </summary>
+        public static string QuickUpdateTitle {
+            get {
+                return ResourceManager.GetString("QuickUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent Redemption Activity.
         /// </summary>
         public static string Recent_Redemption_Activity {
@@ -381,6 +390,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string There_is_no_data {
             get {
                 return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

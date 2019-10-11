@@ -61,7 +61,8 @@
                     HasRelated: false,
                     CustomerInfo: {
                         TitleId: 0
-                    }
+                    },
+                    NoInquiries: null
                 };
                 $scope.oldParams = null;
                 $scope.initController = function () {
@@ -173,6 +174,16 @@
                         selectedCategories,
                         $scope.allSettings.SubCategoryList,
                         $scope.selectedSubCategoryIds);
+                };
+
+                $scope.validateInquiriesInput = function (event) {
+                    if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                        return;
+                    }
+
+                    if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                        event.preventDefault();
+                    }
                 };
 
                 $scope.completedLoadFilterInfo = function () {

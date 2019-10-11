@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.LatestFeedbackDocumentTitle;
     var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles")
@@ -38,6 +39,7 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
 
+        var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
         var custId = @ViewBag.CustId;
         var username = "@HttpUtility.JavaScriptStringEncode(ViewBag.Username)";
         var tops = @Html.Raw(model);
@@ -49,7 +51,9 @@
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle',
             RunningNo: '@Labels.RunningNo',
             There_is_no_data: '@CommonLabels.There_is_no_data',
-            Close: '@CommonLabels.Close'
+            Close: '@CommonLabels.Close',
+            Update: '@Labels.Update',
+            QuickUpdateTitle: '@Labels.QuickUpdateTitle'
         };
     </script>
 }

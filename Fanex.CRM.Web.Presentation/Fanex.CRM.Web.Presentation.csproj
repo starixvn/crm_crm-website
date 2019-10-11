@@ -391,6 +391,12 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Province.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Province.js" />
+    <Content Include="Areas\Communication\ViewLog\Styles\Images\icon-edit.png" />
+    <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit-hover.png" />
+    <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit.png" />
+    <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\icon-edit.png" />
+    <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
+    <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsOption.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\CommunicationTool.js" />
@@ -553,7 +559,12 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\quick-edit-hover.png" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\quick-edit.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
+    <Content Include="Areas\Feedbacks\QuickUpdate\Scripts\QuickUpdateFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\QuickUpdate\Scripts\QuickUpdateFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\QuickUpdate\Scripts\QuickUpdateFeedbackService.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatePicker.js" />
@@ -659,6 +670,8 @@
     <Content Include="wwwroot\sources\styles\images\excel.png" />
     <Content Include="wwwroot\sources\styles\images\icon-edit.png" />
     <Content Include="wwwroot\sources\styles\images\list.png" />
+    <Content Include="wwwroot\sources\styles\images\quick-edit.png" />
+    <Content Include="wwwroot\sources\styles\images\quick-edit-hover.png" />
     <Content Include="wwwroot\webpack.config.dev.js" />
     <Content Include="wwwroot\webpack.config.js" />
     <Content Include="wwwroot\webpack.config.vendor.js" />
@@ -1542,6 +1555,8 @@
     <Content Include="Areas\AdminTool\SettingRelationCN88\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Styles\ViewList.less" />
+    <Content Include="Areas\Feedbacks\QuickUpdate\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\QuickUpdate\Styles\QuickUpdateFeedback.less" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

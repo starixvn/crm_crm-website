@@ -101,6 +101,10 @@
 
         public int UpdateReviewedMode { get; set; }
 
+        public bool IsUpdateNoInquiries { get; set; }
+
+        public int NoInquiries { get; set; }
+
         public override string GetSettingKey() => "MultipleLogsUpdate";
 
         public override bool IsValid() => true;

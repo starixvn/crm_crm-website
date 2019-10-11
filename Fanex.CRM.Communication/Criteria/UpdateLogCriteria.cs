@@ -60,6 +60,8 @@
         [SpParam(SqlParamName = "stationid")]
         public string ExtensionIds { get; set; }
 
+        public int NoInquiries { get; set; }
+
         public override string GetSettingKey()
         {
             return "Communication_Log_Update";

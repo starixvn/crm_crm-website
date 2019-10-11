@@ -19,7 +19,7 @@ namespace Fanex.CRM.Feedback.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -916,6 +916,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No. of Inquiries.
+        /// </summary>
+        public static string NoOfInquiries {
+            get {
+                return ResourceManager.GetString("NoOfInquiries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have permission to update this feedback..
         /// </summary>
         public static string NoPermissionOnReviewFunction {
@@ -1083,6 +1092,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string QQ {
             get {
                 return ResourceManager.GetString("QQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick update.
+        /// </summary>
+        public static string QuickUpdateTitle {
+            get {
+                return ResourceManager.GetString("QuickUpdateTitle", resourceCulture);
             }
         }
         
@@ -1434,6 +1452,15 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

@@ -171,7 +171,8 @@
                 ReviewerId = Converter.ToInt(reader["ReviewerId"]),
                 ReviewerName = Converter.ToString2(reader["ReviewerName"]),
                 Review = Converter.ToString2(reader["Review"]),
-                AutoField = Converter.ToString2(reader["AutoField"])
+                AutoField = Converter.ToString2(reader["AutoField"]),
+                NoInquiries = Converter.ToInt(reader["NoInquiries"])
             };
 
             return feedback;

@@ -32,6 +32,7 @@
             var categoryCellValue = String.Join("\n\n", categoryContents);
 
             var feedbackCellValue = GetFeedbackCellValue(feedback);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.FeedbackId, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Username, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);

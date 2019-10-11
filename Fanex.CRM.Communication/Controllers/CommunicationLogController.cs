@@ -52,6 +52,7 @@
         public ActionResult Index(int customerId)
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
         }
 

@@ -102,7 +102,8 @@
                     },
                     Province: {
                         Id: 0
-                    }
+                    },
+                    NoInquiries: null
                 };
                 $scope.oldParams = null;
                 $scope.initController = function () {
@@ -682,6 +683,16 @@
                     else {
                         $scope.messageResultOptions = new MessageResult(viewResources.CustomerNameLengthErrorMessage, true, false);
                     }
+                };
+
+                $scope.validateInquiriesInput = function (event) {
+                    if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                        return;
+                    }
+
+                    if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                        event.preventDefault();
+                    }                                       
                 };
 
                 angular.element(document).ready(function () {

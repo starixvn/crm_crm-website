@@ -96,6 +96,8 @@
             }
         }
 
+        public int NoInquiries { get; set; }
+
         public override string GetSettingKey()
         {
             return "MultipleLogsInsert";

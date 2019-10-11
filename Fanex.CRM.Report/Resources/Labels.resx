@@ -924,4 +924,7 @@
   <data name="Province" xml:space="preserve">
     <value>Province</value>
   </data>
+  <data name="NoOfInquiries" xml:space="preserve">
+    <value>No. of Inquiries</value>
+  </data>
 </root>

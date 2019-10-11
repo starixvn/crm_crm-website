@@ -250,6 +250,24 @@
                 $scope.closeEditView);
         };
 
+        $scope.openQuickUpdateFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'QuickUpdateFeedback/Index?feedbackId=' + id;
+            var maxWidthOfPopUp = 400;
+            var maxHeightOfPopUp = 150;
+
+            parent.OpenPopup(
+                url,
+                manageFeedbackResources.QuickUpdateTitle,
+                maxWidthOfPopUp,
+                maxHeightOfPopUp,
+                true,
+                false,
+                parent.window,
+                2000,
+                null,
+                $scope.closeEditView);
+        }
+
         $scope.updateSiteLicenseeType = function () {
             var selectedFeedbacks = $scope.getSelectedFeedbacks();
             if (selectedFeedbacks.length === 0) {

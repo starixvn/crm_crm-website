@@ -35,6 +35,18 @@ $fanex-grid-images-path: '../images';
     .closed td {
         background-color: #ddd;
     }
+
+    .updateIcon {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background: url(#{$fanex-grid-images-path}/quick-edit.png) no-repeat;
+        cursor: pointer;
+    }
+
+    .updateIcon:hover {
+        background: url(#{$fanex-grid-images-path}/quick-edit-hover.png) no-repeat;
+    }
 }
 
 /* Filter */

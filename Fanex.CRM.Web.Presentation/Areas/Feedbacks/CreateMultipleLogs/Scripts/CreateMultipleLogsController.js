@@ -65,7 +65,8 @@
             },
             Subject: '',
             Remark: "<div><font color=\"#ff0000\">" + viewResources.Remark_Multiple_Log_Note + "</font></div><br/>",
-            Solution: ''
+            Solution: '',
+            NoInquiries: null
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         $scope.extensionList = null;
@@ -112,6 +113,16 @@
                 sourceData: $scope.getSubProducts($scope.selectedProducts)
             };
         }
+
+        $scope.validateInquiriesInput = function (event) {
+            if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                return;
+            }
+
+            if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                event.preventDefault();
+            }
+        };
 
         $scope.subProductChangedHandler = function () {
             $scope.selectedSubProductIds = [];
@@ -529,7 +540,8 @@
                 CommunicationIds: $scope.GetCommunicationParams(),
                 ExtensionIds: $scope.GetExtensionParams(),
                 Products: $scope.GetProductParams(),
-                Categories: $scope.GetCategoryParams()
+                Categories: $scope.GetCategoryParams(),
+                NoInquiries: $scope.multipleLogs.NoInquiries
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
                 $scope.checkDuplicationThenCreateFeedback(insertCriteria);

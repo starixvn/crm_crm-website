@@ -228,4 +228,10 @@
   <data name="Insert_Communication_Log" xml:space="preserve">
     <value>Insert Communication Log</value>
   </data>
+  <data name="QuickUpdateTitle" xml:space="preserve">
+    <value>Quick update</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
 </root>

@@ -77,6 +77,8 @@
 
         public string AutoField { get; set; }
 
+        public int NoInquiries { get; set; }
+
         public List<SettingItem> Settings { get; set; }
     }
 }

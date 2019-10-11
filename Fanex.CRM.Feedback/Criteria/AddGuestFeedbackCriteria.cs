@@ -78,6 +78,8 @@
 
         public string IP => IPHelper.ClientIP;
 
+        public int NoInquiries { get; set; }
+
         public int ErrorCode { get; set; }
 
         public string ErrorMessage { get; set; }
@@ -162,6 +164,7 @@
                 param.Add("review", Review);
                 param.Add("reviewerid", ReviewerId);
             }
+            param.Add("NoInquiries", NoInquiries);
 
             param.Add("creatorid", CreatorId);
             param.Add("ip", IP);

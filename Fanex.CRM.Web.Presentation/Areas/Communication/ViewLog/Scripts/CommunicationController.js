@@ -28,6 +28,7 @@
             MaxFromDate: new Date(currentDate),
             Handler: ''
         };
+        $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
 
         $scope.initController = function () {
             $scope.getAllStatus();
@@ -147,6 +148,25 @@
             null,
             $scope.beforeCloseEditView);
         };
+
+        $scope.openQuickUpdateFeedbackPopup = function (id) {
+            var url = window.rootUrl + 'QuickUpdateFeedback/Index?feedbackId=' + id;
+            var maxWidthOfPopUp = 400;
+            var maxHeightOfPopUp = 150;
+
+            parent.OpenPopup(
+                url,
+                viewResources.QuickUpdateTitle,
+                maxWidthOfPopUp,
+                maxHeightOfPopUp,
+                true,
+                false,
+                parent.window,
+                2000,
+                null,
+                $scope.closeEditView);
+        }
+
         $scope.insertCommunicationLog = function () {
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
