@@ -28,6 +28,8 @@
             RegisterSettingManagementCN88InsertSubSettingBundles(bundles);
             RegisterSettingManagementCN88DeleteSettingBundles(bundles);
             RegisterSettingManagementCN88EditSettingBundles(bundles);
+
+            RegisterCommunicationSettingBundles(bundles);
         }
 
         private static void RegisterFeedbackSubjectManagementBundles(BundleCollection bundles)
@@ -417,6 +419,23 @@
             bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagementCN88/DeleteSettingStyles",
                 "~/Areas/AdminTool/SettingManagementCN88/DeleteSetting/Styles/DeleteSetting.less");
+        }
+
+        private static void RegisterCommunicationSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Bundles/CommToolSettingScripts").Include(
+                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
+                "~/Scripts/ShareScripts/Applications/ResultMessage.js",
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Admin/CommToolSettingStyles",
+                "~/Scripts/Tipsy-Tooltip/tipsy.css",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }
     }
 }

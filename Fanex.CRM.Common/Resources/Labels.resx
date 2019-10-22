@@ -165,11 +165,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
+  </data>
+  <data name="CommunicationTool" xml:space="preserve">
+    <value>Communication Tool</value>
   </data>
   <data name="ConfirmMultipleUpdates" xml:space="preserve">
     <value>Confirm Multiple Updates</value>
@@ -180,14 +186,32 @@
   <data name="Confirm_Ignore_Changes" xml:space="preserve">
     <value>Confirm Ignore Changes</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
+  </data>
+  <data name="DefaultCommunicationSetting" xml:space="preserve">
+    <value>Default Communication Setting</value>
   </data>
   <data name="DefaultSearchCustomer" xml:space="preserve">
     <value>Phone or Username or Nickname</value>
   </data>
+  <data name="DeleteSetting" xml:space="preserve">
+    <value>Delete Setting</value>
+  </data>
   <data name="DirectAccount" xml:space="preserve">
     <value>Direct Account</value>
+  </data>
+  <data name="DisableCategorySubCategoryFilters" xml:space="preserve">
+    <value>Disable Cat/Sub-Cat filters</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="EditedBy" xml:space="preserve">
     <value>Edited By</value>
@@ -237,6 +261,9 @@
   <data name="Handler" xml:space="preserve">
     <value>Handler</value>
   </data>
+  <data name="Helper_RelatedCustomerInputMessage" xml:space="preserve">
+    <value>Multiple customers can be entered, separated by commas. Ex: abc, xyz, etc.</value>
+  </data>
   <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
     <value>Show/Hide Left Panel</value>
   </data>
@@ -246,11 +273,44 @@
   <data name="InformHeadlines" xml:space="preserve">
     <value>Inform Headlines</value>
   </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="InsertNewSetting" xml:space="preserve">
+    <value>Insert New Setting</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
   <data name="Licensee" xml:space="preserve">
     <value>Licensee</value>
   </data>
+  <data name="ListOfCustomers" xml:space="preserve">
+    <value>List of customers</value>
+  </data>
   <data name="MBC" xml:space="preserve">
     <value>MBC</value>
+  </data>
+  <data name="Message_CategoryIsMandatory" xml:space="preserve">
+    <value>Category is mandatory!</value>
+  </data>
+  <data name="Message_CommunicationToolIsMandatory" xml:space="preserve">
+    <value>Communication Tool is mandatory!</value>
+  </data>
+  <data name="Message_ErrorRelatedCustomerNameLength" xml:space="preserve">
+    <value>Customer Name cannot be greater than 50 characters.</value>
+  </data>
+  <data name="Message_InsertNewSettingSuccessfully" xml:space="preserve">
+    <value>Insert new setting successfully!</value>
+  </data>
+  <data name="Message_ListOfCustomersAreMandatory" xml:space="preserve">
+    <value>List of customers are mandatory!</value>
+  </data>
+  <data name="Message_SubCategoryIsMandatory" xml:space="preserve">
+    <value>Sub-Category is mandatory!</value>
+  </data>
+  <data name="Message_VerifyListOfUsernameBeforeInsertSetting" xml:space="preserve">
+    <value>You must verify the list of usernames before inserting this setting!</value>
   </data>
   <data name="Message_ViewChart_FromToDate" xml:space="preserve">
     <value>{0} To {1}</value>
@@ -263,6 +323,9 @@
   </data>
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this function!</value>
+  </data>
+  <data name="NumberColumn" xml:space="preserve">
+    <value>No.</value>
   </data>
   <data name="NumberOfRemovedEditedAccounts" xml:space="preserve">
     <value>Number Of Removed Edited Accounts</value>
@@ -282,8 +345,14 @@
   <data name="ResultMessage_NoInfo" xml:space="preserve">
     <value>There is no data.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>Sub-Category</value>
   </data>
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
@@ -293,6 +362,9 @@
   </data>
   <data name="UpdatedTime" xml:space="preserve">
     <value>Updated Time</value>
+  </data>
+  <data name="UpdateSetting" xml:space="preserve">
+    <value>Update Setting</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>

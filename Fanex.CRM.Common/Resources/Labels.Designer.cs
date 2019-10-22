@@ -205,6 +205,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -219,6 +228,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string Closed {
             get {
                 return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication Tool.
+        /// </summary>
+        public static string CommunicationTool {
+            get {
+                return ResourceManager.GetString("CommunicationTool", resourceCulture);
             }
         }
         
@@ -250,11 +268,38 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Communication Setting.
+        /// </summary>
+        public static string DefaultCommunicationSetting {
+            get {
+                return ResourceManager.GetString("DefaultCommunicationSetting", resourceCulture);
             }
         }
         
@@ -268,11 +313,38 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Setting.
+        /// </summary>
+        public static string DeleteSetting {
+            get {
+                return ResourceManager.GetString("DeleteSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Direct Account.
         /// </summary>
         public static string DirectAccount {
             get {
                 return ResourceManager.GetString("DirectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Cat/Sub-Cat filters.
+        /// </summary>
+        public static string DisableCategorySubCategoryFilters {
+            get {
+                return ResourceManager.GetString("DisableCategorySubCategoryFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -421,6 +493,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple customers can be entered, separated by commas. Ex: abc, xyz, etc..
+        /// </summary>
+        public static string Helper_RelatedCustomerInputMessage {
+            get {
+                return ResourceManager.GetString("Helper_RelatedCustomerInputMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show/Hide Left Panel.
         /// </summary>
         public static string Home_Index_CollapseExpandLeftPanel {
@@ -448,6 +529,33 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert.
+        /// </summary>
+        public static string Insert {
+            get {
+                return ResourceManager.GetString("Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert New Setting.
+        /// </summary>
+        public static string InsertNewSetting {
+            get {
+                return ResourceManager.GetString("InsertNewSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid.
+        /// </summary>
+        public static string Invalid {
+            get {
+                return ResourceManager.GetString("Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee.
         /// </summary>
         public static string Licensee {
@@ -457,11 +565,83 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List of customers.
+        /// </summary>
+        public static string ListOfCustomers {
+            get {
+                return ResourceManager.GetString("ListOfCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MBC.
         /// </summary>
         public static string MBC {
             get {
                 return ResourceManager.GetString("MBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category is mandatory!.
+        /// </summary>
+        public static string Message_CategoryIsMandatory {
+            get {
+                return ResourceManager.GetString("Message_CategoryIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication Tool is mandatory!.
+        /// </summary>
+        public static string Message_CommunicationToolIsMandatory {
+            get {
+                return ResourceManager.GetString("Message_CommunicationToolIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Name cannot be greater than 50 characters..
+        /// </summary>
+        public static string Message_ErrorRelatedCustomerNameLength {
+            get {
+                return ResourceManager.GetString("Message_ErrorRelatedCustomerNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new setting successfully!.
+        /// </summary>
+        public static string Message_InsertNewSettingSuccessfully {
+            get {
+                return ResourceManager.GetString("Message_InsertNewSettingSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of customers are mandatory!.
+        /// </summary>
+        public static string Message_ListOfCustomersAreMandatory {
+            get {
+                return ResourceManager.GetString("Message_ListOfCustomersAreMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub-Category is mandatory!.
+        /// </summary>
+        public static string Message_SubCategoryIsMandatory {
+            get {
+                return ResourceManager.GetString("Message_SubCategoryIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must verify the list of usernames before inserting this setting!.
+        /// </summary>
+        public static string Message_VerifyListOfUsernameBeforeInsertSetting {
+            get {
+                return ResourceManager.GetString("Message_VerifyListOfUsernameBeforeInsertSetting", resourceCulture);
             }
         }
         
@@ -498,6 +678,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string NoPermission {
             get {
                 return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        public static string NumberColumn {
+            get {
+                return ResourceManager.GetString("NumberColumn", resourceCulture);
             }
         }
         
@@ -556,11 +745,29 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub-Category.
+        /// </summary>
+        public static string SubCategory {
+            get {
+                return ResourceManager.GetString("SubCategory", resourceCulture);
             }
         }
         
@@ -588,6 +795,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string UpdatedTime {
             get {
                 return ResourceManager.GetString("UpdatedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Setting.
+        /// </summary>
+        public static string UpdateSetting {
+            get {
+                return ResourceManager.GetString("UpdateSetting", resourceCulture);
             }
         }
         

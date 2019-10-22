@@ -604,6 +604,15 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\edit-commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\create\create-commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\create\related-customer-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-module.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\tipsy-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />
@@ -1557,6 +1566,10 @@
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\Feedbacks\QuickUpdate\Index.cshtml" />
     <Content Include="Areas\Feedbacks\QuickUpdate\Styles\QuickUpdateFeedback.less" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\Index.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Create.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1578,6 +1591,7 @@
     <Content Include="wwwroot\dist\styles\manage.feedback.js.map" />
     <Content Include="Scripts\AngularJS\angular.min.js.map" />
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\commtool-setting.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

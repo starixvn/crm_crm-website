@@ -206,4 +206,11 @@
       <Mapping DataField="DirectAcc" ObjectProperty="DirectAccount" />
     </Setting>
   </Function>
+  <Function Name="Default Communication Setting">
+    <Setting Key="Acc_CRM_crmDefaultCommToolSearch" SpName="Acc_CRM_crmDefaultCommToolSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_crmDefaultCommToolIns" SpName="Acc_CRM_crmDefaultCommToolIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_crmDefaultCommToolUpd" SpName="Acc_CRM_crmDefaultCommToolUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_crmDefaultCommToolSel" SpName="Acc_CRM_crmDefaultCommToolSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_crmDefaultCommToolDel" SpName="Acc_CRM_crmDefaultCommToolDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
 </Functions>

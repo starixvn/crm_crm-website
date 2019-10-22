@@ -73,7 +73,7 @@
 
         return {
             restrict: 'A',
-            require: '^ngModel',
+            require: 'ngModel',
             scope: {
                 dataSources: '=ngModel',
                 totalItems: '=',
