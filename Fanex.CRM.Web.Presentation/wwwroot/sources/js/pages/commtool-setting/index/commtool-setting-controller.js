@@ -8,11 +8,11 @@
         let vm = this;
         vm.filter = {
             customer: '',
-            isDisableCategorySubCategory: true
-        };
-        vm.pagerOption = {
+            isSelectAllCategory: false,
+            isSelectAllSubCategory: false,
+            isDisableCategorySubCategory: true,
             pageIndex: 0,
-            itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage
+            pageSize: sharedScriptManager.cachedData.defaultItemsPerPage
         };
         vm.textSettings = {
             Filter: 'Search',
@@ -22,139 +22,51 @@
             CheckAll: 'Any'
         };
         vm.allSettings = {};
-        vm.communicationSettings = [
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Email' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk' },
-            { Customer: 'usera', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Letstalk, Email' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Line, Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' },
-            { Customer: 'userb', Category: 'Any', SubCategory: 'Any', CommunicationTool: 'Skype' }
-        ];
-        vm.totalItems = 115;
+        vm.communicationSettings = [];
+        vm.totalItems = 0;
         vm.selectedSubCategoryIds = [];
+        vm.isDisableSearch = false;
 
-        function getCommToolSettings(pageIndex, itemsPerPage) {
+        function getCommToolSettings() {
             $uiBlockerService.blockUI();
 
+            const getCategoryIds = function () {
+                let categoryIds = '';
+                if (!vm.filter.isDisableCategorySubCategory) {
+                    if (vm.filter.isSelectAllCategory) {
+                        categoryIds = '0';
+                    } else {
+                        categoryIds = vm.selectedCategories.map(cat => cat.Id).sort().join(',');
+                    }
+                }
+
+                return categoryIds;
+            };
+            const getSubCategoryIds = function () {
+                let subCategoryIds = '';
+                if (!vm.filter.isDisableCategorySubCategory) {
+                    if (vm.filter.isSelectAllSubCategory) {
+                        subCategoryIds = '0';
+                    } else {
+                        subCategoryIds = vm.selectedSubCategories.map(subcat => subcat.Id).sort().join(',');
+                    }
+                }
+
+                return subCategoryIds;
+            };
+
             const params = {
-                titleId: titleId,
-                pageIndex: pageIndex,
-                itemsPerPage: itemsPerPage
+                username: vm.filter.customer.trim(),
+                categoryIds: getCategoryIds(),
+                subcategoryIds: getSubCategoryIds(),
+                isDisableCategorySubCategory: vm.filter.isDisableCategorySubCategory,
+                pageIndex: vm.filter.pageIndex + 1,
+                pageSize: vm.filter.pageSize
             };
             commToolSettingFactory.getCommToolSettings(params)
                 .then(function (data) {
                     vm.communicationSettings = data.Result.Items;
                     vm.totalItems = data.Result.TotalItems;
-                    $uiBlockerService.unblockUI();
-                }, function () {
-                    vm.communicationSettings = [];
-                    vm.totalItems = 0;
                     $uiBlockerService.unblockUI();
                 });
         }
@@ -176,17 +88,30 @@
                         sourceData: vm.allSettings.SubCategories,
                         checkedAll: true
                     };
+
                     vm.selectedCategories = vm.allSettings.MainCategories;
                     vm.selectedSubCategories = vm.allSettings.SubCategories;
+                    vm.filter.isDisableCategorySubCategory = true;
+                    vm.filter.isSelectAllCategory = true;
+                    vm.filter.isSelectAllSubCategory = true;
+
                     $uiBlockerService.unblockUI();
                 });
         }
 
         function initialize() {
             getAllSettings();
+            getCommToolSettings();
         }
 
+        vm.checkDisableSearch = function () {
+            vm.isDisableSearch = !vm.filter.isDisableCategorySubCategory
+                && (vm.selectedCategories.length === 0 || vm.selectedSubCategories.length === 0);
+        };
+
         vm.categoryChangedHandler = function () {
+            vm.categorySelectAllHandler();
+            vm.checkDisableSearch();
             vm.subCategoryDropdownSettings = {
                 idMember: 'Id',
                 nameMember: 'Name',
@@ -197,22 +122,39 @@
             };
         };
 
+        vm.categorySelectAllHandler = function () {
+            vm.filter.isSelectAllCategory = vm.categoryDropdownSettings.sourceData.length > 0
+                && vm.selectedCategories.length === vm.categoryDropdownSettings.sourceData.length;
+        };
+
         vm.subCategoryChangedHandler = function () {
+            vm.checkDisableSearch();
+            vm.subCategorySelectAllHandler();
             vm.selectedSubCategoryIds = [];
             angular.forEach(vm.selectedSubCategories, function (subCategory) {
                 vm.selectedSubCategoryIds.push(subCategory.Id);
             });
         };
 
-        vm.getCommToolSettings = function (pageIndex, itemsPerPage) {
-            vm.pagerOption.pageIndex = pageIndex;
-            vm.pagerOption.itemsPerPage = itemsPerPage;
+        vm.subCategorySelectAllHandler = function () {
+            vm.filter.isSelectAllSubCategory = vm.subCategoryDropdownSettings.sourceData.length
+                && vm.selectedSubCategories.length === vm.subCategoryDropdownSettings.sourceData.length;
+        };
 
-            getCommToolSettings(pageIndex + 1, itemsPerPage);
+        vm.getCommToolSettings = function (pageIndex, pageSize) {
+            vm.filter.pageIndex = pageIndex;
+            vm.filter.pageSize = pageSize;
+
+            getCommToolSettings();
+        };
+
+        vm.search = function () {
+            vm.filter.pageIndex = 0;
+            getCommToolSettings();
         };
 
         vm.openCreatePopup = function () {
-            $uibModal.open({
+            const modalInstance = $uibModal.open({
                 template: angular.element('#template-create-commtool-setting').html(),
                 controller: 'CreateCommToolSettingController as createCommToolSettingCtrl',
                 backdrop: 'static',
@@ -222,11 +164,12 @@
                 resolve: {
                     allSettings: function () {
                         return angular.copy(vm.allSettings);
-                    },
-                    textSettings: function () {
-                        return angular.copy(vm.textSettings);
                     }
                 }
+            });
+
+            modalInstance.result.then(function (isSuccessful) {
+                console.log(isSuccessful);
             });
         };
 

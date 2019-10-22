@@ -147,6 +147,7 @@
     <Compile Include="Controllers\SettingManagementController.cs" />
     <Compile Include="Controllers\SettingRelationCN88Controller.cs" />
     <Compile Include="Controllers\SettingRelationController.cs" />
+    <Compile Include="Criteria\CommunicationToolSetting\CreateCommunicationToolSettingCriteria.cs" />
     <Compile Include="Criteria\CommunicationToolSetting\GetCommunicationToolSettingCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\ChangeSubjectTemplateStateCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\EditFeedbackSubjectTemplateCriteria.cs" />
@@ -172,7 +173,6 @@
     <Compile Include="Criteria\SettingRelation\GetSettingByTypeCN88Criteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetSettingByTypeCriteria.cs" />
     <Compile Include="Models\CommunicationToolSetting\CommunicationToolSettingItem.cs" />
-    <Compile Include="Models\CommunicationToolSetting\GetCommunicationToolSettingParam.cs" />
     <Compile Include="Models\FeedbackSubjectManagement\FeedbackSubjectTemplate.cs" />
     <Compile Include="Models\FeedbackSubjectManagement\FeedbackSubjectTemplateView.cs" />
     <Compile Include="Models\SettingManagement\MainSetting.cs" />

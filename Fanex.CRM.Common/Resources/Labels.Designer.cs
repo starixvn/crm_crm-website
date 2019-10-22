@@ -637,6 +637,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update setting successfully!.
+        /// </summary>
+        public static string Message_UpdateSettingSuccessfully {
+            get {
+                return ResourceManager.GetString("Message_UpdateSettingSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must verify the list of usernames before inserting this setting!.
         /// </summary>
         public static string Message_VerifyListOfUsernameBeforeInsertSetting {

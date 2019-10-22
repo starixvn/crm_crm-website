@@ -312,4 +312,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>歡迎</value>
   </data>
+  <data name="Message_UpdateSettingSuccessfully" xml:space="preserve">
+    <value>Update setting successfully!</value>
+  </data>
 </root>

@@ -41,7 +41,7 @@
             for (let i = 0; i < totalItems; i++) {
                 const item = scope.dataSources[i];
                 let columns = [
-                    { Name: 'RowNum', Value: scope.pagerOption.pageIndex * scope.pagerOption.itemsPerPage + i + 1 },
+                    { Name: 'RowNum', Value: scope.pageIndex * scope.pageSize + i + 1 },
                     { Name: 'Customer', Value: item.Customer },
                     { Name: 'Category', Value: item.Category },
                     { Name: 'SubCategory', Value: item.SubCategory },
@@ -75,15 +75,15 @@
                 gridExpandHeight: 200,
                 autoResizeColumn: true,
                 showPager: true,
-                //customPager: true,
+                customPager: true,
                 pagerOption: {
-                    itemsPerPage: scope.pagerOption.itemsPerPage,
+                    itemsPerPage: scope.pageSize,
                     itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                    currentPage: scope.pagerOption.pageIndex,
+                    currentPage: scope.pageIndex,
                     totalItem: scope.totalItems,
-                    //pagerSelectCallBack: function (pageIndex, pageSize) {
-                    //    scope.onPageChange(pageIndex, pageSize);
-                    //}
+                    pagerSelectCallBack: function (pageIndex, pageSize) {
+                        scope.onPageChange(pageIndex, pageSize);
+                    }
                 }
             };
 
@@ -104,7 +104,8 @@
             scope: {
                 dataSources: '=ngModel',
                 totalItems: '=',
-                pagerOption: '=',
+                pageIndex: '=',
+                pageSize: '=',
                 onPageChange: '=',
                 onEdit: '='
             },

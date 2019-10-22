@@ -12,7 +12,7 @@
         }
 
         function getCommToolSettings(params) {
-            const url = window.rootUrl + 'communicationSetting/getCommToolSettings';
+            const url = window.rootUrl + 'communicationSetting/getCommunicationToolSetting';
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
@@ -21,10 +21,16 @@
             return sharedScriptManager.registerAngularService($http, $q, url, { username: customers });
         }
 
+        function createCommToolSetting(params) {
+            const url = window.rootUrl + 'communicationSetting/createCommunicationToolSetting';
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        }
+
         return {
             getAllSettings: getAllSettings,
             getCommToolSettings: getCommToolSettings,
-            verifyCustomers: verifyCustomers
+            verifyCustomers: verifyCustomers,
+            createCommToolSetting: createCommToolSetting
         };
     }
 })(angular);

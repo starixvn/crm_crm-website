@@ -26,7 +26,8 @@
                                                     data-show-selected-all-text="true"
                                                     ng-model="commToolSettingCtrl.selectedCategories"
                                                     ng-disabled="commToolSettingCtrl.filter.isDisableCategorySubCategory"
-                                                    ng-change="commToolSettingCtrl.categoryChangedHandler()" />
+                                                    ng-change="commToolSettingCtrl.categoryChangedHandler()"
+                                                    ng-on-checkall="commToolSettingCtrl.categorySelectAllHandler()" />
                         </div>
                     </div>
                     <div class="item subcategory-select">
@@ -37,7 +38,8 @@
                                                     data-show-selected-all-text="true"
                                                     ng-model="commToolSettingCtrl.selectedSubCategories"
                                                     ng-disabled="commToolSettingCtrl.filter.isDisableCategorySubCategory"
-                                                    ng-change="commToolSettingCtrl.subCategoryChangedHandler()" />
+                                                    ng-change="commToolSettingCtrl.subCategoryChangedHandler()"
+                                                    ng-on-checkall="commToolSettingCtrl.subCategorySelectAllHandler()" />
                         </div>
                     </div>
                 </div>
@@ -45,12 +47,13 @@
                     <div class="item">
                         <label for="isDisableCategorySubCategory" class="labelforcheckbox checkbox">
                             <input id="isDisableCategorySubCategory" type="checkbox"
-                                   ng-model="commToolSettingCtrl.filter.isDisableCategorySubCategory" />
+                                   ng-model="commToolSettingCtrl.filter.isDisableCategorySubCategory"
+                                   ng-change="commToolSettingCtrl.checkDisableSearch()"/>
                             @Labels.DisableCategorySubCategoryFilters
                         </label>
                     </div>
                     <div class="item">
-                        <button class="btn" ng-click="commToolSettingCtrl.search()">@Labels.Search</button>
+                        <button class="btn" ng-click="commToolSettingCtrl.search()" ng-disabled="commToolSettingCtrl.isDisableSearch">@Labels.Search</button>
                     </div>
                     @if (isHost)
                     {
@@ -63,7 +66,8 @@
             <div class="row">
                 <div class="comm-tool-setting-grid freegrid display-none" comm-tool-setting-grid
                      ng-model="commToolSettingCtrl.communicationSettings"
-                     data-pager-option="commToolSettingCtrl.pagerOption"
+                     data-page-index="commToolSettingCtrl.filter.pageIndex"
+                     data-page-size="commToolSettingCtrl.filter.pageSize"
                      data-total-items="commToolSettingCtrl.totalItems"
                      data-on-page-change="commToolSettingCtrl.getCommToolSettings"
                      data-on-edit="commToolSettingCtrl.openEditPopup">

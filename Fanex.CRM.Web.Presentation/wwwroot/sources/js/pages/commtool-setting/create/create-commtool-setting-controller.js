@@ -2,37 +2,29 @@
     'use strict';
 
     angular.module('commToolSettingModule').controller('CreateCommToolSettingController', createCommToolSettingController);
-    createCommToolSettingController.$inject = ['$scope', '$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'allSettings', 'textSettings'];
+    createCommToolSettingController.$inject = ['$scope', '$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'allSettings'];
 
-    function createCommToolSettingController($scope, $uibModalInstance, $uiBlockerService, commToolSettingFactory, allSettings, textSettings) {
+    function createCommToolSettingController($scope, $uibModalInstance, $uiBlockerService, commToolSettingFactory, allSettings) {
         let vm = this;
 
         vm.allSettings = allSettings;
-        vm.textSettings = textSettings;
+        vm.textSettings = {
+            Filter: 'Search',
+            NoData: 'No data',
+            NoItemChecked: 'Please choose',
+            AllItemsSelected: 'Any',
+            CheckAll: 'Any'
+        };
+        vm.communicationTextSettings = {
+            Filter: 'Search',
+            NoData: 'No data',
+            NoItemChecked: 'Please choose',
+            CheckAll: 'All'
+        };
         vm.selectedSubCategoryIds = [];
         vm.relatedCustomers = [];
         vm.customersInput = '';
         vm.isVerifiedCustomers = false;
-
-        function getRemovedAccountLogs(pageIndex, itemsPerPage) {
-            $uiBlockerService.blockUI();
-
-            const params = {
-                titleId: titleId,
-                pageIndex: pageIndex,
-                itemsPerPage: itemsPerPage
-            };
-            commToolSettingFactory.getRemovedAccountLogs(params)
-                .then(function (data) {
-                    vm.data = data.Result.Items;
-                    vm.totalItems = data.Result.TotalItems;
-                    $uiBlockerService.unblockUI();
-                }, function () {
-                    vm.data = [];
-                    vm.totalItems = 0;
-                    $uiBlockerService.unblockUI();
-                });
-        }
 
         function getRelatedCustomerName() {
             let relatedCustomerNames = [];
@@ -97,7 +89,7 @@
         }
 
         vm.close = function () {
-            $uibModalInstance.close();
+            $uibModalInstance.close(false);
         };
 
         vm.categoryChangedHandler = function () {
@@ -116,9 +108,6 @@
             angular.forEach(vm.selectedSubCategories, function (subCategory) {
                 vm.selectedSubCategoryIds.push(subCategory.Id);
             });
-        };
-
-        vm.communicationChangeHandler = function () {
         };
 
         vm.verifyCustomers = function () {
@@ -177,11 +166,45 @@
         };
 
         vm.saveAndContinue = function () {
-            validateForm();
+            if (validateForm()) {
+                const params = {
+                    username: getRelatedCustomerName(),
+                    categoryIds: vm.selectedCategories,
+                    subCategoryIds: vm.selectedSubCategories,
+                    communicationIds: vm.selectedCommunications
+                };
+
+                commToolSettingFactory.getRemovedAccountLogs(params)
+                    .then(function (data) {
+                        $uiBlockerService.unblockUI();
+
+                        vm.isSuccess = data.Result.IsSuccessful;
+                        vm.resultMessage = result.Message;
+                        vm.isShowResultMessage = true;
+                    });
+            }
         };
 
         vm.save = function () {
-            validateForm();
+            if (validateForm()) {
+                const params = {
+                    username: getRelatedCustomerName(),
+                    categoryIds: vm.selectedCategories,
+                    subCategoryIds: vm.selectedSubCategories,
+                    communicationIds: vm.selectedCommunications
+                };
+
+                commToolSettingFactory.getRemovedAccountLogs(params)
+                    .then(function (data) {
+                        $uiBlockerService.unblockUI();
+
+                        vm.isSuccess = data.Result.IsSuccessful;
+                        vm.resultMessage = result.Message;
+                        vm.isShowResultMessage = true;
+
+                        $uibModalInstance.close(true);
+                    });
+            }
         };
 
         initialize();
