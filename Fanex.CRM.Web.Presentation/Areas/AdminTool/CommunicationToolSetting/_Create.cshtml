@@ -7,9 +7,7 @@
     </div>
     <div class="modal-body">
         <div class="row row-item" ng-show="createCommToolSettingCtrl.isShowResultMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="alertbox{{ createCommToolSettingCtrl.isSuccess ? 'scc' : 'err' }}"><div>{{createCommToolSettingCtrl.resultMessage}}</div></div>
-            </div>
+            <div class="alertbox{{ createCommToolSettingCtrl.isSuccessful ? 'scc' : 'err' }}"><div>{{createCommToolSettingCtrl.resultMessage}}</div></div>
         </div>
         <div class="row item">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -54,7 +52,8 @@
                                         data-settings="createCommToolSettingCtrl.categoryDropdownSettings"
                                         data-show-selected-all-text="true"
                                         ng-model="createCommToolSettingCtrl.selectedCategories"
-                                        ng-change="createCommToolSettingCtrl.categoryChangedHandler()" />
+                                        ng-change="createCommToolSettingCtrl.categoryChangedHandler()"
+                                        ng-on-checkall="createCommToolSettingCtrl.categorySelectAllHandler()" />
             </div>
             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
                 <label>
@@ -67,7 +66,8 @@
                                         data-settings="createCommToolSettingCtrl.subCategoryDropdownSettings"
                                         data-show-selected-all-text="true"
                                         ng-model="createCommToolSettingCtrl.selectedSubCategories"
-                                        ng-change="createCommToolSettingCtrl.subCategoryChangedHandler()" />
+                                        ng-change="createCommToolSettingCtrl.subCategoryChangedHandler()"
+                                        ng-on-checkall="createCommToolSettingCtrl.subCategorySelectAllHandler()" />
             </div>
         </div>
         <div class="row item">
@@ -85,8 +85,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn" ng-click="createCommToolSettingCtrl.saveAndContinue()">@Labels.Btn_Save & @Labels.Continue</button>
-        <button class="btn" ng-click="createCommToolSettingCtrl.save()">@Labels.Btn_Save</button>
+        <button class="btn" ng-click="createCommToolSettingCtrl.saveAndContinue()" ng-disabled="createCommToolSettingCtrl.isDiableCreate">@Labels.Btn_Save & @Labels.Continue</button>
+        <button class="btn" ng-click="createCommToolSettingCtrl.save()"  ng-disabled="createCommToolSettingCtrl.isDiableCreate">@Labels.Btn_Save</button>
         <button class="btn" ng-click="createCommToolSettingCtrl.close()">@Labels.Cancel</button>
     </div>
 </div>

@@ -38,7 +38,7 @@
             return View("~/Areas/AdminTool/CommunicationToolSetting/Index.cshtml");
         }
 
-        public JsonResult GetAllSettings()
+        public ActionResult GetAllSettings()
         {
             var settings = new
             {
@@ -50,15 +50,21 @@
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria)
+        public ActionResult GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria)
         {
-            Tuple<IEnumerable<CommunicationToolSettingItem>, int> tuple = communicationToolSettingService.GetCommunicationToolSetting(criteria);
+            Tuple<IEnumerable<CommunicationToolSettingItem>, int> tuple = communicationToolSettingService.GetAll(criteria);
             return Json(new { Items = tuple.Item1, TotalItems = tuple.Item2 }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetById(int id)
+        {
+            CommunicationToolSettingItem settingItem = communicationToolSettingService.GetById(id);
+            return Json(settingItem, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.DefaultCommunicationSetting, Policy = Constant.Policy.Host)]
-        public ActionResult CreateCommunicationToolSetting(CreateCommunicationToolSettingCriteria criteria)
+        public ActionResult Create(CreateCommunicationToolSettingCriteria criteria)
         {
             CommandResult commandResult = communicationToolSettingService.Create(criteria);
             if (commandResult.IsSuccessful)
@@ -70,7 +76,19 @@
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.DefaultCommunicationSetting, Policy = Constant.Policy.Host)]
-        public ActionResult DeleteCommunicationToolSetting(int id)
+        public ActionResult Edit(EditCommunicationToolSettingCriteria criteria)
+        {
+            CommandResult commandResult = communicationToolSettingService.Edit(criteria);
+            if (commandResult.IsSuccessful)
+            {
+                commandResult.Message = Labels.Message_UpdateSettingSuccessfully;
+            }
+            return Json(commandResult, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.DefaultCommunicationSetting, Policy = Constant.Policy.Host)]
+        public ActionResult Delete(int id)
         {
             CommandResult commandResult = communicationToolSettingService.Delete(id);
             if (commandResult.IsSuccessful)

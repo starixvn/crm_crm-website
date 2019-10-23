@@ -7,6 +7,7 @@
     function createCommToolSettingController($scope, $uibModalInstance, $uiBlockerService, commToolSettingFactory, allSettings) {
         let vm = this;
 
+        vm.isCreateSuccessfully = false;
         vm.allSettings = allSettings;
         vm.textSettings = {
             Filter: 'Search',
@@ -21,10 +22,6 @@
             NoItemChecked: 'Please choose',
             CheckAll: 'All'
         };
-        vm.selectedSubCategoryIds = [];
-        vm.relatedCustomers = [];
-        vm.customersInput = '';
-        vm.isVerifiedCustomers = false;
 
         function getRelatedCustomerName() {
             let relatedCustomerNames = [];
@@ -37,10 +34,42 @@
             return relatedCustomerNames.join(',');
         }
 
+        function getCategoryIds() {
+            let categoryIds = '';
+            if (vm.isSelectAllCategory) {
+                categoryIds = '0';
+            } else {
+                categoryIds = vm.selectedCategories.map(cat => cat.Id).sort().join(',');
+            }
+
+            return categoryIds;
+        }
+
+        function getSubCategoryIds() {
+            let subCategoryIds = '';
+            if (vm.isSelectAllSubCategory) {
+                subCategoryIds = '0';
+            } else {
+                subCategoryIds = vm.selectedSubCategories.map(subcat => subcat.Id).sort().join(',');
+            }
+
+            return subCategoryIds;
+        }
+
+        function getCommunicationIds() {
+            return vm.selectedCommunications.map(comm => comm.Id).sort().join(',');
+        }
+
         function validateForm() {
             let isValid = true;
+
+            if (vm.customersInput.length > 0 && !vm.isVerifiedCustomers) {
+                isValid = false;
+                vm.resultMessage = communicationSettingResources.VerifyListOfUsernameBeforeInsertSetting;
+            }
+
             const customers = getRelatedCustomerName();
-            if (customers.length === 0) {
+            if (isValid && customers.length === 0) {
                 isValid = false;
                 vm.resultMessage = communicationSettingResources.ListOfCustomersAreMandatory;
             }
@@ -64,7 +93,7 @@
                 vm.isShowResultMessage = false;
             } else {
                 vm.isShowResultMessage = true;
-                vm.isSuccess = false;
+                vm.isSuccessful = false;
             }
 
             return isValid;
@@ -86,13 +115,24 @@
                 nameMember: 'Name',
                 sourceData: allSettings.SubCategories
             };
+            vm.isDiableCreate = false;
+            vm.relatedCustomers = [];
+            vm.customersInput = '';
+            vm.selectedCategories = [];
+            vm.selectedSubCategories = [];
+            vm.selectedCommunications = [];
+            vm.selectedSubCategoryIds = [];
+            vm.isSelectAllCategory = false;
+            vm.isSelectAllSubCategory = false;
+            vm.isVerifiedCustomers = false;
         }
 
         vm.close = function () {
-            $uibModalInstance.close(false);
+            $uibModalInstance.close(vm.isCreateSuccessfully);
         };
 
         vm.categoryChangedHandler = function () {
+            vm.categorySelectAllHandler();
             vm.subCategoryDropdownSettings = {
                 idMember: 'Id',
                 nameMember: 'Name',
@@ -103,11 +143,22 @@
             };
         };
 
+        vm.categorySelectAllHandler = function () {
+            vm.isSelectAllCategory = vm.categoryDropdownSettings.sourceData.length > 0
+                && vm.selectedCategories.length === vm.categoryDropdownSettings.sourceData.length;
+        };
+
         vm.subCategoryChangedHandler = function () {
+            vm.subCategorySelectAllHandler();
             vm.selectedSubCategoryIds = [];
             angular.forEach(vm.selectedSubCategories, function (subCategory) {
                 vm.selectedSubCategoryIds.push(subCategory.Id);
             });
+        };
+
+        vm.subCategorySelectAllHandler = function () {
+            vm.isSelectAllSubCategory = vm.subCategoryDropdownSettings.sourceData.length
+                && vm.selectedSubCategories.length === vm.subCategoryDropdownSettings.sourceData.length;
         };
 
         vm.verifyCustomers = function () {
@@ -138,7 +189,7 @@
                 vm.isVerifiedCustomers = true;
                 $uiBlockerService.blockUI();
 
-                commToolSettingFactory.verifyCustomers(customersInput)
+                commToolSettingFactory.verifyUsername(customersInput)
                     .then(function (data) {
                         let customers = [];
                         angular.forEach(data.Result, function (customer) {
@@ -162,6 +213,7 @@
             vm.relatedCustomers = vm.relatedCustomers.filter(function (value) {
                 return value.Id !== customerId;
             });
+            vm.isVerifiedCustomers = vm.customersInput.length > 0 && vm.relatedCustomers.length === 0;
             $scope.$apply();
         };
 
@@ -169,18 +221,25 @@
             if (validateForm()) {
                 const params = {
                     username: getRelatedCustomerName(),
-                    categoryIds: vm.selectedCategories,
-                    subCategoryIds: vm.selectedSubCategories,
-                    communicationIds: vm.selectedCommunications
+                    categoryIds: getCategoryIds(),
+                    subCategoryIds: getSubCategoryIds(),
+                    communicationIds: getCommunicationIds()
                 };
 
-                commToolSettingFactory.getRemovedAccountLogs(params)
+                commToolSettingFactory.createCommToolSetting(params)
                     .then(function (data) {
                         $uiBlockerService.unblockUI();
 
-                        vm.isSuccess = data.Result.IsSuccessful;
+                        vm.isSuccessful = data.Result.IsSuccessful;
                         vm.resultMessage = data.Result.Message;
                         vm.isShowResultMessage = true;
+
+                        if (vm.isSuccessful) {
+                            vm.isCreateSuccessfully = true;
+                            initialize();
+
+                            setTimeout(function () { vm.isShowResultMessage = false; $scope.$apply(); }, sharedScriptManager.cachedData.alertSuccessTime);
+                        }
                     });
             }
         };
@@ -189,20 +248,24 @@
             if (validateForm()) {
                 const params = {
                     username: getRelatedCustomerName(),
-                    categoryIds: vm.selectedCategories,
-                    subCategoryIds: vm.selectedSubCategories,
-                    communicationIds: vm.selectedCommunications
+                    categoryIds: getCategoryIds(),
+                    subCategoryIds: getSubCategoryIds(),
+                    communicationIds: getCommunicationIds()
                 };
 
-                commToolSettingFactory.getRemovedAccountLogs(params)
+                commToolSettingFactory.createCommToolSetting(params)
                     .then(function (data) {
                         $uiBlockerService.unblockUI();
 
-                        vm.isSuccess = data.Result.IsSuccessful;
-                        vm.resultMessage = result.Message;
+                        vm.isSuccessful = data.Result.IsSuccessful;
+                        vm.resultMessage = data.Result.Message;
                         vm.isShowResultMessage = true;
 
-                        $uibModalInstance.close(true);
+                        if (vm.isSuccessful) {
+                            vm.isCreateSuccessfully = true;
+                            vm.isDiableCreate = true;
+                            setTimeout(function () { vm.close(); }, sharedScriptManager.cachedData.alertSuccessTime);
+                        }
                     });
             }
         };

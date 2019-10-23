@@ -10,9 +10,13 @@
 
     public interface ICommunicationToolSettingService
     {
-        Tuple<IEnumerable<CommunicationToolSettingItem>, int> GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria);
+        Tuple<IEnumerable<CommunicationToolSettingItem>, int> GetAll(GetCommunicationToolSettingCriteria criteria);
+
+        CommunicationToolSettingItem GetById(int id);
 
         CommandResult Create(CreateCommunicationToolSettingCriteria criteria);
+
+        CommandResult Edit(EditCommunicationToolSettingCriteria criteria);
 
         CommandResult Delete(int id);
     }
@@ -34,13 +38,27 @@
             this.baseService = baseService ?? new BaseService();
         }
 
-        public Tuple<IEnumerable<CommunicationToolSettingItem>, int> GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria)
+        public Tuple<IEnumerable<CommunicationToolSettingItem>, int> GetAll(GetCommunicationToolSettingCriteria criteria)
         {
-            IEnumerable<CommunicationToolSettingItem> settingItems = repository.GetCommunicationToolSetting(criteria);
+            IEnumerable<CommunicationToolSettingItem> settingItems = repository.GetAll(criteria);
             return new Tuple<IEnumerable<CommunicationToolSettingItem>, int>(settingItems, criteria.TotalRows);
         }
 
+        public CommunicationToolSettingItem GetById(int id)
+        {
+            var criteria = new GetCommunicationToolSettingByIdCriteria
+            {
+                DefaultCommId = id
+            };
+            return baseService.GetDataEntity<CommunicationToolSettingItem>(criteria);
+        }
+
         public CommandResult Create(CreateCommunicationToolSettingCriteria criteria)
+        {
+            return baseService.ExecuteNonQuery(criteria);
+        }
+
+        public CommandResult Edit(EditCommunicationToolSettingCriteria criteria)
         {
             return baseService.ExecuteNonQuery(criteria);
         }

@@ -7,10 +7,11 @@
     function deleteCommToolSettingController($uibModalInstance, $uiBlockerService, commToolSettingFactory, communicationSetting) {
         let vm = this;
         vm.communicationSetting = communicationSetting;
+        vm.isDeleteSuccessfully = false;
         vm.isDisableDelete = false;
 
         vm.close = function () {
-            $uibModalInstance.close(false);
+            $uibModalInstance.close(vm.isDeleteSuccessfully);
         };
 
         vm.delete = function () {
@@ -23,7 +24,11 @@
                     vm.resultMessage = data.Result.Message;
                     vm.isShowResultMessage = true;
 
-                    setTimeout(function () { $uibModalInstance.close(true); }, 3000);
+                    if (vm.isSuccessful) {
+                        vm.isDeleteSuccessfully = true;
+                        vm.isDisableDelete = true;
+                        setTimeout(function () { vm.close(); }, sharedScriptManager.cachedData.alertSuccessTime);
+                    }
                 });
         };
     }

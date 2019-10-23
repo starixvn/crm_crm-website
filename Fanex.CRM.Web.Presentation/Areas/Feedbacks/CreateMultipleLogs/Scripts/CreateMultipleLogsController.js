@@ -489,11 +489,11 @@
 
             $scope.GetCommunicationParams = function () {
                 return filterScripts.GetCommunicationParams($scope.selectedCommunications);
-            }
+            };
 
             $scope.GetExtensionParams = function () {
                 return filterScripts.GetExtensionParams($scope.selectedExtensions, $scope.allSettings.ExtensionNA);
-            }
+            };
 
             $scope.GetProductParams = function () {
                 return filterScripts.GetProductParams(
@@ -508,14 +508,14 @@
                         BettypeNA: $scope.allSettings.BettypeNA
                     },
                     $scope.allSettings.BettypeList);
-            }
+            };
 
             $scope.GetCategoryParams = function () {
                 return filterScripts.GetCategoryParams(
                     $scope.selectedCategories,
                     $scope.selectedSubCategories,
                     $scope.allSettings.SubCategoryList);
-            }
+            };
 
             $scope.insertMultipleLogs = function () {
                 $scope.isShowResultMessage = false;
@@ -558,7 +558,7 @@
                         callCreateMultipleLogs(params);
                     }
                 );
-            }
+            };
 
             var callCreateMultipleLogs = function (params) {
                 $scope.BlockUI();
@@ -570,7 +570,7 @@
                         function () {
                             $scope.unblockUI();
                         });
-            }
+            };
 
             $scope.showResult = function (result) {
                 $scope.resultMessage = result.Message;

@@ -9,12 +9,12 @@
 
     public interface ICommunicationToolSettingRepository
     {
-        IEnumerable<CommunicationToolSettingItem> GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria);
+        IEnumerable<CommunicationToolSettingItem> GetAll(GetCommunicationToolSettingCriteria criteria);
     }
 
     public class CommunicationToolSettingRepository : ICommunicationToolSettingRepository
     {
-        public IEnumerable<CommunicationToolSettingItem> GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria)
+        public IEnumerable<CommunicationToolSettingItem> GetAll(GetCommunicationToolSettingCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {

@@ -6,6 +6,11 @@
     commToolSettingFactory.$inject = ['$http', '$q'];
 
     function commToolSettingFactory($http, $q) {
+        function verifyUsername(username) {
+            const url = window.rootUrl + 'customerSetting/verifyUsername';
+            return sharedScriptManager.registerAngularService($http, $q, url, { username: username });
+        }
+
         function getAllSettings() {
             var url = window.rootUrl + "communicationSetting/getAllSettings";
             return sharedScriptManager.registerAngularService($http, $q, url, {});
@@ -16,26 +21,33 @@
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
-        function verifyCustomers(customers) {
-            const url = window.rootUrl + 'communicationSetting/verifyUsername';
-            return sharedScriptManager.registerAngularService($http, $q, url, { username: customers });
+        function getCommToolSettingById(id) {
+            const url = window.rootUrl + 'communicationSetting/getById';
+            return sharedScriptManager.registerAngularService($http, $q, url, { id: id });
         }
 
         function createCommToolSetting(params) {
-            const url = window.rootUrl + 'communicationSetting/createCommunicationToolSetting';
+            const url = window.rootUrl + 'communicationSetting/create';
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        }
+
+        function editCommToolSetting(params) {
+            const url = window.rootUrl + 'communicationSetting/edit';
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
         function deleteCommToolSetting(id) {
-            const url = window.rootUrl + 'communicationSetting/deleteCommunicationToolSetting';
+            const url = window.rootUrl + 'communicationSetting/delete';
             return sharedScriptManager.registerAngularService($http, $q, url, { id: id });
         }
 
         return {
+            verifyUsername: verifyUsername,
             getAllSettings: getAllSettings,
             getCommToolSettings: getCommToolSettings,
-            verifyCustomers: verifyCustomers,
+            getCommToolSettingById: getCommToolSettingById,
             createCommToolSetting: createCommToolSetting,
+            editCommToolSetting: editCommToolSetting,
             deleteCommToolSetting: deleteCommToolSetting
         };
     }
