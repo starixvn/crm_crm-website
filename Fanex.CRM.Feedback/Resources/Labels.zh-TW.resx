@@ -578,12 +578,6 @@
   <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
     <value>This function will only update Status and Review. Communication Logs other information will NOT be updated.</value>
   </data>
-  <data name="UpdateSiteLicenseeType" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role</value>
-  </data>
-  <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role Successfully!</value>
-  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>

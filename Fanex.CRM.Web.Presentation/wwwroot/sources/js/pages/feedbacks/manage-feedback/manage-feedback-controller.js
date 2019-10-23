@@ -266,29 +266,6 @@
                 2000,
                 null,
                 $scope.closeEditView);
-        }
-
-        $scope.updateSiteLicenseeType = function () {
-            var selectedFeedbacks = $scope.getSelectedFeedbacks();
-            if (selectedFeedbacks.length === 0) {
-                return;
-            }
-
-            var criteria = {
-                ListFeedbackID: selectedFeedbacks.map(function (e) { return e.FeedbackId; }).join(",")
-            };
-
-            $uiBlockerService.blockUI();
-            manageFeedbackFactory.updateSiteLicenseeType(criteria)
-                .then(function (data) {
-                    $resultMessageService.showMessage({
-                        messageType: crmConstants.Enums.MessageType.Success,
-                        message: data.Result.Message
-                    });
-                    $scope.searchManageFeedback();
-                }, function (data) {
-                    $uiBlockerService.unblockUI();
-                });
         };
 
         $scope.checkActionItem = function (id) {

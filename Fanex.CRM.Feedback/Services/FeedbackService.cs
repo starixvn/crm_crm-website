@@ -93,17 +93,6 @@
             return feedbacks;
         }
 
-        public CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
-        {
-            CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.IsSuccessful)
-            {
-                result.Message = Labels.UpdateSiteLicenseeTypeSuccess;
-            }
-
-            return result;
-        }
-
         public FeedbackDuplicationResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
         {
             var feedbackId = _feedbackRepository.CheckFeedbackDuplication(criteria);
