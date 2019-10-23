@@ -192,6 +192,22 @@
             });
         };
 
+        vm.openDeletePopup = function (communicationSettingId) {
+            const index = vm.communicationSettings.findIndex(x => x.DefaultCommId === communicationSettingId);
+            $uibModal.open({
+                template: angular.element('#template-delete-commtool-setting').html(),
+                controller: 'DeleteCommToolSettingController as deleteCommToolSettingCtrl',
+                backdrop: 'static',
+                size: 'lg',
+                //appendTo: window.parent.$('body'),
+                resolve: {
+                    communicationSetting: function () {
+                        return vm.communicationSettings[index];
+                    }
+                }
+            });
+        };
+
         initialize();
     }
 })(angular);

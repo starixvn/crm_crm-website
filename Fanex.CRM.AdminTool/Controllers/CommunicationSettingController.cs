@@ -67,5 +67,17 @@
             }
             return Json(commandResult, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.DefaultCommunicationSetting, Policy = Constant.Policy.Host)]
+        public ActionResult DeleteCommunicationToolSetting(int id)
+        {
+            CommandResult commandResult = communicationToolSettingService.Delete(id);
+            if (commandResult.IsSuccessful)
+            {
+                commandResult.Message = Labels.Message_DeleteSettingSuccessfully;
+            }
+            return Json(commandResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

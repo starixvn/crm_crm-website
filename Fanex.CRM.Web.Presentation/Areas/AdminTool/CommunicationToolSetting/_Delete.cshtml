@@ -5,9 +5,17 @@
         @Labels.DeleteSetting
         <span class="icon-close fa fa-times" ng-click="deleteCommToolSettingCtrl.close()"></span>
     </div>
-    <div class="modal-body"></div>
+    <div class="modal-body">
+        <div class="row row-item" ng-show="deleteCommToolSettingCtrl.isShowResultMessage">
+            <div class="alertbox{{ deleteCommToolSettingCtrl.isSuccessful ? 'scc' : 'err' }}"><div>{{deleteCommToolSettingCtrl.resultMessage}}</div></div>
+        </div>
+        <div class="row row-item">
+            <p>You are about to delete: <strong>{{deleteCommToolSettingCtrl.communicationSetting.Username}}</strong> - <strong>{{deleteCommToolSettingCtrl.communicationSetting.Category}}</strong> - <strong>{{deleteCommToolSettingCtrl.communicationSetting.SubCategory}}</strong></p>
+            Are you sure you want to delete it?
+        </div>
+    </div>
     <div class="modal-footer">
-        <button class="btn" ng-click="deleteCommToolSettingCtrl.save()">@Labels.Btn_OK</button>
+        <button class="btn" ng-click="deleteCommToolSettingCtrl.delete()" ng-disabled="deleteCommToolSettingCtrl.isDisableDelete">@Labels.Btn_OK</button>
         <button class="btn" ng-click="deleteCommToolSettingCtrl.close()">@Labels.Cancel</button>
     </div>
 </div>

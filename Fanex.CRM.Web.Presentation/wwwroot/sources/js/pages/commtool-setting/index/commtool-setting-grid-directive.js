@@ -42,14 +42,14 @@
                 const item = scope.dataSources[i];
                 let columns = [
                     { Name: 'RowNum', Value: scope.pageIndex * scope.pageSize + i + 1 },
-                    { Name: 'Customer', Value: item.Customer },
+                    { Name: 'Customer', Value: item.Username },
                     { Name: 'Category', Value: item.Category },
                     { Name: 'SubCategory', Value: item.SubCategory },
-                    { Name: 'CommunicationTool', Value: item.CommunicationTool }
+                    { Name: 'CommunicationTool', Value: item.CommTool }
                 ];
                 if (isHostOnCommunicationSetting) {
-                    columns.push({ Name: 'Edit', Value: '<a class="edit-setting" href="javascript:;"><i class="fa fa-pencil"></i></a>' });
-                    columns.push({ Name: 'Delete', Value: '<a class="delete-setting" href="javascript:;"><i class="fa fa-times"></i></a>' });
+                    columns.push({ Name: 'Edit', Value: '<a class="edit-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '"><i class="fa fa-pencil"></i></a>' });
+                    columns.push({ Name: 'Delete', Value: '<a class="delete-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '"><i class="fa fa-times"></i></a>' });
                 }
 
                 rows.push({ Columns: columns });
@@ -90,11 +90,13 @@
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
             $('a.edit-setting', $(element)).off('click').on('click', function () {
-                scope.onEdit();
+                const settingid = parseInt($(this).data('default-settingid'), 10);
+                scope.onEdit(settingid);
             });
 
             $('a.delete-setting', $(element)).off('click').on('click', function () {
-                scope.onDelete();
+                const settingid = parseInt($(this).data('default-settingid'), 10);
+                scope.onDelete(settingid);
             });
         }
 
@@ -107,7 +109,8 @@
                 pageIndex: '=',
                 pageSize: '=',
                 onPageChange: '=',
-                onEdit: '='
+                onEdit: '=',
+                onDelete: '='
             },
             link: function (scope, element) {
                 scope.$watch('dataSources', function (oldval, newval) {

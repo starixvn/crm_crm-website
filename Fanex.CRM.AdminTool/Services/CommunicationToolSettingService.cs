@@ -13,6 +13,8 @@
         Tuple<IEnumerable<CommunicationToolSettingItem>, int> GetCommunicationToolSetting(GetCommunicationToolSettingCriteria criteria);
 
         CommandResult Create(CreateCommunicationToolSettingCriteria criteria);
+
+        CommandResult Delete(int id);
     }
 
     public class CommunicationToolSettingService : ICommunicationToolSettingService
@@ -40,6 +42,15 @@
 
         public CommandResult Create(CreateCommunicationToolSettingCriteria criteria)
         {
+            return baseService.ExecuteNonQuery(criteria);
+        }
+
+        public CommandResult Delete(int id)
+        {
+            var criteria = new DeleteCommunicationToolSettingCriteria
+            {
+                DefaultCommId = id
+            };
             return baseService.ExecuteNonQuery(criteria);
         }
     }

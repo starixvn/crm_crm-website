@@ -594,8 +594,11 @@
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
+    <Content Include="wwwroot\dist\js\commtool.setting.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.css" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
@@ -604,6 +607,7 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\delete-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\edit-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\create\create-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\create\related-customer-grid-directive.js" />
@@ -1592,6 +1596,8 @@
     <Content Include="Scripts\AngularJS\angular.min.js.map" />
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js.map" />
     <Content Include="wwwroot\sources\styles\pages\commtool-setting.scss" />
+    <Content Include="wwwroot\dist\js\commtool.setting.js.map" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

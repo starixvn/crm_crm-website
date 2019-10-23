@@ -179,7 +179,7 @@
                         $uiBlockerService.unblockUI();
 
                         vm.isSuccess = data.Result.IsSuccessful;
-                        vm.resultMessage = result.Message;
+                        vm.resultMessage = data.Result.Message;
                         vm.isShowResultMessage = true;
                     });
             }

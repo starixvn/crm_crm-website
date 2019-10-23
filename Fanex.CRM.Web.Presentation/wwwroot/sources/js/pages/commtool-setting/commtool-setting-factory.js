@@ -26,11 +26,17 @@
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         }
 
+        function deleteCommToolSetting(id) {
+            const url = window.rootUrl + 'communicationSetting/deleteCommunicationToolSetting';
+            return sharedScriptManager.registerAngularService($http, $q, url, { id: id });
+        }
+
         return {
             getAllSettings: getAllSettings,
             getCommToolSettings: getCommToolSettings,
             verifyCustomers: verifyCustomers,
-            createCommToolSetting: createCommToolSetting
+            createCommToolSetting: createCommToolSetting,
+            deleteCommToolSetting: deleteCommToolSetting
         };
     }
 })(angular);

@@ -601,6 +601,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete setting successfully!.
+        /// </summary>
+        public static string Message_DeleteSettingSuccessfully {
+            get {
+                return ResourceManager.GetString("Message_DeleteSettingSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Name cannot be greater than 50 characters..
         /// </summary>
         public static string Message_ErrorRelatedCustomerNameLength {

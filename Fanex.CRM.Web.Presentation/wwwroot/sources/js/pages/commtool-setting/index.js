@@ -12,3 +12,5 @@ import './create/related-customer-grid-directive';
 import './create/create-commtool-setting-controller';
 
 import './edit-commtool-setting-controller';
+
+import './delete-commtool-setting-controller';
