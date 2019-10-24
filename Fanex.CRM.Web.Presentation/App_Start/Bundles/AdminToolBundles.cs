@@ -424,18 +424,12 @@
         private static void RegisterCommunicationSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Bundles/CommToolSettingScripts").Include(
-                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Scripts/ShareScripts/Applications/ResultMessage.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/MessageResult.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/CommToolSettingStyles",
-                "~/Scripts/Tipsy-Tooltip/tipsy.css",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }
     }
 }

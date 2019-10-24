@@ -3,7 +3,6 @@ import '../../../libs/FanexGrid/Fanex.Pagination';
 
 import './commtool-setting-module';
 import './commtool-setting-factory';
-import './tipsy-directive';
 
 import './index/commtool-setting-grid-directive';
 import './index/commtool-setting-controller';

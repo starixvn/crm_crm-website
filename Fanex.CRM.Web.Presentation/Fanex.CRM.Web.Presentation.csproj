@@ -616,7 +616,6 @@
     <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-module.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-factory.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-grid-directive.js" />
-    <Content Include="wwwroot\sources\js\pages\commtool-setting\tipsy-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />

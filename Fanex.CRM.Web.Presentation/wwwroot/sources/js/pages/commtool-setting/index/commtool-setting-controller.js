@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('commToolSettingModule').controller('CommToolSettingController', commToolSettingController);
-    commToolSettingController.$inject = ['$uibModal', '$uiBlockerService', 'commToolSettingFactory'];
+    commToolSettingController.$inject = ['$window', '$uibModal', '$uiBlockerService', 'commToolSettingFactory'];
 
-    function commToolSettingController($uibModal, $uiBlockerService, commToolSettingFactory) {
+    function commToolSettingController($window, $uibModal, $uiBlockerService, commToolSettingFactory) {
         let vm = this;
         vm.filter = {
             customer: '',
@@ -156,12 +156,13 @@
         vm.openCreatePopup = function () {
             const modalInstance = $uibModal.open({
                 template: angular.element('#template-create-commtool-setting').html(),
-                controller: 'CreateCommToolSettingController as createCommToolSettingCtrl',
+                controller: 'CreateCommToolSettingController',
+                controllerAs: 'createCommToolSettingCtrl',
                 backdrop: 'static',
                 keyboard: false,
                 size: 'lg',
                 windowClass: 'create-commtool-setting-modal',
-                //appendTo: window.parent.$('body'),
+                appendTo: $window.parent.$('body'),
                 resolve: {
                     allSettings: function () {
                         return angular.copy(vm.allSettings);
@@ -179,12 +180,13 @@
         vm.openEditPopup = function (communicationSettingId) {
             const modalInstance = $uibModal.open({
                 template: angular.element('#template-edit-commtool-setting').html(),
-                controller: 'EditCommToolSettingController as editCommToolSettingCtrl',
+                controller: 'EditCommToolSettingController',
+                controllerAs: 'editCommToolSettingCtrl',
                 backdrop: 'static',
                 keyboard: false,
                 size: 'lg',
                 windowClass: 'create-commtool-setting-modal',
-                //appendTo: window.parent.$('body'),
+                appendTo: $window.parent.$('body'),
                 resolve: {
                     allSettings: function () {
                         return angular.copy(vm.allSettings);
@@ -206,11 +208,12 @@
             const index = vm.communicationSettings.findIndex(x => x.DefaultCommId === communicationSettingId);
             const modalInstance = $uibModal.open({
                 template: angular.element('#template-delete-commtool-setting').html(),
-                controller: 'DeleteCommToolSettingController as deleteCommToolSettingCtrl',
+                controller: 'DeleteCommToolSettingController',
+                controllerAs: 'deleteCommToolSettingCtrl',
                 backdrop: 'static',
                 keyboard: false,
                 size: 'lg',
-                //appendTo: window.parent.$('body'),
+                appendTo: $window.parent.$('body'),
                 resolve: {
                     communicationSetting: function () {
                         return vm.communicationSettings[index];
@@ -224,6 +227,10 @@
             });
         };
 
-        initialize();
+        angular.element(document).ready(function () {
+            initialize();
+            const style = $('head link[href*="commtool.setting.css"]').clone();
+            $window.parent.$('head').append(style);
+        });
     }
 })(angular);

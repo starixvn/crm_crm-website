@@ -474,8 +474,8 @@
                 };
             }
         ])
-        .directive('multileveldropdownPopup', ['$document',
-            function ($document) {
+        .directive('multileveldropdownPopup', ['$document', '$window',
+            function ($document, $window) {
                 return {
                     restrict: 'E',
                     replace: true,
@@ -510,10 +510,12 @@
                             if (dropdownElement.hasClass('open')) {
                                 dropdownElement.removeClass('open');
                                 $document.unbind('click', clickHandler);
+                                $window.parent.document.removeEventListener('click', clickHandler);
                                 onCloseHandler();
                             } else {
                                 dropdownElement.addClass('open');
                                 $document.bind('click', clickHandler);
+                                $window.parent.document.addEventListener('click', clickHandler);
                                 scope.focusSearchBox();
                                 onOpenHandler();
                             }
@@ -525,6 +527,7 @@
                             }
                             dropdownElement.removeClass('open');
                             $document.unbind('click', clickHandler);
+                            $window.parent.document.removeEventListener('click', clickHandler);
                             onCloseHandler();
                             scope.$apply();
                         }
