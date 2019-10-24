@@ -378,4 +378,7 @@
   <data name="Message_DeleteSettingSuccessfully" xml:space="preserve">
     <value>Delete setting successfully!</value>
   </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
 </root>

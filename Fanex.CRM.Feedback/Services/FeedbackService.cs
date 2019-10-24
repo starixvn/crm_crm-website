@@ -18,19 +18,16 @@
     {
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
-        private readonly IBaseService baseService;
 
-        public FeedbackService() : this(null, null, null)
+        public FeedbackService() : this(null, null)
         {
         }
 
         public FeedbackService(IFeedbackRepository feedbackRepository,
-            IBaseService baseService,
             ISettingService serviceSetting)
         {
             _feedbackRepository = feedbackRepository ?? new FeedbackRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
-            this.baseService = baseService ?? new BaseService();
         }
 
         public IEnumerable<BaseModel> GetTopItems

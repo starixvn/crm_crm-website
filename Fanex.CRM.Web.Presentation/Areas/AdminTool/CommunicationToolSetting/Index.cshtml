@@ -81,6 +81,7 @@
 @section Scripts {
     <script type="text/javascript">
         parent.document.title = '@Labels.DefaultCommunicationSetting';
+        window.rootUrl = '@Url.Content("~")';
         var isHostOnCommunicationSetting = '@isHost' == 'True';
         var communicationSettingResources = {
             DefaultCommunicationSetting: '@Labels.DefaultCommunicationSetting',

@@ -13,12 +13,7 @@
     var CN88SiteId = ViewBag.CN88SiteId;
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
-    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
-    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
-    @RazorHelper.RenderStyles("~/Scripts/Directives/selectwithsearch/selectwithsearch.css")
-    @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
 <div data-ng-app="create-multiple-logs-application">
@@ -43,12 +38,17 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input id="listCustomer" name="listCustomer" class="list-customer"
-                                       data-ng-model="customersInput" />
+                                       data-ng-model="customersInput" autocomplete="off" />
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button class="btn pull-right" data-ng-click="verifyListCustomer()" data-ng-disabled="customersInput === ''">
                                     @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                                 </button>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                                <span class="fa fa-exclamation-circle pull-right"
+                                   tooltip-placement="bottom-right"
+                                   uib-tooltip="Communication Tool, Country, Language, Role, Site, Licensee Type shall be update automatically by system!"></span>
                             </div>
                         </div>
                         <div class="row item">
@@ -91,31 +91,28 @@
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="country">@Labels.Country</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
-                                <select id="country"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="communicationTool">
-                                    @Labels.Communication_Tool
-                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                                </label>
+                                <label for="communicationTool">@Labels.Communication_Tool</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                                <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedCommunications"
-                                                        data-settings="communicationDropdownSettings"
-                                                        ng-change="communicationChangeHandler()"></multileveldropdowntree>
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="language">
-                                    @Labels.Language
-                                    @Html.Raw(Resources.Language.Html_Template_MandatoryField)
-                                </label>
+                                <label for="language">@Labels.Language</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
-                                <select id="language" class="languageoptions"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row item">
@@ -168,8 +165,9 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="status">@Labels.Status</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-status data-ng-model="statusList">
-                                <select id="status"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <select ng-model="multipleLogs.Status"
+                                        ng-options="item.Name for item in statusList track by item.Id"></select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="betType">@Labels.Bet_Type</label>
@@ -185,40 +183,44 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="role">@Labels.Role</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-role data-ng-model="roleList">
-                                <select id="role"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="site">@Labels.Site</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                                <selectwithsearchtree text-settings="TextSettings"
-                                                      data-ng-model="selectedSite"
-                                                      data-settings="siteDropdownSettings"
-                                                      hide-NA="isCN88"></selectwithsearchtree>
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2">
                                 <label for="response">@Labels.Response</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                                <select id="response"></select>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <select ng-model="multipleLogs.Response"
+                                        ng-options="item.Value for item in responseList track by item.Id"></select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
                                 <label for="licensee-type">@Labels.Licensee_Type</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 @hideLicenseeTypeClass">
-                                <select id="licensee-type" data-ng-model="multipleLogs.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id"></select>
+                                <select disabled>
+                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2">
                                 <label for="response">@Labels.NoOfInquiries</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3" >
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                                 <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="multipleLogs.NoInquiries" />
-                            </div>                           
+                            </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -229,7 +231,7 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
                                 <input type="text" class="textbox " id="subject" data-ng-model="multipleLogs.Subject"
-                                       subject-auto-complete />
+                                       subject-auto-complete autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -288,42 +290,41 @@
     @RazorHelper.RenderScripts("~/Scripts/common.js")
     @RazorHelper.RenderScripts("~/Areas/Feedbacks/CreateMultipleLogsScripts")
     <script type="text/javascript">
-            window.rootUrl = '@Url.Content("~")';
-            var currentTime = '@DateTimeUtilize.CurrentClientTime()';
-            var customerId = '@customerId';
-            var currentUsername = "@AppSession.CurrentUser.Username";
-            var isCN88 = '@isCN88' == 'True';
-            var CN88SiteId = parseInt('@CN88SiteId');
-            var viewResources = {
-                Symbol_NotApply: '@Labels.Symbol_NotApply',
-                Select: '@Labels.Select',
-                Insert_Edit_Block: '@Labels.Insert_Edit_Block',
-                Warning: '@Labels.Warning',
-                OK: '@Labels.OK',
-                Symbol_NotApply: '@Labels.Symbol_NotApply',
-                CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
-                Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
-                Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
-                Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
+        parent.document.title = '@Labels.Create_Multiple_Logs';
+        window.rootUrl = '@Url.Content("~")';
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
+        var customerId = '@customerId';
+        var currentUsername = "@AppSession.CurrentUser.Username";
+        var isCN88 = '@isCN88' == 'True';
+        var CN88SiteId = parseInt('@CN88SiteId');
+        var viewResources = {
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Select: '@Labels.Select',
+            Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+            Warning: '@Labels.Warning',
+            OK: '@Labels.OK',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
+            Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
+            Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
 
-                Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
-                Multiple_Logs_NALanguage: '@Labels.Multiple_Logs_NALanguage',
-                Error_NAMainCategory: '@Labels.Error_NAMainCategory',
-                NoSubcategoryError: '@Labels.NoSubcategoryError',
-                Error_NASubCategory: '@Labels.Error_NASubCategory',
-                Error_NA_MainSubCategory: '@Labels.Error_NA_MainSubCategory',
+            Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
+            Error_NAMainCategory: '@Labels.Error_NAMainCategory',
+            NoSubcategoryError: '@Labels.NoSubcategoryError',
+            Error_NASubCategory: '@Labels.Error_NASubCategory',
+            Error_NA_MainSubCategory: '@Labels.Error_NA_MainSubCategory',
 
-                Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
-                Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
-                Multiple_Logs_EmptySolution: '@Labels.Multiple_Logs_EmptySolution',
-                Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)',
-                InvalidCategoryError: '@Labels.InvalidCategoryError',
-                DescriptionMaxLengthError: '@Labels.DescriptionMaxLengthError',
-                SolutionMaxLengthError: '@Labels.SolutionMaxLengthError',
-                FeedbackDuplicationError: '@Labels.FeedbackDuplicationError',
-                Confirm_Changes: '@Labels.Confirm_Changes',
-                Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
-                Remark_Multiple_Log_Note: '@Labels.Remark_Multiple_Log_Note'
-            };
+            Multiple_Logs_EmptySubject: '@Labels.Multiple_Logs_EmptySubject',
+            Multiple_Logs_EmptyRemark: '@Labels.Multiple_Logs_EmptyRemark',
+            Multiple_Logs_EmptySolution: '@Labels.Multiple_Logs_EmptySolution',
+            Confirm_Ignore_MultipleLogs_Changes: '@Html.Raw(Labels.Confirm_Ignore_MultipleLogs_Changes)',
+            InvalidCategoryError: '@Labels.InvalidCategoryError',
+            DescriptionMaxLengthError: '@Labels.DescriptionMaxLengthError',
+            SolutionMaxLengthError: '@Labels.SolutionMaxLengthError',
+            FeedbackDuplicationError: '@Labels.FeedbackDuplicationError',
+            Confirm_Changes: '@Labels.Confirm_Changes',
+            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
+            Remark_Multiple_Log_Note: '@Labels.Remark_Multiple_Log_Note'
+        };
     </script>
 }

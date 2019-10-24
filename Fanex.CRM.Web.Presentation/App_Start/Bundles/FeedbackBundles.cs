@@ -182,14 +182,18 @@
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsOption.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/CreateMultipleLogsStyles",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Styles/CreateMultipleLogs.less");
+                "~/Scripts/jHtmlArea/jHtmlArea.css",
+                "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css",
+                "~/Scripts/autocomplete/autocomplete.css",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css",
+                "~/wwwroot/dist/styles/create.multiple.logs.css");
         }
 
         private static void RegisterEditMultipleLogsBundles(BundleCollection bundles)

@@ -397,25 +397,13 @@
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsOption.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\BetType.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\CommunicationTool.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Country.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DirectiveRegister.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\EndTime.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Extension.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Language.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Response.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Role.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Site.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\StartTime.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Status.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubCategory.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />
@@ -599,6 +587,8 @@
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
     <Content Include="wwwroot\dist\styles\commtool.setting.css" />
     <Content Include="wwwroot\dist\styles\commtool.setting.js" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.css" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
@@ -1519,7 +1509,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Styles\CreateMultipleLogs.less" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Styles\EditMultipleLogs.less" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Index.cshtml" />
     <Content Include="Areas\Report\DirectCustomerReport\Index.cshtml" />
@@ -1597,6 +1586,8 @@
     <Content Include="wwwroot\sources\styles\pages\commtool-setting.scss" />
     <Content Include="wwwroot\dist\js\commtool.setting.js.map" />
     <Content Include="wwwroot\dist\styles\commtool.setting.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\create-multiple-logs.scss" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

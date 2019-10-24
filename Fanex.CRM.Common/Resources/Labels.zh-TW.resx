@@ -315,4 +315,7 @@
   <data name="Message_UpdateSettingSuccessfully" xml:space="preserve">
     <value>Update setting successfully!</value>
   </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
 </root>

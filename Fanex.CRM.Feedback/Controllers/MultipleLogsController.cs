@@ -77,15 +77,10 @@
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
-                CountryList = _serviceSetting.GetAllCountries(),
                 ProvinceList = _serviceSetting.GetAllProvinces(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
-                LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
-                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
-                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
                 ProductNA = _serviceSetting.GetProductNA(),
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
