@@ -7,7 +7,7 @@
     function commToolSettingGrid() {
         function generateColumns() {
             let columns = [
-                { HeaderText: communicationSettingResources.NumberColumn, Width: 50, Name: 'RowNum', HeaderAlign: 'center', CellAlign: 'center', CanShowHide: true },
+                { HeaderText: communicationSettingResources.NumberColumn, Width: 50, Name: 'RowNum', HeaderAlign: 'center', CellAlign: 'center' },
                 {
                     HeaderText: communicationSettingResources.Customer, Width: 100, MaxResizeWidth: 200, Name: 'Customer',
                     HeaderAlign: 'center', CellAlign: 'center', CanResize: true
