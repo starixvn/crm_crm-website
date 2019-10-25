@@ -38,10 +38,10 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input id="listCustomer" name="listCustomer" class="list-customer"
-                                       data-ng-model="customersInput" autocomplete="off" />
+                                       ng-model="customersInput" autocomplete="off" />
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                                <button class="btn pull-right" data-ng-click="verifyListCustomer()" data-ng-disabled="customersInput === ''">
+                                <button class="btn pull-right" ng-click="verifyListCustomer()" ng-disabled="customersInput === ''">
                                     @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                                 </button>
                             </div>
@@ -53,14 +53,14 @@
                         </div>
                         <div class="row item">
                             <div id="ColorGuide" class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-8 col-sm-8 col-md-8"
-                                 data-ng-show="relatedCustomerResultDirective.relatedCustomers.length > 0">
+                                 ng-show="relatedCustomerResultDirective.relatedCustomers.length > 0">
                                 <div class="col-xs-2 col-sm-2 col-md-2 relate-customer">@Labels.Customer</div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 relate-guest">@Labels.Guest</div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 relate-invalid">@Labels.Invalid</div>
                             </div>
                             <div id="related-container" class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-8 col-sm-8 col-md-8 related"
-                                 data-ng-show="relatedCustomerResultDirective.relatedCustomers.length > 0">
-                                <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
+                                 ng-show="relatedCustomerResultDirective.relatedCustomers.length > 0">
+                                <table id="related" ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
                             </div>
                         </div>
                         <div class="row item">
@@ -69,14 +69,14 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
-                                       onselect="onStartTimeChanged()" data-ng-model="multipleLogs.StartTime" datetimepicker />
+                                       onselect="onStartTimeChanged()" ng-model="multipleLogs.StartTime" datetimepicker />
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="ext">@Labels.Ext</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedExtensions"
+                                                        ng-model="selectedExtensions"
                                                         data-settings="extensionDropdownSettings"></multileveldropdowntree>
                             </div>
                         </div>
@@ -85,11 +85,11 @@
                                 <label for="endTime">@Labels.End_Time</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                                <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly data-ng-model="multipleLogs.EndTime"
-                                       datetimepicker />
+                                <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly
+                                       ng-model="multipleLogs.EndTime" datetimepicker />
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="country">@Labels.Country</label>
+                                <label>@Labels.Country</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select disabled>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="communicationTool">@Labels.Communication_Tool</label>
+                                <label>@Labels.Communication_Tool</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select disabled>
@@ -107,7 +107,7 @@
                                 </select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="language">@Labels.Language</label>
+                                <label>@Labels.Language</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select disabled>
@@ -124,8 +124,8 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedCategories"
-                                                        data-ng-change="categoryChangedHandler()"
+                                                        ng-model="selectedCategories"
+                                                        ng-change="categoryChangedHandler()"
                                                         data-settings="categoryDropdownSettings"></multileveldropdowntree>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -136,8 +136,8 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-change="subCategoryChangedHandler()"
-                                                        data-ng-model="selectedSubCategories"
+                                                        ng-change="subCategoryChangedHandler()"
+                                                        ng-model="selectedSubCategories"
                                                         data-settings="subCategoryDropdownSettings"></multileveldropdowntree>
                             </div>
                         </div>
@@ -147,8 +147,8 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedProducts"
-                                                        data-ng-change="productChangedHandler()"
+                                                        ng-model="selectedProducts"
+                                                        ng-change="productChangedHandler()"
                                                         data-settings="productDropdownSettings"></multileveldropdowntree>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -156,8 +156,8 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedSubProducts"
-                                                        data-ng-change="subProductChangedHandler()"
+                                                        ng-model="selectedSubProducts"
+                                                        ng-change="subProductChangedHandler()"
                                                         data-settings="subProductDropdownSettings"></multileveldropdowntree>
                             </div>
                         </div>
@@ -174,14 +174,14 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <multileveldropdowntree text-settings="TextSettings"
-                                                        data-ng-model="selectedBettypes"
+                                                        ng-model="selectedBettypes"
                                                         data-settings="bettypeDropdownSettings"
-                                                        data-ng-change="bettypeChangeHandler()"></multileveldropdowntree>
+                                                        ng-change="bettypeChangeHandler()"></multileveldropdowntree>
                             </div>
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label for="role">@Labels.Role</label>
+                                <label>@Labels.Role</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select disabled>
@@ -189,7 +189,7 @@
                                 </select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                                <label for="site">@Labels.Site</label>
+                                <label>@Labels.Site</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select disabled>
@@ -199,7 +199,7 @@
                         </div>
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                                <label for="response">@Labels.Response</label>
+                                <label>@Labels.Response</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                                 <select ng-model="multipleLogs.Response"
@@ -230,7 +230,7 @@
                                 </label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
-                                <input type="text" class="textbox " id="subject" data-ng-model="multipleLogs.Subject"
+                                <input type="text" class="textbox " id="subject" ng-model="multipleLogs.Subject"
                                        subject-auto-complete autocomplete="off" />
                             </div>
                         </div>
@@ -242,39 +242,37 @@
                     <div class="pull-left hand">@Labels.Auto_Generated</div>
                 </div>
                 <div class="FeedbackDescription row content">
-                    <div class="" id="">
-                        <textarea rows="3" class="auto-generated-text" data-ng-model="autoGeneratedText"></textarea>
+                    <div>
+                        <textarea rows="3" class="auto-generated-text" ng-model="autoGeneratedText"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row panel-group">
-                <div class="row title remarktitle" data-ng-class="isShowRemarkBox ? '' : 'border-bottom-none'"
-                     data-ng-click="isShowRemarkBox = !isShowRemarkBox">
+                <div class="row title remarktitle" ng-class="isShowRemarkBox ? '' : 'border-bottom-none'"
+                     ng-click="isShowRemarkBox = !isShowRemarkBox">
                     @Labels.Remark
                     @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 </div>
-                <div class="row content multi-text" data-ng-show="isShowRemarkBox">
-                    <div id="remarkeditorboxcontainer" data-ng-model="multipleLogs.Remark" remark-editor-container>
-                    </div>
+                <div class="row content multi-text" ng-show="isShowRemarkBox">
+                    <div id="remarkeditorboxcontainer" ng-model="multipleLogs.Remark" remark-editor-container></div>
                 </div>
             </div>
             <div class="row panel-group last">
-                <div class="row title solutiontitle" data-ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
-                     data-ng-click="isShowSolutionBox = !isShowSolutionBox">
+                <div class="row title solutiontitle" ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
+                     ng-click="isShowSolutionBox = !isShowSolutionBox">
                     @Labels.Solution
                     @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 </div>
-                <div class="row content multi-text" data-ng-show="isShowSolutionBox">
-                    <div id="solutionkeditorboxcontainer" data-ng-model="multipleLogs.Solution" solution-editor-container>
-                    </div>
+                <div class="row content multi-text" ng-show="isShowSolutionBox">
+                    <div id="solutionkeditorboxcontainer" ng-model="multipleLogs.Solution" solution-editor-container></div>
                 </div>
             </div>
             <div class="row btn-group">
-                <button class="btn btn-save" data-ng-click="insertMultipleLogs();">
+                <button class="btn btn-save" ng-click="insertMultipleLogs();">
                     @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>
-            <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
+            <input type="text" class="textbox default-focus-element" default-focus ng-model="isSetFocus" />
         </div>
     </div>
 </div>

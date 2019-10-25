@@ -68,7 +68,6 @@
         $scope.isSuccess = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
-        $scope.isSetFocus = false;
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
         $scope.TextSettings = {
@@ -481,14 +480,6 @@
 
             return result;
         };
-        $scope.completeSetFocus = function () {
-            $scope.isSetFocus = false;
-        };
-        $scope.setFocus = function () {
-            $scope.$apply(function () {
-                $scope.isSetFocus = true;
-            });
-        };
 
         $scope.verifyListCustomer = function () {
             var customerString = $scope.relatedCustomerResultDirective.normalizeUsername($scope.customersInput);
@@ -548,7 +539,6 @@
                 $scope.updateChangeFlag();
             });
             $scope.initController();
-            $scope.setFocus();
 
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,

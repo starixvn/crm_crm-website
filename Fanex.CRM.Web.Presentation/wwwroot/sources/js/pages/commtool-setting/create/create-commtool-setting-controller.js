@@ -23,15 +23,15 @@
             CheckAll: 'All'
         };
 
-        function getCustomerIds() {
-            let customerIds = [];
+        function getCustomers() {
+            let customers = [];
             angular.forEach(vm.relatedCustomers, function (customer) {
                 if (customer.Id !== 0) {
-                    customerIds.push(customer.Id);
+                    customers.push({ Id: customer.Id, Name: customer.Name });
                 }
             });
 
-            return customerIds.join(',');
+            return customers;
         }
 
         function getCategoryIds() {
@@ -68,7 +68,7 @@
                 vm.resultMessage = communicationSettingResources.VerifyListOfUsernameBeforeInsertSetting;
             }
 
-            const customers = getCustomerIds();
+            const customers = getCustomers();
             if (isValid && customers.length === 0) {
                 isValid = false;
                 vm.resultMessage = communicationSettingResources.ListOfCustomersAreMandatory;
@@ -220,7 +220,7 @@
         vm.saveAndContinue = function () {
             if (validateForm()) {
                 const params = {
-                    username: getCustomerIds(),
+                    customers: getCustomers(),
                     categoryIds: getCategoryIds(),
                     subCategoryIds: getSubCategoryIds(),
                     communicationIds: getCommunicationIds()
@@ -247,7 +247,7 @@
         vm.save = function () {
             if (validateForm()) {
                 const params = {
-                    username: getCustomerIds(),
+                    customers: getCustomers(),
                     categoryIds: getCategoryIds(),
                     subCategoryIds: getSubCategoryIds(),
                     communicationIds: getCommunicationIds()
