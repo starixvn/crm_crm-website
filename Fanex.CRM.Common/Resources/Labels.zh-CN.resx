@@ -339,4 +339,7 @@
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>无</value>
   </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
 </root>

@@ -12,6 +12,7 @@
                     HeaderText: communicationSettingResources.Customer, Width: 100, MaxResizeWidth: 200, Name: 'Customer',
                     HeaderAlign: 'center', CellAlign: 'center', CanResize: true
                 },
+                { HeaderText: communicationSettingResources.Position, Width: 100, Name: 'Position', HeaderAlign: 'center', CellAlign: 'center' },
                 {
                     HeaderText: communicationSettingResources.Category, Width: 100, MaxResizeWidth: 300, Name: 'Category',
                     HeaderAlign: 'center', CellAlign: 'left', CanResize: true
@@ -43,6 +44,7 @@
                 let columns = [
                     { Name: 'RowNum', Value: scope.pageIndex * scope.pageSize + i + 1 },
                     { Name: 'Customer', Value: item.Username },
+                    { Name: 'Position', Value: item.Role },
                     { Name: 'Category', Value: item.Category },
                     { Name: 'SubCategory', Value: item.SubCategory },
                     { Name: 'CommunicationTool', Value: item.CommTool }

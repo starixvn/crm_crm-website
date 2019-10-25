@@ -11,9 +11,9 @@
     {
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            using (var objectDB = new ObjectDb(criteria.SettingKey()))
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader(criteria.SPParams()))
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     CustomerInfo customer = null;
                     if (reader.Read())
@@ -70,29 +70,6 @@
                     }
 
                     return uplineInfo;
-                }
-            }
-        }
-
-        public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
-        {
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
-                {
-                    var result = new List<BaseModel>();
-                    while (reader.Read())
-                    {
-                        var customer = new BaseModel
-                        {
-                            Id = Converter.ToInt(reader["custid"]),
-                            Name = Converter.ToString2(reader["val"])
-                        };
-
-                        result.Add(customer);
-                    }
-
-                    return result;
                 }
             }
         }

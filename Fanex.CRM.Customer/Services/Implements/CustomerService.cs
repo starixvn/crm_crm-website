@@ -116,7 +116,7 @@
 
         public IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            return _customerRepository.VerifyUsername(criteria);
+            return baseService.GetData<BaseModel>(criteria);
         }
 
         private CustomerInfo NewUnAssignedCustomerInfo()

@@ -6,8 +6,8 @@
 
     public class CreateCommunicationToolSettingCriteria : CriteriaBase
     {
-        public int UserId => AppSession.CurrentUser.Id;
-        public string IP => IPHelper.ClientIP;
+        public static int UserId => AppSession.CurrentUser.Id;
+        public static string IP => IPHelper.ClientIP;
 
         public string Username { get; set; }
 

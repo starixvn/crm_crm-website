@@ -400,10 +400,8 @@
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DirectiveRegister.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\StartTime.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />

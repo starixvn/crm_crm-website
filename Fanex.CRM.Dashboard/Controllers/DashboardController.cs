@@ -13,7 +13,7 @@
     public class DashboardController : ReadOnlyBaseController
     {
         private readonly IDashboardService _dashboardServiceInstance;
-        public readonly ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
 
         public DashboardController() : this(null, null)
         {

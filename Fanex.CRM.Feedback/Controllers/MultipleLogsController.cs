@@ -71,9 +71,6 @@
         [HttpPost]
         public ActionResult GetSettings()
         {
-            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
-                ? _serviceSetting.GetAllSitesCN88()
-                : _serviceSetting.GetAllSites();
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),

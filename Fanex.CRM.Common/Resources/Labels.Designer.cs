@@ -727,6 +727,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Status.
         /// </summary>
         public static string ProductStatus {

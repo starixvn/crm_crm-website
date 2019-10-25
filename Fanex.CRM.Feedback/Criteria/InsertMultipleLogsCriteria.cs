@@ -11,10 +11,10 @@
     public class InsertMultipleLogsCriteria : BasedUpdateCriteria
     {
         [SpParam(SqlParamName = "username")]
-        public string ListCustomers { get; set; }
+        public string CustomerIds { get; set; }
 
         public string Subject { get; set; }
-        public int CreatorId => AppSession.CurrentUser.Id;
+        public static int CreatorId => AppSession.CurrentUser.Id;
 
         [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }

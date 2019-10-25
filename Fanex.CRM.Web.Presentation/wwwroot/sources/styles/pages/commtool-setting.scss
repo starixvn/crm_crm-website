@@ -79,13 +79,13 @@ $fanex-grid-images-path: '../images';
                 max-height: 250px;
                 margin-top: 10px;
                 overflow: auto;
-                padding: 5px;
 
                 table {
                     width: 100%;
 
                     td {
                         width: 25%;
+                        padding: 5px;
 
                         .txt-customer, .txt-guest, .txt-invalid {
                             display: flex;

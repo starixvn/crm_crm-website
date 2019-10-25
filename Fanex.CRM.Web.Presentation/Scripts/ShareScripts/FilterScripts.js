@@ -24,7 +24,7 @@ var FilterScript = function () {
         });
 
         return subProducts;
-    }
+    };
 
     self.getBettypes = function (selectedSubProducts, bettypeList, selectedBettypeIds) {
         var selectedSubProductIds = [];
@@ -58,7 +58,7 @@ var FilterScript = function () {
         });
 
         return distinctBettypes;
-    }
+    };
 
     self.getSubCategories = function (selectedCategories, subCategoryList, selectedSubCategoryIds) {
         var selectedCategoryIds = [];
@@ -92,16 +92,16 @@ var FilterScript = function () {
         });
 
         return distinctSubCategories;
-    }
+    };
 
     self.GetCommunicationParams = function (selectedCommunications) {
         var communicationIds = [];
         angular.forEach(selectedCommunications, function (communication) {
             communicationIds.push(communication.Id);
-        })
+        });
 
         return communicationIds.join(",");
-    }
+    };
 
     self.GetExtensionParams = function (selectedExtensions, extensionNA) {
         var extensionIds = [];        
@@ -122,17 +122,17 @@ var FilterScript = function () {
     self.CheckSubProductBettype = function (subProductID, bettypeId, bettypeList) {
         var flag = false;
         angular.forEach(bettypeList, function (b) {
-            if (b.Id == bettypeId && b.ParentId == subProductID) {
+            if (b.Id === bettypeId && b.ParentId === subProductID) {
                 flag = true;
             }
-        })
+        });
 
         return flag;
-    }
+    };
 
     self.GetProductParams = function (selectProductsConfig, productNAConfig, bettypeList) {
         var products = [];
-        if (selectProductsConfig.selectedProducts.length == 0) {
+        if (selectProductsConfig.selectedProducts.length === 0) {
             products = [
                 {
                     ProductId: productNAConfig.ProductNA.Id,
@@ -151,21 +151,21 @@ var FilterScript = function () {
                             ProductId: subProduct.ParentId,
                             SubProductId: subProduct.Id,
                             BettypeId: bettype.Id
-                        })
+                        });
                     }
-                })
+                });
 
-                if (subProductBettypes.length == 0) {
+                if (subProductBettypes.length === 0) {
                     subProductBettypes.push({
                         ProductId: subProduct.ParentId,
                         SubProductId: subProduct.Id,
                         BettypeId: productNAConfig.BettypeNA.Id
-                    })
+                    });
                 }
 
                 products = products.concat(subProductBettypes);
                 processedProductIds.push(subProduct.ParentId);
-            })
+            });
 
             angular.forEach(selectProductsConfig.selectedProducts, function (product) {
                 if (processedProductIds.indexOf(product.Id) < 0) {
@@ -173,24 +173,24 @@ var FilterScript = function () {
                         ProductId: product.Id,
                         SubProductId: productNAConfig.SubProductNA.Id,
                         BettypeId: productNAConfig.BettypeNA.Id
-                    })
+                    });
                 }
-            })
+            });
         }
 
         return products;
-    }
+    };
 
     self.CheckCategorySubCategory = function (categoryId, subCategoryId, subCategoryList) {
         var flag = false;
         angular.forEach(subCategoryList, function (b) {
-            if (b.Id == subCategoryId && b.ParentId == categoryId) {
+            if (b.Id === subCategoryId && b.ParentId === categoryId) {
                 flag = true;
             }
-        })
+        });
 
         return flag;
-    }
+    };
 
     self.GetCategoryParams = function (selectedCategories, selectedSubCategories, subCategoryList) {
         var categories = [];
@@ -200,13 +200,13 @@ var FilterScript = function () {
                     categories.push({
                         MainCategoryID: category.Id,
                         SubCategoryID: subCategory.Id
-                    })
+                    });
                 }
-            })
+            });
         });
 
         return categories;
-    }
+    };
 
     self.CheckCategoryParams = function (selectedCategories, selectedSubCategories, subCategoryList) {
         var inValidCategories = [];
@@ -216,7 +216,7 @@ var FilterScript = function () {
                 if (self.CheckCategorySubCategory(category.Id, subCategory.Id, subCategoryList)) {
                     validCategory = true;
                 }
-            })
+            });
 
             if (!validCategory) {
                 inValidCategories.push(category.Name);
@@ -224,7 +224,7 @@ var FilterScript = function () {
         });
 
         return inValidCategories;
-    }
+    };
 };
 
 filterScripts = new FilterScript();

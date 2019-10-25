@@ -381,4 +381,7 @@
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>N/A</value>
   </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
 </root>
