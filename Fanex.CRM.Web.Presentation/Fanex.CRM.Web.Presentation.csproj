@@ -398,7 +398,6 @@
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DirectiveRegister.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
@@ -1555,7 +1554,6 @@
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\Feedbacks\QuickUpdate\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\QuickUpdate\Styles\QuickUpdateFeedback.less" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Create.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />

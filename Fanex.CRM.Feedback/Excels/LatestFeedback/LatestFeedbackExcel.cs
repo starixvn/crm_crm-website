@@ -6,6 +6,7 @@
     using Fanex.CRM.Feedback.Resources;
     using System.Collections.Generic;
 
+#pragma warning disable S109 // Magic numbers should not be used
     public class LatestFeedbackExcel : FeedbackExcel
     {
         private const int ColumnsCount = 5;
@@ -37,7 +38,7 @@
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Feedback, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
-            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex, Labels.RelatedCustomer, headerStyle);
 
             ExportExcelInfo.CurrentRow++;
         }
