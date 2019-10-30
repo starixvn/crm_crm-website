@@ -19,7 +19,7 @@
         public int PageSize { get; set; }
         public int TotalRows { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_crmDefaultCommToolSearch";
+        public override string GetSettingKey() => "Acc_CRM_DefaultCommToolSearch";
 
         public override bool IsValid() => true;
     }

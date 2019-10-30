@@ -2,17 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using Common.Criteria;
     using Common.Helpers;
     using Common.Services;
+    using Fanex.CRM.Common.Models;
     using Fanex.Data.Repository;
     using Models;
 
     public class InsertMultipleLogsCriteria : BasedUpdateCriteria
     {
-        [SpParam(SqlParamName = "username")]
-        public string CustomerIds { get; set; }
-
         public string Subject { get; set; }
         public static int CreatorId => AppSession.CurrentUser.Id;
 
@@ -37,6 +36,11 @@
         public string ReviewerId { get; set; }
         public string AutoField { get; set; }
 
+        // use in case apply default communication tool
+        public string AutoField1 { get; set; }
+        public string AutoField2 { get; set; }
+        public string AutoField3 { get; set; }
+
         [SpParam(Ignored = true)]
         public IEnumerable<ProductFilter> Products { get; set; }
 
@@ -54,6 +58,30 @@
 
         [SpParam(SqlParamName = "SubCategorystr")]
         public string SubCategoryIds { get; set; }
+
+        [SpParam(Ignored = true)]
+        public IEnumerable<BaseModel> Customers { get; set; } = new List<BaseModel>();
+
+        [SpParam(SqlParamName = "ListCustId")]
+        public string CustomerXml
+        {
+            get
+            {
+                var xml = new StringBuilder("<ROOT>");
+                foreach (BaseModel cust in Customers)
+                {
+                    xml.AppendFormat("<Cust CustID='{0}' Username='{1}' />", cust.Id, cust.Name);
+                }
+                xml.Append("</ROOT>");
+                return xml.ToString();
+            }
+        }
+
+        [SpParam(SqlParamName = "IsCheckedDefaultComm")]
+        public bool IsUseDefaultCommunicationTool { get; set; }
+
+        [SpParam(SqlParamName = "CommunicationId")]
+        public string CommunicationIds { get; set; }
 
         public int NoInquiries { get; set; }
 

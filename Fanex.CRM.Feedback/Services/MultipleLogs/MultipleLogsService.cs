@@ -49,6 +49,11 @@
             }
         }
 
+        public IEnumerable<string> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        {
+            return baseService.GetData<string>(criteria);
+        }
+
         public CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria)
         {
             criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);

@@ -42,7 +42,7 @@
             }
         }
 
-        public override string GetSettingKey() => "Acc_CRM_crmDefaultCommToolIns";
+        public override string GetSettingKey() => "Acc_CRM_DefaultCommToolIns";
 
         public override bool IsValid() => true;
     }

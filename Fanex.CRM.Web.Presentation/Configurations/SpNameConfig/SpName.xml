@@ -78,6 +78,7 @@
     <Setting Key="UpdMultipleReviewAndStatus" SpName="Acc_CRM_UpdMultipleReviewAndStatus" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_FeedbackQuickSel" SpName="Acc_CRM_FeedbackQuickSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CustomerFeedbackQuickUpd" SpName="Acc_CRM_CustomerFeedbackQuickUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_GuestFeedbackCheck_Multiple" SpName="Acc_CRM_GuestFeedbackCheck_Multiple_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Setting">
     <Setting Key="Acc_CRM_SettingGetRelationBySettingName" SpName="Acc_CRM_SettingGetRelationBySettingName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -199,11 +200,11 @@
     </Setting>
   </Function>
   <Function Name="Default Communication Setting">
-    <Setting Key="Acc_CRM_crmDefaultCommToolSearch" SpName="Acc_CRM_crmDefaultCommToolSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_crmDefaultCommToolIns" SpName="Acc_CRM_crmDefaultCommToolIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_crmDefaultCommToolUpd" SpName="Acc_CRM_crmDefaultCommToolUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_crmDefaultCommToolSel" SpName="Acc_CRM_crmDefaultCommToolSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_crmDefaultCommToolDel" SpName="Acc_CRM_crmDefaultCommToolDel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolSearch" SpName="Acc_CRM_DefaultCommToolSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolIns" SpName="Acc_CRM_DefaultCommToolIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolUpd" SpName="Acc_CRM_DefaultCommToolUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolSel" SpName="Acc_CRM_DefaultCommToolSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolDel" SpName="Acc_CRM_DefaultCommToolDel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>
 		

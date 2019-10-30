@@ -16,12 +16,12 @@
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/CreateMultipleLogsStyles")
 }
-<div data-ng-app="create-multiple-logs-application">
-    <div data-ng-controller="createMultipleLogsController">
+<div ng-app="create-multiple-logs-application">
+    <div ng-controller="createMultipleLogsController">
         <div class="container main">
-            <div class="row row-item" data-ng-show="isShowResultMessage">
+            <div class="row row-item" ng-show="isShowResultMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div ng-class="alertbox{{ isSuccessful ? 'scc' : 'err' }}" class="alertbox{{ isSuccessful ? 'scc' : 'err' }}">
                         <div data-ng-bind="resultMessage"></div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
                                 <span class="fa fa-exclamation-circle pull-right"
-                                   tooltip-placement="bottom-right"
-                                   uib-tooltip="Communication Tool, Country, Language, Role, Site, Licensee Type shall be update automatically by system!"></span>
+                                      tooltip-placement="bottom-right"
+                                      uib-tooltip="Communication Tool, Country, Language, Role, Site, Licensee Type shall be update automatically by system!"></span>
                             </div>
                         </div>
                         <div class="row item">
@@ -100,13 +100,23 @@
                         <div class="row item">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label>@Labels.Communication_Tool</label>
+                                <span ng-show="!multipleLogs.isUseDefaultCommunicationTool">@Html.Raw(Resources.Language.Html_Template_MandatoryField)</span>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                                <select disabled>
-                                    <option value="">@CommonLabels.Symbol_NotApply</option>
-                                </select>
+                                <multileveldropdowntree text-settings="TextSettings"
+                                                        data-ng-model="selectedCommunications"
+                                                        data-settings="communicationDropdownSettings"
+                                                        ng-change="communicationChangeHandler()"
+                                                        ng-disabled="multipleLogs.isUseDefaultCommunicationTool" />
                             </div>
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-1 col-sm-1 col-md-2">
+                                <input type="checkbox" class="ckb-use-default-comm-tool"
+                                       ng-model="multipleLogs.isUseDefaultCommunicationTool"
+                                       ng-change="ckbDefaultCommunicationToolChangeHandler()"
+                                       tooltip-placement="bottom-left"
+                                       uib-tooltip="Apply default communication tool." />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
                                 <label>@Labels.Language</label>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -298,7 +308,7 @@
             CustomerNameLengthErrorMessage: '@Labels.RelatedCustomerNameLengthErrorMessage',
             Multiple_Logs_VerifyRelatedCustomer: '@Labels.Multiple_Logs_VerifyRelatedCustomer',
             Multiple_Logs_EmptyListOfCustomers: '@Labels.Multiple_Logs_EmptyListOfCustomers',
-
+            Multiple_Logs_NACommmunicationTool: '@Labels.Multiple_Logs_NACommmunicationTool',
             Multiple_Logs_ErrorEndTime: '@Labels.Multiple_Logs_ErrorEndTime',
             Error_NAMainCategory: '@Labels.Error_NAMainCategory',
             NoSubcategoryError: '@Labels.NoSubcategoryError',

@@ -13,7 +13,7 @@
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_crmDefaultCommToolDel";
+        public override string GetSettingKey() => "Acc_CRM_DefaultCommToolDel";
 
         public override bool IsValid() => true;
     }

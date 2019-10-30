@@ -158,6 +158,7 @@
     <Compile Include="Controllers\QuickUpdateFeedbackController.cs" />
     <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
     <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\CheckNotExistCommunicationToolSettingCriteria.cs" />
     <Compile Include="Criteria\CheckFeedbackDuplicationCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />

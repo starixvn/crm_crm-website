@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
@@ -67,13 +68,14 @@
             return View("~/Areas/Feedbacks/EditMultipleLogStatuses/Index.cshtml", log);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult GetSettings()
         {
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
                 ProvinceList = _serviceSetting.GetAllProvinces(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -92,8 +94,8 @@
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetEditSettings()
         {
             var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
@@ -124,6 +126,15 @@
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult CheckNotExistDefaultCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        {
+            IEnumerable<string> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
+
+            return Json(customers, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -10,7 +10,7 @@
                 { HeaderText: communicationSettingResources.NumberColumn, Width: 50, Name: 'RowNum', HeaderAlign: 'center', CellAlign: 'center' },
                 {
                     HeaderText: communicationSettingResources.Customer, Width: 100, MaxResizeWidth: 200, Name: 'Customer',
-                    HeaderAlign: 'center', CellAlign: 'center', CanResize: true
+                    HeaderAlign: 'center', CellAlign: 'left', CanResize: true
                 },
                 { HeaderText: communicationSettingResources.Position, Width: 100, Name: 'Position', HeaderAlign: 'center', CellAlign: 'center' },
                 {
