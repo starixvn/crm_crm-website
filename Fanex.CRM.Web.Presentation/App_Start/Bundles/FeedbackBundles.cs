@@ -172,6 +172,13 @@
         private static void RegisterCreateMultipleLogsBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/CreateMultipleLogsScripts").Include(
+                "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                "~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js",
+                "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js",
+                "~/Scripts/Jlinq/jlinq/jlinq.jquery.js",
+                "~/Scripts/autocomplete/jquery.highlight-3.js",
+                "~/Scripts/autocomplete/jquery.autocomplete.client.js",
+                "~/Scripts/common.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
@@ -181,13 +188,6 @@
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js",
-                "~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js",
-                "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js",
-                "~/Scripts/Jlinq/jlinq/jlinq.jquery.js",
-                "~/Scripts/autocomplete/jquery.highlight-3.js",
-                "~/Scripts/autocomplete/jquery.autocomplete.client.js",
-                "~/Scripts/common.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
