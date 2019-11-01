@@ -36,7 +36,7 @@
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -71,7 +71,7 @@
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -151,7 +151,7 @@
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -172,7 +172,7 @@
         private static void RegisterCreateMultipleLogsBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/CreateMultipleLogsScripts").Include(
-                "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                ScriptPathConstant.MomentScriptPath,
                 "~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js",
                 "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js",
                 "~/Scripts/Jlinq/jlinq/jlinq.jquery.js",

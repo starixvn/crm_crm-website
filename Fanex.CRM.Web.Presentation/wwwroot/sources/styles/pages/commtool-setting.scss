@@ -3,6 +3,7 @@
 
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
+@import '~tipsy/src/stylesheets/tipsy.css';
 
 @import '../../libs/FanexGrid/Fanex.Grid.css';
 @import '../../libs/FanexGrid/Fanex.Pagination.css';
@@ -12,6 +13,12 @@ $fanex-grid-images-path: '../images';
 @import '../components/buttons';
 @import '../components/modal';
 @import '../components/customize-fanex-grid';
+
+.tipsy-inner {
+    max-width: 600px;
+    text-align: left;
+    font-size: 11px;
+}
 
 .comm-tool-setting-filter {
     .category-select, .subcategory-select {
@@ -36,7 +43,13 @@ $fanex-grid-images-path: '../images';
     }
 }
 
+.create-commtool-setting-modal-backdrop {
+    z-index: 940 !important;
+}
+
 .create-commtool-setting-modal {
+    z-index: 950 !important;
+
     .modal-dialog {
         width: 1100px;
 

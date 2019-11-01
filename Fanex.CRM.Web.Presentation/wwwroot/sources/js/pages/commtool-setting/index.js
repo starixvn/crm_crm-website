@@ -1,6 +1,8 @@
 ﻿import '../../../libs/FanexGrid/Fanex.Grid';
 import '../../../libs/FanexGrid/Fanex.Pagination';
 
+import 'tipsy/src/javascripts/jquery.tipsy';
+
 import './commtool-setting-module';
 import './commtool-setting-factory';
 

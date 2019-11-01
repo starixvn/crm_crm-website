@@ -243,6 +243,7 @@
     <Compile Include="App_Start\Bundles\AdminToolBundles.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Bundles\BundleExtensions.cs" />
+    <Compile Include="App_Start\Bundles\ScriptPathConstant.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
     <Compile Include="App_Start\Bundles\FeedbackBundles.cs" />
     <Compile Include="App_Start\Bundles\InformHeadlineBundles.cs" />

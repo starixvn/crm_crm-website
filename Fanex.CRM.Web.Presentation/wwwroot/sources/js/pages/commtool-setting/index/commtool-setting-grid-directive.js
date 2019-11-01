@@ -35,23 +35,41 @@
             return columns;
         }
 
+        function renderCategoryColumn(category) {
+            let html = category;
+            const maxItems = 15,
+                categories = category ? category.split(',') : [];
+            if (categories.length > maxItems) {
+                html = '<span class="tooltip-tipsy" title="' + category + '">' + categories.splice(0, maxItems).join(',') + ' ...</span>';
+            }
+
+            return html;
+        }
+
         function generateBodyRows(scope) {
             let rows = [];
             const totalItems = scope.dataSources.length;
 
             for (let i = 0; i < totalItems; i++) {
-                const item = scope.dataSources[i];
+                const item = scope.dataSources[i],
+                    rownum = scope.pageIndex * scope.pageSize + i + 1;
                 let columns = [
-                    { Name: 'RowNum', Value: scope.pageIndex * scope.pageSize + i + 1 },
+                    { Name: 'RowNum', Value: rownum },
                     { Name: 'Customer', Value: item.Username },
                     { Name: 'Position', Value: item.Role },
-                    { Name: 'Category', Value: item.Category },
-                    { Name: 'SubCategory', Value: item.SubCategory },
+                    { Name: 'Category', Value: renderCategoryColumn(item.Category) },
+                    { Name: 'SubCategory', Value: renderCategoryColumn(item.SubCategory) },
                     { Name: 'CommunicationTool', Value: item.CommTool }
                 ];
                 if (isHostOnCommunicationSetting) {
-                    columns.push({ Name: 'Edit', Value: '<a class="edit-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '"><i class="fa fa-pencil"></i></a>' });
-                    columns.push({ Name: 'Delete', Value: '<a class="delete-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '"><i class="fa fa-times"></i></a>' });
+                    columns.push({
+                        Name: 'Edit',
+                        Value: '<a class="edit-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '"><i class="fa fa-pencil"></i></a>'
+                    });
+                    columns.push({
+                        Name: 'Delete',
+                        Value: '<a class="delete-setting" href="javascript:;" data-default-settingid="' + item.DefaultCommId + '" data-rownum="' + rownum + '"><i class="fa fa-times"></i></a>'
+                    });
                 }
 
                 rows.push({ Columns: columns });
@@ -97,8 +115,16 @@
             });
 
             $('a.delete-setting', $(element)).off('click').on('click', function () {
-                const settingid = parseInt($(this).data('default-settingid'), 10);
-                scope.onDelete(settingid);
+                const settingid = parseInt($(this).data('default-settingid'), 10),
+                    rownum = parseInt($(this).data('rownum'), 10);
+                scope.onDelete(settingid, rownum);
+            });
+
+            $('.tooltip-tipsy', $(element)).tipsy({
+                //className: 'category-tipsy',
+                fade: true,
+                gravity: $.fn.tipsy.autoWE,
+                html: true
             });
         }
 

@@ -7,10 +7,12 @@
     </div>
     <div class="modal-body">
         <div class="row row-item" ng-show="deleteCommToolSettingCtrl.isShowResultMessage">
-            <div class="alertbox{{ deleteCommToolSettingCtrl.isSuccessful ? 'scc' : 'err' }}"><div>{{deleteCommToolSettingCtrl.resultMessage}}</div></div>
+            <div class="alertbox{{ deleteCommToolSettingCtrl.isSuccessful ? 'scc' : 'err' }}">
+                <div>{{deleteCommToolSettingCtrl.resultMessage}}</div>
+            </div>
         </div>
         <div class="row row-item">
-            <p>You are about to delete: <strong>{{deleteCommToolSettingCtrl.communicationSetting.Username}}</strong> - <strong>{{deleteCommToolSettingCtrl.communicationSetting.Category}}</strong> - <strong>{{deleteCommToolSettingCtrl.communicationSetting.SubCategory}}</strong></p>
+            <p>You are about to delete the setting <strong>No.{{deleteCommToolSettingCtrl.rownum}}</strong></p>
             Are you sure you want to delete it?
         </div>
     </div>

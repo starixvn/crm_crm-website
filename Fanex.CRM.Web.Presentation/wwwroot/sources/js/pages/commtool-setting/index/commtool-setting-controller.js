@@ -79,18 +79,18 @@
                     vm.categoryDropdownSettings = {
                         idMember: 'Id',
                         nameMember: 'Name',
-                        sourceData: vm.allSettings.MainCategories,
+                        sourceData: angular.copy(vm.allSettings.MainCategories),
                         checkedAll: true
                     };
                     vm.subCategoryDropdownSettings = {
                         idMember: 'Id',
                         nameMember: 'Name',
-                        sourceData: vm.allSettings.SubCategories,
+                        sourceData: angular.copy(vm.allSettings.SubCategories),
                         checkedAll: true
                     };
 
-                    vm.selectedCategories = vm.allSettings.MainCategories;
-                    vm.selectedSubCategories = vm.allSettings.SubCategories;
+                    vm.selectedCategories = angular.copy(vm.allSettings.MainCategories);
+                    vm.selectedSubCategories = angular.copy(vm.allSettings.SubCategories);
                     vm.filter.isDisableCategorySubCategory = true;
                     vm.filter.isSelectAllCategory = true;
                     vm.filter.isSelectAllSubCategory = true;
@@ -117,7 +117,7 @@
                 nameMember: 'Name',
                 sourceData: filterScripts.getSubCategories(
                     vm.selectedCategories,
-                    vm.allSettings.SubCategories,
+                    angular.copy(vm.allSettings.SubCategories),
                     vm.selectedSubCategoryIds)
             };
         };
@@ -159,14 +159,13 @@
                 controller: 'CreateCommToolSettingController',
                 controllerAs: 'createCommToolSettingCtrl',
                 backdrop: 'static',
+                backdropClass: 'create-commtool-setting-modal-backdrop',
                 keyboard: false,
                 size: 'lg',
                 windowClass: 'create-commtool-setting-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    allSettings: function () {
-                        return angular.copy(vm.allSettings);
-                    }
+                    allSettings: angular.copy(vm.allSettings)
                 }
             });
 
@@ -183,17 +182,14 @@
                 controller: 'EditCommToolSettingController',
                 controllerAs: 'editCommToolSettingCtrl',
                 backdrop: 'static',
+                backdropClass: 'create-commtool-setting-modal-backdrop',
                 keyboard: false,
                 size: 'lg',
                 windowClass: 'create-commtool-setting-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    allSettings: function () {
-                        return angular.copy(vm.allSettings);
-                    },
-                    communicationSettingId: function () {
-                        return communicationSettingId;
-                    }
+                    allSettings: angular.copy(vm.allSettings),
+                    communicationSettingId: communicationSettingId
                 }
             });
 
@@ -204,8 +200,7 @@
             });
         };
 
-        vm.openDeletePopup = function (communicationSettingId) {
-            const index = vm.communicationSettings.findIndex(x => x.DefaultCommId === communicationSettingId);
+        vm.openDeletePopup = function (communicationSettingId, rownum) {
             const modalInstance = $uibModal.open({
                 template: angular.element('#template-delete-commtool-setting').html(),
                 controller: 'DeleteCommToolSettingController',
@@ -215,9 +210,8 @@
                 size: 'lg',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    communicationSetting: function () {
-                        return vm.communicationSettings[index];
-                    }
+                    communicationSettingId: communicationSettingId,
+                    rownum: rownum
                 }
             });
             modalInstance.result.then(function (isSuccessful) {

@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('commToolSettingModule').controller('DeleteCommToolSettingController', deleteCommToolSettingController);
-    deleteCommToolSettingController.$inject = ['$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'communicationSetting'];
+    deleteCommToolSettingController.$inject = ['$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'communicationSettingId', 'rownum'];
 
-    function deleteCommToolSettingController($uibModalInstance, $uiBlockerService, commToolSettingFactory, communicationSetting) {
+    function deleteCommToolSettingController($uibModalInstance, $uiBlockerService, commToolSettingFactory, communicationSettingId, rownum) {
         let vm = this;
-        vm.communicationSetting = communicationSetting;
+        vm.rownum = rownum;
         vm.isDeleteSuccessfully = false;
         vm.isDisableDelete = false;
 
@@ -16,7 +16,7 @@
 
         vm.delete = function () {
             $uiBlockerService.blockUI();
-            commToolSettingFactory.deleteCommToolSetting(vm.communicationSetting.DefaultCommId)
+            commToolSettingFactory.deleteCommToolSetting(communicationSettingId)
                 .then(function (data) {
                     $uiBlockerService.unblockUI();
                     vm.isDisableDelete = true;
