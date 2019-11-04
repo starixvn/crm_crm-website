@@ -56,6 +56,27 @@
                 .then(function (data) {
                     $uiBlockerService.unblockUI();
                     const setting = data.Result;
+                    vm.communicationDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: allSettings.CommunicationTools
+                    };
+                    vm.categoryDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: allSettings.MainCategories
+                    };
+                    vm.subCategoryDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: allSettings.SubCategories
+                    };
+                    vm.selectedCategories = [];
+                    vm.selectedSubCategories = [];
+                    vm.selectedCommunications = [];
+                    vm.selectedSubCategoryIds = [];
+                    vm.isSelectAllCategory = false;
+                    vm.isSelectAllSubCategory = false;
 
                     vm.username = setting.Username;
 
@@ -132,28 +153,6 @@
         }
 
         function initialize() {
-            vm.communicationDropdownSettings = {
-                idMember: 'Id',
-                nameMember: 'Name',
-                sourceData: allSettings.CommunicationTools
-            };
-            vm.categoryDropdownSettings = {
-                idMember: 'Id',
-                nameMember: 'Name',
-                sourceData: allSettings.MainCategories
-            };
-            vm.subCategoryDropdownSettings = {
-                idMember: 'Id',
-                nameMember: 'Name',
-                sourceData: allSettings.SubCategories
-            };
-            vm.selectedCategories = [];
-            vm.selectedSubCategories = [];
-            vm.selectedCommunications = [];
-            vm.selectedSubCategoryIds = [];
-            vm.isSelectAllCategory = false;
-            vm.isSelectAllSubCategory = false;
-
             getCommToolSettingById();
         }
 
