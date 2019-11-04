@@ -12,10 +12,15 @@ $fa-font-path: "~font-awesome/fonts";
     font-size: 16px;
 }
 
-.note-tooltip.tooltip {
+.tooltip {
     .tooltip-inner {
-        min-width: 250px;
         text-align: left;
+    }
+
+    &.note-tooltip {
+        .tooltip-inner {
+            min-width: 250px;
+        }
     }
 }
 
