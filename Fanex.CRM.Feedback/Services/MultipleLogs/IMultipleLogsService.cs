@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Common.Models;
     using Criteria;
+    using Fanex.CRM.Feedback.Models;
 
     public interface IMultipleLogsService
     {
@@ -10,7 +11,7 @@
 
         IList<BaseModel> AllStatusForEdit { get; }
 
-        IEnumerable<BaseModel> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria);
+        IEnumerable<VerifyCustomer> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria);
 
         CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria);
 

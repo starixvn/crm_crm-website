@@ -184,6 +184,7 @@
     <Compile Include="Models\FeedbackDuplicationResult.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\QuickUpdateFeedback.cs" />
+    <Compile Include="Models\VerifyCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />

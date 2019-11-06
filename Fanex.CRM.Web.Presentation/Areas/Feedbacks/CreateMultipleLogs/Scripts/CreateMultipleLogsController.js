@@ -443,7 +443,7 @@
                 var confirmMessage = viewResources.Confirm_Changes_Message;
                 if (data.Result.length > 0) {
                     var custstring = data.Result.map(cust => {
-                        return cust.Name + '(' + (cust.Id > 0 ? 'customer' : 'guest') + ')';
+                        return cust.Name + '(' + cust.Role + ')';
                     }).join(', ');
                     confirmMessage = 'The ' + custstring + ' do not have any default communication tool, do you want to continue to insert Feedback/Log and ignore them?';
                 }

@@ -8,6 +8,7 @@
     using Common.Models;
     using Criteria;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Feedback.Models;
     using Repositories;
     using Resources;
     using Setting.Constants;
@@ -49,9 +50,9 @@
             }
         }
 
-        public IEnumerable<BaseModel> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        public IEnumerable<VerifyCustomer> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
         {
-            return baseService.GetData<BaseModel>(criteria);
+            return baseService.GetData<VerifyCustomer>(criteria);
         }
 
         public CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria)

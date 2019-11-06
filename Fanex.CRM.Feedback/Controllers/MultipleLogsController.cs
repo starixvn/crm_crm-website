@@ -8,6 +8,7 @@
     using Common.Services;
     using Criteria;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Feedback.Models;
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using Services;
@@ -132,7 +133,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult CheckNotExistDefaultCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
         {
-            IEnumerable<BaseModel> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
+            IEnumerable<VerifyCustomer> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
 
             return Json(customers, JsonRequestBehavior.AllowGet);
         }
