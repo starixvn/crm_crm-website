@@ -49,9 +49,9 @@
             }
         }
 
-        public IEnumerable<string> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        public IEnumerable<BaseModel> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
         {
-            return baseService.GetData<string>(criteria);
+            return baseService.GetData<BaseModel>(criteria);
         }
 
         public CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria)

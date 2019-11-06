@@ -10,7 +10,7 @@
 
         IList<BaseModel> AllStatusForEdit { get; }
 
-        IEnumerable<string> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria);
+        IEnumerable<BaseModel> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria);
 
         CommandResult InsertMultpleLogs(InsertMultipleLogsCriteria criteria);
 

@@ -132,7 +132,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult CheckNotExistDefaultCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
         {
-            IEnumerable<string> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
+            IEnumerable<BaseModel> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
 
             return Json(customers, JsonRequestBehavior.AllowGet);
         }

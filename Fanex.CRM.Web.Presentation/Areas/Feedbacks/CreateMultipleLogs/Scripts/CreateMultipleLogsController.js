@@ -442,7 +442,10 @@
             }).then(function (data) {
                 var confirmMessage = viewResources.Confirm_Changes_Message;
                 if (data.Result.length > 0) {
-                    confirmMessage = 'The ' + data.Result.join(', ') + ' do not have any default communication tool, do you want to continue to insert Feedback/Log and ignore them?';
+                    var custstring = data.Result.map(cust => {
+                        return cust.Name + '(' + (cust.Id > 0 ? 'customer' : 'guest') + ')';
+                    }).join(', ');
+                    confirmMessage = 'The ' + custstring + ' do not have any default communication tool, do you want to continue to insert Feedback/Log and ignore them?';
                 }
 
                 $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
