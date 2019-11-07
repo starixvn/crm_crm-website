@@ -80,15 +80,9 @@ var HomeManager = function () {
     };
 
     self.bindEvents = function () {
-        //        self.DOMElements.TextboxUsername.unbind("focus");
         self.DOMElements.TextboxUsername.focus(self.TextboxUsernameFocus);
-
-        //        self.DOMElements.TextboxUsername.unbind("blur");
         self.DOMElements.TextboxUsername.blur(self.TextboxUsernameBlur);
-
-        //        self.DOMElements.TextboxUsername.unbind("keyup");
         self.DOMElements.TextboxUsername.keyup(self.TextboxUsernameKeyUp);
-
         self.DOMElements.TextboxUsername.keypress(self.TextboxUsernameKeyPress);
 
         self.DOMElements.ButtonSearch.unbind("click");
@@ -196,8 +190,8 @@ var HomeManager = function () {
             }]
         });
     };
-    self.showConfirmIgnoreChangePopUp = function (ignoreFunction,
-        cancelIgnoreFunction) {
+
+    self.showConfirmIgnoreChangePopUp = function (ignoreFunction, cancelIgnoreFunction) {
         self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
@@ -382,9 +376,6 @@ var HomeManager = function () {
                 self.loadLeftPanel();
             }
         }
-    };
-    self.focusSearchTextbox = function () {
-        self.DOMElements.TextboxUsername.focus();
     };
     self.invokeHotKey_CtrlG = function () {
         self.CachedData.isInvokeHotKey_CtrlG = true;

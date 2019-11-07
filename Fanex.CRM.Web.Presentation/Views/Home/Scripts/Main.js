@@ -178,10 +178,7 @@ $(document).ready(function () {
             rTime: function () {
                 return new Date().getMilliseconds();
             }
-        },
-
-        //aditional parameters
-        closeSuggestion: homeManager.focusSearchTextbox
+        }
     });
 
     $('.autocomplete').mouseover(function () {
