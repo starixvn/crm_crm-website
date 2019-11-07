@@ -67,7 +67,6 @@
                 duration.Days.ToString("00"),
                 duration.Hours.ToString("00"),
                 duration.Minutes.ToString("00"));
-            var noInquiries = info.NoInquiries == 0 ? "-" : info.NoInquiries.ToString();
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
@@ -88,7 +87,7 @@
             exportExcelInfo.RenderCell(NameMapping.GetSubCategoryName(info.CategoryID, info.SubCategoryID, _mainCategory), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.RemarkText), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
-            exportExcelInfo.RenderCell(noInquiries, centerTextStyle);
+            exportExcelInfo.RenderCell(info.NoInquiries, centerTextStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
             exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Handler, centerTextStyle);

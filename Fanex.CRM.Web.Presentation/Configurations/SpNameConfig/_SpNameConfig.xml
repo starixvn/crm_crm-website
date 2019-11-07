@@ -9,4 +9,8 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_DefaultCommToolDel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackCheck_Multiple" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackQuickSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
