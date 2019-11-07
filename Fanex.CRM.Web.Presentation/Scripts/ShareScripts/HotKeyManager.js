@@ -235,11 +235,6 @@ var HotKeyManager = function () {
             return true;
         }
 
-        if (self.CachedData.KeyPress[keyCodeEnums.Character_c]) {
-            self.invokeHotKey_CtrlC();
-            return true;
-        }
-
         if (self.CachedData.KeyPress[keyCodeEnums.Character_u]) {
             self.invokeHotKey_CtrlU();
             return true;
@@ -345,18 +340,6 @@ var HotKeyManager = function () {
         }
     };
 
-    self.invokeHotKey_CtrlC = function () {
-        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
-        self.CachedData.isInvokeHotKey = false;
-        for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
-            if (typeof (activeDocumentManager.invokeHotKey_CtrlC) === 'function') {
-                self.CachedData.isInvokeHotKey = true;
-                activeDocumentManager.invokeHotKey_CtrlC();
-            }
-        }
-    };
-
     self.invokeHotKey_CtrlU = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         self.CachedData.isInvokeHotKey = false;
@@ -400,16 +383,7 @@ var HotKeyManager = function () {
 
         return self.CachedData.isInvokeHotKey;
     };
-    self.invokeHotKey_CtrlC = function () {
-        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
-        for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
-            if (typeof (activeDocumentManager.invokeHotKey_CtrlC) === "function") {
-                self.CachedData.isInvokeHotKey = true;
-                activeDocumentManager.invokeHotKey_CtrlC();
-            }
-        }
-    };
+
     self.invokeHotKey_CtrlI = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {

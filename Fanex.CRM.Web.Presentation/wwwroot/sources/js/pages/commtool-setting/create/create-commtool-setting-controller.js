@@ -297,10 +297,6 @@
             $scope.$apply();
         };
 
-        vm.invokeHotKey_CtrlC = function () {
-            vm.close();
-        };
-
         initialize();
     }
 })(angular);

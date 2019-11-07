@@ -114,7 +114,9 @@
         };
 
         vm.invokeHotKey_CtrlI = function () {
-            vm.openCreatePopup();
+            if (isHostOnCommunicationSetting) {
+                vm.openCreatePopup();
+            }
         };
 
         vm.checkDisableSearch = function () {
