@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('commToolSettingModule').controller('CreateCommToolSettingController', createCommToolSettingController);
-    createCommToolSettingController.$inject = ['$scope', '$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'allSettings'];
+    createCommToolSettingController.$inject = ['$window', '$scope', '$uibModalInstance', '$uiBlockerService', 'commToolSettingFactory', 'allSettings'];
 
-    function createCommToolSettingController($scope, $uibModalInstance, $uiBlockerService, commToolSettingFactory, allSettings) {
+    function createCommToolSettingController($window, $scope, $uibModalInstance, $uiBlockerService, commToolSettingFactory, allSettings) {
         let vm = this;
 
         vm.isCreateSuccessfully = false;
@@ -125,6 +125,17 @@
             vm.isSelectAllCategory = false;
             vm.isSelectAllSubCategory = false;
             vm.isVerifiedCustomers = false;
+
+            const index = $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.findIndex(x => x.Id === 'CreateDefaultCommunicationTool');
+            const activeDocument = {
+                Value: vm,
+                Id: 'CreateDefaultCommunicationTool'
+            };
+            if (index === -1) {
+                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.push(activeDocument);
+            } else {
+                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager[index] = activeDocument;
+            }
         }
 
         vm.close = function () {
@@ -268,6 +279,26 @@
                         }
                     });
             }
+        };
+
+        vm.invokeHotKey_CtrlE = function () {
+            if (vm.customersInput.trim() !== '') {
+                vm.verifyCustomers();
+            }
+        };
+
+        vm.invokeHotKey_CtrlA = function () {
+            vm.saveAndContinue();
+            $scope.$apply();
+        };
+
+        vm.invokeHotKey_CtrlS = function () {
+            vm.save();
+            $scope.$apply();
+        };
+
+        vm.invokeHotKey_CtrlC = function () {
+            vm.close();
         };
 
         initialize();

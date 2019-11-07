@@ -100,9 +100,22 @@
         }
 
         function initialize() {
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: vm,
+                Id: 'DefaultCommunicationTool'
+            });
+
             getAllSettings();
             getCommToolSettings();
         }
+
+        vm.invokeHotKey_CtrlS = function () {
+            vm.search();
+        };
+
+        vm.invokeHotKey_CtrlI = function () {
+            vm.openCreatePopup();
+        };
 
         vm.checkDisableSearch = function () {
             vm.isDisableSearch = !vm.filter.isDisableCategorySubCategory
