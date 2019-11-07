@@ -342,4 +342,10 @@
   <data name="Position" xml:space="preserve">
     <value>Position</value>
   </data>
+  <data name="Btn_HotKey_Insert" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;I&lt;/span&gt;nsert</value>
+  </data>
+  <data name="Btn_HotKey_Cancel" xml:space="preserve">
+    <value>&lt;span class="hotkey"&gt;C&lt;/span&gt;ancel</value>
+  </data>
 </root>

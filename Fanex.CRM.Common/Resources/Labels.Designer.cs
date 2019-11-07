@@ -97,6 +97,24 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;C&lt;/span&gt;ancel.
+        /// </summary>
+        public static string Btn_HotKey_Cancel {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;I&lt;/span&gt;nsert.
+        /// </summary>
+        public static string Btn_HotKey_Insert {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;span class=&quot;hotkey&quot;&gt;I&lt;/span&gt;nsert Case.
         /// </summary>
         public static string Btn_HotKey_InsertCase {
@@ -111,6 +129,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string Btn_HotKey_Save {
             get {
                 return ResourceManager.GetString("Btn_HotKey_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S&lt;span class=&quot;hotkey&quot;&gt;a&lt;/span&gt;ve &amp; Continue.
+        /// </summary>
+        public static string Btn_HotKey_Save_Continue {
+            get {
+                return ResourceManager.GetString("Btn_HotKey_Save_Continue", resourceCulture);
             }
         }
         

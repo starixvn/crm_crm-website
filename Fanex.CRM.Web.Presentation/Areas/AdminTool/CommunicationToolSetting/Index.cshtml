@@ -51,12 +51,14 @@
                         </label>
                     </div>
                     <div class="item">
-                        <button class="btn" ng-click="commToolSettingCtrl.search()" ng-disabled="commToolSettingCtrl.isDisableSearch">@Labels.Search</button>
+                        <button class="btn" ng-click="commToolSettingCtrl.search()" ng-disabled="commToolSettingCtrl.isDisableSearch">
+                            @Html.Raw(Labels.Btn_HotKey_Search)
+                        </button>
                     </div>
                     @if (isHost)
                     {
                         <div class="item">
-                            <button class="btn" ng-click="commToolSettingCtrl.openCreatePopup()">@Labels.Insert</button>
+                            <button class="btn" ng-click="commToolSettingCtrl.openCreatePopup()">@Html.Raw(Labels.Btn_HotKey_Insert)</button>
                         </div>
                     }
                 </div>

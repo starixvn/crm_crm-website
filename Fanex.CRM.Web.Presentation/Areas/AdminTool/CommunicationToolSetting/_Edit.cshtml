@@ -61,7 +61,9 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn" ng-click="editCommToolSettingCtrl.save()" ng-disabled="editCommToolSettingCtrl.isDisableEdit">@Labels.Btn_Update</button>
-        <button class="btn" ng-click="editCommToolSettingCtrl.close()">@Labels.Cancel</button>
+        <button class="btn" ng-click="editCommToolSettingCtrl.save()" ng-disabled="editCommToolSettingCtrl.isDisableEdit">
+            @Html.Raw(Labels.Btn_HotKey_Update)
+        </button>
+        <button class="btn" ng-click="editCommToolSettingCtrl.close()">@Html.Raw(Labels.Btn_HotKey_Cancel)</button>
     </div>
 </div>
