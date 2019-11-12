@@ -13,4 +13,5 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackQuickSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_Rpt_DailyStatisticsDetail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_LogActionSettingList" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
