@@ -23,7 +23,11 @@ $fanex-grid-images-path: '../images';
 .comm-tool-setting-filter {
     .category-select, .subcategory-select {
         multileveldropdowntree {
-            width: 200px;
+            width: 250px;
+
+            .dropdown-menu {
+                min-width: 300px;
+            }
         }
     }
 }
@@ -58,6 +62,14 @@ $fanex-grid-images-path: '../images';
                 width: 100%;
                 z-index: unset;
                 float: none;
+            }
+        }
+
+        .category-select, .subcategory-select {
+            multileveldropdowntree {
+                .dropdown-menu {
+                    min-width: 300px;
+                }
             }
         }
 
