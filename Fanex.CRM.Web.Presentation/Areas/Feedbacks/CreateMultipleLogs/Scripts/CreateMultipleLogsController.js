@@ -452,9 +452,9 @@
                         var custstring = data.Result.map(cust => {
                             return cust.Name + '(' + cust.Role + ')';
                         }).join(', ');
-                        confirmMessage = 'Customers whoes Default Communication Setting does not match the selected Category/Sub-Category: '
+                        confirmMessage = 'Customers whoes Default Communication Setting does not match <br/>the selected Category/Sub-Category: '
                             + '<strong>' + custstring + '</strong>'
-                            + '<br/>Do you want to continue to create Feedback / Logs for the other customers?';
+                            + '<br/>Do you want to continue to create Feedback/Logs for the other customers?';
                     }
 
                     $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
