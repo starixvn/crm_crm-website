@@ -435,20 +435,30 @@
         };
 
         $scope.checkNotExistDefaultCommToolSetting = function (insertCriteria) {
+            var customers = getCustomers();
             $createMultipleLogsService.checkNotExistDefaultCommToolSetting({
-                Customers: getCustomers(),
+                Customers: customers,
                 CategoryIds: $scope.selectedCategories.map(cat => cat.Id).sort().join(','),
                 SubCategoryIds: $scope.selectedSubCategories.map(subcat => subcat.Id).sort().join(',')
             }).then(function (data) {
-                var confirmMessage = viewResources.Confirm_Changes_Message;
-                if (data.Result.length > 0) {
-                    var custstring = data.Result.map(cust => {
-                        return cust.Name + '(' + cust.Role + ')';
-                    }).join(', ');
-                    confirmMessage = 'The ' + custstring + ' do not have any default communication tool, do you want to continue to insert Feedback/Log and ignore them?';
-                }
+                if (customers.length === data.Result.length) {
+                    parent.dialogManager.alert(
+                        viewResources.Alert,
+                        'No customer has Default Communication Setting matching the selected Category/Sub-Category. Please check again!',
+                        viewResources.OK);
+                } else {
+                    var confirmMessage = viewResources.Confirm_Changes_Message;
+                    if (data.Result.length > 0) {
+                        var custstring = data.Result.map(cust => {
+                            return cust.Name + '(' + cust.Role + ')';
+                        }).join(', ');
+                        confirmMessage = 'Customers whoes Default Communication Setting does not match the selected Category/Sub-Category: '
+                            + '<strong>' + custstring + '</strong>'
+                            + '<br/>Do you want to continue to create Feedback / Logs for the other customers?';
+                    }
 
-                $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
+                    $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
+                }
             });
         };
 
