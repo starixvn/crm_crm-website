@@ -9,9 +9,9 @@
     currentTime*/
     /* jshint camelcase: false */
     angular.module('create-multiple-logs-application').controller('createMultipleLogsController', createMultipleLogsController);
-    createMultipleLogsController.$inject = ['$scope', '$createMultipleLogsService', '$uiBlockerService'];
+    createMultipleLogsController.$inject = ['$window', '$scope', '$createMultipleLogsService', '$uiBlockerService'];
 
-    function createMultipleLogsController($scope, $createMultipleLogsService, $uiBlockerService) {
+    function createMultipleLogsController($window, $scope, $createMultipleLogsService, $uiBlockerService) {
         $scope.multipleLogs = {
             StartTime: new Date(currentTime),
             EndTime: new Date(currentTime),
@@ -446,6 +446,7 @@
                         viewResources.Alert,
                         'No customer has Default Communication Setting matching the selected Category/Sub-Category. Please check again!',
                         viewResources.OK);
+                    $window.parent.$('.ui-dialog').css({ 'width': 'auto', 'min-width': '300px', 'max-width': '600px' });
                 } else {
                     var confirmMessage = viewResources.Confirm_Changes_Message;
                     if (data.Result.length > 0) {
@@ -475,6 +476,7 @@
                         });
                 }
             );
+            $window.parent.$('.ui-dialog').css({ 'width': 'auto', 'min-width': '300px', 'max-width': '600px' });
         };
 
         $scope.showResult = function (result) {
