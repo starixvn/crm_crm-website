@@ -167,16 +167,10 @@
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var tools = _serviceSetting.GetAllCommunicationTools();
-            var tool = _serviceSetting.GetCommunicationToolNA();
-            if (tool != null)
-            {
-                tools.Insert(0, tool);
-            }
-
+            var tools = _serviceSetting.GetAllCommunicationTools(true);
             tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
-            return tools.OrderBy(s => s.DisplayOrder).ToList();
+            return tools;
         }
 
         public IEnumerable<Setting> GetAllMainCategories()

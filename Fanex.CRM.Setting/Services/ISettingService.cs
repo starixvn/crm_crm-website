@@ -29,7 +29,7 @@
 
         IList<SettingRelation> GetAllExtensions();
 
-        IList<Setting> GetAllCommunicationTools();
+        IList<Setting> GetAllCommunicationTools(bool isIncludeNA = false);
 
         IList<Setting> GetAllMainCategories();
 
@@ -88,8 +88,6 @@
         Product GetBettypeNA();
 
         SettingRelation GetExtensionNA();
-
-        Setting GetCommunicationToolNA();
 
         IList<Product> GetProducts();
 

@@ -6,7 +6,6 @@
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Enums;
     using Fanex.CRM.Report.Excels.LogStatistics;
@@ -44,13 +43,11 @@
         [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
-            IList<Setting> communicationTools = _serviceSetting.GetAllCommunicationTools();
-            Setting communicationToolNA = _serviceSetting.GetCommunicationToolNA();
-            if (communicationToolNA != null)
+            var communicationTools = _serviceSetting.GetAllCommunicationTools(true).Select(p => new
             {
-                communicationTools.Insert(0, communicationToolNA);
-            }
-
+                p.Id,
+                p.Name
+            });
             var products = _serviceSetting.GetProductsOnly().Select(p => new
             {
                 p.Id,
@@ -64,11 +61,7 @@
 
             var allSetting = new SettingForLogStatistics
             {
-                CommunicationToolList = communicationTools.OrderBy(s => s.DisplayOrder).Select(p => new
-                {
-                    p.Id,
-                    p.Name
-                }),
+                CommunicationToolList = communicationTools,
                 MainCategoryList = mainCategories,
                 ProductList = products
             };
@@ -123,7 +116,7 @@
                 {
                     Report = _logStatisticsService.GetReportDetail(criteria),
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
-                    CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                    CommunicationToolList = _serviceSetting.GetAllCommunicationTools(true),
                     ExtensionList = _serviceSetting.GetAllExtensions(),
                     ProductList = _serviceSetting.GetProducts(),
                     SubProductList = _serviceSetting.GetSubProducts(),
@@ -171,7 +164,7 @@
                 var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
 
                 var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-                var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+                var communicationTools = _serviceSetting.GetAllCommunicationTools(true);
                 var extensionList = _serviceSetting.GetAllExtensions();
                 var productList = _serviceSetting.GetProducts();
                 var subProductList = _serviceSetting.GetSubProducts();
@@ -180,7 +173,7 @@
                     reportDetail,
                     excelFileName,
                     mainCategory,
-                    communicationToolList,
+                    communicationTools,
                     extensionList,
                     productList,
                     subProductList
