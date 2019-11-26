@@ -290,6 +290,12 @@
             return tools;
         }
 
+        public Setting GetCommunicationToolNA()
+        {
+            IList<Setting> tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
+            return tools.FirstOrDefault(t => t.Id == NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole));
+        }
+
         public Product GetProductNA()
         {
             var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria

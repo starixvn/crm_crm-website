@@ -84,7 +84,7 @@
                         vm.isSelectAllCategory = true;
                     }
 
-                    const categoryIds = setting.Category.split(',');
+                    const categoryIds = setting.Category !== null ? setting.Category.split(',') : [];
                     let totalItems = vm.categoryDropdownSettings.sourceData.length;
                     for (let i = 0; i < totalItems; i++) {
                         const index = categoryIds.findIndex(x => x === vm.categoryDropdownSettings.sourceData[i].Id.toString());
@@ -98,7 +98,7 @@
                         vm.isSelectAllSubCategory = true;
                     }
 
-                    const subCategoryIds = setting.SubCategory.split(',');
+                    const subCategoryIds = setting.SubCategory !== null ? setting.SubCategory.split(',') : [];
                     vm.subCategoryDropdownSettings.sourceData = filterScripts.getSubCategories(
                         vm.selectedCategories,
                         allSettings.SubCategories,

@@ -89,6 +89,8 @@
 
         SettingRelation GetExtensionNA();
 
+        Setting GetCommunicationToolNA();
+
         IList<Product> GetProducts();
 
         IList<Product> GetSubProducts();

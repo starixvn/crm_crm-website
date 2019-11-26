@@ -441,25 +441,17 @@
                 CategoryIds: $scope.selectedCategories.map(cat => cat.Id).sort().join(','),
                 SubCategoryIds: $scope.selectedSubCategories.map(subcat => subcat.Id).sort().join(',')
             }).then(function (data) {
-                if (customers.length === data.Result.length) {
-                    parent.dialogManager.alert(
-                        viewResources.Alert,
-                        'No customer has Default Communication Setting matching the selected Category/Sub-Category. Please check again!',
-                        viewResources.OK);
-                    $window.parent.$('.ui-dialog').css({ 'width': 'auto', 'min-width': '300px', 'max-width': '600px' });
-                } else {
-                    var confirmMessage = viewResources.Confirm_Changes_Message;
-                    if (data.Result.length > 0) {
-                        var custstring = data.Result.map(cust => {
-                            return cust.Name + '(' + cust.Role + ')';
-                        }).join(', ');
-                        confirmMessage = 'Customers whoes Default Communication Setting does not match <br/>the selected Category/Sub-Category: '
-                            + '<strong>' + custstring + '</strong>'
-                            + '<br/>Do you want to continue to create Feedback/Logs for the other customers?';
-                    }
-
-                    $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
+                var confirmMessage = viewResources.Confirm_Changes_Message;
+                if (data.Result.length > 0) {
+                    var custstring = data.Result.map(cust => {
+                        return cust.Name + '(' + cust.Role + ')';
+                    }).join(', ');
+                    confirmMessage = 'The Default Communication Setting of customers does not match <br/>the selected Category/Sub-Category, here are the customers: '
+                        + '<strong>' + custstring + '</strong>'
+                        + '<br/>Do you want to continue to create the Feedback/Logs?';
                 }
+
+                $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
             });
         };
 

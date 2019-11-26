@@ -100,7 +100,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Title = title.Trim(),
                     Feedbacks = feedbacks,
-                    Settings = _feedbackService.GetAllSettings(),
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);

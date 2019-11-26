@@ -1,7 +1,12 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.LogStatistics;
     using Fanex.CRM.Report.Enums;
     using Fanex.CRM.Report.Excels.LogStatistics;
@@ -11,10 +16,6 @@
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     using Models.StatisticsReportByDate;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Web.Mvc;
 
     public class LogStatisticsController : ReadOnlyBaseController
     {
@@ -43,15 +44,17 @@
         [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
+            IList<Setting> communicationTools = _serviceSetting.GetAllCommunicationTools();
+            Setting communicationToolNA = _serviceSetting.GetCommunicationToolNA();
+            if (communicationToolNA != null)
+            {
+                communicationTools.Insert(0, communicationToolNA);
+            }
+
             var products = _serviceSetting.GetProductsOnly().Select(p => new
             {
                 p.Id,
                 Name = p.Value
-            });
-            var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
-            {
-                p.Id,
-                p.Name
             });
             var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
             {
@@ -61,7 +64,11 @@
 
             var allSetting = new SettingForLogStatistics
             {
-                CommunicationToolList = communicationTools,
+                CommunicationToolList = communicationTools.OrderBy(s => s.DisplayOrder).Select(p => new
+                {
+                    p.Id,
+                    p.Name
+                }),
                 MainCategoryList = mainCategories,
                 ProductList = products
             };

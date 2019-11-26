@@ -167,25 +167,16 @@
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var rawData = _serviceSetting.GetAllCommunicationTools();
-            var item = rawData.FirstOrDefault(x => x.Id == SettingConstants.NotApply);
-
-            if (item == null)
+            var tools = _serviceSetting.GetAllCommunicationTools();
+            var tool = _serviceSetting.GetCommunicationToolNA();
+            if (tool != null)
             {
-                rawData.Insert(
-                    0,
-                    new Setting
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.All
-                    });
-            }
-            else
-            {
-                item.Name = Labels.All;
+                tools.Insert(0, tool);
             }
 
-            return rawData;
+            tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
+
+            return tools.OrderBy(s => s.DisplayOrder).ToList();
         }
 
         public IEnumerable<Setting> GetAllMainCategories()
