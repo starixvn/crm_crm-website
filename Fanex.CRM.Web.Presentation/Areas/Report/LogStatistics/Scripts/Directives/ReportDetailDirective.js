@@ -44,37 +44,38 @@
             if (childReportLength > 0) {
                 for (var i = 0; i < childReportLength; i++) {
                     var info = report.ChildReports[i];
-                    var noInquiries = info.NoInquiries === 0 ? "-" : info.NoInquiries;
 
                     bodyData.push({
-                        Columns: [{ Name: "ColDate", Value: info.StartDateString },
-                    { Name: "ColStartTime", Value: info.StartTime },
-                    { Name: "ColEndTime", Value: info.ResolutionTimeString },
-                    {
-                        Name: "ColDuration",
-                        Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
-                            [sharedScriptManager.pad2(info.Duration.Days),
-                            sharedScriptManager.pad2(info.Duration.Hours),
-                            sharedScriptManager.pad2(info.Duration.Minutes)])
-                    },
-                    { Name: "ColCustomer", Value: info.Username, CssClass: 'word-wrap-customer' },
-                    { Name: "ColSite", Value: info.SiteInfo.Name },
-                    { Name: "ColTypeOfContact", Value: nameMapping.getCommunicationName(info.CommunicationID, scope.detailReportOptions.CommunicationToolList) },
-                    { Name: "ColExtension", Value: nameMapping.getExtensionName(info.StationID, scope.detailReportOptions.ExtensionList) },
-                    { Name: "ColRole", Value: info.Role },
-                    { Name: "ColContact", Value: info.Contact, CssClass: 'word-wrap-contactinfo' },
-                    { Name: "ColProduct", Value: nameMapping.getProductName(info.ProductID, scope.detailReportOptions.ProductList) },
-                    { Name: "ColSubProduct", Value: nameMapping.getProductName(info.SubProductID, scope.detailReportOptions.SubProductList) },
-                    { Name: "ColCountry", Value: info.Country.Name },
-                    { Name: "ColCategory", Value: nameMapping.getMainCategoryName(info.CategoryID, scope.detailReportOptions.mainCategory) },
-                    { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, scope.detailReportOptions.mainCategory) },
-                    { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
-                    { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
-                    { Name: "ColInquiries", Value: noInquiries, CssClass: 'word-wrap-remark' },
-                    { Name: "ColStatus", Value: info.StatusName },
-                    { Name: "ColResponse", Value: info.Response.Name },
-                    { Name: "ColHandler", Value: info.Handler },
-                    { Name: "ColCreationTime", Value: info.CreationTimeString}]
+                        Columns: [
+                            { Name: "ColDate", Value: info.StartDateString },
+                            { Name: "ColStartTime", Value: info.StartTime },
+                            { Name: "ColEndTime", Value: info.ResolutionTimeString },
+                            {
+                                Name: "ColDuration",
+                                Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                                    [sharedScriptManager.pad2(info.Duration.Days),
+                                    sharedScriptManager.pad2(info.Duration.Hours),
+                                    sharedScriptManager.pad2(info.Duration.Minutes)])
+                            },
+                            { Name: "ColCustomer", Value: info.Username, CssClass: 'word-wrap-customer' },
+                            { Name: "ColSite", Value: info.SiteInfo.Name },
+                            { Name: "ColTypeOfContact", Value: nameMapping.getCommunicationName(info.CommunicationID, scope.detailReportOptions.CommunicationToolList) },
+                            { Name: "ColExtension", Value: nameMapping.getExtensionName(info.StationID, scope.detailReportOptions.ExtensionList) },
+                            { Name: "ColRole", Value: info.Role },
+                            { Name: "ColContact", Value: info.Contact, CssClass: 'word-wrap-contactinfo' },
+                            { Name: "ColProduct", Value: nameMapping.getProductName(info.ProductID, scope.detailReportOptions.ProductList) },
+                            { Name: "ColSubProduct", Value: nameMapping.getProductName(info.SubProductID, scope.detailReportOptions.SubProductList) },
+                            { Name: "ColCountry", Value: info.Country.Name },
+                            { Name: "ColCategory", Value: nameMapping.getMainCategoryName(info.CategoryID, scope.detailReportOptions.mainCategory) },
+                            { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, scope.detailReportOptions.mainCategory) },
+                            { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
+                            { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
+                            { Name: "ColInquiries", Value: info.NoInquiries, CssClass: 'word-wrap-remark' },
+                            { Name: "ColStatus", Value: info.StatusName },
+                            { Name: "ColResponse", Value: info.Response.Name },
+                            { Name: "ColHandler", Value: info.Handler },
+                            { Name: "ColCreationTime", Value: info.CreationTimeString }
+                        ]
                     });
                 }
             }
@@ -103,7 +104,7 @@
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Response, Width: 60, Name: "ColResponse", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handle_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Creation_Time, Width: 80, Name: "ColCreationTime", HeaderAlign: "center", CellAlign: "center"}],
+                { HeaderText: viewResources.Creation_Time, Width: 80, Name: "ColCreationTime", HeaderAlign: "center", CellAlign: "center" }],
                 showTitle: true,
                 titleInfo: {
                     text: breadcrumb,
@@ -156,7 +157,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     if (!scope.detailReportOptions ||
-                    !scope.detailReportOptions.IsUpdateGrid) {
+                        !scope.detailReportOptions.IsUpdateGrid) {
                         return;
                     }
 

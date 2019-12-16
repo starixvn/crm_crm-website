@@ -158,6 +158,7 @@
     <Compile Include="Controllers\QuickUpdateFeedbackController.cs" />
     <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
     <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\CheckNotExistCommunicationToolSettingCriteria.cs" />
     <Compile Include="Criteria\CheckFeedbackDuplicationCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
@@ -171,7 +172,6 @@
     <Compile Include="Criteria\UpdateMultipleLogsCriteria.cs" />
     <Compile Include="Criteria\UpdateMultipleLogStatusesCriteria.cs" />
     <Compile Include="Criteria\UpdateQuickUpdateFeedbackCriteria.cs" />
-    <Compile Include="Criteria\UpdateSiteLicenseeTypesCriteria.cs" />
     <Compile Include="Excels\FeedbackExcel.cs" />
     <Compile Include="Excels\FeedbackRowExcelWriter.cs" />
     <Compile Include="Excels\LatestFeedback\LatestFeedbackExcel.cs" />
@@ -184,6 +184,7 @@
     <Compile Include="Models\FeedbackDuplicationResult.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\QuickUpdateFeedback.cs" />
+    <Compile Include="Models\VerifyCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
@@ -218,8 +219,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />
-    <EmbeddedResource Include="Resources\Labels.zh-TW.resx" />
+    <EmbeddedResource Include="Resources\Labels.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.zh-TW.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>

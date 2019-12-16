@@ -78,10 +78,13 @@
     </Setting>
     <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="UpdateSiteLicenseeTypes" SpName="Acc_CRM_GuestFeedbackUpd_Site_LicenseeType" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="UpdMultipleReviewAndStatus" SpName="Acc_CRM_UpdMultipleReviewAndStatus" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
+    <Setting Key="UpdMultipleReviewAndStatus" SpName="Acc_CRM_UpdMultipleReviewAndStatus" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_FeedbackQuickSel" SpName="Acc_CRM_FeedbackQuickSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_CustomerFeedbackQuickUpd" SpName="Acc_CRM_CustomerFeedbackQuickUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
+    <Setting Key="Acc_CRM_CustomerFeedbackQuickUpd" SpName="Acc_CRM_CustomerFeedbackQuickUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_GuestFeedbackCheck_Multiple" SpName="Acc_CRM_GuestFeedbackCheck_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="CustId" ObjectProperty="Id" />
+      <Mapping DataField="Username" ObjectProperty="Name" />
+    </Setting>
   </Function>
   <Function Name="Setting">
     <Setting Key="Acc_CRM_SettingGetRelationBySettingName" SpName="Acc_CRM_SettingGetRelationBySettingName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -111,7 +114,10 @@
     <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="CustId" ObjectProperty="Id" />
+      <Mapping DataField="val" ObjectProperty="Name" />
+    </Setting>
   </Function>
   <Function Name="Settings">
     <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -205,5 +211,12 @@
     <Setting Key="Acc_CRM_InformHeadlineHistorySel" SpName="Acc_CRM_InformHeadlineHistorySel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="DirectAcc" ObjectProperty="DirectAccount" />
     </Setting>
+  </Function>
+  <Function Name="Default Communication Setting">
+    <Setting Key="Acc_CRM_DefaultCommToolSearch" SpName="Acc_CRM_DefaultCommToolSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolIns" SpName="Acc_CRM_DefaultCommToolIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolUpd" SpName="Acc_CRM_DefaultCommToolUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolSel" SpName="Acc_CRM_DefaultCommToolSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DefaultCommToolDel" SpName="Acc_CRM_DefaultCommToolDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

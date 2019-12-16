@@ -12,6 +12,7 @@
     using Fanex.CRM.Feedback.Resources;
     using NPOI.HSSF.Util;
 
+#pragma warning disable S109 // Magic numbers should not be used
     public class FeedbackExcel : BaseExcel
     {
         private readonly string _title;

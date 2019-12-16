@@ -1,5 +1,9 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.LogStatistics;
@@ -11,10 +15,6 @@
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     using Models.StatisticsReportByDate;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Web.Mvc;
 
     public class LogStatisticsController : ReadOnlyBaseController
     {
@@ -43,15 +43,15 @@
         [NapAuth(FunctionKey = FunctionPermissions.LogStatistics, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
+            var communicationTools = _serviceSetting.GetAllCommunicationTools(true).Select(p => new
+            {
+                p.Id,
+                p.Name
+            });
             var products = _serviceSetting.GetProductsOnly().Select(p => new
             {
                 p.Id,
                 Name = p.Value
-            });
-            var communicationTools = _serviceSetting.GetAllCommunicationTools().Select(p => new
-            {
-                p.Id,
-                p.Name
             });
             var mainCategories = _serviceSetting.GetAllMainCategories().Select(p => new
             {
@@ -116,7 +116,7 @@
                 {
                     Report = _logStatisticsService.GetReportDetail(criteria),
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
-                    CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                    CommunicationToolList = _serviceSetting.GetAllCommunicationTools(true),
                     ExtensionList = _serviceSetting.GetAllExtensions(),
                     ProductList = _serviceSetting.GetProducts(),
                     SubProductList = _serviceSetting.GetSubProducts(),
@@ -164,7 +164,7 @@
                 var excelFileName = Regex.Replace(reportDetail.Name, @"\W+", "_");
 
                 var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-                var communicationToolList = _serviceSetting.GetAllCommunicationTools();
+                var communicationTools = _serviceSetting.GetAllCommunicationTools(true);
                 var extensionList = _serviceSetting.GetAllExtensions();
                 var productList = _serviceSetting.GetProducts();
                 var subProductList = _serviceSetting.GetSubProducts();
@@ -173,7 +173,7 @@
                     reportDetail,
                     excelFileName,
                     mainCategory,
-                    communicationToolList,
+                    communicationTools,
                     extensionList,
                     productList,
                     subProductList

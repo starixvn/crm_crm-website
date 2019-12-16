@@ -17,8 +17,6 @@
 
         IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria);
 
-        CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria);
-
         FeedbackDuplicationResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria);
     }
 }

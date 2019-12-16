@@ -162,11 +162,11 @@
         public ActionResult CheckUserOnlineStatus()
         {
             var user = AppSession.CurrentUser;
-            var recheckInStatus = _authenticationService.RecheckIn(user);
+            RecheckInStatus recheckInStatus = user != null ? _authenticationService.RecheckIn(user) : RecheckInStatus.KickOut;
 
             return Json(new
             {
-                user.OnUserId,
+                user?.OnUserId,
                 ErrCode = (int)recheckInStatus,
                 ErrMsg = GetRecheckInStatusError(recheckInStatus)
             });

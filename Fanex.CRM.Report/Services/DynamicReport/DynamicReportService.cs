@@ -167,25 +167,10 @@
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var rawData = _serviceSetting.GetAllCommunicationTools();
-            var item = rawData.FirstOrDefault(x => x.Id == SettingConstants.NotApply);
+            var tools = _serviceSetting.GetAllCommunicationTools(true);
+            tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
-            if (item == null)
-            {
-                rawData.Insert(
-                    0,
-                    new Setting
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.All
-                    });
-            }
-            else
-            {
-                item.Name = Labels.All;
-            }
-
-            return rawData;
+            return tools;
         }
 
         public IEnumerable<Setting> GetAllMainCategories()

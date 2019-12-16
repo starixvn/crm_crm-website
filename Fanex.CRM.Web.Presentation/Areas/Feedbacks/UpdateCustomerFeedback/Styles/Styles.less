@@ -52,7 +52,6 @@
     border: 0 none;
     cursor: pointer;
     height: 18px;
-    margin-left: 2px;
     overflow: visible;
     padding-left: 6px;
     padding-right: 6px;
@@ -126,10 +125,12 @@
     margin-top: 26px;
 }
 
-#descriptioneditorboxcontainer .jHtmlArea iframe,
-#solutioneditorboxcontainer .jHtmlArea iframe,
-revieweditorboxcontainer .jHtmlArea iframe {
-    min-height: 92px;
+#descriptioneditorboxcontainer,
+#solutioneditorboxcontainer,
+#revieweditorboxcontainer {
+    .jHtmlArea iframe {
+        min-height: 92px;
+    }
 }
 
 /* Formatting for palette in html */
@@ -149,7 +150,7 @@ div.jHtmlAreaColorPickerMenu {
 #descriptioneditorbox,
 #solutioneditorbox,
 #revieweditorbox {
-    width: auto;
+    //width: auto;
     height: 120px;
     min-width: 710px;
     width: 100%;

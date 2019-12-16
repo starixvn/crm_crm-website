@@ -1,37 +1,19 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
     using Common.Criteria;
     using Common.Helpers;
     using Common.Services;
+    using Fanex.CRM.Common.Models;
     using Fanex.Data.Repository;
     using Models;
 
     public class InsertMultipleLogsCriteria : BasedUpdateCriteria
     {
-        [SpParam(SqlParamName = "username")]
-        public string ListCustomers { get; set; }
-
-        [SpParam(SqlParamName = "countryid")]
-        public int CountryId { get; set; }
-
-        [SpParam(SqlParamName = "siteid")]
-        public int SiteId { get; set; }
-
-        [SpParam(SqlParamName = "subject")]
         public string Subject { get; set; }
-
-        [SpParam(SqlParamName = "languageid")]
-        public int LanguageId { get; set; }
-
-        [SpParam(SqlParamName = "creatorid")]
-        public int CreatorId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public static int CreatorId => AppSession.CurrentUser.Id;
 
         [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }
@@ -39,69 +21,71 @@
         [SpParam(SqlParamName = "resolutiondate")]
         public DateTime EndTime { get; set; }
 
-        [SpParam(SqlParamName = "communicationid")]
-        public string CommunicationIds { get; set; }
-
         [SpParam(SqlParamName = "stationid")]
         public string ExtensionIds { get; set; }
 
-        [SpParam(SqlParamName = "roleid")]
-        public int RoleId { get; set; }
-
-        [SpParam(SqlParamName = "responseid")]
         public int ResponseId { get; set; }
-
-        [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
 
         [SpParam(SqlParamName = "description")]
         public string Remark { get; set; }
 
-        [SpParam(SqlParamName = "solution")]
         public string Solution { get; set; }
-
-        [SpParam(SqlParamName = "licenseetype")]
-        public int LicenseeTypeId { get; set; }
-
         public bool IsReviewed { get; set; }
-
         public string Review { get; set; }
-
         public string ReviewerId { get; set; }
-
-        [SpParam(SqlParamName = "autofield")]
         public string AutoField { get; set; }
 
+        // use in case apply default communication tool
+        public string AutoField1 { get; set; }
+        public string AutoField2 { get; set; }
+        public string AutoField3 { get; set; }
+
         [SpParam(Ignored = true)]
-        public System.Collections.Generic.IEnumerable<ProductFilter> Products { get; set; }
+        public IEnumerable<ProductFilter> Products { get; set; }
 
         [SpParam(SqlParamName = "product")]
-        public string ProductsContent
-        {
-            get
-            {
-                return SerializerHelper.SerializeList(this.Products);
-            }
-        }
+        public string ProductsContent => SerializerHelper.SerializeList(Products);
 
         [SpParam(Ignored = true)]
-        public System.Collections.Generic.IEnumerable<CategoryFilter> Categories { get; set; }
+        public IEnumerable<CategoryFilter> Categories { get; set; }
 
         [SpParam(SqlParamName = "category")]
-        public string CategoriesContent
+        public string CategoriesContent => SerializerHelper.SerializeList(Categories);
+
+        [SpParam(SqlParamName = "Categorystr")]
+        public string CategoryIds { get; set; }
+
+        [SpParam(SqlParamName = "SubCategorystr")]
+        public string SubCategoryIds { get; set; }
+
+        [SpParam(Ignored = true)]
+        public IEnumerable<BaseModel> Customers { get; set; } = new List<BaseModel>();
+
+        [SpParam(SqlParamName = "ListCustId")]
+        public string CustomerXml
         {
             get
             {
-                return SerializerHelper.SerializeList(this.Categories);
+                var xml = new StringBuilder("<ROOT>");
+                foreach (BaseModel cust in Customers)
+                {
+                    xml.AppendFormat("<Cust CustID='{0}' Username='{1}' />", cust.Id, cust.Name);
+                }
+                xml.Append("</ROOT>");
+                return xml.ToString();
             }
         }
+
+        [SpParam(SqlParamName = "IsCheckedDefaultComm")]
+        public bool IsUseDefaultCommunicationTool { get; set; }
+
+        [SpParam(SqlParamName = "CommunicationId")]
+        public string CommunicationIds { get; set; }
 
         public int NoInquiries { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "MultipleLogsInsert";
-        }
+        public override string GetSettingKey() => "MultipleLogsInsert";
 
         public override bool IsValid() => true;
     }

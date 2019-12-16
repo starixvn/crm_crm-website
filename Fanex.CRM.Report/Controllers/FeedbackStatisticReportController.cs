@@ -18,7 +18,7 @@
     public class FeedbackStatisticReportController : ReadOnlyBaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
-        public readonly ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
 
         public FeedbackStatisticReportController() : this(null, null)
         {

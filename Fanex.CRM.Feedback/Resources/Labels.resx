@@ -554,14 +554,8 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="UpdateSiteLicenseeType" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role</value>
-  </data>
   <data name="ReviewedInformation" xml:space="preserve">
     <value>(Reviewed by {0} on {1})</value>
-  </data>
-  <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role Successfully!</value>
   </data>
   <data name="Multiple_Logs_EmptyReview" xml:space="preserve">
     <value>Review is mandatory!</value>

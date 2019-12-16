@@ -4,7 +4,6 @@
 @using Fanex.CRM.Common.Helpers;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     ViewBag.Title = Labels.DocumentTitle_DynamicReport;
 }
 @section Styles{
@@ -24,23 +23,25 @@
                 <div class="row row-item">
                     <div class="item">
                         <label for="reporttype" class="width-70 pull-left">
-                            @Labels.Group_By</label>
+                            @Labels.Group_By
+                        </label>
                         <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
-                            <select id="reporttype" class="selReportType">
-                            </select>
+                            <select id="reporttype" class="selReportType"></select>
                         </div>
                     </div>
                     <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
                         <div class="item">
                             <label for="fromDate" class="width-80">
-                                @Labels.From_Date</label>
+                                @Labels.From_Date
+                            </label>
                             <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                                 <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                             </div>
                         </div>
                         <div class="item">
                             <label for="toDate" class="width-80">
-                                @Labels.To_Date</label>
+                                @Labels.To_Date
+                            </label>
                             <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                                 <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                             </div>
@@ -49,53 +50,53 @@
                     <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Weekly}">
                         <div class="item">
                             <label for="fromweek" class="width-80">
-                                @Labels.From_Week</label>
+                                @Labels.From_Week
+                            </label>
                             <div class="display-inline-block week-picker-from-week-container" data-ng-model="fromWeekOptions">
                                 <input id="fromweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
-                                data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
-                                data-isendweek="false" />
+                                       data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
+                                       data-isendweek="false" />
                             </div>
                         </div>
                         <div class="item">
                             <label for="toDate">
-                                @Labels.To_Week</label>
+                                @Labels.To_Week
+                            </label>
                             <div class="display-inline-block week-picker-to-week-container" data-ng-model="toWeekOptions">
                                 <input id="toweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
-                                 data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
-                                 data-isendweek="true" />
+                                       data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
+                                       data-isendweek="true" />
                             </div>
                         </div>
                     </div>
                     <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
                         <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
                             <label for="frommonth" class="width-80">
-                                @Labels.From_Month</label>
-                            <select id="frommonth_month">
-                            </select>
-                            <select id="frommonth_year">
-                            </select>
+                                @Labels.From_Month
+                            </label>
+                            <select id="frommonth_month"></select>
+                            <select id="frommonth_year"></select>
                         </div>
                         <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
                             <label for="tomonth">
-                                @Labels.To_Month</label>
-                            <select id="tomonth_month">
-                            </select>
-                            <select id="tomonth_year">
-                            </select>
+                                @Labels.To_Month
+                            </label>
+                            <select id="tomonth_month"></select>
+                            <select id="tomonth_year"></select>
                         </div>
                     </div>
                     <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Yearly}">
                         <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
                             <label for="frommonth" class="width-80">
-                                @Labels.From_Year</label>
-                            <select id="fromdate_year" class="selYear">
-                            </select>
+                                @Labels.From_Year
+                            </label>
+                            <select id="fromdate_year" class="selYear"></select>
                         </div>
                         <div class="item year-picker-to-date-container" data-ng-model="toYearOptions">
                             <label for="tomonth" class="width-50">
-                                @Labels.To_Year</label>
-                            <select id="todate_year" class="selYear toYear">
-                            </select>
+                                @Labels.To_Year
+                            </label>
+                            <select id="todate_year" class="selYear toYear"></select>
                         </div>
                     </div>
 
@@ -109,15 +110,15 @@
                 <div class="row row-item">
                     <div class="item response-picker-container" data-ng-model="responseOptions.DataList">
                         <label for="response" class="width-70">
-                            @Labels.Response</label>
-                        <select id="response" class="selReponse">
-                        </select>
+                            @Labels.Response
+                        </label>
+                        <select id="response" class="selReponse"></select>
                     </div>
                     <div class="item" dropdown-product data-ng-model="productOptions.DataList">
                         <label for="product" class="width-80">
-                            @Labels.Product</label>
-                        <select id="product" class="selParentProduct">
-                        </select>
+                            @Labels.Product
+                        </label>
+                        <select id="product" class="selParentProduct"></select>
                     </div>
                     <div class="item" dropdown-sub-product data-ng-model="subProductOptions.DataList">
                         <label for="subProduct" class="width-80">
@@ -127,7 +128,8 @@
                     </div>
                     <div class="item">
                         <label for="site" class="width-110">
-                            @Labels.Site</label>                      
+                            @Labels.Site
+                        </label>
                         <div class="col-xs-3 col-sm-3 col-md-3 ">
                             <selectwithsearchtree text-settings="TextSettings"
                                                   data-ng-model="selectedSite"
@@ -138,59 +140,63 @@
                 <div class="row row-item">
                     <div class="item">
                         <label for="handler" class="width-70">
-                            @Labels.Handler</label>
+                            @Labels.Handler
+                        </label>
                         <input type="text" class="textbox search-by-enter txtHandle" id="handler" data-ng-model="searchCriteria.Handler" />
                     </div>
                     <div class="item">
                         <label for="reviewer" class="width-80">
-                            @Labels.Reviewer</label>
+                            @Labels.Reviewer
+                        </label>
                         <input type="text" class="textbox search-by-enter txtReview" id="reviewer" data-ng-model="searchCriteria.Reviewer" />
                     </div>
                     <div class="item role-picker-container" data-ng-model="roleOptions.DataList">
                         <label for="role" class="width-80">
-                            @Labels.Role</label>
-                        <select id="role" class="selRole">
-                        </select>
+                            @Labels.Role
+                        </label>
+                        <select id="role" class="selRole"></select>
                     </div>
                     <div class="item communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
                         <label for="communication-tool" class="width-110">
-                            @Labels.Communication_Tool</label>
-                        <select id="communication-tool" class="selCommunication">
-                        </select>
+                            @Labels.Communication_Tool
+                        </label>
+                        <select id="communication-tool" class="selCommunication"></select>
                     </div>
                 </div>
                 <div class="row row-item">
                     <div class="item extension-picker-container" data-ng-model="extensionOptions.DataList">
                         <label for="extension" class="lblExtension width-70">
-                            @Labels.Extension</label>
-                        <select id="extension" class="selExtension">
-                        </select>
+                            @Labels.Extension
+                        </label>
+                        <select id="extension" class="selExtension"></select>
                     </div>
                     <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
                         <label for="main-category">
-                            @Labels.Main_Category</label>
-                        <select id="main-category" class="selCategory">
-                        </select>
+                            @Labels.Main_Category
+                        </label>
+                        <select id="main-category" class="selCategory"></select>
                     </div>
                     <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
                         <label for="sub-category" class="width-110">
-                            @Labels.Sub_Category</label>
-                        <select id="sub-category" class="selSubCategory">
-                        </select>
+                            @Labels.Sub_Category
+                        </label>
+                        <select id="sub-category" class="selSubCategory"></select>
                     </div>
                 </div>
                 <div class="row row-item">
                     <div>
                         <label for="subject" class="lblSubject width-70">
-                            @Labels.Subject</label>
+                            @Labels.Subject
+                        </label>
                     </div>
                     <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
                         <input id="subject" type="text" class="textbox subject-auto-complete txtSubject"
-                            data-ng-model="subjectOptions.Subject" />
+                               data-ng-model="subjectOptions.Subject" />
                     </div>
                     <div class="item">
                         <button id="button-submit" class="btn" data-ng-click="getDynamicReport()">
-                            <span class="hotkey">S</span>ubmit</button>
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                         <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
                     </div>
                 </div>

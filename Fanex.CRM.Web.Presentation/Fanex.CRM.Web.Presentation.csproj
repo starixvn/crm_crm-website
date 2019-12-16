@@ -243,6 +243,7 @@
     <Compile Include="App_Start\Bundles\AdminToolBundles.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Bundles\BundleExtensions.cs" />
+    <Compile Include="App_Start\Bundles\ScriptPathConstant.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
     <Compile Include="App_Start\Bundles\FeedbackBundles.cs" />
     <Compile Include="App_Start\Bundles\InformHeadlineBundles.cs" />
@@ -397,25 +398,10 @@
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsOption.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\BetType.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\CommunicationTool.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Country.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DirectiveRegister.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\EndTime.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Extension.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Language.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Response.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Role.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Site.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\StartTime.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\Status.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubCategory.js" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />
@@ -594,8 +580,13 @@
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
+    <Content Include="wwwroot\dist\js\commtool.setting.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.css" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.js" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.css" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
@@ -604,6 +595,15 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\delete-commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\edit-commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\create\create-commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\create\related-customer-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-module.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />
@@ -1507,7 +1507,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Styles\CreateMultipleLogs.less" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Styles\EditMultipleLogs.less" />
     <Content Include="Areas\Feedbacks\EditMultipleLogs\Index.cshtml" />
     <Content Include="Areas\Report\DirectCustomerReport\Index.cshtml" />
@@ -1556,7 +1555,10 @@
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\Feedbacks\QuickUpdate\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\QuickUpdate\Styles\QuickUpdateFeedback.less" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\Index.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Create.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />
+    <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1578,6 +1580,11 @@
     <Content Include="wwwroot\dist\styles\manage.feedback.js.map" />
     <Content Include="Scripts\AngularJS\angular.min.js.map" />
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\commtool-setting.scss" />
+    <Content Include="wwwroot\dist\js\commtool.setting.js.map" />
+    <Content Include="wwwroot\dist\styles\commtool.setting.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\create-multiple-logs.scss" />
+    <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

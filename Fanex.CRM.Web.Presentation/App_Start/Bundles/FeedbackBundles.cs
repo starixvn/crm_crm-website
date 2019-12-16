@@ -36,7 +36,7 @@
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -71,7 +71,7 @@
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -151,7 +151,7 @@
                     "~/Scripts/AngularJS/angular-sanitize.js",
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
-                    "~/wwwroot/sources/libs/FanexGrid/moment.js",
+                    ScriptPathConstant.MomentScriptPath,
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/SettingManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -172,6 +172,13 @@
         private static void RegisterCreateMultipleLogsBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/CreateMultipleLogsScripts").Include(
+                ScriptPathConstant.MomentScriptPath,
+                "~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js",
+                "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js",
+                "~/Scripts/Jlinq/jlinq/jlinq.jquery.js",
+                "~/Scripts/autocomplete/jquery.highlight-3.js",
+                "~/Scripts/autocomplete/jquery.autocomplete.client.js",
+                "~/Scripts/common.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/SettingManager.js",
@@ -182,14 +189,18 @@
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsOption.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
                 "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/CreateMultipleLogsStyles",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Styles/CreateMultipleLogs.less");
+                "~/Scripts/jHtmlArea/jHtmlArea.css",
+                "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css",
+                "~/Scripts/autocomplete/autocomplete.css",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css",
+                "~/wwwroot/dist/styles/create.multiple.logs.css");
         }
 
         private static void RegisterEditMultipleLogsBundles(BundleCollection bundles)
@@ -247,10 +258,6 @@
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackApplication.js",
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackController.js",
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackService.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Feedbacks/QuickUpdateFeedbackStyles",
-                "~/Areas/Feedbacks/QuickUpdate/Styles/QuickUpdateFeedback.less");
         }
     }
 }

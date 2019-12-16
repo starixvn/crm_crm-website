@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Common.Constants;
     using Common.Controllers;
@@ -7,6 +8,7 @@
     using Common.Services;
     using Criteria;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Feedback.Models;
     using NAP.Core.Business;
     using NAP.Core.Web.Attribute;
     using Services;
@@ -67,25 +69,18 @@
             return View("~/Areas/Feedbacks/EditMultipleLogStatuses/Index.cshtml", log);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult GetSettings()
         {
-            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
-                ? _serviceSetting.GetAllSitesCN88()
-                : _serviceSetting.GetAllSites();
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
-                CountryList = _serviceSetting.GetAllCountries(),
-                ProvinceList = _serviceSetting.GetAllProvinces(),
                 CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
-                LanguageList = _serviceSetting.GetAllLanguages(),
+                ProvinceList = _serviceSetting.GetAllProvinces(),
                 StatusList = _multipleLogsService.AllStatusForInsert,
-                SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
                 ResponseList = _serviceSetting.GetAllResponses(),
-                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
                 ProductNA = _serviceSetting.GetProductNA(),
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
@@ -100,8 +95,8 @@
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetEditSettings()
         {
             var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
@@ -132,6 +127,15 @@
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult CheckNotExistDefaultCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        {
+            IEnumerable<VerifyCustomer> customers = _multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
+
+            return Json(customers, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -460,7 +460,7 @@
                         return false;
                     }
 
-                    if (feedback.Language === $scope.settings.Languages[0]) {
+                    if (feedback.Language.Id === crmConstants.Enums.Language.NotApply) {
                         $scope.errorMessage(updateFeedbackResources.NALanguage);
                         return false;
                     }

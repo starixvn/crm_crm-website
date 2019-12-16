@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Services;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
@@ -18,19 +17,16 @@
     {
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
-        private readonly IBaseService baseService;
 
-        public FeedbackService() : this(null, null, null)
+        public FeedbackService() : this(null, null)
         {
         }
 
         public FeedbackService(IFeedbackRepository feedbackRepository,
-            IBaseService baseService,
             ISettingService serviceSetting)
         {
             _feedbackRepository = feedbackRepository ?? new FeedbackRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
-            this.baseService = baseService ?? new BaseService();
         }
 
         public IEnumerable<BaseModel> GetTopItems
@@ -91,17 +87,6 @@
 
             criteria.TotalItems = totalItems;
             return feedbacks;
-        }
-
-        public CommandResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
-        {
-            CommandResult result = baseService.ExecuteNonQuery(criteria);
-            if (result.IsSuccessful)
-            {
-                result.Message = Labels.UpdateSiteLicenseeTypeSuccess;
-            }
-
-            return result;
         }
 
         public FeedbackDuplicationResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
@@ -198,9 +183,7 @@
 
         private IEnumerable<Setting> GetCommunicationTools()
         {
-            var tools = _serviceSetting.GetAllCommunicationTools()
-                .Where(r => r.Id != NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole))
-                .ToList();
+            var tools = _serviceSetting.GetAllCommunicationTools(true);
             tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
             return tools;

@@ -275,19 +275,18 @@
             return allExtensions.FirstOrDefault(e => e.Id == NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole));
         }
 
-        public IList<Setting> GetAllCommunicationTools()
+        public IList<Setting> GetAllCommunicationTools(bool isIncludeNA = false)
         {
             var tools = CacheService.Get<IList<Setting>>(GetAllCommunicationToolSessionKey);
-            if (tools != null)
+            if (tools == null)
             {
-                return tools;
+                tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
+                CacheService.Set(GetAllCommunicationToolSessionKey, tools);
             }
 
-            tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
-            tools = tools.Where(t => t.Id != NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole)).OrderBy(s => s.DisplayOrder).ToList();
-            CacheService.Set(GetAllCommunicationToolSessionKey, tools);
-
-            return tools;
+            return isIncludeNA
+                ? tools.OrderBy(s => s.DisplayOrder).ToList()
+                : tools.Where(t => t.Id != NAConstants.GetCommunicationNA(AppSession.CurrentUser.UserRole)).OrderBy(s => s.DisplayOrder).ToList();
         }
 
         public Product GetProductNA()

@@ -100,7 +100,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Title = title.Trim(),
                     Feedbacks = feedbacks,
-                    Settings = _feedbackService.GetAllSettings(),
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);
@@ -184,15 +183,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
                 deletedFeedbackExcel.BuildWorkBook();
             }
-        }
-
-        [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
-        public ActionResult UpdateSiteLicenseeTypes(UpdateSiteLicenseeTypesCriteria criteria)
-        {
-            var result = _feedbackService.UpdateSiteLicenseeTypes(criteria);
-
-            return Json(result, JsonRequestBehavior.DenyGet);
         }
 
         [HttpPost]

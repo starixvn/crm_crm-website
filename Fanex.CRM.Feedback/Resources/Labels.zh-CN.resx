@@ -555,12 +555,6 @@
   <data name="UpdateMultipleStatusesWarning" xml:space="preserve">
     <value>此功能仅更新状态及审核者。通讯日志及其它资讯将不更新。</value>
   </data>
-  <data name="UpdateSiteLicenseeType" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role</value>
-  </data>
-  <data name="UpdateSiteLicenseeTypeSuccess" xml:space="preserve">
-    <value>Update Site/Licensee Type/Role Successfully!</value>
-  </data>
   <data name="Username" xml:space="preserve">
     <value>账号</value>
   </data>

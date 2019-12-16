@@ -53,5 +53,7 @@
         public const string SettingLog = "ViewSettingLog";
 
         public const string Updateheadlineinfo = "Updateheadlineinfo";
+
+        public const string DefaultCommunicationSetting = "DefaultCommunicationSetting";
     }
 }

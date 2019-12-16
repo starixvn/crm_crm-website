@@ -14,12 +14,10 @@
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using Setting.Constants;
 
     public class CommunicationLogController : ReadOnlyBaseController
     {
         private readonly ICommunicationLogService _communicationServiceLog;
-
         private readonly ISettingService _serviceSetting;
 
         public CommunicationLogController()

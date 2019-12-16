@@ -24,7 +24,7 @@ var DialogManager = function () {
                 self.CachedData.resultPopup.dialog('destroy');
                 $(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.CachedData.resultPopup = $('#div-resultpopup');
-                if (closeCallback && typeof(closeCallback) === 'function') {
+                if (closeCallback && typeof (closeCallback) === 'function') {
                     closeCallback();
                 }
             },
@@ -56,7 +56,7 @@ var DialogManager = function () {
             buttons: [
                 {
                     text: "OK",
-                    click: function () {                        
+                    click: function () {
                         if (okCallback && typeof (okCallback) === 'function') {
                             okCallback();
                         }
@@ -65,7 +65,7 @@ var DialogManager = function () {
                 },
                 {
                     text: "Cancel",
-                    click: function () {                        
+                    click: function () {
                         if (cancelCallback && typeof (cancelCallback) === 'function') {
                             cancelCallback();
                         }

@@ -11,7 +11,23 @@ function encodeHtml(value) {
         .replace(/>/g, '&gt;');
 }
 
+function escapeHtml(text) {
+    const entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+
+    return text.replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
+
 export {
     decodeHtml,
-    encodeHtml
+    encodeHtml,
+    escapeHtml
 };

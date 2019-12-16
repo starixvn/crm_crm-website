@@ -1,0 +1,107 @@
+﻿@using Fanex.CRM.Common.Resources;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.DefaultCommunicationSetting;
+    var isHost = (bool)ViewBag.IsHost;
+}
+@section Styles{
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/commtool.setting.css" />
+}
+<div ng-app="commToolSettingModule">
+    <div ng-controller="CommToolSettingController as commToolSettingCtrl">
+        <div class="container main">
+            <div class="row filter-frm one-row comm-tool-setting-filter">
+                <div class="row row-item">
+                    <div class="item">
+                        <label>@Labels.Customer</label>
+                        <input type="text" ng-model="commToolSettingCtrl.filter.customer" />
+                    </div>
+                    <div class="item category-select">
+                        <label class="pull-left">@Labels.Category</label>
+                        <div class="pull-left">
+                            <multileveldropdowntree text-settings="commToolSettingCtrl.textSettings"
+                                                    data-settings="commToolSettingCtrl.categoryDropdownSettings"
+                                                    data-show-selected-all-text="true"
+                                                    ng-model="commToolSettingCtrl.selectedCategories"
+                                                    ng-disabled="commToolSettingCtrl.filter.isDisableCategorySubCategory"
+                                                    ng-change="commToolSettingCtrl.categoryChangedHandler()"
+                                                    ng-on-checkall="commToolSettingCtrl.categorySelectAllHandler()" />
+                        </div>
+                    </div>
+                    <div class="item subcategory-select">
+                        <label class="pull-left">@Labels.SubCategory</label>
+                        <div class="pull-left">
+                            <multileveldropdowntree text-settings="commToolSettingCtrl.textSettings"
+                                                    data-settings="commToolSettingCtrl.subCategoryDropdownSettings"
+                                                    data-show-selected-all-text="true"
+                                                    ng-model="commToolSettingCtrl.selectedSubCategories"
+                                                    ng-disabled="commToolSettingCtrl.filter.isDisableCategorySubCategory"
+                                                    ng-change="commToolSettingCtrl.subCategoryChangedHandler()"
+                                                    ng-on-checkall="commToolSettingCtrl.subCategorySelectAllHandler()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="isDisableCategorySubCategory" class="labelforcheckbox checkbox">
+                            <input id="isDisableCategorySubCategory" type="checkbox"
+                                   ng-model="commToolSettingCtrl.filter.isDisableCategorySubCategory"
+                                   ng-change="commToolSettingCtrl.checkDisableSearch()"/>
+                            @Labels.DisableCategorySubCategoryFilters
+                        </label>
+                    </div>
+                    <div class="item">
+                        <button class="btn" ng-click="commToolSettingCtrl.search()" ng-disabled="commToolSettingCtrl.isDisableSearch">
+                            @Html.Raw(Labels.Btn_HotKey_Search)
+                        </button>
+                    </div>
+                    @if (isHost)
+                    {
+                        <div class="item">
+                            <button class="btn" ng-click="commToolSettingCtrl.openCreatePopup()">@Html.Raw(Labels.Btn_HotKey_Insert)</button>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="comm-tool-setting-grid freegrid display-none" comm-tool-setting-grid
+                     ng-model="commToolSettingCtrl.communicationSettings"
+                     data-page-index="commToolSettingCtrl.filter.pageIndex"
+                     data-page-size="commToolSettingCtrl.filter.pageSize"
+                     data-total-items="commToolSettingCtrl.totalItems"
+                     on-page-change="commToolSettingCtrl.getCommToolSettings"
+                     on-edit="commToolSettingCtrl.openEditPopup"
+                     on-delete="commToolSettingCtrl.openDeletePopup">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Areas/AdminTool/CommunicationToolSetting/_Create.cshtml")
+@Html.Partial("~/Areas/AdminTool/CommunicationToolSetting/_Edit.cshtml")
+@Html.Partial("~/Areas/AdminTool/CommunicationToolSetting/_Delete.cshtml")
+@section Scripts {
+    <script type="text/javascript">
+        parent.document.title = '@Labels.DefaultCommunicationSetting';
+        window.rootUrl = '@Url.Content("~")';
+        var isHostOnCommunicationSetting = '@isHost' == 'True';
+        var communicationSettingResources = {
+            DefaultCommunicationSetting: '@Labels.DefaultCommunicationSetting',
+            NumberColumn: '@Labels.NumberColumn',
+            Position: '@Labels.Position',
+            Customer: '@Labels.Customer',
+            Category: '@Labels.Category',
+            SubCategory: '@Labels.SubCategory',
+            CommunicationTool: '@Labels.CommunicationTool',
+            Edit: '@Labels.Edit',
+            VerifyListOfUsernameBeforeInsertSetting: '@Labels.Message_VerifyListOfUsernameBeforeInsertSetting',
+            ListOfCustomersAreMandatory: '@Labels.Message_ListOfCustomersAreMandatory',
+            ErrorRelatedCustomerNameLength: '@Labels.Message_ErrorRelatedCustomerNameLength',
+            CategoryIsMandatory: '@Labels.Message_CategoryIsMandatory',
+            SubCategoryIsMandatory: '@Labels.Message_SubCategoryIsMandatory',
+            CommunicationToolIsMandatory: '@Labels.Message_CommunicationToolIsMandatory'
+        };
+    </script>
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts", "~/Bundles/CommToolSettingScripts")
+    <script src="~/wwwroot/dist/js/commtool.setting.js"></script>
+}

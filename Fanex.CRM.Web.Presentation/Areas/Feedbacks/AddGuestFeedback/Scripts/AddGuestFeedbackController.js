@@ -178,7 +178,7 @@
                         $scope.selectedCategories,
                         $scope.selectedSubCategories,
                         $scope.allSettings.SubCategoryList);
-                }
+                };
 
                 $scope.productChangedHandler = function () {
                     $scope.subProductDropdownSettings = {

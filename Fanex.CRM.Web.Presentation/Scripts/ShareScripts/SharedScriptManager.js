@@ -291,7 +291,7 @@ var SharedScriptManager = function () {
         return deferred.promise;
     };
     self.handleUndermaintenance = function (data) {
-        var underMaintenanceCode = 999999
+        var underMaintenanceCode = 999999;
         var offlineUrl = window.rootUrl + 'Common/Offline';
 
         if (!data) {

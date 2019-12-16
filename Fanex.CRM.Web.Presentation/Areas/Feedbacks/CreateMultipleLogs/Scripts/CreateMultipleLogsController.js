@@ -1,5 +1,5 @@
 ﻿(function () {
-    "use strict";
+    'use strict';
     /* global sharedScriptManager,
     moment,
     crmConstants,
@@ -8,111 +8,114 @@
     hotKeyManager,
     currentTime*/
     /* jshint camelcase: false */
-    angular.module('create-multiple-logs-application').controller('createMultipleLogsController', ['$scope', '$http', '$createMultipleLogsService',
-    function ($scope, $http, $createMultipleLogsService) {
+    angular.module('create-multiple-logs-application').controller('createMultipleLogsController', createMultipleLogsController);
+    createMultipleLogsController.$inject = ['$window', '$scope', '$createMultipleLogsService', '$uiBlockerService'];
 
+    function createMultipleLogsController($window, $scope, $createMultipleLogsService, $uiBlockerService) {
         $scope.multipleLogs = {
             StartTime: new Date(currentTime),
             EndTime: new Date(currentTime),
-            CommunicationTool: {
-                Id: 0,
-                Value: ''
-            },
-            Extension: {
-                Id: 0,
-                Value: ''
-            },
-            Country: {
-                Id: 0
-            },
+            CommunicationTool: { Id: 0, Value: '' },
+            Extension: { Id: 0, Value: '' },
             LanguageId: 0,
-            MainCategory: {
-                Name: ''
-            },
-            SubCategory: {
-                Name: ''
-            },
-            Product: {
-                Id: 0,
-                Value: ''
-            },
-            SubProduct: {
-                Id: 0,
-                Value: ''
-            },
-            Status: {
-                Id: 0,
-                Value: ''
-            },
-            BetType: {
-                Id: 0,
-                Value: ''
-            },
-            RoleInfo: {
-                Id: 0,
-                Value: ''
-            },
-            SiteInfo: {
-                Id: 0,
-                Value: ''
-            },
-            LicenseeType: {
-                Id: 0
-            },
-            Response: {
-                Id: 0,
-                Value: ''
-            },
+            MainCategory: { Name: '' },
+            SubCategory: { Name: '' },
+            Product: { Id: 0, Value: '' },
+            SubProduct: { Id: 0, Value: '' },
+            Status: { Id: 0, Value: '' },
+            BetType: { Id: 0, Value: '' },
+            LicenseeType: { Id: 0 },
+            Response: { Id: 0, Value: '' },
             Subject: '',
             Remark: "<div><font color=\"#ff0000\">" + viewResources.Remark_Multiple_Log_Note + "</font></div><br/>",
             Solution: '',
-            NoInquiries: null
+            NoInquiries: null,
+            isUseDefaultCommunicationTool: true
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
-        $scope.extensionList = null;
-        $scope.countryList = null;
         $scope.communicationToolList = null;
-        $scope.languageList = null;
+        $scope.extensionList = null;
         $scope.mainCategoryList = null;
         $scope.subCategoryList = null;
         $scope.betTypeList = null;
         $scope.statusList = null;
-        $scope.siteList = null;
-        $scope.roleList = null;
         $scope.responseList = null;
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.lastRemarkPrefix = '';
-        $scope.isSuccess = false;
+        $scope.isSuccessful = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
-        $scope.isSetFocus = false;
         $scope.isShowRemarkBox = true;
         $scope.isShowSolutionBox = true;
-        $scope.licenseeTypes = [];
         $scope.TextSettings = {
-            Filter: "Search",
-            NoItemChecked: "N/A",
-            CheckAll: "All"
+            Filter: 'Search',
+            NoItemChecked: 'N/A',
+            CheckAll: 'All'
         };
-        $scope.latestedSelectedCommunication = "N/A";
+        $scope.latestedSelectedCommunication = 'N/A';
         $scope.previousSelectedCommunications = [];
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
-        
         $scope.customersInput = '';
-        $scope.isCN88 = isCN88;
-        $scope.CN88SiteId = CN88SiteId;
+        var dateTimeAndToolPattern = 'Date Time & Tool: \\d{8}\\/\\d{2}:\\d{2}\\D{2}\\/';
+
+        function getCustomers() {
+            let customers = [];
+            angular.forEach($scope.relatedCustomerResultDirective.relatedCustomers, function (customer) {
+                if (customer.Id !== 0) {
+                    customers.push({ Id: customer.Id, Name: customer.Name });
+                }
+            });
+
+            return customers;
+        }
+
+        function splitAutoFieldWhenUseDefaultCommunicationTool() {
+            var autoFields = ['', '', ''];
+
+            if (!$scope.multipleLogs.isUseDefaultCommunicationTool) {
+                return autoFields;
+            }
+
+            var lines = $scope.autoGeneratedText.split('\n'),
+                totalLines = lines.length,
+                lineIndex = 0,
+                isValidFormat = false;
+
+            for (lineIndex = 0; lineIndex < totalLines; lineIndex++) {
+                isValidFormat = lines[lineIndex].trim().match(new RegExp(dateTimeAndToolPattern)) !== null;
+                if (isValidFormat) {
+                    break;
+                }
+            }
+
+            if (isValidFormat) {
+                if (lineIndex > 0) {
+                    autoFields[0] = lines.slice(0, lineIndex).join('\n') + '\n';
+                }
+
+                autoFields[1] = lines[lineIndex];
+
+                if (lineIndex < totalLines - 1) {
+                    autoFields[2] = '\n' + lines.slice(lineIndex + 1).join('\n');
+                }
+            } else {
+                autoFields[2] = $scope.autoGeneratedText;
+            }
+
+            return autoFields;
+        }
 
         $scope.productChangedHandler = function () {
             $scope.subProductDropdownSettings = {
-                idMember: "Id",
-                nameMember: "Name",
+                idMember: 'Id',
+                nameMember: 'Name',
                 sourceData: $scope.getSubProducts($scope.selectedProducts)
             };
-        }
+        };
 
         $scope.validateInquiriesInput = function (event) {
             if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
@@ -131,203 +134,182 @@
             });
 
             $scope.bettypeDropdownSettings = {
-                idMember: "Id",
-                nameMember: "Name",
+                idMember: 'Id',
+                nameMember: 'Name',
                 sourceData: $scope.getBettypes($scope.selectedSubProducts)
             };
-        }
+        };
 
         $scope.bettypeChangeHandler = function () {
             $scope.selectedBettypeIds = [];
             angular.forEach($scope.selectedBettypes, function (bettype) {
                 $scope.selectedBettypeIds.push(bettype.Id);
             });
-        }
+        };
 
         $scope.categoryChangedHandler = function () {
             $scope.subCategoryDropdownSettings = {
-                idMember: "Id",
-                nameMember: "Name",
+                idMember: 'Id',
+                nameMember: 'Name',
                 sourceData: $scope.getSubCategories($scope.selectedCategories)
             };
 
             if ($scope.multipleLogs) {
                 var currentSubject = $scope.multipleLogs.Subject;
                 var updatedSubject = autoTextScripts.updateSubjectOnSelectedCategories($scope.selectedCategories, currentSubject);
-                if (updatedSubject != currentSubject) {
+                if (updatedSubject !== currentSubject) {
                     $scope.multipleLogs.Subject = updatedSubject;
                 }
             }
-        }
+        };
 
         $scope.subCategoryChangedHandler = function () {
             $scope.selectedSubCategoryIds = [];
             angular.forEach($scope.selectedSubCategories, function (subCategory) {
                 $scope.selectedSubCategoryIds.push(subCategory.Id);
             });
-        }
+        };
 
         $scope.getSubProducts = function (selectedProducts) {
             return filterScripts.getSubProducts(
-                           selectedProducts,
-                           $scope.allSettings.SubProductList,
-                           $scope.selectedSubProductIds);
-        }
+                selectedProducts,
+                $scope.allSettings.SubProductList,
+                $scope.selectedSubProductIds);
+        };
 
         $scope.getBettypes = function (selectedSubProducts) {
             return filterScripts.getBettypes(
-                            selectedSubProducts,
-                            $scope.allSettings.BettypeList,
-                            $scope.selectedBettypeIds);
-        }
+                selectedSubProducts,
+                $scope.allSettings.BettypeList,
+                $scope.selectedBettypeIds);
+        };
 
         $scope.getSubCategories = function (selectedCategories) {
             return filterScripts.getSubCategories(
-                            selectedCategories,
-                            $scope.allSettings.SubCategoryList,
-                            $scope.selectedSubCategoryIds);
-        }
+                selectedCategories,
+                $scope.allSettings.SubCategoryList,
+                $scope.selectedSubCategoryIds);
+        };
 
         $scope.initController = function () {
-            $scope.BlockUI();
+            $uiBlockerService.blockUI();
             $scope.isLoadedAllSite = false;
             $createMultipleLogsService.getSettings()
-            .then(function (data) {
-                var allSetting = data.Result;
-                $scope.allSettings = data.Result;
-                $scope.countryList = allSetting.CountryList;
-                $scope.communicationToolList = allSetting.CommunicationToolList;
-                $scope.languageList = allSetting.LanguageList;
-                $scope.statusList = allSetting.StatusList;
-                $scope.siteList = allSetting.SiteList;
-                $scope.roleList = allSetting.RoleList;
-                $scope.responseList = allSetting.ResponseList;
-                $scope.licenseeTypes = allSetting.LicenseeType;
+                .then(function (data) {
+                    var allSetting = data.Result;
+                    $scope.allSettings = data.Result;
+                    $scope.communicationToolList = allSetting.CommunicationToolList;
+                    $scope.statusList = allSetting.StatusList;
+                    $scope.responseList = allSetting.ResponseList;
 
-                if ($scope.isCN88) {
-                    $scope.selectedSite = { Id: $scope.CN88SiteId, Name: "CN88" };
-                }
+                    $scope.extensionDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Value',
+                        sourceData: $scope.allSettings.ExtensionList
+                    };
 
-                $scope.siteDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: allSetting.SiteList,
-                    childrenMember: "ChildSites"
-                };
+                    $scope.communicationDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.CommunicationToolList
+                    };
 
-                $scope.communicationDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.CommunicationToolList
-                };
+                    $scope.categoryDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.MainCategoryList
+                    };
 
-                $scope.extensionDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Value",
-                    sourceData: $scope.allSettings.ExtensionList
-                };
+                    $scope.subCategoryDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.SubCategoryList
+                    };
 
-                $scope.categoryDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.MainCategoryList
-                };
+                    $scope.productDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.ProductList
+                    };
 
-                $scope.subCategoryDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.SubCategoryList
-                };
+                    $scope.subProductDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.SubProductList
+                    };
 
-                $scope.productDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.ProductList
-                };
+                    $scope.bettypeDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Name',
+                        sourceData: $scope.allSettings.BettypeList
+                    };
 
-                $scope.subProductDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.SubProductList
-                };
-
-                $scope.bettypeDropdownSettings = {
-                    idMember: "Id",
-                    nameMember: "Name",
-                    sourceData: $scope.allSettings.BettypeList
-                };
-
-                $scope.completedLoadFilterInfo();
-            },
-            function () {
-                $scope.completedLoadFilterInfo();
-            });
+                    $scope.completedLoadFilterInfo();
+                }, function () {
+                    $scope.completedLoadFilterInfo();
+                });
 
             $scope.getNumberOfFeedbackSubjectTemplate();
         };
-        $scope.getNumberOfFeedbackSubjectTemplate = function () {
-            $scope.BlockUI();
-            $createMultipleLogsService.getNumberOfFeedbackSubjectTemplate()
-            .then(function (data) {
-                var numberOfFeedbackItem = data.Result;
-                $scope.feedbackSubjectTemplateList = [];
-                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
-                $scope.feedbackSubjectTemplateTotalPage = totalPage;
-                $scope.isLoadedFeedbackSubjectTemplate = false;
-                for (var i = 1; i <= totalPage; i++) {
-                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
-                }
-            },
-            function () {
-                $scope.isLoadedFeedbackSubjectTemplate = true;
-            });
-        };
-        $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
-            $scope.BlockUI();
-            $createMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
-            .then(function (data) {
-                var feedbackSubjectTemplate = data.Result;
-                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
-                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
-                }
 
-                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+        $scope.getNumberOfFeedbackSubjectTemplate = function () {
+            $uiBlockerService.blockUI();
+            $createMultipleLogsService.getNumberOfFeedbackSubjectTemplate()
+                .then(function (data) {
+                    var numberOfFeedbackItem = data.Result;
+                    $scope.feedbackSubjectTemplateList = [];
+                    var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                    $scope.feedbackSubjectTemplateTotalPage = totalPage;
+                    $scope.isLoadedFeedbackSubjectTemplate = false;
+                    for (var i = 1; i <= totalPage; i++) {
+                        $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                    }
+                }, function () {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.unblockUI();
-                }
-            },
-            function () {
-                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
-                    $scope.isLoadedFeedbackSubjectTemplate = true;
-                    $scope.unblockUI();
-                }
-            });
+                });
         };
+
+        $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+            $uiBlockerService.blockUI();
+            $createMultipleLogsService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+                .then(function (data) {
+                    var feedbackSubjectTemplate = data.Result;
+                    if (feedbackSubjectTemplate !== null && feedbackSubjectTemplate.length > 0) {
+                        $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
+                    }
+
+                    if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                        $scope.isLoadedFeedbackSubjectTemplate = true;
+                        $uiBlockerService.unblockUI();
+                    }
+                }, function () {
+                    if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                        $scope.isLoadedFeedbackSubjectTemplate = true;
+                        $uiBlockerService.unblockUI();
+                    }
+                });
+        };
+
         $scope.completedLoadFilterInfo = function () {
             $scope.initSelectedLogInfo();
-            $scope.unblockUI();
+            $uiBlockerService.unblockUI();
         };
-        $scope.initSelectedLogInfo = function () {
-            if ($scope.communicationToolList === null) {
-                return;
-            }
 
+        $scope.initSelectedLogInfo = function () {
             var starttime = sharedScriptManager.newFeedbackTime(currentTime);
             var endtime = sharedScriptManager.newFeedbackTime(currentTime);
             endtime.setMinutes(endtime.getMinutes() + 1);
             $scope.multipleLogs.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
             $scope.multipleLogs.EndTime = sharedScriptManager.formatTimeToSendToServer(endtime);
 
-            $scope.multipleLogs.CommunicationTool = $scope.communicationToolList[0];
+            $scope.multipleLogs.CommunicationTool = $scope.communicationToolList === null ? $scope.multipleLogs.CommunicationTool : $scope.communicationToolList[0];
             $scope.multipleLogs.Status = $scope.statusList[0];
-            $scope.multipleLogs.RoleInfo = $scope.roleList[0];
-            $scope.multipleLogs.SiteInfo = $scope.siteList[0];
             $scope.multipleLogs.Response = $scope.responseList[0];
 
             $scope.initRemarkPrefix();
             $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         };
-        
+
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
             $scope.insertMultipleLogs();
@@ -335,8 +317,9 @@
         };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlE = function () {
-            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput)
-        };        
+            $scope.relatedCustomerResultDirective.verifyUsernames($scope.customersInput);
+        };
+
         $scope.updateStartTime = function (selectedTime) {
             $scope.multipleLogs.StartTime = selectedTime;
             if (new Date($scope.multipleLogs.EndTime) <= selectedTime) {
@@ -346,245 +329,159 @@
 
             $scope.updateTimeAndToolPrefix();
         };
+
         $scope.updateEndTime = function (selectedTime) {
             $scope.multipleLogs.EndTime = selectedTime;
             if (selectedTime <= new Date($scope.multipleLogs.StartTime)) {
                 $scope.multipleLogs.StartTime = new Date(selectedTime);
                 $scope.multipleLogs.StartTime.setMinutes(selectedTime.getMinutes() - 1);
             }
-        };        
-        $scope.updateSelectedCountry = function (countryInfoId) {
-            countryInfoId = parseInt(countryInfoId);
-            var countryInfo;
-            var countryListLength = $scope.countryList.length;
-            for (var i = 0; i < countryListLength; i++) {
-                var country = $scope.countryList[i];
-                if (country.Id === countryInfoId) {
-                    countryInfo = country;
-                    break;
-                }
-            }
-
-            if (countryInfo) {
-                $scope.multipleLogs.Country = countryInfo;
-            } else {
-                $scope.multipleLogs.Country = {
-                    Id: crmConstants.Enums.Country.NotApply
-                };
-            }
-
-            $scope.$apply();
         };
-        $scope.updateSelectedCommunicationTool = function (communicationToolId) {
-            communicationToolId = parseInt(communicationToolId);
-            var communicationToolInfo;
-            var communicationToolListLength = $scope.communicationToolList.length;
-            for (var i = 0; i < communicationToolListLength; i++) {
-                var communicationTool = $scope.communicationToolList[i];
-                if (communicationTool.Id === communicationToolId) {
-                    communicationToolInfo = communicationTool;
-                    break;
-                }
-            }
 
-            if (communicationToolInfo) {
-                $scope.multipleLogs.CommunicationTool = communicationToolInfo;
-            }
+        $scope.communicationChangeHandler = function () {
+            var newSelectedCommunications = [];
+            angular.forEach($scope.selectedCommunications, function (item) {
+                newSelectedCommunications.push(item.Name);
+            });
 
-            $scope.updateTimeAndToolPrefix();
-            $scope.$apply();
-        };
-        $scope.updateSelectedLanguage = function (languageId) {
-            $scope.multipleLogs.LanguageId = languageId;
-            $scope.$apply();
-        };        
-        $scope.updateSelectedSite = function (siteId) {
-            siteId = parseInt(siteId);
-            var siteInfo;
-            var siteGroupLength = $scope.siteList.length;
-            for (var i = 0; i < siteGroupLength; i++) {
-                var siteGroup = $scope.siteList[i];
-                var siteLength = siteGroup.ChildSites.length;
-                for (var j = 0; j < siteLength; j++) {
-                    var site = siteGroup.ChildSites[j];
-                    if (site.Id === siteId) {
-                        siteInfo = site;
+            if (newSelectedCommunications.length > $scope.previousSelectedCommunications.length) {
+                for (var i = 0; i < newSelectedCommunications.length; i++) {
+                    var newName = newSelectedCommunications[i];
+                    if ($scope.previousSelectedCommunications.indexOf(newName) < 0) {
+                        $scope.latestedSelectedCommunication = newName;
                         break;
                     }
                 }
-
-                if (siteInfo) {
-                    break;
-                }
             }
 
-            if (siteInfo) {
-                $scope.multipleLogs.SiteInfo = siteInfo;
-            } else {
-                $scope.multipleLogs.SiteInfo = {
-                    Id: crmConstants.Enums.Site.NotApply,
-                    Value: viewResources.Select
-                };
-            }
+            $scope.previousSelectedCommunications = newSelectedCommunications;
+            $scope.updateTimeAndToolPrefix();
         };
-        $scope.updateSelectedStatus = function (statusId) {
-            statusId = parseInt(statusId);
-            var statusInfo;
-            var statusListLength = $scope.statusList.length;
-            for (var i = 0; i < statusListLength; i++) {
-                var status = $scope.statusList[i];
-                if (status.Id === statusId) {
-                    statusInfo = status;
-                    break;
-                }
-            }
 
-            if (statusInfo) {
-                $scope.multipleLogs.Status = statusInfo;
-                $scope.$apply();
-            }
-        };
-        $scope.updateSelectedRole = function (roleId) {
-            roleId = parseInt(roleId);
-            var roleInfo;
-            var roleListLength = $scope.roleList.length;
-            for (var i = 0; i < roleListLength; i++) {
-                var role = $scope.roleList[i];
-                if (role.Id === roleId) {
-                    roleInfo = role;
-                    break;
-                }
-            }
-
-            if (roleInfo) {
-                $scope.multipleLogs.RoleInfo = roleInfo;
-                $scope.$apply();
-            }
-        };
-        $scope.updateSelectedResponse = function (responseId) {
-            responseId = parseInt(responseId);
-            var responseInfo;
-            var responseListLength = $scope.responseList.length;
-            for (var i = 0; i < responseListLength; i++) {
-                var response = $scope.responseList[i];
-                if (response.Id === responseId) {
-                    responseInfo = response;
-                    break;
-                }
-            }
-
-            if (responseInfo) {
-                $scope.multipleLogs.Response = responseInfo;
-                $scope.$apply();
-            }
-        };
         $scope.updateSelectedSubject = function (subject) {
             $scope.multipleLogs.Subject = subject;
         };
+
         $scope.updateRemark = function (remark) {
             $scope.multipleLogs.Remark = remark;
         };
+
         $scope.updateSolution = function (solution) {
             $scope.multipleLogs.Solution = solution;
         };
 
-        $scope.GetCommunicationParams = function () {
-           return filterScripts.GetCommunicationParams($scope.selectedCommunications);
-        }
-
         $scope.GetExtensionParams = function () {
             return filterScripts.GetExtensionParams($scope.selectedExtensions, $scope.allSettings.ExtensionNA);
-        }
+        };
 
         $scope.GetProductParams = function () {
             return filterScripts.GetProductParams(
-                                               {
-                                                   selectedProducts: $scope.selectedProducts,
-                                                   selectedSubProducts: $scope.selectedSubProducts,
-                                                   selectedBettypes: $scope.selectedBettypes
-                                               },
-                                               {
-                                                   ProductNA: $scope.allSettings.ProductNA,
-                                                   SubProductNA: $scope.allSettings.SubProductNA,
-                                                   BettypeNA: $scope.allSettings.BettypeNA
-                                               },
-                                               $scope.allSettings.BettypeList);
-        }
+                {
+                    selectedProducts: $scope.selectedProducts,
+                    selectedSubProducts: $scope.selectedSubProducts,
+                    selectedBettypes: $scope.selectedBettypes
+                },
+                {
+                    ProductNA: $scope.allSettings.ProductNA,
+                    SubProductNA: $scope.allSettings.SubProductNA,
+                    BettypeNA: $scope.allSettings.BettypeNA
+                },
+                $scope.allSettings.BettypeList);
+        };
 
         $scope.GetCategoryParams = function () {
             return filterScripts.GetCategoryParams(
-                                                $scope.selectedCategories,
-                                                $scope.selectedSubCategories,
-                                                $scope.allSettings.SubCategoryList);
-        }        
+                $scope.selectedCategories,
+                $scope.selectedSubCategories,
+                $scope.allSettings.SubCategoryList);
+        };
 
         $scope.insertMultipleLogs = function () {
             $scope.isShowResultMessage = false;
-            $scope.isSuccess = true;
+            $scope.isSuccessful = true;
+            var autoFields = splitAutoFieldWhenUseDefaultCommunicationTool();
 
             var insertCriteria = {
-                ListCustomers: $scope.relatedCustomerResultDirective.getRelatedCustomerName(),
+                Customers: getCustomers(),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.multipleLogs.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
-                CountryId: $scope.multipleLogs.Country.Id,
+                CommunicationIds: $scope.multipleLogs.isUseDefaultCommunicationTool ? '' : filterScripts.GetCommunicationParams($scope.selectedCommunications),
                 LanguageId: $scope.multipleLogs.LanguageId,
                 StatusId: $scope.multipleLogs.Status.Id,
-                RoleId: $scope.multipleLogs.RoleInfo.Id,
-                SiteId: $scope.selectedSite ? $scope.selectedSite.Id : crmConstants.Enums.Site.NotApply,
                 LicenseeTypeId: $scope.multipleLogs.LicenseeType.Id,
                 ResponseId: $scope.multipleLogs.Response.Id,
                 Subject: $scope.multipleLogs.Subject,
                 Remark: $scope.multipleLogs.Remark,
                 Solution: $scope.multipleLogs.Solution,
                 AutoField: $scope.autoGeneratedText,
-                CommunicationIds: $scope.GetCommunicationParams(),
+                AutoField1: autoFields[0],
+                AutoField2: autoFields[1],
+                AutoField3: autoFields[2],
                 ExtensionIds: $scope.GetExtensionParams(),
                 Products: $scope.GetProductParams(),
                 Categories: $scope.GetCategoryParams(),
-                NoInquiries: $scope.multipleLogs.NoInquiries
+                NoInquiries: $scope.multipleLogs.NoInquiries,
+                CategoryIds: $scope.selectedCategories.map(cat => cat.Id).sort().join(','),
+                SubCategoryIds: $scope.selectedSubCategories.map(subcat => subcat.Id).sort().join(','),
+                isUseDefaultCommunicationTool: $scope.multipleLogs.isUseDefaultCommunicationTool
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
-                $scope.checkDuplicationThenCreateFeedback(insertCriteria);
+                if ($scope.multipleLogs.isUseDefaultCommunicationTool) {
+                    $scope.checkNotExistDefaultCommToolSetting(insertCriteria);
+                } else {
+                    $scope.confirmInsertMultipleLogs(insertCriteria, viewResources.Confirm_Changes_Message);
+                }
             }
         };
 
-        $scope.checkDuplicationThenCreateFeedback = function (params) {
-            var checkParams = {
-                StartTime: params.StartTime,
-                Categories: params.Categories
-            };
+        $scope.checkNotExistDefaultCommToolSetting = function (insertCriteria) {
+            var customers = getCustomers();
+            $createMultipleLogsService.checkNotExistDefaultCommToolSetting({
+                Customers: customers,
+                CategoryIds: $scope.selectedCategories.map(cat => cat.Id).sort().join(','),
+                SubCategoryIds: $scope.selectedSubCategories.map(subcat => subcat.Id).sort().join(',')
+            }).then(function (data) {
+                var confirmMessage = viewResources.Confirm_Changes_Message;
+                if (data.Result.length > 0) {
+                    var custstring = data.Result.map(cust => {
+                        return cust.Name + '(' + cust.Role + ')';
+                    }).join(', ');
+                    confirmMessage = 'The Default Communication Setting of customers does not match <br/>the selected Category/Sub-Category, here are the customers: '
+                        + '<strong>' + custstring + '</strong>'
+                        + '<br/>Do you want to continue to create the Feedback/Logs?';
+                }
 
-            parent.dialogManager.confirm(viewResources.Confirm_Changes, viewResources.Confirm_Changes_Message,
-                  function (result) {
-                      callCreateMultipleLogs(params);
-                  }
-              );
-            
-        }
-
-        var callCreateMultipleLogs = function (params) {
-            $scope.BlockUI();
-            $createMultipleLogsService.insertLog(params)
-            .then(function (data) {
-                $scope.showResult(data.Result);
-                $scope.unblockUI();
-            },
-            function () {
-                $scope.unblockUI();
+                $scope.confirmInsertMultipleLogs(insertCriteria, confirmMessage);
             });
-        }
+        };
+
+        $scope.confirmInsertMultipleLogs = function (criteria, confirmMessage) {
+            parent.dialogManager.confirm(viewResources.Confirm_Changes, confirmMessage,
+                function () {
+                    $uiBlockerService.blockUI();
+                    $createMultipleLogsService.insertLog(criteria)
+                        .then(function (data) {
+                            $scope.showResult(data.Result);
+                            $uiBlockerService.unblockUI();
+                        }, function () {
+                            $uiBlockerService.unblockUI();
+                        });
+                }
+            );
+            $window.parent.$('.ui-dialog').css({ 'width': 'auto', 'min-width': '300px', 'max-width': '600px' });
+        };
 
         $scope.showResult = function (result) {
             $scope.resultMessage = result.Message;
             $scope.isShowResultMessage = true;
 
-            if (result.Code !== 0) {
-                $scope.isSuccess = false;
-                $scope.unblockUI();
+            if (!result.IsSuccessful) {
+                $scope.isSuccessful = false;
+                $uiBlockerService.unblockUI();
                 return;
             }
 
-            $scope.unblockUI();
+            $uiBlockerService.unblockUI();
             setTimeout(function () {
                 parent.menuManager.goToURL('centerFr', window.rootUrl + 'Feedbacks/ManageFeedback');
                 parent.menuManager.setActiveClassForSubMenu('Feedback', 'Manage Feedback');
@@ -601,12 +498,7 @@
             $scope.safeApply();
         };
         $scope.isParamsChange = function () {
-            return $scope.multipleLogs.Country.Id !== $scope.oldmultipleLogs.Country.Id ||
-                $scope.multipleLogs.CommunicationTool.Id !== $scope.oldmultipleLogs.CommunicationTool.Id ||
-                $scope.multipleLogs.LanguageId !== $scope.oldmultipleLogs.LanguageId ||
-                $scope.multipleLogs.Status.Id !== $scope.oldmultipleLogs.Status.Id ||
-                $scope.multipleLogs.RoleInfo.Id !== $scope.oldmultipleLogs.RoleInfo.Id ||
-                $scope.multipleLogs.SiteInfo.Id !== $scope.oldmultipleLogs.SiteInfo.Id ||
+            return $scope.multipleLogs.Status.Id !== $scope.oldmultipleLogs.Status.Id ||
                 $scope.multipleLogs.LicenseeType.Id !== $scope.oldmultipleLogs.LicenseeType.Id ||
                 $scope.multipleLogs.Response.Id !== $scope.oldmultipleLogs.Response.Id ||
                 $scope.multipleLogs.Remark !== $scope.oldmultipleLogs.Remark ||
@@ -618,37 +510,32 @@
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
 
-            if (criteria.ListCustomers.length === 0) {
+            if (criteria.Customers.length === 0) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyListOfCustomers;
                 result = false;
             }
 
-            if (feedbackTime > resolutionTime) {
+            if (result && feedbackTime > resolutionTime) {
                 $scope.resultMessage = viewResources.Multiple_Logs_ErrorEndTime;
                 result = false;
             }
 
-            if (result && criteria.CommunicationIds == "") {
+            if (result && !$scope.multipleLogs.isUseDefaultCommunicationTool && criteria.CommunicationIds === '') {
                 $scope.resultMessage = viewResources.Multiple_Logs_NACommmunicationTool;
                 result = false;
             }
 
-            if (result && criteria.Categories.length == 0) {
+            if (result && criteria.Categories.length === 0) {
                 $scope.resultMessage = viewResources.Error_NA_MainSubCategory;
                 result = false;
             }
-            
-            var inValidCategories = filterScripts.CheckCategoryParams(
-                                                                        $scope.selectedCategories,
-                                                                        $scope.selectedSubCategories,
-                                                                        $scope.allSettings.SubCategoryList);
-            if (result && inValidCategories.length != 0) {
-                $scope.resultMessage = sharedScriptManager.stringFormat(viewResources.InvalidCategoryError, [inValidCategories.join(", ")]);
-                result = false;
-            }
 
-            if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
-                $scope.resultMessage = viewResources.Multiple_Logs_NALanguage;
+            var inValidCategories = filterScripts.CheckCategoryParams(
+                $scope.selectedCategories,
+                $scope.selectedSubCategories,
+                $scope.allSettings.SubCategoryList);
+            if (result && inValidCategories.length !== 0) {
+                $scope.resultMessage = sharedScriptManager.stringFormat(viewResources.InvalidCategoryError, [inValidCategories.join(', ')]);
                 result = false;
             }
 
@@ -657,19 +544,17 @@
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
+            if (result && ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyRemark;
                 result = false;
             }
 
-            if (result && (($scope.autoGeneratedText.length + criteria.Remark.length) > crmConstants.MaxDescLength)) {
+            if (result && ($scope.autoGeneratedText.length + criteria.Remark.length) > crmConstants.MaxDescLength) {
                 $scope.resultMessage = viewResources.DescriptionMaxLengthError;
                 result = false;
             }
 
-            if (result &&
-            ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
+            if (result && ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptySolution;
                 result = false;
             }
@@ -683,33 +568,10 @@
                 $scope.isShowResultMessage = false;
             } else {
                 $scope.isShowResultMessage = true;
-                $scope.isSuccess = false;
+                $scope.isSuccessful = false;
             }
 
             return result;
-        };
-        $scope.unblockUI = function () {
-            try {
-                parent.$.unblockUI();
-            } catch (e) {
-            }
-
-            hotKeyManager.CachedData.isBlockingUI = false;
-        };
-        $scope.BlockUI = function () {
-            hotKeyManager.CachedData.isBlockingUI = true;
-            try {
-                parent.BlockUI();
-            } catch (e) {
-            }
-        };
-        $scope.completeSetFocus = function () {
-            $scope.isSetFocus = false;
-        };
-        $scope.setFocus = function () {
-            $scope.$apply(function () {
-                $scope.isSetFocus = true;
-            });
         };
 
         $scope.verifyListCustomer = function () {
@@ -731,76 +593,100 @@
             }
 
             $scope.autoGeneratedText = autoTextScripts.generateTimeAndToolPrefix(
-                                                        sharedScriptManager.stringFormat,
-                                                        $scope.multipleLogs.StartTime,
-                                                        crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix,
-                                                        $scope.latestedSelectedCommunication)
-                                        + " \n"
-                                        + $scope.generateCustomerPrefix();
+                sharedScriptManager.stringFormat,
+                $scope.multipleLogs.StartTime,
+                crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix,
+                $scope.multipleLogs.isUseDefaultCommunicationTool ? '' : $scope.latestedSelectedCommunication)
+                + ' \nSystem ID: ';
+        };
+
+        function matchTimeAndToolPrefix(communicationTools, autoGeneratedText) {
+            var result = '',
+                match;
+            if ($scope.multipleLogs.isUseDefaultCommunicationTool) {
+                communicationTools.unshift({ Name: '' });
+            } else {
+                communicationTools.unshift({ Name: 'N/A' });
+            }
+            for (var i = 0; i < communicationTools.length; i++) {
+                var tool = communicationTools[i];
+                match = autoGeneratedText.match(new RegExp(dateTimeAndToolPattern + tool.Name));
+                if (match !== null) {
+                    result = match[0];
+                    break;
+                }
+            }
+
+            if (!$scope.multipleLogs.isUseDefaultCommunicationTool && result === '') {
+                match = autoGeneratedText.match(new RegExp(dateTimeAndToolPattern));
+                if (match !== null) {
+                    result = match[0];
+                }
+            }
+
+            return result;
         }
+
+        $scope.ckbDefaultCommunicationToolChangeHandler = function () {
+            var lines = $scope.autoGeneratedText.split('\n'),
+                totalLines = lines.length,
+                lineIndex = 0,
+                isValidFormat = false;
+
+            for (lineIndex = 0; lineIndex < totalLines; lineIndex++) {
+                isValidFormat = lines[lineIndex].trim().match(new RegExp(dateTimeAndToolPattern)) !== null;
+                if (isValidFormat) {
+                    break;
+                }
+            }
+
+            if (isValidFormat && $scope.multipleLogs.isUseDefaultCommunicationTool) {
+                lines[lineIndex] = autoTextScripts.generateTimeAndToolPrefix(
+                    sharedScriptManager.stringFormat,
+                    $scope.multipleLogs.StartTime,
+                    crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix,
+                    '');
+            }
+
+            $scope.autoGeneratedText = lines.join('\n');
+            $scope.updateTimeAndToolPrefix();
+        };
 
         $scope.updateTimeAndToolPrefix = function () {
             if (!$scope.multipleLogs.StartTime) {
                 return;
             }
 
-            var prefix = autoTextScripts.updatePrefixForTimeAndTool(
-                                            $scope.multipleLogs.StartTime,
-                                            $scope.autoGeneratedText,
-                                            sharedScriptManager.stringFormat,
-                                            crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix,
-                                            $scope.latestedSelectedCommunication,
-                                            $scope.communicationToolList);
-            $scope.autoGeneratedText = prefix.autoGeneratedText;
-        }
-
-        $scope.generateCustomerPrefix = function () {
-            return "System ID: ";
-        }
-
-
-        $scope.communicationChangeHandler = function () {
-            var newSelectedCommunications = [];
-            angular.forEach($scope.selectedCommunications, function (item) {
-                newSelectedCommunications.push(item.Name);
-            });
-
-
-            if (newSelectedCommunications.length > $scope.previousSelectedCommunications.length) {
-                for (var i = 0; i < newSelectedCommunications.length; i++) {
-                    var newName = newSelectedCommunications[i];
-                    if ($scope.previousSelectedCommunications.indexOf(newName) < 0) {
-                        $scope.latestedSelectedCommunication = newName;
-                        break;
-                    }
-                }
-            }
-
-            $scope.previousSelectedCommunications = newSelectedCommunications;
-            $scope.updateTimeAndToolPrefix();
-        }
+            var newTimeAndToolPrefix = autoTextScripts.generateTimeAndToolPrefix(
+                sharedScriptManager.stringFormat,
+                $scope.multipleLogs.StartTime,
+                crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix,
+                $scope.multipleLogs.isUseDefaultCommunicationTool ? '' : $scope.latestedSelectedCommunication);
+            var oldTimeAndToolPrefix = matchTimeAndToolPrefix(angular.copy($scope.communicationToolList), $scope.autoGeneratedText);
+            $scope.autoGeneratedText = oldTimeAndToolPrefix !== ''
+                ? $scope.autoGeneratedText.replace(oldTimeAndToolPrefix, newTimeAndToolPrefix)
+                : newTimeAndToolPrefix + '\n' + $scope.autoGeneratedText;
+        };
 
         $scope.onStartTimeChanged = function () {
             $scope.$apply(function () {
                 $scope.updateTimeAndToolPrefix();
             });
         };
-       
+
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);
-            registerOptions($scope);
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
             $scope.initController();
-            $scope.setFocus();
 
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
-                Id: "MultipleLogs_Insert"
+                Id: 'MultipleLogs_Insert'
             });
 
             hotKeyManager.CachedData.isBubbleToParent = false;
         });
-    }]);
+    }
 })();

@@ -26,7 +26,8 @@
                 height: null, // auto
                 maxTextLength: 100,
                 selectedTextLength: 30,
-                disabled: false
+                disabled: false,
+                showSelectedAllText: false
             };
             return {
                 set: function (options) {
@@ -138,7 +139,8 @@
                         ngOnOpen: "&",
                         ngOnClose: "&",
                         ngChange: "&",
-                        disabled: '=ngDisabled'
+                        disabled: '=ngDisabled',
+                        showSelectedAllText: '=?'
                     },
                     link: function (scope, element, attrs, modelCtrl) {
                         var required = attrs.required || attrs.ngRequired;
@@ -241,10 +243,11 @@
 
                             var header;
 
-                            if (_leafCheckedNames.length == 1) {
+                            if (scope.checkedAll && scope.showSelectedAllText) {
+                                header = scope._textSettings.AllItemsSelected;
+                            } else if (_leafCheckedNames.length === 1) {
                                 header = _leafCheckedNames[0];
-                            }
-                            else if (_leafCheckedNames.length < 10) {
+                            } else if (_leafCheckedNames.length < 10) {
                                 var names = [];
                                 var textLength = 0;
                                 for (var i = 0; i < _leafCheckedNames.length; i++) {
@@ -366,6 +369,7 @@
                                 CollapseBranch: "Collapse/Expanse this branch",
                                 NoItemChecked: "Select options",
                                 ItemsSelected: "# selected",
+                                AllItemsSelected: 'All selected',
                                 NoData: "N/A"
                             };
 
@@ -470,8 +474,8 @@
                 };
             }
         ])
-        .directive('multileveldropdownPopup', ['$document',
-            function ($document) {
+        .directive('multileveldropdownPopup', ['$document', '$window',
+            function ($document, $window) {
                 return {
                     restrict: 'E',
                     replace: true,
@@ -506,10 +510,12 @@
                             if (dropdownElement.hasClass('open')) {
                                 dropdownElement.removeClass('open');
                                 $document.unbind('click', clickHandler);
+                                $window.parent.document.removeEventListener('click', clickHandler);
                                 onCloseHandler();
                             } else {
                                 dropdownElement.addClass('open');
                                 $document.bind('click', clickHandler);
+                                $window.parent.document.addEventListener('click', clickHandler);
                                 scope.focusSearchBox();
                                 onOpenHandler();
                             }
@@ -521,6 +527,7 @@
                             }
                             dropdownElement.removeClass('open');
                             $document.unbind('click', clickHandler);
+                            $window.parent.document.removeEventListener('click', clickHandler);
                             onCloseHandler();
                             scope.$apply();
                         }
