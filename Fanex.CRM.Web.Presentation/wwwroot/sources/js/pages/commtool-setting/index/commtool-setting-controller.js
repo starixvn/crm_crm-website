@@ -100,24 +100,9 @@
         }
 
         function initialize() {
-            hotKeyManager.CachedData.ActiveDocumentManager.push({
-                Value: vm,
-                Id: 'DefaultCommunicationTool'
-            });
-
             getAllSettings();
             getCommToolSettings();
         }
-
-        vm.invokeHotKey_CtrlS = function () {
-            vm.search();
-        };
-
-        vm.invokeHotKey_CtrlI = function () {
-            if (isHostOnCommunicationSetting) {
-                vm.openCreatePopup();
-            }
-        };
 
         vm.checkDisableSearch = function () {
             vm.isDisableSearch = !vm.filter.isDisableCategorySubCategory
@@ -240,6 +225,25 @@
             initialize();
             const style = $('head link[href*="commtool.setting.css"]').clone();
             $window.parent.$('head').append(style);
+        });
+
+        $(document).keydown(function (eventObject) {
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+                    case 83: // s
+                        vm.search();
+                        eventObject.preventDefault();
+                        return false;
+
+                    case 73: // i
+                        if (isHostOnCommunicationSetting) {
+                            vm.openCreatePopup();
+                        }
+
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
         });
     }
 })(angular);

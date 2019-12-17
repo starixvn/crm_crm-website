@@ -153,17 +153,6 @@
         }
 
         function initialize() {
-            const index = $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.findIndex(x => x.Id === 'EditDefaultCommunicationTool');
-            const activeDocument = {
-                Value: vm,
-                Id: 'EditDefaultCommunicationTool'
-            };
-            if (index === -1) {
-                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.push(activeDocument);
-            } else {
-                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager[index] = activeDocument;
-            }
-
             getCommToolSettingById();
         }
 
@@ -227,11 +216,17 @@
             }
         };
 
-        vm.invokeHotKey_CtrlU = function () {
-            vm.save();
-            $scope.$apply();
-        };
-
         initialize();
+
+        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+            if (eventObject.ctrlKey) {
+                if (eventObject.keyCode === 85) { // u
+                    vm.save();
+                    $scope.$apply();
+                    eventObject.preventDefault();
+                    return false;
+                }
+            }
+        });
     }
 })(angular);

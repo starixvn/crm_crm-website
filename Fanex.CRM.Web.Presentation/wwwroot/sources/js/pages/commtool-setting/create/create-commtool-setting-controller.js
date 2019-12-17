@@ -125,17 +125,6 @@
             vm.isSelectAllCategory = false;
             vm.isSelectAllSubCategory = false;
             vm.isVerifiedCustomers = false;
-
-            const index = $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.findIndex(x => x.Id === 'CreateDefaultCommunicationTool');
-            const activeDocument = {
-                Value: vm,
-                Id: 'CreateDefaultCommunicationTool'
-            };
-            if (index === -1) {
-                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager.push(activeDocument);
-            } else {
-                $window.parent.hotKeyManager.CachedData.ActiveDocumentManager[index] = activeDocument;
-            }
         }
 
         vm.close = function () {
@@ -281,22 +270,29 @@
             }
         };
 
-        vm.invokeHotKey_CtrlE = function () {
-            if (vm.customersInput.trim() !== '') {
-                vm.verifyCustomers();
-            }
-        };
-
-        vm.invokeHotKey_CtrlA = function () {
-            vm.saveAndContinue();
-            $scope.$apply();
-        };
-
-        vm.invokeHotKey_CtrlS = function () {
-            vm.save();
-            $scope.$apply();
-        };
-
         initialize();
+
+        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+                    case 65: // a
+                        vm.saveAndContinue();
+                        $scope.$apply();
+                        eventObject.preventDefault();
+                        return false;
+                    case 69: // e
+                        if (vm.customersInput.trim() !== '') {
+                            vm.verifyCustomers();
+                        }
+                        eventObject.preventDefault();
+                        return false;
+                    case 83: // s
+                        vm.save();
+                        $scope.$apply();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
+        });
     }
 })(angular);

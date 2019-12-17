@@ -429,8 +429,7 @@
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js"));
+                "~/Scripts/ShareScripts/MessageResult.js"));
         }
     }
 }
