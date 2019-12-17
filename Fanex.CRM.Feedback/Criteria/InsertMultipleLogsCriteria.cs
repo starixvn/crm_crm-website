@@ -1,11 +1,11 @@
 ﻿namespace Fanex.CRM.Feedback.Criteria
 {
+    using System;
     using Common.Criteria;
     using Common.Helpers;
     using Common.Services;
     using Fanex.Data.Repository;
     using Models;
-    using System;
 
     public class InsertMultipleLogsCriteria : BasedUpdateCriteria
     {
@@ -98,7 +98,7 @@
 
         public override string GetSettingKey()
         {
-            return "MultipleLogsInsert";
+            return UserRole == Common.Enumerations.UserRole.CN88Staff ? "Acc_CRM_CN88_GuestFeedbackIns_Multiple" : "MultipleLogsInsert";
         }
     }
 }
