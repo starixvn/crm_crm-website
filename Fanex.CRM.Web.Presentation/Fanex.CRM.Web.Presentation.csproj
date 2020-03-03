@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,14 +13,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fanex.CRM.Web.View</RootNamespace>
     <AssemblyName>Fanex.CRM.Web.View</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
     <SccProjectName>%24/Rome/CRM/Main/SourceMVC/Fanex.CRM.Web.Presentation</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
     <SccAuxPath>http://10.18.200.210:8080</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Scripts\|\Views\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -35,6 +34,8 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Fanex.CRM.Web.Presentation.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,123 +56,93 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Fanex.CRM.Web.Presentation.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.Core, Version=1.9.52.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\BundleTransformer.Core.1.9.52\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.Less, Version=1.9.52.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\BundleTransformer.Less.1.9.52\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Couchbase.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Couchbase.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core, Version=1.5.0.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <HintPath>..\packages\dotless.1.5.0\lib\dotless.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Enyim.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Fanex.Caching.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Fanex.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.NAP.Core, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.NAP.Core.Client.1.1.0.5\lib\net40\Fanex.NAP.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.2.4.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.1.2.4\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Msie">
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.1.0.0\lib\net40\JavaScriptEngineSwitcher.Msie.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.V8">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Caching.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="MsieJavaScriptEngine">
+    <Reference Include="MsieJavaScriptEngine, Version=1.2.0.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
       <HintPath>..\packages\MsieJavaScriptEngine.1.2.0\lib\net40\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ONEbook.UM.2.0.2.9\lib\net40\ONEbook.UM.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -179,33 +151,27 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -215,30 +181,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMsg.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\ErrorMsg.zh-CN.designer.cs">
-      <DependentUpon>ErrorMsg.zh-CN.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\ErrorMsg.zh-TW.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorMsg.zh-TW.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_GlobalResources\Language.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Language.zh-CN.designer.cs">
-      <DependentUpon>Language.zh-CN.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\Language.zh-TW.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Language.zh-TW.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\Bundles\AdminToolBundles.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -1230,7 +1176,6 @@
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left.png" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_tab_left.png" />
-    <Content Include="packages.config" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
     <Content Include="Views\Home\Styles\Images\chinese-flag.png" />
@@ -1569,6 +1514,7 @@
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.eot" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.ttf" />
