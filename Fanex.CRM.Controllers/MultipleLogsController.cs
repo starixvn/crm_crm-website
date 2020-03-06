@@ -1,0 +1,169 @@
+﻿namespace Fanex.CRM.Controllers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Criteria.MultipleLogs;
+    using Fanex.CRM.Models;
+    using Fanex.CRM.Resources;
+    using Fanex.CRM.Services;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Services;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
+
+    public class MultipleLogsController : ReadOnlyBaseController
+    {
+        private readonly IMultipleLogsService multipleLogsService;
+        private readonly ISettingService serviceSetting;
+
+        public MultipleLogsController()
+            : this(null, null)
+        {
+        }
+
+        public MultipleLogsController(
+            IMultipleLogsService multipleLogsService,
+            ISettingService serviceSetting)
+        {
+            this.multipleLogsService = multipleLogsService ?? new MultipleLogsService();
+            this.serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult Create()
+        {
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.CN88SiteId = SiteConstants.CN88;
+            return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult Edit(int feedbackId)
+        {
+            var log = multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
+            {
+                FeedbackId = feedbackId
+            });
+
+            ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+
+            return View("~/Areas/Feedbacks/EditMultipleLogs/Index.cshtml", log);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult EditStatus(int feedbackId)
+        {
+            var log = multipleLogsService.GetLogByFeedbackId(new GetLogByFeedbackIdCriteria
+            {
+                FeedbackId = feedbackId
+            });
+
+            ViewBag.HasUpdateMultipleLogsPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+
+            return View("~/Areas/Feedbacks/EditMultipleLogStatuses/Index.cshtml", log);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult GetSettings()
+        {
+            IEnumerable<BaseModel> statues = serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool);
+            var allSetting = new
+            {
+                ExtensionList = serviceSetting.GetAllExtensions(),
+                CommunicationToolList = serviceSetting.GetAllCommunicationTools(),
+                ProvinceList = serviceSetting.GetAllProvinces(),
+                StatusList = statues.Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase)),
+                RoleList = serviceSetting.GetAllRoles(),
+                ResponseList = serviceSetting.GetAllResponses(),
+                ProductNA = serviceSetting.GetProductNA(),
+                SubProductNA = serviceSetting.GetSubProductNA(),
+                BettypeNA = serviceSetting.GetBettypeNA(),
+                ExtensionNA = serviceSetting.GetExtensionNA(),
+                ProductList = serviceSetting.GetProducts(),
+                SubProductList = serviceSetting.GetSubProducts(),
+                BettypeList = serviceSetting.GetBettypes(),
+                MainCategoryList = serviceSetting.GetMainCategories(),
+                SubCategoryList = serviceSetting.GetSubCategories(),
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult GetEditSettings()
+        {
+            var siteList = AppSession.CurrentUser.UserRole == UserRole.CN88Staff
+               ? serviceSetting.GetAllSitesCN88()
+               : serviceSetting.GetAllSites();
+
+            var allSetting = new
+            {
+                ExtensionList = serviceSetting.GetAllExtensions(),
+                CountryList = serviceSetting.GetAllCountries(),
+                ProvinceList = serviceSetting.GetAllProvinces(),
+                CommunicationToolList = serviceSetting.GetAllCommunicationTools(),
+                LanguageList = serviceSetting.GetAllLanguages(),
+                StatusList = serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool),
+                SiteList = siteList,
+                RoleList = serviceSetting.GetAllRoles(),
+                ResponseList = serviceSetting.GetAllResponses(),
+                LicenseeType = serviceSetting.GetAllLicenseeTypes(),
+                ProductNA = serviceSetting.GetProductNA(),
+                SubProductNA = serviceSetting.GetSubProductNA(),
+                BettypeNA = serviceSetting.GetBettypeNA(),
+                ExtensionNA = serviceSetting.GetExtensionNA(),
+                ProductList = serviceSetting.GetProducts(),
+                SubProductList = serviceSetting.GetSubProducts(),
+                BettypeList = serviceSetting.GetBettypes(),
+                MainCategoryList = serviceSetting.GetMainCategories(),
+                SubCategoryList = serviceSetting.GetSubCategories(),
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult CheckNotExistDefaultCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)
+        {
+            IEnumerable<VerifyCustomer> customers = multipleLogsService.CheckNotExistCommunicationToolSetting(criteria);
+            return Json(customers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult InsertMultipleLogs(CreateMultipleLogsCriteria criteria)
+        {
+            CommandResult commandResult = multipleLogsService.Create(criteria);
+            return Json(commandResult);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateMultipleLogs(UpdateMultipleLogsCriteria criteria)
+        {
+            CommandResult commandResult = multipleLogsService.Update(criteria);
+            return Json(commandResult);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateMultipleLogStatuses(UpdateMultipleLogStatusCriteria criteria)
+        {
+            CommandResult commandResult = multipleLogsService.UpdateMultipleLogStatus(criteria);
+            return Json(commandResult);
+        }
+    }
+}

@@ -1272,6 +1272,10 @@
       <Project>{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}</Project>
       <Name>Fanex.CRM.AdminTool</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Controllers\Fanex.CRM.Controllers.csproj">
+      <Project>{39af0601-0d1a-4005-b711-5a864586fbd9}</Project>
+      <Name>Fanex.CRM.Controllers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
       <Name>Fanex.CRM.Customer</Name>

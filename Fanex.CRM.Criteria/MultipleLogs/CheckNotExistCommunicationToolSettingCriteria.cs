@@ -1,4 +1,4 @@
-﻿namespace Fanex.CRM.Feedback.Criteria
+﻿namespace Fanex.CRM.Criteria.MultipleLogs
 {
     using System.Collections.Generic;
     using System.Text;

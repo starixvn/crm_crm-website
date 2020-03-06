@@ -1,4 +1,4 @@
-﻿namespace Fanex.CRM.Feedback.Models
+﻿namespace Fanex.CRM.Models
 {
     public class VerifyCustomer
     {
