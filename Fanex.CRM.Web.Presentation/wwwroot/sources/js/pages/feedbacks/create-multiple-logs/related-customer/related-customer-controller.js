@@ -9,10 +9,12 @@
         headlines, relatedCustomerResults, isEdit) {
         let vm = this;
         vm.maxItems = 10000;
+        vm.numberOfRelatedCustomersPerFeedback = 2000;
         vm.relatedCustomerResults = relatedCustomerResults;
         vm.relatedCustomerInput = '';
         vm.relatedCustomers = [];
         vm.resultMessages = [];
+        vm.isSellectedAll = false;
         vm.isSuccessful = false;
         vm.isEdit = isEdit;
         vm.saved = false;
@@ -22,10 +24,21 @@
         };
 
         vm.keydownHandler = function (event) {
+            // ctrl + a
+            if (event.ctrlKey && event.keyCode === 65 && vm.relatedCustomerInput === '') {
+                vm.isSellectedAll = true;
+                return;
+            }
+
             switch (event.keyCode) {
                 case 8: // backspace
                     if (vm.relatedCustomerInput === '') {
-                        vm.relatedCustomers.pop();
+                        if (vm.isSellectedAll) {
+                            vm.relatedCustomers = [];
+                            vm.isSellectedAll = false;
+                        } else {
+                            vm.relatedCustomers.pop();
+                        }
                         return;
                     }
                     break;
@@ -74,7 +87,7 @@
 
             if (items.length > vm.maxItems) {
                 vm.isSuccessful = false;
-                vm.resultMessages.push('The total number of related customers of feedback is over 10,000.');
+                vm.resultMessages.push(`The total number of related customers of feedback is over ${vm.maxItems}.`);
                 return;
             } else {
                 vm.isSuccessful = true;
@@ -87,6 +100,7 @@
         };
 
         vm.focusoutHandler = function () {
+            vm.isSellectedAll = false;
             vm.addRelatedCustomer(vm.relatedCustomerInput);
         };
 
@@ -107,9 +121,19 @@
                 .success(function (data) {
                     $uiBlockerService.unblockUI();
 
+                    const relatedCustomerResults = headlines.map(item => {
+                        return {
+                            HeadlineId: item.CustId,
+                            Headline: item.Username,
+                            RelatedCustomers: data.filter(x => x.HeadlineId === item.CustId)
+                        };
+                    });
+                    const overRelatedCustomers = relatedCustomerResults.filter(item => item.RelatedCustomers.length > vm.numberOfRelatedCustomersPerFeedback);
+
                     vm.relatedCustomers.forEach(item => {
-                        const index = data.findIndex(x => x.Username === item.username && x.ResultTypeId > 0);
-                        if (index > -1) {
+                        const index = data.findIndex(x => x.Username === item.username && x.ResultTypeId > 0),
+                            overIndex = overRelatedCustomers.findIndex(x => x.Headline === item.username);
+                        if (index > -1 || overIndex > -1) {
                             item.isValid = false;
                         }
                     });
@@ -135,6 +159,11 @@
                     if (invalidRelatedCustomers.length > 0) {
                         vm.resultMessages.push('You do not allow to add related customers for itself. Please check usernames: '
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
+                    }
+
+                    if (overRelatedCustomers.length > 0) {
+                        vm.resultMessages.push(`The total number of related customers of feedback is over ${vm.numberOfRelatedCustomersPerFeedback}, please check: `
+                            + overRelatedCustomers.map(x => x.Headline).join(', '));
                     }
 
                     if (vm.resultMessages.length > 0) {

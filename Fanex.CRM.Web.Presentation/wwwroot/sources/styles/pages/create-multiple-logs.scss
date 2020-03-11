@@ -169,8 +169,9 @@ div.jHtmlAreaColorPickerMenu {
     .modal-dialog {
         width: 1100px;
 
-        .modal-boby {
+        .modal-body {
             max-height: 800px;
+            overflow-y: auto;
         }
 
         .row.item {

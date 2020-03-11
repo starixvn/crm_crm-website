@@ -14,11 +14,16 @@
             return columns;
         }
 
-        function generateBodyRows(scope) {
+        function generateBodyRows(scope, pageIndex, pageSize) {
             let rows = [];
-            const totalItems = scope.dataSources.length;
+            const totalItems = scope.dataSources.length,
+                rowIndex = pageIndex * pageSize;
+            let lastRowIndex = rowIndex + pageSize;
+            if (lastRowIndex > totalItems) {
+                lastRowIndex = totalItems;
+            }
 
-            for (let i = 0; i < totalItems; i++) {
+            for (let i = rowIndex; i < lastRowIndex; i++) {
                 const item = scope.dataSources[i];
                 let columns = [
                     { Name: 'Headline', Value: item.Headline },
@@ -45,13 +50,21 @@
                 titleInfo: {
                     text: 'List of customers under headlines'
                 },
-                bodyRows: generateBodyRows(scope),
+                bodyRows: generateBodyRows(scope, 0, 10),
                 showPager: true,
+                customPager: true,
                 pagerOption: {
                     itemsPerPage: 10,
                     itemsPerPageArray: [10, 20, 50],
                     currentPage: 0,
-                    totalItem: totalItems
+                    totalItem: totalItems,
+                    pagerSelectCallBack: function (pageIndex, pageSize) {
+                        gridOptions.pagerOption.itemsPerPage = pageSize;
+                        gridOptions.pagerOption.pageSize = pageSize;
+                        gridOptions.pagerOption.currentPage = pageIndex;
+                        gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
+                        $(element).fanexGrid(gridOptions);
+                    }
                 }
             };
 

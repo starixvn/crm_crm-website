@@ -1,7 +1,10 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('createMultipleLogsModule').directive('focusMe', function ($timeout, $parse) {
+    angular.module('createMultipleLogsModule').directive('focusMe', focusMeDirective);
+    focusMeDirective.$inject = ['$timeout'];
+
+    function focusMeDirective($timeout) {
         return {
             scope: {
                 trigger: '=focusMe',
@@ -22,5 +25,5 @@
                 });
             }
         };
-    });
+    }
 })(angular);
