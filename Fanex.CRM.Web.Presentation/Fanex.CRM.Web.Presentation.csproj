@@ -344,11 +344,6 @@
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DatetimePicker.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\DirectiveRegister.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\RemarkEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SolutionEditor.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
@@ -474,9 +469,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsApplication.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsController.js" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\Scripts\CreateMultipleLogsService.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackService.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
@@ -550,12 +542,25 @@
     <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-module.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\commtool-setting-factory.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\create-multiple-logs-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\create-multiple-logs-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\delete-related-customer-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\DatetimePicker.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\DirectiveRegister.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\RemarkEditor.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SolutionEditor.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SubjectAutoComplete.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\index.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\focus-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\number-input-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\create-multiple-logs-module.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-controller.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\index\inform-headline-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\inform-headline\inform-headline-factory.js" />
@@ -1308,6 +1313,10 @@
       <Project>{CFD9409D-BC95-4C34-B080-4783619DD68E}</Project>
       <Name>Fanex.CRM.Report</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Resources\Fanex.CRM.Resources.csproj">
+      <Project>{380cbc4a-6df7-4a35-b168-0ef99ddb4217}</Project>
+      <Name>Fanex.CRM.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
       <Name>Fanex.CRM.User</Name>
@@ -1508,6 +1517,8 @@
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Create.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
+    <Content Include="Areas\Feedbacks\CreateMultipleLogs\_AddRelatedCustomer.cshtml" />
+    <Content Include="Areas\Feedbacks\CreateMultipleLogs\_DeleteRelatedCustomer.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

@@ -117,10 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddRelatedCustomers" xml:space="preserve">
+    <value>Add Related Customers</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Deleted" xml:space="preserve">
     <value>已删除</value>
   </data>
+  <data name="GroupHeadline" xml:space="preserve">
+    <value>Group Headline</value>
+  </data>
+  <data name="ListOfCustomersUnderHeadlines" xml:space="preserve">
+    <value>List of customers under headlines</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>无</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

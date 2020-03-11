@@ -61,6 +61,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the related customers?.
+        /// </summary>
+        public static string ConfirmDeleteRelatedCustomer {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteRelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create multiple logs successfully!.
         /// </summary>
         public static string CreateMultipleLogsSuccessfully {

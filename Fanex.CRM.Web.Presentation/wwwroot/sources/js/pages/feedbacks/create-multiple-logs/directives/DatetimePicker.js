@@ -1,6 +1,6 @@
-﻿(function () {
+﻿(function (angular) {
     "use strict";
-    angular.module('create-multiple-logs-application').directive('datetimepicker', function () {
+    angular.module('createMultipleLogsModule').directive('datetimepicker', function () {
         return {
             restrict: 'A',
             scope: { onselect: '&' },
@@ -43,4 +43,4 @@
             }
         };
     });
-})();
+})(angular);

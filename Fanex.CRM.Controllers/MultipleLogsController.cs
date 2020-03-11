@@ -11,6 +11,7 @@
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Criteria.MultipleLogs;
     using Fanex.CRM.Models;
+    using Fanex.CRM.Models.MultipleLogs;
     using Fanex.CRM.Resources;
     using Fanex.CRM.Services;
     using Fanex.CRM.Setting.Constants;
@@ -34,6 +35,22 @@
         {
             this.multipleLogsService = multipleLogsService ?? new MultipleLogsService();
             this.serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult VerifyCustomer(VerifyCustomerCriteria criteria)
+        {
+            IEnumerable<VerifyCustomerResult> customers = multipleLogsService.VerifyCustomer(criteria);
+            return Json(customers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult VerifyRelatedCustomer(VerifyRelatedCustomerCriteria criteria)
+        {
+            IEnumerable<VerifyRelatedCustomerResult> customers = multipleLogsService.VerifyRelatedCustomer(criteria);
+            return Json(customers, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
@@ -144,7 +161,7 @@
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
-        public ActionResult InsertMultipleLogs(CreateMultipleLogsCriteria criteria)
+        public ActionResult CreateMultipleLogs(CreateMultipleLogsCriteria criteria)
         {
             CommandResult commandResult = multipleLogsService.Create(criteria);
             return Json(commandResult);

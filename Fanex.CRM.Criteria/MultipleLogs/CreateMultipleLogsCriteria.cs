@@ -8,6 +8,7 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Models;
+    using Fanex.CRM.Models.MultipleLogs;
     using Fanex.Data.Repository;
 
     public class CreateMultipleLogsCriteria : BasedUpdateCriteria
@@ -71,9 +72,10 @@
                 var xml = new StringBuilder("<ROOT>");
                 foreach (BaseModel cust in Customers)
                 {
-                    xml.AppendFormat("<Cust CustID='{0}' Username='{1}' />", cust.Id, cust.Name);
+                    xml.AppendFormat("<Cust CustId='{0}' Username='{1}' />", cust.Id, cust.Name);
                 }
                 xml.Append("</ROOT>");
+
                 return xml.ToString();
             }
         }
@@ -85,6 +87,12 @@
         public string CommunicationIds { get; set; }
 
         public int NoInquiries { get; set; }
+
+        [SpParam(Ignored = true)]
+        public IEnumerable<VerifyRelatedCustomerResult> RelatedCustomers { get; set; } = new List<VerifyRelatedCustomerResult>();
+
+        [SpParam(SqlParamName = "RelatedCustomers")]
+        public string RelatedCustomerXml => SerializerHelper.SerializeList(RelatedCustomers);
 
         public override string GetSettingKey() => "MultipleLogsInsert";
 

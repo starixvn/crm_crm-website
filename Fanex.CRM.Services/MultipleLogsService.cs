@@ -9,6 +9,7 @@
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Criteria.MultipleLogs;
     using Fanex.CRM.Models;
+    using Fanex.CRM.Models.MultipleLogs;
     using Fanex.CRM.Repositories;
     using Fanex.CRM.Resources;
     using Fanex.CRM.Setting.Services;
@@ -31,6 +32,16 @@
             this.multipleLogsRepository = multipleLogsRepository ?? new MultipleLogsRepository();
             this.serviceSetting = serviceSetting ?? new SettingService();
             this.baseService = baseService ?? new BaseService();
+        }
+
+        public IEnumerable<VerifyCustomerResult> VerifyCustomer(VerifyCustomerCriteria criteria)
+        {
+            return baseService.GetData<VerifyCustomerResult>(criteria);
+        }
+
+        public IEnumerable<VerifyRelatedCustomerResult> VerifyRelatedCustomer(VerifyRelatedCustomerCriteria criteria)
+        {
+            return baseService.GetData<VerifyRelatedCustomerResult>(criteria);
         }
 
         public IEnumerable<VerifyCustomer> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria)

@@ -1,8 +1,7 @@
-﻿(function () {
+﻿(function (angular) {
     "use strict";
-    /* global jlinq,
-    keyboardManager */
-    angular.module('create-multiple-logs-application').directive('subjectAutoComplete', function () {
+    /* global jlinq, keyboardManager */
+    angular.module('createMultipleLogsModule').directive('subjectAutoComplete', function () {
         var suggestionItemNumber = 15;
         function bindingAutoSuggestionSubject(scope, element) {
             element.keyup(function (e) {
@@ -48,4 +47,4 @@
             }
         };
     });
-})();
+})(angular);

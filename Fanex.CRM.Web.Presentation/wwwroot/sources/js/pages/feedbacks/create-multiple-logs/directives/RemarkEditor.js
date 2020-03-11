@@ -1,10 +1,7 @@
-﻿(function () {
+﻿(function (angular) {
     "use strict";
-    /* global viewResources,
-    hotKeyManager,
-    sharedScriptManager,
-    currentUsername */
-    angular.module('create-multiple-logs-application').directive('remarkEditorContainer', function () {
+    /* global viewResources, hotKeyManager, sharedScriptManager, currentUsername */
+    angular.module('createMultipleLogsModule').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
         function renderRemarkEditor(scope, element) {
             var remark = scope.multipleLogs.Remark.indexOf(" ", scope.multipleLogs.Remark.length - 1) !== -1 ?
@@ -66,4 +63,4 @@
             }
         };
     });
-})();
+})(angular);

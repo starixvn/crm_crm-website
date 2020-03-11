@@ -4,9 +4,14 @@
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Criteria.MultipleLogs;
     using Fanex.CRM.Models;
+    using Fanex.CRM.Models.MultipleLogs;
 
     public interface IMultipleLogsService
     {
+        IEnumerable<VerifyCustomerResult> VerifyCustomer(VerifyCustomerCriteria criteria);
+
+        IEnumerable<VerifyRelatedCustomerResult> VerifyRelatedCustomer(VerifyRelatedCustomerCriteria criteria);
+
         IEnumerable<VerifyCustomer> CheckNotExistCommunicationToolSetting(CheckNotExistCommunicationToolSettingCriteria criteria);
 
         CommandResult Create(CreateMultipleLogsCriteria criteria);

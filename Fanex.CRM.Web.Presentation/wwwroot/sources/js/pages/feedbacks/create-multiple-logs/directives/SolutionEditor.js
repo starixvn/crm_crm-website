@@ -1,10 +1,7 @@
-﻿(function () {
+﻿(function (angular) {
     "use strict";
-    /* global viewResources,
-    hotKeyManager,
-    sharedScriptManager,
-    currentUsername */
-    angular.module('create-multiple-logs-application').directive('solutionEditorContainer', function () {
+    /* global viewResources, hotKeyManager, sharedScriptManager, currentUsername */
+    angular.module('createMultipleLogsModule').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
         function renderEditor(scope, element) {
             var solution = scope.multipleLogs ? scope.multipleLogs.Solution : '';
@@ -64,4 +61,4 @@
             }
         };
     });
-})();
+})(angular);

@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function (angular) {
     "use strict";
 
     function registerDirectives() {
@@ -19,7 +19,7 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('create-multiple-logs-application'), productRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('createMultipleLogsModule'), productRegisterOptions);
     }
 
     function registerSubProductDirective() {
@@ -35,8 +35,8 @@
             }
         };
 
-        directiveManager.registerDropdownContainer(angular.module('create-multiple-logs-application'), subProductRegisterOptions);
+        directiveManager.registerDropdownContainer(angular.module('createMultipleLogsModule'), subProductRegisterOptions);
     }
 
     registerDirectives();
-})();
+})(angular);

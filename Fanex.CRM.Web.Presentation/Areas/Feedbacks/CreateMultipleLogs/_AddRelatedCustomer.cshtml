@@ -1,0 +1,53 @@
+﻿<div id="template-add-realted-customers" style="display: none">
+    <div class="modal-header">
+        {{relatedCustomerCtrl.isEdit ? 'Update ' : 'Add '}}Related Customers
+        <span class="icon-close fa fa-times" ng-click="relatedCustomerCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item" ng-show="relatedCustomerCtrl.resultMessages.length > 0">
+            <div class="alertbox {{ relatedCustomerCtrl.isSuccessful ? 'success' : 'error' }}">
+                <ul>
+                    <li ng-repeat="item in relatedCustomerCtrl.resultMessages">{{item}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <label>
+                    @Fanex.CRM.Resources.Labels.Username
+                    <span class="mandatoryfield">*</span>
+                </label>
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+                <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="relatedCustomerCtrl.focused = true">
+                    <div ng-if="relatedCustomerCtrl.relatedCustomers.length > 0">
+                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}}" ng-repeat="item in relatedCustomerCtrl.relatedCustomers">
+                            <span>{{item.username}}</span>
+                            <span class="fa fa-times" ng-click="relatedCustomerCtrl.removeRelatedCustomer(item)"></span>
+                        </div>
+                    </div>
+                    <input type="text" focus-me="relatedCustomerCtrl.focused" maxlength="30" ng-model="relatedCustomerCtrl.relatedCustomerInput"
+                           ng-keydown="relatedCustomerCtrl.keydownHandler($event)"
+                           ng-paste="relatedCustomerCtrl.pasteHandler($event)"
+                           data-on-blur="relatedCustomerCtrl.focusoutHandler" />
+                </div>
+                <div class="maximum-username">Maximum usernames: {{relatedCustomerCtrl.maxItems - relatedCustomerCtrl.relatedCustomers.length}}</div>
+            </div>
+        </div>
+        <div class="row item">
+            <button class="btn verify-related-customer" ng-click="relatedCustomerCtrl.verifyRelatedCustomer()">@Fanex.CRM.Resources.Labels.Submit</button>
+        </div>
+        <div class="row item">
+            <div class="related-customer-grid freegrid display-none"
+                 related-customer-grid
+                 ng-model="relatedCustomerCtrl.relatedCustomerResults"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="relatedCustomerCtrl.delete()"
+                ng-disabled="relatedCustomerCtrl.relatedCustomerResults.length === 0">@Fanex.CRM.Resources.Labels.Delete</button>
+        <button class="btn" ng-click="relatedCustomerCtrl.save()"
+                ng-disabled="relatedCustomerCtrl.relatedCustomerResults.length === 0">@Fanex.CRM.Resources.Labels.Save</button>
+        <button class="btn" ng-click="relatedCustomerCtrl.close()">@Fanex.CRM.Resources.Labels.Cancel</button>
+    </div>
+</div>
