@@ -238,7 +238,6 @@ div.jHtmlAreaColorPickerMenu {
 
         &.invalid {
             border-color: #ff0000;
-            border-width: 2px;
         }
 
         .fa-times {
@@ -250,7 +249,7 @@ div.jHtmlAreaColorPickerMenu {
 }
 
 .view-related-customer-modal {
-    background: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6) !important;
 
     .modal-body {
         max-height: 500px;
