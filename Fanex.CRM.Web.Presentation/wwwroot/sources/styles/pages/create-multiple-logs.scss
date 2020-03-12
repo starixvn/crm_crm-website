@@ -164,6 +164,7 @@ div.jHtmlAreaColorPickerMenu {
 
 .related-customer-modal-backdrop {
     z-index: 940 !important;
+    opacity: .7 !important;
 }
 
 .related-customer-modal {
@@ -249,7 +250,7 @@ div.jHtmlAreaColorPickerMenu {
 }
 
 .view-related-customer-modal {
-    background-color: rgba(0, 0, 0, 0.6) !important;
+    background-color: rgba(0, 0, 0, 0.7);
 
     .modal-body {
         max-height: 500px;

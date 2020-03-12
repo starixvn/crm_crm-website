@@ -179,9 +179,9 @@
                 controller: 'RelatedCustomerController',
                 controllerAs: 'relatedCustomerCtrl',
                 backdrop: 'static',
-                backdropClass: 'related-customer-modal-backdrop',
                 keyboard: false,
                 size: 'lg',
+                backdropClass: 'related-customer-modal-backdrop',
                 windowClass: 'related-customer-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
