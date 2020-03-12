@@ -170,6 +170,9 @@
                 $scope.verifyCustomerResults = $scope.verifyCustomerResults.filter(function (item) {
                     return item.CustId !== customer.CustId;
                 });
+                $scope.relatedCustomerResults = $scope.relatedCustomerResults.filter(function (item) {
+                    return item.HeadlineId !== customer.CustId;
+                });
             }
 
             $scope.showAddRelatedCustomer = checkExistHeadlineOrDirectAccount();

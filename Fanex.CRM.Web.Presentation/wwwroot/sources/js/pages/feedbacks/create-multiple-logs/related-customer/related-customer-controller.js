@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('createMultipleLogsModule').controller('RelatedCustomerController', relatedCustomerController);
-    relatedCustomerController.$inject = ['$scope', '$window', '$uibModal', '$uibModalInstance', '$uiBlockerService', 'createMultipleLogsFactory',
+    relatedCustomerController.$inject = ['$scope', '$uibModalInstance', '$uiBlockerService', 'createMultipleLogsFactory',
         'headlines', 'relatedCustomerResults', 'isEdit'];
 
-    function relatedCustomerController($scope, $window, $uibModal, $uibModalInstance, $uiBlockerService, createMultipleLogsFactory,
+    function relatedCustomerController($scope, $uibModalInstance, $uiBlockerService, createMultipleLogsFactory,
         headlines, relatedCustomerResults, isEdit) {
         let vm = this;
         vm.maxItems = 10000;
@@ -187,25 +187,6 @@
         vm.save = function () {
             vm.saved = true;
             vm.close();
-        };
-
-        vm.delete = function () {
-            const modalInstance = $uibModal.open({
-                template: angular.element('#template-delete-realted-customers').html(),
-                controller: 'DeleteRelatedCustomerController',
-                controllerAs: 'deleteRelatedCustomerCtrl',
-                backdrop: 'static',
-                keyboard: false,
-                windowClass: 'delete-related-customer-modal',
-                appendTo: $window.parent.$('body')
-            });
-            modalInstance.result.then(function (deleted) {
-                if (deleted) {
-                    vm.saved = true;
-                    vm.relatedCustomerResults = [];
-                    vm.close();
-                }
-            });
         };
 
         function initialize() {

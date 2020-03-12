@@ -519,6 +519,7 @@
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
     <Content Include="wwwroot\dist\js\commtool.setting.js" />
+    <Content Include="wwwroot\dist\js\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
     <Content Include="wwwroot\dist\styles\commtool.setting.css" />
@@ -544,7 +545,6 @@
     <Content Include="wwwroot\sources\js\pages\commtool-setting\index\commtool-setting-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\create-multiple-logs-factory.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\create-multiple-logs-controller.js" />
-    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\delete-related-customer-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\DatetimePicker.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\DirectiveRegister.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\RemarkEditor.js" />
@@ -1518,7 +1518,6 @@
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_AddRelatedCustomer.cshtml" />
-    <Content Include="Areas\Feedbacks\CreateMultipleLogs\_DeleteRelatedCustomer.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1546,6 +1545,7 @@
     <Content Include="wwwroot\dist\styles\commtool.setting.js.map" />
     <Content Include="wwwroot\sources\styles\pages\create-multiple-logs.scss" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
+    <Content Include="wwwroot\dist\js\create.multiple.logs.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
