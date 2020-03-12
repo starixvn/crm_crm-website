@@ -148,13 +148,13 @@
 
                     invalidRelatedCustomers = data.filter(item => item.ResultTypeId === 2 || item.ResultTypeId === 3);
                     if (invalidRelatedCustomers.length > 0) {
-                        vm.resultMessages.push('The system does not support to add related customer for deposit customer/guests account. Please check usernames: '
+                        vm.resultMessages.push('The system does not support to add related customer for deposit and guest customer. Please check usernames: '
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
                     }
 
                     invalidRelatedCustomers = data.filter(item => item.ResultTypeId === 4);
                     if (invalidRelatedCustomers.length > 0) {
-                        vm.resultMessages.push('These usernames do not belong to any headline: '
+                        vm.resultMessages.push('These usernames do not belong to any headline or direct accounts without group headline: '
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
                     }
 
