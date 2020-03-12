@@ -4,10 +4,20 @@
         <span class="icon-close fa fa-times" ng-click="relatedCustomerCtrl.close()"></span>
     </div>
     <div class="modal-body">
-        <div class="row item" ng-show="relatedCustomerCtrl.resultMessages.length > 0">
+        <div class="row item" ng-show="relatedCustomerCtrl.resultMessages.length > 0 || relatedCustomerCtrl.overRelatedCustomers.length > 0">
             <div class="alertbox {{ relatedCustomerCtrl.isSuccessful ? 'success' : 'error' }}">
                 <ul>
-                    <li ng-repeat="item in relatedCustomerCtrl.resultMessages">{{item}}</li>
+                    <li ng-repeat="item in relatedCustomerCtrl.resultMessages" ng-bind="item"></li>
+                    <li ng-if="relatedCustomerCtrl.overRelatedCustomers.length > 0">
+                        The number of related customers of a headline or direct account without group headline is not allowed over
+                        {{relatedCustomerCtrl.maximumRelatedCustomersPerFeedback}}.
+                        <br />
+                        Click on these accounts to get the list of related customers:
+                        <span ng-repeat="item in relatedCustomerCtrl.overRelatedCustomers track by $index">
+                            <a ng-bind="item.Username" ng-click="relatedCustomerCtrl.viewOverRelatedCustomer(item)" style="cursor: pointer"></a>
+                            <span ng-if="$index < relatedCustomerCtrl.overRelatedCustomers.length - 1">, </span>
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -22,7 +32,7 @@
                 <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="relatedCustomerCtrl.focused = true">
                     <div ng-if="relatedCustomerCtrl.relatedCustomers.length > 0">
                         <div class="related-customer-item {{item.isValid ? '' : 'invalid'}}" ng-repeat="item in relatedCustomerCtrl.relatedCustomers">
-                            <span>{{item.username}}</span>
+                            <span ng-bind="item.username"></span>
                             <span class="fa fa-times" ng-click="relatedCustomerCtrl.removeRelatedCustomer(item)"></span>
                         </div>
                     </div>
@@ -40,7 +50,8 @@
         <div class="row item">
             <div id="related-customer-grid" class="related-customer-grid freegrid display-none"
                  related-customer-grid
-                 ng-model="relatedCustomerCtrl.relatedCustomerResults"></div>
+                 ng-model="relatedCustomerCtrl.relatedCustomerResults"
+                 data-on-view-related-customer="relatedCustomerCtrl.viewRelatedCustomer"></div>
         </div>
     </div>
     <div class="modal-footer">

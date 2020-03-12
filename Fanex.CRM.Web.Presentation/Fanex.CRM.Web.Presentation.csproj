@@ -554,6 +554,7 @@
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\focus-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\view-related-customer-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\index.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-module.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\manage-feedback\manage-feedback-factory.js" />
@@ -1518,6 +1519,7 @@
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Edit.cshtml" />
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_AddRelatedCustomer.cshtml" />
+    <Content Include="Areas\Feedbacks\CreateMultipleLogs\_ViewRelatedCustomer.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

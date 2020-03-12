@@ -94,7 +94,10 @@ select:disabled {
 
     .result-item {
         float: left;
-        margin-right: 15px;
+        margin-right: 5px;
+        border: 1px solid #8e8e8e;
+        border-radius: 5px;
+        padding: 1px 4px;
 
         .fa-times {
             margin-right: 2px;
@@ -246,6 +249,11 @@ div.jHtmlAreaColorPickerMenu {
     }
 }
 
-.delete-related-customer-modal {
+.view-related-customer-modal {
     background: rgba(0, 0, 0, 0.6);
+
+    .modal-body {
+        max-height: 500px;
+        overflow-y: auto;
+    }
 }

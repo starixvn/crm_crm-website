@@ -2,17 +2,18 @@
     'use strict';
 
     angular.module('createMultipleLogsModule').controller('RelatedCustomerController', relatedCustomerController);
-    relatedCustomerController.$inject = ['$scope', '$uibModalInstance', '$uiBlockerService', 'createMultipleLogsFactory',
+    relatedCustomerController.$inject = ['$scope', '$window', '$uibModal', '$uibModalInstance', '$uiBlockerService', 'createMultipleLogsFactory',
         'headlines', 'relatedCustomerResults', 'isEdit'];
 
-    function relatedCustomerController($scope, $uibModalInstance, $uiBlockerService, createMultipleLogsFactory,
+    function relatedCustomerController($scope, $window, $uibModal, $uibModalInstance, $uiBlockerService, createMultipleLogsFactory,
         headlines, relatedCustomerResults, isEdit) {
         let vm = this;
         vm.maxItems = 10000;
-        vm.numberOfRelatedCustomersPerFeedback = 2000;
+        vm.maximumRelatedCustomersPerFeedback = 2000;
         vm.relatedCustomerResults = relatedCustomerResults;
         vm.relatedCustomerInput = '';
         vm.relatedCustomers = [];
+        vm.overRelatedCustomers = [];
         vm.resultMessages = [];
         vm.isSellectedAll = false;
         vm.isSuccessful = false;
@@ -87,7 +88,7 @@
 
             if (items.length > vm.maxItems) {
                 vm.isSuccessful = false;
-                vm.resultMessages.push(`The total number of related customers of feedback is over ${vm.maxItems}.`);
+                vm.resultMessages.push(`You are not allowed to input over ${vm.maxItems} usernames. Please check it!`);
                 return;
             } else {
                 vm.isSuccessful = true;
@@ -123,16 +124,18 @@
 
                     const relatedCustomerResults = headlines.map(item => {
                         return {
-                            HeadlineId: item.CustId,
-                            Headline: item.Username,
+                            HeadlineId: item.HeadlineId,
+                            Headline: item.Headline,
+                            CustId: item.CustId,
+                            Username: item.Username,
                             RelatedCustomers: data.filter(x => x.HeadlineId === item.CustId)
                         };
                     });
-                    const overRelatedCustomers = relatedCustomerResults.filter(item => item.RelatedCustomers.length > vm.numberOfRelatedCustomersPerFeedback);
+                    vm.overRelatedCustomers = relatedCustomerResults.filter(item => item.RelatedCustomers.length > vm.maximumRelatedCustomersPerFeedback);
 
                     vm.relatedCustomers.forEach(item => {
                         const index = data.findIndex(x => x.Username === item.username && x.ResultTypeId > 0),
-                            overIndex = overRelatedCustomers.findIndex(x => x.Headline === item.username);
+                            overIndex = vm.overRelatedCustomers.findIndex(x => x.Username === item.username);
                         if (index > -1 || overIndex > -1) {
                             item.isValid = false;
                         }
@@ -161,27 +164,49 @@
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
                     }
 
-                    if (overRelatedCustomers.length > 0) {
-                        vm.resultMessages.push(`The total number of related customers of feedback is over ${vm.numberOfRelatedCustomersPerFeedback}, please check: `
-                            + overRelatedCustomers.map(x => x.Headline).join(', '));
-                    }
-
-                    if (vm.resultMessages.length > 0) {
+                    if (vm.resultMessages.length > 0 || vm.overRelatedCustomers.length > 0) {
                         vm.isSuccessful = false;
                         vm.relatedCustomerResults = [];
                     } else {
                         vm.isSuccessful = true;
-                        vm.relatedCustomerResults = headlines.map(item => {
-                            return {
-                                HeadlineId: item.CustId,
-                                Headline: item.Username,
-                                RelatedCustomers: data.filter(x => x.HeadlineId === item.CustId)
-                            };
-                        });
+                        vm.relatedCustomerResults = relatedCustomerResults;
                     }
                 }).error(function () {
                     $uiBlockerService.unblockUI();
                 });
+        };
+
+        vm.viewRelatedCustomer = function (custId) {
+            const index = vm.relatedCustomerResults.findIndex(item => item.CustId === custId);
+            $uibModal.open({
+                template: angular.element('#template-view-related-customers').html(),
+                controller: 'ViewRelatedCustomerController',
+                controllerAs: 'viewRelatedCustomerCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'lg',
+                windowClass: 'view-related-customer-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    relatedCustomers: () => vm.relatedCustomerResults[index].RelatedCustomers.map(x => x.Username).join(', ')
+                }
+            });
+        };
+
+        vm.viewOverRelatedCustomer = function (item) {
+            $uibModal.open({
+                template: angular.element('#template-view-related-customers').html(),
+                controller: 'ViewRelatedCustomerController',
+                controllerAs: 'viewRelatedCustomerCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                size: 'lg',
+                windowClass: 'view-related-customer-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    relatedCustomers: () => item.RelatedCustomers.map(x => x.Username).join(', ')
+                }
+            });
         };
 
         vm.save = function () {

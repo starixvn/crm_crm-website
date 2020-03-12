@@ -64,7 +64,7 @@
                                  ng-show="verifyCustomerResults.length > 0">
                                 <div class="result-item" ng-repeat="item in verifyCustomerResults">
                                     <span class="fa fa-times" ng-click="removeCustomer(item)"></span>
-                                    <span ng-class="item.CustId > 0 ? 'customer' : item.CustId < 0 ? 'guest' : 'invalid'">{{item.Username}}</span>
+                                    <span ng-class="item.CustId > 0 ? 'customer' : item.CustId < 0 ? 'guest' : 'invalid'" ng-bind="item.Username"></span>
                                 </div>
                                 <div class="add-related-customer" ng-show="showAddRelatedCustomer"
                                      ng-click="openAddRelatedCustomerPopup()">{{relatedCustomerResults.length > 0 ? 'Update ' : 'Add '}}Related Customers</div>
@@ -293,6 +293,7 @@
     </div>
 </div>
 @Html.Partial("~/Areas/Feedbacks/CreateMultipleLogs/_AddRelatedCustomer.cshtml")
+@Html.Partial("~/Areas/Feedbacks/CreateMultipleLogs/_ViewRelatedCustomer.cshtml")
 @section Scripts {
     <script type="text/javascript">
         parent.document.title = '@Labels.Create_Multiple_Logs';

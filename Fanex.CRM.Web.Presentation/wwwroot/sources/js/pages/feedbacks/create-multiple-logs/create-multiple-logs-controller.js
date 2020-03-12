@@ -163,16 +163,10 @@
 
         $scope.removeCustomer = function (customer) {
             if (customer.CustId === 0) {
-                $scope.verifyCustomerResults = $scope.verifyCustomerResults.filter(function (item) {
-                    return item.CustId !== 0;
-                });
+                $scope.verifyCustomerResults = $scope.verifyCustomerResults.filter(item => item.CustId !== 0);
             } else {
-                $scope.verifyCustomerResults = $scope.verifyCustomerResults.filter(function (item) {
-                    return item.CustId !== customer.CustId;
-                });
-                $scope.relatedCustomerResults = $scope.relatedCustomerResults.filter(function (item) {
-                    return item.HeadlineId !== customer.CustId;
-                });
+                $scope.verifyCustomerResults = $scope.verifyCustomerResults.filter(item => item.CustId !== customer.CustId);
+                $scope.relatedCustomerResults = $scope.relatedCustomerResults.filter(item => item.CustId !== customer.CustId);
             }
 
             $scope.showAddRelatedCustomer = checkExistHeadlineOrDirectAccount();
@@ -191,12 +185,8 @@
                 windowClass: 'related-customer-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    headlines: function () {
-                        return [...headlines];
-                    },
-                    relatedCustomerResults: function () {
-                        return [...$scope.relatedCustomerResults];
-                    },
+                    headlines: () => [...headlines],
+                    relatedCustomerResults: () => [...$scope.relatedCustomerResults],
                     isEdit: $scope.relatedCustomerResults.length > 0
                 }
             });

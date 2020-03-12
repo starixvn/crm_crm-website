@@ -8,4 +8,5 @@ import './create-multiple-logs-controller';
 
 import './related-customer/focus-directive';
 import './related-customer/related-customer-grid-directive';
+import './related-customer/view-related-customer-controller';
 import './related-customer/related-customer-controller';
