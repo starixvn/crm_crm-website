@@ -7,7 +7,7 @@
         <div class="row item" ng-show="relatedCustomerCtrl.resultMessages.length > 0 || relatedCustomerCtrl.overRelatedCustomers.length > 0">
             <div class="alertbox {{ relatedCustomerCtrl.isSuccessful ? 'success' : 'error' }}">
                 <ul>
-                    <li ng-repeat="item in relatedCustomerCtrl.resultMessages" ng-bind="item"></li>
+                    <li ng-repeat="item in relatedCustomerCtrl.resultMessages track by $index" ng-bind="item"></li>
                     <li ng-if="relatedCustomerCtrl.overRelatedCustomers.length > 0">
                         The number of related customers of a headline or direct account without group headline is not allowed over
                         {{relatedCustomerCtrl.maximumRelatedCustomersPerFeedback}}.
@@ -31,7 +31,8 @@
             <div class="col-xs-10 col-sm-10 col-md-10">
                 <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="relatedCustomerCtrl.focused = true">
                     <div ng-if="relatedCustomerCtrl.relatedCustomers.length > 0">
-                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}}" ng-repeat="item in relatedCustomerCtrl.relatedCustomers">
+                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}}"
+                             ng-repeat="item in relatedCustomerCtrl.relatedCustomers track by $index">
                             <span ng-bind="item.username"></span>
                             <span class="fa fa-times" ng-click="relatedCustomerCtrl.removeRelatedCustomer(item)"></span>
                         </div>

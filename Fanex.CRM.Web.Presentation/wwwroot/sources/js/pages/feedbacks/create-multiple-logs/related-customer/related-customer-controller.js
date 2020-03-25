@@ -46,10 +46,7 @@
                 case 13: // enter
                 case 32: // space
                 case 188: // semicolon
-                    if (vm.relatedCustomerInput === '') {
-                        return;
-                    }
-
+                    vm.relatedCustomerInput = vm.relatedCustomerInput.replace(',', '');
                     vm.addRelatedCustomer(vm.relatedCustomerInput);
                     break;
                 default:
@@ -84,9 +81,14 @@
                 .replace(/\r\n/g, ',')
                 .replace(/\n/g, ',')
                 .replace(/\t/g, ',')
-                .split(',');
+                .split(',').filter(item => item !== '');
 
-            if (items.length > vm.maxItems) {
+            const totalItems = vm.relatedCustomers.length + items.length;
+            if (totalItems > vm.maxItems) {
+                setTimeout(() => {
+                    vm.relatedCustomerInput = '';
+                    $scope.$apply();
+                }, 0);
                 vm.isSuccessful = false;
                 vm.resultMessages.push(`You are not allowed to input over ${vm.maxItems} usernames. Please check it!`);
                 return;

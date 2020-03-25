@@ -3,4 +3,6 @@
   <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="CRM_MultipleLogs_VerifyCustomer" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="CRM_MultipleLogs_VerifyRelatedCustomer" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
