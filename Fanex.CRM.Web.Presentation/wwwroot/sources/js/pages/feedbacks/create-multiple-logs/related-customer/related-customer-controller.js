@@ -84,6 +84,7 @@
                 .split(',').filter(item => item !== '');
 
             const totalItems = vm.relatedCustomers.length + items.length;
+            vm.resultMessages = [];
             if (totalItems > vm.maxItems) {
                 setTimeout(() => {
                     vm.relatedCustomerInput = '';
@@ -94,7 +95,6 @@
                 return;
             } else {
                 vm.isSuccessful = true;
-                vm.resultMessages = [];
             }
 
             items.forEach(item => {
