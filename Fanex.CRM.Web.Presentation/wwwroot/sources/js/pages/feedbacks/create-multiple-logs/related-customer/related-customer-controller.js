@@ -108,13 +108,13 @@
         };
 
         vm.verifyRelatedCustomer = function () {
+            vm.resultMessages = [];
             if (vm.relatedCustomers.length === 0) {
                 vm.isSuccessful = false;
                 vm.resultMessages.push('Username is mandatory!');
                 return;
             } else {
                 vm.isSuccessful = true;
-                vm.resultMessages = [];
             }
 
             const headlineIds = headlines.map(x => x.CustId).join(','),
