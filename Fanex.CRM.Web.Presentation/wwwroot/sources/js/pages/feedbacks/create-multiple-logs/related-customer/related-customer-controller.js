@@ -40,6 +40,11 @@
                         } else {
                             vm.relatedCustomers.pop();
                         }
+
+                        if (vm.relatedCustomers.length === 0) {
+                            vm.resultMessages = [];
+                        }
+
                         return;
                     }
                     break;
@@ -72,6 +77,10 @@
             const index = vm.relatedCustomers.indexOf(relatedCustomer);
             if (index > -1) {
                 vm.relatedCustomers.splice(index, 1);
+            }
+
+            if (vm.relatedCustomers.length === 0) {
+                vm.resultMessages = [];
             }
         };
 

@@ -240,6 +240,12 @@ div.jHtmlAreaColorPickerMenu {
 
         &.invalid {
             border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        &.selected {
+            border-color: #0066cc;
+            color: #0066cc;
         }
 
         .fa-times {

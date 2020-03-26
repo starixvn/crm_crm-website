@@ -124,7 +124,7 @@
             customers = customers.concat(newCustomers);
             for (var i = 0; i < customers.length; ++i) {
                 for (var j = i + 1; j < customers.length; ++j) {
-                    if (customers[i].CustId === customers[j].CustId) {
+                    if (customers[i].CustId === customers[j].CustId && customers[i].Username === customers[j].Username) {
                         customers.splice(j--, 1);
                     }
                 }

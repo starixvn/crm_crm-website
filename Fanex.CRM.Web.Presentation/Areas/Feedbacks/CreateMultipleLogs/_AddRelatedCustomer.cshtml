@@ -31,7 +31,7 @@
             <div class="col-xs-10 col-sm-10 col-md-10">
                 <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="relatedCustomerCtrl.focused = true">
                     <div ng-if="relatedCustomerCtrl.relatedCustomers.length > 0">
-                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}}"
+                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}} {{relatedCustomerCtrl.isSellectedAll ? 'selected' : ''}}"
                              ng-repeat="item in relatedCustomerCtrl.relatedCustomers track by $index">
                             <span ng-bind="item.username"></span>
                             <span class="fa fa-times" ng-click="relatedCustomerCtrl.removeRelatedCustomer(item)"></span>

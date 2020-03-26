@@ -69,7 +69,7 @@
                 columns: generateColumns(),
                 showTitle: true,
                 titleInfo: {
-                    text: 'List of customers under headlines'
+                    text: 'List of related customers'
                 },
                 bodyRows: generateBodyRows(scope, 0, 10),
                 showPager: true,
