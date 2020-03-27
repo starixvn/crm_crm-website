@@ -149,6 +149,8 @@
                             overIndex = vm.overRelatedCustomers.findIndex(x => x.Username === item.username);
                         if (index > -1 || overIndex > -1) {
                             item.isValid = false;
+                        } else {
+                            item.isValid = true;
                         }
                     });
 
