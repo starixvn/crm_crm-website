@@ -57,7 +57,9 @@
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="relatedCustomerCtrl.save()"
-                ng-disabled="relatedCustomerCtrl.relatedCustomerResults.length === 0">@Fanex.CRM.Resources.Labels.Save</button>
+                ng-disabled="relatedCustomerCtrl.relatedCustomerResults.length === 0 || !relatedCustomerCtrl.verified">
+            @Fanex.CRM.Resources.Labels.Save
+        </button>
         <button class="btn" ng-click="relatedCustomerCtrl.close()">@Fanex.CRM.Resources.Labels.Cancel</button>
     </div>
 </div>

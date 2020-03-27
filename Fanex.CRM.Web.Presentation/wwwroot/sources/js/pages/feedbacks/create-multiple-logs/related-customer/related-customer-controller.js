@@ -19,6 +19,7 @@
         vm.isSuccessful = false;
         vm.isEdit = isEdit;
         vm.saved = false;
+        vm.verified = false;
 
         vm.close = function () {
             $uibModalInstance.close(vm.saved ? vm.relatedCustomerResults : relatedCustomerResults);
@@ -117,8 +118,9 @@
         };
 
         vm.verifyRelatedCustomer = function () {
+            vm.verified = true;
             vm.resultMessages = [];
-            if (vm.relatedCustomers.length === 0) {
+            if (vm.relatedCustomers.length === 0 && !vm.isEdit) {
                 vm.isSuccessful = false;
                 vm.resultMessages.push('Username is mandatory!');
                 return;
