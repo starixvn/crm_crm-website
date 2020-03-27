@@ -177,6 +177,12 @@
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
                     }
 
+                    invalidRelatedCustomers = data.filter(item => item.ResultTypeId === 6);
+                    if (invalidRelatedCustomers.length > 0) {
+                        vm.resultMessages.push('The system does not support to add related customer for internal accounts. Please check usernames: '
+                            + invalidRelatedCustomers.map(x => x.Username).join(', '));
+                    }
+
                     if (vm.resultMessages.length > 0 || vm.overRelatedCustomers.length > 0) {
                         vm.isSuccessful = false;
                         vm.relatedCustomerResults = [];

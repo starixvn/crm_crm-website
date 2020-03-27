@@ -150,4 +150,7 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
 </root>

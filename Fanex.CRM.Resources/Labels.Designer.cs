@@ -158,5 +158,14 @@ namespace Fanex.CRM.Resources {
                 return ResourceManager.GetString("Username", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string Verify {
+            get {
+                return ResourceManager.GetString("Verify", resourceCulture);
+            }
+        }
     }
 }
