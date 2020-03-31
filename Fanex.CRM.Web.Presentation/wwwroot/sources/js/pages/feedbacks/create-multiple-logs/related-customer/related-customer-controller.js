@@ -175,7 +175,7 @@
 
                     invalidRelatedCustomers = data.filter(item => item.ResultTypeId === 5);
                     if (invalidRelatedCustomers.length > 0) {
-                        vm.resultMessages.push('You do not allow to add related customers for itself. Please check usernames: '
+                        vm.resultMessages.push('You are not allowed to add related customers for itself. Please check usernames: '
                             + invalidRelatedCustomers.map(x => x.Username).join(', '));
                     }
 
