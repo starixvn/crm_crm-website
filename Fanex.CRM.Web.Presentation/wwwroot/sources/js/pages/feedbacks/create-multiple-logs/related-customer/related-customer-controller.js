@@ -147,8 +147,8 @@
                     vm.overRelatedCustomers = relatedCustomerResults.filter(item => item.RelatedCustomers.length > vm.maximumRelatedCustomersPerFeedback);
 
                     vm.relatedCustomers.forEach(item => {
-                        const index = data.findIndex(x => x.Username === item.username && x.ResultTypeId > 0),
-                            overIndex = vm.overRelatedCustomers.findIndex(x => x.Username === item.username);
+                        const index = data.findIndex(x => x.Username.toLowerCase() === item.username.toLowerCase() && x.ResultTypeId > 0),
+                            overIndex = vm.overRelatedCustomers.findIndex(x => x.Username.toLowerCase() === item.username.toLowerCase());
                         if (index > -1 || overIndex > -1) {
                             item.isValid = false;
                         } else {
