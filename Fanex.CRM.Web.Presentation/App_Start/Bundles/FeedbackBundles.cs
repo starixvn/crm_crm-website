@@ -185,13 +185,11 @@
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsApplication.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsService.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/CreateMultipleLogsController.js",
-                "~/Areas/Feedbacks/CreateMultipleLogs/Scripts/Directives/*.js"));
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js"));
+
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/CreateMultipleLogsDirectiveScripts").Include(
+                "~/wwwroot/sources/js/pages/feedbacks/create-multiple-logs/directives/*.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/CreateMultipleLogsStyles",
@@ -199,8 +197,7 @@
                 "~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css",
                 "~/Scripts/autocomplete/autocomplete.css",
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css",
-                "~/wwwroot/dist/styles/create.multiple.logs.css");
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }
 
         private static void RegisterEditMultipleLogsBundles(BundleCollection bundles)
