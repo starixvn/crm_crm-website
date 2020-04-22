@@ -7,9 +7,11 @@
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Filters;
     using Fanex.CRM.BackgroundJob.Models;
+    using Fanex.CRM.BackgroundJob.Repositories;
     using Fanex.CRM.BackgroundJob.Services;
     using Fanex.Data;
     using Fanex.Data.MySql;
+    using Fanex.Data.Repository;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
     using Fanex.Logging.Extensions;
@@ -99,8 +101,9 @@
 
             RegisterHangfire(services, connections.FirstOrDefault(x => x.Key.Equals("Hangfire")).Value.ConnectionString);
 
+            services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
-            services.Configure<IEnumerable<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
+            services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
 
             RegisterDI(services);
 
@@ -153,9 +156,12 @@
             services.AddSingleton<IMaintenanceService, MaintenanceService>();
 
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
+            services.AddSingleton<IDynamicRepository, DynamicRepository>();
+            services.AddScoped<IBaseRepository, BaseRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
-            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IBackgroundService, BackgroundService>();
         }
 

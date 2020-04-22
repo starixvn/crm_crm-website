@@ -21,7 +21,7 @@
 
         public CustomWebHostService(IWebHost host) : base(host)
         {
-            hangfireJobSettings = host.Services.GetService<IOptionsMonitor<IEnumerable<HangfireJobSetting>>>().CurrentValue;
+            hangfireJobSettings = host.Services.GetService<IOptionsMonitor<List<HangfireJobSetting>>>().CurrentValue;
             recurringJob = host.Services.GetService<IRecurringJobManager>();
         }
 
