@@ -222,15 +222,36 @@
             var headlineIds = headlines.Select(x => x.HeadlineId).Distinct();
             foreach (var headlineId in headlineIds)
             {
-                var headline = headlines.First(x => x.HeadlineId == headlineId);
-                var relatedCustIds = headlines.Where(x => x.HeadlineId == headline.HeadlineId).Select(x => x.CustId);
-                var transactions = transactionInfos.Where(x => relatedCustIds.Any(y => y == x.CustId));
+                GroupHeadline headline = headlines.First(x => x.HeadlineId == headlineId);
+                IEnumerable<int> relatedCustomerIds = headlines.Where(x => x.HeadlineId == headline.HeadlineId).Select(x => x.CustId);
+                criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
+
+                await CreateFeedbackByBatchAsync(headline, relatedCustomerIds, message, matchInfo, transactionInfos, settings, settingMappings, criteria);
+            }
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+        private async Task CreateFeedbackByBatchAsync(
+            GroupHeadline headline,
+            IEnumerable<int> relatedCustomerIds,
+            Message message,
+            MatchInfo matchInfo,
+            IEnumerable<TransactionInfo> transactionInfos,
+            IEnumerable<SettingItem> settings,
+            IEnumerable<SystemSettingMapping> settingMappings,
+            CreateMutipleFeedbackCriteria criteria)
+#pragma warning restore S107 // Methods should not have too many parameters
+        {
+            int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
+            int totalBatch = (int)Math.Ceiling((double)relatedCustomerIds.Count() / itemEachBatch);
+            for (int i = 0; i < totalBatch; i++)
+            {
+                List<int> batch = relatedCustomerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
+                var transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
 
                 criteria.ProductXml = GetProductXml(matchInfo, transactions, settings, settingMappings);
                 criteria.Solution = GetSolution(message, transactions);
-                criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
-
                 try
                 {
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
@@ -287,9 +308,7 @@
                 ResponseId = response != null ? response.SettingId : 0,
                 RoleId = licenseeInfo.RoleId,
                 CountryId = licenseeInfo.CountryId,
-                RelatedCustId = string.Join(", ", licenseeManagers.Select(x => x.LicenseeManagerId).Distinct()),
                 Subject = "Special Notification",
-                AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers),
                 Description = GetDescription(),
                 Solution = GetSolution(message),
                 LicenseeType = licenseeInfo.LicenseeType,
@@ -297,17 +316,34 @@
                 SiteId = licenseeInfo.SiteId
             };
 
-            try
+            await CreateFeedbackByBatchAsync(licenseeManagers, feedbackDate, communicationTool, criteria);
+        }
+
+        private async Task CreateFeedbackByBatchAsync(
+            IEnumerable<SiteSettingMapping> licenseeManagers,
+            DateTime feedbackDate,
+            string communicationTool,
+            CreateFeedbackCriteria criteria)
+        {
+            int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
+            int totalBatch = (int)Math.Ceiling((double)licenseeManagers.Count() / itemEachBatch);
+            for (int i = 0; i < totalBatch; i++)
             {
-                CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
-                if (!commandResult.IsSuccessful)
+                List<SiteSettingMapping> batch = licenseeManagers.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
+                criteria.RelatedCustId = string.Join(", ", batch.Select(x => x.LicenseeManagerId).Distinct());
+                criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
+                try
                 {
-                    await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                    CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+                    if (!commandResult.IsSuccessful)
+                    {
+                        await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                await WriteLogAsync(ex);
+                catch (Exception ex)
+                {
+                    await WriteLogAsync(ex);
+                }
             }
         }
 
