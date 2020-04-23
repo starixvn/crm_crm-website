@@ -13,20 +13,6 @@
 
     public static class Program
     {
-        public static void RunAsCustomService(this IWebHost host, bool isService)
-        {
-            var webHostService = new CustomWebHostService(host);
-            if (isService)
-            {
-                ServiceBase.Run(webHostService);
-            }
-            else
-            {
-                webHostService.RunHangfireJobs();
-                host.Run();
-            }
-        }
-
         public static void Main(string[] args)
         {
             var isService = !(Debugger.IsAttached || args.Contains("--console"));
@@ -63,6 +49,20 @@
                 .UseConfiguration(configuration)
                 .UseEnvironment(configuration["Environment"] ?? string.Empty)
                 .UseStartup<Startup>();
+        }
+
+        private static void RunAsCustomService(this IWebHost host, bool isService)
+        {
+            var webHostService = new CustomWebHostService(host);
+            if (isService)
+            {
+                ServiceBase.Run(webHostService);
+            }
+            else
+            {
+                webHostService.RunHangfireJobs();
+                host.Run();
+            }
         }
     }
 }

@@ -6,6 +6,16 @@
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <PublishProtocol>FileSystem</PublishProtocol>
+    <Configuration>Release</Configuration>
+    <Platform>Any CPU</Platform>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PublishDir>D:\Deploy\CRM.Service</PublishDir>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <_IsPortable>false</_IsPortable>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>Fanex.CRM.BackgroundJob.ruleset</CodeAnalysisRuleSet>
