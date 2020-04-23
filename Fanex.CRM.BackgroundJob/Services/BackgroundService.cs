@@ -40,15 +40,7 @@
                 var isRunning = setting.JobStatus.Equals(JobStatus.Running, StringComparison.OrdinalIgnoreCase);
                 if (!isRunning)
                 {
-                    var settingJobStatus = new List<SystemSettingItem>
-                    {
-                        new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Running }
-                    };
-                    CommandResult commandResult = await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
-                    if (commandResult.IsSuccessful)
-                    {
-                        await feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting);
-                    }
+                    await feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting);
                 }
             }
         }

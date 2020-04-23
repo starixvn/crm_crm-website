@@ -45,6 +45,12 @@
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
         {
+            var settingJobStatus = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Running }
+            };
+            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+
             IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize);
             if (messages.Any())
             {
@@ -90,6 +96,14 @@
                 }
 
                 await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
+            }
+            else
+            {
+                settingJobStatus = new List<SystemSettingItem>
+                {
+                    new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed }
+                };
+                await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
             }
         }
 
@@ -231,6 +245,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
