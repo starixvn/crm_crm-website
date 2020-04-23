@@ -6,7 +6,7 @@
     {
         public string Username { get; set; }
         public bool IsGuest { get; set; }
-        public byte UserRole { get; set; } = 2;
+        public short UserRole { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_CustomerSearch";
 

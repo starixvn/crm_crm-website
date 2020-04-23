@@ -9,10 +9,12 @@
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
+    using Fanex.Data.Repository;
     using Fanex.Logging;
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.Database;
     using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
 
     public interface IFeedbackService
     {
@@ -149,7 +151,12 @@
 
         private async Task<CustomerInfo> GetLicenseeInfoAsync()
         {
-            var criteria = new GetCustomerInfoByUsernameCriteria { Username = appSettings.LicenseeUsername, IsGuest = true };
+            var criteria = new GetCustomerInfoByUsernameCriteria
+            {
+                UserRole = Constants.UserRole,
+                Username = appSettings.LicenseeUsername,
+                IsGuest = true
+            };
             return await customerRepository.GetCustomerInfoByUsernameAsync(criteria);
         }
 
@@ -227,10 +234,15 @@
                 try
                 {
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+
+                    if (!commandResult.IsSuccessful)
+                    {
+                        await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    await Logging(ex);
+                    await WriteLogAsync(ex);
                 }
             }
         }
@@ -288,10 +300,14 @@
             try
             {
                 CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+                if (!commandResult.IsSuccessful)
+                {
+                    await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                }
             }
             catch (Exception ex)
             {
-                await Logging(ex);
+                await WriteLogAsync(ex);
             }
         }
 
@@ -467,7 +483,17 @@
             return stringBuilder.ToString();
         }
 
-        private async Task Logging(Exception exception)
+        private async Task UpdateSystemSettingAsync(int lastMsgId)
+        {
+            var settingJobStatus = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
+                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() }
+            };
+            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+        }
+
+        private async Task WriteLogAsync(Exception exception)
         {
             var logMessage = new LogMessage(exception.Message)
                        .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
@@ -477,14 +503,12 @@
             await logger.ErrorAsync(logMessage);
         }
 
-        private async Task UpdateSystemSettingAsync(int lastMsgId)
+        private async Task WriteLogCreateFeedbackUnsuccessfulAsync(CommandResult commandResult, ICriteria criteria)
         {
-            var settingJobStatus = new List<SystemSettingItem>
-            {
-                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
-                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = JobStatus.Completed }
-            };
-            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+            var logMessage = new LogMessage(commandResult.Message)
+                       .AddMessage(JsonConvert.SerializeObject(criteria))
+                       .ToString();
+            await logger.ErrorAsync(logMessage);
         }
     }
 }
