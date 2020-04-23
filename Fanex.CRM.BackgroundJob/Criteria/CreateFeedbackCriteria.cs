@@ -27,6 +27,7 @@
         public int CountryId { get; set; }
         public int ProvinceId { get; set; }
         public int RoleId { get; set; }
+        public int SiteId { get; set; }
         public int LicenseeType { get; set; }
         public int TitleId { get; set; }
         public string Subject { get; set; }

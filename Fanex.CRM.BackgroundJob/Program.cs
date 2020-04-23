@@ -8,6 +8,8 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.EventLog;
 
     public static class Program
     {
@@ -49,6 +51,14 @@
                     .Build();
 
             return WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddEventLog(new EventLogSettings
+                    {
+                        Filter = (x, logLevel) => x.Contains("Fanex.CRM.BackgroundJob") && logLevel >= LogLevel.Information
+                    });
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseEnvironment(configuration["Environment"] ?? string.Empty)

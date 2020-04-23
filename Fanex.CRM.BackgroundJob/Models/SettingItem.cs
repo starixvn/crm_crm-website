@@ -8,9 +8,8 @@
         public string SettingName { get; set; }
         public string SettingValue { get; set; }
         public int DisplayOrder { get; set; }
-        public bool IsChild { get; set; }
         public bool IsActive { get; set; }
         public int ParentId { get; set; }
-        public List<SettingItem> Childs { get; set; }
+        public IEnumerable<int> ParentIds { get; set; } = new List<int>();
     }
 }

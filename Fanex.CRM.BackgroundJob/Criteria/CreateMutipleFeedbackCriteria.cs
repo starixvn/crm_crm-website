@@ -46,7 +46,11 @@
         public string CommunicationIds { get; set; }
 
         public int NoInquiries { get; set; }
+
+        [SpParam(SqlParamName = "RelatedCustomers")]
         public string RelatedCustomerXml { get; set; }
+
+        public bool IsReviewed { get; set; }
 
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }

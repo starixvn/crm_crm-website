@@ -3,7 +3,9 @@
     public static class SystemSettingName
     {
         public const string JobStatus = "JobStatus";
-        public const string BatchSite = "BatchSite";
+        public const string BatchSize = "BatchSize";
         public const string LastMsgId = "LastMsgId";
+        public const string ConfigUAT = "ConfigUAT";
+        public const string ConfigPRO = "ConfigPRO";
     }
 }

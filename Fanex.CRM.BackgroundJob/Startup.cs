@@ -156,7 +156,8 @@
             services.AddSingleton<IMaintenanceService, MaintenanceService>();
 
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
-            services.AddSingleton<IDynamicRepository, DynamicRepository>();
+            services.AddScoped<ILogger, Logger>();
+            services.AddScoped<IDynamicRepository, DynamicRepository>();
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBaseService, BaseService>();

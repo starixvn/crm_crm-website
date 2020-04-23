@@ -9,6 +9,9 @@
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
+    using Fanex.Logging;
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
     using Microsoft.Extensions.Options;
 
     public interface IFeedbackService
@@ -21,20 +24,26 @@
         private readonly AppSettings appSettings;
         private readonly ICustomerRepository customerRepository;
         private readonly IBaseService baseService;
+        private readonly ISystemSettingService systemSettingService;
+        private readonly ILogger logger;
 
         public FeedbackService(
             IOptionsSnapshot<AppSettings> appSettings,
             ICustomerRepository customerRepository,
-            IBaseService baseService)
+            IBaseService baseService,
+            ISystemSettingService systemSettingService,
+            ILogger logger)
         {
             this.appSettings = appSettings.Value;
             this.customerRepository = customerRepository;
             this.baseService = baseService;
+            this.systemSettingService = systemSettingService;
+            this.logger = logger;
         }
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
         {
-            IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSite);
+            IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize);
             if (messages.Any())
             {
                 var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
@@ -60,7 +69,7 @@
                             messages.First(x => x.MessageId == matchInfo.MessageId),
                             matchInfo,
                             credits,
-                            headlines,
+                            headlines.Where(x => credits.Any(y => x.CustId == y.CustId)),
                             settings,
                             settingMappings);
                     }
@@ -77,6 +86,8 @@
                             siteSettingMappings);
                     }
                 }
+
+                await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
             }
         }
 
@@ -144,13 +155,12 @@
 
         private async Task<IEnumerable<SettingItem>> GetAllSettingAsync()
         {
-            var criteria = new GetAllSettingCriteria();
+            var criteria = new GetAllSettingCriteria { UserRole = Constants.UserRole };
             var settings = await baseService.GetDataAsync<SettingItem>(criteria);
             IEnumerable<SettingItem> relations = await GetAllSettingRelationAsync();
             foreach (SettingItem setting in settings)
             {
-                var relation = relations.FirstOrDefault(x => x.SettingId == setting.SettingId);
-                setting.ParentId = relation != null ? relation.ParentId : 0;
+                setting.ParentIds = relations.Where(x => x.SettingId == setting.SettingId).Select(x => x.ParentId);
             }
 
             return settings;
@@ -158,7 +168,7 @@
 
         private async Task<IEnumerable<SettingItem>> GetAllSettingRelationAsync()
         {
-            var criteria = new GetAllSettingRelationCriteria();
+            var criteria = new GetAllSettingRelationCriteria { UserRole = Constants.UserRole };
             return await baseService.GetDataAsync<SettingItem>(criteria);
         }
 
@@ -214,7 +224,14 @@
                 criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
 
-                await baseService.ExecuteNonQueryAsync(criteria);
+                try
+                {
+                    CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+                }
+                catch (Exception ex)
+                {
+                    await Logging(ex);
+                }
             }
         }
 
@@ -231,7 +248,8 @@
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var communicationTool = GetCommunicationTool(settings);
             IEnumerable<SiteSettingMapping> licenseeManagers = siteSettingMappings
-                .Where(x => transactionInfos.Any(y => x.SettingSource.Equals(y.Site, StringComparison.OrdinalIgnoreCase)));
+                .Where(x => !string.IsNullOrWhiteSpace(x.SettingSource)
+                    && transactionInfos.Any(y => x.SettingSource.Equals(y.Site, StringComparison.OrdinalIgnoreCase)));
             var status = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Status, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Closed", StringComparison.OrdinalIgnoreCase));
             var response = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Response, StringComparison.OrdinalIgnoreCase)
@@ -263,10 +281,18 @@
                 Description = GetDescription(),
                 Solution = GetSolution(message),
                 LicenseeType = licenseeInfo.LicenseeType,
-                TitleId = licenseeInfo.TitleId
+                TitleId = licenseeInfo.TitleId,
+                SiteId = licenseeInfo.SiteId
             };
 
-            await baseService.ExecuteNonQueryAsync(criteria);
+            try
+            {
+                CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+            }
+            catch (Exception ex)
+            {
+                await Logging(ex);
+            }
         }
 
         private static string GetCommunicationTool(IEnumerable<SettingItem> settings)
@@ -284,60 +310,51 @@
             IEnumerable<SystemSettingMapping> settingMappings)
         {
             const string XmlTemplate = "<Product ProductID='{0}' SubProductID='{1}' BetTypeID='{2}' />";
-            int sportsbook = GetSportsbookProduct(settings);
-            if (sportsbook != Constants.ProductNA)
+            SettingItem sportsbook = GetSportsbookProduct(settings);
+            IEnumerable<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
+            IEnumerable<SettingItem> bettypes = GetBettype(subProducts.Select(x => x.SettingId), transactionInfos, settings, settingMappings);
+            var stringBuilder = new StringBuilder("<ROOT>");
+            foreach (SettingItem subProduct in subProducts)
             {
-                IEnumerable<int> subProducts = GetSubProduct(sportsbook, matchInfo, settings, settingMappings);
-                if (subProducts.Any())
+                IEnumerable<SettingItem> tempBettypes = bettypes.Where(x => x.ParentIds.Any(y => y == subProduct.SettingId));
+                foreach (SettingItem bettype in tempBettypes)
                 {
-                    IEnumerable<SettingItem> bettypes = GetBettype(subProducts, transactionInfos, settings, settingMappings);
-                    var stringBuilder = new StringBuilder("<ROOT>");
-                    foreach (var subProduct in subProducts)
-                    {
-                        if (bettypes.Any())
-                        {
-                            foreach (var bettype in bettypes.Where(x => x.ParentId == subProduct))
-                            {
-                                stringBuilder.AppendFormat(XmlTemplate, sportsbook, subProduct, bettype.SettingId);
-                            }
-                        }
-                        else
-                        {
-                            stringBuilder.AppendFormat(XmlTemplate, sportsbook, subProduct, Constants.BettypeNA);
-                        }
-                    }
-
-                    stringBuilder.Append("</ROOT>");
-                    return stringBuilder.ToString();
+                    stringBuilder.AppendFormat(XmlTemplate, sportsbook.SettingId, subProduct.SettingId, bettype.SettingId);
                 }
-
-                return string.Format($"<ROOT>{XmlTemplate}</ROOT>", sportsbook, Constants.SubProductNA, Constants.BettypeNA);
             }
 
-            return string.Format($"<ROOT>{XmlTemplate}</ROOT>", Constants.ProductNA, Constants.SubProductNA, Constants.BettypeNA);
+            return stringBuilder.Append("</ROOT>").ToString();
         }
 
-        private static int GetSportsbookProduct(IEnumerable<SettingItem> settings)
+        private static SettingItem GetSportsbookProduct(IEnumerable<SettingItem> settings)
         {
             var product = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Product, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Sportsbook", StringComparison.OrdinalIgnoreCase));
 
-            return product != null ? product.SettingId : Constants.ProductNA;
+            return product ?? new SettingItem { SettingId = Constants.ProductNA };
         }
 
-        private static IEnumerable<int> GetSubProduct(
+        private static IEnumerable<SettingItem> GetSubProduct(
             int productId,
             MatchInfo matchInfo,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
             var sport = matchInfo.SportName;
-            var mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+            IEnumerable<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrWhiteSpace(x.SettingSource)
                 && x.SettingSource.Equals(sport, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<SettingItem> subProducts = settings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+                && x.ParentIds.Any(y => y == productId)
+                && mappings != null
+                && mappings.Any(y => y.SettingId == x.SettingId));
 
-            return settings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
-                && x.ParentId == productId
-                && mappings.Any(y => y.SettingId == x.SettingId)).Select(x => x.SettingId).Distinct();
+            return subProducts != null && subProducts.Any()
+                ? subProducts
+                : new List<SettingItem>
+                {
+                    new SettingItem { SettingId = Constants.SubProductNA, ParentIds = new List<int> { Constants.ProductNA } }
+                };
         }
 
         private static IEnumerable<SettingItem> GetBettype(
@@ -346,12 +363,20 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            var mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+            IEnumerable<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrWhiteSpace(x.SettingSource)
                 && transactionInfos.Any(y => y.Bettype.Equals(x.SettingSource, StringComparison.OrdinalIgnoreCase)));
-
-            return settings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
-                && subProducts.Any(y => y == x.ParentId)
+            IEnumerable<SettingItem> bettypes = settings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+                && subProducts.Any(y => x.ParentIds.Any(z => z == y))
+                && mappings != null
                 && mappings.Any(y => y.SettingId == x.SettingId));
+
+            return bettypes != null && bettypes.Any()
+                ? bettypes
+                : new List<SettingItem>
+                {
+                    new SettingItem { SettingId = Constants.BettypeNA, ParentIds = new List<int> { Constants.SubProductNA } }
+                };
         }
 
         private static Tuple<int, int, string> GetCategorySubCategory(IEnumerable<SettingItem> settings)
@@ -362,8 +387,8 @@
 
             if (category != null)
             {
-                var subCategory = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
-                    && x.ParentId == category.SettingId
+                var subCategory = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.SubCategory, StringComparison.OrdinalIgnoreCase)
+                    && x.ParentIds.Any(y => y == category.SettingId)
                     && x.SettingValue.Equals("Abnormal Bets", StringComparison.OrdinalIgnoreCase));
 
                 subCategoryId = subCategory != null ? subCategory.SettingId : 0;
@@ -440,6 +465,26 @@
             }
 
             return stringBuilder.ToString();
+        }
+
+        private async Task Logging(Exception exception)
+        {
+            var logMessage = new LogMessage(exception.Message)
+                       .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
+                       .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
+                       .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
+                       .ToString();
+            await logger.ErrorAsync(logMessage);
+        }
+
+        private async Task UpdateSystemSettingAsync(int lastMsgId)
+        {
+            var settingJobStatus = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
+                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = JobStatus.Completed }
+            };
+            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
         }
     }
 }

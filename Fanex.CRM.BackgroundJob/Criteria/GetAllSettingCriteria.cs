@@ -4,7 +4,7 @@
 
     public class GetAllSettingCriteria : CriteriaBase
     {
-        public int UserRole { get; set; } = 2;
+        public int UserRole { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_SettingSel";
 

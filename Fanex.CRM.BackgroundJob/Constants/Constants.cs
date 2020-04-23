@@ -2,7 +2,7 @@
 {
     public static class Constants
     {
-        public const short UserRole = 1;
+        public const short UserRole = 2;
         public const int ProductNA = 46004;
         public const int SubProductNA = 8063;
         public const int BettypeNA = 9144;
