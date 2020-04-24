@@ -227,9 +227,9 @@
                 SubCategoryIds = category.Item2.ToString(),
                 Subject = "Special Notification",
                 AutoField = string.Empty,
-                AutoField1 = string.Format("Date Time & Tool: {0}/{1}/", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt")),
-                AutoField2 = "System ID: ",
-                AutoField3 = string.Empty,
+                AutoField1 = string.Empty,
+                AutoField2 = string.Format("Date Time & Tool: {0}/{1}/", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt")),
+                AutoField3 = "System ID: ",
                 Description = GetDescription(matchInfo)
             };
 
@@ -245,7 +245,6 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
