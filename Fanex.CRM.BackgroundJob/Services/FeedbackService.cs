@@ -229,7 +229,7 @@
                 AutoField = string.Empty,
                 AutoField1 = string.Empty,
                 AutoField2 = string.Format("Date Time & Tool: {0}/{1}/", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt")),
-                AutoField3 = "System ID: ",
+                AutoField3 = $"{Environment.NewLine}System ID: ",
                 Description = GetDescription(matchInfo)
             };
 
