@@ -45,11 +45,7 @@
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
         {
-            var settingJobStatus = new List<SystemSettingItem>
-            {
-                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Running }
-            };
-            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+            await UpdateJobStatusAsync(JobStatus.Running);
 
             IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize);
             if (messages.Any())
@@ -62,10 +58,14 @@
 
                 var messageIds = string.Join(",", messages.Select(x => x.MessageId));
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
+                if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
+                {
+                    await UpdateJobStatusAsync(JobStatus.Completed);
+                    return;
+                }
 
                 var custIds = string.Join(",", ticketInfo.Item2.Where(x => !x.IsDeposit).Select(x => x.CustId));
                 IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(custIds);
-
                 foreach (MatchInfo matchInfo in ticketInfo.Item1)
                 {
                     IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
@@ -99,11 +99,7 @@
             }
             else
             {
-                settingJobStatus = new List<SystemSettingItem>
-                {
-                    new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed }
-                };
-                await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+                await UpdateJobStatusAsync(JobStatus.Completed);
             }
         }
 
@@ -524,7 +520,7 @@
             var stringBuilder = new StringBuilder(message.Content_en);
             stringBuilder.Append("<br /><br />").Append(message.Content_cs);
             stringBuilder.Append("<br /><br />Kindly refer to Agency site \"Cancelled Bets\" for Voided user.");
-            stringBuilder.Append("<br /><br />Affted users and tickets:");
+            stringBuilder.Append("<br /><br />Affected users and tickets:");
             foreach (var transaction in transactionInfos)
             {
                 stringBuilder.AppendFormat("<br />{0} {1}", transaction.Username, transaction.TransId);
@@ -541,6 +537,15 @@
                 new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+        }
+
+        private async Task UpdateJobStatusAsync(string status)
+        {
+            var settings = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = status }
+            };
+            await systemSettingService.UpdateSystemSettingAsync(settings);
         }
 
         private async Task WriteLogAsync(Exception exception)
