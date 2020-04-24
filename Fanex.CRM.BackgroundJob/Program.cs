@@ -48,7 +48,8 @@
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseEnvironment(configuration["Environment"] ?? string.Empty)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseUrls(configuration["WebHostUrls"]);
         }
 
         private static void RunAsCustomService(this IWebHost host, bool isService)
