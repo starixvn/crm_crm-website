@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
 
@@ -11,6 +12,8 @@
         Task<AbnormalBetSystemSetting> GetAbnormalBetSettingAsync();
 
         Task<CommandResult> UpdateSystemSettingAsync(IEnumerable<SystemSettingItem> settings);
+
+        Task<CommandResult> UpdateJobStatusAsync(string status);
     }
 
     public class SystemSettingService : ISystemSettingService
@@ -42,6 +45,15 @@
                 Settings = xml.ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
+        }
+
+        public async Task<CommandResult> UpdateJobStatusAsync(string status)
+        {
+            var settings = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = status }
+            };
+            return await UpdateSystemSettingAsync(settings);
         }
     }
 }

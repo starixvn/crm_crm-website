@@ -1,7 +1,6 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;

@@ -45,7 +45,7 @@
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
         {
-            await UpdateJobStatusAsync(JobStatus.Running);
+            await systemSettingService.UpdateJobStatusAsync(JobStatus.Running);
 
             IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize);
             if (messages.Any())
@@ -60,7 +60,7 @@
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
-                    await UpdateJobStatusAsync(JobStatus.Completed);
+                    await systemSettingService.UpdateJobStatusAsync(JobStatus.Completed);
                     return;
                 }
 
@@ -99,7 +99,7 @@
             }
             else
             {
-                await UpdateJobStatusAsync(JobStatus.Completed);
+                await systemSettingService.UpdateJobStatusAsync(JobStatus.Completed);
             }
         }
 
@@ -537,15 +537,6 @@
                 new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
-        }
-
-        private async Task UpdateJobStatusAsync(string status)
-        {
-            var settings = new List<SystemSettingItem>
-            {
-                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = status }
-            };
-            await systemSettingService.UpdateSystemSettingAsync(settings);
         }
 
         private async Task WriteLogAsync(Exception exception)
