@@ -27,7 +27,7 @@
 
         public ActionResult Index()
         {
-            return View("~/Areas/AdminTool/SettingManagement/ViewList/Index.cshtml");
+            return View("~/Areas/AdminTool/SettingManagement/Index.cshtml");
         }
 
         public ActionResult OpenInsertNewSettingView()

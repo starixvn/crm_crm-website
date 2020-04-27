@@ -1,15 +1,36 @@
-﻿(function () {
-    "use strict";
-    /* global sharedScriptManager,
-    viewResources,
-    registerOptions,
-    registerUpdateFunctions,
-    registerHotkeyFunctions */
-    /* jshint camelcase: false */
+﻿(function (angular) {
+    'use strict';
 
-    angular.module('addmintool-settingmanagement-application').controller('viewListController',
-    ['$scope', '$uiBlockerService', 'viewListService',
-    function ($scope, $uiBlockerService, viewListService) {
+    angular.module('addmintool-settingmanagement-application').controller('viewListController', viewListController);
+    viewListController.$inject = ['$scope', '$window', '$uiBlockerService', '$uibModal', 'admintoolSettingFactory'];
+
+    function viewListController($scope, $window, $uiBlockerService, $uibModal, admintoolSettingFactory) {
+        $scope.messageResultOptions = null;
+        $scope.mainSettingOptions = null;
+        $scope.isSetFocus = false;
+
+        $scope.initDefaultOption = function () {
+            $scope.mainSettingOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedMainSetting,
+                AllText: viewResources.All
+            };
+        };
+
+        $scope.updateSelectedMainSetting = function (mainSetting) {
+            var isChange = !$scope.getSettingRelationsParams.MainSetting ||
+                $scope.getSettingRelationsParams.MainSetting.SettingType !== mainSetting.SettingType;
+            $scope.getSettingRelationsParams.MainSetting = mainSetting;
+
+            $scope.safeApply();
+            if (isChange) {
+                $scope.getSettingRelations();
+            }
+        };
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
+
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.getSettingRelationsParams = {
             MainSetting: null
@@ -23,7 +44,7 @@
         $scope.getMainSetting = function () {
             $uiBlockerService.blockUI();
             var params = {};
-            viewListService.getMainSetting(params)
+            admintoolSettingFactory.getMainSetting(params)
                 .then(function (data) {
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
@@ -38,15 +59,15 @@
         $scope.getSettingRelations = function () {
             $uiBlockerService.blockUI();
 
-            viewListService.getSettingRelations($scope.getSettingRelationsParams)
+            admintoolSettingFactory.getSettingRelations($scope.getSettingRelationsParams)
                 .then(function (data) {
                     $scope.settingManagementView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function () {
-                    $scope.settingManagementView = null;
-                    $uiBlockerService.unblockUI();
-                });
+                    function () {
+                        $scope.settingManagementView = null;
+                        $uiBlockerService.unblockUI();
+                    });
         };
         $scope.setFocus = function () {
             $scope.isSetFocus = true;
@@ -72,35 +93,18 @@
                 { my: "center top+200", at: "center top" },
                 $scope.beforeCloseInsertView);
         };
-        $scope.insertSubSetting = function () {
-            parent.homeManager.CachedData.shouldReloadView = false;
-            parent.OpenPopup(
-                window.rootUrl + "SettingManagement/OpenInsertSubSettingView?" + $.param({
-                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
-                }),
-                viewResources.Insert_New_Setting,
-                480,
-                280,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeInsertView,
-                { my: "center top+200", at: "center top" },
-                $scope.beforeCloseInsertView);
-        };
+
         $scope.deleteSetting = function (settingInfo) {
             parent.homeManager.CachedData.shouldReloadView = true;
             var title = settingInfo.IsActive === true ? viewResources.DeactiveSetting : viewResources.ActiveSetting;
             parent.OpenPopup(
                 window.rootUrl + "SettingManagement/OpenDeleteSettingView?" +
-                    $.param({
-                        settingId: settingInfo.Id,
-                        settingType: settingInfo.SettingType,
-                        settingValue: settingInfo.Value,
-                        isActive: settingInfo.IsActive
-                    }),
+                $.param({
+                    settingId: settingInfo.Id,
+                    settingType: settingInfo.SettingType,
+                    settingValue: settingInfo.Value,
+                    isActive: settingInfo.IsActive
+                }),
                 title,
                 380,
                 150,
@@ -113,24 +117,40 @@
                 { my: "center top+200", at: "center top" },
                 $scope.beforeCloseDeleteView);
         };
-        $scope.editSetting = function (settingInfo) {
-            parent.homeManager.CachedData.shouldReloadView = false;
-            parent.OpenPopup(
-                window.rootUrl + "SettingManagement/OpenEditSettingView?" +
-                    $.param({
-                        settingId: settingInfo.Id
-                    }),
-                viewResources.Edit_Setting_Value,
-                480,
-                230,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeEditView,
-                { my: "center top+200", at: "center top" },
-                $scope.beforeCloseEditView);
+
+        $scope.insertSubSetting = function () {
+            const modalInstance = $uibModal.open({
+                template: angular.element('#addmintool-settingmanagement-insertsubsetting-template').html(),
+                controller: 'insertSubSettingController',
+                controllerAs: 'insertSubSettingController',
+                backdrop: 'static',
+                backdropClass: 'create-commtool-setting-modal-backdrop',
+                keyboard: false,
+                size: 'sm',
+                windowClass: 'create-commtool-setting-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
+                }
+            });
+        }
+
+        $scope.editSetting = function (communicationSettingId) {
+            const modalInstance = $uibModal.open({
+                template: angular.element('#addmintool-settingmanagement-insertsubsetting-template').html(),
+                controller: 'insertSubSettingController',
+                controllerAs: 'insertSubSettingController',
+                backdrop: 'static',
+                backdropClass: 'create-commtool-setting-modal-backdrop',
+                keyboard: false,
+                size: 'sm',
+                windowClass: 'create-commtool-setting-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    allSettings: angular.copy(vm.allSettings),
+                    communicationSettingId: communicationSettingId
+                }
+            });
         };
 
         $scope.beforeCloseInsertView = function () {
@@ -196,13 +216,24 @@
             $scope.$apply();
             $scope.getSettingRelations();
         };
+
         angular.element(document).ready(function () {
-            registerOptions($scope);
-            registerUpdateFunctions($scope);
-            registerHotkeyFunctions($scope);
+            $scope.initDefaultOption();
             $scope.initController();
-            $scope.registerHotKey();
             $scope.setFocus();
+            const style = $('head link[href*="commtool.setting.css"]').clone();
+            $window.parent.$('head').append(style);
         });
-    } ]);
-})();
+
+        $(document).keydown(function (eventObject) {
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+                    case 83: // s
+                        $scope.getSettingRelations();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
+        });
+    }
+}) (angular);

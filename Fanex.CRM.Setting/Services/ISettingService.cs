@@ -102,5 +102,7 @@
         IList<SiteInfo> GetAllSitesWithNA();
 
         IList<Setting> GetPositionsCN88();
+
+        IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria);
     }
 }

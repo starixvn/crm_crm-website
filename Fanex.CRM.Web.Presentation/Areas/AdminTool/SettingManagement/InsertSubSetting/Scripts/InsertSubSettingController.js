@@ -10,27 +10,45 @@
     settingInfo */
     /* jshint camelcase: false */
 
-    angular.module('addmintool-settingmanagement-insertsubsetting-application').controller('insertSubSettingController',
+    angular.module('addmintool-settingmanagement-application').controller('insertSubSettingController',
     ['$scope', '$uiBlockerService', 'insertSubSettingService',
-    function ($scope, $uiBlockerService, insertSubSettingService) {
+        function ($scope, $uiBlockerService, insertSubSettingService, settingType) {
         $scope.sharedScriptManager = sharedScriptManager;
+        $scope.sourceSettingMapping = [];
         $scope.insertSettingParams = {
             NewSetting: {
                 ParentId: 0,
-                SettingType: settingInfo.SettingType,
+                SettingType: settingType,
                 Value: '',
                 DisplayOrder: ''
             }
+        };
+        $scope.selectedMappings = [];
+
+        $scope.dropdownData = {
+            idMember: 'SettingSource',
+            nameMember: 'SettingSource',
+            sourceData: $scope.sourceSettingMapping,
+            checkedAll: false
+        };
+
+        $scope.textSettings = {
+            Filter: 'Search',
+            NoData: 'No data',
+            NoItemChecked: '',
+            AllItemsSelected: 'All',
+            CheckAll: 'All'
         };
         $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
             $scope.getParentSetting();
+            $scope.getSourceSettingMapping();
         };
         $scope.getParentSetting = function () {
             $uiBlockerService.blockUI();
-            var params = {};
+            var params = { };
             insertSubSettingService.getParentSetting(params)
                 .then(function (data) {
                     $scope.parentSettingOptions.DataList = data.Result;
@@ -40,6 +58,26 @@
                     $scope.completedLoadFilterInfo();
                 });
         };
+        $scope.getSourceSettingMapping = function () {
+            $uiBlockerService.blockUI();
+            var params = { Settings: settingType };
+            insertSubSettingService.getSourceSettingMapping(params)
+                .then(function (data) {
+                    $scope.sourceSettingMapping = data.Result;
+
+                    $scope.dropdownData = {
+                        idMember: 'SettingSource',
+                        nameMember: 'SettingSource',
+                        sourceData: data.Result,
+                        checkedAll: false
+                    };
+
+                    $scope.completedLoadFilterInfo();
+                },
+                    function () {
+                        $scope.completedLoadFilterInfo();
+                    });
+        }
         $scope.completedLoadFilterInfo = function () {
             $scope.updateSelectedParentSetting({
                 Id: crmConstants.Enums.Setting.NotApply,

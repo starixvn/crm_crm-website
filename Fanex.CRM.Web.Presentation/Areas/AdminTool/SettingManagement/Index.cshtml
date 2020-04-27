@@ -1,0 +1,93 @@
+﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Common.Extensions;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
+}
+@section Styles{
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/commtool.setting.css" />
+}
+<div ng-app="addmintool-settingmanagement-application">
+    <div class="viewListController" ng-controller="viewListController">
+        <div class="container main">
+            <div class="row filter-frm one-row">
+                <div class="item afterButton main-setting-container">
+                    <select id="mainsetting"
+                            ng-model="getSettingRelationsParams.MainSetting"
+                            ng-options="type.SettingType for type in mainSettingOptions.DataList"></select>
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-search" class="btn pull-left btn" ng-click="getSettingRelations();">
+                        <span class="hotkey">S</span>earch
+                    </button>
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-insert-newsetting" class="btn pull-left btn" ng-click="insertNewSetting();">
+                        <span>@Labels.Insert_New_Setting</span>
+                    </button>
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-insert-newsettingvaluefor" class="btn pull-left btn" ng-click="insertSubSetting();">
+                        <span data-ng-bind="sharedScriptManager.stringFormat('{0} {1}', ['@Labels.Insert_Setting_value_for', getSettingRelationsParams.MainSetting.SettingType])">
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="setting-management-list-container" class="management-Setting-Grid"
+                     data-ng-model="settingManagementView">
+                    <div id="settingmanagement-list" class="freegrid display-none">
+                    </div>
+                </div>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Areas/AdminTool/SettingManagement/_Create.cshtml")
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+    "~/Bundles/CommToolSettingScripts")
+    <script src="~/wwwroot/dist/js/management.setting.js"></script>
+    @RazorHelper.RenderScripts("~/Areas/Admin/SettingManagement/InsertSubSettingScripts")
+    <script type="text/javascript">
+        parent.document.title = '@Labels.Title_AdminTool_SettingManagement';
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            All: '@Labels.All',
+            Edit: '@Labels.Edit',
+            Active: '@Labels.Active',
+            Setting: '@Labels.Setting',
+            Relation: '@Labels.Relation',
+            Setting_Id: '@Labels.Setting_Id',
+            Order: '@Labels.Order',
+            ViewListTitle: '@Labels.SettingManagement_ViewListTitle',
+            Setting_Relation_Management: '@Labels.Setting_Relation_Management',
+            Insert_New_Setting: '@Labels.Insert_New_Setting',
+            Edit_Setting_Value: '@Labels.Edit_Setting_Value',
+            DeactiveSetting: '@Labels.Deactive_Setting',
+            ActiveSetting: '@Labels.Active_Setting',
+            English: '@Labels.English',
+            SimplifiedChinese: '@Labels.SimplifiedChinese',
+            TraditionalChinese: '@Labels.TraditionalChinese',
+            SourceMapping: '@Labels.SourceMapping',
+            LicenseeManager: '@Labels.LicenseeManager',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Confirm_Ignore_InsertSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertNewSetting_Changes)',
+            SettingManagement_Error_EmptySettingName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_ExceedName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_ExceedValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)'
+        };
+    </script>
+}

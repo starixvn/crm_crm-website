@@ -3,7 +3,7 @@
     /* global RegisterTemplate,
     directiveManager */
     function insertSubSettingRegisterPicker() {
-        var insertSubSettingRegister = new RegisterTemplate(angular.module('addmintool-settingmanagement-insertsubsetting-application'));
+        var insertSubSettingRegister = new RegisterTemplate(angular.module('addmintool-settingmanagement-application'));
         insertSubSettingRegister.registerDefaultFocus();
 
         var parentSettingRegisterParams = {
@@ -20,7 +20,7 @@
         };
 
         directiveManager.registerParentSettingContainer(
-            angular.module('addmintool-settingmanagement-insertsubsetting-application'), 
+            angular.module('addmintool-settingmanagement-application'), 
             parentSettingRegisterParams);
     }
 

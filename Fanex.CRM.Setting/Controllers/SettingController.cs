@@ -129,5 +129,12 @@
             var actions = _settingServiceInstance.GetAllLogActions(criteria);
             return Json(actions, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetSourceSettingMappings(GetSourceSettingMappingCriteria criteria)
+        {
+            var sourceMappings = _settingServiceInstance.GetSettingMappings(criteria);
+            return Json(sourceMappings, JsonRequestBehavior.AllowGet);
+        }
     }
 }

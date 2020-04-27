@@ -927,5 +927,10 @@
 
             return sites;
         }
+
+        public IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria)
+        {
+            return _settingRepositoryInstance.GetSettingMappings(criteria);
+        }
     }
 }

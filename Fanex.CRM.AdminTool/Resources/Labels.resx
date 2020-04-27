@@ -236,6 +236,9 @@
   <data name="Is_Sub" xml:space="preserve">
     <value>Is Sub</value>
   </data>
+  <data name="LicenseeManager" xml:space="preserve">
+    <value>Licensee Manager</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
@@ -324,6 +327,9 @@
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>Simplified Chinese</value>
+  </data>
+  <data name="SourceMapping" xml:space="preserve">
+    <value>Source Mapping</value>
   </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>Sub setting</value>

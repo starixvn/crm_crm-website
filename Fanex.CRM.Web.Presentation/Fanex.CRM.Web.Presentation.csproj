@@ -296,14 +296,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Options.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Update.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingService.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListApplication.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\Directives\ViewListContainer.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_HotKey.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_Options.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_Update.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\AddRelation\Scripts\AddRelationApplication.js" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\AddRelation\Scripts\AddRelationController.js" />
     <Content Include="Areas\AdminTool\SettingRelationCN88\AddRelation\Scripts\AddRelationController_HotKey.js" />
@@ -534,6 +526,13 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\create\create-settingmanagement-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\RegisterSharedDirectives.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\management-setting-grid-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\index.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\settingmanagement-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\settingmanagement-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\settingmanagement-module.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\delete-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\edit-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\create\create-commtool-setting-controller.js" />
@@ -1520,6 +1519,8 @@
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_AddRelatedCustomer.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_ViewRelatedCustomer.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\_Create.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\Index.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1548,6 +1549,7 @@
     <Content Include="wwwroot\sources\styles\pages\create-multiple-logs.scss" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\management-setting.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

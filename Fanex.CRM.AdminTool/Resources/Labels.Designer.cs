@@ -19,7 +19,7 @@ namespace Fanex.CRM.AdminTool.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -385,6 +385,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Manager.
+        /// </summary>
+        public static string LicenseeManager {
+            get {
+                return ResourceManager.GetString("LicenseeManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -642,6 +651,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string SimplifiedChinese {
             get {
                 return ResourceManager.GetString("SimplifiedChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Mapping.
+        /// </summary>
+        public static string SourceMapping {
+            get {
+                return ResourceManager.GetString("SourceMapping", resourceCulture);
             }
         }
         

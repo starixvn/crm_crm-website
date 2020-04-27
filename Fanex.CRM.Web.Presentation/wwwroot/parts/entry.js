@@ -16,6 +16,7 @@ module.exports = {
         [`${jsDistPath}/inform.headline`]: `${jsSourcePath}/inform-headline/index.js`,
         [`${jsDistPath}/manage.feedback`]: `${jsSourcePath}/feedbacks/manage-feedback/index.js`,
         [`${jsDistPath}/commtool.setting`]: `${jsSourcePath}/commtool-setting/index.js`,
-        [`${jsDistPath}/create.multiple.logs`]: `${jsSourcePath}/feedbacks/create-multiple-logs/index.js`
+        [`${jsDistPath}/create.multiple.logs`]: `${jsSourcePath}/feedbacks/create-multiple-logs/index.js`,
+        [`${jsDistPath}/management.setting`]: `${jsSourcePath}/AdminTool/SettingManagement/index.js`
     }
 };
