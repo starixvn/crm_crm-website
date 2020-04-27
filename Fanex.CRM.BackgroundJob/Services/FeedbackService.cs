@@ -173,7 +173,7 @@
         private async Task<IEnumerable<SettingItem>> GetAllSettingAsync()
         {
             var criteria = new GetAllSettingCriteria { UserRole = Constants.UserRole };
-            var settings = await baseService.GetDataAsync<SettingItem>(criteria);
+            var settings = (await baseService.GetDataAsync<SettingItem>(criteria)).Where(x => x.IsActive);
             IEnumerable<SettingItem> relations = await GetAllSettingRelationAsync();
             foreach (SettingItem setting in settings)
             {
