@@ -124,34 +124,36 @@
                 controller: 'insertSubSettingController',
                 controllerAs: 'insertSubSettingController',
                 backdrop: 'static',
-                backdropClass: 'create-commtool-setting-modal-backdrop',
+                backdropClass: 'create-subsetting-modal-backdrop',
                 keyboard: false,
                 size: 'sm',
-                windowClass: 'create-commtool-setting-modal',
+                windowClass: 'create-subsetting-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
+                    settingType: () => $scope.getSettingRelationsParams.MainSetting.SettingType
                 }
             });
         }
 
-        $scope.editSetting = function (communicationSettingId) {
-            const modalInstance = $uibModal.open({
-                template: angular.element('#addmintool-settingmanagement-insertsubsetting-template').html(),
-                controller: 'insertSubSettingController',
-                controllerAs: 'insertSubSettingController',
-                backdrop: 'static',
-                backdropClass: 'create-commtool-setting-modal-backdrop',
-                keyboard: false,
-                size: 'sm',
-                windowClass: 'create-commtool-setting-modal',
-                appendTo: $window.parent.$('body'),
-                resolve: {
-                    allSettings: angular.copy(vm.allSettings),
-                    communicationSettingId: communicationSettingId
-                }
-            });
-        };
+        $scope.editSetting = function (settingInfo) {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
+                window.rootUrl + "SettingManagement/OpenEditSettingView?" +
+                $.param({
+                    settingId: settingInfo.Id
+                }),
+                viewResources.Edit_Setting_Value,
+                480,
+                230,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditView,
+                { my: "center top+200", at: "center top" },
+                $scope.beforeCloseEditView);
+        }
 
         $scope.beforeCloseInsertView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&
@@ -221,7 +223,7 @@
             $scope.initDefaultOption();
             $scope.initController();
             $scope.setFocus();
-            const style = $('head link[href*="commtool.setting.css"]').clone();
+            const style = $('head link[href*="management.setting.css"]').clone();
             $window.parent.$('head').append(style);
         });
 
