@@ -1,0 +1,66 @@
+﻿@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
+﻿@using Fanex.CRM.PicAndHeadline.Resources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.PICManagement;
+}
+
+@section Styles{
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicOfHeadlineStyles")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+}
+
+<div data-ng-app="picofheadline-application">
+    <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
+        <div class="main container">
+            <div class="row" data-ng-show="errorMessage !== ''">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="alertboxerr">
+                        <div data-ng-bind="errorMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row filter-frm one-row expand-filter">
+                <div class="row row-item">
+                    <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <label for="username" class="width-70">
+                            @Labels.Username
+                        </label>
+                        <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
+                    </div>
+                    <div class="item">
+                        <label for="viptype" class="width-50 pull-left">
+                            @Labels.Role
+                        </label>
+                        <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
+                            <select id="viptype" class="selVipType"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicOfHeadlineScripts")
+    <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
+        window.rootUrl = '@Url.Content("~")';
+        
+        var viewResources = {            
+            Position: '@Labels.Position',
+            Status: '@Labels.Status'
+            
+        };
+    </script>
+}
