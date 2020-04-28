@@ -1,0 +1,66 @@
+﻿<div id="admintool-settingmanagement-editsetting-modal">
+    <div class="editSettingController" data-ng-controller="editSettingController">
+        <div class="container main popup">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal frm" role="form">
+                    <div class="form-group">
+                        <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                            @Labels.Setting_Name
+                        </label>
+                        <div class="col-xs-9 col-sm-9 col-md-10">
+                            <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                                   data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSettingValue" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                            @Labels.Setting_Value
+                        </label>
+                        <div class="col-xs-9 col-sm-9 col-md-10">
+                            <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                                   data-ng-model="editSettingParams.UpdatedSetting.Value" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDisplayOrder" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                            @Labels.Display_Order
+                        </label>
+                        <div class="col-xs-9 col-sm-9 col-md-10">
+                            <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
+                                   data-ng-model="editSettingParams.UpdatedSetting.DisplayOrder" maxlength="20" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-sm-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                            <button type="button" class="btn" data-ng-click="editSetting();">
+                                <span class="hotkey">S</span>ave
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+        </div>
+    </div>
+</div>
+
+@*<script type="text/javascript">
+    window.rootUrl = '@Url.Content("~")';
+    var settingInfo = {
+        Id: @Model.Id,
+        SettingType: '@Model.SettingType',
+        Value: '@Html.Raw(Model.Value)',
+        DisplayOrder:  @Model.DisplayOrder,
+        ParentId: @Model.ParentId
+    };
+</script>*@
+

@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-@Html.Partial("~/Areas/AdminTool/SettingManagement/_Create.cshtml")
+@Html.Partial("~/Areas/AdminTool/SettingManagement/_CreateSubSetting.cshtml")
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
     "~/Bundles/CommToolSettingScripts")
@@ -87,7 +87,8 @@
             SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
             SettingManagement_Error_ExceedName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
             SettingManagement_Error_ExceedValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
-            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)'
+            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)',
+            Confirm_Ignore_EditSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditSetting_Changes)'
         };
     </script>
 }

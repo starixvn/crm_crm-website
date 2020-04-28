@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.AdminTool.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
@@ -99,7 +100,33 @@
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingManagementService.SettingByType(criteria);
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            var responseData = result.GroupBy(relation => new
+            {
+                relation.Id,
+                relation.ChildSettings,
+                relation.DisplayOrder,
+                relation.IsActive,
+                relation.IsChild,
+                relation.Name,
+                relation.ParentId,
+                relation.SettingType,
+                relation.Value
+            }).Select(newRelation => new Setting
+            {
+                Id = newRelation.Key.Id,
+                ChildSettings = newRelation.Key.ChildSettings,
+                DisplayOrder = newRelation.Key.DisplayOrder,
+                IsActive = newRelation.Key.IsActive,
+                IsChild = newRelation.Key.IsChild,
+                Name = newRelation.Key.Name,
+                ParentId = newRelation.Key.ParentId,
+                SettingType = newRelation.Key.SettingType,
+                Value = newRelation.Key.Value,
+                SettingSource = string.Join(", ", newRelation.Select(r => r.SettingSource))
+            });
+
+            return Json(responseData, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

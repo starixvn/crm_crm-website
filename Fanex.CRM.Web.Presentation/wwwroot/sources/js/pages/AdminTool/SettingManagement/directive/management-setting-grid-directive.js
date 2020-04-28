@@ -29,7 +29,7 @@
                     collumns.push({ Name: "ColSettingName", Value: setting.Value });
 
                     if (hasSourceMappingCollumn(currentSettingType)) {
-                        collumns.push({ Name: "SourceMapping", Value: setting.SettingSource });
+                        collumns.push({ Name: "SourceMapping", Value: renderSourceMappingColumn(setting.SettingSource) });
                     }
 
                     collumns.push(
@@ -37,7 +37,7 @@
                         { Name: "ColOrder", Value: setting.DisplayOrder },
                         {
                             Name: "ColEdit",
-                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"><i class="fa fa-pencil"></i></a>'
                         },
                         {
                             Name: "ColActive",
@@ -68,14 +68,6 @@
                     text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
                 },
                 bodyRows: bodyData,
-                numberOfFrozenColumn: 1,
-                fullWidth: true,
-                fullHeight: true,
-                gridHeight: 0,
-                showDistinctRow: false,
-                showHighlightRow: true,
-                showTree: true,
-                treeParentPaddingLeft: 5,
                 headerColumnHeight: 29,
                 bodyRowHeight: 25
             };
@@ -119,6 +111,17 @@
             return (settingType === 'Product'
                 || settingType === 'SubProduct'
                 || settingType === 'BetType')
+        }
+
+        function renderSourceMappingColumn(sourceMapping) {
+            let html = sourceMapping;
+            const maxItems = 20,
+                sourceMappings = sourceMapping ? sourceMapping.split(',') : [];
+            if (sourceMappings.length > maxItems) {
+                html = '<span class="tooltip-tipsy" title="' + sourceMapping + '">' + sourceMappings.splice(0, maxItems).join(',') + ' ...</span>';
+            }
+
+            return html;
         }
 
         return {

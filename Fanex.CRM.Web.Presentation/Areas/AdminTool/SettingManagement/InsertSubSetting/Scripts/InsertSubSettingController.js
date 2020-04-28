@@ -21,7 +21,8 @@
                     ParentId: 0,
                     SettingType: settingType,
                     Value: '',
-                    DisplayOrder: ''
+                    DisplayOrder: '',
+                    SettingSource : '',
                 }
             };
 
@@ -103,14 +104,17 @@
             };
 
             $scope.insertSubSetting = function () {
-                debugger;
             $uiBlockerService.blockUI();
-            if (!$scope.checkInsertParam($scope.insertSettingParams)) {
-                $uiBlockerService.unblockUI();
-                return;
-            }
+                if (!$scope.checkInsertParam($scope.insertSettingParams)) {
+                    $uiBlockerService.unblockUI();
+                    return;
+                }
+                if ($scope.selectedMappings.length > 0) {
+                        $scope.insertSettingParams.NewSetting.SettingSource =
+                            $scope.selectedMappings.map(mapping => mapping.SettingSource).join(',');
+                    }
 
-            insertSubSettingService.insertSubSetting($scope.insertSettingParams)
+                insertSubSettingService.insertSubSetting($scope.insertSettingParams)
                 .then(function (data) {
                     $scope.showInsertResult(data.Result);
                     $uiBlockerService.unblockUI();
