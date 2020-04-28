@@ -106,6 +106,10 @@
         };
 
         $scope.showContactDialog = function (titleId, isClosed) {
+            if (isNaN(parseInt(titleId, 10))) {
+                return;
+            }
+
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
                 window.rootUrl + 'InformHeadline/ContactInform?' +
