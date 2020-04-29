@@ -20,14 +20,8 @@
             directiveManager.registerDefaultFocus(angular.module('picmanagement-application'), defaultFocusRegisterParams);
         };
 
-        customerReportRegister.registerDatePicker();
-        customerReportRegister.registerLanguageMultiSelectPicker();
-        customerReportRegister.registerSiteMultiSelectPicker();
-        customerReportRegister.registerTitlePicker();
-        customerReportRegister.registerVIPTypePicker();
+        customerReportRegister.registerRolePicker();
         customerReportRegister.registerDefaultFocus();
-        customerReportRegister.registerDownloadFile();
-        customerReportRegister.registerPositionMultiSelectPicker();
     }
 
     customerReportRegisterPicker();

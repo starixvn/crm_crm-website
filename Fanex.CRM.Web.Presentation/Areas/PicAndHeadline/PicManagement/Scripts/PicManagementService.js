@@ -5,7 +5,7 @@
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerReport/AllSetting", null)
+            $http.post(window.rootUrl + "PicManagement/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -25,9 +25,9 @@
             return deferred.promise;
         };
 
-        serviceInstance.getCustomerReport = function (getReportCriteria) {
+        serviceInstance.getReport = function (getReportCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerReport/GetCustomerReport", getReportCriteria)
+            $http.post(window.rootUrl + "PicManagement/GetReport", getReportCriteria)
                  .success(function (data, status, headers, config) {
                      deferred.resolve({
                          Result: data,

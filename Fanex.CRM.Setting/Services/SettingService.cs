@@ -651,6 +651,33 @@
             };
         }
 
+        public IList<Setting> GetPicRoles()
+        {
+            return new[]
+            {
+                new Setting
+                {
+                    Id = PicRoleConstants.All,
+                    Value = Labels.All
+                },
+                new Setting
+                {
+                    Id = PicRoleConstants.Boss,
+                    Value = Labels.Boss
+                },
+                new Setting
+                {
+                    Id = PicRoleConstants.Partner,
+                    Value = Labels.Partner
+                },
+                new Setting
+                {
+                    Id = PicRoleConstants.Staff,
+                    Value = Labels.Staff
+                }
+            };
+        }
+
         public IList<Setting> GetPositions()
         {
             return new[]

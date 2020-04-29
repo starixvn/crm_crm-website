@@ -514,7 +514,7 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
-    <Content Include="Areas\PicAndHeadline\PicManagement\Scripts\Directives\CustomerReportContainer.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\Scripts\Directives\ReportContainer.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\Scripts\PicManagementApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\Scripts\PicManagementController.js" />

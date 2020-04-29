@@ -36,9 +36,27 @@
                         <label for="viptype" class="width-50 pull-left">
                             @Labels.Role
                         </label>
-                        <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
-                            <select id="viptype" class="selVipType"></select>
+                        <div class="role-picker-container pull-left" data-ng-model="roleOptions.DataList">
+                            <select id="role" class="selRole"></select>
                         </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getReport();">
+                            <span>@Labels.Submit</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="inserNew();">
+                            <span>@Labels.Insert</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div data-ng-model="reportOptions.IsUpdateGrid" class="table-report-container">
+                    <div id="table-report" class="freegrid display-none table-report">
                     </div>
                 </div>
             </div>
@@ -57,10 +75,18 @@
         parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
         
-        var viewResources = {            
+        var viewResources = {     
+            ReportTitle: '@Labels.PICManagement',
             Position: '@Labels.Position',
-            Status: '@Labels.Status'
-            
+            Status: '@Labels.Status',
+            No: '@Labels.No',
+            Username: '@Labels.Username',
+            Role: '@Labels.Role',
+            GroupHeadline: '@Labels.GroupHeadline',
+            Contact: '@Labels.Contact',
+            Remark: '@Labels.Remark',
+            Edit: '@Labels.Edit',
+            Active: '@Labels.Active'
         };
     </script>
 }
