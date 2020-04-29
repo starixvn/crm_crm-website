@@ -511,6 +511,7 @@
     <Content Include="wwwroot\dist\js\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
+    <Content Include="wwwroot\dist\js\management.setting.js" />
     <Content Include="wwwroot\dist\styles\commtool.setting.css" />
     <Content Include="wwwroot\dist\styles\commtool.setting.js" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.css" />
@@ -523,6 +524,8 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\dist\styles\management.setting.css" />
+    <Content Include="wwwroot\dist\styles\management.setting.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\create\create-settingmanagement-controller.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\RegisterSharedDirectives.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\management-setting-grid-directive.js" />
@@ -1554,6 +1557,8 @@
     <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js.map" />
     <Content Include="wwwroot\sources\styles\pages\management-setting.scss" />
+    <Content Include="wwwroot\dist\styles\management.setting.js.map" />
+    <Content Include="wwwroot\dist\js\management.setting.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
