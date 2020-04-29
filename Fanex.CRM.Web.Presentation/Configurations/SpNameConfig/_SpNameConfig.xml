@@ -6,4 +6,9 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SourceLicenseeMappingUpd" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_LicenseeMappingSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_LicenseeManagerSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SourceSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingIns" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SourceSettingMappingUpd" EnvironmentText="_xtest"></SpNameConfig>
+
 </Root>

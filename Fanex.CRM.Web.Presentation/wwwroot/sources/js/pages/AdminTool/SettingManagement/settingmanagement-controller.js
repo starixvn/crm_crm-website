@@ -139,7 +139,6 @@
         };
 
         $scope.editSetting = function (settingInfo) {
-            debugger;
             $uibModal.open({
                 template: angular.element('#admintool-settingmanagement-editsetting-template').html(),
                 controller: 'editSettingController',

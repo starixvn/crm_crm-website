@@ -95,10 +95,10 @@
     <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
-    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
-    <Setting Key="Acc_CRM_SourceSettingMappingSel" SpName="Acc_CRM_SourceSettingMappingSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SourceSettingMappingSel" SpName="Acc_CRM_SourceSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_ProvinceSel" SpName="Acc_CRM_ProvinceSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -128,7 +128,7 @@
   </Function>
   <Function Name="Settings">
     <Setting Key="Acc_CRM_SettingDel" SpName="Acc_CRM_SettingDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingIns" SpName="Acc_CRM_SettingIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingIns" SpName="Acc_CRM_SettingIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -139,7 +139,7 @@
     <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SourceSettingMappingUpd" SpName="Acc_CRM_SourceSettingMappingUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SourceSettingMappingUpd" SpName="Acc_CRM_SourceSettingMappingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 
   <Function Name="Remark">
