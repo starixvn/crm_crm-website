@@ -6,13 +6,21 @@
 
     function licenseeMappingGrid() {
         function generateColumns() {
-            let columns = [
-                { HeaderText: 'Setting', Width: 180, Name: 'Setting', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: 'Source Mapping', Width: 180, Name: 'SettingSource', HeaderAlign: 'center', CellAlign: 'left', CellCssClass: "cell-source-mapping" },
-                { HeaderText: 'Licensee Manager', Width: 180, Name: 'LicenseeManager', HeaderAlign: 'center', CellAlign: 'left', CellCssClass: "cell-licensee-manager" },
-                { HeaderText: 'Setting Id', Width: 80, Name: 'SettingId', HeaderAlign: 'center', CellAlign: 'right' },
-                { HeaderText: 'Edit', Width: 70, Name: 'Edit', HeaderAlign: 'center', CellAlign: 'center' }
+            const columns = [
+                { HeaderText: 'Setting', Width: 180, MaxResizeWidth: 200, Name: 'Setting', HeaderAlign: 'center', CellAlign: 'left', CanResize: true },
+                {
+                    HeaderText: 'Source Mapping', Width: 180, MaxResizeWidth: 200, Name: 'SettingSource',
+                    HeaderAlign: 'center', CellAlign: 'left', CellCssClass: "cell-source-mapping", CanResize: true
+                },
+                {
+                    HeaderText: 'Licensee Manager', Width: 180, MaxResizeWidth: 200, Name: 'LicenseeManager',
+                    HeaderAlign: 'center', CellAlign: 'left', CellCssClass: "cell-licensee-manager", CanResize: true
+                },
+                { HeaderText: 'Setting Id', Width: 80, Name: 'SettingId', HeaderAlign: 'center', CellAlign: 'right' }
             ];
+            if (isHost) {
+                columns.push({ HeaderText: 'Edit', Width: 70, Name: 'Edit', HeaderAlign: 'center', CellAlign: 'center' });
+            }
 
             return columns;
         }
@@ -24,16 +32,18 @@
             for (let i = 0; i < totalItems; i++) {
                 const item = scope.dataSources[i],
                     settingId = item.SettingId;
-                let columns = [
+                const columns = [
                     { Name: 'Setting', Value: item.Setting },
                     { Name: 'SettingSource', Value: item.SettingSource },
                     { Name: 'LicenseeManager', Value: item.LicenseeManager },
-                    { Name: 'SettingId', Value: item.SettingId },
-                    {
+                    { Name: 'SettingId', Value: item.SettingId }
+                ];
+                if (isHost) {
+                    columns.push({
                         Name: 'Edit', Value: '<i class="fa fa-pencil js-edit" data-setting-id="' + settingId + '"></i>'
                             + '<i class="fa fa-eraser js-clear" data-setting-id="' + settingId + '"></i>'
-                    }
-                ];
+                    });
+                }
 
                 rows.push({ Columns: columns });
             }
@@ -63,6 +73,7 @@
             const gridOptions = {
                 columns: generateColumns(),
                 bodyRows: generateBodyRows(scope),
+                autoResizeColumn: true,
                 gridExpandHeight: 300
             };
 

@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
+    var isHost = (bool)ViewBag.IsHost;
 }
 @section Styles{
     <link rel="stylesheet" href="~/wwwroot/dist/styles/management.setting.css" />
@@ -70,6 +71,7 @@
     <script type="text/javascript">
         parent.document.title = '@Labels.Title_AdminTool_SettingManagement';
         window.rootUrl = '@Url.Content("~")';
+        var isHost = '@isHost' == 'True';
         var viewResources = {
             All: '@Labels.All',
             Edit: '@Labels.Edit',

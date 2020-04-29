@@ -28,6 +28,7 @@
 
         public ActionResult Index()
         {
+            ViewBag.IsHost = PermissionService.HasHostPermission(FunctionPermissions.SettingManagement);
             return View("~/Areas/AdminTool/SettingManagement/Index.cshtml");
         }
 
