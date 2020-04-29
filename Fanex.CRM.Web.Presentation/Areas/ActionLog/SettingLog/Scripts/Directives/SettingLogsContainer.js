@@ -24,7 +24,6 @@
             var tableSettingLogs = element.find('#table-setting-logs');
             var logList = scope.settingLogs;
             var bodyData = [];
-            var footerData = [];
             tableSettingLogs.empty();
             if (logList && logList.length > 0) {
                 var logLength = logList.length;
@@ -38,6 +37,10 @@
                     newValues = info.NewValuesList;
                     mergeRowNumber = newValues.length;
                     evenClass = (i % 2 === 0) ? 'freegrid-even' : '';
+
+                    if (oldValues.length === 0 && newValues.length === 0) {
+                        mergeRowNumber = 1;
+                    }
 
                     var row = [
                     { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
@@ -87,15 +90,9 @@
                     text: settingLogResources.Setting_Logs
                 },
                 bodyRows: bodyData,
-                footerRows: footerData,
-                numberOfFrozenColumn: 0,
-                fullWidth: true,
-                fullHeight: true,
                 gridExpandHeight: 100,
                 showDistinctRow: false,
                 showHighlightRow: false,
-                headerColumnHeight: 29,
-                bodyRowHeight: 29,
                 showPager: true,
                 customPager: true,
                 pagerOption: {
