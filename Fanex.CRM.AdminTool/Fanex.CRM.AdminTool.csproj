@@ -139,6 +139,7 @@
     <Compile Include="Criteria\SettingManagement\DeleteSettingCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\EditSettingCN88Criteria.cs" />
     <Compile Include="Criteria\SettingManagement\EditSettingCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\EditSourceSettingMappingCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetMainSettingCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetSettingByTypeCN88Criteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetSettingCN88ByIdCriteria.cs" />

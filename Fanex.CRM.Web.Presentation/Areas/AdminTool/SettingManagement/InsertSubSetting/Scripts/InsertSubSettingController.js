@@ -11,8 +11,8 @@
     /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-application').controller('insertSubSettingController',
-        ['$scope', '$uiBlockerService', 'insertSubSettingService', '$uibModalInstance', 'settingType',
-        function ($scope, $uiBlockerService, insertSubSettingService, $uibModalInstance, settingType) {
+        ['$scope', '$window', '$uiBlockerService', 'insertSubSettingService', '$uibModalInstance', 'settingType',
+            function ($scope, $window, $uiBlockerService, insertSubSettingService, $uibModalInstance, settingType) {
             $scope.sharedScriptManager = sharedScriptManager;
             $scope.sourceSettingMapping = [];
             $scope.selectedMappings = [];
@@ -117,6 +117,11 @@
                 insertSubSettingService.insertSubSetting($scope.insertSettingParams)
                 .then(function (data) {
                     $scope.showInsertResult(data.Result);
+
+                    if (data.Result.IsSuccessful) {
+                        setTimeout(function () { $uibModalInstance.close(true); }, sharedScriptManager.cachedData.alertSuccessTime);
+                    }
+
                     $uiBlockerService.unblockUI();
                 },
                 function () {
@@ -190,13 +195,21 @@
                 return settingType === 'BetType' || settingType === 'Product' || settingType === 'SubProduct';
             }
 
+            $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+                if (eventObject.ctrlKey) {
+                    if (eventObject.keyCode === 83) { // s
+                        $scope.insertSubSetting();
+                        $scope.$apply();
+                        eventObject.preventDefault();
+                        return false;
+                    }
+                }
+            });
+
             angular.element(document).ready(function () {
                 registerOptions($scope);
                 registerUpdateFunctions($scope);
-                //registerHotkeyFunctions($scope);
                 $scope.initController();
-                //$scope.registerHotKey();
-                $scope.setFocus();
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
                 $scope.$watch(function ($scope) {
                     $scope.updateChangeFlag();

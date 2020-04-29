@@ -119,7 +119,7 @@
         };
 
         $scope.insertSubSetting = function () {
-            const modalInstance = $uibModal.open({
+            $uibModal.open({
                 template: angular.element('#addmintool-settingmanagement-insertsubsetting-template').html(),
                 controller: 'insertSubSettingController',
                 controllerAs: 'insertSubSettingController',
@@ -132,40 +132,35 @@
                 resolve: {
                     settingType: () => $scope.getSettingRelationsParams.MainSetting.SettingType
                 }
+            }).result.then(function (isSuccessful) {
+                if (isSuccessful) {
+                    $scope.getSettingRelations();
+                }
             });
         }
 
         $scope.editSetting = function (settingInfo) {
-            parent.homeManager.CachedData.shouldReloadView = false;
-            parent.OpenPopup(
-                window.rootUrl + "SettingManagement/OpenEditSettingView?" +
-                $.param({
-                    settingId: settingInfo.Id
-                }),
-                viewResources.Edit_Setting_Value,
-                480,
-                230,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeEditView,
-                { my: "center top+200", at: "center top" },
-                $scope.beforeCloseEditView);
+            debugger;
+            $uibModal.open({
+                template: angular.element('#admintool-settingmanagement-editsetting-template').html(),
+                controller: 'editSettingController',
+                controllerAs: 'editSettingController',
+                backdrop: 'static',
+                backdropClass: 'create-subsetting-modal-backdrop',
+                keyboard: false,
+                size: 'sm',
+                windowClass: 'create-subsetting-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    settingInfo: () => settingInfo
+                }
+            }).result.then(function (isSuccessful) {
+                if (isSuccessful) {
+                    $scope.getSettingRelations();
+                }
+            });
         }
 
-        $scope.beforeCloseInsertView = function () {
-            if (parent.homeManager.CachedData.isChangingDataPopUp &&
-                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
-                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
-                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges, popUpController.setFocus);
-                return false;
-            }
-
-            return true;
-        };
         $scope.closeInsertView = function () {
             $scope.isSetFocus = true;
             $scope.safeApply();

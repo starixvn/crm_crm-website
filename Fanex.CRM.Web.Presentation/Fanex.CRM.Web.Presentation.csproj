@@ -274,9 +274,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingApplication.js" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_HotKey.js" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_Options.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_Update.js" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingService.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\KeyPressDirective.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\ParentSettingDirective.js" />
@@ -292,7 +290,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingApplication.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController.js" />
-    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_HotKey.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Options.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Update.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingService.js" />
@@ -1519,8 +1516,9 @@
     <Content Include="Areas\AdminTool\CommunicationToolSetting\_Delete.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_AddRelatedCustomer.cshtml" />
     <Content Include="Areas\Feedbacks\CreateMultipleLogs\_ViewRelatedCustomer.cshtml" />
-    <Content Include="Areas\AdminTool\SettingManagement\_Create.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\_CreateSubSetting.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\Index.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\_Edit.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

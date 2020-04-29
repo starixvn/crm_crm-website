@@ -54,11 +54,15 @@
     </div>
 </div>
 @Html.Partial("~/Areas/AdminTool/SettingManagement/_CreateSubSetting.cshtml")
+@Html.Partial("~/Areas/AdminTool/SettingManagement/_Edit.cshtml")
+
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
     "~/Bundles/CommToolSettingScripts")
     <script src="~/wwwroot/dist/js/management.setting.js"></script>
     @RazorHelper.RenderScripts("~/Areas/Admin/SettingManagement/InsertSubSettingScripts")
+    @RazorHelper.RenderScripts("~/Areas/Admin/SettingManagement/EditSettingScripts")
+    
     <script type="text/javascript">
         parent.document.title = '@Labels.Title_AdminTool_SettingManagement';
         window.rootUrl = '@Url.Content("~")';
