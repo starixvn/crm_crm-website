@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryFilter.cs" />
+    <Compile Include="LicenseeMapping\LicenseeManager.cs" />
+    <Compile Include="LicenseeMapping\LicenseeMapping.cs" />
+    <Compile Include="LicenseeMapping\UpdateLicenseeMappingParam.cs" />
     <Compile Include="MultipleLogs\VerifyCustomerResult.cs" />
     <Compile Include="MultipleLogs\VerifyRelatedCustomerResult.cs" />
     <Compile Include="ProductFilter.cs" />

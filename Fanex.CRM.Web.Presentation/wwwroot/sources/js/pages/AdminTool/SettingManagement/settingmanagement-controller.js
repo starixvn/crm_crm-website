@@ -122,7 +122,6 @@
             $uibModal.open({
                 template: angular.element('#addmintool-settingmanagement-insertsubsetting-template').html(),
                 controller: 'insertSubSettingController',
-                controllerAs: 'insertSubSettingController',
                 backdrop: 'static',
                 backdropClass: 'create-subsetting-modal-backdrop',
                 keyboard: false,
@@ -137,7 +136,7 @@
                     $scope.getSettingRelations();
                 }
             });
-        }
+        };
 
         $scope.editSetting = function (settingInfo) {
             debugger;
@@ -212,6 +211,20 @@
 
             $scope.$apply();
             $scope.getSettingRelations();
+        };
+
+        $scope.openLicenseeMappingPopup = function () {
+            $uibModal.open({
+                template: angular.element('#licensee-mapping-template').html(),
+                controller: 'LicenseeMappingController',
+                controllerAs: 'licenseeMappingCtrl',
+                backdrop: 'static',
+                backdropClass: 'licensee-mapping-modal-backdrop',
+                keyboard: false,
+                size: 'lg',
+                windowClass: 'licensee-mapping-modal',
+                appendTo: $window.parent.$('body')
+            });
         };
 
         angular.element(document).ready(function () {

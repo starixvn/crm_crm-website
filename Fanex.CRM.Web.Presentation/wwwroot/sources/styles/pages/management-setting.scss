@@ -4,6 +4,7 @@
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
 @import '~tipsy/src/stylesheets/tipsy.css';
+@import '~select2/dist/css/select2.css';
 
 @import '../../libs/FanexGrid/Fanex.Grid.css';
 @import '../../libs/FanexGrid/Fanex.Pagination.css';
@@ -47,7 +48,7 @@ $fanex-grid-images-path: '../images';
     }
 }
 
-.create-subsetting-modal-backdrop {
+.create-subsetting-modal-backdrop, .licensee-mapping-modal-backdrop {
     z-index: 940 !important;
 }
 
@@ -107,6 +108,57 @@ $fanex-grid-images-path: '../images';
         .control-label {
             padding-top: 3px;
             padding-right: 10px;
+        }
+    }
+}
+
+.licensee-mapping-modal {
+    z-index: 950 !important;
+
+    .modal-dialog {
+        width: 800px;
+
+        .filter-frm {
+            .row-item {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .licensee-mapping-grid {
+        .selected-row td {
+            background: #e2ffff;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .cell-source-mapping {
+            position: relative;
+        }
+
+        .fa {
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 5px;
+
+            &.disabled {
+                cursor: not-allowed;
+
+                &.fa-pencil, &.fa-eraser {
+                    color: #333;
+                    opacity: 0.6;
+                }
+            }
+
+            &.fa-pencil, &.fa-floppy-o {
+                color: #0789d1;
+            }
+
+            &.fa-eraser {
+                color: #de5144;
+            }
         }
     }
 }

@@ -32,6 +32,9 @@
                         </span>
                     </button>
                 </div>
+                <div class="item afterButton">
+                    <button id="btn-insert-newsettingvaluefor" class="btn pull-left btn" ng-click="openLicenseeMappingPopup()">Licensee Mapping</button>
+                </div>
             </div>
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -55,6 +58,7 @@
 </div>
 @Html.Partial("~/Areas/AdminTool/SettingManagement/_CreateSubSetting.cshtml")
 @Html.Partial("~/Areas/AdminTool/SettingManagement/_Edit.cshtml")
+@Html.Partial("~/Areas/AdminTool/SettingManagement/_LicenseeMapping.cshtml")
 
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
