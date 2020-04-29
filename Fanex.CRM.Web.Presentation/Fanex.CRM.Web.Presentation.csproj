@@ -527,6 +527,7 @@
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\RegisterSharedDirectives.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\management-setting-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\index.js" />
+    <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\licensee-mapping\delete-licensee-mapping-controller.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\licensee-mapping\licensee-mapping-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\licensee-mapping\licensee-mapping-controller.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\licensee-mapping\licensee-mapping-factory.js" />
@@ -1523,6 +1524,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\_Edit.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\_LicenseeMapping.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\_DeleteLicenseeMapping.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

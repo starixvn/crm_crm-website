@@ -80,8 +80,19 @@
                     sourceMapping = $tr.find('.cell-source-mapping')[0].innerHTML,
                     licenseeManager = $tr.find('.cell-licensee-manager')[0].innerHTML;
 
-                $tr.find('.cell-source-mapping').html('<select class="js-select2"><option></option></select>');
-                $tr.find('.cell-licensee-manager').html('<select class="js-select2-ajax"></select>');
+                if (sourceMapping !== '') {
+                    $tr.find('.cell-source-mapping').html('<select class="js-select2"><option value="'
+                        + sourceMapping + '" selected>' + sourceMapping + '</option></select>');
+                } else {
+                    $tr.find('.cell-source-mapping').html('<select class="js-select2"><option></option></select>');
+                }
+
+                if (licenseeManager !== '') {
+                    $tr.find('.cell-licensee-manager').html('<select class="js-select2-ajax"><option value="'
+                        + licenseeManager + '" selected>' + licenseeManager + '</option></select>');
+                } else {
+                    $tr.find('.cell-licensee-manager').html('<select class="js-select2-ajax"></select>');
+                }
 
                 $tr.find('.js-select2').select2({
                     allowClear: true,
