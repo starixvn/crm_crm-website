@@ -100,6 +100,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Report_SummaryReport(ref bundles);
 
             RegisterBundles_PicManagement(ref bundles);
+            RegisterBundles_InsertPic(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
@@ -596,7 +597,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
         private static void RegisterBundles_PicManagement(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagementScripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -604,14 +605,34 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/PicAndHeadline/PicManagement/Scripts/PicManagementApplication.js",
-                "~/Areas/PicAndHeadline/PicManagement/Scripts/PicManagementService.js",
-                "~/Areas/PicAndHeadline/PicManagement/Scripts/PicManagementController.js",
-                "~/Areas/PicAndHeadline/PicManagement/Scripts/Directives/*.js"));
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/Scripts/PicManagementApplication.js",
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/Scripts/PicManagementService.js",
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/Scripts/PicManagementController.js",
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagementStyles",
-                "~/Areas/PicAndHeadline/PicManagement/Styles/PicManagement.less");
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles",
+                "~/Areas/PicAndHeadline/PicManagement/ViewList/Styles/PicManagement.less");
+        }
+
+        private static void RegisterBundles_InsertPic(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicApplication.js",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicService.js",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicController.js",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicStyles",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Styles/InsertPic.less");
         }
 
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)

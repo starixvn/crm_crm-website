@@ -27,7 +27,7 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         public ActionResult Index()
         {
 
-            return View("~/Areas/PicAndHeadline/PicManagement/Index.cshtml");
+            return View("~/Areas/PicAndHeadline/PicManagement/ViewList/Index.cshtml");
         }
 
         [HttpPost]
@@ -46,6 +46,11 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         {
             var report = _picReportService.GetReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult OpenInsertPic()
+        {
+            return View("~/Areas/PicAndHeadline/PicManagement/InsertPic/Index.cshtml");
         }
     }
 }

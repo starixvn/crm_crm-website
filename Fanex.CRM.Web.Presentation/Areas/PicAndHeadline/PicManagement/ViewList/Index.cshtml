@@ -1,5 +1,4 @@
-﻿@using CommonLabels = Fanex.CRM.Common.Resources.Labels;
-﻿@using Fanex.CRM.PicAndHeadline.Resources
+﻿﻿@using Fanex.CRM.PicAndHeadline.Resources
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.PICManagement;
@@ -9,7 +8,7 @@
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
-    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagementStyles")
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
 }
 
@@ -48,7 +47,7 @@
                         </button>
                     </div>
                     <div class="item">
-                        <button id="button-submit" class="btn" data-ng-click="inserNew();">
+                        <button id="button-submit" class="btn" data-ng-click="insertPic();">
                             <span>@Labels.Insert</span>
                         </button>
                     </div>
@@ -70,9 +69,8 @@
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
-    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagementScripts")
+    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
         
         var viewResources = {     
@@ -86,7 +84,8 @@
             Contact: '@Labels.Contact',
             Remark: '@Labels.Remark',
             Edit: '@Labels.Edit',
-            Active: '@Labels.Active'
+            Active: '@Labels.Active',
+            InsertPIC: '@Labels.InsertPIC'
         };
     </script>
 }

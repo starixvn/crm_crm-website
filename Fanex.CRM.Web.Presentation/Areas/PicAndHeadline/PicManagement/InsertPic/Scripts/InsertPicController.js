@@ -7,8 +7,8 @@
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    angular.module('picmanagement-application').controller('picManagementController', ['$scope', '$picManagementService',
-        function ($scope, $picManagementService) { 
+    angular.module('insertpic-application').controller('insertPicController', ['$scope', '$insertPicService', '$compile',
+        function ($scope, $insertPicService, $compile) { 
             $scope.errorMessage = '';
             $scope.roleOptions = null;
             $scope.reportOptions = {
@@ -23,6 +23,10 @@
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
             };
             $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
+
+            $scope.records = [
+                "Alfreds Futterkiste"
+            ]
 
             $scope.initController = function () {
                 $scope.initPicker();
@@ -48,7 +52,7 @@
             $scope.getAllSetting = function () {
                 $scope.BlockUI();
                 $scope.isLoadedAllSite = false;
-                $picManagementService.getAllSetting()
+                $insertPicService.getAllSetting()
                     .then(function (data) {
                         var allSetting = data.Result;
                         $scope.roleOptions.DataList = allSetting.RoleList;
@@ -67,7 +71,7 @@
                 $scope.searchCriteria.role = role;
             };
            
-            $scope.getReport = function () {                
+            $scope.savePic = function () {      
                 $scope.BlockUI();
                 var getReportCriteria = {
                     Username: $scope.searchCriteria.Username,
@@ -77,7 +81,7 @@
                 };
 
                 $scope.lastSelectedParams = getReportCriteria;
-                $picManagementService.getReport(getReportCriteria)
+                $insertPicService.savePic(getReportCriteria)
                     .then(function (data) {
                         console.log(data);
                         $scope.reportOptions.DataList = data.Result;
@@ -88,19 +92,12 @@
                     });
             };
 
-            $scope.pagingCustomerReport = function (pageIndex, pageSize) {
-                $scope.BlockUI();
-                $scope.lastSelectedParams.PageIndex = pageIndex;
-                $scope.lastSelectedParams.PageSize = pageSize;
-                $picManagementService.getReport($scope.lastSelectedParams)
-                    .then(function (data) {
-                        $scope.reportOptions.DataList = data.Result;
-                        $scope.reportOptions.IsUpdateGrid = true;
-                        $scope.unblockUI();
-                    }, function () {
-                        $scope.unblockUI();
-                    });
-            };
+            $scope.addCommunicationTool = function () {
+                console.log("adding");
+                $scope.records.push($scope.records.length + 1);
+
+                
+            }
 
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;
