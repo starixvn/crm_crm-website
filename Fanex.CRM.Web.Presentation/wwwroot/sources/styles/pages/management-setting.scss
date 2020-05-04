@@ -138,26 +138,32 @@ $fanex-grid-images-path: '../images';
             position: relative;
         }
 
-        .fa {
-            cursor: pointer;
-            font-size: 14px;
-            margin: 0 5px;
+        .cell-action {
+            display: inline;
 
-            &.disabled {
-                cursor: not-allowed;
+            .fa {
+                cursor: pointer;
+                font-size: 14px;
+                margin: 0 5px;
+                background: none;
+                border: none;
 
-                &.fa-pencil, &.fa-eraser {
-                    color: #333;
-                    opacity: 0.6;
+                &:disabled {
+                    cursor: not-allowed;
+
+                    &.fa-pencil, &.fa-eraser {
+                        color: #333;
+                        opacity: 0.6;
+                    }
                 }
-            }
 
-            &.fa-pencil, &.fa-floppy-o {
-                color: #0789d1;
-            }
+                &.fa-pencil, &.fa-floppy-o {
+                    color: #0789d1;
+                }
 
-            &.fa-eraser {
-                color: #de5144;
+                &.fa-eraser {
+                    color: #de5144;
+                }
             }
         }
     }

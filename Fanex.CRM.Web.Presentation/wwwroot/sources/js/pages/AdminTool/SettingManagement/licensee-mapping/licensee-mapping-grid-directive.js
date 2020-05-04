@@ -19,7 +19,7 @@
                 { HeaderText: 'Setting Id', Width: 80, Name: 'SettingId', HeaderAlign: 'center', CellAlign: 'right' }
             ];
             if (isHost) {
-                columns.push({ HeaderText: 'Edit', Width: 70, Name: 'Edit', HeaderAlign: 'center', CellAlign: 'center' });
+                columns.push({ HeaderText: 'Edit', Width: 70, Name: 'Edit', HeaderAlign: 'center', CellAlign: 'center', CellCssClass: "cell-action" });
             }
 
             return columns;
@@ -40,8 +40,8 @@
                 ];
                 if (isHost) {
                     columns.push({
-                        Name: 'Edit', Value: '<i class="fa fa-pencil js-edit" data-setting-id="' + settingId + '"></i>'
-                            + '<i class="fa fa-eraser js-clear" data-setting-id="' + settingId + '"></i>'
+                        Name: 'Edit', Value: '<button type="button" class="fa fa-pencil js-edit" data-setting-id="' + settingId + '"></button>'
+                            + '<button type="button" class="fa fa-eraser js-clear" data-setting-id="' + settingId + '"></button>'
                     });
                 }
 
@@ -97,13 +97,13 @@
 
             $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            $('.js-edit:not(.disabled)', $(element)).off('click').on('click', function () {
+            $('.js-edit:not(disabled)', $(element)).off('click').on('click', function () {
                 $(this).removeClass('js-edit').removeClass('fa-pencil').addClass('fa-floppy-o').addClass('js-save');
                 $(this).closest('tr').addClass('selected-row');
                 registerEventSave(scope, element);
 
-                $(element).find('.js-edit').addClass('disabled');
-                $(element).find('.js-clear').addClass('disabled');
+                $(element).find('.js-edit').prop('disabled', true);
+                $(element).find('.js-clear').prop('disabled', true);
 
                 const $tr = $(this).closest('tr'),
                     sourceMapping = $tr.find('.cell-source-mapping')[0].innerHTML,
