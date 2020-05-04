@@ -10,7 +10,7 @@
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
-    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
+    [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Read)]
     public class LicenseeMappingController : ReadOnlyBaseController
     {
         private readonly ILicenseeMappingService licenseeMappingService;
@@ -46,6 +46,7 @@
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.SettingManagement, Policy = Constant.Policy.Host)]
         public ActionResult UpdateLicenseeMapping(UpdateLicenseeMappingParam param)
         {
             CommandResult commandResult = licenseeMappingService.UpdateLicenseeMapping(param);
