@@ -63,6 +63,24 @@
             });
         }
 
+        function getSourceMapping(scope, element, sourceMapping) {
+            const sourceMappings = [...scope.licensees];
+            $(element).find('.cell-source-mapping').each(function () {
+                if ($(this).html().length > 0) {
+                    const index = sourceMappings.findIndex(x => x.id === $(this).html());
+                    if (index > -1) {
+                        sourceMappings.splice(index, 1);
+                    }
+                }
+            });
+
+            if (sourceMapping !== '') {
+                sourceMappings.push({ id: sourceMapping, text: sourceMapping });
+            }
+
+            return sourceMappings;
+        }
+
         function renderGrid(scope, element) {
             if (scope.dataSources === null) {
                 return;
@@ -91,6 +109,8 @@
                     sourceMapping = $tr.find('.cell-source-mapping')[0].innerHTML,
                     licenseeManager = $tr.find('.cell-licensee-manager')[0].innerHTML;
 
+                const sourceMappings = getSourceMapping(scope, element, sourceMapping);
+
                 if (sourceMapping !== '') {
                     $tr.find('.cell-source-mapping').html('<select class="js-select2"><option value="'
                         + sourceMapping + '" selected>' + sourceMapping + '</option></select>');
@@ -109,7 +129,7 @@
                     allowClear: true,
                     placeholder: '',
                     dropdownParent: $(element),
-                    data: scope.licensees
+                    data: sourceMappings
                 });
 
                 $tr.find('.js-select2-ajax').select2({
