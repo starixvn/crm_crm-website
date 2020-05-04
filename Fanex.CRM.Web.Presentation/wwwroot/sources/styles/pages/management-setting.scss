@@ -139,7 +139,7 @@ $fanex-grid-images-path: '../images';
         }
 
         .cell-action {
-            display: inline;
+            display: flex;
 
             .fa {
                 cursor: pointer;
