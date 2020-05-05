@@ -31,6 +31,7 @@
         }
 
         vm.close = function () {
+            $($window.parent.document).off('keydown');
             $uibModalInstance.close();
         };
 
@@ -81,5 +82,17 @@
         }
 
         initialize();
+
+        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+                    case 83: // s
+                        vm.search();
+                        $scope.$apply();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
+        });
     }
 })(angular);
