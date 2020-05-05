@@ -53,7 +53,9 @@
                             @Labels.Parent
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
-                            <select id="parentsetting">
+                            <select id="action" class="sel-action" ng-model="settingParrent" ng-init="settingParrent = '0'">
+                                <option value="0">N/A</option>
+                                <option ng-repeat="a in parentSettingOptions.DataList" value="{{a.Value}}">{{a.SettingType + ' - ' + a.Value}}</option>
                             </select>
                         </div>
                     </div>

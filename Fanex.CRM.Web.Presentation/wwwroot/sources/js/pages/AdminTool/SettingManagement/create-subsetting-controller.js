@@ -17,6 +17,16 @@
                     }
                 };
 
+                $scope.parentSettingOptions = {
+                    DataList: [],
+                    OnChangeEvent: $scope.updateSelectedParentSetting,
+                    AllText: viewResources.All
+                };
+
+                $scope.updateSelectedParentSetting = function (parentSetting) {
+                    $scope.insertSettingParams.NewSetting.ParentId = parentSetting.Id;
+                };
+
                 $scope.dropdownData = {
                     idMember: 'SettingSource',
                     nameMember: 'SettingSource',
@@ -38,13 +48,10 @@
                 };
 
                 $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
-                $scope.initController = function () {
-                    sharedScriptManager.safeApply($scope);
-                    $scope.initDefaultOption();
-                    $scope.getParentSetting();
-                };
+
                 $scope.getParentSetting = function () {
                     $uiBlockerService.blockUI();
+                    debugger;
                     var params = {};
                     admintoolSettingFactory.getParentSetting(params)
                         .then(function (data) {
@@ -65,16 +72,14 @@
                     $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
                     $uiBlockerService.unblockUI();
                 };
-                $scope.setFocus = function () {
-                    $scope.isSetFocus = true;
-                    $scope.safeApply();
-                };
+               
                 $scope.completeSetFocus = function () {
                     $scope.isSetFocus = false;
                 };
 
                 $scope.insertSubSetting = function () {
                     $uiBlockerService.blockUI();
+                    $scope.insertSettingParams.NewSetting.ParentId = $scope.settingParrent;
                     if (!$scope.checkInsertParam($scope.insertSettingParams)) {
                         $uiBlockerService.unblockUI();
                         return;
@@ -148,6 +153,10 @@
                 $scope.isShowSourceMapping = function () {
                     return settingType === 'BetType' || settingType === 'Product' || settingType === 'SubProduct';
                 }
+
+                angular.element(document).ready(function () {
+                    $scope.getParentSetting();
+                });
 
                 $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
                     if (eventObject.ctrlKey) {
