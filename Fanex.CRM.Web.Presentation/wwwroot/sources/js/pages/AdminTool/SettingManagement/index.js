@@ -7,6 +7,8 @@ import './settingmanagement-module';
 import './settingmanagement-factory';
 import './directive/management-setting-grid-directive';
 import './settingmanagement-controller';
+import './create-subsetting-controller';
+import './edit-subsetting-controller';
 
 import './licensee-mapping/licensee-mapping-factory';
 import './licensee-mapping/delete-licensee-mapping-controller';

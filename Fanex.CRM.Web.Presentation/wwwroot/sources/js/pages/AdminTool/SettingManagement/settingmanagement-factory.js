@@ -20,10 +20,28 @@
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
+        function getParentSetting(params) {
+            var url = window.rootUrl + "SettingManagement/ParentSetting";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
+        function insertSubSetting(params) {
+            var url = window.rootUrl + "SettingManagement/InsertSetting";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
+        function editSetting(params) {
+            var url = window.rootUrl + "SettingManagement/EditSetting";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
         return {
             getMainSetting: getMainSetting,
             getSettingRelations: getSettingRelations,
-            getSourceSettingMapping: getSourceSettingMapping
+            getSourceSettingMapping: getSourceSettingMapping,
+            insertSubSetting: insertSubSetting,
+            getParentSetting: getParentSetting,
+            editSetting: editSetting
         };
     }
 })(angular);
