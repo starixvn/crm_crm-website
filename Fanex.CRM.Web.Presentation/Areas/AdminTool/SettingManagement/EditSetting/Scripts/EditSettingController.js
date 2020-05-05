@@ -153,9 +153,10 @@
                             SettingSource: item
                         }
 
-                        data.push(selectedItem);
+                        data.unshift(selectedItem);
                     }
                 });
+
 
                 $scope.dropdownData = {
                     idMember: 'SettingSource',
