@@ -23,7 +23,16 @@
                     </label>
                     <div class="col-xs-8 col-sm-8 col-md-9">
                         <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                                data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                               data-ng-model="editSettingParams.UpdatedSetting.SettingType" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtSettingValue" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                        @Labels.Setting_Value
+                    </label>
+                    <div class="col-xs-8 col-sm-8 col-md-9">
+                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                               data-ng-model="editSettingParams.UpdatedSetting.Value" />
                     </div>
                 </div>
                 <div class="form-group" ng-if="isShowSourceMapping()">
@@ -37,21 +46,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="txtSettingValue" class="col-xs-4 col-sm-4 col-md-3 control-label">
-                        @Labels.Setting_Value
-                    </label>
-                    <div class="col-xs-8 col-sm-8 col-md-9">
-                        <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
-                                data-ng-model="editSettingParams.UpdatedSetting.Value" />
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="txtDisplayOrder" class="col-xs-4 col-sm-4 col-md-3 control-label">
                         @Labels.Display_Order
                     </label>
                     <div class="col-xs-8 col-sm-8 col-md-9">
                         <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
-                                data-ng-model="editSettingParams.UpdatedSetting.DisplayOrder" maxlength="20" />
+                               data-ng-model="editSettingParams.UpdatedSetting.DisplayOrder" maxlength="20" />
                     </div>
                 </div>
             </form>

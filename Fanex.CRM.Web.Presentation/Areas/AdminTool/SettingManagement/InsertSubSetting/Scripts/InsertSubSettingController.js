@@ -11,8 +11,8 @@
     /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-application').controller('insertSubSettingController',
-        ['$scope', '$window', '$uiBlockerService', 'insertSubSettingService', '$uibModalInstance', 'settingType',
-            function ($scope, $window, $uiBlockerService, insertSubSettingService, $uibModalInstance, settingType) {
+        ['$scope', '$window', '$uiBlockerService', 'insertSubSettingService', '$uibModalInstance', 'settingType', 'sourceSettingMapping',
+            function ($scope, $window, $uiBlockerService, insertSubSettingService, $uibModalInstance, settingType, sourceSettingMapping) {
             $scope.sharedScriptManager = sharedScriptManager;
             $scope.sourceSettingMapping = [];
             $scope.selectedMappings = [];
@@ -29,7 +29,7 @@
             $scope.dropdownData = {
                 idMember: 'SettingSource',
                 nameMember: 'SettingSource',
-                sourceData: $scope.sourceSettingMapping,
+                sourceData: sourceSettingMapping,
                 checkedAll: false
             };
 
@@ -43,6 +43,7 @@
 
             $scope.closeModal = function () {
                 $uibModalInstance.close();
+                $($window.parent.document).off('keydown');
             };
 
             $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
@@ -50,9 +51,6 @@
                 sharedScriptManager.safeApply($scope);
                 $scope.initDefaultOption();
                 $scope.getParentSetting();
-                if ($scope.isShowSourceMapping) {
-                    $scope.getSourceSettingMapping();
-                }
             };
             $scope.getParentSetting = function () {
                 $uiBlockerService.blockUI();
@@ -65,27 +63,8 @@
                     function () {
                         $scope.completedLoadFilterInfo();
                     });
-            };
-            $scope.getSourceSettingMapping = function () {
-                $uiBlockerService.blockUI();
-                var params = { Settings: settingType };
-                insertSubSettingService.getSourceSettingMapping(params)
-                    .then(function (data) {
-                        $scope.sourceSettingMapping = data.Result;
+                };
 
-                        $scope.dropdownData = {
-                            idMember: 'SettingSource',
-                            nameMember: 'SettingSource',
-                            sourceData: data.Result,
-                            checkedAll: false
-                        };
-
-                        $scope.completedLoadFilterInfo();
-                    },
-                        function () {
-                            $scope.completedLoadFilterInfo();
-                        });
-            }
             $scope.completedLoadFilterInfo = function () {
                 $scope.updateSelectedParentSetting({
                     Id: crmConstants.Enums.Setting.NotApply,
@@ -119,7 +98,10 @@
                     $scope.showInsertResult(data.Result);
 
                     if (data.Result.IsSuccessful) {
-                        setTimeout(function () { $uibModalInstance.close(true); }, sharedScriptManager.cachedData.alertSuccessTime);
+                        setTimeout(function () {
+                            $uibModalInstance.close(true);
+                            $($window.parent.document).off('keydown');
+                        }, sharedScriptManager.cachedData.alertSuccessTime);
                     }
 
                     $uiBlockerService.unblockUI();

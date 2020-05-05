@@ -10,12 +10,11 @@
     /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-application').controller('editSettingController',
-        ['$scope', '$window', '$uiBlockerService', 'editSettingService', '$uibModalInstance', 'settingInfo',
-            function ($scope, $window, $uiBlockerService, editSettingService, $uibModalInstance, settingInfo) {
+        ['$scope', '$window', '$uiBlockerService', 'editSettingService', '$uibModalInstance', 'settingInfo', 'sourceSettingMapping',
+            function ($scope, $window, $uiBlockerService, editSettingService, $uibModalInstance, settingInfo, sourceSettingMapping) {
             $scope.messageResultOptions = null;
             $scope.isSetFocus = false;
-            $scope.sourceSettingMapping = [];
-            $scope.selectedMappings = [];
+            $scope.sourceSettingMapping = sourceSettingMapping;
 
             $scope.dropdownData = {
                 idMember: 'SettingSource',
@@ -68,7 +67,10 @@
                         $scope.showEditResult(data.Result);
 
                         if (data.Result.IsSuccessful) {
-                            setTimeout(function () { $uibModalInstance.close(true); }, sharedScriptManager.cachedData.alertSuccessTime);
+                            setTimeout(function () {
+                                $uibModalInstance.close(true);
+                                $($window.parent.document).off('keydown');
+                            }, sharedScriptManager.cachedData.alertSuccessTime);
                         }
 
                         $uiBlockerService.unblockUI();
@@ -139,26 +141,33 @@
                 $scope.updateChangeFlag();
                 parent.ClosePopup();
             };
-            $scope.getSourceSettingMapping = function () {
-                var params = { Settings: settingInfo.SettingType };
-                editSettingService.getSourceSettingMapping(params)
-                    .then(function (data) {
-                        $scope.sourceSettingMapping = data.Result;
-                        var selectedItems = settingInfo.SettingSource.split(', ');
-                        $scope.sourceSettingMapping.filter(mapping => selectedItems.includes(mapping.SettingSource))
-                            .forEach(mapping => mapping.checked = true);
-                        $scope.dropdownData = {
-                            idMember: 'SettingSource',
-                            nameMember: 'SettingSource',
-                            sourceData: $scope.sourceSettingMapping,
-                            checkedAll: false
-                        };
-                    },
-                    function () {
-                    });
+                $scope.getSourceSettingMapping = function () {
+                var selectedItems = settingInfo.SettingSource.split(', ');
+                var data = angular.copy(sourceSettingMapping);
+
+                selectedItems.forEach(item => {
+                    if (item !== "") {
+                        var selectedItem = {
+                            checked: true,
+                            SettingName: "",
+                            SettingSource: item
+                        }
+
+                        data.push(selectedItem);
+                    }
+                });
+
+                $scope.dropdownData = {
+                    idMember: 'SettingSource',
+                    nameMember: 'SettingSource',
+                    sourceData: data,
+                    checkedAll: false
+                };
             }
+
             $scope.closeModal = function () {
-            $uibModalInstance.close();
+                $uibModalInstance.close();
+                $($window.parent.document).off('keydown');
             };
 
             $scope.isShowSourceMapping = function () {

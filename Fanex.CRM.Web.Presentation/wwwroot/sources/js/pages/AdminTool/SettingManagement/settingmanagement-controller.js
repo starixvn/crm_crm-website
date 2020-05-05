@@ -8,6 +8,7 @@
         $scope.messageResultOptions = null;
         $scope.mainSettingOptions = null;
         $scope.isSetFocus = false;
+        $scope.sourceSettingMapping = [];
 
         $scope.initDefaultOption = function () {
             $scope.mainSettingOptions = {
@@ -58,11 +59,15 @@
         };
         $scope.getSettingRelations = function () {
             $uiBlockerService.blockUI();
+            const setting = $scope.getSettingRelationsParams.MainSetting.SettingType;
+            $scope.getSourceSettingMapping(setting);
 
             admintoolSettingFactory.getSettingRelations($scope.getSettingRelationsParams)
                 .then(function (data) {
                     $scope.settingManagementView = data.Result;
                     $uiBlockerService.unblockUI();
+                    $scope.selectedSetting = data.Result.map(x => x.SettingSource).join(',');
+                    $scope.sourceSettingMapping = $scope.sourceSettingMapping.filter(mapping => !($scope.selectedSetting.includes(mapping.SettingSource)));
                 },
                     function () {
                         $scope.settingManagementView = null;
@@ -129,7 +134,8 @@
                 windowClass: 'create-subsetting-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    settingType: () => $scope.getSettingRelationsParams.MainSetting.SettingType
+                    settingType: () => $scope.getSettingRelationsParams.MainSetting.SettingType,
+                    sourceSettingMapping: () => $scope.sourceSettingMapping
                 }
             }).result.then(function (isSuccessful) {
                 if (isSuccessful) {
@@ -150,7 +156,8 @@
                 windowClass: 'create-subsetting-modal',
                 appendTo: $window.parent.$('body'),
                 resolve: {
-                    settingInfo: () => settingInfo
+                    settingInfo: () => settingInfo,
+                    sourceSettingMapping: () => $scope.sourceSettingMapping,
                 }
             }).result.then(function (isSuccessful) {
                 if (isSuccessful) {
@@ -226,12 +233,24 @@
             });
         };
 
+        $scope.getSourceSettingMapping = function (setting) {
+            $uiBlockerService.blockUI();
+            var params = { Settings: setting };
+            admintoolSettingFactory.getSourceSettingMapping(params)
+                .then(function (data) {
+                    $scope.sourceSettingMapping = data.Result;
+                },
+                function () {
+                });
+        }
+
         angular.element(document).ready(function () {
+            const style = $('head link[href*="management.setting.css"]').clone();
+            $window.parent.$('head').append(style);
+
             $scope.initDefaultOption();
             $scope.initController();
             $scope.setFocus();
-            const style = $('head link[href*="management.setting.css"]').clone();
-            $window.parent.$('head').append(style);
         });
 
         $(document).keydown(function (eventObject) {

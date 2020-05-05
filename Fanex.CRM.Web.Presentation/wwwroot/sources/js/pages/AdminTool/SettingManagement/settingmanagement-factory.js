@@ -16,7 +16,7 @@
         };
 
         function getSourceSettingMapping(params) {
-            var url = window.rootUrl + "SettingManagement/GetSourceSettingMappings";
+            var url = window.rootUrl + "Setting/GetSourceSettingMappings";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
