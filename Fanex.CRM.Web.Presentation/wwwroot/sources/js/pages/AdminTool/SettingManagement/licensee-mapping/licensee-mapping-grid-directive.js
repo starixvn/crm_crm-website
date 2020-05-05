@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('addmintool-settingmanagement-application').directive('licenseeMappingGrid', licenseeMappingGrid);
-    licenseeMappingGrid.$inject = [];
+    licenseeMappingGrid.$inject = ['$window'];
 
-    function licenseeMappingGrid() {
+    function licenseeMappingGrid($window) {
         function generateColumns() {
             const columns = [
                 { HeaderText: 'Setting', Width: 180, MaxResizeWidth: 200, Name: 'Setting', HeaderAlign: 'center', CellAlign: 'left', CanResize: true },
@@ -51,18 +51,6 @@
             return rows;
         }
 
-        function registerEventSave(scope, element) {
-            $('.js-save:not(.disabled)', $(element)).off('click').on('click', function () {
-                const param = {
-                    settingId: parseInt($(this).data('setting-id'), 10),
-                    sourceMapping: $(this).closest('tr').find('.js-select2').val(),
-                    licenseeManager: $(this).closest('tr').find('.js-select2-ajax').val()
-                };
-
-                scope.onSave(param);
-            });
-        }
-
         function getSourceMapping(scope, element, sourceMapping) {
             const sourceMappings = [...scope.licensees];
             $(element).find('.cell-source-mapping').each(function () {
@@ -81,33 +69,48 @@
             return sourceMappings;
         }
 
-        function renderGrid(scope, element) {
-            if (scope.dataSources === null) {
-                return;
-            }
+        function registerEventSave(scope, element) {
+            $('.js-save:not(.disabled)', $(element)).off('click').on('click', function () {
+                const param = {
+                    settingId: parseInt($(this).data('setting-id'), 10),
+                    sourceMapping: $(this).closest('tr').find('.js-select2').val(),
+                    licenseeManager: $(this).closest('tr').find('.js-select2-ajax').val()
+                };
 
-            $(element).empty();
+                scope.onSave(param);
+            });
+        }
 
-            const gridOptions = {
-                columns: generateColumns(),
-                bodyRows: generateBodyRows(scope),
-                autoResizeColumn: true,
-                gridExpandHeight: 300
-            };
+        function registerEventCancel(scope, element, $tr, sourceMapping, licenseeManager) {
+            $('.js-cancel:not(.disabled)', $(element)).off('click').on('click', function () {
+                $tr.find('.cell-source-mapping').html(sourceMapping);
+                $tr.find('.cell-licensee-manager').html(licenseeManager);
 
-            $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+                $(this).removeClass('fa-times js-cancel').addClass('fa-eraser js-clear');
+                $tr.find('.js-save').removeClass('fa-floppy-o js-save').addClass('fa-pencil js-edit');
+                $(element).find('.js-edit').prop('disabled', false);
+                $(element).find('.js-clear').prop('disabled', false);
 
+                registerEventEdit(scope, element);
+                registerEventClear(scope, element);
+            });
+        }
+
+        function registerEventEdit(scope, element) {
             $('.js-edit:not(disabled)', $(element)).off('click').on('click', function () {
-                $(this).removeClass('js-edit').removeClass('fa-pencil').addClass('fa-floppy-o').addClass('js-save');
-                $(this).closest('tr').addClass('selected-row');
-                registerEventSave(scope, element);
+                const $tr = $(this).closest('tr'),
+                    sourceMapping = $tr.find('.cell-source-mapping')[0].innerHTML,
+                    licenseeManager = $tr.find('.cell-licensee-manager')[0].innerHTML;
+
+                $(this).removeClass('fa-pencil js-edit').addClass('fa-floppy-o js-save');
+                $tr.addClass('selected-row');
+                $tr.find('.js-clear').removeClass('fa-eraser js-clear').addClass('fa-times js-cancel');
 
                 $(element).find('.js-edit').prop('disabled', true);
                 $(element).find('.js-clear').prop('disabled', true);
 
-                const $tr = $(this).closest('tr'),
-                    sourceMapping = $tr.find('.cell-source-mapping')[0].innerHTML,
-                    licenseeManager = $tr.find('.cell-licensee-manager')[0].innerHTML;
+                registerEventSave(scope, element);
+                registerEventCancel(scope, element, $tr, sourceMapping, licenseeManager);
 
                 const sourceMappings = getSourceMapping(scope, element, sourceMapping);
 
@@ -125,18 +128,19 @@
                     $tr.find('.cell-licensee-manager').html('<select class="js-select2-ajax"></select>');
                 }
 
-                $tr.find('.js-select2').select2({
+                let $select2 = $tr.find('.js-select2').select2({
                     allowClear: true,
                     placeholder: '',
-                    dropdownParent: $(element),
+                    dropdownParent: $(element).closest('.row'),
                     data: sourceMappings
                 });
+                $select2.data('select2').$container.addClass('js-select2-source-mapping-container');
 
-                $tr.find('.js-select2-ajax').select2({
+                $select2 = $tr.find('.js-select2-ajax').select2({
                     allowClear: true,
                     placeholder: '',
                     minimumInputLength: 2,
-                    dropdownParent: $(element),
+                    dropdownParent: $(element).closest('.row'),
                     ajax: {
                         url: window.rootUrl + 'LicenseeMapping/GetLicenseeManager',
                         dataType: 'json',
@@ -155,11 +159,48 @@
                         }
                     }
                 });
+                $select2.data('select2').$container.addClass('js-select2-licensee-manager-container');
             });
+        }
 
+        function registerEventClear(scope, element) {
             $('.js-clear:not(.disabled)', $(element)).off('click').on('click', function () {
                 const settingId = parseInt($(this).data('setting-id'), 10);
                 scope.onClear(settingId);
+            });
+        }
+
+        function renderGrid(scope, element) {
+            if (scope.dataSources === null) {
+                return;
+            }
+
+            $(element).empty();
+
+            const gridOptions = {
+                columns: generateColumns(),
+                bodyRows: generateBodyRows(scope),
+                autoResizeColumn: true,
+                gridExpandHeight: 300
+            };
+
+            $(element).removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+            registerEventEdit(scope, element);
+            registerEventClear(scope, element);
+
+            $($window.parent.document).delegate('html', 'click', function (e) {
+                let $select2 = $(element).find('.js-select2-source-mapping-container');
+                if (!$select2.is(e.target) && $select2.has(e.target).length === 0 && $select2.hasClass('select2-container--open')) {
+                    $select2.siblings('select').select2('close');
+                    $(element).find('.js-select2-licensee-manager-container').siblings('select').select2('close');
+                }
+
+                $select2 = $(element).find('.js-select2-licensee-manager-container');
+                if (!$select2.is(e.target) && $select2.has(e.target).length === 0 && $select2.hasClass('select2-container--open')) {
+                    $select2.siblings('select').select2('close');
+                    $(element).find('.js-select2-source-mapping-container').siblings('select').select2('close');
+                }
             });
         }
 

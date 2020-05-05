@@ -132,6 +132,18 @@ $fanex-grid-images-path: '../images';
 
         .select2-container {
             width: 100% !important;
+
+            .select2-selection--single {
+                height: 24px;
+
+                .select2-selection__rendered {
+                    line-height: 24px;
+                }
+
+                .select2-selection__arrow {
+                    height: 22px;
+                }
+            }
         }
 
         .cell-source-mapping {
@@ -161,7 +173,7 @@ $fanex-grid-images-path: '../images';
                     color: #0789d1;
                 }
 
-                &.fa-eraser {
+                &.fa-eraser, &.fa-times {
                     color: #de5144;
                 }
             }
