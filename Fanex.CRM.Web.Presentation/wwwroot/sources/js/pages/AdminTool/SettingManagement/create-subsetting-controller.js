@@ -2,8 +2,8 @@
     "use strict";
 
     angular.module('addmintool-settingmanagement-application').controller('insertSubSettingController',
-        ['$scope', '$window', '$uiBlockerService', 'admintoolSettingFactory', '$uibModalInstance', 'settingType', 'sourceSettingMapping',
-            function ($scope, $window, $uiBlockerService, admintoolSettingFactory, $uibModalInstance, settingType, sourceSettingMapping) {
+        ['$scope', '$window', '$uiBlockerService', 'admintoolSettingFactory', '$uibModalInstance', 'settingType', 'sourceSettingMapping', 'parentSetting',
+            function ($scope, $window, $uiBlockerService, admintoolSettingFactory, $uibModalInstance, settingType, sourceSettingMapping, parentSetting) {
                 $scope.sharedScriptManager = sharedScriptManager;
                 $scope.sourceSettingMapping = [];
                 $scope.selectedMappings = [];
@@ -18,7 +18,7 @@
                 };
 
                 $scope.parentSettingOptions = {
-                    DataList: [],
+                    DataList: parentSetting,
                     OnChangeEvent: $scope.updateSelectedParentSetting,
                     AllText: viewResources.All
                 };
@@ -48,20 +48,6 @@
                 };
 
                 $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
-
-                $scope.getParentSetting = function () {
-                    $uiBlockerService.blockUI();
-                    debugger;
-                    var params = {};
-                    admintoolSettingFactory.getParentSetting(params)
-                        .then(function (data) {
-                            $scope.parentSettingOptions.DataList = data.Result;
-                            $scope.completedLoadFilterInfo();
-                        },
-                            function () {
-                                $scope.completedLoadFilterInfo();
-                            });
-                };
 
                 $scope.completedLoadFilterInfo = function () {
                     $scope.updateSelectedParentSetting({
@@ -153,10 +139,6 @@
                 $scope.isShowSourceMapping = function () {
                     return settingType === 'BetType' || settingType === 'Product' || settingType === 'SubProduct';
                 }
-
-                angular.element(document).ready(function () {
-                    $scope.getParentSetting();
-                });
 
                 $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
                     if (eventObject.ctrlKey) {
