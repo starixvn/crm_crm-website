@@ -265,7 +265,6 @@
                 try
                 {
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
-
                     if (!commandResult.IsSuccessful)
                     {
                         await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
