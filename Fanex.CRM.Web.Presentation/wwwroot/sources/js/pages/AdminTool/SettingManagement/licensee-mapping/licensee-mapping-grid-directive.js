@@ -43,7 +43,7 @@
                 if (isHost) {
                     columns.push({
                         Name: 'Edit', Value: '<button type="button" class="fa fa-pencil js-edit" data-setting-id="' + settingId + '"></button>'
-                            + '<button type="button" class="fa fa-eraser js-clear" data-setting-id="' + settingId + '"></button>'
+                            + '<button type="button" class="icon-broom js-clear" data-setting-id="' + settingId + '"></button>'
                     });
                 }
 
@@ -88,7 +88,7 @@
                 $tr.find('.cell-source-mapping').html(sourceMapping);
                 $tr.find('.cell-licensee-manager').html(licenseeManager);
 
-                $(this).removeClass('fa-times js-cancel').addClass('fa-eraser js-clear');
+                $(this).removeClass('fa fa-times js-cancel').addClass('icon-broom js-clear');
                 $tr.find('.js-save').removeClass('fa-floppy-o js-save').addClass('fa-pencil js-edit');
                 $(element).find('.js-edit').prop('disabled', false);
                 $(element).find('.js-clear').prop('disabled', false);
@@ -106,7 +106,7 @@
 
                 $(this).removeClass('fa-pencil js-edit').addClass('fa-floppy-o js-save');
                 $tr.addClass('selected-row');
-                $tr.find('.js-clear').removeClass('fa-eraser js-clear').addClass('fa-times js-cancel');
+                $tr.find('.js-clear').removeClass('icon-broom js-clear').addClass('fa fa-times js-cancel');
 
                 $(element).find('.js-edit').prop('disabled', true);
                 $(element).find('.js-clear').prop('disabled', true);

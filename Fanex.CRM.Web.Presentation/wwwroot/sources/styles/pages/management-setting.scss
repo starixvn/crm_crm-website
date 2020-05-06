@@ -153,6 +153,16 @@ $fanex-grid-images-path: '../images';
         .cell-action {
             display: flex;
 
+            .icon-broom {
+                background: url(../images/broom.png) no-repeat;
+                border: none;
+                width: 10px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+            }
+
             .fa {
                 cursor: pointer;
                 font-size: 14px;
@@ -163,7 +173,7 @@ $fanex-grid-images-path: '../images';
                 &:disabled {
                     cursor: not-allowed;
 
-                    &.fa-pencil, &.fa-eraser {
+                    &.fa-pencil {
                         color: #333;
                         opacity: 0.6;
                     }
@@ -173,7 +183,7 @@ $fanex-grid-images-path: '../images';
                     color: #0789d1;
                 }
 
-                &.fa-eraser, &.fa-times {
+                &.fa-times {
                     color: #de5144;
                 }
             }

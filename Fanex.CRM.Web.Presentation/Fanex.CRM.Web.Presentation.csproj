@@ -609,6 +609,7 @@
     <Content Include="wwwroot\sources\libs\FanexGrid\moment.min.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.min.js" />
+    <Content Include="wwwroot\sources\styles\images\broom.png" />
     <Content Include="wwwroot\sources\styles\images\excel.png" />
     <Content Include="wwwroot\sources\styles\images\icon-edit.png" />
     <Content Include="wwwroot\sources\styles\images\list.png" />
