@@ -375,12 +375,20 @@
             IEnumerable<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
             IEnumerable<SettingItem> bettypes = GetBettype(subProducts.Select(x => x.SettingId), transactionInfos, settings, settingMappings);
             var stringBuilder = new StringBuilder("<ROOT>");
+
             foreach (SettingItem subProduct in subProducts)
             {
                 IEnumerable<SettingItem> tempBettypes = bettypes.Where(x => x.ParentIds.Any(y => y == subProduct.SettingId));
-                foreach (SettingItem bettype in tempBettypes)
+                if (tempBettypes.Any())
                 {
-                    stringBuilder.AppendFormat(XmlTemplate, sportsbook.SettingId, subProduct.SettingId, bettype.SettingId);
+                    foreach (SettingItem bettype in tempBettypes)
+                    {
+                        stringBuilder.AppendFormat(XmlTemplate, sportsbook.SettingId, subProduct.SettingId, bettype.SettingId);
+                    }
+                }
+                else
+                {
+                    stringBuilder.AppendFormat(XmlTemplate, sportsbook.SettingId, subProduct.SettingId, Constants.BettypeNA);
                 }
             }
 
