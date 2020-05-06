@@ -5,6 +5,8 @@
     licenseeMappingGrid.$inject = ['$window'];
 
     function licenseeMappingGrid($window) {
+        let $gridwrapper;
+
         function generateColumns() {
             const columns = [
                 { HeaderText: 'Setting', Width: 180, MaxResizeWidth: 200, Name: 'Setting', HeaderAlign: 'center', CellAlign: 'left', CanResize: true },
@@ -131,16 +133,17 @@
                 let $select2 = $tr.find('.js-select2').select2({
                     allowClear: true,
                     placeholder: '',
-                    dropdownParent: $(element).closest('.row'),
+                    dropdownParent: $gridwrapper,
                     data: sourceMappings
                 });
-                $select2.data('select2').$container.addClass('js-select2-source-mapping-container');
+                $select2.data('select2').$container.addClass('js-select2-source-mapping');
+                $select2.data('select2').$dropdown.addClass('js-select2-source-mapping');
 
                 $select2 = $tr.find('.js-select2-ajax').select2({
                     allowClear: true,
                     placeholder: '',
                     minimumInputLength: 2,
-                    dropdownParent: $(element).closest('.row'),
+                    dropdownParent: $gridwrapper,
                     ajax: {
                         url: window.rootUrl + 'LicenseeMapping/GetLicenseeManager',
                         dataType: 'json',
@@ -159,7 +162,8 @@
                         }
                     }
                 });
-                $select2.data('select2').$container.addClass('js-select2-licensee-manager-container');
+                $select2.data('select2').$container.addClass('js-select2-licensee-manager');
+                $select2.data('select2').$dropdown.addClass('js-select2-licensee-manager');
             });
         }
 
@@ -190,16 +194,21 @@
             registerEventClear(scope, element);
 
             $($window.parent.document).delegate('html', 'click', function (e) {
-                let $select2 = $(element).find('.js-select2-source-mapping-container');
+                let $select2 = $gridwrapper.find('.select2-container');
                 if (!$select2.is(e.target) && $select2.has(e.target).length === 0 && $select2.hasClass('select2-container--open')) {
                     $select2.siblings('select').select2('close');
-                    $(element).find('.js-select2-licensee-manager-container').siblings('select').select2('close');
                 }
 
-                $select2 = $(element).find('.js-select2-licensee-manager-container');
-                if (!$select2.is(e.target) && $select2.has(e.target).length === 0 && $select2.hasClass('select2-container--open')) {
-                    $select2.siblings('select').select2('close');
-                    $(element).find('.js-select2-source-mapping-container').siblings('select').select2('close');
+                $select2 = $gridwrapper.find('.js-select2-source-mapping');
+                if (($select2.is(e.target) || $select2.has(e.target).length > 0)
+                    && $gridwrapper.find('.js-select2-licensee-manager').hasClass('select2-container--open')) {
+                    $gridwrapper.find('.js-select2-licensee-manager').siblings('select').select2('close');
+                }
+
+                $select2 = $gridwrapper.find('.js-select2-licensee-manager');
+                if (($select2.is(e.target) || $select2.has(e.target).length > 0)
+                    && $gridwrapper.find('.js-select2-source-mapping').hasClass('select2-container--open')) {
+                    $gridwrapper.find('.js-select2-source-mapping').siblings('select').select2('close');
                 }
             });
         }
@@ -215,6 +224,7 @@
             },
             link: function (scope, element) {
                 scope.$watch('dataSources', function (oldval, newval) {
+                    $gridwrapper = $($(element).closest('.licensee-mapping-grid-wrapper'));
                     renderGrid(scope, element);
                 });
             }
