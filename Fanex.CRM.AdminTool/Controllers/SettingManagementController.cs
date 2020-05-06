@@ -29,22 +29,13 @@
         public ActionResult Index()
         {
             ViewBag.IsHost = PermissionService.HasHostPermission(FunctionPermissions.SettingManagement);
+            ViewBag.ParentSetting = _settingManagementService.GetParentSettings();
             return View("~/Areas/AdminTool/SettingManagement/Index.cshtml");
         }
 
         public ActionResult OpenInsertNewSettingView()
         {
             return View("~/Areas/AdminTool/SettingManagement/InsertSetting/Index.cshtml");
-        }
-
-        public ActionResult OpenInsertSubSettingView(string settingType)
-        {
-            return View(
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
-                 new Setting
-                 {
-                     SettingType = settingType
-                 });
         }
 
         public ActionResult OpenDeleteSettingView(
@@ -73,15 +64,6 @@
                 });
         }
 
-        public ActionResult OpenEditSettingView(int settingId)
-        {
-            return View(
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Index.cshtml",
-                _settingManagementService.GetSettingById(new GetSettingByIdCriteria
-                {
-                    SettingId = settingId
-                }));
-        }
 
         [HttpPost]
         public JsonResult MainSetting()

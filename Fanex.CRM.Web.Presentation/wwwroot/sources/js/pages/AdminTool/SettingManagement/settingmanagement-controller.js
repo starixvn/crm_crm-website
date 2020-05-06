@@ -9,7 +9,6 @@
         $scope.mainSettingOptions = null;
         $scope.isSetFocus = false;
         $scope.sourceSettingMapping = [];
-        $scope.parentSetting = [];
 
         $scope.initDefaultOption = function () {
             $scope.mainSettingOptions = {
@@ -42,7 +41,6 @@
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
             $scope.getMainSetting();
-            $scope.getParentSetting();
         };
         $scope.getMainSetting = function () {
             $uiBlockerService.blockUI();
@@ -137,8 +135,7 @@
                 appendTo: $window.parent.$('body'),
                 resolve: {
                     settingType: () => $scope.getSettingRelationsParams.MainSetting.SettingType,
-                    sourceSettingMapping: () => $scope.sourceSettingMapping,
-                    parentSetting: () => $scope.parentSetting
+                    sourceSettingMapping: () => $scope.sourceSettingMapping
                 }
             }).result.then(function (isSuccessful) {
                 if (isSuccessful) {
@@ -244,13 +241,6 @@
                     $scope.sourceSettingMapping = data.Result;
                 },
                 function () {
-                });
-        }
-
-        $scope.getParentSetting = function () {
-            admintoolSettingFactory.getParentSetting()
-                .then(function (data) {
-                    $scope.parentSetting = data.Result;
                 });
         }
 

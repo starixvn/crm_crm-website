@@ -2,8 +2,8 @@
     "use strict";
 
     angular.module('addmintool-settingmanagement-application').controller('insertSubSettingController',
-        ['$scope', '$window', '$uiBlockerService', 'admintoolSettingFactory', '$uibModalInstance', 'settingType', 'sourceSettingMapping', 'parentSetting',
-            function ($scope, $window, $uiBlockerService, admintoolSettingFactory, $uibModalInstance, settingType, sourceSettingMapping, parentSetting) {
+        ['$scope', '$window', '$uiBlockerService', 'admintoolSettingFactory', '$uibModalInstance', 'settingType', 'sourceSettingMapping',
+            function ($scope, $window, $uiBlockerService, admintoolSettingFactory, $uibModalInstance, settingType, sourceSettingMapping) {
                 $scope.sharedScriptManager = sharedScriptManager;
                 $scope.sourceSettingMapping = [];
                 $scope.selectedMappings = [];
@@ -15,16 +15,6 @@
                         DisplayOrder: '',
                         SettingSource: '',
                     }
-                };
-
-                $scope.parentSettingOptions = {
-                    DataList: parentSetting,
-                    OnChangeEvent: $scope.updateSelectedParentSetting,
-                    AllText: viewResources.All
-                };
-
-                $scope.updateSelectedParentSetting = function (parentSetting) {
-                    $scope.insertSettingParams.NewSetting.ParentId = parentSetting.Id;
                 };
 
                 $scope.dropdownData = {
@@ -50,11 +40,6 @@
                 $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
 
                 $scope.completedLoadFilterInfo = function () {
-                    $scope.updateSelectedParentSetting({
-                        Id: crmConstants.Enums.Setting.NotApply,
-                        SettingType: viewResources.Symbol_NotApply,
-                        Value: viewResources.Symbol_NotApply
-                    });
                     $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
                     $uiBlockerService.unblockUI();
                 };
