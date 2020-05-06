@@ -651,15 +651,10 @@
             };
         }
 
-        public IList<Setting> GetPicRoles()
+        public IList<Setting> GetPicRoles(bool isIncludeAllOption = false)
         {
-            return new[]
+            var data = new List<Setting>
             {
-                new Setting
-                {
-                    Id = PicRoleConstants.All,
-                    Value = Labels.All
-                },
                 new Setting
                 {
                     Id = PicRoleConstants.Boss,
@@ -676,6 +671,17 @@
                     Value = Labels.Staff
                 }
             };
+
+            if (isIncludeAllOption)
+            {
+                data.Insert(0, new Setting
+                {
+                    Id = PicRoleConstants.All,
+                    Value = Labels.All
+                });
+            }
+
+            return data;
         }
 
         public IList<Setting> GetPositions()

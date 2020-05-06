@@ -8,29 +8,25 @@
     sharedScriptManager */
     /* jshint camelcase: false */
     angular.module('insertpic-application').controller('insertPicController', ['$scope', '$insertPicService', '$compile',
-        function ($scope, $insertPicService, $compile) { 
+        function ($scope, $insertPicService, $compile) {
             $scope.errorMessage = '';
             $scope.roleOptions = null;
-            $scope.reportOptions = {
-                DataList: null,
-                IsResize: false,
-                IsUpdateGrid: false
-            };
-            $scope.searchCriteria = {
+            $scope.communicationToolOptions = null;
+
+            $scope.insertParams = {
                 Username: '',
                 RoleId: null,
-                PageIndex: 1,
-                PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+                Remark: '',
+                CommunicationTools: []
             };
-            $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
-            $scope.records = [
-                "Alfreds Futterkiste"
+            $scope.communicationToolItems = [
+                {type: "", value: ""}                
             ]
 
             $scope.initController = function () {
                 $scope.initPicker();
-               
+
                 $scope.getAllSetting();
                 $scope.defaultFocusOptions = {
                     IsSetFocus: false,
@@ -47,7 +43,24 @@
                     OnChangeEvent: $scope.updateSelectedRole,
                     AllText: viewResources.All
                 };
+
+                $scope.communicationToolOptions = {
+                    DataList: [],
+                    OnChangeEvent: $scope.updateSelectedCommunicationTool,
+                    AllText: viewResources.All
+                }
             };
+
+            $scope.updateSelectedRole = function (item) {
+                $scope.insertParams.RoleId = item.Id;
+            }
+
+            $scope.updateSelectedCommunicationTool = function (x, y) {
+                y.type = x.Id;
+                console.log(x);
+                
+                console.log(y);
+            }
 
             $scope.getAllSetting = function () {
                 $scope.BlockUI();
@@ -56,6 +69,8 @@
                     .then(function (data) {
                         var allSetting = data.Result;
                         $scope.roleOptions.DataList = allSetting.RoleList;
+                        console.log(allSetting);
+                        $scope.communicationToolOptions.DataList = allSetting.CommunicationTools;
                         $scope.completedLoadFilterInfo();
                     }, function () {
                         $scope.completedLoadFilterInfo();
@@ -63,40 +78,60 @@
             };
 
             $scope.completedLoadFilterInfo = function () {
-                $scope.searchCriteria.role = $scope.roleOptions.DataList[0];
                 $scope.unblockUI();
             };
-            
-            $scope.updateSelectedRole = function (role) {
-                $scope.searchCriteria.role = role;
-            };
-           
-            $scope.savePic = function () {      
+
+            $scope.savePic = function () {
+                console.log($scope.insertParams);
+                console.log($scope.communicationToolItems);
                 $scope.BlockUI();
-                var getReportCriteria = {
-                    Username: $scope.searchCriteria.Username,
-                    RoleId: $scope.searchCriteria.role.Id,
-                    PageIndex: $scope.searchCriteria.PageIndex,
-                    PageSize: $scope.searchCriteria.PageSize                    
+                
+                $scope.insertParams = {
+                    Username: '',
+                    RoleId: null,
+                    Remark: '',
+                    CommunicationTools: []
                 };
 
-                $scope.lastSelectedParams = getReportCriteria;
-                $insertPicService.savePic(getReportCriteria)
+                var criteria = {
+                    Username: '',
+                    RoleId: null,
+                    Remark: '',
+                    CommunicationTools: []
+                };
+
+                $insertPicService.savePic(criteria)
                     .then(function (data) {
                         console.log(data);
                         $scope.reportOptions.DataList = data.Result;
-                        $scope.reportOptions.IsUpdateGrid = true;
                         $scope.unblockUI();
+                        parent.ClosePopup();
                     }, function () {
                         $scope.unblockUI();
                     });
             };
 
+            $scope.cancelPic = function () {
+                parent.ClosePopup();
+            }        
+
             $scope.addCommunicationTool = function () {
                 console.log("adding");
-                $scope.records.push($scope.records.length + 1);
+                //var itemNum = $scope.communicationToolItems.length + 1;
+                ///var key = "item" + itemNum;
+                var item = {type: "", value: "" };
+                $scope.communicationToolItems.push(item);
+                console.log($scope.communicationToolItems);
+            }
 
-                
+            $scope.removeCommunicationTool = function (item) {
+                console.log(item.x);
+                console.log(item.x.$$hashKey);
+
+                var index = $scope.communicationToolItems.indexOf(item.x);
+                if (index > -1) {
+                    $scope.communicationToolItems.splice(index, 1);
+                }
             }
 
             $scope.completeSetFocus = function () {

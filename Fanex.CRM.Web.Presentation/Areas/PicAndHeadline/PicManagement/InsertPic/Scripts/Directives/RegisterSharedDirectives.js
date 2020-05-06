@@ -19,9 +19,43 @@
 
             directiveManager.registerDefaultFocus(angular.module('insertpic-application'), defaultFocusRegisterParams);
         };
+        customerReportRegister.registerCommunicationTool = function () {
+            var communicationToolRegisterParams = {
+                PlugInName: 'communicationToolPickerContainer',
+                OptionName: 'communicationToolOptions',
+                PickerId: 'communication-tool',
+                RestrictType: 'C',
 
-        customerReportRegister.registerRolePicker();
+                DataPropertyName: {
+                    Id: "Id",
+                    Type: "SettingType",
+                    Value: "Name"
+                }
+            };
+
+            directiveManager.registerSingleSelectDirectiveContainer(angular.module('insertpic-application'), communicationToolRegisterParams);
+        }
+        customerReportRegister.registerRoleSelect = function () {
+            var communicationToolRegisterParams = {
+                PlugInName: 'rolePickerContainer',
+                OptionName: 'roleOptions',
+                PickerId: 'role',
+                RestrictType: 'C',
+
+                DataPropertyName: {
+                    Id: "Id",
+                    Type: "SettingType",
+                    Value: "Value"
+                }
+            };
+
+            directiveManager.registerSingleSelectDirectiveContainer(angular.module('insertpic-application'), communicationToolRegisterParams);
+        }
+
+        
         customerReportRegister.registerDefaultFocus();
+        customerReportRegister.registerCommunicationTool();
+        customerReportRegister.registerRoleSelect();
     }
 
     customerReportRegisterPicker();

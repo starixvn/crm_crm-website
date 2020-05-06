@@ -51,7 +51,7 @@
                 $picManagementService.getAllSetting()
                     .then(function (data) {
                         var allSetting = data.Result;
-                        $scope.roleOptions.DataList = allSetting.RoleList;
+                        $scope.roleOptions.DataList = allSetting.RoleListWithAll;
                         $scope.completedLoadFilterInfo();
                     }, function () {
                         $scope.completedLoadFilterInfo();
@@ -108,7 +108,7 @@
                     window.rootUrl + "PicManagement/OpenInsertPic",
                     viewResources.InsertPIC,
                     480,
-                    260,
+                    300,
                     true,
                     false,
                     parent.window,

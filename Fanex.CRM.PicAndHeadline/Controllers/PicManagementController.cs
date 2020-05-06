@@ -35,7 +35,9 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         {
             var allSetting = new
             {
-                RoleList = _settingService.GetPicRoles()                
+                RoleListWithAll = _settingService.GetPicRoles(true),
+                RoleList = _settingService.GetPicRoles(),
+                CommunicationTools = _settingService.GetAllCommunicationTools()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

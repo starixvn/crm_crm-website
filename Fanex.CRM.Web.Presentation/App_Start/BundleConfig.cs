@@ -628,7 +628,8 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicApplication.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicService.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicController.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/*.js"));
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/SingleSelectDirective.js",
+                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/RegisterSharedDirectives.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicStyles",

@@ -29,7 +29,7 @@
                             @Labels.Username
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9">
-                            <input type="text" class="textbox form-control" id="username" data-ng-model="searchCriteria.Username" />
+                            <input type="text" class="textbox form-control" id="username" data-ng-model="insertParams.Username" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,23 +45,24 @@
                             @Labels.Remark
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9">
-                            <textarea type="text" class="textbox form-control" id="remark" data-ng-model="searchCriteria.Remark"></textarea>
+                            <textarea type="text" class="textbox form-control" id="remark" data-ng-model="insertParams.Remark"></textarea>
                         </div>
                     </div>                    
                     <div>
-                        <div class="form-group" ng-repeat="x in records">
-                            <div class="col-xs-2 col-sm-2 col-md-1 role-picker-container" data-ng-model="roleOptions.DataList">
-                                <select id="role" class="selRole"></select>
+                        <div class="form-group" ng-repeat="x in communicationToolItems">
+                            <div class="col-xs-2 col-sm-2 col-md-1 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                                <select id="communication-tool" class="selRole">
+                                </select>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
 
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-9">
-                                <input type="text" class="textbox form-control" id="username" data-ng-model="searchCriteria.Username" />
+                                <input type="text" class="textbox form-control" id="username" data-ng-model="x.value" />
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1 communication-tools">
-                                <span class="add-tool" data-ng-click="addCommunicationTool();">+</span>
-                                <span class="remove-tool">x</span>
+                                <span ng-if="$index != 0" title="Remove" class="remove-tool" data-ng-click="removeCommunicationTool(this);">x</span>
+                                <span ng-if="$index == (communicationToolItems.length - 1)" title="Add" class="add-tool" data-ng-click="addCommunicationTool();">+</span>
                             </div>
                         </div>
                     </div>
@@ -105,7 +106,8 @@
             Remark: '@Labels.Remark',
             Edit: '@Labels.Edit',
             Active: '@Labels.Active',
-            InsertPIC: '@Labels.InsertPIC'
+            InsertPIC: '@Labels.InsertPIC',
+            Select: '@Labels.Select'
         };
     </script>
 }

@@ -102,6 +102,7 @@
         IList<SiteInfo> GetAllSitesWithNA();
 
         IList<Setting> GetPositionsCN88();
-        IList<Setting> GetPicRoles();
+
+        IList<Setting> GetPicRoles(bool isIncludeAllOption = false);
     }
 }
