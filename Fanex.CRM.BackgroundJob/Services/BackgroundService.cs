@@ -7,7 +7,6 @@
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.Database;
     using Hangfire;
-    using Microsoft.Extensions.Logging;
     using ONEbook.UM.Services;
 
     public interface IBackgroundService
@@ -21,20 +20,17 @@
         private readonly ISystemSettingService systemSettingService;
         private readonly IFeedbackService feedbackService;
         private readonly Logging.ILogger logger;
-        private readonly ILogger mlogger;
 
         public BackgroundService(
             IMaintenanceService maintenanceService,
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,
-            Logging.ILogger logger,
-            ILogger mlogger)
+            Logging.ILogger logger)
         {
             this.maintenanceService = maintenanceService;
             this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
             this.logger = logger;
-            this.mlogger = mlogger;
         }
 
         [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -55,7 +51,6 @@
                 }
                 catch (Exception ex)
                 {
-                    mlogger.LogError(ex.Message);
                     await WriteLogAsync(ex);
                 }
             }
