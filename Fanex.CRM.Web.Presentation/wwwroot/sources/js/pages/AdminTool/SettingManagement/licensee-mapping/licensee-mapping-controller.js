@@ -40,20 +40,30 @@
         };
 
         vm.saveMapping = function (param) {
-            licenseeMappingFactory.updateLicenseeMapping(param)
-                .success(function (data) {
-                    vm.isSuccessful = data.IsSuccessful;
-                    vm.resultMessage = data.IsSuccessful ? 'Update successfully!' : data.Message;
-                    vm.isShowResultMessage = true;
+            if (!param.sourceMapping || !param.licenseeManager) {
+                vm.isSuccessful = false;
+                vm.isShowResultMessage = true;
+                vm.resultMessage = `Please input ${!param.sourceMapping ? 'Source Mapping' : 'Licensee Manager'}!`;
 
-                    if (vm.isSuccessful) {
-                        setTimeout(function () {
-                            vm.isShowResultMessage = false;
-                            getLicenseeMapping();
-                            $scope.apply();
-                        }, sharedScriptManager.cachedData.alertSuccessTime);
-                    }
-                });
+                setTimeout(function () {
+                    $scope.$apply();
+                }, 100);
+            } else {
+                licenseeMappingFactory.updateLicenseeMapping(param)
+                    .success(function (data) {
+                        vm.isSuccessful = data.IsSuccessful;
+                        vm.resultMessage = data.IsSuccessful ? 'Update successfully!' : data.Message;
+                        vm.isShowResultMessage = true;
+
+                        if (vm.isSuccessful) {
+                            setTimeout(function () {
+                                vm.isShowResultMessage = false;
+                                getLicenseeMapping();
+                                $scope.apply();
+                            }, sharedScriptManager.cachedData.alertSuccessTime);
+                        }
+                    });
+            }
         };
 
         vm.clearMapping = function (settingId) {
