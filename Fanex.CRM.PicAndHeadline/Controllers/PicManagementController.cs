@@ -54,5 +54,12 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         {
             return View("~/Areas/PicAndHeadline/PicManagement/InsertPic/Index.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult InsertPic(InsertPicCriteria criteria)
+        {
+            var result = _picReportService.InsertPic(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

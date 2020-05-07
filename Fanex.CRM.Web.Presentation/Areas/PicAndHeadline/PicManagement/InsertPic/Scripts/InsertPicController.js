@@ -100,15 +100,31 @@
                     CommunicationTools: []
                 };
 
+
                 $insertPicService.savePic(criteria)
                     .then(function (data) {
                         console.log(data);
-                        $scope.reportOptions.DataList = data.Result;
+                        $scope.showInsertResult(data.Result);
                         $scope.unblockUI();
-                        parent.ClosePopup();
+                        //parent.ClosePopup();
                     }, function () {
                         $scope.unblockUI();
                     });
+            };
+
+            $scope.showInsertResult = function (result) {
+                if (result.Code !== 0) {
+                    $scope.messageResultOptions = new MessageResult(result.Message, true, false);
+                    return;
+                }
+
+                $scope.messageResultOptions = new MessageResult(result.Message, true, true);
+                parent.homeManager.CachedData.shouldReloadView = true;
+                //$scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
+                setTimeout(function () {
+                    $scope.messageResultOptions = new MessageResult('', false, false);
+                    parent.ClosePopup();
+                }, sharedScriptManager.cachedData.alertSuccessTime);
             };
 
             $scope.cancelPic = function () {

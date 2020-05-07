@@ -169,6 +169,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert PIC successfully!.
+        /// </summary>
+        public static string InsertPicSuccess {
+            get {
+                return ResourceManager.GetString("InsertPicSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No..
         /// </summary>
         public static string No {

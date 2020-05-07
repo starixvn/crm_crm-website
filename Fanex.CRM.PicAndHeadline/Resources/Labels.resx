@@ -153,6 +153,9 @@
   <data name="InsertPIC" xml:space="preserve">
     <value>Insert PIC</value>
   </data>
+  <data name="InsertPicSuccess" xml:space="preserve">
+    <value>Insert PIC successfully!</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No.</value>
   </data>

@@ -37,6 +37,7 @@
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.NAP.Core, Version=1.1.0.5, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -87,6 +88,7 @@
     <Compile Include="Controllers\PicManagementController.cs" />
     <Compile Include="Controllers\PicOfHeadlineController.cs" />
     <Compile Include="Criteria\GetReportCriteria.cs" />
+    <Compile Include="Criteria\InsertPicCriteria.cs" />
     <Compile Include="Models\PicInfo.cs" />
     <Compile Include="Models\PicReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +99,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\IPicReportService.cs" />
     <Compile Include="Services\PicReportService.cs" />
   </ItemGroup>

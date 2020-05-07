@@ -11,6 +11,7 @@
         function ($scope, $picManagementService) { 
             $scope.errorMessage = '';
             $scope.roleOptions = null;
+            $scope.communicationTools = [];
             $scope.reportOptions = {
                 DataList: null,
                 IsResize: false,
@@ -52,6 +53,7 @@
                     .then(function (data) {
                         var allSetting = data.Result;
                         $scope.roleOptions.DataList = allSetting.RoleListWithAll;
+                        $scope.communicationTools = allSetting.CommunicationTools;
                         $scope.completedLoadFilterInfo();
                     }, function () {
                         $scope.completedLoadFilterInfo();

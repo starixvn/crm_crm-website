@@ -625,6 +625,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicApplication.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicService.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicController.js",

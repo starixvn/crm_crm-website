@@ -17,7 +17,6 @@
         }
 
         function getGripOtions(report) {
-            console.log(report);
             var bodyData = [];
             var footerData = [];
             var reportLength = report ? report.DataList.length : 0;
@@ -100,6 +99,9 @@
             }
 
             cachedData.scope = scope;
+            console.log("xx");
+            debugger
+            console.log(scope.communicationTools);
             var tableCustomerReport = element.find("#table-report");
             cachedData.reportTable = tableCustomerReport;
             var customerReport = scope.reportOptions.DataList;
