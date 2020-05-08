@@ -70,6 +70,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active PIC successfully!.
+        /// </summary>
+        public static string ActivePicSuccess {
+            get {
+                return ResourceManager.GetString("ActivePicSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign PIC.
         /// </summary>
         public static string AssignPIC {
@@ -88,6 +97,42 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Communication Tool.
+        /// </summary>
+        public static string CommunicationTool {
+            get {
+                return ResourceManager.GetString("CommunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to active PIC {0}?.
+        /// </summary>
+        public static string ConfirmActivePic {
+            get {
+                return ResourceManager.GetString("ConfirmActivePic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to deactivate PIC {0}? The PIC assignment shall be emoved..
+        /// </summary>
+        public static string ConfirmDeactivePic {
+            get {
+                return ResourceManager.GetString("ConfirmDeactivePic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         public static string Contact {
@@ -102,6 +147,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivate PIC successfully!.
+        /// </summary>
+        public static string DeactivePicSuccess {
+            get {
+                return ResourceManager.GetString("DeactivePicSuccess", resourceCulture);
             }
         }
         
@@ -183,6 +237,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         

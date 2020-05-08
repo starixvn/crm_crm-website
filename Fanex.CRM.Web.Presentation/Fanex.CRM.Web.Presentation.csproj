@@ -514,6 +514,9 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateApplication.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateController.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateService.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\SingleSelectDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\InsertPicApplication.js" />
@@ -1546,6 +1549,8 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Styles\PicOfHeadline.less" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Styles\InsertPic.less" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Styles\ChangePicState.less" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Index.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

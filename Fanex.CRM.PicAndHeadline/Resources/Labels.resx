@@ -120,17 +120,35 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
+  <data name="ActivePicSuccess" xml:space="preserve">
+    <value>Active PIC successfully!</value>
+  </data>
   <data name="AssignPIC" xml:space="preserve">
     <value>Assign PIC</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CommunicationTool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
+  <data name="ConfirmActivePic" xml:space="preserve">
+    <value>Are you sure you want to active PIC {0}?</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmDeactivePic" xml:space="preserve">
+    <value>Are you sure you want to deactivate PIC {0}? The PIC assignment shall be emoved.</value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
+  </data>
+  <data name="DeactivePicSuccess" xml:space="preserve">
+    <value>Deactivate PIC successfully!</value>
   </data>
   <data name="DirectAccount" xml:space="preserve">
     <value>Direct Account</value>
@@ -158,6 +176,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="PIC" xml:space="preserve">
     <value>PIC</value>

@@ -132,6 +132,26 @@
                 $scope.getReport();
             };
 
+            $scope.changePicState = function (item) {
+                console.log(item);
+                parent.homeManager.CachedData.shouldReloadView = false;
+                var state = !item.IsActive;
+                var title = viewResources.Confirmation;
+                parent.OpenPopup(
+                    window.rootUrl + "PicManagement/OpenChangePicState?" + $.param({ Id: item.Id, IsActive: state, Username: item.Username }),
+                    title,
+                    450,
+                    160,
+                    true,
+                    false,
+                    parent.window,
+                    3000,
+                    null,
+                    $scope.closeInsertView,
+                    { my: "center top+200", at: "center top" },
+                    null);
+            };
+
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;
             };

@@ -1,4 +1,5 @@
 ﻿using Fanex.CRM.Common.Controllers;
+using Fanex.CRM.Common.Models;
 using Fanex.CRM.PicAndHeadline.Criteria;
 using Fanex.CRM.PicAndHeadline.Services;
 using Fanex.CRM.Setting.Services;
@@ -60,6 +61,18 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         {
             var result = _picReportService.InsertPic(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult OpenChangePicState(ChangePicStateCriteria criteria)
+        {
+            return View("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Index.cshtml", criteria);
+        }
+
+        [HttpPost]
+        public JsonResult ChangePicState(ChangePicStateCriteria criteria)
+        {
+           // CommandResult result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
+            return Json(new CommandResult() { Message = "Ok", Code = 0 }, JsonRequestBehavior.AllowGet);
         }
     }
 }

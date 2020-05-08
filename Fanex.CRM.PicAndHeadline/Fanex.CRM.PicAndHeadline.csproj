@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Controllers\PicManagementController.cs" />
     <Compile Include="Controllers\PicOfHeadlineController.cs" />
+    <Compile Include="Criteria\ChangePicStateCriteria.cs" />
     <Compile Include="Criteria\GetReportCriteria.cs" />
     <Compile Include="Criteria\InsertPicCriteria.cs" />
     <Compile Include="Models\PicInfo.cs" />

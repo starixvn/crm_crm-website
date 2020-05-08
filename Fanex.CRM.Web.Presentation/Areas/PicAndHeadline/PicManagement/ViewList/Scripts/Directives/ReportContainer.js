@@ -16,7 +16,7 @@
             return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
         }
 
-        function getGripOtions(report) {
+        function getGripOtions(report, communicationTools) {
             var bodyData = [];
             var footerData = [];
             var reportLength = report ? report.DataList.length : 0;
@@ -24,16 +24,32 @@
                 for (var i = 0; i < reportLength; i++) {
                     var data = report.DataList[i];
                     var no = i + 1 + cachedData.scope.lastSelectedParams.PageSize * (cachedData.scope.lastSelectedParams.PageIndex - 1);
+                    var checked = data.IsActive == true ? "checked" : "";
+
                     var columns = [
                         { Name: "ColNo", Value: no },
                         { Name: "ColUsername", Value: data.Username },
                         { Name: "ColRole", Value: data.Role },
                         { Name: "ColGroupHeadline", Value: data.GroupHeadline },
-                        { Name: "ColContact", Value: data.Contact },
-                        { Name: "ColRemark", Value: data.Remark },
-                        { Name: "ColEdit", Value: data.Edit },
-                        { Name: "ColActive", Value: data.Active }
+                        { Name: "ColContact", Value: data.Contact }                        
                     ];
+
+                    for (var j = 0; j < communicationTools.length; j++) {
+                        console.log("Col" + communicationTools[j].Name);
+                        columns.push({
+                            Name: "Col" + communicationTools[j].Name,
+                            Value: data.Remark
+                        })
+                    }
+
+                    columns.push({
+                        Name: "ColEdit",
+                        Value: data.Edit
+                    })
+                    columns.push({
+                        Name: "ColActive",
+                        Value: '<input type="checkbox" class="activeSetting" ' + checked + ' data-row-index="' + i + '" />'
+                    })
 
                     bodyData.push({
                         Columns: columns
@@ -41,26 +57,46 @@
                 }
             }
 
+            var groupHeaderRows = [
+                {
+                    Columns: [
+                        { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                        { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Contact, Width: 120, Name: "ColContact", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
+                        { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  }
+                    ]
+                }                
+            ];
+
             var headerColumns = [
                 { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Contact, Width: 120, Name: "ColContact", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left" }
-                ];
+                { HeaderText: viewResources.Contact, Width: 120, Name: "ColContact", HeaderAlign: "center", CellAlign: "center" }                
+            ];
+
+            for (var j = 0; j < communicationTools.length; j++) {
+                headerColumns.push(
+                    { HeaderText: communicationTools[j].Name, Width: 120, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
+                );
+            }
+
+            headerColumns.push({ HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left" });
+            headerColumns.push({ HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left" });
 
             var gridOptions = {
+                customizeHeader: true,
+                groupHeaderRows: groupHeaderRows,
                 columns: headerColumns,
                 showTitle: true,
                 titleInfo: {
                     text: viewResources.ReportTitle,
-                    showExcelButton: true,
-                    exportExcelFunction: function () {
-                        cachedData.scope.exportReport();
-                    }
+                    showExcelButton: false
                 },
                 bodyRows: bodyData,
                 footerRows: footerData,
@@ -99,16 +135,23 @@
             }
 
             cachedData.scope = scope;
-            console.log("xx");
-            debugger
-            console.log(scope.communicationTools);
             var tableCustomerReport = element.find("#table-report");
             cachedData.reportTable = tableCustomerReport;
             var customerReport = scope.reportOptions.DataList;
+            var communicationTools = scope.communicationTools;
             cachedData.customerReport = customerReport;
-            var gridOptions = getGripOtions(customerReport);
+            var gridOptions = getGripOtions(customerReport, communicationTools);
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+            var activeSettings = tableCustomerReport.find(".activeSetting");
+            activeSettings.unbind("click");
+            activeSettings.click(function () {
+                var rowIndex = parseInt($(this).attr("data-row-index"));
+                console.log(rowIndex);
+                console.log(customerReport);
+                scope.changePicState(customerReport.DataList[rowIndex]);
+            });
         }
 
         return {

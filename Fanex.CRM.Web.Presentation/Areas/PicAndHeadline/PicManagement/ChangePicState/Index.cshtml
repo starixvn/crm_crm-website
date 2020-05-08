@@ -1,0 +1,52 @@
+﻿@using Newtonsoft.Json;
+@using Fanex.CRM.PicAndHeadline.Resources
+@using Fanex.CRM.Common.Extensions;
+@model Fanex.CRM.PicAndHeadline.Criteria.ChangePicStateCriteria
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Confirmation;
+
+    var model = JsonConvert.SerializeObject(Model);
+
+    var messageTemplate = Model.IsActive ? Labels.ConfirmActivePic : Labels.ConfirmDeactivePic;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles")
+}
+<!DOCTYPE>
+<div data-ng-app="changepicstate-application">
+    <div class="changePicStateController" data-ng-controller="changePicStateController">
+        <div class="container main">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @string.Format(messageTemplate, Model.Username)
+            </div>
+            <div class="row btn-group">
+                <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="changeState();">
+                    @Labels.Ok
+            </button>
+            <button id="btn-cancel" class="btn pull-left btn-cancel" data-ng-click="cancelChangeState();">
+                @Labels.Cancel
+        </button>
+    </div>
+</div>
+</div>
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var item = @Html.Raw(model);
+    </script>
+}

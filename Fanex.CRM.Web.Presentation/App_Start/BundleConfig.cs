@@ -102,6 +102,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_PicManagement(ref bundles);
             RegisterBundles_InsertPic(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
+            RegisterBundles_ChangePicState(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -635,6 +636,20 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.AddAndInclude(
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicStyles",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Styles/InsertPic.less");
+        }
+
+        private static void RegisterBundles_ChangePicState(ref BundleCollection bundles)
+        {   
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+               "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateApplication.js",
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateService.js",
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateController.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles",
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles/ChangePicState.less");
         }
 
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
