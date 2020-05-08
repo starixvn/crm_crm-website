@@ -64,7 +64,7 @@
                     return;
                 }
 
-                var custIds = string.Join(",", ticketInfo.Item2.Where(x => !x.IsDeposit).Select(x => x.CustId));
+                var custIds = string.Join(",", ticketInfo.Item2.Where(x => !x.IsDeposit).Select(x => x.CustId).Distinct());
                 IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(custIds);
                 foreach (MatchInfo matchInfo in ticketInfo.Item1)
                 {
