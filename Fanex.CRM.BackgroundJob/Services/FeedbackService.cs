@@ -475,7 +475,9 @@
         {
             const string XmlTemplate = "<Row CustId='{0}' RelatedCustId='{1}' Username='{2}' />";
             var stringBuilder = new StringBuilder("<ROOT>");
-            foreach (var transaction in transactionInfos)
+            var transactions = transactionInfos.GroupBy(x => x.CustId)
+                .Select(x => new TransactionInfo { CustId = x.Key, Username = x.First().Username });
+            foreach (var transaction in transactions)
             {
                 stringBuilder.AppendFormat(XmlTemplate, headlineId, transaction.CustId, transaction.Username);
             }
