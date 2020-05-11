@@ -161,20 +161,18 @@
                 .Where(r => r.ParentId == parentId)
                 .Select(s => new { s.Id, s.DisplayOrder }).Distinct();
 
-            var query = allSettings.Join(
-                settingIds,
-                setting => setting.Id,
-                parent => parent.Id,
-                (setting, parent) =>
-                    new Setting
-                    {
-                        Id = setting.Id,
-                        DisplayOrder = parent.DisplayOrder,
-                        Value = setting.Value,
-                        SettingType = setting.SettingType
-                    }).Distinct().OrderBy(s => s.DisplayOrder);
+            var childs = allSettings.Where(x => settingIds.Any(y => x.Id == y.Id))
+                .GroupBy(x => x.Id)
+                .Select(x => new Setting
+                {
+                    Id = x.Key,
+                    Value = x.First().Value,
+                    SettingType = x.First().SettingType,
+                    DisplayOrder = x.First().DisplayOrder
+                })
+                .OrderBy(s => s.DisplayOrder);
 
-            return query.ToList();
+            return childs.ToList();
         }
     }
 }

@@ -6,6 +6,7 @@
             function ($scope, $window, $uiBlockerService, admintoolSettingFactory, $uibModalInstance, settingInfo, sourceSettingMapping) {
                 $scope.messageResultOptions = null;
                 $scope.isSetFocus = false;
+                $scope.selectedMappings = [];
                 $scope.sourceSettingMapping = sourceSettingMapping;
 
                 $scope.dropdownData = {
@@ -144,7 +145,7 @@
                         sourceData: data,
                         checkedAll: false
                     };
-                }
+                };
 
                 $scope.closeModal = function () {
                     $uibModalInstance.close();
@@ -154,7 +155,7 @@
                 $scope.isShowSourceMapping = function () {
                     var settingType = $scope.editSettingParams.UpdatedSetting.SettingType;
                     return settingType === 'BetType' || settingType === 'Product' || settingType === 'SubProduct';
-                }
+                };
 
                 angular.element(document).ready(function () {
                     $scope.initController();
