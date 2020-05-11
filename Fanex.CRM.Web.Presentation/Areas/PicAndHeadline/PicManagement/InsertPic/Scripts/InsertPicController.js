@@ -82,25 +82,16 @@
             };
 
             $scope.savePic = function () {
-                console.log($scope.insertParams);
-                console.log($scope.communicationToolItems);
                 $scope.BlockUI();
-                
-                $scope.insertParams = {
-                    Username: '',
-                    RoleId: null,
-                    Remark: '',
-                    CommunicationTools: []
-                };
 
                 var criteria = {
-                    Username: '',
-                    RoleId: null,
-                    Remark: '',
-                    CommunicationTools: []
+                    Username: $scope.insertParams.Username,
+                    RoleId: $scope.insertParams.RoleId,
+                    Remark: $scope.insertParams.Remark,
+                    CommunicationTools: $scope.communicationToolItems
                 };
 
-
+                console.log(criteria);
                 $insertPicService.savePic(criteria)
                     .then(function (data) {
                         console.log(data);

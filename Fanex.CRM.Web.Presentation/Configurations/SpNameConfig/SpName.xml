@@ -213,5 +213,11 @@
     <Setting Key="MultipleLogs_VerifyCustomer" SpName="CRM_MultipleLogs_VerifyCustomer_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogs_VerifyRelatedCustomer" SpName="CRM_MultipleLogs_VerifyRelatedCustomer_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
+  <Function Name="Pic and Headline">
+    <Setting Key="Acc_CRM_PicIns" SpName="Acc_CRM_PicIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicSel" SpName="Acc_CRM_PicSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicUpd" SpName="Acc_CRM_PicUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicManagementSel" SpName="Acc_CRM_PicManagementSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
 </Functions>
 		

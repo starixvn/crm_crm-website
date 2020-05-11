@@ -28,6 +28,12 @@ namespace Fanex.CRM.PicAndHeadline.Services
         {
             return new PicReport
             {
+                DataList = picReportRepository.GetReport(criteria).ToList(),
+                Total = criteria.TotalRows
+            };
+
+            return new PicReport
+            {
                 DataList = new List<PicInfo> {
                     new PicInfo { Username = "a" },
                     new PicInfo { Username = "b" },
@@ -35,22 +41,10 @@ namespace Fanex.CRM.PicAndHeadline.Services
                 },
                 Total = 21
             };
-
-            return new PicReport
-            {
-                DataList = picReportRepository.GetReport(criteria).ToList(),
-                Total = criteria.TotalRows
-            };
         }
 
         public CommandResult InsertPic(InsertPicCriteria criteria)
         {
-            return new CommandResult
-            {
-                Message = Labels.InsertPicSuccess,
-                Code = 0
-            };
-
             var result = baseService.ExecuteNonQuery(criteria);
 
             if (result.IsSuccessful)
@@ -59,6 +53,12 @@ namespace Fanex.CRM.PicAndHeadline.Services
             }
 
             return result;
+
+            return new CommandResult
+            {
+                Message = Labels.InsertPicSuccess,
+                Code = 0
+            };
         }
 
     }

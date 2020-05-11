@@ -73,7 +73,7 @@
                 $scope.BlockUI();
                 var getReportCriteria = {
                     Username: $scope.searchCriteria.Username,
-                    RoleId: $scope.searchCriteria.role.Id,
+                    Role: $scope.searchCriteria.role.Id,
                     PageIndex: $scope.searchCriteria.PageIndex,
                     PageSize: $scope.searchCriteria.PageSize                    
                 };

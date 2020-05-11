@@ -653,25 +653,8 @@
 
         public IList<Setting> GetPicRoles(bool isIncludeAllOption = false)
         {
-            var data = new List<Setting>
-            {
-                new Setting
-                {
-                    Id = PicRoleConstants.Boss,
-                    Value = Labels.Boss
-                },
-                new Setting
-                {
-                    Id = PicRoleConstants.Partner,
-                    Value = Labels.Partner
-                },
-                new Setting
-                {
-                    Id = PicRoleConstants.Staff,
-                    Value = Labels.Staff
-                }
-            };
-
+            var data = GetAllSettings().Where(s => s.SettingType.Equals(SettingTypeConstants.PicRole)).ToList();
+           
             if (isIncludeAllOption)
             {
                 data.Insert(0, new Setting

@@ -1,8 +1,10 @@
 ﻿using Fanex.CRM.Common.Criteria;
 using Fanex.CRM.Common.Helpers;
 using Fanex.CRM.Common.Services;
+using Fanex.CRM.PicAndHeadline.Models;
 using Fanex.Data.Repository;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Fanex.CRM.PicAndHeadline.Criteria
 {
@@ -10,7 +12,7 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
     {
         public string Username { get; set; }
         public int RoleId { get; set; }
-        public string CommunicationTools { get; set; }
+        public IEnumerable<PicCommunicationTool> CommunicationTools { get; set; }
         public string Remark { get; set; }
 
         [SpParam(SqlParamName = "creatorid")]
@@ -45,12 +47,11 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
             var param = new Hashtable();
             param.Add("Username", Username);
             param.Add("RoleId", RoleId);
-            param.Add("CommunicationTools", CommunicationTools);
+            param.Add("CommunicationTools", SerializerHelper.SerializeList(this.CommunicationTools));
             param.Add("Remark", Remark);
 
             param.Add("userid", UserId);
-            param.Add("ip", IP);
-            param.Add("UserRole", UserRole);
+            param.Add("loginip", IP);
             param.Add("errcode", 0);
             param.Add("errmsg", string.Empty);
             return param;
@@ -58,7 +59,7 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
 
         public override string GetSettingKey()
         {
-            return "";
+            return "Acc_CRM_PicIns";
         }
 
         public override bool IsValid() => true;
