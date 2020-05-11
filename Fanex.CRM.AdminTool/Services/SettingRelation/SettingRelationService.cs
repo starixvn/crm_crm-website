@@ -41,9 +41,20 @@
 
         public IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria)
         {
-            var allSettings = _settingService.GetAllSettings();
+            IEnumerable<Setting> allSettings = _settingService.GetAllSettings();
             var result = allSettings
                 .Where(s => s.SettingType == criteria.MainSetting.SettingType)
+                .GroupBy(s => s.Id).Select(x => new Setting
+                {
+                    Id = x.Key,
+                    Name = x.First().Name,
+                    Value = x.First().Value,
+                    SettingType = x.First().SettingType,
+                    ParentId = x.First().ParentId,
+                    IsChild = x.First().IsChild,
+                    IsActive = x.First().IsActive,
+                    DisplayOrder = x.First().DisplayOrder
+                })
                 .OrderBy(s => s.DisplayOrder)
                 .ToList();
 
@@ -148,7 +159,7 @@
 
             var settingIds = allSettingRelations
                 .Where(r => r.ParentId == parentId)
-                .Select(s => new { s.Id, s.DisplayOrder });
+                .Select(s => new { s.Id, s.DisplayOrder }).Distinct();
 
             var query = allSettings.Join(
                 settingIds,
@@ -161,7 +172,7 @@
                         DisplayOrder = parent.DisplayOrder,
                         Value = setting.Value,
                         SettingType = setting.SettingType
-                    }).OrderBy(s => s.DisplayOrder);
+                    }).Distinct().OrderBy(s => s.DisplayOrder);
 
             return query.ToList();
         }
