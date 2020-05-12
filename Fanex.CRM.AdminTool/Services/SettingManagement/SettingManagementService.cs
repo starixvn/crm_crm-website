@@ -95,6 +95,12 @@
                 new CommandResult((int)HttpStatusCode.InternalServerError, Labels.SettingManagement_Error_ExistedSetting) :
                 baseService.ExecuteNonQuery(criteria);
 
+            baseService.ExecuteNonQuery(new EditSourceSettingMappingCriteria
+            {
+                SettingID = criteria.UpdatedSetting.Id,
+                SettingSource = criteria.UpdatedSetting.SettingSource
+            });
+
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;

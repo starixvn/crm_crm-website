@@ -6,6 +6,7 @@
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
 
@@ -26,7 +27,8 @@
                             SettingType = Converter.ToString2(reader["settingname"]),
                             Value = Converter.ToString2(reader["settingvalue"]),
                             DisplayOrder = Converter.ToInt(reader["displayorder"]),
-                            IsActive = Converter.ToBool(reader["isactive"])
+                            IsActive = Converter.ToBool(reader["isactive"]),
+                            SettingSource = Converter.ToString2(reader["SettingSource"])
                         });
                     }
 
@@ -323,6 +325,27 @@
         public IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria)
         {
             return ReadBaseModels(criteria, "CurrencyId", "Currency");
+        }
+
+        public IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    var sourceMappings = new List<SettingMapping>();
+                    while (reader.Read())
+                    {
+                        sourceMappings.Add(new SettingMapping
+                        {
+                            SettingName = Converter.ToString2(reader["SettingName"]),
+                            SettingSource = Converter.ToString2(reader["Source"])
+                        });
+                    }
+
+                    return sourceMappings;
+                }
+            }
         }
 
         private static IList<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)
