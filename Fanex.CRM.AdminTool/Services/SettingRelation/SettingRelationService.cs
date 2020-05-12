@@ -42,23 +42,14 @@
         public IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria)
         {
             IEnumerable<Setting> allSettings = _settingService.GetAllSettings();
-            var result = allSettings
+            IEnumerable<Setting> relations = GetAllSettingRelations();
+            List<Setting> result = allSettings
                 .Where(s => s.SettingType == criteria.MainSetting.SettingType)
-                .GroupBy(s => s.Id).Select(x => new Setting
-                {
-                    Id = x.Key,
-                    Name = x.First().Name,
-                    Value = x.First().Value,
-                    SettingType = x.First().SettingType,
-                    ParentId = x.First().ParentId,
-                    IsChild = x.First().IsChild,
-                    IsActive = x.First().IsActive,
-                    DisplayOrder = x.First().DisplayOrder
-                })
+                .GroupBy(s => s.Id).Select(x => x.First())
                 .OrderBy(s => s.DisplayOrder)
                 .ToList();
 
-            result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id).ToList());
+            result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id, allSettings, relations));
             return result;
         }
 
@@ -152,24 +143,15 @@
             return settingRelations;
         }
 
-        private IEnumerable<Setting> GetSettingByParentId(int parentId)
+        private static List<Setting> GetSettingByParentId(int parentId, IEnumerable<Setting> allSettings, IEnumerable<Setting> relations)
         {
-            var allSettingRelations = GetAllSettingRelations();
-            var allSettings = _settingService.GetAllSettings();
-
-            var settingIds = allSettingRelations
+            var settingIds = relations
                 .Where(r => r.ParentId == parentId)
-                .Select(s => new { s.Id, s.DisplayOrder }).Distinct();
+                .Select(s => new { s.Id, s.DisplayOrder });
 
             var childs = allSettings.Where(x => settingIds.Any(y => x.Id == y.Id))
                 .GroupBy(x => x.Id)
-                .Select(x => new Setting
-                {
-                    Id = x.Key,
-                    Value = x.First().Value,
-                    SettingType = x.First().SettingType,
-                    DisplayOrder = x.First().DisplayOrder
-                })
+                .Select(x => x.First())
                 .OrderBy(s => s.DisplayOrder);
 
             return childs.ToList();
