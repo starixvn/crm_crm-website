@@ -1,0 +1,20 @@
+﻿<div id="delete-licensee-mapping-template" style="display: none">
+    <div class="modal-header">
+        Confirmation
+        <span class="icon-close fa fa-times" ng-click="deleteLicenseeMappingCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row row-item" ng-show="deleteLicenseeMappingCtrl.isShowResultMessage">
+            <div class="alertbox{{ deleteLicenseeMappingCtrl.isSuccessful ? 'scc' : 'err' }}">
+                <div>{{deleteLicenseeMappingCtrl.resultMessage}}</div>
+            </div>
+        </div>
+        <div class="row row-item">
+            Are you sure to remove Source Mapping and Licensee Manager?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="deleteLicenseeMappingCtrl.delete()">OK</button>
+        <button class="btn" ng-click="deleteLicenseeMappingCtrl.close()">Cancel</button>
+    </div>
+</div>

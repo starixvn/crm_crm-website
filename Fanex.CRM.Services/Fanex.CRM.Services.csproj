@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IMultipleLogsService.cs" />
+    <Compile Include="LicenseeMappingService.cs" />
     <Compile Include="MultipleLogsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

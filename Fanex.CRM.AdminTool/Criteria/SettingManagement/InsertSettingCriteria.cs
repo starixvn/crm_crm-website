@@ -45,6 +45,7 @@
             param.Add("settingvalue", NewSetting.Value);
             param.Add("displayorder", NewSetting.DisplayOrder);
             param.Add("parentid", NewSetting.ParentId);
+            param.Add("settingSource", NewSetting.SettingSource);
 
             param.Add("userid", UserId);
             param.Add("ip", IP);

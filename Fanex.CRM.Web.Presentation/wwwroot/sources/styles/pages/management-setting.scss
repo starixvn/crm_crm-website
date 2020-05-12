@@ -1,0 +1,192 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
+@import '~tipsy/src/stylesheets/tipsy.css';
+@import '~select2/dist/css/select2.css';
+
+@import '../../libs/FanexGrid/Fanex.Grid.css';
+@import '../../libs/FanexGrid/Fanex.Pagination.css';
+@import '../../../../Scripts/Directives/multileveldropdown/multileveldropdown.css';
+
+$fanex-grid-images-path: '../images';
+@import '../components/buttons';
+@import '../components/modal';
+@import '../components/customize-fanex-grid';
+
+.tipsy-inner {
+    max-width: 600px;
+    text-align: left;
+    font-size: 11px;
+}
+
+.comm-tool-setting-filter {
+    .category-select, .subcategory-select {
+        multileveldropdowntree {
+            width: 250px;
+
+            .dropdown-menu {
+                min-width: 300px;
+            }
+        }
+    }
+}
+
+.comm-tool-setting-grid {
+    .fa {
+        cursor: pointer;
+        font-size: 14px;
+
+        &.fa-pencil {
+            color: #0789d1;
+        }
+
+        &.fa-times {
+            color: #de5144;
+        }
+    }
+}
+
+.create-subsetting-modal-backdrop, .licensee-mapping-modal-backdrop {
+    z-index: 940 !important;
+}
+
+.create-subsetting-modal {
+    z-index: 950 !important;
+
+    .modal-dialog {
+        multileveldropdowntree {
+            .dropdown {
+                width: 100%;
+                z-index: unset;
+                float: none;
+            }
+        }
+
+        .category-select, .subcategory-select {
+            multileveldropdowntree {
+                .dropdown-menu {
+                    min-width: 300px;
+                }
+            }
+        }
+
+        .row.item {
+            padding: 5px 0;
+
+            .related-customer-grid {
+                border: 1px solid $border-color;
+                height: auto;
+                max-height: 250px;
+                margin-top: 10px;
+                overflow: auto;
+
+                table {
+                    width: 100%;
+
+                    td {
+                        width: 25%;
+                        padding: 5px;
+
+                        .txt-customer, .txt-guest, .txt-invalid {
+                            display: flex;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tooltip {
+            .tooltip-inner {
+                min-width: 300px;
+                text-align: left;
+            }
+        }
+
+        .control-label {
+            padding-top: 3px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.licensee-mapping-modal {
+    z-index: 950 !important;
+
+    .modal-dialog {
+        width: 800px;
+
+        .filter-frm {
+            .row-item {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .licensee-mapping-grid {
+        .selected-row td {
+            background: #e2ffff;
+        }
+
+        .select2-container {
+            width: 100% !important;
+
+            .select2-selection--single {
+                height: 24px;
+
+                .select2-selection__rendered {
+                    line-height: 24px;
+                }
+
+                .select2-selection__arrow {
+                    height: 22px;
+                }
+            }
+        }
+
+        .cell-source-mapping {
+            position: relative;
+        }
+
+        .cell-action {
+            display: flex;
+
+            .icon-broom {
+                background: url(../images/broom.png) no-repeat;
+                border: none;
+                width: 10px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+            }
+
+            .fa {
+                cursor: pointer;
+                font-size: 14px;
+                margin: 0 5px;
+                background: none;
+                border: none;
+
+                &:disabled {
+                    cursor: not-allowed;
+
+                    &.fa-pencil {
+                        color: #333;
+                        opacity: 0.6;
+                    }
+                }
+
+                &.fa-pencil, &.fa-floppy-o {
+                    color: #0789d1;
+                }
+
+                &.fa-times {
+                    color: #de5144;
+                }
+            }
+        }
+    }
+}

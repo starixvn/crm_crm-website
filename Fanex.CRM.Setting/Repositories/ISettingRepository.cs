@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Models;
 
     public interface ISettingRepository
     {
@@ -39,5 +40,7 @@
         IList<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
         IEnumerable<Product> GetSubProducts(SubProductCriteria criteria);
+
+        IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria);
     }
 }

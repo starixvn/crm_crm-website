@@ -1,0 +1,35 @@
+﻿<div id="licensee-mapping-template" style="display: none">
+    <div class="modal-header">
+        Licensee Mapping
+        <span class="icon-close fa fa-times" ng-click="licenseeMappingCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row row-item" ng-show="licenseeMappingCtrl.isShowResultMessage">
+            <div class="alertbox{{ licenseeMappingCtrl.isSuccessful ? 'scc' : 'err' }}">
+                <div>{{licenseeMappingCtrl.resultMessage}}</div>
+            </div>
+        </div>
+        <div class="row filter-frm one-row">
+            <div class="row row-item">
+                <div class="item">
+                    <label>Setting</label>
+                    <input type="text" ng-model="licenseeMappingCtrl.keyword" />
+                </div>
+                <div class="item">
+                    <button class="btn" ng-click="licenseeMappingCtrl.search()"><span class="hotkey">S</span>earch</button>
+                </div>
+            </div>
+        </div>
+        <div class="row licensee-mapping-grid-wrapper">
+            <div class="licensee-mapping-grid freegrid display-none" licensee-mapping-grid
+                 ng-model="licenseeMappingCtrl.licenseeMappings"
+                 data-licensees="licenseeMappingCtrl.licensees"
+                 on-clear="licenseeMappingCtrl.clearMapping"
+                 on-save="licenseeMappingCtrl.saveMapping">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="licenseeMappingCtrl.close()">Cancel</button>
+    </div>
+</div>

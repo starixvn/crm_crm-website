@@ -204,6 +204,9 @@
   <data name="Insert_Setting_value_for" xml:space="preserve">
     <value>填入设定值</value>
   </data>
+  <data name="LicenseeManager" xml:space="preserve">
+    <value>Licensee Manager</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -284,6 +287,9 @@
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>简体中文</value>
+  </data>
+  <data name="SourceMapping" xml:space="preserve">
+    <value>Source Mapping</value>
   </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>副设定</value>

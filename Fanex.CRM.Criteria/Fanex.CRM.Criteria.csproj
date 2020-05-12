@@ -71,6 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LicenseeMapping\GetLicenseeCriteria.cs" />
+    <Compile Include="LicenseeMapping\GetLicenseeManagerCriteria.cs" />
+    <Compile Include="LicenseeMapping\GetLicenseeMappingCriteria.cs" />
+    <Compile Include="LicenseeMapping\UpdateLicenseeMappingCriteria.cs" />
     <Compile Include="MultipleLogs\CheckNotExistCommunicationToolSettingCriteria.cs" />
     <Compile Include="MultipleLogs\CreateMultipleLogsCriteria.cs" />
     <Compile Include="MultipleLogs\GetLogByFeedbackIdCriteria.cs" />

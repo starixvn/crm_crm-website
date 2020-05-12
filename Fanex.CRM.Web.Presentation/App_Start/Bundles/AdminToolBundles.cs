@@ -157,22 +157,6 @@
 
         private static void RegisterSettingManagementViewListBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/ViewListScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListApplication.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListService.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_Update.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/Directives/*.js"));
-
             bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/ViewListStyles",
                 "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
@@ -206,14 +190,7 @@
         private static void RegisterSettingManagementInsertSubSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/InsertSubSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingApplication.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingService.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController_Options.js",
@@ -221,11 +198,14 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController_HotKey.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/ParentSettingDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
+                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"
+                ));
 
             bundles.AddAndInclude(
                 "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
+                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less",
+                "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
+                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }
 
         private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
@@ -245,24 +225,10 @@
         private static void RegisterSettingManagementEditSettingBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/EditSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingApplication.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingService.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Update.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/EditSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js"));
         }
 
         private static void RegisterSettingManagementCN88EditSettingBundles(BundleCollection bundles)

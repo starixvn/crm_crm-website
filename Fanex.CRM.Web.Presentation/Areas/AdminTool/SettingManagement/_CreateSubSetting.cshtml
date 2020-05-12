@@ -1,0 +1,82 @@
+﻿@using Fanex.CRM.AdminTool.Resources
+
+<div id="addmintool-settingmanagement-insertsubsetting-template" style="display: none">
+    <div class="modal-header">
+        @Labels.Insert_Setting_value_for
+        {{insertSettingParams.NewSetting.SettingType}}
+        <span class="icon-close fa fa-times" ng-click="closeModal()"></span>
+    </div>
+        <div class="modal-body">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal frm" role="form">
+                    <div class="form-group">
+                        <label for="txtSettingName" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                            @Labels.Setting_Name
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9">
+                            <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                                   data-ng-model="insertSettingParams.NewSetting.SettingType" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSettingValue" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                            @Labels.Setting_Value
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9">
+                            <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                                   data-ng-model="insertSettingParams.NewSetting.Value" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="isShowSourceMapping()">
+                        <label for="txtSettingValue" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                            @Labels.SourceMapping
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9">
+                            <multileveldropdowntree text-settings="textSettings"
+                                                    data-settings="dropdownData"
+                                                    ng-model="$parent.selectedMappings" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ddlParent" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                            @Labels.Parent
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
+                            <select id="action" class="sel-action" ng-model="settingParrent" ng-init="settingParrent = '0'">
+                                <option value="0">N/A</option>
+                                @foreach (var parent in ViewBag.ParentSetting)
+                                {
+                                    <option value="@parent.Value">@(parent.SettingType + " - " + parent.Value)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDisplayOrder" class="col-xs-4 col-sm-4 col-md-3 control-label">
+                            @Labels.Display_Order
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9">
+                            <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
+                                   data-ng-model="insertSettingParams.NewSetting.DisplayOrder" maxlength="20" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-ng-click="insertSubSetting();">
+                <span class="hotkey">S</span>ave
+            </button>
+        </div>
+    </div>

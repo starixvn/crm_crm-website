@@ -18,6 +18,8 @@
 
         public int ParentId { get; set; }
 
+        public string SettingSource { get; set; }
+
         public List<Setting> ChildSettings { get; set; }
     }
 }
