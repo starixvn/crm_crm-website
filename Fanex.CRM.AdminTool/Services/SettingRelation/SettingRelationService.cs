@@ -43,13 +43,16 @@
         {
             IEnumerable<Setting> allSettings = _settingService.GetAllSettings();
             IEnumerable<Setting> relations = GetAllSettingRelations();
-            List<Setting> result = allSettings
+            IEnumerable<Setting> result = allSettings
                 .Where(s => s.SettingType == criteria.MainSetting.SettingType)
                 .GroupBy(s => s.Id).Select(x => x.First())
-                .OrderBy(s => s.DisplayOrder)
-                .ToList();
+                .OrderBy(s => s.DisplayOrder);
 
-            result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id, allSettings, relations));
+            foreach(Setting item in result)
+            {
+                item.ChildSettings = GetSettingByParentId(item.Id, allSettings, relations);
+            }
+
             return result;
         }
 
