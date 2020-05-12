@@ -50,7 +50,16 @@
 
             foreach(Setting item in result)
             {
-                item.ChildSettings = GetSettingByParentId(item.Id, allSettings, relations);
+                var settingIds = relations
+                    .Where(r => r.ParentId == item.Id)
+                    .Select(s => new { s.Id, s.DisplayOrder });
+                if (settingIds.Any())
+                {
+                    item.ChildSettings = allSettings.Where(x => settingIds.Any(y => x.Id == y.Id))
+                        .GroupBy(x => x.Id)
+                        .Select(x => x.First())
+                        .OrderBy(s => s.DisplayOrder).ToList();
+                }
             }
 
             return result;
@@ -144,20 +153,6 @@
             }
 
             return settingRelations;
-        }
-
-        private static List<Setting> GetSettingByParentId(int parentId, IEnumerable<Setting> allSettings, IEnumerable<Setting> relations)
-        {
-            var settingIds = relations
-                .Where(r => r.ParentId == parentId)
-                .Select(s => new { s.Id, s.DisplayOrder });
-
-            var childs = allSettings.Where(x => settingIds.Any(y => x.Id == y.Id))
-                .GroupBy(x => x.Id)
-                .Select(x => x.First())
-                .OrderBy(s => s.DisplayOrder);
-
-            return childs.ToList();
         }
     }
 }
