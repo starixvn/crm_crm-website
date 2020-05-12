@@ -45,7 +45,7 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
-            param.Add("Username", Username);
+            param.Add("Picname", Username);
             param.Add("RoleId", RoleId);
             param.Add("CommunicationTools", SerializerHelper.SerializeList(this.CommunicationTools));
             param.Add("Remark", Remark);

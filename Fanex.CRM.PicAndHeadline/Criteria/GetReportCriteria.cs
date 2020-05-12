@@ -10,7 +10,7 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
 {
     public class GetReportCriteria : CriteriaBase
     {
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         public int Role { get; set; }
 

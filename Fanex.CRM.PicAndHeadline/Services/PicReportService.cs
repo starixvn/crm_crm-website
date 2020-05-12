@@ -26,6 +26,11 @@ namespace Fanex.CRM.PicAndHeadline.Services
 
         public PicReport GetReport(GetReportCriteria criteria)
         {
+            if (criteria.Username == null)
+            {
+                criteria.Username = string.Empty;
+            }
+
             return new PicReport
             {
                 DataList = picReportRepository.GetReport(criteria).ToList(),

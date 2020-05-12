@@ -19,7 +19,7 @@
         function getGripOtions(report, communicationTools) {
             var bodyData = [];
             var footerData = [];
-            var reportLength = report ? report.DataList.length : 0;
+            var reportLength = report ? report.DataList.length : 0; 
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
                     var data = report.DataList[i];
@@ -31,14 +31,14 @@
                         { Name: "ColUsername", Value: data.Username },
                         { Name: "ColRole", Value: data.Role },
                         { Name: "ColGroupHeadline", Value: data.GroupHeadline },
-                        { Name: "ColContact", Value: data.Contact }                        
                     ];
 
+                    
                     for (var j = 0; j < communicationTools.length; j++) {
                         console.log("Col" + communicationTools[j].Name);
                         columns.push({
                             Name: "Col" + communicationTools[j].Name,
-                            Value: data.Remark
+                            Value: GetCommunicationToolValue(data, communicationTools[j].Id)
                         })
                     }
 
@@ -64,7 +64,6 @@
                         { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
                         { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Contact, Width: 120, Name: "ColContact", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
                         { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
                         { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  }
@@ -77,7 +76,6 @@
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Contact, Width: 120, Name: "ColContact", HeaderAlign: "center", CellAlign: "center" }                
             ];
 
             for (var j = 0; j < communicationTools.length; j++) {
@@ -122,6 +120,17 @@
             };
 
             return gridOptions;
+        }
+
+        function GetCommunicationToolValue(item, settingId) {
+            if (item.CommunicationTools) {
+                var communicationTool = item.CommunicationTools.find(c => c.SettingId == settingId);
+                if (communicationTool) {
+                    return communicationTool.Value;
+                }
+            }
+
+            return '';
         }
 
         function ReRenderAfterPaged(page_index, itemsPerPage) {

@@ -3,6 +3,7 @@ using Fanex.CRM.PicAndHeadline.Criteria;
 using Fanex.CRM.PicAndHeadline.Models;
 using Fanex.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fanex.CRM.PicAndHeadline.Repositories
 {
@@ -12,14 +13,24 @@ namespace Fanex.CRM.PicAndHeadline.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                var data = objectDB.Query<PicInfo>(criteria.GetSpParams());
-                var outputParams = objectDB.GetOuputParams();
-                if (outputParams.Count != 0)
+                using (var multi = objectDB.QueryMultiple(criteria.GetSpParams()))
                 {
-                    criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
-                }
+                    var pics = multi.Read<PicInfo>();
+                    var communicationTools = multi.Read<CommunicationTool>();
 
-                return data;
+                    foreach(var p in pics)
+                    {
+                        p.CommunicationTools = communicationTools.Where(c => c.PicId == p.PicId).ToList();
+                    }
+
+                    var outputParams = objectDB.GetOuputParams();
+                    if (outputParams.Count != 0)
+                    {
+                        criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
+                    }
+
+                    return pics;
+                }
             }
         }
     }
