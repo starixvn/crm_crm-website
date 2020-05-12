@@ -419,7 +419,7 @@
                 && mappings.Any(y => y.SettingId == x.SettingId));
 
             return subProducts != null && subProducts.Any()
-                ? subProducts
+                ? subProducts.GroupBy(x => x.SettingId).Select(x => x.First())
                 : new List<SettingItem>
                 {
                     new SettingItem { SettingId = Constants.SubProductNA, ParentIds = new List<int> { Constants.ProductNA } }
@@ -441,7 +441,7 @@
                 && mappings.Any(y => y.SettingId == x.SettingId));
 
             return bettypes != null && bettypes.Any()
-                ? bettypes
+                ? bettypes.GroupBy(x => x.SettingId).Select(x => x.First())
                 : new List<SettingItem>
                 {
                     new SettingItem { SettingId = Constants.BettypeNA, ParentIds = new List<int> { Constants.SubProductNA } }
@@ -475,8 +475,7 @@
         {
             const string XmlTemplate = "<Row CustId='{0}' RelatedCustId='{1}' Username='{2}' />";
             var stringBuilder = new StringBuilder("<ROOT>");
-            var transactions = transactionInfos.GroupBy(x => x.CustId)
-                .Select(x => new TransactionInfo { CustId = x.Key, Username = x.First().Username });
+            var transactions = transactionInfos.GroupBy(x => x.CustId).Select(x => x.First());
             foreach (var transaction in transactions)
             {
                 stringBuilder.AppendFormat(XmlTemplate, headlineId, transaction.CustId, transaction.Username);
