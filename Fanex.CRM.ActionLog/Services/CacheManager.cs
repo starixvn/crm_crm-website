@@ -44,7 +44,8 @@
             // Add default N/A
             settings.Add(new Setting { Id = 0, Value = Labels.NA, SettingType = string.Empty });
 
-            return settings.ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);
+            return settings.GroupBy(x => x.Id).Select(x => x.First())
+                .ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);
         }
     }
 }
