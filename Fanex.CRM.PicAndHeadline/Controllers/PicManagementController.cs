@@ -74,8 +74,8 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
         [HttpPost]
         public JsonResult ChangePicState(ChangePicStateCriteria criteria)
         {
-           // CommandResult result = _feedbackSubjectManagementService.ChangeTemplateState(criteria);
-            return Json(new CommandResult() { Message = "Ok", Code = 0 }, JsonRequestBehavior.AllowGet);
+            CommandResult result = _picReportService.ChangePicState(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult OpenEditPic(
@@ -85,17 +85,21 @@ namespace Fanex.CRM.PicAndHeadline.Controllers
             string remark,
             IEnumerable<Dictionary<string, string>> communicationTools)
         {
+            var comTools = communicationTools == null ?
+                new List<PicCommunicationTool> { new PicCommunicationTool { Type = -1, Value = string.Empty } } :
+                communicationTools.Select(c => new PicCommunicationTool
+                {
+                    Type = int.Parse(c["SettingId"]),
+                    Value = c["Value"]
+                });
+
             var criteria = new EditPicCriteria
             {
                 PicId = picId,
                 Username = username,
                 RoleId = roleId,
                 Remark = remark,
-                CommunicationTools = communicationTools.Select(c => new PicCommunicationTool
-                {
-                    Type = int.Parse(c["SettingId"]),
-                    Value = c["Value"]
-                })
+                CommunicationTools = comTools
             };
 
             return View("~/Areas/PicAndHeadline/PicManagement/EditPic/Index.cshtml", criteria);

@@ -14,5 +14,6 @@ namespace Fanex.CRM.PicAndHeadline.Services
         PicReport GetReport(GetReportCriteria criteria);
         CommandResult InsertPic(InsertPicCriteria criteria);
         CommandResult EditPic(EditPicCriteria criteria);
+        CommandResult ChangePicState(ChangePicStateCriteria criteria);
     }
 }

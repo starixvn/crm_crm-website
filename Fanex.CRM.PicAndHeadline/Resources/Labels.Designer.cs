@@ -241,6 +241,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Required.
+        /// </summary>
+        public static string IsRequired {
+            get {
+                return ResourceManager.GetString("IsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No..
         /// </summary>
         public static string No {
@@ -300,6 +309,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         public static string Remark {
             get {
                 return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;mandatoryfield&quot;&gt;*&lt;/span&gt;.
+        /// </summary>
+        public static string RequiredFieldTemplate {
+            get {
+                return ResourceManager.GetString("RequiredFieldTemplate", resourceCulture);
             }
         }
         

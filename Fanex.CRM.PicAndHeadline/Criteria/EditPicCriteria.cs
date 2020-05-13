@@ -19,7 +19,6 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
         public int RoleId { get; set; }
         public IEnumerable<PicCommunicationTool> CommunicationTools { get; set; }
         public string Remark { get; set; }
-        public bool IsActive { get; set; }
 
         [SpParam(SqlParamName = "creatorid")]
         public int CreatorId
@@ -56,7 +55,6 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
             param.Add("RoleId", RoleId);
             param.Add("CommunicationTools", SerializerHelper.SerializeList(this.CommunicationTools));
             param.Add("Remark", Remark);
-            param.Add("IsActive", IsActive);
 
             param.Add("userid", UserId);
             param.Add("loginip", IP);

@@ -10,9 +10,9 @@
         angularApplication.directive(registerParams.PlugInName, function () {
             var dataList = [];
             function renderDropdown(scope, element) {
-                var options = scope[registerParams.OptionName];
-                var target = scope.$parent.x;
-           
+                var options = scope.selectOptions;
+                var target = scope.target;
+                var selectedValue = scope.selectedValue;
                 
                 if (options === null ||
                 options === undefined ||
@@ -27,7 +27,7 @@
                 var dataListLength = options.DataList.length;
                 optionHtml +=
                     '<option value="' + crmConstants.Enums.Setting.NotApply + '"' +
-                        (crmConstants.Enums.Setting.NotApply === options.SelectedId ?
+                (crmConstants.Enums.Setting.NotApply === selectedValue ?
                         ' selected="selected"' :
                         '') +
                    '>' +
@@ -36,7 +36,7 @@
                     var data = options.DataList[i];
                     optionHtml +=
                     '<option value="' + data[registerParams.DataPropertyName.Id] + '"' +
-                        (data[registerParams.DataPropertyName.Id] === options.SelectedId ?
+                    (data[registerParams.DataPropertyName.Id] === selectedValue ?
                         ' selected="selected"' :
                         '') +
                    '>' +
@@ -45,10 +45,10 @@
 
                 dropdown.append(optionHtml);
                 element.change(function () {
-                    if (options.OnChangeEvent &&
-                    typeof (options.OnChangeEvent) === "function") {
+                    if (scope.onChangeEvent &&
+                        typeof (scope.onChangeEvent) === "function") {
                         var selectedItem = getSelectedItem(dropdown.find('option:selected').val());
-                        options.OnChangeEvent(selectedItem, target);
+                        scope.onChangeEvent({target: target, selectedItem: selectedItem});
                     }
                 });
             }
@@ -77,10 +77,15 @@
             }
 
             return {
-                restrict: registerParams.RestrictType,
-                scope: true,
+                restrict: 'C',
+                scope: {
+                    selectOptions: '=',
+                    target: '=',
+                    selectedValue: '=',
+                    onChangeEvent: '&'
+                },
                 link: function (scope, element, attrs) {
-                    scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    scope.$watch('selectOptions.DataList', function (newval, oldval) {
                         /* jshint unused: false */
                         renderDropdown(scope, element);
                     });

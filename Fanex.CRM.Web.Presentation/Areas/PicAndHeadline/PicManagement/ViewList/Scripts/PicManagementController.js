@@ -81,7 +81,6 @@
                 $scope.lastSelectedParams = getReportCriteria;
                 $picManagementService.getReport(getReportCriteria)
                     .then(function (data) {
-                        console.log(data);
                         $scope.reportOptions.DataList = data.Result;
                         $scope.reportOptions.IsUpdateGrid = true;
                         $scope.unblockUI();
@@ -133,12 +132,12 @@
             };
 
             $scope.changePicState = function (item) {
-                console.log(item);
                 parent.homeManager.CachedData.shouldReloadView = false;
                 var state = !item.IsActive;
                 var title = viewResources.Confirmation;
+                
                 parent.OpenPopup(
-                    window.rootUrl + "PicManagement/OpenChangePicState?" + $.param({ Id: item.Id, IsActive: state, Username: item.Username }),
+                    window.rootUrl + "PicManagement/OpenChangePicState?" + $.param({ PicId: item.PicId, IsActive: state, Username: item.Username }),
                     title,
                     450,
                     160,
@@ -153,7 +152,7 @@
             };
 
             $scope.editPic = function (item) {
-                console.log(item);
+                
                 parent.homeManager.CachedData.shouldReloadView = false;
                 parent.OpenPopup(
                     window.rootUrl + "PicManagement/OpenEditPic?" + $.param(item),

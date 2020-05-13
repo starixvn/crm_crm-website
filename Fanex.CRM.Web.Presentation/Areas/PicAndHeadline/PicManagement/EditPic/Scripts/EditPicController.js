@@ -13,7 +13,7 @@
             $scope.roleOptions = null;
             $scope.communicationToolOptions = null;
 
-            debugger
+            
             $scope.insertParams = {
                 PicId: item.PicId,
                 Username: item.Username,

@@ -219,4 +219,10 @@
   <data name="EditPicSuccess" xml:space="preserve">
     <value>Insert PIC successfully!</value>
   </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>Is Required</value>
+  </data>
+  <data name="RequiredFieldTemplate" xml:space="preserve">
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
 </root>

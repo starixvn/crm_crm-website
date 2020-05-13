@@ -21,7 +21,7 @@
             };
 
             $scope.communicationToolItems = [
-                {type: "", value: ""}                
+                {Type: -1, Value: ""}                
             ]
 
             $scope.initController = function () {
@@ -51,12 +51,12 @@
                 }
             };
 
-            $scope.updateSelectedRole = function (item) {
-                $scope.insertParams.RoleId = item.Id;
+            $scope.updateSelectedRole = function (selectedItem) {
+                $scope.insertParams.RoleId = selectedItem.Id;
             }
 
-            $scope.updateSelectedCommunicationTool = function (x, y) {
-                y.type = x.Id;
+            $scope.updateSelectedCommunicationTool = function (target, selectedItem) {
+                target.Type = selectedItem.Id;
                
             }
 
@@ -67,7 +67,6 @@
                     .then(function (data) {
                         var allSetting = data.Result;
                         $scope.roleOptions.DataList = allSetting.RoleList;
-                        console.log(allSetting);
                         $scope.communicationToolOptions.DataList = allSetting.CommunicationTools;
                         $scope.completedLoadFilterInfo();
                     }, function () {
@@ -81,13 +80,19 @@
 
             $scope.savePic = function () {
                 $scope.BlockUI();
-
+                
                 var criteria = {
                     Username: $scope.insertParams.Username,
                     RoleId: $scope.insertParams.RoleId,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: $scope.communicationToolItems
                 };
+
+                if (!$scope.validateParams(criteria)) {
+                    $scope.unblockUI();
+                    return;
+                }
+
 
                 $insertPicService.savePic(criteria)
                     .then(function (data) {
@@ -98,6 +103,29 @@
                         $scope.unblockUI();
                     });
             };
+
+            $scope.validateParams = function (params) {
+                var result = true;
+                var message = '';
+
+                if (params.Username == '') {
+                    message = viewResources.Username + " " + viewResources.IsRequired;
+                    result = false;
+                }
+                else if (params.RoleId == null || params.RoleId <= 0) {
+                    message = viewResources.Role + " " + viewResources.IsRequired;
+                    result = false;
+                }
+                else if (params.CommunicationTools.length == 0 || params.CommunicationTools[0].Type <= 0 ||
+                    params.CommunicationTools[0].Value == '') {
+                    message = viewResources.CommunicationTool + " " + viewResources.IsRequired;
+                    result = false;
+                }
+
+                debugger
+                $scope.messageResultOptions = new MessageResult(message, !result, result);
+                return result;
+            }
 
             $scope.showInsertResult = function (result) {
                 if (result.Code !== 0) {
@@ -116,24 +144,22 @@
 
             $scope.cancelPic = function () {
                 parent.ClosePopup();
-            }        
+            };        
 
             $scope.addCommunicationTool = function () {
                 //var itemNum = $scope.communicationToolItems.length + 1;
                 ///var key = "item" + itemNum;
-                var item = {type: "", value: "" };
+                var item = { Type: -1, Value: "" };
                 $scope.communicationToolItems.push(item);
-            }
+            };
 
             $scope.removeCommunicationTool = function (item) {
-                console.log(item.x);
-                console.log(item.x.$$hashKey);
 
                 var index = $scope.communicationToolItems.indexOf(item.x);
                 if (index > -1) {
                     $scope.communicationToolItems.splice(index, 1);
                 }
-            }
+            };
 
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;

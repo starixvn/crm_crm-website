@@ -10,10 +10,11 @@
         $scope.messageResultOptions = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
-        };
+            };
+            
         $scope.changeState = function () {
             $uiBlockerService.blockUI();
-            changePicStateService.changePicState({ Id: item.Id, IsActive: item.IsActive })
+            changePicStateService.changePicState({ PicId: item.PicId, IsActive: item.IsActive })
                 .then(function (data) {
                     $scope.showResult(data.Result);
                     $uiBlockerService.unblockUI();

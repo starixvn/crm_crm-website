@@ -522,8 +522,8 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicController.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicService.js" />
-    <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\SingleSelectDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\SingleSelectDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\InsertPicApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\InsertPicController.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\InsertPicService.js" />

@@ -50,6 +50,11 @@ namespace Fanex.CRM.PicAndHeadline.Services
 
         public CommandResult InsertPic(InsertPicCriteria criteria)
         {
+            if (criteria.Remark == null)
+            {
+                criteria.Remark = string.Empty;
+            }
+
             var result = baseService.ExecuteNonQuery(criteria);
 
             if (result.IsSuccessful)
@@ -64,6 +69,17 @@ namespace Fanex.CRM.PicAndHeadline.Services
                 Message = Labels.InsertPicSuccess,
                 Code = 0
             };
+        }
+
+        public CommandResult ChangePicState(ChangePicStateCriteria criteria){
+            var result = baseService.ExecuteNonQuery(criteria);
+
+            if (result.IsSuccessful)
+            {
+                result.Message = criteria.IsActive ? Labels.ActivePicSuccess : Labels.DeactivePicSuccess;
+            }
+
+            return result;
         }
 
         public CommandResult EditPic(EditPicCriteria criteria)

@@ -64,8 +64,8 @@
                         { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
-                        { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  }
+                        { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  }
                     ]
                 }                
             ];
@@ -83,8 +83,8 @@
                 );
             }
 
-            headerColumns.push({ HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "left" });
-            headerColumns.push({ HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "left" });
+            headerColumns.push({ HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
+            headerColumns.push({ HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
 
             var gridOptions = {
                 customizeHeader: true,
