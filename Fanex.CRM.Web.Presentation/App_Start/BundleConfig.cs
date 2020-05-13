@@ -103,6 +103,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_InsertPic(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
             RegisterBundles_ChangePicState(ref bundles);
+            RegisterBundles_EditPic(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -670,6 +671,28 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.AddAndInclude(
                 "~/Areas/PicAndHeadline/PicOfHeadlineStyles",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less");
+        }
+
+        private static void RegisterBundles_EditPic(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicApplication.js",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicService.js",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicController.js",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/Directives/SingleSelectDirective.js",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/Directives/RegisterSharedDirectives.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles",
+                "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles/EditPic.less");
         }
     }
 }

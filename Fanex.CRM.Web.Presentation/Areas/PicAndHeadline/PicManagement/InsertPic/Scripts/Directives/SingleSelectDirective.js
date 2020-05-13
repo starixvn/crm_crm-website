@@ -12,8 +12,7 @@
             function renderDropdown(scope, element) {
                 var options = scope[registerParams.OptionName];
                 var target = scope.$parent.x;
-                console.log("scope");
-                console.log(scope.$parent.x);
+           
                 
                 if (options === null ||
                 options === undefined ||

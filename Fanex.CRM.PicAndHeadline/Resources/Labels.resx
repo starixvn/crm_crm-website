@@ -216,4 +216,7 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="EditPicSuccess" xml:space="preserve">
+    <value>Insert PIC successfully!</value>
+  </data>
 </root>

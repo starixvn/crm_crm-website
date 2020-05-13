@@ -88,9 +88,11 @@
     <Compile Include="Controllers\PicManagementController.cs" />
     <Compile Include="Controllers\PicOfHeadlineController.cs" />
     <Compile Include="Criteria\ChangePicStateCriteria.cs" />
+    <Compile Include="Criteria\EditPicCriteria.cs" />
     <Compile Include="Criteria\GetReportCriteria.cs" />
     <Compile Include="Criteria\InsertPicCriteria.cs" />
     <Compile Include="Models\CommunicationTool.cs" />
+    <Compile Include="Models\EditPicModel.cs" />
     <Compile Include="Models\PicCommunicationTool.cs" />
     <Compile Include="Models\PicInfo.cs" />
     <Compile Include="Models\PicReport.cs" />

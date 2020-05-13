@@ -35,7 +35,6 @@
 
                     
                     for (var j = 0; j < communicationTools.length; j++) {
-                        console.log("Col" + communicationTools[j].Name);
                         columns.push({
                             Name: "Col" + communicationTools[j].Name,
                             Value: GetCommunicationToolValue(data, communicationTools[j].Id)
@@ -44,7 +43,7 @@
 
                     columns.push({
                         Name: "ColEdit",
-                        Value: data.Edit
+                        Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                     })
                     columns.push({
                         Name: "ColActive",
@@ -153,12 +152,17 @@
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
+            var editSettings = tableCustomerReport.find(".editSetting");
+            editSettings.unbind("click");
+            editSettings.click(function () {
+                var rowIndex = parseInt($(this).attr("data-row-index"));
+                scope.editPic(customerReport.DataList[rowIndex]);
+            });
+
             var activeSettings = tableCustomerReport.find(".activeSetting");
             activeSettings.unbind("click");
             activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
-                console.log(rowIndex);
-                console.log(customerReport);
                 scope.changePicState(customerReport.DataList[rowIndex]);
             });
         }

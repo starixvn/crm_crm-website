@@ -517,6 +517,11 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateController.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Scripts\ChangePicStateService.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\Directives\SingleSelectDirective.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicApplication.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicController.js" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Scripts\EditPicService.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\SingleSelectDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Scripts\InsertPicApplication.js" />
@@ -1551,6 +1556,8 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\InsertPic\Styles\InsertPic.less" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Styles\ChangePicState.less" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Styles\EditPic.less" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

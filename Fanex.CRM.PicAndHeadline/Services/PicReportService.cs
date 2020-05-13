@@ -66,5 +66,27 @@ namespace Fanex.CRM.PicAndHeadline.Services
             };
         }
 
+        public CommandResult EditPic(EditPicCriteria criteria)
+        {
+            if(criteria.Remark == null)
+            {
+                criteria.Remark = string.Empty;
+            }
+
+            var result = baseService.ExecuteNonQuery(criteria);
+
+            if (result.IsSuccessful)
+            {
+                result.Message = Labels.EditPicSuccess;
+            }
+
+            return result;
+
+            return new CommandResult
+            {
+                Message = Labels.InsertPicSuccess,
+                Code = 0
+            };
+        }
     }
 }

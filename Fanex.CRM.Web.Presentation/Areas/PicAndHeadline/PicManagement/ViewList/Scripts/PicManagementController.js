@@ -152,6 +152,24 @@
                     null);
             };
 
+            $scope.editPic = function (item) {
+                console.log(item);
+                parent.homeManager.CachedData.shouldReloadView = false;
+                parent.OpenPopup(
+                    window.rootUrl + "PicManagement/OpenEditPic?" + $.param(item),
+                    viewResources.EditPIC,
+                    480,
+                    300,
+                    true,
+                    false,
+                    parent.window,
+                    3000,
+                    null,
+                    $scope.closeInsertView,
+                    { my: "center top+200", at: "center top" },
+                    null);
+            };
+
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;
             };

@@ -10,6 +10,7 @@ namespace Fanex.CRM.PicAndHeadline.Criteria
 {
     public class InsertPicCriteria : BasedCriteria
     {
+        public int PicId { get; set; }
         public string Username { get; set; }
         public int RoleId { get; set; }
         public IEnumerable<PicCommunicationTool> CommunicationTools { get; set; }

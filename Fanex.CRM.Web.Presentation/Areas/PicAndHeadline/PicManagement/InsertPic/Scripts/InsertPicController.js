@@ -57,9 +57,7 @@
 
             $scope.updateSelectedCommunicationTool = function (x, y) {
                 y.type = x.Id;
-                console.log(x);
-                
-                console.log(y);
+               
             }
 
             $scope.getAllSetting = function () {
@@ -91,10 +89,8 @@
                     CommunicationTools: $scope.communicationToolItems
                 };
 
-                console.log(criteria);
                 $insertPicService.savePic(criteria)
                     .then(function (data) {
-                        console.log(data);
                         $scope.showInsertResult(data.Result);
                         $scope.unblockUI();
                         //parent.ClosePopup();
@@ -123,12 +119,10 @@
             }        
 
             $scope.addCommunicationTool = function () {
-                console.log("adding");
                 //var itemNum = $scope.communicationToolItems.length + 1;
                 ///var key = "item" + itemNum;
                 var item = {type: "", value: "" };
                 $scope.communicationToolItems.push(item);
-                console.log($scope.communicationToolItems);
             }
 
             $scope.removeCommunicationTool = function (item) {
