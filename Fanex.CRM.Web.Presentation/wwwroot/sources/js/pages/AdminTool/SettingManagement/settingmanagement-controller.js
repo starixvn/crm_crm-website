@@ -66,8 +66,8 @@
                 .then(function (data) {
                     $scope.settingManagementView = data.Result;
                     $uiBlockerService.unblockUI();
-                    $scope.selectedSetting = data.Result.map(x => x.SettingSource).join(',');
-                    $scope.sourceSettingMapping = $scope.sourceSettingMapping.filter(mapping => !($scope.selectedSetting.includes(mapping.SettingSource)));
+                    $scope.selectedSetting = data.Result.map(x => x.SettingSource).join(',').split(',').map(source => source.trim());
+                    $scope.sourceSettingMapping = $scope.sourceSettingMapping.filter(mapping => !($scope.selectedSetting.includes(mapping.SettingSource.trim())));
                 },
                     function () {
                         $scope.settingManagementView = null;
