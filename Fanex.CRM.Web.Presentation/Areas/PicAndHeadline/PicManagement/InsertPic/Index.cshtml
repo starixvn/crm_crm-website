@@ -61,8 +61,10 @@
                                      on-change-event="updateSelectedCommunicationTool(target, selectedItem)"
                                      target="x">
                                     <select id="communication-tool" class="selRole"></select>
-                                </div>
-                                @Html.Raw(Labels.RequiredFieldTemplate)
+                                    <span ng-if="$index == 0" class="required-span">
+                                        @Html.Raw(Labels.RequiredFieldTemplate)
+                                    </span>
+                                </div>                                                               
                             </div>
                             
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -121,7 +123,8 @@
             InsertPIC: '@Labels.InsertPIC',
             Select: '@Labels.Select',
             IsRequired: '@Labels.IsRequired',
-            CommunicationTool: '@Labels.CommunicationTool'
+            CommunicationTool: '@Labels.CommunicationTool',
+            ConfirmCancel: '@Labels.ConfirmCancel'
         };
     </script>
 }

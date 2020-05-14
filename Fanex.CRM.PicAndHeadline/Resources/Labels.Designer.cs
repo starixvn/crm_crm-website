@@ -124,6 +124,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are some changes. Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string ConfirmCancel {
+            get {
+                return ResourceManager.GetString("ConfirmCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to deactivate PIC {0}? The PIC assignment shall be emoved..
         /// </summary>
         public static string ConfirmDeactivePic {
@@ -259,7 +268,7 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is Required.
+        ///   Looks up a localized string similar to is mandatory!.
         /// </summary>
         public static string IsRequired {
             get {

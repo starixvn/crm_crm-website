@@ -226,9 +226,12 @@
     <value>Insert PIC successfully!</value>
   </data>
   <data name="IsRequired" xml:space="preserve">
-    <value>Is Required</value>
+    <value>is mandatory!</value>
   </data>
   <data name="RequiredFieldTemplate" xml:space="preserve">
     <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
+  <data name="ConfirmCancel" xml:space="preserve">
+    <value>There are some changes. Are you sure you want to ignore these changes?</value>
   </data>
 </root>

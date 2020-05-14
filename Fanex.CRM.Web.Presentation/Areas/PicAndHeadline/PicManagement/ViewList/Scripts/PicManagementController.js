@@ -120,6 +120,20 @@
                     $scope.beforeCloseInsertView);
             };
 
+            $scope.beforeCloseInsertView = function () {
+                
+                if (parent.homeManager.CachedData.isChangingData && 
+                    parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                    var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                    parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                    parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges, popUpController.setFocus);
+
+                    return false;
+                }
+
+                return true;
+            }
+
             $scope.closeInsertView = function () {
                 $scope.isSetFocus = true;
                 //$scope.safeApply();

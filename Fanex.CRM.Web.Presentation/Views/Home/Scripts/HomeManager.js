@@ -192,7 +192,7 @@ var HomeManager = function () {
     };
 
     self.showConfirmIgnoreChangePopUp = function (ignoreFunction, cancelIgnoreFunction) {
-        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
+        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp); 
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
             width: 450,
