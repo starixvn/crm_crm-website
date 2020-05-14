@@ -1,0 +1,53 @@
+﻿﻿@using Fanex.CRM.PicAndHeadline.Resources
+
+<div id="assign-pic-modal" style="display: none">
+    <div class="modal-header">
+        @Labels.AssignPIC
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="closeModal()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-4">
+                <label>@Labels.GroupHeadline</label>
+            </div>
+            <div class="col-xs-8">
+                <select class="select-with-search-container js-select2" ng-model="headlineGroup" options="headlines">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-4">
+                <label>@Labels.PIC</label>
+            </div>
+            <div class="col-xs-8">
+                <select></select>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-4">
+                <label>@Labels.DirectAccount</label>
+            </div>
+            <div class="col-xs-8">
+                <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="focused = true">
+                    <div ng-if="relatedCustomers.length > 0">
+                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}} {{isSellectedAll ? 'selected' : ''}}"
+                             ng-repeat="item in relatedCustomers track by $index">
+                            <span ng-bind="item.username"></span>
+                            <span class="icon-close ui-icon ui-icon-closethick" ng-click="removeRelatedCustomer(item)"></span>
+                        </div>
+                    </div>
+                    <input type="text" focus-me="focused" maxlength="30" ng-model="relatedCustomerInput"
+                           ng-keydown="keydownHandler($event)"
+                           ng-paste="pasteHandler($event)"
+                           data-on-blur="focusoutHandler" />
+                </div>
+                <div class="maximum-username">Maximum usernames: {{maxItems - relatedCustomers.length}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" >@Labels.Save</button>
+        <button class="btn" ng-click="closeModal()">@Labels.Cancel</button>
+    </div>
+</div>

@@ -5,7 +5,7 @@
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerReport/AllSetting", null)
+            $http.post(window.rootUrl + "PicOfHeadline/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

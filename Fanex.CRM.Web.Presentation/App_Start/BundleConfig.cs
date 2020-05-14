@@ -666,10 +666,14 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineApplication.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineService.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController.js",
-                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js"));
+                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/assignPicController.js",
+                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js",
+                "~/wwwroot/node_modules/select2/dist/js/select2.js"
+                ));
 
             bundles.AddAndInclude(
                 "~/Areas/PicAndHeadline/PicOfHeadlineStyles",
+                "~/wwwroot/node_modules/select2/dist/css/select2.css",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less");
         }
 

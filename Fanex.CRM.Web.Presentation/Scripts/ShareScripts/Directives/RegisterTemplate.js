@@ -482,7 +482,7 @@ function RegisterTemplate(application) {
             PlugInName: 'currencyMultiContainer',
             OptionName: 'currencyOptions',
             PickerId: 'currency',
-            RestrictType: 'A',
+            RestrictType: 'C',
             DataPropertyName: {
                 Id: 'Id',
                 Name: 'Name'
@@ -626,5 +626,20 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, positionRegisterParams);
+    };
+
+    self.registerPICMultiSelectPicker = function () {
+        var picRegisterParams = {
+            PlugInName: 'picMultiContainer',
+            OptionName: 'picOptions',
+            PickerId: 'pic',
+            RestrictType: 'C',
+            DataPropertyName: {
+                Id: 'Id',
+                Name: 'Name'
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, picRegisterParams);
     };
 }

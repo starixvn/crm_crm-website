@@ -7,16 +7,16 @@
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    angular.module('picofheadline-application').controller('picOfHeadlineController', ['$scope', '$picOfHeadlineService',
-        function ($scope, $customerReportService) {
+    angular.module('picofheadline-application').controller('picOfHeadlineController',
+        ['$scope', '$window', '$picOfHeadlineService', '$uibModal',
+        function ($scope, $window, $picOfHeadlineService, $uibModal) {
             $scope.errorMessage = '';
-            $scope.isShowFilter = true;
             $scope.siteOptions = null;
-            $scope.languageOptions = null;
+            $scope.statusOptions = null;
             $scope.positionOptions = null;
+            $scope.currencyOptions = null;
             $scope.defaultFocusOptions = null;
             $scope.downloadFileOptions = null;
-            $scope.vipTypeOptions = null;
             $scope.customerReportOptions = {
                 DataList: null,
                 IsResize: false,
@@ -51,23 +51,6 @@
                 $scope.$apply();
             };
             $scope.initPicker = function () {
-                $scope.vipTypeOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedVIPType,
-                    AllText: viewResources.All
-                };
-
-                $scope.languageOptions = {
-                    DataList: [],
-                    OnChangeEvent: $scope.updateSelectedLanguage,
-                    AllText: viewResources.All_Languages,
-                    MinWidth: 200,
-                    MaxHeight: 450,
-                    NoItemText: viewResources.No_languages_found,
-                    NoneSelectedText: viewResources.Symbol_NotApply,
-                    NumberOfItemShowShortText: 2
-                };
-
                 $scope.siteOptions = {
                     DataList: [],
                     OnChangeEvent: $scope.updateSelectedSite,
@@ -92,33 +75,52 @@
                     NoneSelectedText: viewResources.Symbol_NotApply,
                     NumberOfItemShowShortText: 2
                 };
+
+                $scope.currencyOptions = {
+                    DataList: []
+                };
+
+                $scope.statusOptions = {
+                    DataList: [
+                        {
+                            Id: 0,
+                            Name: 'All'
+                        },
+                        {
+                            Id: 1,
+                            Name: 'Open'
+                        },
+                        {
+                            Id: 2,
+                            Name: 'Suspended'
+                        },
+                        {
+                            Id: 3,
+                            Name: 'Closed'
+                        },
+                        {
+                            Id: 4,
+                            Name: 'Disabled'
+                        }
+                    ]
+                };
             };
             $scope.getAllSetting = function () {
                 $scope.BlockUI();
                 $scope.isLoadedAllSite = false;
-                $customerReportService.getAllSetting()
+                $picOfHeadlineService.getAllSetting()
                     .then(function (data) {
                         var allSetting = data.Result;
                         $scope.siteOptions.DataList = allSetting.SiteList;
-                        $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
-                        $scope.languageOptions.DataList = allSetting.LanguageList;
                         $scope.positionOptions.DataList = allSetting.PositionList;
+                        $scope.currencyOptions.DataList = allSetting.CurrencyList;
                         $scope.completedLoadFilterInfo();
                     }, function () {
                         $scope.completedLoadFilterInfo();
                     });
             };
             $scope.completedLoadFilterInfo = function () {
-                $scope.searchCriteria.VIPType = $scope.vipTypeOptions.DataList[0];
                 $scope.unblockUI();
-            };
-            $scope.updateSelectedLanguage = function (languageIdList) {
-                if (!languageIdList) {
-                    $('#language--1').prop('checked', true);
-                    return;
-                }
-
-                $scope.searchCriteria.LanguageIds = languageIdList;
             };
             $scope.updateSelectedSite = function (siteIdList) {
                 if (!siteIdList) {
@@ -133,9 +135,6 @@
                     $('#position--1').prop('checked', true);
                     return;
                 }
-            };
-            $scope.updateSelectedVIPType = function (vipType) {
-                $scope.searchCriteria.VIPType = vipType;
             };
 
             $scope.invokeHotKey_CtrlS = function () {
@@ -152,10 +151,7 @@
 
                 $scope.BlockUI();
                 var getReportCriteria = {
-                    Username: $scope.searchCriteria.Username,
-                    LanguageIds: $scope.searchCriteria.LanguageIds,
                     SiteIds: $scope.searchCriteria.SiteIds,
-                    VIPTypeId: $scope.searchCriteria.VIPType.Id,
                     Headline: $scope.searchCriteria.Headline,
                     PositionIds: $scope.searchCriteria.PositionIds,
                     ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
@@ -197,11 +193,7 @@
 
                 $scope.$apply();
             };
-            $scope.showHideFilterBox = function () {
-                $scope.isShowFilter = !$scope.isShowFilter;
-                $scope.customerReportOptions.IsUpdateGrid = true;
-                $scope.customerReportOptions.IsResize = true;
-            };
+
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;
             };
@@ -224,8 +216,28 @@
                 } catch (e) {
                 }
             };
+
+
+            $scope.openAssignModal = function () {
+                const modalInstance = $uibModal.open({
+                    template: angular.element('#assign-pic-modal').html(),
+                    controller: 'assignPICController',
+                    backdrop: 'static',
+                    keyboard: false,
+                    size: 'lg',
+                    backdropClass: 'related-customer-modal-backdrop',
+                    windowClass: 'related-customer-modal'
+                });
+                modalInstance.result.then(function () {
+                });
+            };
+
             angular.element(document).ready(function () {
                 $scope.initController();
+                const parentHead = $window.parent.$('head');
+                const style = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less"]').clone();
+
+                parentHead.append(style);
             });
         }]);
 })();

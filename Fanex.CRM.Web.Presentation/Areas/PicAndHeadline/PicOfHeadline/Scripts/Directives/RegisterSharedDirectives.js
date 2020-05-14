@@ -2,9 +2,9 @@
     "use strict";
     /* global RegisterTemplate,
     directiveManager */
-    function customerReportRegisterPicker() {
-        var customerReportRegister = new RegisterTemplate(angular.module('picofheadline-application'));
-        customerReportRegister.registerDefaultFocus = function () {
+    function picOfHeadlineRegisterPicker() {
+        var picOfHeadlineRegister = new RegisterTemplate(angular.module('picofheadline-application'));
+        picOfHeadlineRegister.registerDefaultFocus = function () {
             var defaultFocusRegisterParams = {
                 PlugInName: 'defaultFocus',
                 OptionName: 'defaultFocusOptions',
@@ -20,15 +20,13 @@
             directiveManager.registerDefaultFocus(angular.module('picofheadline-application'), defaultFocusRegisterParams);
         };
 
-        customerReportRegister.registerDatePicker();
-        customerReportRegister.registerLanguageMultiSelectPicker();
-        customerReportRegister.registerSiteMultiSelectPicker();
-        customerReportRegister.registerTitlePicker();
-        customerReportRegister.registerVIPTypePicker();
-        customerReportRegister.registerDefaultFocus();
-        customerReportRegister.registerDownloadFile();
-        customerReportRegister.registerPositionMultiSelectPicker();
+        picOfHeadlineRegister.registerSiteMultiSelectPicker();
+        picOfHeadlineRegister.registerCurrencyMultiSelectPicker();
+        picOfHeadlineRegister.registerStatusMultiSelectPicker();
+        picOfHeadlineRegister.registerDownloadFile();
+        picOfHeadlineRegister.registerPositionMultiSelectPicker();
+        picOfHeadlineRegister.registerPICMultiSelectPicker();
     }
 
-    customerReportRegisterPicker();
+    picOfHeadlineRegisterPicker();
 })();

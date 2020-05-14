@@ -159,6 +159,12 @@
   <data name="EditPIC" xml:space="preserve">
     <value>Edit PIC</value>
   </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>Exclude Ignored Accounts</value>
+  </data>
+  <data name="ExcludeTestAccounts" xml:space="preserve">
+    <value>Exclude Test Accounts</value>
+  </data>
   <data name="GroupHeadline" xml:space="preserve">
     <value>GroupHeadline</value>
   </data>

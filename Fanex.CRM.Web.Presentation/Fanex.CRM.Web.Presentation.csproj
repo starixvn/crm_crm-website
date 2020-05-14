@@ -532,8 +532,11 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\ViewList\Scripts\PicManagementApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ViewList\Scripts\PicManagementController.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ViewList\Scripts\PicManagementService.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\assignPICController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\CustomerReportContainer.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\focus-directive.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\SelectWithSearchDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
@@ -1557,6 +1560,9 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Styles\ChangePicState.less" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ChangePicState\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_AssignPIC.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_ConfirmSubmit.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_RemovePICAssignment.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Styles\EditPic.less" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />

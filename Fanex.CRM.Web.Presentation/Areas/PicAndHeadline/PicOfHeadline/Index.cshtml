@@ -26,25 +26,104 @@
             </div>
             <div class="row filter-frm one-row expand-filter">
                 <div class="row row-item">
-                    <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
-                        <label for="username" class="width-70">
-                            @Labels.Username
+                    <div class="item default-focus">
+                        <label for="username" class="width-50">
+                            @Labels.Site
                         </label>
-                        <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
-                    </div>
-                    <div class="item">
-                        <label for="viptype" class="width-50 pull-left">
-                            @Labels.Role
-                        </label>
-                        <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
-                            <select id="viptype" class="selVipType"></select>
+                        <div class="site-picker-container pull-left input-container" data-ng-model="siteOptions.DataList">
+                            <select id="site"></select>
                         </div>
                     </div>
+                    <div class="item">
+                        <label for="currency" class="width-85 pull-left">
+                            @Labels.Currency
+                        </label>
+                        <div class="pull-left input-container currency-Multi-Container" data-ng-model="currencyOptions.DataList">
+                            <select id="currency" class="selVipType"></select>
+                        </div>
+                    </div>
+                    <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
+                        <label for="viptype" class="width-85 pull-left">
+                            @Labels.Status
+                        </label>
+                        <div class="input-container pull-left">
+                            <select id="status" class="status">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="viptype" class="width-85 pull-left">
+                            @Labels.HeadlineType
+                        </label>
+                        <div class="input-container pull-left">
+                            <select id="headline" class="headline">
+                                <option>All</option>
+                                <option>VIP</option>
+                                <option>Normal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item">
+                        <label class="width-50 pull-left">
+                            @Labels.PIC
+                        </label>
+                        <div class="input-container pull-left">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="width-85 pull-left">
+                            @Labels.DirectAccount
+                        </label>
+                        <div class="input-container pull-left">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="width-85 pull-left">
+                            @Labels.GroupHeadline
+                        </label>
+                        <div class="input-container pull-left">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="width-85 pull-left">
+                            @Labels.Position
+                        </label>
+                        <div class="position-picker-container pull-left position-div" data-ng-model="positionOptions.DataList">
+                            <select id="position"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
+                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" />
+                            @Labels.ExcludeIgnoredAccounts
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label for="excludeTestAccount" class="checkbox-label pull-left">
+                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" />
+                            @Labels.ExcludeTestAccounts
+                        </label>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <button class="btn">@Labels.Submit</button>
+                    <button class="btn" ng-click="openAssignModal()">@Labels.AssignPIC</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_AssignPIC.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_ConfirmSubmit.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_RemovePICAssignment.cshtml")
 
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
@@ -56,11 +135,11 @@
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
-        
-        var viewResources = {            
+
+        var viewResources = {
             Position: '@Labels.Position',
             Status: '@Labels.Status'
-            
+
         };
     </script>
 }

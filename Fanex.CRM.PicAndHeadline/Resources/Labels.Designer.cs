@@ -19,7 +19,7 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -183,6 +183,24 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         public static string EditPIC {
             get {
                 return ResourceManager.GetString("EditPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Ignored Accounts.
+        /// </summary>
+        public static string ExcludeIgnoredAccounts {
+            get {
+                return ResourceManager.GetString("ExcludeIgnoredAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Test Accounts.
+        /// </summary>
+        public static string ExcludeTestAccounts {
+            get {
+                return ResourceManager.GetString("ExcludeTestAccounts", resourceCulture);
             }
         }
         
