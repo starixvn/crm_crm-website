@@ -19,11 +19,18 @@
                 Username: item.Username,
                 RoleId: item.RoleId,
                 Remark: item.Remark,
-                CommunicationTools: []
+                CommunicationTools: item.CommunicationTools
             };
 
             $scope.communicationToolItems = item.CommunicationTools;
 
+            $scope.oldParams = {
+                PicId: item.PicId,
+                Username: item.Username,
+                RoleId: item.RoleId,
+                Remark: item.Remark,
+                CommunicationTools: item.CommunicationTools.map(a => Object.assign({}, a))
+            }            
             
             $scope.initController = function () {
                 $scope.initPicker();
@@ -88,6 +95,11 @@
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: $scope.communicationToolItems
                 };
+
+                if (!$scope.validateParams(criteria)) {
+                    $scope.unblockUI();
+                    return;
+                }
                 
                 $editPicService.savePic(criteria)
                     .then(function (data) {
@@ -98,6 +110,28 @@
                         $scope.unblockUI();
                     });
             };
+
+            $scope.validateParams = function (params) {
+                var result = true;
+                var message = '';
+
+                if (params.Username == '') {
+                    message = viewResources.Username + " " + viewResources.IsRequired;
+                    result = false;
+                }
+                else if (params.RoleId == null || params.RoleId <= 0) {
+                    message = viewResources.Role + " " + viewResources.IsRequired;
+                    result = false;
+                }
+                else if (params.CommunicationTools.length == 0 || params.CommunicationTools[0].Type <= 0 ||
+                    params.CommunicationTools[0].Value == '') {
+                    message = viewResources.CommunicationTool + " " + viewResources.IsRequired;
+                    result = false;
+                }
+
+                $scope.messageResultOptions = new MessageResult(message, !result, result);
+                return result;
+            }
 
             $scope.showInsertResult = function (result) {
                 if (result.Code !== 0) {
@@ -115,6 +149,7 @@
             };
 
             $scope.cancelPic = function () {
+                $scope.updateChangeFlag();
                 parent.ClosePopup();
             }        
 
@@ -135,6 +170,67 @@
 
             $scope.completeSetFocus = function () {
                 $scope.defaultFocusOptions.IsSetFocus = false;
+            };
+
+            $scope.updateChangeFlag = function () {
+
+                if ($scope.isParamsChange()) {
+                    
+                    parent.homeManager.CachedData.isChangingData = true;
+                    parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.ConfirmCancel;
+                } else {
+                    parent.homeManager.CachedData.isChangingData = false;
+                }
+
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+            };
+
+            $scope.isParamsChange = function () {
+                var result = false;
+                var params = {
+                    Username: $scope.insertParams.Username,
+                    RoleId: $scope.insertParams.RoleId,
+                    Remark: $scope.insertParams.Remark,
+                    CommunicationTools: $scope.communicationToolItems
+                };
+
+                if (params.Username != $scope.oldParams.Username ||
+                    params.RoleId != $scope.oldParams.RoleId ||
+                    params.Remark != $scope.oldParams.Remark ||
+                    $scope.isCommunicationToolChanged($scope.oldParams.CommunicationTools, params.CommunicationTools))
+                {
+                    result = true;
+                }               
+
+                return result;
+            };
+
+            $scope.isCommunicationToolChanged = function (oldTools, newTools) {
+                if (oldTools.length != newTools.length) {
+                    return true;
+                }
+
+                for (var i = 0; i < oldTools.length; i++) {
+                    if (oldTools[i].Type != newTools[i].Type || oldTools[i].Value != newTools[i].Value) {
+                        return true;
+                    }
+                }
+
+                return false;
+            } 
+
+            $scope.ignoreChanges = function () {
+                parent.homeManager.CachedData.isChangingData = false;
+                $scope.$apply();
+                parent.ClosePopup();
+            };
+
+            $scope.setFocus = function () {
+                parent.homeManager.CachedData.isChangingData = false;
+                $scope.isSetFocus = true;
+                $scope.$apply();
             };
 
             $scope.unblockUI = function () {
@@ -160,6 +256,7 @@
 
             angular.element(document).ready(function () {
                 $scope.initController();
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
             });
         }]);
 })();

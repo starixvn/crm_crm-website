@@ -184,6 +184,7 @@
 
                 if (params.Username != '' ||
                     params.RoleId > 0 ||
+                    params.Remark != '' ||
                     params.CommunicationTools[0].Type > 0 ||
                     params.CommunicationTools[0].Value != '')
                 {

@@ -121,7 +121,6 @@
             };
 
             $scope.beforeCloseInsertView = function () {
-                
                 if (parent.homeManager.CachedData.isChangingData && 
                     parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
                     var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
@@ -180,7 +179,7 @@
                     null,
                     $scope.closeInsertView,
                     { my: "center top+200", at: "center top" },
-                    null);
+                    $scope.beforeCloseInsertView);
             };
 
             $scope.completeSetFocus = function () {

@@ -33,6 +33,7 @@
                     <div class="form-group">
                         <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
                             @Labels.Username
+                            @Html.Raw(Labels.RequiredFieldTemplate)
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9">
                             <input type="text" class="textbox form-control" id="username" data-ng-model="insertParams.Username" />
@@ -41,6 +42,7 @@
                     <div class="form-group">
                         <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
                             @Labels.Role
+                            @Html.Raw(Labels.RequiredFieldTemplate)
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9 role-picker-container pull-left" 
                              select-options="roleOptions" selected-value="insertParams.RoleId"
@@ -58,12 +60,15 @@
                     </div>
                     <div>
                         <div class="form-group" ng-repeat="x in communicationToolItems">
-                            <div class="col-xs-2 col-sm-2 col-md-1 communication-tool-picker-container" 
+                            <div class="col-xs-2 col-sm-2 col-md-1 communication-tool-picker-container"
                                  select-options="communicationToolOptions"
                                  on-change-event="updateSelectedCommunicationTool(target, selectedItem)"
                                  target="x"
                                  selected-value="x.Type">
                                 <select id="communication-tool" class="selRole"></select>
+                                <span ng-if="$index == 0" class="required-span">
+                                    @Html.Raw(Labels.RequiredFieldTemplate)
+                                </span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
 
@@ -119,7 +124,10 @@
             Edit: '@Labels.Edit',
             Active: '@Labels.Active',
             InsertPIC: '@Labels.InsertPIC',
-            Select: '@Labels.Select'
+            Select: '@Labels.Select',
+            IsRequired: '@Labels.IsRequired',
+            CommunicationTool: '@Labels.CommunicationTool',
+            ConfirmCancel: '@Labels.ConfirmCancel'
         };
 
         var item = @Html.Raw(model);
