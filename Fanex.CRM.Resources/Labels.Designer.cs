@@ -61,6 +61,24 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active PIC successfully!.
+        /// </summary>
+        public static string ActivePicSuccess {
+            get {
+                return ResourceManager.GetString("ActivePicSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Related Customers.
         /// </summary>
         public static string AddRelatedCustomers {
@@ -70,11 +88,92 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign PIC.
+        /// </summary>
+        public static string AssignPIC {
+            get {
+                return ResourceManager.GetString("AssignPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication Tool.
+        /// </summary>
+        public static string CommunicationTool {
+            get {
+                return ResourceManager.GetString("CommunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to active PIC {0}?.
+        /// </summary>
+        public static string ConfirmActivePic {
+            get {
+                return ResourceManager.GetString("ConfirmActivePic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes. Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string ConfirmCancel {
+            get {
+                return ResourceManager.GetString("ConfirmCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to deactivate PIC {0}? The PIC assignment shall be emoved..
+        /// </summary>
+        public static string ConfirmDeactivePic {
+            get {
+                return ResourceManager.GetString("ConfirmDeactivePic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivate PIC successfully!.
+        /// </summary>
+        public static string DeactivePicSuccess {
+            get {
+                return ResourceManager.GetString("DeactivePicSuccess", resourceCulture);
             }
         }
         
@@ -97,11 +196,110 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Account.
+        /// </summary>
+        public static string DirectAccount {
+            get {
+                return ResourceManager.GetString("DirectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit PIC.
+        /// </summary>
+        public static string EditPIC {
+            get {
+                return ResourceManager.GetString("EditPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit PIC successfully!.
+        /// </summary>
+        public static string EditPicSuccess {
+            get {
+                return ResourceManager.GetString("EditPicSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Ignored Accounts.
+        /// </summary>
+        public static string ExcludeIgnoredAccounts {
+            get {
+                return ResourceManager.GetString("ExcludeIgnoredAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Test Accounts.
+        /// </summary>
+        public static string ExcludeTestAccounts {
+            get {
+                return ResourceManager.GetString("ExcludeTestAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Headline.
         /// </summary>
         public static string GroupHeadline {
             get {
                 return ResourceManager.GetString("GroupHeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Headline Type.
+        /// </summary>
+        public static string HeadlineType {
+            get {
+                return ResourceManager.GetString("HeadlineType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert.
+        /// </summary>
+        public static string Insert {
+            get {
+                return ResourceManager.GetString("Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert PIC.
+        /// </summary>
+        public static string InsertPIC {
+            get {
+                return ResourceManager.GetString("InsertPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert PIC successfully!.
+        /// </summary>
+        public static string InsertPicSuccess {
+            get {
+                return ResourceManager.GetString("InsertPicSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to is mandatory!.
+        /// </summary>
+        public static string IsRequired {
+            get {
+                return ResourceManager.GetString("IsRequired", resourceCulture);
             }
         }
         
@@ -115,6 +313,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
@@ -124,11 +331,110 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIC.
+        /// </summary>
+        public static string PIC {
+            get {
+                return ResourceManager.GetString("PIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pic Assignment.
+        /// </summary>
+        public static string PicAssignment {
+            get {
+                return ResourceManager.GetString("PicAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC Management.
+        /// </summary>
+        public static string PICManagement {
+            get {
+                return ResourceManager.GetString("PICManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC of Headline.
+        /// </summary>
+        public static string PICOfHeadline {
+            get {
+                return ResourceManager.GetString("PICOfHeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;mandatoryfield&quot;&gt;*&lt;/span&gt;.
+        /// </summary>
+        public static string RequiredFieldTemplate {
+            get {
+                return ResourceManager.GetString("RequiredFieldTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site.
+        /// </summary>
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

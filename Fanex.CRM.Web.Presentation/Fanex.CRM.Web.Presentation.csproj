@@ -1328,10 +1328,6 @@
       <Project>{136FBFBE-8107-43D2-BCCD-BBD1A7F99E92}</Project>
       <Name>Fanex.CRM.InformHeadline</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.PicAndHeadline\Fanex.CRM.PicAndHeadline.csproj">
-      <Project>{35814c3d-b8c9-4d94-8fdd-b7c09f6ae02c}</Project>
-      <Name>Fanex.CRM.PicAndHeadline</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>
       <Name>Fanex.CRM.Redemption</Name>

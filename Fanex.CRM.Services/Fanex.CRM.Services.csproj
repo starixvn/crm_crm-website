@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IMultipleLogsService.cs" />
+    <Compile Include="Interfaces\IPicReportService.cs" />
     <Compile Include="MultipleLogsService.cs" />
+    <Compile Include="PicReportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

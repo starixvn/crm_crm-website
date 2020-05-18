@@ -71,6 +71,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PicAndHeadline\AssignPicCriteria.cs" />
+    <Compile Include="PicAndHeadline\ChangePicStateCriteria.cs" />
+    <Compile Include="PicAndHeadline\DeleteAssignmentCriteria.cs" />
+    <Compile Include="PicAndHeadline\EditPicCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetAssignmentCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetHeadlinesCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetPICCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetReportCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetSystemSiteCriteria.cs" />
+    <Compile Include="PicAndHeadline\InsertPicCriteria.cs" />
+    <Compile Include="PicAndHeadline\ValidateAssignmentCriteria.cs" />
     <Compile Include="MultipleLogs\CheckNotExistCommunicationToolSettingCriteria.cs" />
     <Compile Include="MultipleLogs\CreateMultipleLogsCriteria.cs" />
     <Compile Include="MultipleLogs\GetLogByFeedbackIdCriteria.cs" />

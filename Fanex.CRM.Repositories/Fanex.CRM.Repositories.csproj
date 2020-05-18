@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MultipleLogsRepository.cs" />
+    <Compile Include="PicReportRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +78,14 @@
     <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
       <Project>{dbb7c2a5-9919-4c5d-b69c-3edf958e1741}</Project>
       <Name>Fanex.CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Criteria\Fanex.CRM.Criteria.csproj">
+      <Project>{AB18D097-F44D-45B0-8E52-3BF90A519001}</Project>
+      <Name>Fanex.CRM.Criteria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Models\Fanex.CRM.Models.csproj">
+      <Project>{7F5301B7-2C20-4932-B67C-4A036EBE9F02}</Project>
+      <Name>Fanex.CRM.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
