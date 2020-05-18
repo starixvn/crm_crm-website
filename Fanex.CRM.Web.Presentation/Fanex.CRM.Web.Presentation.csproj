@@ -533,7 +533,7 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\ViewList\Scripts\PicManagementController.js" />
     <Content Include="Areas\PicAndHeadline\PicManagement\ViewList\Scripts\PicManagementService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\assignPICController.js" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\CustomerReportContainer.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\picAssignmentDataGridDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\focus-directive.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\SelectWithSearchDirective.js" />

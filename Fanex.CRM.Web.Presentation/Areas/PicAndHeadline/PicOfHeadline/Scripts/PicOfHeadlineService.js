@@ -25,9 +25,9 @@
             return deferred.promise;
         };
 
-        serviceInstance.getCustomerReport = function (getReportCriteria) {
+        serviceInstance.getPICAssignment = function (getAssignmentCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerReport/GetCustomerReport", getReportCriteria)
+            $http.post(window.rootUrl + "PicOfHeadline/GetAllPICAssignment", getAssignmentCriteria)
                  .success(function (data, status, headers, config) {
                      deferred.resolve({
                          Result: data,

@@ -87,15 +87,25 @@
   <ItemGroup>
     <Compile Include="Controllers\PicManagementController.cs" />
     <Compile Include="Controllers\PicOfHeadlineController.cs" />
+    <Compile Include="Criteria\AssignPicCriteria.cs" />
     <Compile Include="Criteria\ChangePicStateCriteria.cs" />
+    <Compile Include="Criteria\DeleteAssignmentCriteria.cs" />
     <Compile Include="Criteria\EditPicCriteria.cs" />
+    <Compile Include="Criteria\GetAssignmentCriteria.cs" />
+    <Compile Include="Criteria\GetPICCriteria.cs" />
+    <Compile Include="Criteria\GetSystemSiteCriteria.cs" />
+    <Compile Include="Criteria\ValidateAssignmentCriteria.cs" />
+    <Compile Include="Criteria\GetHeadlinesCriteria.cs" />
     <Compile Include="Criteria\GetReportCriteria.cs" />
     <Compile Include="Criteria\InsertPicCriteria.cs" />
     <Compile Include="Models\CommunicationTool.cs" />
     <Compile Include="Models\EditPicModel.cs" />
+    <Compile Include="Models\HeadlineInfo.cs" />
+    <Compile Include="Models\PICAssignmentInfo.cs" />
     <Compile Include="Models\PicCommunicationTool.cs" />
     <Compile Include="Models\PicInfo.cs" />
     <Compile Include="Models\PicReport.cs" />
+    <Compile Include="Models\SiteInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IPicReportRepository.cs" />
     <Compile Include="Repositories\PicReportRepository.cs" />

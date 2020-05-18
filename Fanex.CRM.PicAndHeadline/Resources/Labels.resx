@@ -234,4 +234,7 @@
   <data name="ConfirmCancel" xml:space="preserve">
     <value>There are some changes. Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="PicAssignment" xml:space="preserve">
+    <value>Pic Assignment</value>
+  </data>
 </root>

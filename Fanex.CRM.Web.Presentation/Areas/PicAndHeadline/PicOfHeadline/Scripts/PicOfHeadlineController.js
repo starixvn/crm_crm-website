@@ -17,16 +17,22 @@
             $scope.currencyOptions = null;
             $scope.defaultFocusOptions = null;
             $scope.downloadFileOptions = null;
-            $scope.customerReportOptions = {
+            $scope.picOfHeadlineOptions = {
                 DataList: null,
                 IsResize: false,
                 IsUpdateGrid: false
             };
             $scope.searchCriteria = {
-                Username: '',
-                LanguageIds: '',
-                SiteIds: '',
-                VIPType: null,
+                SiteID: '',
+                Currency: '',
+                Status: '',
+                HeadlineType: '',
+                PIC: '',
+                DirectAccount: '',
+                GroupHeadline: '',
+                Position: '',
+                ExcludeIgnoredAcc: false,
+                ExcludeIsTest: false,
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
                 IsGetFromCached: false,
@@ -53,56 +59,40 @@
             $scope.initPicker = function () {
                 $scope.siteOptions = {
                     DataList: [],
-                    OnChangeEvent: $scope.updateSelectedSite,
-                    AllText: viewResources.All_Sites,
-                    MinWidth: 350,
-                    MaxHeight: 450,
-                    NoItemText: viewResources.No_site_found,
-                    NoneSelectedText: viewResources.Symbol_NotApply,
-                    NumberOfItemShowShortText: 2,
-
-                    SubOptionsName: 'ChildSites',
-                    NumberOfSelectedLevel: 2
+                    OnChangeEvent: $scope.updateSelectedSite
                 };
 
                 $scope.positionOptions = {
                     DataList: [],
                     OnChangeEvent: $scope.updateSelectedPosition,
-                    AllText: viewResources.All,
-                    MinWidth: 200,
-                    MaxHeight: 450,
-                    NoItemText: viewResources.No_languages_found,
-                    NoneSelectedText: viewResources.Symbol_NotApply,
-                    NumberOfItemShowShortText: 2
+                    AllText: viewResources.All
                 };
 
                 $scope.currencyOptions = {
-                    DataList: []
+                    DataList: [],
+                    OnChangeEvent: $scope.updateSelectedCurrency
                 };
 
                 $scope.statusOptions = {
                     DataList: [
                         {
-                            Id: 0,
-                            Name: 'All'
-                        },
-                        {
-                            Id: 1,
+                            Id: 'Open',
                             Name: 'Open'
                         },
                         {
-                            Id: 2,
+                            Id: 'Suspended',
                             Name: 'Suspended'
                         },
                         {
-                            Id: 3,
+                            Id: 'Closed',
                             Name: 'Closed'
                         },
                         {
-                            Id: 4,
+                            Id: 'Disabled',
                             Name: 'Disabled'
                         }
-                    ]
+                    ],
+                    OnChangeEvent: $scope.updateSelectedStatus
                 };
             };
             $scope.getAllSetting = function () {
@@ -111,7 +101,12 @@
                 $picOfHeadlineService.getAllSetting()
                     .then(function (data) {
                         var allSetting = data.Result;
-                        $scope.siteOptions.DataList = allSetting.SiteList;
+                        $scope.siteOptions.DataList = allSetting.SiteList.map(site => {
+                            return {
+                                Id: site.SiteID,
+                                Name: site.SiteName
+                            };
+                        });
                         $scope.positionOptions.DataList = allSetting.PositionList;
                         $scope.currencyOptions.DataList = allSetting.CurrencyList;
                         $scope.completedLoadFilterInfo();
@@ -123,62 +118,82 @@
                 $scope.unblockUI();
             };
             $scope.updateSelectedSite = function (siteIdList) {
+                $scope.searchCriteria.SiteID = siteIdList;
+
                 if (!siteIdList) {
                     $('#site--1').prop('checked', true);
                     return;
                 }
-                $scope.searchCriteria.SiteIds = siteIdList;
             };
+
             $scope.updateSelectedPosition = function (positionIdList) {
-                $scope.searchCriteria.PositionIds = positionIdList;
+                $scope.searchCriteria.Position = positionIdList;
                 if (!positionIdList) {
                     $('#position--1').prop('checked', true);
                     return;
                 }
             };
 
-            $scope.invokeHotKey_CtrlS = function () {
-                $scope.getCustomerReport();
-            };
-            $scope.getCustomerReport = function () {
-                if (!$scope.searchCriteria.PositionIds) {
-                    $scope.errorMessage = "Please choose a position";
+            $scope.updateSelectedCurrency = function (currencyList) {
+                $scope.searchCriteria.Currency = currencyList;
+                if (!currencyList) {
+                    $('#currency--1').prop('checked', true);
                     return;
                 }
-                else {
-                    $scope.errorMessage = '';
-                }
+            }
 
+            $scope.updateSelectedStatus = function (statusList) {
+                $scope.searchCriteria.Status = statusList;
+                if (!statusList) {
+                    $('#status--1').prop('checked', true);
+                    return;
+                }
+            }
+
+            $scope.invokeHotKey_CtrlS = function () {
+                $scope.getPICAssignment();
+            };
+
+            $scope.getPICAssignment = function () {
                 $scope.BlockUI();
                 var getReportCriteria = {
-                    SiteIds: $scope.searchCriteria.SiteIds,
-                    Headline: $scope.searchCriteria.Headline,
-                    PositionIds: $scope.searchCriteria.PositionIds,
-                    ExcludeIgnoredAccounts: $scope.searchCriteria.ExcludeIgnoredAccounts,
+                    SiteID: $scope.searchCriteria.SiteID,
+                    Currency: $scope.searchCriteria.Currency,
+                    Status: $scope.searchCriteria.Status,
+                    HeadlineType: $scope.searchCriteria.HeadlineType,
+                    PIC: $scope.searchCriteria.PIC,
+                    DirectAccount: $scope.searchCriteria.DirectAccount,
+                    GroupHeadline: $scope.searchCriteria.GroupHeadline,
+                    Position: $scope.searchCriteria.Position,
+                    ExcludeIgnoredAcc: $scope.searchCriteria.ExcludeIgnoredAcc,
+                    ExcludeIsTest: $scope.searchCriteria.ExcludeIsTest,
                     PageIndex: $scope.searchCriteria.PageIndex,
                     PageSize: $scope.searchCriteria.PageSize,
-                    IsGetFromCached: false
                 };
 
                 $scope.lastSelectedParams = getReportCriteria;
-                $customerReportService.getCustomerReport(getReportCriteria)
+                $picOfHeadlineService.getPICAssignment(getReportCriteria)
                     .then(function (data) {
-                        $scope.customerReportOptions.DataList = data.Result;
-                        $scope.customerReportOptions.IsUpdateGrid = true;
+                        $scope.picOfHeadlineOptions = {
+                            DataList : data.Result,
+                            IsUpdateGrid : true
+                        };
                         $scope.unblockUI();
+
                     }, function () {
                         $scope.unblockUI();
                     });
             };
             $scope.pagingCustomerReport = function (pageIndex, pageSize) {
                 $scope.BlockUI();
-                $scope.lastSelectedParams.PageIndex = pageIndex;
-                $scope.lastSelectedParams.PageSize = pageSize;
-                $scope.lastSelectedParams.IsGetFromCached = true;
-                $customerReportService.getCustomerReport($scope.lastSelectedParams)
+                $scope.searchCriteria.PageIndex = pageIndex;
+                $scope.searchCriteria.PageSize = pageSize;
+                $picOfHeadlineService.getPICAssignment($scope.searchCriteria)
                     .then(function (data) {
-                        $scope.customerReportOptions.DataList = data.Result;
-                        $scope.customerReportOptions.IsUpdateGrid = true;
+                        $scope.picOfHeadlineOptions = {
+                            DataList: data.Result,
+                            IsUpdateGrid: true
+                        };
                         $scope.unblockUI();
                     }, function () {
                         $scope.unblockUI();

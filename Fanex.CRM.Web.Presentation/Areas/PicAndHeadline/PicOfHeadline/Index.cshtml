@@ -39,7 +39,7 @@
                             @Labels.Currency
                         </label>
                         <div class="pull-left input-container currency-Multi-Container" data-ng-model="currencyOptions.DataList">
-                            <select id="currency" class="selVipType"></select>
+                            <select id="currency" class="currency"></select>
                         </div>
                     </div>
                     <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
@@ -56,10 +56,10 @@
                             @Labels.HeadlineType
                         </label>
                         <div class="input-container pull-left">
-                            <select id="headline" class="headline">
-                                <option>All</option>
-                                <option>VIP</option>
-                                <option>Normal</option>
+                            <select id="headline" class="headline" ng-model="searchCriteria.HeadlineType" ng-init="searchCriteria.HeadlineType = ''">
+                                <option value="">All</option>
+                                <option value="1">VIP</option>
+                                <option value="0">Normal</option>
                             </select>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             @Labels.PIC
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" />
+                            <input type="text" ng-model="searchCriteria.PIC"/>
                         </div>
                     </div>
                     <div class="item">
@@ -78,7 +78,7 @@
                             @Labels.DirectAccount
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" />
+                            <input type="text" ng-model="searchCriteria.DirectAccount"/>
                         </div>
                     </div>
                     <div class="item">
@@ -86,7 +86,7 @@
                             @Labels.GroupHeadline
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" />
+                            <input type="text" ng-model="searchCriteria.groupHeadline"/>
                         </div>
                     </div>
                     <div class="item">
@@ -101,20 +101,24 @@
                 <div class="row row-item">
                     <div class="item">
                         <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
-                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" />
+                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc"/>
                             @Labels.ExcludeIgnoredAccounts
                         </label>
                     </div>
                     <div class="item">
                         <label for="excludeTestAccount" class="checkbox-label pull-left">
-                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" />
+                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest"/>
                             @Labels.ExcludeTestAccounts
                         </label>
                     </div>
                 </div>
                 <div class="row row-item">
-                    <button class="btn">@Labels.Submit</button>
+                    <button class="btn" ng-click="getPICAssignment()">@Labels.Submit</button>
                     <button class="btn" ng-click="openAssignModal()">@Labels.AssignPIC</button>
+                </div>
+            </div>
+            <div class="row" pic-Assignment-Data-Grid-Directive ng-model="picOfHeadlineOptions">
+                <div id="table-picOfHeadline" class="freegrid display-none">
                 </div>
             </div>
         </div>
@@ -138,8 +142,17 @@
 
         var viewResources = {
             Position: '@Labels.Position',
-            Status: '@Labels.Status'
-
+            Status: '@Labels.Status',
+            No: '@Labels.No',
+            GroupHeadline: '@Labels.GroupHeadline',
+            HeadlineType: '@Labels.HeadlineType',
+            PIC: '@Labels.PIC',
+            DirectAccount: '@Labels.DirectAccount',
+            Status: '@Labels.Status',
+            Site: '@Labels.Site',
+            Currency: '@Labels.Currency',
+            Position: '@Labels.Position',
+            PicAssignment: '@Labels.PicAssignment'
         };
     </script>
 }

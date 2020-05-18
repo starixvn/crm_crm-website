@@ -304,6 +304,15 @@ namespace Fanex.CRM.PicAndHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pic Assignment.
+        /// </summary>
+        public static string PicAssignment {
+            get {
+                return ResourceManager.GetString("PicAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIC Management.
         /// </summary>
         public static string PICManagement {
