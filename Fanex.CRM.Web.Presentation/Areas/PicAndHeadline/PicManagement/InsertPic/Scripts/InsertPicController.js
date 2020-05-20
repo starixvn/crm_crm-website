@@ -12,12 +12,16 @@
             $scope.errorMessage = '';
             $scope.roleOptions = null;
             $scope.communicationToolOptions = null;
+            $scope.languageOptions = null;
+            $scope.countryOptions = null;
 
             $scope.insertParams = {
                 Username: '',
-                RoleId: null,
+                Role: '',
                 Remark: '',
-                CommunicationTools: []
+                CommunicationTools: [],
+                Language: '',
+                Country: ''
             };
 
             $scope.communicationToolItems = [
@@ -49,14 +53,34 @@
                     OnChangeEvent: $scope.updateSelectedCommunicationTool,
                     AllText: viewResources.All
                 }
+
+                $scope.languageOptions = {
+                    DataList: [],
+                    OnChangeEvent: $scope.updateSelectedLanguage,
+                    AllText: viewResources.All
+                };
+
+                $scope.countryOptions = {
+                    DataList: [],
+                    OnChangeEvent: $scope.updateSelectedCountry,
+                    AllText: viewResources.All
+                };
             };
 
             $scope.updateSelectedRole = function (selectedItem) {
-                $scope.insertParams.RoleId = selectedItem.Id;
+                $scope.insertParams.Role = selectedItem.Value;
             }
 
             $scope.updateSelectedCommunicationTool = function (target, selectedItem) {
                 target.Type = selectedItem.Id;               
+            }
+
+            $scope.updateSelectedLanguage = function (selectedItem) {
+                $scope.insertParams.Language = selectedItem.Name;
+            }
+
+            $scope.updateSelectedCountry = function (selectedItem) {
+                $scope.insertParams.Country = selectedItem.Name;
             }
 
             $scope.getAllSetting = function () {
@@ -67,6 +91,8 @@
                         var allSetting = data.Result;
                         $scope.roleOptions.DataList = allSetting.RoleList;
                         $scope.communicationToolOptions.DataList = allSetting.CommunicationTools;
+                        $scope.languageOptions.DataList = allSetting.Languages;
+                        $scope.countryOptions.DataList = allSetting.Countries;
                         $scope.completedLoadFilterInfo();
                     }, function () {
                         $scope.completedLoadFilterInfo();
@@ -79,12 +105,27 @@
 
             $scope.savePic = function () {
                 $scope.BlockUI();
+                console.log($scope.communicationToolItems);
+
+                var communicationToolItems = [];
+                for (let index = 0; index < $scope.communicationToolItems.length; index++) {
+                    if (communicationToolItems.some(element => element.Type === $scope.communicationToolItems[index].Type)) {
+                        let tempIndex = communicationToolItems.findIndex(element1 => element1.Type === $scope.communicationToolItems[index].Type);
+                        communicationToolItems[tempIndex].Value = communicationToolItems[tempIndex].Value + ',' + $scope.communicationToolItems[index].Value;
+                    }
+                    else {
+                        communicationToolItems.push($scope.communicationToolItems[index]);
+                    }
+                }
+                console.log(communicationToolItems);
                 
                 var criteria = {
                     Username: $scope.insertParams.Username,
-                    RoleId: $scope.insertParams.RoleId,
+                    Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
-                    CommunicationTools: $scope.communicationToolItems
+                    CommunicationTools: $scope.communicationToolItems,
+                    Language: $scope.insertParams.Language,
+                    Country: $scope.insertParams.Country
                 };
 
                 if (!$scope.validateParams(criteria)) {
@@ -108,7 +149,7 @@
                     message = viewResources.Username + " " + viewResources.IsRequired;
                     result = false;
                 }
-                else if (params.RoleId == null || params.RoleId <= 0) {
+                else if (params.Role == '') {
                     message = viewResources.Role + " " + viewResources.IsRequired;
                     result = false;
                 }
@@ -177,13 +218,13 @@
                 var result = false;
                 var params = {
                     Username: $scope.insertParams.Username,
-                    RoleId: $scope.insertParams.RoleId,
+                    Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: $scope.communicationToolItems
                 };
 
                 if (params.Username != '' ||
-                    params.RoleId > 0 ||
+                    params.Role > 0 ||
                     params.Remark != '' ||
                     params.CommunicationTools[0].Type > 0 ||
                     params.CommunicationTools[0].Value != '')

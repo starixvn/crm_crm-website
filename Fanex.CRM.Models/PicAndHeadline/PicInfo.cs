@@ -10,6 +10,10 @@ namespace Fanex.CRM.Models.PicAndHeadline
 
         public string Role { get; set; }
 
+        public string Language { get; set; }
+
+        public string Country { get; set; }
+
         public int RoleId { get; set; }
 
         public string Remark { get; set; }

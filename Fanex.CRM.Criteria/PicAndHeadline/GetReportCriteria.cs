@@ -6,7 +6,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
     {
         public string Username { get; set; }
 
-        public int Role { get; set; }
+        public string Role { get; set; }
 
         public int TotalRows { get; set; }
 

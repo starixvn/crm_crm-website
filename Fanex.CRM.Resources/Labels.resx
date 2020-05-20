@@ -255,4 +255,10 @@
   <data name="Verify" xml:space="preserve">
     <value>Verify</value>
   </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>

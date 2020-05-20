@@ -30,6 +30,8 @@
                         { Name: "ColNo", Value: no },
                         { Name: "ColUsername", Value: data.Username },
                         { Name: "ColRole", Value: data.Role },
+                        { Name: "ColLanguage", Value: data.Language },
+                        { Name: "ColCountry", Value: data.Country },
                         { Name: "ColGroupHeadline", Value: data.GroupHeadline },
                     ];
 
@@ -62,6 +64,8 @@
                         { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                         { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
                         { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
+                        { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
                         { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
@@ -74,6 +78,8 @@
                 { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
             ];
 

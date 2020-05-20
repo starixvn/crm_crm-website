@@ -40,7 +40,9 @@ namespace Fanex.CRM.Controllers
             {
                 RoleListWithAll = _settingService.GetPicRoles(true),
                 RoleList = _settingService.GetPicRoles(),
-                CommunicationTools = _settingService.GetAllCommunicationTools()
+                CommunicationTools = _settingService.GetAllCommunicationTools(),
+                Languages = _settingService.GetAllLanguages(),
+                Countries = _settingService.GetAllCountries()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -80,7 +82,7 @@ namespace Fanex.CRM.Controllers
         public ActionResult OpenEditPic(
             int picId,
             string username,
-            int roleId,
+            string role,
             string remark,
             IEnumerable<Dictionary<string, string>> communicationTools)
         {
@@ -96,7 +98,7 @@ namespace Fanex.CRM.Controllers
             {
                 PicId = picId,
                 Username = username,
-                RoleId = roleId,
+                Role = role,
                 Remark = remark,
                 CommunicationTools = comTools
             };

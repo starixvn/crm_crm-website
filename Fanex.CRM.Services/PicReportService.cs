@@ -37,16 +37,6 @@ namespace Fanex.CRM.Services
                 DataList = picReportRepository.GetReport(criteria).ToList(),
                 Total = criteria.TotalRows
             };
-
-            return new PicReport
-            {
-                DataList = new List<PicInfo> {
-                    new PicInfo { Username = "a" },
-                    new PicInfo { Username = "b" },
-                    new PicInfo { Username = "c" }
-                },
-                Total = 21
-            };
         }
 
         public CommandResult InsertPic(InsertPicCriteria criteria)
@@ -64,12 +54,6 @@ namespace Fanex.CRM.Services
             }
 
             return result;
-
-            return new CommandResult
-            {
-                Message = Labels.InsertPicSuccess,
-                Code = 0
-            };
         }
 
         public CommandResult ChangePicState(ChangePicStateCriteria criteria)
@@ -99,12 +83,6 @@ namespace Fanex.CRM.Services
             }
 
             return result;
-
-            return new CommandResult
-            {
-                Message = Labels.InsertPicSuccess,
-                Code = 0
-            };
         }
     }
 }

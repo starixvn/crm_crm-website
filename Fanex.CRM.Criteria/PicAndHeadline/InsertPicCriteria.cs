@@ -14,9 +14,13 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 
         public string Username { get; set; }
 
-        public int RoleId { get; set; }
+        public string Role { get; set; }
 
         public IEnumerable<PicCommunicationTool> CommunicationTools { get; set; }
+
+        public string Language { get; set; }
+
+        public string Country { get; set; }
 
         public string Remark { get; set; }
 
@@ -51,8 +55,10 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
         {
             var param = new Hashtable();
             param.Add("Picname", Username);
-            param.Add("RoleId", RoleId);
+            param.Add("Role", Role);
             param.Add("CommunicationTools", SerializerHelper.SerializeList(this.CommunicationTools));
+            param.Add("Language", Language);
+            param.Add("Country", Country);
             param.Add("Remark", Remark);
 
             param.Add("userid", UserId);

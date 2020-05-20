@@ -39,10 +39,30 @@
                             @Labels.Role
                             @Html.Raw(Labels.RequiredFieldTemplate)
                         </label>
-                        <div class="col-xs-8 col-sm-8 col-md-9 role-picker-container pull-left" 
+                        <div class="col-xs-8 col-sm-8 col-md-9 role-picker-container pull-left"
                              select-options="roleOptions"
                              on-change-event="updateSelectedRole(selectedItem)">
                             <select id="role" class="selRole"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                            @Labels.Language
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9 language-picker-container pull-left"
+                             select-options="languageOptions"
+                             on-change-event="updateSelectedLanguage(selectedItem)">
+                            <select id="language" class="selLanguage"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                            @Labels.Country
+                        </label>
+                        <div class="col-xs-8 col-sm-8 col-md-9 country-picker-container pull-left"
+                             select-options="countryOptions"
+                             on-change-event="updateSelectedCountry(selectedItem)">
+                            <select id="country" class="selCountry"></select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,9 +84,9 @@
                                     <span ng-if="$index == 0" class="required-span">
                                         @Html.Raw(Labels.RequiredFieldTemplate)
                                     </span>
-                                </div>                                                               
+                                </div>
                             </div>
-                            
+
                             <div class="col-xs-1 col-sm-1 col-md-1">
 
                             </div>
