@@ -145,7 +145,7 @@
     <value>There are some changes. Are you sure you want to ignore these changes?</value>
   </data>
   <data name="ConfirmDeactivePic" xml:space="preserve">
-    <value>Are you sure you want to deactivate PIC {0}? The PIC assignment shall be emoved.</value>
+    <value>Are you sure you want to deactivate PIC {0}? The PIC assignment shall be removed.</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>

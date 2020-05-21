@@ -218,7 +218,7 @@
     <Setting Key="Acc_CRM_PicSel" SpName="Acc_CRM_PicSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicUpd" SpName="Acc_CRM_PicUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicManagementSel" SpName="Acc_CRM_PicManagementSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PICStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PICStatusUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_HeadlineSel" SpName="Acc_CRM_HeadlineSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignmentValidation" SpName="Acc_CRM_PICAssignmentValidation_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignmentSel" SpName="Acc_CRM_PICAssignmentSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
