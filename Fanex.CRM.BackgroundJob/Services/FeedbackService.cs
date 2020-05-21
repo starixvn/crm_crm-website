@@ -10,9 +10,9 @@
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
     using Fanex.Data.Repository;
-    using Fanex.Logging;
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.Database;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
 
@@ -27,19 +27,22 @@
         private readonly ICustomerRepository customerRepository;
         private readonly IBaseService baseService;
         private readonly ISystemSettingService systemSettingService;
-        private readonly ILogger logger;
+        private readonly ILogger mlogger;
+        private readonly Logging.ILogger logger;
 
         public FeedbackService(
             IOptionsSnapshot<AppSettings> appSettings,
             ICustomerRepository customerRepository,
             IBaseService baseService,
             ISystemSettingService systemSettingService,
-            ILogger logger)
+            ILogger<FeedbackService> mlogger,
+            Logging.ILogger logger)
         {
             this.appSettings = appSettings.Value;
             this.customerRepository = customerRepository;
             this.baseService = baseService;
             this.systemSettingService = systemSettingService;
+            this.mlogger = mlogger;
             this.logger = logger;
         }
 
@@ -47,7 +50,8 @@
         {
             await systemSettingService.UpdateJobStatusAsync(JobStatus.Running);
 
-            IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize);
+            IEnumerable<int> failMessageIds = await GetFailMessageAsync();
+            IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize, failMessageIds);
             if (messages.Any())
             {
                 var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
@@ -58,23 +62,32 @@
 
                 var messageIds = string.Join(",", messages.Select(x => x.MessageId));
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
+
+                IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
+                ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+                    ticketInfo.Item1,
+                    ticketInfo.Item2,
+                    siteSettingMappings,
+                    headlines,
+                    licenseeInfo);
+
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
-                    await systemSettingService.UpdateJobStatusAsync(JobStatus.Completed);
+                    mlogger.LogInformation("Ticket don't have info", string.Join(",", messageIds));
+                    await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
                     return;
                 }
 
-                var custIds = string.Join(",", ticketInfo.Item2.Where(x => !x.IsDeposit).Select(x => x.CustId).Distinct());
-                IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(custIds);
                 foreach (MatchInfo matchInfo in ticketInfo.Item1)
                 {
+                    Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
                     IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
                     IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
 
                     if (credits.Any())
                     {
                         await CreateFeedbackForCreditSiteAsync(
-                            messages.First(x => x.MessageId == matchInfo.MessageId),
+                            message,
                             matchInfo,
                             credits,
                             headlines.Where(x => credits.Any(y => x.CustId == y.CustId)),
@@ -84,14 +97,14 @@
 
                     if (deposits.Any())
                     {
+                        GetLicenseeManager(deposits, siteSettingMappings);
                         await CreateFeedbackForDepositSiteAsync(
                             licenseeInfo,
-                            messages.First(x => x.MessageId == matchInfo.MessageId),
+                            message,
                             matchInfo,
                             deposits,
                             settings,
-                            settingMappings,
-                            siteSettingMappings);
+                            settingMappings);
                     }
                 }
 
@@ -99,16 +112,20 @@
             }
             else
             {
-                await systemSettingService.UpdateJobStatusAsync(JobStatus.Completed);
+                await UpdateSystemSettingAsync(setting.LastMsgId);
             }
         }
 
-        private async Task<IEnumerable<Message>> GetNewMessageAsync(int lastMessageId, int batchSize)
+        private async Task<IEnumerable<Message>> GetNewMessageAsync(
+            int lastMessageId,
+            int batchSize,
+            IEnumerable<int> failMessageIds)
         {
             var criteria = new GetNewMessageCriteria
             {
                 LastMessageId = lastMessageId,
-                BatchSize = batchSize
+                BatchSize = batchSize,
+                FailMessageIds = string.Join(",", failMessageIds)
             };
 
             var messages = await baseService.GetDataAsync<Message>(criteria);
@@ -119,6 +136,12 @@
             }
 
             return messages;
+        }
+
+        private async Task<IEnumerable<int>> GetFailMessageAsync()
+        {
+            var criteria = new GetFailMessageCriteria();
+            return await baseService.GetDataAsync<int>(criteria);
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
@@ -135,8 +158,9 @@
             return await baseService.FetchMultipleAsync<MatchInfo, TransactionInfo>(criteria);
         }
 
-        private async Task<IEnumerable<GroupHeadline>> GetGroupHeadlineAsync(string custIds)
+        private async Task<IEnumerable<GroupHeadline>> GetGroupHeadlineAsync(IEnumerable<TransactionInfo> transactionInfos)
         {
+            var custIds = string.Join(",", transactionInfos.Where(x => !x.IsDeposit).Select(x => x.CustId).Distinct());
             var criteria = new GetGroupHeadlineCriteria { CustIds = custIds };
             return await baseService.GetDataAsync<GroupHeadline>(criteria);
         }
@@ -265,13 +289,22 @@
                 try
                 {
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
-                    if (!commandResult.IsSuccessful)
+                    if (commandResult.IsSuccessful)
                     {
+                        mlogger.LogInformation("Create feedback successfully", message.MessageId, string.Join(",", batch));
+                        await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Completed, string.Empty);
+                    }
+                    else
+                    {
+                        mlogger.LogInformation(commandResult.Message, message.MessageId, string.Join(",", batch));
+                        await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
                     }
                 }
                 catch (Exception ex)
                 {
+                    mlogger.LogInformation(ex.Message, message.MessageId, string.Join(",", batch));
+                    await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, ex.Message);
                     await WriteLogAsync(ex);
                 }
             }
@@ -283,15 +316,11 @@
             MatchInfo matchInfo,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
-            IEnumerable<SystemSettingMapping> settingMappings,
-            IEnumerable<SiteSettingMapping> siteSettingMappings)
+            IEnumerable<SystemSettingMapping> settingMappings)
         {
             var timeSpan = new TimeSpan(appSettings.TimeSpan, 0, 0);
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var communicationTool = GetCommunicationTool(settings);
-            IEnumerable<SiteSettingMapping> licenseeManagers = siteSettingMappings
-                .Where(x => !string.IsNullOrWhiteSpace(x.SettingSource)
-                    && transactionInfos.Any(y => x.SettingSource.Equals(y.Site, StringComparison.OrdinalIgnoreCase)));
             var status = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Status, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Closed", StringComparison.OrdinalIgnoreCase));
             var response = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Response, StringComparison.OrdinalIgnoreCase)
@@ -325,33 +354,66 @@
                 SiteId = licenseeInfo.SiteId
             };
 
-            await CreateFeedbackByBatchAsync(licenseeManagers, feedbackDate, communicationTool, criteria);
+            await CreateFeedbackByBatchAsync(message, transactionInfos, feedbackDate, communicationTool, criteria);
         }
 
         private async Task CreateFeedbackByBatchAsync(
-            IEnumerable<SiteSettingMapping> licenseeManagers,
+            Message message,
+            IEnumerable<TransactionInfo> transactionInfos,
             DateTime feedbackDate,
             string communicationTool,
             CreateFeedbackCriteria criteria)
         {
+            IEnumerable<int> licenseeManagerIds = transactionInfos.Where(x => x.LicenseeManagerId != 0).Select(x => x.LicenseeManagerId).Distinct();
             int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
-            int totalBatch = (int)Math.Ceiling((double)licenseeManagers.Count() / itemEachBatch);
+            int totalBatch = (int)Math.Ceiling((double)licenseeManagerIds.Count() / itemEachBatch);
             for (int i = 0; i < totalBatch; i++)
             {
-                List<SiteSettingMapping> batch = licenseeManagers.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
-                criteria.RelatedCustId = string.Join(", ", batch.Select(x => x.LicenseeManagerId).Distinct());
+                IEnumerable<int> batch = licenseeManagerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
+                IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.LicenseeManagerId));
+                IEnumerable<string> licenseeManagers = transactions.Select(x => x.LicenseeManager).Distinct();
+                IEnumerable<int> custIds = transactions.Select(x => x.CustId).Distinct();
+
+                criteria.RelatedCustId = string.Join(", ", batch.Select(x => x).Distinct());
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
                 try
                 {
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
-                    if (!commandResult.IsSuccessful)
+                    if (commandResult.IsSuccessful)
                     {
+                        mlogger.LogInformation("Create feedback successfully", message.MessageId, string.Join(",", custIds));
+                        await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Completed, string.Empty);
+                    }
+                    else
+                    {
+                        mlogger.LogInformation(commandResult.Message, message.MessageId, string.Join(",", custIds));
+                        await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
                     }
                 }
                 catch (Exception ex)
                 {
+                    mlogger.LogInformation(ex.Message, message.MessageId, string.Join(",", custIds));
+                    await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
                     await WriteLogAsync(ex);
+                }
+            }
+        }
+
+        private static void GetLicenseeManager(
+            IEnumerable<TransactionInfo> transactionInfos,
+            IEnumerable<SiteSettingMapping> siteSettingMappings)
+        {
+            foreach(TransactionInfo transaction in transactionInfos)
+            {
+                SiteSettingMapping licenseeManager = siteSettingMappings
+                    .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
+                        && transactionInfos.Any(y => x.SettingSource.Equals(y.Site, StringComparison.OrdinalIgnoreCase)));
+
+                if(licenseeManager != null)
+                {
+                    transaction.LicenseeManagerId = licenseeManager.LicenseeManagerId;
+                    transaction.LicenseeManager = licenseeManager.LicenseeManager;
                 }
             }
         }
@@ -487,12 +549,12 @@
         private static string GetAutoField(
             DateTime feedbackDate,
             string communicationTool,
-            IEnumerable<SiteSettingMapping> licenseeManagers)
+            IEnumerable<string> licenseeManagers)
         {
             var stringBuilder = new StringBuilder("Date Time & Tool: ");
             stringBuilder.AppendFormat("{0}/{1}/{2}", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt"), communicationTool);
             stringBuilder.Append(Environment.NewLine);
-            stringBuilder.AppendFormat("System ID: {0}", string.Join(", ", licenseeManagers.Select(x => x.LicenseeManager).Distinct()));
+            stringBuilder.AppendFormat("System ID: {0}", string.Join(", ", licenseeManagers));
 
             return stringBuilder.ToString();
         }
@@ -542,7 +604,8 @@
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
-                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() }
+                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() },
+                new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
         }
@@ -559,10 +622,74 @@
 
         private async Task WriteLogCreateFeedbackUnsuccessfulAsync(CommandResult commandResult, ICriteria criteria)
         {
-            var logMessage = new LogMessage(commandResult.Message)
+            var logMessage = new LogMessage(string.Format("{0}: {1}", commandResult.Code, commandResult.Message))
                        .AddMessage(JsonConvert.SerializeObject(criteria))
                        .ToString();
             await logger.ErrorAsync(logMessage);
+        }
+
+        private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+            IEnumerable<MatchInfo> matchInfos,
+            IEnumerable<TransactionInfo> transactionInfos,
+            IEnumerable<SiteSettingMapping> siteSettingMappings,
+            IEnumerable<GroupHeadline> headlines,
+            CustomerInfo licenseeInfo)
+        {
+            IEnumerable<TransactionInfo> transactions = transactionInfos.GroupBy(x => new { x.MessageId, x.CustId }).Select(x => x.First());
+
+            const string XmlTemplate = "<r msgid='{0}' custid='{1}' hl='{2}' related='{3}' event='{4}' />";
+            var stringBuilder = new StringBuilder("<ROOT>");
+            foreach (var transaction in transactions)
+            {
+                var matchInfo = matchInfos.First(x => x.MessageId == transaction.MessageId);
+                var headlineId = 0;
+                var relatedCustId = 0;
+
+                if (transaction.IsDeposit)
+                {
+                    SiteSettingMapping licenseeManager = siteSettingMappings.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
+                        && x.SettingSource.Equals(transaction.Site, StringComparison.OrdinalIgnoreCase));
+                    headlineId = licenseeInfo.CustId;
+                    relatedCustId = licenseeManager != null ? licenseeManager.LicenseeManagerId : 0;
+                }
+                else
+                {
+                    GroupHeadline headline = headlines.FirstOrDefault(x => x.CustId == transaction.CustId);
+                    headlineId = headline != null ? headline.HeadlineId : 0;
+                    relatedCustId = transaction.CustId;
+                }
+
+                stringBuilder.AppendFormat(XmlTemplate,
+                    transaction.MessageId,
+                    transaction.CustId,
+                    headlineId,
+                    relatedCustId,
+                    string.Format("{0} -vs- {1}", matchInfo.HomeName, matchInfo.AwayName));
+            }
+
+            stringBuilder.Append("</ROOT>");
+
+            var criteria = new StoreFeedbackInfoCriteria
+            {
+                Xml = stringBuilder.ToString()
+            };
+            var feedbackInfos = await baseService.GetDataAsync<AutoFeedbackInfo>(criteria);
+
+            matchInfos = matchInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId));
+            transactionInfos = transactionInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId && y.CustId == x.CustId));
+            return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, transactionInfos);
+        }
+
+        private async Task UpdateFeedbackInfoAsync(int messageId, IEnumerable<int> custIds, string status, string description)
+        {
+            var criteria = new UpdateFeedbackInfoCriteria
+            {
+                MessageId = messageId,
+                CustIds = string.Join(",", custIds),
+                Status = status,
+                Description = description
+            };
+            await baseService.ExecuteNonQueryAsync(criteria);
         }
     }
 }

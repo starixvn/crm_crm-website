@@ -9,5 +9,8 @@
         public string Bettype { get; set; }
         public string Site { get; set; }
         public bool IsDeposit { get; set; }
+
+        public int LicenseeManagerId { get; set; }
+        public string LicenseeManager { get; set; }
     }
 }

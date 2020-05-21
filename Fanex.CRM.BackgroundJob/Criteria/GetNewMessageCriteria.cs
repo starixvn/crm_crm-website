@@ -7,7 +7,11 @@
     {
         [SpParam(SqlParamName = "LastMsgID")]
         public int LastMessageId { get; set; }
+
         public int BatchSize { get; set; }
+
+        [SpParam(SqlParamName = "FailMsgIDs")]
+        public string FailMessageIds { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_MessageAbnormalTicketsSel";
 

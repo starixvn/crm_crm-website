@@ -17,7 +17,7 @@
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.AspNetCore;
     using Fanex.Logging.Extensions.Database;
-    using Fanex.Logging.RabbitMQ;
+    using Fanex.Logging.Sentry;
     using Hangfire;
     using Hangfire.Storage.MySql;
     using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,6 +32,7 @@
     using ONEbook.UM.Helpers;
     using ONEbook.UM.Services;
     using ONEbook.UM.Transport;
+    using Sentry;
 
     public class Startup
     {
@@ -64,7 +65,10 @@
                 .SetDefaultLogCategory(Configuration.GetSection("Fanex.Logging:LogCategory").Value)
                 .Use(new List<ILogEngine>
                 {
-                    new RabbitMQLogging(Configuration.GetSection("Fanex.Logging:ConnectionString").Value)
+                    new SentryLogging(new SentryEngineOptions
+                    {
+                        Dsn = new Dsn(Configuration.GetSection("Fanex.Logging:SentryEngineOptions:Dsn").Value)
+                    })
                 });
 
             ExceptionHandler
