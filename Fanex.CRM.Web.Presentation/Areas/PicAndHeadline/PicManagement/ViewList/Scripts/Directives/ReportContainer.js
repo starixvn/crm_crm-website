@@ -44,6 +44,10 @@
                     }
 
                     columns.push({
+                        Name: "ColRemark",
+                        Value: data.Remark
+                    })
+                    columns.push({
                         Name: "ColEdit",
                         Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                     })
@@ -68,6 +72,7 @@
                         { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
+                        { HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
                         { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  }
                     ]
@@ -89,6 +94,7 @@
                 );
             }
 
+            headerColumns.push({ HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center" });
             headerColumns.push({ HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
             headerColumns.push({ HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
 

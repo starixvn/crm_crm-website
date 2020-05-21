@@ -8,6 +8,8 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 
         public string Role { get; set; }
 
+        public string HeadlineName { get; set; }
+
         public int TotalRows { get; set; }
 
         public int PageSize { get; set; }

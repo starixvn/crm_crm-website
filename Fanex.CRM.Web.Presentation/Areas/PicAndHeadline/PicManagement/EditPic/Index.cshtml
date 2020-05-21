@@ -53,10 +53,8 @@
                         <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
                             @Labels.Language
                         </label>
-                        <div class="col-xs-8 col-sm-8 col-md-9 language-picker-container pull-left"
-                             select-options="languageOptions" selected-value="insertParams.Language"
-                             on-change-event="updateSelectedLanguage(selectedItem)">
-                            <select id="language" class="selLanguage"></select>
+                        <div class="col-xs-8 col-sm-8 col-md-9 language-picker-container pull-left" ng-model="languageOptions.DataList">
+                            <select id="language" class="languageoptions"></select>
                         </div>
                     </div>
                     <div class="form-group">

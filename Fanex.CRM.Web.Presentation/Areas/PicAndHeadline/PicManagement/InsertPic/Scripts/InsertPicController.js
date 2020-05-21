@@ -24,6 +24,8 @@
                 Country: ''
             };
 
+            $scope.SelectedLanguage = '';
+
             $scope.communicationToolItems = [
                 {Type: -1, Value: ""}                
             ]
@@ -56,8 +58,7 @@
 
                 $scope.languageOptions = {
                     DataList: [],
-                    OnChangeEvent: $scope.updateSelectedLanguage,
-                    AllText: viewResources.All
+                    OnChangeEvent: $scope.updateSelectedLanguage
                 };
 
                 $scope.countryOptions = {
@@ -76,7 +77,7 @@
             }
 
             $scope.updateSelectedLanguage = function (selectedItem) {
-                $scope.insertParams.Language = selectedItem.Name;
+                $scope.insertParams.Language = selectedItem;
             }
 
             $scope.updateSelectedCountry = function (selectedItem) {

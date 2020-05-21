@@ -19,7 +19,8 @@
             };
             $scope.searchCriteria = {
                 Username: '',
-                Role: null,
+                Role: '',
+                HeadlineName: '',
                 PageIndex: 1,
                 PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
             };
@@ -73,6 +74,7 @@
                 $scope.BlockUI();
                 var getReportCriteria = {
                     Username: $scope.searchCriteria.Username,
+                    HeadlineName: $scope.searchCriteria.HeadlineName,
                     Role: $scope.searchCriteria.role.Id === 0 ? '' : $scope.searchCriteria.role.Value,
                     PageIndex: $scope.searchCriteria.PageIndex,
                     PageSize: $scope.searchCriteria.PageSize                    

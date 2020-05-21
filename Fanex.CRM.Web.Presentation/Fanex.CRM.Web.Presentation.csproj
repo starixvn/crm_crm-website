@@ -544,6 +544,7 @@
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
+    <Content Include="Scripts\ShareScripts\Directives\MultiSelectWithDefault.js" />
     <Content Include="wwwroot\dist\js\commtool.setting.js" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />

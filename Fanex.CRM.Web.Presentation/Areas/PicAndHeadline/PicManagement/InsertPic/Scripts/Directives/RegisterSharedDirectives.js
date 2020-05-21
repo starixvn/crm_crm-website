@@ -58,15 +58,16 @@
                 OptionName: 'languageOptions',
                 PickerId: 'language',
                 RestrictType: 'C',
+                SelectedList: 'SelectedLanguage',
 
                 DataPropertyName: {
                     Id: "Name",
                     Type: "SettingType",
-                    Value: "Name"
+                    Name: "Name"
                 }
             };
 
-            directiveManager.registerSingleSelectDirectiveContainer(angular.module('insertpic-application'), languageRegisterParams);
+            directiveManager.registerMultiSelectWithDefaultContainer(angular.module('insertpic-application'), languageRegisterParams);
         }
         
         customerReportRegister.registerCountrySelect = function () {
