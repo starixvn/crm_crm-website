@@ -56,7 +56,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
             var param = new Hashtable();
             param.Add("Picname", Username);
             param.Add("Role", Role);
-            param.Add("CommunicationTools", SerializerHelper.SerializeList(this.CommunicationTools));
+            param.Add("CommunicationTools", SerializerHelper.SerializeList(CommunicationTools));
             param.Add("Language", Language);
             param.Add("Country", Country);
             param.Add("Remark", Remark);

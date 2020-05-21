@@ -54,7 +54,7 @@
                             @Labels.Language
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9 language-picker-container pull-left"
-                             select-options="languageOptions"
+                             select-options="languageOptions" selected-value="insertParams.Language"
                              on-change-event="updateSelectedLanguage(selectedItem)">
                             <select id="language" class="selLanguage"></select>
                         </div>
@@ -64,7 +64,7 @@
                             @Labels.Country
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9 country-picker-container pull-left"
-                             select-options="countryOptions"
+                             select-options="countryOptions" selected-value="insertParams.Country"
                              on-change-event="updateSelectedCountry(selectedItem)">
                             <select id="country" class="selCountry"></select>
                         </div>

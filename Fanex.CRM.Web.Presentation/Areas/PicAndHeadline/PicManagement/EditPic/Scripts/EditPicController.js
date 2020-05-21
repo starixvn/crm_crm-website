@@ -15,15 +15,14 @@
             $scope.languageOptions = null;
             $scope.countryOptions = null;
 
-            
             $scope.insertParams = {
                 PicId: item.PicId,
                 Username: item.Username,
                 Role: item.Role,
                 Remark: item.Remark,
                 CommunicationTools: item.CommunicationTools,
-                LanguageId: null,
-                CountryId: null
+                Language: item.Language,
+                Country: item.Country
             };
 
             $scope.communicationToolItems = item.CommunicationTools;
@@ -32,6 +31,8 @@
                 PicId: item.PicId,
                 Username: item.Username,
                 Role: item.Role,
+                Language: item.Language,
+                Country: item.Country,
                 Remark: item.Remark,
                 CommunicationTools: item.CommunicationTools.map(a => Object.assign({}, a))
             }            
@@ -84,11 +85,11 @@
             }
 
             $scope.updateSelectedLanguage = function (selectedItem) {
-                $scope.insertParams.LanguageId = selectedItem.Id;
+                $scope.insertParams.Language = selectedItem.Name;
             }
 
             $scope.updateSelectedCountry = function (selectedItem) {
-                $scope.insertParams.CountryId = selectedItem.Id;
+                $scope.insertParams.Country = selectedItem.Name;
             }
 
             $scope.getAllSetting = function () {
@@ -114,14 +115,25 @@
             $scope.savePic = function () {
                 $scope.BlockUI();
 
+                var communicationToolItems = [];
+                for (let index = 0; index < $scope.communicationToolItems.length; index++) {
+                    if (communicationToolItems.some(element => element.Type === $scope.communicationToolItems[index].Type)) {
+                        let tempIndex = communicationToolItems.findIndex(element1 => element1.Type === $scope.communicationToolItems[index].Type);
+                        communicationToolItems[tempIndex].Value = communicationToolItems[tempIndex].Value + ',' + $scope.communicationToolItems[index].Value;
+                    }
+                    else {
+                        communicationToolItems.push($scope.communicationToolItems[index]);
+                    }
+                }
+
                 var criteria = {
                     PicId: $scope.insertParams.PicId,
                     Username: $scope.insertParams.Username,
                     Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
-                    CommunicationTools: $scope.communicationToolItems,
-                    LanguageId: $scope.insertParams.LanguageId,
-                    CountryId: $scope.insertParams.CountryId
+                    CommunicationTools: communicationToolItems,
+                    Language: $scope.insertParams.Language,
+                    Country: $scope.insertParams.Country
                 };
 
                 if (!$scope.validateParams(criteria)) {
@@ -220,12 +232,16 @@
                 var params = {
                     Username: $scope.insertParams.Username,
                     Role: $scope.insertParams.Role,
+                    Language: $scope.insertParams.Language,
+                    Country: $scope.insertParams.Country,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: $scope.communicationToolItems
                 };
 
                 if (params.Username != $scope.oldParams.Username ||
                     params.Role != $scope.oldParams.Role ||
+                    params.Language != $scope.oldParams.Language ||
+                    params.Country != $scope.oldParams.Country ||
                     params.Remark != $scope.oldParams.Remark ||
                     $scope.isCommunicationToolChanged($scope.oldParams.CommunicationTools, params.CommunicationTools))
                 {

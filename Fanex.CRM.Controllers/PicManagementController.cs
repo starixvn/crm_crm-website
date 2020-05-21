@@ -83,6 +83,8 @@ namespace Fanex.CRM.Controllers
             int picId,
             string username,
             string role,
+            string language,
+            string country,
             string remark,
             IEnumerable<Dictionary<string, string>> communicationTools)
         {
@@ -99,6 +101,8 @@ namespace Fanex.CRM.Controllers
                 PicId = picId,
                 Username = username,
                 Role = role,
+                Language = language,
+                Country = country,
                 Remark = remark,
                 CommunicationTools = comTools
             };

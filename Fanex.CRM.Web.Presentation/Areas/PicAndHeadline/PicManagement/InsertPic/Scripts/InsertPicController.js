@@ -105,7 +105,6 @@
 
             $scope.savePic = function () {
                 $scope.BlockUI();
-                console.log($scope.communicationToolItems);
 
                 var communicationToolItems = [];
                 for (let index = 0; index < $scope.communicationToolItems.length; index++) {
@@ -117,13 +116,12 @@
                         communicationToolItems.push($scope.communicationToolItems[index]);
                     }
                 }
-                console.log(communicationToolItems);
                 
                 var criteria = {
                     Username: $scope.insertParams.Username,
                     Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
-                    CommunicationTools: $scope.communicationToolItems,
+                    CommunicationTools: communicationToolItems,
                     Language: $scope.insertParams.Language,
                     Country: $scope.insertParams.Country
                 };

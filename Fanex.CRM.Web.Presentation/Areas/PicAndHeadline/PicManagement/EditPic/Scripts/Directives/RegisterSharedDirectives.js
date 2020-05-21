@@ -52,45 +52,45 @@
             directiveManager.registerSingleSelectDirectiveContainer(angular.module('editpic-application'), communicationToolRegisterParams);
         }
         
-        // customerReportRegister.registerLanguageSelect = function () {
-        //     var languageRegisterParams = {
-        //         PlugInName: 'languagePickerContainer',
-        //         OptionName: 'languageOptions',
-        //         PickerId: 'language',
-        //         RestrictType: 'C',
+        customerReportRegister.registerLanguageSelect = function () {
+            var languageRegisterParams = {
+                PlugInName: 'languagePickerContainer',
+                OptionName: 'languageOptions',
+                PickerId: 'language',
+                RestrictType: 'C',
 
-        //         DataPropertyName: {
-        //             Id: "Id",
-        //             Type: "SettingType",
-        //             Value: "Name"
-        //         }
-        //     };
+                DataPropertyName: {
+                    Id: "Name",
+                    Type: "SettingType",
+                    Value: "Name"
+                }
+            };
 
-        //     directiveManager.registerSingleSelectDirectiveContainer(angular.module('insertpic-application'), languageRegisterParams);
-        // }
+            directiveManager.registerSingleSelectDirectiveContainer(angular.module('editpic-application'), languageRegisterParams);
+        }
         
-        // customerReportRegister.registerCountrySelect = function () {
-        //     var countryRegisterParams = {
-        //         PlugInName: 'countryPickerContainer',
-        //         OptionName: 'countryOptions',
-        //         PickerId: 'country',
-        //         RestrictType: 'C',
+        customerReportRegister.registerCountrySelect = function () {
+            var countryRegisterParams = {
+                PlugInName: 'countryPickerContainer',
+                OptionName: 'countryOptions',
+                PickerId: 'country',
+                RestrictType: 'C',
 
-        //         DataPropertyName: {
-        //             Id: "Id",
-        //             Type: "SettingType",
-        //             Value: "Name"
-        //         }
-        //     };
+                DataPropertyName: {
+                    Id: "Name",
+                    Type: "SettingType",
+                    Value: "Name"
+                }
+            };
 
-        //     directiveManager.registerSingleSelectDirectiveContainer(angular.module('insertpic-application'), countryRegisterParams);
-        // }
+            directiveManager.registerSingleSelectDirectiveContainer(angular.module('editpic-application'), countryRegisterParams);
+        }
         
         customerReportRegister.registerDefaultFocus();
         customerReportRegister.registerCommunicationTool();
         customerReportRegister.registerRoleSelect();
-        // customerReportRegister.registerLanguageSelect();
-        // customerReportRegister.registerCountrySelect();
+        customerReportRegister.registerLanguageSelect();
+        customerReportRegister.registerCountrySelect();
     }
 
     customerReportRegisterPicker();
