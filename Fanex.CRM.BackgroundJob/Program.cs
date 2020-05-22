@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.BackgroundJob
 {
+    using System;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -8,8 +9,7 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Logging.EventLog;
+    using Serilog;
 
     public static class Program
     {
@@ -37,18 +37,11 @@
                     .Build();
 
             return WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddEventLog(new EventLogSettings
-                    {
-                        Filter = (x, logLevel) => x.Contains("Fanex.CRM.BackgroundJob") && logLevel >= LogLevel.Information
-                    });
-                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(configuration)
                 .UseEnvironment(configuration["Environment"] ?? string.Empty)
                 .UseStartup<Startup>()
+                .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration))
                 .UseUrls(configuration["WebHostUrls"]);
         }
 
