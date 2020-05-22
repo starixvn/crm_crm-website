@@ -48,12 +48,19 @@
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
         {
-            await systemSettingService.UpdateJobStatusAsync(JobStatus.Running);
+            var settingJobStatus = new List<SystemSettingItem>
+            {
+                new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Running },
+                new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
+            };
+            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
 
             IEnumerable<int> failMessageIds = await GetFailMessageAsync();
             IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize, failMessageIds);
             if (messages.Any())
             {
+                mlogger.LogInformation(string.Format("Begin create feedback for messages: {0}", JsonConvert.SerializeObject(messages, Formatting.Indented)));
+
                 var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
                 IEnumerable<SettingItem> settings = await GetAllSettingAsync();
                 IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
@@ -73,7 +80,7 @@
 
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
-                    mlogger.LogInformation("Ticket don't have info", string.Join(",", messageIds));
+                    mlogger.LogInformation(string.Format("Ticket don't have info or created: {0}", string.Join(",", messageIds)));
                     await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
                     return;
                 }
@@ -83,7 +90,10 @@
                     Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
                     IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
                     IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
-
+                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rCredits: {1}\n\rDeposits: {2}",
+                        message.MessageId,
+                        JsonConvert.SerializeObject(credits, Formatting.Indented),
+                        JsonConvert.SerializeObject(deposits, Formatting.Indented)));
                     if (credits.Any())
                     {
                         await CreateFeedbackForCreditSiteAsync(
@@ -291,11 +301,19 @@
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
-                        mlogger.LogInformation("Create feedback successfully", message.MessageId, string.Join(",", batch));
+                        mlogger.LogInformation(string.Format("Create feedback successfully. MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                            message.MessageId,
+                            headline.HeadlineId,
+                            string.Join(",", batch)));
                         await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Completed, string.Empty);
                     }
                     else
                     {
+                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
+                            commandResult.Message,
+                            message.MessageId,
+                            headline.HeadlineId,
+                            string.Join(",", batch)));
                         mlogger.LogInformation(commandResult.Message, message.MessageId, string.Join(",", batch));
                         await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
@@ -303,7 +321,11 @@
                 }
                 catch (Exception ex)
                 {
-                    mlogger.LogInformation(ex.Message, message.MessageId, string.Join(",", batch));
+                    mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
+                        ex.Message,
+                        message.MessageId,
+                        headline.HeadlineId,
+                        string.Join(",", batch)));
                     await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, ex.Message);
                     await WriteLogAsync(ex);
                 }
@@ -354,10 +376,11 @@
                 SiteId = licenseeInfo.SiteId
             };
 
-            await CreateFeedbackByBatchAsync(message, transactionInfos, feedbackDate, communicationTool, criteria);
+            await CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
         }
 
         private async Task CreateFeedbackByBatchAsync(
+            CustomerInfo licenseeInfo,
             Message message,
             IEnumerable<TransactionInfo> transactionInfos,
             DateTime feedbackDate,
@@ -381,19 +404,34 @@
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
-                        mlogger.LogInformation("Create feedback successfully", message.MessageId, string.Join(",", custIds));
+                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                            "Create feedback successfully",
+                            message.MessageId,
+                            licenseeInfo.CustId,
+                            string.Join(",", batch),
+                            string.Join(",", custIds)));
                         await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Completed, string.Empty);
                     }
                     else
                     {
-                        mlogger.LogInformation(commandResult.Message, message.MessageId, string.Join(",", custIds));
+                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                            commandResult.Message,
+                            message.MessageId,
+                            licenseeInfo.CustId,
+                            string.Join(",", batch),
+                            string.Join(",", custIds)));
                         await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
                     }
                 }
                 catch (Exception ex)
                 {
-                    mlogger.LogInformation(ex.Message, message.MessageId, string.Join(",", custIds));
+                    mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                        ex.Message,
+                        message.MessageId,
+                        licenseeInfo.CustId,
+                        string.Join(",", batch),
+                        string.Join(",", custIds)));
                     await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
                     await WriteLogAsync(ex);
                 }
@@ -623,7 +661,7 @@
         private async Task WriteLogCreateFeedbackUnsuccessfulAsync(CommandResult commandResult, ICriteria criteria)
         {
             var logMessage = new LogMessage(string.Format("{0}: {1}", commandResult.Code, commandResult.Message))
-                       .AddMessage(JsonConvert.SerializeObject(criteria))
+                       .AddMessage(JsonConvert.SerializeObject(criteria, Formatting.Indented))
                        .ToString();
             await logger.ErrorAsync(logMessage);
         }
