@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Models;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Services;
 using Fanex.CRM.Setting.Services;
+using Fanex.NAP.Core.Business;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.CRM.Controllers
 {
+    [NapAuth(FunctionKey = FunctionPermissions.PICManagement, Policy = Constant.Policy.Read)]
     public class PicManagementController : BaseController
     {
         private readonly ISettingService _settingService;
@@ -30,6 +34,7 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.IsHost = HasHostPermission(FunctionPermissions.PICManagement);
             return View("~/Areas/PicAndHeadline/PicManagement/ViewList/Index.cshtml");
         }
 

@@ -47,14 +47,18 @@
                         Name: "ColRemark",
                         Value: data.Remark
                     })
-                    columns.push({
-                        Name: "ColEdit",
-                        Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
-                    })
-                    columns.push({
-                        Name: "ColActive",
-                        Value: '<input type="checkbox" class="activeSetting" ' + checked + ' data-row-index="' + i + '" />'
-                    })
+
+                    if (isHostOnPICManagement) {
+                        columns.push({
+                            Name: "ColEdit",
+                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                        })
+
+                        columns.push({
+                            Name: "ColActive",
+                            Value: '<input type="checkbox" class="activeSetting" ' + checked + ' data-row-index="' + i + '" />'
+                        })
+                    }
 
                     bodyData.push({
                         Columns: columns
@@ -62,41 +66,55 @@
                 }
             }
 
+            var groupHeaderRowColumns = [
+                { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Role, Width: 80, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
+                { HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
+            ];
+
+            if (isHostOnPICManagement) {
+                groupHeaderRowColumns.push(
+                    { HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
+                );
+
+                groupHeaderRowColumns.push(
+                    { HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
+                );
+            }
+
             var groupHeaderRows = [
                 {
-                    Columns: [
-                        { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
-                        { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
-                        { HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  },
-                        { HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2  }
-                    ]
+                    Columns: groupHeaderRowColumns
                 }                
             ];
 
             var headerColumns = [
-                { HeaderText: viewResources.No, Width: 120, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Role, Width: 120, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Role, Width: 80, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.GroupHeadline, Width: 120, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
             ];
 
             for (var j = 0; j < communicationTools.length; j++) {
                 headerColumns.push(
-                    { HeaderText: communicationTools[j].Name, Width: 120, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
+                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
                 );
             }
 
             headerColumns.push({ HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center" });
-            headerColumns.push({ HeaderText: viewResources.Edit, Width: 120, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
-            headerColumns.push({ HeaderText: viewResources.Active, Width: 120, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
+
+            if (isHostOnPICManagement) {
+                headerColumns.push({ HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
+
+                headerColumns.push({ HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
+            }
 
             var gridOptions = {
                 customizeHeader: true,

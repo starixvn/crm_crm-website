@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.PICManagement;
+    var isHost = (bool)ViewBag.IsHost;
 }
 
 @section Styles{
@@ -52,11 +53,14 @@
                             <span>@Labels.Submit</span>
                         </button>
                     </div>
-                    <div class="item">
-                        <button id="button-submit" class="btn" data-ng-click="insertPic();">
-                            <span>@Labels.Insert</span>
-                        </button>
-                    </div>
+                    @if (isHost)
+                    {
+                        <div class="item">
+                            <button id="button-submit" class="btn" data-ng-click="insertPic();">
+                                <span>@Labels.Insert</span>
+                            </button>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="row">
@@ -78,6 +82,7 @@
     @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
+        var isHostOnPICManagement = '@isHost' == 'True';
         
         var viewResources = {     
             ReportTitle: '@Labels.PICManagement',

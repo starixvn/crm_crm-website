@@ -58,8 +58,8 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
             param.Add("Picname", Username);
             param.Add("Role", Role);
             param.Add("CommunicationTools", SerializerHelper.SerializeList(CommunicationTools));
-            param.Add("Language", Language);
-            param.Add("Country", Country);
+            param.Add("Language", Language ?? string.Empty);
+            param.Add("Country", Country ?? string.Empty);
             param.Add("Remark", Remark);
 
             param.Add("userid", UserId);
