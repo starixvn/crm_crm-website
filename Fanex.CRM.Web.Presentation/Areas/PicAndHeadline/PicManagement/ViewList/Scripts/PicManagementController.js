@@ -111,7 +111,7 @@
                     window.rootUrl + "PicManagement/OpenInsertPic",
                     viewResources.InsertPIC,
                     480,
-                    300,
+                    330,
                     true,
                     false,
                     parent.window,
@@ -147,7 +147,7 @@
             };
 
             $scope.changePicState = function (item) {
-                parent.homeManager.CachedData.shouldReloadView = false;
+                parent.homeManager.CachedData.shouldReloadView = true;
                 var state = !item.IsActive;
                 var title = viewResources.Confirmation;
                 
@@ -167,13 +167,12 @@
             };
 
             $scope.editPic = function (item) {
-                
                 parent.homeManager.CachedData.shouldReloadView = false;
                 parent.OpenPopup(
                     window.rootUrl + "PicManagement/OpenEditPic?" + $.param(item),
                     viewResources.EditPIC,
                     480,
-                    300,
+                    330,
                     true,
                     false,
                     parent.window,
