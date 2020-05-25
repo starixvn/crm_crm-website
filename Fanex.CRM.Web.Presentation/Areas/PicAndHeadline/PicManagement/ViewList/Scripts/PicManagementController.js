@@ -22,7 +22,7 @@
                 Role: '',
                 HeadlineName: '',
                 PageIndex: 1,
-                PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+                PageSize: 100
             };
             $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -208,8 +208,21 @@
                 }
             };
 
+            $scope.invokeHotKey_CtrlS = function () {
+                $scope.getReport();
+            };
+
+            $scope.invokeHotKey_CtrlI = function () {
+                $scope.insertPic();
+            };
+
             angular.element(document).ready(function () {
                 $scope.initController();
+
+                hotKeyManager.CachedData.ActiveDocumentManager.push({
+                    Value: $scope,
+                    Id: 'PicManagement'
+                });
             });
         }]);
 })();

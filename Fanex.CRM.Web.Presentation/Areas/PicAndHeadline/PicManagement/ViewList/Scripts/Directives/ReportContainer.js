@@ -123,7 +123,7 @@
                 showTitle: true,
                 titleInfo: {
                     text: viewResources.ReportTitle,
-                    showExcelButton: false
+                    showExcelButton: true
                 },
                 bodyRows: bodyData,
                 footerRows: footerData,
@@ -142,7 +142,7 @@
                 pagerOption: {
                     itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                     currentPage: cachedData.scope.lastSelectedParams.PageIndex - 1,
-                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    itemsPerPageArray: [100, 200, 300, 400, 500, 1000],
                     totalItem: report.Total,
                     pagerSelectCallBack: ReRenderAfterPaged
                 }
@@ -179,6 +179,7 @@
             var communicationTools = scope.communicationTools;
             cachedData.customerReport = customerReport;
             var gridOptions = getGripOtions(customerReport, communicationTools);
+            console.log('merlin', gridOptions)
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
