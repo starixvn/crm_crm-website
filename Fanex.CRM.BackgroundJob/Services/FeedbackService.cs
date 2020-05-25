@@ -387,7 +387,7 @@
             string communicationTool,
             CreateFeedbackCriteria criteria)
         {
-            IEnumerable<int> licenseeManagerIds = transactionInfos.Where(x => x.LicenseeManagerId != 0).Select(x => x.LicenseeManagerId).Distinct();
+            IEnumerable<int> licenseeManagerIds = transactionInfos.Select(x => x.LicenseeManagerId).Distinct();
             int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
             int totalBatch = (int)Math.Ceiling((double)licenseeManagerIds.Count() / itemEachBatch);
             for (int i = 0; i < totalBatch; i++)
@@ -444,11 +444,10 @@
         {
             foreach(TransactionInfo transaction in transactionInfos)
             {
-                SiteSettingMapping licenseeManager = siteSettingMappings
-                    .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
-                        && transactionInfos.Any(y => x.SettingSource.Equals(y.Site, StringComparison.OrdinalIgnoreCase)));
+                SiteSettingMapping licenseeManager = siteSettingMappings.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
+                        && x.SettingSource.Equals(transaction.Site, StringComparison.OrdinalIgnoreCase));
 
-                if(licenseeManager != null)
+                if (licenseeManager != null)
                 {
                     transaction.LicenseeManagerId = licenseeManager.LicenseeManagerId;
                     transaction.LicenseeManager = licenseeManager.LicenseeManager;
