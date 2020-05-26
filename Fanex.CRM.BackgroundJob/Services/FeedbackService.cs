@@ -394,10 +394,10 @@
             {
                 IEnumerable<int> batch = licenseeManagerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
                 IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.LicenseeManagerId));
-                IEnumerable<string> licenseeManagers = transactions.Select(x => x.LicenseeManager).Distinct();
+                IEnumerable<string> licenseeManagers = transactions.Where(x => x.LicenseeManagerId != 0).Select(x => x.LicenseeManager).Distinct();
                 IEnumerable<int> custIds = transactions.Select(x => x.CustId).Distinct();
 
-                criteria.RelatedCustId = string.Join(", ", batch.Select(x => x).Distinct());
+                criteria.RelatedCustId = string.Join(", ", batch.Where(x => x != 0).Select(x => x));
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
                 try
                 {
