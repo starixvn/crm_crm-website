@@ -104,7 +104,7 @@
 
             for (var j = 0; j < communicationTools.length; j++) {
                 headerColumns.push(
-                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "left", CellAlign: "left" }
+                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
                 );
             }
 
