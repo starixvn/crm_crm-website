@@ -68,8 +68,8 @@
 
             var groupHeaderRowColumns = [
                 { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
-                { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2 },
-                { HeaderText: viewResources.Role, Width: 80, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Username, Width: 80, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Role, Width: 55, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
@@ -95,20 +95,20 @@
 
             var headerColumns = [
                 { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Role, Width: 80, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Username, Width: 80, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Role, Width: 55, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "left" },
             ];
 
             for (var j = 0; j < communicationTools.length; j++) {
                 headerColumns.push(
-                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
+                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "left", CellAlign: "left" }
                 );
             }
 
-            headerColumns.push({ HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center" });
+            headerColumns.push({ HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" });
 
             if (isHostOnPICManagement) {
                 headerColumns.push({ HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });

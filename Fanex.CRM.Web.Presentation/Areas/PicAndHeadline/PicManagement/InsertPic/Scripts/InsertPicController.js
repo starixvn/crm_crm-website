@@ -218,13 +218,17 @@
                 var params = {
                     Username: $scope.insertParams.Username,
                     Role: $scope.insertParams.Role,
+                    Language: $scope.insertParams.Language,
+                    Country: $scope.insertParams.Country,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: $scope.communicationToolItems
                 };
 
                 if (params.Username != '' ||
-                    params.Role > 0 ||
+                    params.Role != '' ||
                     params.Remark != '' ||
+                    params.Language != '' ||
+                    params.Country != '' ||
                     params.CommunicationTools[0].Type > 0 ||
                     params.CommunicationTools[0].Value != '')
                 {
@@ -267,8 +271,18 @@
                 }
             };
 
+            $scope.invokeHotKey_CtrlS = function () {
+                $scope.savePic();
+                $scope.$apply();
+            };
+
             angular.element(document).ready(function () {              
                 $scope.initController();
+
+                hotKeyManager.CachedData.ActiveDocumentManager.push({
+                    Value: $scope,
+                    Id: 'PicInsert'
+                });
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
             });
         }]);

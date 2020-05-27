@@ -299,8 +299,18 @@
                 }
             };
 
+            $scope.invokeHotKey_CtrlS = function () {
+                $scope.savePic();
+                $scope.$apply();
+            };
+
             angular.element(document).ready(function () {
                 $scope.initController();
+
+                hotKeyManager.CachedData.ActiveDocumentManager.push({
+                    Value: $scope,
+                    Id: 'PicEdit'
+                });
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
             });
         }]);
