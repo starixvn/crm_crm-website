@@ -9,6 +9,7 @@
     /* jshint camelcase: false */
     angular.module('picmanagement-application').controller('picManagementController', ['$scope', '$picManagementService',
         function ($scope, $picManagementService) { 
+            $scope.downloadFileOptions = null;
             $scope.errorMessage = '';
             $scope.roleOptions = null;
             $scope.communicationTools = [];
@@ -214,6 +215,15 @@
 
             $scope.invokeHotKey_CtrlI = function () {
                 $scope.insertPic();
+            };
+
+            $scope.exportReport = function () {
+                $scope.downloadFileOptions = {
+                    URL: window.rootUrl + "PicManagement/ExportExcel",
+                    Params: $scope.lastSelectedParams
+                };
+    
+                $scope.$apply();
             };
 
             angular.element(document).ready(function () {

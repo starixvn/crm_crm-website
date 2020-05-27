@@ -6,6 +6,8 @@ using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Models;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
+using Fanex.CRM.Report.Excels.PICManagement;
+using Fanex.CRM.Report.Resources;
 using Fanex.CRM.Services;
 using Fanex.CRM.Setting.Services;
 using Fanex.NAP.Core.Business;
@@ -58,6 +60,17 @@ namespace Fanex.CRM.Controllers
         {
             var report = _picReportService.GetReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public void ExportExcel(GetReportCriteria criteria)
+        {
+            criteria.PageIndex = 0;
+            criteria.PageSize = 0;
+            var communicationTools = _settingService.GetAllCommunicationTools().Select(x => new BaseModel { Id = x.Id, Name = x.Name });
+            var report = _picReportService.GetReport(criteria);
+            var excel = new PICManagementExcel(report, communicationTools, Labels.PICManagement);
+            excel.BuildWorkBook();
         }
 
         public ActionResult OpenInsertPic()

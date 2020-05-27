@@ -123,7 +123,10 @@
                 showTitle: true,
                 titleInfo: {
                     text: viewResources.ReportTitle,
-                    showExcelButton: true
+                    showExcelButton: true,
+                    exportExcelFunction: function () {
+                        cachedData.scope.exportReport();
+                    }
                 },
                 bodyRows: bodyData,
                 footerRows: footerData,
@@ -179,7 +182,6 @@
             var communicationTools = scope.communicationTools;
             cachedData.customerReport = customerReport;
             var gridOptions = getGripOtions(customerReport, communicationTools);
-            console.log('merlin', gridOptions)
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 

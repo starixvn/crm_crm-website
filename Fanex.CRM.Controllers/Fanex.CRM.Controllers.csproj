@@ -97,6 +97,10 @@
       <Project>{7f5301b7-2c20-4932-b67c-4a036ebe9f02}</Project>
       <Name>Fanex.CRM.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Report\Fanex.CRM.Report.csproj">
+      <Project>{CFD9409D-BC95-4C34-B080-4783619DD68E}</Project>
+      <Name>Fanex.CRM.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Resources\Fanex.CRM.Resources.csproj">
       <Project>{380cbc4a-6df7-4a35-b168-0ef99ddb4217}</Project>
       <Name>Fanex.CRM.Resources</Name>

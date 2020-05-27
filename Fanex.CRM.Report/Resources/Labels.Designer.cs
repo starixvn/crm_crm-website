@@ -1384,6 +1384,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No category found..
         /// </summary>
         public static string No_category_found {
@@ -1573,6 +1582,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIC Management.
+        /// </summary>
+        public static string PICManagement {
+            get {
+                return ResourceManager.GetString("PICManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please choose one!.
         /// </summary>
         public static string Please_choose_one {
@@ -1740,6 +1758,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string RelatedCustomer {
             get {
                 return ResourceManager.GetString("RelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
             }
         }
         
@@ -2460,6 +2487,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Yearly {
             get {
                 return ResourceManager.GetString("Yearly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -22,6 +22,7 @@
 
         customerReportRegister.registerRolePicker();
         customerReportRegister.registerDefaultFocus();
+        customerReportRegister.registerDownloadFile();
     }
 
     customerReportRegisterPicker();
