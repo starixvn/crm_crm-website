@@ -1,141 +1,136 @@
-﻿"use strict";
-/* global directiveManager: true,
-crmConstants */
-/* jshint unused: false */
-directiveManager = directiveManager || {};
-directiveManager.registerMultiSelectWithDefaultContainer = function (angularApplication, registerParams) {
-    angularApplication.directive(registerParams.PlugInName, function () {
-        var cachedData = {
-            DataList: [],
-            Options: null
-        };
-
-        function getOptions(dataList, prefixId, currentOptionLevel, options, selectedList) {
-            var dropdownOptions = [];
-            if (dataList === undefined ||
-                dataList === null ||
-                dataList.length === 0) {
-                return dropdownOptions;
-            }
-
-            var dataListLength = dataList.length;
-            for (var i = 0; i < dataListLength; i++) {
-                var info = dataList[i];
-                var subOptions = options.NumberOfSelectedLevel &&
-                    options.NumberOfSelectedLevel > currentOptionLevel ?
-                        getOptions(info[options.SubOptionsName], prefixId, currentOptionLevel + 1, options) :
-                        [];
-                dropdownOptions.push({
-                    id: prefixId + "-" + info[registerParams.DataPropertyName.Id],
-                    value: info[registerParams.DataPropertyName.Id],
-                    text: info[registerParams.DataPropertyName.Name],
-                    checked: selectedList.includes(info[registerParams.DataPropertyName.Id]),
-                    enable: true,
-                    cssClass: "",
-                    items: subOptions
-                });
-            }
-
+﻿angular.module('fanexMultiSelectModule', []).directive('fanexMultiSelect', function () {
+    function getOptions(dataList, prefixId, currentOptionLevel, options, selectedList) {
+        var dropdownOptions = [];
+        if (dataList === undefined ||
+            dataList === null ||
+            dataList.length === 0) {
             return dropdownOptions;
         }
 
-        function renderDropdown(scope, element, attrs) {
-            var options = scope[registerParams.OptionName];
-            if (options === null ||
-                options.DataList === null) {
-                return;
-            }
+        var dataListLength = dataList.length;
+        for (var i = 0; i < dataListLength; i++) {
+            var info = dataList[i];
+            var subOptions = options && options.NumberOfSelectedLevel &&
+                options.NumberOfSelectedLevel > currentOptionLevel ?
+                getOptions(info[options.SubOptionsName], prefixId, currentOptionLevel + 1, options) :
+                [];
+            dropdownOptions.push({
+                id: prefixId + "-" + info["Name"],
+                value: info["Name"],
+                text: info["Name"],
+                checked: selectedList.includes(info["Name"]),
+                enable: true,
+                cssClass: "",
+                items: subOptions
+            });
+        }
 
-            cachedData.Options = options;
-            var prefixId = registerParams.PickerId;
-            var dropdown = element.find("#" + prefixId);
-            var dropdownOptions = [];
-            var dataList = options.DataList;
-            cachedData.DataList = dataList;
-            var selectedList = scope[registerParams.SelectedList] ? scope[registerParams.SelectedList] : '';
-            dropdownOptions = getOptions(dataList, prefixId, 1, options, selectedList);
-            dropdown.empty();
-            dropdown.fanexMultiSelect(
+        return dropdownOptions;
+    }
+
+    function renderDropdown(scope, element, attrs) {
+        if (scope.dataList === null) {
+            return;
+        }
+
+        var dataList = scope.dataList;
+        var options = scope.options;
+        var selectedList = scope.selectedList;
+        var dropdown = element.find("#language");
+        var dropdownOptions = getOptions(dataList, 'language', 1, options, selectedList);
+        console.log(dropdownOptions, dataList)
+        dropdown.empty();
+        dropdown.fanexMultiSelect(
             {
-                minWidth: options.MinWidth,
-                maxHeight: options.MaxHeight,
+                minWidth: 150,
+                maxHeight: 400,
                 shadow: true,
                 showHeader: true,
                 isCheckAll: selectedList.split(',').length === dataList.length,
                 showFooter: false,
                 showTooltip: false,
-                checkAllText: options.AllText,
+                checkAllText: "All",
                 isUsedCustomCheckAllText: true,
-                customCheckAllText: options.AllText,
-                noItemText: options.NoItemText,
-                noneSelectedText: options.NoneSelectedText,
-                selectedList: options.NumberOfItemShowShortText,
+                customCheckAllText: "All",
+                noItemText: "No item",
+                noneSelectedText: "Select",
+                selectedList: 1,
                 listData: dropdownOptions,
-                autoCheckAll: options.AutoCheckAll
+                autoCheckAll: false
             });
 
-            elementChange(element);
-            element.on('change', function () {
-                elementChange(element);
-            });
+        elementChange(element, scope);
+        element.on('change', function () {
+            elementChange(element, scope);
+        });
 
-            $("#" + prefixId + " input.fanex-multiselect-state-default").change(function () {
-                elementChange(element);
-            });
-        }
+        $(element).find("input.fanex-multiselect-state-default").change(function () {
+            console.log(element, 'merlin')
+            elementChange(element, scope);
+        });
+    }
 
-        function elementChange(element) {
-            if (cachedData.Options.OnChangeEvent &&
-                typeof (cachedData.Options.OnChangeEvent) === "function") {
-                var selectedOptions = element.find("#" + registerParams.PickerId).fanexMultiSelect("getItems", true);
-                switch (cachedData.Options.MultiSelectType) {
-                    case crmConstants.Enums.MultiSelectType.GetIdList:
-                        cachedData.Options.OnChangeEvent(getSelectedIdList(selectedOptions));
-                        break;
-                    case crmConstants.Enums.MultiSelectType.GetFullInfoList:
-                        cachedData.Options.OnChangeEvent(getSelectedItems(selectedOptions, cachedData.DataList, 1));
-                        break;
-                    default:
-                        cachedData.Options.OnChangeEvent(getSelectedIdList(selectedOptions));
-                        break;
-                }
+    function elementChange(element, scope) {
+        if (scope.onChange && typeof (scope.onChange) === "function") {
+            var selectedOptions = element.fanexMultiSelect("getItems", true);
+            console.log(scope.multiSelectType, crmConstants.Enums.MultiSelectType)
+            switch (scope.multiSelectType) {
+                case crmConstants.Enums.MultiSelectType.GetIdList:
+                    scope.onChange(getSelectedIdList(selectedOptions));
+                    break;
+                case crmConstants.Enums.MultiSelectType.GetFullInfoList:
+                    scope.onChange(getSelectedItems(selectedOptions, scope.dataList, 1, scope.options));
+                    break;
+                default:
+                    scope.onChange(getSelectedIdList(selectedOptions));
+                    break;
             }
         }
+    }
 
-        function getSelectedIdList(selectOptions) {
-            return selectOptions.join(",");
-        }
+    function getSelectedIdList(selectOptions) {
+        return selectOptions.join(",");
+    }
 
-        function getSelectedItems(selectOptions, dataList, currentOptionLevel) {
-            var dataListLength = cachedData.DataList.length;
-            var selectedItems = [];
-            if (dataList === undefined ||
-                dataList === null ||
-                dataList.length === 0) {
-                return selectedItems;
-            }
-
-            for (var i = 0; i < dataListLength; i++) {
-                var info = dataList[i];
-                if (cachedData.Options.NumberOfSelectedLevel &&
-                    currentOptionLevel < cachedData.Options.NumberOfSelectedLevel) {
-                    selectedItems = selectedItems.concat(getSelectedItems(selectOptions, info[cachedData.Options.SubOptionsName], currentOptionLevel + 1));
-                } else if (selectOptions.indexOf(info[registerParams.DataPropertyName.Id].toString()) !== -1) {
-                    selectedItems.push(info);
-                }
-            }
-
+    function getSelectedItems(selectOptions, dataList, currentOptionLevel, options) {
+        var dataListLength = dataList.length;
+        var selectedItems = [];
+        if (dataList === undefined ||
+            dataList === null ||
+            dataList.length === 0) {
             return selectedItems;
         }
 
-        return {
-            restrict: registerParams.RestrictType,
-            scope: true,
-            link: function (scope, element, attrs) {
-                scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    renderDropdown(scope, element, attrs);
-                });
+        for (var i = 0; i < dataListLength; i++) {
+            var info = dataList[i];
+            if (options && options.NumberOfSelectedLevel &&
+                currentOptionLevel < scope.options.NumberOfSelectedLevel) {
+                selectedItems = selectedItems.concat(getSelectedItems(selectOptions, info[options.SubOptionsName], currentOptionLevel + 1));
+            } else if (selectOptions.indexOf(info["Name"].toString()) !== -1) {
+                selectedItems.push(info);
             }
-        };
-    });
-};
+        }
+
+        return selectedItems;
+    }
+
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+            dataList: '=ngModel',
+            options: '=',
+            selectedList: '=',
+            onChange: '=',
+            multiSelectType: '='
+
+        },
+        link: function (scope, element, attrs) {
+            scope.$watch('dataList', function (newval, oldval) {
+                if (scope.dataList.length > 0) {
+                    renderDropdown(scope, element, attrs);
+                }
+            });
+        }
+    };
+});

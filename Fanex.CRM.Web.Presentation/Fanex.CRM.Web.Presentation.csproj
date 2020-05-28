@@ -606,6 +606,15 @@
     <Content Include="Areas\InformHeadline\_LogDetails.cshtml" />
     <Content Include="wwwroot\parts\constant.js" />
     <Content Include="wwwroot\parts\entry.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\index.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\insert\pic-insert-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\insert\pic-insert-directives.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\insert\single-select-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-application.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\register-shared-directives.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\report-container.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
@@ -1296,6 +1305,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
+    <Folder Include="wwwroot\sources\js\pages\pic-management\edit\" />
+    <Folder Include="wwwroot\sources\js\pages\pic-management\index\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1567,6 +1578,7 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_ConfirmSubmit.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_RemovePICAssignment.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Styles\EditPic.less" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_Create.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1597,6 +1609,8 @@
     <Content Include="wwwroot\dist\js\create.multiple.logs.js.map" />
     <Content Include="wwwroot\sources\styles\font-awesome.scss" />
     <Content Include="wwwroot\dist\styles\font.awesome.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\pic-management.scss" />
+    <Content Include="wwwroot\sources\styles\components\customize-multi-select.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

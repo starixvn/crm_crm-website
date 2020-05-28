@@ -6,14 +6,15 @@
 }
 
 @section Styles{
-    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
+    @*@RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
-    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles")
-    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles")*@
+    @*@RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")*@
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/pic.management.css" />
 }
 
-<div data-ng-app="picmanagement-application">
+<div data-ng-app="pic-management-application">
     <div class="picManagementController" data-ng-controller="picManagementController">
         <div class="main container">
             <div class="row" data-ng-show="errorMessage !== ''">
@@ -76,18 +77,19 @@
     </div>
 </div>
 
+@Html.Partial("~/Areas/PicAndHeadline/PicManagement/_Create.cshtml")
+
 @section Scripts {
-    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
-    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts")
+    <script src="~/wwwroot/dist/js/pic.management.js"></script>
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var isHostOnPICManagement = '@isHost' == 'True';
-        
-        var viewResources = {     
+
+        var viewResources = {
             ReportTitle: '@Labels.PICManagement',
             Position: '@Labels.Position',
             Status: '@Labels.Status',
@@ -104,7 +106,8 @@
             Confirmation: '@Labels.Confirmation',
             EditPIC: '@Labels.EditPIC',
             Language: '@Labels.Language',
-            Country: '@Labels.Country'
+            Country: '@Labels.Country',
+            Selected: '@Labels.Select'
         };
     </script>
 }
