@@ -205,17 +205,18 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    /* jshint unused: false */
-                    if (scope.reportOptions.IsUpdateGrid) {
-                        if (scope.reportOptions.IsResize && cachedData.reportTable) {
-                            cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
-                            scope.customerReportOptions.IsResize = false;
-                        } else {
-                            renderCustomerReport(scope, element);
-                        }
-    
-                        scope.reportOptions.IsUpdateGrid = false;
+                    if (!scope.reportOptions.IsUpdateGrid) {
+                        return;
                     }
+
+                    if (scope.reportOptions.IsResize && cachedData.reportTable) {
+                        cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
+                        scope.customerReportOptions.IsResize = false;
+                    } else {
+                        renderCustomerReport(scope, element);
+                    }
+
+                    scope.reportOptions.IsUpdateGrid = false;
                 });
             }
         };
