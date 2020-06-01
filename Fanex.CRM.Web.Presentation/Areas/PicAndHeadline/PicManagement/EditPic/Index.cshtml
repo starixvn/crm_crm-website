@@ -11,7 +11,7 @@
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
-    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/EditPic/Styles")
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/EditPicStyles")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
 }
 
@@ -119,12 +119,9 @@
 
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
-    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
-    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
-    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
-    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicManagement/EditPicScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
 

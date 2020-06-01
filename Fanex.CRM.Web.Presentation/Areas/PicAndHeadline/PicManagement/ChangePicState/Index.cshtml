@@ -11,7 +11,7 @@
     var messageTemplate = Model.IsActive ? Labels.ConfirmActivePic : Labels.ConfirmDeactivePic;
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles")
+    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ChangePicStateStyles")
 }
 <!DOCTYPE>
 <div data-ng-app="changepicstate-application">
@@ -43,7 +43,7 @@
 @section Scripts {
     @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-        "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts")
+        "~/Areas/PicAndHeadline/PicManagement/ChangePicStateScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var item = @Html.Raw(model);

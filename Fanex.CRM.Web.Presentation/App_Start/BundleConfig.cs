@@ -642,7 +642,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
         private static void RegisterBundles_ChangePicState(ref BundleCollection bundles)
         {   
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicStateScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateApplication.js",
@@ -650,7 +650,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateController.js"));
 
             bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles",
+                "~/Areas/PicAndHeadline/PicManagement/ChangePicStateStyles",
                 "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles/ChangePicState.less");
         }
 
@@ -680,7 +680,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
         private static void RegisterBundles_EditPic(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/EditPicScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
@@ -697,7 +697,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/Directives/RegisterSharedDirectives.js"));
 
             bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles",
+                "~/Areas/PicAndHeadline/PicManagement/EditPicStyles",
                 "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles/EditPic.less");
         }
     }
