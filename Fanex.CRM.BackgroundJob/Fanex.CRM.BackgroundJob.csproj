@@ -30,6 +30,7 @@
     <None Remove="App_Data\Local\SpNames.xml" />
     <None Remove="App_Data\Production\SpNames.xml" />
     <None Remove="App_Data\UAT\SpNames.xml" />
+    <None Remove="Deployment.ignore" />
     <None Remove="logs\log.txt" />
   </ItemGroup>
 
@@ -44,6 +45,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\UAT\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Deployment.ignore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="logs\log.txt">
