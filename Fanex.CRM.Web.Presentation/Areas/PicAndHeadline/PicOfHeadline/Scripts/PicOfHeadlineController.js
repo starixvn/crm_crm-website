@@ -241,6 +241,7 @@
 						windowClass: 'related-customer-modal'
 					});
 					modalInstance.result.then(function () {
+						$scope.getPICAssignment();
 					});
 				};
 
@@ -293,6 +294,7 @@
 						}
 					});
 					modalInstance.result.then(function () {
+						$scope.getPICAssignment();
 					});
 				};
 
