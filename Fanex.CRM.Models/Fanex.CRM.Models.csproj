@@ -44,13 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryFilter.cs" />
+    <Compile Include="PicAndHeadline\AssignedDirectAccount.cs" />
+    <Compile Include="PicAndHeadline\AssignPic.cs" />
     <Compile Include="PicAndHeadline\CommunicationTool.cs" />
     <Compile Include="PicAndHeadline\EditPicModel.cs" />
     <Compile Include="PicAndHeadline\HeadlineInfo.cs" />
     <Compile Include="PicAndHeadline\PICAssignmentInfo.cs" />
     <Compile Include="PicAndHeadline\PicCommunicationTool.cs" />
     <Compile Include="PicAndHeadline\PicInfo.cs" />
+    <Compile Include="PicAndHeadline\PicModel.cs" />
     <Compile Include="PicAndHeadline\PicReport.cs" />
+    <Compile Include="PicAndHeadline\RemoveAssignment.cs" />
     <Compile Include="PicAndHeadline\SiteInfo.cs" />
     <Compile Include="MultipleLogs\VerifyCustomerResult.cs" />
     <Compile Include="MultipleLogs\VerifyRelatedCustomerResult.cs" />

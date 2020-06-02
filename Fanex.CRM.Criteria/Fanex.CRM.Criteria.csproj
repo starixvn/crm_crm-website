@@ -81,6 +81,7 @@
     <Compile Include="PicAndHeadline\GetReportCriteria.cs" />
     <Compile Include="PicAndHeadline\GetSystemSiteCriteria.cs" />
     <Compile Include="PicAndHeadline\InsertPicCriteria.cs" />
+    <Compile Include="PicAndHeadline\RemoveAssignmentCriteria.cs" />
     <Compile Include="PicAndHeadline\ValidateAssignmentCriteria.cs" />
     <Compile Include="MultipleLogs\CheckNotExistCommunicationToolSettingCriteria.cs" />
     <Compile Include="MultipleLogs\CreateMultipleLogsCriteria.cs" />

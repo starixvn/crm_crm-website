@@ -4,7 +4,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 {
     public class GetAssignmentCriteria : CriteriaBase
     {
-        public string SiteID { get; set; }
+        public string Site { get; set; }
 
         public string Currency { get; set; }
 
@@ -12,7 +12,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 
         public string HeadlineType { get; set; }
 
-        public string PIC { get; set; }
+        public string PicName { get; set; }
 
         public string DirectAccount { get; set; }
 
@@ -20,9 +20,13 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 
         public string Position { get; set; }
 
+        public bool ExcludeAssignedAcc { get; set; }
+
         public bool ExcludeIgnoredAcc { get; set; }
 
         public bool ExcludeIsTest { get; set; }
+
+        public int TotalUnassigned { get; set; }
 
         public int PageSize { get; set; }
 

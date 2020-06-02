@@ -6,12 +6,22 @@
         <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="closeModal()"></span>
     </div>
     <div class="modal-body">
+        <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row item">
             <div class="col-xs-4">
                 <label>@Labels.GroupHeadline</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
             <div class="col-xs-8">
-                <select class="select-with-search-container js-select2" ng-model="headlineGroup" options="headlines">
+                <select class="select-with-search-container js-select2" ng-model="assignPICModel.headlineId" options="headlineOptions" id="assignedPICHeadline">
                     <option></option>
                 </select>
             </div>
@@ -19,20 +29,22 @@
         <div class="row item">
             <div class="col-xs-4">
                 <label>@Labels.PIC</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
             <div class="col-xs-8">
-                <select></select>
+                <select class="select-with-search-container js-select2" ng-model="assignPICModel.pics" options="picOptions" , multiple="multiple" id="assignedPIC"></select>
             </div>
         </div>
         <div class="row item">
             <div class="col-xs-4">
                 <label>@Labels.DirectAccount</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
             <div class="col-xs-8">
                 <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="focused = true">
-                    <div ng-if="relatedCustomers.length > 0">
+                    <div ng-if="assignPICModel.directAccounts.length > 0">
                         <div class="related-customer-item {{item.isValid ? '' : 'invalid'}} {{isSellectedAll ? 'selected' : ''}}"
-                             ng-repeat="item in relatedCustomers track by $index">
+                             ng-repeat="item in assignPICModel.directAccounts track by $index">
                             <span ng-bind="item.username"></span>
                             <span class="icon-close ui-icon ui-icon-closethick" ng-click="removeRelatedCustomer(item)"></span>
                         </div>
@@ -42,12 +54,12 @@
                            ng-paste="pasteHandler($event)"
                            data-on-blur="focusoutHandler" />
                 </div>
-                <div class="maximum-username">Maximum usernames: {{maxItems - relatedCustomers.length}}</div>
+                <div class="maximum-username">Maximum usernames: {{maxItems - assignPICModel.directAccounts.length}}</div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn" >@Labels.Save</button>
+        <button class="btn" ng-click="validatePicAssignment()">@Labels.Save</button>
         <button class="btn" ng-click="closeModal()">@Labels.Cancel</button>
     </div>
 </div>

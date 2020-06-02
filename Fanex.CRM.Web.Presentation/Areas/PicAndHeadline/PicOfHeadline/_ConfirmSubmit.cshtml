@@ -1,1 +1,36 @@
-﻿
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="list-assigned-direct-account" style="display: none">
+    <div class="modal-header">
+        @Labels.ListOfAssignedDirectAccounts
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="$dismiss()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-12 text-center">
+                <span>These direct accounts are belonging to other PIC. What would you like to do?</span>
+            </div>
+        </div>
+        <div class="row item">
+            <table id="assigned-direct-account" class="assigned-direct-account">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 160px">@Labels.PIC</th>
+                        <th class="text-center">@Labels.DirectAccount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="account in assignedDirectAccounts">
+                        <td>{{account.PicName}} ({{account.Role}})</td>
+                        <td>{{account.DirectAccount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="assignPIC(false)">@Labels.RemoveAndAssign</button>
+        <button class="btn" ng-click="assignPIC(true)">@Labels.KeepAssign</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
+    </div>
+</div>

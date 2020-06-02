@@ -1,162 +1,193 @@
 ﻿(function () {
-    "use strict";
+	"use strict";
     /* global crmConstants,
     viewResources,
     sharedScriptManager */
-    /* jshint camelcase: false */
-    angular.module('picofheadline-application').directive('picAssignmentDataGridDirective', function () {
-        var cachedData = {
-            scope: null,
-            reportTable: null,
-            gridData: null,
-            gridOptions: null
-        };
+	/* jshint camelcase: false */
+	angular.module('picofheadline-application').directive('picAssignmentDataGridDirective', function () {
+		var cachedData = {
+			scope: null,
+			reportTable: null,
+			gridData: null,
+			gridOptions: null
+		};
 
-        function getGridHeight() {
-            return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
-        }
+		function getGridHeight() {
+			return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
+		}
 
-        function getGripOtions(gridData) {
-            var bodyData = [];
-            var footerData = [];
-            var reportLength = gridData ? gridData.Items.length : 0;
-            var mergeHeadline = 0;
-            var mergePIC = 0;
-            if (reportLength > 0) {
-                for (var i = 0; i < reportLength; i++) {
-                    var assignment = gridData.Items[i];
-                    var columns = [{ Name: "ColNo", Value: assignment.RowNum }];
+		function getGripOtions(gridData) {
+			var bodyData = [];
+			var footerData = [];
+			var reportLength = gridData ? gridData.Items.length : 0;
+			var mergeHeadline = 0;
+			var mergePIC = 0;
+			if (reportLength > 0) {
+				for (var i = 0; i < reportLength; i++) {
+					var assignment = gridData.Items[i];
+					var columns = [{ Name: "ColNo", Value: assignment.RowNum }];
 
-                    if (mergeHeadline === 0) {
-                        mergeHeadline = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID).length;
-                        mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
-                        columns.push(
-                            { Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline },
-                            { Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
-                            { Name: "ColPIC", Value: getPICCell(assignment.PIC), MergeRowNumber: mergePIC }
-                        );
+					if (mergeHeadline === 0) {
+						mergeHeadline = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID).length;
+						mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
+						columns.push(
+							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline },
+							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
+							{ Name: "ColPIC", Value: getPICCell(assignment.PicList), MergeRowNumber: mergePIC }
+						);
+					}
 
-                    }
+					if (mergePIC === 0 && mergeHeadline !== 0) {
+						mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
+						columns.push({ Name: "ColPIC", Value: getPICCell(assignment.PicList), MergeRowNumber: mergePIC });
+					}
 
-                    if (mergePIC === 0 && mergeHeadline !== 0) {
-                        mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
-                        columns.push({ Name: "ColPIC", Value: getPICCell(assignment.PIC), MergeRowNumber: mergePIC });
-                    }
+					columns.push(
+						{ Name: "ColDirectAccount", Value: assignment.DirectAccount },
+						{ Name: "ColStatus", Value: assignment.Status },
+						{ Name: "ColSite", Value: assignment.Site },
+						{ Name: "ColCurrency", Value: assignment.Currency },
+						{ Name: "ColPosition", Value: assignment.Position },
+						{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox'/>` }
+					);
 
-                    columns.push(
-                        { Name: "ColDirectAccount", Value: assignment.DirectAccount },
-                        { Name: "ColStatus", Value: assignment.Status },
-                        { Name: "ColSite", Value: assignment.Site },
-                        { Name: "ColCurrency", Value: assignment.Currency },
-                        { Name: "ColPosition", Value: assignment.Position },
-                        { Name: "ColAction", Value: `<input class='item-${assignment.}' type='checkbox'/>` }
-                    );
+					bodyData.push({
+						Columns: columns
+					});
+					mergeHeadline--;
+					mergePIC--;
+				}
+			}
 
-                    bodyData.push({
-                        Columns: columns
-                    });
-                    mergeHeadline--;
-                    mergePIC--;
-                }
-            }
+			var headerColumns = [
+				{ HeaderText: viewResources.No, Width: 70, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
+				{ HeaderText: viewResources.GroupHeadline, Width: 150, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
+				{ HeaderText: viewResources.HeadlineType, Width: 100, Name: "ColHeadlineType", HeaderAlign: "center", CellAlign: "center" },
+				{ HeaderText: viewResources.PIC, Width: 150, Name: "ColPIC", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: viewResources.DirectAccount, Width: 152, Name: "ColDirectAccount", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: viewResources.Status, Width: 100, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: viewResources.Site, Width: 150, Name: "ColSite", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: viewResources.Currency, Width: 100, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" },
+				{ HeaderText: `<input type='button' value='Remove' id='remove-btn' disabled/><input type='checkbox' id='select-all-chkbox'/>`, Width: 70, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" }
+			];
 
-            var headerColumns = [
-                { HeaderText: viewResources.No, Width: 70, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.GroupHeadline, Width: 150, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.HeadlineType, Width: 100, Name: "ColHeadlineType", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.PIC, Width: 150, Name: "ColPIC", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.DirectAccount, Width: 152, Name: "ColDirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 100, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Site, Width: 150, Name: "ColSite", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Currency, Width: 100, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: `<input type='button' value='Remove'/><input type='checkbox'/>`, Width: 70, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" }
-            ];
+			var gridOptions = {
+				columns: headerColumns,
+				showTitle: true,
+				titleInfo: {
+					text: viewResources.CustomerReport_Title,
+					showExcelButton: true,
+					exportExcelFunction: function () {
+						cachedData.scope.exportReport();
+					}
+				},
+				bodyRows: bodyData,
+				footerRows: footerData,
+				numberOfFrozenColumn: 0,
+				fullWidth: true,
+				fullHeight: true,
+				gridExpandHeight: getGridHeight(),
+				showDistinctRow: false,
+				showHighlightRow: true,
+				headerColumnHeight: 29,
+				bodyRowHeight: 29,
+				showPager: true,
+				showTree: false,
+				customPager: true,
+				allowTruncate: true,
+				pagerOption: {
+					itemsPerPage: cachedData.scope.searchCriteria.PageSize,
+					currentPage: cachedData.scope.searchCriteria.PageIndex - 1,
+					itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+					totalItem: gridData.Total,
+					pagerSelectCallBack: ReRenderAfterPaged
+				}
+			};
 
-            var gridOptions = {
-                columns: headerColumns,
-                showTitle: true,
-                titleInfo: {
-                    text: viewResources.CustomerReport_Title,
-                    showExcelButton: true,
-                    exportExcelFunction: function () {
-                        cachedData.scope.exportReport();
-                    }
-                },
-                bodyRows: bodyData,
-                footerRows: footerData,
-                numberOfFrozenColumn: 0,
-                fullWidth: true,
-                fullHeight: true,
-                gridExpandHeight: getGridHeight(),
-                showDistinctRow: false,
-                showHighlightRow: true,
-                headerColumnHeight: 29,
-                bodyRowHeight: 29,
-                showPager: true,
-                showTree: false,
-                customPager: true,
-                allowTruncate: true,
-                pagerOption: {
-                    itemsPerPage: cachedData.scope.searchCriteria.PageSize,
-                    currentPage: cachedData.scope.searchCriteria.PageIndex - 1,
-                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                    totalItem: gridData.Total,
-                    pagerSelectCallBack: ReRenderAfterPaged
-                }
-            };
+			return gridOptions;
+		}
 
-            return gridOptions;
-        }
+		function ReRenderAfterPaged(page_index, itemsPerPage) {
+			cachedData.scope.pagingCustomerReport(page_index + 1, itemsPerPage);
+			return false;
+		}
 
-        function ReRenderAfterPaged(page_index, itemsPerPage) {
-            cachedData.scope.pagingCustomerReport(page_index + 1, itemsPerPage);
-            return false;
-        }
+		function renderPicOfHeadlineGrid(scope, element) {
+			if (scope.picOfHeadlineOptions.DataList === null) {
+				return;
+			}
 
-        function renderPicOfHeadlineGrid(scope, element) {
-            if (scope.picOfHeadlineOptions.DataList === null) {
-                return;
-            }
+			cachedData.scope = scope;
+			var tablePicOfHeadline = element.find("#table-picOfHeadline");
+			cachedData.reportTable = tablePicOfHeadline;
+			var gridData = scope.picOfHeadlineOptions.DataList;
+			cachedData.gridData = gridData;
+			var gridOptions = getGripOtions(gridData);
+			cachedData.gridOptions = gridOptions;
+			tablePicOfHeadline.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            cachedData.scope = scope;
-            var tablePicOfHeadline = element.find("#table-picOfHeadline");
-            cachedData.reportTable = tablePicOfHeadline;
-            var gridData = scope.picOfHeadlineOptions.DataList;
-            cachedData.gridData = gridData;
-            var gridOptions = getGripOtions(gridData);
-            cachedData.gridOptions = gridOptions;
-            tablePicOfHeadline.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        }
+			initClickCheckBoxEvent(tablePicOfHeadline, scope);
+		}
 
-        function getPICCell(picValue) {
-            if (picValue == null) {
-                return `<span>+</span>`;
-            }
-            else {
-                return picValue;
-            }
-        }
+		function initClickCheckBoxEvent($table, scope) {
+			var chkbox = $table.find(".item-remove-assign");
+			chkbox.unbind("click");
+			chkbox.click(function (e) {
+				var rowIndex = parseInt($(this).attr("data-row-index"));
+				let assignment = scope.picOfHeadlineOptions.DataList.Items[rowIndex - 1];
+				scope.onClickSingleCheckbox(assignment, e.target.checked);
+			});
 
-        return {
-            restrict: 'A',
-            scope: true,
-            link: function (scope, element, attrs) {
-                scope.$watch('picOfHeadlineOptions', function (oldval, newval) {
-                    if (!scope.picOfHeadlineOptions.IsUpdateGrid) {
-                        return;
-                    }
+			var selectAllChkbox = $table.find("#select-all-chkbox");
+			selectAllChkbox.unbind("click");
+			selectAllChkbox.click(function (e) {
+				var checkboxs = $table.find(".item-remove-assign");
+				for (var i = 0; i < checkboxs.length; i++) {
+					checkboxs[i].checked = e.target.checked;
+				}
+				scope.onClickSelectAllCheckbox(e.target.checked);
+			});
 
-                    if (scope.picOfHeadlineOptions.IsResize && cachedData.reportTable) {
-                        cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
-                        scope.picOfHeadlineOptions.IsResize = false;
-                    } else {
-                        renderPicOfHeadlineGrid(scope, element);
-                    }
+			var removeBtn = $table.find("#remove-btn");
+			removeBtn.unbind("click");
+			removeBtn.click(function (e) {
+				scope.onClickRemoveBtn();
+			});
+		}
 
-                    scope.picOfHeadlineOptions.IsUpdateGrid = false;
-                });
-            }
-        };
-    });
+		function getPICCell(pics) {
+			if (pics === null || pics.length === 0) {
+				return `<span>+</span>`;
+			}
+			else {
+				let picCellValue = ``;
+				for (var i = 0; i < pics.length; i++) {
+					picCellValue += `<p class='pic-name'>` + pics[i].PicName + ` (` + pics[i].Role + `)</p>`;
+				}
+				return picCellValue;
+			}
+		}
+
+		return {
+			restrict: 'A',
+			scope: false,
+			link: function (scope, element, attrs) {
+				scope.$watch('picOfHeadlineOptions', function (oldval, newval) {
+					if (!scope.picOfHeadlineOptions.IsUpdateGrid) {
+						return;
+					}
+
+					if (scope.picOfHeadlineOptions.IsResize && cachedData.reportTable) {
+						cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
+						scope.picOfHeadlineOptions.IsResize = false;
+					} else {
+						renderPicOfHeadlineGrid(scope, element);
+					}
+
+					scope.picOfHeadlineOptions.IsUpdateGrid = false;
+				});
+			}
+		};
+	});
 })();

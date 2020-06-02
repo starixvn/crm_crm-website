@@ -241,6 +241,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only show unassigned direct accounts.
+        /// </summary>
+        public static string ExcludeAssignedAcc {
+            get {
+                return ResourceManager.GetString("ExcludeAssignedAcc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude Ignored Accounts.
         /// </summary>
         public static string ExcludeIgnoredAccounts {
@@ -313,11 +322,29 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep Assign.
+        /// </summary>
+        public static string KeepAssign {
+            get {
+                return ResourceManager.GetString("KeepAssign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of assigned direct accounts.
+        /// </summary>
+        public static string ListOfAssignedDirectAccounts {
+            get {
+                return ResourceManager.GetString("ListOfAssignedDirectAccounts", resourceCulture);
             }
         }
         
@@ -399,6 +426,33 @@ namespace Fanex.CRM.Resources {
         public static string Remark {
             get {
                 return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove All.
+        /// </summary>
+        public static string RemoveAll {
+            get {
+                return ResourceManager.GetString("RemoveAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove &amp; Assign.
+        /// </summary>
+        public static string RemoveAndAssign {
+            get {
+                return ResourceManager.GetString("RemoveAndAssign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove PIC Assignment.
+        /// </summary>
+        public static string RemovePICAssignment {
+            get {
+                return ResourceManager.GetString("RemovePICAssignment", resourceCulture);
             }
         }
         

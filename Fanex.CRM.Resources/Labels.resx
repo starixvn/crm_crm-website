@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -260,5 +260,23 @@
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="ExcludeAssignedAcc" xml:space="preserve">
+    <value>Only show unassigned direct accounts</value>
+  </data>
+  <data name="ListOfAssignedDirectAccounts" xml:space="preserve">
+    <value>List of assigned direct accounts</value>
+  </data>
+  <data name="RemoveAndAssign" xml:space="preserve">
+    <value>Remove &amp; Assign</value>
+  </data>
+  <data name="KeepAssign" xml:space="preserve">
+    <value>Keep Assign</value>
+  </data>
+  <data name="RemovePICAssignment" xml:space="preserve">
+    <value>Remove PIC Assignment</value>
+  </data>
+  <data name="RemoveAll" xml:space="preserve">
+    <value>Remove All</value>
   </data>
 </root>

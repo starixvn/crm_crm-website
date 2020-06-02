@@ -15,14 +15,6 @@
 <div data-ng-app="picofheadline-application">
     <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
         <div class="main container">
-            <div class="row" data-ng-show="errorMessage !== ''">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="alertboxerr">
-                        <div data-ng-bind="errorMessage">
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row filter-frm one-row expand-filter">
                 <div class="row row-item">
                     <div class="item default-focus">
@@ -46,8 +38,7 @@
                             @Labels.Status
                         </label>
                         <div class="input-container pull-left">
-                            <select id="status" class="status">
-                            </select>
+                            <select id="status" class="status"></select>
                         </div>
                     </div>
                     <div class="item">
@@ -69,7 +60,7 @@
                             @Labels.PIC
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.PIC"/>
+                            <input type="text" ng-model="searchCriteria.PicName" />
                         </div>
                     </div>
                     <div class="item">
@@ -77,7 +68,7 @@
                             @Labels.DirectAccount
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.DirectAccount"/>
+                            <input type="text" ng-model="searchCriteria.DirectAccount" />
                         </div>
                     </div>
                     <div class="item">
@@ -85,7 +76,7 @@
                             @Labels.GroupHeadline
                         </label>
                         <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.groupHeadline"/>
+                            <input type="text" ng-model="searchCriteria.groupHeadline" />
                         </div>
                     </div>
                     <div class="item">
@@ -99,14 +90,20 @@
                 </div>
                 <div class="row row-item">
                     <div class="item">
+                        <label for="excludeAssignedAcc" class="checkbox-label pull-left">
+                            <input id="excludeAssignedAcc" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeAssignedAcc" />
+                            @Labels.ExcludeAssignedAcc
+                        </label>
+                    </div>
+                    <div class="item">
                         <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
-                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc"/>
+                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc" />
                             @Labels.ExcludeIgnoredAccounts
                         </label>
                     </div>
                     <div class="item">
                         <label for="excludeTestAccount" class="checkbox-label pull-left">
-                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest"/>
+                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest" />
                             @Labels.ExcludeTestAccounts
                         </label>
                     </div>
@@ -151,7 +148,8 @@
             Site: '@Labels.Site',
             Currency: '@Labels.Currency',
             Position: '@Labels.Position',
-            PicAssignment: '@Labels.PicAssignment'
+            PicAssignment: '@Labels.PicAssignment',
+            IsRequired: '@Labels.IsRequired'
         };
     </script>
 }

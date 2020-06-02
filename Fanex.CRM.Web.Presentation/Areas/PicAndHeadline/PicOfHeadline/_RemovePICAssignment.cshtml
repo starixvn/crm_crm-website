@@ -1,1 +1,64 @@
-﻿
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="remove-assignment-modal" style="display: none">
+    <div class="modal-header">
+        @Labels.RemovePICAssignment
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="closeModal()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row item" ng-model="removeAssignmentData">
+            <table class="assigned-direct-account">
+                <thead>
+                    <tr>
+                        <th class="text-center" rowspan="2">@Labels.No</th>
+                        <th class="text-center" rowspan="2">@Labels.GroupHeadline</th>
+                        <th class="text-center" rowspan="2">@Labels.DirectAccount</th>
+                        <th class="text-center" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
+                            {{pic.PicName}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center" ng-repeat="pic in removeAssignmentData.distinctPics">
+                            <input type="checkbox" id="{{pic.PicName}}" name="{{pic.PicName}}"
+                                   checked ng-click="onClickPicNameChkbox($event, pic.PicName)" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="assignment in removeAssignmentData.data">
+                        <td>{{$index + 1}}</td>
+                        <td>{{assignment.HeadLineName}}</td>
+                        <td>{{assignment.DirectAccount}}</td>
+                        <td ng-repeat="p in assignment.PicAssignment" class="text-center">
+                            <input ng-if="p.IsSelectable" type="checkbox" name="chkbox-{{p.PicName}}" class="chkbox-{{p.PicName}}"
+                                   ng-click="onSelectAssignment($event, assignment.HeadlineId, assignment.DirectAccountId, p.PicName)" checked />
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="hide-border"></td>
+                        <td class="hide-border"></td>
+                        <td class="hide-border"></td>
+                        <td ng-repeat="f in removeAssignmentData.distinctPics">
+                            <button id="remove-assignment-pic={{f.PicId}}" disabled>Remove</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="removeAllAssignment()" id="remove-all-btn">@Labels.RemoveAll</button>
+        <button class="btn" ng-click="closeModal()">@Labels.Cancel</button>
+    </div>
+</div>

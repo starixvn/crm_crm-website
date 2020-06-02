@@ -1,4 +1,6 @@
-﻿namespace Fanex.CRM.Models.PicAndHeadline
+﻿using System.Collections.Generic;
+
+namespace Fanex.CRM.Models.PicAndHeadline
 {
     public class PICAssignmentInfo
     {
@@ -21,6 +23,8 @@
         public string Position { get; set; }
 
         public string PIC { get; set; }
+
+        public IList<PicModel> PicList { get; set; }
 
         public int RowNum { get; set; }
     }

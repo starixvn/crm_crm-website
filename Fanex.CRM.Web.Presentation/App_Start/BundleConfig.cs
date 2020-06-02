@@ -641,7 +641,7 @@ namespace Fanex.CRM.Web.View.AppStart
         }
 
         private static void RegisterBundles_ChangePicState(ref BundleCollection bundles)
-        {   
+        {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicStateScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                "~/Scripts/ShareScripts/MessageResult.js",
@@ -657,17 +657,19 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicOfHeadlineScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineApplication.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineService.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/assignPicController.js",
+                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/removeAssignmentController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js",
                 "~/wwwroot/node_modules/select2/dist/js/select2.js"
                 ));

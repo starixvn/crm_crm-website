@@ -540,6 +540,7 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="Scripts\AngularJS\angular-sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
