@@ -22,6 +22,7 @@
 			var reportLength = gridData ? gridData.Items.length : 0;
 			var mergeHeadline = 0;
 			var mergePIC = 0;
+			const isDisabledChkboxSelectAll = IsDisabledSelectAllCheckbox(gridData.Items);
 			if (reportLength > 0) {
 				for (var i = 0; i < reportLength; i++) {
 					var assignment = gridData.Items[i];
@@ -42,13 +43,14 @@
 						columns.push({ Name: "ColPIC", Value: getPICCell(assignment.PicList), MergeRowNumber: mergePIC });
 					}
 
+					const isDisabled = assignment.PicList === null || assignment.PicList.length === 0;
 					columns.push(
 						{ Name: "ColDirectAccount", Value: assignment.DirectAccount },
 						{ Name: "ColStatus", Value: assignment.Status },
 						{ Name: "ColSite", Value: assignment.Site },
 						{ Name: "ColCurrency", Value: assignment.Currency },
 						{ Name: "ColPosition", Value: assignment.Position },
-						{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox'/>` }
+						{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>` }
 					);
 
 					bodyData.push({
@@ -69,7 +71,14 @@
 				{ HeaderText: viewResources.Site, Width: 150, Name: "ColSite", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Currency, Width: 100, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" },
-				{ HeaderText: `<input type='button' value='Remove' id='remove-btn' disabled/><input type='checkbox' id='select-all-chkbox'/>`, Width: 70, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" }
+				{
+					HeaderText: `<input type='button' value='Remove' id='remove-btn' disabled/>
+							<input type='checkbox' id='select-all-chkbox' ${isDisabledChkboxSelectAll ? 'disabled' : ''}/>`,
+					Width: 70,
+					Name: "ColAction",
+					HeaderAlign: "center",
+					CellAlign: "center"
+				}
 			];
 
 			var gridOptions = {
@@ -108,6 +117,18 @@
 			return gridOptions;
 		}
 
+		function IsDisabledSelectAllCheckbox(data) {
+			let isDisabled = true;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].PicList !== null && data[i].PicList.length > 0) {
+					isDisabled = false;
+					return isDisabled;
+				}
+			}
+
+			return isDisabled;
+		}
+
 		function ReRenderAfterPaged(page_index, itemsPerPage) {
 			cachedData.scope.pagingCustomerReport(page_index + 1, itemsPerPage);
 			return false;
@@ -144,7 +165,9 @@
 			selectAllChkbox.click(function (e) {
 				var checkboxs = $table.find(".item-remove-assign");
 				for (var i = 0; i < checkboxs.length; i++) {
-					checkboxs[i].checked = e.target.checked;
+					if (!checkboxs[i].hasAttribute('disabled')) {
+						checkboxs[i].checked = e.target.checked;
+					}
 				}
 				scope.onClickSelectAllCheckbox(e.target.checked);
 			});

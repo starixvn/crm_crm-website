@@ -260,7 +260,7 @@
 
 				$scope.onClickSelectAllCheckbox = function (isChecked) {
 					if (isChecked) {
-						$scope.removePic = $scope.picOfHeadlineOptions.DataList.Items;
+						$scope.removePic = $scope.picOfHeadlineOptions.DataList.Items.filter(item => item.PicList !== null);
 					} else {
 						$scope.removePic = [];
 					}
