@@ -10,6 +10,7 @@ module.exports = {
         [`${styleDistPath}/manage.feedback`]: `${styleSourcePath}/pages/manage-feedback.scss`,
         [`${styleDistPath}/commtool.setting`]: `${styleSourcePath}/pages/commtool-setting.scss`,
         [`${styleDistPath}/create.multiple.logs`]: `${styleSourcePath}/pages/create-multiple-logs.scss`,
+        [`${styleDistPath}/font.awesome`]: `${styleSourcePath}/font-awesome.scss`,
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',

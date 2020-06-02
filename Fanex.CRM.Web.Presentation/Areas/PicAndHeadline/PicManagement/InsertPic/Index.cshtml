@@ -9,11 +9,12 @@
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicStyles")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/font.awesome.css" />
 }
 
 <div data-ng-app="insertpic-application">
     <div class="insertPicController" data-ng-controller="insertPicController">
-        <div class="main container">          
+        <div class="main container">
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-11 col-sm-11 col-md-11">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
@@ -68,7 +69,7 @@
                             @Labels.Remark
                         </label>
                         <div class="col-xs-8 col-sm-8 col-md-9">
-                            <textarea type="text" class="textbox form-control" id="remark" data-ng-model="insertParams.Remark"></textarea>
+                            <textarea rows="4" type="text" class="textbox form-control" id="remark" data-ng-model="insertParams.Remark"></textarea>
                         </div>
                     </div>
                     <div>
@@ -92,8 +93,8 @@
                                 <input type="text" class="textbox form-control" id="username" data-ng-model="x.Value" />
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1 communication-tools">
-                                <span ng-if="$index != 0" title="Remove" class="remove-tool" data-ng-click="removeCommunicationTool(this);">x</span>
-                                <span ng-if="$index == (communicationToolItems.length - 1)" title="Add" class="add-tool" data-ng-click="addCommunicationTool();">+</span>
+                                <span ng-if="$index != 0" title="Remove" class="remove-tool fa fa-close" data-ng-click="removeCommunicationTool(this);"></span>
+                                <span ng-if="$index == (communicationToolItems.length - 1)" title="Add" class="add-tool fa fa-plus" data-ng-click="addCommunicationTool();"></span>
                             </div>
                         </div>
                     </div>

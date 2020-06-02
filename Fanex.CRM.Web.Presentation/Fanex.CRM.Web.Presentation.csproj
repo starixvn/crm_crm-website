@@ -554,6 +554,8 @@
     <Content Include="wwwroot\dist\styles\commtool.setting.js" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.css" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.js" />
+    <Content Include="wwwroot\dist\styles\font.awesome.css" />
+    <Content Include="wwwroot\dist\styles\font.awesome.js" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\dist\styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="wwwroot\dist\styles\inform.headline.css" />
@@ -1590,6 +1592,8 @@
     <Content Include="wwwroot\sources\styles\pages\create-multiple-logs.scss" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.js.map" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js.map" />
+    <Content Include="wwwroot\sources\styles\font-awesome.scss" />
+    <Content Include="wwwroot\dist\styles\font.awesome.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

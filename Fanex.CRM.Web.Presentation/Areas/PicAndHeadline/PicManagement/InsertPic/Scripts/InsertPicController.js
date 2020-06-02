@@ -40,6 +40,11 @@
                 };
 
                 $scope.defaultFocusOptions.IsSetFocus = true;
+                var iframe = parent.document.getElementById('innerFrame');
+                parent.document.getElementById('dialog-modal').style.maxHeight = '450px';
+                parent.document.getElementById('dialog-modal').style.overflowY =  'auto';
+                parent.document.getElementById('dialog-modal').style.marginTop =  '10px';
+                iframe.style.height = `${iframe.contentWindow.document.getElementsByClassName('main')[0].clientHeight}px`;
                 $scope.$apply();
             };
 
@@ -186,6 +191,8 @@
             $scope.addCommunicationTool = function () {
                 var item = { Type: -1, Value: "" };
                 $scope.communicationToolItems.push(item);
+                var iframe = parent.document.getElementById('innerFrame');
+                iframe.style.height = `${iframe.contentWindow.document.getElementsByClassName('main')[0].clientHeight + 36}px`;
             };
 
             $scope.removeCommunicationTool = function (item) {
@@ -193,6 +200,8 @@
                 if (index > -1) {
                     $scope.communicationToolItems.splice(index, 1);
                 }
+                var iframe = parent.document.getElementById('innerFrame');
+                iframe.style.height = `${iframe.contentWindow.document.getElementsByClassName('main')[0].clientHeight - 36}px`;
             };
 
             $scope.completeSetFocus = function () {

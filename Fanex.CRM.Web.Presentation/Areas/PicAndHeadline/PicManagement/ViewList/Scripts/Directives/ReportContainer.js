@@ -18,7 +18,6 @@
 
         function getGripOtions(report, communicationTools) {
             var bodyData = [];
-            var footerData = [];
             var reportLength = report ? report.DataList.length : 0; 
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
@@ -129,18 +128,8 @@
                     }
                 },
                 bodyRows: bodyData,
-                footerRows: footerData,
-                numberOfFrozenColumn: 0,
-                fullWidth: true,
-                fullHeight: false,
-                gridHeight: 665,
-                gridExpandHeight: getGridHeight(),
-                showDistinctRow: true,
-                showHighlightRow: true,
-                headerColumnHeight: 29,
-                bodyRowHeight: 29,
+                gridExpandHeight: 200,
                 showPager: true,
-                showTree: false,
                 customPager: true,
                 //allowTruncate: true,
                 pagerOption: {

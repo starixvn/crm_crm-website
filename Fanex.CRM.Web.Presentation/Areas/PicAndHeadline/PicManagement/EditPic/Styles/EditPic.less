@@ -64,7 +64,8 @@ background-position: 117px 3px;
 
 .main.container {
     background-color: white;
-    padding-top: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
     position: absolute;
     height: auto;
     min-height: 100%;
@@ -107,15 +108,22 @@ word-break: break-all;
     display: none !important;
 }
 
-.communication-tools{
+.communication-tools {
+    .remove-tool {
+        color: #FF0000;
+    }
+
+    .add-tool {
+        color: #466AB6;
+    }
+
     span {
         display: inline-block;
-        height: 10px;
-        width: 10px;
-        font-weight: bold;
-        font-size: 20px;
-        margin-left: 5px;
+        height: 15px;
+        width: 15px;
         cursor: pointer;
+        padding-left: 5px;
+        font-size: 15px;
     }
 }
 
