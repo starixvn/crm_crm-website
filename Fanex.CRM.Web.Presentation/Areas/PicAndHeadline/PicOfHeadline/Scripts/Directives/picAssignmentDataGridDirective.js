@@ -112,8 +112,9 @@
 				columns: headerColumns,
 				showTitle: true,
 				titleInfo: {
-					text: viewResources.CustomerReport_Title,
+					text: viewResources.PicAssignment,
 					showExcelButton: true,
+					customButtons: `<div class="total-unassigned-account">There are <b>${gridData.TotalUnassignedDirectAccount}</b> unassigned direct accounts</div>`,
 					exportExcelFunction: function () {
 						cachedData.scope.exportReport();
 					}

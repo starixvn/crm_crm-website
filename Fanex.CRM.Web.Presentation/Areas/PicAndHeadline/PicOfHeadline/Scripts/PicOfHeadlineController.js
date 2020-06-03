@@ -1,9 +1,9 @@
 ﻿(function () {
 	"use strict";
-    /* global hotKeyManager,
-    viewResources,
+    /* global viewResources,
     crmConstants,
     currentDate: true,
+	registerHotkeyFunctions,
     moment,
     sharedScriptManager */
 	/* jshint camelcase: false */
@@ -155,10 +155,6 @@
 
 				$scope.invokeHotKey_CtrlS = function () {
 					$scope.getPICAssignment();
-				};
-
-				$scope.invokeHotKey_CtrlI = function () {
-					$scope.getWagerReport();
 				};
 
 				$scope.getPICAssignment = function () {

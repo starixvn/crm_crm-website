@@ -539,6 +539,7 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\SelectWithSearchDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController_HotKey.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="Scripts\AngularJS\angular-sanitize.js" />

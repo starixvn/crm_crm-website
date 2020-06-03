@@ -385,7 +385,7 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pic Assignment.
+        ///   Looks up a localized string similar to PIC Assignment.
         /// </summary>
         public static string PicAssignment {
             get {
