@@ -15,104 +15,107 @@
 <div data-ng-app="picofheadline-application">
     <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
         <div class="main container">
-            <div class="row filter-frm one-row expand-filter">
-                <div class="row row-item">
-                    <div class="item default-focus">
-                        <label for="username" class="width-50">
-                            @Labels.Site
-                        </label>
-                        <div class="site-picker-container pull-left input-container" data-ng-model="siteOptions.DataList">
-                            <select id="site"></select>
+            <form class="filter-form" ng-submit="getPICAssignment()">
+                <div class="row filter-frm one-row expand-filter">
+                    <div class="row row-item">
+                        <div class="item default-focus">
+                            <label for="username" class="width-50">
+                                @Labels.Site
+                            </label>
+                            <div class="site-picker-container pull-left input-container" data-ng-model="siteOptions.DataList">
+                                <select id="site"></select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="currency" class="width-85 pull-left">
+                                @Labels.Currency
+                            </label>
+                            <div class="pull-left input-container currency-Multi-Container" data-ng-model="currencyOptions.DataList">
+                                <select id="currency" class="currency"></select>
+                            </div>
+                        </div>
+                        <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
+                            <label for="viptype" class="width-85 pull-left">
+                                @Labels.Status
+                            </label>
+                            <div class="input-container pull-left">
+                                <select id="status" class="status"></select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="viptype" class="width-85 pull-left">
+                                @Labels.HeadlineType
+                            </label>
+                            <div class="input-container pull-left">
+                                <select id="headline" class="headline" ng-model="searchCriteria.HeadlineType" ng-init="searchCriteria.HeadlineType = ''">
+                                    <option value="">All</option>
+                                    <option value="1">VIP</option>
+                                    <option value="0">Normal</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="currency" class="width-85 pull-left">
-                            @Labels.Currency
-                        </label>
-                        <div class="pull-left input-container currency-Multi-Container" data-ng-model="currencyOptions.DataList">
-                            <select id="currency" class="currency"></select>
+                    <div class="row row-item">
+                        <div class="item">
+                            <label class="width-50 pull-left">
+                                @Labels.PIC
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.PicName" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.DirectAccount
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.DirectAccount" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.GroupHeadline
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.GroupHeadline" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.Position
+                            </label>
+                            <div class="position-picker-container pull-left position-div" data-ng-model="positionOptions.DataList">
+                                <select id="position"></select>
+                            </div>
                         </div>
                     </div>
-                    <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
-                        <label for="viptype" class="width-85 pull-left">
-                            @Labels.Status
-                        </label>
-                        <div class="input-container pull-left">
-                            <select id="status" class="status"></select>
+                    <div class="row row-item">
+                        <div class="item">
+                            <label for="excludeAssignedAcc" class="checkbox-label pull-left">
+                                <input id="excludeAssignedAcc" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeAssignedAcc" />
+                                @Labels.ExcludeAssignedAcc
+                            </label>
+                        </div>
+                        <div class="item">
+                            <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
+                                <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc" />
+                                @Labels.ExcludeIgnoredAccounts
+                            </label>
+                        </div>
+                        <div class="item">
+                            <label for="excludeTestAccount" class="checkbox-label pull-left">
+                                <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest" />
+                                @Labels.ExcludeTestAccounts
+                            </label>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="viptype" class="width-85 pull-left">
-                            @Labels.HeadlineType
-                        </label>
-                        <div class="input-container pull-left">
-                            <select id="headline" class="headline" ng-model="searchCriteria.HeadlineType" ng-init="searchCriteria.HeadlineType = ''">
-                                <option value="">All</option>
-                                <option value="1">VIP</option>
-                                <option value="0">Normal</option>
-                            </select>
-                        </div>
+                    <div class="row row-item">
+                        <button class="btn" type="submit">@Labels.Submit</button>
+                        <button class="btn" ng-click="openAssignModal()">@Labels.AssignPIC</button>
                     </div>
                 </div>
-                <div class="row row-item">
-                    <div class="item">
-                        <label class="width-50 pull-left">
-                            @Labels.PIC
-                        </label>
-                        <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.PicName" />
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label class="width-85 pull-left">
-                            @Labels.DirectAccount
-                        </label>
-                        <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.DirectAccount" />
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label class="width-85 pull-left">
-                            @Labels.GroupHeadline
-                        </label>
-                        <div class="input-container pull-left">
-                            <input type="text" ng-model="searchCriteria.groupHeadline" />
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label class="width-85 pull-left">
-                            @Labels.Position
-                        </label>
-                        <div class="position-picker-container pull-left position-div" data-ng-model="positionOptions.DataList">
-                            <select id="position"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-item">
-                    <div class="item">
-                        <label for="excludeAssignedAcc" class="checkbox-label pull-left">
-                            <input id="excludeAssignedAcc" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeAssignedAcc" />
-                            @Labels.ExcludeAssignedAcc
-                        </label>
-                    </div>
-                    <div class="item">
-                        <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
-                            <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc" />
-                            @Labels.ExcludeIgnoredAccounts
-                        </label>
-                    </div>
-                    <div class="item">
-                        <label for="excludeTestAccount" class="checkbox-label pull-left">
-                            <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest" />
-                            @Labels.ExcludeTestAccounts
-                        </label>
-                    </div>
-                </div>
-                <div class="row row-item">
-                    <button class="btn" ng-click="getPICAssignment()">@Labels.Submit</button>
-                    <button class="btn" ng-click="openAssignModal()">@Labels.AssignPIC</button>
-                </div>
-            </div>
+            </form>
+
             <div class="row" pic-Assignment-Data-Grid-Directive ng-model="picOfHeadlineOptions">
                 <div id="table-picOfHeadline" class="freegrid display-none">
                 </div>

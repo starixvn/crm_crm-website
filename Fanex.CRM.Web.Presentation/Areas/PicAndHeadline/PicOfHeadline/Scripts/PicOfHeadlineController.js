@@ -119,6 +119,7 @@
 				$scope.completedLoadFilterInfo = function () {
 					$scope.unblockUI();
 				};
+
 				$scope.updateSelectedSite = function (siteIdList) {
 					$scope.searchCriteria.Site = siteIdList;
 
@@ -142,7 +143,7 @@
 						$('#currency--1').prop('checked', true);
 						return;
 					}
-				}
+				};
 
 				$scope.updateSelectedStatus = function (statusList) {
 					$scope.searchCriteria.Status = statusList;
@@ -156,7 +157,15 @@
 					$scope.getPICAssignment();
 				};
 
+				$scope.invokeHotKey_CtrlI = function () {
+					$scope.getWagerReport();
+				};
+
 				$scope.getPICAssignment = function () {
+					if (!$scope.validateFilterParams()) {
+						return;
+					}
+
 					$scope.BlockUI();
 					var getReportCriteria = {
 						Site: $scope.searchCriteria.Site,
@@ -181,11 +190,18 @@
 								DataList: data.Result,
 								IsUpdateGrid: true
 							};
+							$scope.removePic = [];
 							$scope.unblockUI();
 						}, function () {
 							$scope.unblockUI();
 						});
 				};
+
+				$scope.validateFilterParams = function () {
+					let isValid = true;
+					return isValid;
+				};
+
 				$scope.pagingCustomerReport = function (pageIndex, pageSize) {
 					$scope.BlockUI();
 					$scope.searchCriteria.PageIndex = pageIndex;
@@ -230,7 +246,7 @@
 					}
 				};
 
-				$scope.openAssignModal = function () {
+				$scope.openAssignModal = function (headlineId = null, directAccounts = []) {
 					const modalInstance = $uibModal.open({
 						template: angular.element('#assign-pic-modal').html(),
 						controller: 'assignPICController',
@@ -238,7 +254,18 @@
 						keyboard: false,
 						size: 'lg',
 						backdropClass: 'related-customer-modal-backdrop',
-						windowClass: 'related-customer-modal'
+						windowClass: 'related-customer-modal',
+						resolve: {
+							initData: function () {
+								return {
+									headlineId: headlineId ? headlineId : null,
+									directAccounts: directAccounts.length > 0 ?
+										directAccounts.map((acc, index) => {
+											return { index: index, username: acc, isValid: true };
+										}) : []
+								};
+							}
+						}
 					});
 					modalInstance.result.then(function () {
 						$scope.getPICAssignment();
@@ -274,7 +301,8 @@
 					} else {
 						angular.element(document).find('#remove-btn').attr('disabled', 'disabled');
 					}
-					document.getElementById('select-all-chkbox').checked = $scope.removePic.length === $scope.picOfHeadlineOptions.DataList.Items.length;
+					document.getElementById('select-all-chkbox').checked =
+						$scope.removePic.length === $scope.picOfHeadlineOptions.DataList.Items.filter(item => item.PicList !== null).length;
 				};
 
 				$scope.onClickRemoveBtn = function () {
@@ -349,6 +377,10 @@
 						selectedAssignment: selectedPics,
 						data: removeAssignmentData
 					};
+				};
+
+				$scope.onClickPlusBtn = function (headlineId, accounts) {
+					$scope.openAssignModal(headlineId, accounts);
 				};
 
 				angular.element(document).ready(function () {

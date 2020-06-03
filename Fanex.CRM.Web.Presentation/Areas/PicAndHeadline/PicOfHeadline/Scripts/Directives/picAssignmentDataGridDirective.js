@@ -30,17 +30,33 @@
 
 					if (mergeHeadline === 0) {
 						mergeHeadline = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID).length;
-						mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
+						const pics = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC);
+						mergePIC = pics.length;
+						const accounts = pics.map(pic => pic.DirectAccountID);
 						columns.push(
 							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline },
 							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
-							{ Name: "ColPIC", Value: getPICCell(assignment.PicList), MergeRowNumber: mergePIC }
+							{
+								Name: "ColPIC",
+								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts, gridData.IsHost),
+								MergeRowNumber: mergePIC,
+								CellAlign: assignment.PicList === null ? 'center' : 'left'
+							}
 						);
 					}
 
 					if (mergePIC === 0 && mergeHeadline !== 0) {
-						mergePIC = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC).length;
-						columns.push({ Name: "ColPIC", Value: getPICCell(assignment.PicList), MergeRowNumber: mergePIC });
+						const pics = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC);
+						mergePIC = pics.length;
+						const accounts = pics.map(pic => pic.DirectAccountID);
+						columns.push(
+							{
+								Name: "ColPIC",
+								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts.toString()),
+								MergeRowNumber: mergePIC,
+								CellAlign: assignment.PicList === null ? 'center' : 'left'
+							}
+						);
 					}
 
 					const isDisabled = assignment.PicList === null || assignment.PicList.length === 0;
@@ -49,9 +65,14 @@
 						{ Name: "ColStatus", Value: assignment.Status },
 						{ Name: "ColSite", Value: assignment.Site },
 						{ Name: "ColCurrency", Value: assignment.Currency },
-						{ Name: "ColPosition", Value: assignment.Position },
-						{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>` }
+						{ Name: "ColPosition", Value: assignment.Position }
 					);
+
+					if (gridData.IsHost) {
+						columns.push(
+							{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>` }
+						);
+					}
 
 					bodyData.push({
 						Columns: columns
@@ -70,16 +91,22 @@
 				{ HeaderText: viewResources.Status, Width: 100, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Site, Width: 150, Name: "ColSite", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Currency, Width: 100, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "left" },
-				{ HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" },
-				{
-					HeaderText: `<input type='button' value='Remove' id='remove-btn' disabled/>
-							<input type='checkbox' id='select-all-chkbox' ${isDisabledChkboxSelectAll ? 'disabled' : ''}/>`,
-					Width: 70,
-					Name: "ColAction",
-					HeaderAlign: "center",
-					CellAlign: "center"
-				}
+				{ HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" }
+
 			];
+
+			if (gridData.IsHost) {
+				headerColumns.push(
+					{
+						HeaderText: `<input type='button' value='Remove' id='remove-btn' disabled/>
+							<input type='checkbox' id='select-all-chkbox' ${isDisabledChkboxSelectAll ? 'disabled' : ''}/>`,
+						Width: 70,
+						Name: "ColAction",
+						HeaderAlign: "center",
+						CellAlign: "center"
+					}
+				);
+			}
 
 			var gridOptions = {
 				columns: headerColumns,
@@ -148,7 +175,9 @@
 			cachedData.gridOptions = gridOptions;
 			tablePicOfHeadline.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-			initClickCheckBoxEvent(tablePicOfHeadline, scope);
+			if (gridData.IsHost) {
+				initClickCheckBoxEvent(tablePicOfHeadline, scope);
+			}
 		}
 
 		function initClickCheckBoxEvent($table, scope) {
@@ -156,7 +185,9 @@
 			chkbox.unbind("click");
 			chkbox.click(function (e) {
 				var rowIndex = parseInt($(this).attr("data-row-index"));
-				let assignment = scope.picOfHeadlineOptions.DataList.Items[rowIndex - 1];
+				var itemIndex = scope.picOfHeadlineOptions.DataList.Items.findIndex(item => item.RowNum === rowIndex);
+				let assignment = scope.picOfHeadlineOptions.DataList.Items[itemIndex];
+
 				scope.onClickSingleCheckbox(assignment, e.target.checked);
 			});
 
@@ -177,11 +208,25 @@
 			removeBtn.click(function (e) {
 				scope.onClickRemoveBtn();
 			});
+
+			var asignPics = $table.find(".assignPic");
+			asignPics.unbind("click");
+			asignPics.click(function () {
+				let headlineId = parseInt($(this).attr("data-headlineId"));
+				let dataAccounts = $(this).attr("data-account");
+				let accounts = dataAccounts.split(',');
+				let accountList = scope.picOfHeadlineOptions.DataList.Items.filter(item => accounts.some(acc => item.DirectAccountID === parseInt(acc))).map(i => i.DirectAccount);
+				scope.onClickPlusBtn(headlineId, accountList);
+			});
 		}
 
-		function getPICCell(pics) {
+		function getPICCell(pics, headlineId, accountIds, isHost) {
 			if (pics === null || pics.length === 0) {
-				return `<span>+</span>`;
+				if (isHost) {
+					return `<span class='assign-pic-icon assignPic' title='Assign PIC' data-headlineId=${headlineId} data-account='${accountIds}'>+</span>`;
+				}
+
+				return `<span>-</span>`;
 			}
 			else {
 				let picCellValue = ``;

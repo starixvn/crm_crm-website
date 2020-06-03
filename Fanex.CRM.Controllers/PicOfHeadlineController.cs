@@ -3,31 +3,38 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Serialization;
+using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Services;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
+using Fanex.NAP.Core.Business;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.CRM.Controllers
 {
+    [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Read)]
     public class PicOfHeadlineController : BaseController
     {
         private readonly ISettingService _settingService;
         private readonly IBaseService _baseService;
+        private readonly IPermissionService _permissionService;
 
         public PicOfHeadlineController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public PicOfHeadlineController(
             ISettingService settingService,
-            IBaseService baseService)
+            IBaseService baseService,
+            IPermissionService permissionService)
         {
             _settingService = settingService ?? new SettingService();
             _baseService = baseService ?? new BaseService();
+            _permissionService = permissionService ?? new PermissionService();
         }
 
         public ActionResult Index()
@@ -145,11 +152,13 @@ namespace Fanex.CRM.Controllers
             criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
             var data = _baseService.GetData<PICAssignmentInfo>(criteria);
             GeneratePicList(data);
+            bool IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
             var response = new
             {
                 Items = data,
                 Total = criteria.TotalRows,
-                TotalUnassignedDirectAccount = criteria.TotalUnassigned
+                TotalUnassignedDirectAccount = criteria.TotalUnassigned,
+                IsHost
             };
             return Json(response, JsonRequestBehavior.AllowGet);
         }

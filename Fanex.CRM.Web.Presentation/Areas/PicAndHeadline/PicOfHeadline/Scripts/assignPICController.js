@@ -8,8 +8,8 @@
 	sharedScriptManager */
 	/* jshint camelcase: false */
 	angular.module('picofheadline-application').controller('assignPICController',
-		['$scope', '$window', '$uibModal', '$uibModalInstance', '$picOfHeadlineService',
-			function ($scope, $window, $uibModal, $uibModalInstance, $picOfHeadlineService) {
+		['$scope', '$window', '$uibModal', '$uibModalInstance', '$picOfHeadlineService', 'initData',
+			function ($scope, $window, $uibModal, $uibModalInstance, $picOfHeadlineService, initData) {
 				$scope.maxItems = 10000;
 				$scope.resultMessages = [];
 				$scope.isSellectedAll = false;
@@ -20,8 +20,9 @@
 				$scope.assignPICModel = {
 					headlineId: null,
 					pics: '',
-					directAccounts: []
+					directAccounts: initData.directAccounts
 				};
+
 				$scope.keydownHandler = function (event) {
 					// ctrl + a
 					if (event.ctrlKey && event.keyCode === 65 && $scope.relatedCustomerInput === '') {
@@ -244,18 +245,20 @@
 				angular.element(document).ready(function () {
 					$picOfHeadlineService.GetAssignPICSettings().then(function (data) {
 						var settings = data.Result;
-						$scope.headlineOptions = settings.groupHeadlines.map(headline => {
+						$scope.headlineOptions = settings.groupHeadlines ? settings.groupHeadlines.map(headline => {
 							return {
 								id: headline.HeadLineID,
-								text: headline.HeadlineName
+								text: headline.HeadlineName,
+								selected: initData.headlineId ? initData.headlineId === headline.HeadLineID : false
 							};
-						});
-						$scope.picOptions = settings.pics.map(pic => {
+						}) : [];
+						$scope.picOptions = settings.pics ? settings.pics.map(pic => {
 							return {
 								id: pic.PicId,
 								text: pic.Username + ' (' + pic.Role + ')'
 							};
-						});
+						}) : [];
+						$scope.assignPICModel.headlineId = $scope.headlineOptions.some(o => o.selected) ? initData.headlineId : null;
 						$scope.sites = settings.sites;
 					});
 				});
