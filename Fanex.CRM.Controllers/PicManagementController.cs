@@ -47,7 +47,7 @@ namespace Fanex.CRM.Controllers
             {
                 RoleListWithAll = _settingService.GetPicRoles(true),
                 RoleList = _settingService.GetPicRoles(),
-                CommunicationTools = _settingService.GetAllCommunicationTools(),
+                CommunicationTools = _picReportService.GetPicCommunicationTools(),
                 Languages = _settingService.GetAllLanguages(),
                 Countries = _settingService.GetAllCountries()
             };
@@ -67,7 +67,7 @@ namespace Fanex.CRM.Controllers
         {
             criteria.PageIndex = 0;
             criteria.PageSize = 0;
-            var communicationTools = _settingService.GetAllCommunicationTools().Select(x => new BaseModel { Id = x.Id, Name = x.Name });
+            var communicationTools = _picReportService.GetPicCommunicationTools().Select(x => new BaseModel { Id = x.Id, Name = x.Name });
             var report = _picReportService.GetReport(criteria);
             var excel = new PICManagementExcel(report, communicationTools, Labels.PICManagement);
             excel.BuildWorkBook();

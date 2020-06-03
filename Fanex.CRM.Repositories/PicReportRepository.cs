@@ -10,6 +10,8 @@ namespace Fanex.CRM.Repositories
     public interface IPicReportRepository
     {
         IEnumerable<PicInfo> GetReport(GetReportCriteria criteria);
+
+        IEnumerable<Common.Models.Setting> GetPicCommunicationTools(GetPicCommunicationToolsCriteria criteria);
     }
 
     public class PicReportRepository : IPicReportRepository
@@ -36,6 +38,14 @@ namespace Fanex.CRM.Repositories
 
                     return pics;
                 }
+            }
+        }
+
+        public IEnumerable<Common.Models.Setting> GetPicCommunicationTools(GetPicCommunicationToolsCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return objectDB.Query<Common.Models.Setting>(criteria.GetSpParams());
             }
         }
     }

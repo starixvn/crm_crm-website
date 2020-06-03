@@ -14,5 +14,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_PICAssignmentDel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SystemSiteSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_PICStatusUpd" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingSel" EnvironmentText="_xpre"></SpNameConfig>
  
 </Root>

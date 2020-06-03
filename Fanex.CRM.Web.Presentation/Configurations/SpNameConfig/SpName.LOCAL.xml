@@ -91,7 +91,11 @@
     <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="SettingId" ObjectProperty="Id" />
+      <Mapping DataField="SettingName" ObjectProperty="Name" />
+      <Mapping DataField="SettingValue" ObjectProperty="Value" />
+    </Setting>
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_ProvinceSel" SpName="Acc_CRM_ProvinceSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -220,7 +224,7 @@
     <Setting Key="Acc_CRM_PicManagementSel" SpName="Acc_CRM_PicManagementSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PICStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_HeadlineSel" SpName="Acc_CRM_HeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICAssignmentValidation" SpName="Acc_CRM_PICAssignmentValidation_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentValidation" SpName="Acc_CRM_PICAssignmentValidation" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignmentSel" SpName="Acc_CRM_PICAssignmentSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignment" SpName="Acc_CRM_PICAssignment" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignmentDel" SpName="Acc_CRM_PICAssignmentDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

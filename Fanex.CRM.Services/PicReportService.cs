@@ -84,5 +84,12 @@ namespace Fanex.CRM.Services
 
             return result;
         }
+
+        public IEnumerable<Common.Models.Setting> GetPicCommunicationTools()
+        {
+            var criteria = new GetPicCommunicationToolsCriteria();
+
+            return picReportRepository.GetPicCommunicationTools(criteria);
+        }
     }
 }
