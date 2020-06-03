@@ -21,6 +21,7 @@
     {
         private readonly AppSettings appSettings;
         private readonly IMaintenanceService maintenanceService;
+        private readonly IJobRunningChecker jobRunningChecker;
         private readonly ISystemSettingService systemSettingService;
         private readonly IFeedbackService feedbackService;
         private readonly ILogger mlogger;
@@ -29,6 +30,7 @@
         public BackgroundService(
             IOptionsSnapshot<AppSettings> appSettings,
             IMaintenanceService maintenanceService,
+            IJobRunningChecker jobRunningChecker,
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,
             ILogger<BackgroundService> mlogger,
@@ -36,6 +38,7 @@
         {
             this.appSettings = appSettings.Value;
             this.maintenanceService = maintenanceService;
+            this.jobRunningChecker = jobRunningChecker;
             this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
             this.mlogger = mlogger;
@@ -65,11 +68,16 @@
                 var isRunning = setting.JobStatus.Equals(JobStatus.Running, StringComparison.OrdinalIgnoreCase);
                 if (!isRunning)
                 {
-                    await feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting);
+                    await Task.WhenAll(
+                        jobRunningChecker.MarkRunning(JobName.CreateFeedbackForVoidingAbnormalBet),
+                        feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting)
+                    );
+                    await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
                 }
                 else
                 {
-                    if(setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
+                    isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                    if (!isRunning && setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
                     {
                         mlogger.LogInformation("Rerun service.");
                         var settingJobStatus = new List<SystemSettingItem>
@@ -84,6 +92,7 @@
             catch (Exception ex)
             {
                 mlogger.LogInformation(ex.Message);
+                await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
                 await WriteLogAsync(ex);
             }
         }

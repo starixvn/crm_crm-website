@@ -106,6 +106,7 @@
             RegisterHangfire(services, connections.FirstOrDefault(x => x.Key.Equals("Hangfire")).Value.ConnectionString);
 
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
+            services.Configure<RedisConfig>(options => Configuration.GetSection("RedisConfig").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
             services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
 
@@ -161,9 +162,11 @@
 
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
             services.AddScoped<ILogger, Logger>();
+            services.AddScoped<IRedisRepository, RedisRepository>();
             services.AddScoped<IDynamicRepository, DynamicRepository>();
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IJobRunningChecker, JobRunningChecker>();
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
             services.AddScoped<IFeedbackService, FeedbackService>();

@@ -91,10 +91,7 @@
                     Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
                     IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
                     IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
-                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rCredits: {1}\n\rDeposits: {2}",
-                        message.MessageId,
-                        JsonConvert.SerializeObject(credits, Formatting.Indented),
-                        JsonConvert.SerializeObject(deposits, Formatting.Indented)));
+                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}", message.MessageId));
                     if (credits.Any())
                     {
                         await CreateFeedbackForCreditSiteAsync(
