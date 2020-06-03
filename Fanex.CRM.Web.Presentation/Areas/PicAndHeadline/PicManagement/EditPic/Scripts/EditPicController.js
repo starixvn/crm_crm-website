@@ -33,7 +33,7 @@
                 PicId: item.PicId,
                 Username: item.Username,
                 Role: item.Role,
-                Language: item.Language,
+                Language: item.Language.replace(/, /g, ','),
                 Country: item.Country,
                 Remark: item.Remark,
                 CommunicationTools: item.CommunicationTools.map(a => Object.assign({}, a))
@@ -138,7 +138,7 @@
                     Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: communicationToolItems,
-                    Language: $scope.insertParams.Language,
+                    Language: $scope.insertParams.Language.split(',').join(', '),
                     Country: $scope.insertParams.Country
                 };
 

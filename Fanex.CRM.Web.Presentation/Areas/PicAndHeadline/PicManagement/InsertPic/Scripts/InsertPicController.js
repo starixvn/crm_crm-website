@@ -128,7 +128,7 @@
                     Role: $scope.insertParams.Role,
                     Remark: $scope.insertParams.Remark,
                     CommunicationTools: communicationToolItems,
-                    Language: $scope.insertParams.Language,
+                    Language: $scope.insertParams.Language.split(',').join(', '),
                     Country: $scope.insertParams.Country
                 };
 
