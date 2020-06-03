@@ -600,10 +600,8 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_PicManagement(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
@@ -620,12 +618,9 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_InsertPic(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelectWithDefault.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/MessageResult.js",
@@ -683,12 +678,9 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_EditPic(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/EditPicScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelectWithDefault.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/MessageResult.js",

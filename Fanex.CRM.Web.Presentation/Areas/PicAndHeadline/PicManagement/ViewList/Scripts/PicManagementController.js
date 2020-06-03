@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global hotKeyManager,
+    /* global
     viewResources,
     crmConstants,
     currentDate: true,
@@ -195,26 +195,15 @@
                     }
                 } catch (e) {
                 }
-
-                hotKeyManager.CachedData.isBlockingUI = false;
             };
 
             $scope.BlockUI = function () {
-                hotKeyManager.CachedData.isBlockingUI = true;
                 try {
                     if (parent && parent.BlockUI) {
                         parent.BlockUI();
                     }
                 } catch (e) {
                 }
-            };
-
-            $scope.invokeHotKey_CtrlS = function () {
-                $scope.getReport();
-            };
-
-            $scope.invokeHotKey_CtrlI = function () {
-                $scope.insertPic();
             };
 
             $scope.exportReport = function () {
@@ -228,11 +217,30 @@
 
             angular.element(document).ready(function () {
                 $scope.initController();
+            });
 
-                hotKeyManager.CachedData.ActiveDocumentManager.push({
-                    Value: $scope,
-                    Id: 'PicManagement'
-                });
+            $(document).keydown(function (eventObject) {
+                if (eventObject.keyCode === 13) // enter
+                {
+                    $scope.getReport();
+                    eventObject.preventDefault();
+                    return false;
+                }
+
+                if (eventObject.ctrlKey) {
+                    switch (eventObject.keyCode) {
+
+                        case 83: // s
+                            $scope.getReport();
+                            eventObject.preventDefault();
+                            return false;
+    
+                        case 73: // i
+                            $scope.insertPic();
+                            eventObject.preventDefault();
+                            return false;
+                    }
+                }
             });
         }]);
 })();

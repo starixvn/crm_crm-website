@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global hotKeyManager,
+    /* global
     viewResources,
     crmConstants,
     currentDate: true,
@@ -266,12 +266,9 @@
                     }
                 } catch (e) {
                 }
-
-                hotKeyManager.CachedData.isBlockingUI = false;
             };
 
             $scope.BlockUI = function () {
-                hotKeyManager.CachedData.isBlockingUI = true;
                 try {
                     if (parent && parent.BlockUI) {
                         parent.BlockUI();
@@ -280,19 +277,21 @@
                 }
             };
 
-            $scope.invokeHotKey_CtrlS = function () {
-                $scope.savePic();
-                $scope.$apply();
-            };
-
             angular.element(document).ready(function () {              
                 $scope.initController();
-
-                hotKeyManager.CachedData.ActiveDocumentManager.push({
-                    Value: $scope,
-                    Id: 'PicInsert'
-                });
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
+            });
+
+            $(document).keydown(function (eventObject) {
+                if (eventObject.ctrlKey) {
+                    switch (eventObject.keyCode) {
+                        case 83: // s
+                            $scope.savePic();
+                            $scope.$apply();
+                            eventObject.preventDefault();
+                            return false;
+                    }
+                }
             });
         }]);
 })();
