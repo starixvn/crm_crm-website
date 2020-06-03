@@ -97,8 +97,7 @@
 
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="SettingId" ObjectProperty="Id" />
-      <Mapping DataField="SettingName" ObjectProperty="Name" />
-      <Mapping DataField="SettingValue" ObjectProperty="Value" />
+      <Mapping DataField="SettingValue" ObjectProperty="Name" />
     </Setting>
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
