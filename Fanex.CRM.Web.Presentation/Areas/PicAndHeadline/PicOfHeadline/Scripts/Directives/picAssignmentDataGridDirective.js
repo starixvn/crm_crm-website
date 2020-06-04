@@ -13,7 +13,7 @@
 		};
 
 		function getGridHeight() {
-			return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
+			return crmConstants.MarginBottomPage + 230/*(cachedData.scope.isShowFilter ? 230 : 50)*/;
 		}
 
 		function getGripOtions(gridData) {
@@ -127,8 +127,8 @@
 				gridExpandHeight: getGridHeight(),
 				showDistinctRow: false,
 				showHighlightRow: true,
-				headerColumnHeight: 29,
-				bodyRowHeight: 29,
+				headerColumnHeight: 26,
+				bodyRowHeight: 23,
 				showPager: true,
 				showTree: false,
 				customPager: true,
@@ -136,7 +136,7 @@
 				pagerOption: {
 					itemsPerPage: cachedData.scope.searchCriteria.PageSize,
 					currentPage: cachedData.scope.searchCriteria.PageIndex - 1,
-					itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+					itemsPerPageArray: [100, 200, 300, 400, 500, 1000],
 					totalItem: gridData.Total,
 					pagerSelectCallBack: ReRenderAfterPaged
 				}

@@ -77,6 +77,7 @@ namespace Fanex.CRM.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult ValidateAssignPic(AssignPic model)
         {
             var criteria = new ValidateAssignmentCriteria
@@ -97,6 +98,7 @@ namespace Fanex.CRM.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult AssignPIC(AssignPic model)
         {
             var command = new AssignPicCriteria
@@ -112,6 +114,7 @@ namespace Fanex.CRM.Controllers
         }
 
         [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult GetAssignPICSettings()
         {
             var headlines = _baseService.GetData<HeadlineInfo>(new GetHeadlinesCriteria());
@@ -126,6 +129,7 @@ namespace Fanex.CRM.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult RemoveAssignment(IList<RemoveAssignment> removeAssignments)
         {
             var serializer = new XmlSerializer(typeof(List<RemoveAssignment>),

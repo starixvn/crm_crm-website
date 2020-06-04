@@ -36,7 +36,7 @@
 					ExcludeIgnoredAcc: false,
 					ExcludeIsTest: false,
 					PageIndex: 1,
-					PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+					PageSize: 100,
 					IsGetFromCached: false,
 					ExcludeIgnoredAccounts: true
 				};
@@ -176,7 +176,7 @@
 						ExcludeAssignedAcc: $scope.searchCriteria.ExcludeAssignedAcc,
 						ExcludeIsTest: $scope.searchCriteria.ExcludeIsTest,
 						PageIndex: $scope.searchCriteria.PageIndex,
-						PageSize: $scope.searchCriteria.PageSize,
+						PageSize: $scope.searchCriteria.PageSize
 					};
 
 					$scope.lastSelectedParams = getReportCriteria;
@@ -215,12 +215,13 @@
 				};
 
 				$scope.exportReport = function () {
-					$scope.downloadFileOptions = {
-						URL: window.rootUrl + "CustomerReport/ExportCustomerReport",
-						Params: $scope.lastSelectedParams
-					};
+					console.log('Export Excel');
+					//$scope.downloadFileOptions = {
+					//	URL: window.rootUrl + "CustomerReport/ExportCustomerReport",
+					//	Params: $scope.lastSelectedParams
+					//};
 
-					$scope.$apply();
+					//$scope.$apply();
 				};
 
 				$scope.completeSetFocus = function () {
