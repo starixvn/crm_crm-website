@@ -1292,6 +1292,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Select2\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
   </ItemGroup>
