@@ -279,4 +279,7 @@
   <data name="RemoveAll" xml:space="preserve">
     <value>Remove All</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

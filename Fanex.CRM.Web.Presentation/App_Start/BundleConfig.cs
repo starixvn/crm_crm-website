@@ -672,7 +672,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/PicAndHeadline/PicOfHeadlineStyles",
-                "~/wwwroot/node_modules/select2/dist/css/select2.css",
+                "~/Areas/PicAndHeadline/PicOfHeadline/Styles/select2.css",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less");
         }
 
