@@ -603,6 +603,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js"));
 
             bundles.AddAndInclude(
@@ -627,14 +628,10 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicController.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/SingleSelectDirective.js",
                 "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicStyles",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Styles/InsertPic.less");
         }
 
         private static void RegisterBundles_ChangePicState(ref BundleCollection bundles)
-        {   
+        {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                "~/Scripts/ShareScripts/MessageResult.js",

@@ -10,10 +10,12 @@ import './pic-management-factory';
 
 // controller
 import './pic-management-controller';
-import './insert/pic-insert-controller';
+import './pic-insert-controller';
+import './pic-edit-controller';
+import './pic-change-confirm-controller';
 
 // directives
 import './report-container';
-import './register-shared-directives';
-import './insert/single-select-directive';
-import './insert/pic-insert-directives';
+// import './register-shared-directives';
+import './single-select-directive';
+import './pic-management-directives';

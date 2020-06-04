@@ -47,9 +47,9 @@
             return deferred.promise;
         };
 
-        serviceInstance.insertPic = function (getReportCriteria) {
+        serviceInstance.insertPic = function (picInsertCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "PicManagement/InsertPic", getReportCriteria)
+            $http.post(window.rootUrl + "PicManagement/InsertPic", picInsertCriteria)
                 .success(function (data, status, headers, config) {
                     deferred.resolve({
                         Result: data,
@@ -69,9 +69,9 @@
             return deferred.promise;
         };
 
-        serviceInstance.editPic = function (getReportCriteria) {
+        serviceInstance.editPic = function (picEditCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "PicManagement/EditPic", getReportCriteria)
+            $http.post(window.rootUrl + "PicManagement/EditPic", picEditCriteria)
                 .success(function (data, status, headers, config) {
                     deferred.resolve({
                         Result: data,

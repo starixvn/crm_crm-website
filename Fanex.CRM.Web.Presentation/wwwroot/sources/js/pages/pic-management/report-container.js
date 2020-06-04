@@ -18,8 +18,7 @@
 
         function getGripOtions(report, communicationTools) {
             var bodyData = [];
-            var footerData = [];
-            var reportLength = report ? report.DataList.length : 0;
+            var reportLength = report ? report.DataList.length : 0; 
             if (reportLength > 0) {
                 for (var i = 0; i < reportLength; i++) {
                     var data = report.DataList[i];
@@ -34,8 +33,7 @@
                         { Name: "ColCountry", Value: data.Country },
                         { Name: "ColGroupHeadline", Value: data.GroupHeadline },
                     ];
-
-
+                    
                     for (var j = 0; j < communicationTools.length; j++) {
                         columns.push({
                             Name: "Col" + communicationTools[j].Name,
@@ -51,7 +49,7 @@
                     if (isHostOnPICManagement) {
                         columns.push({
                             Name: "ColEdit",
-                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                            Value: '<a class="fa fa-edit edit-setting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                         })
 
                         columns.push({
@@ -68,13 +66,13 @@
 
             var groupHeaderRowColumns = [
                 { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
-                { HeaderText: viewResources.Username, Width: 80, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2 },
-                { HeaderText: viewResources.Role, Width: 55, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", MergeRowNumber: 2 },
+                { HeaderText: viewResources.Role, Width: 60, Name: "ColRole", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 },
                 { HeaderText: viewResources.CommunicationTool, Name: "ColUsername", MergeColNumber: communicationTools.length },
-                { HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
+                { HeaderText: viewResources.Remark, Width: 200, Name: "ColRemark", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
             ];
 
             if (isHostOnPICManagement) {
@@ -90,13 +88,13 @@
             var groupHeaderRows = [
                 {
                     Columns: groupHeaderRowColumns
-                }
+                }                
             ];
 
             var headerColumns = [
                 { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Username, Width: 80, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Role, Width: 55, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Role, Width: 60, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Language, Width: 120, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Country, Width: 120, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.GroupHeadline, Width: 80, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "left" },
@@ -104,11 +102,11 @@
 
             for (var j = 0; j < communicationTools.length; j++) {
                 headerColumns.push(
-                    { HeaderText: communicationTools[j].Name, Width: 80, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
+                    { HeaderText: communicationTools[j].Name, Width: 120, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
                 );
             }
 
-            headerColumns.push({ HeaderText: viewResources.Remark, Width: 120, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" });
+            headerColumns.push({ HeaderText: viewResources.Remark, Width: 200, Name: "ColRemark", HeaderAlign: "center", CellAlign: "left" });
 
             if (isHostOnPICManagement) {
                 headerColumns.push({ HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
@@ -129,19 +127,9 @@
                     }
                 },
                 bodyRows: bodyData,
-                footerRows: footerData,
-                numberOfFrozenColumn: 0,
-                fullWidth: true,
-                fullHeight: true,
-                gridExpandHeight: getGridHeight(),
-                showDistinctRow: true,
-                showHighlightRow: true,
-                headerColumnHeight: 29,
-                bodyRowHeight: 29,
+                gridExpandHeight: 200,
                 showPager: true,
-                showTree: false,
                 customPager: true,
-                //allowTruncate: true,
                 pagerOption: {
                     itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                     currentPage: cachedData.scope.lastSelectedParams.PageIndex - 1,
@@ -185,7 +173,7 @@
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            var editSettings = tableCustomerReport.find(".editSetting");
+            var editSettings = tableCustomerReport.find(".edit-setting");
             editSettings.unbind("click");
             editSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
@@ -205,7 +193,6 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    /* jshint unused: false */
                     if (!scope.reportOptions.IsUpdateGrid) {
                         return;
                     }

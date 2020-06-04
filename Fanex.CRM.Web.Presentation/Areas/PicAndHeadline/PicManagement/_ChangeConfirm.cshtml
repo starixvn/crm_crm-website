@@ -1,0 +1,17 @@
+﻿@using Fanex.CRM.Resources
+
+<div id="template-pic-change-confirm" style="display: none">
+    <div class="modal-header">
+        Confirm cancel
+        <span class="icon-close fa fa-times" ng-click="picChangeConfirmCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row text-bold">@Labels.ConfirmCancel</div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="picChangeConfirmCtrl.changeConfirm()">
+                @Html.Raw(Labels.OK)
+            </button>
+            <button class="btn" ng-click="picChangeConfirmCtrl.close()">@Labels.Cancel</button>
+        </div>
+    </div>
+</div>

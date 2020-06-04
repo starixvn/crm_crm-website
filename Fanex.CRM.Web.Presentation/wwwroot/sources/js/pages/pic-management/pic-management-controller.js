@@ -119,11 +119,35 @@
                 windowClass: 'pic-insert-modal',
                 appendTo: $window.parent.$('body')
             });
-            //modalInstance.result.then(function (isSuccessful) {
-            //    if (isSuccessful) {
-            //        $scope.getAllSetting()();
-            //    }
-            //});
+
+            modalInstance.result.then(function (isSuccess) {
+                if (isSuccess) {
+                    $scope.getReport();
+                }
+            });
+        };
+        
+        $scope.editPic = function (picItem) {
+            const modalInstance = $uibModal.open({
+                template: angular.element('#template-pic-edit').html(),
+                controller: 'picEditController',
+                controllerAs: 'picEditCtrl',
+                backdrop: 'static',
+                backdropClass: 'pic-edit-modal-backdrop',
+                keyboard: false,
+                size: 'lg',
+                windowClass: 'pic-edit-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    picItem
+                }
+            });
+
+            modalInstance.result.then(function (isSuccess) {
+                if (isSuccess) {
+                    $scope.getReport();
+                }
+            });
         };
 
         $scope.beforeCloseInsertView = function () {
@@ -168,24 +192,6 @@
                 $scope.closeInsertView,
                 { my: "center top+200", at: "center top" },
                 null);
-        };
-
-        $scope.editPic = function (item) {
-                
-            parent.homeManager.CachedData.shouldReloadView = false;
-            parent.OpenPopup(
-                window.rootUrl + "PicManagement/OpenEditPic?" + $.param(item),
-                viewResources.EditPIC,
-                480,
-                300,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeInsertView,
-                { my: "center top+200", at: "center top" },
-                $scope.beforeCloseInsertView);
         };
 
         $scope.completeSetFocus = function () {

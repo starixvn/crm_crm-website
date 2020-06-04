@@ -6,11 +6,6 @@
 }
 
 @section Styles{
-    @*@RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
-    @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
-    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
-    @RazorHelper.RenderStyles("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles")*@
-    @*@RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")*@
     <link rel="stylesheet" href="~/wwwroot/dist/styles/pic.management.css" />
 }
 
@@ -78,6 +73,8 @@
 </div>
 
 @Html.Partial("~/Areas/PicAndHeadline/PicManagement/_Create.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicManagement/_Edit.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicManagement/_ChangeConfirm.cshtml")
 
 @section Scripts {
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")

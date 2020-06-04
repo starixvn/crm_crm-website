@@ -37,8 +37,8 @@
                 Country: item.Country,
                 Remark: item.Remark,
                 CommunicationTools: item.CommunicationTools.map(a => Object.assign({}, a))
-            }            
-            
+            }
+
             $scope.initController = function () {
                 $scope.initPicker();
 
@@ -51,8 +51,8 @@
                 $scope.defaultFocusOptions.IsSetFocus = true;
                 var iframe = parent.document.getElementById('innerFrame');
                 parent.document.getElementById('dialog-modal').style.maxHeight = '450px';
-                parent.document.getElementById('dialog-modal').style.overflowY =  'auto';
-                parent.document.getElementById('dialog-modal').style.marginTop =  '10px';
+                parent.document.getElementById('dialog-modal').style.overflowY = 'auto';
+                parent.document.getElementById('dialog-modal').style.marginTop = '10px';
                 iframe.style.height = `${iframe.contentWindow.document.getElementsByClassName('main')[0].clientHeight}px`;
                 $scope.$apply();
             };
@@ -146,7 +146,7 @@
                     $scope.unblockUI();
                     return;
                 }
-                
+
                 $editPicService.savePic(criteria)
                     .then(function (data) {
                         $scope.showInsertResult(data.Result);
@@ -197,10 +197,10 @@
             $scope.cancelPic = function () {
                 $scope.updateChangeFlag();
                 parent.ClosePopup();
-            }        
+            }
 
             $scope.addCommunicationTool = function () {
-                var item = {Type: "", Value: "" };
+                var item = { Type: "", Value: "" };
                 $scope.communicationToolItems.push(item);
                 var iframe = parent.document.getElementById('innerFrame');
                 iframe.style.height = `${iframe.contentWindow.document.getElementsByClassName('main')[0].clientHeight + 36}px`;
@@ -220,9 +220,7 @@
             };
 
             $scope.updateChangeFlag = function () {
-
                 if ($scope.isParamsChange()) {
-                    
                     parent.homeManager.CachedData.isChangingData = true;
                     parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.ConfirmCancel;
                 } else {
@@ -250,10 +248,9 @@
                     params.Language != $scope.oldParams.Language ||
                     params.Country != $scope.oldParams.Country ||
                     params.Remark != $scope.oldParams.Remark ||
-                    $scope.isCommunicationToolChanged($scope.oldParams.CommunicationTools, params.CommunicationTools))
-                {
+                    $scope.isCommunicationToolChanged($scope.oldParams.CommunicationTools, params.CommunicationTools)) {
                     result = true;
-                }               
+                }
 
                 return result;
             };
@@ -270,7 +267,7 @@
                 }
 
                 return false;
-            } 
+            }
 
             $scope.ignoreChanges = function () {
                 parent.homeManager.CachedData.isChangingData = false;

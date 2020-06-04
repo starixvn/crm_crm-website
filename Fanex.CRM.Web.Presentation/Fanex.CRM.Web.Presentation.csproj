@@ -606,15 +606,18 @@
     <Content Include="Areas\InformHeadline\_LogDetails.cshtml" />
     <Content Include="wwwroot\parts\constant.js" />
     <Content Include="wwwroot\parts\entry.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-change-state-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-edit-controller.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\index.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\insert\pic-insert-controller.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\insert\pic-insert-directives.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\insert\single-select-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-change-confirm-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-insert-controller.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-application.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-directives.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\register-shared-directives.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\report-container.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\single-select-directive.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
@@ -1305,8 +1308,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
-    <Folder Include="wwwroot\sources\js\pages\pic-management\edit\" />
-    <Folder Include="wwwroot\sources\js\pages\pic-management\index\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1579,6 +1580,8 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_RemovePICAssignment.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\EditPic\Styles\EditPic.less" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_Create.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeConfirm.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_Edit.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

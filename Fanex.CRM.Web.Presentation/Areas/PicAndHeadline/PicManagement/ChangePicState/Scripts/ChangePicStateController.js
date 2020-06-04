@@ -5,43 +5,43 @@
     template */
 
     angular.module('changepicstate-application')
-    .controller('changePicStateController', ['$scope', '$uiBlockerService', 'changePicStateService',
-        function ($scope, $uiBlockerService, changePicStateService) {
-        $scope.messageResultOptions = null;
-        $scope.initController = function () {
-            sharedScriptManager.safeApply($scope);
-            };
-            
-        $scope.changeState = function () {
-            $uiBlockerService.blockUI();
-            changePicStateService.changePicState({ PicId: item.PicId, IsActive: item.IsActive })
-                .then(function (data) {
-                    $scope.showResult(data.Result);
-                    $uiBlockerService.unblockUI();
-                },
-                function () {
-                    $uiBlockerService.unblockUI();
+        .controller('changePicStateController', ['$scope', '$uiBlockerService', 'changePicStateService',
+            function ($scope, $uiBlockerService, changePicStateService) {
+                $scope.messageResultOptions = null;
+                $scope.initController = function () {
+                    sharedScriptManager.safeApply($scope);
+                };
+
+                $scope.changeState = function () {
+                    $uiBlockerService.blockUI();
+                    changePicStateService.changePicState({ PicId: item.PicId, IsActive: item.IsActive })
+                        .then(function (data) {
+                            $scope.showResult(data.Result);
+                            $uiBlockerService.unblockUI();
+                        },
+                            function () {
+                                $uiBlockerService.unblockUI();
+                            });
+                };
+
+                $scope.showResult = function (result) {
+                    if (result.Code !== 0) {
+                        $scope.messageResultOptions = new MessageResult(result.Message, true, false);
+                        return;
+                    }
+
+                    $scope.messageResultOptions = new MessageResult(result.Message, true, true);
+                    parent.homeManager.CachedData.shouldReloadView = true;
+                    setTimeout(function () {
+                        $scope.messageResultOptions = new MessageResult('', false, false);
+                        parent.ClosePopup();
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
+                };
+                $scope.cancelChangeState = function () {
+                    parent.ClosePopup();
+                };
+                angular.element(document).ready(function () {
+                    $scope.initController();
                 });
-        };
-
-            $scope.showResult = function (result) {
-            if (result.Code !== 0) {
-                $scope.messageResultOptions = new MessageResult(result.Message, true, false);
-                return;
-            }
-
-            $scope.messageResultOptions = new MessageResult(result.Message, true, true);
-            parent.homeManager.CachedData.shouldReloadView = true;
-            setTimeout(function () {
-                $scope.messageResultOptions = new MessageResult('', false, false);
-                parent.ClosePopup();
-            }, sharedScriptManager.cachedData.alertSuccessTime);
-        };
-        $scope.cancelChangeState = function () {
-            parent.ClosePopup();
-        };
-        angular.element(document).ready(function () {
-            $scope.initController();
-        });
-    } ]);
+            }]);
 })();
