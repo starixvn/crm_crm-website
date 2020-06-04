@@ -8,6 +8,8 @@ using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Services;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
+using Fanex.CRM.Report.Excels.PICAssignment;
+using Fanex.CRM.Resources;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
 using Fanex.NAP.Core.Business;
@@ -165,6 +167,18 @@ namespace Fanex.CRM.Controllers
                 IsHost
             };
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public void ExportExcelReport(GetAssignmentCriteria criteria)
+        {
+            criteria.PicName = criteria.PicName ?? string.Empty;
+            criteria.DirectAccount = criteria.DirectAccount ?? string.Empty;
+            criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
+            var data = _baseService.GetData<PICAssignmentInfo>(criteria);
+            GeneratePicList(data);
+            var excel = new PICAssignmentExportExcel(data, Labels.PicAssignment);
+            excel.BuildWorkBook();
         }
 
         private static void GeneratePicList(IEnumerable<PICAssignmentInfo> assignments)

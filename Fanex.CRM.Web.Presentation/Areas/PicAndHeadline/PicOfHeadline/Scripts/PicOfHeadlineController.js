@@ -10,7 +10,6 @@
 	angular.module('picofheadline-application').controller('picOfHeadlineController',
 		['$scope', '$window', '$picOfHeadlineService', '$uibModal',
 			function ($scope, $window, $picOfHeadlineService, $uibModal) {
-				$scope.errorMessage = '';
 				$scope.siteOptions = null;
 				$scope.statusOptions = null;
 				$scope.positionOptions = null;
@@ -215,13 +214,12 @@
 				};
 
 				$scope.exportReport = function () {
-					console.log('Export Excel');
-					//$scope.downloadFileOptions = {
-					//	URL: window.rootUrl + "CustomerReport/ExportCustomerReport",
-					//	Params: $scope.lastSelectedParams
-					//};
+					$scope.downloadFileOptions = {
+						URL: window.rootUrl + "PicOfHeadline/ExportExcelReport",
+						Params: $scope.lastSelectedParams
+					};
 
-					//$scope.$apply();
+					$scope.$apply();
 				};
 
 				$scope.completeSetFocus = function () {

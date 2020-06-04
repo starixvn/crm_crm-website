@@ -60,7 +60,7 @@
 					}
 
 					const isDisabled = assignment.PicList === null || assignment.PicList.length === 0;
-					const tdClass = getClassNameByAccountStatus(assignment.Status.toLowerCase(), 3);
+					const tdClass = getClassNameByAccountStatus(assignment.Status.toLowerCase());
 					columns.push(
 						{ Name: "ColDirectAccount", Value: assignment.DirectAccount, TdClass: tdClass },
 						{ Name: "ColStatus", Value: assignment.Status, TdClass: tdClass },
@@ -150,20 +150,10 @@
 			return gridOptions;
 		}
 
-		function getClassNameByAccountStatus(status, closedReason) {
+		function getClassNameByAccountStatus(status) {
 			let tdClass = '';
-			if (status !== "open" && status !== "closed") {
+			if (status !== "open") {
 				tdClass = `${status}-color`;
-			}
-
-			if (status === "closed") {
-				let reasonCloseClass = '';
-				if (closedReason === 1) reasonCloseClass = 'admin';
-				if (closedReason === 2) reasonCloseClass = 'upline';
-				if (closedReason === 3) reasonCloseClass = 'otp';
-				if (closedReason === 4) reasonCloseClass = 'expired';
-
-				tdClass = `closed-by-${reasonCloseClass}`;
 			}
 
 			return tdClass;
