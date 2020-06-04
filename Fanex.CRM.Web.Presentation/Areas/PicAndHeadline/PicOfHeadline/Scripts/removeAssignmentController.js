@@ -31,7 +31,7 @@
 					$scope.handlePicNameChkboxState(picName);
 				};
 
-				$scope.removeAllAssignment = function () {
+				$scope.removeAssignment = function () {
 					const params = $scope.selectedAssignment.filter(a => a.IsSelected).map(assignment => {
 						return {
 							HeadlineId: assignment.HeadlineId,
@@ -88,6 +88,27 @@
 						}
 					}
 					angular.element(document).find(`#${picName}`)[0].checked = isCheck;
+				};
+
+				$scope.openConfirmRemoveAssignmentModal = function () {
+					let removeAssignmentFunction = function () { $scope.removeAssignment(); };
+					const modalInstance = $uibModal.open({
+						template: angular.element('#confirm-remove-assignment-modal').html(),
+						backdrop: 'static',
+						keyboard: false,
+						size: 'lg',
+						backdropClass: 'related-customer-modal-backdrop',
+						windowClass: 'remove-assignment-modal',
+						controller: function ($scope) {
+							$scope.removeAssignment = function () {
+								$scope.$dismiss();
+								removeAssignmentFunction();
+							};
+						}
+					});
+					modalInstance.result.then(function () {
+						$scope.getPICAssignment();
+					});
 				};
 			}]);
 })();

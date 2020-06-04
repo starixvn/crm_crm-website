@@ -16,31 +16,31 @@
             </div>
         </div>
         <div class="row item">
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <label>@Labels.GroupHeadline</label>
                 @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-9">
                 <select class="select-with-search-container js-select2" ng-model="assignPICModel.headlineId" options="headlineOptions" id="assignedPICHeadline">
                     <option></option>
                 </select>
             </div>
         </div>
         <div class="row item">
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <label>@Labels.PIC</label>
                 @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-9">
                 <select class="select-with-search-container js-select2" ng-model="assignPICModel.pics" options="picOptions" , multiple="multiple" id="assignedPIC"></select>
             </div>
         </div>
         <div class="row item">
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <label>@Labels.DirectAccount</label>
                 @Html.Raw(Labels.RequiredFieldTemplate)
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-9">
                 <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="focused = true">
                     <div ng-if="assignPICModel.directAccounts.length > 0">
                         <div class="related-customer-item {{item.isValid ? '' : 'invalid'}} {{isSellectedAll ? 'selected' : ''}}"

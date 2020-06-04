@@ -60,22 +60,28 @@
 					}
 
 					const isDisabled = assignment.PicList === null || assignment.PicList.length === 0;
+					const tdClass = getClassNameByAccountStatus(assignment.Status.toLowerCase(), 3);
 					columns.push(
-						{ Name: "ColDirectAccount", Value: assignment.DirectAccount },
-						{ Name: "ColStatus", Value: assignment.Status },
-						{ Name: "ColSite", Value: assignment.Site },
-						{ Name: "ColCurrency", Value: assignment.Currency },
-						{ Name: "ColPosition", Value: assignment.Position }
+						{ Name: "ColDirectAccount", Value: assignment.DirectAccount, TdClass: tdClass },
+						{ Name: "ColStatus", Value: assignment.Status, TdClass: tdClass },
+						{ Name: "ColSite", Value: assignment.Site, TdClass: tdClass },
+						{ Name: "ColCurrency", Value: assignment.Currency, TdClass: tdClass },
+						{ Name: "ColPosition", Value: assignment.Position, TdClass: tdClass }
 					);
 
 					if (gridData.IsHost) {
 						columns.push(
-							{ Name: "ColAction", Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>` }
+							{
+								Name: "ColAction",
+								Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>`,
+								TdClass: tdClass
+							}
 						);
 					}
 
 					bodyData.push({
-						Columns: columns
+						Columns: columns,
+						CssClass: 'suspended-color'
 					});
 					mergeHeadline--;
 					mergePIC--;
@@ -92,7 +98,6 @@
 				{ HeaderText: viewResources.Site, Width: 150, Name: "ColSite", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Currency, Width: 100, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Position, Width: 100, Name: "ColPosition", HeaderAlign: "center", CellAlign: "left" }
-
 			];
 
 			if (gridData.IsHost) {
@@ -143,6 +148,25 @@
 			};
 
 			return gridOptions;
+		}
+
+		function getClassNameByAccountStatus(status, closedReason) {
+			let tdClass = '';
+			if (status !== "open" && status !== "closed") {
+				tdClass = `${status}-color`;
+			}
+
+			if (status === "closed") {
+				let reasonCloseClass = '';
+				if (closedReason === 1) reasonCloseClass = 'admin';
+				if (closedReason === 2) reasonCloseClass = 'upline';
+				if (closedReason === 3) reasonCloseClass = 'otp';
+				if (closedReason === 4) reasonCloseClass = 'expired';
+
+				tdClass = `closed-by-${reasonCloseClass}`;
+			}
+
+			return tdClass;
 		}
 
 		function IsDisabledSelectAllCheckbox(data) {

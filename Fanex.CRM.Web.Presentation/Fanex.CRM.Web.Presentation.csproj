@@ -546,6 +546,7 @@
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
+    <Content Include="Scripts\Select2\select2.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelectWithDefault.js" />
     <Content Include="wwwroot\dist\js\commtool.setting.js" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js" />
@@ -1292,7 +1293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Select2\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
   </ItemGroup>

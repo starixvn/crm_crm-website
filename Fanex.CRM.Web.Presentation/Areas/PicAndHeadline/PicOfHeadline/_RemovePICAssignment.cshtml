@@ -16,13 +16,13 @@
             </div>
         </div>
         <div class="row item" ng-model="removeAssignmentData">
-            <table class="assigned-direct-account">
+            <table class="assigned-direct-account remove-assignment">
                 <thead>
                     <tr>
                         <th class="text-center" rowspan="2">@Labels.No</th>
                         <th class="text-center" rowspan="2">@Labels.GroupHeadline</th>
                         <th class="text-center" rowspan="2">@Labels.DirectAccount</th>
-                        <th class="text-center" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
+                        <th class="text-center pic-name-th" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
                             {{pic.PicName}}
                         </th>
                     </tr>
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="assignment in removeAssignmentData.data">
-                        <td>{{$index + 1}}</td>
+                        <td class="text-center">{{$index + 1}}</td>
                         <td>{{assignment.HeadLineName}}</td>
                         <td>{{assignment.DirectAccount}}</td>
                         <td ng-repeat="p in assignment.PicAssignment" class="text-center">
@@ -48,7 +48,21 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn" ng-click="removeAllAssignment()" id="remove-all-btn">@Labels.RemoveAll</button>
-        <button class="btn" ng-click="closeModal()">@Labels.Cancel</button>
+        <button class="btn" ng-click="openConfirmRemoveAssignmentModal()" id="remove-all-btn">Remove</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
+    </div>
+</div>
+
+<div id="confirm-remove-assignment-modal" style="display: none">
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-12 text-center">
+                <span>Are you sure you want to remove all selected direct accounts?</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="removeAssignment()" id="remove-all-btn">@Labels.RemoveAll</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
     </div>
 </div>

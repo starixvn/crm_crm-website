@@ -311,7 +311,7 @@
 						keyboard: false,
 						size: 'lg',
 						backdropClass: 'related-customer-modal-backdrop',
-						windowClass: 'related-customer-modal',
+						windowClass: 'remove-assignment-modal',
 						resolve: {
 							removeAssignmentData: function () {
 								return passedData;

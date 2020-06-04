@@ -131,9 +131,11 @@
     margin: 0;
 }
 
-.modal-dialog {
-    width: 500px;
+.remove-assignment-modal .modal-dialog {
+    width: 700px;
+}
 
+.modal-dialog {
     .modal-content {
         background: #fff;
         padding: 0;
@@ -238,4 +240,42 @@ table.assigned-direct-account {
     .hide-border {
         border: none;
     }
+}
+
+table.remove-assignment {
+    max-height: 600px;
+    overflow: scroll;
+
+    .pic-name-th {
+        width: 20px;
+        white-space: pre-wrap; /* CSS3 */
+        white-space: -moz-pre-wrap; /* Firefox */
+        white-space: -pre-wrap; /* Opera <7 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word;
+    }
+}
+
+.suspended-color {
+    background-color: #F8DED7 !important;
+}
+
+.disabled-color {
+    background-color: #A0A97A !important;
+}
+
+.closed-by-admin {
+    background-color: #B3A2C7 !important;
+}
+
+.closed-by-upline {
+    background-color: #F79646 !important;
+}
+
+.closed-by-otp {
+    background-color: #86C5E4 !important;
+}
+
+.closed-by-expired {
+    background-color: #CCC7BA !important;
 }
