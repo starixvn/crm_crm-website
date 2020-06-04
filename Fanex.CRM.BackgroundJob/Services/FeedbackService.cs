@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
@@ -275,6 +276,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
@@ -442,7 +444,7 @@
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SiteSettingMapping> siteSettingMappings)
         {
-            foreach(TransactionInfo transaction in transactionInfos)
+            foreach (TransactionInfo transaction in transactionInfos)
             {
                 SiteSettingMapping licenseeManager = siteSettingMappings.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
                         && x.SettingSource.Equals(transaction.Site, StringComparison.OrdinalIgnoreCase));
@@ -701,7 +703,7 @@
                     transaction.CustId,
                     headlineId,
                     relatedCustId,
-                    string.Format("{0} -vs- {1}", matchInfo.HomeName, matchInfo.AwayName));
+                    string.Format("{0} -vs- {1}", HttpUtility.HtmlEncode(matchInfo.HomeName), HttpUtility.HtmlEncode(matchInfo.AwayName)));
             }
 
             stringBuilder.Append("</ROOT>");
