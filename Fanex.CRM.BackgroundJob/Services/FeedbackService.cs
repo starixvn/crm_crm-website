@@ -60,7 +60,8 @@
             IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize, failMessageIds);
             if (messages.Any())
             {
-                mlogger.LogInformation(string.Format("Begin create feedback for messages: {0}", JsonConvert.SerializeObject(messages, Formatting.Indented)));
+                var messageIds = string.Join(",", messages.Select(x => x.MessageId));
+                mlogger.LogInformation(string.Format("Begin create feedback for messages: {0}", messageIds));
 
                 var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
                 IEnumerable<SettingItem> settings = await GetAllSettingAsync();
@@ -68,7 +69,6 @@
                 IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
                 CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
 
-                var messageIds = string.Join(",", messages.Select(x => x.MessageId));
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
 
                 IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
@@ -273,7 +273,6 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,

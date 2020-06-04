@@ -26,7 +26,6 @@
             var builder = CreateWebHostBuilder(args.Where(arg => arg != "--console").ToArray());
             var host = builder.Build();
             host.RunAsCustomService(isService);
-            //// CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
