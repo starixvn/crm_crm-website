@@ -175,10 +175,10 @@
     <value>Edit PIC successfully!</value>
   </data>
   <data name="ExcludeIgnoredAccounts" xml:space="preserve">
-    <value>Exclude Ignored Accounts</value>
+    <value>Exclude ignored ccounts</value>
   </data>
   <data name="ExcludeTestAccounts" xml:space="preserve">
-    <value>Exclude Test Accounts</value>
+    <value>Exclude test accounts</value>
   </data>
   <data name="GroupHeadline" xml:space="preserve">
     <value>Group Headline</value>
