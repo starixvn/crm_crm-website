@@ -52,7 +52,7 @@
 						columns.push(
 							{
 								Name: "ColPIC",
-								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts.toString()),
+								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts.toString(), gridData.IsHost),
 								MergeRowNumber: mergePIC,
 								CellAlign: assignment.PicList === null ? 'center' : 'left'
 							}

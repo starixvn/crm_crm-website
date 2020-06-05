@@ -9,6 +9,7 @@ using Fanex.CRM.Common.Services;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Report.Excels.PICAssignment;
+using Fanex.CRM.Report.Models.PicAssignmentReport;
 using Fanex.CRM.Resources;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
@@ -161,7 +162,7 @@ namespace Fanex.CRM.Controllers
             bool IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
             var response = new
             {
-                Items = data,
+                Items = data.OrderBy(i => i.HeadlineID).ThenBy(v => v.PicList == null),
                 Total = criteria.TotalRows,
                 TotalUnassignedDirectAccount = criteria.TotalUnassigned,
                 IsHost
@@ -175,9 +176,12 @@ namespace Fanex.CRM.Controllers
             criteria.PicName = criteria.PicName ?? string.Empty;
             criteria.DirectAccount = criteria.DirectAccount ?? string.Empty;
             criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
-            var data = _baseService.GetData<PICAssignmentInfo>(criteria);
-            GeneratePicList(data);
-            var excel = new PICAssignmentExportExcel(data, Labels.PicAssignment);
+            var picInfo = _baseService.GetData<PICAssignmentInfo>(criteria);
+            GeneratePicList(picInfo);
+
+            var reportData = MappingReportData(picInfo);
+
+            var excel = new PICAssignmentExportExcel(reportData, Labels.PicAssignment);
             excel.BuildWorkBook();
         }
 
@@ -188,9 +192,37 @@ namespace Fanex.CRM.Controllers
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<PicModel>), new XmlRootAttribute("ROOT"));
-                    assignment.PicList = (List<PicModel>)serializer.Deserialize(new StringReader(assignment.PIC));
+                    var listPic = (List<PicModel>)serializer.Deserialize(new StringReader(assignment.PIC));
+                    assignment.PicList = listPic;
+
+                    assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
                 }
             }
+        }
+
+        private IEnumerable<GroupHeadlineOfPic> MappingReportData(IEnumerable<PICAssignmentInfo> assignments)
+        {
+            var result = assignments.GroupBy(a => a.HeadlineID,
+                (key, g) => new GroupHeadlineOfPic
+                {
+                    GroupHeadlineId = key,
+                    GroupHeadline = g.FirstOrDefault().HeadlineName,
+                    HeadlineType = g.FirstOrDefault().HeadlineType,
+                    Pics = g.GroupBy(p => p.PicForMapping, (k, pic) => new PicOfDirectAccount
+                    {
+                        Pic = pic.FirstOrDefault().PicList,
+                        DirectAccounts = pic.Select(d => new DirectAccountInfo
+                        {
+                            DirectAccount = d.DirectAccount,
+                            Status = d.Status,
+                            Site = d.Site,
+                            Currency = d.Currency,
+                            Position = d.Position,
+                        })
+                    }).OrderBy(v => v.Pic != null)
+                });
+
+            return result.ToList();
         }
     }
 }

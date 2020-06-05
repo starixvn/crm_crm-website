@@ -646,6 +646,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Account.
+        /// </summary>
+        public static string DirectAccount {
+            get {
+                return ResourceManager.GetString("DirectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Direct Customer Report.
         /// </summary>
         public static string DirectCustomerReport_SheetName {
@@ -1119,6 +1128,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Headline {
             get {
                 return ResourceManager.GetString("Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Headline Type.
+        /// </summary>
+        public static string HeadlineType {
+            get {
+                return ResourceManager.GetString("HeadlineType", resourceCulture);
             }
         }
         

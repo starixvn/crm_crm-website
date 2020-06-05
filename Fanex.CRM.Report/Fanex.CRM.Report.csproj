@@ -189,6 +189,9 @@
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedback.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackByHandler.cs" />
     <Compile Include="Models\DeletedFeedbackStatistics\DeletedFeedbackStatisticsViewModel.cs" />
+    <Compile Include="Models\PicAssignmentReport\DirectAccountInfo.cs" />
+    <Compile Include="Models\PicAssignmentReport\GroupHeadlineOfPic.cs" />
+    <Compile Include="Models\PicAssignmentReport\PicOfDirectAccount.cs" />
     <Compile Include="Models\RedemptionStatistics\RedemptionStatisticsInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerReportInfo.cs" />

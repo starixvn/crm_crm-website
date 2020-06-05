@@ -939,4 +939,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
+  </data>
+  <data name="HeadlineType" xml:space="preserve">
+    <value>Headline Type</value>
+  </data>
 </root>
