@@ -647,6 +647,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicOfHeadlineScripts").Include(
+                "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",

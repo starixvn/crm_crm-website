@@ -4,6 +4,7 @@
 	viewResources,
 	crmConstants,
 	currentDate: true,
+	MessageResult,
 	moment,
 	sharedScriptManager */
 	/* jshint camelcase: false */
