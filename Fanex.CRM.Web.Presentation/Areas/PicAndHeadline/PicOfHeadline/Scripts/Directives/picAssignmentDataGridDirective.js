@@ -26,11 +26,11 @@
 			if (reportLength > 0) {
 				for (var i = 0; i < reportLength; i++) {
 					var assignment = gridData.Items[i];
-					var columns = [{ Name: "ColNo", Value: assignment.RowNum }];
+					var columns = [{ Name: "ColNo", Value: i + 1 }];
 
 					if (mergeHeadline === 0) {
 						mergeHeadline = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID).length;
-						const pics = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PIC === assignment.PIC);
+						const pics = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID && item.PicForMapping === assignment.PicForMapping);
 						mergePIC = pics.length;
 						const accounts = pics.map(pic => pic.DirectAccountID);
 						columns.push(

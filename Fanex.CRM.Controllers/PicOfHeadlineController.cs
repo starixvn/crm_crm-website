@@ -162,7 +162,7 @@ namespace Fanex.CRM.Controllers
             bool IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
             var response = new
             {
-                Items = data.OrderBy(i => i.HeadlineID).ThenBy(v => v.PicList == null),
+                Items = data.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount),
                 Total = criteria.TotalRows,
                 TotalUnassignedDirectAccount = criteria.TotalUnassigned,
                 IsHost
@@ -218,9 +218,9 @@ namespace Fanex.CRM.Controllers
                             Site = d.Site,
                             Currency = d.Currency,
                             Position = d.Position,
-                        })
+                        }).OrderBy(a => a.DirectAccount)
                     }).OrderBy(v => v.Pic != null)
-                });
+                }).OrderBy(x => x.GroupHeadline);
 
             return result.ToList();
         }

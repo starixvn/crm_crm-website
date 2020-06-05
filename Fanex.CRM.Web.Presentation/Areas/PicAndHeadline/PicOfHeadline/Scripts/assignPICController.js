@@ -2,6 +2,7 @@
 	'use strict';
 	/* global hotKeyManager,
 	viewResources,
+	MessageResult,
 	crmConstants,
 	currentDate: true,
 	moment,
