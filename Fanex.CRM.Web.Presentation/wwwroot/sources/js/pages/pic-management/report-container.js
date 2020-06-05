@@ -54,7 +54,7 @@
 
                         columns.push({
                             Name: "ColActive",
-                            Value: '<input type="checkbox" class="activeSetting" ' + checked + ' data-row-index="' + i + '" />'
+                            Value: '<input type="checkbox" class="active-setting" ' + checked + ' data-row-index="' + i + '" />'
                         })
                     }
 
@@ -180,7 +180,7 @@
                 scope.editPic(customerReport.DataList[rowIndex]);
             });
 
-            var activeSettings = tableCustomerReport.find(".activeSetting");
+            var activeSettings = tableCustomerReport.find(".active-setting");
             activeSettings.unbind("click");
             activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));

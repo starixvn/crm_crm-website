@@ -13,21 +13,9 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 
         public bool IsActive { get; set; }
 
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
+        public static int UserId => AppSession.CurrentUser.Id;
 
-        public string IP
-        {
-            get
-            {
-                return IPHelper.ClientIP;
-            }
-        }
+        public static string IP => IPHelper.ClientIP;
 
         public override Hashtable GetSpParams()
         {

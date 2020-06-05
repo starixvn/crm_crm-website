@@ -88,6 +88,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign PIC.
         /// </summary>
         public static string AssignPIC {
@@ -102,6 +111,15 @@ namespace Fanex.CRM.Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change PIC State.
+        /// </summary>
+        public static string ChangePICState {
+            get {
+                return ResourceManager.GetString("ChangePICState", resourceCulture);
             }
         }
         
@@ -367,6 +385,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No data.
+        /// </summary>
+        public static string NoData {
+            get {
+                return ResourceManager.GetString("NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
@@ -489,6 +516,15 @@ namespace Fanex.CRM.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

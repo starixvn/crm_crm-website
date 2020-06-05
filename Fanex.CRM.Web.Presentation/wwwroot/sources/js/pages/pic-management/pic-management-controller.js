@@ -165,7 +165,6 @@
 
         $scope.closeInsertView = function () {
             $scope.isSetFocus = true;
-            //$scope.safeApply();
             if (!parent.homeManager.CachedData.shouldReloadView) {
                 return;
             }
@@ -174,24 +173,25 @@
             $scope.getReport();
         };
 
-        $scope.changePicState = function (item) {
-            parent.homeManager.CachedData.shouldReloadView = true;
-            var state = !item.IsActive;
-            var title = viewResources.Confirmation;
-                
-            parent.OpenPopup(
-                window.rootUrl + "PicManagement/OpenChangePicState?" + $.param({ PicId: item.PicId, IsActive: state, Username: item.Username }),
-                title,
-                450,
-                160,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeInsertView,
-                { my: "center top+200", at: "center top" },
-                null);
+        $scope.changePicState = function (picItem) {
+            const modalInstance = $uibModal.open({
+                template: angular.element('#template-pic-change-state').html(),
+                controller: 'picChangeStateController',
+                controllerAs: 'picChangeStateCtrl',
+                backdrop: 'static',
+                backdropClass: 'pic-change-state-modal-backdrop',
+                keyboard: false,
+                size: 'lg',
+                windowClass: 'pic-change-state-modal',
+                appendTo: $window.parent.$('body'),
+                resolve: {
+                    picItem
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.getReport();
+            });
         };
 
         $scope.completeSetFocus = function () {
@@ -246,6 +246,54 @@
                 Value: $scope,
                 Id: 'PicManagement'
             });
+        });
+
+        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+            if (eventObject.keyCode === 13) // enter
+            {
+                $scope.getReport();
+                eventObject.preventDefault();
+                return false;
+            }
+
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+
+                    case 83: // s
+                        $scope.getReport();
+                        eventObject.preventDefault();
+                        return false;
+
+                    case 73: // i
+                        $scope.insertPic();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
+        });
+
+        $(document).off('keydown').on('keydown', function (eventObject) {
+            if (eventObject.keyCode === 13) // enter
+            {
+                $scope.getReport();
+                eventObject.preventDefault();
+                return false;
+            }
+
+            if (eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+
+                    case 83: // s
+                        $scope.getReport();
+                        eventObject.preventDefault();
+                        return false;
+
+                    case 73: // i
+                        $scope.insertPic();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
         });
     }]);
 })();

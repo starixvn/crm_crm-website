@@ -13,9 +13,9 @@ import './pic-management-controller';
 import './pic-insert-controller';
 import './pic-edit-controller';
 import './pic-change-confirm-controller';
+import './pic-change-state-controller';
 
 // directives
 import './report-container';
-// import './register-shared-directives';
 import './single-select-directive';
 import './pic-management-directives';

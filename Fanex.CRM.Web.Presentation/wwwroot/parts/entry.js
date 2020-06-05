@@ -11,7 +11,6 @@ module.exports = {
         [`${styleDistPath}/commtool.setting`]: `${styleSourcePath}/pages/commtool-setting.scss`,
         [`${styleDistPath}/pic.management`]: `${styleSourcePath}/pages/pic-management.scss`,
         [`${styleDistPath}/create.multiple.logs`]: `${styleSourcePath}/pages/create-multiple-logs.scss`,
-        [`${styleDistPath}/font.awesome`]: `${styleSourcePath}/font-awesome.scss`,
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',

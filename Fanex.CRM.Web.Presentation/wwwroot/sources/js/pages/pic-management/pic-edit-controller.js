@@ -1,14 +1,8 @@
 ﻿(function () {
     "use strict";
-    /* global hotKeyManager,
-    viewResources,
-    crmConstants,
-    currentDate: true,
-    moment,
-    sharedScriptManager */
-    /* jshint camelcase: false */
-    angular.module('pic-management-application').controller('picEditController', ['$window', '$picManagementFactory', '$uibModalInstance', '$uibModal', 'picItem', function ($window, $picManagementFactory, $uibModalInstance, $uibModal, picItem) {
+    angular.module('pic-management-application').controller('picEditController', ['$scope', '$window', '$picManagementFactory', '$uibModalInstance', '$uibModal', 'picItem', function ($scope, $window, $picManagementFactory, $uibModalInstance, $uibModal, picItem) {
         let vm = this;
+        vm.isDiabled = false;
         vm.roleInsertOptions = null;
         vm.communicationToolsInsertOptions = null;
         vm.countryOptions = null;
@@ -16,11 +10,11 @@
 
         // start muilti select
         vm.textSettings = {
-            Filter: 'Search',
-            NoData: 'No data',
-            NoItemChecked: 'Select',
-            AllItemsSelected: 'All',
-            CheckAll: 'All'
+            Filter: viewResources.Search,
+            NoData: viewResources.NoData,
+            NoItemChecked: viewResources.Selected,
+            AllItemsSelected: viewResources.All,
+            CheckAll: viewResources.All
         };
 
         vm.getSelectedLanguages = function (stringLanguages, data) {
@@ -46,11 +40,11 @@
         };
 
         vm.communicationToolItems = picItem.CommunicationTools && picItem.CommunicationTools.length > 0 ? picItem.CommunicationTools.map(tool => { return { Type: tool.SettingId, Value: tool.Value } }) : [
-            { Type: -1, Value: "" }
+            { Type: -1, Value: '' }
         ]
 
         vm.oldCommunicationToolItems = picItem.CommunicationTools && picItem.CommunicationTools.length > 0 ? picItem.CommunicationTools.map(tool => { return { Type: tool.SettingId, Value: tool.Value } }) : [
-            { Type: -1, Value: "" }
+            { Type: -1, Value: '' }
         ]
 
         vm.initController = function () {
@@ -59,7 +53,7 @@
         };
 
         vm.getAllSetting = function () {
-            vm.BlockUI();
+            vm.isDiabled = true;
             $picManagementFactory.getAllSetting()
                 .then(function (data) {
                     let allSetting = data.Result;
@@ -81,9 +75,9 @@
                     };
 
                     vm.countryOptions.DataList = allSetting.Countries;
-                    vm.unblockUI();
+                    vm.isDiabled = false;
                 }, function () {
-                    vm.unblockUI();
+                    vm.isDiabled = false;
                 });
         };
 
@@ -126,12 +120,8 @@
             vm.insertParams.Country = selectedItem.Name;
         }
 
-        vm.completedLoadFilterInfo = function () {
-            vm.unblockUI();
-        };
-
         vm.savePic = function () {
-            vm.BlockUI();
+            vm.isDiabled = true;
 
             let communicationToolItems = [];
             for (let index = 0; index < vm.communicationToolItems.length; index++) {
@@ -154,17 +144,19 @@
                 Country: vm.insertParams.Country
             };
 
-            if (vm.validateParams(criteria) === '') {
+            let message = vm.validateParams(criteria);
+            if (message === '') {
                 vm.messageResultOptions = new MessageResult('', false, false);
 
                 $picManagementFactory.editPic(criteria)
                     .then(function (data) {
                         vm.showInsertResult(data.Result);
                     }, function () {
-                        vm.unblockUI();
+                        vm.isDiabled = false;
                     });
             } else {
-                vm.messageResultOptions = new MessageResult('', true, false)
+                vm.isDiabled = false;
+                vm.messageResultOptions = new MessageResult(message, true, false)
             }
         };
 
@@ -185,9 +177,8 @@
         }
 
         vm.showInsertResult = function (result) {
-            vm.unblockUI();
-
             if (result.Code !== 0) {
+                vm.isDiabled = false;
                 vm.messageResultOptions = new MessageResult(result.Message, true, false);
                 return;
             }
@@ -279,29 +270,20 @@
             vm.issetfocus = true;
         };
 
-        vm.unblockUI = function () {
-            try {
-                if (parent && parent.$.unblockUI) {
-                    parent.$.unblockUI();
-                }
-            } catch (e) {
-            }
-
-            hotKeyManager.CachedData.isBlockingUI = false;
-        };
-
-        vm.BlockUI = function () {
-            hotKeyManager.CachedData.isBlockingUI = true;
-            try {
-                if (parent && parent.BlockUI) {
-                    parent.BlockUI();
-                }
-            } catch (e) {
-            }
-        };
-
         angular.element(document).ready(function () {
             vm.initController();
+        });
+
+        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+            if (!vm.isDiabled && eventObject.ctrlKey) {
+                switch (eventObject.keyCode) {
+                    case 83: // s
+                        vm.savePic();
+                        $scope.$apply();
+                        eventObject.preventDefault();
+                        return false;
+                }
+            }
         });
     }]);
 })();

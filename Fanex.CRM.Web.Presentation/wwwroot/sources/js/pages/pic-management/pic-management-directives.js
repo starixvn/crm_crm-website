@@ -19,8 +19,7 @@
 
             directiveManager.registerDefaultFocus(angular.module('pic-management-application'), defaultFocusRegisterParams);
         };
-
-        var picRegister = new RegisterTemplate(angular.module('pic-management-application'));
+        
         picRegister.registerCommunicationTool = function () {
             var communicationToolRegisterParams = {
                 PlugInName: 'communicationToolPickerContainer',

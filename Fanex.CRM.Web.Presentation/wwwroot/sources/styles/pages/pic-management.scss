@@ -28,8 +28,6 @@ $fanex-grid-images-path: '../images';
 
 .modal {
     .communication-tools {
-        padding-top: 3px;
-
         .remove-tool {
             color: #FF0000;
         }
@@ -40,7 +38,7 @@ $fanex-grid-images-path: '../images';
 
         span {
             display: inline-block;
-            font-size: 13px;
+            font-size: 15px;
             margin-left: 5px;
             cursor: pointer;
         }
@@ -82,4 +80,8 @@ $fanex-grid-images-path: '../images';
 
 .table-cell {
     white-space: pre-wrap;
+}
+
+multileveldropdowntree span.input-group-btn {
+    display: none;
 }

@@ -37,7 +37,7 @@ namespace Fanex.CRM.Controllers
         public ActionResult Index()
         {
             ViewBag.IsHost = HasHostPermission(FunctionPermissions.PICManagement);
-            return View("~/Areas/PicAndHeadline/PicManagement/ViewList/Index.cshtml");
+            return View("~/Areas/PicAndHeadline/PicManagement/Index.cshtml");
         }
 
         [HttpPost]
@@ -73,11 +73,6 @@ namespace Fanex.CRM.Controllers
             excel.BuildWorkBook();
         }
 
-        public ActionResult OpenInsertPic()
-        {
-            return View("~/Areas/PicAndHeadline/PicManagement/InsertPic/Index.cshtml");
-        }
-
         [HttpPost]
         public ActionResult InsertPic(InsertPicCriteria criteria)
         {
@@ -85,47 +80,11 @@ namespace Fanex.CRM.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult OpenChangePicState(ChangePicStateCriteria criteria)
-        {
-            return View("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Index.cshtml", criteria);
-        }
-
         [HttpPost]
         public JsonResult ChangePicState(ChangePicStateCriteria criteria)
         {
             CommandResult result = _picReportService.ChangePicState(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult OpenEditPic(
-            int picId,
-            string username,
-            string role,
-            string language,
-            string country,
-            string remark,
-            IEnumerable<Dictionary<string, string>> communicationTools)
-        {
-            var comTools = communicationTools == null ?
-                new List<PicCommunicationTool> { new PicCommunicationTool { Type = -1, Value = string.Empty } } :
-                communicationTools.Select(c => new PicCommunicationTool
-                {
-                    Type = int.Parse(c["SettingId"]),
-                    Value = c["Value"]
-                });
-
-            var criteria = new EditPicCriteria
-            {
-                PicId = picId,
-                Username = username,
-                Role = role,
-                Language = language,
-                Country = country,
-                Remark = remark,
-                CommunicationTools = comTools
-            };
-
-            return View("~/Areas/PicAndHeadline/PicManagement/EditPic/Index.cshtml", criteria);
         }
 
         [HttpPost]

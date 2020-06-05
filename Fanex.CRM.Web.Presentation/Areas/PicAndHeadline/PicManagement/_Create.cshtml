@@ -6,10 +6,10 @@
         <span class="icon-close fa fa-times" ng-click="picInsertCtrl.close()"></span>
     </div>
     <div class="modal-body">
-        <div class="row row-item" ng-show="picInsertCtrl.messageResultOptions.IsShowMessage">
+        <div class="row" ng-show="picInsertCtrl.messageResultOptions.IsShowMessage">
             <div class="alertbox{{ picInsertCtrl.messageResultOptions.IsSuccess ? 'scc' : 'err' }}"><div>{{picInsertCtrl.messageResultOptions.Message}}</div></div>
         </div>
-        <div class="row item">
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
                     @Labels.Username
@@ -20,7 +20,7 @@
                 <input class="width100" name="username" autocomplete="off" ng-model="picInsertCtrl.insertParams.Username" />
             </div>
         </div>
-        <div class="row item">
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
                     @Labels.Role
@@ -31,7 +31,7 @@
                 <select id="role"></select>
             </div>
         </div>
-        <div class="row item">
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
                     @Labels.Language
@@ -46,7 +46,7 @@
                                         ng-on-checkall="picInsertCtrl.languageChangedHandler()" />
             </div>
         </div>
-        <div class="row item">
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
                     @Labels.Country
@@ -58,7 +58,7 @@
                 <select id="country"></select>
             </div>
         </div>
-        <div class="row item">
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
                     @Labels.Remark
@@ -68,7 +68,7 @@
                 <textarea rows="4" type="text" id="remark" ng-model="picInsertCtrl.insertParams.Remark"></textarea>
             </div>
         </div>
-        <div class="row item" ng-repeat="x in picInsertCtrl.communicationToolItems">
+        <div class="row" ng-repeat="x in picInsertCtrl.communicationToolItems">
             <div class="col-xs-3 col-sm-3 col-md-2">
                 <div class="communication-tool-picker-container" select-options="picInsertCtrl.communicationToolsInsertOptions" on-change-event="picInsertCtrl.updateSelectedCommunicationTool(target, selectedItem)" target="x" selected-value="x.Type">
                     <select id="communication-tool"></select>
@@ -82,12 +82,12 @@
                 <input placeholder="Separated by ',' for multiple contact info" type="text" data-ng-model="x.Value" autocomplete="off" />
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 communication-tools">
-                <span ng-if="$index != 0" title="Remove" class="remove-tool fa fa-close" data-ng-click="picInsertCtrl.removeCommunicationTool(this);"></span>
-                <span ng-if="$index == (picInsertCtrl.communicationToolItems.length - 1)" title="Add" class="add-tool fa fa-plus" data-ng-click="picInsertCtrl.addCommunicationTool();"></span>
+                <span ng-if="$index != 0" title="Remove" class="remove-tool" data-ng-click="picInsertCtrl.removeCommunicationTool(this);">x</span>
+                <span ng-if="$index == (picInsertCtrl.communicationToolItems.length - 1)" title="Add" class="add-tool" data-ng-click="picInsertCtrl.addCommunicationTool();">+</span>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" ng-click="picInsertCtrl.savePic()" ng-disabled="picInsertCtrl.isDiableInsert">
+            <button class="btn" ng-click="picInsertCtrl.savePic()" ng-disabled="picInsertCtrl.isDiabled">
                 <span class="hotkey">S</span>ave
             </button>
             <button class="btn" ng-click="picInsertCtrl.close()">@Labels.Cancel</button>
