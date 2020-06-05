@@ -74,8 +74,8 @@
                 }
                 else
                 {
-                    isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
-                    if (!isRunning && setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
+                    //// isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                    if (setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
                     {
                         mlogger.LogInformation("Rerun service.");
                         var settingJobStatus = new List<SystemSettingItem>
