@@ -548,6 +548,8 @@
     <Content Include="wwwroot\dist\styles\main.js" />
     <Content Include="wwwroot\dist\styles\manage.feedback.css" />
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
+    <Content Include="wwwroot\dist\styles\pic.management.css" />
+    <Content Include="wwwroot\dist\styles\pic.management.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\delete-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\edit-commtool-setting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\commtool-setting\create\create-commtool-setting-controller.js" />
@@ -1588,6 +1590,7 @@
     <Content Include="wwwroot\sources\styles\pages\pic-management.scss" />
     <Content Include="wwwroot\sources\styles\components\customize-multi-select.scss" />
     <Content Include="wwwroot\dist\js\pic.management.js.map" />
+    <Content Include="wwwroot\dist\styles\pic.management.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
