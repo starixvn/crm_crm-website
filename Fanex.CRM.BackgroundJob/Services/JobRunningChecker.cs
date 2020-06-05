@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Repositories;
-    using Microsoft.Extensions.Logging;
 
     public interface IJobRunningChecker
     {
@@ -16,17 +15,13 @@
     public class JobRunningChecker : IJobRunningChecker
     {
         private readonly IRedisRepository redisRepository;
-        private readonly ILogger mlogger;
         private const string NAME_SPACE = "RunningJobs";
         private const string TRUE = "true";
         private const string FALSE = "false";
 
-        public JobRunningChecker(
-            IRedisRepository redisRepository,
-            ILogger<JobRunningChecker> mlogger)
+        public JobRunningChecker(IRedisRepository redisRepository)
         {
             this.redisRepository = redisRepository;
-            this.mlogger = mlogger;
         }
 
         public async Task<bool> IsRunning(string jobName)
@@ -37,13 +32,11 @@
 
         public async Task MarkRunning(string jobName)
         {
-            mlogger.LogInformation(jobName + ": Running");
             await redisRepository.Set(GetKey(jobName), TRUE);
         }
 
         public async Task ClearRunning(string jobName)
         {
-            mlogger.LogInformation(jobName + ": Completed");
             await redisRepository.Set(GetKey(jobName), FALSE);
         }
 

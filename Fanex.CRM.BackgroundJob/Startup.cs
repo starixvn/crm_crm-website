@@ -166,8 +166,10 @@
             services.AddScoped<IDynamicRepository, DynamicRepository>();
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICRMLogService, CRMLogService>();
             services.AddScoped<IJobRunningChecker, JobRunningChecker>();
             services.AddScoped<IBaseService, BaseService>();
+            services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IBackgroundService, BackgroundService>();

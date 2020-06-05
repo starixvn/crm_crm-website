@@ -5,8 +5,6 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;
-    using Fanex.Logging.Extensions;
-    using Fanex.Logging.Extensions.Database;
     using Hangfire;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -24,8 +22,8 @@
         private readonly IJobRunningChecker jobRunningChecker;
         private readonly ISystemSettingService systemSettingService;
         private readonly IFeedbackService feedbackService;
+        private readonly ICRMLogService logService;
         private readonly ILogger mlogger;
-        private readonly Logging.ILogger logger;
 
         public BackgroundService(
             IOptionsSnapshot<AppSettings> appSettings,
@@ -33,16 +31,16 @@
             IJobRunningChecker jobRunningChecker,
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,
-            ILogger<BackgroundService> mlogger,
-            Logging.ILogger logger)
+            ICRMLogService logService,
+            ILogger<BackgroundService> mlogger)
         {
             this.appSettings = appSettings.Value;
             this.maintenanceService = maintenanceService;
             this.jobRunningChecker = jobRunningChecker;
             this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
+            this.logService = logService;
             this.mlogger = mlogger;
-            this.logger = logger;
         }
 
         [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -93,7 +91,7 @@
             {
                 mlogger.LogInformation(ex.Message);
                 await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
-                await WriteLogAsync(ex);
+                await logService.ErrorAsync(ex);
             }
         }
 
@@ -101,16 +99,6 @@
         {
             var maintanceTime = await maintenanceService.GetUnderMaintenanceTimeAsync();
             return maintanceTime.IsUnderMaintenanceTime;
-        }
-
-        private async Task WriteLogAsync(Exception exception)
-        {
-            var logMessage = new LogMessage(exception.Message)
-                       .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
-                       .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
-                       .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
-                       .ToString();
-            await logger.ErrorAsync(logMessage);
         }
     }
 }

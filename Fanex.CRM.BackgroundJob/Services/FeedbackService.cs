@@ -10,12 +10,8 @@
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
-    using Fanex.Data.Repository;
-    using Fanex.Logging.Extensions;
-    using Fanex.Logging.Extensions.Database;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Newtonsoft.Json;
 
     public interface IFeedbackService
     {
@@ -27,24 +23,27 @@
         private readonly AppSettings appSettings;
         private readonly ICustomerRepository customerRepository;
         private readonly IBaseService baseService;
+        private readonly ISettingService settingService;
         private readonly ISystemSettingService systemSettingService;
         private readonly ILogger mlogger;
-        private readonly Logging.ILogger logger;
+        private readonly ICRMLogService logService;
 
         public FeedbackService(
             IOptionsSnapshot<AppSettings> appSettings,
             ICustomerRepository customerRepository,
+            ICRMLogService logService,
             IBaseService baseService,
+            ISettingService settingService,
             ISystemSettingService systemSettingService,
-            ILogger<FeedbackService> mlogger,
-            Logging.ILogger logger)
+            ILogger<FeedbackService> mlogger)
         {
             this.appSettings = appSettings.Value;
             this.customerRepository = customerRepository;
+            this.logService = logService;
             this.baseService = baseService;
+            this.settingService = settingService;
             this.systemSettingService = systemSettingService;
             this.mlogger = mlogger;
-            this.logger = logger;
         }
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
@@ -61,10 +60,10 @@
             if (messages.Any())
             {
                 var messageIds = string.Join(",", messages.Select(x => x.MessageId));
-                mlogger.LogInformation(string.Format("Begin create feedback for messages: {0}", messageIds));
+                mlogger.LogInformation(string.Format("Create feedback for messages: {0}", messageIds));
 
                 var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
-                IEnumerable<SettingItem> settings = await GetAllSettingAsync();
+                IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
                 IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
                 IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
                 CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
@@ -91,7 +90,6 @@
                     Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
                     IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
                     IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
-                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}", message.MessageId));
                     if (credits.Any())
                     {
                         await CreateFeedbackForCreditSiteAsync(
@@ -202,25 +200,6 @@
             return await customerRepository.GetCustomerInfoByUsernameAsync(criteria);
         }
 
-        private async Task<IEnumerable<SettingItem>> GetAllSettingAsync()
-        {
-            var criteria = new GetAllSettingCriteria { UserRole = Constants.UserRole };
-            var settings = (await baseService.GetDataAsync<SettingItem>(criteria)).Where(x => x.IsActive);
-            IEnumerable<SettingItem> relations = await GetAllSettingRelationAsync();
-            foreach (SettingItem setting in settings)
-            {
-                setting.ParentIds = relations.Where(x => x.SettingId == setting.SettingId).Select(x => x.ParentId);
-            }
-
-            return settings;
-        }
-
-        private async Task<IEnumerable<SettingItem>> GetAllSettingRelationAsync()
-        {
-            var criteria = new GetAllSettingRelationCriteria { UserRole = Constants.UserRole };
-            return await baseService.GetDataAsync<SettingItem>(criteria);
-        }
-
         private async Task CreateFeedbackForCreditSiteAsync(
             Message message,
             MatchInfo matchInfo,
@@ -229,6 +208,7 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
+            mlogger.LogInformation("Begin mapping common setting for MessageId: " + message.MessageId);
             var timeSpan = new TimeSpan(appSettings.TimeSpan, 0, 0);
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var status = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Status, StringComparison.OrdinalIgnoreCase)
@@ -260,6 +240,7 @@
                 AutoField3 = $"{Environment.NewLine}System ID: ",
                 Description = GetDescription(matchInfo)
             };
+            mlogger.LogInformation("End mapping common setting for MessageId: " + message.MessageId);
 
             var headlineIds = headlines.Select(x => x.HeadlineId).Distinct();
             foreach (var headlineId in headlineIds)
@@ -289,13 +270,29 @@
             for (int i = 0; i < totalBatch; i++)
             {
                 List<int> batch = relatedCustomerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
-                var transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
 
+                mlogger.LogInformation(string.Format("Begin mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                    message.MessageId,
+                    headline.HeadlineId,
+                    string.Join(",", batch)));
+
+                var transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
                 criteria.ProductXml = GetProductXml(matchInfo, transactions, settings, settingMappings);
                 criteria.Solution = GetSolution(message, transactions);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
+                criteria.MessageId = message.MessageId;
+                criteria.ListOrigCustIds = string.Join(",", batch);
+
+                mlogger.LogInformation(string.Format("End mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                    message.MessageId,
+                    headline.HeadlineId,
+                    string.Join(",", batch)));
                 try
                 {
+                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                        message.MessageId,
+                        headline.HeadlineId,
+                        string.Join(",", batch)));
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
@@ -303,7 +300,6 @@
                             message.MessageId,
                             headline.HeadlineId,
                             string.Join(",", batch)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Completed, string.Empty);
                     }
                     else
                     {
@@ -312,9 +308,8 @@
                             message.MessageId,
                             headline.HeadlineId,
                             string.Join(",", batch)));
-                        mlogger.LogInformation(commandResult.Message, message.MessageId, string.Join(",", batch));
                         await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
-                        await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                        await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
                 catch (Exception ex)
@@ -325,7 +320,7 @@
                         headline.HeadlineId,
                         string.Join(",", batch)));
                     await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, ex.Message);
-                    await WriteLogAsync(ex);
+                    await logService.ErrorAsync(ex);
                 }
             }
         }
@@ -338,6 +333,7 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
+            mlogger.LogInformation("Begin mapping setting for MessageId: " + message.MessageId);
             var timeSpan = new TimeSpan(appSettings.TimeSpan, 0, 0);
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var communicationTool = GetCommunicationTool(settings);
@@ -373,6 +369,7 @@
                 TitleId = licenseeInfo.TitleId,
                 SiteId = licenseeInfo.SiteId
             };
+            mlogger.LogInformation("End mapping setting for MessageId: " + message.MessageId);
 
             await CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
         }
@@ -397,8 +394,15 @@
 
                 criteria.RelatedCustId = string.Join(", ", batch.Where(x => x != 0).Select(x => x));
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
+                criteria.MessageId = message.MessageId;
+                criteria.ListOrigCustIds = string.Join(",", custIds);
                 try
                 {
+                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
+                            message.MessageId,
+                            licenseeInfo.CustId,
+                            string.Join(",", batch),
+                            string.Join(",", custIds)));
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
@@ -408,7 +412,6 @@
                             licenseeInfo.CustId,
                             string.Join(",", batch),
                             string.Join(",", custIds)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Completed, string.Empty);
                     }
                     else
                     {
@@ -419,7 +422,7 @@
                             string.Join(",", batch),
                             string.Join(",", custIds)));
                         await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
-                        await WriteLogCreateFeedbackUnsuccessfulAsync(commandResult, criteria);
+                        await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
                 catch (Exception ex)
@@ -431,7 +434,7 @@
                         string.Join(",", batch),
                         string.Join(",", custIds)));
                     await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
-                    await WriteLogAsync(ex);
+                    await logService.ErrorAsync(ex);
                 }
             }
         }
@@ -643,24 +646,6 @@
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
-        }
-
-        private async Task WriteLogAsync(Exception exception)
-        {
-            var logMessage = new LogMessage(exception.Message)
-                       .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
-                       .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
-                       .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
-                       .ToString();
-            await logger.ErrorAsync(logMessage);
-        }
-
-        private async Task WriteLogCreateFeedbackUnsuccessfulAsync(CommandResult commandResult, ICriteria criteria)
-        {
-            var logMessage = new LogMessage(string.Format("{0}: {1}", commandResult.Code, commandResult.Message))
-                       .AddMessage(JsonConvert.SerializeObject(criteria, Formatting.Indented))
-                       .ToString();
-            await logger.ErrorAsync(logMessage);
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
