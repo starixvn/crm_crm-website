@@ -243,6 +243,16 @@
 					}
 				};
 
+				$(document).off('keydown').on('keydown', function (eventObject) {
+					if (eventObject.ctrlKey) {
+						if (eventObject.keyCode === 83) {  //s
+							$scope.validatePicAssignment();
+							eventObject.preventDefault();
+							return false;
+						}
+					}
+				});
+
 				angular.element(document).ready(function () {
 					$picOfHeadlineService.GetAssignPICSettings().then(function (data) {
 						var settings = data.Result;

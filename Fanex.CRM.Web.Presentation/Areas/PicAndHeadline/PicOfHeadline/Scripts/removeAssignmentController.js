@@ -21,11 +21,12 @@
 					$scope.removeAssignmentData = [];
 				};
 
-				$scope.onSelectAssignment = function ($event, headlineId, custId, picId) {
+				$scope.onSelectAssignment = function ($event, headlineId, custId, picId, picName) {
+					console.log($scope.selectedAssignment);
 					let index = $scope.selectedAssignment.findIndex(assignment =>
 						assignment.HeadlineId === headlineId &&
 						assignment.CustId === custId &&
-						assignment.PicName === picId);
+						assignment.PicName === picName);
 					$scope.selectedAssignment[index].IsSelected = $event.currentTarget.checked;
 
 					$scope.handleRemoveAllBtnState();
@@ -56,15 +57,15 @@
 					});
 				};
 
-				$scope.onClickPicNameChkbox = function ($event, picId) {
+				$scope.onClickPicNameChkbox = function ($event, picId, picName) {
 					for (var i = 0; i < $scope.selectedAssignment.length; i++) {
 						let assignment = $scope.selectedAssignment[i];
-						if (assignment.PicId === picId) {
+						if (assignment.PicName === picName) {
 							assignment.IsSelected = $event.currentTarget.checked;
 						}
 					}
 
-					const chckboxs = angular.element(document).find(`.chil-chkbox-${picId}`);
+					const chckboxs = angular.element(document).find(`.child-chkbox-${picId}`);
 					for (var j = 0; j < chckboxs.length; j++) {
 						chckboxs[j].checked = $event.currentTarget.checked;
 					}
@@ -111,5 +112,15 @@
 						$scope.getPICAssignment();
 					});
 				};
+
+				$(document).off('keydown').on('keydown', function (eventObject) {
+					if (eventObject.ctrlKey) {
+						if (eventObject.keyCode === 77) {  //m
+							$scope.openConfirmRemoveAssignmentModal();
+							eventObject.preventDefault();
+							return false;
+						}
+					}
+				});
 			}]);
 })();

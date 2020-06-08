@@ -294,4 +294,7 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="ConfirmRemovePICAssignment" xml:space="preserve">
+    <value>Confirm Remove PIC Assignment</value>
+  </data>
 </root>

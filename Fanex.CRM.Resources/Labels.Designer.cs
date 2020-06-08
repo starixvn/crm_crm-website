@@ -169,6 +169,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Remove PIC Assignment.
+        /// </summary>
+        public static string ConfirmRemovePICAssignment {
+            get {
+                return ResourceManager.GetString("ConfirmRemovePICAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         public static string Contact {

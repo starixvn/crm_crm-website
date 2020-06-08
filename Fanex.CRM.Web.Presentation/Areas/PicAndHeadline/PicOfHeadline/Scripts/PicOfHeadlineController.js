@@ -378,6 +378,29 @@
 					$scope.openAssignModal(headlineId, accounts);
 				};
 
+				$(document).off('keydown').on('keydown', function (eventObject) {
+					if (eventObject.keyCode === 13) // enter
+					{
+						$scope.getPICAssignment();
+						eventObject.preventDefault();
+						return false;
+					}
+
+					if (eventObject.ctrlKey) {
+						switch (eventObject.keyCode) {
+							case 83: // s
+								$scope.getPICAssignment();
+								eventObject.preventDefault();
+								return false;
+
+							case 73: // i
+								$scope.openAssignModal();
+								eventObject.preventDefault();
+								return false;
+						}
+					}
+				});
+
 				angular.element(document).ready(function () {
 					$scope.initController();
 					const parentHead = $window.parent.$('head');
