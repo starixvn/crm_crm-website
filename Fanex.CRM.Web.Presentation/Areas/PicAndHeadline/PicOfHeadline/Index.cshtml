@@ -109,6 +109,14 @@
                             </label>
                         </div>
                     </div>
+                    <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div data-ng-class="alertboxerr" class="alertboxerr">
+                                <div>{{validateFilterMessage.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row row-item">
                         <button class="btn" type="submit">@Labels.Submit</button>
                         <button class="btn" ng-click="openAssignModal()">@Labels.AssignPIC</button>

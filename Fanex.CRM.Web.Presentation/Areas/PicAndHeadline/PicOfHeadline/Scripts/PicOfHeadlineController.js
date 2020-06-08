@@ -10,6 +10,7 @@
 	angular.module('picofheadline-application').controller('picOfHeadlineController',
 		['$scope', '$window', '$picOfHeadlineService', '$uibModal',
 			function ($scope, $window, $picOfHeadlineService, $uibModal) {
+				$scope.validateFilterMessage = { isShowErrMsg: false, message: '' };
 				$scope.siteOptions = null;
 				$scope.statusOptions = null;
 				$scope.positionOptions = null;
@@ -57,6 +58,7 @@
 					$scope.defaultFocusOptions.IsSetFocus = true;
 					$scope.$apply();
 				};
+
 				$scope.initPicker = function () {
 					$scope.siteOptions = {
 						DataList: [],
@@ -96,6 +98,7 @@
 						OnChangeEvent: $scope.updateSelectedStatus
 					};
 				};
+
 				$scope.getAllSetting = function () {
 					$scope.BlockUI();
 					$scope.isLoadedAllSite = false;
@@ -115,6 +118,7 @@
 							$scope.completedLoadFilterInfo();
 						});
 				};
+
 				$scope.completedLoadFilterInfo = function () {
 					$scope.unblockUI();
 				};
@@ -157,7 +161,13 @@
 				};
 
 				$scope.getPICAssignment = function () {
-					if (!$scope.validateFilterParams()) {
+					const validation = $scope.validateFilterParams();
+					$scope.validateFilterMessage = {
+						isShowErrMsg: !validation.isValid,
+						message: validation.errMsg
+					};
+
+					if (!validation.isValid) {
 						return;
 					}
 
@@ -193,8 +203,21 @@
 				};
 
 				$scope.validateFilterParams = function () {
-					let isValid = true;
-					return isValid;
+					var criteria = $scope.searchCriteria;
+
+					if (criteria.Site === '') {
+						return { isValid: false, errMsg: 'Please choose Site!' };
+					}
+
+					if (criteria.Currency === '') {
+						return { isValid: false, errMsg: 'Please choose Currency!' };
+					}
+
+					if (criteria.Status === '') {
+						return { isValid: false, errMsg: 'Please choose Status!' };
+					}
+
+					return { isValid: true, errMsg: '' };
 				};
 
 				$scope.pagingCustomerReport = function (pageIndex, pageSize) {

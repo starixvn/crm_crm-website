@@ -26,7 +26,7 @@
 			if (reportLength > 0) {
 				for (var i = 0; i < reportLength; i++) {
 					var assignment = gridData.Items[i];
-					var columns = [{ Name: "ColNo", Value: i + 1 }];
+					var columns = [{ Name: "ColNo", Value: assignment.RowNum + 1 }];
 
 					if (mergeHeadline === 0) {
 						mergeHeadline = gridData.Items.filter(item => item.HeadlineID === assignment.HeadlineID).length;

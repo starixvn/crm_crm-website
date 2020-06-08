@@ -188,9 +188,11 @@ namespace Fanex.CRM.Controllers
         private static IEnumerable<PICAssignmentInfo> GeneratePicList(IEnumerable<PICAssignmentInfo> assignments, int pageIndex, int pageSize)
         {
             var index = 0;
-            foreach (var assignment in assignments)
+            var result = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount).ToList();
+
+            foreach (var assignment in result)
             {
-                assignment.RowNum = index + (pageIndex > 1 ? pageIndex * pageSize : 0);
+                assignment.RowNum = index + (pageIndex > 1 ? (pageIndex - 1) * pageSize : 0);
                 index++;
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
@@ -201,8 +203,6 @@ namespace Fanex.CRM.Controllers
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
                 }
             }
-
-            var result = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount).ToList();
 
             return result;
         }
