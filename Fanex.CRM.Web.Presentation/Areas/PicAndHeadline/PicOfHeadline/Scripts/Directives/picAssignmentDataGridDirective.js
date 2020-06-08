@@ -73,7 +73,7 @@
 						columns.push(
 							{
 								Name: "ColAction",
-								Value: `<input class='item-remove-assign' data-row-index='${i + 1}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>`,
+								Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>`,
 								TdClass: tdClass
 							}
 						);

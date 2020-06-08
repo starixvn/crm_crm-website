@@ -21,15 +21,15 @@
 					$scope.removeAssignmentData = [];
 				};
 
-				$scope.onSelectAssignment = function ($event, headlineId, custId, picName) {
+				$scope.onSelectAssignment = function ($event, headlineId, custId, picId) {
 					let index = $scope.selectedAssignment.findIndex(assignment =>
 						assignment.HeadlineId === headlineId &&
 						assignment.CustId === custId &&
-						assignment.PicName === picName);
+						assignment.PicName === picId);
 					$scope.selectedAssignment[index].IsSelected = $event.currentTarget.checked;
 
 					$scope.handleRemoveAllBtnState();
-					$scope.handlePicNameChkboxState(picName);
+					$scope.handlePicNameChkboxState(picId);
 				};
 
 				$scope.removeAssignment = function () {
@@ -56,15 +56,15 @@
 					});
 				};
 
-				$scope.onClickPicNameChkbox = function ($event, picName) {
+				$scope.onClickPicNameChkbox = function ($event, picId) {
 					for (var i = 0; i < $scope.selectedAssignment.length; i++) {
 						let assignment = $scope.selectedAssignment[i];
-						if (assignment.PicName === picName) {
+						if (assignment.PicId === picId) {
 							assignment.IsSelected = $event.currentTarget.checked;
 						}
 					}
 
-					const chckboxs = angular.element(document).find(`.chkbox-${picName}`);
+					const chckboxs = angular.element(document).find(`.chil-chkbox-${picId}`);
 					for (var j = 0; j < chckboxs.length; j++) {
 						chckboxs[j].checked = $event.currentTarget.checked;
 					}
@@ -80,15 +80,15 @@
 					}
 				};
 
-				$scope.handlePicNameChkboxState = function (picName) {
+				$scope.handlePicNameChkboxState = function (picId) {
 					let isCheck = true;
-					const chckboxs = angular.element(document).find(`.chkbox-${picName}`);
+					const chckboxs = angular.element(document).find(`.child-chkbox-${picId}`);
 					for (var i = 0; i < chckboxs.length; i++) {
 						if (!chckboxs[i].checked) {
 							isCheck = false;
 						}
 					}
-					angular.element(document).find(`#${picName}`)[0].checked = isCheck;
+					angular.element(document).find(`#parent-chkbox-${picId}`)[0].checked = isCheck;
 				};
 
 				$scope.openConfirmRemoveAssignmentModal = function () {

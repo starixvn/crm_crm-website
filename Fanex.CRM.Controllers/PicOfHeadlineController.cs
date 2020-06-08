@@ -157,12 +157,12 @@ namespace Fanex.CRM.Controllers
             criteria.PicName = criteria.PicName ?? string.Empty;
             criteria.DirectAccount = criteria.DirectAccount ?? string.Empty;
             criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
-            var data = _baseService.GetData<PICAssignmentInfo>(criteria);
-            GeneratePicList(data);
+            var rawData = _baseService.GetData<PICAssignmentInfo>(criteria);
+            var assignments = GeneratePicList(rawData, criteria.PageIndex, criteria.PageSize);
             bool IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
             var response = new
             {
-                Items = data.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount),
+                Items = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount),
                 Total = criteria.TotalRows,
                 TotalUnassignedDirectAccount = criteria.TotalUnassigned,
                 IsHost
@@ -177,18 +177,21 @@ namespace Fanex.CRM.Controllers
             criteria.DirectAccount = criteria.DirectAccount ?? string.Empty;
             criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
             var picInfo = _baseService.GetData<PICAssignmentInfo>(criteria);
-            GeneratePicList(picInfo);
+            var data = GeneratePicList(picInfo, criteria.PageIndex, criteria.PageSize);
 
-            var reportData = MappingReportData(picInfo);
+            var reportData = MappingReportData(data);
 
             var excel = new PICAssignmentExportExcel(reportData, Labels.PicAssignment);
             excel.BuildWorkBook();
         }
 
-        private static void GeneratePicList(IEnumerable<PICAssignmentInfo> assignments)
+        private static IEnumerable<PICAssignmentInfo> GeneratePicList(IEnumerable<PICAssignmentInfo> assignments, int pageIndex, int pageSize)
         {
+            var index = 0;
             foreach (var assignment in assignments)
             {
+                assignment.RowNum = index + (pageIndex > 1 ? pageIndex * pageSize : 0);
+                index++;
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<PicModel>), new XmlRootAttribute("ROOT"));
@@ -198,6 +201,10 @@ namespace Fanex.CRM.Controllers
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
                 }
             }
+
+            var result = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount).ToList();
+
+            return result;
         }
 
         private IEnumerable<GroupHeadlineOfPic> MappingReportData(IEnumerable<PICAssignmentInfo> assignments)
