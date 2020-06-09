@@ -16,6 +16,5 @@ import './pic-change-confirm-controller';
 import './pic-change-state-controller';
 
 // directives
-import './report-container';
-import './single-select-directive';
+import './report-container-directive';
 import './pic-management-directives';

@@ -598,9 +598,7 @@
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-controller.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-directives.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\register-shared-directives.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\report-container.js" />
-    <Content Include="wwwroot\sources\js\pages\pic-management\single-select-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />

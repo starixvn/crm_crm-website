@@ -219,14 +219,6 @@
             }
         };
 
-        $scope.invokeHotKey_CtrlS = function () {
-            $scope.getReport();
-        };
-
-        $scope.invokeHotKey_CtrlI = function () {
-            $scope.insertPic();
-        };
-
         $scope.exportReport = function () {
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + "PicManagement/ExportExcel",
@@ -241,11 +233,6 @@
 
             const style = $('head link[href*="pic.management.css"]').clone();
             $window.parent.$('head').append(style);
-
-            hotKeyManager.CachedData.ActiveDocumentManager.push({
-                Value: $scope,
-                Id: 'PicManagement'
-            });
         });
 
         $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
