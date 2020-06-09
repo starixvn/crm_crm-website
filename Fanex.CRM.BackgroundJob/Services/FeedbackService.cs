@@ -80,7 +80,7 @@
 
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
-                    mlogger.LogInformation(string.Format("Ticket don't have info or created: {0}", string.Join(",", messageIds)));
+                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
                     await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
                     return;
                 }
