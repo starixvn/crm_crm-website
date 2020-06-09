@@ -38,6 +38,10 @@
         public string IP { get; set; } = string.Empty;
         public int NoInquiries { get; set; }
         public bool IsOverwrite { get; set; }
+
+        public int MessageId { get; set; }
+        public string ListOrigCustIds { get; set; }
+
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 

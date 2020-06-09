@@ -22,6 +22,7 @@
 
         // use in case apply default communication tool
         public string AutoField1 { get; set; }
+
         public string AutoField2 { get; set; }
         public string AutoField3 { get; set; }
 
@@ -51,6 +52,9 @@
         public string RelatedCustomerXml { get; set; }
 
         public bool IsReviewed { get; set; }
+
+        public int MessageId { get; set; }
+        public string ListOrigCustIds { get; set; }
 
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
