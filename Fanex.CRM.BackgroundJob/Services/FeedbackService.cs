@@ -382,15 +382,15 @@
             string communicationTool,
             CreateFeedbackCriteria criteria)
         {
-            IEnumerable<int> licenseeManagerIds = transactionInfos.Select(x => x.LicenseeManagerId).Distinct();
+            IList<int> licenseeManagerIds = transactionInfos.Select(x => x.LicenseeManagerId).Distinct().ToList();
             int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
             int totalBatch = (int)Math.Ceiling((double)licenseeManagerIds.Count() / itemEachBatch);
             for (int i = 0; i < totalBatch; i++)
             {
-                IEnumerable<int> batch = licenseeManagerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
-                IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.LicenseeManagerId));
-                IEnumerable<string> licenseeManagers = transactions.Where(x => x.LicenseeManagerId != 0).Select(x => x.LicenseeManager).Distinct();
-                IEnumerable<int> custIds = transactions.Select(x => x.CustId).Distinct();
+                IList<int> batch = licenseeManagerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
+                IList<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.LicenseeManagerId)).ToList();
+                IList<string> licenseeManagers = transactions.Where(x => x.LicenseeManagerId != 0).Select(x => x.LicenseeManager).Distinct().ToList();
+                IList<int> custIds = transactions.Select(x => x.CustId).Distinct().ToList();
 
                 criteria.RelatedCustId = string.Join(", ", batch.Where(x => x != 0).Select(x => x));
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
@@ -464,21 +464,22 @@
             return communication != null ? communication.SettingId.ToString() : Constants.CommunicationNA.ToString();
         }
 
-        private static string GetProductXml(
+        private string GetProductXml(
             MatchInfo matchInfo,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
+            mlogger.LogInformation("Begin mapping product, sub-product, bet type.");
             const string XmlTemplate = "<Product ProductID='{0}' SubProductID='{1}' BetTypeID='{2}' />";
             SettingItem sportsbook = GetSportsbookProduct(settings);
-            IEnumerable<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
-            IEnumerable<SettingItem> bettypes = GetBettype(subProducts.Select(x => x.SettingId), transactionInfos, settings, settingMappings);
+            IList<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
+            IList<SettingItem> bettypes = GetBettype(subProducts.Select(x => x.SettingId), transactionInfos, settings, settingMappings);
             var stringBuilder = new StringBuilder("<ROOT>");
 
             foreach (SettingItem subProduct in subProducts)
             {
-                IEnumerable<SettingItem> tempBettypes = bettypes.Where(x => x.ParentIds.Any(y => y == subProduct.SettingId));
+                IList<SettingItem> tempBettypes = bettypes.Where(x => x.ParentIds.Any(y => y == subProduct.SettingId)).ToList();
                 if (tempBettypes.Any())
                 {
                     foreach (SettingItem bettype in tempBettypes)
@@ -492,6 +493,7 @@
                 }
             }
 
+            mlogger.LogInformation("End mapping product, sub-product, bet type.");
             return stringBuilder.Append("</ROOT>").ToString();
         }
 
@@ -503,45 +505,45 @@
             return product ?? new SettingItem { SettingId = Constants.ProductNA };
         }
 
-        private static IEnumerable<SettingItem> GetSubProduct(
+        private static IList<SettingItem> GetSubProduct(
             int productId,
             MatchInfo matchInfo,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
             var sport = matchInfo.SportName;
-            IEnumerable<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+            IList<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
                 && !string.IsNullOrWhiteSpace(x.SettingSource)
-                && x.SettingSource.Equals(sport, StringComparison.OrdinalIgnoreCase));
-            IEnumerable<SettingItem> subProducts = settings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+                && x.SettingSource.Equals(sport, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<SettingItem> subProducts = settings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
                 && x.ParentIds.Any(y => y == productId)
                 && mappings != null
-                && mappings.Any(y => y.SettingId == x.SettingId));
+                && mappings.Any(y => y.SettingId == x.SettingId)).ToList();
 
             return subProducts != null && subProducts.Any()
-                ? subProducts.GroupBy(x => x.SettingId).Select(x => x.First())
+                ? subProducts.GroupBy(x => x.SettingId).Select(x => x.First()).ToList()
                 : new List<SettingItem>
                 {
                     new SettingItem { SettingId = Constants.SubProductNA, ParentIds = new List<int> { Constants.ProductNA } }
                 };
         }
 
-        private static IEnumerable<SettingItem> GetBettype(
+        private static IList<SettingItem> GetBettype(
             IEnumerable<int> subProducts,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            IEnumerable<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+            IList<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
                 && !string.IsNullOrWhiteSpace(x.SettingSource)
-                && transactionInfos.Any(y => y.Bettype.Equals(x.SettingSource, StringComparison.OrdinalIgnoreCase)));
-            IEnumerable<SettingItem> bettypes = settings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+                && transactionInfos.Any(y => y.Bettype.Equals(x.SettingSource, StringComparison.OrdinalIgnoreCase))).ToList();
+            IList<SettingItem> bettypes = settings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
                 && subProducts.Any(y => x.ParentIds.Any(z => z == y))
                 && mappings != null
-                && mappings.Any(y => y.SettingId == x.SettingId));
+                && mappings.Any(y => y.SettingId == x.SettingId)).ToList();
 
             return bettypes != null && bettypes.Any()
-                ? bettypes.GroupBy(x => x.SettingId).Select(x => x.First())
+                ? bettypes.GroupBy(x => x.SettingId).Select(x => x.First()).ToList()
                 : new List<SettingItem>
                 {
                     new SettingItem { SettingId = Constants.BettypeNA, ParentIds = new List<int> { Constants.SubProductNA } }
