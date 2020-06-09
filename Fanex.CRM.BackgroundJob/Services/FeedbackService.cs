@@ -641,6 +641,7 @@
 
         private async Task UpdateSystemSettingAsync(int lastMsgId)
         {
+            mlogger.LogInformation("Begin update JobStatus, LastMsgId, LastRuntime.");
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
@@ -648,6 +649,7 @@
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+            mlogger.LogInformation("End update JobStatus, LastMsgId, LastRuntime.");
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
