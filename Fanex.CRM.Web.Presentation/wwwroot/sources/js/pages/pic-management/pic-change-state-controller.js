@@ -34,7 +34,7 @@
         vm.close = function () {
             if (vm.messageResultOptions.IsSuccess) {
                 vm.messageResultOptions = new MessageResult('', false, false);
-                $uibModalInstance.close();
+                $uibModalInstance.close(true);
             }
             else {
                 $uibModalInstance.close();

@@ -6,6 +6,10 @@ import '../../../../../Scripts/ShareScripts/MessageResult';
 
 import './pic-management-application';
 
+// directives
+import './report-container-directive';
+import './pic-management-directives';
+
 import './pic-management-factory';
 
 // controller
@@ -14,7 +18,3 @@ import './pic-insert-controller';
 import './pic-edit-controller';
 import './pic-change-confirm-controller';
 import './pic-change-state-controller';
-
-// directives
-import './report-container-directive';
-import './pic-management-directives';

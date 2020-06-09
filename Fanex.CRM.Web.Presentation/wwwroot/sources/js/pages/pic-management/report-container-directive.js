@@ -184,7 +184,7 @@
             activeSettings.unbind("click");
             activeSettings.click(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
-                scope.changePicState(customerReport.DataList[rowIndex]);
+                scope.changePicState(customerReport.DataList[rowIndex], this);
             });
         }
 

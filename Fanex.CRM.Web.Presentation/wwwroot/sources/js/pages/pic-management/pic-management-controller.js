@@ -1,13 +1,13 @@
 ﻿(function () {
     "use strict";
-    /* global hotKeyManager,
+    /* global
     viewResources,
     crmConstants,
     currentDate: true,
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    angular.module('pic-management-application').controller('picManagementController', ['$scope', '$picManagementFactory', '$window', '$uibModal', function ($scope, $picManagementFactory, $window, $uibModal) {
+    angular.module('pic-management-application').controller('picManagementController', ['$scope', '$picManagementFactory', '$window', '$uibModal', '$uiBlockerService', function ($scope, $picManagementFactory, $window, $uibModal, $uiBlockerService) {
         $scope.errorMessage = '';
         $scope.roleOptions = null;
         $scope.communicationTools = [];
@@ -50,7 +50,7 @@
         };
 
         $scope.getAllSetting = function () {
-            $scope.BlockUI();
+            $uiBlockerService.blockUI();
             $scope.isLoadedAllSite = false;
             $picManagementFactory.getAllSetting()
                 .then(function (data) {
@@ -65,7 +65,7 @@
 
         $scope.completedLoadFilterInfo = function () {
             $scope.searchCriteria.role = $scope.roleOptions.DataList[0];
-            $scope.unblockUI();
+            $uiBlockerService.unblockUI();
         };
             
         $scope.updateSelectedRole = function (role) {
@@ -73,7 +73,7 @@
         };
            
         $scope.getReport = function () {      
-            $scope.BlockUI();
+            $uiBlockerService.blockUI();
             var getReportCriteria = {
                 Username: $scope.searchCriteria.Username,
                 HeadlineName: $scope.searchCriteria.HeadlineName,
@@ -87,23 +87,23 @@
                 .then(function (data) {
                     $scope.reportOptions.DataList = data.Result;
                     $scope.reportOptions.IsUpdateGrid = true;
-                    $scope.unblockUI();
+                    $uiBlockerService.unblockUI();
                 }, function () {
-                    $scope.unblockUI();
+                    $uiBlockerService.unblockUI();
                 });
         };
 
         $scope.pagingCustomerReport = function (pageIndex, pageSize) {
-            $scope.BlockUI();
+            $uiBlockerService.blockUI();
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
             $picManagementFactory.getReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.reportOptions.DataList = data.Result;
                     $scope.reportOptions.IsUpdateGrid = true;
-                    $scope.unblockUI();
+                    $uiBlockerService.unblockUI();
                 }, function () {
-                    $scope.unblockUI();
+                    $uiBlockerService.unblockUI();
                 });
         };
 
@@ -173,7 +173,7 @@
             $scope.getReport();
         };
 
-        $scope.changePicState = function (picItem) {
+        $scope.changePicState = function (picItem, objectState) {
             const modalInstance = $uibModal.open({
                 template: angular.element('#template-pic-change-state').html(),
                 controller: 'picChangeStateController',
@@ -189,34 +189,23 @@
                 }
             });
 
-            modalInstance.result.then(function () {
-                $scope.getReport();
+            modalInstance.result.then(function (isSuccess) {
+                if (isSuccess) {
+                    $scope.getReport();
+                }
+                else {
+                    if (picItem.IsActive) {
+                        $(objectState).prop('checked', true);
+                    }
+                    else {
+                        $(objectState).props('checked', false);
+                    }
+                }
             });
         };
 
         $scope.completeSetFocus = function () {
             $scope.defaultFocusOptions.IsSetFocus = false;
-        };
-
-        $scope.unblockUI = function () {
-            try {
-                if (parent && parent.$.unblockUI) {
-                    parent.$.unblockUI();
-                }
-            } catch (e) {
-            }
-
-            hotKeyManager.CachedData.isBlockingUI = false;
-        };
-
-        $scope.BlockUI = function () {
-            hotKeyManager.CachedData.isBlockingUI = true;
-            try {
-                if (parent && parent.BlockUI) {
-                    parent.BlockUI();
-                }
-            } catch (e) {
-            }
         };
 
         $scope.exportReport = function () {
@@ -233,30 +222,6 @@
 
             const style = $('head link[href*="pic.management.css"]').clone();
             $window.parent.$('head').append(style);
-        });
-
-        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
-            if (eventObject.keyCode === 13) // enter
-            {
-                $scope.getReport();
-                eventObject.preventDefault();
-                return false;
-            }
-
-            if (eventObject.ctrlKey) {
-                switch (eventObject.keyCode) {
-
-                    case 83: // s
-                        $scope.getReport();
-                        eventObject.preventDefault();
-                        return false;
-
-                    case 73: // i
-                        $scope.insertPic();
-                        eventObject.preventDefault();
-                        return false;
-                }
-            }
         });
 
         $(document).off('keydown').on('keydown', function (eventObject) {

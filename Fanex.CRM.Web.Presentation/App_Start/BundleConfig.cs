@@ -100,10 +100,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Report_SummaryReport(ref bundles);
 
             RegisterBundles_PicManagement(ref bundles);
-            RegisterBundles_InsertPic(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
-            RegisterBundles_ChangePicState(ref bundles);
-            RegisterBundles_EditPic(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -600,48 +597,10 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_PicManagement(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
                 "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementStyles",
-                "~/Areas/PicAndHeadline/PicManagement/ViewList/Styles/PicManagement.less");
-        }
-
-        private static void RegisterBundles_InsertPic(ref BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/InsertPic/InsertPicScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelectWithDefault.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicApplication.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicService.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/InsertPicController.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/SingleSelectDirective.js",
-                "~/Areas/PicAndHeadline/PicManagement/InsertPic/Scripts/Directives/RegisterSharedDirectives.js"));
-        }
-
-        private static void RegisterBundles_ChangePicState(ref BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-               "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateApplication.js",
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateService.js",
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Scripts/ChangePicStateController.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles",
-                "~/Areas/PicAndHeadline/PicManagement/ChangePicState/Styles/ChangePicState.less");
         }
 
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
@@ -669,29 +628,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicOfHeadlineStyles",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Styles/select2.css",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less");
-        }
-
-        private static void RegisterBundles_EditPic(ref BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelectWithDefault.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicApplication.js",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicService.js",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/EditPicController.js",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/Directives/SingleSelectDirective.js",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles",
-                "~/Areas/PicAndHeadline/PicManagement/EditPic/Styles/EditPic.less");
         }
     }
 }
