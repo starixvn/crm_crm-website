@@ -28,10 +28,7 @@
             CheckAll: viewResources.All
         };
 
-        vm.selectedLanguages = picItem.Language.split(',').map(lang => lang.trim());
-        console.log(vm.selectedLanguages);
         vm.languageChangedHandler = function () {
-            console.log(vm.selectedLanguages);
             vm.isSelectAllLanguage = vm.languageDropdownSettings.sourceData.length > 0
                 && vm.selectedLanguages.length === vm.languageDropdownSettings.sourceData.length;
         };
@@ -69,13 +66,13 @@
                     }
 
                     let languages = angular.copy(allSetting.Languages);
-                    console.log(vm.selectedLanguages);
-                    let isCheckedAll = languages.length === vm.selectedLanguages.length;
+                    let selectedLanguagesListString = picItem.Language.split(',').map(langStr => langStr.trim());
+                    let isCheckedAll = languages.length === selectedLanguagesListString.length;
                     for (let index = 0; index < languages.length; index++) {
-                        let selectedIndex = vm.selectedLanguages.findIndex(lang => lang === languages[index].Name.trim());
+                        let selectedIndex = selectedLanguagesListString.findIndex(lang => lang === languages[index].Name.trim());
                         languages[index].checked = isCheckedAll || selectedIndex >= 0;
                     }
-                    
+
                     vm.languageDropdownSettings = {
                         idMember: 'Name',
                         nameMember: 'Name',
@@ -83,6 +80,7 @@
                         checkedAll: isCheckedAll
                     };
 
+                    vm.selectedLanguages = languages.filter(lang => vm.isSelectedLanguages(lang));
                     vm.countries = allSetting.Countries;
                     vm.countries.unshift(vm.selectedCountry);
                     let selectedCountries = vm.countries.filter(country => country.Name === picItem.Country);
@@ -94,6 +92,10 @@
                 }, function () {
                     vm.isDiabled = false;
                 });
+        };
+
+        vm.isSelectedLanguages = function (language) {
+            return vm.languageDropdownSettings.sourceData.findIndex(lang => lang.Name === language.Name) >= 0;
         };
 
         vm.savePic = function () {
