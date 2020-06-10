@@ -80,7 +80,7 @@
                         checkedAll: isCheckedAll
                     };
 
-                    vm.selectedLanguages = languages.filter(lang => vm.isSelectedLanguages(lang));
+                    vm.selectedLanguages = languages.filter(lang => lang.checked);
                     vm.countries = allSetting.Countries;
                     vm.countries.unshift(vm.selectedCountry);
                     let selectedCountries = vm.countries.filter(country => country.Name === picItem.Country);
@@ -92,10 +92,6 @@
                 }, function () {
                     vm.isDiabled = false;
                 });
-        };
-
-        vm.isSelectedLanguages = function (language) {
-            return vm.languageDropdownSettings.sourceData.findIndex(lang => lang.Name === language.Name) >= 0;
         };
 
         vm.savePic = function () {
