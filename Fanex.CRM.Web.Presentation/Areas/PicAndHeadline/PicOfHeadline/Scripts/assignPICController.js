@@ -116,8 +116,8 @@
 					$scope.addRelatedCustomer($scope.relatedCustomerInput);
 				};
 
-				$scope.closeModal = function () {
-					$uibModalInstance.close();
+				$scope.closeModal = function (isReload = false) {
+					$uibModalInstance.close(isReload);
 				};
 
 				$scope.validatePicAssignment = function () {
@@ -200,7 +200,7 @@
 						if (result.IsSuccessful) {
 							$scope.messageResultOptions = new MessageResult('Assign PIC successfully!', true, true);
 							setInterval(function () {
-								$scope.closeModal();
+								$scope.closeModal(true);
 							}, 3000);
 						} else {
 							$scope.messageResultOptions = new MessageResult(result.Message, true, false);

@@ -15,14 +15,13 @@
 				$scope.selectedAssignment = removeAssignmentData.selectedAssignment;
 				$scope.removeAssignmentData = removeAssignmentData;
 
-				$scope.closeModal = function () {
-					$uibModalInstance.close();
+				$scope.closeModal = function (isReload = false) {
+					$uibModalInstance.close(isReload);
 					$scope.selectedAssignment = {};
 					$scope.removeAssignmentData = [];
 				};
 
 				$scope.onSelectAssignment = function ($event, headlineId, custId, picId, picName) {
-					console.log($scope.selectedAssignment);
 					let index = $scope.selectedAssignment.findIndex(assignment =>
 						assignment.HeadlineId === headlineId &&
 						assignment.CustId === custId &&
@@ -49,7 +48,7 @@
 							const distinctPicNames = [...new Set(picNames)];
 							$scope.messageResultOptions = new MessageResult(`Remove ${distinctPicNames.join(', ')} assignment successfully!`, true, true);
 							setInterval(function () {
-								$scope.closeModal();
+								$scope.closeModal(true);
 							}, 3000);
 						} else {
 							$scope.messageResultOptions = new MessageResult(result.Message, true, false);

@@ -8,8 +8,8 @@
     sharedScriptManager */
 	/* jshint camelcase: false */
 	angular.module('picofheadline-application').controller('picOfHeadlineController',
-		['$scope', '$window', '$picOfHeadlineService', '$uibModal',
-			function ($scope, $window, $picOfHeadlineService, $uibModal) {
+		['$scope', '$window', '$picOfHeadlineService', '$uibModal', '$timeout',
+			function ($scope, $window, $picOfHeadlineService, $uibModal, $timeout) {
 				$scope.validateFilterMessage = { isShowErrMsg: false, message: '' };
 				$scope.siteOptions = null;
 				$scope.statusOptions = null;
@@ -44,11 +44,6 @@
 
 				$scope.initController = function () {
 					$scope.initPicker();
-					hotKeyManager.CachedData.ActiveDocumentManager.push({
-						Value: $scope,
-						Id: "Report_CustomerReport"
-					});
-
 					$scope.getAllSetting();
 					$scope.defaultFocusOptions = {
 						IsSetFocus: false,
@@ -285,8 +280,11 @@
 							}
 						}
 					});
-					modalInstance.result.then(function () {
-						$scope.getPICAssignment();
+					modalInstance.result.then(function (isReload) {
+						console.log(isReload);
+						if (isReload) {
+							$scope.getPICAssignment();
+						}
 					});
 				};
 
@@ -339,8 +337,11 @@
 							}
 						}
 					});
-					modalInstance.result.then(function () {
-						$scope.getPICAssignment();
+
+					modalInstance.result.then(function (isReload) {
+						if (isReload) {
+							$scope.getPICAssignment();
+						}
 					});
 				};
 

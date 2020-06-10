@@ -192,7 +192,7 @@ namespace Fanex.CRM.Controllers
 
             foreach (var assignment in result)
             {
-                assignment.RowNum = index + (pageIndex > 1 ? (pageIndex - 1) * pageSize : 0);
+                assignment.RowNum = index + ((pageIndex - 1) * pageSize);
                 index++;
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
