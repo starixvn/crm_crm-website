@@ -69,6 +69,12 @@
                 CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
 
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
+                if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
+                {
+                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
+                    await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
+                    return;
+                }
 
                 IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
                 ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
@@ -80,7 +86,7 @@
 
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
-                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
+                    mlogger.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
                     await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
                     return;
                 }
