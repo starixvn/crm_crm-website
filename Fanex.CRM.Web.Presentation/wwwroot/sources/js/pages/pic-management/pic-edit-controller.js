@@ -28,13 +28,10 @@
             CheckAll: viewResources.All
         };
 
-        vm.getSelectedLanguages = function (stringLanguages, data) {
-            let stringLanguageArray = stringLanguages.split(',').map(lang => lang.trim());
-            return data.filter(item => stringLanguageArray.includes(item.Name));
-        };
-
         vm.selectedLanguages = picItem.Language.split(',').map(lang => lang.trim());
+        console.log(vm.selectedLanguages);
         vm.languageChangedHandler = function () {
+            console.log(vm.selectedLanguages);
             vm.isSelectAllLanguage = vm.languageDropdownSettings.sourceData.length > 0
                 && vm.selectedLanguages.length === vm.languageDropdownSettings.sourceData.length;
         };
@@ -60,7 +57,7 @@
                     if (picItem.CommunicationTools && picItem.CommunicationTools.length > 0) {
                         let communicationToolItems = picItem.CommunicationTools.map(tool => {
                             let selectedComms = vm.communicationTools.filter(t => t.Id === tool.SettingId);
-                            if (selectedComms.length === 1) {
+                            if (selectedComms.length > 0) {
                                 return { selectedComm: selectedComms[0], Value: tool.Value };
                             }
                 
@@ -72,6 +69,7 @@
                     }
 
                     let languages = angular.copy(allSetting.Languages);
+                    console.log(vm.selectedLanguages);
                     let isCheckedAll = languages.length === vm.selectedLanguages.length;
                     for (let index = 0; index < languages.length; index++) {
                         let selectedIndex = vm.selectedLanguages.findIndex(lang => lang === languages[index].Name.trim());
@@ -88,7 +86,7 @@
                     vm.countries = allSetting.Countries;
                     vm.countries.unshift(vm.selectedCountry);
                     let selectedCountries = vm.countries.filter(country => country.Name === picItem.Country);
-                    if (selectedCountries.length === 1) {
+                    if (selectedCountries.length > 0) {
                         vm.selectedCountry = selectedCountries[0];
                     }
 
