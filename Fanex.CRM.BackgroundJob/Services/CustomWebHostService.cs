@@ -18,15 +18,18 @@
     {
         private readonly IEnumerable<HangfireJobSetting> hangfireJobSettings;
         private readonly IRecurringJobManager recurringJob;
+        private readonly IJobRunningChecker jobRunningChecker;
 
         public CustomWebHostService(IWebHost host) : base(host)
         {
             hangfireJobSettings = host.Services.GetService<IOptionsMonitor<List<HangfireJobSetting>>>().CurrentValue;
             recurringJob = host.Services.GetService<IRecurringJobManager>();
+            jobRunningChecker = host.Services.GetService<IJobRunningChecker>();
         }
 
         protected override void OnStarted()
         {
+            jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
             RunHangfireJobs();
             base.OnStarted();
         }

@@ -160,14 +160,15 @@
             services.AddSingleton<IUMRestClient, UMRestClient>();
             services.AddSingleton<IMaintenanceService, MaintenanceService>();
 
-            services.AddTransient<IRecurringJobManager, RecurringJobManager>();
-            services.AddScoped<ILogger, Logger>();
-            services.AddScoped<IRedisRepository, RedisRepository>();
+            services.AddSingleton<IRedisRepository, RedisRepository>();
             services.AddScoped<IDynamicRepository, DynamicRepository>();
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddTransient<IRecurringJobManager, RecurringJobManager>();
+            services.AddScoped<ILogger, Logger>();
             services.AddScoped<ICRMLogService, CRMLogService>();
-            services.AddScoped<IJobRunningChecker, JobRunningChecker>();
+            services.AddTransient<IJobRunningChecker, JobRunningChecker>();
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
