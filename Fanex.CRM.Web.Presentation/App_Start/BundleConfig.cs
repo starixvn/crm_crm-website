@@ -621,8 +621,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/assignPicController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/removeAssignmentController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js",
-                "~/Scripts/Select2/select2.js",
-                "~/Scripts/ui-bootstrap-tpls-1.3.2.min.js"
+                "~/Scripts/Select2/select2.js"
                 ));
 
             bundles.AddAndInclude(
