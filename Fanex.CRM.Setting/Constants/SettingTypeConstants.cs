@@ -3,7 +3,7 @@
     public static class SettingTypeConstants
     {
         public static readonly string Site = "site";
-        public static readonly string Language = "language";
+        public static readonly string Language = "Language";
         public static readonly string Extension = "Station";
         public static readonly string CommunicationTool = "Communication";
         public static readonly string MainCategory = "MainCategory";

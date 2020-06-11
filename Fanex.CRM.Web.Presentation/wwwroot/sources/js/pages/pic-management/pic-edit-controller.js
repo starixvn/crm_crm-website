@@ -7,8 +7,8 @@
         vm.roles = [];
         vm.selectedRole = { Value: viewResources.Selected };
         vm.languageDropdownSettings = {
-            idMember: 'Name',
-            nameMember: 'Name',
+            idMember: 'Value',
+            nameMember: 'Value',
             sourceData: [],
             checkedAll: false
         };
@@ -69,13 +69,13 @@
                     let selectedLanguagesListString = picItem.Language.split(',').map(langStr => langStr.trim());
                     let isCheckedAll = languages.length === selectedLanguagesListString.length;
                     for (let index = 0; index < languages.length; index++) {
-                        let selectedIndex = selectedLanguagesListString.findIndex(lang => lang === languages[index].Name.trim());
+                        let selectedIndex = selectedLanguagesListString.findIndex(lang => lang === languages[index].Value.trim());
                         languages[index].checked = isCheckedAll || selectedIndex >= 0;
                     }
 
                     vm.languageDropdownSettings = {
-                        idMember: 'Name',
-                        nameMember: 'Name',
+                        idMember: 'Value',
+                        nameMember: 'Value',
                         sourceData: languages,
                         checkedAll: isCheckedAll
                     };
@@ -116,7 +116,7 @@
                 Role: vm.selectedRole.Value === viewResources.Selected ? '' : vm.selectedRole.Value,
                 Remark: vm.remark,
                 CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
-                Language: vm.selectedLanguages.map(lang => lang.Name).join(', '),
+                Language: vm.selectedLanguages.map(lang => lang.Value).join(', '),
                 Country: vm.selectedCountry.Name === viewResources.Selected ? '' : vm.selectedCountry.Name
             };
 
@@ -214,7 +214,7 @@
             if (vm.username !== picItem.Username ||
                 selectedRole !== picItem.Role ||
                 vm.remark !== picItem.Remark ||
-                vm.selectedLanguages.map(lang => lang.Name).join(',') !== picItem.Language.split(',').map(lang => lang.trim()).join(',') ||
+                vm.selectedLanguages.map(lang => lang.Value).join(',') !== picItem.Language.split(',').map(lang => lang.trim()).join(',') ||
                 selectedCountry !== picItem.Country ||
                 vm.isCommChanged(vm.communicationToolItems)) {
                 result = true;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Fanex.CRM.Common.Models;
 using Fanex.CRM.Common.Services;
 using Fanex.CRM.Criteria.PicAndHeadline;
@@ -83,13 +82,6 @@ namespace Fanex.CRM.Services
             }
 
             return result;
-        }
-
-        public IEnumerable<Common.Models.Setting> GetPicCommunicationTools()
-        {
-            var criteria = new GetPicCommunicationToolsCriteria();
-
-            return picReportRepository.GetPicCommunicationTools(criteria);
         }
     }
 }

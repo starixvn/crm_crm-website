@@ -651,22 +651,6 @@
             };
         }
 
-        public IList<Setting> GetPicRoles(bool isIncludeAllOption = false)
-        {
-            var data = GetAllSettings().Where(s => s.SettingType.Equals(SettingTypeConstants.PicRole)).ToList();
-
-            if (isIncludeAllOption)
-            {
-                data.Insert(0, new Setting
-                {
-                    Id = PicRoleConstants.All,
-                    Value = Labels.All
-                });
-            }
-
-            return data;
-        }
-
         public IList<Setting> GetPositions()
         {
             return new[]
@@ -941,6 +925,22 @@
             sites.Insert(0, new SiteInfo { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
             return sites;
+        }
+
+        public IList<Setting> GetPicSettings(string settingName, bool? isActive, bool isIncludeAllOption = false)
+        {
+            var data = GetAllSettings().Where(s => s.SettingType.Equals(settingName) && (isActive == null || s.IsActive == isActive.Value)).ToList();
+
+            if (isIncludeAllOption)
+            {
+                data.Insert(0, new Setting
+                {
+                    Id = 0,
+                    Value = Labels.All
+                });
+            }
+
+            return data;
         }
     }
 }

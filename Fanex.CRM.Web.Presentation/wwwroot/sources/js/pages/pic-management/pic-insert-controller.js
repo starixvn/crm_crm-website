@@ -8,8 +8,8 @@
         vm.roles = [];
         vm.selectedRole = { Value: viewResources.Selected };
         vm.languageDropdownSettings = {
-            idMember: 'Name',
-            nameMember: 'Name',
+            idMember: 'Value',
+            nameMember: 'Value',
             sourceData: [],
             checkedAll: false
         };
@@ -57,8 +57,8 @@
                     }
 
                     vm.languageDropdownSettings = {
-                        idMember: 'Name',
-                        nameMember: 'Name',
+                        idMember: 'Value',
+                        nameMember: 'Value',
                         sourceData: languages,
                         checkedAll: isCheckedAll
                     };
@@ -92,7 +92,7 @@
                 Role: vm.selectedRole.Value === viewResources.Selected ? '' : vm.selectedRole.Value,
                 Remark: vm.remark,
                 CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
-                Language: vm.selectedLanguages.map(lang => lang.Name).join(', '),
+                Language: vm.selectedLanguages.map(lang => lang.Value).join(', '),
                 Country: vm.selectedCountry.Name === viewResources.Selected ? '' : vm.selectedCountry.Name
             };
 

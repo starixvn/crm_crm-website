@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Models;
 using Fanex.CRM.Criteria.PicAndHeadline;
-using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Report.Excels.PICManagement;
 using Fanex.CRM.Report.Resources;
 using Fanex.CRM.Services;
+using Fanex.CRM.Setting.Constants;
 using Fanex.CRM.Setting.Services;
 using Fanex.NAP.Core.Business;
 using Fanex.NAP.Core.Web.Attribute;
@@ -45,10 +44,10 @@ namespace Fanex.CRM.Controllers
         {
             var allSetting = new
             {
-                RoleListWithAll = _settingService.GetPicRoles(true),
-                RoleList = _settingService.GetPicRoles(),
-                CommunicationTools = _picReportService.GetPicCommunicationTools(),
-                Languages = _settingService.GetAllLanguages(),
+                RoleListWithAll = _settingService.GetPicSettings(SettingTypeConstants.PicRole, true, true),
+                RoleList = _settingService.GetPicSettings(SettingTypeConstants.PicRole, true),
+                CommunicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true),
+                Languages = _settingService.GetPicSettings(SettingTypeConstants.Language, true),
                 Countries = _settingService.GetAllCountries()
             };
 
@@ -67,7 +66,7 @@ namespace Fanex.CRM.Controllers
         {
             criteria.PageIndex = 0;
             criteria.PageSize = 0;
-            var communicationTools = _picReportService.GetPicCommunicationTools().Select(x => new BaseModel { Id = x.Id, Name = x.Name });
+            var communicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true).Select(x => new BaseModel { Id = x.Id, Name = x.Name });
             var report = _picReportService.GetReport(criteria);
             var excel = new PICManagementExcel(report, communicationTools, Labels.PICManagement);
             excel.BuildWorkBook();

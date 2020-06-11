@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Fanex.CRM.Common.Models;
+﻿using Fanex.CRM.Common.Models;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 
@@ -14,7 +13,5 @@ namespace Fanex.CRM.Services
         CommandResult EditPic(EditPicCriteria criteria);
 
         CommandResult ChangePicState(ChangePicStateCriteria criteria);
-
-        IEnumerable<Common.Models.Setting> GetPicCommunicationTools();
     }
 }

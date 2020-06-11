@@ -77,7 +77,6 @@
     <Compile Include="PicAndHeadline\EditPicCriteria.cs" />
     <Compile Include="PicAndHeadline\GetAssignmentCriteria.cs" />
     <Compile Include="PicAndHeadline\GetHeadlinesCriteria.cs" />
-    <Compile Include="PicAndHeadline\GetPicCommunicationToolsCriteria.cs" />
     <Compile Include="PicAndHeadline\GetPICCriteria.cs" />
     <Compile Include="PicAndHeadline\GetReportCriteria.cs" />
     <Compile Include="PicAndHeadline\GetSystemSiteCriteria.cs" />

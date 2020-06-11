@@ -110,7 +110,6 @@
     <Compile Include="Constants\HeadlineTypeConstants.cs" />
     <Compile Include="Constants\NAConstants.cs" />
     <Compile Include="Constants\PeriodTypeConstants.cs" />
-    <Compile Include="Constants\PicRoleConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
     <Compile Include="Constants\SettingTypeConstants.cs" />
     <Compile Include="Constants\TitleConstants.cs" />
