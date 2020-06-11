@@ -168,6 +168,7 @@
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
             services.AddScoped<ILogger, Logger>();
             services.AddScoped<ICRMLogService, CRMLogService>();
+            services.AddTransient<ICacheService, CacheService>();
             services.AddTransient<IJobRunningChecker, JobRunningChecker>();
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISettingService, SettingService>();

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Services
 {
     using System.Threading.Tasks;
-    using Fanex.CRM.BackgroundJob.Repositories;
 
     public interface IJobRunningChecker
     {
@@ -14,35 +13,31 @@
 
     public class JobRunningChecker : IJobRunningChecker
     {
-        private readonly IRedisRepository redisRepository;
-        private const string NAME_SPACE = "RunningJobs";
-        private const string TRUE = "true";
-        private const string FALSE = "false";
+        private readonly ICacheService cacheService;
 
-        public JobRunningChecker(IRedisRepository redisRepository)
+        public JobRunningChecker(ICacheService cacheService)
         {
-            this.redisRepository = redisRepository;
+            this.cacheService = cacheService;
         }
 
         public async Task<bool> IsRunning(string jobName)
         {
-            var value = await redisRepository.Get(GetKey(jobName));
-            return value == TRUE;
+            return await cacheService.GetAsync<bool>(GetKey(jobName));
         }
 
         public async Task MarkRunning(string jobName)
         {
-            await redisRepository.Set(GetKey(jobName), TRUE);
+            await cacheService.SetAsync(GetKey(jobName), true);
         }
 
         public async Task ClearRunning(string jobName)
         {
-            await redisRepository.Set(GetKey(jobName), FALSE);
+            await cacheService.SetAsync(GetKey(jobName), false);
         }
 
         private static string GetKey(string jobName)
         {
-            return string.Format("{0}:{1}", NAME_SPACE, jobName);
+            return string.Format("RunningJobs:{0}", jobName);
         }
     }
 }

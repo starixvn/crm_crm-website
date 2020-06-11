@@ -1,20 +1,13 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Criteria
 {
-    using Fanex.Data;
     using Fanex.Data.Repository;
 
     public class GetNewMessageCriteria : CriteriaBase
     {
-        [SpParam(SqlParamName = "LastMsgID")]
-        public int LastMessageId { get; set; }
-
-        public int BatchSize { get; set; }
-
-        [SpParam(SqlParamName = "FailMsgIDs")]
-        public string FailMessageIds { get; set; }
+        public string MessageIds { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_MessageAbnormalTicketsSel";
 
-        public override bool IsValid() => LastMessageId >= 0 && BatchSize > 0;
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(MessageIds);
     }
 }

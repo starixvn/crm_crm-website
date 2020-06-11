@@ -7,9 +7,9 @@
 
     public interface IRedisRepository
     {
-        Task Set(string key, string value);
+        Task SetAsync(string key, string value);
 
-        Task<string> Get(string key);
+        Task<RedisValue> GetAsync(string key);
     }
 
     public class RedisRepository : IRedisRepository
@@ -23,13 +23,13 @@
             connectionMultiplexer = ConnectionMultiplexer.Connect(this.redisConfig.Value.Host);
         }
 
-        public async Task<string> Get(string key)
+        public async Task<RedisValue> GetAsync(string key)
         {
             var db = connectionMultiplexer.GetDatabase();
             return await db.StringGetAsync(GetKey(key));
         }
 
-        public Task Set(string key, string value)
+        public Task SetAsync(string key, string value)
         {
             var db = connectionMultiplexer.GetDatabase();
             return db.StringSetAsync(GetKey(key), value);

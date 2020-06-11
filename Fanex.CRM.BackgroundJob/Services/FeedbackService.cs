@@ -56,87 +56,78 @@
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
 
             IEnumerable<int> failMessageIds = await GetFailMessageAsync();
-            IEnumerable<Message> messages = await GetNewMessageAsync(setting.LastMsgId, setting.BatchSize, failMessageIds);
-            if (messages.Any())
-            {
-                var messageIds = string.Join(",", messages.Select(x => x.MessageId));
-                mlogger.LogInformation(string.Format("Create feedback for messages: {0}", messageIds));
+            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(failMessageIds, setting);
 
-                ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
-                if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
-                {
-                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
-                    await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
-                    return;
-                }
-
-                var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
-                IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
-                IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
-                IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
-                CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
-                IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
-                ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
-                    ticketInfo.Item1,
-                    ticketInfo.Item2,
-                    siteSettingMappings,
-                    headlines,
-                    licenseeInfo);
-
-                if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
-                {
-                    mlogger.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
-                    await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
-                    return;
-                }
-
-                foreach (MatchInfo matchInfo in ticketInfo.Item1)
-                {
-                    Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
-                    IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
-                    IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
-                    if (credits.Any())
-                    {
-                        await CreateFeedbackForCreditSiteAsync(
-                            message,
-                            matchInfo,
-                            credits,
-                            headlines.Where(x => credits.Any(y => x.CustId == y.CustId)),
-                            settings,
-                            settingMappings);
-                    }
-
-                    if (deposits.Any())
-                    {
-                        GetLicenseeManager(deposits, siteSettingMappings);
-                        await CreateFeedbackForDepositSiteAsync(
-                            licenseeInfo,
-                            message,
-                            matchInfo,
-                            deposits,
-                            settings,
-                            settingMappings);
-                    }
-                }
-
-                await UpdateSystemSettingAsync(messages.Max(x => x.MessageId));
-            }
-            else
+            if (!ticketInfo.Item1.Any())
             {
                 await UpdateSystemSettingAsync(setting.LastMsgId);
+                return;
             }
+
+            var messageIds = string.Join(",", ticketInfo.Item1.Select(x => x.MessageId));
+            IEnumerable<Message> messages = await GetMessageAsync(messageIds);
+
+            mlogger.LogInformation(string.Format("Create feedback for messages: {0}", messageIds));
+
+            var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
+            IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
+            IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
+            IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
+            CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
+            IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
+
+            ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+                ticketInfo.Item1,
+                ticketInfo.Item2,
+                siteSettingMappings,
+                headlines,
+                licenseeInfo);
+
+            foreach (MatchInfo matchInfo in ticketInfo.Item1)
+            {
+                Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
+                IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
+                IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
+
+                if (!credits.Any() && !deposits.Any())
+                {
+                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", message.MessageId));
+                    continue;
+                }
+
+                if (credits.Any())
+                {
+                    await CreateFeedbackForCreditSiteAsync(
+                        message,
+                        matchInfo,
+                        credits,
+                        headlines.Where(x => credits.Any(y => x.CustId == y.CustId)),
+                        settings,
+                        settingMappings);
+                }
+
+                if (deposits.Any())
+                {
+                    GetLicenseeManager(deposits, siteSettingMappings);
+                    await CreateFeedbackForDepositSiteAsync(
+                        licenseeInfo,
+                        message,
+                        matchInfo,
+                        deposits,
+                        settings,
+                        settingMappings);
+                }
+            }
+
+            var lastMessageId = messages.Max(x => x.MessageId);
+            await UpdateSystemSettingAsync(lastMessageId > setting.LastMsgId ? lastMessageId : setting.LastMsgId);
         }
 
-        private async Task<IEnumerable<Message>> GetNewMessageAsync(
-            int lastMessageId,
-            int batchSize,
-            IEnumerable<int> failMessageIds)
+        private async Task<IEnumerable<Message>> GetMessageAsync(string messageIds)
         {
             var criteria = new GetNewMessageCriteria
             {
-                LastMessageId = lastMessageId,
-                BatchSize = batchSize,
-                FailMessageIds = string.Join(",", failMessageIds)
+                MessageIds = messageIds
             };
 
             var messages = await baseService.GetDataAsync<Message>(criteria);
@@ -156,12 +147,14 @@
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
-            string messageIds,
+            IEnumerable<int> failMessageIds,
             AbnormalBetSystemSetting setting)
         {
             var criteria = new GetAbnormalTicketInfoCriteria
             {
-                MessageIds = messageIds,
+                LastMessageId = setting.LastMsgId,
+                BatchSize = setting.BatchSize,
+                FailMessageIds = string.Join(",", failMessageIds),
                 ConfigUAT = setting.ConfigUAT,
                 ConfigPRO = setting.ConfigPRO
             };
