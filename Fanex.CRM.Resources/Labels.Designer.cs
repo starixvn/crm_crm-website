@@ -277,7 +277,7 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exclude ignored ccounts.
+        ///   Looks up a localized string similar to Exclude ignored accounts.
         /// </summary>
         public static string ExcludeIgnoredAccounts {
             get {

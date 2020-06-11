@@ -33,12 +33,11 @@
 					GroupHeadline: '',
 					Position: '',
 					ExcludeAssignedAcc: false,
-					ExcludeIgnoredAcc: false,
-					ExcludeIsTest: false,
+					ExcludeIgnoredAcc: true,
+					ExcludeIsTest: true,
 					PageIndex: 1,
 					PageSize: 100,
-					IsGetFromCached: false,
-					ExcludeIgnoredAccounts: true
+					IsGetFromCached: false
 				};
 				$scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
