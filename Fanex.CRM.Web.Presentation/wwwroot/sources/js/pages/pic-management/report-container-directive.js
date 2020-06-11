@@ -36,7 +36,7 @@
                     
                     for (var j = 0; j < communicationTools.length; j++) {
                         columns.push({
-                            Name: "Col" + communicationTools[j].Name,
+                            Name: "Col" + communicationTools[j].Value,
                             Value: GetCommunicationToolValue(data, communicationTools[j].Id)
                         })
                     }
@@ -102,7 +102,7 @@
 
             for (var j = 0; j < communicationTools.length; j++) {
                 headerColumns.push(
-                    { HeaderText: communicationTools[j].Name, Width: 120, Name: "Col" + communicationTools[j].Name, HeaderAlign: "center", CellAlign: "left" }
+                    { HeaderText: communicationTools[j].Value, Width: 120, Name: "Col" + communicationTools[j].Value, HeaderAlign: "center", CellAlign: "left" }
                 );
             }
 
@@ -144,6 +144,7 @@
 
         function GetCommunicationToolValue(item, settingId) {
             if (item.CommunicationTools) {
+                console.log(item.CommunicationTools)
                 var communicationTool = item.CommunicationTools.find(c => c.SettingId == settingId);
                 if (communicationTool) {
                     return communicationTool.Value;

@@ -17,7 +17,7 @@
         vm.selectedCountry = { Name: viewResources.Selected};
         vm.remark = '';
         vm.communicationTools = [];
-        vm.initialSelectedComm = { Id: -1, Name: viewResources.Selected };
+        vm.initialSelectedComm = { Id: -1, Value: viewResources.Selected };
         vm.messageResultOptions = new MessageResult('', false, false);
 
         // start muilti select

@@ -66,7 +66,7 @@ namespace Fanex.CRM.Controllers
         {
             criteria.PageIndex = 0;
             criteria.PageSize = 0;
-            var communicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true).Select(x => new BaseModel { Id = x.Id, Name = x.Name });
+            var communicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true).Select(x => new BaseModel { Id = x.Id, Name = x.Value });
             var report = _picReportService.GetReport(criteria);
             var excel = new PICManagementExcel(report, communicationTools, Labels.PICManagement);
             excel.BuildWorkBook();

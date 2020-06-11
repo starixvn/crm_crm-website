@@ -69,7 +69,7 @@
         <div class="row" ng-repeat="x in picEditCtrl.communicationToolItems">
             <div class="col-xs-3 col-sm-3 col-md-2">
                 <div>
-                    <select ng-model="x.selectedComm" ng-options="item.Name for item in picEditCtrl.communicationTools"></select>
+                    <select ng-model="x.selectedComm" ng-options="item.Value for item in picEditCtrl.communicationTools"></select>
                     <span ng-if="$index == 0" class="required-span">
                         @Html.Raw(Labels.RequiredFieldTemplate)
                     </span>
