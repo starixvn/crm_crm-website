@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml" Link="SonarLint.xml" />
     <Content Include="App_Data\Development\SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

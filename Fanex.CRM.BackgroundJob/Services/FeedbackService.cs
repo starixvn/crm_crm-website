@@ -62,12 +62,6 @@
                 var messageIds = string.Join(",", messages.Select(x => x.MessageId));
                 mlogger.LogInformation(string.Format("Create feedback for messages: {0}", messageIds));
 
-                var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
-                IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
-                IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
-                IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
-                CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
-
                 ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
                 if (!ticketInfo.Item1.Any() || !ticketInfo.Item2.Any())
                 {
@@ -76,6 +70,11 @@
                     return;
                 }
 
+                var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
+                IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
+                IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
+                IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
+                CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
                 IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
                 ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
                     ticketInfo.Item1,

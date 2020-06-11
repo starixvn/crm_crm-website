@@ -146,6 +146,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="Resources\Labels.zh-TW.resx" />
     <Content Include="Resources\Labels.zh-CN.resx" />
   </ItemGroup>
