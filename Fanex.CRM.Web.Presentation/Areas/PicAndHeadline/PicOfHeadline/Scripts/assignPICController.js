@@ -21,7 +21,34 @@
 				$scope.assignPICModel = {
 					headlineId: null,
 					pics: '',
-					directAccounts: initData.directAccounts
+					directAccounts: JSON.parse(JSON.stringify(initData.directAccounts))
+				};
+
+				$scope.onClickCancelBtn = function () {
+					const model = $scope.assignPICModel;
+					if (model.headlineId !== null ||
+						model.headlineId > 0 ||
+						model.headlineId !== initData.headlineId ||
+						model.pics !== '' ||
+						JSON.stringify(model.directAccounts) !== JSON.stringify(initData.directAccounts)) {
+						const closeParentPopup = function () { $scope.closeModal(false); };
+						$uibModal.open({
+							template: angular.element('#confirm-dutty-form').html(),
+							backdrop: 'static',
+							keyboard: false,
+							size: 'sm',
+							controller: function ($scope) {
+								$scope.confirm = function (isConfirmed) {
+									$scope.$dismiss();
+									if (isConfirmed) {
+										closeParentPopup();
+									}
+								};
+							}
+						});
+					} else {
+						$scope.closeModal(false);
+					}
 				};
 
 				$scope.keydownHandler = function (event) {

@@ -280,7 +280,6 @@
 						}
 					});
 					modalInstance.result.then(function (isReload) {
-						console.log(isReload);
 						if (isReload) {
 							$scope.getPICAssignment();
 						}

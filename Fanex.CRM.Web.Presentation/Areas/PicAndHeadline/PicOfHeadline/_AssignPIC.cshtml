@@ -3,7 +3,7 @@
 <div id="assign-pic-modal" style="display: none">
     <div class="modal-header" movable-Modal>
         @Labels.AssignPIC
-        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="closeModal()"></span>
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="onClickCancelBtn()"></span>
     </div>
     <div class="modal-body">
         <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
@@ -60,6 +60,20 @@
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="validatePicAssignment()">@Labels.Save</button>
-        <button class="btn" ng-click="closeModal()" type="button">@Labels.Cancel</button>
+        <button class="btn" ng-click="onClickCancelBtn()" type="button">@Labels.Cancel</button>
+    </div>
+</div>
+
+<div id="confirm-dutty-form" style="display: none">
+    <div class="modal-header" movable-Modal>
+        Confirm Cancel
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="onClickCancelBtn()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row text-bold">@Labels.ConfirmCancel</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="confirm(true)">@Labels.OK</button>
+        <button class="btn" ng-click="confirm(false)" type="button">@Labels.Cancel</button>
     </div>
 </div>
