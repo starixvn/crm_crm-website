@@ -48,10 +48,7 @@ namespace Fanex.CRM.Controllers
         [HttpPost]
         public ActionResult AllSetting()
         {
-            var sites = _baseService.GetData<SiteInfo>(new GetSystemSiteCriteria
-            {
-                ExcludeCN88Site = true
-            });
+            var sites = _baseService.GetData<SiteInfo>(new GetSystemSiteCriteria());
 
             var currency = _settingService.GetAllCurrencies(
                     new GetAllCurrencyCriteria

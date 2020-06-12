@@ -101,8 +101,8 @@
 							var allSetting = data.Result;
 							$scope.siteOptions.DataList = allSetting.SiteList.map(site => {
 								return {
-									Id: site.SiteName,
-									Name: site.SiteName
+									Id: site.Site,
+									Name: site.Site
 								};
 							});
 							$scope.positionOptions.DataList = allSetting.PositionList;

@@ -4,11 +4,9 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 {
     public class GetSystemSiteCriteria : CriteriaBase
     {
-        public bool ExcludeCN88Site { get; set; }
-
         public override string GetSettingKey()
         {
-            return "Acc_CRM_SystemSiteSel";
+            return "Acc_SiteSel_Credit";
         }
 
         public override bool IsValid() => true;
