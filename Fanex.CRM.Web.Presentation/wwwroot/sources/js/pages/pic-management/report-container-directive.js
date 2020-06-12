@@ -144,7 +144,6 @@
 
         function GetCommunicationToolValue(item, settingId) {
             if (item.CommunicationTools) {
-                console.log(item.CommunicationTools)
                 var communicationTool = item.CommunicationTools.find(c => c.SettingId == settingId);
                 if (communicationTool) {
                     return communicationTool.Value;

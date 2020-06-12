@@ -9,7 +9,6 @@ import './pic-management-application';
 // directives
 import './report-container-directive';
 import './pic-management-directives';
-
 import './pic-management-factory';
 
 // controller

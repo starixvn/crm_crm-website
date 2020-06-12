@@ -600,6 +600,7 @@
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
+    <Content Include="wwwroot\sources\js\shared\movable-outer-iframe-modal-directive.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Pagination.css" />
