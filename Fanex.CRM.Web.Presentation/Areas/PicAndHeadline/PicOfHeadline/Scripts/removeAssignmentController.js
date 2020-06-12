@@ -97,7 +97,7 @@
 						template: angular.element('#confirm-remove-assignment-modal').html(),
 						backdrop: 'static',
 						keyboard: false,
-						size: 'lg',
+						size: 'sm',
 						backdropClass: 'related-customer-modal-backdrop',
 						windowClass: 'remove-assignment-modal',
 						controller: function ($scope) {
