@@ -198,7 +198,7 @@
                         $(objectState).prop('checked', true);
                     }
                     else {
-                        $(objectState).props('checked', false);
+                        $(objectState).prop('checked', false);
                     }
                 }
             });
