@@ -4,9 +4,9 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.Data.Repository;
-    using Fanex.Logging;
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.Database;
+    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
 
     public interface ICRMLogService
@@ -14,15 +14,21 @@
         Task ErrorAsync(Exception exception);
 
         Task ErrorAsync(CommandResult commandResult, ICriteria criteria);
+
+        void LogInformation(string message);
     }
 
     public class CRMLogService : ICRMLogService
     {
-        private readonly ILogger logger;
+        private readonly ILogger filelogger;
+        private readonly Logging.ILogger logger;
 
-        public CRMLogService(ILogger logger)
+        public CRMLogService(
+            Logging.ILogger logger,
+            ILogger<CRMLogService> filelogger)
         {
             this.logger = logger;
+            this.filelogger = filelogger;
         }
 
         public async Task ErrorAsync(Exception exception)
@@ -41,6 +47,11 @@
                        .AddMessage(JsonConvert.SerializeObject(criteria, Formatting.Indented))
                        .ToString();
             await logger.ErrorAsync(logMessage);
+        }
+
+        public void LogInformation(string message)
+        {
+            filelogger.LogInformation(message);
         }
     }
 }

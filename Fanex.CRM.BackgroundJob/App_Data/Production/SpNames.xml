@@ -10,6 +10,9 @@
   </Function>
   <Function Name="Feedback">
     <Setting Key="Acc_CRM_CustomerSearch" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_VoidingMessageSel" SpName="Acc_CRM_VoidingMessageSel" DbName="DBACC.bodb02.bodbAdminNet" />
+    <Setting Key="Acc_CRM_VoidingMessageIns" SpName="Acc_CRM_VoidingMessageIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_VoidingMessageBatchUpd" SpName="Acc_CRM_VoidingMessageBatchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_FailMessageSel" SpName="Acc_CRM_FailMessageSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_AutoFeedbackInfoIns" SpName="Acc_CRM_AutoFeedbackInfoIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_AutoFeedbackInfoUpd" SpName="Acc_CRM_AutoFeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

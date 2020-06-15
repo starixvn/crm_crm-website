@@ -2,11 +2,11 @@
 {
     using Fanex.Data.Repository;
 
-    public class GetNewMessageCriteria : CriteriaBase
+    public class UpdateStatusVoidingMessageCriteria : NonQueryCommand
     {
         public string MessageIds { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_MessageAbnormalTicketsSel";
+        public override string GetSettingKey() => "Acc_CRM_VoidingMessageBatchUpd";
 
         public override bool IsValid() => !string.IsNullOrWhiteSpace(MessageIds);
     }

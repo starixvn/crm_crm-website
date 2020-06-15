@@ -10,7 +10,6 @@
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
     public interface IFeedbackService
@@ -25,25 +24,25 @@
         private readonly IBaseService baseService;
         private readonly ISettingService settingService;
         private readonly ISystemSettingService systemSettingService;
-        private readonly ILogger mlogger;
+        private readonly IMessageService messageService;
         private readonly ICRMLogService logService;
 
         public FeedbackService(
             IOptionsSnapshot<AppSettings> appSettings,
             ICustomerRepository customerRepository,
-            ICRMLogService logService,
             IBaseService baseService,
             ISettingService settingService,
             ISystemSettingService systemSettingService,
-            ILogger<FeedbackService> mlogger)
+            IMessageService messageService,
+            ICRMLogService logService)
         {
             this.appSettings = appSettings.Value;
             this.customerRepository = customerRepository;
-            this.logService = logService;
             this.baseService = baseService;
             this.settingService = settingService;
             this.systemSettingService = systemSettingService;
-            this.mlogger = mlogger;
+            this.messageService = messageService;
+            this.logService = logService;
         }
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
@@ -55,19 +54,25 @@
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
 
-            IEnumerable<int> failMessageIds = await GetFailMessageAsync();
-            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(failMessageIds, setting);
-
-            if (!ticketInfo.Item1.Any())
+            IEnumerable<int> messageIds = await messageService.GetVoidingMessageAsync();
+            messageIds = await messageService.StoreVoidingMessageAsync(messageIds, setting.BatchSize);
+            IEnumerable<int> failMessageIds = await messageService.GetFailMessageAsync();
+            messageIds = messageIds.Concat(failMessageIds).Distinct().ToList();
+            if (!messageIds.Any())
             {
-                await UpdateSystemSettingAsync(setting.LastMsgId);
+                await UpdateSystemSettingAsync();
                 return;
             }
 
-            var messageIds = string.Join(",", ticketInfo.Item1.Select(x => x.MessageId));
-            IEnumerable<Message> messages = await GetMessageAsync(messageIds);
+            IEnumerable<Message> messages = await messageService.GetMessageInfoAsync(messageIds);
+            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
+            if (!ticketInfo.Item1.Any())
+            {
+                await UpdateSystemSettingAsync();
+                return;
+            }
 
-            mlogger.LogInformation(string.Format("Create feedback for messages: {0}", messageIds));
+            logService.LogInformation(string.Format("Create feedback for messages: {0}", ticketInfo.Item1.Select(x => x.MessageId)));
 
             var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
             IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
@@ -88,12 +93,6 @@
                 Message message = messages.First(x => x.MessageId == matchInfo.MessageId);
                 IEnumerable<TransactionInfo> credits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && !x.IsDeposit);
                 IEnumerable<TransactionInfo> deposits = ticketInfo.Item2.Where(x => x.MessageId == matchInfo.MessageId && x.IsDeposit);
-
-                if (!credits.Any() && !deposits.Any())
-                {
-                    mlogger.LogInformation(string.Format("Don't have ticket info: {0}", message.MessageId));
-                    continue;
-                }
 
                 if (credits.Any())
                 {
@@ -119,47 +118,36 @@
                 }
             }
 
-            var lastMessageId = messages.Max(x => x.MessageId);
-            await UpdateSystemSettingAsync(lastMessageId > setting.LastMsgId ? lastMessageId : setting.LastMsgId);
-        }
-
-        private async Task<IEnumerable<Message>> GetMessageAsync(string messageIds)
-        {
-            var criteria = new GetNewMessageCriteria
-            {
-                MessageIds = messageIds
-            };
-
-            var messages = await baseService.GetDataAsync<Message>(criteria);
-            foreach (var message in messages)
-            {
-                message.Content_en = message.Content_en?.Trim().Replace("@@", string.Empty);
-                message.Content_cs = message.Content_cs?.Trim().Replace("@@", string.Empty);
-            }
-
-            return messages;
-        }
-
-        private async Task<IEnumerable<int>> GetFailMessageAsync()
-        {
-            var criteria = new GetFailMessageCriteria();
-            return await baseService.GetDataAsync<int>(criteria);
+            await UpdateSystemSettingAsync();
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
-            IEnumerable<int> failMessageIds,
+            IEnumerable<int> messageIds,
             AbnormalBetSystemSetting setting)
         {
             var criteria = new GetAbnormalTicketInfoCriteria
             {
-                LastMessageId = setting.LastMsgId,
-                BatchSize = setting.BatchSize,
-                FailMessageIds = string.Join(",", failMessageIds),
+                MessageIds = string.Join(",", messageIds),
                 ConfigUAT = setting.ConfigUAT,
                 ConfigPRO = setting.ConfigPRO
             };
+            var ticketInfo = await baseService.FetchMultipleAsync<MatchInfo, TransactionInfo>(criteria);
 
-            return await baseService.FetchMultipleAsync<MatchInfo, TransactionInfo>(criteria);
+            await CheckMessageDoNotHaveTicketInfoAsync(ticketInfo.Item1, ticketInfo.Item2);
+
+            IEnumerable<MatchInfo> matchInfos = ticketInfo.Item1.Where(x => ticketInfo.Item2.Any(y => x.MessageId == y.MessageId)).ToList();
+            return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, ticketInfo.Item2);
+        }
+
+        private async Task CheckMessageDoNotHaveTicketInfoAsync(IEnumerable<MatchInfo> matchInfos, IEnumerable<TransactionInfo> transactionInfos)
+        {
+            var messageIds = matchInfos.Where(x => !transactionInfos.Any(y => x.MessageId == y.MessageId))
+                .Select(x => x.MessageId).ToList();
+            if (messageIds.Any())
+            {
+                await messageService.UpdateStatusVoidingMessageAsync(messageIds);
+                logService.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
+            }
         }
 
         private async Task<IEnumerable<GroupHeadline>> GetGroupHeadlineAsync(IEnumerable<TransactionInfo> transactionInfos)
@@ -206,7 +194,7 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            mlogger.LogInformation("Begin mapping common setting for MessageId: " + message.MessageId);
+            logService.LogInformation("Begin mapping common setting for MessageId: " + message.MessageId);
             var timeSpan = new TimeSpan(appSettings.TimeSpan, 0, 0);
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var status = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Status, StringComparison.OrdinalIgnoreCase)
@@ -238,7 +226,7 @@
                 AutoField3 = $"{Environment.NewLine}System ID: ",
                 Description = GetDescription(matchInfo)
             };
-            mlogger.LogInformation("End mapping common setting for MessageId: " + message.MessageId);
+            logService.LogInformation("End mapping common setting for MessageId: " + message.MessageId);
 
             var headlineIds = headlines.Select(x => x.HeadlineId).Distinct();
             foreach (var headlineId in headlineIds)
@@ -269,7 +257,7 @@
             {
                 List<int> batch = relatedCustomerIds.Skip(i * itemEachBatch).Take(itemEachBatch).ToList();
 
-                mlogger.LogInformation(string.Format("Begin mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                logService.LogInformation(string.Format("Begin mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
                     message.MessageId,
                     headline.HeadlineId,
                     string.Join(",", batch)));
@@ -281,27 +269,27 @@
                 criteria.MessageId = message.MessageId;
                 criteria.ListOrigCustIds = string.Join(",", batch);
 
-                mlogger.LogInformation(string.Format("End mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                logService.LogInformation(string.Format("End mapping setting for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
                     message.MessageId,
                     headline.HeadlineId,
                     string.Join(",", batch)));
                 try
                 {
-                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                    logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
                         message.MessageId,
                         headline.HeadlineId,
                         string.Join(",", batch)));
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
-                        mlogger.LogInformation(string.Format("Create feedback successfully. MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
+                        logService.LogInformation(string.Format("Create feedback successfully. MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
                             message.MessageId,
                             headline.HeadlineId,
                             string.Join(",", batch)));
                     }
                     else
                     {
-                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
+                        logService.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
                             commandResult.Message,
                             message.MessageId,
                             headline.HeadlineId,
@@ -312,7 +300,7 @@
                 }
                 catch (Exception ex)
                 {
-                    mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
+                    logService.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}",
                         ex.Message,
                         message.MessageId,
                         headline.HeadlineId,
@@ -331,7 +319,7 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            mlogger.LogInformation("Begin mapping setting for MessageId: " + message.MessageId);
+            logService.LogInformation("Begin mapping setting for MessageId: " + message.MessageId);
             var timeSpan = new TimeSpan(appSettings.TimeSpan, 0, 0);
             var feedbackDate = DateTime.Now.Add(timeSpan);
             var communicationTool = GetCommunicationTool(settings);
@@ -367,7 +355,7 @@
                 TitleId = licenseeInfo.TitleId,
                 SiteId = licenseeInfo.SiteId
             };
-            mlogger.LogInformation("End mapping setting for MessageId: " + message.MessageId);
+            logService.LogInformation("End mapping setting for MessageId: " + message.MessageId);
 
             await CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
         }
@@ -396,7 +384,7 @@
                 criteria.ListOrigCustIds = string.Join(",", custIds);
                 try
                 {
-                    mlogger.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
+                    logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
                             message.MessageId,
                             licenseeInfo.CustId,
                             string.Join(",", batch),
@@ -404,7 +392,7 @@
                     CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                     if (commandResult.IsSuccessful)
                     {
-                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                        logService.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
                             "Create feedback successfully",
                             message.MessageId,
                             licenseeInfo.CustId,
@@ -413,7 +401,7 @@
                     }
                     else
                     {
-                        mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                        logService.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
                             commandResult.Message,
                             message.MessageId,
                             licenseeInfo.CustId,
@@ -425,7 +413,7 @@
                 }
                 catch (Exception ex)
                 {
-                    mlogger.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
+                    logService.LogInformation(string.Format("{0}. MessageId: {1}\n\rHeadlineId: {2}\n\rRelatedCustIds: {3}\n\rCustIds: {4}",
                         ex.Message,
                         message.MessageId,
                         licenseeInfo.CustId,
@@ -468,7 +456,7 @@
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            mlogger.LogInformation("Begin mapping product, sub-product, bet type.");
+            logService.LogInformation("Begin mapping product, sub-product, bet type.");
             const string XmlTemplate = "<Product ProductID='{0}' SubProductID='{1}' BetTypeID='{2}' />";
             SettingItem sportsbook = GetSportsbookProduct(settings);
             IList<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
@@ -491,7 +479,7 @@
                 }
             }
 
-            mlogger.LogInformation("End mapping product, sub-product, bet type.");
+            logService.LogInformation("End mapping product, sub-product, bet type.");
             return stringBuilder.Append("</ROOT>").ToString();
         }
 
@@ -637,17 +625,16 @@
             return stringBuilder.ToString();
         }
 
-        private async Task UpdateSystemSettingAsync(int lastMsgId)
+        private async Task UpdateSystemSettingAsync()
         {
-            mlogger.LogInformation("Begin update JobStatus, LastMsgId, LastRuntime.");
+            logService.LogInformation("Begin update JobStatus, LastRuntime.");
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
-                new SystemSettingItem { SettingName = SystemSettingName.LastMsgId, Value = lastMsgId.ToString() },
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
-            mlogger.LogInformation("End update JobStatus, LastMsgId, LastRuntime.");
+            logService.LogInformation("End update JobStatus, LastRuntime.");
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
@@ -696,6 +683,13 @@
                 Xml = stringBuilder.ToString()
             };
             var feedbackInfos = await baseService.GetDataAsync<AutoFeedbackInfo>(criteria);
+
+            var messageIds = matchInfos.Where(x => !feedbackInfos.Any(y => y.MessageId == x.MessageId)).Select(x => x.MessageId).ToList();
+            if (messageIds.Any())
+            {
+                await messageService.UpdateStatusVoidingMessageAsync(messageIds);
+                logService.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
+            }
 
             matchInfos = matchInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId));
             transactionInfos = transactionInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId && y.CustId == x.CustId));

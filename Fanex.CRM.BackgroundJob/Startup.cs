@@ -173,6 +173,7 @@
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
+            services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IBackgroundService, BackgroundService>();
         }
