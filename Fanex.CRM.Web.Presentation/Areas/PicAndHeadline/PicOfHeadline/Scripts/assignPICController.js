@@ -238,7 +238,7 @@
 				$scope.validateParams = function (params) {
 					var result = true;
 					var message = '';
-					if (!params.headlineId || parseInt(params.headlineId, 10) <= 0) {
+					if (params.headlineId === null || parseInt(params.headlineId, 10) < 0) {
 						message = viewResources.GroupHeadline + " " + viewResources.IsRequired;
 						result = false;
 					}
