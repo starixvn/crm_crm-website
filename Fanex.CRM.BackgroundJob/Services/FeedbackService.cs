@@ -72,7 +72,7 @@
                 return;
             }
 
-            logService.LogInformation(string.Format("Create feedback for messages: {0}", ticketInfo.Item1.Select(x => x.MessageId)));
+            logService.LogInformation(string.Format("Create feedback for messages: {0}", string.Join(",", ticketInfo.Item1.Select(x => x.MessageId))));
 
             var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
             IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
