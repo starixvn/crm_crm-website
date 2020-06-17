@@ -32,7 +32,7 @@
             return "Acc_CRM_PICAssignmentValidation";
         }
 
-        public override bool IsValid() => HeadlineId > 0 &&
+        public override bool IsValid() => HeadlineId >= 0 &&
             !string.IsNullOrWhiteSpace(PicId) &&
             !string.IsNullOrWhiteSpace(Username);
     }

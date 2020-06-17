@@ -26,8 +26,9 @@
 
 				$scope.onClickCancelBtn = function () {
 					const model = $scope.assignPICModel;
-					if (model.headlineId !== null ||
-						model.headlineId > 0 ||
+					console.log(model);
+					console.log(initData);
+					if (model.headlineId > 0 ||
 						model.headlineId !== initData.headlineId ||
 						model.pics !== '' ||
 						JSON.stringify(model.directAccounts) !== JSON.stringify(initData.directAccounts)) {
@@ -287,7 +288,7 @@
 							return {
 								id: headline.HeadLineID,
 								text: headline.HeadlineName,
-								selected: initData.headlineId ? initData.headlineId === headline.HeadLineID : false
+								selected: initData.headlineId !== null ? initData.headlineId === headline.HeadLineID : false
 							};
 						}) : [];
 						$scope.picOptions = settings.pics ? settings.pics.map(pic => {

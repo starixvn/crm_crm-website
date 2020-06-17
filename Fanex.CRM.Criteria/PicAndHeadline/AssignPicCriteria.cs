@@ -52,7 +52,7 @@
             return "Acc_CRM_PICAssignment";
         }
 
-        public override bool IsValid() => HeadlineId > 0 &&
+        public override bool IsValid() => HeadlineId >= 0 &&
             !string.IsNullOrWhiteSpace(PicId) &&
             !string.IsNullOrWhiteSpace(DirectAccount);
     }

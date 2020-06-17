@@ -270,7 +270,7 @@
 						resolve: {
 							initData: function () {
 								return {
-									headlineId: headlineId ? headlineId : null,
+									headlineId: headlineId,
 									directAccounts: directAccounts.length > 0 ?
 										directAccounts.map((acc, index) => {
 											return { index: index, username: acc, isValid: true };
