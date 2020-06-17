@@ -155,6 +155,7 @@
 				};
 
 				$scope.getPICAssignment = function () {
+					$scope.searchCriteria.PageIndex = 1;
 					const validation = $scope.validateFilterParams();
 					$scope.validateFilterMessage = {
 						isShowErrMsg: !validation.isValid,

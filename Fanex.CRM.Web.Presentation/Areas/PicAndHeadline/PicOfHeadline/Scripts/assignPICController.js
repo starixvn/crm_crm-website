@@ -26,10 +26,7 @@
 
 				$scope.onClickCancelBtn = function () {
 					const model = $scope.assignPICModel;
-					console.log(model);
-					console.log(initData);
-					if (model.headlineId > 0 ||
-						model.headlineId !== initData.headlineId ||
+					if (model.headlineId !== initData.headlineId ||
 						model.pics !== '' ||
 						JSON.stringify(model.directAccounts) !== JSON.stringify(initData.directAccounts)) {
 						const closeParentPopup = function () { $scope.closeModal(false); };
@@ -297,6 +294,7 @@
 								text: pic.Username + ' (' + pic.Role + ')'
 							};
 						}) : [];
+
 						$scope.assignPICModel.headlineId = $scope.headlineOptions.some(o => o.selected) ? initData.headlineId : null;
 						$scope.sites = settings.sites;
 					});
