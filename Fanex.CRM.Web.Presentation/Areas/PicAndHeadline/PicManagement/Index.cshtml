@@ -38,9 +38,13 @@
                         <label for="viptype" class="width-30 pull-left">
                             @Labels.Role
                         </label>
-                        <div class="role-picker-container pull-left" data-ng-model="roleOptions.DataList">
-                            <select id="role" class="selRole"></select>
-                        </div>
+                        <multileveldropdowntree class="pull-left"
+                                                text-settings="textSettings"
+                                                data-settings="roleDropdownSettings"
+                                                data-show-selected-all-text="true"
+                                                ng-model="selectedRoles"
+                                                ng-change="roleChangedHandler()"
+                                                ng-on-checkall="roleChangedHandler()" />
                     </div>
                 </div>
                 <div class="row row-item">

@@ -103,6 +103,6 @@
 
         IList<Setting> GetPositionsCN88();
 
-        IList<Setting> GetPicSettings(string settingName, bool? isActive, bool isIncludeAllOption = false);
+        IList<Setting> GetPicSettings(string settingName, bool? isActive = null, bool isIncludeAllOption = false);
     }
 }

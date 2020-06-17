@@ -71,5 +71,11 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
+      <Project>{dbb7c2a5-9919-4c5d-b69c-3edf958e1741}</Project>
+      <Name>Fanex.CRM.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

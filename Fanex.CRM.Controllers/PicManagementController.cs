@@ -44,11 +44,11 @@ namespace Fanex.CRM.Controllers
         {
             var allSetting = new
             {
-                RoleListWithAll = _settingService.GetPicSettings(SettingTypeConstants.PicRole, true, true),
+                RoleListWithInActive = _settingService.GetPicSettings(SettingTypeConstants.PicRole),
                 RoleList = _settingService.GetPicSettings(SettingTypeConstants.PicRole, true),
                 CommunicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true),
                 Languages = _settingService.GetPicSettings(SettingTypeConstants.Language, true),
-                Countries = _settingService.GetAllCountries()
+                Countries = _settingService.GetAllCountries().Where(country => country.IsActive)
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

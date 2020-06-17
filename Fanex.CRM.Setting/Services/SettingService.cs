@@ -927,7 +927,7 @@
             return sites;
         }
 
-        public IList<Setting> GetPicSettings(string settingName, bool? isActive, bool isIncludeAllOption = false)
+        public IList<Setting> GetPicSettings(string settingName, bool? isActive = null, bool isIncludeAllOption = false)
         {
             var data = GetAllSettings().Where(s => s.SettingType.Equals(settingName) && (isActive == null || s.IsActive == isActive.Value)).ToList();
 

@@ -113,9 +113,11 @@
         {
             NpoiExtensions.RenderCell(row, currentColumn++, indexNumber, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Username, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Role, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Language, exportExcelInfo.TextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Country, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.RoleName, exportExcelInfo.TextStyle);
+
+            var languages = string.Join(", ", picInfo.Languages.Select(lang => lang.Value));
+            NpoiExtensions.RenderCell(row, currentColumn++, languages, exportExcelInfo.TextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.CountryName, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.GroupHeadline, exportExcelInfo.TextStyle);
 
             var tools = _communicationTools.ToList();

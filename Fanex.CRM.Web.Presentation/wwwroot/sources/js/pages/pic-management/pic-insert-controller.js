@@ -6,7 +6,7 @@
         vm.isDiabled = false;
         vm.username = '';
         vm.roles = [];
-        vm.selectedRole = { Value: viewResources.Selected };
+        vm.selectedRole = { Id: 0, Value: viewResources.Selected };
         vm.languageDropdownSettings = {
             idMember: 'Value',
             nameMember: 'Value',
@@ -14,7 +14,7 @@
             checkedAll: false
         };
 
-        vm.selectedCountry = { Name: viewResources.Selected};
+        vm.selectedCountry = { Id: 0, Name: viewResources.Selected};
         vm.remark = '';
         vm.communicationTools = [];
         vm.initialSelectedComm = { Id: -1, Value: viewResources.Selected };
@@ -50,17 +50,12 @@
                     vm.communicationTools = allSetting.CommunicationTools;
                     vm.communicationTools.unshift(vm.initialSelectedComm);
                     let languages = angular.copy(allSetting.Languages);
-                    let isCheckedAll = languages.length === vm.selectedLanguages.length;
-                    for (let index = 0; index < languages.length; index++) {
-                        let selectedIndex = vm.selectedLanguages.findIndex(lang => lang.Id === languages[index].Id);
-                        languages[index].checked = isCheckedAll || selectedIndex >= 0;
-                    }
 
                     vm.languageDropdownSettings = {
                         idMember: 'Value',
                         nameMember: 'Value',
                         sourceData: languages,
-                        checkedAll: isCheckedAll
+                        checkedAll: false
                     };
 
                     vm.countries = allSetting.Countries;
@@ -89,11 +84,11 @@
 
             let criteria = {
                 Username: vm.username,
-                Role: vm.selectedRole.Value === viewResources.Selected ? '' : vm.selectedRole.Value,
+                Role: vm.selectedRole.Id,
                 Remark: vm.remark,
                 CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
-                Language: vm.selectedLanguages.map(lang => lang.Value).join(', '),
-                Country: vm.selectedCountry.Name === viewResources.Selected ? '' : vm.selectedCountry.Name
+                Language: vm.selectedLanguages.map(lang => lang.Id).join(','),
+                Country: vm.selectedCountry.Id
             };
 
             let message = vm.validateParams(criteria);
@@ -117,7 +112,7 @@
             if (params.Username === '') {
                 message = viewResources.Username + ' ' + viewResources.IsRequired;
             }
-            else if (params.Role === '') {
+            else if (params.Role <= 0) {
                 message = viewResources.Role + ' ' + viewResources.IsRequired;
             }
             else if (vm.communicationToolItems[0].selectedComm.Id < 0 || vm.communicationToolItems[0].Value.trim() === '') {
@@ -186,10 +181,10 @@
         vm.isParamsChange = function () {
             let result = false;
             if (vm.username !== '' ||
-                vm.selectedRole.Value !== viewResources.Selected ||
+                vm.selectedRole.Id > 0 ||
                 vm.remark !== '' ||
                 vm.selectedLanguages.length > 0 ||
-                vm.selectedCountry.Name !== viewResources.Selected ||
+                vm.selectedCountry.Id > 0 ||
                 vm.communicationToolItems.length > 1 ||
                 vm.communicationToolItems[0].selectedComm.Id > 0 ||
                 vm.communicationToolItems[0].Value !== '') {

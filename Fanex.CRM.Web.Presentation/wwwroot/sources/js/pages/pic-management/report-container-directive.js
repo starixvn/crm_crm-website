@@ -28,9 +28,9 @@
                     var columns = [
                         { Name: "ColNo", Value: no },
                         { Name: "ColUsername", Value: data.Username },
-                        { Name: "ColRole", Value: data.Role },
-                        { Name: "ColLanguage", Value: data.Language },
-                        { Name: "ColCountry", Value: data.Country },
+                        { Name: "ColRole", Value: data.RoleName },
+                        { Name: "ColLanguage", Value: data.Languages.map(language => language.Value).join(', ') },
+                        { Name: "ColCountry", Value: data.CountryName },
                         { Name: "ColGroupHeadline", Value: data.GroupHeadline },
                     ];
                     
@@ -51,12 +51,12 @@
                             Name: "ColEdit",
                             Value: '<a class="fa fa-edit edit-setting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
                         })
-
-                        columns.push({
-                            Name: "ColActive",
-                            Value: '<input type="checkbox" class="active-setting" ' + checked + ' data-row-index="' + i + '" />'
-                        })
                     }
+                    
+                    columns.push({
+                        Name: "ColActive",
+                        Value: '<input type="checkbox" ' + (isHostOnPICManagement ? '' : 'disabled') + ' class="active-setting" ' + checked + ' data-row-index="' + i + '" />'
+                    })
 
                     bodyData.push({
                         Columns: columns
@@ -79,11 +79,11 @@
                 groupHeaderRowColumns.push(
                     { HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
                 );
-
-                groupHeaderRowColumns.push(
-                    { HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
-                );
             }
+
+            groupHeaderRowColumns.push(
+                { HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center", MergeRowNumber: 2 }
+            );
 
             var groupHeaderRows = [
                 {
@@ -110,10 +110,9 @@
 
             if (isHostOnPICManagement) {
                 headerColumns.push({ HeaderText: viewResources.Edit, Width: 50, Name: "ColEdit", HeaderAlign: "center", CellAlign: "center" });
-
-                headerColumns.push({ HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
             }
 
+            headerColumns.push({ HeaderText: viewResources.Active, Width: 50, Name: "ColActive", HeaderAlign: "center", CellAlign: "center" });
             var gridOptions = {
                 customizeHeader: true,
                 groupHeaderRows: groupHeaderRows,
@@ -173,19 +172,21 @@
             cachedData.gridOptions = gridOptions;
             tableCustomerReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-            var editSettings = tableCustomerReport.find(".edit-setting");
-            editSettings.unbind("click");
-            editSettings.click(function () {
-                var rowIndex = parseInt($(this).attr("data-row-index"));
-                scope.editPic(customerReport.DataList[rowIndex]);
-            });
-
-            var activeSettings = tableCustomerReport.find(".active-setting");
-            activeSettings.unbind("click");
-            activeSettings.click(function () {
-                var rowIndex = parseInt($(this).attr("data-row-index"));
-                scope.changePicState(customerReport.DataList[rowIndex], this);
-            });
+            if (isHostOnPICManagement) {
+                var editSettings = tableCustomerReport.find(".edit-setting");
+                editSettings.unbind("click");
+                editSettings.click(function () {
+                    var rowIndex = parseInt($(this).attr("data-row-index"));
+                    scope.editPic(customerReport.DataList[rowIndex]);
+                });
+    
+                var activeSettings = tableCustomerReport.find(".active-setting");
+                activeSettings.unbind("click");
+                activeSettings.click(function () {
+                    var rowIndex = parseInt($(this).attr("data-row-index"));
+                    scope.changePicState(customerReport.DataList[rowIndex], this);
+                });
+            }
         }
 
         return {

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Fanex.CRM.Common.Helpers;
+using Fanex.CRM.Common.Models;
 
 namespace Fanex.CRM.Models.PicAndHeadline
 {
@@ -8,13 +10,23 @@ namespace Fanex.CRM.Models.PicAndHeadline
 
         public string Username { get; set; }
 
-        public string Role { get; set; }
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
 
         public string Language { get; set; }
 
-        public string Country { get; set; }
+        public IEnumerable<Setting> Languages
+        {
+            get
+            {
+                return SerializerHelper.DeserializeList<Setting>(Language);
+            }
+        }
 
-        public int RoleId { get; set; }
+        public int CountryId { get; set; }
+
+        public string CountryName { get; set; }
 
         public string Remark { get; set; }
 

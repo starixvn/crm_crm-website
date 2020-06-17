@@ -9,7 +9,27 @@
     /* jshint camelcase: false */
     angular.module('pic-management-application').controller('picManagementController', ['$scope', '$picManagementFactory', '$window', '$uibModal', '$uiBlockerService', function ($scope, $picManagementFactory, $window, $uibModal, $uiBlockerService) {
         $scope.errorMessage = '';
-        $scope.roleOptions = null;
+        $scope.roleDropdownSettings = {
+            idMember: 'Id',
+            nameMember: 'Value',
+            sourceData: [],
+            checkedAll: false
+        };
+
+        $scope.selectedRoles = [];
+        $scope.textSettings = {
+            Filter: viewResources.Search,
+            NoData: viewResources.NoData,
+            NoItemChecked: viewResources.Selected,
+            AllItemsSelected: viewResources.All,
+            CheckAll: viewResources.All
+        };
+
+        $scope.roleChangedHandler = function () {
+            $scope.isSelectAllRole = $scope.roleDropdownSettings.sourceData.length > 0
+                && $scope.selectedRoles.length === $scope.roleDropdownSettings.sourceData.length;
+        };
+
         $scope.communicationTools = [];
 
         $scope.reportOptions = {
@@ -55,7 +75,21 @@
             $picManagementFactory.getAllSetting()
                 .then(function (data) {
                     var allSetting = data.Result;
-                    $scope.roleOptions.DataList = allSetting.RoleListWithAll;
+                    let roles = angular.copy(allSetting.RoleListWithInActive);
+                    $scope.selectedRoles = roles.filter(role => role.IsActive);
+                    let isCheckAllRole = roles.length === $scope.selectedRoles.length;
+                    for (let index = 0; index < roles.length; index++) {
+                        let selectedIndex = $scope.selectedRoles.findIndex(lang => lang.Id === roles[index].Id);
+                        roles[index].checked = isCheckAllRole || selectedIndex >= 0;
+                    }
+
+                    $scope.roleDropdownSettings = {
+                        idMember: 'Id',
+                        nameMember: 'Value',
+                        sourceData: roles,
+                        checkedAll: isCheckAllRole
+                    };
+
                     $scope.communicationTools = allSetting.CommunicationTools;
                     $scope.completedLoadFilterInfo();
                 }, function () {
@@ -67,17 +101,19 @@
             $scope.searchCriteria.role = $scope.roleOptions.DataList[0];
             $uiBlockerService.unblockUI();
         };
-            
-        $scope.updateSelectedRole = function (role) {
-            $scope.searchCriteria.role = role;
-        };
            
         $scope.getReport = function () {      
             $uiBlockerService.blockUI();
+            if ($scope.selectedRoles.length <= 0) {
+                $scope.errorMessage = 'Please choose a role';
+                $uiBlockerService.unblockUI();
+                return;
+            }
+
             var getReportCriteria = {
                 Username: $scope.searchCriteria.Username,
                 HeadlineName: $scope.searchCriteria.HeadlineName,
-                Role: $scope.searchCriteria.role.Id === 0 ? '' : $scope.searchCriteria.role.Value,
+                Role: $scope.selectedRoles.map(role => role.Id).join(','),
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize                    
             };
@@ -85,6 +121,7 @@
             $scope.lastSelectedParams = getReportCriteria;
             $picManagementFactory.getReport(getReportCriteria)
                 .then(function (data) {
+                    $scope.errorMessage = '';
                     $scope.reportOptions.DataList = data.Result;
                     $scope.reportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();

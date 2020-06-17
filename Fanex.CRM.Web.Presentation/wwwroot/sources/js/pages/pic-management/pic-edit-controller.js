@@ -5,7 +5,7 @@
         vm.isDiabled = false;
         vm.username = picItem.Username;
         vm.roles = [];
-        vm.selectedRole = { Value: viewResources.Selected };
+        vm.selectedRole = { Id: 0, Value: viewResources.Selected };
         vm.languageDropdownSettings = {
             idMember: 'Value',
             nameMember: 'Value',
@@ -13,7 +13,7 @@
             checkedAll: false
         };
 
-        vm.selectedCountry = { Name: viewResources.Selected};
+        vm.selectedCountry = { Id: 0, Name: viewResources.Selected};
         vm.remark = picItem.Remark;
         vm.communicationTools = [];
         vm.initialSelectedComm = { Id: -1, Value: viewResources.Selected };
@@ -48,7 +48,12 @@
                     let allSetting = data.Result;
                     vm.roles = allSetting.RoleList;
                     vm.roles.unshift(vm.selectedRole);
-                    vm.selectedRole = vm.roles.filter(role => role.Value === picItem.Role)[0];
+                    let selectedRole = { Id: picItem.RoleId, Value: picItem.RoleName };
+                    if (vm.roles.filter(role => role.Id === picItem.RoleId).length === 0) {
+                        vm.roles.push(selectedRole);
+                    }
+                    
+                    vm.selectedRole = vm.roles.filter(role => role.Id === picItem.RoleId)[0];
                     vm.communicationTools = allSetting.CommunicationTools;
                     vm.communicationTools.unshift(vm.initialSelectedComm);
                     if (picItem.CommunicationTools && picItem.CommunicationTools.length > 0) {
@@ -66,28 +71,34 @@
                     }
 
                     let languages = angular.copy(allSetting.Languages);
-                    let selectedLanguagesListString = picItem.Language.split(',').map(langStr => langStr.trim());
-                    let isCheckedAll = languages.length === selectedLanguagesListString.length;
-                    for (let index = 0; index < languages.length; index++) {
-                        let selectedIndex = selectedLanguagesListString.findIndex(lang => lang === languages[index].Value.trim());
-                        languages[index].checked = isCheckedAll || selectedIndex >= 0;
+                    for (let index = 0; index < picItem.Languages.length; index++) {
+                        let selectedIndex = languages.findIndex(lang => lang.Id === picItem.Languages[index].Id);
+                        if (selectedIndex < 0) {
+                            let inactiveLanguage = picItem.Languages[index];
+                            inactiveLanguage.checked = true;
+                            languages.push(inactiveLanguage);
+                        }
+                        else {
+                            languages[selectedIndex].checked = true;;
+                        }
                     }
 
+                    vm.selectedLanguages = picItem.Languages;
                     vm.languageDropdownSettings = {
                         idMember: 'Value',
                         nameMember: 'Value',
                         sourceData: languages,
-                        checkedAll: isCheckedAll
+                        checkedAll: vm.selectedLanguages.length === languages.length
                     };
 
-                    vm.selectedLanguages = languages.filter(lang => lang.checked);
                     vm.countries = allSetting.Countries;
                     vm.countries.unshift(vm.selectedCountry);
-                    let selectedCountries = vm.countries.filter(country => country.Name === picItem.Country);
-                    if (selectedCountries.length > 0) {
-                        vm.selectedCountry = selectedCountries[0];
+                    let selectedCountry = { Id: picItem.CountryId, Name: picItem.CountryName }
+                    if (vm.countries.filter(country => country.Id === picItem.CountryId).length === 0) {
+                        vm.countries.push(selectedCountry);
                     }
 
+                    vm.selectedCountry = vm.countries.filter(country => country.Id === picItem.CountryId)[0];
                     vm.isDiabled = false;
                 }, function () {
                     vm.isDiabled = false;
@@ -113,11 +124,11 @@
             let criteria = {
                 PicId: picItem.PicId,
                 Username: vm.username,
-                Role: vm.selectedRole.Value === viewResources.Selected ? '' : vm.selectedRole.Value,
+                Role: vm.selectedRole.Id,
                 Remark: vm.remark,
                 CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
-                Language: vm.selectedLanguages.map(lang => lang.Value).join(', '),
-                Country: vm.selectedCountry.Name === viewResources.Selected ? '' : vm.selectedCountry.Name
+                Language: vm.selectedLanguages.map(lang => lang.Id).join(','),
+                Country: vm.selectedCountry.Id
             };
 
             let message = vm.validateParams(criteria);
@@ -141,7 +152,7 @@
             if (params.Username === '') {
                 message = viewResources.Username + ' ' + viewResources.IsRequired;
             }
-            else if (params.Role === '') {
+            else if (params.Role <= 0) {
                 message = viewResources.Role + ' ' + viewResources.IsRequired;
             }
             else if (vm.communicationToolItems[0].selectedComm.Id < 0 || vm.communicationToolItems[0].Value.trim() === '') {
@@ -209,25 +220,38 @@
 
         vm.isParamsChange = function () {
             let result = false;
-            let selectedRole = vm.selectedRole.Value === viewResources.Selected ? '' : vm.selectedRole.Value;
-            let selectedCountry = vm.selectedCountry.Name === viewResources.Selected ? '' : vm.selectedCountry.Name;
             if (vm.username !== picItem.Username ||
-                selectedRole !== picItem.Role ||
+                vm.selectedRole.Id !== picItem.RoleId ||
                 vm.remark !== picItem.Remark ||
-                vm.selectedLanguages.map(lang => lang.Value).join(',') !== picItem.Language.split(',').map(lang => lang.trim()).join(',') ||
-                selectedCountry !== picItem.Country ||
-                vm.isCommChanged(vm.communicationToolItems)) {
+                vm.isLanguageChanged() ||
+                vm.selectedCountry.Id !== picItem.CountryId ||
+                vm.isCommChanged()) {
                 result = true;
             }
 
             return result;
         };
 
-        vm.isCommChanged = function (commTools) {
-            let result = commTools.length !== vm.oldCommunicationToolItems.length;
+        vm.isLanguageChanged = function () {
+            let result = vm.selectedLanguages.length !== picItem.Languages.length;
             if (!result) {
-                for (let index = 0; index < commTools.length; index++) {
-                    if (commTools[index].selectedComm.Id !== vm.oldCommunicationToolItems[index].selectedComm.Id || commTools[index].Value !== vm.oldCommunicationToolItems[index].Value) {
+                for (let index = 0; index < vm.selectedLanguages.length; index++) {
+                    let selectedIndex = picItem.Languages.findIndex(lang => lang.Id === vm.selectedLanguages[index].Id);
+                    if (selectedIndex < 0) {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        vm.isCommChanged = function () {
+            let result = vm.communicationToolItems.length !== vm.oldCommunicationToolItems.length;
+            if (!result) {
+                for (let index = 0; index < vm.communicationToolItems.length; index++) {
+                    if (vm.communicationToolItems[index].selectedComm.Id !== vm.oldCommunicationToolItems[index].selectedComm.Id || vm.communicationToolItems[index].Value !== vm.oldCommunicationToolItems[index].Value) {
                         result = true;
                         break;
                     }
