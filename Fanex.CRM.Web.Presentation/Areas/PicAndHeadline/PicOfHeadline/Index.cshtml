@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.PicAssignment;
+    var isHost = ViewBag.IsHost;
 }
 
 @section Styles{
@@ -119,7 +120,10 @@
 
                     <div class="row row-item">
                         <button class="btn" type="submit">@Labels.Submit</button>
-                        <button class="btn" type="button" ng-click="openAssignModal()">@Labels.AssignPIC</button>
+                        @if (isHost)
+                        {
+                            <button class="btn" type="button" ng-click="openAssignModal()">@Labels.AssignPIC</button>
+                        }
                     </div>
                 </div>
             </form>

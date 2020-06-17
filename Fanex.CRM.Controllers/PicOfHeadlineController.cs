@@ -42,6 +42,8 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
+
             return View("~/Areas/PicAndHeadline/PicOfHeadline/Index.cshtml");
         }
 
