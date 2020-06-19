@@ -297,4 +297,7 @@
   <data name="ConfirmRemovePICAssignment" xml:space="preserve">
     <value>Confirm Remove PIC Assignment</value>
   </data>
+  <data name="ConfirmCancelTitle" xml:space="preserve">
+    <value>Confirm Cancel</value>
+  </data>
 </root>

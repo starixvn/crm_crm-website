@@ -160,6 +160,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Cancel.
+        /// </summary>
+        public static string ConfirmCancelTitle {
+            get {
+                return ResourceManager.GetString("ConfirmCancelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to deactivate PIC {0}? The PIC assignment shall be removed..
         /// </summary>
         public static string ConfirmDeactivePic {
