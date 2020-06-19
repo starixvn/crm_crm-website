@@ -104,6 +104,14 @@
            
         $scope.getReport = function () {      
             $uiBlockerService.blockUI();
+            $picManagementFactory.getAllSetting()
+                .then(function (data) {
+                    $scope.communicationTools = data.Result.CommunicationTools;
+                    $scope.reportOptions.IsUpdateGrid = true;
+                }, function () {
+                    $scope.completedLoadFilterInfo();
+                });
+
             if ($scope.selectedRoles.length <= 0) {
                 $scope.errorMessage = 'Please choose a role';
                 $uiBlockerService.unblockUI();
