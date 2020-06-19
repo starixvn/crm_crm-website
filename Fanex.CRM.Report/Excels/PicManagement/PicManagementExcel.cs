@@ -45,7 +45,7 @@
             const int largeWidth = 120;
             const int mediumWidth = 80;
             const int smallWidth = 50;
-            const int remarkWidth = 200;
+            const int largerWidth = 200;
 
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             var headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
@@ -53,7 +53,7 @@
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new List<int>
             {
-                smallWidth, largeWidth, mediumWidth, largeWidth, largeWidth, mediumWidth
+                smallWidth, largeWidth, mediumWidth, largeWidth, largeWidth, largerWidth
             };
 
             for (int index = 0; index < _communicationTools.Count(); index++)
@@ -61,7 +61,7 @@
                 columnWidths.Add(largeWidth);
             }
 
-            columnWidths.AddRange(new List<int> { remarkWidth, smallWidth });
+            columnWidths.AddRange(new List<int> { largerWidth, smallWidth });
 
             foreach (var item in columnWidths)
             {
