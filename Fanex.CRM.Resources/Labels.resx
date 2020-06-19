@@ -295,7 +295,7 @@
     <value>Search</value>
   </data>
   <data name="ConfirmRemovePICAssignment" xml:space="preserve">
-    <value>Confirm Remove PIC Assignment</value>
+    <value>Are you sure you want to remove all selected direct accounts?</value>
   </data>
   <data name="ConfirmCancelTitle" xml:space="preserve">
     <value>Confirm Cancel</value>

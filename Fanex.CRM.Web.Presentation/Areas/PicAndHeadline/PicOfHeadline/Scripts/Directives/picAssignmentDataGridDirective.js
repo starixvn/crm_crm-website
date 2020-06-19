@@ -74,7 +74,8 @@
 							{
 								Name: "ColAction",
 								Value: `<input class='item-remove-assign' data-row-index='${assignment.RowNum}' type='checkbox' ${isDisabled ? 'disabled' : ''}/>`,
-								TdClass: tdClass
+								TdClass: tdClass,
+								IsHideTitle: true
 							}
 						);
 					}
@@ -115,7 +116,7 @@
 
 			var gridOptions = {
 				columns: headerColumns,
-				showTitle: true,
+				showTitle: false,
 				titleInfo: {
 					text: viewResources.PicAssignment,
 					showExcelButton: true,

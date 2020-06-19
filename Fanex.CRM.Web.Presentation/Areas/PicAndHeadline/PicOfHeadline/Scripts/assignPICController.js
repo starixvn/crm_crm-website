@@ -291,7 +291,7 @@
 						$scope.picOptions = settings.pics ? settings.pics.map(pic => {
 							return {
 								id: pic.PicId,
-								text: pic.Username + ' (' + pic.Role + ')'
+								text: pic.Username + ' (' + pic.RoleName + ')'
 							};
 						}) : [];
 

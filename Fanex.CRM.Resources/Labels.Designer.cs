@@ -178,7 +178,7 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm Remove PIC Assignment.
+        ///   Looks up a localized string similar to Are you sure you want to remove all selected direct accounts?.
         /// </summary>
         public static string ConfirmRemovePICAssignment {
             get {
