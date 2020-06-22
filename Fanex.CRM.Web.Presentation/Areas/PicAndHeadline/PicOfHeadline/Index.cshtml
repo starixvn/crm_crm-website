@@ -16,8 +16,16 @@
 <div data-ng-app="picofheadline-application">
     <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
         <div class="main container">
+            <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertboxerr" class="alertboxerr">
+                        <div>{{validateFilterMessage.message}}</div>
+                    </div>
+                </div>
+            </div>
             <form class="filter-form" ng-submit="getPICAssignment()">
                 <div class="row filter-frm one-row expand-filter">
+
                     <div class="row row-item">
                         <div class="item default-focus">
                             <label for="username" class="width-85">
@@ -108,13 +116,6 @@
                                 <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest" />
                                 @Labels.ExcludeTestAccounts
                             </label>
-                        </div>
-                    </div>
-                    <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div data-ng-class="alertboxerr" class="alertboxerr">
-                                <div>{{validateFilterMessage.message}}</div>
-                            </div>
                         </div>
                     </div>
 
