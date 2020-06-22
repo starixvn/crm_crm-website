@@ -161,7 +161,7 @@ namespace Fanex.CRM.Controllers
             bool IsHost = _permissionService.HasHostPermission(FunctionPermissions.PICAssignment);
             var response = new
             {
-                Items = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount),
+                Items = assignments,
                 Total = criteria.TotalRows,
                 TotalUnassignedDirectAccount = criteria.TotalUnassigned,
                 IsHost
