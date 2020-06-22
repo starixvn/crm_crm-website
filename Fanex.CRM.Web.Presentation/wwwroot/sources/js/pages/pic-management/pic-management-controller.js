@@ -43,7 +43,7 @@
             Role: '',
             HeadlineName: '',
             PageIndex: 1,
-            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+            PageSize: 100
         };
 
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
