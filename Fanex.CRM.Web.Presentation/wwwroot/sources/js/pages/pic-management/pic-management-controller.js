@@ -15,6 +15,7 @@
             sourceData: [],
             checkedAll: false
         };
+        $scope.isShowFilter = true;
 
         $scope.selectedRoles = [];
         $scope.textSettings = {

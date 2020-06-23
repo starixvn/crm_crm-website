@@ -172,10 +172,6 @@
                 "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_Update.js",
                 "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_HotKey.js",
                 "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/Directives/*.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/ViewListStyles",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
         }
 
         private static void RegisterSettingManagementInsertSettingBundles(BundleCollection bundles)
@@ -222,10 +218,6 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/ParentSettingDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
         }
 
         private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
@@ -259,10 +251,6 @@
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_HotKey.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/EditSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
         }
 
         private static void RegisterSettingManagementCN88EditSettingBundles(BundleCollection bundles)

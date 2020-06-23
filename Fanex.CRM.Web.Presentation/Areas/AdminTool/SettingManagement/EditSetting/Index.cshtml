@@ -6,9 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Labels.Title_AdminTool_SettingManagement;
 }
-@section Styles{
-    @RazorHelper.RenderStyles("~/Areas/Admin/SettingManagement/EditSettingStyles")
-}
 <div data-ng-app="admintool-settingmanagement-editsetting-application">
     <div class="editSettingController" data-ng-controller="editSettingController">
         <div class="container main popup">

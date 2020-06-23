@@ -66,7 +66,8 @@
             var userNamesCount = userNames.Count;
             var grandTotals = new int[userNamesCount];
             var report = new FeedbackStatistic { Usernames = userNames, FeedbackCategories = new List<FeedbackCategory>(), GrandTotals = grandTotals };
-            int previousCategory = 0, categoryId = 0;
+            var previousCategory = 0;
+            var categoryId = 0;
             FeedbackCategory feedbackCategory = null;
             while (reader.Read())
             {
@@ -85,22 +86,25 @@
                     report.FeedbackCategories.Add(feedbackCategory);
                 }
 
-                var feedbackSubcategory = new FeedbackSubcategory
+                if (feedbackCategory != null)
                 {
-                    Id = Converter.ToInt(reader["SubCategoryId"]),
-                    Name = Converter.ToString2(reader["SubCategory"]),
-                    Resolves = new List<int>(),
-                };
+                    var feedbackSubcategory = new FeedbackSubcategory
+                    {
+                        Id = Converter.ToInt(reader["SubCategoryId"]),
+                        Name = Converter.ToString2(reader["SubCategory"]),
+                        Resolves = new List<int>(),
+                    };
 
-                for (int i = 0; i < userNamesCount; i++)
-                {
-                    var resolve = Converter.ToInt(reader[userNames[i].Name]);
-                    feedbackSubcategory.Resolves.Add(resolve);
-                    feedbackCategory.SubTotal.Resolves[i] += resolve;
-                    grandTotals[i] += resolve;
+                    for (int i = 0; i < userNamesCount; i++)
+                    {
+                        var resolve = Converter.ToInt(reader[userNames[i].Name]);
+                        feedbackSubcategory.Resolves.Add(resolve);
+                        feedbackCategory.SubTotal.Resolves[i] += resolve;
+                        grandTotals[i] += resolve;
+                    }
+
+                    feedbackCategory.FeedbackSubcategories.Add(feedbackSubcategory);
                 }
-
-                feedbackCategory.FeedbackSubcategories.Add(feedbackSubcategory);
             }
 
             ReadUsernameIds(reader, report);

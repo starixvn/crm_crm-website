@@ -1288,6 +1288,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\ViewList\Styles\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
   </ItemGroup>
@@ -1404,11 +1407,8 @@
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Index.cshtml" />
-    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\EditSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Index.cshtml" />
-    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\InsertSubSetting.less" />
-    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
     <Content Include="Views\Common\ErrorPage.cshtml" />

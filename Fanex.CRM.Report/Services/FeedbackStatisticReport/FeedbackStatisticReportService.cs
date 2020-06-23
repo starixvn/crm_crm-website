@@ -73,9 +73,10 @@
 
             criteria.ExportExcel = true;
             FeedbackStatistic report = GetFeedbackStatistic(criteria);
+            report = report ?? new FeedbackStatistic { TotalItems = 0 };
 
             int maxColumnIndex = 0;
-            if (report != null && report.TotalItems != 0)
+            if (report.TotalItems != 0)
             {
                 maxColumnIndex += report.Usernames.Count;
             }
@@ -93,7 +94,7 @@
 
             GenerateFeedbackStatisticTitle(exportExcelInfo, report.Title);
             GenerateFeedbackStatisticHeader(exportExcelInfo, report.Usernames);
-            if (report == null || report.TotalItems == 0)
+            if (report.TotalItems == 0)
             {
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }

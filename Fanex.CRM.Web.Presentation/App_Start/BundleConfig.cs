@@ -4,6 +4,23 @@ namespace Fanex.CRM.Web.View.AppStart
 
     public static class BundleConfig
     {
+        private const string BlockUI = "~/Scripts/ShareScripts/Applications/BlockUI.js";
+        private const string HotKeyManager = "~/Scripts/ShareScripts/HotKeyManager.js";
+        private const string Moment = "~/wwwroot/sources/libs/FanexGrid/moment.js";
+        private const string FanexPagination = "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js";
+        private const string FanexGrid = "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js";
+        private const string SettingManager = "~/Scripts/ShareScripts/SettingManager.js";
+        private const string DirectiveManager = "~/Scripts/ShareScripts/DirectiveManager.js";
+        private const string DropdownList = "~/Scripts/ShareScripts/Directives/DropdownList.js";
+        private const string RegisterTemplate = "~/Scripts/ShareScripts/Directives/RegisterTemplate.js";
+        private const string MultiLevelDropdown = "~/Scripts/Directives/multileveldropdown/multileveldropdown.js";
+        private const string FanexGridCss = "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css";
+        private const string CustomizeFanexGridLess = "~/Content/site/customizeFanexGridV2.less";
+        private const string FanexPaginationCss = "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css";
+        private const string DatePicker = "~/Scripts/ShareScripts/Directives/DatePicker.js";
+        private const string DefaultFocus = "~/Scripts/ShareScripts/Directives/DefaultFocus.js";
+        private const string MultiSelect = "~/Scripts/ShareScripts/Directives/MultiSelect.js";
+
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.AddAndInclude(
@@ -38,11 +55,11 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/Tipsy-Tooltip/tipsy.css");
 
             bundles.Add(new ScriptBundle("~/Views/HomeScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
+                Moment));
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.min.js",
@@ -58,9 +75,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridScripts").Include(
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
+                FanexPagination,
+                FanexGrid,
+                Moment));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
@@ -117,8 +134,8 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                SettingManager,
+                HotKeyManager,
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
@@ -136,7 +153,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
@@ -154,7 +171,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLogScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationApplication.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationService.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationController.js",
@@ -169,13 +186,13 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                BlockUI,
+                HotKeyManager,
+                SettingManager,
+                DirectiveManager,
+                DropdownList,
+                RegisterTemplate,
+                MultiLevelDropdown,
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogOption.js",
@@ -191,13 +208,13 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
+                RegisterTemplate,
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                MultiLevelDropdown,
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogOption.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
@@ -213,17 +230,17 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
                 "~/Scripts/AngularJS/angular-sanitize.js",
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                BlockUI,
+                SettingManager,
+                DirectiveManager,
+                DropdownList,
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
                 "~/Scripts/ShareScripts/Directives/HtmlArea.js",
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                RegisterTemplate,
                 "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                MultiLevelDropdown,
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdOption.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",
@@ -238,7 +255,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLogScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogApplication.js",
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogService.js",
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogController.js",
@@ -252,7 +269,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Redemption_InsertLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/InsertLogScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogService.js",
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogController.js",
@@ -266,7 +283,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLogScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Redemption/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Redemption/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Redemption/EditLog/Scripts/EditLogController.js",
@@ -280,12 +297,12 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Remark(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Remark/RemarkScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                BlockUI,
                 "~/Scripts/ShareScripts/Applications/AlertBox.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
+                HotKeyManager,
+                DirectiveManager,
                 "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js"));
+                RegisterTemplate));
 
             bundles.AddAndInclude(
                 "~/Areas/Remark/RemarkStyles",
@@ -295,10 +312,10 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_ActivityLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/ActivityLogScripts").Include(
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                FanexGrid,
+                Moment,
+                FanexPagination,
+                HotKeyManager,
                 "~/Areas/ActionLog/Common/Scripts/*.js",
                 "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
                 "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogApplication.js",
@@ -308,19 +325,19 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/ActionLog/ActivityLogStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                FanexGridCss,
+                CustomizeFanexGridLess,
+                FanexPaginationCss,
                 "~/Areas/ActionLog/ActivityLog/Styles/activityLog.less");
         }
 
         private static void RegisterBundles_SettingLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ActionLog/SettingLogScripts").Include(
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                FanexGrid,
+                Moment,
+                FanexPagination,
+                HotKeyManager,
                 "~/Areas/ActionLog/Common/Scripts/*.js",
                 "~/Areas/ActionLog/Common/Scripts/Directives/*.js",
                 "~/Areas/ActionLog/SettingLog/Scripts/SettingLogApplication.js",
@@ -330,9 +347,9 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/ActionLog/SettingLogStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                FanexGridCss,
+                CustomizeFanexGridLess,
+                FanexPaginationCss,
                 "~/Areas/ActionLog/SettingLog/Styles/settingLog.less");
         }
 
@@ -340,7 +357,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
                 "~/Scripts/AngularJS/angular-sanitize.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardApplication.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardService.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardController.js",
@@ -355,7 +372,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
                 "~/wwwroot/sources/libs/FanexGrid/numeral.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                HotKeyManager,
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
@@ -369,19 +386,19 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
+                SettingManager,
+                HotKeyManager,
                 "~/Scripts/WeekPicker/WeekPickerManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                DirectiveManager,
+                DropdownList,
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                DatePicker,
                 "~/Scripts/ShareScripts/Directives/WeekPicker.js",
                 "~/Scripts/ShareScripts/Directives/MonthPicker.js",
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                DefaultFocus,
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                RegisterTemplate,
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportOption.js",
@@ -398,16 +415,16 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/RedemptionStatisticsScripts").Include(
                 "~/Scripts/ShareScripts/Applications/AlertBox.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                MultiSelect,
+                DatePicker,
+                DefaultFocus,
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                RegisterTemplate,
                 "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsApplication.js",
                 "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsService.js",
                 "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsController.js",
@@ -415,20 +432,20 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/Report/RedemptionStatisticsStyles",
-                "~/Content/site/customizeFanexGridV2.less",
+                CustomizeFanexGridLess,
                 "~/Areas/Report/RedemptionStatistics/Styles/RedemptionStatistics.less");
         }
 
         private static void RegisterBundles_Report_CustomerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/CustomerReportScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
+                DefaultFocus,
+                MultiSelect,
+                RegisterTemplate,
                 "~/Areas/Report/CustomerReport/Scripts/CustomerReportApplication.js",
                 "~/Areas/Report/CustomerReport/Scripts/CustomerReportService.js",
                 "~/Areas/Report/CustomerReport/Scripts/CustomerReportController.js",
@@ -442,13 +459,13 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Report_DirectCustomerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DirectCustomerReportScripts").Include(
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
+                DefaultFocus,
+                MultiSelect,
+                RegisterTemplate,
                 "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportApplication.js",
                 "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportService.js",
                 "~/Areas/Report/DirectCustomerReport/Scripts/DirectCustomerReportController.js",
@@ -484,12 +501,12 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Report_SettlementReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/SettlementReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
+                BlockUI,
+                HotKeyManager,
+                DirectiveManager,
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                DefaultFocus,
+                RegisterTemplate,
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportApplication.js",
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportController.js",
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportService.js",
@@ -503,14 +520,14 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Report_StatisticReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                BlockUI,
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
                 "~/Scripts/ShareScripts/Directives/MonthPicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                DefaultFocus,
+                RegisterTemplate,
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportApplication.js",
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
@@ -540,25 +557,25 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_FanexGrid(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/wwwroot/sources/libs/FanexGrid/FanexGridScripts").Include(
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js",
-                "~/wwwroot/sources/libs/FanexGrid/moment.js"));
+                FanexPagination,
+                FanexGrid,
+                Moment));
 
             bundles.AddAndInclude(
-                "~/wwwroot/sources/libs/FanexGrid/FanexGridStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
-                "~/Content/site/customizeFanexGridV2.less");
+                "~/wwwroot/sources/libs/FanexGrid/FanexGridCsss",
+                FanexGridCss,
+                FanexPaginationCss,
+                CustomizeFanexGridLess);
         }
 
         private static void RegisterBundles_Report_WagerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/WagerReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                HotKeyManager,
+                DirectiveManager,
+                DefaultFocus,
+                RegisterTemplate,
                 "~/Areas/Report/WagerReport/Scripts/WagerReportApplication.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportController.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportService.js",
@@ -566,21 +583,21 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/Report/WagerReportStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                FanexGridCss,
+                CustomizeFanexGridLess,
+                FanexPaginationCss,
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less");
         }
 
         private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/SummaryReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                HotKeyManager,
+                DirectiveManager,
+                DefaultFocus,
+                MultiSelect,
+                RegisterTemplate,
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportApplication.js",
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportController.js",
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportService.js",
@@ -588,32 +605,32 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Areas/Report/SummaryReportStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                FanexGridCss,
+                CustomizeFanexGridLess,
+                FanexPaginationCss,
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less");
         }
 
         private static void RegisterBundles_PicManagement(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                BlockUI,
+                MultiLevelDropdown,
                 "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js"));
+                RegisterTemplate));
         }
 
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicOfHeadlineScripts").Include(
                 "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                HotKeyManager,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
+                DefaultFocus,
+                MultiSelect,
+                RegisterTemplate,
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineApplication.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineService.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController.js",

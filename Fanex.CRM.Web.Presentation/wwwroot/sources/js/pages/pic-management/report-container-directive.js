@@ -13,7 +13,7 @@
         };
 
         function getGridHeight() {
-            return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 230 : 50);
+            return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 160 : 50);
         }
 
         function getGripOtions(report, communicationTools) {
@@ -126,7 +126,7 @@
                     }
                 },
                 bodyRows: bodyData,
-                gridExpandHeight: 200,
+                gridExpandHeight: getGridHeight(),
                 showPager: true,
                 customPager: true,
                 pagerOption: {
