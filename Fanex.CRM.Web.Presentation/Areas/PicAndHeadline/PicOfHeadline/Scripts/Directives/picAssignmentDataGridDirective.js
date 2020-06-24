@@ -40,7 +40,8 @@
 								Name: "ColPIC",
 								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts, gridData.IsHost),
 								MergeRowNumber: mergePIC,
-								CellAlign: assignment.PicList === null ? 'center' : 'left'
+								CellAlign: assignment.PicList === null ? 'center' : 'left',
+								IsHideTitle: true
 							}
 						);
 					}
@@ -54,7 +55,8 @@
 								Name: "ColPIC",
 								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts.toString(), gridData.IsHost),
 								MergeRowNumber: mergePIC,
-								CellAlign: assignment.PicList === null ? 'center' : 'left'
+								CellAlign: assignment.PicList === null ? 'center' : 'left',
+								IsHideTitle: true
 							}
 						);
 					}
