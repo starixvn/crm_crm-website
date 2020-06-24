@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <form class="filter-form" ng-submit="getPICAssignment()">
+            <form class="filter-form" id="pic-assignment-filter" ng-submit="getPICAssignment()">
                 <div class="row filter-frm one-row expand-filter">
 
                     <div class="row row-item">
@@ -120,10 +120,10 @@
                     </div>
 
                     <div class="row row-item">
-                        <button class="btn" type="submit">@Labels.Submit</button>
+                        <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
                         @if (isHost)
                         {
-                            <button class="btn" type="button" ng-click="openAssignModal()">@Labels.AssignPIC</button>
+                            <button class="btn" type="button" ng-click="openAssignModal()">Ass<span class="hotkey">i</span>gn PIC</button>
                         }
                     </div>
                 </div>
