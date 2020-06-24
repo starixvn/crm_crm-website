@@ -29,7 +29,7 @@
                     <tr>
                         <th class="text-center" ng-repeat="pic in removeAssignmentData.distinctPics">
                             <input type="checkbox" id="parent-chkbox-{{pic.PicId}}" name="{{pic.PicName}}"
-                                   checked ng-click="onClickPicNameChkbox($event, pic.PicId, pic.PicName)" />
+                                   checked ng-click="onClickPicNameChkbox($event, pic.PicId)" />
                         </th>
                     </tr>
                 </thead>
@@ -40,7 +40,7 @@
                         <td>{{assignment.DirectAccount}}</td>
                         <td ng-repeat="p in assignment.PicAssignment" class="{{!p.IsSelectable ? 'null-cell-color text-center' : 'text-center' }}">
                             <input ng-if="p.IsSelectable" type="checkbox" name="chkbox-{{p.PicName}}" class="child-chkbox-{{p.PicId}}"
-                                   ng-click="onSelectAssignment($event, assignment.HeadlineId, assignment.DirectAccountId, p.PicId, p.PicName)"
+                                   ng-click="onSelectAssignment($event, assignment.HeadlineId, assignment.DirectAccountId, p.PicId)"
                                    checked />
                         </td>
                     </tr>

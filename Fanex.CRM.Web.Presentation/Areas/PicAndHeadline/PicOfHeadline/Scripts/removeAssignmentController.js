@@ -21,11 +21,11 @@
 					$scope.removeAssignmentData = [];
 				};
 
-				$scope.onSelectAssignment = function ($event, headlineId, custId, picId, picName) {
+				$scope.onSelectAssignment = function ($event, headlineId, custId, picId) {
 					let index = $scope.selectedAssignment.findIndex(assignment =>
 						assignment.HeadlineId === headlineId &&
 						assignment.CustId === custId &&
-						assignment.PicName === picName);
+						assignment.PicId === picId);
 					$scope.selectedAssignment[index].IsSelected = $event.currentTarget.checked;
 
 					$scope.handleRemoveAllBtnState();
@@ -37,6 +37,7 @@
 						return {
 							HeadlineId: assignment.HeadlineId,
 							CustId: assignment.CustId,
+							PicId: assignment.PicId,
 							PicName: assignment.PicName
 						};
 					});
@@ -56,10 +57,10 @@
 					});
 				};
 
-				$scope.onClickPicNameChkbox = function ($event, picId, picName) {
+				$scope.onClickPicNameChkbox = function ($event, picId) {
 					for (var i = 0; i < $scope.selectedAssignment.length; i++) {
 						let assignment = $scope.selectedAssignment[i];
-						if (assignment.PicName === picName) {
+						if (assignment.PicId === picId) {
 							assignment.IsSelected = $event.currentTarget.checked;
 						}
 					}

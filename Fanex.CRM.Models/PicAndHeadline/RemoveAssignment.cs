@@ -11,7 +11,7 @@
         [XmlAttribute("CustID")]
         public int CustId { get; set; }
 
-        [XmlAttribute("PICName")]
-        public string PicName { get; set; }
+        [XmlAttribute("PicID")]
+        public string PicId { get; set; }
     }
 }

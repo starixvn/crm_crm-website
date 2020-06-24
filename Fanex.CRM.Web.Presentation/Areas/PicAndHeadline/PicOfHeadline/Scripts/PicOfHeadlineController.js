@@ -358,6 +358,7 @@
 									HeadlineId: removePic[i].HeadlineID,
 									CustId: removePic[i].DirectAccountID,
 									PicName: p.PicName,
+									PicId: p.PicId,
 									IsSelected: true
 								});
 							});

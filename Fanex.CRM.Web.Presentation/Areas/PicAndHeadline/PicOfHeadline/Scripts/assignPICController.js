@@ -180,14 +180,26 @@
 					if (message.indexOf(':') !== -1) {
 						const invalidDirectAccountString = message.substring(message.indexOf(':') + 1, message.length).trim();
 						const invalidListDirectAccounts = invalidDirectAccountString.split(',');
-						const assignPICDirectAccounts = $scope.assignPICModel.directAccounts;
+						const assignPICDirectAccounts = [];
+						const map = new Map();
+						for (const item of $scope.assignPICModel.directAccounts) {
+							if (!map.has(item.username)) {
+								map.set(item.username, true);    // set any value to Map
+								assignPICDirectAccounts.push({
+									index: item.index,
+									username: item.username,
+									isValid: item.isValid
+								});
+							}
+						}
+
 						assignPICDirectAccounts.map(function (account) {
 							if (invalidListDirectAccounts.some(acc => acc.trim() === account.username.trim())) {
 								account.isValid = false;
 							}
 						});
 
-						$scope.assignPIC.directAccounts = assignPICDirectAccounts;
+						$scope.assignPICModel.directAccounts = [...new Set(assignPICDirectAccounts)];
 					}
 				};
 
@@ -207,6 +219,24 @@
 								assignPIC(isKeepAssign);
 							};
 							$scope.assignedDirectAccounts = assignedDirectAccounts;
+
+							$(document).off('keydown').on('keydown', function (eventObject) {
+								if (eventObject.ctrlKey) {
+									if (eventObject.keyCode === 77) {
+										$scope.$dismiss();
+										assignPIC(false);
+										eventObject.preventDefault();
+										return false;
+									}
+
+									if (eventObject.keyCode === 75) {
+										$scope.$dismiss();
+										assignPIC(true);
+										eventObject.preventDefault();
+										return false;
+									}
+								}
+							});
 						}
 					});
 				};
