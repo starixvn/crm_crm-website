@@ -118,7 +118,7 @@
 
 			var gridOptions = {
 				columns: headerColumns,
-				showTitle: false,
+				showTitle: true,
 				titleInfo: {
 					text: viewResources.PicAssignment,
 					showExcelButton: true,
