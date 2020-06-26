@@ -15,19 +15,19 @@
                 </div>
             </div>
         </div>
-        <div class="row item" ng-model="removeAssignmentData">
+        <div class="remove-assignment-wrapper" ng-model="removeAssignmentData">
             <table class="assigned-direct-account remove-assignment">
                 <thead>
                     <tr>
-                        <th class="text-center" rowspan="2">@Labels.No</th>
-                        <th class="text-center" rowspan="2">@Labels.GroupHeadline</th>
-                        <th class="text-center" rowspan="2">@Labels.DirectAccount</th>
-                        <th class="text-center pic-name-th" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
+                        <th class="text-center width-80" rowspan="2">@Labels.No</th>
+                        <th class="text-center width-150" rowspan="2">@Labels.GroupHeadline</th>
+                        <th class="text-center width-150" rowspan="2">@Labels.DirectAccount</th>
+                        <th class="text-center width-150" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
                             {{pic.PicName}}
                         </th>
                     </tr>
                     <tr>
-                        <th class="text-center" ng-repeat="pic in removeAssignmentData.distinctPics">
+                        <th class="text-center width-150" ng-repeat="pic in removeAssignmentData.distinctPics">
                             <input type="checkbox" id="parent-chkbox-{{pic.PicId}}" name="{{pic.PicName}}"
                                    checked ng-click="onClickPicNameChkbox($event, pic.PicId)" />
                         </th>

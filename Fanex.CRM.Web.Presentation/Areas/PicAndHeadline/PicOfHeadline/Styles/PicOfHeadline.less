@@ -261,13 +261,27 @@ table.assigned-direct-account {
     }
 }
 
-table.remove-assignment {
-    max-height: 600px;
-    overflow: scroll;
+.remove-assignment-wrapper {
+    overflow-y: visible;
+    width: 100%;
+    display: block;
 
-    .pic-name-th {
-        width: 100px;
-        word-break: break-word;
+    table {
+        display: block;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    td, th {
+        padding: 5px 20px;
+    }
+
+    .width-80 {
+        width: 80px !important;
+    }
+
+    .width-150 {
+        width: 150px !important;
     }
 }
 
