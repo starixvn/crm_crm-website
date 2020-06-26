@@ -101,6 +101,7 @@
 						size: 'sm',
 						backdropClass: 'related-customer-modal-backdrop',
 						windowClass: 'remove-assignment-modal',
+						appendTo: $window.parent.parent.$('body'),
 						controller: function ($scope) {
 							$scope.removeAssignment = function () {
 								$scope.$dismiss();

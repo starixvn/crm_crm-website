@@ -194,7 +194,7 @@ namespace Fanex.CRM.Controllers
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<PicModel>), new XmlRootAttribute("ROOT"));
                     var listPic = (List<PicModel>)serializer.Deserialize(new StringReader(assignment.PIC));
-                    assignment.PicList = listPic.OrderBy(p => p.Role).ThenBy(r => r.PicName).ToList();
+                    assignment.PicList = listPic.OrderBy(p => p.Order).ThenBy(r => r.PicName).ToList();
 
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
                 }

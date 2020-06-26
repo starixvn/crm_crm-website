@@ -2,8 +2,8 @@
 	"use strict";
 	/* global sharedScriptManager */
 	/* jshint camelcase: false */
-	angular.module('picofheadline-application').directive('movableModal', ['$document',
-		function ($document) {
+	angular.module('picofheadline-application').directive('movableModal', ['$document', '$window',
+		function ($document, $window) {
 			return {
 				restrict: 'A',
 				link: function (scope, iElement, iAttrs) {
@@ -23,22 +23,22 @@
 						event.preventDefault();
 						startX = event.pageX - x;
 						startY = event.pageY - y;
-						$document.on('mousemove', mousemove);
-						$document.on('mouseup', mouseup);
+						$($window.parent.document).on('mousemove', mousemove);
+						$($window.parent.document).on('mouseup', mouseup);
 					});
 
 					function mousemove(event) {
 						y = event.pageY - startY;
 						x = event.pageX - startX;
 						dialogWrapper.css({
-							top: y + 'px',
+							top: y >= 0 ? y : 0 + 'px',
 							left: x + 'px'
 						});
 					}
 
 					function mouseup() {
-						$document.unbind('mousemove', mousemove);
-						$document.unbind('mouseup', mouseup);
+						$($window.parent.document).unbind('mousemove', mousemove);
+						$($window.parent.document).unbind('mouseup', mouseup);
 					}
 				}
 			};

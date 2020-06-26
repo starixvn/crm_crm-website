@@ -35,6 +35,7 @@
 							backdrop: 'static',
 							keyboard: false,
 							size: 'sm',
+							appendTo: $window.parent.parent.$('body'),
 							controller: function ($scope) {
 								$scope.confirm = function (isConfirmed) {
 									$scope.$dismiss();
@@ -215,7 +216,7 @@
 						backdropClass: 'pic-assignment-modal-backdrop',
 						windowClass: 'pic-assignment-modal',
 						size: 'lg',
-						appendTo: $window.parent.$('body'),
+						appendTo: $window.parent.parent.$('body'),
 						controller: function ($scope) {
 							$scope.assignPIC = function (isKeepAssign) {
 								$scope.$dismiss();

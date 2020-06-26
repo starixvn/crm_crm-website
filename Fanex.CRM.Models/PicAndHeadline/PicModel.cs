@@ -13,5 +13,8 @@
 
         [XmlAttribute("Role")]
         public string Role { get; set; }
+
+        [XmlAttribute("Oder")]
+        public int Order { get; set; }
     }
 }

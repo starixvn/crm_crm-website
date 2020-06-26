@@ -4,8 +4,8 @@
     viewResources,
     sharedScriptManager */
 	/* jshint camelcase: false */
-	angular.module('picofheadline-application').directive('selectWithSearchContainer', function () {
-		function renderSelect(scope, element, options, multiple) {
+	angular.module('picofheadline-application').directive('selectWithSearchContainer', ['$document', '$window', function ($document, $window) {
+		function renderSelect(scope, element, options) {
 			if (!options || options.length === 0) {
 				return;
 			}
@@ -14,7 +14,8 @@
 				allowClear: true,
 				placeholder: 'Please select',
 				data: options,
-				multiple: multiple || false
+				multiple: element.context.multiple || false,
+				dropdownParent: $window.parent.$('body')
 			});
 		}
 
@@ -27,9 +28,9 @@
 			},
 			link: function (scope, element) {
 				scope.$watch('options', function (newval, oldval) {
-					renderSelect(scope, element, newval, element.context.multiple);
+					renderSelect(scope, element, newval);
 				});
 			}
 		};
-	});
+	}]);
 })();

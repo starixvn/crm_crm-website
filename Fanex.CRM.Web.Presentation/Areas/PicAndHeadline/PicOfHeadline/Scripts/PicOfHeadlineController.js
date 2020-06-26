@@ -5,6 +5,7 @@
     currentDate: true,
 	registerHotkeyFunctions,
     moment,
+	movableOuterIframeModalDirective,
     sharedScriptManager */
 	/* jshint camelcase: false */
 	angular.module('picofheadline-application').controller('picOfHeadlineController',
@@ -268,6 +269,7 @@
 						size: 'lg',
 						backdropClass: 'assign-pic-modal-backdrop',
 						windowClass: 'assign-pic-modal',
+						appendTo: $window.parent.parent.$('body'),
 						resolve: {
 							initData: function () {
 								return {
@@ -330,6 +332,7 @@
 						size: 'lg',
 						backdropClass: 'related-customer-modal-backdrop',
 						windowClass: 'remove-assignment-modal',
+						appendTo: $window.parent.$('body'),
 						resolve: {
 							removeAssignmentData: function () {
 								return passedData;
@@ -432,7 +435,6 @@
 					$scope.initController();
 					const parentHead = $window.parent.$('head');
 					const style = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less"]').clone();
-
 					parentHead.append(style);
 				});
 			}]);
