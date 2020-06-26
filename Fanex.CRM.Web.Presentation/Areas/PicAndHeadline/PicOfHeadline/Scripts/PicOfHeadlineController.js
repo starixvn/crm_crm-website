@@ -266,8 +266,8 @@
 						backdrop: 'static',
 						keyboard: false,
 						size: 'lg',
-						backdropClass: 'related-customer-modal-backdrop',
-						windowClass: 'related-customer-modal',
+						backdropClass: 'assign-pic-modal-backdrop',
+						windowClass: 'assign-pic-modal',
 						resolve: {
 							initData: function () {
 								return {
@@ -374,13 +374,16 @@
 							};
 						});
 
-					var removeAssignmentData = $scope.removePic.map(pic => {
+					var removeAssignmentData = $scope.removePic.map((pic, index) => {
+						let numberOfDirectAccount = $scope.removePic.filter(p => p.HeadlineID === pic.HeadlineID).length;
 						return {
 							HeadlineId: pic.HeadlineID,
 							HeadLineName: pic.HeadlineName,
 							DirectAccountId: pic.DirectAccountID,
 							DirectAccount: pic.DirectAccount,
 							PicList: pic.PicList,
+							NumberOfDirectAccount: numberOfDirectAccount,
+							IsHideInTable: index > 0 && pic.HeadlineID === $scope.removePic[index - 1].HeadlineID,
 							PicAssignment: distinctPics.map(p => {
 								return {
 									PicId: p.PicId,

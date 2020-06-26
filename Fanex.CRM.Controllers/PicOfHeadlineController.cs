@@ -175,6 +175,8 @@ namespace Fanex.CRM.Controllers
             criteria.PicName = criteria.PicName ?? string.Empty;
             criteria.DirectAccount = criteria.DirectAccount ?? string.Empty;
             criteria.GroupHeadline = criteria.GroupHeadline ?? string.Empty;
+            criteria.PageIndex = null;
+            criteria.PageSize = null;
             var picInfo = _baseService.GetData<PICAssignmentInfo>(criteria);
             var data = GeneratePicList(picInfo, criteria.PageIndex, criteria.PageSize);
 
@@ -184,29 +186,29 @@ namespace Fanex.CRM.Controllers
             excel.BuildWorkBook();
         }
 
-        private static IEnumerable<PICAssignmentInfo> GeneratePicList(IEnumerable<PICAssignmentInfo> assignments, int pageIndex, int pageSize)
+        private static IEnumerable<PICAssignmentInfo> GeneratePicList(IEnumerable<PICAssignmentInfo> assignments, int? pageIndex, int? pageSize)
         {
-            var index = 0;
-
             foreach (var assignment in assignments)
             {
-                assignment.RowNum = index + ((pageIndex - 1) * pageSize);
-                index++;
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<PicModel>), new XmlRootAttribute("ROOT"));
                     var listPic = (List<PicModel>)serializer.Deserialize(new StringReader(assignment.PIC));
-                    assignment.PicList = listPic;
+                    assignment.PicList = listPic.OrderBy(p => p.Role).ToList();
 
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
                 }
             }
 
-            var results = assignments.OrderBy(i => i.HeadlineName).ThenBy(a => a.PicForMapping).ThenBy(i => i.DirectAccount).ToList();
+            var results = assignments.OrderBy(i => i.HeadlineName)
+                .ThenByDescending(a => a.PicForMapping)
+                .ThenBy(p => p.PicList != null)
+                .ThenBy(p => p.PicList?.Count)
+                .ThenBy(i => i.DirectAccount).ToList();
 
             for (int i = 0; i < results.Count; i++)
             {
-                results[i].RowNum = i;
+                results[i].RowNum = (pageIndex != null && pageSize != null) ? i + ((pageIndex - 1) * pageSize) : i;
             }
             return results;
         }

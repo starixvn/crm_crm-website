@@ -28,6 +28,6 @@ namespace Fanex.CRM.Models.PicAndHeadline
 
         public string PicForMapping { get; set; }
 
-        public int RowNum { get; set; }
+        public int? RowNum { get; set; }
     }
 }

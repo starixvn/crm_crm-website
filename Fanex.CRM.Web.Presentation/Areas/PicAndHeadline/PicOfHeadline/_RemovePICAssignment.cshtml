@@ -36,7 +36,7 @@
                 <tbody>
                     <tr ng-repeat="assignment in removeAssignmentData.data">
                         <td class="text-center">{{$index + 1}}</td>
-                        <td>{{assignment.HeadLineName}}</td>
+                        <td rowspan="{{assignment.NumberOfDirectAccount}}" ng-hide="{{assignment.IsHideInTable}}">{{assignment.HeadLineName}}</td>
                         <td>{{assignment.DirectAccount}}</td>
                         <td ng-repeat="p in assignment.PicAssignment" class="{{!p.IsSelectable ? 'null-cell-color text-center' : 'text-center' }}">
                             <input ng-if="p.IsSelectable" type="checkbox" name="chkbox-{{p.PicName}}" class="child-chkbox-{{p.PicId}}"

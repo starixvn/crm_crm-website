@@ -183,13 +183,34 @@
 
         private static void RenderUnmergeColumns(ExportExcelInfo exportExcelInfo, IList<IRow> rows, IEnumerable<PicOfDirectAccount> pics)
         {
-            var style = NpoiExtensions.GetTextStyle(
-               exportExcelInfo.ExcelFile,
-               NpoiExtensions.BackgroundColorIndex,
-               false,
-               ExcelHorizontalAlignment.Left);
-            style.WrapText = true;
             var directAccounts = new List<DirectAccountInfo>();
+
+            var openStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExtensions.BackgroundColorIndex,
+                false,
+                ExcelHorizontalAlignment.Left);
+            openStyle.WrapText = true;
+            var closedStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                Grey25Percent.Index,
+                false,
+                ExcelHorizontalAlignment.Left);
+            closedStyle.WrapText = true;
+
+            var suspendedStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                Pink.Index,
+                false,
+                ExcelHorizontalAlignment.Left);
+            suspendedStyle.WrapText = true;
+
+            var disabledStyle = NpoiExtensions.GetTextStyle(
+                exportExcelInfo.ExcelFile,
+                Grey50Percent.Index,
+                false,
+                ExcelHorizontalAlignment.Left);
+            disabledStyle.WrapText = true;
 
             foreach (var pic in pics)
             {
@@ -200,35 +221,34 @@
             {
                 var directAccount = directAccounts[index];
                 var row = rows[index];
-                style.FillBackgroundColor = GetCellColor(directAccount.Status);
 
-                NpoiExtensions.RenderCell(row, directAccountColNumber, directAccount.DirectAccount, style);
-                NpoiExtensions.RenderCell(row, statusColNumber, directAccount.Status, style);
-                NpoiExtensions.RenderCell(row, siteColNumber, directAccount.Site, style);
-                NpoiExtensions.RenderCell(row, currencyColNumber, directAccount.Currency, style);
-                NpoiExtensions.RenderCell(row, positionColNumber, directAccount.Position, style);
+                NpoiExtensions.RenderCell(row, directAccountColNumber, directAccount.DirectAccount, GetCellColor(directAccount.Status, openStyle, closedStyle, disabledStyle, suspendedStyle));
+                NpoiExtensions.RenderCell(row, statusColNumber, directAccount.Status, GetCellColor(directAccount.Status, openStyle, closedStyle, disabledStyle, suspendedStyle));
+                NpoiExtensions.RenderCell(row, siteColNumber, directAccount.Site, GetCellColor(directAccount.Status, openStyle, closedStyle, disabledStyle, suspendedStyle));
+                NpoiExtensions.RenderCell(row, currencyColNumber, directAccount.Currency, GetCellColor(directAccount.Status, openStyle, closedStyle, disabledStyle, suspendedStyle));
+                NpoiExtensions.RenderCell(row, positionColNumber, directAccount.Position, GetCellColor(directAccount.Status, openStyle, closedStyle, disabledStyle, suspendedStyle));
             }
         }
 
-        private static short GetCellColor(string accountStatus)
+        private static ICellStyle GetCellColor(string accountStatus, ICellStyle openStyle, ICellStyle closedStyle, ICellStyle disabledStyle, ICellStyle suspendedStyle)
         {
-            short color = White.Index;
-            if (accountStatus.ToLowerInvariant().Equals("closed"))
+            var style = openStyle;
+            if (accountStatus.ToLowerInvariant() == "closed")
             {
-                color = Grey25Percent.Index;
+                style = closedStyle;
             }
 
-            if (accountStatus.ToLowerInvariant().Equals("disabled"))
+            if (accountStatus.ToLowerInvariant() == "disabled")
             {
-                color = Grey25Percent.Index;
+                style = disabledStyle;
             }
 
-            if (accountStatus.ToLowerInvariant().Equals("suppended"))
+            if (accountStatus.ToLowerInvariant() == "suspended")
             {
-                color = Pink.Index;
+                style = suspendedStyle;
             }
 
-            return color;
+            return style;
         }
     }
 }

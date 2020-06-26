@@ -212,7 +212,10 @@
 						template: angular.element('#list-assigned-direct-account').html(),
 						backdrop: 'static',
 						keyboard: false,
-						size: 'sm',
+						backdropClass: 'pic-assignment-modal-backdrop',
+						windowClass: 'pic-assignment-modal',
+						size: 'lg',
+						appendTo: $window.parent.$('body'),
 						controller: function ($scope) {
 							$scope.assignPIC = function (isKeepAssign) {
 								$scope.$dismiss();
