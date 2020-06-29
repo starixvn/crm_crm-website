@@ -435,6 +435,8 @@
 					$scope.initController();
 					const parentHead = $window.parent.$('head');
 					const style = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less"]').clone();
+					const select2 = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/select2.less"]').clone();
+					parentHead.append(select2);
 					parentHead.append(style);
 				});
 			}]);
