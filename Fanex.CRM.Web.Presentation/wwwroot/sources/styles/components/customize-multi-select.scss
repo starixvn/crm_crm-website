@@ -1,4 +1,7 @@
-﻿.container {
+﻿@import '../../../../Scripts/MultipleSelect/fanex.multiSelect.css';
+$fanex-grid-images-path: '../images/list-muti-select.png';
+
+.container {
     /* Multiselect */
     .ui-multiselect, .RadTreeView {
         width: 100% !important;
@@ -104,20 +107,19 @@
     }
 
     .fanex-multiselect-icon-collapse {
-        background: url(images/list-muti-select.png) no-repeat -19px 0;
+        background: url($fanex-grid-images-path) no-repeat -19px 0;
         height: 15px;
         width: 15px;
         margin-right: 2px;
     }
 
     .fanex-multiselect-icon-expand {
-        background: url(images/list-muti-select.png) no-repeat -19px 0;
+        background: url($fanex-grid-images-path) no-repeat -19px 0;
         height: 15px;
         width: 15px;
         margin-right: 2px;
         background-position: 0 0;
     }
-
 
     .fanex-multiselect-helper-reset label {
         padding-left: 20px;

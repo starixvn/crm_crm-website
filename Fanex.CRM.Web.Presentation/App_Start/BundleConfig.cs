@@ -637,8 +637,10 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController_HotKey.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/assignPicController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/removeAssignmentController.js",
-                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js",
-                "~/Scripts/Select2/select2.js"
+                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
+                "~/Scripts/Select2/select2.js",
+                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js"
+
                 ));
 
             bundles.AddAndInclude(

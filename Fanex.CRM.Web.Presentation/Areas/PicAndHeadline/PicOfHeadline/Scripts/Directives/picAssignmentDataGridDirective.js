@@ -13,7 +13,7 @@
 		};
 
 		function getGridHeight() {
-			return crmConstants.MarginBottomPage + 189/*(cachedData.scope.isShowFilter ? 230 : 50)*/;
+			return crmConstants.MarginBottomPage + 220/*(cachedData.scope.isShowFilter ? 230 : 50)*/;
 		}
 
 		function getGripOtions(gridData) {
@@ -34,7 +34,7 @@
 						mergePIC = pics.length;
 						const accounts = pics.map(pic => pic.DirectAccountID);
 						columns.push(
-							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline },
+							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline, TdClass: "tipsy-tooltip", TdCustomAttr: `title="Group Headline: ${assignment.HeadlineName}"` },
 							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
 							{
 								Name: "ColPIC",

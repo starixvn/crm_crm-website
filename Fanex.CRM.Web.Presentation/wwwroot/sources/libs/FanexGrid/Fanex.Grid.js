@@ -740,6 +740,7 @@ var fanexGridCurrentLanguage = fanexGridCurrentLanguage || {};
 								CustomAttr: me.columnsHastable[currentCol.Name].CustomAttr,
 								CanShowHide: me.columnsHastable[currentCol.Name].CanShowHide && (!options.enableHiddenColumns),
 								TdClass: me.columnsHastable[currentCol.Name].TdClass || '',
+								TdCustomAttr: me.columnsHastable[currentCol.Name].TdCustomAttr || '',
 								ThClass: me.columnsHastable[currentCol.Name].ThClass || '',
 								CellAlign: me.columnsHastable[currentCol.Name].HeaderAlign || (me.columnsHastable[currentCol.Name].CellAlign || 'center')
 							};
@@ -1054,7 +1055,7 @@ var fanexGridCurrentLanguage = fanexGridCurrentLanguage || {};
 					cell.Width -= totalPaddingLeft;
 				}
 
-				cellHtml.push('<' + container.HtmlTag + ' ' + container.CustomSpan + ' class="' + tdClass + '"' + ' style="' + container.Height + '"' + ' >');
+				cellHtml.push('<' + container.HtmlTag + ' ' + container.CustomSpan + ' class="' + tdClass + '"' + ' style="' + container.Height + '"' + currentCol.TdCustomAttr + ' >');
 				cellHtml.push('<div class="table-cell ' +
 					cell.CssClass + ' ' +
 					truncateClass +
