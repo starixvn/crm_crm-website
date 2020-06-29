@@ -433,7 +433,7 @@
 
 				angular.element(document).ready(function () {
 					$scope.initController();
-					const parentHead = $window.parent.$('head');
+					const parentHead = $window.parent.parent.$('head');
 					const style = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less"]').clone();
 					const select2 = $('head link[href*="/Areas/PicAndHeadline/PicOfHeadline/Styles/select2.css"]').clone();
 					parentHead.append(select2);
