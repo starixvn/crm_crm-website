@@ -525,7 +525,21 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController_HotKey.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Styles\select2.css">
+    <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\BottomLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\FirstNodeSpan.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\MiddleLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\NodeSpan.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\PlusMinus.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\sprites.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\TopLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\jquery.nextreeview.css" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\jquery.nextreeview.js" />
+    <Content Include="wwwroot\sources\libs\Select2\select2.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\AngularJS\angular-sanitize.js" />
@@ -650,6 +664,7 @@
     <Content Include="wwwroot\sources\libs\FanexGrid\numeral.min.js" />
     <Content Include="wwwroot\sources\styles\images\excel.png" />
     <Content Include="wwwroot\sources\styles\images\icon-edit.png" />
+    <Content Include="wwwroot\sources\styles\images\list-muti-select.png" />
     <Content Include="wwwroot\sources\styles\images\list.png" />
     <Content Include="wwwroot\sources\styles\images\quick-edit.png" />
     <Content Include="wwwroot\sources\styles\images\quick-edit-hover.png" />
@@ -1592,6 +1607,7 @@
     <Content Include="wwwroot\sources\styles\components\customize-multi-select.scss" />
     <Content Include="wwwroot\dist\js\pic.management.js.map" />
     <Content Include="wwwroot\dist\styles\pic.management.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

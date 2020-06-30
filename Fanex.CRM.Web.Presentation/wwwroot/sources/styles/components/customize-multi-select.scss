@@ -1,5 +1,4 @@
-﻿@import '../../../../Scripts/MultipleSelect/fanex.multiSelect.css';
-$fanex-grid-images-path: '../images/list-muti-select.png';
+﻿@import '../../libs/MultiSelect/fanex.multiSelect.css';
 
 .container {
     /* Multiselect */
@@ -107,14 +106,14 @@ $fanex-grid-images-path: '../images/list-muti-select.png';
     }
 
     .fanex-multiselect-icon-collapse {
-        background: url($fanex-grid-images-path) no-repeat -19px 0;
+        background: url('../images/list-muti-select.png') no-repeat -19px 0;
         height: 15px;
         width: 15px;
         margin-right: 2px;
     }
 
     .fanex-multiselect-icon-expand {
-        background: url($fanex-grid-images-path) no-repeat -19px 0;
+        background: url('../images/list-muti-select.png') no-repeat -19px 0;
         height: 15px;
         width: 15px;
         margin-right: 2px;
