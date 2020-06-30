@@ -525,6 +525,8 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController_HotKey.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.css" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\images\BottomLine.png" />
@@ -1608,6 +1610,7 @@
     <Content Include="wwwroot\dist\js\pic.management.js.map" />
     <Content Include="wwwroot\dist\styles\pic.management.js.map" />
     <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">
