@@ -306,6 +306,7 @@
 					if (eventObject.ctrlKey) {
 						if (eventObject.keyCode === 83) {  //s
 							$scope.validatePicAssignment();
+							$scope.$apply();
 							eventObject.preventDefault();
 							return false;
 						}

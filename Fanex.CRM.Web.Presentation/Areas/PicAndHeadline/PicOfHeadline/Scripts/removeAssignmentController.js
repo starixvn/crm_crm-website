@@ -118,6 +118,7 @@
 					if (eventObject.ctrlKey) {
 						if (eventObject.keyCode === 77) {  //m
 							$scope.openConfirmRemoveAssignmentModal();
+							$scope.$apply();
 							eventObject.preventDefault();
 							return false;
 						}
