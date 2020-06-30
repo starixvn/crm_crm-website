@@ -2,7 +2,6 @@
 @import '../abstracts/mixins';
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
-@import '~tipsy/src/stylesheets/tipsy.css';
 @import '../../libs/FanexGrid/Fanex.Grid.css';
 @import '../../libs/FanexGrid/Fanex.Pagination.css';
 $fanex-grid-images-path: '../images';
@@ -10,8 +9,7 @@ $fanex-grid-images-path: '../images';
 @import '../components/modal';
 @import '../components/customize-fanex-grid';
 @import '../components/customize-multi-select';
-@import '../../libs/Select2/select2.css';
-@import '../../../../Scripts/Tipsy-Tooltip/tipsy.css';
+@import '~select2/dist/css/select2.css';
 
 .container {
     .filter-frm {
@@ -281,7 +279,8 @@ table.assigned-direct-account {
     table {
         display: block;
         white-space: nowrap;
-        overflow-x: auto;
+        overflow: auto;
+        max-height: 600px;
     }
 
     td, th {
@@ -311,4 +310,31 @@ table.assigned-direct-account {
 
 .null-cell-color {
     background-color: #eaeaea !important;
+}
+
+.headline-tooptip {
+    display: inline-block;
+    padding: 5px;
+    color: #fff;
+    background-color: #363636;
+    border: 1px solid #363636;
+    border-radius: 3px;
+    position: absolute;
+    left: 245px;
+    z-index: 10;
+    display: none;
+}
+
+.headline-tooptip:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: #363636;
+    border-left: 0;
+    margin-top: -10px;
+    margin-left: -7px;
 }

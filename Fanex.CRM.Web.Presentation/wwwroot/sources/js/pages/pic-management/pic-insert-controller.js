@@ -1,213 +1,213 @@
 ﻿(function () {
-    'use strict';
-    
-    angular.module('pic-management-application').controller('picInsertController', ['$scope', '$window', '$uibModal', '$picManagementFactory', '$uibModalInstance', function ($scope, $window, $uibModal, $picManagementFactory, $uibModalInstance) {
-        let vm = this;
-        vm.isDiabled = false;
-        vm.username = '';
-        vm.roles = [];
-        vm.selectedRole = { Id: 0, Value: viewResources.Selected };
-        vm.languageDropdownSettings = {
-            idMember: 'Value',
-            nameMember: 'Value',
-            sourceData: [],
-            checkedAll: false
-        };
+	'use strict';
 
-        vm.selectedCountry = { Id: 0, Name: viewResources.Selected};
-        vm.remark = '';
-        vm.communicationTools = [];
-        vm.initialSelectedComm = { Id: -1, Value: viewResources.Selected };
-        vm.messageResultOptions = new MessageResult('', false, false);
+	angular.module('pic-management-application').controller('picInsertController', ['$scope', '$window', '$uibModal', '$picManagementFactory', '$uibModalInstance', function ($scope, $window, $uibModal, $picManagementFactory, $uibModalInstance) {
+		let vm = this;
+		vm.isDiabled = false;
+		vm.username = '';
+		vm.roles = [];
+		vm.selectedRole = { Id: 0, Value: viewResources.Selected };
+		vm.languageDropdownSettings = {
+			idMember: 'Value',
+			nameMember: 'Value',
+			sourceData: [],
+			checkedAll: false
+		};
 
-        // start muilti select
-        vm.textSettings = {
-            Filter: viewResources.Search,
-            NoData: viewResources.NoData,
-            NoItemChecked: viewResources.Selected,
-            AllItemsSelected: viewResources.All,
-            CheckAll: viewResources.All
-        };
+		vm.selectedCountry = { Id: 0, Name: viewResources.Selected };
+		vm.remark = '';
+		vm.communicationTools = [];
+		vm.initialSelectedComm = { Id: -1, Value: viewResources.Selected };
+		vm.messageResultOptions = new MessageResult('', false, false);
 
-        vm.selectedLanguages = [];
+		// start muilti select
+		vm.textSettings = {
+			Filter: viewResources.Search,
+			NoData: viewResources.NoData,
+			NoItemChecked: viewResources.Selected,
+			AllItemsSelected: viewResources.All,
+			CheckAll: viewResources.All
+		};
 
-        vm.languageChangedHandler = function () {
-            vm.isSelectAllLanguage = vm.languageDropdownSettings.sourceData.length > 0
-                && vm.selectedLanguages.length === vm.languageDropdownSettings.sourceData.length;
-        };
+		vm.selectedLanguages = [];
 
-        vm.communicationToolItems = [
-            { selectedComm: vm.initialSelectedComm, Value: '' }
-        ];
+		vm.languageChangedHandler = function () {
+			vm.isSelectAllLanguage = vm.languageDropdownSettings.sourceData.length > 0
+				&& vm.selectedLanguages.length === vm.languageDropdownSettings.sourceData.length;
+		};
 
-        vm.getAllSetting = function () {
-            vm.isDiabled = true;
-            $picManagementFactory.getAllSetting()
-                .then(function (data) {
-                    let allSetting = data.Result;
-                    vm.roles = allSetting.RoleList;
-                    vm.roles.unshift(vm.selectedRole);
-                    vm.communicationTools = allSetting.CommunicationTools;
-                    vm.communicationTools.unshift(vm.initialSelectedComm);
-                    let languages = angular.copy(allSetting.Languages);
+		vm.communicationToolItems = [
+			{ selectedComm: vm.initialSelectedComm, Value: '' }
+		];
 
-                    vm.languageDropdownSettings = {
-                        idMember: 'Value',
-                        nameMember: 'Value',
-                        sourceData: languages,
-                        checkedAll: false
-                    };
+		vm.getAllSetting = function () {
+			vm.isDiabled = true;
+			$picManagementFactory.getAllSetting()
+				.then(function (data) {
+					let allSetting = data.Result;
+					vm.roles = allSetting.RoleList;
+					vm.roles.unshift(vm.selectedRole);
+					vm.communicationTools = allSetting.CommunicationTools;
+					vm.communicationTools.unshift(vm.initialSelectedComm);
+					let languages = angular.copy(allSetting.Languages);
 
-                    vm.countries = allSetting.Countries;
-                    vm.countries.unshift(vm.selectedCountry);
-                    vm.isDiabled = false;
-                }, function () {
-                    vm.isDiabled = false;
-                });
-        };
+					vm.languageDropdownSettings = {
+						idMember: 'Value',
+						nameMember: 'Value',
+						sourceData: languages,
+						checkedAll: false
+					};
 
-        vm.savePic = function () {
-            vm.isDiabled = true;
+					vm.countries = allSetting.Countries;
+					vm.countries.unshift(vm.selectedCountry);
+					vm.isDiabled = false;
+				}, function () {
+					vm.isDiabled = false;
+				});
+		};
 
-            let communicationToolItems = [];
-            for (let index = 0; index < vm.communicationToolItems.length; index++) {
-                if (vm.communicationToolItems[index].selectedComm.Id > 0 && vm.communicationToolItems[index].Value.trim() !== '') {
-                    if (communicationToolItems.some(element => element.selectedComm.Id === vm.communicationToolItems[index].selectedComm.Id)) {
-                        let tempIndex = communicationToolItems.findIndex(element1 => element1.selectedComm.Id === vm.communicationToolItems[index].selectedComm.Id);
-                        communicationToolItems[tempIndex].Value = communicationToolItems[tempIndex].Value + ',' + vm.communicationToolItems[index].Value;
-                    }
-                    else {
-                        communicationToolItems.push(vm.communicationToolItems[index]);
-                    }
-                }
-            }
+		vm.savePic = function () {
+			vm.isDiabled = true;
 
-            let criteria = {
-                Username: vm.username,
-                Role: vm.selectedRole.Id,
-                Remark: vm.remark,
-                CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
-                Language: vm.selectedLanguages.map(lang => lang.Id).join(','),
-                Country: vm.selectedCountry.Id
-            };
+			let communicationToolItems = [];
+			for (let index = 0; index < vm.communicationToolItems.length; index++) {
+				if (vm.communicationToolItems[index].selectedComm.Id > 0 && vm.communicationToolItems[index].Value.trim() !== '') {
+					if (communicationToolItems.some(element => element.selectedComm.Id === vm.communicationToolItems[index].selectedComm.Id)) {
+						let tempIndex = communicationToolItems.findIndex(element1 => element1.selectedComm.Id === vm.communicationToolItems[index].selectedComm.Id);
+						communicationToolItems[tempIndex].Value = communicationToolItems[tempIndex].Value + ',' + vm.communicationToolItems[index].Value;
+					}
+					else {
+						communicationToolItems.push(vm.communicationToolItems[index]);
+					}
+				}
+			}
 
-            let message = vm.validateParams(criteria);
-            if (message === '') {
-                vm.messageResultOptions = new MessageResult('', false, false);
+			let criteria = {
+				Username: vm.username,
+				Role: vm.selectedRole.Id,
+				Remark: vm.remark,
+				CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value } }),
+				Language: vm.selectedLanguages.map(lang => lang.Id).join(','),
+				Country: vm.selectedCountry.Id
+			};
 
-                $picManagementFactory.insertPic(criteria)
-                    .then(function (data) {
-                        vm.showInsertResult(data.Result);
-                    }, function () {
-                        vm.isDiabled = false;
-                    });
-            } else {
-                vm.isDiabled = false;
-                vm.messageResultOptions = new MessageResult(message, true, false)
-            }
-        };
+			let message = vm.validateParams(criteria);
+			if (message === '') {
+				vm.messageResultOptions = new MessageResult('', false, false);
 
-        vm.validateParams = function (params) {
-            let message = '';
-            if (params.Username === '') {
-                message = viewResources.Username + ' ' + viewResources.IsRequired;
-            }
-            else if (params.Role <= 0) {
-                message = viewResources.Role + ' ' + viewResources.IsRequired;
-            }
-            else if (vm.communicationToolItems[0].selectedComm.Id < 0 || vm.communicationToolItems[0].Value.trim() === '') {
-                message = viewResources.CommunicationTool + ' ' + viewResources.IsRequired;
-            }
+				$picManagementFactory.insertPic(criteria)
+					.then(function (data) {
+						vm.showInsertResult(data.Result);
+					}, function () {
+						vm.isDiabled = false;
+					});
+			} else {
+				vm.isDiabled = false;
+				vm.messageResultOptions = new MessageResult(message, true, false)
+			}
+		};
 
-            return message;
-        }
+		vm.validateParams = function (params) {
+			let message = '';
+			if (params.Username === '') {
+				message = viewResources.Username + ' ' + viewResources.IsRequired;
+			}
+			else if (params.Role <= 0) {
+				message = viewResources.Role + ' ' + viewResources.IsRequired;
+			}
+			else if (vm.communicationToolItems[0].selectedComm.Id < 0 || vm.communicationToolItems[0].Value.trim() === '') {
+				message = viewResources.CommunicationTool + ' ' + viewResources.IsRequired;
+			}
 
-        vm.showInsertResult = function (result) {
-            if (result.Code !== 0) {
-                vm.isDiabled = false;
-                vm.messageResultOptions = new MessageResult(result.Message, true, false);
-                return;
-            }
+			return message;
+		}
 
-            vm.messageResultOptions = new MessageResult(result.Message, true, true);
-            setTimeout(function () {
-                vm.close()
-            }, 1000);
-        };
+		vm.showInsertResult = function (result) {
+			if (result.Code !== 0) {
+				vm.isDiabled = false;
+				vm.messageResultOptions = new MessageResult(result.Message, true, false);
+				return;
+			}
 
-        vm.close = function () {
-            if (vm.messageResultOptions.IsSuccess) {
-                vm.messageResultOptions = new MessageResult('', false, false);
-                $uibModalInstance.close({ isSuccess: true });
-            }
-            else {
-                if (vm.isParamsChange()) {
-                    const modalConfirmInstance = $uibModal.open({
-                        template: angular.element('#template-pic-change-confirm').html(),
-                        controller: 'picChangeConfirmController',
-                        controllerAs: 'picChangeConfirmCtrl',
-                        backdrop: 'static',
-                        backdropClass: 'pic-change-confirm-modal-backdrop',
-                        keyboard: false,
-                        size: 'lg',
-                        windowClass: 'pic-change-confirm-modal',
-                        appendTo: $window.parent.$('body'),
-                    });
+			vm.messageResultOptions = new MessageResult(result.Message, true, true);
+			setTimeout(function () {
+				vm.close()
+			}, 1000);
+		};
 
-                    modalConfirmInstance.result.then(function (isConfirmed) {
-                        if (isConfirmed) {
-                            $uibModalInstance.close();
-                        }
-                    });
-                }
-                else {
-                    $uibModalInstance.close();
-                }
-            }
-        };
+		vm.close = function () {
+			if (vm.messageResultOptions.IsSuccess) {
+				vm.messageResultOptions = new MessageResult('', false, false);
+				$uibModalInstance.close({ isSuccess: true });
+			}
+			else {
+				if (vm.isParamsChange()) {
+					const modalConfirmInstance = $uibModal.open({
+						template: angular.element('#template-pic-change-confirm').html(),
+						controller: 'picChangeConfirmController',
+						controllerAs: 'picChangeConfirmCtrl',
+						backdrop: 'static',
+						backdropClass: 'pic-change-confirm-modal-backdrop',
+						keyboard: false,
+						size: 'lg',
+						windowClass: 'pic-change-confirm-modal',
+						appendTo: $window.parent.$('body'),
+					});
 
-        vm.addCommunicationTool = function () {
-            let item = { selectedComm: vm.initialSelectedComm, Value: '' };
-            vm.communicationToolItems.push(item);
-        };
+					modalConfirmInstance.result.then(function (isConfirmed) {
+						if (isConfirmed) {
+							$uibModalInstance.close();
+						}
+					});
+				}
+				else {
+					$uibModalInstance.close();
+				}
+			}
+		};
 
-        vm.removeCommunicationTool = function (item) {
-            let index = vm.communicationToolItems.indexOf(item.x);
-            if (index > -1) {
-                vm.communicationToolItems.splice(index, 1);
-            }
-        };
+		vm.addCommunicationTool = function () {
+			let item = { selectedComm: vm.initialSelectedComm, Value: '' };
+			vm.communicationToolItems.push(item);
+		};
 
-        vm.isParamsChange = function () {
-            let result = false;
-            if (vm.username !== '' ||
-                vm.selectedRole.Id > 0 ||
-                vm.remark !== '' ||
-                vm.selectedLanguages.length > 0 ||
-                vm.selectedCountry.Id > 0 ||
-                vm.communicationToolItems.length > 1 ||
-                vm.communicationToolItems[0].selectedComm.Id > 0 ||
-                vm.communicationToolItems[0].Value !== '') {
-                result = true;
-            }
+		vm.removeCommunicationTool = function (item) {
+			let index = vm.communicationToolItems.indexOf(item.x);
+			if (index > -1) {
+				vm.communicationToolItems.splice(index, 1);
+			}
+		};
 
-            return result;
-        };
+		vm.isParamsChange = function () {
+			let result = false;
+			if (vm.username !== '' ||
+				vm.selectedRole.Id > 0 ||
+				vm.remark !== '' ||
+				vm.selectedLanguages.length > 0 ||
+				vm.selectedCountry.Id > 0 ||
+				vm.communicationToolItems.length > 1 ||
+				vm.communicationToolItems[0].selectedComm.Id > 0 ||
+				vm.communicationToolItems[0].Value !== '') {
+				result = true;
+			}
 
-        angular.element(document).ready(function () {
-            vm.getAllSetting();
-        });
+			return result;
+		};
 
-        $($window.parent.document).off('keydown').on('keydown', function (eventObject) {
-            if (!vm.isDiabled && eventObject.ctrlKey) {
-                switch (eventObject.keyCode) {
-                    case 83: // s
-                        vm.savePic();
-                        $scope.$apply();
-                        eventObject.preventDefault();
-                        return false;
-                }
-            }
-        });
-    }]);
+		angular.element(document).ready(function () {
+			vm.getAllSetting();
+		});
+
+		$($window.parent.document).off('keydown').on('keydown', function (eventObject) {
+			if (!vm.isDiabled && eventObject.ctrlKey) {
+				switch (eventObject.keyCode) {
+					case 83: // s
+						vm.savePic();
+						$scope.$apply();
+						eventObject.preventDefault();
+						return false;
+				}
+			}
+		});
+	}]);
 })();

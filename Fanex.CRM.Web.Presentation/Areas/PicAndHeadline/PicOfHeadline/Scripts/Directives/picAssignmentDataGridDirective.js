@@ -4,7 +4,7 @@
     viewResources,
     sharedScriptManager */
 	/* jshint camelcase: false */
-	angular.module('picofheadline-application').directive('picAssignmentDataGridDirective', function () {
+	angular.module('picofheadline-application').directive('picAssignmentDataGridDirective', ['$document', function ($document) {
 		var cachedData = {
 			scope: null,
 			reportTable: null,
@@ -134,7 +134,7 @@
 				fullHeight: true,
 				gridExpandHeight: getGridHeight(),
 				showDistinctRow: false,
-				showHighlightRow: true,
+				showHighlightRow: false,
 				headerColumnHeight: 26,
 				bodyRowHeight: 23,
 				showPager: true,
@@ -193,9 +193,31 @@
 			cachedData.gridOptions = gridOptions;
 			tablePicOfHeadline.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
+			initGroupHeadlineTooltip(tablePicOfHeadline);
+
 			if (gridData.IsHost) {
 				initClickCheckBoxEvent(tablePicOfHeadline, scope);
 			}
+		}
+
+		function initGroupHeadlineTooltip($table) {
+			var groupHeadline = $table.find(".tipsy-tooltip");
+			groupHeadline.unbind("mouseover");
+			groupHeadline.unbind("mouseout");
+			groupHeadline.on("mouseover", function (e) {
+				var element = $(this)[0];
+				var title = element.getAttribute("title");
+				var tooltip = $document.find("#headline-tooltip")[0];
+				tooltip.style.top = e.clientY + 'px';
+				tooltip.style.display = 'inline-block';
+				tooltip.innerHTML = title;
+			});
+
+			groupHeadline.on("mouseout", function (e) {
+				var tooltip = $document.find("#headline-tooltip")[0];
+				tooltip.style.display = 'none';
+				tooltip.innerHTML = '';
+			});
 		}
 
 		function initClickCheckBoxEvent($table, scope) {
@@ -275,5 +297,5 @@
 				});
 			}
 		};
-	});
+	}]);
 })();

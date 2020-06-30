@@ -114,7 +114,7 @@
 					});
 				};
 
-				$(document).off('keydown').on('keydown', function (eventObject) {
+				$($window.parent.document).off('keydown').on('keydown', function (eventObject) {
 					if (eventObject.ctrlKey) {
 						if (eventObject.keyCode === 77) {  //m
 							$scope.openConfirmRemoveAssignmentModal();

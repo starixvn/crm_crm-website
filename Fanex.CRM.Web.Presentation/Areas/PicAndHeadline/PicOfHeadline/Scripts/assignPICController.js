@@ -224,7 +224,7 @@
 							};
 							$scope.assignedDirectAccounts = assignedDirectAccounts;
 
-							$(document).off('keydown').on('keydown', function (eventObject) {
+							$($window.parent.document).off('keydown').on('keydown', function (eventObject) {
 								if (eventObject.ctrlKey) {
 									if (eventObject.keyCode === 77) {
 										$scope.$dismiss();
@@ -302,7 +302,7 @@
 					}
 				};
 
-				$(document).off('keydown').on('keydown', function (eventObject) {
+				$($window.parent.document).off('keydown').on('keydown', function (eventObject) {
 					if (eventObject.ctrlKey) {
 						if (eventObject.keyCode === 83) {  //s
 							$scope.validatePicAssignment();
