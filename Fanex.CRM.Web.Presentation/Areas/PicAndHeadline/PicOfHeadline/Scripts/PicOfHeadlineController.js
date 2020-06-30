@@ -110,7 +110,6 @@
 
 				$scope.completedLoadFilterInfo = function () {
 					$uiBlockerService.unblockUI();
-                        });
 				};
 
 				$scope.updateSelectedSite = function (siteIdList) {
