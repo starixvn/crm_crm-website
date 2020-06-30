@@ -10,7 +10,6 @@
                 $scope.statusOptions = null;
                 $scope.positionOptions = null;
                 $scope.currencyOptions = null;
-                $scope.defaultFocusOptions = null;
                 $scope.downloadFileOptions = null;
                 $scope.removePic = [];
                 $scope.picOfHeadlineOptions = {
@@ -39,12 +38,6 @@
                 $scope.initController = function () {
                     $scope.initPicker();
                     $scope.getAllSetting();
-                    $scope.defaultFocusOptions = {
-                        IsSetFocus: false,
-                        OnChangeEvent: $scope.completeSetFocus
-                    };
-
-                    $scope.defaultFocusOptions.IsSetFocus = true;
                     $scope.$apply();
                 };
 
@@ -102,14 +95,10 @@
                             });
                             $scope.positionOptions.DataList = allSetting.PositionList;
                             $scope.currencyOptions.DataList = allSetting.CurrencyList;
-                            $scope.completedLoadFilterInfo();
+                            $uiBlockerService.unblockUI();
                         }, function () {
-                            $scope.completedLoadFilterInfo();
+                            $uiBlockerService.unblockUI();
                         });
-                };
-
-                $scope.completedLoadFilterInfo = function () {
-                    $uiBlockerService.unblockUI();
                 };
 
                 $scope.updateSelectedSite = function (siteIdList) {
@@ -233,10 +222,6 @@
                     };
 
                     $scope.$apply();
-                };
-
-                $scope.completeSetFocus = function () {
-                    $scope.defaultFocusOptions.IsSetFocus = false;
                 };
 
                 $scope.openAssignModal = function (headlineId = null, directAccounts = []) {
