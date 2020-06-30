@@ -518,18 +518,16 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\assignPICController.js" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\movableModalDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\picAssignmentDataGridDirective.js" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\focus-directive.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\SelectWithSearchDirective.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineApplication.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController_HotKey.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="wwwroot\dist\styles\pic.assignment.css" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js" />
+    <Content Include="wwwroot\sources\js\shared\focus-directive.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\images\BottomLine.png" />
@@ -588,7 +586,6 @@
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SolutionEditor.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SubjectAutoComplete.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\index.js" />
-    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\focus-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\view-related-customer-controller.js" />
@@ -621,7 +618,7 @@
     <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
     <Content Include="wwwroot\sources\js\pages\pic-management\report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
-    <Content Include="wwwroot\sources\js\shared\movable-outer-iframe-modal-directive.js" />
+    <Content Include="wwwroot\sources\js\shared\movable-modal-directive.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Pagination.css" />
@@ -1558,7 +1555,6 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\Web.config" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Index.cshtml" />
-    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Styles\PicOfHeadline.less" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_AssignPIC.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_ConfirmSubmit.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_RemovePICAssignment.cshtml" />

@@ -1,9 +1,6 @@
-﻿import { movableOuterIframeModalDirective } from '../../shared/movable-outer-iframe-modal-directive';
-
-(function () {
+﻿(function () {
     "use strict";
-    /* global RegisterTemplate,
-    directiveManager */
+    /* global RegisterTemplate, directiveManager */
     function picRegisterPicker() {
         var picRegister = new RegisterTemplate(angular.module('pic-management-application'));
         picRegister.registerRolePicker();
@@ -11,5 +8,4 @@
     }
 
     picRegisterPicker();
-    movableOuterIframeModalDirective(angular.module('pic-management-application'));
 })();

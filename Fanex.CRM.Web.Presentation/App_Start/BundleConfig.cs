@@ -628,29 +628,20 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicOfHeadlineScripts").Include(
                 "~/Scripts/ShareScripts/MessageResult.js",
-                HotKeyManager,
+                BlockUI,
                 DirectiveManager,
-                DropdownList,
-                DatePicker,
-                DefaultFocus,
                 MultiSelect,
                 RegisterTemplate,
+                "~/wwwroot/sources/js/shared/focus-directive.js",
+                "~/wwwroot/sources/js/shared/movable-modal-directive.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineApplication.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineService.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController.js",
-                "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/PicOfHeadlineController_HotKey.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/assignPicController.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/removeAssignmentController.js",
-                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Scripts/Select2/select2.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js"
-
                 ));
-
-            bundles.AddAndInclude(
-                "~/Areas/PicAndHeadline/PicOfHeadlineStyles",
-                "~/Areas/PicAndHeadline/PicOfHeadline/Styles/select2.css",
-                "~/Areas/PicAndHeadline/PicOfHeadline/Styles/PicOfHeadline.less");
         }
     }
 }

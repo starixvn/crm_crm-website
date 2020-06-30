@@ -3,6 +3,7 @@ import '../../../../../Scripts/ShareScripts/DirectiveManager';
 import '../../../../../Scripts/ShareScripts/Directives/DropdownList';
 import '../../../../../Scripts/ShareScripts/Directives/DefaultFocus';
 import '../../../../../Scripts/ShareScripts/MessageResult';
+import '../../shared/movable-modal-directive';
 
 import './pic-management-application';
 
