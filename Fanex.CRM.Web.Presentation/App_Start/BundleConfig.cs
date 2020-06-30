@@ -67,12 +67,12 @@ namespace Fanex.CRM.Web.View.AppStart
 
             bundles.AddAndInclude(
                 "~/Styles/FanexMultipleSelect",
-                "~/Scripts/MultipleSelect/fanex.multiSelect.css",
+                "~/wwwroot/sources/libs/MultiSelect/fanex.multiSelect.css",
                 "~/Content/site/customizeMultiSelect.less",
                 "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less");
 
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
-                "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
+                "~/wwwroot/sources/libs/MultiSelect/fanex.multiSelect.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridScripts").Include(
                 FanexPagination,
@@ -419,7 +419,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 DirectiveManager,
                 DropdownList,
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
-                "~/Scripts/MultipleSelect/fanex.multiSelect.js",
+                "~/wwwroot/sources/libs/MultiSelect/fanex.multiSelect.js",
                 MultiSelect,
                 DatePicker,
                 DefaultFocus,
