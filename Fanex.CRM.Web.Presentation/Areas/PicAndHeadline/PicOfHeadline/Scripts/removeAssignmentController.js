@@ -65,7 +65,7 @@
 						}
 					}
 
-					const chckboxs = angular.element(document).find(`.child-chkbox-${picId}`);
+					const chckboxs = angular.element($window.parent.document).find(`.child-chkbox-${picId}`);
 					for (var j = 0; j < chckboxs.length; j++) {
 						chckboxs[j].checked = $event.currentTarget.checked;
 					}
@@ -75,21 +75,21 @@
 
 				$scope.handleRemoveAllBtnState = function () {
 					if (!$scope.selectedAssignment.some(assignment => assignment.IsSelected)) {
-						angular.element(document).find('#remove-all-btn').attr('disabled', 'disabled');
+						angular.element($window.parent.document).find('#remove-all-btn').attr('disabled', 'disabled');
 					} else {
-						angular.element(document).find('#remove-all-btn').removeAttr('disabled');
+						angular.element($window.parent.document).find('#remove-all-btn').removeAttr('disabled');
 					}
 				};
 
 				$scope.handlePicNameChkboxState = function (picId) {
 					let isCheck = true;
-					const chckboxs = angular.element(document).find(`.child-chkbox-${picId}`);
+					const chckboxs = angular.element($window.parent.document).find(`.child-chkbox-${picId}`);
 					for (var i = 0; i < chckboxs.length; i++) {
 						if (!chckboxs[i].checked) {
 							isCheck = false;
 						}
 					}
-					angular.element(document).find(`#parent-chkbox-${picId}`)[0].checked = isCheck;
+					angular.element($window.parent.document).find(`#parent-chkbox-${picId}`)[0].checked = isCheck;
 				};
 
 				$scope.openConfirmRemoveAssignmentModal = function () {
@@ -112,6 +112,19 @@
 					modalInstance.result.then(function () {
 						$scope.getPICAssignment();
 					});
+				};
+
+				$scope.onHoverGroupHeadline = function ($event, title) {
+					var tooltip = angular.element($window.parent.document).find("#remove-headline-tooptip")[0];
+					tooltip.style.top = $event.clientY - 100 + 'px';
+					tooltip.style.display = 'inline-block';
+					tooltip.innerHTML = 'Group Headline:' + title;
+				};
+
+				$scope.onMouseOutHeadline = function () {
+					var tooltip = angular.element($window.parent.document).find("#remove-headline-tooptip")[0];
+					tooltip.style.display = 'none';
+					tooltip.innerHTML = '';
 				};
 
 				$($window.parent.document).off('keydown').on('keydown', function (eventObject) {

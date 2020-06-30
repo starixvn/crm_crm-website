@@ -36,6 +36,7 @@
 							keyboard: false,
 							size: 'sm',
 							appendTo: $window.parent.parent.$('body'),
+							windowClass: 'pic-assignment-insert-modal',
 							controller: function ($scope) {
 								$scope.confirm = function (isConfirmed) {
 									$scope.$dismiss();
@@ -143,6 +144,7 @@
 				};
 
 				$scope.closeModal = function (isReload = false) {
+					angular.element($window.parent.document).find('.select2-container').remove();
 					$uibModalInstance.close(isReload);
 				};
 

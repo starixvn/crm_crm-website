@@ -16,6 +16,7 @@
             </div>
         </div>
         <div class="remove-assignment-wrapper" ng-model="removeAssignmentData">
+            <div class="headline-tooptip remove-assignment-tooltip" id="remove-headline-tooptip"></div>
             <table class="assigned-direct-account remove-assignment">
                 <thead>
                     <tr>
@@ -36,7 +37,11 @@
                 <tbody>
                     <tr ng-repeat="assignment in removeAssignmentData.data">
                         <td class="text-center">{{$index + 1}}</td>
-                        <td rowspan="{{assignment.NumberOfDirectAccount}}" ng-hide="{{assignment.IsHideInTable}}">{{assignment.HeadLineName}}</td>
+                        <td rowspan="{{assignment.NumberOfDirectAccount}}" ng-mouseover="onHoverGroupHeadline($event, assignment.HeadLineName)"
+                            ng-mouseout="onMouseOutHeadline()"
+                            ng-hide="{{assignment.IsHideInTable}}">
+                            {{assignment.HeadLineName}}
+                        </td>
                         <td>{{assignment.DirectAccount}}</td>
                         <td ng-repeat="p in assignment.PicAssignment" class="{{!p.IsSelectable ? 'null-cell-color text-center' : 'text-center' }}">
                             <input ng-if="p.IsSelectable" type="checkbox" name="chkbox-{{p.PicName}}" class="child-chkbox-{{p.PicId}}"

@@ -34,7 +34,7 @@
 						mergePIC = pics.length;
 						const accounts = pics.map(pic => pic.DirectAccountID);
 						columns.push(
-							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline, TdClass: "tipsy-tooltip", TdCustomAttr: `title="Group Headline: ${assignment.HeadlineName}"` },
+							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline, TdClass: "tipsy-tooltip", TdCustomAttr: `data-title="Group Headline: ${assignment.HeadlineName}"` },
 							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
 							{
 								Name: "ColPIC",
@@ -206,7 +206,7 @@
 			groupHeadline.unbind("mouseout");
 			groupHeadline.on("mouseover", function (e) {
 				var element = $(this)[0];
-				var title = element.getAttribute("title");
+				var title = element.getAttribute("data-title");
 				var tooltip = $document.find("#headline-tooltip")[0];
 				tooltip.style.top = e.clientY + 'px';
 				tooltip.style.display = 'inline-block';
