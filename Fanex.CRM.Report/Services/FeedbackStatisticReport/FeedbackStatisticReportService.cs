@@ -258,7 +258,6 @@
             foreach (var category in feedbackCategories)
             {
                 int subCategoriesLen = category.FeedbackSubcategories.Count;
-                currentColumn = exportExcelInfo.StartColumn;
                 CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(
                     currentRow,
                     currentRow,
@@ -416,7 +415,7 @@
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 150 * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn, 150 * NpoiExtensions.FontWidth);
 
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,

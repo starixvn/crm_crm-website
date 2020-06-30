@@ -127,7 +127,7 @@
 
             if (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
             {
-                NpoiExtensions.RenderCell(row, currentColumn++, customer.ProvinceName, exportExcelInfo.TextStyle);
+                NpoiExtensions.RenderCell(row, currentColumn, customer.ProvinceName, exportExcelInfo.TextStyle);
             }
             else
             {

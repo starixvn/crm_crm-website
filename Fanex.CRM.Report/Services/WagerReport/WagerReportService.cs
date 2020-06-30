@@ -151,7 +151,6 @@
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
-            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 

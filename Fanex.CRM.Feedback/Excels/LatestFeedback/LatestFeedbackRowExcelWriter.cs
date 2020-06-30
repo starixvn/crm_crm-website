@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Feedback.Excels.LatestFeedback
 {
+    using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Models.Npoi;
-    using System;
-    using System.Collections.Generic;
 
     public class LatestFeedbackRowExcelWriter : FeedbackRowExcelWriter
     {
@@ -27,7 +27,7 @@
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedbackCellValue, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, categoryCellValue, _cellStyle);
             NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.Status, _cellStyle);
-            NpoiExtensions.RenderCell(feedbackRow, columnIndex++, feedback.RelatedCustomer, _cellStyle);
+            NpoiExtensions.RenderCell(feedbackRow, columnIndex, feedback.RelatedCustomer, _cellStyle);
 
             exportExcelInfo.CurrentRow++;
         }

@@ -275,7 +275,7 @@
 
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, dateSpan, dateId, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currencySpan, item.Currency, string.Empty, HAlignment.Center));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
 
             return dataRow;
         }
@@ -324,7 +324,7 @@
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(
-                currentColIndex++,
+                currentColIndex,
                 Labels.DoneBy,
                 HttpContext.Current.Server.HtmlEncode(item.DoneBy),
                 item.DoneBy,

@@ -23,14 +23,6 @@ namespace Fanex.CRM.Web.View.AppStart
 
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/site/common",
-                "~/content/bootstrap/css/bootstrap.css",
-                "~/Content/site/common.less",
-                "~/Content/site/Message.less",
-                "~/Content/vendors/jqueryui/jquery-ui.min.css",
-                "~/Content/site/customizeJqueryUI.less");
-
             bundles.Add(new ScriptBundle("~/scripts/headload").Include("~/Scripts/head.load.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/respond").Include("~/Scripts/respond.js"));
@@ -38,17 +30,6 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
                 "~/Scripts/showhidepopup.js",
                 "~/Scripts/dialogbox.js"));
-
-            bundles.Add(new ScriptBundle("~/Scripts/CommonScripts").Include(
-                "~/Scripts/JQuery/jquery-1.8.2.js",
-                "~/Scripts/json2.js",
-                "~/Scripts/jquery-ui-1.8.14.custom.js",
-                "~/Scripts/ShareScripts/CRMConstants.js",
-                "~/Scripts/ShareScripts/SharedScriptManager.js",
-                "~/Scripts/ShareScripts/NameMapping.js",
-                "~/Scripts/ShareScripts/FilterScripts.js",
-                "~/Scripts/ShareScripts/AutoTextScripts.js",
-                "~/Scripts/ShareScripts/KeyboardManager.js"));
 
             bundles.AddAndInclude(
                 "~/Views/HomeStyles",
@@ -82,6 +63,7 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
 
+            RegisterBundles_Common(ref bundles);
             RegisterBundles_Customer_ShortInfo(ref bundles);
             RegisterBundles_Customer_DetailInfo(ref bundles);
             RegisterBundles_TimePicker(ref bundles);
@@ -128,6 +110,28 @@ namespace Fanex.CRM.Web.View.AppStart
             InformHeadlineBundles.RegisterBundles(bundles);
 
             RegisterBundles_FanexGrid(bundles);
+        }
+
+        private static void RegisterBundles_Common(ref BundleCollection bundles)
+        {
+            bundles.AddAndInclude(
+                "~/site/common",
+                "~/content/bootstrap/css/bootstrap.css",
+                "~/Content/site/common.less",
+                "~/Content/site/Message.less",
+                "~/Content/vendors/jqueryui/jquery-ui.min.css",
+                "~/Content/site/customizeJqueryUI.less");
+
+            bundles.Add(new ScriptBundle("~/Scripts/CommonScripts").Include(
+                "~/Scripts/JQuery/jquery-1.8.2.js",
+                "~/Scripts/json2.js",
+                "~/Scripts/jquery-ui-1.8.14.custom.js",
+                "~/Scripts/ShareScripts/CRMConstants.js",
+                "~/Scripts/ShareScripts/SharedScriptManager.js",
+                "~/Scripts/ShareScripts/NameMapping.js",
+                "~/Scripts/ShareScripts/FilterScripts.js",
+                "~/Scripts/ShareScripts/AutoTextScripts.js",
+                "~/Scripts/ShareScripts/KeyboardManager.js"));
         }
 
         private static void RegisterBundles_Customer_ShortInfo(ref BundleCollection bundles)

@@ -519,7 +519,7 @@
                 exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExtensions.FontWidth);
             }
 
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 140 : 160) * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn, (statisticReport != null ? 140 : 160) * NpoiExtensions.FontWidth);
             string reportTitle = statisticReport != null ?
                 statisticReport.Name :
                 string.Format(
@@ -553,7 +553,6 @@
             }
 
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
-            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
