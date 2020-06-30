@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{
 	ProjectSection(SolutionItems) = preProject
 		SonarQube\CRMCSharp.ruleset = SonarQube\CRMCSharp.ruleset
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+		SonarQube\crm\CSharp\SonarLint.xml = SonarQube\crm\CSharp\SonarLint.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Models", "Fanex.CRM.Models\Fanex.CRM.Models.csproj", "{7F5301B7-2C20-4932-B67C-4A036EBE9F02}"
@@ -173,7 +174,7 @@ Global
 		{071B425F-331E-44B9-9D31-6E82439B2D3A} = {EBA6C86D-50E1-452D-8FD3-47931CBC64D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {47FA8ED1-7267-4EB4-8456-61EBE39BD840}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35
+		SolutionGuid = {47FA8ED1-7267-4EB4-8456-61EBE39BD840}
 	EndGlobalSection
 EndGlobal

@@ -200,6 +200,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogService.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogController.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogApplication.js" />
