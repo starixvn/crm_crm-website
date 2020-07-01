@@ -205,6 +205,7 @@
 			groupHeadline.unbind("mouseover");
 			groupHeadline.unbind("mouseout");
 			groupHeadline.on("mouseover", function (e) {
+				console.log($(this));
 				var element = $(this)[0];
 				var title = element.getAttribute("data-title");
 				var tooltip = $document.find("#headline-tooltip")[0];
@@ -213,11 +214,11 @@
 				tooltip.innerHTML = title;
 			});
 
-			groupHeadline.on("mouseout", function (e) {
-				var tooltip = $document.find("#headline-tooltip")[0];
-				tooltip.style.display = 'none';
-				tooltip.innerHTML = '';
-			});
+			//groupHeadline.on("mouseout", function (e) {
+			//	var tooltip = $document.find("#headline-tooltip")[0];
+			//	tooltip.style.display = 'none';
+			//	tooltip.innerHTML = '';
+			//});
 		}
 
 		function initClickCheckBoxEvent($table, scope) {

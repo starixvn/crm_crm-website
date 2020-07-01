@@ -1,7 +1,6 @@
 ﻿(function () {
 	'use strict';
-	/* global hotKeyManager,
-	viewResources,
+	/* global viewResources,
 	MessageResult,
 	crmConstants,
 	currentDate: true,
@@ -292,13 +291,10 @@
 				$scope.unblockUI = function () {
 					if (parent && parent.$.unblockUI) {
 						parent.$.unblockUI();
-
-						hotKeyManager.CachedData.isBlockingUI = false;
 					}
 				};
 
 				$scope.BlockUI = function () {
-					hotKeyManager.CachedData.isBlockingUI = true;
 					if (parent && parent.BlockUI) {
 						parent.BlockUI();
 					}
