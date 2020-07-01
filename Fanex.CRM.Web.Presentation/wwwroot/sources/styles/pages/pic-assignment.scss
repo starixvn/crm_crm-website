@@ -181,7 +181,7 @@ table.assigned-direct-account {
     margin: 0;
 }
 
-.modal-dialog {
+.assign-pic-modal .modal-dialog {
     .modal-content {
         background: #fff;
         padding: 0;
@@ -207,8 +207,8 @@ table.assigned-direct-account {
         }
 
         .modal-body {
-            .item {
-                padding-bottom: 15px;
+            .row {
+                margin-bottom: 15px !important;
 
                 textarea {
                     width: 100%;
@@ -221,6 +221,11 @@ table.assigned-direct-account {
             margin-top: 0;
             padding: 10px;
         }
+    }
+
+    ::placeholder {
+        font-style: normal !important;
+        font-size: 12px;
     }
 }
 
@@ -339,9 +344,4 @@ table.assigned-direct-account {
 
 .remove-assignment-tooltip {
     left: 65px !important;
-}
-
-::placeholder {
-    font-style: normal !important;
-    font-size: 12px;
 }

@@ -143,7 +143,9 @@
 				};
 
 				$scope.closeModal = function (isReload = false) {
-					angular.element($window.parent.document).find('.js-select2').select2("close");
+					if (!isReload) {
+						angular.element($window.parent.document).find('.js-select2').select2("close");
+					}
 					$uibModalInstance.close(isReload);
 				};
 

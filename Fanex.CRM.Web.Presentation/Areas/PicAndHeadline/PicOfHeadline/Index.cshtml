@@ -1,17 +1,19 @@
 ﻿﻿@using Fanex.CRM.Resources
 @{
-    /**/
+                /**/
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Labels.PicAssignment;
-    var isHost = ViewBag.IsHost;
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Title = Labels.PicAssignment;
+                var isHost = ViewBag.IsHost;
 }
 
 @section Styles{
     <link rel="stylesheet" href="~/wwwroot/dist/styles/pic.assignment.css" />
 }
 
-<div data-ng-app="picofheadline-application">
+<div data-ng-app="picofheadline-application" class="pic-assignment">
     <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
         <div class="main container">
             <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">

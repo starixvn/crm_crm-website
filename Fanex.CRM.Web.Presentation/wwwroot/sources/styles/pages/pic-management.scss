@@ -54,18 +54,20 @@ $fanex-grid-images-path: '../images';
     width: 100%;
 }
 
-.modal-body .row {
-    margin-bottom: 16px;
+.pic-insert-modal, pic-edit-modal {
+    .modal-body .row {
+        margin-bottom: 16px;
 
-    textarea {
-        resize: vertical;
-    }
+        textarea {
+            resize: vertical;
+        }
 
-    textarea, input {
-        border: 1px solid #b1b1b1;
-        width: 100%;
-        padding: 2px;
-        color: #666666;
+        textarea, input {
+            border: 1px solid #b1b1b1;
+            width: 100%;
+            padding: 2px;
+            color: #666666;
+        }
     }
 }
 
