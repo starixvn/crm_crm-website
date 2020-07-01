@@ -205,11 +205,11 @@
 			groupHeadline.unbind("mouseover");
 			groupHeadline.unbind("mouseout");
 			groupHeadline.on("mouseover", function (e) {
-				console.log($(this));
+				var offset = $(this).position();
 				var element = $(this)[0];
 				var title = element.getAttribute("data-title");
 				var tooltip = $document.find("#headline-tooltip")[0];
-				tooltip.style.top = e.clientY + 'px';
+				tooltip.style.top = (offset.top > 40 ? offset.top + 190 : 240) + 'px';
 				tooltip.style.display = 'inline-block';
 				tooltip.innerHTML = title;
 			});
