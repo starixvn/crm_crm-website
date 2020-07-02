@@ -345,3 +345,7 @@ table.assigned-direct-account {
 .remove-assignment-tooltip {
     left: 65px !important;
 }
+
+.assigned-direct-account .direct-account-link {
+    cursor: pointer;
+}

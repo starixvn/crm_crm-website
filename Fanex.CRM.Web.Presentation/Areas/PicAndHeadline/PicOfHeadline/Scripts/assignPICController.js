@@ -212,6 +212,12 @@
 						$scope.assignPIC(isKeepAssign);
 					};
 					var assignedDirectAccounts = $scope.assignedDirectAccounts;
+					for (var i = 0; i < assignedDirectAccounts.length; i++) {
+						var accounts = assignedDirectAccounts[i].DirectAccount.split(',');
+						assignedDirectAccounts[i].DirectAccountList = accounts;
+						assignedDirectAccounts[i].IsShowPopup = accounts.length > 20;
+					}
+					console.log(assignedDirectAccounts);
 					$uibModal.open({
 						template: angular.element('#list-assigned-direct-account').html(),
 						backdrop: 'static',
@@ -226,6 +232,21 @@
 								assignPIC(isKeepAssign);
 							};
 							$scope.assignedDirectAccounts = assignedDirectAccounts;
+
+							$scope.viewDirectAccount = function (directAccount) {
+								$uibModal.open({
+									template: angular.element('#list-account').html(),
+									backdrop: 'static',
+									keyboard: false,
+									backdropClass: 'pic-assignment-modal-backdrop',
+									windowClass: 'view-direct-account-modal',
+									size: 'sm',
+									appendTo: $window.parent.parent.$('body'),
+									controller: function ($scope) {
+										$scope.DirectAccounts = directAccount;
+									}
+								});
+							};
 
 							$($window.parent.document).off('keydown').on('keydown', function (eventObject) {
 								if (eventObject.ctrlKey) {

@@ -300,4 +300,7 @@
   <data name="ConfirmCancelTitle" xml:space="preserve">
     <value>Confirm Cancel</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
