@@ -197,11 +197,11 @@
 							}
 						}
 
-						assignPICDirectAccounts.map(function (account) {
-							if (invalidListDirectAccounts.some(acc => acc.trim() === account.username.trim())) {
-								account.isValid = false;
+						for (var i = 0; i < assignPICDirectAccounts.length; i++) {
+							if (invalidListDirectAccounts.some(acc => acc.trim() === assignPICDirectAccounts[i].username.trim())) {
+								assignPICDirectAccounts[i].isValid = false;
 							}
-						});
+						}
 
 						$scope.assignPICModel.directAccounts = [...new Set(assignPICDirectAccounts)];
 					}
