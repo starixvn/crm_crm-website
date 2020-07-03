@@ -116,7 +116,6 @@
 
 				$scope.onHoverGroupHeadline = function ($event, title) {
 					var tooltip = angular.element($window.parent.document).find("#remove-headline-tooptip")[0];
-					console.log($event.currentTarget.offsetTop);
 					tooltip.style.top = $event.clientY - 120 + 'px';
 					tooltip.style.display = 'inline-block';
 					tooltip.innerHTML = 'Group Headline:' + title;

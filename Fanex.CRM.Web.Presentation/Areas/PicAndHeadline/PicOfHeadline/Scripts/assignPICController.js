@@ -175,8 +175,8 @@
 
 						if (!result.IsSuccessful && result.AssignedDirectAccounts.length === 0) {
 							$scope.showErrorDirectAccount(result.ErrorAccounts);
-							const headlineName = $scope.headlineOptions.filter(o => o.id === $scope.assignPICModel.headlineId)[0].text;
-							var errMsg = $scope.generateValidationErrMsg(result.ErrorAccounts, headlineName);
+							const headline = $scope.headlineOptions.filter(o => o.id === $scope.assignPICModel.headlineId);
+							var errMsg = $scope.generateValidationErrMsg(result.ErrorAccounts, headline !== null && headline.length > 0 ? headline[0].text : '');
 
 							$scope.messageResultOptions = new MessageResult(errMsg, !result.IsSuccessful, result.IsSuccessful);
 							return;
@@ -210,7 +210,6 @@
 					const notDirectAccount = errMsgs.NotDirectAccount !== null && errMsgs.NotDirectAccount !== '' ? errMsgs.NotDirectAccount.split(',') : [];
 					const noBelongHeadline = errMsgs.NoBelongHeadlineAccount !== null && errMsgs.NoBelongHeadlineAccount !== '' ? errMsgs.NoBelongHeadlineAccount.split(',') : [];
 					const invalidListDirectAccounts = invalidUserName.concat(notDirectAccount).concat(noBelongHeadline);
-					console.log(invalidListDirectAccounts);
 
 					const assignPICDirectAccounts = [];
 					const map = new Map();
@@ -325,7 +324,7 @@
 				$scope.validateParams = function (params) {
 					var result = true;
 					var message = '';
-					if (params.headlineId === null || parseInt(params.headlineId, 10) < 0) {
+					if (params.headlineId === null || params.headlineId === "" || parseInt(params.headlineId, 10) < 0) {
 						message = viewResources.GroupHeadline + " " + viewResources.IsRequired;
 						result = false;
 					}
