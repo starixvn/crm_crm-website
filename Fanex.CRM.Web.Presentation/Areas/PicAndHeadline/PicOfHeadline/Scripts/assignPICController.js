@@ -144,7 +144,8 @@
 
 				$scope.closeModal = function (isReload = false) {
 					if (!isReload) {
-						angular.element($window.parent.document).find('.js-select2').select2("close");
+						angular.element($window.parent.document).find('#assignedPIC').select2("close");
+						angular.element($window.parent.document).find('#assignedPICHeadline').select2("close");
 					}
 					$uibModalInstance.close(isReload);
 				};
@@ -173,38 +174,68 @@
 						}
 
 						if (!result.IsSuccessful && result.AssignedDirectAccounts.length === 0) {
-							$scope.showErrorDirectAccount(result.Message);
-							$scope.messageResultOptions = new MessageResult(result.Message, !result.IsSuccessful, result.IsSuccessful);
+							$scope.showErrorDirectAccount(result.ErrorAccounts);
+							const headlineName = $scope.headlineOptions.filter(o => o.id === $scope.assignPICModel.headlineId)[0].text;
+							var errMsg = $scope.generateValidationErrMsg(result.ErrorAccounts, headlineName);
+
+							$scope.messageResultOptions = new MessageResult(errMsg, !result.IsSuccessful, result.IsSuccessful);
 							return;
 						}
 					});
 				};
 
-				$scope.showErrorDirectAccount = function (message) {
-					if (message.indexOf(':') !== -1) {
-						const invalidDirectAccountString = message.substring(message.indexOf(':') + 1, message.length).trim();
-						const invalidListDirectAccounts = invalidDirectAccountString.split(',');
-						const assignPICDirectAccounts = [];
-						const map = new Map();
-						for (const item of $scope.assignPICModel.directAccounts) {
-							if (!map.has(item.username)) {
-								map.set(item.username, true);    // set any value to Map
-								assignPICDirectAccounts.push({
-									index: item.index,
-									username: item.username,
-									isValid: item.isValid
-								});
-							}
-						}
+				$scope.generateValidationErrMsg = function (errAccounts, currentHeadlineName) {
+					var msg = [];
 
-						for (var i = 0; i < assignPICDirectAccounts.length; i++) {
-							if (invalidListDirectAccounts.some(acc => acc.trim() === assignPICDirectAccounts[i].username.trim())) {
-								assignPICDirectAccounts[i].isValid = false;
-							}
-						}
-
-						$scope.assignPICModel.directAccounts = [...new Set(assignPICDirectAccounts)];
+					if (errAccounts.InvalidUsername !== null && errAccounts.InvalidUsername) {
+						let invalidNames = errAccounts.InvalidUsername.split(',');
+						msg.push('Invalid usernames: ' + invalidNames.join(', '));
 					}
+
+					if (errAccounts.NotDirectAccount !== null && errAccounts.NotDirectAccount) {
+						let directAccount = errAccounts.NotDirectAccount.split(',');
+						msg.push('These accounts are not direct accounts: ' + directAccount.join(', '));
+					}
+
+					if (errAccounts.NoBelongHeadlineAccount !== null && errAccounts.NoBelongHeadlineAccount) {
+						let noBelongHeadlineAccount = errAccounts.NoBelongHeadlineAccount.split(',');
+						msg.push('These direct accounts do not belong to group headline ' + currentHeadlineName + ': ' + noBelongHeadlineAccount.join(', '));
+					}
+
+					return msg;
+				};
+
+				$scope.showErrorDirectAccount = function (errMsgs) {
+					const invalidUserName = errMsgs.InvalidUsername !== null && errMsgs.InvalidUsername !== '' ? errMsgs.InvalidUsername.split(',') : [];
+					const notDirectAccount = errMsgs.NotDirectAccount !== null && errMsgs.NotDirectAccount !== '' ? errMsgs.NotDirectAccount.split(',') : [];
+					const noBelongHeadline = errMsgs.NoBelongHeadlineAccount !== null && errMsgs.NoBelongHeadlineAccount !== '' ? errMsgs.NoBelongHeadlineAccount.split(',') : [];
+					const invalidListDirectAccounts = invalidUserName.concat(notDirectAccount).concat(noBelongHeadline);
+					console.log(invalidListDirectAccounts);
+
+					const assignPICDirectAccounts = [];
+					const map = new Map();
+					for (const item of $scope.assignPICModel.directAccounts) {
+						if (!map.has(item.username)) {
+							map.set(item.username, true);
+							assignPICDirectAccounts.push({
+								index: item.index,
+								username: item.username,
+								isValid: item.isValid
+							});
+						}
+					}
+
+					const isExistedInErrList = function (username) {
+						return invalidListDirectAccounts.some(acc => acc === username);
+					};
+
+					for (var i = 0; i < assignPICDirectAccounts.length; i++) {
+						if (isExistedInErrList(assignPICDirectAccounts[i].username)) {
+							assignPICDirectAccounts[i].isValid = false;
+						}
+					}
+
+					$scope.assignPICModel.directAccounts = [...new Set(assignPICDirectAccounts)];
 				};
 
 				$scope.openAssignedDirectAccountModal = function () {
@@ -217,7 +248,7 @@
 						assignedDirectAccounts[i].DirectAccountList = accounts;
 						assignedDirectAccounts[i].IsShowPopup = accounts.length > 20;
 					}
-					console.log(assignedDirectAccounts);
+
 					$uibModal.open({
 						template: angular.element('#list-assigned-direct-account').html(),
 						backdrop: 'static',
@@ -281,12 +312,12 @@
 						$scope.unblockUI();
 						var result = data.Result;
 						if (result.IsSuccessful) {
-							$scope.messageResultOptions = new MessageResult('Assign PIC successfully!', true, true);
+							$scope.messageResultOptions = new MessageResult(['Assign PIC successfully!'], true, true);
 							setInterval(function () {
 								$scope.closeModal(true);
 							}, 3000);
 						} else {
-							$scope.messageResultOptions = new MessageResult(result.Message, true, false);
+							$scope.messageResultOptions = new MessageResult([result.Message], true, false);
 						}
 					});
 				};
@@ -307,7 +338,7 @@
 						result = false;
 					}
 
-					$scope.messageResultOptions = new MessageResult(message, !result, result);
+					$scope.messageResultOptions = new MessageResult([message], !result, result);
 					return result;
 				};
 

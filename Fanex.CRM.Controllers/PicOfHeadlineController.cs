@@ -11,6 +11,7 @@ using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Report.Excels.PICAssignment;
 using Fanex.CRM.Report.Models.PicAssignmentReport;
 using Fanex.CRM.Resources;
+using Fanex.CRM.Services;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
 using Fanex.NAP.Core.Business;
@@ -24,20 +25,23 @@ namespace Fanex.CRM.Controllers
         private readonly ISettingService _settingService;
         private readonly IBaseService _baseService;
         private readonly IPermissionService _permissionService;
+        private readonly IPicAssignmentService _picAssignmentService;
 
         public PicOfHeadlineController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public PicOfHeadlineController(
             ISettingService settingService,
             IBaseService baseService,
-            IPermissionService permissionService)
+            IPermissionService permissionService,
+            IPicAssignmentService picAssignmentService)
         {
             _settingService = settingService ?? new SettingService();
             _baseService = baseService ?? new BaseService();
             _permissionService = permissionService ?? new PermissionService();
+            _picAssignmentService = picAssignmentService ?? new PicAssignmentService();
         }
 
         public ActionResult Index()
@@ -89,12 +93,14 @@ namespace Fanex.CRM.Controllers
                 Username = model.DirectAccountIds
             };
 
-            var result = _baseService.GetData<AssignedDirectAccount>(criteria);
+            var result = _picAssignmentService.ValidateAssignmentDirectAccount(criteria);
+
             var data = new
             {
                 IsSuccessful = criteria.ErrCode == 0,
                 Message = criteria.ErrMsg,
-                AssignedDirectAccounts = result
+                ErrorAccounts = result.Item1,
+                AssignedDirectAccounts = result.Item2
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -200,11 +206,14 @@ namespace Fanex.CRM.Controllers
                 }
             }
 
-            var results = assignments.OrderBy(i => i.HeadlineName)
+            var data = assignments
+                .OrderBy(i => i.HeadlineName)
                 .ThenByDescending(a => a.PicForMapping)
                 .ThenBy(p => p.PicList != null)
                 .ThenBy(p => p.PicList?.Count)
-                .ThenBy(i => i.DirectAccount).ToList();
+                .ThenBy(i => i.DirectAccount);
+
+            var results = data.OrderBy(i => i.HeadlineID == 0).ToList();
 
             for (int i = 0; i < results.Count; i++)
             {

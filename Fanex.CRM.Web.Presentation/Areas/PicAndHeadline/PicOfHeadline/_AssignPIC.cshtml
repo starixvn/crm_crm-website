@@ -10,7 +10,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
                      class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="messageResultOptions.Message">
+                    <div>
+                        <p class="insert-pic-err-msg" ng-repeat="msg in messageResultOptions.Message">{{msg}}</p>
                     </div>
                 </div>
             </div>

@@ -17,12 +17,14 @@
 
         public override Hashtable GetSpParams()
         {
-            var param = new Hashtable();
-            param.Add("HeadlineId", HeadlineId);
-            param.Add("PicID", PicId);
-            param.Add("Username", Username);
-            param.Add("errcode", ErrCode);
-            param.Add("errmsg", ErrMsg);
+            var param = new Hashtable
+            {
+                { "HeadlineId", HeadlineId },
+                { "PicID", PicId },
+                { "Username", Username },
+                { "errcode", ErrCode },
+                { "errmsg", ErrMsg }
+            };
 
             return param;
         }

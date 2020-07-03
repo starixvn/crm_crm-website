@@ -50,6 +50,7 @@
     <Compile Include="PicAndHeadline\EditPicModel.cs" />
     <Compile Include="PicAndHeadline\HeadlineInfo.cs" />
     <Compile Include="PicAndHeadline\PICAssignmentInfo.cs" />
+    <Compile Include="PicAndHeadline\PicAssignmentValidation.cs" />
     <Compile Include="PicAndHeadline\PicCommunicationTool.cs" />
     <Compile Include="PicAndHeadline\PicInfo.cs" />
     <Compile Include="PicAndHeadline\PicModel.cs" />
