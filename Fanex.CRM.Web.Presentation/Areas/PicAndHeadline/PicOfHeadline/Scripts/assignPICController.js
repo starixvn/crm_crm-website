@@ -365,6 +365,11 @@
 				});
 
 				angular.element(document).ready(function () {
+					$($window.parent).on("click", function ($e) {
+						if (!$e.target.className.includes("select2")) {
+							angular.element($window.parent.document).find('.pic-assignment-select2').select2("close");
+						}
+					});
 					$picOfHeadlineService.GetAssignPICSettings().then(function (data) {
 						var settings = data.Result;
 						$scope.headlineOptions = settings.groupHeadlines ? settings.groupHeadlines.map(headline => {
