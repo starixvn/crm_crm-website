@@ -104,5 +104,6 @@
         IList<Setting> GetPositionsCN88();
 
         IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria);
+        IList<Setting> GetPicSettings(string settingName, bool? isActive = null, bool isIncludeAllOption = false);
     }
 }

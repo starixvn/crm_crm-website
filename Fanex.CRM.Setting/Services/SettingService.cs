@@ -658,8 +658,7 @@
                 new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
                 new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
                 new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
-                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
-                new Setting { Id = RoleIdConstants.Guest, Value = Labels.Guest }
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member }
             };
         }
 
@@ -926,6 +925,22 @@
             sites.Insert(0, new SiteInfo { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
             return sites;
+        }
+
+        public IList<Setting> GetPicSettings(string settingName, bool? isActive = null, bool isIncludeAllOption = false)
+        {
+            var data = GetAllSettings().Where(s => s.SettingType.Equals(settingName) && (isActive == null || s.IsActive == isActive.Value)).ToList();
+
+            if (isIncludeAllOption)
+            {
+                data.Insert(0, new Setting
+                {
+                    Id = 0,
+                    Value = Labels.All
+                });
+            }
+
+            return data;
         }
 
         public IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria)

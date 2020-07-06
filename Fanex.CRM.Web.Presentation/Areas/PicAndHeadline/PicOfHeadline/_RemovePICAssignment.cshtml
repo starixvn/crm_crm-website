@@ -1,0 +1,78 @@
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="remove-assignment-modal" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.RemovePICAssignment
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="closeModal()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="remove-assignment-wrapper" ng-model="removeAssignmentData">
+            <div class="headline-tooptip remove-assignment-tooltip" id="remove-headline-tooptip"></div>
+            <table class="assigned-direct-account remove-assignment">
+                <thead>
+                    <tr>
+                        <th class="text-center width-80" rowspan="2">@Labels.No</th>
+                        <th class="text-center width-150" rowspan="2">@Labels.GroupHeadline</th>
+                        <th class="text-center width-150" rowspan="2">@Labels.DirectAccount</th>
+                        <th class="text-center width-150" rowspan="1" ng-repeat="pic in removeAssignmentData.distinctPics">
+                            {{pic.PicName}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center width-150" ng-repeat="pic in removeAssignmentData.distinctPics">
+                            <input type="checkbox" id="parent-chkbox-{{pic.PicId}}" name="{{pic.PicName}}"
+                                   checked ng-click="onClickPicNameChkbox($event, pic.PicId)" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="assignment in removeAssignmentData.data">
+                        <td class="text-center">{{$index + 1}}</td>
+                        <td rowspan="{{assignment.NumberOfDirectAccount}}" ng-mouseover="onHoverGroupHeadline($event, assignment.HeadLineName)"
+                            ng-mouseout="onMouseOutHeadline()"
+                            ng-hide="{{assignment.IsHideInTable}}">
+                            {{assignment.HeadLineName}}
+                        </td>
+                        <td>{{assignment.DirectAccount}}</td>
+                        <td ng-repeat="p in assignment.PicAssignment" class="{{!p.IsSelectable ? 'null-cell-color text-center' : 'text-center' }}">
+                            <input ng-if="p.IsSelectable" type="checkbox" name="chkbox-{{p.PicName}}" class="child-chkbox-{{p.PicId}}"
+                                   ng-click="onSelectAssignment($event, assignment.HeadlineId, assignment.DirectAccountId, p.PicId)"
+                                   checked />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="openConfirmRemoveAssignmentModal()" id="remove-all-btn">Re<span class="hotkey">m</span>ove</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
+    </div>
+</div>
+
+<div id="confirm-remove-assignment-modal" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.Confirmation
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="$dismiss()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-12">
+                <span>@Labels.ConfirmRemovePICAssignment</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="removeAssignment()" id="remove-all-btn">@Labels.OK</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
+    </div>
+</div>

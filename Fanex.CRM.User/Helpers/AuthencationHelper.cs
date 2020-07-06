@@ -32,7 +32,10 @@
                 false,
                 userData, "/");
             string hashTicket = FormsAuthentication.Encrypt(ticket);
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket);
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashTicket)
+            {
+                HttpOnly = true
+            };
 
             HttpContext.Current.Response.Cookies.Set(cookie);
         }

@@ -91,7 +91,7 @@
     <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SourceSettingMappingSel" SpName="Acc_CRM_SourceSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -218,6 +218,19 @@
   <Function Name="Multiple Logs">
     <Setting Key="MultipleLogs_VerifyCustomer" SpName="CRM_MultipleLogs_VerifyCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogs_VerifyRelatedCustomer" SpName="CRM_MultipleLogs_VerifyRelatedCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
+  <Function Name="Pic and Headline">
+    <Setting Key="Acc_CRM_PicIns" SpName="Acc_CRM_PicIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicSel" SpName="Acc_CRM_PicSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicUpd" SpName="Acc_CRM_PicUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicManagementSel" SpName="Acc_CRM_PicManagementSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PICStatusUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_HeadlineSel" SpName="Acc_CRM_HeadlineSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentValidation" SpName="Acc_CRM_PICAssignmentValidation_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentSel" SpName="Acc_CRM_PICAssignmentSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignment" SpName="Acc_CRM_PICAssignment_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentDel" SpName="Acc_CRM_PICAssignmentDel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_SiteSel_Credit" SpName="Acc_SiteSel_Credit" DbName="DBAGE.bodb02.bodbAdminNet" />
   </Function>
 </Functions>
 		

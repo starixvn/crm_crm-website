@@ -123,6 +123,9 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="Boss" xml:space="preserve">
+    <value>Boss</value>
+  </data>
   <data name="ByCategory" xml:space="preserve">
     <value>By Category</value>
   </data>
@@ -219,11 +222,17 @@
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="Partner" xml:space="preserve">
+    <value>Partner</value>
+  </data>
   <data name="Pending" xml:space="preserve">
     <value>Pending</value>
   </data>
   <data name="Solved" xml:space="preserve">
     <value>Solved</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Staff</value>
   </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>

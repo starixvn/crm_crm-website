@@ -1,0 +1,176 @@
+﻿﻿@using Fanex.CRM.Resources
+@{
+                /**/
+
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Title = Labels.PicAssignment;
+                var isHost = ViewBag.IsHost;
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/pic.assignment.css" />
+}
+
+<div data-ng-app="picofheadline-application" class="pic-assignment">
+    <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
+        <div class="main container">
+            <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertboxerr" class="alertboxerr">
+                        <div>{{validateFilterMessage.message}}</div>
+                    </div>
+                </div>
+            </div>
+            <form class="filter-form" id="pic-assignment-filter" ng-submit="getPICAssignment()">
+                <div class="row filter-frm one-row expand-filter">
+
+                    <div class="row row-item">
+                        <div class="item default-focus">
+                            <label for="username" class="width-85">
+                                @Labels.Site
+                            </label>
+                            <div class="site-picker-container pull-left input-container" data-ng-model="siteOptions.DataList">
+                                <select id="site"></select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="currency" class="width-85 pull-left">
+                                @Labels.Currency
+                            </label>
+                            <div class="pull-left input-container currency-Multi-Container" data-ng-model="currencyOptions.DataList">
+                                <select id="currency" class="currency"></select>
+                            </div>
+                        </div>
+                        <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
+                            <label for="viptype" class="width-85 pull-left">
+                                @Labels.Status
+                            </label>
+                            <div class="input-container pull-left">
+                                <select id="status" class="status"></select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="viptype" class="width-85 pull-left">
+                                @Labels.HeadlineType
+                            </label>
+                            <div class="input-container pull-left">
+                                <select id="headline" class="headline" ng-model="searchCriteria.HeadlineType" ng-init="searchCriteria.HeadlineType = ''">
+                                    <option value="">All</option>
+                                    <option value="1">VIP</option>
+                                    <option value="0">Normal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item">
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.GroupHeadline
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.GroupHeadline" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.PIC
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.PicName" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.DirectAccount
+                            </label>
+                            <div class="input-container pull-left">
+                                <input type="text" ng-model="searchCriteria.DirectAccount" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="width-85 pull-left">
+                                @Labels.Position
+                            </label>
+                            <div class="position-picker-container pull-left position-div" data-ng-model="positionOptions.DataList">
+                                <select id="position"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-item">
+                        <div class="item">
+                            <label for="excludeAssignedAcc" class="checkbox-label pull-left">
+                                <input id="excludeAssignedAcc" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeAssignedAcc" />
+                                @Labels.ExcludeAssignedAcc
+                            </label>
+                        </div>
+                        <div class="item">
+                            <label for="excludeIgnoredAccount" class="checkbox-label pull-left">
+                                <input id="excludeIgnoredAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIgnoredAcc" />
+                                @Labels.ExcludeIgnoredAccounts
+                            </label>
+                        </div>
+                        <div class="item">
+                            <label for="excludeTestAccount" class="checkbox-label pull-left">
+                                <input id="excludeTestAccount" type="checkbox" style="margin-right:5px;" ng-model="searchCriteria.ExcludeIsTest" />
+                                @Labels.ExcludeTestAccounts
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row row-item">
+                        <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
+                        @if (isHost)
+                        {
+                            <button class="btn" type="button" ng-click="openAssignModal()">Ass<span class="hotkey">i</span>gn PIC</button>
+                        }
+                    </div>
+                </div>
+            </form>
+
+            <div class="row" pic-Assignment-Data-Grid-Directive ng-model="picOfHeadlineOptions">
+                <div class="headline-tooptip" id="headline-tooltip"></div>
+                <div id="table-picOfHeadline" class="freegrid display-none"></div>
+            </div>
+            <div class="download-file-container" data-ng-model="downloadFileOptions">
+                <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_AssignPIC.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_ConfirmSubmit.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_RemovePICAssignment.cshtml")
+
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/PicOfHeadlineScripts")
+
+    <script src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>
+    <script type="text/javascript">
+        parent.document.title = '@Labels.PicAssignment';
+        window.rootUrl = '@Url.Content("~")';
+
+        var viewResources = {
+            Position: '@Labels.Position',
+            Status: '@Labels.Status',
+            No: '@Labels.No',
+            GroupHeadline: '@Labels.GroupHeadline',
+            HeadlineType: '@Labels.HeadlineType',
+            PIC: '@Labels.PIC',
+            DirectAccount: '@Labels.DirectAccount',
+            Status: '@Labels.Status',
+            Site: '@Labels.Site',
+            Currency: '@Labels.Currency',
+            Position: '@Labels.Position',
+            PicAssignment: '@Labels.PicAssignment',
+            IsRequired: '@Labels.IsRequired'
+        };
+    </script>
+}

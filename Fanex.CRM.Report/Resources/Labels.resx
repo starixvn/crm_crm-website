@@ -927,4 +927,22 @@
   <data name="NoOfInquiries" xml:space="preserve">
     <value>No. of Inquiries</value>
   </data>
+  <data name="PICManagement" xml:space="preserve">
+    <value>PIC Management</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
+  </data>
+  <data name="HeadlineType" xml:space="preserve">
+    <value>Headline Type</value>
+  </data>
 </root>

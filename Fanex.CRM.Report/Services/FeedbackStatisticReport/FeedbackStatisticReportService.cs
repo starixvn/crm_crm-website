@@ -73,9 +73,10 @@
 
             criteria.ExportExcel = true;
             FeedbackStatistic report = GetFeedbackStatistic(criteria);
+            report = report ?? new FeedbackStatistic { TotalItems = 0 };
 
             int maxColumnIndex = 0;
-            if (report != null && report.TotalItems != 0)
+            if (report.TotalItems != 0)
             {
                 maxColumnIndex += report.Usernames.Count;
             }
@@ -93,7 +94,7 @@
 
             GenerateFeedbackStatisticTitle(exportExcelInfo, report.Title);
             GenerateFeedbackStatisticHeader(exportExcelInfo, report.Usernames);
-            if (report == null || report.TotalItems == 0)
+            if (report.TotalItems == 0)
             {
                 NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -257,7 +258,6 @@
             foreach (var category in feedbackCategories)
             {
                 int subCategoriesLen = category.FeedbackSubcategories.Count;
-                currentColumn = exportExcelInfo.StartColumn;
                 CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(
                     currentRow,
                     currentRow,
@@ -415,7 +415,7 @@
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 150 * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn, 150 * NpoiExtensions.FontWidth);
 
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,

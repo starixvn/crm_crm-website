@@ -47,6 +47,19 @@
     <Compile Include="LicenseeMapping\LicenseeManager.cs" />
     <Compile Include="LicenseeMapping\LicenseeMapping.cs" />
     <Compile Include="LicenseeMapping\UpdateLicenseeMappingParam.cs" />
+    <Compile Include="PicAndHeadline\AssignedDirectAccount.cs" />
+    <Compile Include="PicAndHeadline\AssignPic.cs" />
+    <Compile Include="PicAndHeadline\CommunicationTool.cs" />
+    <Compile Include="PicAndHeadline\EditPicModel.cs" />
+    <Compile Include="PicAndHeadline\HeadlineInfo.cs" />
+    <Compile Include="PicAndHeadline\PICAssignmentInfo.cs" />
+    <Compile Include="PicAndHeadline\PicAssignmentValidation.cs" />
+    <Compile Include="PicAndHeadline\PicCommunicationTool.cs" />
+    <Compile Include="PicAndHeadline\PicInfo.cs" />
+    <Compile Include="PicAndHeadline\PicModel.cs" />
+    <Compile Include="PicAndHeadline\PicReport.cs" />
+    <Compile Include="PicAndHeadline\RemoveAssignment.cs" />
+    <Compile Include="PicAndHeadline\SiteInfo.cs" />
     <Compile Include="MultipleLogs\VerifyCustomerResult.cs" />
     <Compile Include="MultipleLogs\VerifyRelatedCustomerResult.cs" />
     <Compile Include="ProductFilter.cs" />
@@ -61,6 +74,15 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
+    <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
+      <Project>{dbb7c2a5-9919-4c5d-b69c-3edf958e1741}</Project>
+      <Name>Fanex.CRM.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml">

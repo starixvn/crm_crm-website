@@ -72,19 +72,19 @@
             return string.Format(CurrentCulture, target, args);
         }
 
-        [DebuggerStepThrough]
-        public static string Hash(this string target)
-        {
-            ArgumentChecker.IsNotEmpty(target, "target");
+        ////[DebuggerStepThrough]
+        ////public static string Hash(this string target)
+        ////{
+        ////    ArgumentChecker.IsNotEmpty(target, "target");
 
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] data = Encoding.Unicode.GetBytes(target);
-                byte[] hash = md5.ComputeHash(data);
+        ////    using (MD5 md5 = MD5.Create())
+        ////    {
+        ////        byte[] data = Encoding.Unicode.GetBytes(target);
+        ////        byte[] hash = md5.ComputeHash(data);
 
-                return Convert.ToBase64String(hash);
-            }
-        }
+        ////        return Convert.ToBase64String(hash);
+        ////    }
+        ////}
 
         [DebuggerStepThrough]
         public static string WrapAt(this string target, int index)

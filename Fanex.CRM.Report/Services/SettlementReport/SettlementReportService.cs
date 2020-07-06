@@ -290,7 +290,7 @@
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn, 180 * NpoiExtensions.FontWidth);
 
             string reportTitle = settlementReport != null ?
                 settlementReport.Name :
@@ -306,7 +306,6 @@
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
-            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
     }

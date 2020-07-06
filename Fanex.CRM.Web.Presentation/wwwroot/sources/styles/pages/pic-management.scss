@@ -1,0 +1,93 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
+@import '~tipsy/src/stylesheets/tipsy.css';
+
+@import '../../libs/FanexGrid/Fanex.Grid.css';
+@import '../../libs/FanexGrid/Fanex.Pagination.css';
+@import '../../../../Scripts/Directives/multileveldropdown/multileveldropdown.css';
+
+$fanex-grid-images-path: '../images';
+@import '../components/buttons';
+@import '../components/modal';
+@import '../components/customize-fanex-grid';
+
+.freegrid .no-data-not-frozen {
+    text-align: left !important;
+}
+
+.freegrid td, .freegrid .grid-fixed-table td {
+    word-break: break-all;
+}
+
+.filter-frm.one-row .hide-item {
+    display: none !important;
+}
+
+.modal {
+    .communication-tools {
+        .remove-tool {
+            color: #FF0000;
+        }
+
+        .add-tool {
+            color: #466AB6;
+        }
+
+        span {
+            display: inline-block;
+            font-size: 15px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    }
+
+    .required-span {
+        position: absolute;
+        margin-left: 3px;
+    }
+}
+
+.width100, .language-select .dropdown {
+    width: 100%;
+}
+
+.pic-insert-modal, .pic-edit-modal {
+    .modal-body .row {
+        margin-bottom: 16px;
+
+        textarea {
+            resize: vertical;
+        }
+
+        textarea, input {
+            border: 1px solid #b1b1b1;
+            width: 100%;
+            padding: 2px;
+            color: #666666;
+        }
+    }
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+::placeholder {
+    font-style: italic;
+    font-size: 10px;
+}
+
+.table-cell {
+    white-space: pre-wrap;
+}
+
+multileveldropdowntree span.input-group-btn {
+    display: none;
+}
+
+.margin-bottom-16 {
+    margin-bottom: 16px;
+}

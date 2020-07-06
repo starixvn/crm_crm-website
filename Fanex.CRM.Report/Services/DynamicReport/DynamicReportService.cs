@@ -517,7 +517,7 @@
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn, 140 * NpoiExtensions.FontWidth);
 
             string reportTitle = string.Format(
                 Labels.DynamicReport_TitleWithNumberOfLog,
@@ -563,7 +563,6 @@
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Handler, headerStyle);
             currentColumn++;
             NpoiExtensions.RenderCell(row, currentColumn, Labels.Reviewer, headerStyle);
-            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -723,9 +722,6 @@
             for (var i = 0; i < childReportLength && currentIndex <= endIndex; i++)
             {
                 var periodGroup = dynamicReportList[i];
-                startSplittingIndex = 0;
-                endSplittingIndex = 0;
-
                 if (currentIndex + periodGroup.ChildReports.Count - 1 < startIndex)
                 {
                     currentIndex += periodGroup.ChildReports.Count;

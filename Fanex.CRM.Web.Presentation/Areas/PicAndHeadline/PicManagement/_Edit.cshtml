@@ -1,0 +1,94 @@
+﻿@using Fanex.CRM.Resources
+
+<div id="template-pic-edit" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.EditPIC
+        <span class="icon-close fa fa-times" ng-click="picEditCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row" ng-show="picEditCtrl.messageResultOptions.IsShowMessage">
+            <div class="alertbox{{ picEditCtrl.messageResultOptions.IsSuccess ? 'scc' : 'err' }}"><div>{{picEditCtrl.messageResultOptions.Message}}</div></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
+                    @Labels.Username
+                    <span class="mandatoryfield">*</span>
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <input class="width100" autocomplete="off" ng-model="picEditCtrl.username" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
+                    @Labels.Role
+                    <span class="mandatoryfield">*</span>
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <select ng-model="picEditCtrl.selectedRole" ng-options="item.Value for item in picEditCtrl.roles"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
+                    @Labels.Language
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9 language-select">
+                <multileveldropdowntree text-settings="picEditCtrl.textSettings"
+                                        data-settings="picEditCtrl.languageDropdownSettings"
+                                        data-show-selected-all-text="true"
+                                        ng-model="picEditCtrl.selectedLanguages"
+                                        ng-change="picEditCtrl.languageChangedHandler()"
+                                        ng-on-checkall="picEditCtrl.languageChangedHandler()" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
+                    @Labels.Country
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <select ng-model="picEditCtrl.selectedCountry" ng-options="item.Name for item in picEditCtrl.countries"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
+                    @Labels.Remark
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <textarea rows="4" type="text" ng-model="picEditCtrl.remark"></textarea>
+            </div>
+        </div>
+        <div class="row" ng-repeat="x in picEditCtrl.communicationToolItems">
+            <div class="col-xs-3 col-sm-3 col-md-2">
+                <div>
+                    <select ng-model="x.selectedComm" ng-options="item.Value for item in picEditCtrl.communicationTools"></select>
+                    <span ng-if="$index == 0" class="required-span">
+                        @Html.Raw(Labels.RequiredFieldTemplate)
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1"></div>
+            <div class="col-xs-7 col-sm-7 col-md-8">
+                <input placeholder="Separated by ',' for multiple contact info" type="text" ng-model="x.Value" autocomplete="off" />
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 communication-tools">
+                <span ng-if="$index != 0" title="Remove" class="remove-tool" data-ng-click="picEditCtrl.removeCommunicationTool(this);">x</span>
+                <span ng-if="$index == (picEditCtrl.communicationToolItems.length - 1)" title="Add" class="add-tool" data-ng-click="picEditCtrl.addCommunicationTool();">+</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="picEditCtrl.savePic()" ng-disabled="picEditCtrl.isDiabled">
+                <span class="hotkey">S</span>ave
+            </button>
+            <button class="btn" ng-click="picEditCtrl.close()">@Labels.Cancel</button>
+        </div>
+    </div>
+</div>

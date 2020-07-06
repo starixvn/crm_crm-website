@@ -79,6 +79,15 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Boss.
+        /// </summary>
+        public static string Boss {
+            get {
+                return ResourceManager.GetString("Boss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Category.
         /// </summary>
         public static string ByCategory {
@@ -367,6 +376,15 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Partner.
+        /// </summary>
+        public static string Partner {
+            get {
+                return ResourceManager.GetString("Partner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pending.
         /// </summary>
         public static string Pending {
@@ -381,6 +399,15 @@ namespace Fanex.CRM.Setting.Resources {
         public static string Solved {
             get {
                 return ResourceManager.GetString("Solved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Staff.
+        /// </summary>
+        public static string Staff {
+            get {
+                return ResourceManager.GetString("Staff", resourceCulture);
             }
         }
         

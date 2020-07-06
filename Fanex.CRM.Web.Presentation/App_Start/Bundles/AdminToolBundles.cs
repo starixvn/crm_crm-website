@@ -157,9 +157,6 @@
 
         private static void RegisterSettingManagementViewListBundles(BundleCollection bundles)
         {
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/ViewListStyles",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
         }
 
         private static void RegisterSettingManagementInsertSettingBundles(BundleCollection bundles)
@@ -200,10 +197,6 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"
                 ));
-
-            bundles.AddAndInclude(
-                "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less",
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
                 "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }

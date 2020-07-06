@@ -95,7 +95,7 @@
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Customer, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Category, headerStyle);
             NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.Status, headerStyle);
-            NpoiExtensions.RenderCell(row, currentColumnIndex++, Labels.RelatedCustomer, headerStyle);
+            NpoiExtensions.RenderCell(row, currentColumnIndex, Labels.RelatedCustomer, headerStyle);
 
             ExportExcelInfo.CurrentRow++;
         }

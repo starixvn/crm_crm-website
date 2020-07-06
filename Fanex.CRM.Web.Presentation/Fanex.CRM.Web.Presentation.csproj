@@ -492,15 +492,45 @@
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\assignPICController.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\picAssignmentDataGridDirective.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\Directives\SelectWithSearchDirective.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineApplication.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.css" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.js" />
+    <Content Include="wwwroot\sources\js\shared\focus-directive.js" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\BottomLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\FirstNodeSpan.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\MiddleLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\NodeSpan.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\PlusMinus.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\sprites.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\TopLine.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\jquery.nextreeview.css" />
+    <Content Include="wwwroot\sources\libs\MultiSelect\jquery.nextreeview.js" />
+    <Content Include="wwwroot\sources\libs\Select2\select2.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\AngularJS\angular-sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.js" />
     <Content Include="Scripts\AngularJS\ui-bootstrap-tpls-1.0.3.min.js" />
+    <Content Include="Scripts\Select2\select2.js" />
     <Content Include="wwwroot\dist\js\commtool.setting.js" />
     <Content Include="wwwroot\dist\js\create.multiple.logs.js" />
     <Content Include="wwwroot\dist\js\inform.headline.js" />
     <Content Include="wwwroot\dist\js\manage.feedback.js" />
     <Content Include="wwwroot\dist\js\management.setting.js" />
+    <Content Include="wwwroot\dist\js\pic.management.js" />
     <Content Include="wwwroot\dist\styles\commtool.setting.css" />
     <Content Include="wwwroot\dist\styles\commtool.setting.js" />
     <Content Include="wwwroot\dist\styles\create.multiple.logs.css" />
@@ -515,6 +545,8 @@
     <Content Include="wwwroot\dist\styles\manage.feedback.js" />
     <Content Include="wwwroot\dist\styles\management.setting.css" />
     <Content Include="wwwroot\dist\styles\management.setting.js" />
+    <Content Include="wwwroot\dist\styles\pic.management.css" />
+    <Content Include="wwwroot\dist\styles\pic.management.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\create-subsetting-controller.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\RegisterSharedDirectives.js" />
     <Content Include="wwwroot\sources\js\pages\AdminTool\SettingManagement\directive\management-setting-grid-directive.js" />
@@ -544,7 +576,6 @@
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SolutionEditor.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\directives\SubjectAutoComplete.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\index.js" />
-    <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\focus-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-controller.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\related-customer-grid-directive.js" />
     <Content Include="wwwroot\sources\js\pages\feedbacks\create-multiple-logs\related-customer\view-related-customer-controller.js" />
@@ -566,7 +597,18 @@
     <Content Include="Areas\InformHeadline\_LogDetails.cshtml" />
     <Content Include="wwwroot\parts\constant.js" />
     <Content Include="wwwroot\parts\entry.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-change-state-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-edit-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\index.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-change-confirm-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-insert-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-application.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-directives.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\pic-management-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\common-functions.js" />
+    <Content Include="wwwroot\sources\js\shared\movable-modal-directive.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.css" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Grid.js" />
     <Content Include="wwwroot\sources\libs\FanexGrid\Fanex.Pagination.css" />
@@ -615,6 +657,7 @@
     <Content Include="wwwroot\sources\styles\images\broom.png" />
     <Content Include="wwwroot\sources\styles\images\excel.png" />
     <Content Include="wwwroot\sources\styles\images\icon-edit.png" />
+    <Content Include="wwwroot\sources\styles\images\list-muti-select.png" />
     <Content Include="wwwroot\sources\styles\images\list.png" />
     <Content Include="wwwroot\sources\styles\images\quick-edit.png" />
     <Content Include="wwwroot\sources\styles\images\quick-edit-hover.png" />
@@ -952,20 +995,6 @@
     <Content Include="Scripts\MonthDayPicker\sunny\images\ui-icons_fadc7a_256x240.png" />
     <Content Include="Scripts\MonthDayPicker\sunny\images\ui-icons_ffe180_256x240.png" />
     <Content Include="Scripts\MonthDayPicker\sunny\jquery-ui-1.8.17.css" />
-    <Content Include="Scripts\MultipleSelect\fanex.multiSelect.css" />
-    <Content Include="Scripts\MultipleSelect\fanex.multiSelect.js" />
-    <Content Include="Scripts\MultipleSelect\images\BottomLine.png" />
-    <Content Include="Scripts\MultipleSelect\images\FirstNodeSpan.png" />
-    <Content Include="Scripts\MultipleSelect\images\MiddleLine.png" />
-    <Content Include="Scripts\MultipleSelect\images\NodeSpan.png" />
-    <Content Include="Scripts\MultipleSelect\images\PlusMinus.png" />
-    <Content Include="Scripts\MultipleSelect\images\sprites.png" />
-    <Content Include="Scripts\MultipleSelect\images\TopLine.png" />
-    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240-1.png" />
-    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240-2.png" />
-    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
-    <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
     <Content Include="Scripts\ShareScripts\Applications\AlertBox.js" />
     <Content Include="Scripts\ShareScripts\Applications\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Applications\MonthDayPicker.js" />
@@ -1255,6 +1284,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\" />
+    <Folder Include="Areas\AdminTool\SettingManagement\ViewList\Styles\" />
     <Folder Include="wwwroot\dist\styles\images\" />
     <Folder Include="wwwroot\dist\vendors\" />
   </ItemGroup>
@@ -1513,6 +1545,16 @@
     <Content Include="Areas\AdminTool\SettingManagement\_Edit.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\_LicenseeMapping.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\_DeleteLicenseeMapping.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\Web.config" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_AssignPIC.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_ConfirmSubmit.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_RemovePICAssignment.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_Create.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeConfirm.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_Edit.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeState.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1544,6 +1586,12 @@
     <Content Include="wwwroot\sources\styles\pages\management-setting.scss" />
     <Content Include="wwwroot\dist\styles\management.setting.js.map" />
     <Content Include="wwwroot\dist\js\management.setting.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\pic-management.scss" />
+    <Content Include="wwwroot\sources\styles\components\customize-multi-select.scss" />
+    <Content Include="wwwroot\dist\js\pic.management.js.map" />
+    <Content Include="wwwroot\dist\styles\pic.management.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
+    <Content Include="wwwroot\dist\styles\pic.assignment.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

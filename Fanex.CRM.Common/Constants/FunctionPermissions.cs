@@ -55,5 +55,9 @@
         public const string Updateheadlineinfo = "Updateheadlineinfo";
 
         public const string DefaultCommunicationSetting = "DefaultCommunicationSetting";
+
+        public const string PICManagement = "PICManagement";
+
+        public const string PICAssignment = "PICAssignment";
     }
 }

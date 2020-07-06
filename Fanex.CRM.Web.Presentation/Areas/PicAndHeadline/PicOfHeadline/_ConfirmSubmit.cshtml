@@ -1,0 +1,58 @@
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="list-assigned-direct-account" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.ListOfAssignedDirectAccounts
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="$dismiss()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-12">
+                <p>These direct accounts are belonging to other PIC. What would you like to do?</p>
+            </div>
+        </div>
+        <div class="row item">
+            <table id="assigned-direct-account" class="assigned-direct-account">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 160px">@Labels.PIC</th>
+                        <th class="text-center">@Labels.DirectAccount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="account in assignedDirectAccounts">
+                        <td>{{account.PicName}} ({{account.Role}})</td>
+                        <td ng-if="account.IsShowPopup">
+                            <a class="direct-account-link" ng-click="viewDirectAccount(account.DirectAccount)">
+                                {{account.DirectAccountList.length}} custommers
+                            </a>
+                        </td>
+                        <td ng-if="!account.IsShowPopup">{{account.DirectAccount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="assignPIC(false)">Re<span class="hotkey">m</span>ove & Assign</button>
+        <button class="btn" ng-click="assignPIC(true)"><span class="hotkey">K</span>eep Assign</button>
+        <button class="btn" ng-click="$dismiss()">@Labels.Cancel</button>
+    </div>
+</div>
+
+<div id="list-account" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.DirectAccount
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="$dismiss()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item">
+            <div class="col-xs-12">
+                <span>{{DirectAccounts}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="$dismiss()">@Labels.Close</button>
+    </div>
+</div>

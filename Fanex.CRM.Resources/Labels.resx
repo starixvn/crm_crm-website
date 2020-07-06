@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,11 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ActivePicSuccess" xml:space="preserve">
+    <value>Active PIC successfully!</value>
+  </data>
   <data name="AddRelatedCustomers" xml:space="preserve">
     <value>Add Related Customers</value>
   </data>
+  <data name="AssignPIC" xml:space="preserve">
+    <value>Assign PIC</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CommunicationTool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
+  <data name="ConfirmActivePic" xml:space="preserve">
+    <value>Are you sure you want to active PIC {0}?</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmCancel" xml:space="preserve">
+    <value>There are some changes. Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="ConfirmDeactivePic" xml:space="preserve">
+    <value>Are you sure you want to deactivate PIC {0}? The PIC assignment shall be removed.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="DeactivePicSuccess" xml:space="preserve">
+    <value>Deactivate PIC successfully!</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -129,17 +162,86 @@
   <data name="Deleted" xml:space="preserve">
     <value>Deleted</value>
   </data>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditPIC" xml:space="preserve">
+    <value>Edit PIC</value>
+  </data>
+  <data name="EditPicSuccess" xml:space="preserve">
+    <value>Edit PIC successfully!</value>
+  </data>
+  <data name="ExcludeIgnoredAccounts" xml:space="preserve">
+    <value>Exclude ignored accounts</value>
+  </data>
+  <data name="ExcludeTestAccounts" xml:space="preserve">
+    <value>Exclude test accounts</value>
+  </data>
   <data name="GroupHeadline" xml:space="preserve">
     <value>Group Headline</value>
+  </data>
+  <data name="HeadlineType" xml:space="preserve">
+    <value>Headline Type</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="InsertPIC" xml:space="preserve">
+    <value>Insert PIC</value>
+  </data>
+  <data name="InsertPicSuccess" xml:space="preserve">
+    <value>Insert PIC successfully!</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>is mandatory!</value>
   </data>
   <data name="ListOfCustomersUnderHeadlines" xml:space="preserve">
     <value>List of customers under headlines</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No.</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="PIC" xml:space="preserve">
+    <value>PIC</value>
+  </data>
+  <data name="PicAssignment" xml:space="preserve">
+    <value>PIC Assignment</value>
+  </data>
+  <data name="PICManagement" xml:space="preserve">
+    <value>PIC Management</value>
+  </data>
+  <data name="PICOfHeadline" xml:space="preserve">
+    <value>PIC of Headline</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="RequiredFieldTemplate" xml:space="preserve">
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
@@ -152,5 +254,53 @@
   </data>
   <data name="Verify" xml:space="preserve">
     <value>Verify</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ExcludeAssignedAcc" xml:space="preserve">
+    <value>Only show unassigned direct accounts</value>
+  </data>
+  <data name="ListOfAssignedDirectAccounts" xml:space="preserve">
+    <value>List of assigned direct accounts</value>
+  </data>
+  <data name="RemoveAndAssign" xml:space="preserve">
+    <value>Remove &amp; Assign</value>
+  </data>
+  <data name="KeepAssign" xml:space="preserve">
+    <value>Keep Assign</value>
+  </data>
+  <data name="RemovePICAssignment" xml:space="preserve">
+    <value>Remove PIC Assignment</value>
+  </data>
+  <data name="RemoveAll" xml:space="preserve">
+    <value>Remove All</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ChangePICState" xml:space="preserve">
+    <value>Change PIC State</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>No data</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ConfirmRemovePICAssignment" xml:space="preserve">
+    <value>Are you sure you want to remove all selected direct accounts?</value>
+  </data>
+  <data name="ConfirmCancelTitle" xml:space="preserve">
+    <value>Confirm Cancel</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

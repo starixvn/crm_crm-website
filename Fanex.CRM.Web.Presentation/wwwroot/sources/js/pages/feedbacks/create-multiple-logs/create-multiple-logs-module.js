@@ -2,7 +2,7 @@
     'use strict';
     /* global sharedScriptManager, directiveManager */
 
-    angular.module('createMultipleLogsModule', ['ui.bootstrap', '$uiBlockerApplication', 'selectwithsearch', 'multileveldropdown']);
+    angular.module('createMultipleLogsModule', ['ui.bootstrap', '$uiBlockerApplication', 'selectwithsearch', 'multileveldropdown', 'focusMeModule']);
     sharedScriptManager.setNoCachingHttpRequest(angular.module('createMultipleLogsModule'));
 
     angular.module('createMultipleLogsModule').config(['$httpProvider', function ($httpProvider) {

@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    angular.module('createMultipleLogsModule').directive('focusMe', focusMeDirective);
+    angular.module('focusMeModule', []).directive('focusMe', focusMeDirective);
     focusMeDirective.$inject = ['$timeout'];
 
     function focusMeDirective($timeout) {

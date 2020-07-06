@@ -1,0 +1,80 @@
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="assign-pic-modal" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.AssignPIC
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="onClickCancelBtn()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div ng-repeat="msg in messageResultOptions.Message" ng-bind="msg"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-3">
+                <label>@Labels.GroupHeadline</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
+            </div>
+            <div class="col-xs-9">
+                <select class="select-with-search-container js-select2 pic-assignment-select2" ng-model="assignPICModel.headlineId" options="headlineOptions" id="assignedPICHeadline">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-3">
+                <label>@Labels.PIC</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
+            </div>
+            <div class="col-xs-9">
+                <select class="select-with-search-container js-select2 pic-assignment-select2" ng-model="assignPICModel.pics" options="picOptions" , multiple="multiple" id="assignedPIC"></select>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-3">
+                <label>@Labels.DirectAccount</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
+            </div>
+            <div class="col-xs-9">
+                <div class="related-customer-container" ng-mousedown="$event.preventDefault()" ng-click="focused = true">
+                    <div ng-if="assignPICModel.directAccounts.length > 0">
+                        <div class="related-customer-item {{item.isValid ? '' : 'invalid'}} {{isSellectedAll ? 'selected' : ''}}"
+                             ng-repeat="item in assignPICModel.directAccounts track by $index">
+                            <span ng-bind="item.username"></span>
+                            <span class="icon-close ui-icon ui-icon-closethick" ng-click="removeRelatedCustomer(item)"></span>
+                        </div>
+                    </div>
+                    <input type="text" focus-me="focused" maxlength="30" ng-model="relatedCustomerInput"
+                           ng-keydown="keydownHandler($event)"
+                           ng-paste="pasteHandler($event)"
+                           data-on-blur="focusoutHandler" />
+                </div>
+                <div class="maximum-username">Maximum usernames: {{maxItems - assignPICModel.directAccounts.length}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="validatePicAssignment()"><span class="hotkey">S</span>ave</button>
+        <button class="btn" ng-click="onClickCancelBtn()" type="button">@Labels.Cancel</button>
+    </div>
+</div>
+
+<div id="confirm-dutty-form" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.Confirmation
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="confirm(false)"></span>
+    </div>
+    <div class="modal-body">
+        <div class="col-xs-12">
+            <span>@Labels.ConfirmCancel</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="confirm(true)">@Labels.OK</button>
+        <button class="btn" ng-click="confirm(false)" type="button">@Labels.Cancel</button>
+    </div>
+</div>
