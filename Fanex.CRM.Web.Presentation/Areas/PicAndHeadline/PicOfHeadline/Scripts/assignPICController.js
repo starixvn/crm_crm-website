@@ -11,6 +11,7 @@
 		['$scope', '$window', '$uibModal', '$uibModalInstance', '$picOfHeadlineService', 'initData',
 			function ($scope, $window, $uibModal, $uibModalInstance, $picOfHeadlineService, initData) {
 				$scope.maxItems = 10000;
+				$scope.isSubmit = false;
 				$scope.resultMessages = [];
 				$scope.isSellectedAll = false;
 				$scope.isSuccessful = false;
@@ -300,6 +301,7 @@
 				};
 
 				$scope.assignPIC = function (isKeepAssign = true) {
+					$scope.isSubmit = true;
 					$scope.BlockUI();
 					var params = {
 						headlineId: $scope.assignPICModel.headlineId,
@@ -310,12 +312,14 @@
 					$picOfHeadlineService.assignPIC(params).then(function (data) {
 						$scope.unblockUI();
 						var result = data.Result;
+
 						if (result.IsSuccessful) {
 							$scope.messageResultOptions = new MessageResult(['Assign PIC successfully!'], true, true);
 							setInterval(function () {
 								$scope.closeModal(true);
 							}, 3000);
 						} else {
+							$scope.isSubmit = false;
 							$scope.messageResultOptions = new MessageResult([result.Message], true, false);
 						}
 					});

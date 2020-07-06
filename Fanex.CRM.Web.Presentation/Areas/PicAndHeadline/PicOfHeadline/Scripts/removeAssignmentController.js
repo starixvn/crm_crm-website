@@ -12,6 +12,7 @@
 		['$scope', '$window', '$uibModal', '$uibModalInstance', '$picOfHeadlineService', 'removeAssignmentData',
 			function ($scope, $window, $uibModal, $uibModalInstance, $picOfHeadlineService, removeAssignmentData) {
 				$scope.resultMessages = [];
+				$scope.isSubmit = false;
 				$scope.selectedAssignment = removeAssignmentData.selectedAssignment;
 				$scope.removeAssignmentData = removeAssignmentData;
 
@@ -33,6 +34,7 @@
 				};
 
 				$scope.removeAssignment = function () {
+					$scope.isSubmit = true;
 					const params = $scope.selectedAssignment.filter(a => a.IsSelected).map(assignment => {
 						return {
 							HeadlineId: assignment.HeadlineId,
@@ -52,6 +54,7 @@
 								$scope.closeModal(true);
 							}, 3000);
 						} else {
+							$scope.isSubmit = false;
 							$scope.messageResultOptions = new MessageResult(result.Message, true, false);
 						}
 					});
