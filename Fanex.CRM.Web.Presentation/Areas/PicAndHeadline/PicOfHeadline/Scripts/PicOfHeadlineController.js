@@ -39,13 +39,6 @@
 				$scope.initController = function () {
 					$scope.initPicker();
 					$scope.getAllSetting();
-					$scope.defaultFocusOptions = {
-						IsSetFocus: false,
-						OnChangeEvent: $scope.completeSetFocus
-					};
-
-					$scope.defaultFocusOptions.IsSetFocus = true;
-					$scope.$apply();
 				};
 
 				$scope.initPicker = function () {
@@ -90,7 +83,7 @@
 
 				$scope.getAllSetting = function () {
 					$uiBlockerService.blockUI();
-					$scope.isLoadedAllSite = false;
+
 					$picOfHeadlineService.getAllSetting()
 						.then(function (data) {
 							var allSetting = data.Result;
@@ -143,10 +136,6 @@
 						$('#status--1').prop('checked', true);
 						return;
 					}
-				};
-
-				$scope.invokeHotKey_CtrlS = function () {
-					$scope.getPICAssignment();
 				};
 
 				$scope.getPICAssignment = function () {
@@ -233,10 +222,6 @@
 					};
 
 					$scope.$apply();
-				};
-
-				$scope.completeSetFocus = function () {
-					$scope.defaultFocusOptions.IsSetFocus = false;
 				};
 
 				$scope.openAssignModal = function (headlineId = null, directAccounts = []) {

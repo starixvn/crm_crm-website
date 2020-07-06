@@ -1,12 +1,8 @@
 ﻿﻿@using Fanex.CRM.Resources
 @{
-                /**/
-
-                /**/
-
-                Layout = "~/Views/Shared/_Layout.cshtml";
-                ViewBag.Title = Labels.PicAssignment;
-                var isHost = ViewBag.IsHost;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.PicAssignment;
+    var isHost = ViewBag.IsHost;
 }
 
 @section Styles{
@@ -16,10 +12,10 @@
 <div data-ng-app="picofheadline-application" class="pic-assignment">
     <div class="picOfHeadlineController" data-ng-controller="picOfHeadlineController">
         <div class="main container">
-            <div class="row row-item ng-hide" data-ng-show="validateFilterMessage.isShowErrMsg">
+            <div class="row row-item" data-ng-show="validateFilterMessage.isShowErrMsg">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div data-ng-class="alertboxerr" class="alertboxerr">
-                        <div>{{validateFilterMessage.message}}</div>
+                    <div ng-class="alertbox{{validateFilterMessage.isShowErrMsg ? '' : 'err'}}">
+                        <div data-ng-bind="validateFilterMessage.message"></div>
                     </div>
                 </div>
             </div>
