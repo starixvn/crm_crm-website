@@ -8,7 +8,6 @@ using System.Xml.Serialization;
 using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Services;
-using Fanex.CRM.Controllers.Helper;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Report.Excels.PICAssignment;
@@ -17,6 +16,7 @@ using Fanex.CRM.Resources;
 using Fanex.CRM.Services;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
+using Fanex.Logging;
 using Fanex.NAP.Core.Business;
 using Fanex.NAP.Core.Web.Attribute;
 
@@ -96,7 +96,11 @@ namespace Fanex.CRM.Controllers
                 Username = model.DirectAccountIds
             };
 
+            var watch = Stopwatch.StartNew();
             var result = _picAssignmentService.ValidateAssignmentDirectAccount(criteria);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Writelog(elapsedMs, "Validate assign PIC");
 
             var data = new
             {
@@ -123,13 +127,13 @@ namespace Fanex.CRM.Controllers
             var result = _baseService.ExecuteNonQuery(command);
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            Writelog(elapsedMs);
+            Writelog(elapsedMs, "Assign PIC");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private void Writelog(long elapsedMs)
+        private void Writelog(long elapsedMs, string title = "")
         {
-            Task.Run(() => WritelogToFile.Writelog($"{elapsedMs} ms", "Insert PIC duration"));
+            Task.Run(() => LogService.Error($"{title} duration: {elapsedMs} ms"));
         }
 
         [HttpGet]
