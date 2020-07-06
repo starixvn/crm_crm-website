@@ -197,8 +197,6 @@
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"
                 ));
-                "~/Scripts/Directives/selectwithsearch/selectwithsearch.css",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.css");
         }
 
         private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
