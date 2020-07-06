@@ -133,7 +133,7 @@ namespace Fanex.CRM.Controllers
 
         private void Writelog(long elapsedMs, string title = "")
         {
-            Task.Run(() => LogService.Error($"{title} duration: {elapsedMs} ms"));
+            Task.Run(() => LogService.Info($"{title} duration: {elapsedMs} ms"));
         }
 
         [HttpGet]
