@@ -98,8 +98,8 @@
 				$picManagementFactory.insertPic(criteria)
 					.then(function (data) {
 						vm.showInsertResult(data.Result);
-					}, function () {
-						vm.isDiabled = false;
+					}, function (error) {
+                        vm.messageResultOptions = new MessageResult(error, true, false)
 					});
 			} else {
 				vm.isDiabled = false;

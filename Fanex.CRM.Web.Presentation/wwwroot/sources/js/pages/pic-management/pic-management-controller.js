@@ -266,7 +266,7 @@
 
             angular.element(document).ready(function () {
                 $scope.initController();
-
+                $("#alertboxerr").addClass("alertboxerr");
                 const style = $('head link[href*="pic.management.css"]').clone();
                 $window.parent.$('head').append(style);
             });
