@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\WritelogToFile.cs" />
     <Compile Include="LicenseeMappingController.cs" />
     <Compile Include="MultipleLogsController.cs" />
     <Compile Include="PicManagementController.cs" />

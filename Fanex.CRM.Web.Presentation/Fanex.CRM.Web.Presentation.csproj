@@ -500,6 +500,9 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
+    <Content Include="logs\log.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\dist\styles\pic.assignment.css" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js" />
     <Content Include="wwwroot\sources\js\shared\focus-directive.js" />

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Common.Services;
+using Fanex.CRM.Controllers.Helper;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
 using Fanex.CRM.Report.Excels.PICAssignment;
@@ -116,9 +119,17 @@ namespace Fanex.CRM.Controllers
                 DirectAccount = model.DirectAccountIds,
                 IsKeppAssign = model.IsKeepAssign
             };
-
+            var watch = Stopwatch.StartNew();
             var result = _baseService.ExecuteNonQuery(command);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Writelog(elapsedMs);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private void Writelog(long elapsedMs)
+        {
+            Task.Run(() => WritelogToFile.Writelog($"{elapsedMs} ms", "Insert PIC duration"));
         }
 
         [HttpGet]
