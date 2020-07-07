@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Xml.Serialization;
 using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
+using Fanex.CRM.Common.Helpers;
 using Fanex.CRM.Common.Services;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Models.PicAndHeadline;
@@ -16,7 +13,6 @@ using Fanex.CRM.Resources;
 using Fanex.CRM.Services;
 using Fanex.CRM.Setting.Criteria;
 using Fanex.CRM.Setting.Services;
-using Fanex.Logging;
 using Fanex.NAP.Core.Business;
 using Fanex.NAP.Core.Web.Attribute;
 
@@ -96,11 +92,7 @@ namespace Fanex.CRM.Controllers
                 Username = model.DirectAccountIds
             };
 
-            var watch = Stopwatch.StartNew();
             var result = _picAssignmentService.ValidateAssignmentDirectAccount(criteria);
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Writelog(elapsedMs, "Validate assign PIC");
 
             var data = new
             {
@@ -123,17 +115,8 @@ namespace Fanex.CRM.Controllers
                 DirectAccount = model.DirectAccountIds,
                 IsKeppAssign = model.IsKeepAssign
             };
-            var watch = Stopwatch.StartNew();
             var result = _baseService.ExecuteNonQuery(command);
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Writelog(elapsedMs, "Assign PIC");
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        private void Writelog(long elapsedMs, string title = "")
-        {
-            Task.Run(() => LogService.Info($"{title} duration: {elapsedMs} ms"));
         }
 
         [HttpGet]
@@ -155,15 +138,9 @@ namespace Fanex.CRM.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult RemoveAssignment(IList<RemoveAssignment> removeAssignments)
         {
-            var serializer = new XmlSerializer(typeof(List<RemoveAssignment>),
-                                   new XmlRootAttribute("ROOT"));
-
-            var stream = new StringWriter();
-            serializer.Serialize(stream, removeAssignments);
-
             var criteria = new RemoveAssignmentCriteria
             {
-                RemovedPICs = stream.ToString()
+                RemovedPICs = SerializerHelper.SerializeList(removeAssignments)
             };
 
             var result = _baseService.ExecuteNonQuery(criteria);
@@ -213,8 +190,7 @@ namespace Fanex.CRM.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(assignment.PIC))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<PicModel>), new XmlRootAttribute("ROOT"));
-                    var listPic = (List<PicModel>)serializer.Deserialize(new StringReader(assignment.PIC));
+                    var listPic = SerializerHelper.DeserializeList<PicModel>(assignment.PIC);
                     assignment.PicList = listPic.OrderBy(p => p.Order).ThenBy(a => a.RoleId).ThenBy(r => r.PicName).ToList();
 
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
@@ -223,9 +199,8 @@ namespace Fanex.CRM.Controllers
 
             var data = assignments
                 .OrderBy(i => i.HeadlineName)
-                .ThenByDescending(a => a.PicForMapping)
+                .ThenByDescending(p => p.PicList?.Count)
                 .ThenBy(p => p.PicList != null)
-                .ThenBy(p => p.PicList?.Count)
                 .ThenBy(i => i.DirectAccount);
 
             var results = data.OrderBy(i => i.HeadlineID == 0).ToList();
