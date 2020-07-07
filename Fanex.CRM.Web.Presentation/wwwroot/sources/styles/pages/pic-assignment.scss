@@ -207,6 +207,9 @@ table.assigned-direct-account {
         }
 
         .modal-body {
+            max-height: 750px;
+            overflow: scroll;
+
             .row {
                 margin-bottom: 15px !important;
 
