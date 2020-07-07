@@ -210,6 +210,10 @@ table.assigned-direct-account {
             max-height: 750px;
             overflow: scroll;
 
+            @media only screen and (max-height: 768px) {
+                max-height: 620px;
+            }
+
             .row {
                 margin-bottom: 15px !important;
 
