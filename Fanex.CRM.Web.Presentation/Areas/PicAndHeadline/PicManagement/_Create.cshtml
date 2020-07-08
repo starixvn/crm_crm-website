@@ -77,7 +77,7 @@
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1"></div>
             <div class="col-xs-7 col-sm-7 col-md-8">
-                <input placeholder="Separated by ',' for multiple contact info" type="text" ng-model="x.Value" autocomplete="off" />
+                <input maxlength="200" placeholder="Separated by ',' for multiple contact info" type="text" ng-model="x.Value" autocomplete="off" />
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 communication-tools">
                 <span ng-if="$index != 0" title="Remove" class="remove-tool" data-ng-click="picInsertCtrl.removeCommunicationTool(this);">x</span>
