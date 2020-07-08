@@ -297,6 +297,10 @@ table.assigned-direct-account {
         white-space: nowrap;
         overflow: auto;
         max-height: 600px;
+
+        @media only screen and (max-height: 768px) {
+            max-height: 560px;
+        }
     }
 
     td, th {
