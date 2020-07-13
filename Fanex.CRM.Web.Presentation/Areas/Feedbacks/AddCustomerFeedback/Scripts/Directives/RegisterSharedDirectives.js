@@ -26,8 +26,6 @@
         addCustomerFeedbackRegister.registerDescriptionHtml();
         addCustomerFeedbackRegister.registerSolutionHtml();
         addCustomerFeedbackRegister.registerRawHtmlDirective();
-        addCustomerFeedbackRegister.registerTipsyDirective();
-        addCustomerFeedbackRegister.registerDefaultFocus();
         addCustomerFeedbackRegister.registerLicenseeTypePicker();
         directiveManager.registerRelatedCustomerResult(angular.module('feedbacks-addcustomerfeedback-application'));
 

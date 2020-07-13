@@ -738,6 +738,21 @@
             });
         };
 
+        $scope.pasteCustomerHandler = function (event) {
+            var customer = $scope.customersInput.trim();
+            var items = event.originalEvent.clipboardData.getData('text/plain')
+                .replace(/ /g, ',')
+                .replace(/\r\n/g, ',')
+                .replace(/\n/g, ',')
+                .replace(/\t/g, ',')
+                .split(',').filter(item => item !== '');
+
+            setTimeout(() => {
+                $scope.customersInput = (customer.length > 0 ? customer + ',' : '') + items.join(',');
+                $scope.$apply();
+            }, 100);
+        };
+
         angular.element(document).ready(function () {
             sharedScriptManager.safeApply($scope);
             $scope.$watch(function ($scope) {

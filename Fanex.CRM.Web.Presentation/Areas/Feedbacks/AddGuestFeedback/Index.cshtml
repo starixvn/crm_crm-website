@@ -18,12 +18,11 @@
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
-    @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
     @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackStyles")
 }
 <div data-ng-app="feedbacks-addguestfeedback-application">
-    <div data-ng-controller="addGuestFeedbackController">
+    <div ng-controller="AddGuestFeedbackController">
         <div class="container main">
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -407,8 +406,8 @@
                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                     <label for="ddlinquiries">@Language.NoOfInquiries</label>
                                 </div>
-                                <div class="col-xs-8 col-sm-8 col-md-8" >
-                                    <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="addGuestFeedbackParams.NoInquiries"/>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="addGuestFeedbackParams.NoInquiries" />
                                 </div>
                             </div>
                         </div>
@@ -469,19 +468,19 @@
                             <div class="col-xs-9 col-sm-10 col-md-10">
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11">
-                                        <input type="button" id="btnRelatedHelp"
-                                               class="btnHelp pull-left tipsy-directive"
-                                               title="@Labels.Related_Help"
-                                               data-ng-model="tipsyOptions.IsUpdateTip"
-                                               tabindex="79" />
+                                        <span type="button" id="btnRelatedHelp" class="btnHelp pull-left"
+                                               tooltip-class="helper-tooltip"
+                                               tooltip-placement="bottom-left"
+                                               uib-tooltip="@Labels.Helper_RelatedInputMessage"></span>
                                         <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
-                                               data-ng-model="customersInput"
-                                               data-ng-disabled="!addGuestFeedbackParams.HasRelated" />
+                                               ng-model="customersInput"
+                                               ng-paste="pasteRelatedCustomerHandler($event)"
+                                               ng-disabled="!addGuestFeedbackParams.HasRelated"
+                                               autocomplete="off" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
                                         <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()"
-                                                data-ng-disabled="customersInput === ''"
-                                                tabindex="80">
+                                                data-ng-disabled="customersInput === ''" tabindex="80">
                                             @Html.Raw(@CommonLabels.Btn_HotKey_Verify)
                                         </button>
                                     </div>
@@ -585,7 +584,6 @@
                     @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>
-            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
     </div>
 </div>
@@ -595,11 +593,10 @@
     @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
-    @RazorHelper.RenderScripts("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-                "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
+        "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_AddGuestFeedback';
         window.rootUrl = '@Url.Content("~")';
@@ -610,7 +607,6 @@
             All: '@Labels.All',
             Select: '@Labels.Select',
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
-            Helper_RelatedInputMessage: '@Labels.Helper_RelatedInputMessage',
             Confirm_Ignore_Feedback_AddGuestFeedback: '@Html.Raw(Resources.Language.Confirm_Ignore_Feedback_AddGuestFeedback)',
 
             ErrorFeedbackResolutionTime: '@Labels.Error_FeedbackResolutionTime',

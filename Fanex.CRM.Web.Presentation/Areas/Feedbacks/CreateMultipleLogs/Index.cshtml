@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <input id="listCustomer" name="listCustomer" class="list-customer"
-                                       ng-model="customersInput" autocomplete="off" />
+                                       ng-model="customersInput" ng-paste="pasteCustomerHandler($event)" autocomplete="off" />
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button class="btn pull-right" ng-click="verifyCustomers()" ng-disabled="customersInput === ''">

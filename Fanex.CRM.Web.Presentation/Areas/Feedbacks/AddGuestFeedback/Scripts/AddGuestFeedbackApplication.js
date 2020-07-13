@@ -1,7 +1,7 @@
 ﻿/* global sharedScriptManager */
 (function () {
     "use strict";
-    angular.module('feedbacks-addguestfeedback-application', ['$uiBlockerApplication', '$resultMessageApplication', 'ngSanitize', 'multileveldropdown']);
+    angular.module('feedbacks-addguestfeedback-application', ['ui.bootstrap', '$uiBlockerApplication', '$resultMessageApplication', 'ngSanitize', 'multileveldropdown']);
     sharedScriptManager.setNoCachingHttpRequest(angular.module('feedbacks-addguestfeedback-application'));
 
     angular.module('feedbacks-addguestfeedback-application').config(['$httpProvider', function ($httpProvider) {
