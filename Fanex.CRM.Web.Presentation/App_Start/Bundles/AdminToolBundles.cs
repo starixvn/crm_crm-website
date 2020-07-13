@@ -17,7 +17,6 @@
             RegisterSettingRelationCN88ViewListBundles(bundles);
             RegisterAddSettingRelationCN88Bundles(bundles);
 
-            RegisterSettingManagementViewListBundles(bundles);
             RegisterSettingManagementInsertSettingBundles(bundles);
             RegisterSettingManagementInsertSubSettingBundles(bundles);
             RegisterSettingManagementDeleteSettingBundles(bundles);
@@ -153,10 +152,6 @@
             bundles.AddAndInclude(
                  "~/Areas/Admin/SettingRelation/AddRelationStyles",
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Styles/AddRelation.less");
-        }
-
-        private static void RegisterSettingManagementViewListBundles(BundleCollection bundles)
-        {
         }
 
         private static void RegisterSettingManagementInsertSettingBundles(BundleCollection bundles)

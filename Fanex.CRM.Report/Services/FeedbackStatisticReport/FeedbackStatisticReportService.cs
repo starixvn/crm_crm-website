@@ -405,17 +405,22 @@
 
         private void GenerateFeedbackStatisticDetailTitle(ExportExcelInfo exportExcelInfo, string title)
         {
+            const int mergeRowNumber = 2;
+            const int tinyWidth = 100;
+            const int smallWidth = 150;
+            const int mediumWidth = 250;
+            const int bigWidth = 370;
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
             NpoiExtensions.SetHeaderColorIndex(exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, 370 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 150 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn, 150 * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, bigWidth * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, smallWidth * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, mediumWidth * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, mediumWidth * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, tinyWidth * NpoiExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn, smallWidth * NpoiExtensions.FontWidth);
 
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
@@ -424,7 +429,7 @@
                 exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = ExcelHorizontalAlignment.Center });
             NpoiExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
+            currentRow += mergeRowNumber;
 
             NpoiExtensions.RenderEmptyRow(exportExcelInfo, currentRow);
             exportExcelInfo.CurrentRow = ++currentRow;

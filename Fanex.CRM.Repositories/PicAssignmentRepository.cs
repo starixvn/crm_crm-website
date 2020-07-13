@@ -24,7 +24,6 @@
                 {
                     var validation = multi.Read<PicAssignmentValidation>();
                     var assignedDirectAccount = multi.Read<AssignedDirectAccount>();
-                    var commandResult = new CommandResult();
 
                     var outputParams = objectDB.GetOuputParams();
                     if (outputParams.Count != 0)
