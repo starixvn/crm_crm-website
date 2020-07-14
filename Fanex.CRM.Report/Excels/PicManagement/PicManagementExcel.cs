@@ -73,7 +73,7 @@
             
             var columnHeaders = new List<string>
             {
-                Labels.NumberColumn, Labels.Username, Labels.Role, Labels.Language, Labels.Country, Labels.Group_Headline
+                Labels.NumberColumn, Labels.Name, Labels.Role, Labels.Language, Labels.Country, Labels.Group_Headline
             };
 
             columnHeaders.AddRange(_communicationTools.Select(tool => tool.Name));
