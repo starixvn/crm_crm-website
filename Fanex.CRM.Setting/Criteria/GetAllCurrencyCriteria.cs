@@ -7,6 +7,8 @@
         public GetAllCurrencyCriteria()
         {
             IsTest = true;
+            Active = 1;
+            OfferSite = 1;
         }
 
         public bool IsTest { get; set; }

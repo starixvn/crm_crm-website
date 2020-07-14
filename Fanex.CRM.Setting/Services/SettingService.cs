@@ -651,14 +651,25 @@
             };
         }
 
-        public IList<Setting> GetPositions()
+        public IList<Setting> GetPositions(bool isExcludeGuest)
         {
+            if (isExcludeGuest)
+            {
+                return new[]
+                     {
+                        new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
+                        new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
+                        new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
+                        new Setting { Id = RoleIdConstants.Member, Value = Labels.Member }
+                     };
+            }
             return new[]
             {
                 new Setting { Id = RoleIdConstants.Super, Value = Labels.Super },
                 new Setting { Id = RoleIdConstants.Master, Value = Labels.Master },
                 new Setting { Id = RoleIdConstants.Agent, Value = Labels.Agent },
-                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member }
+                new Setting { Id = RoleIdConstants.Member, Value = Labels.Member },
+                new Setting { Id = RoleIdConstants.Guest, Value = Labels.Guest}
             };
         }
 

@@ -79,7 +79,7 @@
 
         IList<Product> GetProductsOnly();
 
-        IList<Setting> GetPositions();
+        IList<Setting> GetPositions(bool isExcludeGuest);
 
         Product GetProductNA();
 
@@ -104,6 +104,7 @@
         IList<Setting> GetPositionsCN88();
 
         IEnumerable<SettingMapping> GetSettingMappings(GetSourceSettingMappingCriteria criteria);
+
         IList<Setting> GetPicSettings(string settingName, bool? isActive = null, bool isIncludeAllOption = false);
     }
 }

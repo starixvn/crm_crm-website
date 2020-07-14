@@ -51,7 +51,7 @@
 
             var positions = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
                 ? _settingService.GetPositionsCN88()
-                : _settingService.GetPositions();
+                : _settingService.GetPositions(false);
 
             var allSetting = new
             {
