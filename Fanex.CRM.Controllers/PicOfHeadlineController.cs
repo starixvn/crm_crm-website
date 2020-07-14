@@ -58,7 +58,9 @@ namespace Fanex.CRM.Controllers
             var currency = _settingService.GetAllCurrencies(
                     new GetAllCurrencyCriteria
                     {
-                        IsTest = true
+                        IsTest = true,
+                        Active = 1,
+                        OfferSite = 1
                     },
                     false).OrderBy(c => c.Name);
 

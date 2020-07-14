@@ -11,6 +11,10 @@
 
         public bool IsTest { get; set; }
 
+        public int Active { get; set; }
+
+        public int OfferSite { get; set; }
+
         public override string GetSettingKey()
         {
             return "Setting_SettingInfo_GetAllCurrency";
