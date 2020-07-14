@@ -314,8 +314,6 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Province.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Province.js" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit.png" />
@@ -327,11 +325,8 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Role.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SolutionEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Status.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogController.js" />
@@ -363,11 +358,8 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Role.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SolutionEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\StartTime.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Status.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogApplication.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />

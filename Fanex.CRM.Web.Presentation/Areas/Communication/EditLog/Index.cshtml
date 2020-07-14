@@ -66,8 +66,9 @@
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="response">@Labels.Response</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-response data-ng-model="responseList">
-                    <select id="response"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="response" ng-model="communicationLog.Response"
+                            ng-options="item.Value for item in responseList track by item.Id" ng-change="updateChangeFlag()"></select>
                 </div>
             </div>
             <div class="row row-item">
@@ -143,8 +144,9 @@
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="status">@Labels.Status</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-status data-ng-model="statusList">
-                    <select id="status"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="status" ng-model="communicationLog.Status"
+                            ng-options="item.Name for item in statusList track by item.Id" ng-change="updateChangeFlag()"></select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="betType">@Labels.Bet_Type</label>
@@ -160,8 +162,9 @@
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="role">@Labels.Role</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-role data-ng-model="roleList">
-                    <select id="role"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="role" ng-model="communicationLog.RoleInfo"
+                            ng-options="item.Value for item in roleList track by item.Id" ng-change="updateChangeFlag()"></select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="site">@Labels.Site</label>
@@ -199,8 +202,9 @@
                 <div class="col-xs-2 col-sm-2 col-md-2">
                     <label for="province">@Labels.Province</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" dropdown-province data-ng-model="provinceList">
-                    <select id="province"></select>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="province" ng-model="communicationLog.Province"
+                            ng-options="item.Name for item in provinceList track by item.Id" ng-change="updateChangeFlag()"></select>
                 </div>
             </div>
             <div class="row row-item">

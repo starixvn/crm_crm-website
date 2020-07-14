@@ -195,28 +195,6 @@
 
             $scope.updateChangeFlag();
         };
-        $scope.updateSelectedProvince = function (provinceInfoId) {
-            provinceInfoId = parseInt(provinceInfoId);
-            var provinceInfo;
-            var provinceListLength = $scope.provinceList.length;
-            for (var i = 0; i < provinceListLength; i++) {
-                var province = $scope.provinceList[i];
-                if (province.Id === provinceInfoId) {
-                    provinceInfo = province;
-                    break;
-                }
-            }
-
-            if (provinceInfo) {
-                $scope.communicationLog.Province = provinceInfo;
-            } else {
-                $scope.communicationLog.Province = {
-                    Id: crmConstants.Enums.Country.NotApply
-                };
-            }
-
-            $scope.updateChangeFlag();
-        };
         $scope.updateSelectedCommunicationTool = function (communicationToolId) {
             communicationToolId = parseInt(communicationToolId);
             var communicationToolInfo;
@@ -302,61 +280,6 @@
                 $scope.updateChangeFlag();
             }
         };
-        $scope.updateSelectedStatus = function (statusId) {
-            statusId = parseInt(statusId);
-            var statusInfo;
-            var statusListLength = $scope.statusList.length;
-            for (var i = 0; i < statusListLength; i++) {
-                var status = $scope.statusList[i];
-                if (status.Id === statusId) {
-                    statusInfo = status;
-                    break;
-                }
-            }
-
-            if (statusInfo) {
-                $scope.communicationLog.Status = statusInfo;
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
-        };
-        $scope.updateSelectedRole = function (roleId) {
-            roleId = parseInt(roleId);
-            var roleInfo;
-            var roleListLength = $scope.roleList.length;
-            for (var i = 0; i < roleListLength; i++) {
-                var role = $scope.roleList[i];
-                if (role.Id === roleId) {
-                    roleInfo = role;
-                    break;
-                }
-            }
-
-            if (roleInfo) {
-                $scope.communicationLog.RoleInfo = roleInfo;
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
-        };
-        $scope.updateSelectedResponse = function (responseId) {
-            responseId = parseInt(responseId);
-            var responseInfo;
-            var responseListLength = $scope.responseList.length;
-            for (var i = 0; i < responseListLength; i++) {
-                var response = $scope.responseList[i];
-                if (response.Id === responseId) {
-                    responseInfo = response;
-                    break;
-                }
-            }
-
-            if (responseInfo) {
-                $scope.communicationLog.Response = responseInfo;
-                $scope.$apply();
-                $scope.updateChangeFlag();
-            }
-        };
-
         $scope.updateSelectedSite = function () {
             $scope.communicationLog.SiteInfo = $scope.communicationLog.SiteInfo || { Id: 0 };
         };
