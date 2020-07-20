@@ -21,6 +21,7 @@ module.exports = {
         [`${jsDistPath}/commtool.setting`]: `${jsSourcePath}/commtool-setting/index.js`,
         [`${jsDistPath}/create.multiple.logs`]: `${jsSourcePath}/feedbacks/create-multiple-logs/index.js`,
         [`${jsDistPath}/pic.management`]: `${jsSourcePath}/pic-management/index.js`,
+        [`${jsDistPath}/change.log`]: `${jsSourcePath}/change-log/index.js`,
         [`${jsDistPath}/management.setting`]: `${jsSourcePath}/AdminTool/SettingManagement/index.js`
     }
 };

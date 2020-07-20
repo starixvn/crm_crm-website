@@ -20,6 +20,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private const string DatePicker = "~/Scripts/ShareScripts/Directives/DatePicker.js";
         private const string DefaultFocus = "~/Scripts/ShareScripts/Directives/DefaultFocus.js";
         private const string MultiSelect = "~/Scripts/ShareScripts/Directives/MultiSelect.js";
+        private const string MesageResult = "~/Scripts/ShareScripts/MessageResult.js";
 
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -100,6 +101,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
             RegisterBundles_PicManagement(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
+            RegisterBundles_ChangeLog(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -620,14 +622,14 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicManagement/ViewList/PicManagementScripts").Include(
                 BlockUI,
                 MultiLevelDropdown,
-                "~/Scripts/ShareScripts/MessageResult.js",
+                MesageResult,
                 RegisterTemplate));
         }
 
         private static void RegisterBundles_PicOfHeadline(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/PicOfHeadlineScripts").Include(
-                "~/Scripts/ShareScripts/MessageResult.js",
+                MesageResult,
                 BlockUI,
                 DirectiveManager,
                 MultiSelect,
@@ -642,6 +644,17 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/Select2/select2.js",
                 "~/Areas/PicAndHeadline/PicOfHeadline/Scripts/Directives/*.js"
                 ));
+        }
+
+        private static void RegisterBundles_ChangeLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/ChangeLogScripts").Include(
+                DirectiveManager,
+                BlockUI,
+                MultiLevelDropdown,
+                MesageResult,
+                RegisterTemplate,
+                DatePicker));
         }
     }
 }

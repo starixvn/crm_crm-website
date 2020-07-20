@@ -59,5 +59,7 @@
         public const string PICManagement = "PICManagement";
 
         public const string PICAssignment = "PICAssignment";
+
+        public const string ChangeLog = "ChangeLog";
     }
 }
