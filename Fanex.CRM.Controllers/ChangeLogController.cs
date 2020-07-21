@@ -26,12 +26,12 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult Index()
         {
-            return View("~/Areas/PicAndHeadline/ChangeLog/Index.cshtml");
+            return View("~/Areas/PicAndHeadline/ChangeLog/HeadlineDA.cshtml");
         }
 
-        public ActionResult GetReport(GetChangeLogReportCriteria criteria)
+        public ActionResult GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
         {
-            var report = changeLogService.GetReport(criteria);
+            var report = changeLogService.GetHeadlineDAReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
     }

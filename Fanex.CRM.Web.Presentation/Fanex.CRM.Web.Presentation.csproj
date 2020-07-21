@@ -485,11 +485,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot\dist\js\change.log.js" />
+    <Content Include="wwwroot\dist\styles\change.log.css" />
+    <Content Include="wwwroot\dist\styles\change.log.js" />
     <Content Include="wwwroot\dist\styles\pic.assignment.css" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js" />
     <Content Include="wwwroot\sources\js\pages\change-log\change-log-application.js" />
     <Content Include="wwwroot\sources\js\pages\change-log\change-log-controller.js" />
     <Content Include="wwwroot\sources\js\pages\change-log\index.js" />
+    <Content Include="wwwroot\sources\js\pages\change-log\register-directive.js" />
     <Content Include="wwwroot\sources\js\pages\change-log\report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\focus-directive.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
@@ -1544,7 +1547,7 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeConfirm.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_Edit.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeState.cshtml" />
-    <Content Include="Areas\PicAndHeadline\ChangeLog\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\ChangeLog\HeadlineDA.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
@@ -1583,6 +1586,8 @@
     <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js.map" />
     <Content Include="wwwroot\dist\js\change.log.js.map" />
+    <Content Include="wwwroot\sources\styles\pages\change-log.scss" />
+    <Content Include="wwwroot\dist\styles\change.log.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

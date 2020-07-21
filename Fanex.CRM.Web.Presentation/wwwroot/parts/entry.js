@@ -13,6 +13,7 @@ module.exports = {
         [`${styleDistPath}/pic.assignment`]: `${styleSourcePath}/pages/pic-assignment.scss`,
         [`${styleDistPath}/create.multiple.logs`]: `${styleSourcePath}/pages/create-multiple-logs.scss`,
         [`${styleDistPath}/management.setting`]: `${styleSourcePath}/pages/management-setting.scss`,
+        [`${styleDistPath}/change.log`]: `${styleSourcePath}/pages/change-log.scss`,
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',

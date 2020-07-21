@@ -9,7 +9,7 @@
 
     public class ChangeLogService : IChangeLogService
     {
-        public BaseReport<ChangeLogInfo> GetReport(GetChangeLogReportCriteria criteria)
+        public BaseReport<ChangeLogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
         {
             return new BaseReport<ChangeLogInfo>
             {

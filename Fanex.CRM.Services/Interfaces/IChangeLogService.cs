@@ -6,6 +6,6 @@
 
     public interface IChangeLogService
     {
-        BaseReport<ChangeLogInfo> GetReport(GetChangeLogReportCriteria criteria);
+        BaseReport<ChangeLogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria);
     }
 }
