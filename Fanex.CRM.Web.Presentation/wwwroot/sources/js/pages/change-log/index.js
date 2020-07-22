@@ -1,5 +1,6 @@
 ﻿import './change-log-application';
-//import './report-container-directive';
+import './headline-da-report-container-directive';
+import './pic-report-container-directive';
 import './change-log-controller';
 import './register-directive';
-import './headline-da-log-controller';
+import './change-log-factory';

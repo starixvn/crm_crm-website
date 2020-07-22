@@ -6,9 +6,9 @@
     {
         public int LogId { get; set; }
 
-        public DateTime LogTime { get;set;}
+        public string LogTime { get;set;}
 
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         public string ActionName { get; set; }
 

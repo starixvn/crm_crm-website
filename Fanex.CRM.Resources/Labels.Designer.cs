@@ -268,6 +268,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detail.
+        /// </summary>
+        public static string Detail {
+            get {
+                return ResourceManager.GetString("Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Direct Account.
         /// </summary>
         public static string DirectAccount {
@@ -354,6 +363,24 @@ namespace Fanex.CRM.Resources {
         public static string GroupHeadline {
             get {
                 return ResourceManager.GetString("GroupHeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Headline/DA.
+        /// </summary>
+        public static string HeadlineDA {
+            get {
+                return ResourceManager.GetString("HeadlineDA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Headline/Direact Account.
+        /// </summary>
+        public static string HeadlineDirectAccount {
+            get {
+                return ResourceManager.GetString("HeadlineDirectAccount", resourceCulture);
             }
         }
         

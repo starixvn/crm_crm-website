@@ -333,4 +333,13 @@
   <data name="OldValue" xml:space="preserve">
     <value>Old Value</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="HeadlineDA" xml:space="preserve">
+    <value>Headline/DA</value>
+  </data>
+  <data name="HeadlineDirectAccount" xml:space="preserve">
+    <value>Headline/Direact Account</value>
+  </data>
 </root>
