@@ -70,6 +70,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Type.
+        /// </summary>
+        public static string ActionType {
+            get {
+                return ResourceManager.GetString("ActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -246,15 +255,6 @@ namespace Fanex.CRM.Resources {
         public static string DeactivePicSuccess {
             get {
                 return ResourceManager.GetString("DeactivePicSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default PIC.
-        /// </summary>
-        public static string DefaultPIC {
-            get {
-                return ResourceManager.GetString("DefaultPIC", resourceCulture);
             }
         }
         

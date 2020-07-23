@@ -653,7 +653,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 DirectiveManager,
                 BlockUI,
                 MultiLevelDropdown,
-                MesageResult,
                 RegisterTemplate,
                 DatePicker));
         }

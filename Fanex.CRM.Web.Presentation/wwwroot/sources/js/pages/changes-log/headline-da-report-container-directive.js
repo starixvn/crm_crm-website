@@ -9,7 +9,7 @@
         };
 
         function getGridHeight() {
-            return crmConstants.MarginBottomPage + (cachedData.scope.isShowFilter ? 160 : 50);
+            return crmConstants.MarginBottomPage + 160;
         }
 
         function getGripOtions(report) {

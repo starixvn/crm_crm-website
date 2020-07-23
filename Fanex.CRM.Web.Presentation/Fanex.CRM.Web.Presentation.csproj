@@ -485,9 +485,9 @@
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="wwwroot\dist\js\change.log.js" />
-    <Content Include="wwwroot\dist\styles\change.log.css" />
-    <Content Include="wwwroot\dist\styles\change.log.js" />
+    <Content Include="wwwroot\dist\js\changes.log.js" />
+    <Content Include="wwwroot\dist\styles\changes.log.css" />
+    <Content Include="wwwroot\dist\styles\changes.log.js" />
     <Content Include="wwwroot\dist\styles\pic.assignment.css" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js" />
     <Content Include="wwwroot\sources\js\pages\changes-log\changes-log-application.js" />
@@ -1591,9 +1591,9 @@
     <Content Include="wwwroot\dist\styles\pic.management.js.map" />
     <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js.map" />
-    <Content Include="wwwroot\dist\js\change.log.js.map" />
     <Content Include="wwwroot\sources\styles\pages\changes-log.scss" />
-    <Content Include="wwwroot\dist\styles\change.log.js.map" />
+    <Content Include="wwwroot\dist\js\changes.log.js.map" />
+    <Content Include="wwwroot\dist\styles\changes.log.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\ErrorMsg.zh-TW.resx">

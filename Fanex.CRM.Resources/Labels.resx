@@ -309,7 +309,7 @@
   <data name="SetDefaultPIC" xml:space="preserve">
     <value>Set Default PIC</value>
   </data>
-   <data name="Action" xml:space="preserve">
+  <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="ChangesLog" xml:space="preserve">
@@ -344,5 +344,8 @@
   </data>
   <data name="HeadlineDirectAccount" xml:space="preserve">
     <value>Headline/Direact Account</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Action Type</value>
   </data>
 </root>

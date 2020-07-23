@@ -123,6 +123,9 @@
   <data name="CreateMultipleLogsSuccessfully" xml:space="preserve">
     <value>Create multiple logs successfully!</value>
   </data>
+  <data name="PleaseChooseAction" xml:space="preserve">
+    <value>Please choose an action</value>
+  </data>
   <data name="StartTimeShouldBeSmallerThanEndTime" xml:space="preserve">
     <value>Start Time should be smaller than End Time.</value>
   </data>

@@ -98,7 +98,9 @@
             };
 
             angular.element(document).ready(function () {
+                $uiBlockerService.blockUI();
                 vm.initPicker();
+                $uiBlockerService.unblockUI();
             });
         }]);
 })();

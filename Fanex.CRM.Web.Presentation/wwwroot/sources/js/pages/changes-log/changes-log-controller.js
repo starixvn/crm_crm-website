@@ -3,19 +3,21 @@
     angular.module('changes-log-application').controller('changesLogController', ['$scope',
         function ($scope) {
             let vm = this;
-            $scope.isShowFilter = true;
-            vm.errorMessage = '';
+            $scope.errorMessage = '';
+            $scope.isError = false;
             vm.isPicReport = false;
             vm.changeHeadlineDATab = function () {
                 vm.isPicReport = false;
             };
 
-            vm.changePICTab = function () {
+            vm.changePicTab = function () {
+                $scope.isError = false;
+                $scope.errorMessage = '';
                 vm.isPicReport = true;
             };
 
             angular.element(document).ready(function () {
-                $("#alertboxerr").addClass("alertboxerr");
+                $('#changes-log-application .btn-group').removeClass('display-none');
             });
         }]);
 })();

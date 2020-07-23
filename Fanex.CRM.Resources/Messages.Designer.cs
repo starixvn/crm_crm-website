@@ -79,6 +79,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose an action.
+        /// </summary>
+        public static string PleaseChooseAction {
+            get {
+                return ResourceManager.GetString("PleaseChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Time should be smaller than End Time..
         /// </summary>
         public static string StartTimeShouldBeSmallerThanEndTime {

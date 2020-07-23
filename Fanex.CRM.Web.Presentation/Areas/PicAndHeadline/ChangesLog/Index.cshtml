@@ -9,35 +9,35 @@
 }
 
 @section Styles{
-    <link rel="stylesheet" href="~/wwwroot/dist/styles/change.log.css" />
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/changes.log.css" />
 }
 
-<div ng-app="changes-log-application">
+<div id="changes-log-application" ng-app="changes-log-application">
     <div class="changesLogController" ng-controller="changesLogController as changesLogCtrl">
         <div class="main container">
-            <div class="row" ng-show="changesLogCtrl.errorMessage !== ''">
+            <div class="row" ng-show="isError">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div id="alertboxerr">
-                        <div ng-bind="changesLogCtrl.errorMessage">
+                    <div ng-class="isError ? 'alertboxerr' : ''">
+                        <div ng-bind="errorMessage">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row btn-group">
+            <div class="row btn-group display-none">
                 <button ng-class="changesLogCtrl.isPicReport ? 'btn not-select-btn' : 'btn'" ng-click="changesLogCtrl.changeHeadlineDATab();">@Labels.HeadlineDirectAccount</button>
-                <button ng-class="!changesLogCtrl.isPicReport ? 'btn not-select-btn' : 'btn'" ng-click="changesLogCtrl.changePICTab();">@Labels.PIC</button>
+                <button ng-class="!changesLogCtrl.isPicReport ? 'btn not-select-btn' : 'btn'" ng-click="changesLogCtrl.changePicTab();">@Labels.PIC</button>
             </div>
 
             <div class="display-none" ng-class="!changesLogCtrl.isPicReport ? 'row display-block' : ''" ng-controller="headlineDAController as headlineDACtrl">
-                <form class="filter-form" id="headline-da-log-filter" ng-submit="headlineDACtrl.getReport()">
+                <form class="filter-form" ng-submit="headlineDACtrl.getReport()">
                     <div class="row filter-frm one-row expand-filter">
                         <div class="row row-item">
                             <div class="item">
-                                <label class="width-85">
+                                <label class="width-65">
                                     @Labels.HeadlineDA
                                 </label>
-                                <input type="text" class="textbox" id="username" ng-model="headlineDACtrl.searchCriteria.HeadlineDA" autocomplete="off" />
+                                <input type="text" class="textbox" ng-model="headlineDACtrl.searchCriteria.HeadlineDA" autocomplete="off" />
                             </div>
                             <div class="item">
                                 <label>
@@ -56,8 +56,8 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <label class="width-50 pull-left">
-                                    @Labels.Action
+                                <label class="pull-left">
+                                    @Labels.ActionType
                                 </label>
                                 <multileveldropdowntree class="pull-left"
                                                         text-settings="headlineDACtrl.textSettings"
@@ -68,13 +68,13 @@
                         </div>
                         <div class="row row-item">
                             <div class="item">
-                                <label class="width-85">
+                                <label class="width-65">
                                     @Labels.EditBy
                                 </label>
-                                <input type="text" class="textbox" id="edit-by" ng-model="headlineDACtrl.searchCriteria.EditBy" autocomplete="off" />
+                                <input type="text" class="textbox" ng-model="headlineDACtrl.searchCriteria.EditBy" autocomplete="off" />
                             </div>
                             <div class="item">
-                                <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
+                                <button class="btn" type="submit">@Labels.Submit</button>
                             </div>
                         </div>
                     </div>
@@ -89,14 +89,14 @@
             </div>
 
             <div class="display-none" ng-class="changesLogCtrl.isPicReport ? 'row display-block' : ''" ng-controller="picController as picCtrl">
-                <form class="filter-form" id="pic-log-filter" ng-submit="picCtrl.getReport()">
+                <form class="filter-form" ng-submit="picCtrl.getReport()">
                     <div class="row filter-frm one-row expand-filter">
                         <div class="row row-item">
                             <div class="item">
-                                <label class="width-85">
+                                <label>
                                     @Labels.PIC
                                 </label>
-                                <input type="text" class="textbox" id="username" ng-model="picCtrl.searchCriteria.Pic" autocomplete="off" />
+                                <input type="text" class="textbox" ng-model="picCtrl.searchCriteria.Pic" autocomplete="off" />
                             </div>
                             <div class="item">
                                 <label>
@@ -114,16 +114,14 @@
                                     <input id="picToDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="row row-item">
                             <div class="item">
-                                <label class="width-85">
+                                <label>
                                     @Labels.EditBy
                                 </label>
-                                <input type="text" class="textbox" id="edit-by" ng-model="picCtrl.searchCriteria.EditBy" autocomplete="off" />
+                                <input type="text" class="textbox" ng-model="picCtrl.searchCriteria.EditBy" autocomplete="off" />
                             </div>
                             <div class="item">
-                                <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
+                                <button class="btn" type="submit">@Labels.Submit</button>
                             </div>
                         </div>
                     </div>
@@ -145,7 +143,7 @@
     @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/ChangesLogScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
     <script src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>
-    <script src="~/wwwroot/dist/js/change.log.js"></script>
+    <script src="~/wwwroot/dist/js/changes.log.js"></script>
     <script type="text/javascript">
         parent.document.title = '@Labels.ChangesLog';
         window.rootUrl = '@Url.Content("~")';
@@ -161,6 +159,7 @@
             Action: '@Labels.Action',
             EditBy: '@Labels.EditBy',
             HeadlineDA: '@Labels.HeadlineDA',
+            PleaseChooseAction: '@Messages.PleaseChooseAction',
             PIC: '@Labels.PIC',
             Detail: '@Labels.Detail',
             NoData: '@Labels.NoData',

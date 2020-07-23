@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
-    angular.module('changes-log-application').controller('headlineDAController', ['$scope', '$window', '$changesLogFactory', '$uiBlockerService',
-        function ($scope, $window, $changesLogFactory, $uiBlockerService) {
+    angular.module('changes-log-application').controller('headlineDAController', ['$scope', '$changesLogFactory', '$uiBlockerService',
+        function ($scope, $changesLogFactory, $uiBlockerService) {
             let vm = this;
             $scope.headlineDAReportOptions = {
                 DataList: [],
@@ -48,12 +48,15 @@
             };
 
             vm.getReport = function () {
+                $scope.$parent.errorMessage = '';
+                $scope.$parent.isError = false;
                 $uiBlockerService.blockUI();
-                //if (vm.selectedActions.length <= 0) {
-                //    vm.errorMessage = 'Please choose a action';
-                //    $uiBlockerService.unblockUI();
-                //    return;
-                //}
+                if (vm.selectedActions.length <= 0) {
+                    $scope.$parent.isError = true;
+                    $scope.$parent.errorMessage = viewResources.PleaseChooseAction;
+                    $uiBlockerService.unblockUI();
+                    return;
+                }
 
                 var getReportCriteria = {
                     HeadlineDA: vm.searchCriteria.HeadlineDA,
