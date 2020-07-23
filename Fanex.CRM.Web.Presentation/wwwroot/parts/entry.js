@@ -13,7 +13,7 @@ module.exports = {
         [`${styleDistPath}/pic.assignment`]: `${styleSourcePath}/pages/pic-assignment.scss`,
         [`${styleDistPath}/create.multiple.logs`]: `${styleSourcePath}/pages/create-multiple-logs.scss`,
         [`${styleDistPath}/management.setting`]: `${styleSourcePath}/pages/management-setting.scss`,
-        [`${styleDistPath}/change.log`]: `${styleSourcePath}/pages/change-log.scss`,
+        [`${styleDistPath}/changes.log`]: `${styleSourcePath}/pages/changes-log.scss`,
 
         //
         //[`${jsDistPath}/main`]: './sources/js/main.js',
@@ -22,7 +22,7 @@ module.exports = {
         [`${jsDistPath}/commtool.setting`]: `${jsSourcePath}/commtool-setting/index.js`,
         [`${jsDistPath}/create.multiple.logs`]: `${jsSourcePath}/feedbacks/create-multiple-logs/index.js`,
         [`${jsDistPath}/pic.management`]: `${jsSourcePath}/pic-management/index.js`,
-        [`${jsDistPath}/change.log`]: `${jsSourcePath}/change-log/index.js`,
+        [`${jsDistPath}/changes.log`]: `${jsSourcePath}/changes-log/index.js`,
         [`${jsDistPath}/management.setting`]: `${jsSourcePath}/AdminTool/SettingManagement/index.js`
     }
 };

@@ -62,8 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangeLogService.cs" />
-    <Compile Include="Interfaces\IChangeLogService.cs" />
+    <Compile Include="ChangesLogService.cs" />
+    <Compile Include="Interfaces\IChangesLogService.cs" />
     <Compile Include="Interfaces\IMultipleLogsService.cs" />
     <Compile Include="LicenseeMappingService.cs" />
     <Compile Include="Interfaces\IPicReportService.cs" />

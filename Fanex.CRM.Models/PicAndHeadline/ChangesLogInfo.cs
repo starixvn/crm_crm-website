@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ChangeLogInfo
+    public class ChangesLogInfo
     {
         public int LogId { get; set; }
 

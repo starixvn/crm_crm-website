@@ -490,13 +490,15 @@
     <Content Include="wwwroot\dist\styles\change.log.js" />
     <Content Include="wwwroot\dist\styles\pic.assignment.css" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\change-log-application.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\change-log-controller.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\change-log-factory.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\pic-report-container-directive.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\index.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\register-directive.js" />
-    <Content Include="wwwroot\sources\js\pages\change-log\headline-da-report-container-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\changes-log-application.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\changes-log-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\changes-log-factory.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\headline-da-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\pic-controller.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\pic-report-container-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\index.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\register-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\changes-log\headline-da-report-container-directive.js" />
     <Content Include="wwwroot\sources\js\shared\focus-directive.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
@@ -1550,7 +1552,7 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeConfirm.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_Edit.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeState.cshtml" />
-    <Content Include="Areas\PicAndHeadline\ChangeLog\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\ChangesLog\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_SetDefaultPIC.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
@@ -1590,7 +1592,7 @@
     <Content Include="wwwroot\sources\styles\pages\pic-assignment.scss" />
     <Content Include="wwwroot\dist\styles\pic.assignment.js.map" />
     <Content Include="wwwroot\dist\js\change.log.js.map" />
-    <Content Include="wwwroot\sources\styles\pages\change-log.scss" />
+    <Content Include="wwwroot\sources\styles\pages\changes-log.scss" />
     <Content Include="wwwroot\dist\styles\change.log.js.map" />
   </ItemGroup>
   <ItemGroup>

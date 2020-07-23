@@ -101,7 +101,7 @@ namespace Fanex.CRM.Web.View.AppStart
 
             RegisterBundles_PicManagement(ref bundles);
             RegisterBundles_PicOfHeadline(ref bundles);
-            RegisterBundles_ChangeLog(ref bundles);
+            RegisterBundles_ChangesLog(ref bundles);
 
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
@@ -647,9 +647,9 @@ namespace Fanex.CRM.Web.View.AppStart
                 ));
         }
 
-        private static void RegisterBundles_ChangeLog(ref BundleCollection bundles)
+        private static void RegisterBundles_ChangesLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/ChangeLogScripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/PicAndHeadline/ChangesLogScripts").Include(
                 DirectiveManager,
                 BlockUI,
                 MultiLevelDropdown,

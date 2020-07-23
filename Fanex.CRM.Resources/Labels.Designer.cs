@@ -124,20 +124,20 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change Log.
-        /// </summary>
-        public static string ChangeLog {
-            get {
-                return ResourceManager.GetString("ChangeLog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Change PIC State.
         /// </summary>
         public static string ChangePICState {
             get {
                 return ResourceManager.GetString("ChangePICState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes Log.
+        /// </summary>
+        public static string ChangesLog {
+            get {
+                return ResourceManager.GetString("ChangesLog", resourceCulture);
             }
         }
         

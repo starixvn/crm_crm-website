@@ -1,0 +1,172 @@
+﻿@using Fanex.CRM.Common.Extensions;
+@using Fanex.CRM.Common.Helpers;
+@using Fanex.CRM.Common.Services;
+﻿@using Fanex.CRM.Resources
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Labels.ChangesLog;
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/wwwroot/dist/styles/change.log.css" />
+}
+
+<div ng-app="changes-log-application">
+    <div class="changesLogController" ng-controller="changesLogController as changesLogCtrl">
+        <div class="main container">
+            <div class="row" ng-show="changesLogCtrl.errorMessage !== ''">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div id="alertboxerr">
+                        <div ng-bind="changesLogCtrl.errorMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row btn-group">
+                <button ng-class="changesLogCtrl.isPicReport ? 'btn not-select-btn' : 'btn'" ng-click="changesLogCtrl.changeHeadlineDATab();">@Labels.HeadlineDirectAccount</button>
+                <button ng-class="!changesLogCtrl.isPicReport ? 'btn not-select-btn' : 'btn'" ng-click="changesLogCtrl.changePICTab();">@Labels.PIC</button>
+            </div>
+
+            <div class="display-none" ng-class="!changesLogCtrl.isPicReport ? 'row display-block' : ''" ng-controller="headlineDAController as headlineDACtrl">
+                <form class="filter-form" id="headline-da-log-filter" ng-submit="headlineDACtrl.getReport()">
+                    <div class="row filter-frm one-row expand-filter">
+                        <div class="row row-item">
+                            <div class="item">
+                                <label class="width-85">
+                                    @Labels.HeadlineDA
+                                </label>
+                                <input type="text" class="textbox" id="username" ng-model="headlineDACtrl.searchCriteria.HeadlineDA" autocomplete="off" />
+                            </div>
+                            <div class="item">
+                                <label>
+                                    @Labels.FromDate
+                                </label>
+                                <div class="display-inline-block date-picker-from-date-container" ng-model="fromDateOptions.IsRerenderPicker">
+                                    <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="item">
+                                <label>
+                                    @Labels.ToDate
+                                </label>
+                                <div class="display-inline-block date-picker-to-date-container" ng-model="toDateOptions.IsRerenderPicker">
+                                    <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="item">
+                                <label class="width-50 pull-left">
+                                    @Labels.Action
+                                </label>
+                                <multileveldropdowntree class="pull-left"
+                                                        text-settings="headlineDACtrl.textSettings"
+                                                        data-settings="headlineDACtrl.actionDropdownSettings"
+                                                        data-show-selected-all-text="true"
+                                                        ng-model="headlineDACtrl.selectedActions" />
+                            </div>
+                        </div>
+                        <div class="row row-item">
+                            <div class="item">
+                                <label class="width-85">
+                                    @Labels.EditBy
+                                </label>
+                                <input type="text" class="textbox" id="edit-by" ng-model="headlineDACtrl.searchCriteria.EditBy" autocomplete="off" />
+                            </div>
+                            <div class="item">
+                                <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div ng-model="headlineDAReportOptions.IsUpdateGrid" class="headline-da-table-report-container">
+                        <div id="headline-da-table-report" class="freegrid display-none table-report">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="display-none" ng-class="changesLogCtrl.isPicReport ? 'row display-block' : ''" ng-controller="picController as picCtrl">
+                <form class="filter-form" id="pic-log-filter" ng-submit="picCtrl.getReport()">
+                    <div class="row filter-frm one-row expand-filter">
+                        <div class="row row-item">
+                            <div class="item">
+                                <label class="width-85">
+                                    @Labels.PIC
+                                </label>
+                                <input type="text" class="textbox" id="username" ng-model="picCtrl.searchCriteria.Pic" autocomplete="off" />
+                            </div>
+                            <div class="item">
+                                <label>
+                                    @Labels.FromDate
+                                </label>
+                                <div class="display-inline-block date-picker-pic-from-date-container" ng-model="picFromDateOptions.IsRerenderPicker">
+                                    <input id="picFromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="item">
+                                <label>
+                                    @Labels.ToDate
+                                </label>
+                                <div class="display-inline-block date-picker-pic-to-date-container" ng-model="picToDateOptions.IsRerenderPicker">
+                                    <input id="picToDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-item">
+                            <div class="item">
+                                <label class="width-85">
+                                    @Labels.EditBy
+                                </label>
+                                <input type="text" class="textbox" id="edit-by" ng-model="picCtrl.searchCriteria.EditBy" autocomplete="off" />
+                            </div>
+                            <div class="item">
+                                <button class="btn" type="submit"><span class="hotkey">S</span>ubmit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div ng-model="picReportOptions.IsUpdateGrid" class="pic-table-report-container">
+                        <div id="pic-table-report" class="freegrid display-none table-report">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Areas/PicAndHeadline/ChangesLogScripts")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
+    <script src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>
+    <script src="~/wwwroot/dist/js/change.log.js"></script>
+    <script type="text/javascript">
+        parent.document.title = '@Labels.ChangesLog';
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+
+        var viewResources = {
+            ReportTitle: '@Labels.ChangesLog',
+            No: '@Labels.No',
+            LogId: '@Labels.LogId',
+            LogDate: '@Labels.LogDate' + '(GMT+8)',
+            Action: '@Labels.Action',
+            EditBy: '@Labels.EditBy',
+            HeadlineDA: '@Labels.HeadlineDA',
+            PIC: '@Labels.PIC',
+            Detail: '@Labels.Detail',
+            NoData: '@Labels.NoData',
+            Search: '@Labels.Search',
+            All: '@Labels.All',
+            Selected: '@Labels.Select'
+        };
+    </script>
+}

@@ -60,6 +60,6 @@
 
         public const string PICAssignment = "PICAssignment";
 
-        public const string ChangeLog = "ChangeLog";
+        public const string ChangesLog = "ChangesLog";
     }
 }

@@ -1,11 +1,4 @@
-﻿/*@import '../abstracts/variables';
-@import '../abstracts/mixins';
-
-$fa-font-path: "~font-awesome/fonts";
-@import '~font-awesome/scss/font-awesome.scss';
-@import '~tipsy/src/stylesheets/tipsy.css';*/
-
-@import '../../libs/FanexGrid/Fanex.Grid.css';
+﻿@import '../../libs/FanexGrid/Fanex.Grid.css';
 @import '../../libs/FanexGrid/Fanex.Pagination.css';
 @import '../../../../Scripts/Directives/multileveldropdown/multileveldropdown.css';
 @import '../components/customize-fanex-grid';
@@ -20,10 +13,6 @@ $fa-font-path: "~font-awesome/fonts";
 
 .item {
     margin-right: 70px !important;
-}
-
-.user-name {
-    display: none;
 }
 
 .display-block {

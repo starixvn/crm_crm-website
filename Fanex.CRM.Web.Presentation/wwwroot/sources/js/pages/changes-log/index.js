@@ -1,0 +1,8 @@
+﻿import './changes-log-application';
+import './headline-da-report-container-directive';
+import './pic-report-container-directive';
+import './changes-log-controller';
+import './headline-da-controller';
+import './pic-controller';
+import './register-directive';
+import './changes-log-factory';

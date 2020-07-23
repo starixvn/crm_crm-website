@@ -312,8 +312,8 @@
    <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="ChangeLog" xml:space="preserve">
-    <value>Change Log</value>
+  <data name="ChangesLog" xml:space="preserve">
+    <value>Changes Log</value>
   </data>
   <data name="EditBy" xml:space="preserve">
     <value>Edit By</value>

@@ -80,6 +80,7 @@
     <Compile Include="PicAndHeadline\DeleteAssignmentCriteria.cs" />
     <Compile Include="PicAndHeadline\EditPicCriteria.cs" />
     <Compile Include="PicAndHeadline\GetAssignmentCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetPicLogReportCriteria.cs" />
     <Compile Include="PicAndHeadline\GetHeadlineDALogReportCriteria.cs" />
     <Compile Include="PicAndHeadline\GetHeadlinesCriteria.cs" />
     <Compile Include="PicAndHeadline\GetPICCriteria.cs" />
