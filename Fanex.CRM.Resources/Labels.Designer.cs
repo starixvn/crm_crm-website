@@ -250,6 +250,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default PIC.
+        /// </summary>
+        public static string DefaultPIC {
+            get {
+                return ResourceManager.GetString("DefaultPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -669,6 +678,15 @@ namespace Fanex.CRM.Resources {
         public static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Default PIC.
+        /// </summary>
+        public static string SetDefaultPIC {
+            get {
+                return ResourceManager.GetString("SetDefaultPIC", resourceCulture);
             }
         }
         

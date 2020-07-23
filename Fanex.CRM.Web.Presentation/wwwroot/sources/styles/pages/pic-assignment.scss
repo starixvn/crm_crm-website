@@ -137,7 +137,7 @@ $fanex-grid-images-path: '../images';
     height: 5px;
 }
 
-.assign-pic-icon {
+.plus-icon {
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
@@ -363,4 +363,21 @@ table.assigned-direct-account {
 
 .assigned-direct-account .direct-account-link {
     cursor: pointer;
+}
+
+.group-headline-title {
+    font-weight: 700;
+    color: #466AB6;
+}
+
+.default-pic-class {
+    color: #5f8be5;
+}
+
+.set-dafault-pic {
+    cursor: pointer;
+}
+
+.mg-top-8 {
+    margin-top: 8px;
 }

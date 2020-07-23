@@ -306,7 +306,10 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Action" xml:space="preserve">
+  <data name="SetDefaultPIC" xml:space="preserve">
+    <value>Set Default PIC</value>
+  </data>
+   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">

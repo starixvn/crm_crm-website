@@ -139,6 +139,7 @@
 @Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_AssignPIC.cshtml")
 @Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_ConfirmSubmit.cshtml")
 @Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_RemovePICAssignment.cshtml")
+@Html.Partial("~/Areas/PicAndHeadline/PicOfHeadline/_SetDefaultPIC.cshtml")
 
 @section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
@@ -166,7 +167,8 @@
             Currency: '@Labels.Currency',
             Position: '@Labels.Position',
             PicAssignment: '@Labels.PicAssignment',
-            IsRequired: '@Labels.IsRequired'
+            IsRequired: '@Labels.IsRequired',
+            DefaultPIC: '@Labels.DefaultPIC'
         };
     </script>
 }

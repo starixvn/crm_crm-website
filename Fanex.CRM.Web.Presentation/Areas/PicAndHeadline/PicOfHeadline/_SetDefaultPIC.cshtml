@@ -1,0 +1,40 @@
+﻿﻿@using Fanex.CRM.Resources
+
+<div id="set-dafault-pic-modal" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.SetDefaultPIC
+        <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="onClickCancelBtn()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                     class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div ng-bind="messageResultOptions.Message"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-3">
+                <label>@Labels.GroupHeadline</label>
+            </div>
+            <div class="col-xs-9">
+                <span>{{headline.headlineName}}</span>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-3">
+                <label class="mg-top-8">@Labels.DefaultPIC</label>
+                @Html.Raw(Labels.RequiredFieldTemplate)
+            </div>
+            <div class="col-xs-9">
+                <select class="select-with-search-container js-select2 pic-assignment-select2" ng-model="defaultPic" options="picOptions" , multiple="multiple" id="defaultPic"></select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-if="isShowRemoveBtn" ng-disabled="isSubmit" ng-click="removeDefaultPic()">Re<span class="hotkey">m</span>ove</button>
+        <button class="btn" ng-disabled="isSubmit" ng-click="setDefaultPic()"><span class="hotkey">S</span>ave</button>
+        <button class="btn" ng-click="onClickCancelBtn()" type="button">@Labels.Cancel</button>
+    </div>
+</div>

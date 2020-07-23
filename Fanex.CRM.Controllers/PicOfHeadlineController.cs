@@ -136,6 +136,14 @@ namespace Fanex.CRM.Controllers
             return Json(assignPicSettings, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
+        public ActionResult GetPicList()
+        {
+            var pics = _baseService.GetData<PicInfo>(new GetPICCriteria { IsActive = true });
+            return Json(pics, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
         public ActionResult RemoveAssignment(IList<RemoveAssignment> removeAssignments)
@@ -151,6 +159,7 @@ namespace Fanex.CRM.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Read)]
         public ActionResult GetAllPICAssignment(GetAssignmentCriteria criteria)
         {
             criteria.PicName = criteria.PicName ?? string.Empty;
@@ -167,6 +176,31 @@ namespace Fanex.CRM.Controllers
                 IsHost
             };
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
+        public ActionResult SetDefaultPIC(int headlineId, string picIds)
+        {
+            var criteria = new SetDefaultPicCriteria
+            {
+                HeadlineId = headlineId,
+                PicIds = picIds
+            };
+            var result = _baseService.ExecuteNonQuery(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.PICAssignment, Policy = Constant.Policy.Host)]
+        public ActionResult RemoveDefaultPIC(int headlineId)
+        {
+            var criteria = new RemoveDefaultPicCriteria
+            {
+                HeadlineId = headlineId
+            };
+            var result = _baseService.ExecuteNonQuery(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -194,8 +228,12 @@ namespace Fanex.CRM.Controllers
                 {
                     var listPic = SerializerHelper.DeserializeList<PicModel>(assignment.PIC);
                     assignment.PicList = listPic.OrderBy(p => p.Order).ThenBy(a => a.RoleId).ThenBy(r => r.PicName).ToList();
-
                     assignment.PicForMapping = listPic.Any() ? string.Join(",", listPic.Select(pic => pic.PicId)) : string.Empty;
+                }
+
+                if (!string.IsNullOrWhiteSpace(assignment.DefaultPIC))
+                {
+                    assignment.DefaultPicList = SerializerHelper.DeserializeList<PicModel>(assignment.DefaultPIC);
                 }
             }
 
@@ -211,6 +249,7 @@ namespace Fanex.CRM.Controllers
             {
                 results[i].RowNum = (pageIndex != null && pageSize != null) ? i + ((pageIndex - 1) * pageSize) : i;
             }
+
             return results;
         }
 

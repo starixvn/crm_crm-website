@@ -253,6 +253,32 @@
 					});
 				};
 
+				$scope.openSetDefaultPICModal = function (defaultPicList, headlineId, headlineName) {
+					const defaultPic = defaultPicList !== null ? defaultPicList.map(pic => pic.PicId) : [];
+					const modalInstance = $uibModal.open({
+						template: angular.element('#set-dafault-pic-modal').html(),
+						controller: 'setDefaultPicController',
+						backdrop: 'static',
+						keyboard: false,
+						size: 'lg',
+						backdropClass: 'assign-pic-modal-backdrop',
+						windowClass: 'assign-pic-modal',
+						appendTo: $window.parent.parent.$('body'),
+						resolve: {
+							data: {
+								headlineId: headlineId,
+								headlineName: headlineName,
+								defaultPIC: defaultPic
+							}
+						}
+					});
+					modalInstance.result.then(function (isReload) {
+						if (isReload) {
+							$scope.getPICAssignment();
+						}
+					});
+				};
+
 				$scope.onClickSingleCheckbox = function (assignment, isChecked) {
 					if (isChecked) {
 						$scope.removePic.push(assignment);

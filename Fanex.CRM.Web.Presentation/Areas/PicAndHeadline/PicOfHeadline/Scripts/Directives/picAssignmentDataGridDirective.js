@@ -34,8 +34,21 @@
 						mergePIC = pics.length;
 						const accounts = pics.map(pic => pic.DirectAccountID);
 						columns.push(
-							{ Name: "ColGroupHeadline", Value: assignment.HeadlineName, MergeRowNumber: mergeHeadline, TdClass: "tipsy-tooltip", TdCustomAttr: `data-title="Group Headline: ${assignment.HeadlineName}"` },
+							{
+								Name: "ColGroupHeadline",
+								Value: assignment.HeadlineName,
+								MergeRowNumber: mergeHeadline,
+								TdClass: "tipsy-tooltip",
+								TdCustomAttr: `data-title="Group Headline: ${assignment.HeadlineName}"`
+							},
 							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
+							{
+								Name: "ColDefaultPIC",
+								Value: displayDefaultPIC(assignment.RowNum, assignment.DefaultPicList, gridData.IsHost),
+								MergeRowNumber: mergeHeadline,
+								CellAlign: assignment.DefaultPicList === null ? 'center' : 'left',
+								IsHideTitle: true
+							},
 							{
 								Name: "ColPIC",
 								Value: getPICCell(assignment.PicList, assignment.HeadlineID, accounts, gridData.IsHost),
@@ -95,6 +108,7 @@
 				{ HeaderText: viewResources.No, Width: 70, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
 				{ HeaderText: viewResources.GroupHeadline, Width: 150, Name: "ColGroupHeadline", HeaderAlign: "center", CellAlign: "center" },
 				{ HeaderText: viewResources.HeadlineType, Width: 100, Name: "ColHeadlineType", HeaderAlign: "center", CellAlign: "center" },
+				{ HeaderText: viewResources.DefaultPIC, Width: 150, Name: "ColDefaultPIC", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.PIC, Width: 150, Name: "ColPIC", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.DirectAccount, Width: 152, Name: "ColDirectAccount", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: viewResources.Status, Width: 100, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
@@ -197,6 +211,7 @@
 
 			if (gridData.IsHost) {
 				initClickCheckBoxEvent(tablePicOfHeadline, scope);
+				inintSetDefaultPicEvent(tablePicOfHeadline, scope);
 			}
 		}
 
@@ -218,6 +233,17 @@
 				var tooltip = $document.find("#headline-tooltip")[0];
 				tooltip.style.display = 'none';
 				tooltip.innerHTML = '';
+			});
+		}
+
+		function inintSetDefaultPicEvent($table, scope) {
+			var headline = $table.find('.set-dafault-pic');
+			headline.unbind("click");
+			headline.on("click", function (e) {
+				var rowIndex = parseInt($(this).attr("data-row-index"));
+				var itemIndex = scope.picOfHeadlineOptions.DataList.Items.findIndex(item => item.RowNum === rowIndex);
+				let assignment = scope.picOfHeadlineOptions.DataList.Items[itemIndex];
+				scope.openSetDefaultPICModal(assignment.DefaultPicList, assignment.HeadlineID, assignment.HeadlineName);
 			});
 		}
 
@@ -264,7 +290,7 @@
 		function getPICCell(pics, headlineId, accountIds, isHost) {
 			if (pics === null || pics.length === 0) {
 				if (isHost) {
-					return `<span class='assign-pic-icon assignPic' title='Assign PIC' data-headlineId=${headlineId} data-account='${accountIds}'>+</span>`;
+					return `<span class='plus-icon assignPic' title='Assign PIC' data-headlineId=${headlineId} data-account='${accountIds}'>+</span>`;
 				}
 
 				return `<span>-</span>`;
@@ -276,6 +302,23 @@
 				}
 				return picCellValue;
 			}
+		}
+
+		function displayDefaultPIC(rowIndex, defaultPicList, isHost) {
+			var defaultPICValue = '';
+			const defalutPicClass = isHost ? 'pic-name default-pic-class' : 'pic-name';
+			if (isHost) {
+				if (defaultPicList !== null && defaultPicList.length > 0) {
+					defaultPICValue = `<div class="set-dafault-pic" data-row-index=${rowIndex}>`;
+					for (var i = 0; i < defaultPicList.length; i++) {
+						defaultPICValue += `<p class='${defalutPicClass}'>` + defaultPicList[i].PicName + ` (` + defaultPicList[i].Role + `)</p>`;
+					}
+					defaultPICValue += `</div>`;
+				} else {
+					defaultPICValue = `<span class='plus-icon set-dafault-pic' title='Assign PIC' data-row-index=${rowIndex}>+</span>`;
+				}
+			}
+			return defaultPICValue;
 		}
 
 		return {

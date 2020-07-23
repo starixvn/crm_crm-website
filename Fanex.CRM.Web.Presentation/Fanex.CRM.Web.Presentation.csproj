@@ -481,6 +481,7 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\setDefaultPicController.js" />
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1550,6 +1551,7 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\_Edit.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeState.cshtml" />
     <Content Include="Areas\PicAndHeadline\ChangeLog\Index.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicOfHeadline\_SetDefaultPIC.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

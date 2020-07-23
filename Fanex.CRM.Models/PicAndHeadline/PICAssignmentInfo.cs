@@ -24,7 +24,11 @@ namespace Fanex.CRM.Models.PicAndHeadline
 
         public string PIC { get; set; }
 
+        public string DefaultPIC { get; set; }
+
         public IList<PicModel> PicList { get; set; }
+
+        public IList<PicModel> DefaultPicList { get; set; }
 
         public string PicForMapping { get; set; }
 

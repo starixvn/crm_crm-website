@@ -91,9 +91,75 @@
 				return deferred.promise;
 			};
 
+			serviceInstance.setDefaultPic = function (params) {
+				var deferred = $q.defer();
+				$http.post(window.rootUrl + "PicOfHeadline/SetDefaultPic", params)
+					.success(function (data, status, headers, config) {
+						deferred.resolve({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					}).error(function (data, status, headers, config) {
+						deferred.reject({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					});
+
+				return deferred.promise;
+			};
+
+			serviceInstance.removeDefaultPic = function (params) {
+				var deferred = $q.defer();
+				$http.post(window.rootUrl + "PicOfHeadline/RemoveDefaultPIC", params)
+					.success(function (data, status, headers, config) {
+						deferred.resolve({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					}).error(function (data, status, headers, config) {
+						deferred.reject({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					});
+
+				return deferred.promise;
+			};
+
 			serviceInstance.GetAssignPICSettings = function () {
 				var deferred = $q.defer();
 				$http.get(window.rootUrl + "PicOfHeadline/GetAssignPICSettings")
+					.success(function (data, status, headers, config) {
+						deferred.resolve({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					}).error(function (data, status, headers, config) {
+						deferred.reject({
+							Result: data,
+							Status: status,
+							Headers: headers,
+							Config: config
+						});
+					});
+
+				return deferred.promise;
+			};
+
+			serviceInstance.GetPicList = function () {
+				var deferred = $q.defer();
+				$http.get(window.rootUrl + "PicOfHeadline/GetPicList")
 					.success(function (data, status, headers, config) {
 						deferred.resolve({
 							Result: data,
