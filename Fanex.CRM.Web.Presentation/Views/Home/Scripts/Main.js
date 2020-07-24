@@ -1,5 +1,5 @@
 ﻿"use strict";
-/*global accUrlDefault, trimAllSpace, 
+/*global accUrlDefault, trimAllSpace,
 userId, gup, userSearch, isGuestSearch,
 leftPanelManager,
 menuManager,
@@ -35,14 +35,14 @@ function openConfirmPopup(errorCode) {
             redirectPage(errorCode);
         },
         buttons: [
-                {
-                    text: "OK",
-                    click: function () {
-                        redirectPage(errorCode);
-                        $(this).dialog("close");
-                    }
+            {
+                text: "OK",
+                click: function () {
+                    redirectPage(errorCode);
+                    $(this).dialog("close");
                 }
-            ]
+            }
+        ]
     });
     return false;
 }
@@ -71,7 +71,8 @@ function KeyPress(e) {
     if (key === 13) {
         if (trimAllSpace($('#txtuserName').val()).length <= 0) {
             $("#divErrorPoup").html('Please input Username.');
-            $("#divErrorPoup").dialog({ width: 200, height: 100, zIndex: 500, resizable: false, modal: true,
+            $("#divErrorPoup").dialog({
+                width: 200, height: 100, zIndex: 500, resizable: false, modal: true,
                 position: { my: "left+5 top+108", at: "left top" }, //
                 title: 'Alert',
                 close: function (event, ui) {
@@ -122,7 +123,7 @@ function udpateOnlineStatus() {
             dataType: "json",
             data: '',
             success: function (rs) {
-                if(rs.ErrCode > 0) {
+                if (rs.ErrCode > 0) {
                     openConfirmPopup(rs.ErrCode);
                 }
                 else {
@@ -131,6 +132,12 @@ function udpateOnlineStatus() {
             }, error: function () {
                 openConfirmPopup();
             }
+        });
+
+        $.ajax({
+            type: 'post',
+            url: window.rootUrl + 'UserLogin/ReCheckIn',
+            contentType: "application/json; charset=utf-8"
         });
     };
 
@@ -186,7 +193,7 @@ $(document).ready(function () {
     }).mouseout(function () {
         isonauto = false;
     });
-    //Add events to page  
+    //Add events to page
 
     $("#btndownup").mouseover(function () {
         $(this).attr('class', $(this).attr('class').replace("updown", "updown_over").replace("downup", "downup_over"));

@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using Enumerations;
+    using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Resources;
@@ -106,6 +107,16 @@
             localLogin.SessionId = Session.SessionID;
 
             var loginStatus = _localService.Login(localLogin);
+            if (loginStatus == LoginStatus.LoginSuccessful)
+            {
+                var url = string.Format("{0}auth/SignIn?Username={1}&Password={2}&OnUserId={3}&Token={4}",
+                    AppSetting.ExternalSiteHostUrl,
+                    localLogin.Username,
+                    localLogin.Password,
+                    Cryptography.CfsEnCrypt(AppSession.CurrentUser.OnUserId.ToString()),
+                    localLogin.LoginToken);
+                return new RedirectResult(url);
+            }
 
             return ProcessLoginResult(loginStatus);
         }
@@ -154,7 +165,8 @@
                 LogExtensions.ExceptionHandler(exception);
             }
 
-            return RedirectToAction("Index", "UserLogin");
+            var url = string.Format("{0}auth/SignOut", AppSetting.ExternalSiteHostUrl);
+            return new RedirectResult(url);
         }
 
         [HttpPost]
@@ -170,6 +182,14 @@
                 ErrCode = (int)recheckInStatus,
                 ErrMsg = GetRecheckInStatusError(recheckInStatus)
             });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ReCheckIn()
+        {
+            var url = string.Format("{0}auth/ReCheckIn", AppSetting.ExternalSiteHostUrl);
+            return new RedirectResult(url);
         }
 
         private bool CheckValidToken(string loginToken)

@@ -14,6 +14,7 @@
         public static string LoginLink => ConfigurationManager.AppSettings["loginUrl"];
         public static int TimeSpan => Convert.ToInt32(ConfigurationManager.AppSettings["timeSpan"]);
         public static DateTime MinReportDate => Convert.ToDateTime(ConfigurationManager.AppSettings["minReportDate"]);
+        public static string ExternalSiteHostUrl => ConfigurationManager.AppSettings["ExternalSiteHostUrl"];
 
         public static IDictionary<string, bool> ActionLogKey
         {

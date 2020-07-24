@@ -1,0 +1,22 @@
+﻿const path = require('path');
+
+const projectRoot = path.resolve(__dirname, '../../../');
+
+const cssPaths = {
+    build: 'wwwroot/css',
+
+    main: ['./www/sources/css/main.scss']
+};
+
+const scriptPaths = {
+    build: 'wwwroot/js',
+
+    main: ['./www/sources/js/main.js']
+};
+
+module.exports = {
+    projectRoot: projectRoot,
+    scriptPaths: scriptPaths,
+    cssPaths: cssPaths,
+    commonPath: 'wwwroot/common'
+};

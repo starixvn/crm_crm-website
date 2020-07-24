@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRM.Website</title>
+
+    <environment include="Development">
+    </environment>
+    <environment exclude="Development">
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <environment include="Development">
+    </environment>
+    <environment exclude="Development">
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @Html.Raw(Fanex.Logging.LogManager.RenderJavascriptLogger())
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
