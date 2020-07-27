@@ -9,8 +9,6 @@
     {
         public string RemovedPICs { get; set; }
 
-        public bool InActivatedPIC { get; set; }
-
         public static int UserId
         {
             get
@@ -31,7 +29,6 @@
         {
             var param = new Hashtable();
             param.Add("RemovedPICs", RemovedPICs);
-            param.Add("InActivatedPIC", InActivatedPIC);
 
             param.Add("userid", UserId);
             param.Add("loginip", IP);
