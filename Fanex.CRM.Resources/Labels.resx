@@ -348,4 +348,7 @@
   <data name="ActionType" xml:space="preserve">
     <value>Action Type</value>
   </data>
+  <data name="DefaultPIC" xml:space="preserve">
+    <value>Default PIC</value>
+  </data>
 </root>
