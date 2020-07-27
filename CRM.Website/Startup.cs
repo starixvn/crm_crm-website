@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Extensions;
+    using CRM.Core.Middlewares;
     using CRM.Core.Models;
     using CRM.Services.Extensions;
     using Fanex.Data;
@@ -112,6 +113,9 @@
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<ExternalSiteHostUrl>(options => Configuration.GetSection("ExternalSiteHostUrl").Bind(options));
 
+            services.AddHealthChecks()
+                .AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             RegisterDI(services);
@@ -126,10 +130,11 @@
             }
             else
             {
-                app.UseExceptionHandler("/Error/500");
+                app.UseMiddleware<ErrorHandler>();
                 app.UseHsts();
             }
 
+            app.UseCustomHealthCheck();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();

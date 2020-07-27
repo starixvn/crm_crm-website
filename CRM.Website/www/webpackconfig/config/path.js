@@ -5,7 +5,8 @@ const projectRoot = path.resolve(__dirname, '../../../');
 const cssPaths = {
     build: 'wwwroot/css',
 
-    main: ['./www/sources/css/main.scss']
+    main: ['./www/sources/css/main.scss'],
+    error: ['./www/sources/css/pages/error.scss']
 };
 
 const scriptPaths = {

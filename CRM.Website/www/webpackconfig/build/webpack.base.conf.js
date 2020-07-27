@@ -16,8 +16,7 @@ function generateConfig(environment) {
             //[`${jsPath}/pages/home/home`]: pathConfig.scriptPaths.home,
 
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
-            //[`${cssPath}/pages/home`]: pathConfig.cssPaths.home,
-            //[`${cssPath}/pages/error`]: pathConfig.cssPaths.error
+            [`${cssPath}/error`]: pathConfig.cssPaths.error
         },
         output: {
             path: pathConfig.projectRoot,

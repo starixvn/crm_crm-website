@@ -53,8 +53,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\" />
-    <Folder Include="www\sources\css\components\" />
-    <Folder Include="www\sources\css\pages\" />
     <Folder Include="www\sources\js\pages\" />
   </ItemGroup>
 </Project>
