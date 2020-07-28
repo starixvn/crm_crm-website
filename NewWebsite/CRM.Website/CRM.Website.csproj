@@ -45,14 +45,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+    <Folder Include="www\sources\js\pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CRM.Controllers\CRM.Controllers.csproj" />
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
     <ProjectReference Include="..\CRM.Models\CRM.Models.csproj" />
     <ProjectReference Include="..\CRM.Services\CRM.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
-    <Folder Include="www\sources\js\pages\" />
   </ItemGroup>
 </Project>
