@@ -45,20 +45,8 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult GetActionTypes()
         {
-            var actionTypes = new List<BaseModel>
-            {
-                new BaseModel
-                {
-                    Id = 2,
-                    Name = "CRM"
-                },
-
-                new BaseModel
-                {
-                    Id = 7,
-                    Name = "NAP/Ext.NAP"
-                }
-            };
+            var criteria = new GetActionTypeCriteria();
+            var actionTypes = changesLogService.GetActionType(criteria);
 
             return Json(actionTypes, JsonRequestBehavior.AllowGet);
         }

@@ -14,7 +14,7 @@
 
 <div id="changes-log-application" ng-app="changes-log-application">
     <div class="changesLogController" ng-controller="changesLogController as changesLogCtrl">
-        <div class="main container">
+        <div class="main container" focus-me="focused">
             <div class="row" ng-show="isError">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div ng-class="isError ? 'alertboxerr' : ''">
@@ -155,11 +155,12 @@
             ReportTitle: '@Labels.ChangesLog',
             No: '@Labels.No',
             LogId: '@Labels.LogId',
-            LogDate: '@Labels.LogDate' + '(GMT+8)',
+            LogDate: '@Labels.LogDateGMTA8',
             Action: '@Labels.Action',
             EditBy: '@Labels.EditBy',
             HeadlineDA: '@Labels.HeadlineDA',
             PleaseChooseAction: '@Messages.PleaseChooseAction',
+            ToDateCanNotBeforeFromDate: '@Messages.ToDateCanNotBeforeFromDate',
             PIC: '@Labels.PIC',
             Detail: '@Labels.Detail',
             NoData: '@Labels.NoData',

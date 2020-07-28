@@ -484,11 +484,11 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Date.
+        ///   Looks up a localized string similar to Log Date (GMT+8).
         /// </summary>
-        public static string LogDate {
+        public static string LogDateGMTA8 {
             get {
-                return ResourceManager.GetString("LogDate", resourceCulture);
+                return ResourceManager.GetString("LogDateGMTA8", resourceCulture);
             }
         }
         

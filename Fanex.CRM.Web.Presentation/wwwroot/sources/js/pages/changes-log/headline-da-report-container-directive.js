@@ -60,7 +60,7 @@
                 pagerOption: {
                     itemsPerPage: cachedData.scope.lastHeadlineDASelectedParams.PageSize,
                     currentPage: cachedData.scope.lastHeadlineDASelectedParams.PageIndex - 1,
-                    itemsPerPageArray: [100, 200, 300, 400, 500, 1000],
+                    itemsPerPageArray: [10, 200, 300, 400, 500, 1000],
                     totalItem: report.Totals,
                     pagerSelectCallBack: ReRenderAfterPaged
                 }

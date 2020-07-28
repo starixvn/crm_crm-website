@@ -14,37 +14,42 @@
                 Pic: '',
                 EditBy: '',
                 PageIndex: 1,
-                PageSize: 100
+                PageSize: 10
             };
 
             $scope.lastPicSelectedParams = angular.copy(vm.searchCriteria);
             vm.getReport = function () {
                 $uiBlockerService.blockUI();
+                $scope.$parent.isError = false;
+                $scope.$parent.errorMessage = '';
                 let getReportCriteria = {
                     Pic: vm.searchCriteria.Pic,
-                    FromDate: moment($scope.picFromDateOptions.CurrentDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                    ToDate: moment($scope.picToDateOptions.CurrentDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                    FromDate: moment(vm.selectedFromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                    ToDate: moment(vm.selectedToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                     EditBy: vm.searchCriteria.EditBy,
                     PageIndex: vm.searchCriteria.PageIndex,
                     PageSize: vm.searchCriteria.PageSize
                 };
 
                 $scope.lastPicSelectedParams = getReportCriteria;
-                $changesLogFactory.getPicReport(getReportCriteria)
-                    .then(function (data) {
-                        vm.errorMessage = '';
-                        $scope.picReportOptions.DataList = data.Result;
-                        $scope.picReportOptions.IsUpdateGrid = true;
-                        $uiBlockerService.unblockUI();
-                    }, function () {
-                        $uiBlockerService.unblockUI();
-                    });
+                vm.validateAndQuery();
             };
 
             $scope.pagingPicReport = function (pageIndex, pageSize) {
                 $uiBlockerService.blockUI();
                 $scope.lastPicSelectedParams.PageIndex = pageIndex;
                 $scope.lastPicSelectedParams.PageSize = pageSize;
+                vm.validateAndQuery();
+            };
+
+            vm.validateAndQuery = function () {
+                if ($scope.lastPicSelectedParams.ToDate < $scope.lastPicSelectedParams.FromDate) {
+                    $scope.$parent.isError = true;
+                    $scope.$parent.errorMessage = viewResources.ToDateCanNotBeforeFromDate;
+                    $uiBlockerService.unblockUI();
+                    return;
+                }
+
                 $changesLogFactory.getPicReport($scope.lastPicSelectedParams)
                     .then(function (data) {
                         $scope.picReportOptions.DataList = data.Result;
@@ -57,6 +62,7 @@
 
             vm.initPicker = function () {
                 let localCurrentDate = new Date(currentDate);
+                vm.selectedFromDate = localCurrentDate;
                 $scope.picFromDateOptions = {
                     CurrentDate: localCurrentDate,
                     InitDate: new Date(initFromDate),
@@ -67,6 +73,7 @@
                     IsSetDate: false,
                 };
 
+                vm.selectedToDate = localCurrentDate;
                 $scope.picToDateOptions = {
                     CurrentDate: localCurrentDate,
                     InitDate: localCurrentDate,
@@ -87,6 +94,9 @@
                         $scope.picFromDateOptions.IsRerenderPicker = true;
                     });
                 }
+                else {
+                    vm.selectedFromDate = isOnApply;
+                }
             };
 
             vm.updateToDatePicker = function (isOnApply) {
@@ -94,6 +104,9 @@
                     $scope.$apply(function () {
                         $scope.picToDateOptions.IsRerenderPicker = true;
                     });
+                }
+                else {
+                    vm.selectedToDate = isOnApply;
                 }
             };
 

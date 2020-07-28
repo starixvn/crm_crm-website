@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Criteria.PicAndHeadline;
     using Fanex.CRM.Models;
     using Fanex.CRM.Models.PicAndHeadline;
@@ -10,296 +12,42 @@
 
     public class ChangesLogService : IChangesLogService
     {
-        public BaseReport<ChangesLogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
-        {
-            var dataList = new List<ChangesLogInfo>
-                {
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    }
-                };
+        public readonly IBaseService baseService;
 
-            return new BaseReport<ChangesLogInfo>
+        public ChangesLogService() : this(null)
+        {
+        }
+
+        public ChangesLogService(IBaseService baseService)
+        {
+            this.baseService = baseService ?? new BaseService();
+        }
+
+        public BaseReport<ChangeDALogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
+        {
+            var logInfos = baseService.GetData<ChangeDALogInfo>(criteria);
+
+            return new BaseReport<ChangeDALogInfo>
             {
-                DataList = dataList.Skip((criteria.PageIndex - 1) * criteria.PageSize).Take(criteria.PageSize),
+                DataList = logInfos,
                 Totals = 14
             };
         }
 
-        public BaseReport<ChangesLogInfo> GetPicReport(GetPicLogReportCriteria criteria)
+        public BaseReport<ChangePicLogInfo> GetPicReport(GetPicLogReportCriteria criteria)
         {
-            var dataList = new List<ChangesLogInfo>
-                {
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1050,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Update the PIC of a headline",
-                        OldValue = "Group headline: H01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        NewValue = "Group headline: S01\nPIC: Boss1 (Boss), PIC1 (PIC)",
-                        EditByName = "StarixIT"
-                    },
-                    new ChangesLogInfo
-                    {
-                        LogId = 1049,
-                        LogTime = DateTime.Now.ToString("MM-dd-yyyy"),
-                        Name = "S01",
-                        ActionName = "Set customer to Credit Term Headline",
-                        NewValue = "Set as group headline",
-                        EditByName = "User01"
-                    }
-                };
+            var logInfos = baseService.GetData<ChangePicLogInfo>(criteria);
 
-            return new BaseReport<ChangesLogInfo>
+            return new BaseReport<ChangePicLogInfo>
             {
-                DataList = dataList.Skip((criteria.PageIndex - 1) * criteria.PageSize).Take(criteria.PageSize),
-                Totals = 14
+                DataList = logInfos,
+                Totals = criteria.TotalRows
             };
+        }
+
+        public IEnumerable<BaseModel> GetActionType(GetActionTypeCriteria criteria)
+        {
+            return baseService.GetData<BaseModel>(criteria);
         }
     }
 }

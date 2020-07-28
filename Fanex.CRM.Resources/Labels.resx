@@ -324,8 +324,8 @@
   <data name="ToDate" xml:space="preserve">
     <value>To Date</value>
   </data>
-  <data name="LogDate" xml:space="preserve">
-    <value>Log Date</value>
+  <data name="LogDateGMTA8" xml:space="preserve">
+    <value>Log Date (GMT+8)</value>
   </data>
   <data name="LogId" xml:space="preserve">
     <value>Log ID</value>

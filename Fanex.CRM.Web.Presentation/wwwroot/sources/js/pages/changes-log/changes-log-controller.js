@@ -5,8 +5,11 @@
             let vm = this;
             $scope.errorMessage = '';
             $scope.isError = false;
+            $scope.focused = true;
             vm.isPicReport = false;
             vm.changeHeadlineDATab = function () {
+                $scope.isError = false;
+                $scope.errorMessage = '';
                 vm.isPicReport = false;
             };
 

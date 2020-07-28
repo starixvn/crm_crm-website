@@ -132,6 +132,9 @@
   <data name="StartTimeShouldBeSmallerThanOrEqualCurrentTime" xml:space="preserve">
     <value>Start Time should be smaller than or equal Current Time.</value>
   </data>
+  <data name="ToDateCanNotBeforeFromDate" xml:space="preserve">
+    <value>To date can not before from date</value>
+  </data>
   <data name="UpdateMultipleLogsSuccessfully" xml:space="preserve">
     <value>Update multiple logs successfully!</value>
   </data>

@@ -15,4 +15,6 @@
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_SettingSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_PicDefaultIns" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Acc_CRM_PicDefaultDel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_ActionTypeSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Acc_CRM_PicLogSel" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

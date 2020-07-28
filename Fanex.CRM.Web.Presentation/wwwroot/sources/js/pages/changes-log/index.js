@@ -6,3 +6,4 @@ import './headline-da-controller';
 import './pic-controller';
 import './register-directive';
 import './changes-log-factory';
+import '../../shared/focus-directive';

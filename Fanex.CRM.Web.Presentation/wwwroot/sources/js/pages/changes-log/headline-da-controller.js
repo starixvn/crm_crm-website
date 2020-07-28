@@ -22,7 +22,7 @@
                 HeadlineDA: '',
                 EditBy: '',
                 PageIndex: 1,
-                PageSize: 100
+                PageSize: 10
             };
 
             vm.selectedActions = [];
@@ -47,10 +47,10 @@
                     });
             };
 
-            vm.getReport = function () {
+            vm.getReport = function (pageIndex, pageSize) {
+                $uiBlockerService.blockUI();
                 $scope.$parent.errorMessage = '';
                 $scope.$parent.isError = false;
-                $uiBlockerService.blockUI();
                 if (vm.selectedActions.length <= 0) {
                     $scope.$parent.isError = true;
                     $scope.$parent.errorMessage = viewResources.PleaseChooseAction;
@@ -60,18 +60,24 @@
 
                 var getReportCriteria = {
                     HeadlineDA: vm.searchCriteria.HeadlineDA,
-                    FromDate: moment($scope.fromDateOptions.CurrentDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                    ToDate: moment($scope.toDateOptions.CurrentDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                    FromDate: moment(vm.selectedFromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                    ToDate: moment(vm.selectedToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                     Action: vm.selectedActions.map(action => action.Id).join(','),
                     EditBy: vm.searchCriteria.EditBy,
-                    PageIndex: vm.searchCriteria.PageIndex,
-                    PageSize: vm.searchCriteria.PageSize
+                    PageIndex: pageIndex ? pageIndex : vm.searchCriteria.PageIndex,
+                    PageSize: pageSize ? pageSize : vm.searchCriteria.PageSize
                 };
+
+                if (getReportCriteria.ToDate < getReportCriteria.FromDate) {
+                    $scope.$parent.isError = true;
+                    $scope.$parent.errorMessage = viewResources.ToDateCanNotBeforeFromDate;
+                    $uiBlockerService.unblockUI();
+                    return;
+                }
 
                 $scope.lastHeadlineDASelectedParams = getReportCriteria;
                 $changesLogFactory.getHeadlineDAReport(getReportCriteria)
                     .then(function (data) {
-                        vm.errorMessage = '';
                         $scope.headlineDAReportOptions.DataList = data.Result;
                         $scope.headlineDAReportOptions.IsUpdateGrid = true;
                         $uiBlockerService.unblockUI();
@@ -81,24 +87,16 @@
             };
 
             $scope.pagingHeadlineDAReport = function (pageIndex, pageSize) {
-                $uiBlockerService.blockUI();
-                $scope.lastHeadlineDASelectedParams.PageIndex = pageIndex;
-                $scope.lastHeadlineDASelectedParams.PageSize = pageSize;
-                $changesLogFactory.getHeadlineDAReport($scope.lastHeadlineDASelectedParams)
-                    .then(function (data) {
-                        $scope.headlineDAReportOptions.DataList = data.Result;
-                        $scope.headlineDAReportOptions.IsUpdateGrid = true;
-                        $uiBlockerService.unblockUI();
-                    }, function () {
-                        $uiBlockerService.unblockUI();
-                    });
+                $scope.$parent.focused = true;
+                vm.getReport(pageIndex, pageSize);
             };
 
             vm.initPicker = function () {
                 let localCurrentDate = new Date(currentDate);
+                vm.selectedFromDate = localCurrentDate;
                 $scope.fromDateOptions = {
                     CurrentDate: localCurrentDate,
-                    InitDate: new Date(initFromDate),
+                    InitDate: localCurrentDate,
                     MinDate: minReportDate,
                     MaxDate: localCurrentDate,
                     IsRerenderPicker: false,
@@ -106,6 +104,7 @@
                     IsSetDate: false,
                 };
 
+                vm.selectedToDate = localCurrentDate;
                 $scope.toDateOptions = {
                     CurrentDate: localCurrentDate,
                     InitDate: localCurrentDate,
@@ -126,6 +125,9 @@
                         $scope.fromDateOptions.IsRerenderPicker = true;
                     });
                 }
+                else {
+                    vm.selectedFromDate = isOnApply;
+                }
             };
 
             vm.updateToDatePicker = function (isOnApply) {
@@ -133,6 +135,9 @@
                     $scope.$apply(function () {
                         $scope.toDateOptions.IsRerenderPicker = true;
                     });
+                }
+                else {
+                    vm.selectedToDate = isOnApply;
                 }
             };
 

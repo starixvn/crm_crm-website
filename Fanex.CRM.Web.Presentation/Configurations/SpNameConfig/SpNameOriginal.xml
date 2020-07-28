@@ -245,5 +245,13 @@
     <Setting Key="Acc_CRM_PicDefaultIns" SpName="Acc_CRM_PicDefaultIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicDefaultDel" SpName="Acc_CRM_PicDefaultDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_SiteSel_Credit" SpName="Acc_SiteSel_Credit" DbName="DBAGE.bodb02.bodbAdminNet" />
+    <Setting Key="Acc_CRM_ActionTypeSel" SpName="Acc_CRM_ActionTypeSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="ActionTypeID" ObjectProperty="Id" />
+      <Mapping DataField="ActionTypeName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_PicLogSel" SpName="Acc_CRM_PicLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="PIC" ObjectProperty="Name" />
+      <Mapping DataField="ActionNameEN" ObjectProperty="ActionName" />
+    </Setting>
   </Function>
 </Functions>

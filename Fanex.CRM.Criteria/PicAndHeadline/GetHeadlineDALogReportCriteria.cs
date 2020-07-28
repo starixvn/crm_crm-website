@@ -19,7 +19,7 @@
 
         public int PageSize { get; set; }
 
-        public override string GetSettingKey() => "abc";
+        public override string GetSettingKey() => "Acc_CRM_DirectAccountLogSel";
 
         public override bool IsValid() => true;
     }

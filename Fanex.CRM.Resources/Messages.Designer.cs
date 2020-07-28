@@ -106,6 +106,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To date can not before from date.
+        /// </summary>
+        public static string ToDateCanNotBeforeFromDate {
+            get {
+                return ResourceManager.GetString("ToDateCanNotBeforeFromDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update multiple logs successfully!.
         /// </summary>
         public static string UpdateMultipleLogsSuccessfully {

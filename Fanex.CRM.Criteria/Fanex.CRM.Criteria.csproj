@@ -78,6 +78,7 @@
     <Compile Include="PicAndHeadline\AssignPicCriteria.cs" />
     <Compile Include="PicAndHeadline\ChangePicStateCriteria.cs" />
     <Compile Include="PicAndHeadline\EditPicCriteria.cs" />
+    <Compile Include="PicAndHeadline\GetActionTypeCriteria.cs" />
     <Compile Include="PicAndHeadline\GetAssignmentCriteria.cs" />
     <Compile Include="PicAndHeadline\GetPicLogReportCriteria.cs" />
     <Compile Include="PicAndHeadline\GetHeadlineDALogReportCriteria.cs" />

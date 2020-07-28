@@ -5,7 +5,7 @@
 
     public class GetPicLogReportCriteria : CriteriaBase
     {
-        public string Pic { get; set; }
+        public string PicName { get; set; }
 
         public DateTime FromDate { get; set; }
 
@@ -17,7 +17,9 @@
 
         public int PageSize { get; set; }
 
-        public override string GetSettingKey() => "xyz";
+        public int TotalRows { get; set; }
+
+        public override string GetSettingKey() => "Acc_CRM_PicLogSel";
 
         public override bool IsValid() => true;
     }

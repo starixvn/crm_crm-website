@@ -1,0 +1,29 @@
+﻿namespace Fanex.CRM.Models.PicAndHeadline
+{
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Fanex.CRM.Common.Models;
+
+    [XmlType("Acc_CRM_PicUpd_xpre")]
+    public class PicInfoLog
+    {
+        public BaseModel Role { get; set; }
+
+        public BaseModel Country { get; set; }
+
+        [XmlElement(ElementName = "Language")]
+        public List<BaseModel> Languages { get; set; }
+
+        [XmlElement(ElementName = "CommunicationTool")]
+        public List<SettingValue> CommunicationTools { get; set; }
+
+        [XmlAttribute("DirectAccount")]
+        public string DirectAccount { get; set; }
+
+        [XmlAttribute("IsActive")]
+        public bool IsActive { get; set; }
+
+        [XmlAttribute("PicName")]
+        public string Name { get; set; }
+    }
+}
