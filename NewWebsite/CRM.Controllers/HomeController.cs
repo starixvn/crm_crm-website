@@ -1,4 +1,4 @@
-﻿namespace CRM.Website.Controllers
+﻿namespace CRM.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

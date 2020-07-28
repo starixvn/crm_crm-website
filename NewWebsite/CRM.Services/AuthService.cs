@@ -42,7 +42,7 @@
         public async Task<RecheckInStatus> GetRecheckInStatusAsync()
         {
             RecheckInStatus recheckInStatus;
-            if (maintenanceService.IsUnderMaintenance())
+            if (await maintenanceService.IsUnderMaintenanceAsync())
             {
                 recheckInStatus = RecheckInStatus.UnderMaintenance;
             }
@@ -50,7 +50,7 @@
             {
                 recheckInStatus = RecheckInStatus.Success;
             }
-            else if (siteService.IsActivated(napSettings.SiteId))
+            else if (!await siteService.IsActivatedAsync(napSettings.SiteId))
             {
                 recheckInStatus = RecheckInStatus.InvalidSite;
             }
