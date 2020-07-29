@@ -394,7 +394,7 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Headline/Direact Account.
+        ///   Looks up a localized string similar to Headline/Direct Account.
         /// </summary>
         public static string HeadlineDirectAccount {
             get {
