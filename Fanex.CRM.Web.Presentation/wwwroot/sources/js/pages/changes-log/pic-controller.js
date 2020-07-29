@@ -14,7 +14,7 @@
                 Pic: '',
                 EditBy: '',
                 PageIndex: 1,
-                PageSize: 10
+                PageSize: 100
             };
 
             $scope.lastPicSelectedParams = angular.copy(vm.searchCriteria);
@@ -23,7 +23,7 @@
                 $scope.$parent.isError = false;
                 $scope.$parent.errorMessage = '';
                 let getReportCriteria = {
-                    Pic: vm.searchCriteria.Pic,
+                    PicName: vm.searchCriteria.Pic,
                     FromDate: moment(vm.selectedFromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                     ToDate: moment(vm.selectedToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                     EditBy: vm.searchCriteria.EditBy,
@@ -65,7 +65,7 @@
                 vm.selectedFromDate = localCurrentDate;
                 $scope.picFromDateOptions = {
                     CurrentDate: localCurrentDate,
-                    InitDate: new Date(initFromDate),
+                    InitDate: localCurrentDate,
                     MinDate: minReportDate,
                     MaxDate: localCurrentDate,
                     IsRerenderPicker: false,

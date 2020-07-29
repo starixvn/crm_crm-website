@@ -237,10 +237,8 @@
       <Mapping DataField="ActionTypeID" ObjectProperty="Id" />
       <Mapping DataField="ActionTypeName" ObjectProperty="Name" />
     </Setting>
-    <Setting Key="Acc_CRM_PicLogSel" SpName="Acc_CRM_PicLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
-      <Mapping DataField="PIC" ObjectProperty="Name" />
-      <Mapping DataField="ActionNameEN" ObjectProperty="ActionName" />
-    </Setting>
+    <Setting Key="Acc_CRM_PicLogSel" SpName="Acc_CRM_PicLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_DirectAccountLogSel" SpName="Acc_CRM_DirectAccountLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>
 		

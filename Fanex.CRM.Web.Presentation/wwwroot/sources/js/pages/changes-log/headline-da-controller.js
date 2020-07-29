@@ -22,7 +22,7 @@
                 HeadlineDA: '',
                 EditBy: '',
                 PageIndex: 1,
-                PageSize: 10
+                PageSize: 100
             };
 
             vm.selectedActions = [];
@@ -59,10 +59,10 @@
                 }
 
                 var getReportCriteria = {
-                    HeadlineDA: vm.searchCriteria.HeadlineDA,
+                    UserName: vm.searchCriteria.HeadlineDA,
                     FromDate: moment(vm.selectedFromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                     ToDate: moment(vm.selectedToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                    Action: vm.selectedActions.map(action => action.Id).join(','),
+                    ActionTypeIds: vm.selectedActions.map(action => action.Id).join(','),
                     EditBy: vm.searchCriteria.EditBy,
                     PageIndex: pageIndex ? pageIndex : vm.searchCriteria.PageIndex,
                     PageSize: pageSize ? pageSize : vm.searchCriteria.PageSize

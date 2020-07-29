@@ -21,6 +21,6 @@
 
         public override string GetSettingKey() => "Acc_CRM_PicLogSel";
 
-        public override bool IsValid() => true;
+        public override bool IsValid() => DateTime.Compare(FromDate, ToDate) < 0;
     }
 }

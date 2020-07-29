@@ -1,8 +1,6 @@
 ﻿namespace Fanex.CRM.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Criteria.PicAndHeadline;
@@ -12,7 +10,7 @@
 
     public class ChangesLogService : IChangesLogService
     {
-        public readonly IBaseService baseService;
+        private readonly IBaseService baseService;
 
         public ChangesLogService() : this(null)
         {
@@ -23,14 +21,14 @@
             this.baseService = baseService ?? new BaseService();
         }
 
-        public BaseReport<ChangeDALogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
+        public BaseReport<ChangeHeadlineDALogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
         {
-            var logInfos = baseService.GetData<ChangeDALogInfo>(criteria);
+            var logInfos = baseService.GetData<ChangeHeadlineDALogInfo>(criteria);
 
-            return new BaseReport<ChangeDALogInfo>
+            return new BaseReport<ChangeHeadlineDALogInfo>
             {
                 DataList = logInfos,
-                Totals = 14
+                Totals = criteria.TotalRows
             };
         }
 

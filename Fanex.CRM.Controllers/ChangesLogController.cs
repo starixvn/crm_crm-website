@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using Fanex.CRM.Common.Constants;
+﻿using System.Web.Mvc;
 using Fanex.CRM.Common.Controllers;
-using Fanex.CRM.Common.Models;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Services;
 using Fanex.CRM.Services.Interfaces;
-using Fanex.NAP.Core.Business;
-using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.CRM.Controllers
 {
     //[NapAuth(FunctionKey = FunctionPermissions.ChangesLog, Policy = Constant.Policy.Read)]
     public class ChangesLogController : BaseController
     {
+        private const int EndHour = 23;
+        private const int EndMinuteSecond = 59;
         private readonly IChangesLogService changesLogService;
 
         public ChangesLogController() : this(null)
@@ -33,12 +30,14 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
         {
+            criteria.ToDate = criteria.ToDate.AddHours(EndHour).AddMinutes(EndMinuteSecond).AddSeconds(EndMinuteSecond);
             var report = changesLogService.GetHeadlineDAReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetPicReport(GetPicLogReportCriteria criteria)
         {
+            criteria.ToDate = criteria.ToDate.AddHours(EndHour).AddMinutes(EndMinuteSecond).AddSeconds(EndMinuteSecond);
             var report = changesLogService.GetPicReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
@@ -47,7 +46,6 @@ namespace Fanex.CRM.Controllers
         {
             var criteria = new GetActionTypeCriteria();
             var actionTypes = changesLogService.GetActionType(criteria);
-
             return Json(actionTypes, JsonRequestBehavior.AllowGet);
         }
     }

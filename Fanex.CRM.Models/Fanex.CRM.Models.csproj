@@ -50,7 +50,7 @@
     <Compile Include="LicenseeMapping\UpdateLicenseeMappingParam.cs" />
     <Compile Include="PicAndHeadline\AssignedDirectAccount.cs" />
     <Compile Include="PicAndHeadline\AssignPic.cs" />
-    <Compile Include="PicAndHeadline\ChangeDALogInfo.cs" />
+    <Compile Include="PicAndHeadline\ChangeHeadlineDALogInfo.cs" />
     <Compile Include="PicAndHeadline\ChangePicLogInfo.cs" />
     <Compile Include="PicAndHeadline\CommunicationTool.cs" />
     <Compile Include="PicAndHeadline\DAInfoLog.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="PicAndHeadline\PicCommunicationTool.cs" />
     <Compile Include="PicAndHeadline\PicInfo.cs" />
     <Compile Include="PicAndHeadline\PicInfoLog.cs" />
+    <Compile Include="PicAndHeadline\PicInfoLogDetail.cs" />
     <Compile Include="PicAndHeadline\PicModel.cs" />
     <Compile Include="PicAndHeadline\PicReport.cs" />
     <Compile Include="PicAndHeadline\RemoveAssignment.cs" />

@@ -5,13 +5,13 @@
     using System.Text.RegularExpressions;
     using System.Xml.Serialization;
 
-    public class ChangeDALogInfo
+    public class ChangeHeadlineDALogInfo
     {
         public int LogId { get; set; }
 
         public string LogTime => $"{LogDate.ToString("MMM dd, yyyy")}\n({LogDate.ToString("hh:mm:ss tt")})";
 
-        public string Name { get; set; }
+        public string DirectAccount { get; set; }
 
         public string Action { get; set; }
 
@@ -29,11 +29,11 @@
 
         private DAInfoLog ConvertXmlToDAInfo(string xml)
         {
-            if (xml != null)
+            if (!string.IsNullOrEmpty(xml))
             {
                 var regexStart = new Regex(@"<\s*[A-Za-z]");
                 var matchStart = regexStart.Match(xml);
-                var regexEnd = new Regex(@"[_A-Za-z0-9]\s+");
+                var regexEnd = new Regex(@"[_A-Za-z0-9][^_A-Za-z0-9]");
                 var matchEnd = regexEnd.Match(xml);
                 var root = xml.Substring(matchStart.Index + matchStart.Length - 1, matchEnd.Index);
                 XmlSerializer serializer = new XmlSerializer(typeof(DAInfoLog), new XmlRootAttribute(root));

@@ -149,7 +149,6 @@
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
-        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
 
         var viewResources = {
             ReportTitle: '@Labels.ChangesLog',

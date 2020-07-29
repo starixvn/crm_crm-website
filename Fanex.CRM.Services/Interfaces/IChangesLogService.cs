@@ -8,7 +8,7 @@
 
     public interface IChangesLogService
     {
-        BaseReport<ChangeDALogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria);
+        BaseReport<ChangeHeadlineDALogInfo> GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria);
 
         BaseReport<ChangePicLogInfo> GetPicReport(GetPicLogReportCriteria criteria);
 

@@ -9,7 +9,7 @@
         };
 
         function getGridHeight() {
-            return crmConstants.MarginBottomPage + 160;
+            return crmConstants.MarginBottomPage + 140;
         }
 
         function getGripOtions(report) {
@@ -23,13 +23,13 @@
                     if (data.Action.toLowerCase().includes('status')) {
                         let directAccountValue = changeValueToHtmlString(preExecuteValue(data.OldPicInfo.DirectAccount), preExecuteValue(data.NewPicInfo.DirectAccount));
                         let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
-                        detailValue = `<div class="container-detail full-height border-bottom-none"><div class="detail-child-col col-title-detail">Direct Account</div><div class="detail-child-col col-value-detail${directAccountValue.backgroundChange}">${directAccountValue.valueChange}</div><div class="detail-child-col col-title-detail">Is Active</div><div class="detail-child-col col-value-detail border-right-none${isActiveValue.backgroundChange}">${isActiveValue.valueChange}</div></div>`;
+                        detailValue = `<div class="container-detail full-height border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Direct Account</div></div><div class="detail-child-col col-value-detail${directAccountValue.backgroundChange}">${directAccountValue.valueChange}</div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Is Active</div></div><div class="detail-child-col col-value-detail border-right-none${isActiveValue.backgroundChange}">${isActiveValue.valueChange}</div></div>`;
                     }
                     else if (data.Action.toLowerCase().includes('ins')) {
                         let languages = data.NewPicInfo.Languages && data.NewPicInfo.Languages.length > 0 ? data.NewPicInfo.Languages.map(lang => lang.Name).join(', ') : '-';
                         let countryValue = data.NewPicInfo.Country ? data.NewPicInfo.Country.Name : '-';
                         let communicationTools = data.NewPicInfo.CommunicationTools.map(comm => `<div>${comm.Name}: ${comm.Value}</div>`).join('');
-                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail">Name</div><div class="detail-child-col col-value-detail">${data.NewPicInfo.Name}</div><div class="detail-child-col col-title-detail">Role</div><div class="detail-child-col col-value-detail border-right-none">${data.NewPicInfo.Role.Name}</div></div><div class="container-detail"><div class="detail-child-col col-title-detail">Language</div><div class="detail-child-col col-value-detail">${languages}</div><div class="detail-child-col col-title-detail">Country</div><div class="detail-child-col col-value-detail border-right-none"><div>${countryValue}</div></div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail">Communication Tool</div><div class="detail-child-col col-value-detail">${communicationTools}</div><div class="detail-child-col col-title-detail">Is Active</div><div class="detail-child-col col-value-detail border-right-none"><div>Yes</div></div></div>`;
+                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Name</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${data.NewPicInfo.Name}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Role</div></div><div class="detail-child-col col-value-detail border-right-none"><div class="padding-left-5px">${data.NewPicInfo.Role.Name}</div></div></div><div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Language</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${languages}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Country</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">${countryValue}</div></div></div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Communication Tool</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${communicationTools}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Is Active</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">Yes</div></div></div></div>`;
 
                     }
                     else if (data.Action.toLowerCase().includes('upd')) {
@@ -43,7 +43,7 @@
                         let oldCommunicationTool = data.OldPicInfo.CommunicationTools.map(comm => `<div>Skype: ${comm.Value}</div>`).join('');
                         let communicationToolValue = changeValueToHtmlString(oldCommunicationTool, newCommunicationTool);
                         let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
-                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail">Name</div><div class="detail-child-col col-value-detail${nameValue.backgroundChange}">${nameValue.valueChange}</div><div class="detail-child-col col-title-detail">Role</div><div class="detail-child-col col-value-detail border-right-none${roleValue.backgroundChange}">${roleValue.valueChange}</div></div><div class="container-detail"><div class="detail-child-col col-title-detail">Language</div><div class="detail-child-col col-value-detail${languageValue.backgroundChange}">${languageValue.valueChange}</div><div class="detail-child-col col-title-detail">Country</div><div class="detail-child-col col-value-detail border-right-none${countryValue.backgroundChange}">${countryValue.valueChange}</div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail">Communication Tool</div><div class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager">${communicationToolValue.valueChange}</div>`;
+                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Name</div></div><div class="detail-child-col col-value-detail${nameValue.backgroundChange}">${nameValue.valueChange}</div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Role</div></div><div class="detail-child-col col-value-detail border-right-none${roleValue.backgroundChange}">${roleValue.valueChange}</div></div><div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Language</div></div><div class="detail-child-col col-value-detail${languageValue.backgroundChange}">${languageValue.valueChange}</div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Country</div></div><div class="detail-child-col col-value-detail border-right-none${countryValue.backgroundChange}">${countryValue.valueChange}</div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Communication Tool</div></div><div class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager">${communicationToolValue.valueChange}</div>`;
                     }
 
                     let columns = [
@@ -51,8 +51,8 @@
                         { Name: "ColLogId", Value: data.LogId, CellAlign: "center" },
                         { Name: "ColLogTime", Value: data.LogTime, CellAlign: "center" },
                         { Name: "ColEditBy", Value: data.EditBy, CellAlign: "center" },
-                        { Name: "ColPIC", Value: data.Name, CellAlign: "center" },
-                        { Name: "ColAction", Value: data.Action },
+                        { Name: "ColPIC", Value: data.PIC, CellAlign: "center" },
+                        { Name: "ColAction", Value: data.Action, CellAlign: "left" },
                         { Name: "ColDetail", Value: detailValue },
                     ];
 
@@ -86,7 +86,7 @@
                 pagerOption: {
                     itemsPerPage: cachedData.scope.lastPicSelectedParams.PageSize,
                     currentPage: cachedData.scope.lastPicSelectedParams.PageIndex - 1,
-                    itemsPerPageArray: [10, 200, 300, 400, 500, 1000],
+                    itemsPerPageArray: [100, 200, 300, 400, 500, 1000],
                     totalItem: report.Totals,
                     pagerSelectCallBack: ReRenderAfterPaged
                 }
@@ -97,7 +97,7 @@
 
         function changeValueToHtmlString(oldValue, newValue) {
             let isChange = newValue !== oldValue;
-            let valueChange = isChange ? `<div class="new-value">${newValue}</div><div class="old-value">${oldValue}</div>` : `<div>${newValue}</div><div>${oldValue}</div>`;
+            let valueChange = isChange ? `<div class="new-value"><div class="padding-left-5px">${newValue}</div></div><div class="old-value"><div class="padding-left-5px">${oldValue}</div></div>` : `<div><div class="padding-left-5px">${newValue}</div></div><div><div class="padding-left-5px">${oldValue}</div></div>`;
             let backgroundChange = isChange ? ' background-change' : '';
 
             return {

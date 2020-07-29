@@ -4,7 +4,6 @@
     using System.Xml.Serialization;
     using Fanex.CRM.Common.Models;
 
-    [XmlType("Acc_CRM_PicUpd_xpre")]
     public class PicInfoLog
     {
         public BaseModel Role { get; set; }
