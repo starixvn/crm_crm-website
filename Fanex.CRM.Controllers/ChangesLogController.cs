@@ -1,12 +1,15 @@
 ﻿using System.Web.Mvc;
+using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Criteria.PicAndHeadline;
 using Fanex.CRM.Services;
 using Fanex.CRM.Services.Interfaces;
+using Fanex.NAP.Core.Business;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.CRM.Controllers
 {
-    //[NapAuth(FunctionKey = FunctionPermissions.ChangesLog, Policy = Constant.Policy.Read)]
+    [NapAuth(FunctionKey = FunctionPermissions.ChangesLog, Policy = Constant.Policy.Read)]
     public class ChangesLogController : BaseController
     {
         private const int EndHour = 23;

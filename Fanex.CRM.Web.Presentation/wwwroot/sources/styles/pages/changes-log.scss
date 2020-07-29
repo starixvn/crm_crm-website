@@ -36,6 +36,7 @@
 .col-title-detail {
     width: 20%;
     background-color: #EBF1F3;
+    box-sizing: border-box;
 }
 
 .col-value-detail {
@@ -87,4 +88,8 @@
 
 .padding-left-5px {
     padding-left: 5px;
+}
+
+form.filter-form {
+    max-width: 1354px;
 }

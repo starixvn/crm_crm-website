@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Criteria.PicAndHeadline;
     using Fanex.CRM.Models;
     using Fanex.CRM.Models.PicAndHeadline;
-    using Fanex.CRM.Common.Models;
-    using System.Collections.Generic;
 
     public interface IChangesLogService
     {
