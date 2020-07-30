@@ -2,7 +2,7 @@
 
 <div id="set-dafault-pic-modal" style="display: none">
     <div class="modal-header" movable-modal>
-        @Labels.SetDefaultPIC
+        {{isShowRemoveBtn ? '@Labels.UpdateDefaultPIC' : '@Labels.SetDefaultPIC'}}
         <span class="icon-close ui-button-icon-primary ui-icon ui-icon-closethick" ng-click="onClickCancelBtn()"></span>
     </div>
     <div class="modal-body">

@@ -351,4 +351,7 @@
   <data name="DefaultPIC" xml:space="preserve">
     <value>Default PIC</value>
   </data>
+  <data name="UpdateDefaultPIC" xml:space="preserve">
+    <value>Update Default PIC</value>
+  </data>
 </root>

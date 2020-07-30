@@ -745,6 +745,15 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Default PIC.
+        /// </summary>
+        public static string UpdateDefaultPIC {
+            get {
+                return ResourceManager.GetString("UpdateDefaultPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
