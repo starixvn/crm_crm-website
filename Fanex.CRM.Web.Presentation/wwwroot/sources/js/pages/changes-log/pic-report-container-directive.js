@@ -18,6 +18,7 @@
             if (reportLength > 0) {
                 for (let i = 0; i < reportLength; i++) {
                     let data = report.DataList[i];
+                    console.log(data)
                     let no = i + 1 + cachedData.scope.lastPicSelectedParams.PageSize * (cachedData.scope.lastPicSelectedParams.PageIndex - 1);
                     let detailValue = '';
                     if (data.Action.toLowerCase().includes('status')) {
@@ -28,8 +29,10 @@
                     else if (data.Action.toLowerCase().includes('ins')) {
                         let languages = data.NewPicInfo.Languages && data.NewPicInfo.Languages.length > 0 ? data.NewPicInfo.Languages.map(lang => lang.Name).join(', ') : '-';
                         let countryValue = data.NewPicInfo.Country ? data.NewPicInfo.Country.Name : '-';
-                        let communicationTools = data.NewPicInfo.CommunicationTools.map(comm => `<div>${comm.Name}: ${comm.Value}</div>`).join('');
-                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Name</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${data.NewPicInfo.Name}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Role</div></div><div class="detail-child-col col-value-detail border-right-none"><div class="padding-left-5px">${data.NewPicInfo.Role.Name}</div></div></div><div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Language</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${languages}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Country</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">${countryValue}</div></div></div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Communication Tool</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${communicationTools}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Is Active</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">Yes</div></div></div></div>`;
+                        let newCommunicationTool = [];
+                        recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
+                        let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+                        detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Name</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${data.NewPicInfo.Name}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Role</div></div><div class="detail-child-col col-value-detail border-right-none"><div class="padding-left-5px">${data.NewPicInfo.Role.Name}</div></div></div><div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Language</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${languages}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Country</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">${countryValue}</div></div></div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Communication Tool</div></div><div class="detail-child-col col-value-detail"><div class="padding-left-5px">${newCommunicationToolValue}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Is Active</div></div><div class="detail-child-col col-value-detail border-right-none"><div><div class="padding-left-5px">Yes</div></div></div></div>`;
 
                     }
                     else if (data.Action.toLowerCase().includes('upd')) {
@@ -39,10 +42,13 @@
                         let oldLanguage = data.OldPicInfo.Languages && data.OldPicInfo.Languages.length > 0 ? data.OldPicInfo.Languages.map(lang => lang.Name).join(', ') : '-';
                         let languageValue = changeValueToHtmlString(oldLanguage, newLanguage)
                         let countryValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Country), preExecuteObject(data.NewPicInfo.Country));
-                        let newCommunicationTool = data.NewPicInfo.CommunicationTools.map(comm => `<div>Skype: ${comm.Value}</div>`).join('');
-                        let oldCommunicationTool = data.OldPicInfo.CommunicationTools.map(comm => `<div>Skype: ${comm.Value}</div>`).join('');
-                        let communicationToolValue = changeValueToHtmlString(oldCommunicationTool, newCommunicationTool);
-                        let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
+                        let newCommunicationTool = [];
+                        recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
+                        let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+                        let oldCommunicationTool = [];
+                        recursiveTool(data.OldPicInfo.CommunicationTools, oldCommunicationTool);
+                        let oldCommunicationToolValue = oldCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+                        let communicationToolValue = changeValueToHtmlString(oldCommunicationToolValue, newCommunicationToolValue);
                         detailValue = `<div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Name</div></div><div class="detail-child-col col-value-detail${nameValue.backgroundChange}">${nameValue.valueChange}</div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Role</div></div><div class="detail-child-col col-value-detail border-right-none${roleValue.backgroundChange}">${roleValue.valueChange}</div></div><div class="container-detail"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Language</div></div><div class="detail-child-col col-value-detail${languageValue.backgroundChange}">${languageValue.valueChange}</div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Country</div></div><div class="detail-child-col col-value-detail border-right-none${countryValue.backgroundChange}">${countryValue.valueChange}</div></div><div class="container-detail border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Communication Tool</div></div><div class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager">${communicationToolValue.valueChange}</div>`;
                     }
 
@@ -134,6 +140,27 @@
             }
 
             return '-';
+        }
+
+        function preExecuteCommTools(tools) {
+            if (tools.length > 0) {
+                let name = tools[0].Name;
+                let value = tools.map(tool => tool.Value).join(', ');
+                let result = `<div>${name}: ${value}</div>`;
+                return result;
+            }
+
+            return '-';
+        }
+
+        function recursiveTool(tools, result) {
+            if (tools.length > 0) {
+                let pivot = tools[0].Name;
+                let childTools = tools.filter(tool => tool.Name === pivot);
+                result.push(childTools)
+                let moreTools = tools.filter(tool => tool.Name !== pivot);
+                recursiveTool(moreTools, result);
+            }
         }
 
         function ReRenderAfterPaged(page_index, itemsPerPage) {
