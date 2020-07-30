@@ -14,10 +14,11 @@ exports.setDefinePlugin = function (key, value) {
 };
 
 exports.extractCSS = function (isProduction) {
-    const commonPath = `${pathConfig.commonPath}`;
+    const env = isProduction ? 'pro' : 'dev';
+    const jsPath = `${pathConfig.scriptPaths.build}/${env}/lib`;
     return {
         plugins: [
-            new MiniCssExtractPlugin({ filename: '[name].chunk.css', chunkFilename: commonPath + '/[name].chunk.css' })
+            new MiniCssExtractPlugin({ filename: '[name].chunk.css', chunkFilename: jsPath + '/[name].chunk.css' })
         ],
         module: {
             rules: [

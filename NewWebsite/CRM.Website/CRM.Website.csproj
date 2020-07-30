@@ -45,14 +45,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
-    <Folder Include="www\sources\js\pages\" />
+    <Folder Include="www\sources\js\pages\notification-list\actions\" />
+    <Folder Include="www\sources\js\pages\notification-list\reducers\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CRM.Controllers\CRM.Controllers.csproj" />
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
     <ProjectReference Include="..\CRM.Models\CRM.Models.csproj" />
+    <ProjectReference Include="..\CRM.Resources\CRM.Resources.csproj" />
     <ProjectReference Include="..\CRM.Services\CRM.Services.csproj" />
   </ItemGroup>
 </Project>

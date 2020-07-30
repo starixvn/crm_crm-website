@@ -1,27 +1,31 @@
-﻿var pathConfig = require('../config/path');
-var pluginGenerator = require('../config/plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+﻿const alias = require('../config/alias');
+const pathConfig = require('../config/path');
+const pluginGenerator = require('../config/plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 function generateConfig(environment) {
-    var jsPath = `${pathConfig.scriptPaths.build}/${environment}`;
-    var cssPath = `${pathConfig.cssPaths.build}/${environment}`;
-    var commonPath = `${pathConfig.commonPath}`;
-    var commonConfigs = {
+    const jsPath = `${pathConfig.scriptPaths.build}/${environment}`;
+    const cssPath = `${pathConfig.cssPaths.build}/${environment}`;
+    const commonConfigs = {
         resolve: {
+            alias: alias,
             extensions: ['.js', '.jsx']
         },
         entry: {
+            /*js*/
             [`${jsPath}/main`]: pathConfig.scriptPaths.main,
-            //[`${jsPath}/pages/home/home`]: pathConfig.scriptPaths.home,
+            [`${jsPath}/pages/notificationlist/index`]: pathConfig.scriptPaths.notificationlist,
 
+            /*css*/
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
-            [`${cssPath}/error`]: pathConfig.cssPaths.error
+            [`${cssPath}/error`]: pathConfig.cssPaths.error,
+            [`${cssPath}/pages/notificationlist/index`]: pathConfig.cssPaths.notificationlist
         },
         output: {
             path: pathConfig.projectRoot,
-            filename: '[name].chunk.js',
-            chunkFilename: commonPath + '/[name].chunk.js',
+            filename: "[name].chunk.js",
+            chunkFilename: `${jsPath}/lib/[name].chunk.js`,
         },
         module: {
             rules: [
@@ -29,30 +33,6 @@ function generateConfig(environment) {
                     test: /\.(js|jsx)$/,
                     loader: ["babel-loader"],
                     exclude: /node_modules/
-                },
-                {
-                    test: /\.(png|jpg|jpeg|gif|svg)$/,
-                    use: [{
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10, // Convert images < 8kb to base64 strings
-                            name: '[hash]-[name].[ext]',
-                            outputPath: '/wwwroot/images/',
-                            publicPath: '/images/'
-                        }
-                    }]
-                },
-                {
-                    test: /\.(woff|woff2|eot|ttf)$/,
-                    use: [{
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10, // Convert images < 8kb to base64 strings
-                            name: '[hash]-[name].[ext]',
-                            outputPath: '/wwwroot/fonts/',
-                            publicPath: '/fonts/'
-                        }
-                    }]
                 }
             ]
         },

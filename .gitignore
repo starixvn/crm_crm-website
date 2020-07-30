@@ -42,5 +42,5 @@ SUMMARY.DISPLAY.xml
 
 /.vs
 node_modules
-/CRM.Website/wwwroot/css/dev/*
-/CRM.Website/wwwroot/js/dev/*
+/NewWebsite/CRM.Website/wwwroot/css/dev
+/NewWebsite/CRM.Website/wwwroot/js/dev

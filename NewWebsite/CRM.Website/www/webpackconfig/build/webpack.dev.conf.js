@@ -1,14 +1,14 @@
-﻿var merge = require('webpack-merge');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var utils = require('./utils');
-var pathConfig = require('../config/path');
+﻿const merge = require('webpack-merge');
+const utils = require('./utils');
+const baseWebpackConfigGenerator = require('./webpack.base.conf');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var baseWebpackConfigGenerator = require('./webpack.base.conf');
+const environment = 'dev';
+const pathConfig = require('../config/path');
+const baseConfigs = baseWebpackConfigGenerator(environment);
 
-var environment = "dev";
-var baseConfigs = baseWebpackConfigGenerator(environment);
-var cssRootPath = `${pathConfig.cssPaths.build}/${environment}`;
-var jsRootPath = `${pathConfig.scriptPaths.build}/${environment}`;
+const cssRootPath = `${pathConfig.cssPaths.build}/${environment}`;
+const jsRootPath = `${pathConfig.scriptPaths.build}/${environment}`;
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
@@ -16,14 +16,12 @@ module.exports = merge(baseConfigs,
         devtool: 'source-map',
         watch: true,
         plugins: [
-            new CleanWebpackPlugin([`${jsRootPath}`], {
+            new CleanWebpackPlugin([`${jsRootPath}/`], {
                 root: process.cwd()
             }),
-
             new CleanWebpackPlugin([`${cssRootPath}/*.css`, `${cssRootPath}/*.map`, `${cssRootPath}/*.js`], {
                 root: process.cwd()
             }),
-
             new CleanWebpackPlugin([`${cssRootPath}/pages/*/*.css`, `${cssRootPath}/pages/*/*.js`, `${cssRootPath}/pages/*/*.map`], {
                 root: process.cwd()
             })

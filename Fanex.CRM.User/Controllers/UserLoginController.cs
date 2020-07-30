@@ -150,6 +150,15 @@
             ssoLogin.SessionId = Session.SessionID;
 
             var loginStatus = _ssoService.SingleSignOn(ssoLogin);
+            if (loginStatus == LoginStatus.LoginSuccessful)
+            {
+                var url = string.Format("{0}auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
+                    AppSetting.ExternalSiteHostUrl,
+                    ssoLogin.UserId,
+                    ssoLogin.OnUserId,
+                    ssoLogin.Time);
+                return new RedirectResult(url);
+            }
 
             return ProcessLoginResult(loginStatus);
         }
