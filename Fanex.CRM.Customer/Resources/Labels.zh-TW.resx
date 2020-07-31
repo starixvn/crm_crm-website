@@ -151,7 +151,8 @@
     <value>Bank's Name</value>
   </data>
   <data name="BBM" xml:space="preserve">
-    <value>BBM</value>
+    <value>Zalo</value>
+    <comment>#137991</comment>
   </data>
   <data name="Betting_Code" xml:space="preserve">
     <value>Betting Code</value>
@@ -304,7 +305,8 @@
     <value>Mobile</value>
   </data>
   <data name="MSN" xml:space="preserve">
-    <value>MSN</value>
+    <value>Telegram</value>
+    <comment>#137991</comment>
   </data>
   <data name="Nick_Name" xml:space="preserve">
     <value>Nickname</value>
@@ -439,7 +441,8 @@
     <value>What's App</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>Letstalk</value>
+    <comment>#137991</comment>
   </data>
   <data name="ConfirmSearchByGuest1" xml:space="preserve">
     <value>Do you want to search guest customer's information?</value>

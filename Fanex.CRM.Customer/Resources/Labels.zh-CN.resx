@@ -148,7 +148,8 @@
     <value>银行名字</value>
   </data>
   <data name="BBM" xml:space="preserve">
-    <value>BBM</value>
+    <value>Zalo</value>
+    <comment>#137991</comment>
   </data>
   <data name="Betting_Code" xml:space="preserve">
     <value>投注编码</value>
@@ -286,7 +287,8 @@
     <value>手机</value>
   </data>
   <data name="MSN" xml:space="preserve">
-    <value>MSN</value>
+    <value>Telegram</value>
+    <comment>#137991</comment>
   </data>
   <data name="Nick_Name" xml:space="preserve">
     <value>昵称</value>

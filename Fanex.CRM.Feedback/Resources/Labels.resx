@@ -337,7 +337,7 @@
     <value>Mobile</value>
   </data>
   <data name="MSN" xml:space="preserve">
-    <value>MSN</value>
+    <value>Telegram</value>
   </data>
   <data name="OverwriteCRMInfo" xml:space="preserve">
     <value>Overwrite current CRM Info</value>
@@ -442,13 +442,13 @@
     <value>What's App</value>
   </data>
   <data name="BBM" xml:space="preserve">
-    <value>BBM</value>
+    <value>Zalo</value>
   </data>
   <data name="QQ" xml:space="preserve">
     <value>QQ</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>Letstalk</value>
   </data>
   <data name="DeletedFeedbackTitle" xml:space="preserve">
     <value>Deleted Feedback</value>

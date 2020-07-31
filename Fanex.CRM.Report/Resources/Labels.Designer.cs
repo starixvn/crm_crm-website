@@ -160,7 +160,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BBM.
+        ///   Looks up a localized string similar to Zalo.
         /// </summary>
         public static string BBM {
             get {
@@ -1384,7 +1384,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MSN.
+        ///   Looks up a localized string similar to Telegram.
         /// </summary>
         public static string MSN {
             get {
@@ -2491,7 +2491,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yahoo.
+        ///   Looks up a localized string similar to Letstalk.
         /// </summary>
         public static string Yahoo {
             get {
