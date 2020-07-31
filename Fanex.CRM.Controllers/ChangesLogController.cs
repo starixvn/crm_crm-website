@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using Fanex.CRM.Common.Constants;
 using Fanex.CRM.Common.Controllers;
 using Fanex.CRM.Criteria.PicAndHeadline;
+using Fanex.CRM.Resources;
 using Fanex.CRM.Services;
 using Fanex.CRM.Services.Interfaces;
 using Fanex.NAP.Core.Business;
@@ -50,6 +53,13 @@ namespace Fanex.CRM.Controllers
             var criteria = new GetActionTypeCriteria();
             var actionTypes = changesLogService.GetActionType(criteria);
             return Json(actionTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetLogActions()
+        {
+            var logActions = Enum.GetValues(typeof(LogAction)).Cast<LogAction>().Select(action => $"\"{action.ToString()}\": {(int)action}");
+            var result = $"{{ {string.Join(", ", logActions)} }}";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

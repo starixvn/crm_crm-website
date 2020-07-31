@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/*
+ * Global variable: logActions
+ */
+(function () {
     "use strict";
     angular.module('changes-log-application').directive('picTableReportContainer', function () {
         let cachedData = {
@@ -20,148 +23,17 @@
                     let data = report.DataList[i];
                     let no = i + 1 + cachedData.scope.lastPicSelectedParams.PageSize * (cachedData.scope.lastPicSelectedParams.PageIndex - 1);
                     let detailValue = '';
-                    if (data.Action.toLowerCase().includes('status')) {
-                        let directAccountValue = changeValueToHtmlString(preExcecuteArray(data.OldPicInfo.DirectAccounts), preExcecuteArray(data.NewPicInfo.DirectAccounts));
-                        let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
 
-                        detailValue = `
-                            <div class="container-detail border-bottom-none">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.DirectAccount}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail${directAccountValue.backgroundChange}"
-                              >
-                                ${directAccountValue.valueChange}
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.IsActive}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail border-right-none${isActiveValue.backgroundChange}"
-                              >
-                                ${isActiveValue.valueChange}
-                              </div>
-                            </div>
-                        `;
-                    }
-                    else if (data.Action.toLowerCase().includes('ins')) {
-                        let languages = preExcecuteArray(data.NewPicInfo.Languages);
-                        let countryValue = data.NewPicInfo.Country ? data.NewPicInfo.Country.Name : '-';
-                        let newCommunicationTool = [];
-                        recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
-                        let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
-
-                        detailValue = `
-                            <div class="container-detail">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Name}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail">
-                                <div class="padding-5px">${data.NewPicInfo.Name}</div>
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Role}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail border-right-none">
-                                <div class="padding-5px">${data.NewPicInfo.Role.Name}</div>
-                              </div>
-                            </div>
-                            <div class="container-detail">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Language}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail">
-                                <div class="padding-5px">${languages}</div>
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Country}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail border-right-none">
-                                <div>
-                                  <div class="padding-5px">${countryValue}</div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="container-detail border-bottom-none">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.CommunicationTool}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail">
-                                <div class="padding-5px">${newCommunicationToolValue}</div>
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.IsActive}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail border-right-none">
-                                <div>
-                                  <div class="padding-5px">Yes</div>
-                                </div>
-                              </div>
-                            </div>
-                        `;
-                    }
-                    else if (data.Action.toLowerCase().includes('upd')) {
-                        let roleValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Role), preExecuteObject(data.NewPicInfo.Role));
-                        let nameValue = changeValueToHtmlString(data.OldPicInfo.Name, data.NewPicInfo.Name);
-                        let newLanguage = preExcecuteArray(data.NewPicInfo.Languages);
-                        let oldLanguage = preExcecuteArray(data.OldPicInfo.Languages);
-                        let languageValue = changeValueToHtmlString(oldLanguage, newLanguage)
-                        let countryValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Country), preExecuteObject(data.NewPicInfo.Country));
-                        let newCommunicationTool = [];
-                        recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
-                        let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
-                        let oldCommunicationTool = [];
-                        recursiveTool(data.OldPicInfo.CommunicationTools, oldCommunicationTool);
-                        let oldCommunicationToolValue = oldCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
-                        let communicationToolValue = changeValueToHtmlString(oldCommunicationToolValue, newCommunicationToolValue);
-
-                        detailValue = `
-                            <div class="container-detail">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Name}</div>
-                              </div>
-                              <div class="detail-child-col col-value-detail${nameValue.backgroundChange}">
-                                ${nameValue.valueChange}
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Role}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail border-right-none${roleValue.backgroundChange}"
-                              >
-                                ${roleValue.valueChange}
-                              </div>
-                            </div>
-                            <div class="container-detail">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Language}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail${languageValue.backgroundChange}"
-                              >
-                                ${languageValue.valueChange}
-                              </div>
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.Country}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail border-right-none${countryValue.backgroundChange}"
-                              >
-                                ${countryValue.valueChange}
-                              </div>
-                            </div>
-                            <div class="container-detail border-bottom-none">
-                              <div class="detail-child-col col-title-detail">
-                                <div class="padding-5px">${viewResources.CommunicationTool}</div>
-                              </div>
-                              <div
-                                class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager"
-                              >
-                                ${communicationToolValue.valueChange}
-                              </div>
-                            </div>                            
-                        `;
+                    switch (data.ActionId) {
+                        case logActions.InsertNewPic:
+                            detailValue = getDetailValueInsertNewPic(data);
+                            break;
+                        case logActions.UpdatePic:
+                            detailValue = getDetailValueUpdatePic(data);
+                            break;
+                        case logActions.UpdatePicStatus:
+                            detailValue = getDetailValueUpdatePicStatus(data);
+                            break;
                     }
 
                     let columns = [
@@ -278,6 +150,152 @@
                 let moreTools = tools.filter(tool => tool.Name !== pivot);
                 recursiveTool(moreTools, result);
             }
+        }
+
+        function getDetailValueUpdatePicStatus(data) {
+            let directAccountValue = changeValueToHtmlString(preExcecuteArray(data.OldPicInfo.DirectAccounts), preExcecuteArray(data.NewPicInfo.DirectAccounts));
+            let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
+
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.DirectAccount}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail${directAccountValue.backgroundChange}"
+                    >
+                    ${directAccountValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.IsActive}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail border-right-none${isActiveValue.backgroundChange}"
+                    >
+                    ${isActiveValue.valueChange}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getDetailValueInsertNewPic(data) {
+            let languages = preExcecuteArray(data.NewPicInfo.Languages);
+            let countryValue = data.NewPicInfo.Country ? data.NewPicInfo.Country.Name : '-';
+            let newCommunicationTool = [];
+            recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
+            let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+
+            return `
+                <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Name}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail">
+                    <div class="padding-5px">${data.NewPicInfo.Name}</div>
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Role}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none">
+                    <div class="padding-5px">${data.NewPicInfo.Role.Name}</div>
+                    </div>
+                </div>
+                <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Language}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail">
+                    <div class="padding-5px">${languages}</div>
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Country}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none">
+                    <div>
+                        <div class="padding-5px">${countryValue}</div>
+                    </div>
+                    </div>
+                </div>
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail">
+                    <div class="padding-5px">${newCommunicationToolValue}</div>
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.IsActive}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none">
+                    <div>
+                        <div class="padding-5px">Yes</div>
+                    </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getDetailValueUpdatePic(data) {
+            let roleValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Role), preExecuteObject(data.NewPicInfo.Role));
+            let nameValue = changeValueToHtmlString(data.OldPicInfo.Name, data.NewPicInfo.Name);
+            let newLanguage = preExcecuteArray(data.NewPicInfo.Languages);
+            let oldLanguage = preExcecuteArray(data.OldPicInfo.Languages);
+            let languageValue = changeValueToHtmlString(oldLanguage, newLanguage)
+            let countryValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Country), preExecuteObject(data.NewPicInfo.Country));
+            let newCommunicationTool = [];
+            recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
+            let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+            let oldCommunicationTool = [];
+            recursiveTool(data.OldPicInfo.CommunicationTools, oldCommunicationTool);
+            let oldCommunicationToolValue = oldCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+            let communicationToolValue = changeValueToHtmlString(oldCommunicationToolValue, newCommunicationToolValue);
+
+            return `
+                <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Name}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail${nameValue.backgroundChange}">
+                    ${nameValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Role}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail border-right-none${roleValue.backgroundChange}"
+                    >
+                    ${roleValue.valueChange}
+                    </div>
+                </div>
+                <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Language}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail${languageValue.backgroundChange}"
+                    >
+                    ${languageValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Country}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail border-right-none${countryValue.backgroundChange}"
+                    >
+                    ${countryValue.valueChange}
+                    </div>
+                </div>
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager"
+                    >
+                    ${communicationToolValue.valueChange}
+                    </div>
+                </div>                            
+            `;
         }
 
         function ReRenderAfterPaged(page_index, itemsPerPage) {

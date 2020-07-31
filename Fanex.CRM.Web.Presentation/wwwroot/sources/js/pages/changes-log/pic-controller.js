@@ -43,7 +43,9 @@
             };
 
             vm.validateAndQuery = function () {
-                if ($scope.lastPicSelectedParams.ToDate < $scope.lastPicSelectedParams.FromDate) {
+                let toDate = new Date($scope.lastPicSelectedParams.ToDate);
+                let fromDate = new Date($scope.lastPicSelectedParams.FromDate);
+                if (toDate.getTime() - fromDate.getTime() < 0) {
                     $scope.$parent.isError = true;
                     $scope.$parent.errorMessage = viewResources.ToDateCanNotBeforeFromDate;
                     $uiBlockerService.unblockUI();

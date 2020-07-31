@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/*
+ * Global variable: logActions
+ */
+(function () {
     "use strict";
     angular.module('changes-log-application').directive('headlineDaTableReportContainer', function () {
         let cachedData = {
@@ -19,25 +22,40 @@
                 for (let i = 0; i < reportLength; i++) {
                     let data = report.DataList[i];
                     let no = i + 1 + cachedData.scope.lastHeadlineDASelectedParams.PageSize * (cachedData.scope.lastHeadlineDASelectedParams.PageIndex - 1);
-                    console.log(data)
                     let detailValue = '';
-                    if (data.Action.toLowerCase().includes('remove')) {
-                        let value = preExecutePics(data.NewDAInfo.Pics);
-                        detailValue = `<div class="container-detail full-height border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">PIC</div></div><div class="detail-child-col border-right-none col-value-lager"><div class="padding-left-5px">${value}</div></div></div>`;
-                    }
-                    else if (data.Action.toLowerCase().includes('assign') || data.Action.toLowerCase().includes('update')) {
-                        let groupHeadlineValue = changeValueToHtmlString(preExecuteValue(data.OldDAInfo.GroupHeadline), preExecuteValue(data.NewDAInfo.GroupHeadline));
-                        let picsValue = changeValueToHtmlString(preExecutePics(data.OldDAInfo.Pics), preExecutePics(data.NewDAInfo.Pics));
-                        detailValue = `<div class="container-detail full-height border-bottom-none"><div class="detail-child-col col-title-detail"><div class="padding-left-5px">Group Headline</div></div><div class="detail-child-col col-value-detail${groupHeadlineValue.backgroundChange}"><div class="padding-left-5px">${groupHeadlineValue.valueChange}</div></div><div class="detail-child-col col-title-detail"><div class="padding-left-5px">PIC</div></div><div class="detail-child-col border-right-none col-value-detail${picsValue.backgroundChange}"><div class="padding-left-5px">${picsValue.valueChange}</div></div></div>`;
+
+                    switch (data.ActionId) {
+                        case logActions.RemoveDirectAccountFromPic:
+                        case logActions.AssignDirectAccountToPic:
+                        case logActions.RemoveDefaultPicForAGroupHeadline:
+                            detailValue = getDetailValuePic(data);
+                            break;
+                        case logActions.UpdateThePicOfAHeadline:
+                            detailValue = getDetailValueGroupHeadlinePicBoth(data);
+                            break;
+                        case logActions.UpdateDefaultPicForAGroupHeadline:
+                            detailValue = getDetailValuePicBoth(data);
+                            break;
+                        case logActions.AddCustomerToCreditTermGroup:
+                        case logActions.RemoveCustomerFromCreditTermGroup:
+                        case logActions.AddTheGeneralInformationForSuperFromExistingSuper:
+                            detailValue = getDetailValueGroupHeadline(data)
+                            break;
+                        case logActions.UpdateCreditTerm:
+                            detailValue = getDetailValueIsGroupHeadlineBoth(data);
+                            break;
+                        case logActions.SetCustomerToCreditTermGroup:
+                            detailValue = getDetailValueIsGroupHeadline();
+                            break;
                     }
 
                     let columns = [
-                        { Name: "ColNo", Value: no, CellAlign: "center" },
-                        { Name: "ColLogId", Value: data.LogId, CellAlign: "center" },
-                        { Name: "ColLogTime", Value: data.LogTime, CellAlign: "center" },
-                        { Name: "ColEditBy", Value: data.EditBy, CellAlign: "center" },
-                        { Name: "ColHeadlineDA", Value: data.DirectAccount, CellAlign: "center" },
-                        { Name: "ColAction", Value: data.Action, CellAlign: "left" },
+                        { Name: "ColNo", Value: `<div class="padding-5px">${no}</div>`, CellAlign: "center" },
+                        { Name: "ColLogId", Value: `<div class="padding-5px">${data.LogId}</div>`, CellAlign: "center" },
+                        { Name: "ColLogTime", Value: `<div class="padding-5px">${data.LogTime}</div>`, CellAlign: "center" },
+                        { Name: "ColEditBy", Value: `<div class="padding-5px">${data.EditBy}</div>`, CellAlign: "center" },
+                        { Name: "ColHeadlineDA", Value: `<div class="padding-5px">${data.DirectAccount}</div>`, CellAlign: "center" },
+                        { Name: "ColAction", Value: `<div class="padding-5px">${data.Action}</div>`, CellAlign: "left" },
                         { Name: "ColDetail", Value: detailValue },
                     ];
 
@@ -82,8 +100,13 @@
 
         function changeValueToHtmlString(oldValue, newValue) {
             let isChange = newValue !== oldValue;
-            let valueChange = isChange ? `<div class="new-value"><div class="padding-left-5px">${newValue}</div></div><div class="old-value"><div class="padding-left-5px">${oldValue}</div></div>` : `<div><div class="padding-left-5px">${newValue}</div></div><div><div class="padding-left-5px">${oldValue}</div></div>`;
             let backgroundChange = isChange ? ' background-change' : '';
+            let valueChange = isChange ? `
+                <div class="new-value"><div class="padding-5px">${newValue}</div></div>
+                <div class="old-value"><div class="padding-5px">${oldValue}</div></div>
+                ` : `
+                <div><div class="padding-5px">${newValue}</div></div>
+                <div><div class="padding-5px">${oldValue}</div></div>`;
 
             return {
                 valueChange,
@@ -102,20 +125,119 @@
             return '-';
         }
 
-        function preExecuteValue(value) {
-            if (value === null) {
-                return '-';
-            }
-
-            return value;
-        }
-
         function preExecutePics(pics) {
             if (pics && pics.length > 0) {
                 return pics.map(pic => `${pic.PicName} (${pic.RoleName})`).join(', ');
             }
 
             return '-';
+        }
+
+        function preExecuteValue(value) {
+            if (value) {
+                return value;
+            }
+
+            return '-';
+        }
+
+        function getDetailValuePic(data) {
+            let picsValue = preExecutePics(data.NewDAInfo.Pics);
+
+            return `
+                <div class="container-detail border-bottom-none min-height-38px">
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.PIC}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                        <div class="padding-5px">${picsValue}</div>
+                    </div>
+                </div>                            
+            `;
+        }
+
+        function getDetailValueGroupHeadlinePicBoth(data) {
+            let groupHeadlineValue = changeValueToHtmlString(preExecuteValue(data.OldDAInfo.GroupHeadline), preExecuteValue(data.NewDAInfo.GroupHeadline));
+            let picsValue = changeValueToHtmlString(preExecutePics(data.OldDAInfo.Pics), preExecutePics(data.NewDAInfo.Pics));
+
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.GroupHeadline}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail${groupHeadlineValue.backgroundChange}">
+                    ${groupHeadlineValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.PIC}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none${picsValue.backgroundChange}">
+                    ${picsValue.valueChange}
+                    </div>
+                </div>                            
+            `;
+        }
+
+        function getDetailValuePicBoth(data) {
+            let picsValue = changeValueToHtmlString(preExecutePics(data.OldDAInfo.Pics), preExecutePics(data.NewDAInfo.Pics));
+
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.PIC}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none col-value-lager${picsValue.backgroundChange}">
+                    ${picsValue.valueChange}
+                    </div>
+                </div>                            
+            `;
+        }
+
+        function getDetailValueGroupHeadline(data) {
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail min-height-38px">
+                        <div class="padding-5px">${viewResources.GroupHeadline}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                        <div class="padding-5px">${data.NewDAInfo.GroupHeadline}</div>
+                    </div>
+                </div>                            
+            `;
+        }
+
+        function getDetailValueIsGroupHeadlineBoth(data) {
+            let groupHeadlineValue = changeValueToHtmlString(preExecuteValue(data.OldDAInfo.GroupHeadline), data.NewDAInfo.GroupHeadline)
+            let isGroupHeadlineValue = changeValueToHtmlString(convertBoolToDecicion(data.OldDAInfo.IsGroupHeadline), convertBoolToDecicion(data.NewDAInfo.IsGroupHeadline));
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.GroupHeadline}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail${groupHeadlineValue.backgroundChange}">
+                    ${groupHeadlineValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                        <div class="padding-5px">${viewResources.IsGroupHeadline}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none${isGroupHeadlineValue.backgroundChange}">
+                    ${isGroupHeadlineValue.valueChange}
+                    </div>
+                </div>                            
+            `;
+        }
+
+        function getDetailValueIsGroupHeadline() {
+            return `
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail min-height-38px">
+                        <div class="padding-5px">${viewResources.IsGroupHeadline}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                        <div class="padding-5px">Yes</div>
+                    </div>
+                </div>                            
+            `;
         }
 
         function ReRenderAfterPaged(page_index, itemsPerPage) {

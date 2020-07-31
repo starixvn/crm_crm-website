@@ -5,7 +5,7 @@
 
     public class DAInfoLog
     {
-        [XmlAttribute("GroupHeadline")]
+        [XmlAttribute("HeadlineName")]
         public string GroupHeadline { get; set; }
 
         [XmlElement(ElementName = "PIC")]

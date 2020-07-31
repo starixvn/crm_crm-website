@@ -68,7 +68,9 @@
                     PageSize: pageSize ? pageSize : vm.searchCriteria.PageSize
                 };
 
-                if (getReportCriteria.ToDate < getReportCriteria.FromDate) {
+                let toDate = new Date(getReportCriteria.ToDate);
+                let fromDate = new Date(getReportCriteria.FromDate);
+                if (toDate.getTime() - fromDate.getTime() < 0) {
                     $scope.$parent.isError = true;
                     $scope.$parent.errorMessage = viewResources.ToDateCanNotBeforeFromDate;
                     $uiBlockerService.unblockUI();
