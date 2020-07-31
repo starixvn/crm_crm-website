@@ -15,14 +15,15 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <_IsPortable>false</_IsPortable>
+    <CodeAnalysisRuleSet>..\SonarQube\crmcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>Fanex.CRM.BackgroundJob.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\SonarQube\crmcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>Fanex.CRM.BackgroundJob.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\SonarQube\crmcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

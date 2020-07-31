@@ -7,14 +7,17 @@ const cssPaths = {
 
     main: ['./www/sources/css/main.scss'],
     error: ['./www/sources/css/pages/error.scss'],
-    notificationlist: ['./www/sources/css/pages/notification-list/index.scss']
+    notification_list: ['./www/sources/css/pages/notification-list/index.scss'],
+    notification_template: ['./www/sources/css/pages/notification-template/index.scss']
 };
 
 const scriptPaths = {
     build: 'wwwroot/js',
 
+    language: ['./www/sources/js/common/languages/ViewResources.js'],
     main: ['./www/sources/js/main.js'],
-    notificationlist: ['./www/sources/js/pages/notification-list/components/index.jsx']
+    notification_list: ['./www/sources/js/pages/notification-list/components/index.jsx'],
+    notification_template: ['./www/sources/js/pages/notification-template/index.js']
 };
 
 module.exports = {

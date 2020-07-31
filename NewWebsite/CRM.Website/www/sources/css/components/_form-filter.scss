@@ -1,0 +1,12 @@
+﻿.form-filter {
+    border: 1px solid #b7b7b7;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #e8e8e8;
+
+    input, select {
+        &.form-control {
+            width: 150px;
+        }
+    }
+}

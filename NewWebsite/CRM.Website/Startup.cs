@@ -116,7 +116,15 @@
             services.AddHealthChecks()
                 .AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "__RequestVerificationToken";
+            });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             RegisterDI(services);
         }

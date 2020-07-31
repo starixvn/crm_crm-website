@@ -19,3 +19,25 @@ body {
     color: #252525;
     background: #f1f1f1;
 }
+
+.container-fluid {
+    padding: 15px;
+}
+
+.loading-process {
+    background: rgba(255, 255, 255, 0.7) no-repeat;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+
+    .icon-loading {
+        position: absolute;
+        top: 30%;
+        width: 64px;
+        height: 64px;
+        left: 50%;
+        margin: -10px 0 0 -70px;
+    }
+}

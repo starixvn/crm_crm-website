@@ -1,0 +1,14 @@
+﻿namespace Fanex.CRM.Controllers
+{
+    using System.Web.Mvc;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
+
+    public class NotificationTemplateController : ReadOnlyBaseController
+    {
+        public ActionResult Index()
+        {
+            return new RedirectResult(string.Format("{0}NotificationTemplate", AppSetting.ExternalSiteHostUrl));
+        }
+    }
+}

@@ -61,6 +61,24 @@ namespace CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification List.
+        /// </summary>
+        public static string NotificationList {
+            get {
+                return ResourceManager.GetString("NotificationList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Template.
+        /// </summary>
+        public static string NotificationTemplate {
+            get {
+                return ResourceManager.GetString("NotificationTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {

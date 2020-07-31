@@ -14,13 +14,16 @@ function generateConfig(environment) {
         },
         entry: {
             /*js*/
+            [`${jsPath}/lib/lang-en-US`]: pathConfig.scriptPaths.language,
             [`${jsPath}/main`]: pathConfig.scriptPaths.main,
-            [`${jsPath}/pages/notificationlist/index`]: pathConfig.scriptPaths.notificationlist,
+            [`${jsPath}/pages/notificationlist/index`]: pathConfig.scriptPaths.notification_list,
+            [`${jsPath}/pages/notificationtemplate/index`]: pathConfig.scriptPaths.notification_template,
 
             /*css*/
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
             [`${cssPath}/error`]: pathConfig.cssPaths.error,
-            [`${cssPath}/pages/notificationlist/index`]: pathConfig.cssPaths.notificationlist
+            [`${cssPath}/pages/notificationlist/index`]: pathConfig.cssPaths.notification_list,
+            [`${cssPath}/pages/notificationtemplate/index`]: pathConfig.cssPaths.notification_template
         },
         output: {
             path: pathConfig.projectRoot,
