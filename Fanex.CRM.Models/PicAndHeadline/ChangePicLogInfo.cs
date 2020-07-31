@@ -29,7 +29,7 @@
 
         public PicInfoLog NewPicInfo => ConvertXmlToPicInfo(NewValues);
 
-        private PicInfoLog ConvertXmlToPicInfo(string xml)
+        private static PicInfoLog ConvertXmlToPicInfo(string xml)
         {
             if (!string.IsNullOrEmpty(xml))
             {

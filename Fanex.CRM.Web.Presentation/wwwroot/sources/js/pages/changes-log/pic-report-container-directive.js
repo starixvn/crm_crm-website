@@ -12,7 +12,7 @@
         };
 
         function getGridHeight() {
-            return crmConstants.MarginBottomPage + 140;
+            return crmConstants.MarginBottomPage + 150;
         }
 
         function getGripOtions(report) {
@@ -20,6 +20,36 @@
             let reportLength = report ? report.DataList.length : 0;
             if (reportLength > 0) {
                 for (let i = 0; i < reportLength; i++) {
+                    let data = report.DataList[i];
+                    let no = i + 1 + cachedData.scope.lastPicSelectedParams.PageSize * (cachedData.scope.lastPicSelectedParams.PageIndex - 1);
+                    let detailValue = '';
+
+                    switch (data.ActionId) {
+                        case logActions.InsertNewPic:
+                            detailValue = getDetailValueInsertNewPic(data);
+                            break;
+                        case logActions.UpdatePic:
+                            detailValue = getDetailValueUpdatePic(data);
+                            break;
+                        case logActions.UpdatePicStatus:
+                            detailValue = getDetailValueUpdatePicStatus(data);
+                            break;
+                    }
+
+                    let columns = [
+                        { Name: "ColNo", Value: `<div class="padding-5px">${no}</div>`, CellAlign: "center" },
+                        { Name: "ColLogId", Value: `<div class="padding-5px">${data.LogId}</div>`, CellAlign: "center" },
+                        { Name: "ColLogTime", Value: `<div class="padding-5px">${data.LogTime}</div>`, CellAlign: "center" },
+                        { Name: "ColEditBy", Value: `<div class="padding-5px">${data.EditBy}</div>`, CellAlign: "center" },
+                        { Name: "ColPIC", Value: `<div class="padding-5px">${data.PIC}</div>`, CellAlign: "center" },
+                        { Name: "ColAction", Value: `<div class="padding-5px">${data.Action}</div>`, CellAlign: "left" },
+                        { Name: "ColDetail", Value: detailValue },
+                    ];
+
+                    bodyData.push({
+                        Columns: columns
+                    });
+                } for (let i = 0; i < reportLength; i++) {
                     let data = report.DataList[i];
                     let no = i + 1 + cachedData.scope.lastPicSelectedParams.PageSize * (cachedData.scope.lastPicSelectedParams.PageIndex - 1);
                     let detailValue = '';

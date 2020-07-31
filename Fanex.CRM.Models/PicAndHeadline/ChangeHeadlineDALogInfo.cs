@@ -29,7 +29,7 @@
 
         public DAInfoLog NewDAInfo => ConvertXmlToDAInfo(NewValues);
 
-        private DAInfoLog ConvertXmlToDAInfo(string xml)
+        private static DAInfoLog ConvertXmlToDAInfo(string xml)
         {
             if (!string.IsNullOrEmpty(xml))
             {

@@ -4,6 +4,21 @@
 
     public static class FeedbackBundles
     {
+        private const string BlockUI = "~/Scripts/ShareScripts/Applications/BlockUI.js";
+        private const string HotKeyManager = "~/Scripts/ShareScripts/HotKeyManager.js";
+        private const string DirectiveManager = "~/Scripts/ShareScripts/DirectiveManager.js";
+        private const string DropdownList = "~/Scripts/ShareScripts/Directives/DropdownList.js";
+        private const string RegisterTemplate = "~/Scripts/ShareScripts/Directives/RegisterTemplate.js";
+        private const string MultiLevelDropdown = "~/Scripts/Directives/multileveldropdown/multileveldropdown.js";
+        private const string FanexGridCss = "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css";
+        private const string CustomizeFanexGridLess = "~/Content/site/customizeFanexGridV2.less";
+        private const string FanexPaginationCss = "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css";
+        private const string DatePicker = "~/Scripts/ShareScripts/Directives/DatePicker.js";
+        private const string DefaultFocus = "~/Scripts/ShareScripts/Directives/DefaultFocus.js";
+        private const string SettingManager = "~/Scripts/ShareScripts/SettingManager.js";
+        private const string RawHtml = "~/Scripts/ShareScripts/Directives/RawHtml.js";
+        private const string RelatedCustomerResult = "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js";
+
         public static void RegisterAll(BundleCollection bundles)
         {
             RegisterManageFeedbackBundles(bundles);
@@ -21,12 +36,12 @@
         private static void RegisterManageFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
+                DefaultFocus,
+                RegisterTemplate,
                 "~/wwwroot/dist/js/manage.feedback.js"));
         }
 
@@ -35,21 +50,22 @@
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                    BlockUI,
                     ScriptPathConstant.MomentScriptPath,
-                    "~/Scripts/ShareScripts/SettingManager.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                    SettingManager,
+                    HotKeyManager,
+                    DirectiveManager,
+                    DropdownList,
                     "~/Scripts/ShareScripts/Directives/DropdownSite.js",
-                    "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                    DatePicker,
                     "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                     "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                     "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                    "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                    RawHtml,
+                    RelatedCustomerResult,
+                    MultiLevelDropdown,
+                    DefaultFocus,
+                    RegisterTemplate,
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackService.js",
                     "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Options.js",
@@ -68,20 +84,20 @@
             bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                    BlockUI,
                     ScriptPathConstant.MomentScriptPath,
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                    "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                    HotKeyManager,
+                    DirectiveManager,
+                    DropdownList,
+                    DatePicker,
                     "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                     "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                     "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                    "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
+                    RawHtml,
+                    RelatedCustomerResult,
+                    MultiLevelDropdown,
+                    DefaultFocus,
+                    RegisterTemplate,
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackApplication.js",
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackService.js",
                     "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_Options.js",
@@ -99,8 +115,8 @@
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
                 "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                RegisterTemplate,
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackApplication.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackController.js",
                 "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",
@@ -109,20 +125,20 @@
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles",
                 "~/Scripts/Tipsy-Tooltip/tipsy.css",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
+                FanexGridCss,
+                CustomizeFanexGridLess,
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
         private static void RegisterDeletedFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                DirectiveManager,
+                DropdownList,
+                DatePicker,
+                DefaultFocus,
+                RegisterTemplate,
                 "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackApplication.js",
                 "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackController.js",
                 "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackService.js",
@@ -130,9 +146,9 @@
 
             bundles.AddAndInclude(
                 "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css",
+                FanexGridCss,
+                CustomizeFanexGridLess,
+                FanexPaginationCss,
                 "~/Areas/Feedbacks/DeletedFeedback/Styles/StyleSheet.less");
         }
 
@@ -145,19 +161,20 @@
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
                 .Include(
                     "~/Scripts/AngularJS/angular-sanitize.js",
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                    BlockUI,
                     "~/Scripts/ShareScripts/Applications/AlertBox.js",
                     ScriptPathConstant.MomentScriptPath,
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/SettingManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
+                    HotKeyManager,
+                    SettingManager,
+                    DirectiveManager,
                     "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                     "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                    RawHtml,
+                    DefaultFocus,
+                    DropdownList,
+                    RelatedCustomerResult,
+                    RegisterTemplate,
+                    MultiLevelDropdown,
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackApplication.js",
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackService.js",
                     "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackController.js",
@@ -174,14 +191,14 @@
                 "~/Scripts/autocomplete/jquery.highlight-3.js",
                 "~/Scripts/autocomplete/jquery.autocomplete.client.js",
                 "~/Scripts/common.js",
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                BlockUI,
+                HotKeyManager,
+                SettingManager,
+                DirectiveManager,
+                DropdownList,
+                RegisterTemplate,
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js"));
+                MultiLevelDropdown));
 
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/CreateMultipleLogsDirectiveScripts").Include(
                 "~/wwwroot/sources/js/pages/feedbacks/create-multiple-logs/directives/*.js"));
@@ -198,16 +215,16 @@
         private static void RegisterEditMultipleLogsBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/EditMultipleLogsScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
-                "~/Scripts/ShareScripts/Directives/RawHtml.js",
+                BlockUI,
+                HotKeyManager,
+                SettingManager,
+                DirectiveManager,
+                DropdownList,
+                RegisterTemplate,
+                RelatedCustomerResult,
+                RawHtml,
                 "~/Scripts/Directives/selectwithsearch/selectwithsearch.js",
-                "~/Scripts/Directives/multileveldropdown/multileveldropdown.js",
+                MultiLevelDropdown,
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsApplication.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsOption.js",
                 "~/Areas/Feedbacks/EditMultipleLogs/Scripts/EditMultipleLogsService.js",
@@ -222,12 +239,12 @@
         private static void RegisterEditMultipleLogStatusesBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/EditMultipleLogStatusesScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                BlockUI,
+                HotKeyManager,
+                SettingManager,
+                DirectiveManager,
+                RegisterTemplate,
+                RelatedCustomerResult,
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesApplication.js",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesService.js",
                 "~/Areas/Feedbacks/EditMultipleLogStatuses/Scripts/EditMultipleLogStatusesController.js",
@@ -241,12 +258,12 @@
         private static void RegisterQuickUpdateFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/QuickUpdateFeedbackScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/SettingManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/Directives/RelatedCustomerResult.js",
+                BlockUI,
+                HotKeyManager,
+                SettingManager,
+                DirectiveManager,
+                RegisterTemplate,
+                RelatedCustomerResult,
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackApplication.js",
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackController.js",
                 "~/Areas/Feedbacks/QuickUpdate/Scripts/QuickUpdateFeedbackService.js"));

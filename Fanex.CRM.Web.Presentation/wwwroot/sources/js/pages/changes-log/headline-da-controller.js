@@ -53,7 +53,7 @@
                 $scope.$parent.isError = false;
                 if (vm.selectedActions.length <= 0) {
                     $scope.$parent.isError = true;
-                    $scope.$parent.errorMessage = viewResources.PleaseChooseAction;
+                    $scope.$parent.errorMessage = viewResources.PleaseChooseActionType;
                     $uiBlockerService.unblockUI();
                     return;
                 }

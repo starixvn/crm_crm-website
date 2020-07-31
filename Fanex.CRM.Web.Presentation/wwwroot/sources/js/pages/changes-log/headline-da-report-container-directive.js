@@ -12,7 +12,7 @@
         };
 
         function getGridHeight() {
-            return crmConstants.MarginBottomPage + 180;
+            return crmConstants.MarginBottomPage + 185;
         }
 
         function getGripOtions(report) {

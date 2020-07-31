@@ -79,11 +79,11 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose an action.
+        ///   Looks up a localized string similar to Please choose an action type.
         /// </summary>
-        public static string PleaseChooseAction {
+        public static string PleaseChooseActionType {
             get {
-                return ResourceManager.GetString("PleaseChooseAction", resourceCulture);
+                return ResourceManager.GetString("PleaseChooseActionType", resourceCulture);
             }
         }
         
