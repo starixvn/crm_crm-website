@@ -354,4 +354,10 @@
   <data name="UpdateDefaultPIC" xml:space="preserve">
     <value>Update Default PIC</value>
   </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Is Active</value>
+  </data>
+  <data name="IsGroupHeadline" xml:space="preserve">
+    <value>Is Group Headline</value>
+  </data>
 </root>

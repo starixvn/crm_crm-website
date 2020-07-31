@@ -439,6 +439,24 @@ namespace Fanex.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Active.
+        /// </summary>
+        public static string IsActive {
+            get {
+                return ResourceManager.GetString("IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Group Headline.
+        /// </summary>
+        public static string IsGroupHeadline {
+            get {
+                return ResourceManager.GetString("IsGroupHeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is mandatory!.
         /// </summary>
         public static string IsRequired {

@@ -16,8 +16,8 @@
         [XmlElement(ElementName = "CommunicationTool")]
         public List<SettingValue> CommunicationTools { get; set; }
 
-        [XmlAttribute("DirectAccount")]
-        public string DirectAccount { get; set; }
+        [XmlElement(ElementName = "DirectAccount")]
+        public List<BaseModel> DirectAccounts { get; set; }
 
         [XmlAttribute("IsActive")]
         public bool IsActive { get; set; }
