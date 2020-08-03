@@ -601,6 +601,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default PIC.
+        /// </summary>
+        public static string DefaultPIC {
+            get {
+                return ResourceManager.GetString("DefaultPIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleted By.
         /// </summary>
         public static string DeletedBy {

@@ -262,6 +262,7 @@ namespace Fanex.CRM.Controllers
                     GroupHeadlineId = key,
                     GroupHeadline = g.FirstOrDefault().HeadlineName,
                     HeadlineType = g.FirstOrDefault().HeadlineType,
+                    DefaultPIC = g.FirstOrDefault().DefaultPicList,
                     Pics = g.GroupBy(p => p.PicForMapping, (k, pic) => new PicOfDirectAccount
                     {
                         Pic = pic.FirstOrDefault().PicList,

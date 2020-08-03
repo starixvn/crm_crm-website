@@ -951,4 +951,7 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="DefaultPIC" xml:space="preserve">
+    <value>Default PIC</value>
+  </data>
 </root>

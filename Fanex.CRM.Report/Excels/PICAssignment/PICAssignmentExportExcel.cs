@@ -6,6 +6,7 @@
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Models.PicAndHeadline;
     using Fanex.CRM.Report.Models.PicAssignmentReport;
     using Fanex.CRM.Report.Resources;
     using NPOI.HSSF.UserModel;
@@ -18,12 +19,13 @@
         private readonly IEnumerable<GroupHeadlineOfPic> data;
         private const int groupHeadlineColNumber = 1;
         private const int headlineTypeColNumber = 2;
-        private const int picColNumber = 3;
-        private const int directAccountColNumber = 4;
-        private const int statusColNumber = 5;
-        private const int siteColNumber = 6;
-        private const int currencyColNumber = 7;
-        private const int positionColNumber = 8;
+        private const int defaultPicColNumber = 3;
+        private const int picColNumber = 4;
+        private const int directAccountColNumber = 5;
+        private const int statusColNumber = 6;
+        private const int siteColNumber = 7;
+        private const int currencyColNumber = 8;
+        private const int positionColNumber = 9;
 
         private const int startRow = 4;
 
@@ -38,7 +40,7 @@
             var exportExcelInfo = new ExportExcelInfo
             {
                 ExcelFile = new HSSFWorkbook(),
-                MaxColumnIndex = 8
+                MaxColumnIndex = 9
             };
 
             RenderExcelReport(exportExcelInfo);
@@ -65,7 +67,7 @@
             var currentColumn = exportExcelInfo.StartColumn;
             var columnWidths = new List<int>
             {
-                smallWidth, mediumWidth, mediumWidth, largeWidth, largeWidth, mediumWidth, mediumWidth, mediumWidth, mediumWidth
+                smallWidth, mediumWidth, mediumWidth, mediumWidth, largeWidth, largeWidth, mediumWidth, mediumWidth, mediumWidth, mediumWidth
             };
 
             foreach (var item in columnWidths)
@@ -81,6 +83,7 @@
                 Labels.NumberColumn,
                 Labels.Groupheadline,
                 Labels.HeadlineType,
+                Labels.DefaultPIC,
                 Labels.PIC,
                 Labels.DirectAccount,
                 Labels.Status,
@@ -126,6 +129,8 @@
 
                 RenderHeadlineColumn(exportExcelInfo, currentRow, groupHeadlineTotalRow, headline);
 
+                RenderDefaultPicColumn(exportExcelInfo, currentRow, groupHeadlineTotalRow, headline.DefaultPIC);
+
                 RenderPicColumn(exportExcelInfo, currentRow, headline.Pics);
 
                 RenderUnmergeColumns(exportExcelInfo, rows, headline.Pics);
@@ -155,6 +160,24 @@
                 headlineTypeColNumber,
                 headlineTypeColNumber);
             NpoiExtensions.RenderMergedCells(exportExcelInfo, headlineTypeMergeCell, headline.HeadlineType, headlineCellStyle);
+        }
+
+        private static void RenderDefaultPicColumn(ExportExcelInfo exportExcelInfo, int currentRow, int groupHeadlineTotalRow, IEnumerable<PicModel> dafaultPics)
+        {
+            var headlineCellStyle = NpoiExtensions.GetTextStyle(
+               exportExcelInfo.ExcelFile,
+               NpoiExtensions.BackgroundColorIndex,
+               false,
+               ExcelHorizontalAlignment.Left);
+            headlineCellStyle.WrapText = true;
+            headlineCellStyle.VerticalAlignment = VerticalAlignment.Top;
+
+            var groupHeadlineMergeCell = new CellRangeAddress(currentRow,
+                   currentRow + groupHeadlineTotalRow - 1,
+                   defaultPicColNumber,
+                   defaultPicColNumber);
+            NpoiExtensions.RenderMergedCells(exportExcelInfo, groupHeadlineMergeCell,
+                dafaultPics != null ? string.Join(", ", dafaultPics.Select(p => $"{p.PicName} ({p.Role})")) : string.Empty, headlineCellStyle);
         }
 
         private static void RenderPicColumn(ExportExcelInfo exportExcelInfo, int currentRow, IEnumerable<PicOfDirectAccount> pics)
