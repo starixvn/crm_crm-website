@@ -44,7 +44,7 @@
 							{ Name: "ColHeadlineType", Value: assignment.HeadlineType, MergeRowNumber: mergeHeadline },
 							{
 								Name: "ColDefaultPIC",
-								Value: displayDefaultPIC(assignment.RowNum, assignment.DefaultPicList, gridData.IsHost),
+								Value: assignment.HeadlineID !== 0 ? displayDefaultPIC(assignment.RowNum, assignment.DefaultPicList, gridData.IsHost) : '-',
 								MergeRowNumber: mergeHeadline,
 								CellAlign: assignment.DefaultPicList === null ? 'center' : 'left',
 								IsHideTitle: true

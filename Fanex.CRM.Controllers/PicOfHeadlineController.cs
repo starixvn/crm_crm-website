@@ -241,6 +241,7 @@ namespace Fanex.CRM.Controllers
                 .OrderBy(i => i.HeadlineName)
                 .ThenByDescending(p => p.PicList?.Count)
                 .ThenBy(p => p.PicList != null)
+                .ThenBy(o => o.PicForMapping)
                 .ThenBy(i => i.DirectAccount);
 
             var results = data.OrderBy(i => i.HeadlineID == 0).ToList();
