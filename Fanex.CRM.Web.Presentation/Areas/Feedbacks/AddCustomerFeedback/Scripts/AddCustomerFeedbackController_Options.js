@@ -1,11 +1,7 @@
 ﻿(function () {
     "use strict";
     /* jshint camelcase: false */
-    /* global crmConstants,
-    currentDate,
-    currentTime,
-    sharedScriptManager,
-    viewResources */
+    /* global crmConstants, currentDate, currentTime, sharedScriptManager, viewResources */
     /* exported registerOptions */
     window.registerOptions = function ($scope) {
         $scope.titleOptions = null;
@@ -22,11 +18,9 @@
         $scope.subjectOptions = null;
         $scope.descriptionOptions = null;
         $scope.solutionOptions = null;
-        $scope.tipsyOptions = null;
         $scope.licenseeTypes = [];
 
         $scope.IsUpdatingTime = false;
-        $scope.isSetFocus = false;
         $scope.messageResultOptions = {
             Message: '',
             IsShowMessage: false,
@@ -93,12 +87,6 @@
                 OnChangeEvent: $scope.updateSolution,
                 SelectedText: $scope.addCustomerFeedbackParams.Solution,
                 EditIconText: viewResources.Insert_Edit_Block
-            };
-
-            $scope.tipsyOptions = {
-                Gravity: 'nw',
-                Title: viewResources.Helper_RelatedInputMessage,
-                IsUpdateTip: true
             };
         };
     };

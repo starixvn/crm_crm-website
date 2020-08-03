@@ -21,11 +21,9 @@
         $scope.subjectOptions = null;
         $scope.descriptionOptions = null;
         $scope.solutionOptions = null;
-        $scope.tipsyOptions = null;
         $scope.licenseeTypes = [];
 
         $scope.IsUpdatingTime = false;
-        $scope.isSetFocus = false;
         $scope.messageResultOptions = {
             Message: '',
             IsShowMessage: false,
@@ -87,12 +85,6 @@
                 OnChangeEvent: $scope.updateSolution,
                 SelectedText: $scope.addGuestFeedbackParams.Solution,
                 EditIconText: viewResources.Insert_Edit_Block
-            };
-
-            $scope.tipsyOptions = {
-                Gravity: 'nw',
-                Title: viewResources.Helper_RelatedInputMessage,
-                IsUpdateTip: true
             };
         };
     };

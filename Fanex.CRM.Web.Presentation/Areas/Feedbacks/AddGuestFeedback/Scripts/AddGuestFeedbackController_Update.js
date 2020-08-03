@@ -53,8 +53,5 @@
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;
         };
-        $scope.completeSetFocus = function () {
-            $scope.isSetFocus = false;
-        };
     };
 })();

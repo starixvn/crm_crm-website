@@ -21,12 +21,11 @@
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
-    @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
     @RazorHelper.RenderStyles("~/Scripts/Directives/multileveldropdown/multileveldropdown.css")
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles")
 }
-<div data-ng-app="feedbacks-addcustomerfeedback-application">
-    <div data-ng-controller="addCustomerFeedbackController">
+<div ng-app="feedbacks-addcustomerfeedback-application">
+    <div ng-controller="AddCustomerFeedbackController">
         <div class="container main">
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -510,13 +509,13 @@
                             <div class="col-xs-9 col-sm-10 col-md-10">
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11 related-customer-directive-container">
-                                        <input type="button" id="btnRelatedHelp"
-                                               class="btnHelp pull-left tipsy-directive"
-                                               title="@Labels.Related_Help"
-                                               data-ng-model="tipsyOptions.IsUpdateTip" />
-                                        <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
-                                               data-ng-model="customersInput"
-                                               data-ng-disabled="!addCustomerFeedbackParams.HasRelated" />
+                                        <span type="button" id="btnRelatedHelp" class="btnHelp pull-left"
+                                              tooltip-class="helper-tooltip"
+                                              tooltip-placement="bottom-left"
+                                              uib-tooltip="@Labels.Helper_RelatedInputMessage"></span>
+                                        <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer" autocomplete="off"
+                                               ng-model="customersInput" ng-paste="pasteRelatedCustomerHandler($event)"
+                                               ng-disabled="!addCustomerFeedbackParams.HasRelated" />
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1">
                                         <button id="btnverify" class="btn pull-right" data-ng-click="verifyRelatedCustomer()"
@@ -624,7 +623,6 @@
                     @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>
-            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
     </div>
 </div>
@@ -634,7 +632,6 @@
     @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
     @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
-    @RazorHelper.RenderScripts("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")
     @RazorHelper.RenderScripts("~/Scripts/common.js")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
@@ -651,7 +648,6 @@
             All: '@Labels.All',
             Select: '@Labels.Select',
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
-            Helper_RelatedInputMessage: '@Labels.Helper_RelatedInputMessage',
             Confirm_Ignore_Feedback_AddCustomerFeedback: '@Html.Raw(Resources.Language.Confirm_Ignore_Feedback_AddCustomerFeedback)',
 
             ErrorFeedbackResolutionTime: '@Labels.Error_FeedbackResolutionTime',

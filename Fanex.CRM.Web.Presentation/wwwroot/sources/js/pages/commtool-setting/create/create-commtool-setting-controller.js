@@ -217,6 +217,21 @@
             $scope.$apply();
         };
 
+        vm.pasteCustomerHandler = function (event) {
+            var customer = vm.customersInput.trim();
+            var items = event.originalEvent.clipboardData.getData('text/plain')
+                .replace(/ /g, ',')
+                .replace(/\r\n/g, ',')
+                .replace(/\n/g, ',')
+                .replace(/\t/g, ',')
+                .split(',').filter(item => item !== '');
+
+            setTimeout(() => {
+                vm.customersInput = (customer.length > 0 ? customer + ',' : '') + items.join(',');
+                $scope.$apply();
+            }, 100);
+        };
+
         vm.saveAndContinue = function () {
             if (validateForm()) {
                 const params = {

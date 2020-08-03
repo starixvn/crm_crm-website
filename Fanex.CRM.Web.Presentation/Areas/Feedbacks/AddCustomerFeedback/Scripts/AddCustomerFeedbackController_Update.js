@@ -1,11 +1,7 @@
 ﻿(function () {
     "use strict";
     /* jshint camelcase: false */
-    /* global crmConstants,
-    sharedScriptManager,
-    moment,
-    viewResources,
-    MessageResult */
+    /* global crmConstants, sharedScriptManager, moment, viewResources, MessageResult */
     /* exported registerUpdateFunctions */
     window.registerUpdateFunctions = function ($scope) {
         $scope.updateSelectedSubject = function (subject) {
@@ -41,7 +37,7 @@
         };
         $scope.updateSelectedStatus = function (status) {
             $scope.addCustomerFeedbackParams.Status = status;
-        };               
+        };
         $scope.updateSelectedCountry = function (country) {
             $scope.addCustomerFeedbackParams.Country = country;
         };
@@ -54,9 +50,6 @@
 
         $scope.completeRenderBirthday = function () {
             $scope.birthdayOptions.IsRerenderPicker = false;
-        };
-        $scope.completeSetFocus = function () {
-            $scope.isSetFocus = false;
         };
     };
 })();
