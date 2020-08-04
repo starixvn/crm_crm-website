@@ -49,7 +49,8 @@ export const getGridData = params => {
             url: url,
             data: params,
             headers: {
-                '__RequestVerificationToken': Site.getXsrfToken()
+                'X-Requested-With': 'XMLHttpRequest',
+                'RequestVerificationToken': Site.getXsrfToken()
             }
         }).then(response => {
             dispatch(setGridData(response.data));

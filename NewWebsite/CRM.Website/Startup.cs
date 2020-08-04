@@ -116,11 +116,6 @@
             services.AddHealthChecks()
                 .AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
 
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "__RequestVerificationToken";
-            });
-
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());

@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 
@@ -57,7 +57,10 @@ class Filter extends Component {
         );
     }
 
+    handleOpenCreatePopup = () => this.props.setCreateTemplatePopup({ show: true })
+
     render() {
+        const { isHost } = this.props;
         return (
             <Form className="form-filter">
                 <Form.Row bsPrefix="form-row">
@@ -80,8 +83,18 @@ class Filter extends Component {
                     </div>
                     <div className="col-auto">
                         <Button className="mr-2" variant="primary" size="sm"
-                            onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-                        <Button variant="primary" size="sm">{LangHelper.getResource('Insert')}</Button>
+                            onClick={this.submitHandler}
+                        >
+                            {LangHelper.getResource('Submit')}
+                        </Button>
+                        {
+                            isHost &&
+                            <Button variant="primary" size="sm"
+                                onClick={this.handleOpenCreatePopup}
+                            >
+                                {LangHelper.getResource('Insert')}
+                            </Button>
+                        }
                     </div>
                 </Form.Row>
             </Form>
@@ -92,10 +105,11 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { notificationTypes, gridParams } = state;
+    const { notificationTypes, gridParams, createTemplatePopup } = state;
     return {
         notificationTypes,
-        gridParams
+        gridParams,
+        createTemplatePopup
     };
 };
 

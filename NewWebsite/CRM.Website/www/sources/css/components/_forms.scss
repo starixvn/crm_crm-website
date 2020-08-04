@@ -1,1 +1,15 @@
-﻿
+﻿.form-label {
+    &.required {
+        &:after {
+            content: "*";
+            color: #ff0101;
+            margin-left: .25rem;
+        }
+    }
+}
+
+.form-control, .form-control {
+    &:invalid, &.is-invalid {
+        background-image: unset;
+    }
+}
