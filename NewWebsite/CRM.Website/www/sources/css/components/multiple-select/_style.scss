@@ -1,0 +1,107 @@
+﻿$border-option-list: 1px solid #d3d4d4;
+$border-label: 1px solid #9e9e9e;
+$box-sizing: border-box;
+$indexNormal: 100;
+
+.multiple-select {
+    &-container {
+        border: 1px solid #ced4da;
+        position: relative;
+        background-color: #FFF;
+    }
+
+    &-default {
+        box-sizing: $box-sizing;
+        width: 100%;
+    }
+
+    &-label {
+        color: #333;
+        display: flex;
+        align-items: center;
+        height: 26px;
+        padding: 6px 27px 6px 0;
+        text-align: left;
+        outline: 0;
+        cursor: pointer;
+        position: relative;
+        background-color: transparent;
+        border: none;
+        font-size: 0.875rem;
+
+        .text-display {
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            padding-left: 10px;
+        }
+
+        .caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            border-top: 4px solid;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+            position: absolute;
+            right: 10px;
+            top: calc(50% - 3px);
+        }
+    }
+
+    &-options-container {
+        border: $border-option-list;
+        background: #fff;
+        position: absolute;
+        top: 25px;
+        left: 0px;
+        z-index: $indexNormal;
+    }
+
+    &-options {
+        margin: 0;
+        padding: 5px;
+        overflow: auto;
+        max-height: 230px;
+    }
+
+    &-option-all {
+        border-bottom: $border-option-list;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        padding: 5px 8px;
+        font-size: 12px;
+        text-indent: 4px;
+        user-select: none;
+
+        input[type=checkbox] + label {
+            cursor: pointer;
+        }
+
+        label {
+            margin-bottom: 0;
+        }
+    }
+
+    &-field {
+        display: inline-block;
+    }
+}
+
+.invalid .multiple-select-container {
+    border: 1px solid #dc3545;
+}
+
+.multiple-select-field.invalid {
+    .invalid-feedback {
+        display: block;
+    }
+}

@@ -16,7 +16,7 @@ const scriptPaths = {
 
     language: ['./www/sources/js/common/languages/ViewResources.js'],
     main: ['./www/sources/js/main.js'],
-    notification_list: ['./www/sources/js/pages/notification-list/components/index.jsx'],
+    notification_list: ['./www/sources/js/pages/notification-list/index.js'],
     notification_template: ['./www/sources/js/pages/notification-template/index.js']
 };
 
