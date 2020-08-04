@@ -18,12 +18,14 @@ function generateConfig(environment) {
             [`${jsPath}/main`]: pathConfig.scriptPaths.main,
             [`${jsPath}/pages/notificationlist/index`]: pathConfig.scriptPaths.notification_list,
             [`${jsPath}/pages/notificationtemplate/index`]: pathConfig.scriptPaths.notification_template,
+            [`${jsPath}/pages/notificationtype/index`]: pathConfig.scriptPaths.notification_type,
 
             /*css*/
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
             [`${cssPath}/error`]: pathConfig.cssPaths.error,
             [`${cssPath}/pages/notificationlist/index`]: pathConfig.cssPaths.notification_list,
-            [`${cssPath}/pages/notificationtemplate/index`]: pathConfig.cssPaths.notification_template
+            [`${cssPath}/pages/notificationtemplate/index`]: pathConfig.cssPaths.notification_template,
+            [`${cssPath}/pages/notificationtype/index`]: pathConfig.cssPaths.notification_type
         },
         output: {
             path: pathConfig.projectRoot,

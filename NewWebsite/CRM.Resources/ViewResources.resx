@@ -123,6 +123,9 @@
   <data name="NotificationTemplate" xml:space="preserve">
     <value>Notification Template</value>
   </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Notification Type</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>

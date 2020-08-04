@@ -13,5 +13,8 @@
     Submit: 'Submit',
     SymbolNo: '#',
     TemplateName: 'Template Name',
-    Title: 'Title'
+    Title: 'Title',
+    RecipientType: 'Recipient Type',
+    ChatType: 'Chat Type',
+    System: 'System'
 };

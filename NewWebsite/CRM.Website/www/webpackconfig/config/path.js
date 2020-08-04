@@ -8,7 +8,8 @@ const cssPaths = {
     main: ['./www/sources/css/main.scss'],
     error: ['./www/sources/css/pages/error.scss'],
     notification_list: ['./www/sources/css/pages/notification-list/index.scss'],
-    notification_template: ['./www/sources/css/pages/notification-template/index.scss']
+    notification_template: ['./www/sources/css/pages/notification-template/index.scss'],
+    notification_type: ['./www/sources/css/pages/notification-type/index.scss']
 };
 
 const scriptPaths = {
@@ -17,7 +18,8 @@ const scriptPaths = {
     language: ['./www/sources/js/common/languages/ViewResources.js'],
     main: ['./www/sources/js/main.js'],
     notification_list: ['./www/sources/js/pages/notification-list/index.js'],
-    notification_template: ['./www/sources/js/pages/notification-template/index.js']
+    notification_template: ['./www/sources/js/pages/notification-template/index.js'],
+    notification_type: ['./www/sources/js/pages/notification-type/index.js']
 };
 
 module.exports = {
