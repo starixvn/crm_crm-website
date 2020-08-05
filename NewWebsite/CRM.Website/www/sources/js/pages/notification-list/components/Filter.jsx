@@ -117,7 +117,7 @@ class Filter extends Component {
                             onChange={this.handleNotificationTypeChange}
                         />
                     </div>
-                    <label className='col-auto col-form-label'>{LangHelper.getResource('TemplateName')}</label>
+                    <label className='col-auto col-form-label'>{LangHelper.getResource('From')}</label>
                     <div className='col-auto'>
                         <DatePicker selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
                     </div>

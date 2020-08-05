@@ -21,7 +21,7 @@
     TemplateNameRequired: 'Template Name is mandatory!',
     Title: 'Title',
     TitleRequired: 'Title is mandatory!',
-    System: 'System'
+    System: 'System',
     From: 'From',
     To: 'To',
     Sender: 'Sender',
