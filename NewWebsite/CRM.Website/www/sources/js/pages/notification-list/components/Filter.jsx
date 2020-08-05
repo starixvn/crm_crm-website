@@ -7,6 +7,11 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index'
 
+const fakeNotificationType = [
+    { notificationTypeID: 1, notificationTypeName: 'Group'},
+    { notificationTypeID: 2, notificationTypeName: 'Personal'}
+];
+
 class Filter extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +19,9 @@ class Filter extends Component {
         this.state = {
             filter: {
                 notificationTypes: {
-                    value: { value: '1', isValid: true}
+                    value: ''
                 },
+                notificationTypeOptions: [],
                 fromDate: new Date()
             },
             notificationTypeId: '',
@@ -27,13 +33,39 @@ class Filter extends Component {
         const params = this.getParams();
         this.props.setGridParams(params);
         this.props.getGridData(params);
-    }
+        const notificationTypeIds = [];
+        const notificationTypeOptions = fakeNotificationType.map(x => {
+            notificationTypeIds.push(x.notificationTypeID);
+            return {
+                id: x.notificationTypeID,
+                name: x.notificationTypeName,
+                checked: true
+            };
+        });
 
-    handleNotificationTypeChange = event => {
-        this.setState({
-            notificationTypeId: event.target.value
+        this.setState(prevState => ({
+            notificationTypeOptions,
+            filter: {
+                ...prevState.filter,
+                ...{
+                    notificationTypes: {
+                        value: notificationTypeIds.toString()
+                    }
+                }
+            }
+        }), () => {
+                const pageIndex = 1;
+                // this.getNotifications(pageIndex);
         });
     }
+
+    handleFilterChange = (name, value) => {
+        this.setState(prevState => ({
+            filter: { ...prevState.filter, ...{ [name]: value } }
+        }));
+    }
+
+    handleNotificationTypeChange = value => this.handleFilterChange('notificationTypes', value)
 
     handleTemplateNameChange = event => {
         this.setState({
@@ -65,14 +97,6 @@ class Filter extends Component {
         );
     }
 
-    handleFilterChange = (name, value) => {
-        this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: value } }
-        }), () => console.log(this.state.filter.notificationTypes));
-    }
-
-    handleNotificationTypeChange = value => this.handleFilterChange('notificationTypes', value)
-
     handleFromDateChange = value => this.handleFilterChange('fromDate', value)
 
     render() {
@@ -80,37 +104,11 @@ class Filter extends Component {
             <Form className='form-filter'>
                 <Form.Row bsPrefix='form-row'>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('NotificationType')}</label>
-                    <div className='col-auto'>
-                        <Form.Control as='select' size='sm' className='shadow-none'
-                            value={this.state.notificationTypeId}
-                            onChange={this.handleNotificationTypeChange}
-                        >
-                            <option value=''>{LangHelper.getResource('All')}</option>
-                            {this.props.notificationTypes.map(this.renderNotificationTypeOption)}
-                        </Form.Control>
-                    </div>
-                    <label className='col-auto col-form-label'>{LangHelper.getResource('TemplateName')}</label>
-                    <div className='col-auto'>
-                        <Form.Control type='text' size='sm' className='shadow-none'
-                            value={this.state.templateName}
-                            onChange={this.handleTemplateNameChange}
-                        />
-                    </div>
-                    <div className='col-auto'>
-                        <Button className='mr-2' variant='primary' size='sm'
-                            onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-                        <Button variant='primary' size='sm'>{LangHelper.getResource('Insert')}</Button>
-                    </div>
-                    <label className='col-auto col-form-label'>{LangHelper.getResource('TemplateName')}</label>
                     <div className='col-auto position-relative'>
                         <MultipleSelectField
                             width={182}
                             initialValue={this.state.filter.notificationTypes.value}
-                            data={[
-                                { id: 1, name: 'abc', checked: true},
-                                { id: 2, name: 'def'},
-                                { id: 3, name: 'ghi'}
-                            ]}
+                            data={this.state.notificationTypeOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
@@ -122,6 +120,11 @@ class Filter extends Component {
                     <label className='col-auto col-form-label'>{LangHelper.getResource('TemplateName')}</label>
                     <div className='col-auto'>
                         <DatePicker selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                    </div>
+                    <div className='col-auto'>
+                        <Button className='mr-2' variant='primary' size='sm'
+                            onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+                        <Button variant='primary' size='sm'>{LangHelper.getResource('Insert')}</Button>
                     </div>
                 </Form.Row>
             </Form>

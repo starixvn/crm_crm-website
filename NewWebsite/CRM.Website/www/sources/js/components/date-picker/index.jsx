@@ -10,7 +10,6 @@ export default class DatePickerField extends React.Component {
 
     render() {
         const { className, ...rest } = this.props;
-        console.log(this.props)
         return (
             <React.Fragment>
                 <DatePicker

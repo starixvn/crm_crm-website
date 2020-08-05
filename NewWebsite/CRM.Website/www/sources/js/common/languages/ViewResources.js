@@ -22,4 +22,12 @@
     Title: 'Title',
     TitleRequired: 'Title is mandatory!',
     System: 'System'
+    From: 'From',
+    To: 'To',
+    Sender: 'Sender',
+    GroupHeadline: 'Group Headline',
+    Recipient: 'Recipient',
+    NotificationID: 'Notification ID',
+    MessageID: 'Message ID',
+    Status: 'Status'
 };
