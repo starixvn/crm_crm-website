@@ -2,6 +2,29 @@
 let _xsrfToken = null;
 
 export default class Site {
+    static blockUI() {
+        document.getElementById('loadingProcess').style.display = 'block';
+    }
+
+    static downloadFile(data, fileName) {
+        const url = window.URL.createObjectURL(new Blob([data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    }
+
+    static getXsrfToken() {
+        if (!_xsrfToken) {
+            _xsrfToken = document.querySelector('input[name=__RequestVerificationToken]').value;
+        }
+
+        return _xsrfToken;
+    }
+
     static handleAxiosError(error) {
         if (error.response) {
             let url;
@@ -25,29 +48,6 @@ export default class Site {
 
             window.location = _rootUrl + url;
         }
-    }
-
-    static blockUI() {
-        document.getElementById('loadingProcess').style.display = 'block';
-    }
-
-    static downloadFile(data, fileName) {
-        const url = window.URL.createObjectURL(new Blob([data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', fileName);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-        window.URL.revokeObjectURL(url);
-    }
-
-    static getXsrfToken() {
-        if (!_xsrfToken) {
-            _xsrfToken = document.querySelector('input[name=__RequestVerificationToken]').value;
-        }
-
-        return _xsrfToken;
     }
 
     static resolveClientUrl(relativeUrl) {

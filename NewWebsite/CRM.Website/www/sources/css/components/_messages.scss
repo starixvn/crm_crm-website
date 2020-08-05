@@ -1,0 +1,9 @@
+﻿.alert {
+    &.alert-danger {
+        ul.list-message-error {
+            color: #ff0101;
+            margin: 0;
+            padding: 0 0 0 1.25rem;
+        }
+    }
+}
