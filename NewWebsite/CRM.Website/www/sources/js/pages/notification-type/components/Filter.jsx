@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Button,Modal } from 'react-bootstrap';
+import { Button,Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -13,8 +13,7 @@ class Filter extends Component {
             notificationType: '',
             chatTypeId: '',
             recipientId: '',
-            systemId: '',
-            showDialog : false
+            systemId: ''
         };
                
     }
@@ -67,11 +66,10 @@ class Filter extends Component {
         this.props.getGridData(params);
     }
 
-    openDialog = () => this.setState({ showDialog: true })
- 
-    closeDialog = () => this.setState({ showDialog: false })
+    handleOpenCreatePopup = () => this.props.setCreateTypePopup({ show: true })
 
     render() {
+        const { isHost } = this.props;
         return (
             <form className="form-filter">
                 <div className="form-row"> 
@@ -118,21 +116,21 @@ class Filter extends Component {
                     </div>
 
                     <div className="col-auto">
-                        <button className="btn btn-primary btn-sm mr-2"
-                            onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</button>
-                        <button className="btn btn-primary btn-sm"
-                            onClick={() => this.openDialog()}>{LangHelper.getResource('Insert')}</button>
+                        <Button className="mr-2" variant="primary" size="sm"
+                            onClick={this.submitHandler}
+                        >
+                            {LangHelper.getResource('Submit')}
+                        </Button>
+                        {
+                             isHost &&
+                            <Button variant="primary" size="sm"
+                                onClick={this.handleOpenCreatePopup}
+                            >
+                                {LangHelper.getResource('Insert')}
+                            </Button>
+                        }
                     </div>
                 </div>
-                <Modal show={this.state.showDialog} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-                        <Modal.Header >
-                        <Modal.Title>Create New Notification Type</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                        <Modal.Footer>
-                        <Button className="btn btn-primary btn-sm mr-2">Save</Button>
-                        </Modal.Footer>
-                </Modal>
             </form>
         );
     }
@@ -141,10 +139,11 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { notificationTypes, gridParams } = state;
+    const { notificationTypes, gridParams, createTypePopup } = state;
     return {
         notificationTypes,
-        gridParams
+        gridParams,
+        createTypePopup
     };
 };
 

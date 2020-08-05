@@ -36,11 +36,10 @@ export const setGridData = data => {
 
 export const getGridData = params => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationType/GetGridData');
     return dispatch => {
         return axios({
             method: 'post',
-            url: url,
+            url: Site.resolveClientUrl('NotificationType/GetGridData'),
             data: params,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -52,11 +51,41 @@ export const getGridData = params => {
     };
 };
 
+//create
+export const setCreateTypePopup = data => {
+    return {
+        type: types.CREATE_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setCreateTypeResult = data => {
+    return {
+        type: types.CREATE_RESULT_DATA,
+        data: data
+    };
+};
+
+export const createType = data => {
+    return async dispatch => axios({
+        url: Site.resolveClientUrl('NotificationType/Create'),
+        method: 'post',
+        data: data,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setCreateTypeResult(response.data));
+    }).catch(Site.handleAxiosError);
+};
+
 const actions = {
     setNotificationTypes,
     getNotificationTypes,
     setGridParams,
-    getGridData
+    getGridData,
+    setCreateTypePopup
 };
 
 export default actions;

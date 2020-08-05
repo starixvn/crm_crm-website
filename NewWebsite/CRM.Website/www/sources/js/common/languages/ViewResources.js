@@ -29,5 +29,12 @@
     Recipient: 'Recipient',
     NotificationID: 'Notification ID',
     MessageID: 'Message ID',
+    RecipientTypeRequired: 'Recipient Type is mandatory!',
+    ChatTypeRequired: 'Chat Type is mandatory!',
+    SystemRequired: 'System is mandatory!',
+    RecipientType: 'Recipient Type',
+    CreateNewNotificationType: 'Create New Notification Type',
+    RecipientType: 'Recipient Type',
+    NotificationTypeName: 'Notification Type Name'
     Status: 'Status'
 };

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
+import NewNotificationType from './NewNotificationType';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -16,11 +17,26 @@ export class AppContainer extends Component {
         this.props.getNotificationTypes();
     }
 
+    handleCloseCreatePopup = () => this.props.setCreateTypePopup({ show: false })
+
+    handleCreateSuccess = () => {
+        this.handleCloseCreatePopup();
+        this.props.setCreateTypeResult(null);
+        this.props.getGridData(this.props.gridParams);
+    }
+
     render() {
         return (
             <Fragment>
-                <Filter />
+                <Filter isHost={this.isHost} />
                 <DataGrid isHost={this.isHost} />
+                {
+                    this.props.createTypePopup.show &&
+                    <NewNotificationType
+                        onClose={this.handleCloseCreatePopup}
+                        onSuccess={this.handleCreateSuccess}
+                    />
+                }
             </Fragment>
         );
     }
@@ -29,9 +45,10 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams } = state;
+    const { gridParams, createTypePopup } = state;
     return {
-        gridParams
+        gridParams,
+        createTypePopup
     };
 };
 
