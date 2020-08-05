@@ -3,27 +3,6 @@ import axios from 'axios';
 import Site from '@jsroot/common/site';
 
 // Settings
-export const setNotificationTypes = data => {
-    return {
-        type: types.NOTIFICATIONTYPE_DATA,
-        data: data
-    };
-};
-
-export const getNotificationTypes = () => {
-    const notificationTypes = [
-        { notificationTypeId: 1, name: 'a' },
-        { notificationTypeId: 2, name: 'b' },
-        { notificationTypeId: 3, name: 'c' }
-    ];
-    return setNotificationTypes(notificationTypes);
-    //const url = Site.resolveClientUrl('Common/GetNotificationTypes');
-    //return dispatch => {
-    //    return axios.get(url).then(response => {
-    //        dispatch(setNotificationTypes(response.data));
-    //    }).catch(Site.axiosError);
-    //};
-};
 
 // Grid
 export const setGridParams = value => {
@@ -59,8 +38,6 @@ export const getGridData = params => {
 };
 
 const actions = {
-    setNotificationTypes,
-    getNotificationTypes,
     setGridParams,
     getGridData
 };
