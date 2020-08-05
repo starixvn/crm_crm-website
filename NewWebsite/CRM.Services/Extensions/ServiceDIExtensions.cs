@@ -7,6 +7,7 @@
         public static void ResolveServiceDI(this IServiceCollection services)
         {
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<INotificationTemplateService, NotificationTemplateService>();
         }
     }
 }

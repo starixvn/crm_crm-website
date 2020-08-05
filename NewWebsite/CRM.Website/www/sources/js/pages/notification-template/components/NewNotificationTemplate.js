@@ -6,11 +6,52 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
+import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 
 class NewNotificationTemplate extends Component {
     constructor(props) {
         super(props);
+    }
+
+    combineContent = (content1, content2) => {
+        const isNullOrEmpty = value => !value || value === undefined || value === '' || value.length === 0;
+
+        if (!isNullOrEmpty(content1) && !isNullOrEmpty(content2)) {
+            return content1 + '\n' + content2;
+        } else if (!isNullOrEmpty(content1)) {
+            return content1;
+        } else if (!isNullOrEmpty(content2)) {
+            return content2;
+        } else {
+            return '';
+        }
+    }
+
+    handleChangeContentEN = (event, values, setFieldValue) => {
+        setFieldValue('contentEN', event.target.value);
+
+        if (values.isCombineContentENSC) {
+            setFieldValue('contentENSC', this.combineContent(event.target.value.trim(), values.contentSC.trim()));
+        }
+    }
+
+    handleChangeContentSC = (event, values, setFieldValue) => {
+        setFieldValue('contentSC', event.target.value);
+
+        if (values.isCombineContentENSC) {
+            setFieldValue('contentENSC', this.combineContent(values.contentEN.trim(), event.target.value.trim()));
+        }
+    }
+
+    handleChangeCombineContentENSC = (event, values, setFieldValue) => {
+        setFieldValue('isCombineContentENSC', event.target.checked);
+
+        if (event.target.checked) {
+            setFieldValue('contentENSC', this.combineContent(values.contentSC.trim(), values.contentSC.trim()));
+        } else {
+            setFieldValue('contentENSC', '');
+        }
     }
 
     renderNotificationTypeOption = item => <option key={item.notificationTypeId} value={item.notificationTypeId} >{item.name}</option>
@@ -37,6 +78,12 @@ class NewNotificationTemplate extends Component {
             <Form noValidate onSubmit={handleSubmit}>
                 <Modal.Body>
                     <FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
+                    {
+                        this.props.createTemplateResult &&
+                        <ResponseMessage isSuccessful={this.props.createTemplateResult.isSuccessful}
+                            message={this.props.createTemplateResult.message || LangHelper.getResource('CreateNewNotificationTemplateSuccessfully')}
+                        />
+                    }
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" htmlFor="notificationTypeId" className="required">
                             {LangHelper.getResource('NotificationType')}
@@ -85,7 +132,7 @@ class NewNotificationTemplate extends Component {
                             <Form.Control as="textarea" value={values.contentEN} name="contentEN" rows="4"
                                 className="shadow-none form-control"
                                 isInvalid={touched.contentEN && errors.contentEN}
-                                onChange={handleChange}
+                                onChange={event => this.handleChangeContentEN(event, values, setFieldValue)}
                             />
                         </Col>
                     </Form.Group>
@@ -97,7 +144,7 @@ class NewNotificationTemplate extends Component {
                             <Form.Control as="textarea" value={values.contentSC} name="contentSC" rows="4"
                                 className="shadow-none form-control"
                                 isInvalid={touched.contentEN && errors.contentSC}
-                                onChange={handleChange}
+                                onChange={event => this.handleChangeContentSC(event, values, setFieldValue)}
                             />
                         </Col>
                     </Form.Group>
@@ -109,7 +156,7 @@ class NewNotificationTemplate extends Component {
                                 name="isCombineContentENSC"
                                 checked={values.isCombineContentENSC}
                                 label={LangHelper.getResource('Combine2ContentENSC')}
-                                onChange={handleChange}
+                                onChange={event => this.handleChangeCombineContentENSC(event, values, setFieldValue)}
                             />
                         </Col>
                     </Form.Group>
@@ -138,14 +185,14 @@ class NewNotificationTemplate extends Component {
     }
 
     handleSubmit = (values, { setSubmitting }) => {
-        setSubmitting(true);
+        //setSubmitting(true);
         this.props.createTemplate(values).then(() => {
             if (this.props.createTemplateResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
-                }, 1000);
+                }, 3000);
             } else {
-                setSubmitting(false);
+                //setSubmitting(false);
             }
         });
     }
@@ -153,7 +200,7 @@ class NewNotificationTemplate extends Component {
     render() {
         return (
             <Modal show className="new-notification-template"
-                backdrop="static" keyboard={false} size="lg"
+                backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>

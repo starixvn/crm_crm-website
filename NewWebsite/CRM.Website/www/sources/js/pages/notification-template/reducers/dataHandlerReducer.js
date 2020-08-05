@@ -28,11 +28,18 @@ export const createTemplatePopup = createReducer({}, {
     }
 });
 
+export const createTemplateResult = createReducer({}, {
+    [types.CREATE_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     gridParams,
     gridData,
-    createTemplatePopup
+    createTemplatePopup,
+    createTemplateResult
 };
 
 export default reducers;

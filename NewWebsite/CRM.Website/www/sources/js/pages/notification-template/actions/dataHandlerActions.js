@@ -91,7 +91,9 @@ const actions = {
     getNotificationTypes,
     setGridParams,
     getGridData,
-    setCreateTemplatePopup
+    setCreateTemplatePopup,
+    setCreateTemplateResult,
+    createTemplate
 };
 
 export default actions;

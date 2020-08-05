@@ -3,3 +3,11 @@
 @import '../../components/forms';
 @import '../../components/messages';
 @import '../../components/modal';
+
+.new-notification-template {
+    .modal-body {
+        textarea {
+            min-height: 88px;
+        }
+    }
+}
