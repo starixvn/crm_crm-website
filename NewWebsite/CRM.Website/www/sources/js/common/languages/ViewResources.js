@@ -35,6 +35,6 @@
     RecipientType: 'Recipient Type',
     CreateNewNotificationType: 'Create New Notification Type',
     RecipientType: 'Recipient Type',
-    NotificationTypeName: 'Notification Type Name'
+    NotificationTypeName: 'Notification Type Name',
     Status: 'Status'
 };
