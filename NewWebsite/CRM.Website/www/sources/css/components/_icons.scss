@@ -1,0 +1,18 @@
+﻿.icon-edit, .icon-delete {
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.icon-edit:hover {
+    background-color: #ff9913;
+}
+
+.icon-delete:hover {
+    background-color: #fe3a3a;
+}

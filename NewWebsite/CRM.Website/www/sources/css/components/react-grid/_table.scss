@@ -68,6 +68,10 @@ $bgTotal: $bgSummaryTotal;
                 background: #f7dbb6;
                 font-weight: bold;
             }
+
+            &:nth-child(2n) td {
+                background: #eceff1;
+            }
         }
     }
 }

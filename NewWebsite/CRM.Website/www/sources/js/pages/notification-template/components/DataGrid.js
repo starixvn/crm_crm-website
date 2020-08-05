@@ -57,8 +57,12 @@ export class DataGrid extends Component {
             {
                 isHost &&
                 <Cell className="text-center">
-                    <span className="icon-edit" data-templateid={item.notificationTemplateId} />
-                    <span className="icon-delete" data-templateid={item.notificationTemplateId} />
+                    <span className="rounded-circle fa fa-pencil icon-edit"
+                        data-templateid={item.notificationTemplateId}
+                    />
+                    <span className="rounded-circle fa fa-trash icon-delete"
+                        data-templateid={item.notificationTemplateId}
+                    />
                 </Cell>
             }
         </Row>
