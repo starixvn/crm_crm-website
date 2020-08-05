@@ -9,17 +9,17 @@ export default class HeaderRow extends Component {
     static propTypes = {
         onSort: PropTypes.func
     }
- 
+
     static defaultProps = {
         onSort: null
     }
 
     _renderChildren() {
         const { onSort, children, sortBy, sortOrder } = this.props;
-        
+
         // register onSort event
         return React.Children.map(children, child => {
-            return child && React.cloneElement(child, { onSort: onSort, sortOrder: sortBy === child.props.sortBy ? sortOrder : null});
+            return child && React.cloneElement(child, { onSort: onSort, sortOrder: sortBy === child.props.sortBy ? sortOrder : null });
         });
     }
 

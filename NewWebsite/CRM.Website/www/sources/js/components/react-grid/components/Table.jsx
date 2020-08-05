@@ -12,10 +12,11 @@ function scrollToTop(element, scrollDuration) {
     requestAnimationFrame(() => {
         let scrollInterval = null;
         scrollInterval = setInterval(() => {
-            if (element.scrollTop != 0) {
+            if (element.scrollTop !== 0) {
                 element.scrollTop += scrollStep;
-            }
-            else clearInterval(scrollInterval);
+            } else {
+                clearInterval(scrollInterval)
+            };
         }, 15);
     })  
 }
@@ -42,13 +43,13 @@ class Table extends Component {
         this.bodyWrapper = null;
         this.footerWrapper = null;
 
-        const headerContainerProps = { className: "header-content", isHeader: true };
+        const headerContainerProps = { className: 'header-content', isHeader: true };
         this.Header = createTableSection(headerContainerProps);
 
-        const bodyContainerProps = { className: "body-content", getRef: element => this.bodyWrapper = element };
+        const bodyContainerProps = { className: 'body-content', getRef: element => this.bodyWrapper = element };
         this.Body = createTableSection(bodyContainerProps);
 
-        const footerContainerProps = { className: "footer-content", getRef: element => this.footerWrapper = element };
+        const footerContainerProps = { className: 'footer-content', getRef: element => this.footerWrapper = element };
         this.Footer = createTableSection(footerContainerProps);
 
         const { maxWidth, bodyHeight, adjustedHeight } = this.props;
@@ -63,7 +64,7 @@ class Table extends Component {
             maxWidth: maxWidthValue,
             contentHeight: bodyHeight,
             columnsWidth: this._getColumnsWidth(props.header)
-        }
+        };
     }
 
     static propTypes = {
@@ -135,7 +136,7 @@ class Table extends Component {
                     columnsWidth.push(cellWidth);
                 }
             }
-        }
+        };
 
         const currentRowIndex = 0;
         const cellList = headerIsArray ? headerRows[currentRowIndex].props.children : headerRows.props.children;
@@ -179,17 +180,17 @@ class Table extends Component {
         window.removeEventListener('resize', this.debounceResizing);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.header != prevProps.header) {
+    componentDidUpdate(prevProps) {
+        if (this.props.header !== prevProps.header) {
             this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
         }
 
-        if (this.props.shouldResetScrollPosition && prevProps.body != this.props.body) {
+        if (this.props.shouldResetScrollPosition && prevProps.body !== this.props.body) {
             scrollToTop(this.bodyWrapper, 200);
         }
     }
 
-    _handleResize = (event) => {
+    _handleResize = event => {
         event && event.preventDefault();
 
         if (this.bodyWrapper && this.props.autoHeight) {
@@ -219,7 +220,7 @@ class Table extends Component {
         sumOfColumnWidth = sumOfColumnWidth - containerPadding - SCROLLBAR_WIDTH;
 
         const newColumnsWidth = this.columnWidthSum && this.state.columnsWidth.map(cellWidth => {
-            return sumOfColumnWidth / this.columnWidthSum * cellWidth
+            return sumOfColumnWidth / this.columnWidthSum * cellWidth;
         });
 
         return newColumnsWidth;
@@ -250,7 +251,7 @@ class Table extends Component {
         return (
             <div>
                 <div className="table-container" style={{ maxWidth }}>
-                    <Header {...headerSectionProps }>
+                    <Header {...headerSectionProps}>
                         {rowLayout}
                         {header}
                     </Header>
@@ -274,7 +275,7 @@ class Table extends Component {
                     <Pager pageOption={pageOption} onPaging={onPaging} />
                 }
             </div>
-        )
+        );
     }
 }
 

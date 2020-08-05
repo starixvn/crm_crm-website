@@ -33,7 +33,7 @@ export default class Pager extends Component {
         isAllowInputPageIndex: true
     };
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const pageIndex = this.props.pageOption.PageIndex;
         if (pageIndex !== prevProps.pageOption.PageIndex) {
             this._updateState(pageIndex);
@@ -47,7 +47,7 @@ export default class Pager extends Component {
     onKeyUpHandle = (e, totalPage) => {
         const code = e.keyCode ? e.keyCode : e.which;
         if (code === 13) {
-            var value = parseInt(this.state.inputValue);
+            let value = parseInt(this.state.inputValue);
             if (value > 0 && value <= totalPage) {
                 this.goToPage(value, this.props.pageOption.PageSize);
             }
@@ -60,9 +60,9 @@ export default class Pager extends Component {
         }
     }
 
-    onInputChangeHandler = (e) => {
+    onInputChangeHandler = event => {
         const pattern = /^\d*$/;
-        const { value } = e.target;
+        const { value } = event.target;
         const isValidNumber = pattern.test(value);
         if (isValidNumber) {
             this._updateState(value);
@@ -75,29 +75,36 @@ export default class Pager extends Component {
 
     _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
         return (
-            <select className="pagesize-select" disabled={isDisable} value={pageSize} onChange={(e) => this.goToPage(1, Number(e.target.value))}>
+            <select className="pagesize-select" disabled={isDisable} value={pageSize}
+                onChange={(e) => this.goToPage(1, Number(e.target.value))}
+            >
                 {this._renderPageSizeOption(this.props.pageOption.PageList)}
             </select>
         );
     }
 
     _renderPageSizeOption(pageList) {
-        return pageList.map((item, index) => {
-            return (<option key={`pagesize${index}`} value={item}>{item}</option>);
-        });
+        return pageList.map((item, index) => <option key={`pagesize${index}`} value={item}>{item}</option>);
     }
 
     _renderPageIcon(iconClass, isDisable, onClickFunc) {
-        return (<a className={`fa ${iconClass} ${isDisable ? "disable" : ""}`} onClick={() => this.onClickHandle(isDisable, onClickFunc)}></a>);
+        return (
+            <a className={`fa ${iconClass} ${isDisable ? 'disable' : ''}`}
+                onClick={() => this.onClickHandle(isDisable, onClickFunc)}
+            />
+        );
     }
 
     _renderPageInput(index, totalPage) {
         return (
-            <div className="page-input"><span>Page </span><input type="text" className="page-form" value={index} maxLength="4" size="2"
-                onChange={this.onInputChangeHandler}
-                onKeyUp={(e) => this.onKeyUpHandle(e, totalPage)} />
+            <div className="page-input">
+                <span>Page </span>
+                <input type="text" className="page-form" value={index} maxLength="4" size="2"
+                    onChange={this.onInputChangeHandler}
+                    onKeyUp={event => this.onKeyUpHandle(event, totalPage)} />
                 <span>{` of ${totalPage}`} </span>
-            </div>);
+            </div>
+        );
     }
 
     _renderPageLabel(index, totalPage) {
@@ -126,9 +133,10 @@ export default class Pager extends Component {
                 {this._renderPageIcon("fa-angle-double-left", PageIndex === 1, () => this.goToPage(1, PageSize))}
                 {this._renderPageIcon("fa-angle-left", isDisable || PageIndex <= 1 || PageIndex > totalPage, () => this.goToPage(PageIndex - 1, PageSize))}
                 {isAllowInputPageIndex ? this._renderPageInput(inputValue, totalPage) : this._renderPageLabel(PageIndex, totalPage)}
-                {this._renderPageIcon("fa-angle-right", isDisable || PageIndex >= totalPage || PageIndex < 1, () => this.goToPage(PageIndex + 1, PageSize))}
-                {this._renderPageIcon("fa-angle-double-right", PageIndex === totalPage, () => this.goToPage(totalPage, PageSize))}
+                {this._renderPageIcon('fa-angle-right', isDisable || PageIndex >= totalPage || PageIndex < 1, () => this.goToPage(PageIndex + 1, PageSize))}
+                {this._renderPageIcon('fa-angle-double-right', PageIndex === totalPage, () => this.goToPage(totalPage, PageSize))}
                 {isShowPagingInfo && this._renderPageInfo(PageIndex, PageSize, TotalItem)}
-            </div>);
+            </div>
+        );
     }
 }

@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Row = (props) => {
-    return (<tr {...props}>{props.children}</tr>);
-}
+const Row = props => <tr {...props}>{props.children}</tr>
 
 export default Row;

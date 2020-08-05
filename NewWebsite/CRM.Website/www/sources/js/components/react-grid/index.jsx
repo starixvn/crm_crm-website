@@ -5,4 +5,4 @@ import HeaderCell from './components/HeaderCell';
 import Cell from './components/Cell';
 import Pager from './components/Pager';
 
-export { Table, HeaderRow, Row, HeaderCell, Cell, Pager }
+export { Table, HeaderRow, Row, HeaderCell, Cell, Pager };
