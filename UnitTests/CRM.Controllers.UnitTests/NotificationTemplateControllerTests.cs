@@ -43,7 +43,26 @@
             templateService.EditAsync(model).Returns(expected);
 
             // Act
-            var result = await controller.Create(model);
+            var result = await controller.Edit(model);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
+            Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task Delete_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var id = fixture.Create<int>();
+            var controller = GetController();
+            templateService.DeleteAsync(id).Returns(expected);
+
+            // Act
+            var result = await controller.Delete(id);
 
             // Assert
             var jsonResult = Assert.IsType<JsonResult>(result);

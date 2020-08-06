@@ -24,6 +24,10 @@ export class DataGrid extends Component {
         this.props.getTemplateById(id);
     }
 
+    handleDelete = (id, name) => {
+        this.props.setDeleteTemplatePopup({ show: true, templateId: id, name: name });
+    }
+
     buildHeader = isHost => {
         return (
             <HeaderRow>
@@ -62,7 +66,9 @@ export class DataGrid extends Component {
                     <span className="rounded-circle fa fa-pencil icon-edit"
                         onClick={() => this.handleEdit(item.notificationTemplateId)}
                     />
-                    <span className="rounded-circle fa fa-trash icon-delete" />
+                    <span className="rounded-circle fa fa-trash icon-delete"
+                        onClick={() => this.handleDelete(item.notificationTemplateId, item.name)}
+                    />
                 </Cell>
             }
         </Row>

@@ -47,6 +47,19 @@ export const editTemplateResult = createReducer({}, {
     }
 });
 
+// Delete
+export const deleteTemplatePopup = createReducer({}, {
+    [types.DELETE_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const deleteTemplateResult = createReducer({}, {
+    [types.DELETE_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     gridParams,
@@ -54,7 +67,9 @@ const reducers = {
     createTemplatePopup,
     createTemplateResult,
     editTemplatePopup,
-    editTemplateResult
+    editTemplateResult,
+    deleteTemplatePopup,
+    deleteTemplateResult
 };
 
 export default reducers;

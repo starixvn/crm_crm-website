@@ -11,7 +11,9 @@ const store = Store.createStore(reducer, {
     createTemplatePopup: { show: false },
     createTemplateResult: null,
     editTemplatePopup: { show: false },
-    editTemplateResult: null
+    editTemplateResult: null,
+    deleteTemplatePopup: { show: false },
+    deleteTemplateResult: null
 });
 
 ReactDOM.render(

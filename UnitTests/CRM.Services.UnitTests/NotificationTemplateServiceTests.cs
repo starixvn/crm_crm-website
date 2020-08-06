@@ -70,6 +70,27 @@
             Assert.Equal(napSession.UserId, criteria.ModifierId);
         }
 
+        [Fact]
+        public async Task DeleteAsync_WhenCalled_ReturnExpectedCommandResult()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var id = fixture.Create<int>();
+            var expected = fixture.Create<CommandResult>();
+            var criteria = new DeleteNotificationTemplateCommand();
+            var service = GetService();
+            baseService.ExecuteNonQueryAsync(Arg.Do<DeleteNotificationTemplateCommand>(x => criteria = x)).Returns(expected);
+
+            // Act
+            var actual = await service.DeleteAsync(id);
+
+            // Assert
+            Assert.Equal(expected, actual);
+
+            Assert.Equal(id, criteria.NotificationTemplateId);
+            Assert.Equal(napSession.UserId, criteria.UserId);
+        }
+
         #region Helpers
 
         private NotificationTemplateService GetService()

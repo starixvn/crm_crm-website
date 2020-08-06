@@ -122,6 +122,32 @@ export const editTemplate = (data) => {
     }).catch(Site.handleAxiosError);
 };
 
+// Delete
+export const setDeleteTemplatePopup = data => {
+    return {
+        type: types.DELETE_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setDeleteTemplateResult = data => {
+    return {
+        type: types.DELETE_RESULT_DATA,
+        data: data
+    };
+};
+
+export const deleteTemplate = templateId => {
+    return async dispatch => axios({
+        url: Site.resolveClientUrl(`NotificationTemplate/Delete/${templateId}`),
+        method: 'post',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => response.data).catch(Site.handleAxiosError);
+};
+
 const actions = {
     setNotificationTypes,
     getNotificationTypes,
@@ -133,7 +159,10 @@ const actions = {
     setEditTemplatePopup,
     setEditTemplateResult,
     getTemplateById,
-    editTemplate
+    editTemplate,
+    setDeleteTemplatePopup,
+    setDeleteTemplateResult,
+    deleteTemplate
 };
 
 export default actions;

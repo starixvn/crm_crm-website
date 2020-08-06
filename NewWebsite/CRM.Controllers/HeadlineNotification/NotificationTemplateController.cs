@@ -79,5 +79,12 @@
             CommandResult commandResult = await templateService.EditAsync(model);
             return Json(commandResult);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            CommandResult commandResult = await templateService.DeleteAsync(id);
+            return Json(commandResult);
+        }
     }
 }
