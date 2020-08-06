@@ -41,8 +41,8 @@
 
             param.Add("userid", UserId);
             param.Add("loginip", IP);
-            param.Add("ErrorCode", 0);
-            param.Add("ErrorMsg", string.Empty);
+            param.Add("ErrCode", 0);
+            param.Add("ErrMsg", string.Empty);
 
             return param;
         }
