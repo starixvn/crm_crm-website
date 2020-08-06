@@ -40,5 +40,8 @@
     CreateNewNotificationType: 'Create New Notification Type',
     RecipientType: 'Recipient Type',
     NotificationTypeName: 'Notification Type Name',
-    Status: 'Status'
+    Status: 'Status',
+    SendDateTimeGMTA8: 'Send Date/Time (GMT+8)',
+    ThereIsNoData: 'There is no data',
+    NotificationList: 'Notification List'
 };

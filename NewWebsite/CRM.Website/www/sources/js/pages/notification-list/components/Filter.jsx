@@ -6,46 +6,14 @@ import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index'
-
-const fakeNotificationType = [
-    { notificationTypeID: 1, notificationTypeName: 'Group'},
-    { notificationTypeID: 2, notificationTypeName: 'Personal'}
-];
-
-const fakeSender = [
-    { id: 1, name: 'Crm User1'},
-    { id: 2, name: 'Crm User2'},
-    { id: 3, name: 'Crm User3'},
-    { id: 4, name: 'Crm User4'},
-];
-
-const fakeGroupHeadline = [
-    { id: 1, name: 'Group Headline1'},
-    { id: 2, name: 'Group Headline2'},
-    { id: 3, name: 'Group Headline3'},
-    { id: 4, name: 'Group Headline4'},
-];
-
-const fakeRecipient = [
-    { id: 1, name: 'Recipient1'},
-    { id: 2, name: 'Recipient2'},
-    { id: 3, name: 'Recipient3'},
-    { id: 4, name: 'Recipient4'},
-];
+import Axios from 'axios';
+import Site from '@jsroot/common/site';
 
 const notificationIDRangeType = [
     { id: 1, name: 'Between'},
     { id: 2, name: 'Greater than'},
     { id: 3, name: 'Less than'},
     { id: 4, name: 'Equal'}
-];
-
-const fakeStatus = [
-    { id: 1, name: 'Send'},
-    { id: 2, name: 'Error'},
-    { id: 3, name: 'Resolved'},
-    { id: 4, name: 'Sending'},
-    { id: 5, name: 'Draft'}
 ];
 
 class Filter extends Component {
@@ -92,92 +60,102 @@ class Filter extends Component {
         const params = this.getParams();
         this.props.setGridParams(params);
         this.props.getGridData(params);
+        const promises = [
+            Axios(Site.resolveClientUrl('NotificationList/GetNotificationTypes')),
+            Axios(Site.resolveClientUrl('NotificationList/GetSenders')),
+            Axios(Site.resolveClientUrl('NotificationList/GetGroupHeadlines')),
+            Axios(Site.resolveClientUrl('NotificationList/GetRecipients')),
+            Axios(Site.resolveClientUrl('NotificationList/GetStatuses'))
+        ]
 
-        // notification type
-        const notificationTypeIds = [];
-        const notificationTypeOptions = fakeNotificationType.map(x => {
-            notificationTypeIds.push(x.notificationTypeID);
-            return {
-                id: x.notificationTypeID,
-                name: x.notificationTypeName,
-                checked: true
-            };
-        });
+        Promise.all(promises)
+            .then(([notificationTypeResponse, sendersResponse, groupHeadlinesResponse, recipientsResponse, statusesResponse]) => {
+                // notification type
+                const notificationTypeIds = [];
+                const notificationTypeOptions = notificationTypeResponse.data.map(x => {
+                    notificationTypeIds.push(x.notificationTypeID);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
 
-        // sender
-        const senderIds = [];
-        const senderOptions = fakeSender.map(x => {
-            senderIds.push(x.id);
-            return {
-                id: x.id,
-                name: x.name,
-                checked: true
-            };
-        });
+                // sender
+                const senderIds = [];
+                const senderOptions = sendersResponse.data.map(x => {
+                    senderIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
 
-        // sender
-        const groupHeadlineIds = [];
-        const groupHeadlineOptions = fakeGroupHeadline.map(x => {
-            groupHeadlineIds.push(x.id);
-            return {
-                id: x.id,
-                name: x.name,
-                checked: true
-            };
-        });
+                // group headline
+                const groupHeadlineIds = [];
+                const groupHeadlineOptions = groupHeadlinesResponse.data.map(x => {
+                    groupHeadlineIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
 
-        // recipient
-        const recipientIds = [];
-        const recipientOptions = fakeRecipient.map(x => {
-            recipientIds.push(x.id);
-            return {
-                id: x.id,
-                name: x.name,
-                checked: true
-            };
-        });
+                // recipient
+                const recipientIds = [];
+                const recipientOptions = recipientsResponse.data.map(x => {
+                    recipientIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
 
-        // status
-        const statusIds = [];
-        const statusOptions = fakeStatus.map(x => {
-            statusIds.push(x.id);
-            return {
-                id: x.id,
-                name: x.name,
-                checked: true
-            };
-        });
-
-        this.setState(prevState => ({
-            notificationTypeOptions,
-            senderOptions,
-            groupHeadlineOptions,
-            recipientOptions,
-            statusOptions,
-            filter: {
-                ...prevState.filter,
-                ...{
-                    notificationTypes: {
-                        value: notificationTypeIds.toString()
-                    },
-                    senders: {
-                        value: senderIds.toString()
-                    },
-                    groupHeadlines: {
-                        value: groupHeadlineIds.toString()
-                    },
-                    recipients: {
-                        value: recipientIds.toString()
-                    },
-                    statuses: {
-                        value: recipientIds.toString()
+                // status
+                const statusIds = [];
+                const statusOptions = statusesResponse.data.map(x => {
+                    statusIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
+        
+                this.setState(prevState => ({
+                    notificationTypeOptions,
+                    senderOptions,
+                    groupHeadlineOptions,
+                    recipientOptions,
+                    statusOptions,
+                    filter: {
+                        ...prevState.filter,
+                        ...{
+                            notificationTypes: {
+                                value: notificationTypeIds.toString()
+                            },
+                            senders: {
+                                value: senderIds.toString()
+                            },
+                            groupHeadlines: {
+                                value: groupHeadlineIds.toString()
+                            },
+                            recipients: {
+                                value: recipientIds.toString()
+                            },
+                            statuses: {
+                                value: recipientIds.toString()
+                            }
+                        }
                     }
-                }
-            }
-        }), () => {
-                const pageIndex = 1;
-                // this.getNotifications(pageIndex);
-        });
+                }), () => {
+                        const pageIndex = 1;
+                        // this.getNotifications(pageIndex);
+                });
+            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
 
     handleFilterChange = (name, value) => {
@@ -317,7 +295,7 @@ class Filter extends Component {
                         />
                     </div>
                     {
-                        parseInt(this.state.notificationIDRangeType) === 1 ? <Fragment>
+                        (parseInt(this.state.notificationIDRangeType) === 1) && <Fragment>
                             <div className='col-auto'>-</div>
                             <div className='col-auto'>
                                 <Form.Control as='input' size='sm' className='shadow-none' name='notificationIDTo'
@@ -325,7 +303,7 @@ class Filter extends Component {
                                     onChange={this.handleChangeFilterControl}
                                 />
                             </div>
-                        </Fragment> : null
+                        </Fragment>
                     }
                     <label className='col-auto col-form-label'>{LangHelper.getResource('MessageID')}</label>
                     <div className='col-auto'>

@@ -21,7 +21,7 @@ export const setGridData = data => {
 
 export const getGridData = params => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationTemplate/GetGridData');
+    const url = Site.resolveClientUrl('NotificationList/GetGridData');
     return dispatch => {
         return axios({
             method: 'post',
