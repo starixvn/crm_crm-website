@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="www\sources\js\pages\chat-type-mapping\" />
     <Folder Include="www\sources\js\pages\notification-list\actions\" />
     <Folder Include="www\sources\js\pages\notification-list\reducers\" />
   </ItemGroup>
