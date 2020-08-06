@@ -5,6 +5,7 @@ import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
 import NewNotificationTemplate from './NewNotificationTemplate';
+import EditNotificationTemplate from './EditNotificationTemplate';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -17,11 +18,23 @@ export class AppContainer extends Component {
         this.props.getNotificationTypes();
     }
 
-    handleCloseCreatePopup = () => this.props.setCreateTemplatePopup({ show: false })
+    handleCloseCreatePopup = () => {
+        this.props.setCreateTemplatePopup({ show: false });
+        this.props.setCreateTemplateResult(null);
+    }
 
     handleCreateSuccess = () => {
         this.handleCloseCreatePopup();
-        this.props.setCreateTemplateResult(null);
+        this.props.getGridData(this.props.gridParams);
+    }
+
+    handleCloseEditPopup = () => {
+        this.props.setEditTemplatePopup({ show: false });
+        this.props.setEditTemplateResult(null);
+    }
+
+    handleEditSuccess = () => {
+        this.handleCloseEditPopup();
         this.props.getGridData(this.props.gridParams);
     }
 
@@ -37,6 +50,13 @@ export class AppContainer extends Component {
                         onSuccess={this.handleCreateSuccess}
                     />
                 }
+                {
+                    this.props.editTemplatePopup.show &&
+                    <EditNotificationTemplate
+                        onClose={this.handleCloseEditPopup}
+                        onSuccess={this.handleEditSuccess}
+                    />
+                }
             </Fragment>
         );
     }
@@ -45,10 +65,11 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, createTemplatePopup } = state;
+    const { gridParams, createTemplatePopup, editTemplatePopup } = state;
     return {
         gridParams,
-        createTemplatePopup
+        createTemplatePopup,
+        editTemplatePopup
     };
 };
 

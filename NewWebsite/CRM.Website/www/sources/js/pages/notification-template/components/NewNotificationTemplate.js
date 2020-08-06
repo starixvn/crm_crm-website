@@ -185,14 +185,14 @@ class NewNotificationTemplate extends Component {
     }
 
     handleSubmit = (values, { setSubmitting }) => {
-        //setSubmitting(true);
+        setSubmitting(true);
         this.props.createTemplate(values).then(() => {
             if (this.props.createTemplateResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
                 }, 3000);
             } else {
-                //setSubmitting(false);
+                setSubmitting(false);
             }
         });
     }

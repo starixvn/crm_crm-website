@@ -34,12 +34,27 @@ export const createTemplateResult = createReducer({}, {
     }
 });
 
+// Edit
+export const editTemplatePopup = createReducer({}, {
+    [types.EDIT_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const editTemplateResult = createReducer({}, {
+    [types.EDIT_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     gridParams,
     gridData,
     createTemplatePopup,
-    createTemplateResult
+    createTemplateResult,
+    editTemplatePopup,
+    editTemplateResult
 };
 
 export default reducers;

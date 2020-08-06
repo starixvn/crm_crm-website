@@ -9,7 +9,9 @@ import reducer from './reducers/index';
 const store = Store.createStore(reducer, {
     notificationTypes: [],
     createTemplatePopup: { show: false },
-    createTemplateResult: null
+    createTemplateResult: null,
+    editTemplatePopup: { show: false },
+    editTemplateResult: null
 });
 
 ReactDOM.render(

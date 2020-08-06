@@ -105,11 +105,10 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { notificationTypes, gridParams, createTemplatePopup } = state;
+    const { notificationTypes, gridParams } = state;
     return {
         notificationTypes,
-        gridParams,
-        createTemplatePopup
+        gridParams
     };
 };
 

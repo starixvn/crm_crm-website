@@ -21,10 +21,6 @@
         public override bool IsValid() =>
             CreatorId > 0
             && NotificationTypeId > 0
-            && !string.IsNullOrWhiteSpace(Name)
-            && !string.IsNullOrWhiteSpace(Title)
-            && !string.IsNullOrWhiteSpace(ContentEN)
-            && !string.IsNullOrWhiteSpace(ContentSC)
-            && !string.IsNullOrWhiteSpace(ContentENSC);
+            && !string.IsNullOrWhiteSpace(Name);
     }
 }

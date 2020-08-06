@@ -57,7 +57,7 @@ export const getGridData = params => {
     };
 };
 
-//create
+// create
 export const setCreateTemplatePopup = data => {
     return {
         type: types.CREATE_POPUP_DATA,
@@ -86,6 +86,42 @@ export const createTemplate = data => {
     }).catch(Site.handleAxiosError);
 };
 
+// edit
+export const setEditTemplatePopup = data => {
+    return {
+        type: types.EDIT_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setEditTemplateResult = data => {
+    return {
+        type: types.EDIT_RESULT_DATA,
+        data: data
+    };
+};
+
+export const getTemplateById = (templateId) => {
+    return async dispatch => axios(Site.resolveClientUrl(`NotificationTemplate/GetById/${templateId}`))
+        .then(response => {
+            dispatch(setEditTemplatePopup({ show: true, template: response.data }));
+        }).catch(Site.handleAxiosError);
+};
+
+export const editTemplate = (data) => {
+    return async dispatch => axios({
+        url: Site.resolveClientUrl('NotificationTemplate/Edit'),
+        method: 'post',
+        data: data,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setEditTemplateResult(response.data));
+    }).catch(Site.handleAxiosError);
+};
+
 const actions = {
     setNotificationTypes,
     getNotificationTypes,
@@ -93,7 +129,11 @@ const actions = {
     getGridData,
     setCreateTemplatePopup,
     setCreateTemplateResult,
-    createTemplate
+    createTemplate,
+    setEditTemplatePopup,
+    setEditTemplateResult,
+    getTemplateById,
+    editTemplate
 };
 
 export default actions;

@@ -3,13 +3,17 @@ export const GRID_PARAMS = 'GRID_PARAMS';
 export const GRID_DATA = 'GRID_DATA';
 export const CREATE_POPUP_DATA = 'CREATE_POPUP_DATA';
 export const CREATE_RESULT_DATA = 'CREATE_RESULT_DATA';
+export const EDIT_POPUP_DATA = 'EDIT_POPUP_DATA';
+export const EDIT_RESULT_DATA = 'EDIT_RESULT_DATA';
 
 const types = {
     NOTIFICATIONTYPE_DATA,
     GRID_PARAMS,
     GRID_DATA,
     CREATE_POPUP_DATA,
-    CREATE_RESULT_DATA
+    CREATE_RESULT_DATA,
+    EDIT_POPUP_DATA,
+    EDIT_RESULT_DATA
 };
 
 export default types;

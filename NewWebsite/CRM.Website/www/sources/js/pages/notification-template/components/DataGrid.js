@@ -20,15 +20,17 @@ export class DataGrid extends Component {
         this.props.getGridData(params);
     }
 
+    handleEdit = id => {
+        this.props.getTemplateById(id);
+    }
+
     buildHeader = isHost => {
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('NotificationType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('TemplateName')}</HeaderCell>
-                <HeaderCell colWidth={100}>
-                    {LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}
-                </HeaderCell>
+                <HeaderCell colWidth={100}>{LangHelper.getResource('Title')}</HeaderCell>
                 {
                     isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
                 }
@@ -53,16 +55,14 @@ export class DataGrid extends Component {
             <Cell className="text-center">{index + this.startIndex}</Cell>
             <Cell>{item.notificationType}</Cell>
             <Cell>{item.name}</Cell>
-            <Cell></Cell>
+            <Cell>{item.title}</Cell>
             {
                 isHost &&
                 <Cell className="text-center">
                     <span className="rounded-circle fa fa-pencil icon-edit"
-                        data-templateid={item.notificationTemplateId}
+                        onClick={() => this.handleEdit(item.notificationTemplateId)}
                     />
-                    <span className="rounded-circle fa fa-trash icon-delete"
-                        data-templateid={item.notificationTemplateId}
-                    />
+                    <span className="rounded-circle fa fa-trash icon-delete" />
                 </Cell>
             }
         </Row>

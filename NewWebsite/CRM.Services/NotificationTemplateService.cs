@@ -10,6 +10,8 @@
     public interface INotificationTemplateService
     {
         Task<CommandResult> CreateAsync(CreateNotificationTemplate model);
+
+        Task<CommandResult> EditAsync(EditNotificationTemplate model);
     }
 
     public class NotificationTemplateService : INotificationTemplateService
@@ -37,6 +39,23 @@
                 ContentENSC = model.ContentENSC?.Trim(),
                 IsCombineContentENSC = model.IsCombineContentENSC,
                 CreatorId = napSession.UserId
+            };
+
+            return await baseService.ExecuteNonQueryAsync(command);
+        }
+
+        public async Task<CommandResult> EditAsync(EditNotificationTemplate model)
+        {
+            var command = new EditNotificationTemplateCommand
+            {
+                NotificationTypeId = model.NotificationTypeId,
+                Name = model.Name?.Trim(),
+                Title = model.Title?.Trim(),
+                ContentEN = model.ContentEN?.Trim(),
+                ContentSC = model.ContentSC?.Trim(),
+                ContentENSC = model.ContentENSC?.Trim(),
+                IsCombineContentENSC = model.IsCombineContentENSC,
+                ModifierId = napSession.UserId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);

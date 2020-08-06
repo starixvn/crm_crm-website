@@ -55,5 +55,29 @@
             CommandResult commandResult = await templateService.CreateAsync(model);
             return Json(commandResult);
         }
+
+        public IActionResult GetById(int id)
+        {
+            var template = new NotificationTemplate
+            {
+                NotificationTemplateId = id,
+                Name = "Notification Template 1",
+                Title = "3rd Party Product",
+                NotificationTypeId = 1,
+                NotificationType = "3rd Party Product",
+                ContentEN = "content en",
+                ContentSC = "content sc",
+                ContentENSC = "content en & sc",
+                IsCombineContentENSC = true
+            };
+            return Json(template);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromBody]EditNotificationTemplate model)
+        {
+            CommandResult commandResult = await templateService.EditAsync(model);
+            return Json(commandResult);
+        }
     }
 }

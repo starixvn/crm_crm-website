@@ -32,6 +32,25 @@
             Assert.Equal(expected, commandResult);
         }
 
+        [Fact]
+        public async Task Edit_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var model = fixture.Create<EditNotificationTemplate>();
+            var controller = GetController();
+            templateService.EditAsync(model).Returns(expected);
+
+            // Act
+            var result = await controller.Create(model);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
+            Assert.Equal(expected, commandResult);
+        }
+
         #region Helpers
 
         private NotificationTemplateController GetController()

@@ -9,6 +9,7 @@
     Combine2ContentENSC: 'Combine the 2 Content (EN) and Content (SC)',
     CreateNewNotificationTemplate: 'Create New Notification Template',
     CreateNewNotificationTemplateSuccessfully: 'Create New Notification Template Successfully',
+    EditNotificationTemplate: 'Edit Notification Template',
     Insert: 'Insert',
     NotificationTemplate: 'Notification Template',
     NotificationType: 'Notification Type',
