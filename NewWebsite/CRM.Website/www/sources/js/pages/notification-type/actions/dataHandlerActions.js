@@ -34,6 +34,68 @@ export const setGridData = data => {
     };
 };
 
+// edit
+export const setEditTypePopup = data => {
+    return {
+        type: types.EDIT_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setEditTypeResult = data => {
+    return {
+        type: types.EDIT_RESULT_DATA,
+        data: data
+    };
+};
+
+// Delete
+export const setDeleteTypePopup = data => {
+    return {
+        type: types.DELETE_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setDeleteTypeResult = data => {
+    return {
+        type: types.DELETE_RESULT_DATA,
+        data: data
+    };
+};
+
+export const deleteType = typeId => {
+    return async dispatch => axios({
+        url: Site.resolveClientUrl(`NotificationType/Delete/${typeId}`),
+        method: 'post',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => response.data).catch(Site.handleAxiosError);
+};
+
+export const getTypeById = (typeId) => {
+    return async dispatch => axios(Site.resolveClientUrl(`NotificationType/GetById/${typeId}`))
+        .then(response => {
+            dispatch(setEditTypePopup({ show: true, type: response.data }));
+        }).catch(Site.handleAxiosError);
+};
+
+export const editType = (data) => {
+    return async dispatch => axios({
+        url: Site.resolveClientUrl('NotificationType/Edit'),
+        method: 'post',
+        data: data,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setEditTypeResult(response.data));
+    }).catch(Site.handleAxiosError);
+};
+
 export const getGridData = params => {
     Site.blockUI();
     return dispatch => {
@@ -85,7 +147,16 @@ const actions = {
     getNotificationTypes,
     setGridParams,
     getGridData,
-    setCreateTypePopup
+    setCreateTypePopup,
+    setCreateTypeResult,
+    createType,
+    setEditTypePopup,
+    setEditTypeResult,
+    getTypeById,
+    editType, 
+    setDeleteTypePopup,
+    setDeleteTypeResult,
+    deleteType
 };
 
 export default actions;

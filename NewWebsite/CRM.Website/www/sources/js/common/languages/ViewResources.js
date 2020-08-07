@@ -44,6 +44,11 @@
     SendDateTimeGMTA8: 'Send Date/Time (GMT+8)',
     ThereIsNoData: 'There is no data',
     NotificationList: 'Notification List',
+    CreateNewNotificationTypeSuccessfully: 'Create new notification type successfully!',
+    EditNotificationTypeSuccessfully: 'Edit notification type successfully!',
     Resolved: 'Resolved',
-    Error: 'Error'
+    Error: 'Error',
+    DeleteNotificationTypeSuccessfully: 'Delete notification type successfully!',
+    EditNotificationType: 'Edit Notification Type',
+    EditNotificationTypeSuccessfully: 'Edit notification type successfully!'
 };

@@ -28,11 +28,48 @@ export const createTypePopup = createReducer({}, {
     }
 });
 
+export const createTypeResult = createReducer({}, {
+    [types.CREATE_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
+// Edit
+export const editTypePopup = createReducer({}, {
+    [types.EDIT_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const editTypeResult = createReducer({}, {
+    [types.EDIT_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
+// Delete
+export const deleteTypePopup = createReducer({}, {
+    [types.DELETE_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const deleteTypeResult = createReducer({}, {
+    [types.DELETE_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     gridParams,
     gridData,
-    createTypePopup
+    createTypePopup,
+    createTypeResult,
+    editTypePopup,
+    editTypeResult,
+    deleteTypePopup,
+    deleteTypeResult
 };
 
 export default reducers;

@@ -35,7 +35,12 @@ class NewNotificationType extends Component {
             <Form noValidate onSubmit={handleSubmit}>
                 <Modal.Body>
                     <FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
-
+                    {
+                        this.props.createTypeResult &&
+                        <ResponseMessage isSuccessful={this.props.createTypeResult.isSuccessful}
+                            message={this.props.createTypeResult.message || LangHelper.getResource('CreateNewNotificationTypeSuccessfully')}
+                        />
+                    }
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" htmlFor="notificationType" className="required">
                             {LangHelper.getResource('NotificationTypeName')}
@@ -104,6 +109,9 @@ class NewNotificationType extends Component {
                 <Modal.Footer>
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Save')}
+                    </Button>
+                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
+                        {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
             </Form>

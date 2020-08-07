@@ -5,6 +5,9 @@ import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
 import NewNotificationType from './NewNotificationType';
+import EditNotificationType from './EditNotificationType';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
+import LangHelper from '@jsroot/common/langHelper';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -17,12 +20,43 @@ export class AppContainer extends Component {
         this.props.getNotificationTypes();
     }
 
-    handleCloseCreatePopup = () => this.props.setCreateTypePopup({ show: false })
+    handleCloseCreatePopup = () => {
+        this.props.setCreateTypePopup({ show: false });
+        this.props.setCreateTypeResult(null);
+    }
+
+    handleCloseEditPopup = () => {
+        this.props.setEditTypePopup({ show: false });
+        this.props.setEditTypeResult(null);
+    }
 
     handleCreateSuccess = () => {
         this.handleCloseCreatePopup();
-        this.props.setCreateTypeResult(null);
         this.props.getGridData(this.props.gridParams);
+    }
+
+    handleEditSuccess = () => {
+        this.handleCloseEditPopup();
+        this.props.getGridData(this.props.gridParams);
+    }
+
+    handleCloseDeletePopup = () => {
+        this.props.setDeleteTypePopup({ show: false });
+        this.props.setDeleteTypeResult(null);
+    }
+
+    handleDelete = () => {
+        this.props.deleteType(this.props.deleteTypePopup.typeId).then(data => {
+            if (data.isSuccessful) {
+                data.message = LangHelper.getResource('DeleteNotificationTypeSuccessfully')
+                setTimeout(() => {
+                    this.handleCloseDeletePopup();
+                    this.props.getGridData(this.props.gridParams);
+                }, 3000);
+            }
+
+            this.props.setDeleteTypeResult(data);
+        });
     }
 
     render() {
@@ -37,6 +71,25 @@ export class AppContainer extends Component {
                         onSuccess={this.handleCreateSuccess}
                     />
                 }
+                {
+                    this.props.editTypePopup.show &&
+                    <EditNotificationType
+                        onClose={this.handleCloseEditPopup}
+                        onSuccess={this.handleEditSuccess}
+                    />
+                }
+                {
+                    this.props.deleteTypePopup.show &&
+                    <ConfirmPopup
+                        title={LangHelper.getResource('Confirmation')}
+                        content={
+                            <div>Are you sure you want to delete <strong>{this.props.deleteTypePopup.name}</strong>?</div>
+                        }
+                        requestResponse={this.props.deleteTypeResult}
+                        onSubmit={this.handleDelete}
+                        onClose={this.handleCloseDeletePopup}
+                    />
+                }
             </Fragment>
         );
     }
@@ -45,10 +98,13 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, createTypePopup } = state;
+    const { gridParams, createTypePopup, editTypePopup, deleteTypePopup, deleteTypeResult } = state;
     return {
         gridParams,
-        createTypePopup
+        createTypePopup,
+        editTypePopup,
+        deleteTypePopup,
+        deleteTypeResult
     };
 };
 

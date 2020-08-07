@@ -8,6 +8,7 @@
         {
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<INotificationTemplateService, NotificationTemplateService>();
+            services.AddTransient<INotificationTypeService, NotificationTypeService>();
         }
     }
 }

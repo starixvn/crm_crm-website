@@ -20,6 +20,14 @@ export class DataGrid extends Component {
         this.props.getGridData(params);
     }
 
+    handleEdit = id => {
+        this.props.getTypeById(id);
+    }
+
+    handleDelete = (id, name) => {
+        this.props.setDeleteTypePopup({ show: true, typeId: id, name: name });
+    }
+
     buildHeader = isHost => {
         return (
             <HeaderRow>
@@ -57,8 +65,12 @@ export class DataGrid extends Component {
             {
                 isHost &&
                 <Cell className="text-center">
-                    <span className="icon-edit" data-typeid={item.notificationTypeId} />
-                    <span className="icon-delete" data-typeid={item.notificationTypeId} />
+                    <span className="rounded-circle fa fa-pencil icon-edit"
+                        onClick={() => this.handleEdit(item.notificationTypeId)}
+                    />
+                    <span className="rounded-circle fa fa-trash icon-delete"
+                        onClick={() => this.handleDelete(item.notificationTypeId, item.name)}
+                    />
                 </Cell>
             }
         </Row>

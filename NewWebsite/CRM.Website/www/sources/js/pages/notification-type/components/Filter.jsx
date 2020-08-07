@@ -4,24 +4,100 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
+import MultipleSelectField from './MultipleSelectField';
+import Axios from 'axios';
+import Site from '@jsroot/common/site';
+
 
 class Filter extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            notificationType: '',
-            chatTypeId: '',
-            recipientId: '',
-            systemId: ''
+            filter: {
+                recipientTypes: {
+                    value: ''
+                },
+                chatTypes: {
+                    value: ''
+                },
+                systems: {
+                    value: ''
+                }
+            },
+            recipientTypesOptions: [],
+            chatTypesOptions: [],
+            systemsOptions: []
         };
-               
     }
 
     componentDidMount() {
         const params = this.getParams();
         this.props.setGridParams(params);
         this.props.getGridData(params);
+        const promises = [
+            Axios(Site.resolveClientUrl('NotificationType/GetRecipientTypes')),
+            Axios(Site.resolveClientUrl('NotificationType/GetChatTypes')),
+            Axios(Site.resolveClientUrl('NotificationType/GetSystems'))
+        ]
+
+        Promise.all(promises)
+            .then(([recipientTypesResponse, chatTypesResponse, systemsResponse]) => {
+                // recipient type
+                const recipientTypeIds = [];
+                const recipientTypesOptions = recipientTypesResponse.data.map(x => {
+                    recipientTypeIds.push(x.recipientTypeID);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
+
+                // chat type
+                const chatTypeIds = [];
+                const chatTypesOptions = chatTypesResponse.data.map(x => {
+                    chatTypeIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
+
+                // system
+                const systemIds = [];
+                const systemsOptions = systemsResponse.data.map(x => {
+                    systemIds.push(x.id);
+                    return {
+                        id: x.id,
+                        name: x.name,
+                        checked: true
+                    };
+                });
+
+                this.setState(prevState => ({
+                    recipientTypesOptions,
+                    chatTypesOptions,
+                    systemsOptions,
+                    filter: {
+                        ...prevState.filter,
+                        ...{
+                            recipientTypes: {
+                                value: recipientTypeIds.toString()
+                            },
+                            chatTypes: {
+                                value: chatTypeIds.toString()
+                            },
+                            systems: {
+                                value: systemIds.toString()
+                            }
+                        }
+                    }
+                }), () => {
+                    const pageIndex = 1;
+                });
+            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
 
     handleChatTypeChange = event => {
@@ -36,6 +112,10 @@ class Filter extends Component {
         });
     }
 
+    recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
+    chatTypeChange = value => this.handleFilterChange('chatTypes', value)
+    systemChange = value => this.handleFilterChange('systems', value)
+
     handleSystemChange = event => {
         this.setState({
             systemId: event.target.value
@@ -46,6 +126,12 @@ class Filter extends Component {
         this.setState({
             notificationType: event.target.value
         });
+    }
+
+    handleFilterChange = (name, value) => {
+        this.setState(prevState => ({
+            filter: { ...prevState.filter, ...{ [name]: value } }
+        }));
     }
 
     getParams = () => {
@@ -79,40 +165,51 @@ class Filter extends Component {
                             value={this.state.notificationType}
                             onChange={this.handleNotificationTypeChange}
                         />
-                    </div>                
+                    </div>
 
                     <label className="col-auto col-form-label">{LangHelper.getResource('RecipientType')}</label>
                     <div className="col-auto">
-                        <select className="form-control form-control-sm shadow-none"
-                            value={this.state.recipientTypeId}
-                            onChange={this.handleRecipientTypeChange}
-                        >
-                            <option value="">{LangHelper.getResource('All')}</option>
-                            <option value="">{LangHelper.getResource('PIC of headline')}</option>  
-                        </select>
+                        <MultipleSelectField
+                            width={182}
+                            initialValue={this.state.filter.recipientTypes.value}
+                            data={this.state.recipientTypeOptions}
+                            keyField='id'
+                            valueField='name'
+                            statusField='checked'
+                            isSummited={false}
+                            isAllTextShown
+                            onChange={this.recipientTypeChange}
+                        />
                     </div>
 
                     <label className="col-auto col-form-label">{LangHelper.getResource('ChatType')}</label>
                     <div className="col-auto">
-                        <select className="form-control form-control-sm shadow-none"
-                            value={this.state.chatTypeId}
-                            onChange={this.handleChatTypeChange}
-                        >
-                            <option value="">{LangHelper.getResource('All')}</option>
-                            <option value="">{LangHelper.getResource('Personal')}</option>
-                            <option value="">{LangHelper.getResource('Group')}</option>
-                        </select>
+                    <MultipleSelectField
+                            width={182}
+                            initialValue={this.state.filter.chatTypes.value}
+                            data={this.state.chatTypeOptions}
+                            keyField='id'
+                            valueField='name'
+                            statusField='checked'
+                            isSummited={false}
+                            isAllTextShown
+                            onChange={this.chatTypeChange}
+                        />
                     </div>
 
                     <label className="col-auto col-form-label">{LangHelper.getResource('System')}</label>
                     <div className="col-auto">
-                        <select className="form-control form-control-sm shadow-none"
-                            value={this.state.systemTypeId}
-                            onChange={this.handleSystemChange}
-                        >
-                            <option value="">{LangHelper.getResource('All')}</option>
-                            <option value="">{LangHelper.getResource('Special Delete Site')}</option>
-                        </select>
+                    <MultipleSelectField
+                            width={182}
+                            initialValue={this.state.filter.systems.value}
+                            data={this.state.systemOptions}
+                            keyField='id'
+                            valueField='name'
+                            statusField='checked'
+                            isSummited={false}
+                            isAllTextShown
+                            onChange={this.systemChange}
+                        />
                     </div>
 
                     <div className="col-auto">
@@ -139,11 +236,10 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { notificationTypes, gridParams, createTypePopup } = state;
+    const { notificationTypes, gridParams } = state;
     return {
         notificationTypes,
-        gridParams,
-        createTypePopup
+        gridParams
     };
 };
 
