@@ -43,5 +43,7 @@
     Status: 'Status',
     SendDateTimeGMTA8: 'Send Date/Time (GMT+8)',
     ThereIsNoData: 'There is no data',
-    NotificationList: 'Notification List'
+    NotificationList: 'Notification List',
+    Resolved: 'Resolved',
+    Error: 'Error'
 };

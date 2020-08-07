@@ -35,7 +35,10 @@ export class DataGrid extends Component {
                     isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
                 }
                 {
-                    isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Resend')}</HeaderCell>
+                    isHost && <HeaderCell colWidth={10}>
+                        <div className='resend-title link-click'>{LangHelper.getResource('Resend')}</div>
+                        <Form.Control className='checkbox-cell-style' type='checkbox' onChange={this.handleChangeResendAllCheckbox} value={this.props.resendOptions.isCheckedAll} />
+                    </HeaderCell>
                 }
             </HeaderRow>
         );
@@ -52,6 +55,15 @@ export class DataGrid extends Component {
 
         return [<Row key={`body${1}`} ><Cell className='text-center' colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
+
+    openContentPopup = item => {
+        this.props.setContentPopup({
+            show: true,
+            data: item
+        });
+    }
+
+    isErrorOrResolved = status => status === LangHelper.getResource('Error') || status === LangHelper.getResource('Resolved');
 
     renderRow = (item, index, isHost) => (
         <Row key={index} >
@@ -70,8 +82,8 @@ export class DataGrid extends Component {
             </Cell>
             <Cell className='text-center'>{item.groupHeadlines.map(gh => gh.name).join(', ')}</Cell>
             <Cell className='text-center'>{item.recipients.map((recipient, index) => <div key={index}>{`${recipient.name} (${recipient.role.name})`}</div>)}</Cell>
-            <Cell>{item.title}</Cell>
-            <Cell>{item.status}</Cell>
+            <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
+            <Cell className={`text-center status-font ${item.statusString.toLowerCase()}-color`}>{item.statusString}</Cell>
             {
                 isHost &&
                 <Cell className='text-center'>
@@ -82,11 +94,35 @@ export class DataGrid extends Component {
             {
                 isHost &&
                 <Cell className='text-center'>
-                    <Form.Control type='checkbox' />
+                    { this.isErrorOrResolved(item.statusString) && <Form.Control className='checkbox-cell-style'
+                        id={`resend-${item.notificationId}-${item.messageId}`}
+                        type='checkbox'
+                        checked={this.props.resendOptions.dataList[index] && this.props.resendOptions.dataList[index].isResent}
+                        onChange={() => this.handleChangeResendCheckbox(index)} />}
                 </Cell>
             }
         </Row>
     )
+
+    handleChangeResendCheckbox = (index) => {
+        let dataList = [...this.props.resendOptions.dataList];
+        dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
+        let notCheckedDataList = dataList.filter(item => this.isErrorOrResolved(item.status) && !item.isResent);
+        this.props.setResendOptions({
+            isCheckedAll: notCheckedDataList.length <= 0,
+            dataList
+        });
+    }
+
+    handleChangeResendAllCheckbox = () => {
+        let checked = !this.props.resendOptions.isCheckedAll;
+        let dataList = [...this.props.resendOptions.dataList];
+        dataList.forEach(item => item.isResent = checked);
+        this.props.setResendOptions({
+            isCheckedAll: checked,
+            dataList
+        });
+    }
 
     render() {
         if (!this.props.gridData || !this.props.gridData.data) {
@@ -127,10 +163,20 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData } = state;
+    const {
+        gridParams,
+        gridData,
+        setContentPopup,
+        resendOptions,
+        setResendOptions
+    } = state;
+
     return {
         gridParams,
-        gridData
+        gridData,
+        setContentPopup,
+        resendOptions,
+        setResendOptions
     };
 };
 

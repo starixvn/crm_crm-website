@@ -1,13 +1,6 @@
 import createReducer from '@jsroot/common/createReducer';
 import types from '../actions/types';
 
-// Setting
-export const notificationTypes = createReducer({}, {
-    [types.NOTIFICATIONTYPE_DATA](state, action) {
-        return action.data;
-    }
-});
-
 // Grid
 export const gridParams = createReducer({}, {
     [types.GRID_PARAMS](state, action) {
@@ -21,10 +14,23 @@ export const gridData = createReducer({}, {
     }
 });
 
+export const contentPopup = createReducer({}, {
+    [types.CONTENT_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const resendOptions = createReducer({}, {
+    [types.RESEND_OPTIONS_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
-    notificationTypes,
     gridParams,
-    gridData
+    gridData,
+    contentPopup,
+    resendOptions
 };
 
 export default reducers;

@@ -2,7 +2,7 @@
 {
     public enum Status
     {
-        Send,
+        Sent,
         Error,
         Resolved,
         Sending,

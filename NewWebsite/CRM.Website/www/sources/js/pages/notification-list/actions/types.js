@@ -1,11 +1,15 @@
 export const NOTIFICATIONTYPE_DATA = 'NOTIFICATIONTYPE_DATA';
 export const GRID_PARAMS = 'GRID_PARAMS';
 export const GRID_DATA = 'GRID_DATA';
+export const CONTENT_POPUP_DATA = 'CONTENT_POPUP_DATA';
+export const RESEND_OPTIONS_DATA = 'RESEND_OPTIONS_DATA';
 
 const types = {
     NOTIFICATIONTYPE_DATA,
     GRID_PARAMS,
-    GRID_DATA
+    GRID_DATA,
+    CONTENT_POPUP_DATA,
+    RESEND_OPTIONS_DATA
 };
 
 export default types;

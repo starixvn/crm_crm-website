@@ -29,5 +29,7 @@ namespace CRM.Models.NotificationList
         public string Content { get; set; }
 
         public Status Status { get; set; }
+
+        public string StatusString => Status.ToString();
     }
 }

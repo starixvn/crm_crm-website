@@ -7,7 +7,11 @@ import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
-    notificationTypes: []
+    contentPopup: { show: false },
+    resendOptions: {
+        isCheckedAll: false,
+        dataList: []
+    }
 });
 
 ReactDOM.render(

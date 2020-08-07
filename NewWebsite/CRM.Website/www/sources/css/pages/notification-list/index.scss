@@ -3,6 +3,7 @@
 @import '../../components/multiple-select/style';
 @import '../../components/date-picker/style';
 @import '../../abstracts//variables';
+@import '../../components/modal';
 
 .table-title {
     border: 1px solid $border-table-grey;
@@ -12,6 +13,56 @@
     color: $blue-button;
 }
 
+.link-click {
+    cursor: pointer;
+    color: $link-color !important;
+}
+
+.notification-content {
+    border: 1px solid $border-table-grey;
+    margin-top: 13px;
+    padding: 13px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.status-font {
+    font-weight: bold;
+}
+
 .table-title {
     border-bottom: none;
+}
+
+.sending-color {
+    color: $sending-color !important;
+}
+
+.sent-color {
+    color: $sent-color !important;
+}
+
+.error-color {
+    color: $error-color !important;
+}
+
+.draft-color {
+    color: $draft-color !important;
+}
+
+.resolved-color {
+    color: $resolved-color !important;
+}
+
+.checkbox-cell-style {
+    width: 13px;
+    height: 13px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.resend-title {
+    margin-bottom: 10px;
 }

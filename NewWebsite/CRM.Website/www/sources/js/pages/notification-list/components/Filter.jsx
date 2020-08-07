@@ -59,7 +59,7 @@ class Filter extends Component {
     componentDidMount() {
         const params = this.getParams();
         this.props.setGridParams(params);
-        this.props.getGridData(params);
+        this.props.getGridData(params, this.setResendOptions);
         const promises = [
             Axios(Site.resolveClientUrl('NotificationList/GetNotificationTypes')),
             Axios(Site.resolveClientUrl('NotificationList/GetSenders')),
@@ -207,6 +207,22 @@ class Filter extends Component {
         console.log(this.state.filter)
     }
 
+    setResendOptions = data => {
+        let dataList = data.map(item => {
+            return {
+                notificationId: item.notificationId,
+                messageId: item.messageId,
+                status: item.statusString,
+                isResent: false
+            }
+        });
+
+        this.props.setResendOptions({
+            isCheckedAll: false,
+            dataList
+        });
+    }
+
     render() {
         return (
             <Form className='form-filter'>
@@ -339,11 +355,13 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        gridParams
+        gridParams,
+        setResendOptions
     } = state;
 
     return {
-        gridParams
+        gridParams,
+        setResendOptions
     };
 };
 

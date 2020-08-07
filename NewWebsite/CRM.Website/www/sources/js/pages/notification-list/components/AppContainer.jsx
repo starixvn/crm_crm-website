@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
+import Content from './Content';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -21,6 +22,13 @@ export class AppContainer extends Component {
             <Fragment>
                 <Filter />
                 <DataGrid isHost={this.isHost} />
+                {
+                    this.props.contentPopup.show &&
+                    <Content
+                        onClose={() => this.props.setContentPopup({ show: false })}
+                        data={this.props.contentPopup.data}
+                    />
+                }
             </Fragment>
         );
     }
@@ -29,9 +37,11 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams } = state;
+    const { gridParams, contentPopup, setContentPopup } = state;
     return {
-        gridParams
+        gridParams,
+        contentPopup,
+        setContentPopup
     };
 };
 
