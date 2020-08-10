@@ -172,7 +172,7 @@ class Filter extends Component {
                         <MultipleSelectField
                             width={182}
                             initialValue={this.state.filter.recipientTypes.value}
-                            data={this.state.recipientTypeOptions}
+                            data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
@@ -187,7 +187,7 @@ class Filter extends Component {
                     <MultipleSelectField
                             width={182}
                             initialValue={this.state.filter.chatTypes.value}
-                            data={this.state.chatTypeOptions}
+                            data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
@@ -202,7 +202,7 @@ class Filter extends Component {
                     <MultipleSelectField
                             width={182}
                             initialValue={this.state.filter.systems.value}
-                            data={this.state.systemOptions}
+                            data={this.state.systemsOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'

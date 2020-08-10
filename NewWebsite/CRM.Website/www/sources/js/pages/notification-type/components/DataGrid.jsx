@@ -58,7 +58,7 @@ export class DataGrid extends Component {
     renderRow = (item, index, isHost) => (
         <Row key={item.notificationTypeId} >
             <Cell className="text-center">{index + this.startIndex}</Cell>
-            <Cell>{item.notificationType}</Cell>
+            <Cell>{item.name}</Cell>
             <Cell>{item.recipientType}</Cell>
             <Cell>{item.chatType}</Cell>
             <Cell>{item.system}</Cell>
