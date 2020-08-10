@@ -35,10 +35,6 @@
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
             Assert.Equal(model.Name, criteria.Name);
             Assert.Equal(model.Title, criteria.Title);
-            Assert.Equal(model.ContentEN, criteria.ContentEN);
-            Assert.Equal(model.ContentSC, criteria.ContentSC);
-            Assert.Equal(model.ContentENSC, criteria.ContentENSC);
-            Assert.Equal(model.IsCombineContentENSC, criteria.IsCombineContentENSC);
             Assert.Equal(napSession.UserId, criteria.CreatorId);
         }
 
@@ -63,10 +59,6 @@
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
             Assert.Equal(model.Name, criteria.Name);
             Assert.Equal(model.Title, criteria.Title);
-            Assert.Equal(model.ContentEN, criteria.ContentEN);
-            Assert.Equal(model.ContentSC, criteria.ContentSC);
-            Assert.Equal(model.ContentENSC, criteria.ContentENSC);
-            Assert.Equal(model.IsCombineContentENSC, criteria.IsCombineContentENSC);
             Assert.Equal(napSession.UserId, criteria.ModifierId);
         }
 

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using CRM.Core.Models;
     using CRM.Models.NotificationTemplate;
+    using CRM.Models.Setting;
     using CRM.Services;
     using Microsoft.AspNetCore.Mvc;
 
@@ -64,11 +65,7 @@
                 Name = "Notification Template 1",
                 Title = "3rd Party Product",
                 NotificationTypeId = 1,
-                NotificationType = "3rd Party Product",
-                ContentEN = "content en",
-                ContentSC = "content sc",
-                ContentENSC = "content en & sc",
-                IsCombineContentENSC = true
+                NotificationType = "3rd Party Product"
             };
             return Json(template);
         }
@@ -85,6 +82,17 @@
         {
             CommandResult commandResult = await templateService.DeleteAsync(id);
             return Json(commandResult);
+        }
+
+        public IActionResult GetLanguages()
+        {
+            var settings = new List<Setting>
+            {
+                new Setting { SettingId = 1, SettingValue = "Content (EN)" },
+                new Setting { SettingId = 2, SettingValue = "Content (SC)" },
+                new Setting { SettingId = 3, SettingValue = "Content (EN & SC)" }
+            };
+            return Json(settings);
         }
     }
 }

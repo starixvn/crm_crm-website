@@ -8,6 +8,7 @@ import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
     notificationTypes: [],
+    languages: [],
     createTemplatePopup: { show: false },
     createTemplateResult: null,
     editTemplatePopup: { show: false },

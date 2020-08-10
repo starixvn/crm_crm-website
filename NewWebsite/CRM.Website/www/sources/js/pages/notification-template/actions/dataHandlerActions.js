@@ -21,8 +21,24 @@ export const getNotificationTypes = () => {
     //return dispatch => {
     //    return axios.get(url).then(response => {
     //        dispatch(setNotificationTypes(response.data));
-    //    }).catch(Site.axiosError);
+    //    }).catch(Site.handleAxiosError);
     //};
+};
+
+export const setLanguages = data => {
+    return {
+        type: types.LANGUAGE_DATA,
+        data: data
+    };
+};
+
+export const getLanguages = () => {
+    const url = Site.resolveClientUrl('NotificationTemplate/GetLanguages');
+    return async dispatch => {
+        return axios.get(url).then(response => {
+            dispatch(setLanguages(response.data));
+        }).catch(Site.handleAxiosError);
+    };
 };
 
 // Grid
@@ -151,6 +167,8 @@ export const deleteTemplate = templateId => {
 const actions = {
     setNotificationTypes,
     getNotificationTypes,
+    setLanguages,
+    getLanguages,
     setGridParams,
     getGridData,
     setCreateTemplatePopup,

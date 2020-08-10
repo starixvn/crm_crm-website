@@ -8,6 +8,12 @@ export const notificationTypes = createReducer({}, {
     }
 });
 
+export const languages = createReducer({}, {
+    [types.LANGUAGE_DATA](state, action) {
+        return action.data;
+    }
+});
+
 // Grid
 export const gridParams = createReducer({}, {
     [types.GRID_PARAMS](state, action) {
@@ -62,6 +68,7 @@ export const deleteTemplateResult = createReducer({}, {
 
 const reducers = {
     notificationTypes,
+    languages,
     gridParams,
     gridData,
     createTemplatePopup,

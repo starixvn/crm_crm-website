@@ -1,6 +1,8 @@
 ﻿namespace CRM.Services
 {
+    using System.Linq;
     using System.Threading.Tasks;
+    using CRM.Core.Extensions.XML;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationTemplate;
@@ -36,11 +38,8 @@
                 NotificationTypeId = model.NotificationTypeId,
                 Name = model.Name?.Trim(),
                 Title = model.Title?.Trim(),
-                ContentEN = model.ContentEN?.Trim(),
-                ContentSC = model.ContentSC?.Trim(),
-                ContentENSC = model.ContentENSC?.Trim(),
-                IsCombineContentENSC = model.IsCombineContentENSC,
-                CreatorId = napSession.UserId
+                CreatorId = napSession.UserId,
+                ContentXml = model.Contents.Any() ? model.Contents.ToXML().ToString() : string.Empty
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -54,10 +53,7 @@
                 NotificationTypeId = model.NotificationTypeId,
                 Name = model.Name?.Trim(),
                 Title = model.Title?.Trim(),
-                ContentEN = model.ContentEN?.Trim(),
-                ContentSC = model.ContentSC?.Trim(),
-                ContentENSC = model.ContentENSC?.Trim(),
-                IsCombineContentENSC = model.IsCombineContentENSC,
+                ContentXml = model.Contents.Any() ? model.Contents.ToXML().ToString() : string.Empty,
                 ModifierId = napSession.UserId
             };
 

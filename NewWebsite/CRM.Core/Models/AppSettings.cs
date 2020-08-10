@@ -2,6 +2,7 @@
 {
     public class AppSettings
     {
+        public short TimeSpan { get; set; }
         public int SingleSignOnExpiredTime { get; set; }
     }
 }

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
@@ -14,56 +13,30 @@ class NewNotificationTemplate extends Component {
         super(props);
     }
 
-    combineContent = (content1, content2) => {
-        const isNullOrEmpty = value => !value || value === undefined || value === '' || value.length === 0;
-
-        if (!isNullOrEmpty(content1) && !isNullOrEmpty(content2)) {
-            return content1 + '\n' + content2;
-        } else if (!isNullOrEmpty(content1)) {
-            return content1;
-        } else if (!isNullOrEmpty(content2)) {
-            return content2;
-        } else {
-            return '';
-        }
-    }
-
-    handleChangeContentEN = (event, values, setFieldValue) => {
-        setFieldValue('contentEN', event.target.value);
-
-        if (values.isCombineContentENSC) {
-            setFieldValue('contentENSC', this.combineContent(event.target.value.trim(), values.contentSC.trim()));
-        }
-    }
-
-    handleChangeContentSC = (event, values, setFieldValue) => {
-        setFieldValue('contentSC', event.target.value);
-
-        if (values.isCombineContentENSC) {
-            setFieldValue('contentENSC', this.combineContent(values.contentEN.trim(), event.target.value.trim()));
-        }
-    }
-
-    handleChangeCombineContentENSC = (event, values, setFieldValue) => {
-        setFieldValue('isCombineContentENSC', event.target.checked);
-
-        if (event.target.checked) {
-            setFieldValue('contentENSC', this.combineContent(values.contentSC.trim(), values.contentSC.trim()));
-        } else {
-            setFieldValue('contentENSC', '');
-        }
-    }
-
     renderNotificationTypeOption = item => <option key={item.notificationTypeId} value={item.notificationTypeId} >{item.name}</option>
 
-    validationSchema = object().shape({
-        notificationTypeId: string().required(LangHelper.getResource('NotificationTypeRequired')),
-        name: string().required(LangHelper.getResource('TemplateNameRequired')).max(100),
-        title: string().required(LangHelper.getResource('TitleRequired')).max(300),
-        contentEN: string().required(LangHelper.getResource('ContentENRequired')),
-        contentSC: string().required(LangHelper.getResource('ContentSCRequired')),
-        contentENSC: string().required(LangHelper.getResource('ContentENSCRequired'))
-    })
+    validate = values => {
+        const errors = {};
+        if (!values.notificationTypeId) {
+            errors.notificationTypeId = LangHelper.getResource('NotificationTypeRequired');
+        }
+
+        if (!values.name || values.name.trim().length === 0) {
+            errors.name = LangHelper.getResource('TemplateNameRequired');
+        }
+
+        if (!values.title || values.title.trim().length === 0) {
+            errors.title = LangHelper.getResource('TitleRequired');
+        }
+
+        this.props.languages.map(item => {
+            if (!values['language_' + item.settingId] || values['language_' + item.settingId].trim().length === 0) {
+                errors['language_' + item.settingId] = `${item.settingValue} is mandatory!`;
+            }
+        });
+
+        return errors;
+    }
 
     renderForm = ({
         values,
@@ -85,7 +58,7 @@ class NewNotificationTemplate extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="notificationTypeId" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('NotificationType')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -101,7 +74,7 @@ class NewNotificationTemplate extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="name" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('TemplateName')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -113,7 +86,7 @@ class NewNotificationTemplate extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="title" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('Title')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -124,56 +97,24 @@ class NewNotificationTemplate extends Component {
                             />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="contentEN" className="required">
-                            {LangHelper.getResource('Content')} (EN)
-                        </Form.Label>
-                        <Col sm="8" md="9">
-                            <Form.Control as="textarea" value={values.contentEN} name="contentEN" rows="4"
-                                className="shadow-none form-control"
-                                isInvalid={touched.contentEN && errors.contentEN}
-                                onChange={event => this.handleChangeContentEN(event, values, setFieldValue)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="contentSC" className="required">
-                            {LangHelper.getResource('Content')} (SC)
-                        </Form.Label>
-                        <Col sm="8" md="9">
-                            <Form.Control as="textarea" value={values.contentSC} name="contentSC" rows="4"
-                                className="shadow-none form-control"
-                                isInvalid={touched.contentEN && errors.contentSC}
-                                onChange={event => this.handleChangeContentSC(event, values, setFieldValue)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" />
-                        <Col sm="8" md="9">
-                            <Form.Check
-                                id="isCombineContentENSC"
-                                name="isCombineContentENSC"
-                                checked={values.isCombineContentENSC}
-                                label={LangHelper.getResource('Combine2ContentENSC')}
-                                onChange={event => this.handleChangeCombineContentENSC(event, values, setFieldValue)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="contentSC" className="required">
-                            {LangHelper.getResource('Content')} (EN & SC)
-                        </Form.Label>
-                        <Col sm="8" md="9">
-                            <Form.Control as="textarea"
-                                value={values.contentENSC} name="contentENSC" rows="4"
-                                className="shadow-none form-control"
-                                isInvalid={touched.contentENSC && errors.contentENSC}
-                                disabled={values.isCombineContentENSC}
-                                onChange={handleChange}
-                            />
-                        </Col>
-                    </Form.Group>
+                    {
+                        this.props.languages.map(item => {
+                            return (
+                                <Form.Group key={`language${item.settingId}`} as={Row}>
+                                    <Form.Label column sm="4" md="3" className="required">
+                                        {item.settingValue}
+                                    </Form.Label>
+                                    <Col sm="8" md="9">
+                                        <Form.Control as="textarea" value={values['language_' + item.settingId]} name={'language_' + item.settingId} rows="4"
+                                            className="shadow-none form-control"
+                                            isInvalid={touched['language_' + item.settingId] && errors['language_' + item.settingId]}
+                                            onChange={handleChange}
+                                        />
+                                    </Col>
+                                </Form.Group>
+                            );
+                        })
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
@@ -186,7 +127,20 @@ class NewNotificationTemplate extends Component {
 
     handleSubmit = (values, { setSubmitting }) => {
         setSubmitting(true);
-        this.props.createTemplate(values).then(() => {
+        const template = {
+            notificationTypeId: values.notificationTypeId,
+            name: values.name,
+            title: values.title,
+            contents: []
+        };
+        this.props.languages.map(item => {
+            template.contents.push({
+                languageId: item.settingId,
+                content: values['language_' + item.settingId]
+            });
+        });
+
+        this.props.createTemplate(template).then(() => {
             if (this.props.createTemplateResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
@@ -198,6 +152,13 @@ class NewNotificationTemplate extends Component {
     }
 
     render() {
+        const initialValues = {
+            notificationTypeId: '',
+            name: '',
+            title: ''
+        };
+        this.props.languages.map(item => { initialValues['language_' + item.settingId] = ''; });
+
         return (
             <Modal show className="new-notification-template"
                 backdrop="static" keyboard={false} size="lg" centered
@@ -207,16 +168,8 @@ class NewNotificationTemplate extends Component {
                     <Modal.Title as="div">{LangHelper.getResource('CreateNewNotificationTemplate')}</Modal.Title>
                 </Modal.Header>
                 <Formik
-                    initialValues={{
-                        notificationTypeId: '',
-                        name: '',
-                        title: '',
-                        contentEN: '',
-                        contentSC: '',
-                        contentENSC: '',
-                        isCombineContentENSC: true
-                    }}
-                    validationSchema={this.validationSchema}
+                    initialValues={initialValues}
+                    validate={this.validate}
                     render={this.renderForm}
                     onSubmit={this.handleSubmit}
                 />
@@ -232,10 +185,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    const { createTemplateResult, notificationTypes } = state;
+    const { notificationTypes, languages, createTemplateResult } = state;
     return {
-        createTemplateResult,
-        notificationTypes
+        notificationTypes,
+        languages,
+        createTemplateResult
     };
 };
 

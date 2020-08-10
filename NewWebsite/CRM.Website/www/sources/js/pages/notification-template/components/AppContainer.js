@@ -18,6 +18,7 @@ export class AppContainer extends Component {
 
     componentDidMount() {
         this.props.getNotificationTypes();
+        this.props.getLanguages();
     }
 
     handleCloseCreatePopup = () => {
