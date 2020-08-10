@@ -24,5 +24,8 @@
 
         [XmlAttribute("PicName")]
         public string Name { get; set; }
+
+        [XmlAttribute("Remark")]
+        public string Remark { get; set; }
     }
 }

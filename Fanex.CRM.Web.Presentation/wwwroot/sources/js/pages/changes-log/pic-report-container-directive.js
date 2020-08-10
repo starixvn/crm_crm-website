@@ -216,7 +216,7 @@
                     </div>
                     </div>
                 </div>
-                <div class="container-detail border-bottom-none">
+                <div class="container-detail">
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.CommunicationTool}</div>
                     </div>
@@ -229,6 +229,16 @@
                     <div class="detail-child-col col-value-detail border-right-none">
                     <div>
                         <div class="padding-5px">Yes</div>
+                    </div>
+                    </div>
+                </div>
+                <div class="container-detail border-bottom-none">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Remark}</div>
+                    </div>
+                    <div class="detail-child-col col-value-larger border-right-none">
+                    <div>
+                        <div class="padding-5px">${data.NewPicInfo.Remark}</div>
                     </div>
                     </div>
                 </div>
@@ -249,6 +259,7 @@
             recursiveTool(data.OldPicInfo.CommunicationTools, oldCommunicationTool);
             let oldCommunicationToolValue = oldCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
             let communicationToolValue = changeValueToHtmlString(oldCommunicationToolValue, newCommunicationToolValue);
+            let remarkValue = changeValueToHtmlString(data.OldPicInfo.Remark, data.NewPicInfo.Remark);
 
             return `
                 <div class="container-detail">
@@ -290,9 +301,17 @@
                     <div class="padding-5px">${viewResources.CommunicationTool}</div>
                     </div>
                     <div
-                    class="detail-child-col col-value-detail border-right-none${communicationToolValue.backgroundChange} col-value-lager"
+                    class="detail-child-col col-value-detail${communicationToolValue.backgroundChange}"
                     >
                     ${communicationToolValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.Remark}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail border-right-none${remarkValue.backgroundChange}"
+                    >
+                    ${remarkValue.valueChange}
                     </div>
                 </div>                            
             `;
