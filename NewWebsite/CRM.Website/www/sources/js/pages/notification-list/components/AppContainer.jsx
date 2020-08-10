@@ -15,7 +15,6 @@ export class AppContainer extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <Fragment>
                 <Filter />

@@ -21,15 +21,7 @@ export const getGridData = (params, done) => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/GetGridData');
     return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
+        return axios.get(url, { params: params }).then(response => {
             done && done(response.data.data);
             dispatch(setGridData(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());

@@ -9,27 +9,16 @@ import DatePicker from '../../../components/date-picker/index'
 import Axios from 'axios';
 import Site from '@jsroot/common/site';
 
-const notificationIDRangeType = [
-    { id: 1, name: 'Between'},
-    { id: 2, name: 'Greater than'},
-    { id: 3, name: 'Less than'},
-    { id: 4, name: 'Equal'}
-];
-
 class Filter extends Component {
     constructor(props) {
         super(props);
-
-        const toDate = new Date();
-        const fromDate = new Date();
-        fromDate.setDate(fromDate.getDate() - 7);
+        const now = new Date();
+        const minDate = new Date();
+        minDate.setMonth(minDate.getMonth() - 1);
 
         this.state = {
             filter: {
                 notificationTypes: {
-                    value: ''
-                },
-                senders: {
                     value: ''
                 },
                 groupHeadlines: {
@@ -41,15 +30,16 @@ class Filter extends Component {
                 statuses: {
                     value: ''
                 },
-                fromDate: fromDate,
-                toDate: toDate,
+                fromDate: now,
+                toDate: now,
                 notificationIDFrom: '',
                 notificationIDTo: '',
-                messageID: ''
+                messageID: '',
+                content: ''
             },
-            notificationIDRangeType: 1,
+            minDate: minDate,
+            maxDate: now,
             notificationTypeOptions: [],
-            senderOptions: [],
             groupHeadlineOptions: [],
             recipientOptions: [],
             statusOptions: []
@@ -62,29 +52,17 @@ class Filter extends Component {
         this.props.getGridData(params, this.setResendOptions);
         const promises = [
             Axios(Site.resolveClientUrl('NotificationList/GetNotificationTypes')),
-            Axios(Site.resolveClientUrl('NotificationList/GetSenders')),
             Axios(Site.resolveClientUrl('NotificationList/GetGroupHeadlines')),
             Axios(Site.resolveClientUrl('NotificationList/GetRecipients')),
             Axios(Site.resolveClientUrl('NotificationList/GetStatuses'))
         ]
 
         Promise.all(promises)
-            .then(([notificationTypeResponse, sendersResponse, groupHeadlinesResponse, recipientsResponse, statusesResponse]) => {
+            .then(([notificationTypeResponse, groupHeadlinesResponse, recipientsResponse, statusesResponse]) => {
                 // notification type
                 const notificationTypeIds = [];
                 const notificationTypeOptions = notificationTypeResponse.data.map(x => {
-                    notificationTypeIds.push(x.notificationTypeID);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
-
-                // sender
-                const senderIds = [];
-                const senderOptions = sendersResponse.data.map(x => {
-                    senderIds.push(x.id);
+                    notificationTypeIds.push(x.id);
                     return {
                         id: x.id,
                         name: x.name,
@@ -127,7 +105,6 @@ class Filter extends Component {
         
                 this.setState(prevState => ({
                     notificationTypeOptions,
-                    senderOptions,
                     groupHeadlineOptions,
                     recipientOptions,
                     statusOptions,
@@ -136,9 +113,6 @@ class Filter extends Component {
                         ...{
                             notificationTypes: {
                                 value: notificationTypeIds.toString()
-                            },
-                            senders: {
-                                value: senderIds.toString()
                             },
                             groupHeadlines: {
                                 value: groupHeadlineIds.toString()
@@ -152,8 +126,9 @@ class Filter extends Component {
                         }
                     }
                 }), () => {
-                        const pageIndex = 1;
-                        // this.getNotifications(pageIndex);
+                        const params = this.getParams();
+                        this.props.setGridParams(params);
+                        this.props.getGridData(params);
                 });
             }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
@@ -170,41 +145,42 @@ class Filter extends Component {
 
     handleToDateChange = value => this.handleFilterChange('toDate', value)
 
-    handleSenderChange = value => this.handleFilterChange('senders', value)
-
     handleGroupHeadlineChange = value => this.handleFilterChange('groupHeadlines', value)
 
     handleRecipientChange = value => this.handleFilterChange('recipients', value)
 
     handleStatusChange = value => this.handleFilterChange('statuses', value)
 
-    renderNotificationIDRangeTypeOption = item => {
-        return (
-            <option key={item.id} value={item.id}>
-                {item.name}
-            </option>
-        );
+    handleChangeFilterControl = e => {
+        if (e.target.validity.valid) {
+            this.handleFilterChange(e.target.name, e.target.value);
+        }
     }
-
-    handleChangeFilterControl = e => this.handleFilterChange(e.target.name, e.target.value)
 
     handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
     getParams = () => {
         return {
-            notificationTypeId: parseInt(this.state.notificationTypeId, 10),
-            templateName: this.state.templateName,
-            pageIndex: 1,
-            pageSize: 50
+            notificationTypeIds: this.state.filter.notificationTypes.value,
+            fromDate: this.state.filter.fromDate,
+            toDate: this.state.filter.toDate,
+            groupHeadlineIds: this.state.filter.groupHeadlines.value,
+            recipientIds: this.state.filter.recipients.value,
+            messageId: this.state.filter.messageID,
+            notificationIdFrom: this.state.filter.notificationIDFrom,
+            notificationIdTo: this.state.filter.notificationIDTo,
+            content: this.state.filter.content,
+            statuses: this.state.filter.statuses.value,
+            pageIndex: this.props.gridParams.pageIndex,
+            pageSize: this.props.gridParams.pageSize
         };
     }
 
     submitHandler = e => {
         e.preventDefault();
-        // const params = this.getParams();
-        // this.props.setGridParams(params);
-        // this.props.getGridData(params);
-        console.log(this.state.filter)
+        const params = this.getParams();
+        this.props.setGridParams(params);
+        this.props.getGridData(params);
     }
 
     setResendOptions = data => {
@@ -221,6 +197,10 @@ class Filter extends Component {
             isCheckedAll: false,
             dataList
         });
+    }
+
+    isDisabledDateParam = () => {
+        return this.state.filter.messageID !== '' || this.state.filter.notificationIDFrom !== '' || this.state.filter.notificationIDTo !== '';
     }
 
     render() {
@@ -243,25 +223,11 @@ class Filter extends Component {
                     </div>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('From')}</label>
                     <div className='col-auto'>
-                        <DatePicker selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                        <DatePicker disabled={this.isDisabledDateParam()} minDate={this.state.minDate} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
                     </div>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('To')}</label>
                     <div className='col-auto'>
-                        <DatePicker selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
-                    </div>
-                    <label className='col-auto col-form-label'>{LangHelper.getResource('Sender')}</label>
-                    <div className='col-auto position-relative'>
-                        <MultipleSelectField
-                            width={182}
-                            initialValue={this.state.filter.senders.value}
-                            data={this.state.senderOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.handleSenderChange}
-                        />
+                        <DatePicker disabled={this.isDisabledDateParam()} minDate={this.state.minDate} maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
                     </div>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('GroupHeadline')}</label>
                     <div className='col-auto position-relative'>
@@ -275,7 +241,7 @@ class Filter extends Component {
                             isSummited={false}
                             isSearchable={true}
                             isAllTextShown
-                            onChange={this.handleSenderChange}
+                            onChange={this.handleGroupHeadlineChange}
                         />
                     </div>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('Recipient')}</label>
@@ -293,38 +259,33 @@ class Filter extends Component {
                             onChange={this.handleRecipientChange}
                         />
                     </div>
+                    <label className='col-auto col-form-label'>{LangHelper.getResource('MessageID')}</label>
+                    <div className='col-auto'>
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageID'
+                            value={this.state.filter.messageID}
+                            onChange={this.handleChangeFilterControl}
+                        />
+                    </div>
                 </Form.Row>
                 <Form.Row bsPrefix='form-row'>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('NotificationID')}</label>
                     <div className='col-auto'>
-                        <Form.Control as='select' size='sm' className='shadow-none' name='notificationIDRangeType'
-                            value={this.state.notificationIDRangeType}
-                            onChange={this.handleChange}
-                        >
-                            {notificationIDRangeType.map(this.renderNotificationIDRangeTypeOption)}
-                        </Form.Control>
-                    </div>
-                    <div className='col-auto'>
-                        <Form.Control as='input' size='sm' className='shadow-none' name='notificationIDFrom'
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='notificationIDFrom'
                             value={this.state.filter.notificationIDFrom}
                             onChange={this.handleChangeFilterControl}
                         />
                     </div>
-                    {
-                        (parseInt(this.state.notificationIDRangeType) === 1) && <Fragment>
-                            <div className='col-auto'>-</div>
-                            <div className='col-auto'>
-                                <Form.Control as='input' size='sm' className='shadow-none' name='notificationIDTo'
-                                    value={this.state.filter.notificationIDTo}
-                                    onChange={this.handleChangeFilterControl}
-                                />
-                            </div>
-                        </Fragment>
-                    }
-                    <label className='col-auto col-form-label'>{LangHelper.getResource('MessageID')}</label>
+                    <div className='col-auto'>-</div>
                     <div className='col-auto'>
-                        <Form.Control as='input' size='sm' className='shadow-none' name='messageID'
-                            value={this.state.filter.messageID}
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='notificationIDTo'
+                            value={this.state.filter.notificationIDTo}
+                            onChange={this.handleChangeFilterControl}
+                        />
+                    </div>
+                    <label className='col-auto col-form-label'>{LangHelper.getResource('Content')}</label>
+                    <div className='col-auto'>
+                        <Form.Control as='input' size='sm' className='shadow-none' name='content'
+                            value={this.state.filter.content}
                             onChange={this.handleChangeFilterControl}
                         />
                     </div>

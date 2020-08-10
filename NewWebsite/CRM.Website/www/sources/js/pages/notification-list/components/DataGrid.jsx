@@ -57,7 +57,6 @@ export class DataGrid extends Component {
     }
 
     openContentPopup = item => {
-        console.log(item.statusString === LangHelper.getResource('Error'))
         if (item.statusString === LangHelper.getResource('Error')) {
             this.props.setErrorOrResolvedContentPopup({
                 show: true,

@@ -26,19 +26,6 @@
             return Json(result);
         }
 
-        public IActionResult GetSenders()
-        {
-            var result = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Crm User1" },
-                new BaseModel { Id = 2, Name = "Crm User2" },
-                new BaseModel { Id = 3, Name = "Crm User3" },
-                new BaseModel { Id = 4, Name = "Crm User4" }
-            };
-
-            return Json(result);
-        }
-
         public IActionResult GetGroupHeadlines()
         {
             var result = new List<BaseModel>
@@ -71,8 +58,7 @@
 
             return Json(result);
         }
-
-        [HttpPost]
+        
         public IActionResult GetGridData(GetGridDataParam param)
         {
             const int totalItems = 100;

@@ -5,15 +5,15 @@ namespace CRM.Models.NotificationList
 {
     public class GetGridDataParam
     {
-        public int NotificationTypeId { get; set; }
+        public string NotificationTypeIds { get; set; }
 
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
 
-        public int GroupHeadline { get; set; }
+        public string GroupHeadlineIds { get; set; }
 
-        public int Recipient { get; set; }
+        public string RecipientIds { get; set; }
 
         public int MessageId { get; set; }
 
@@ -23,7 +23,7 @@ namespace CRM.Models.NotificationList
 
         public string Content { get; set; }
 
-        public Status Status { get; set; }
+        public string Statuses { get; set; }
 
         public int PageIndex { get; set; }
 
