@@ -42,7 +42,11 @@
         {
             var command = new EditNotificationTypeCommand
             {
-                NotificationTypeId = model.NotificationTypeId
+                NotificationTypeId = model.NotificationTypeId,
+                Name = model.Name,
+                ChatTypeId = model.ChatTypeId,
+                RecipientTypeId = model.RecipientTypeId,
+                SystemId = model.SystemId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);

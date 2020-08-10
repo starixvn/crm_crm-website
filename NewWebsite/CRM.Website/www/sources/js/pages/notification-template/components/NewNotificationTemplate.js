@@ -68,7 +68,7 @@ class NewNotificationTemplate extends Component {
                                 onChange={handleChange}
                                 value={values.notificationTypeId}
                             >
-                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
+                                <option value="" >{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.props.notificationTypes.map(this.renderNotificationTypeOption)}
                             </Form.Control>
                         </Col>

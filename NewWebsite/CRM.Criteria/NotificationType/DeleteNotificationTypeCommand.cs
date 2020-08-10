@@ -7,9 +7,9 @@
         public int NotificationTypeId { get; set; }
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
+        
         public override string GetSettingKey() => "";
 
-        public override bool IsValid() =>
-         NotificationTypeId > 0;
+        public override bool IsValid() => false;
     }
 }

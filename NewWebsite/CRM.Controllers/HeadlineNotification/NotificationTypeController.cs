@@ -82,7 +82,10 @@ namespace CRM.Controllers
             var type = new NotificationType
             {
                 NotificationTypeId = id,
-                Name = "Notification Type 1"
+                Name = "Notification Type 1",
+                RecipientTypeId = 1,
+                ChatTypeId = 1,
+                SystemId = 1
             };
             return Json(type);
         }
