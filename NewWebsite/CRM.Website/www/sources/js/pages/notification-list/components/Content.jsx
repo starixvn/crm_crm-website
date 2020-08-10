@@ -7,17 +7,11 @@ export default class Content extends Component {
         super(props);
     }
 
-    componentDidMount() {
-    }
-
     render() {
         const { data, onClose } = this.props;
 
         return (
-            <Modal show className='new-notification-template'
-                backdrop='static' keyboard={false} size='lg' centered
-                onHide={onClose}
-            >
+            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={onClose} >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>{`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MesageID')}: ${data.messageId})`}</Modal.Title>
                 </Modal.Header>

@@ -5,6 +5,7 @@ import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
 import Content from './Content';
+import ErrorResolvedContent from './ErrorResolvedContent';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -13,11 +14,8 @@ export class AppContainer extends Component {
         this.isHost = document.getElementById('is-host').checked;
     }
 
-    componentDidMount() {
-        // this.props.getNotificationTypes();
-    }
-
     render() {
+        console.log(this.props)
         return (
             <Fragment>
                 <Filter />
@@ -29,6 +27,13 @@ export class AppContainer extends Component {
                         data={this.props.contentPopup.data}
                     />
                 }
+                {
+                    this.props.errorOrResolvedContentPopup.show &&
+                    <ErrorResolvedContent
+                        onClose={() => this.props.setErrorOrResolvedContentPopup({ show: false })}
+                        data={this.props.errorOrResolvedContentPopup.data}
+                    />
+                }
             </Fragment>
         );
     }
@@ -37,11 +42,20 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, contentPopup, setContentPopup } = state;
+    const {
+        gridParams,
+        contentPopup,
+        setContentPopup,
+        errorOrResolvedContentPopup,
+        setErrorOrResolvedContentPopup
+    } = state;
+
     return {
         gridParams,
         contentPopup,
-        setContentPopup
+        setContentPopup,
+        errorOrResolvedContentPopup,
+        setErrorOrResolvedContentPopup
     };
 };
 

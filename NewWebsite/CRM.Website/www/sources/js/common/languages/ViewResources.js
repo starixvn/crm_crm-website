@@ -49,5 +49,8 @@
     Resolved: 'Resolved',
     Error: 'Error',
     DeleteNotificationTypeSuccessfully: 'Delete notification type successfully!',
-    EditNotificationType: 'Edit Notification Type'
+    EditNotificationType: 'Edit Notification Type',
+    EditNotificationTypeSuccessfully: 'Edit notification type successfully!',
+    ErrorNotification: 'Error Notification',
+    SentAt: 'Sent At'
 };

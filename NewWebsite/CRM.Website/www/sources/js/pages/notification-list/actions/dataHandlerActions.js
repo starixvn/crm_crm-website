@@ -43,6 +43,13 @@ export const setContentPopup = data => {
     };
 };
 
+export const setErrorOrResolvedContentPopup = data => {
+    return {
+        type: types.ERROR_RESOLVED_CONTENT_POPUP_DATA,
+        data
+    };
+};
+
 export const setResendOptions = data => {
     return dispatch => dispatch(setResendOptionsData(data));
 };
@@ -58,7 +65,8 @@ const actions = {
     setGridParams,
     getGridData,
     setContentPopup,
-    setResendOptions
+    setResendOptions,
+    setErrorOrResolvedContentPopup
 };
 
 export default actions;

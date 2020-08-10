@@ -8,6 +8,7 @@ import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
     contentPopup: { show: false },
+    errorOrResolvedContentPopup: { show: false },
     resendOptions: {
         isCheckedAll: false,
         dataList: []

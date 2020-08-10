@@ -37,7 +37,7 @@ export class DataGrid extends Component {
                 {
                     isHost && <HeaderCell colWidth={10}>
                         <div className='resend-title link-click'>{LangHelper.getResource('Resend')}</div>
-                        <Form.Control className='checkbox-cell-style' type='checkbox' onChange={this.handleChangeResendAllCheckbox} value={this.props.resendOptions.isCheckedAll} />
+                        <Form.Control className='checkbox-cell-style' type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
                     </HeaderCell>
                 }
             </HeaderRow>
@@ -57,10 +57,19 @@ export class DataGrid extends Component {
     }
 
     openContentPopup = item => {
-        this.props.setContentPopup({
-            show: true,
-            data: item
-        });
+        console.log(item.statusString === LangHelper.getResource('Error'))
+        if (item.statusString === LangHelper.getResource('Error')) {
+            this.props.setErrorOrResolvedContentPopup({
+                show: true,
+                data: item
+            });
+        }
+        else {
+            this.props.setContentPopup({
+                show: true,
+                data: item
+            });
+        }
     }
 
     isErrorOrResolved = status => status === LangHelper.getResource('Error') || status === LangHelper.getResource('Resolved');
@@ -105,9 +114,9 @@ export class DataGrid extends Component {
     )
 
     handleChangeResendCheckbox = (index) => {
-        let dataList = [...this.props.resendOptions.dataList];
+        const dataList = [...this.props.resendOptions.dataList];
         dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
-        let notCheckedDataList = dataList.filter(item => this.isErrorOrResolved(item.status) && !item.isResent);
+        const notCheckedDataList = dataList.filter(item => this.isErrorOrResolved(item.status) && !item.isResent);
         this.props.setResendOptions({
             isCheckedAll: notCheckedDataList.length <= 0,
             dataList
@@ -115,8 +124,8 @@ export class DataGrid extends Component {
     }
 
     handleChangeResendAllCheckbox = () => {
-        let checked = !this.props.resendOptions.isCheckedAll;
-        let dataList = [...this.props.resendOptions.dataList];
+        const checked = !this.props.resendOptions.isCheckedAll;
+        const dataList = [...this.props.resendOptions.dataList];
         dataList.forEach(item => item.isResent = checked);
         this.props.setResendOptions({
             isCheckedAll: checked,
@@ -167,6 +176,7 @@ const mapStateToProps = state => {
         gridParams,
         gridData,
         setContentPopup,
+        setErrorOrResolvedContentPopup,
         resendOptions,
         setResendOptions
     } = state;
@@ -175,6 +185,7 @@ const mapStateToProps = state => {
         gridParams,
         gridData,
         setContentPopup,
+        setErrorOrResolvedContentPopup,
         resendOptions,
         setResendOptions
     };

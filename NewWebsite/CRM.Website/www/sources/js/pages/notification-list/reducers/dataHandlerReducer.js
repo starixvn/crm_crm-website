@@ -26,10 +26,17 @@ export const resendOptions = createReducer({}, {
     }
 });
 
+export const errorOrResolvedContentPopup = createReducer({}, {
+    [types.ERROR_RESOLVED_CONTENT_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
     contentPopup,
+    errorOrResolvedContentPopup,
     resendOptions
 };
 
