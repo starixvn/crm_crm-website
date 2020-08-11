@@ -2,17 +2,41 @@
 {
     using System.Threading.Tasks;
     using AutoFixture;
+    using CRM.Core.Constants;
     using CRM.Core.Models;
     using CRM.Models.NotificationTemplate;
     using CRM.Services;
+    using Fanex.NAP.Client.Configuration;
+    using Fanex.NAP.Client.Helpers.Web;
+    using Fanex.NAP.Client.Services;
     using Microsoft.AspNetCore.Mvc;
     using NSubstitute;
     using Xunit;
+    using static Fanex.NAP.Core.Business.Constant;
 
     public class NotificationTemplateControllerTests
     {
+        private INapSession napSession;
+        private INapSettings napSettings;
+        private IUserService userService;
         private INotificationTemplateService templateService;
         private ISettingService settingService;
+
+        [Fact]
+        public void Index_WhenCalled_ReturnExpectedViewResult()
+        {
+            // Arrange
+            var controller = GetController();
+            userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationTemplate, Policy.Host).Returns(true);
+
+            // Act
+            var result = controller.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var viewModel = Assert.IsType<bool>(viewResult.Model);
+            Assert.True(viewModel);
+        }
 
         [Fact]
         public async Task Create_WhenCalled_ReturnExpectedData()
@@ -75,9 +99,12 @@
 
         private NotificationTemplateController GetController()
         {
+            napSession = Substitute.For<INapSession>();
+            napSettings = Substitute.For<INapSettings>();
+            userService = Substitute.For<IUserService>();
             templateService = Substitute.For<INotificationTemplateService>();
             settingService = Substitute.For<ISettingService>();
-            return new NotificationTemplateController(templateService, settingService);
+            return new NotificationTemplateController(napSession, napSettings, userService, templateService, settingService);
         }
 
         #endregion Helpers
