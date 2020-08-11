@@ -6,6 +6,7 @@ import Filter from './Filter';
 import DataGrid from './DataGrid';
 import NewNotificationTemplate from './NewNotificationTemplate';
 import EditNotificationTemplate from './EditNotificationTemplate';
+import ContentDetailPopup from './ContentDetailPopup';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 
@@ -33,7 +34,13 @@ export class AppContainer extends Component {
 
     handleCloseEditPopup = () => {
         this.props.setEditTemplatePopup({ show: false });
+        this.props.setSelectedTemplate(null);
         this.props.setEditTemplateResult(null);
+    }
+
+    handleCloseViewContentPopup = () => {
+        this.props.setViewContentPopup({ show: false });
+        this.props.setSelectedTemplate(null);
     }
 
     handleEditSuccess = () => {
@@ -91,6 +98,10 @@ export class AppContainer extends Component {
                         onClose={this.handleCloseDeletePopup}
                     />
                 }
+                {
+                    this.props.contentDetailPopup.show &&
+                    <ContentDetailPopup onClose={this.handleCloseViewContentPopup} />
+                }
             </Fragment>
         );
     }
@@ -99,13 +110,13 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, createTemplatePopup, editTemplatePopup, deleteTemplatePopup, deleteTemplateResult } = state;
+    const {
+        gridParams, createTemplatePopup, editTemplatePopup,
+        deleteTemplatePopup, deleteTemplateResult, contentDetailPopup
+    } = state;
     return {
-        gridParams,
-        createTemplatePopup,
-        editTemplatePopup,
-        deleteTemplatePopup,
-        deleteTemplateResult
+        gridParams, createTemplatePopup, editTemplatePopup,
+        deleteTemplatePopup, deleteTemplateResult, contentDetailPopup
     };
 };
 

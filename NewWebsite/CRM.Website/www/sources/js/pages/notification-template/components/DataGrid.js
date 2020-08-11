@@ -21,7 +21,11 @@ export class DataGrid extends Component {
     }
 
     handleEdit = id => {
-        this.props.getTemplateById(id);
+        this.props.getTemplateById(id, () => this.props.setEditTemplatePopup({ show: true }));
+    }
+
+    handleViewContent = id => {
+        this.props.getTemplateById(id, () => this.props.setViewContentPopup({ show: true }));
     }
 
     handleDelete = (id, name) => {
@@ -34,7 +38,9 @@ export class DataGrid extends Component {
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('NotificationType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('TemplateName')}</HeaderCell>
-                <HeaderCell colWidth={100}>{LangHelper.getResource('Title')}</HeaderCell>
+                <HeaderCell colWidth={100}>
+                    {`${LangHelper.getResource('Title')}/${LangHelper.getResource('Content')}`}
+                </HeaderCell>
                 {
                     isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
                 }
@@ -59,7 +65,7 @@ export class DataGrid extends Component {
             <Cell className="text-center">{index + this.startIndex}</Cell>
             <Cell>{item.notificationType}</Cell>
             <Cell>{item.name}</Cell>
-            <Cell>{item.title}</Cell>
+            <Cell><a href="#" onClick={() => this.handleViewContent(item.notificationTemplateId)}>{item.title}</a></Cell>
             {
                 isHost &&
                 <Cell className="text-center">

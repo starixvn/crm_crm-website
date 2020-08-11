@@ -43,7 +43,8 @@
                 templates.Add(new NotificationTemplate
                 {
                     NotificationTemplateId = i + 1,
-                    Name = $"Notification Template {i + 1}"
+                    Name = $"Notification Template {i + 1}",
+                    Title = $"Title {i + 1}"
                 });
             }
 

@@ -66,6 +66,18 @@ export const deleteTemplateResult = createReducer({}, {
     }
 });
 
+export const selectedTemplate = createReducer({}, {
+    [types.SELECTED_TEMPLATE](state, action) {
+        return action.data;
+    }
+});
+
+export const contentDetailPopup = createReducer({}, {
+    [types.CONTENT_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     languages,
@@ -76,7 +88,9 @@ const reducers = {
     editTemplatePopup,
     editTemplateResult,
     deleteTemplatePopup,
-    deleteTemplateResult
+    deleteTemplateResult,
+    selectedTemplate,
+    contentDetailPopup
 };
 
 export default reducers;

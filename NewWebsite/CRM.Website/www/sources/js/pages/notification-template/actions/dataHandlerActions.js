@@ -117,13 +117,6 @@ export const setEditTemplateResult = data => {
     };
 };
 
-export const getTemplateById = (templateId) => {
-    return async dispatch => axios(Site.resolveClientUrl(`NotificationTemplate/GetById/${templateId}`))
-        .then(response => {
-            dispatch(setEditTemplatePopup({ show: true, template: response.data }));
-        }).catch(Site.handleAxiosError);
-};
-
 export const editTemplate = (data) => {
     return async dispatch => axios({
         url: Site.resolveClientUrl('NotificationTemplate/Edit'),
@@ -164,6 +157,33 @@ export const deleteTemplate = templateId => {
     }).then(response => response.data).catch(Site.handleAxiosError);
 };
 
+// view content
+export const setViewContentPopup = data => {
+    return {
+        type: types.CONTENT_POPUP_DATA,
+        data: data
+    };
+};
+
+//
+export const setSelectedTemplate = data => {
+    return {
+        type: types.SELECTED_TEMPLATE,
+        data: data
+    };
+};
+
+export const getTemplateById = (templateId, callback) => {
+    return async dispatch => axios(Site.resolveClientUrl(`NotificationTemplate/GetById/${templateId}`))
+        .then(response => {
+            dispatch(setSelectedTemplate(response.data));
+
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }).catch(Site.handleAxiosError);
+};
+
 const actions = {
     setNotificationTypes,
     getNotificationTypes,
@@ -180,7 +200,9 @@ const actions = {
     editTemplate,
     setDeleteTemplatePopup,
     setDeleteTemplateResult,
-    deleteTemplate
+    deleteTemplate,
+    setSelectedTemplate,
+    setViewContentPopup
 };
 
 export default actions;

@@ -54,7 +54,7 @@ class NewNotificationTemplate extends Component {
                     {
                         this.props.createTemplateResult &&
                         <ResponseMessage isSuccessful={this.props.createTemplateResult.isSuccessful}
-                            message={this.props.createTemplateResult.message || LangHelper.getResource('CreateNewNotificationTemplateSuccessfully')}
+                            message={this.props.createTemplateResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -68,7 +68,7 @@ class NewNotificationTemplate extends Component {
                                 onChange={handleChange}
                                 value={values.notificationTypeId}
                             >
-                                <option value="" >{LangHelper.getResource('PleaseSelect')}</option>
+                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.props.notificationTypes.map(this.renderNotificationTypeOption)}
                             </Form.Control>
                         </Col>
@@ -165,7 +165,7 @@ class NewNotificationTemplate extends Component {
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('CreateNewNotificationTemplate')}</Modal.Title>
+                    <Modal.Title as="div">{LangHelper.getResource('InsertNotificationTemplate')}</Modal.Title>
                 </Modal.Header>
                 <Formik
                     initialValues={initialValues}

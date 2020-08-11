@@ -152,7 +152,7 @@ class EditNotificationTemplate extends Component {
     }
 
     render() {
-        const template = this.props.editTemplatePopup.template;
+        const template = this.props.selectedTemplate;
         const initialValues = {
             notificationTemplateId: template.notificationTemplateId,
             notificationTypeId: template.notificationTypeId,
@@ -193,10 +193,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    const { editTemplateResult, editTemplatePopup, notificationTypes, languages } = state;
+    const { editTemplateResult, selectedTemplate, notificationTypes, languages } = state;
     return {
         editTemplateResult,
-        editTemplatePopup,
+        selectedTemplate,
         notificationTypes,
         languages
     };

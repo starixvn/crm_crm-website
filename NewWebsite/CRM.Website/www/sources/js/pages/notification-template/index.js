@@ -9,12 +9,14 @@ import reducer from './reducers/index';
 const store = Store.createStore(reducer, {
     notificationTypes: [],
     languages: [],
+    selectedTemplate: null,
     createTemplatePopup: { show: false },
     createTemplateResult: null,
     editTemplatePopup: { show: false },
     editTemplateResult: null,
     deleteTemplatePopup: { show: false },
-    deleteTemplateResult: null
+    deleteTemplateResult: null,
+    contentDetailPopup: { show: false }
 });
 
 ReactDOM.render(
