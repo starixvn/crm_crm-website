@@ -8,10 +8,15 @@
 
   <ItemGroup>
     <None Remove="App_Data\SpNames.xml" />
+    <None Remove="www\sources\js\pages\chat-type-mapping\components\PersonalMappingPopup.jsx" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\SonarQube\crm\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="www\sources\js\pages\chat-type-mapping\components\PersonalMappingPopup.jsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,7 +53,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="www\sources\js\pages\chat-type-mapping\" />
     <Folder Include="www\sources\js\pages\notification-list\actions\" />
     <Folder Include="www\sources\js\pages\notification-list\reducers\" />
   </ItemGroup>

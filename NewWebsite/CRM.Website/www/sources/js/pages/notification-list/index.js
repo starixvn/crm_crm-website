@@ -20,7 +20,7 @@ const store = Store.createStore(reducer, {
 });
 
 ReactDOM.render(
-    <Provider store={store}>
-        <AppContainer />
-    </Provider>,
- document.getElementById('app-container'));
+	<Provider store={store}>
+		<AppContainer />
+	</Provider>,
+	document.getElementById('app-container'));

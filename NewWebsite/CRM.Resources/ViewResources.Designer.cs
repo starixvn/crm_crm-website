@@ -61,6 +61,15 @@ namespace CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Type Mapping.
+        /// </summary>
+        public static string ChatTypeMapping {
+            get {
+                return ResourceManager.GetString("ChatTypeMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification List.
         /// </summary>
         public static string NotificationList {
