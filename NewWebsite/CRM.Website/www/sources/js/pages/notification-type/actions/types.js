@@ -7,6 +7,8 @@ export const EDIT_POPUP_DATA = 'EDIT_POPUP_DATA';
 export const EDIT_RESULT_DATA = 'EDIT_RESULT_DATA';
 export const DELETE_POPUP_DATA = 'DELETE_POPUP_DATA';
 export const DELETE_RESULT_DATA = 'DELETE_RESULT_DATA';
+export const INVALID_PARAMS_DATA = 'INVALID_PARAMS_DATA';
+export const SETTINGS_DATA = 'SETTINGS_DATA';
 
 const types = {
     NOTIFICATIONTYPE_DATA,
@@ -17,7 +19,8 @@ const types = {
     EDIT_POPUP_DATA,
     EDIT_RESULT_DATA,
     DELETE_POPUP_DATA,
-    DELETE_RESULT_DATA
+    DELETE_RESULT_DATA,
+    SETTINGS_DATA
 };
 
 export default types;

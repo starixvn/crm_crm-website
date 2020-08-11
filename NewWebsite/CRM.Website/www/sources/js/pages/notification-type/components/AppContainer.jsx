@@ -16,10 +16,6 @@ export class AppContainer extends Component {
         this.isHost = document.getElementById('IsHost').checked;
     }
 
-    componentDidMount() {
-        this.props.getNotificationTypes();
-    }
-
     handleCloseCreatePopup = () => {
         this.props.setCreateTypePopup({ show: false });
         this.props.setCreateTypeResult(null);

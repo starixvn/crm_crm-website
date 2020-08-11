@@ -5,9 +5,6 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
-import Axios from 'axios';
-import Site from '@jsroot/common/site';
-
 
 class Filter extends Component {
     constructor(props) {
@@ -31,52 +28,42 @@ class Filter extends Component {
         };
     }
 
-    componentDidMount() {
-        const params = this.getParams();
-        this.props.setGridParams(params);
-        this.props.getGridData(params);
-        const promises = [
-            Axios(Site.resolveClientUrl('NotificationType/GetRecipientTypes')),
-            Axios(Site.resolveClientUrl('NotificationType/GetChatTypes')),
-            Axios(Site.resolveClientUrl('NotificationType/GetSystems'))
-        ]
+    componentDidUpdate = (nextProps, prevState) => {
+        if(nextProps.settings !== this.props.settings) {
+            // recipient type
+            const recipientTypeIds = [];
+            const recipientTypesOptions = this.props.settings.recipients.map(x => {
+                recipientTypeIds.push(x.recipientTypeID);
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
-        Promise.all(promises)
-            .then(([recipientTypesResponse, chatTypesResponse, systemsResponse]) => {
-                // recipient type
-                const recipientTypeIds = [];
-                const recipientTypesOptions = recipientTypesResponse.data.map(x => {
-                    recipientTypeIds.push(x.recipientTypeID);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
+            // chat type
+            const chatTypeIds = [];
+            const chatTypesOptions = this.props.settings.chatTypes.map(x => {
+                chatTypeIds.push(x.id);
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
-                // chat type
-                const chatTypeIds = [];
-                const chatTypesOptions = chatTypesResponse.data.map(x => {
-                    chatTypeIds.push(x.id);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
+            // system
+            const systemIds = [];
+            const systemsOptions = this.props.settings.systems.map(x => {
+                systemIds.push(x.id);
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
-                // system
-                const systemIds = [];
-                const systemsOptions = systemsResponse.data.map(x => {
-                    systemIds.push(x.id);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
-
-                this.setState(prevState => ({
+            this.setState(prevState => ({
                     recipientTypesOptions,
                     chatTypesOptions,
                     systemsOptions,
@@ -94,10 +81,16 @@ class Filter extends Component {
                             }
                         }
                     }
-                }), () => {
-                    const pageIndex = 1;
-                });
-            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+            }), () => {
+                const params = this.getParams();
+                this.props.setGridParams(params);
+                this.props.getGridData(params);
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.props.getSettings();
     }
 
     handleChatTypeChange = event => {
@@ -236,10 +229,11 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { notificationTypes, gridParams } = state;
+    const { gridParams, settings, getSettings } = state;
     return {
-        notificationTypes,
-        gridParams
+        gridParams,
+        settings,
+        getSettings
     };
 };
 

@@ -17,32 +17,25 @@ namespace CRM.Controllers
         {
             this.typeService = typeService;
         }
-        
-        public IActionResult GetRecipientTypes()
+        public IActionResult GetSettings()
         {
-            var result = new List<BaseModel>
+            var result = new
             {
-                new BaseModel { Id = 1, Name = "PIC of headline" }
-            };
-
-            return Json(result);
-        }
-        public IActionResult GetChatTypes()
-        {
-            var result = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Group" },
-                new BaseModel { Id = 2, Name = "Personal" }
-            };
-
-            return Json(result);
-        }
-
-        public IActionResult GetSystems()
-        {
-            var result = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Special Delete Site" }
+                ChatTypes = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "Group" },
+                    new BaseModel { Id = 2, Name = "Personal" }
+                },
+                Systems = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "Special Delete Site 1" },
+                    new BaseModel { Id = 2, Name = "Special Delete Site 2" }
+                },
+                Recipients = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "PIC of headline 1" },
+                    new BaseModel { Id = 2, Name = "PIC of headline 2" },
+                }
             };
 
             return Json(result);

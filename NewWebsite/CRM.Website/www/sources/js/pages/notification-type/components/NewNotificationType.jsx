@@ -8,8 +8,8 @@ import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
-import Axios from 'axios';
-import Site from '@jsroot/common/site';
+import ResponseMessage from '@jsroot/components/ResponseMessage';
+
 
 class NewNotificationType extends Component {
     constructor(props) {
@@ -33,58 +33,44 @@ class NewNotificationType extends Component {
         };
     }
 
-    validationSchema = object().shape({
-        notificationType: string().required(LangHelper.getResource('NotificationTypeRequired')).max(1000),
-        recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
-        chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
-        system: string().required(LangHelper.getResource('SystemRequired')),
-    })
+    componentDidUpdate = (nextProps, prevState) => {
+        if(nextProps.settings !== this.props.settings) {
+            // recipient type
+            const recipientTypeIds = [];
+            const recipientTypesOptions = this.props.settings.recipients.map(x => {
+                recipientTypeIds.push(x.recipientTypeID);
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
-    componentDidMount() {
-        const promises = [
-            Axios(Site.resolveClientUrl('NotificationType/GetRecipientTypes')),
-            Axios(Site.resolveClientUrl('NotificationType/GetChatTypes')),
-            Axios(Site.resolveClientUrl('NotificationType/Getsystems'))
-        ]
+            // chat type
+            const chatTypeIds = [];
+            const chatTypesOptions = this.props.settings.chatTypes.map(x => {
+                chatTypeIds.push(x.id);
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
-        Promise.all(promises)
-            .then(([recipientTypesResponse, chatTypesResponse, systemResponse]) => {
-                // recipient type
-                const recipientTypeIds = [];
-                const recipientTypesOptions = recipientTypesResponse.data.map(x => {
-                    recipientTypeIds.push(x.recipientTypeID);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
+            // system
+            const systemIds = [];
+            const systemsOptions = this.props.settings.systems.map(x => {
+                systemIds.push(x.id);
+                return {
+                    id: x.id,
+                    name: x.name
+                };
+            });
 
-                // chat type
-                const chatTypeIds = [];
-                const chatTypesOptions = chatTypesResponse.data.map(x => {
-                    chatTypeIds.push(x.id);
-                    return {
-                        id: x.id,
-                        name: x.name,
-                        checked: true
-                    };
-                });
-
-                // system
-                const systemIds = [];
-                const systemOptions = systemResponse.data.map(x => {
-                    systemIds.push(x.id);
-                    return {
-                        id: x.id,
-                        name: x.name
-                    };
-                });
-
-                this.setState(prevState => ({
+            this.setState(prevState => ({
                     recipientTypesOptions,
                     chatTypesOptions,
-                    systemOptions,
+                    systemsOptions,
                     filter: {
                         ...prevState.filter,
                         ...{
@@ -94,17 +80,25 @@ class NewNotificationType extends Component {
                             chatTypes: {
                                 value: chatTypeIds.toString()
                             },
-                            system: {
+                            systems: {
                                 value: systemIds.toString()
                             }
                         }
                     }
-                }), () => {
-                    const pageIndex = 1;
-                });
-            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+            }), () => {
+                const params = this.getParams();
+                this.props.setGridParams(params);
+                this.props.getGridData(params);
+            });
+        }
     }
 
+    validationSchema = object().shape({
+        notificationType: string().required(LangHelper.getResource('NotificationTypeRequired')),
+        //recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
+        //chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
+        system: string().required(LangHelper.getResource('SystemRequired')),
+    })
 
     recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
     chatTypeChange = value => this.handleFilterChange('chatTypes', value)
@@ -156,7 +150,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.filter.recipientTypes.value}
+                            initialValue={touched.recipientType && errors.recipientType}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -262,9 +256,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    const { createTypeResult } = state;
+    const { createTypeResult, settings, getSettings } = state;
     return {
-        createTypeResult
+        createTypeResult,
+        settings,
+        getSettings
     };
 };
 

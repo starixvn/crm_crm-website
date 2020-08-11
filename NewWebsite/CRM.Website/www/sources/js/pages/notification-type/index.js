@@ -11,7 +11,12 @@ const store = Store.createStore(reducer, {
     createTypePopup: { show: false },
     createTypeResult: null,
     editTypePopup: { show: false },
-    editTypeResult: null
+    editTypeResult: null,
+    settings: {
+        ChatTypes: [],
+        Recipients: [],
+        Systems: []
+    }
 });
 
 ReactDOM.render(

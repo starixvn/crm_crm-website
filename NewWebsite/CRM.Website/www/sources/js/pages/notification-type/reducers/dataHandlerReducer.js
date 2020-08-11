@@ -60,6 +60,12 @@ export const deleteTypeResult = createReducer({}, {
     }
 });
 
+export const settings = createReducer({}, {
+    [types.SETTINGS_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     notificationTypes,
     gridParams,
@@ -69,7 +75,8 @@ const reducers = {
     editTypePopup,
     editTypeResult,
     deleteTypePopup,
-    deleteTypeResult
+    deleteTypeResult,
+    settings
 };
 
 export default reducers;
