@@ -88,7 +88,7 @@ export class AppContainer extends Component {
                 }
                 {
                     this.props.deleteTemplatePopup.show &&
-                    <ConfirmPopup
+                    <ConfirmPopup size="lg"
                         title={LangHelper.getResource('Confirmation')}
                         content={
                             <div>Are you sure you want to delete <strong>{this.props.deleteTemplatePopup.name}</strong>?</div>

@@ -72,6 +72,13 @@ $bgTotal: $bgSummaryTotal;
             &:nth-child(2n) td {
                 background: #eceff1;
             }
+
+            &.no-data {
+                td {
+                    color: red;
+                    text-align: center;
+                }
+            }
         }
     }
 }

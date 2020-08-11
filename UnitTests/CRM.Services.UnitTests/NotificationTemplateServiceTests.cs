@@ -14,6 +14,7 @@
     {
         private INapSession napSession;
         private IBaseService baseService;
+        private ISettingService settingService;
 
         [Fact]
         public async Task CreateAsync_WhenCalled_ReturnExpectedCommandResult()
@@ -35,7 +36,7 @@
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
             Assert.Equal(model.Name, criteria.Name);
             Assert.Equal(model.Title, criteria.Title);
-            Assert.Equal(napSession.UserId, criteria.CreatorId);
+            Assert.Equal(napSession.UserId, criteria.UserId);
         }
 
         [Fact]
@@ -59,7 +60,7 @@
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
             Assert.Equal(model.Name, criteria.Name);
             Assert.Equal(model.Title, criteria.Title);
-            Assert.Equal(napSession.UserId, criteria.ModifierId);
+            Assert.Equal(napSession.UserId, criteria.UserId);
         }
 
         [Fact]
@@ -89,7 +90,8 @@
         {
             napSession = Substitute.For<INapSession>();
             baseService = Substitute.For<IBaseService>();
-            var service = new NotificationTemplateService(napSession, baseService);
+            settingService = Substitute.For<ISettingService>();
+            var service = new NotificationTemplateService(napSession, baseService, settingService);
 
             return service;
         }

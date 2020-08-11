@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CRM.Core.Constants;
     using CRM.Core.Models;
     using CRM.Models.NotificationTemplate;
     using CRM.Models.Setting;
@@ -14,17 +15,20 @@
         ////private readonly INapSettings napSettings;
         ////private readonly IUserService userService;
         private readonly INotificationTemplateService templateService;
+        private readonly ISettingService settingService;
 
         public NotificationTemplateController(
             ////INapSession napSession,
             ////INapSettings napSettings,
             ////IUserService userService,
-            INotificationTemplateService templateService)
+            INotificationTemplateService templateService,
+            ISettingService settingService)
         {
             ////this.napSession = napSession;
             ////this.napSettings = napSettings;
             ////this.userService = userService;
             this.templateService = templateService;
+            this.settingService = settingService;
         }
 
         public IActionResult Index()
@@ -34,21 +38,10 @@
         }
 
         [HttpPost]
-        public IActionResult GetGridData(GetGridDataParam param)
+        public async Task<IActionResult> GetGridData([FromBody]GetGridDataParam param)
         {
-            const int TotalItems = 100;
-            var templates = new List<NotificationTemplate> { };
-            for (var i = 0; i < TotalItems; i++)
-            {
-                templates.Add(new NotificationTemplate
-                {
-                    NotificationTemplateId = i + 1,
-                    Name = $"Notification Template {i + 1}",
-                    Title = $"Title {i + 1}"
-                });
-            }
-
-            return Json(new { totalItems = TotalItems, data = templates });
+            IEnumerable<NotificationTemplate> templates = await templateService.GetAsync(param);
+            return Json(new { totalItems = param.TotalRows, data = templates });
         }
 
         [HttpPost]
@@ -58,16 +51,9 @@
             return Json(commandResult);
         }
 
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var template = new NotificationTemplate
-            {
-                NotificationTemplateId = id,
-                Name = "Notification Template 1",
-                Title = "3rd Party Product",
-                NotificationTypeId = 1,
-                NotificationType = "3rd Party Product"
-            };
+            NotificationTemplate template = await templateService.GetByIdAsync(id);
             return Json(template);
         }
 
@@ -85,14 +71,14 @@
             return Json(commandResult);
         }
 
-        public IActionResult GetLanguages()
+        public async Task<IActionResult> GetLanguages()
         {
-            var settings = new List<Setting>
+            var param = new GetSettingParam
             {
-                new Setting { SettingId = 1, SettingValue = "Content (EN)" },
-                new Setting { SettingId = 2, SettingValue = "Content (SC)" },
-                new Setting { SettingId = 3, SettingValue = "Content (EN & SC)" }
+                SettingName = SettingName.ChatBotLanguage,
+                IsActive = 1
             };
+            IEnumerable<Setting> settings = await settingService.GetAsync(param);
             return Json(settings);
         }
     }

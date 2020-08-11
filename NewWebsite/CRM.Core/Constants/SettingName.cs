@@ -6,5 +6,6 @@
         public const string SubCategory = "SubCategory";
         public const string Product = "Product";
         public const string SubProduct = "SubProduct";
+        public const string ChatBotLanguage = "ChatBotLanguage";
     }
 }

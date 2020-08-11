@@ -51,13 +51,13 @@ export class DataGrid extends Component {
     buildBody = isHost => {
         const { pageIndex, pageSize } = this.props.gridParams;
 
-        this.startIndex = (pageIndex - 1) * pageSize + 1;
+        this.startIndex = pageIndex * pageSize + 1;
 
         if (this.props.gridData.data.length > 0) {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} ><Cell colSpan="5">There is no data</Cell></Row>];
+        return [<Row key={`body${1}`} className="no-data"><Cell colSpan="5">{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     renderRow = (item, index, isHost) => (

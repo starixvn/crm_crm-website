@@ -4,19 +4,13 @@
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
-  <Function Name="System Setting">
-    <Setting Key="Acc_CRM_SystemSettingSel" SpName="Acc_CRM_SystemSettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SystemSettingUpd" SpName="Acc_CRM_SystemSettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>
-  <Function Name="Feedback">
-    <Setting Key="Acc_CRM_CustomerSearch" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_VoidingMessageIns" SpName="Acc_CRM_VoidingMessageIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_VoidingMessageBatchUpd" SpName="Acc_CRM_VoidingMessageBatchUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_FailMessageSel" SpName="Acc_CRM_FailMessageSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_AutoFeedbackInfoIns" SpName="Acc_CRM_AutoFeedbackInfoIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_AutoFeedbackInfoUpd" SpName="Acc_CRM_AutoFeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SystemSettingMappingSel" SpName="Acc_CRM_SystemSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_GuestFeedbackIns_Multiple" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>
+  <Function Name="Notification Template">
+    <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Sel" SpName="Acc_CRM_ChatBot_NotificationTemplate_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="NotificationTemplateName" ObjectProperty="Name" Class="NotificationTemplate" />
+      <Mapping DataField="Content" ObjectProperty="ContentXml" Class="NotificationTemplate" />
+    </Setting>
+    <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Ins" SpName="Acc_CRM_ChatBot_NotificationTemplate_Ins" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Upd" SpName="Acc_CRM_ChatBot_NotificationTemplate_Upd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Del" SpName="Acc_CRM_ChatBot_NotificationTemplate_Del" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+   </Function>
 </Functions>

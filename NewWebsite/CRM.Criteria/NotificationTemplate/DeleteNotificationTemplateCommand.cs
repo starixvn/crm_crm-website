@@ -10,7 +10,7 @@
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 
-        public override string GetSettingKey() => "";
+        public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationTemplate_Del";
 
         public override bool IsValid() =>
             UserId > 0

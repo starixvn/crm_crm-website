@@ -12,6 +12,7 @@
     public class NotificationTemplateControllerTests
     {
         private INotificationTemplateService templateService;
+        private ISettingService settingService;
 
         [Fact]
         public async Task Create_WhenCalled_ReturnExpectedData()
@@ -75,8 +76,8 @@
         private NotificationTemplateController GetController()
         {
             templateService = Substitute.For<INotificationTemplateService>();
-
-            return new NotificationTemplateController(templateService);
+            settingService = Substitute.For<ISettingService>();
+            return new NotificationTemplateController(templateService, settingService);
         }
 
         #endregion Helpers
