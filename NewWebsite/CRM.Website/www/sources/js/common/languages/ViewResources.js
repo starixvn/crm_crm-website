@@ -50,5 +50,11 @@
     EditNotificationType: 'Edit Notification Type',
     EditNotificationTypeSuccessfully: 'Edit notification type successfully!',
     ErrorNotification: 'Error Notification',
-    SentAt: 'Sent At'
+    NotificationIDMustHaveBoth: 'Notification ID must have both',
+    NotificationIDFromNotGreaterThanTo: 'From Notification ID cannot be greater than To Notification ID',
+    PleaseChoose: 'Please Choose',
+    Resend: 'Resend',
+    SentAt: 'Sent At',
+    ToDateIsEarlierThanFromDate: 'ToDate is earlier than FromDate',
+    ViewDetail: 'View Detail',
 };

@@ -36,7 +36,7 @@ export class DataGrid extends Component {
                 }
                 {
                     isHost && <HeaderCell colWidth={10}>
-                        <div className='resend-title link-click'>{LangHelper.getResource('Resend')}</div>
+                        <div className='margin-bottom-10 link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div>
                         <Form.Control className='checkbox-cell-style' type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
                     </HeaderCell>
                 }
@@ -73,6 +73,10 @@ export class DataGrid extends Component {
 
     isErrorOrResolved = status => status === LangHelper.getResource('Error') || status === LangHelper.getResource('Resolved');
 
+    resendNotification = item => {
+        console.log('resend', item)
+    }
+
     renderRow = (item, index, isHost) => (
         <Row key={index} >
             <Cell className='text-center'>{index + this.startIndex}</Cell>
@@ -95,8 +99,12 @@ export class DataGrid extends Component {
             {
                 isHost &&
                 <Cell className='text-center'>
-                    <span className='icon-edit' data-templateid={item.notificationTemplateId} />
-                    <span className='icon-delete' data-templateid={item.notificationTemplateId} />
+                    {
+                        this.isErrorOrResolved(item.statusString) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
+                    }
+                    {
+                        this.isErrorOrResolved(item.statusString) && <div onClick={() => this.resendNotification(item)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                    }
                 </Cell>
             }
             {
@@ -130,6 +138,11 @@ export class DataGrid extends Component {
             isCheckedAll: checked,
             dataList
         });
+    }
+
+    resendNotificationAll = () => {
+        const resendList = this.props.resendOptions.dataList.filter(item => this.isErrorOrResolved(item.status) && item.isResent);
+        console.log(resendList)
     }
 
     render() {

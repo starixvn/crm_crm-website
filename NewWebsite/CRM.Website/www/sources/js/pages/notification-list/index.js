@@ -11,11 +11,20 @@ const store = Store.createStore(reducer, {
         pageIndex: 1,
         pageSize: 100
     },
+    invalidParams: {
+        show: false
+    },
     contentPopup: { show: false },
     errorOrResolvedContentPopup: { show: false },
     resendOptions: {
         isCheckedAll: false,
         dataList: []
+    },
+    settings: {
+        notificationTypes: [],
+        groupHeadlines: [],
+        recipients: [],
+        statuses: []
     }
 });
 

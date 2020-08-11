@@ -53,12 +53,38 @@ export const setResendOptionsData = data => {
     };
 };
 
+export const setInvalidParams = data => {
+    return {
+        type: types.INVALID_PARAMS_DATA,
+        data
+    };
+};
+
+export const setSettings = data => {
+    return {
+        type: types.SETTINGS_DATA,
+        data
+    };
+};
+
+export const getSettings = () => {
+    Site.blockUI();
+    const url = Site.resolveClientUrl('NotificationList/GetSettings');
+    return dispatch => {
+        return axios.get(url).then(response => {
+            dispatch(setSettings(response.data));
+        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    };
+};
+
 const actions = {
     setGridParams,
     getGridData,
     setContentPopup,
     setResendOptions,
-    setErrorOrResolvedContentPopup
+    setErrorOrResolvedContentPopup,
+    setInvalidParams,
+    getSettings
 };
 
 export default actions;

@@ -15,46 +15,31 @@
             return View();
         }
 
-        public IActionResult GetNotificationTypes()
+        public IActionResult GetSettings()
         {
-            var result = new List<BaseModel>
+            var result = new
             {
-                new BaseModel { Id = 1, Name = "Group" },
-                new BaseModel { Id = 2, Name = "Personal" }
+                NotificationTypes = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "Group" },
+                    new BaseModel { Id = 2, Name = "Personal" }
+                },
+                GroupHeadlines = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "Group Headline1" },
+                    new BaseModel { Id = 2, Name = "Group Headline2" },
+                    new BaseModel { Id = 3, Name = "Group Headline3" },
+                    new BaseModel { Id = 4, Name = "Group Headline4" }
+                },
+                Recipients = new List<BaseModel>
+                {
+                    new BaseModel { Id = 1, Name = "Recipient1" },
+                    new BaseModel { Id = 2, Name = "Recipient2" },
+                    new BaseModel { Id = 3, Name = "Recipient3" },
+                    new BaseModel { Id = 4, Name = "Recipient4" }
+                },
+                Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
-
-            return Json(result);
-        }
-
-        public IActionResult GetGroupHeadlines()
-        {
-            var result = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Group Headline1" },
-                new BaseModel { Id = 2, Name = "Group Headline2" },
-                new BaseModel { Id = 3, Name = "Group Headline3" },
-                new BaseModel { Id = 4, Name = "Group Headline4" }
-            };
-
-            return Json(result);
-        }
-
-        public IActionResult GetRecipients()
-        {
-            var result = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Recipient1" },
-                new BaseModel { Id = 2, Name = "Recipient2" },
-                new BaseModel { Id = 3, Name = "Recipient3" },
-                new BaseModel { Id = 4, Name = "Recipient4" }
-            };
-
-            return Json(result);
-        }
-
-        public IActionResult GetStatuses()
-        {
-            var result = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => new BaseModel { Id = (int)status, Name = status.ToString() });
 
             return Json(result);
         }

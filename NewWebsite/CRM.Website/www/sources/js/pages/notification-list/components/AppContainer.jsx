@@ -17,6 +17,9 @@ export class AppContainer extends Component {
     render() {
         return (
             <Fragment>
+                {
+                    this.props.invalidParams.show && <div className='invalid-params-box'><i className='fa fa-exclamation-triangle'></i>{this.props.invalidParams.message}</div>
+                }
                 <Filter />
                 <DataGrid isHost={this.isHost} />
                 {
@@ -46,7 +49,8 @@ const mapStateToProps = state => {
         contentPopup,
         setContentPopup,
         errorOrResolvedContentPopup,
-        setErrorOrResolvedContentPopup
+        setErrorOrResolvedContentPopup,
+        invalidParams
     } = state;
 
     return {
@@ -54,7 +58,8 @@ const mapStateToProps = state => {
         contentPopup,
         setContentPopup,
         errorOrResolvedContentPopup,
-        setErrorOrResolvedContentPopup
+        setErrorOrResolvedContentPopup,
+        invalidParams
     };
 };
 

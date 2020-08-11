@@ -32,12 +32,26 @@ export const errorOrResolvedContentPopup = createReducer({}, {
     }
 });
 
+export const invalidParams = createReducer({}, {
+    [types.INVALID_PARAMS_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const settings = createReducer({}, {
+    [types.SETTINGS_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
     contentPopup,
     errorOrResolvedContentPopup,
-    resendOptions
+    resendOptions,
+    invalidParams,
+    settings
 };
 
 export default reducers;

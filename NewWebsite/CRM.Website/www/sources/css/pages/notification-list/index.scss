@@ -18,6 +18,10 @@
     color: $link-color !important;
 }
 
+.link-click:hover {
+    color: $draft-color !important;
+}
+
 .notification-content {
     border: 1px solid $border-table-grey;
     margin-top: 13px;
@@ -63,6 +67,52 @@
     cursor: pointer;
 }
 
-.resend-title {
+.margin-bottom-10 {
     margin-bottom: 10px;
+}
+
+.invalid-params-box {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid $error-color;
+    color: $error-color;
+    background-color: $white;
+
+    .fa-exclamation-triangle {
+        color: $error-color;
+        margin-right: 10px;
+    }
+}
+
+.invalid-input {
+    border-color: $error-color;
+}
+
+.valid-input {
+    border-color: $border-input-color;
+}
+
+.action-style {
+    padding: 5px 0;
+    font-weight: bold;
+}
+
+.margin-right-50 {
+    margin-right: 50px;
+}
+
+.notification-id-input {
+    width: 75px !important;
+}
+
+.width-70 {
+    width: 70px;
+}
+
+.width-120 {
+    width: 120px;
+}
+
+.notification-concate {
+    width: 22px;
 }
