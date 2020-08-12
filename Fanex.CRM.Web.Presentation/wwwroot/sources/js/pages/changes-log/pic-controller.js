@@ -63,7 +63,7 @@
                 $scope.picFromDateOptions = {
                     CurrentDate: yesterday,
                     InitDate: yesterday,
-                    MinDate: minDate,
+                    MinDate: minReportDate,
                     MaxDate: localCurrentDate,
                     IsRerenderPicker: false,
                     OnChangeDateEvent: vm.updateFromDatePicker,
@@ -93,13 +93,21 @@
                 }
                 else {
                     vm.selectedFromDate = isOnApply;
-                    let fromDate = new Date(isOnApply);
-                    let toDate = new Date($scope.picToDateOptions.MinDate);
-                    if (fromDate - toDate > 0) {
-                        vm.selectedToDate = isOnApply;
+                    $scope.picToDateOptions.MinDate = isOnApply;
+                    let localCurrentDate = new Date(currentDate);
+                    let tempMaxToDate = new Date(isOnApply);
+                    let toDate = new Date(vm.selectedToDate);
+                    tempMaxToDate.setMonth(tempMaxToDate.getMonth() + 1);
+
+                    if (tempMaxToDate - localCurrentDate > 0) {
+                        tempMaxToDate = localCurrentDate;
                     }
 
-                    $scope.picToDateOptions.MinDate = isOnApply;
+                    if (toDate - tempMaxToDate > 0) {
+                        vm.selectedToDate = tempMaxToDate;
+                    }
+
+                    $scope.picToDateOptions.MaxDate = tempMaxToDate;                    
                     $scope.picToDateOptions.IsRerenderPicker = true;
                 }
             };
