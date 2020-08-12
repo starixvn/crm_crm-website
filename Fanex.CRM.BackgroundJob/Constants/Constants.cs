@@ -8,5 +8,8 @@
         public const int BettypeNA = 9144;
         public const int ExtentionNA = 2022;
         public const int CommunicationNA = 1005;
+
+        public const string BeginRootTag = "<ROOT>";
+        public const string EndRootTag = "</ROOT>";
     }
 }
