@@ -3,6 +3,7 @@
     All: 'All',
     BotName: 'Bot Name',
     ChatType: 'Chat Type',
+    ChatTypeRequired: 'Chat Type is mandatory!',
     Close: 'Close',
     Confirmation: 'Confirmation',
     Content: 'Content',

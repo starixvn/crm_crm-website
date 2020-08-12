@@ -29,16 +29,15 @@ class NewNotificationType extends Component {
             },
             recipientTypesOptions: [],
             chatTypesOptions: [],
-            systemOptions: []
+            systemsOptions: []
         };
     }
 
-    componentDidUpdate = (nextProps, prevState) => {
-        if(nextProps.settings !== this.props.settings) {
+    componentDidMount () {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                recipientTypeIds.push(x.recipientTypeID);
+                recipientTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
@@ -85,18 +84,13 @@ class NewNotificationType extends Component {
                             }
                         }
                     }
-            }), () => {
-                const params = this.getParams();
-                this.props.setGridParams(params);
-                this.props.getGridData(params);
-            });
-        }
+            }));
     }
 
     validationSchema = object().shape({
         notificationType: string().required(LangHelper.getResource('NotificationTypeRequired')),
-        //recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
-        //chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
+        recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
+        chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
         system: string().required(LangHelper.getResource('SystemRequired')),
     })
 
@@ -193,7 +187,7 @@ class NewNotificationType extends Component {
                                 value={values.system}
                             >
                                 <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.state.systemOptions.map(this.renderSystemTypeOption)}
+                                {this.state.systemsOptions.map(this.renderSystemTypeOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -203,7 +197,7 @@ class NewNotificationType extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Save')}
                     </Button>
-                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
+                    <Button type="submit" variant="secondary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>

@@ -29,7 +29,7 @@ class EditNotificationType extends Component {
             },
             recipientTypesOptions: [],
             chatTypesOptions: [],
-            systemOptions: []
+            systemsOptions: []
         };
     }
 
@@ -40,8 +40,7 @@ class EditNotificationType extends Component {
         system: string().required(LangHelper.getResource('SystemRequired')),
     })
 
-    componentDidUpdate = (nextProps, prevState) => {
-        if(nextProps.settings !== this.props.settings) {
+    componentDidMount () {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
@@ -92,12 +91,7 @@ class EditNotificationType extends Component {
                             }
                         }
                     }
-            }), () => {
-                const params = this.getParams();
-                this.props.setGridParams(params);
-                this.props.getGridData(params);
-            });
-        }
+            }));
     }
         recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
         chatTypeChange = value => this.handleFilterChange('chatTypes', value)
@@ -193,7 +187,7 @@ class EditNotificationType extends Component {
                                 value={values.system}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.state.systemOptions.map(this.renderSystemTypeOption)}
+                                {this.state.systemsOptions.map(this.renderSystemTypeOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -203,7 +197,7 @@ class EditNotificationType extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Save')}
                     </Button>
-                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
+                    <Button type="submit" variant="secondary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
