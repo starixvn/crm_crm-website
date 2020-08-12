@@ -16,14 +16,14 @@ class NewNotificationType extends Component {
         super(props);
 
         this.state = {
-            filter: {
-                recipientTypes: {
+            popup: {
+                recipientType: {
                     value: ''
                 },
-                chatTypes: {
+                chatType: {
                     value: ''
                 },
-                system: {
+                SystemId: {
                     value: ''
                 }
             },
@@ -70,16 +70,16 @@ class NewNotificationType extends Component {
                     recipientTypesOptions,
                     chatTypesOptions,
                     systemsOptions,
-                    filter: {
-                        ...prevState.filter,
+                    popup: {
+                        ...prevState.popup,
                         ...{
-                            recipientTypes: {
+                            recipientType: {
                                 value: recipientTypeIds.toString()
                             },
-                            chatTypes: {
+                            chatType: {
                                 value: chatTypeIds.toString()
                             },
-                            systems: {
+                            SystemId: {
                                 value: systemIds.toString()
                             }
                         }
@@ -87,22 +87,37 @@ class NewNotificationType extends Component {
             }));
     }
 
-    validationSchema = object().shape({
-        notificationType: string().required(LangHelper.getResource('NotificationTypeRequired')),
-        recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
-        chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
-        system: string().required(LangHelper.getResource('SystemRequired')),
-    })
+    validate = values => {
+        const errors = {};
+        if (!values.NotificationTypeName) {
+            errors.NotificationTypeName = LangHelper.getResource('NotificationTypeRequired');
+        }
 
-    recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
-    chatTypeChange = value => this.handleFilterChange('chatTypes', value)
-    systemChange = value => this.handleFilterChange('system', value)
+        // if (!values.recipientType) {
+        //     errors.recipientType = LangHelper.getResource('RecipientTypeRequired');
+        // }
+
+        // if (!values.chatType) {
+        //     errors.chatType = LangHelper.getResource('ChatTypeRequired');
+        // }
+
+        // if (!values.systemId) {
+        //     errors.systemId = LangHelper.getResource('SystemRequired');
+        // }
+
+
+        return errors;
+    }
+
+    recipientTypeChange = value => this.handlePopupChange('recipientTypes', value)
+    chatTypeChange = value => this.handlePopupChange('chatTypes', value)
+    systemChange = value => this.handlePopupChange('systemId', value)
 
     renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
-    handleFilterChange = (name, value) => {
+    handlePopupChange = (name, value) => {
         this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: value } }
+            popup: { ...prevState.popup, ...{ [name]: value } }
         }));
     }
 
@@ -125,13 +140,13 @@ class NewNotificationType extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="notificationType" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="NotificationTypeName" className="required">
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.name} name="notificationType"
+                            <Form.Control type="text" size="sm" value={values.NotificationTypeName} name="NotificationTypeName"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.notificationType && errors.notificationType}
+                                isInvalid={touched.NotificationTypeName && errors.NotificationTypeName}
                                 onChange={handleChange}
                             />
                         </Col>
@@ -144,7 +159,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={touched.recipientType && errors.recipientType}
+                            initialValue={this.state.popup.recipientTypes}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -163,7 +178,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.filter.chatTypes.value}
+                            initialValue={this.state.popup.chatTypes}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -176,15 +191,15 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="system" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="systemId" className="required">
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
-                                isInvalid={touched.system && errors.system}
-                                name="system"
+                                isInvalid={touched.SystemId && errors.SystemId}
+                                name="SystemId"
                                 onChange={handleChange}
-                                value={values.system}
+                                value={values.SystemId}
                             >
                                 <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.state.systemsOptions.map(this.renderSystemTypeOption)}
@@ -197,7 +212,7 @@ class NewNotificationType extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Save')}
                     </Button>
-                    <Button type="submit" variant="secondary" size="sm" onClick={this.props.onClose}>
+                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
@@ -219,6 +234,12 @@ class NewNotificationType extends Component {
     }
 
     render() {
+        const initialValues = {
+            NotificationTypeName: '',
+            recipientType: '',
+            chatType: '',
+            SystemId: ''
+        }
         return (
             <Modal show className="new-notification-Type"
                 backdrop="static" keyboard={false} size="lg"
@@ -228,13 +249,8 @@ class NewNotificationType extends Component {
                     <Modal.Title as="div">{LangHelper.getResource('CreateNewNotificationType')}</Modal.Title>
                 </Modal.Header>
                 <Formik
-                    initialValues={{
-                        notificationType: '',
-                        recipientType: '',
-                        chatType: '',
-                        system: ''
-                    }}
-                    validationSchema={this.validationSchema}
+                    initialValues={initialValues}
+                    validate={this.validate}
                     render={this.renderForm}
                     onSubmit={this.handleSubmit}
                 />

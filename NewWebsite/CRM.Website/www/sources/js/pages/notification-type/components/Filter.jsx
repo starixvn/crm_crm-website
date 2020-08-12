@@ -12,6 +12,7 @@ class Filter extends Component {
 
         this.state = {
             filter: {
+                notificationType: '',
                 recipientTypes: {
                     value: ''
                 },
@@ -33,7 +34,7 @@ class Filter extends Component {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                recipientTypeIds.push(x.recipientTypeID);
+                recipientTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
@@ -93,27 +94,9 @@ class Filter extends Component {
         this.props.getSettings();
     }
 
-    handleChatTypeChange = event => {
-        this.setState({
-            chatTypeId: event.target.value
-        });
-    }
-
-    handleRecipientTypeChange = event => {
-        this.setState({
-            recipientTypeId: event.target.value
-        });
-    }
-
     recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
     chatTypeChange = value => this.handleFilterChange('chatTypes', value)
     systemChange = value => this.handleFilterChange('systems', value)
-
-    handleSystemChange = event => {
-        this.setState({
-            systemId: event.target.value
-        });
-    }
 
     handleNotificationTypeChange = event => {
         this.setState({
@@ -129,10 +112,10 @@ class Filter extends Component {
 
     getParams = () => {
         return {
-            notificationType: this.state.notificationType,
-            chatTypeId: parseInt(this.state.chatTypeId, 10),
-            recipientTypeId: parseInt(this.state.recipientTypeId, 10),
-            systemId: parseInt(this.state.systemTypeId, 10),
+            notificationType: this.state.filter.notificationType,
+            chatTypeId: this.state.filter.chatTypes.value,
+            recipientTypeId: this.state.filter.recipientTypes.value,
+            systemId: this.state.filter.systems.value,
             pageIndex: 1,
             pageSize: 50
         };

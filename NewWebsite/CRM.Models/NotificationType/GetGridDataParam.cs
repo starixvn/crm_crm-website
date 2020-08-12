@@ -2,18 +2,18 @@
 {
     public class GetGridDataParam
     {
-        public int NotificationTypeId { get; set; }
+        public string NotificationTypeName { get; set; }
 
-        public string Name { get; set; }
+        public string ChatTypeId { get; set; }
 
-        public int ChatType { get; set; }
+        public string RecipientTypeId { get; set; }
 
-        public int RecipientType { get; set; }
-
-        public int System { get; set; }
+        public string SystemId { get; set; }
 
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public int TotalRows { get; set; }
     }
 }

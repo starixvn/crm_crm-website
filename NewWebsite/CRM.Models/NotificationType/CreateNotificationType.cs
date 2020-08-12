@@ -2,10 +2,11 @@
 {
     public class CreateNotificationType
     {
-        public string Name { get; set; }
-        public int ChatTypeId { get; set; }
+        public string NotificationTypeName { get; set; }
 
-        public int RecipientTypeId { get; set; }
+        public string ChatTypeId{ get; set; }
+
+        public string RecipientTypeId { get; set; }
 
         public int SystemId { get; set; }
     }

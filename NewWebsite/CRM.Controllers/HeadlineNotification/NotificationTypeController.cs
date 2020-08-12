@@ -47,39 +47,24 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetGridData(GetGridDataParam param)
+        public async Task<IActionResult> GetGridData([FromBody] GetGridDataParam param)
         {
-            const int TotalItems = 100;
-            var types = new List<NotificationType> { };
-            for (var i = 0; i < TotalItems; i++)
-            {
-                types.Add(new NotificationType
-                {
-                    NotificationTypeId = i + 1,
-                    Name = $"Notification Type {i + 1}"
-                });
-            }
+            IEnumerable<NotificationType> templates = await typeService.GetAsync(param);
 
-            return Json(new { totalItems = TotalItems, data = types });
+            return Json(new { totalItems = param.TotalRows, data = templates });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateNotificationType model)
+        public async Task<IActionResult> Create([FromBody] CreateNotificationType model)
         {
             CommandResult commandResult = await typeService.CreateAsync(model);
             return Json(commandResult);
         }
 
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var type = new NotificationType
-            {
-                NotificationTypeId = id,
-                Name = "Notification Type 1",
-                RecipientTypeId = 1,
-                ChatTypeId = 1,
-                SystemId = 1
-            };
+            NotificationType type = await typeService.GetByIdAsync(id);
+
             return Json(type);
         }
 

@@ -52,7 +52,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} ><Cell colSpan="6">There is no data</Cell></Row>];
+        return [<Row key={`body${1}`} className="no-data"><Cell colSpan="6">{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     renderRow = (item, index, isHost) => (

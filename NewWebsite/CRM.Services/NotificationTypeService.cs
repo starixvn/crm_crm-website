@@ -1,5 +1,6 @@
 ﻿namespace CRM.Services
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using CRM.Core.Models;
     using CRM.Core.Services;
@@ -9,6 +10,10 @@
 
     public interface INotificationTypeService
     {
+        Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param);
+
+        Task<NotificationType> GetByIdAsync(int id);
+
         Task<CommandResult> CreateAsync(CreateNotificationType model);
 
         Task<CommandResult> EditAsync(EditNotificationType model);
@@ -29,10 +34,42 @@
             this.baseService = baseService;
         }
 
+public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param)
+        {
+            var criteria = new GetNotificationTypeCriteria
+            {
+                RecipientTypeId = param.RecipientTypeId,
+                ChatTypeId = param.ChatTypeId,
+                SystemId = param.SystemId,
+                NotificationTypeName = param.NotificationTypeName,
+                PageIndex = param.PageIndex,
+                PageSize = param.PageSize
+            };
+            var types = await baseService.GetDataAsync<NotificationType>(criteria);
+            param.TotalRows = criteria.TotalRows;
+            return types;
+        }
+
+        public async Task<NotificationType> GetByIdAsync(int id)
+        {
+            var criteria = new GetNotificationTypeCriteria
+            {
+                //NotificationTypeId = id
+            };
+            var type = await baseService.GetDataEntityAsync<NotificationType>(criteria);
+
+            return type;
+        }
+        
         public async Task<CommandResult> CreateAsync(CreateNotificationType model)
         {
             var command = new CreateNotificationTypeCommand
             {
+                NotificationTypeName = model.NotificationTypeName,
+                ChatTypeId = model.ChatTypeId,
+                RecipientTypeId = model.RecipientTypeId,
+                SystemId = model.SystemId,
+                UserId = napSession.UserId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -43,7 +80,7 @@
             var command = new EditNotificationTypeCommand
             {
                 NotificationTypeId = model.NotificationTypeId,
-                Name = model.Name,
+                NotificationTypeName = model.NotificationTypeName,
                 ChatTypeId = model.ChatTypeId,
                 RecipientTypeId = model.RecipientTypeId,
                 SystemId = model.SystemId
@@ -56,7 +93,8 @@
         {
             var command = new DeleteNotificationTypeCommand
             {
-                NotificationTypeId = id
+                NotificationTypeId = id,
+                UserId = napSession.UserId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);

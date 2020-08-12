@@ -8,8 +8,6 @@ import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
-import Axios from 'axios';
-import Site from '@jsroot/common/site';
 
 class EditNotificationType extends Component {
     constructor(props) {
@@ -197,7 +195,7 @@ class EditNotificationType extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Save')}
                     </Button>
-                    <Button type="submit" variant="secondary" size="sm" onClick={this.props.onClose}>
+                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>

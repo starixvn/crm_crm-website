@@ -4,16 +4,16 @@
 
     public class CreateNotificationTypeCommand : NonQueryCommand
     {
-        public int NotificationTypeId { get; set; }
-        public string Name { get; set; }
-        public int ChatType { get; set; }
-        public int RecipientType { get; set; }
-        public int System { get; set; }
+        public string NotificationTypeName { get; set; }
+        public string ChatTypeId { get; set; }
+        public string RecipientTypeId { get; set; }
+        public int SystemId { get; set; }
+        public int UserId { get; set; }
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
-        public override string GetSettingKey() => "";
+        public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Ins";
         public override bool IsValid() =>
-            NotificationTypeId > 0
-            && !string.IsNullOrWhiteSpace(Name);
+             UserId > 0
+            && !string.IsNullOrWhiteSpace(NotificationTypeName);
     }
 }
