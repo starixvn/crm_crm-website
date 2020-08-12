@@ -598,7 +598,8 @@
     <value>Handle By</value>
   </data>
   <data name="MSN" xml:space="preserve">
-    <value>MSN</value>
+    <value>Telegram</value>
+    <comment>#137991</comment>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
@@ -655,7 +656,8 @@
     <value>WhatsApp</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>Letstalk</value>
+    <comment>#137991</comment>
   </data>
   <data name="Complaints_Enquiries" xml:space="preserve">
     <value>Complaints/Enquiries</value>
@@ -769,7 +771,8 @@
     <value>Contact Info</value>
   </data>
   <data name="BBM" xml:space="preserve">
-    <value>BBM</value>
+    <value>Zalo</value>
+    <comment>#137991</comment>
   </data>
   <data name="PIC" xml:space="preserve">
     <value>PIC</value>

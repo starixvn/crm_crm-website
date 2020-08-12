@@ -35,6 +35,20 @@
             var paginationActivityLogs = new PagedList<ActionLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationActivityLogs)
             {
+                if (!string.IsNullOrWhiteSpace(log.OldValues))
+                {
+                    log.OldValues = log.OldValues.Replace("<MSN>", "<Telegram>").Replace("</MSN>", "</Telegram>")
+                                                                 .Replace("<Yahoo>", "<Letstalk>").Replace("</Yahoo>", "</Letstalk>")
+                                                                 .Replace("<BBM>", "<Zalo>").Replace("</BBM>", "</Zalo>");
+                }
+
+                if (!string.IsNullOrWhiteSpace(log.NewValues))
+                {
+                    log.NewValues = log.NewValues.Replace("<MSN>", "<Telegram>").Replace("</MSN>", "</Telegram>")
+                                                                .Replace("<Yahoo>", "<Letstalk>").Replace("</Yahoo>", "</Letstalk>")
+                                                                .Replace("<BBM>", "<Zalo>").Replace("</BBM>", "</Zalo>");
+                }
+
                 FilterOldNewResults(log);
             }
 
@@ -79,7 +93,8 @@
                     log.FieldNames.Add(fieldName);
                 }
             }
-            else if (oldResults.Count == newResults.Count)
+
+            if (oldResults.Count == newResults.Count)
             {
                 foreach (string key in newResults.Keys)
                 {

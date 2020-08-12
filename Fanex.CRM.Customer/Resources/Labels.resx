@@ -175,7 +175,8 @@
     <value>Mobile</value>
   </data>
   <data name="MSN" xml:space="preserve">
-    <value>MSN</value>
+    <value>Telegram</value>
+    <comment>#137991</comment>
   </data>
   <data name="Nick_Name" xml:space="preserve">
     <value>Nickname</value>
@@ -376,7 +377,8 @@
     <value>Currency</value>
   </data>
   <data name="BBM" xml:space="preserve">
-    <value>BBM</value>
+    <value>Zalo</value>
+    <comment>#137991</comment>
   </data>
   <data name="Communication_Info" xml:space="preserve">
     <value>Communication Info</value>
@@ -391,7 +393,8 @@
     <value>What's App</value>
   </data>
   <data name="Yahoo" xml:space="preserve">
-    <value>Yahoo</value>
+    <value>Letstalk</value>
+    <comment>#137991</comment>
   </data>
   <data name="LicenseeType" xml:space="preserve">
     <value>Licensee Type</value>

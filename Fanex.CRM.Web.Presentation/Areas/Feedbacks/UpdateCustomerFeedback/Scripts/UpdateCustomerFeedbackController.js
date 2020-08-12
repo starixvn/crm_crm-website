@@ -1,8 +1,8 @@
 ﻿(function () {
-    "use strict";
+	"use strict";
     /* global crmConstants, sharedScriptManager, SettingManager, hotKeyManager,
     updateFeedbackResources, feedbackId, hasReviewFeedbackPermission, isShowDeletedStatus, isDeletedFeedbackView, orgLengt:true */
-    /* jshint camelcase: false */
+	/* jshint camelcase: false */
     angular.module('feedbacks-updatecustomerfeedback-application').controller('UpdateCustomerFeedbackController', updateCustomerFeedbackController)
     updateCustomerFeedbackController.$inject = ['$scope', 'UpdateCustomerFeedbackService', '$uiBlockerService', 'alertBoxService', '$sce'];
 
