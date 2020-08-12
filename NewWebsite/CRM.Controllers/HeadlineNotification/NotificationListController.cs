@@ -3,16 +3,39 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using CRM.Core.Constants;
     using CRM.Core.Enumerables;
+    using CRM.Core.Filters;
     using CRM.Models;
     using CRM.Models.NotificationList;
+    using Fanex.NAP.Client.Configuration;
+    using Fanex.NAP.Client.Helpers.Web;
+    using Fanex.NAP.Client.Services;
     using Microsoft.AspNetCore.Mvc;
+    using static Fanex.NAP.Core.Business.Constant;
 
+    //[CrmAuthorize]
+    //[CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
     public class NotificationListController : Controller
     {
+        private readonly INapSession napSession;
+        private readonly INapSettings napSettings;
+        private readonly IUserService userService;
+
+        public NotificationListController(
+            INapSession napSession,
+            INapSettings napSettings,
+            IUserService userService)
+        {
+            this.napSession = napSession;
+            this.napSettings = napSettings;
+            this.userService = userService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            //var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationList, Policy.Host);
+            return View(true);
         }
 
         public IActionResult GetSettings()
@@ -43,7 +66,7 @@
 
             return Json(result);
         }
-        
+
         public IActionResult GetGridData(GetGridDataParam param)
         {
             const int totalItems = 100;

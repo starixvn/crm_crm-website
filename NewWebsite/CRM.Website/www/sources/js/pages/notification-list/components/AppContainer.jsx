@@ -45,7 +45,6 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        gridParams,
         contentPopup,
         setContentPopup,
         errorOrResolvedContentPopup,
@@ -54,7 +53,6 @@ const mapStateToProps = state => {
     } = state;
 
     return {
-        gridParams,
         contentPopup,
         setContentPopup,
         errorOrResolvedContentPopup,

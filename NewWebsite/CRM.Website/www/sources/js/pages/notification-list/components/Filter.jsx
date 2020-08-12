@@ -6,6 +6,7 @@ import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index';
+import { handleNewResendOptions } from '../functions';
 
 class Filter extends Component {
     constructor(props) {
@@ -115,7 +116,7 @@ class Filter extends Component {
             }), () => {
                 const params = this.getParams();
                 this.props.setGridParams(params);
-                this.props.getGridData(params);
+                this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
         }
     }
@@ -183,24 +184,8 @@ class Filter extends Component {
             }
 
             this.props.setGridParams(params);
-            this.props.getGridData(params);
+            this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
         }
-    }
-
-    setResendOptions = data => {
-        let dataList = data.map(item => {
-            return {
-                notificationId: item.notificationId,
-                messageId: item.messageId,
-                status: item.statusString,
-                isResent: false
-            }
-        });
-
-        this.props.setResendOptions({
-            isCheckedAll: false,
-            dataList
-        });
     }
 
     isDisabledDateParam = () => {

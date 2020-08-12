@@ -5,6 +5,7 @@ import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
 import { Form } from 'react-bootstrap';
+import { handleNewResendOptions } from '../functions';
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export class DataGrid extends Component {
         params['pageSize'] = pageSize;
 
         this.props.setGridParams(params);
-        this.props.getGridData(params);
+        this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
     }
 
     buildHeader = isHost => {
@@ -190,7 +191,8 @@ const mapStateToProps = state => {
         setContentPopup,
         setErrorOrResolvedContentPopup,
         resendOptions,
-        setResendOptions
+        setResendOptions,
+        getGridData
     } = state;
 
     return {
@@ -199,7 +201,8 @@ const mapStateToProps = state => {
         setContentPopup,
         setErrorOrResolvedContentPopup,
         resendOptions,
-        setResendOptions
+        setResendOptions,
+        getGridData
     };
 };
 
