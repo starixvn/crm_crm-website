@@ -566,7 +566,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 Moment));
 
             bundles.AddAndInclude(
-                "~/wwwroot/sources/libs/FanexGrid/FanexGridCsss",
+                "~/wwwroot/sources/libs/FanexGrid/FanexGridCss",
                 FanexGridCss,
                 FanexPaginationCss,
                 CustomizeFanexGridLess);
