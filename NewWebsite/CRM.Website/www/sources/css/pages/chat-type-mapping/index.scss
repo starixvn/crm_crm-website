@@ -15,3 +15,29 @@
 .table-title {
     border-bottom: none;
 }
+
+.checkbox-cell-style {
+    width: 13px;
+    height: 13px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.icon-edit {
+    cursor: pointer;
+}
+
+.badge-grey {
+    color: #39434a;
+    font-weight: 600;
+}
+
+.badge-red {
+    color: #ff3e3e;
+    font-weight: 600;
+}
+
+.badge-green {
+    color: #05b15b;
+    font-weight: 600;
+}

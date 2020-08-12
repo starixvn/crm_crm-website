@@ -91,7 +91,6 @@ class Filter extends Component {
 					bots: bots
 				}
 			};
-			console.log(state);
 			return state;
 		}
 		return null;
@@ -131,9 +130,8 @@ class Filter extends Component {
 	submitHandler = e => {
 		e.preventDefault();
 		const params = this.getParams();
-		console.log(params)
-		//this.props.setGr;idParams(params);
-		//this.props.getGridData(params);
+		this.props.setGridParams(params);
+		this.props.getGridData(params);
 	}
 
 	renderChatTypes = (item, key) => {
@@ -151,7 +149,7 @@ class Filter extends Component {
 					<div className="col-auto">
 						<Form.Control as="select" size="sm" className="shadow-none"
 							value={this.state.filter.chatType}
-							onChange={(e) => { console.log(e.target.value); this.onChange('chatType', e.target.value) }}
+							onChange={(e) => this.onChange('chatType', e.target.value)}
 						>
 							<option value="">{LangHelper.getResource('All')}</option>
 							{this.state.settings.chatTypes.map(this.renderChatTypes)}

@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using CRM.Models;
+    using CRM.Models.ChatTypeMapping;
+    using CRM.ViewModels.ChatTypeMapping;
     using Microsoft.AspNetCore.Mvc;
 
     public class ChatTypeMappingController : Controller
@@ -46,6 +48,42 @@
                 Bots = bots
             };
             return Json(result);
+        }
+
+        [HttpPost]
+        public IActionResult GetChatTypeMapping(ChatTypeFilterViewModel filter)
+        {
+            var fakeData = new List<ChatTypeMappingModel>
+            {
+                new ChatTypeMappingModel { ChatTypeId = 0, ChatType = "Personal", BotName = "247_Notification", ConversationId = 1, Name = "Headline1",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL01", Recipient = "Boss(Boss)", LetstalkId = "letstalk0", Language = "SC",
+                    IsActive = true, Remark = "ABC"},
+
+                new ChatTypeMappingModel { ChatTypeId = 1,ChatType = "Group", BotName = "247_Notification", ConversationId = 2, Name = "Headline2",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL02", Recipient = "Boss1(Boss)", LetstalkId = "letstalk3", Language = "SC",
+                    MappingStatusId = 1, MappingStatus = "Not Mapped", IsActive = true, Remark = "ABC"},
+
+                new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 2, Name = "Headline2",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL02", Recipient = "Boss2(Staff)", LetstalkId = "letstalk1",
+                    Language = "EN", MappingStatusId = 1, MappingStatus = "Not Mapped", IsActive = true, Remark = "ABC"},
+
+                new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 2, Name = "Headline2",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL02", Recipient = "Boss3(PIC)", LetstalkId = "letstalk2", Language = "EN & SC",
+                    MappingStatusId = 1, MappingStatus = "Not Mapped", IsActive = true, Remark = "ABC"},
+
+                new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 3, Name = "Headline3",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL03", Recipient = "Boss4(Boss)", LetstalkId = "letstalk3", Language = "SC",
+                    MappingStatusId = 0, MappingStatus = "Bot Removed", IsActive = true, Remark = "ABC"},
+
+                new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 3, Name = "Headline3",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL01", Recipient = "Boss5(Staff)", LetstalkId = "letstalk4", Language = "EN",
+                    MappingStatusId = 0, MappingStatus = "Bot Removed", IsActive = false, Remark = "ABC"},
+                new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 4, Name = "HeadlineN",
+                    RecipientType = "PIC of Headline", GroupHeadline = "HL007", Recipient = "Boss9(Staff)", LetstalkId = "letstalk7", Language = "EN",
+                    MappingStatusId = 2, MappingStatus = "Mapped", IsActive = false, Remark = "ABC"},
+            };
+
+            return Json(fakeData);
         }
     }
 }
