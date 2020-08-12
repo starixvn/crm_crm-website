@@ -239,10 +239,10 @@ class Filter extends Component {
 						/>
 					</div>
 					<div className='col-auto'>
-						<Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+						<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
 					</div>
 					<div className='col-auto'>
-						<Button className='mr-2' variant='primary' size='sm' onClick={this.insertPersonalMapping}>{LangHelper.getResource('InsertPersonalMapping')}</Button>
+						<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.insertPersonalMapping}>{LangHelper.getResource('InsertPersonalMapping')}</Button>
 					</div>
 				</Form.Row>
 			</Form>

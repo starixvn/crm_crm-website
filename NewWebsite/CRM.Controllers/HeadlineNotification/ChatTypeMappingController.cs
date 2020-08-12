@@ -73,7 +73,7 @@
 
                 new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 3, Name = "Headline3",
                     RecipientType = "PIC of Headline", GroupHeadline = "HL03", Recipient = "Boss4(Boss)", LetstalkId = "letstalk3", Language = "SC",
-                    MappingStatusId = 0, MappingStatus = "Bot Removed", IsActive = true, Remark = "ABC"},
+                    MappingStatusId = 0, MappingStatus = "Bot Removed", IsActive = false, Remark = "ABC"},
 
                 new ChatTypeMappingModel {ChatTypeId = 1, ChatType = "Group", BotName = "247_Notification", ConversationId = 3, Name = "Headline3",
                     RecipientType = "PIC of Headline", GroupHeadline = "HL01", Recipient = "Boss5(Staff)", LetstalkId = "letstalk4", Language = "EN",

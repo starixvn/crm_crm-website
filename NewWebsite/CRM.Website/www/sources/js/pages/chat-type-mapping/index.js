@@ -6,7 +6,9 @@ import Store from '@jsroot/common/store';
 import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
 
-const store = Store.createStore(reducer);
+const store = Store.createStore(reducer, {
+	gridData: null
+});
 
 ReactDOM.render(
 	<Provider store={store}>

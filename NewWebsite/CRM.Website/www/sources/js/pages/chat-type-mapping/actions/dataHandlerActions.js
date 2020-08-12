@@ -103,6 +103,24 @@ export const updatePersonalMapping = params => {
 	};
 };
 
+export const updateActiveStatus = (conversationId, isActive) => {
+	const url = Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus');
+	const headers = {
+		'Content-Type': 'application/json',
+		'RequestVerificationToken': Site.getXsrfToken()
+	};
+
+	return async dispatch => {
+		try {
+			const request = await axios.post(url, JSON.stringify({ conversationId, isActive }), { headers: headers });
+			const data = await request.data;
+			dispatch(setUpdateData(data));
+		} catch (err) {
+			errorResponseHandler();
+		}
+	};
+};
+
 export const refreshUpdateData = () => {
 	return dispatch => {
 		dispatch(setPersonalUpdateData(null));
@@ -118,7 +136,8 @@ const actions = {
 	setGroupMappingUpdateData,
 	updateGroupMapping,
 	updatePersonalMapping,
-	refreshUpdateData
+	refreshUpdateData,
+	updateActiveStatus
 };
 
 export default actions;

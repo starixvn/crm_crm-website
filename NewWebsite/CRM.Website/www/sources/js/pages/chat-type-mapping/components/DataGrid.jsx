@@ -30,6 +30,15 @@ export class DataGrid extends Component {
 		console.log('Handle Edit');
 	}
 
+	copyGroupIdToClipboard = groupId => {
+		//const input = document.createElement('input');
+		//input.value = groupId;
+		//document.body.appendChild(input);
+		//input.select();
+		//document.execCommand('copy');
+		//input.remove();
+	}
+
 	buildHeader = isHost => {
 		return (
 			<HeaderRow style={{ height: 40 }}>
@@ -40,9 +49,9 @@ export class DataGrid extends Component {
 				<HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
 				<HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
 				<HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
-				<HeaderCell colWidth={15}>{LangHelper.getResource('Lestalk ID')}</HeaderCell>
+				<HeaderCell colWidth={15}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
 				<HeaderCell colWidth={15}>{LangHelper.getResource('Language')}</HeaderCell>
-				<HeaderCell colWidth={20}>{LangHelper.getResource('Mapping Status')}</HeaderCell>
+				<HeaderCell colWidth={20}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
 				<HeaderCell colWidth={10}>{LangHelper.getResource('Active')}</HeaderCell>
 				<HeaderCell colWidth={20}>{LangHelper.getResource('Remark')}</HeaderCell>
 				{
@@ -87,7 +96,13 @@ export class DataGrid extends Component {
 					<Cell rowSpan={numOfRowSpan} className='text-center'>{index + this.startIndex}</Cell>
 					<Cell rowSpan={numOfRowSpan}>{item.chatType}</Cell>
 					<Cell rowSpan={numOfRowSpan}>{item.botName}</Cell>
-					<Cell rowSpan={numOfRowSpan}>{item.name}</Cell>
+					<Cell rowSpan={numOfRowSpan}>
+						{item.name}
+						{
+							item.chatTypeId === ChatTypeMapping.Group &&
+							<span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.GroupId)} title='Coppy to clipboard' />
+						}
+					</Cell>
 					<Cell rowSpan={numOfRowSpan}>{item.recipientType}</Cell>
 					<Cell rowSpan={numOfRowSpan}>{item.groupHeadline}</Cell>
 					<Cell>{item.recipient}</Cell>
