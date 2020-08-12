@@ -148,7 +148,6 @@
         parent.document.title = '@Labels.ChangesLog';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
-        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var logActions = null;
 
         var viewResources = {
@@ -160,7 +159,6 @@
             EditBy: '@Labels.EditBy',
             HeadlineDA: '@Labels.HeadlineDA',
             PleaseChooseActionType: '@Messages.PleaseChooseActionType',
-            ToDateCanNotBeforeFromDate: '@Messages.ToDateCanNotBeforeFromDate',
             PIC: '@Labels.PIC',
             Detail: '@Labels.Detail',
             NoData: '@Labels.NoData',

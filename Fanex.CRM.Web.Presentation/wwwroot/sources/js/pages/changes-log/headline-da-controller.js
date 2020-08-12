@@ -68,15 +68,6 @@
                     PageSize: pageSize ? pageSize : vm.searchCriteria.PageSize
                 };
 
-                let toDate = new Date(getReportCriteria.ToDate);
-                let fromDate = new Date(getReportCriteria.FromDate);
-                if (toDate.getTime() - fromDate.getTime() < 0) {
-                    $scope.$parent.isError = true;
-                    $scope.$parent.errorMessage = viewResources.ToDateCanNotBeforeFromDate;
-                    $uiBlockerService.unblockUI();
-                    return;
-                }
-
                 $scope.lastHeadlineDASelectedParams = getReportCriteria;
                 $changesLogFactory.getHeadlineDAReport(getReportCriteria)
                     .then(function (data) {
@@ -95,11 +86,15 @@
 
             vm.initPicker = function () {
                 let localCurrentDate = new Date(currentDate);
-                vm.selectedFromDate = localCurrentDate;
+                let yesterday = new Date(currentDate);
+                yesterday = yesterday.setDate(yesterday.getDate() - 1);
+                let minDate = new Date(currentDate);
+                minDate = minDate.setMonth(minDate.getMonth() - 1);
+                vm.selectedFromDate = yesterday;
                 $scope.fromDateOptions = {
-                    CurrentDate: localCurrentDate,
-                    InitDate: localCurrentDate,
-                    MinDate: minReportDate,
+                    CurrentDate: yesterday,
+                    InitDate: yesterday,
+                    MinDate: minDate,
                     MaxDate: localCurrentDate,
                     IsRerenderPicker: false,
                     OnChangeDateEvent: vm.updateFromDatePicker,
@@ -110,7 +105,7 @@
                 $scope.toDateOptions = {
                     CurrentDate: localCurrentDate,
                     InitDate: localCurrentDate,
-                    MinDate: minReportDate,
+                    MinDate: yesterday,
                     MaxDate: localCurrentDate,
                     IsRerenderPicker: false,
                     OnChangeDateEvent: vm.updateToDatePicker,
@@ -129,6 +124,14 @@
                 }
                 else {
                     vm.selectedFromDate = isOnApply;
+                    let fromDate = new Date(isOnApply);
+                    let toDate = new Date($scope.toDateOptions.MinDate);
+                    if (fromDate - toDate > 0) {
+                        vm.selectedToDate = isOnApply;
+                    }
+                    
+                    $scope.toDateOptions.MinDate = isOnApply;
+                    $scope.toDateOptions.IsRerenderPicker = true;
                 }
             };
 
