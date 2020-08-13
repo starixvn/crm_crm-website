@@ -2,8 +2,9 @@
 @import '~react-datepicker/dist/react-datepicker.css';
 
 .react-datepicker {
-    border: none;
     font-family: $font-family;
+    border-radius: unset;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle {
@@ -17,9 +18,6 @@
 .react-datepicker__month-container,
 .react-datepicker__time-container {
     margin: 0 4px;
-    border: 1px solid #ced4da;
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .react-datepicker__header {
@@ -67,12 +65,14 @@
 .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range,
 .react-datepicker__day--in-range,
+.react-datepicker__day--keyboard-selected,
 .react-datepicker__month-text--selected,
 .react-datepicker__month-text--in-selecting-range,
 .react-datepicker__month-text--in-range,
 .react-datepicker__day:hover,
 .react-datepicker__month-text:hover {
     border-radius: 50%;
+    outline: none;
 }
 
 .react-datepicker__time-list::-webkit-scrollbar {
@@ -84,16 +84,13 @@
 }
 
 .react-datepicker__navigation {
-    top: 20px;
-}
-
-.react-datepicker__navigation {
     border: none;
     background: #ecedef;
     border-radius: 50%;
     height: 20px;
     width: 20px;
     text-indent: 0;
+    top: 15px;
 
     &:hover {
         background-color: darken(#ecedef, 10%);
@@ -105,12 +102,9 @@
 
     &:before {
         display: inline-block;
-        top: -4px;
-        position: relative;
-        content: '\e915';
-        font-family: sans-serif !important;
+        content: '\f105';
         color: #767678;
-        font-size: 9px;
+        font: normal normal normal 14px/1 FontAwesome;
     }
 
     &.react-datepicker__navigation--next {
@@ -129,7 +123,6 @@
         }
     }
 }
-
 
 // icon calendar
 .position-relative {

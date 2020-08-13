@@ -85,7 +85,7 @@
         {
             var param = new GetSettingParam
             {
-                SettingName = SettingName.ChatBotLanguage,
+                SettingName = SettingName.NotificationTemplateLanguage,
                 IsActive = 1
             };
             IEnumerable<Setting> settings = await settingService.GetAsync(param);

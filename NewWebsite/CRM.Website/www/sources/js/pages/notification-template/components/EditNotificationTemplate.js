@@ -23,10 +23,24 @@ class EditNotificationTemplate extends Component {
 
         if (!values.name || values.name.trim().length === 0) {
             errors.name = LangHelper.getResource('TemplateNameRequired');
+        } else {
+            if (values.name.trim().length > 1000) {
+                errors.name = LangHelper.formatString(
+                    LangHelper.getResource('FieldMaxLength'),
+                    LangHelper.getResource('TemplateName'),
+                    1000);
+            }
         }
 
         if (!values.title || values.title.trim().length === 0) {
             errors.title = LangHelper.getResource('TitleRequired');
+        } else {
+            if (values.title.trim().length > 2000) {
+                errors.title = LangHelper.formatString(
+                    LangHelper.getResource('FieldMaxLength'),
+                    LangHelper.getResource('Title'),
+                    2000);
+            }
         }
 
         this.props.languages.map(item => {

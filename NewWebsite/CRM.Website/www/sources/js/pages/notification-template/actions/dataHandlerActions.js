@@ -11,18 +11,12 @@ export const setNotificationTypes = data => {
 };
 
 export const getNotificationTypes = () => {
-    const notificationTypes = [
-        { notificationTypeId: 1, name: 'a' },
-        { notificationTypeId: 2, name: 'b' },
-        { notificationTypeId: 3, name: 'c' }
-    ];
-    return setNotificationTypes(notificationTypes);
-    //const url = Site.resolveClientUrl('Common/GetNotificationTypes');
-    //return dispatch => {
-    //    return axios.get(url).then(response => {
-    //        dispatch(setNotificationTypes(response.data));
-    //    }).catch(Site.handleAxiosError);
-    //};
+    const url = Site.resolveClientUrl('Common/GetNotificationTypes');
+    return dispatch => {
+        return axios.get(url).then(response => {
+            dispatch(setNotificationTypes(response.data));
+        }).catch(Site.handleAxiosError);
+    };
 };
 
 export const setLanguages = data => {

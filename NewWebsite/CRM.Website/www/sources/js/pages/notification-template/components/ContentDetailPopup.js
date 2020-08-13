@@ -18,11 +18,11 @@ class ContentDetailPopup extends Component {
                     {
                         template.contents.map(item => {
                             return (
-                                <Accordion key={item.languageId} defaultActiveKey="0">
+                                <Accordion key={item.languageId} defaultActiveKey="0" className="mb-3">
                                     <Card>
                                         <Card.Header>
                                             <Accordion.Toggle as="div" eventKey="0">
-                                                <a href="#">{item.language}</a>
+                                                {item.language}
                                             </Accordion.Toggle>
                                         </Card.Header>
                                         <Accordion.Collapse eventKey="0">
