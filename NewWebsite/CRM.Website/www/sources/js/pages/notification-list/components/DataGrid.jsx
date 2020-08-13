@@ -25,12 +25,15 @@ export class DataGrid extends Component {
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
-                <HeaderCell colWidth={15}>{LangHelper.getResource('NotificationID') + ' ' + LangHelper.getResource('MessageID')}</HeaderCell>
-                <HeaderCell colWidth={60}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
+                <HeaderCell colWidth={15}>
+                    <div>{LangHelper.getResource('NotificationID')}</div>
+                    <div>{LangHelper.getResource('MessageID')}</div>
+                </HeaderCell>
+                <HeaderCell colWidth={30}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={60}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
+                <HeaderCell colWidth={30}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
                 {
                     isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
@@ -159,7 +162,7 @@ export class DataGrid extends Component {
             PageIndex: pageIndex,
             PageSize: pageSize,
             TotalItem: totalItems,
-            PageList: [10, 20, 50, 100, 500]
+            PageList: [100, 200, 300, 400, 500, 1000]
         };
 
         return (

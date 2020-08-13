@@ -69,7 +69,7 @@
 
         public IActionResult GetGridData(GetGridDataParam param)
         {
-            const int totalItems = 100;
+            const int totalItems = 1520;
             var notifications = new List<Notification> { };
             for (var i = 0; i < totalItems; i++)
             {
@@ -103,7 +103,7 @@
                 });
             }
 
-            return Json(new { totalItems = totalItems, data = notifications });
+            return Json(new { totalItems = totalItems, data = notifications.Skip((param.PageIndex - 1) * param.PageSize).Take(param.PageSize)});
         }
     }
 }
