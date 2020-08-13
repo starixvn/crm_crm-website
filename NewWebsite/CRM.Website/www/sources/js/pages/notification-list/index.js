@@ -22,8 +22,6 @@ const store = Store.createStore(reducer, {
     },
     settings: {
         notificationTypes: [],
-        groupHeadlines: [],
-        recipients: [],
         statuses: []
     }
 });

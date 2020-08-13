@@ -20,4 +20,30 @@
     <Setting Key="Acc_CRM_ChatBot_NotificationType_Upd" SpName="Acc_CRM_ChatBot_NotificationType_Upd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_ChatBot_NotificationType_Del" SpName="Acc_CRM_ChatBot_NotificationType_Del" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
+  <Function Name="ChatBot">
+    <Setting Key="Acc_CRM_ChatBot_Bot_Sel" SpName="Acc_CRM_ChatBot_Bot_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="ConversationBotId" ObjectProperty="Id" />
+      <Mapping DataField="ConversationBotName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_ChatBot_ChatType_Sel" SpName="Acc_CRM_ChatBot_ChatType_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="ChatTypeId" ObjectProperty="Id" />
+      <Mapping DataField="ChatTypeName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_ChatBot_Recipient_Sel" SpName="Acc_CRM_ChatBot_Recipient_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="RecipientId" ObjectProperty="Id" />
+      <Mapping DataField="RecipientName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_ChatBot_RecipientType_Sel" SpName="Acc_CRM_ChatBot_RecipientType_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="RecipientTypeId" ObjectProperty="Id" />
+      <Mapping DataField="RecipientTypeName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_ChatBot_System_Sel" SpName="Acc_CRM_ChatBot_System_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="SystemId" ObjectProperty="Id" />
+      <Mapping DataField="SystemName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Acc_CRM_HeadlineSel" SpName="Acc_CRM_HeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+      <Mapping DataField="HeadlineID" ObjectProperty="Id" />
+      <Mapping DataField="HeadlineName" ObjectProperty="Name" />
+    </Setting>
+  </Function>
 </Functions>

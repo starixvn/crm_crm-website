@@ -3,11 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
     using CRM.Models;
     using CRM.Models.NotificationList;
+    using CRM.Services;
+    using CRM.Services.Interfaces;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
@@ -21,15 +24,21 @@
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
+        private readonly IChatBotService chatBotService;
+        private readonly IHeadlineService headlineService;
 
         public NotificationListController(
             INapSession napSession,
             INapSettings napSettings,
-            IUserService userService)
+            IUserService userService,
+            IChatBotService chatBotService,
+            IHeadlineService headlineService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
+            this.chatBotService = chatBotService;
+            this.headlineService = headlineService;
         }
 
         public IActionResult Index()
@@ -38,36 +47,18 @@
             return View(true);
         }
 
-        public IActionResult GetSettings()
+        public async Task<IActionResult> GetSettings()
         {
             var result = new
             {
-                NotificationTypes = new List<BaseModel>
-                {
-                    new BaseModel { Id = 1, Name = "Group" },
-                    new BaseModel { Id = 2, Name = "Personal" }
-                },
-                GroupHeadlines = new List<BaseModel>
-                {
-                    new BaseModel { Id = 1, Name = "Group Headline1" },
-                    new BaseModel { Id = 2, Name = "Group Headline2" },
-                    new BaseModel { Id = 3, Name = "Group Headline3" },
-                    new BaseModel { Id = 4, Name = "Group Headline4" }
-                },
-                Recipients = new List<BaseModel>
-                {
-                    new BaseModel { Id = 1, Name = "Recipient1" },
-                    new BaseModel { Id = 2, Name = "Recipient2" },
-                    new BaseModel { Id = 3, Name = "Recipient3" },
-                    new BaseModel { Id = 4, Name = "Recipient4" }
-                },
+                NotificationTypes = await chatBotService.GetChatTypes(),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
 
             return Json(result);
         }
 
-        public IActionResult GetGridData(GetGridDataParam param)
+        public async Task<IActionResult> GetGridData(GetGridDataParam param)
         {
             const int totalItems = 1520;
             var notifications = new List<Notification> { };
