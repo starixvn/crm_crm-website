@@ -120,6 +120,9 @@ class EditNotificationTemplate extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                         {LangHelper.getResource('Submit')}
                     </Button>
+                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
+                        {LangHelper.getResource('Cancel')}
+                    </Button>
                 </Modal.Footer>
             </Form>
         );

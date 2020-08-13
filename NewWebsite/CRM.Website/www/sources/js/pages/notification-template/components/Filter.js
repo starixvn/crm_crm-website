@@ -63,9 +63,9 @@ class Filter extends Component {
         const { isHost } = this.props;
         return (
             <Form className="form-filter">
-                <Form.Row bsPrefix="form-row">
-                    <label className="col-auto col-form-label">{LangHelper.getResource('NotificationType')}</label>
-                    <div className="col-auto">
+                <div className="form-row">
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <Form.Control as="select" size="sm" className="shadow-none"
                             value={this.state.notificationTypeId}
                             onChange={this.handleNotificationTypeChange}
@@ -73,15 +73,15 @@ class Filter extends Component {
                             <option value="">{LangHelper.getResource('All')}</option>
                             {this.props.notificationTypes.map(this.renderNotificationTypeOption)}
                         </Form.Control>
-                    </div>
-                    <label className="col-auto col-form-label">{LangHelper.getResource('TemplateName')}</label>
-                    <div className="col-auto">
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('TemplateName')}</Form.Label>
                         <Form.Control type="text" size="sm" className="shadow-none"
                             value={this.state.templateName}
                             onChange={this.handleTemplateNameChange}
                         />
-                    </div>
-                    <div className="col-auto">
+                    </Form.Group>
+                    <div>
                         <Button className="mr-2" variant="primary" size="sm"
                             onClick={this.submitHandler}
                         >
@@ -96,7 +96,7 @@ class Filter extends Component {
                             </Button>
                         }
                     </div>
-                </Form.Row>
+                </div>
             </Form>
         );
     }

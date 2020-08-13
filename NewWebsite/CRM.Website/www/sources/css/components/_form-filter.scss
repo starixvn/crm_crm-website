@@ -4,9 +4,29 @@
     padding: 10px;
     background-color: #e8e8e8;
 
-    input, select {
-        &.form-control {
-            width: 150px;
+    .form-row {
+        margin: 0;
+
+        .form-group {
+            width: 260px;
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+
+            &.form-group-sm {
+            }
+
+            &.form-group-lg {
+            }
+
+            .form-label {
+                width: 100px;
+                margin: 0 .5rem 0 0;
+            }
+
+            .form-control-wrapper, .form-control {
+                width: calc(100% - .5rem - 100px);
+            }
         }
     }
 }
