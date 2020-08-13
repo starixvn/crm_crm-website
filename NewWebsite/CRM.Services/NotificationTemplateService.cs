@@ -6,12 +6,10 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Xml.Linq;
-    using CRM.Core.Constants;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationTemplate;
     using CRM.Models.NotificationTemplate;
-    using CRM.Models.Setting;
     using Fanex.NAP.Client.Helpers.Web;
 
     public interface INotificationTemplateService
@@ -31,16 +29,13 @@
     {
         private readonly INapSession napSession;
         private readonly IBaseService baseService;
-        private readonly ISettingService settingService;
 
         public NotificationTemplateService(
             INapSession napSession,
-            IBaseService baseService,
-            ISettingService settingService)
+            IBaseService baseService)
         {
             this.napSession = napSession;
             this.baseService = baseService;
-            this.settingService = settingService;
         }
 
         public async Task<IEnumerable<NotificationTemplate>> GetAsync(GetGridDataParam param)
@@ -64,8 +59,7 @@
                 NotificationTemplateId = id
             };
             var template = await baseService.GetDataEntityAsync<NotificationTemplate>(criteria);
-            IEnumerable<Setting> languages = await GetLanguageAsync();
-            ParseContentXml(template, languages);
+            ParseContentXml(template);
             return template;
         }
 
@@ -109,41 +103,18 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        private async Task<IEnumerable<Setting>> GetLanguageAsync()
+        private void ParseContentXml(NotificationTemplate template)
         {
-            var param = new GetSettingParam
-            {
-                SettingName = SettingName.ChatBotLanguage,
-                IsActive = 1
-            };
-            return await settingService.GetAsync(param);
-        }
-
-        private void ParseContentXml(NotificationTemplate template, IEnumerable<Setting> languages)
-        {
-            template.Contents = languages.Select(x => new NotificationTemplateContent
-            {
-                LanguageId = x.SettingId,
-                Language = x.SettingValue,
-                Content = string.Empty
-            }).ToList();
             if (!string.IsNullOrWhiteSpace(template.ContentXml))
             {
                 var element = XElement.Parse(template.ContentXml);
-                var contents = element.Elements("Content")
+                template.Contents = element.Elements("Content")
                     .Select(x => new NotificationTemplateContent
                     {
                         LanguageId = int.Parse(x.Attribute("LanguageId").Value),
+                        Language = x.Attribute("Language").Value,
                         Content = x.Attribute("Value").Value
                     }).ToList();
-                foreach (var content in template.Contents)
-                {
-                    var item = contents.FirstOrDefault(x => x.LanguageId == content.LanguageId);
-                    if (item != null)
-                    {
-                        content.Content = HttpUtility.HtmlDecode(item.Content);
-                    }
-                }
             }
         }
 

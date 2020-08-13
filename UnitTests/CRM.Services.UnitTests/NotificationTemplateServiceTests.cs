@@ -14,7 +14,6 @@
     {
         private INapSession napSession;
         private IBaseService baseService;
-        private ISettingService settingService;
 
         [Fact]
         public async Task CreateAsync_WhenCalled_ReturnExpectedCommandResult()
@@ -90,8 +89,7 @@
         {
             napSession = Substitute.For<INapSession>();
             baseService = Substitute.For<IBaseService>();
-            settingService = Substitute.For<ISettingService>();
-            var service = new NotificationTemplateService(napSession, baseService, settingService);
+            var service = new NotificationTemplateService(napSession, baseService);
 
             return service;
         }
