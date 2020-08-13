@@ -12,7 +12,7 @@ class Filter extends Component {
 
         this.state = {
             filter: {
-                notificationType: '',
+                notificationTypeName: '',
                 recipientTypes: {
                     value: ''
                 },
@@ -100,7 +100,7 @@ class Filter extends Component {
 
     handleNotificationTypeChange = event => {
         this.setState({
-            notificationType: event.target.value
+            notificationTypeName: event.target.value
         });
     }
 
@@ -112,7 +112,7 @@ class Filter extends Component {
 
     getParams = () => {
         return {
-            notificationType: this.state.filter.notificationType,
+            notificationTypeName: this.state.notificationTypeName,
             chatTypeId: this.state.filter.chatTypes.value,
             recipientTypeId: this.state.filter.recipientTypes.value,
             systemId: this.state.filter.systems.value,
@@ -138,7 +138,7 @@ class Filter extends Component {
                     <label className="col-auto col-form-label">{LangHelper.getResource('NotificationType')}</label>
                     <div className="col-auto">
                         <input type="text" className="form-control form-control-sm shadow-none"
-                            value={this.state.notificationType}
+                            value={this.state.notificationTypeName}
                             onChange={this.handleNotificationTypeChange}
                         />
                     </div>

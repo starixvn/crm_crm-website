@@ -4,12 +4,12 @@
     {
         public int NotificationTypeId { get; set; }
 
-        public int ChatTypeId { get; set; }
+        public string NotificationTypeName { get; set; }
 
-        public int RecipientTypeId { get; set; }
+        public int ChatType { get; set; }
 
-        public int SystemId { get; set; }
+        public int RecipientType { get; set; }
 
-        public string Name { get; set; }
+        public int SystemName { get; set; }
     }
 }

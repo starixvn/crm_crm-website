@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
@@ -23,7 +22,7 @@ class NewNotificationType extends Component {
                 chatType: {
                     value: ''
                 },
-                SystemId: {
+                systemId: {
                     value: ''
                 }
             },
@@ -79,7 +78,7 @@ class NewNotificationType extends Component {
                             chatType: {
                                 value: chatTypeIds.toString()
                             },
-                            SystemId: {
+                            systemId: {
                                 value: systemIds.toString()
                             }
                         }
@@ -89,21 +88,21 @@ class NewNotificationType extends Component {
 
     validate = values => {
         const errors = {};
-        if (!values.NotificationTypeName) {
-            errors.NotificationTypeName = LangHelper.getResource('NotificationTypeRequired');
+        if (!values.notificationTypeName) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        // if (!values.recipientType) {
-        //     errors.recipientType = LangHelper.getResource('RecipientTypeRequired');
+        // if (!values.recipientTypeId) {
+        //     errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
         // }
 
-        // if (!values.chatType) {
-        //     errors.chatType = LangHelper.getResource('ChatTypeRequired');
+        // if (!values.chatTypeId) {
+        //     errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
         // }
 
-        // if (!values.systemId) {
-        //     errors.systemId = LangHelper.getResource('SystemRequired');
-        // }
+        if (!values.systemId) {
+            errors.systemId = LangHelper.getResource('SystemRequired');
+        }
 
 
         return errors;
@@ -140,26 +139,26 @@ class NewNotificationType extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="NotificationTypeName" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="notificationTypeName" className="required">
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.NotificationTypeName} name="NotificationTypeName"
+                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.NotificationTypeName && errors.NotificationTypeName}
+                                isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
                             />
                         </Col>
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="recipientType" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="recipientTypeId" className="required">
                             {LangHelper.getResource('RecipientType')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.popup.recipientTypes}
+                            initialValue={this.state.popup.recipientTypeId}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -172,13 +171,13 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="chatType" className="required">
+                        <Form.Label column sm="4" md="3" value={values.chatTypeId}  htmlFor="chatTypeId" className="required">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.popup.chatTypes}
+                            initialValue={this.state.popup.chatTypeId}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -191,15 +190,15 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="systemId" className="required">
+                        <Form.Label column sm="4" md="3" value={values.systemId}  htmlFor="systemId" className="required">
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
-                                isInvalid={touched.SystemId && errors.SystemId}
-                                name="SystemId"
+                                isInvalid={touched.systemId && errors.systemId}
+                                name="systemId"
                                 onChange={handleChange}
-                                value={values.SystemId}
+                                value={values.systemId}
                             >
                                 <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.state.systemsOptions.map(this.renderSystemTypeOption)}
@@ -221,8 +220,15 @@ class NewNotificationType extends Component {
     }
 
     handleSubmit = (values, { setSubmitting }) => {
+        const type = {
+            notificationTypeName: values.notificationTypeName,
+            chatTypeId: this.state.popup.chatTypes.value,
+            recipientTypeId: this.state.popup.recipientTypes.value,
+            systemId: values.systemId
+        };
+
         setSubmitting(true);
-        this.props.createType(values).then(() => {
+        this.props.createType(type).then(() => {
             if (this.props.createTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
@@ -235,10 +241,10 @@ class NewNotificationType extends Component {
 
     render() {
         const initialValues = {
-            NotificationTypeName: '',
-            recipientType: '',
-            chatType: '',
-            SystemId: ''
+            notificationTypeName: '',
+            recipientTypeId: '',
+            chatTypeId: '',
+            systemId: ''
         }
         return (
             <Modal show className="new-notification-Type"

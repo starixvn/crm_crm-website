@@ -4,6 +4,8 @@
 
     public class GetNotificationTypeCriteria : CriteriaBase
     {
+        public int? NotificationTypeId { get; set; }
+
         public string RecipientTypeId { get; set; }
 
         public string ChatTypeId { get; set; }

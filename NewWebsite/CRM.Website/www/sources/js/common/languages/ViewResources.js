@@ -36,6 +36,7 @@
     NotificationTemplate: 'Notification Template',
     NotificationType: 'Notification Type',
     NotificationTypeName: 'Notification Type Name',
+    NotificationTypeNameRequired: 'Notification Type Name is mandatory!',
     NotificationTypeRequired: 'Notification Type is mandatory!',
     PleaseChoose: 'Please Choose',
     PleaseSelect: 'Please select ...',

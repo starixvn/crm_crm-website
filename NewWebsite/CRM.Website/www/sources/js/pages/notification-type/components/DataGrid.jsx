@@ -58,7 +58,7 @@ export class DataGrid extends Component {
     renderRow = (item, index, isHost) => (
         <Row key={item.notificationTypeId} >
             <Cell className="text-center">{index + this.startIndex}</Cell>
-            <Cell>{item.name}</Cell>
+            <Cell>{item.notificationTypeName}</Cell>
             <Cell>{item.recipientType}</Cell>
             <Cell>{item.chatType}</Cell>
             <Cell>{item.system}</Cell>
@@ -69,7 +69,7 @@ export class DataGrid extends Component {
                         onClick={() => this.handleEdit(item.notificationTypeId)}
                     />
                     <span className="rounded-circle fa fa-trash icon-delete"
-                        onClick={() => this.handleDelete(item.notificationTypeId, item.name)}
+                        onClick={() => this.handleDelete(item.notificationTypeId, item.notificationTypeName)}
                     />
                 </Cell>
             }

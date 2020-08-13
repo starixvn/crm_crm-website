@@ -14,7 +14,7 @@ class EditNotificationType extends Component {
         super(props);
 
         this.state = {
-            filter: {
+            popup: {
                 recipientTypes: {
                     value: ''
                 },
@@ -75,8 +75,8 @@ class EditNotificationType extends Component {
                     recipientTypesOptions,
                     chatTypesOptions,
                     systemsOptions,
-                    filter: {
-                        ...prevState.filter,
+                    popup: {
+                        ...prevState.popup,
                         ...{
                             recipientTypes: {
                                 value: recipientTypeIds.toString()
@@ -91,15 +91,15 @@ class EditNotificationType extends Component {
                     }
             }));
     }
-        recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
-        chatTypeChange = value => this.handleFilterChange('chatTypes', value)
-        systemChange = value => this.handleFilterChange('system', value)
+        recipientTypeChange = value => this.handlePopupChange('recipientTypes', value)
+        chatTypeChange = value => this.handlePopupChange('chatTypes', value)
+        systemChange = value => this.handlePopupChange('system', value)
     
         renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
     
-        handleFilterChange = (name, value) => {
+        handlePopupChange = (name, value) => {
             this.setState(prevState => ({
-                filter: { ...prevState.filter, ...{ [name]: value } }
+                popup: { ...prevState.popup, ...{ [name]: value } }
             }));
         }
 
@@ -142,7 +142,7 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.filter.recipientTypes.value}
+                            initialValue={this.state.popup.recipientTypes.value}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -161,7 +161,7 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.filter.chatTypes.value}
+                            initialValue={this.state.popup.chatTypes.value}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -220,11 +220,10 @@ class EditNotificationType extends Component {
 
         const type = this.props.editTypePopup.type;
         const initialValues = {
-            notificationType: type.notificationTypeId,
-            name: type.name,
-            recipientType: type.title,
-            chatType: type.chatTypeIds,
-            system: type.system
+            notificationTypeName: '',
+            recipientTypeId: '',
+            chatTypeId: '',
+            systemId: ''
         };
 
         return (
