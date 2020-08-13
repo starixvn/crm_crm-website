@@ -61,7 +61,7 @@ export class DataGrid extends Component {
             <Cell>{item.notificationTypeName}</Cell>
             <Cell>{item.recipientType}</Cell>
             <Cell>{item.chatType}</Cell>
-            <Cell>{item.system}</Cell>
+            <Cell>{item.systemName}</Cell>
             {
                 isHost &&
                 <Cell className="text-center">

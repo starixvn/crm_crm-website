@@ -1,7 +1,9 @@
 ﻿namespace CRM.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using System.Xml.Linq;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationType;
@@ -34,7 +36,7 @@
             this.baseService = baseService;
         }
 
-public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param)
+        public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param)
         {
             var criteria = new GetNotificationTypeCriteria
             {
@@ -46,6 +48,10 @@ public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param
                 PageSize = param.PageSize
             };
             var types = await baseService.GetDataAsync<NotificationType>(criteria);
+            foreach (NotificationType type in types) 
+            {
+                ParseRecipientXml(type);
+            }
             param.TotalRows = criteria.TotalRows;
             return types;
         }
@@ -98,6 +104,20 @@ public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
+        }
+
+        private void ParseRecipientXml(NotificationType type)
+        {
+            if (!string.IsNullOrWhiteSpace(type.RecipientType))
+            {
+                var element = XElement.Parse(type.RecipientType);
+                type.RecipientTypes = element.Elements("RecipientType")
+                    .Select(x => new NotificationTypeRecipient
+                    {
+                        RecipientId = int.Parse(x.Attribute("Id").Value),
+                        Name = x.Attribute("Name").Value
+                    }).ToList();
+            }
         }
     }
 }
