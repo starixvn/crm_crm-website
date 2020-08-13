@@ -1,6 +1,7 @@
 ﻿namespace CRM.Controllers.HeadlineNotification
 {
     using System.Collections.Generic;
+    using CRM.Core.Models;
     using CRM.Models;
     using CRM.Models.ChatTypeMapping;
     using CRM.ViewModels.ChatTypeMapping;
@@ -84,6 +85,13 @@
             };
 
             return Json(fakeData);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateActiveStatus(int ConversationId, bool IsActive)
+        {
+            var result = new CommandResult { Code = 0, Message = "Success" };
+            return Json(result);
         }
     }
 }

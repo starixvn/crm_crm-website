@@ -61,21 +61,6 @@ export const setGroupMappingUpdateData = data => {
 };
 
 export const updateGroupMapping = params => {
-	const url = Site.resolveClientUrl('ChatTypeMapping/GroupMapping');
-	const headers = {
-		'Content-Type': 'application/json',
-		'RequestVerificationToken': Site.getXsrfToken()
-	};
-
-	return async dispatch => {
-		try {
-			const request = await axios.post(url, JSON.stringify(params), { headers: headers });
-			const data = await request.data;
-			dispatch(setUpdateData(data));
-		} catch (err) {
-			errorResponseHandler();
-		}
-	};
 };
 
 export const setPersonalUpdateData = data => {
@@ -86,38 +71,37 @@ export const setPersonalUpdateData = data => {
 };
 
 export const updatePersonalMapping = params => {
-	const url = Site.resolveClientUrl('ChatTypeMapping/PersonalMapping');
-	const headers = {
-		'Content-Type': 'application/json',
-		'RequestVerificationToken': Site.getXsrfToken()
-	};
+};
 
-	return async dispatch => {
-		try {
-			const request = await axios.post(url, JSON.stringify(params), { headers: headers });
-			const data = await request.data;
-			dispatch(setUpdateData(data));
-		} catch (err) {
-			errorResponseHandler();
-		}
+// Update Active Status
+export const setUpateActivePopup = data => {
+	return {
+		type: types.ACTIVE_POPUP_DATA,
+		data: data
 	};
 };
 
-export const updateActiveStatus = (conversationId, isActive) => {
-	const url = Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus');
-	const headers = {
-		'Content-Type': 'application/json',
-		'RequestVerificationToken': Site.getXsrfToken()
+export const updateActiveStatus = params => {
+	return dispatch => {
+		return axios({
+			method: 'post',
+			url: Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'),
+			data: params,
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest',
+				'RequestVerificationToken': Site.getXsrfToken()
+			}
+		}).then(response => {
+			dispatch(setUpateActiveResult(response.data));
+			dispatch(setUpateActivePopup({ isShow: false }))
+		}).catch(Site.handleAxiosError);
 	};
+}
 
-	return async dispatch => {
-		try {
-			const request = await axios.post(url, JSON.stringify({ conversationId, isActive }), { headers: headers });
-			const data = await request.data;
-			dispatch(setUpdateData(data));
-		} catch (err) {
-			errorResponseHandler();
-		}
+export const setUpateActiveResult = data => {
+	return {
+		type: types.ACTIVE_RESULT_DATA,
+		data: data
 	};
 };
 
@@ -125,6 +109,8 @@ export const refreshUpdateData = () => {
 	return dispatch => {
 		dispatch(setPersonalUpdateData(null));
 		dispatch(setGroupMappingUpdateData(null));
+		dispatch(setUpateActivePopup(null));
+		dispatch(setUpateActiveResult(null));
 	}
 };
 
@@ -137,6 +123,7 @@ const actions = {
 	updateGroupMapping,
 	updatePersonalMapping,
 	refreshUpdateData,
+	setUpateActivePopup,
 	updateActiveStatus
 };
 

@@ -21,10 +21,25 @@ export const gridData = createReducer({}, {
 	}
 });
 
+//Update status active
+export const updateActiveStatusPopup = createReducer({}, {
+	[types.ACTIVE_POPUP_DATA](state, action) {
+		return action.data;
+	}
+});
+
+export const updateActiveStatusResult = createReducer({}, {
+	[types.ACTIVE_RESULT_DATA](state, action) {
+		return action.data;
+	}
+});
+
 const reducers = {
 	settings,
 	gridParams,
-	gridData
+	gridData,
+	updateActiveStatusPopup,
+	updateActiveStatusResult
 };
 
 export default reducers;

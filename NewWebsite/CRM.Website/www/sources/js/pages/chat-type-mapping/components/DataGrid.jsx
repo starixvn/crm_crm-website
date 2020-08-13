@@ -7,6 +7,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import { PAGING_SIZES, defaultPageSize, ChatTypeMapping } from '@jsroot/common/constants';
 import Site from '@jsroot/common/site'
 import { Form } from 'react-bootstrap';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 
 export class DataGrid extends Component {
 	constructor(props) {
@@ -22,8 +23,17 @@ export class DataGrid extends Component {
 		this.props.getGridData(params);
 	}
 
-	handleChangeActiveStaus = (conversationId, isChecked) => {
-		console.log(isChecked);
+	onChangeActiveStaus = (conversationId, isChecked) => {
+		this.props.setUpateActivePopup({ isShowPopup: true, conversationId, isChecked });
+	}
+
+	updateActiveStatus = () => {
+		const params = { conversationId: this.props.updateActiveStatusPopup.conversationId, isActive: this.props.updateActiveStatusPopup.isChecked };
+		this.props.updateActiveStatus(params);
+	}
+
+	onCloseConfirmPopupChangeActiveStaus = () => {
+		this.props.setUpateActivePopup({ isShowPopup: false })
 	}
 
 	handleEdit = (chatType, conversationId) => {
@@ -79,7 +89,7 @@ export class DataGrid extends Component {
 					id={`active-chk-${conversationId}`}
 					type='checkbox'
 					checked={isActive}
-					onChange={(e) => this.handleChangeActiveStaus(conversationId, e.target.checked)} />
+					onChange={(e) => this.onChangeActiveStaus(conversationId, e.target.checked)} />
 			</Cell>;
 		}
 
@@ -146,7 +156,6 @@ export class DataGrid extends Component {
 			TotalItem: totalItems,
 			PageList: PAGING_SIZES
 		};
-
 		return (
 			<Fragment>
 				<div className='table-title'>{LangHelper.getResource('ChatTypeMapping')}</div>
@@ -162,6 +171,23 @@ export class DataGrid extends Component {
 					containerPadding={0}
 					adjustedHeight={50}
 				/>
+				{
+					this.props.updateActiveStatusPopup.isShowPopup &&
+					<ConfirmPopup
+						size='lg'
+						title={LangHelper.getResource('Confirmation')}
+						content={
+							<div>
+								When a group is <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong>. The system will <strong>{this.props.updateActiveStatusPopup.isChecked ? '' : 'not'}</strong> send notifications to the group.
+								Do you want to proceed?
+							</div>
+						}
+						requestResponse={this.props.updateActiveStatusResult}
+						onSubmit={this.updateActiveStatus}
+						onClose={this.onCloseConfirmPopupChangeActiveStaus}
+					/>
+				}
+
 			</Fragment>
 		);
 	}
@@ -170,11 +196,11 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-	const { gridParams, gridData, settings } = state;
+	const { gridParams, gridData, updateActiveStatusPopup } = state;
 	return {
 		gridParams,
 		gridData,
-		settings
+		updateActiveStatusPopup
 	};
 };
 
