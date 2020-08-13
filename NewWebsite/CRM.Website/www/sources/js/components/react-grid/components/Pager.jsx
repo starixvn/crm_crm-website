@@ -47,7 +47,7 @@ export default class Pager extends Component {
     onKeyUpHandle = (e, totalPage) => {
         const code = e.keyCode ? e.keyCode : e.which;
         if (code === 13) {
-            let value = parseInt(this.state.inputValue);
+            const value = parseInt(this.state.inputValue);
             if (value > 0 && value <= totalPage) {
                 this.goToPage(value, this.props.pageOption.PageSize);
             }
@@ -76,7 +76,7 @@ export default class Pager extends Component {
     _renderPageSizeSelection(isDisable, pageIndex, pageSize) {
         return (
             <select className="pagesize-select" disabled={isDisable} value={pageSize}
-                onChange={(e) => this.goToPage(1, Number(e.target.value))}
+                onChange={event => this.goToPage(1, Number(event.target.value))}
             >
                 {this._renderPageSizeOption(this.props.pageOption.PageList)}
             </select>
@@ -130,8 +130,8 @@ export default class Pager extends Component {
         return (
             <div className="page-container" style={{ display: `${isShow ? 'block' : 'none'}` }}>
                 Page size {this._renderPageSizeSelection(isDisable, PageIndex, PageSize)}
-                {this._renderPageIcon("fa-angle-double-left", PageIndex === 1, () => this.goToPage(1, PageSize))}
-                {this._renderPageIcon("fa-angle-left", isDisable || PageIndex <= 1 || PageIndex > totalPage, () => this.goToPage(PageIndex - 1, PageSize))}
+                {this._renderPageIcon('fa-angle-double-left', PageIndex === 1, () => this.goToPage(1, PageSize))}
+                {this._renderPageIcon('fa-angle-left', isDisable || PageIndex <= 1 || PageIndex > totalPage, () => this.goToPage(PageIndex - 1, PageSize))}
                 {isAllowInputPageIndex ? this._renderPageInput(inputValue, totalPage) : this._renderPageLabel(PageIndex, totalPage)}
                 {this._renderPageIcon('fa-angle-right', isDisable || PageIndex >= totalPage || PageIndex < 1, () => this.goToPage(PageIndex + 1, PageSize))}
                 {this._renderPageIcon('fa-angle-double-right', PageIndex === totalPage, () => this.goToPage(totalPage, PageSize))}

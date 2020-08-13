@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class HeaderRow extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     static propTypes = {

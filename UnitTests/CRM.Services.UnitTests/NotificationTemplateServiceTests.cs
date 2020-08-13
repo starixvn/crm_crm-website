@@ -1,5 +1,6 @@
 ﻿namespace CRM.Services.UnitTests
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Models;
@@ -14,6 +15,68 @@
     {
         private INapSession napSession;
         private IBaseService baseService;
+
+        [Fact]
+        public async Task GetAsync_WhenCalled_ReturnExpectedTemplate()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var param = fixture.Create<GetGridDataParam>();
+            var totalRows = fixture.Create<int>();
+            var expected = fixture.Create<IEnumerable<NotificationTemplate>>();
+            var criteria = new GetNotificationTemplateCriteria();
+            var service = GetService();
+            baseService.GetDataAsync<NotificationTemplate>(Arg.Do<GetNotificationTemplateCriteria>(x => criteria = x)).Returns(expected);
+            baseService.When(x => x.GetDataAsync<NotificationTemplate>(Arg.Do<GetNotificationTemplateCriteria>(y => criteria = y)))
+                 .Do(x => criteria.TotalRows = totalRows);
+
+            // Act
+            var actual = await service.GetAsync(param);
+
+            // Assert
+            Assert.Equal(expected, actual);
+
+            Assert.Equal(param.NotificationTypeId, criteria.NotificationTypeId);
+            Assert.Equal(param.TemplateName, criteria.TemplateName);
+            Assert.Equal(param.PageIndex, criteria.PageIndex);
+            Assert.Equal(param.PageSize, criteria.PageSize);
+            Assert.Equal(totalRows, param.TotalRows);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_WhenCalled_ReturnExpectedTemplate()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            fixture.Customize<NotificationTemplate>(x => x
+                .With(b => b.ContentXml, "<ROOT><Content LanguageId='1' Language='EN' Value='content' /></ROOT>"));
+            var id = fixture.Create<int>();
+            var template = fixture.Create<NotificationTemplate>();
+            var criteria = new GetNotificationTemplateCriteria();
+            var service = GetService();
+            baseService.GetDataEntityAsync<NotificationTemplate>(Arg.Do<GetNotificationTemplateCriteria>(x => criteria = x)).Returns(template);
+
+            // Act
+            var actual = await service.GetByIdAsync(id);
+
+            // Assert
+            Assert.Equal(template.NotificationTemplateId, actual.NotificationTemplateId);
+            Assert.Equal(template.Name, actual.Name);
+            Assert.Equal(template.Title, actual.Title);
+            Assert.Equal(template.NotificationTypeId, actual.NotificationTypeId);
+            Assert.Equal(template.NotificationType, actual.NotificationType);
+
+            Assert.Single(actual.Contents);
+            Assert.Collection(actual.Contents,
+                item =>
+                {
+                    Assert.Equal(1, item.LanguageId);
+                    Assert.Equal("EN", item.Language);
+                    Assert.Equal("content", item.Content);
+                });
+
+            Assert.Equal(id, criteria.NotificationTemplateId);
+        }
 
         [Fact]
         public async Task CreateAsync_WhenCalled_ReturnExpectedCommandResult()

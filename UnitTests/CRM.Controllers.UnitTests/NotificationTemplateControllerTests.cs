@@ -1,10 +1,12 @@
 ﻿namespace CRM.Controllers.UnitTests
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Constants;
     using CRM.Core.Models;
     using CRM.Models.NotificationTemplate;
+    using CRM.Models.Setting;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
@@ -36,6 +38,25 @@
             var viewResult = Assert.IsType<ViewResult>(result);
             var viewModel = Assert.IsType<bool>(viewResult.Model);
             Assert.True(viewModel);
+        }
+
+        [Fact]
+        public async Task GetById_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<NotificationTemplate>();
+            var id = fixture.Create<int>();
+            var controller = GetController();
+            templateService.GetByIdAsync(id).Returns(expected);
+
+            // Act
+            var result = await controller.GetById(id);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var template = Assert.IsAssignableFrom<NotificationTemplate>(jsonResult.Value);
+            Assert.Equal(expected, template);
         }
 
         [Fact]
@@ -93,6 +114,28 @@
             var jsonResult = Assert.IsType<JsonResult>(result);
             var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
             Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task GetLanguages_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<IEnumerable<Setting>>();
+            var param = fixture.Create<GetSettingParam>();
+            var controller = GetController();
+            settingService.GetAsync(Arg.Do<GetSettingParam>(x => param = x)).Returns(expected);
+
+            // Act
+            var result = await controller.GetLanguages();
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var settings = Assert.IsAssignableFrom<IEnumerable<Setting>>(jsonResult.Value);
+            Assert.Equal(expected, settings);
+
+            Assert.Equal(SettingName.NotificationTemplateLanguage, param.SettingName);
+            Assert.Equal(1, param.IsActive);
         }
 
         #region Helpers
