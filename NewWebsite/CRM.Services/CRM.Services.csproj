@@ -20,6 +20,7 @@
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
     <ProjectReference Include="..\CRM.Criteria\CRM.Criteria.csproj" />
     <ProjectReference Include="..\CRM.Models\CRM.Models.csproj" />
+    <ProjectReference Include="..\CRM.Repositories\CRM.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,9 @@
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
+  <Function Name="Notification List">
+    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
   <Function Name="Notification Template">
     <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Sel" SpName="Acc_CRM_ChatBot_NotificationTemplate_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
       <Mapping DataField="Content" ObjectProperty="ContentXml" Class="NotificationTemplate" />

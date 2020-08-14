@@ -22,9 +22,9 @@ namespace CRM.Models.NotificationList
 
         public string SendTimeString => SendDate.ToString("HH:mm:ss tt");
 
-        public List<BaseModel> GroupHeadlines { get; set; }
+        public IEnumerable<Headline> Headlines { get; set; }
 
-        public List<Recipient> Recipients { get; set; }
+        public IEnumerable<Recipient> Recipients { get; set; }
 
         public string Title { get; set; }
 

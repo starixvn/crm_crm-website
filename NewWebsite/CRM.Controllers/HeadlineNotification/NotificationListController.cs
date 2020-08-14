@@ -7,6 +7,7 @@
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
+    using CRM.Criteria.NotificationList;
     using CRM.Models;
     using CRM.Models.NotificationList;
     using CRM.Services;
@@ -57,7 +58,7 @@
             return Json(result);
         }
 
-        public async Task<IActionResult> GetGridData(GetGridDataParam param)
+        public async Task<IActionResult> GetGridData(GetNotificationListCriteria param)
         {
             const int totalItems = 1520;
             var notifications = new List<Notification> { };
@@ -70,23 +71,6 @@
                     Sender = "starixIT",
                     NotificationTypeName = "Voiding Abnormal Bet Anouncement",
                     SendDate = DateTime.Now.AddMinutes(i),
-                    GroupHeadlines = new List<BaseModel>
-                    {
-                        new BaseModel { Id = i, Name = $"HL0{i}"}
-                    },
-                    Recipients = new List<Recipient>
-                    {
-                        new Recipient
-                        {
-                            Id = i,
-                            Name = $"Recipient{i}",
-                            Role = new BaseModel
-                            {
-                                Id = i,
-                                Name = i % 2 == 0 ? "Boss" : "PIC"
-                            }
-                        }
-                    },
                     Title = "Void Abnormal Bet Template",
                     Content = "When users enter from the 2nd characters, the system shall list suggestions of top 10 likely recipients. Users are able to click on the suggested group headline.",
                     Status = (Status)(i % 5)

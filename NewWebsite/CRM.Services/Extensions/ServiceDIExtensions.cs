@@ -8,6 +8,7 @@
         {
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<ISettingService, SettingService>();
+            services.AddTransient<INotificationListService, NotificationListService>();
             services.AddTransient<INotificationTemplateService, NotificationTemplateService>();
             services.AddTransient<INotificationTypeService, NotificationTypeService>();
             services.AddTransient<IChatBotService, ChatBotService>();

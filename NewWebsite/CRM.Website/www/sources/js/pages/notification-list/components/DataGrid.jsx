@@ -96,8 +96,8 @@ export class DataGrid extends Component {
                 <div>{item.sendDateString}</div>
                 <div>{item.sendTimeString}</div>
             </Cell>
-            <Cell className='text-center'>{item.groupHeadlines.map(gh => gh.name).join(', ')}</Cell>
-            <Cell className='text-center'>{item.recipients.map((recipient, index) => <div key={index}>{`${recipient.name} (${recipient.role.name})`}</div>)}</Cell>
+            <Cell className='text-center'>{this.getHeadlines(item.headlines)}</Cell>
+            <Cell className='text-center'>{this.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
             <Cell className={`text-center status-font ${item.statusString.toLowerCase()}-color`}>{item.statusString}</Cell>
             {
@@ -123,6 +123,22 @@ export class DataGrid extends Component {
             }
         </Row>
     )
+
+    getHeadlines = headlines => {
+        if (headlines && headlines.length > 0) {
+            return headlines.map(headline => headline.headlineName).join(', ')
+        }
+        
+        return '';
+    }
+
+    getRecipients = recipients => {
+        if (recipients && recipients.length > 0) {
+            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>)
+        }
+        
+        return '';
+    }
 
     handleChangeResendCheckbox = (index) => {
         const dataList = [...this.props.resendOptions.dataList];

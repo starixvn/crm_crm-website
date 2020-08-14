@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
+    <ProjectReference Include="..\CRM.Models\CRM.Models.csproj" />
   </ItemGroup>
 
 </Project>
