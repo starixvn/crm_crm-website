@@ -3,17 +3,73 @@
 const notificationTemplateSlice = createSlice({
     name: 'notificationTemplate',
     initialState: {
-        notificationTemplates: []
+        notificationTypes: [],
+        languages: [],
+        notificationTemplates: [],
+        selectedTemplate: null,
+        createTemplatePopup: { show: false },
+        createTemplateResult: null,
+        editTemplatePopup: { show: false },
+        editTemplateResult: null,
+        deleteTemplatePopup: { show: false },
+        deleteTemplateResult: null,
+        contentDetailPopup: { show: false }
     },
     reducers: {
-        createTemplate(state, action) { },
-        editTemplate(state, action) { },
-        deleteTemplate(state, action) { }
+        setNotificationTypes(state, action) {
+            state.notificationTypes = action.payload;
+        },
+        setLanguages(state, action) {
+            state.languages = action.payload;
+        },
+        setGridParams(state, action) {
+            state.setGridParams = action.payload;
+        },
+        setGridData(state, action) {
+            state.notificationTemplates = action.payload;
+        },
+        setSelectedTemplate(state, action) {
+            state.selectedTemplate = action.payload;
+        },
+        setCreateTemplatePopup(state, action) {
+            state.createTemplatePopup = action.payload;
+        },
+        setCreateTemplateResult(state, action) {
+            state.createTemplateResult = action.payload;
+        },
+        setEditTemplatePopup(state, action) {
+            state.editTemplatePopup = action.payload;
+        },
+        setEditTemplateResult(state, action) {
+            state.editTemplateResult = action.payload;
+        },
+        setDeleteTemplatePopup(state, action) {
+            state.deleteTemplatePopup = action.payload;
+        },
+        setDeleteTemplateResult(state, action) {
+            state.deleteTemplateResult = action.payload;
+        },
+        setContentDetailPopup(state, action) {
+            state.contentDetailPopup = action.payload;
+        }
     }
 });
 
 const { actions, reducer } = notificationTemplateSlice;
 
-export const { createTemplate, editTemplate, deleteTemplate } = actions;
+export const {
+    setNotificationTypes,
+    setLanguages,
+    setGridParams,
+    setGridData,
+    setSelectedTemplate,
+    setCreateTemplatePopup,
+    setCreateTemplateResult,
+    setEditTemplatePopup,
+    setEditTemplateResult,
+    setDeleteTemplatePopup,
+    setDeleteTemplateResult,
+    setContentDetailPopup
+} = actions;
 
 export default reducer;

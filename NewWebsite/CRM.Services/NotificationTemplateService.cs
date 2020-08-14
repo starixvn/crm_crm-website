@@ -5,7 +5,6 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
-    using System.Xml.Linq;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationTemplate;
@@ -49,6 +48,7 @@
             };
             var templates = await baseService.GetDataAsync<NotificationTemplate>(criteria);
             param.TotalRows = criteria.TotalRows;
+
             return templates;
         }
 
@@ -58,8 +58,13 @@
             {
                 NotificationTemplateId = id
             };
-            var template = await baseService.GetDataEntityAsync<NotificationTemplate>(criteria);
-            ParseContentXml(template);
+            var tuple = await baseService.FetchMultipleAsync<NotificationTemplate, NotificationTemplateContent>(criteria);
+            var template = tuple.Item1.FirstOrDefault();
+            if (template != null)
+            {
+                template.Contents = tuple.Item2;
+            }
+
             return template;
         }
 
@@ -101,21 +106,6 @@
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
-        }
-
-        private void ParseContentXml(NotificationTemplate template)
-        {
-            if (!string.IsNullOrWhiteSpace(template.ContentXml))
-            {
-                var element = XElement.Parse(template.ContentXml);
-                template.Contents = element.Elements("Content")
-                    .Select(x => new NotificationTemplateContent
-                    {
-                        LanguageId = int.Parse(x.Attribute("LanguageId").Value),
-                        Language = x.Attribute("Language").Value,
-                        Content = x.Attribute("Value").Value
-                    }).ToList();
-            }
         }
 
         private static string ParseContentToXml(IEnumerable<NotificationTemplateContent> contents)

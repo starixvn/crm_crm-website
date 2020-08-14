@@ -1,6 +1,8 @@
 ﻿namespace CRM.Services.UnitTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Models;
@@ -44,36 +46,45 @@
         }
 
         [Fact]
-        public async Task GetByIdAsync_WhenCalled_ReturnExpectedTemplate()
+        public async Task GetByIdAsync_TemplateIsNotExist_ReturnNull()
         {
             // Arrange
             var fixture = new Fixture();
-            fixture.Customize<NotificationTemplate>(x => x
-                .With(b => b.ContentXml, "<ROOT><Content LanguageId='1' Language='EN' Value='content' /></ROOT>"));
             var id = fixture.Create<int>();
-            var template = fixture.Create<NotificationTemplate>();
-            var criteria = new GetNotificationTemplateCriteria();
+            var tuple = new ValueTuple<IEnumerable<NotificationTemplate>, IEnumerable<NotificationTemplateContent>>
+                (new List<NotificationTemplate>(), new List<NotificationTemplateContent>());
             var service = GetService();
-            baseService.GetDataEntityAsync<NotificationTemplate>(Arg.Do<GetNotificationTemplateCriteria>(x => criteria = x)).Returns(template);
+            baseService.FetchMultipleAsync<NotificationTemplate, NotificationTemplateContent>(Arg.Any<GetNotificationTemplateCriteria>()).Returns(tuple);
 
             // Act
             var actual = await service.GetByIdAsync(id);
 
             // Assert
-            Assert.Equal(template.NotificationTemplateId, actual.NotificationTemplateId);
-            Assert.Equal(template.NotificationTemplateName, actual.NotificationTemplateName);
-            Assert.Equal(template.Title, actual.Title);
-            Assert.Equal(template.NotificationTypeId, actual.NotificationTypeId);
-            Assert.Equal(template.NotificationTypeName, actual.NotificationTypeName);
+            Assert.Null(actual);
+        }
 
-            Assert.Single(actual.Contents);
-            Assert.Collection(actual.Contents,
-                item =>
-                {
-                    Assert.Equal(1, item.LanguageId);
-                    Assert.Equal("EN", item.Language);
-                    Assert.Equal("content", item.Content);
-                });
+        [Fact]
+        public async Task GetByIdAsync_TemplateIsExist_ReturnExpectedTemplate()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var id = fixture.Create<int>();
+            fixture.Customize<NotificationTemplate>(x => x.With(b => b.NotificationTemplateId, id));
+            fixture.Customize<NotificationTemplateContent>(x => x.With(b => b.NotificationTemplateId, id));
+            var templates = fixture.Create<IEnumerable<NotificationTemplate>>();
+            var contents = fixture.Create<IEnumerable<NotificationTemplateContent>>();
+            var tuple = new ValueTuple<IEnumerable<NotificationTemplate>, IEnumerable<NotificationTemplateContent>>(templates, contents);
+            var criteria = new GetNotificationTemplateCriteria();
+            var service = GetService();
+            baseService.FetchMultipleAsync<NotificationTemplate, NotificationTemplateContent>
+                (Arg.Do<GetNotificationTemplateCriteria>(x => criteria = x)).Returns(tuple);
+
+            // Act
+            var actual = await service.GetByIdAsync(id);
+
+            // Assert
+            Assert.Equal(templates.First(), actual);
+            Assert.Equal(contents, actual.Contents);
 
             Assert.Equal(id, criteria.NotificationTemplateId);
         }
