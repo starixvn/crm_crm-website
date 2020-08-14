@@ -127,7 +127,7 @@ class EditNotificationType extends Component {
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                        <   Form.Control type="text" size="sm" value={values.name} name="name"
+                            <Form.Control type="text" size="sm" value={this.props.editTypePopup.data.notificationTypeName} name="name"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.name && errors.name}
                                 onChange={handleChange}
@@ -217,13 +217,12 @@ class EditNotificationType extends Component {
     }
 
     render() {
-
-        const type = this.props.editTypePopup.type;
+        const notificationType = this.props.editTypePopup.data; 
         const initialValues = {
-            notificationTypeName: '',
-            recipientTypeId: '',
-            chatTypeId: '',
-            systemId: ''
+            notificationTypeName:notificationType.notificationTypeName,
+            recipientTypeId: notificationType.recipientTypeId,
+            chatTypeId: notificationType.chatTypeIds,
+            systemId: notificationType.systemId
         };
 
         return (

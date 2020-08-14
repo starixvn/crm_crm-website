@@ -75,13 +75,6 @@ export const deleteType = typeId => {
     }).then(response => response.data).catch(Site.handleAxiosError);
 };
 
-export const getTypeById = (typeId) => {
-    return async dispatch => axios(Site.resolveClientUrl(`NotificationType/GetById/${typeId}`))
-        .then(response => {
-            dispatch(setEditTypePopup({ show: true, type: response.data }));
-        }).catch(Site.handleAxiosError);
-};
-
 export const editType = (data) => {
     return async dispatch => axios({
         url: Site.resolveClientUrl('NotificationType/Edit'),
@@ -150,7 +143,6 @@ const actions = {
     createType,
     setEditTypePopup,
     setEditTypeResult,
-    getTypeById,
     editType, 
     setDeleteTypePopup,
     setDeleteTypeResult,

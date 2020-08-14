@@ -16,10 +16,10 @@
     <Setting Key="Acc_CRM_ChatBot_NotificationTemplate_Del" SpName="Acc_CRM_ChatBot_NotificationTemplate_Del_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Notification Type">
-    <Setting Key="Acc_CRM_ChatBot_NotificationType_Sel" SpName="Acc_CRM_ChatBot_NotificationType_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
-    <Setting Key="Acc_CRM_ChatBot_NotificationType_Ins" SpName="Acc_CRM_ChatBot_NotificationType_Ins" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
-    <Setting Key="Acc_CRM_ChatBot_NotificationType_Upd" SpName="Acc_CRM_ChatBot_NotificationType_Upd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_ChatBot_NotificationType_Del" SpName="Acc_CRM_ChatBot_NotificationType_Del" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_ChatBot_NotificationType_Sel" SpName="Acc_CRM_ChatBot_NotificationType_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
+    <Setting Key="Acc_CRM_ChatBot_NotificationType_Ins" SpName="Acc_CRM_ChatBot_NotificationType_Ins_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
+    <Setting Key="Acc_CRM_ChatBot_NotificationType_Upd" SpName="Acc_CRM_ChatBot_NotificationType_Upd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_ChatBot_NotificationType_Del" SpName="Acc_CRM_ChatBot_NotificationType_Del_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="ChatBot">
     <Setting Key="Acc_CRM_ChatBot_Bot_Sel" SpName="Acc_CRM_ChatBot_Bot_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">

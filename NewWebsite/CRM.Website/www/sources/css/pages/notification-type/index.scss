@@ -4,4 +4,13 @@
  @import '../../components/modal';
  @import '../../components/icons';
  @import '../../components/multiple-select/style';
+ @import '../../components/messages';
 
+ .new-notification-type {
+    .modal-body {
+        textarea {
+            min-height: 88px;
+            max-height: 184px;
+        }
+    }
+}

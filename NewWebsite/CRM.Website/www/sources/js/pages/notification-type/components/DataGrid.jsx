@@ -20,8 +20,8 @@ export class DataGrid extends Component {
         this.props.getGridData(params);
     }
 
-    handleEdit = id => {
-        this.props.getTypeById(id);
+    handleEdit = item => {
+        this.props.setEditTypePopup({ show: true, data: item});
     }
 
     handleDelete = (id, name) => {
@@ -66,7 +66,7 @@ export class DataGrid extends Component {
                 isHost &&
                 <Cell className="text-center">
                     <span className="rounded-circle fa fa-pencil icon-edit"
-                        onClick={() => this.handleEdit(item.notificationTypeId)}
+                        onClick={() => this.handleEdit(item)}
                     />
                     <span className="rounded-circle fa fa-trash icon-delete"
                         onClick={() => this.handleDelete(item.notificationTypeId, item.notificationTypeName)}
@@ -112,10 +112,11 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData } = state;
+    const { gridParams, gridData , setEditTypePopup} = state;
     return {
         gridParams,
-        gridData
+        gridData, 
+        setEditTypePopup
     };
 };
 

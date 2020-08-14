@@ -1,5 +1,6 @@
 ﻿namespace CRM.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -48,22 +49,26 @@
                 PageSize = param.PageSize
             };
             var types = await baseService.GetDataAsync<NotificationType>(criteria);
-            foreach (NotificationType type in types) 
-            {
-                type.RecipientType = ParseXml(type.RecipientType);
-                type.ChatType = ParseXml(type.ChatType);
-            }
             param.TotalRows = criteria.TotalRows;
+
             return types;
         }
 
         public async Task<NotificationType> GetByIdAsync(int id)
         {
-            var criteria = new GetNotificationTypeCriteria
+            var type = new NotificationType() ;
+            try
             {
-                //NotificationTypeId = id
-            };
-            var type = await baseService.GetDataEntityAsync<NotificationType>(criteria);
+                var criteria = new GetNotificationTypeCriteria
+                {
+                    NotificationTypeId = id
+                };
+
+                type = await baseService.GetDataEntityAsync<NotificationType>(criteria);
+            }
+            catch { 
+                Exception ex; 
+            }
 
             return type;
         }
@@ -105,17 +110,6 @@
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
-        }
-
-        private static string ParseXml(string XmlType)
-        {
-            string type = string.Empty;
-            if (!string.IsNullOrWhiteSpace(XmlType))
-            {
-                type = string.Join(", ", XElement.Parse(XmlType).Elements().Select(x => x.Attribute(XName.Get("Name")).Value));
-            }
-
-            return type;
         }
     }
 }

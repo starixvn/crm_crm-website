@@ -1,4 +1,5 @@
-﻿@{
+﻿@model bool
+@{
     ViewData["Title"] = ViewResources.NotificationType;
 }
 @section Styles {
@@ -18,4 +19,5 @@
     </environment>
 }
 <input type="checkbox" hidden id="IsHost" checked />
+@* <input type="checkbox" hidden id="is-host" @(Model ? "checked" : string.Empty) /> *@
 <div id="app-container"></div>
