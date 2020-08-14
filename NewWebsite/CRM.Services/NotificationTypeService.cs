@@ -50,7 +50,8 @@
             var types = await baseService.GetDataAsync<NotificationType>(criteria);
             foreach (NotificationType type in types) 
             {
-                ParseRecipientXml(type);
+                type.RecipientType = ParseXml(type.RecipientType);
+                type.ChatType = ParseXml(type.ChatType);
             }
             param.TotalRows = criteria.TotalRows;
             return types;
@@ -106,18 +107,15 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        private void ParseRecipientXml(NotificationType type)
+        private static string ParseXml(string XmlType)
         {
-            if (!string.IsNullOrWhiteSpace(type.RecipientType))
+            string type = string.Empty;
+            if (!string.IsNullOrWhiteSpace(XmlType))
             {
-                var element = XElement.Parse(type.RecipientType);
-                type.RecipientTypes = element.Elements("RecipientType")
-                    .Select(x => new NotificationTypeRecipient
-                    {
-                        RecipientId = int.Parse(x.Attribute("Id").Value),
-                        Name = x.Attribute("Name").Value
-                    }).ToList();
+                type = string.Join(", ", XElement.Parse(XmlType).Elements().Select(x => x.Attribute(XName.Get("Name")).Value));
             }
+
+            return type;
         }
     }
 }
