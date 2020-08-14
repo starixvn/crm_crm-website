@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions/index';
+import { ActionCreators } from '../actions';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
@@ -9,7 +9,7 @@ import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 
-class NewNotificationTemplate extends Component {
+class EditNotificationTemplate extends Component {
     constructor(props) {
         super(props);
     }
@@ -73,9 +73,9 @@ class NewNotificationTemplate extends Component {
                 <Modal.Body>
                     <FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
                     {
-                        this.props.createTemplateResult &&
-                        <ResponseMessage isSuccessful={this.props.createTemplateResult.isSuccessful}
-                            message={this.props.createTemplateResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
+                        this.props.editTemplateResult &&
+                        <ResponseMessage isSuccessful={this.props.editTemplateResult.isSuccessful}
+                            message={this.props.editTemplateResult.message || LangHelper.getResource('EditNotificationTemplateSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -152,6 +152,7 @@ class NewNotificationTemplate extends Component {
     handleSubmit = (values, { setSubmitting }) => {
         setSubmitting(true);
         const template = {
+            notificationTemplateId: values.notificationTemplateId,
             notificationTypeId: values.notificationTypeId,
             notificationTemplateName: values.notificationTemplateName,
             title: values.title,
@@ -163,9 +164,8 @@ class NewNotificationTemplate extends Component {
                 content: values['language_' + item.settingId]
             });
         });
-
-        this.props.createTemplate(template).then(() => {
-            if (this.props.createTemplateResult.isSuccessful) {
+        this.props.editTemplate(template).then(() => {
+            if (this.props.editTemplateResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
                 }, 3000);
@@ -176,12 +176,20 @@ class NewNotificationTemplate extends Component {
     }
 
     render() {
+        const template = this.props.selectedTemplate;
         const initialValues = {
-            notificationTypeId: '',
-            notificationTemplateName: '',
-            title: ''
+            notificationTemplateId: template.notificationTemplateId,
+            notificationTypeId: template.notificationTypeId,
+            notificationTemplateName: template.notificationTemplateName,
+            title: template.title
         };
-        this.props.languages.map(item => { initialValues['language_' + item.settingId] = ''; });
+        this.props.languages.map(item => {
+            initialValues['language_' + item.settingId] = '';
+            const index = template.contents.findIndex(x => x.languageId === item.settingId);
+            if (index >= 0) {
+                initialValues['language_' + item.settingId] = template.contents[index].content;
+            }
+        });
 
         return (
             <Modal show className="notification-template-modal" dialogAs={DraggableModalDialog}
@@ -189,7 +197,7 @@ class NewNotificationTemplate extends Component {
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('InsertNotificationTemplate')}</Modal.Title>
+                    <Modal.Title as="div">{LangHelper.getResource('EditNotificationTemplate')}</Modal.Title>
                 </Modal.Header>
                 <Formik
                     initialValues={initialValues}
@@ -204,17 +212,18 @@ class NewNotificationTemplate extends Component {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        createTemplate: ActionCreators.createTemplate
+        editTemplate: ActionCreators.editTemplate
     }, dispatch);
 };
 
 const mapStateToProps = state => {
-    const { notificationTypes, languages, createTemplateResult } = state;
+    const { editTemplateResult, selectedTemplate, notificationTypes, languages } = state;
     return {
+        editTemplateResult,
+        selectedTemplate,
         notificationTypes,
-        languages,
-        createTemplateResult
+        languages
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewNotificationTemplate);
+export default connect(mapStateToProps, mapDispatchToProps)(EditNotificationTemplate);

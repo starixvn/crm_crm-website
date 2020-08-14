@@ -1,7 +1,7 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions/index';
+import { ActionCreators } from '../actions';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
 import NewNotificationTemplate from './NewNotificationTemplate';
@@ -39,7 +39,7 @@ export class AppContainer extends Component {
     }
 
     handleCloseViewContentPopup = () => {
-        this.props.setViewContentPopup({ show: false });
+        this.props.setContentDetailPopup({ show: false });
         this.props.setSelectedTemplate(null);
     }
 

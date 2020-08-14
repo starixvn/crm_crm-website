@@ -5,7 +5,13 @@ const notificationTemplateSlice = createSlice({
     initialState: {
         notificationTypes: [],
         languages: [],
-        notificationTemplates: [],
+        gridParams: {
+            notificationTypeId: '',
+            notificationTemplateName: '',
+            pageIndex: 1,
+            pageSize: 50
+        },
+        gridData: null,
         selectedTemplate: null,
         createTemplatePopup: { show: false },
         createTemplateResult: null,
@@ -16,40 +22,40 @@ const notificationTemplateSlice = createSlice({
         contentDetailPopup: { show: false }
     },
     reducers: {
-        setNotificationTypes(state, action) {
+        setNotificationTypes: (state, action) => {
             state.notificationTypes = action.payload;
         },
-        setLanguages(state, action) {
+        setLanguages: (state, action) => {
             state.languages = action.payload;
         },
-        setGridParams(state, action) {
+        setGridParams: (state, action) => {
             state.setGridParams = action.payload;
         },
-        setGridData(state, action) {
-            state.notificationTemplates = action.payload;
+        setGridData: (state, action) => {
+            state.gridData = action.payload;
         },
-        setSelectedTemplate(state, action) {
+        setSelectedTemplate: (state, action) => {
             state.selectedTemplate = action.payload;
         },
-        setCreateTemplatePopup(state, action) {
+        setCreateTemplatePopup: (state, action) => {
             state.createTemplatePopup = action.payload;
         },
-        setCreateTemplateResult(state, action) {
+        setCreateTemplateResult: (state, action) => {
             state.createTemplateResult = action.payload;
         },
-        setEditTemplatePopup(state, action) {
+        setEditTemplatePopup: (state, action) => {
             state.editTemplatePopup = action.payload;
         },
-        setEditTemplateResult(state, action) {
+        setEditTemplateResult: (state, action) => {
             state.editTemplateResult = action.payload;
         },
-        setDeleteTemplatePopup(state, action) {
+        setDeleteTemplatePopup: (state, action) => {
             state.deleteTemplatePopup = action.payload;
         },
-        setDeleteTemplateResult(state, action) {
+        setDeleteTemplateResult: (state, action) => {
             state.deleteTemplateResult = action.payload;
         },
-        setContentDetailPopup(state, action) {
+        setContentDetailPopup: (state, action) => {
             state.contentDetailPopup = action.payload;
         }
     }

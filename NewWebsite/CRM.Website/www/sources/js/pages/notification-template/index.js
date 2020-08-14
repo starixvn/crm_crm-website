@@ -1,22 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-import Store from '@jsroot/common/store';
+import notificationTemplateReducer from './notificationTemplateSlice';
 import AppContainer from './components/AppContainer';
-import reducer from './reducers/index';
 
-const store = Store.createStore(reducer, {
-    notificationTypes: [],
-    languages: [],
-    selectedTemplate: null,
-    createTemplatePopup: { show: false },
-    createTemplateResult: null,
-    editTemplatePopup: { show: false },
-    editTemplateResult: null,
-    deleteTemplatePopup: { show: false },
-    deleteTemplateResult: null,
-    contentDetailPopup: { show: false }
+const store = configureStore({
+    reducer: notificationTemplateReducer
 });
 
 ReactDOM.render(

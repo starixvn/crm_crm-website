@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Form } from 'react-bootstrap';
-import { ActionCreators } from '../actions/index';
+import { ActionCreators } from '../actions';
 import LangHelper from '@jsroot/common/langHelper';
 
 class Filter extends Component {
