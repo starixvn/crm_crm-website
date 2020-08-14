@@ -10,6 +10,7 @@
     using Fanex.CRM.Report.Models.PicAssignmentReport;
     using Fanex.CRM.Report.Resources;
     using NPOI.HSSF.UserModel;
+    using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using static NPOI.HSSF.Util.HSSFColor;
@@ -207,7 +208,6 @@
         private static void RenderUnmergeColumns(ExportExcelInfo exportExcelInfo, IList<IRow> rows, IEnumerable<PicOfDirectAccount> pics)
         {
             var directAccounts = new List<DirectAccountInfo>();
-
             var openStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExtensions.BackgroundColorIndex,
@@ -221,9 +221,16 @@
                 ExcelHorizontalAlignment.Left);
             closedStyle.WrapText = true;
 
+            HSSFPalette palette = exportExcelInfo.ExcelFile.GetCustomPalette();
+            HSSFColor color = palette.FindColor(248, 222, 215);
+            if (color == null)
+            {
+                palette.SetColorAtIndex(Lavender.Index, 248, 222, 215);
+                color = palette.GetColor(Lavender.Index);
+            }
             var suspendedStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
-                Pink.Index,
+                color.GetIndex(),
                 false,
                 ExcelHorizontalAlignment.Left);
             suspendedStyle.WrapText = true;

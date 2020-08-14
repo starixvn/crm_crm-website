@@ -317,6 +317,14 @@
 				} else {
 					defaultPICValue = `<span class='plus-icon set-dafault-pic' title='Assign PIC' data-row-index=${rowIndex}>+</span>`;
 				}
+			} else {
+				if (defaultPicList !== null && defaultPicList.length > 0) {
+					defaultPICValue = `<div>`;
+					for (var j = 0; j < defaultPicList.length; j++) {
+						defaultPICValue += `<p class='${defalutPicClass}'>` + defaultPicList[j].PicName + ` (` + defaultPicList[j].Role + `)</p>`;
+					}
+					defaultPICValue += `</div>`;
+				}
 			}
 			return defaultPICValue;
 		}

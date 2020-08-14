@@ -103,6 +103,7 @@
     <Reference Include="NPOI.OOXML">
       <HintPath>..\Dependency\NPoi\NPOI.OOXML.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1" />
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
