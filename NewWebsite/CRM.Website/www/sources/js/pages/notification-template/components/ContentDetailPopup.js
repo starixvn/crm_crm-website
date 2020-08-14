@@ -1,13 +1,14 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Accordion, Button, Card, Modal } from 'react-bootstrap';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
 class ContentDetailPopup extends Component {
     render() {
         const template = this.props.selectedTemplate;
         return (
-            <Modal show className="new-notification-template"
+            <Modal show className="notification-template-modal" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
@@ -35,7 +36,7 @@ class ContentDetailPopup extends Component {
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" size="sm" onClick={this.props.onClose}>
+                    <Button variant="primary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Close')}
                     </Button>
                 </Modal.Footer>
