@@ -305,7 +305,7 @@
 		}
 
 		function displayDefaultPIC(rowIndex, defaultPicList, isHost) {
-			var defaultPICValue = '';
+			var defaultPICValue = '-';
 			const defalutPicClass = isHost ? 'pic-name default-pic-class' : 'pic-name';
 			if (isHost) {
 				if (defaultPicList !== null && defaultPicList.length > 0) {

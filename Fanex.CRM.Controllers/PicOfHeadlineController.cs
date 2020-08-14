@@ -274,7 +274,7 @@ namespace Fanex.CRM.Controllers
                             Currency = d.Currency,
                             Position = d.Position,
                         }).OrderBy(a => a.DirectAccount)
-                    }).OrderBy(v => v.Pic != null)
+                    }).OrderBy(v => v.Pic == null)
                 }).OrderBy(x => x.GroupHeadline);
 
             return result.ToList();
