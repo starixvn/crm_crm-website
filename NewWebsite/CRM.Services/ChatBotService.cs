@@ -6,7 +6,6 @@
     using CRM.Criteria.ChatBot;
     using CRM.Models;
     using CRM.Models.ChatBot;
-    using CRM.Services.Interfaces;
 
     public class ChatBotService : IChatBotService
     {

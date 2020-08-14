@@ -176,7 +176,7 @@
         var umUrl = '@Url.Action("Offline", "Common")';
         var userId = @(AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
-        @if(AppSetting.IsLocalTest == true)
+        @if(AppSetting.IsLocalTest == false)
         {
         <text>
         udpateOnlineStatus();

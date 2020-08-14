@@ -37,7 +37,7 @@
             Assert.Equal(expected, actual);
 
             Assert.Equal(param.NotificationTypeId, criteria.NotificationTypeId);
-            Assert.Equal(param.TemplateName, criteria.TemplateName);
+            Assert.Equal(param.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(param.PageIndex, criteria.PageIndex);
             Assert.Equal(param.PageSize, criteria.PageSize);
             Assert.Equal(totalRows, param.TotalRows);
@@ -61,10 +61,10 @@
 
             // Assert
             Assert.Equal(template.NotificationTemplateId, actual.NotificationTemplateId);
-            Assert.Equal(template.Name, actual.Name);
+            Assert.Equal(template.NotificationTemplateName, actual.NotificationTemplateName);
             Assert.Equal(template.Title, actual.Title);
             Assert.Equal(template.NotificationTypeId, actual.NotificationTypeId);
-            Assert.Equal(template.NotificationType, actual.NotificationType);
+            Assert.Equal(template.NotificationTypeName, actual.NotificationTypeName);
 
             Assert.Single(actual.Contents);
             Assert.Collection(actual.Contents,
@@ -96,7 +96,7 @@
             Assert.Equal(expected, actual);
 
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
-            Assert.Equal(model.Name, criteria.Name);
+            Assert.Equal(model.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(model.Title, criteria.Title);
             Assert.Equal(napSession.UserId, criteria.UserId);
         }
@@ -120,7 +120,7 @@
 
             Assert.Equal(model.NotificationTemplateId, criteria.NotificationTemplateId);
             Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
-            Assert.Equal(model.Name, criteria.Name);
+            Assert.Equal(model.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(model.Title, criteria.Title);
             Assert.Equal(napSession.UserId, criteria.UserId);
         }

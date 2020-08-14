@@ -13,7 +13,13 @@ class NewNotificationTemplate extends Component {
         super(props);
     }
 
-    renderNotificationTypeOption = item => <option key={item.notificationTypeId} value={item.notificationTypeId} >{item.name}</option>
+    renderNotificationTypeOption = item => {
+        return (
+            <option key={item.notificationTypeId} value={item.notificationTypeId}>
+                {item.notificationTypeName}
+            </option>
+        );
+    }
 
     validate = values => {
         const errors = {};
@@ -21,11 +27,11 @@ class NewNotificationTemplate extends Component {
             errors.notificationTypeId = LangHelper.getResource('NotificationTypeRequired');
         }
 
-        if (!values.name || values.name.trim().length === 0) {
-            errors.name = LangHelper.getResource('TemplateNameRequired');
+        if (!values.notificationTemplateName || values.notificationTemplateName.trim().length === 0) {
+            errors.notificationTemplateName = LangHelper.getResource('TemplateNameRequired');
         } else {
-            if (values.name.trim().length > 1000) {
-                errors.name = LangHelper.formatString(
+            if (values.notificationTemplateName.trim().length > 1000) {
+                errors.notificationTemplateName = LangHelper.formatString(
                     LangHelper.getResource('FieldMaxLength'),
                     LangHelper.getResource('TemplateName'),
                     1000);
@@ -92,9 +98,9 @@ class NewNotificationTemplate extends Component {
                             {LangHelper.getResource('TemplateName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.name} name="name"
+                            <Form.Control type="text" size="sm" value={values.notificationTemplateName} name="notificationTemplateName"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.name && errors.name}
+                                isInvalid={touched.notificationTemplateName && errors.notificationTemplateName}
                                 onChange={handleChange}
                             />
                         </Col>
@@ -146,7 +152,7 @@ class NewNotificationTemplate extends Component {
         setSubmitting(true);
         const template = {
             notificationTypeId: values.notificationTypeId,
-            name: values.name,
+            notificationTemplateName: values.notificationTemplateName,
             title: values.title,
             contents: []
         };
@@ -171,7 +177,7 @@ class NewNotificationTemplate extends Component {
     render() {
         const initialValues = {
             notificationTypeId: '',
-            name: '',
+            notificationTemplateName: '',
             title: ''
         };
         this.props.languages.map(item => { initialValues['language_' + item.settingId] = ''; });

@@ -43,7 +43,7 @@
             var criteria = new GetNotificationTemplateCriteria
             {
                 NotificationTypeId = param.NotificationTypeId,
-                TemplateName = param.TemplateName,
+                NotificationTemplateName = param.NotificationTemplateName,
                 PageIndex = param.PageIndex,
                 PageSize = param.PageSize
             };
@@ -68,7 +68,7 @@
             var command = new CreateNotificationTemplateCommand
             {
                 NotificationTypeId = model.NotificationTypeId,
-                Name = model.Name?.Trim(),
+                NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
                 UserId = napSession.UserId,
                 ContentXml = model.Contents.Any() ? ParseContentToXml(model.Contents) : string.Empty
@@ -83,7 +83,7 @@
             {
                 NotificationTemplateId = model.NotificationTemplateId,
                 NotificationTypeId = model.NotificationTypeId,
-                Name = model.Name?.Trim(),
+                NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
                 ContentXml = model.Contents.Any() ? ParseContentToXml(model.Contents) : string.Empty,
                 UserId = napSession.UserId

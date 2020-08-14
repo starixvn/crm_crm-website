@@ -7,9 +7,7 @@
     {
         public int? NotificationTemplateId { get; set; }
         public int? NotificationTypeId { get; set; }
-
-        [SpParam(SqlParamName = "NotificationTemplateName")]
-        public string TemplateName { get; set; }
+        public string NotificationTemplateName { get; set; }
 
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

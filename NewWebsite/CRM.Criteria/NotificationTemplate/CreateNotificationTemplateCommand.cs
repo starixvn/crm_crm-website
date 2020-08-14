@@ -6,9 +6,7 @@
     public class CreateNotificationTemplateCommand : NonQueryCommand
     {
         public int NotificationTypeId { get; set; }
-
-        [SpParam(SqlParamName = "NotificationTemplateName")]
-        public string Name { get; set; }
+        public string NotificationTemplateName { get; set; }
 
         public string Title { get; set; }
 
@@ -26,7 +24,7 @@
 #pragma warning disable S1067 // Expressions should not be too complex
             UserId > 0
             && NotificationTypeId > 0
-            && !string.IsNullOrWhiteSpace(Name)
+            && !string.IsNullOrWhiteSpace(NotificationTemplateName)
             && !string.IsNullOrWhiteSpace(Title)
             && !string.IsNullOrWhiteSpace(ContentXml);
 #pragma warning restore S1067 // Expressions should not be too complex

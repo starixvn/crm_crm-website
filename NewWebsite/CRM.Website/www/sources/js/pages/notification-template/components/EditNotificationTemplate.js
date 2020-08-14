@@ -13,7 +13,13 @@ class EditNotificationTemplate extends Component {
         super(props);
     }
 
-    renderNotificationTypeOption = item => <option key={item.notificationTypeId} value={item.notificationTypeId} >{item.name}</option>
+    renderNotificationTypeOption = item => {
+        return (
+            <option key={item.notificationTypeId} value={item.notificationTypeId}>
+                {item.notificationTypeName}
+            </option>
+        );
+    }
 
     validate = values => {
         const errors = {};
@@ -21,11 +27,11 @@ class EditNotificationTemplate extends Component {
             errors.notificationTypeId = LangHelper.getResource('NotificationTypeRequired');
         }
 
-        if (!values.name || values.name.trim().length === 0) {
-            errors.name = LangHelper.getResource('TemplateNameRequired');
+        if (!values.notificationTemplateName || values.notificationTemplateName.trim().length === 0) {
+            errors.notificationTemplateName = LangHelper.getResource('TemplateNameRequired');
         } else {
-            if (values.name.trim().length > 1000) {
-                errors.name = LangHelper.formatString(
+            if (values.notificationTemplateName.trim().length > 1000) {
+                errors.notificationTemplateName = LangHelper.formatString(
                     LangHelper.getResource('FieldMaxLength'),
                     LangHelper.getResource('TemplateName'),
                     1000);
@@ -72,7 +78,7 @@ class EditNotificationTemplate extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="notificationTypeId" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('NotificationType')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -88,19 +94,19 @@ class EditNotificationTemplate extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="name" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('TemplateName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.name} name="name"
+                            <Form.Control type="text" size="sm" value={values.notificationTemplateName} name="notificationTemplateName"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.name && errors.name}
+                                isInvalid={touched.notificationTemplateName && errors.notificationTemplateName}
                                 onChange={handleChange}
                             />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="title" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('Title')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -147,7 +153,7 @@ class EditNotificationTemplate extends Component {
         const template = {
             notificationTemplateId: values.notificationTemplateId,
             notificationTypeId: values.notificationTypeId,
-            name: values.name,
+            notificationTemplateName: values.notificationTemplateName,
             title: values.title,
             contents: []
         };
@@ -173,7 +179,7 @@ class EditNotificationTemplate extends Component {
         const initialValues = {
             notificationTemplateId: template.notificationTemplateId,
             notificationTypeId: template.notificationTypeId,
-            name: template.name,
+            notificationTemplateName: template.notificationTemplateName,
             title: template.title
         };
         this.props.languages.map(item => {

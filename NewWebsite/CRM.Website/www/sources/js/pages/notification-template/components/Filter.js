@@ -11,7 +11,7 @@ class Filter extends Component {
 
         this.state = {
             notificationTypeId: '',
-            templateName: ''
+            notificationTemplateName: ''
         };
     }
 
@@ -29,15 +29,15 @@ class Filter extends Component {
 
     handleTemplateNameChange = event => {
         this.setState({
-            templateName: event.target.value
+            notificationTemplateName: event.target.value
         });
     }
 
     getParams = () => {
         return {
             notificationTypeId: parseInt(this.state.notificationTypeId, 10),
-            templateName: this.state.templateName,
-            pageIndex: 0,
+            notificationTemplateName: this.state.notificationTemplateName,
+            pageIndex: 1,
             pageSize: 50
         };
     }
@@ -52,7 +52,7 @@ class Filter extends Component {
     renderNotificationTypeOption = item => {
         return (
             <option key={item.notificationTypeId} value={item.notificationTypeId}>
-                {item.name}
+                {item.notificationTypeName}
             </option>
         );
     }
@@ -77,7 +77,7 @@ class Filter extends Component {
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('TemplateName')}</Form.Label>
                         <Form.Control type="text" size="sm" className="shadow-none"
-                            value={this.state.templateName}
+                            value={this.state.notificationTemplateName}
                             onChange={this.handleTemplateNameChange}
                         />
                     </Form.Group>

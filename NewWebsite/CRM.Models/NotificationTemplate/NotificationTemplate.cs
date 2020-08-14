@@ -8,11 +8,11 @@
     public class NotificationTemplate
     {
         public int NotificationTemplateId { get; set; }
-        public string Name { get; set; }
+        public string NotificationTemplateName { get; set; }
         public string Title { get; set; }
 
         public int NotificationTypeId { get; set; }
-        public string NotificationType { get; set; }
+        public string NotificationTypeName { get; set; }
 
         [JsonIgnore]
         public string ContentXml { get; set; }

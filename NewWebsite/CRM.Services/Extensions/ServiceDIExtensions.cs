@@ -1,6 +1,5 @@
 ﻿namespace CRM.Services.Extensions
 {
-    using CRM.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceDIExtensions

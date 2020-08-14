@@ -63,8 +63,8 @@ export class DataGrid extends Component {
     renderRow = (item, index, isHost) => (
         <Row key={item.notificationTemplateId} >
             <Cell className="text-center">{index + this.startIndex}</Cell>
-            <Cell>{item.notificationType}</Cell>
-            <Cell>{item.name}</Cell>
+            <Cell>{item.notificationTypeName}</Cell>
+            <Cell>{item.notificationTemplateName}</Cell>
             <Cell><a href="#" onClick={() => this.handleViewContent(item.notificationTemplateId)}>{item.title}</a></Cell>
             {
                 isHost &&
