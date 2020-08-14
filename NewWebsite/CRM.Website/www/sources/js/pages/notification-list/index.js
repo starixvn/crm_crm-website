@@ -21,7 +21,7 @@ const store = Store.createStore(reducer, {
         dataList: []
     },
     settings: {
-        notificationTypes: [],
+        chatTypes: [],
         statuses: []
     }
 });

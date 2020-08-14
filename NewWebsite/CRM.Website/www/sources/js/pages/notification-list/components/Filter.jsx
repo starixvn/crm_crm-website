@@ -17,7 +17,7 @@ class Filter extends Component {
 
         this.state = {
             filter: {
-                notificationTypes: {
+                chatTypes: {
                     value: ''
                 },
                 statuses: {
@@ -34,17 +34,17 @@ class Filter extends Component {
             },
             minDate: minDate,
             maxDate: now,
-            notificationTypeOptions: [],
+            chatTypeOptions: [],
             statusOptions: []
         };
     }
     
     componentDidUpdate = (nextProps, prevState) => {
         if(nextProps.settings !== this.props.settings) {
-            // notification type
-            const notificationTypeIds = [];
-            const notificationTypeOptions = this.props.settings.notificationTypes.map(x => {
-                notificationTypeIds.push(x.id);
+            // chat type
+            const chatTypeIds = [];
+            const chatTypeOptions = this.props.settings.chatTypes.map(x => {
+                chatTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
@@ -64,13 +64,13 @@ class Filter extends Component {
             });
     
             this.setState(prevState => ({
-                notificationTypeOptions,
+                chatTypeOptions,
                 statusOptions,
                 filter: {
                     ...prevState.filter,
                     ...{
-                        notificationTypes: {
-                            value: notificationTypeIds.toString()
+                        chatTypes: {
+                            value: chatTypeIds.toString()
                         },
                         statuses: {
                             value: statuses.toString()
@@ -95,7 +95,7 @@ class Filter extends Component {
         }));
     }
 
-    handleNotificationTypeChange = value => this.handleFilterChange('notificationTypes', value)
+    handleChatTypeChange = value => this.handleFilterChange('chatTypes', value)
 
     handleFromDateChange = value => this.handleFilterChange('fromDate', value)
 
@@ -113,7 +113,7 @@ class Filter extends Component {
 
     getParams = () => {
         return {
-            notificationTypeId: this.state.filter.notificationTypes.value,
+            notificationTypeIds: this.state.filter.chatTypes.value,
             fromDate: this.state.filter.fromDate,
             toDate: this.state.filter.toDate,
             headline: this.state.filter.headline,
@@ -209,7 +209,7 @@ class Filter extends Component {
             }
         }
 
-        if (params.statuses === '') {
+        if (params.status === '') {
             this.props.setInvalidParams({
                 show: true,
                 message: `${LangHelper.getResource('PleaseChoose')} a ${LangHelper.getResource('Status')}`
@@ -229,14 +229,14 @@ class Filter extends Component {
                     <div className='col-auto position-relative margin-right-50'>
                         <MultipleSelectField
                             width={182}
-                            initialValue={this.state.filter.notificationTypes.value}
-                            data={this.state.notificationTypeOptions}
+                            initialValue={this.state.filter.chatTypes.value}
+                            data={this.state.chatTypeOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
                             isSummited={false}
                             isAllTextShown
-                            onChange={this.handleNotificationTypeChange}
+                            onChange={this.handleChatTypeChange}
                         />
                     </div>
                     <label className='col-auto col-form-label width-70'>{LangHelper.getResource('From')}</label>

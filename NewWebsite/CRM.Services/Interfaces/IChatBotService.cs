@@ -9,8 +9,6 @@
     {
         Task<IEnumerable<ConversationBot>> GetConversationBots();
 
-        Task<IEnumerable<BaseModel>> GetChatTypes();
-
         Task<IEnumerable<BaseModel>> GetRecipientsByType(int recipientType);
 
         Task<IEnumerable<BaseModel>> GetRecipientTypes();

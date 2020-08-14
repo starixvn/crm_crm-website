@@ -12,13 +12,15 @@ namespace CRM.Models.NotificationList
 
         public string Sender { get; set; }
 
-        public string NotificationType { get; set; }
+        public int NotificationTypeId { get; set; }
 
-        public DateTime SendTime { get; set; }
+        public string NotificationTypeName { get; set; }
 
-        public string SendDateString => SendTime.ToString("MMM dd, yyyy");
+        public DateTime SendDate { get; set; }
 
-        public string SendTimeString => SendTime.ToString("HH:mm:ss tt");
+        public string SendDateString => SendDate.ToString("MMM dd, yyyy");
+
+        public string SendTimeString => SendDate.ToString("HH:mm:ss tt");
 
         public List<BaseModel> GroupHeadlines { get; set; }
 

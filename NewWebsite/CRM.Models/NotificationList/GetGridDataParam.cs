@@ -4,7 +4,7 @@ namespace CRM.Models.NotificationList
 {
     public class GetGridDataParam
     {
-        public string NotificationTypeId { get; set; }
+        public string NotificationTypeIds { get; set; }
 
         public DateTime? FromDate { get; set; }
 

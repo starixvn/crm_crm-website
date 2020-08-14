@@ -90,7 +90,7 @@ export class DataGrid extends Component {
             </Cell>
             <Cell>
                 <div>{item.sender}</div>
-                <div>{item.notificationType}</div>
+                <div>{item.notificationTypeName}</div>
             </Cell>
             <Cell className='text-center'>
                 <div>{item.sendDateString}</div>

@@ -16,8 +16,8 @@
     using Microsoft.AspNetCore.Mvc;
     using static Fanex.NAP.Core.Business.Constant;
 
-    //[CrmAuthorize]
-    //[CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
+    [CrmAuthorize]
+    [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
     public class NotificationListController : Controller
     {
         private readonly INapSession napSession;
@@ -42,15 +42,15 @@
 
         public IActionResult Index()
         {
-            //var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationList, Policy.Host);
-            return View(true);
+            var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationList, Policy.Host);
+            return View(isHost);
         }
 
-        public async Task<IActionResult> GetSettings()
+        public IActionResult GetSettings()
         {
             var result = new
             {
-                NotificationTypes = await chatBotService.GetChatTypes(),
+                ChatTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
 
@@ -68,8 +68,8 @@
                     NotificationId = i + 1,
                     MessageId = i + 1000,
                     Sender = "starixIT",
-                    NotificationType = "Voiding Abnormal Bet Anouncement",
-                    SendTime = DateTime.Now.AddMinutes(i),
+                    NotificationTypeName = "Voiding Abnormal Bet Anouncement",
+                    SendDate = DateTime.Now.AddMinutes(i),
                     GroupHeadlines = new List<BaseModel>
                     {
                         new BaseModel { Id = i, Name = $"HL0{i}"}

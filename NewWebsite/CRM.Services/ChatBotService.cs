@@ -23,13 +23,6 @@
             return result;
         }
 
-        public async Task<IEnumerable<BaseModel>> GetChatTypes()
-        {
-            var criteria = new GetChatTypesCriteria();
-            var result = await baseService.GetDataAsync<BaseModel>(criteria);
-            return result;
-        }
-
         public async Task<IEnumerable<BaseModel>> GetRecipientsByType(int recipientType)
         {
             var criteria = new GetRecipientsByTypeCriteria { RecipientType = recipientType };
