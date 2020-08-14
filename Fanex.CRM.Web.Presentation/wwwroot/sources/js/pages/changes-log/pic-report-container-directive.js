@@ -236,7 +236,7 @@
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.Remark}</div>
                     </div>
-                    <div class="detail-child-col col-value-larger border-right-none">
+                    <div class="detail-child-col col-value-lager border-right-none">
                     <div>
                         <div class="padding-5px">${data.NewPicInfo.Remark}</div>
                     </div>
