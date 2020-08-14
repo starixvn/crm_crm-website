@@ -114,6 +114,29 @@ export const refreshUpdateData = () => {
 	}
 };
 
+export const setRecipientData = data => {
+	return {
+		type: types.RECIPIENT_DATA,
+		data: data
+	};
+};
+
+export const getRecipientByGroupHeadline = headlineIds => {
+	return dispatch => {
+		return axios({
+			method: 'post',
+			url: Site.resolveClientUrl('ChatTypeMapping/GetRecipientByGroupHeadline'),
+			data: { headlineIds: headlineIds },
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest',
+				'RequestVerificationToken': Site.getXsrfToken()
+			}
+		}).then(response => {
+			dispatch(setRecipientData(response.data));
+		}).catch(Site.handleAxiosError);
+	};
+}
+
 const actions = {
 	getSettings,
 	getGridData,
@@ -124,7 +147,8 @@ const actions = {
 	updatePersonalMapping,
 	refreshUpdateData,
 	setUpateActivePopup,
-	updateActiveStatus
+	updateActiveStatus,
+	getRecipientByGroupHeadline
 };
 
 export default actions;

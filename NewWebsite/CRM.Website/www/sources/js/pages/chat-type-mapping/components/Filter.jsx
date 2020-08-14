@@ -5,6 +5,7 @@ import { Button, Col, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
+import InsertPersonalMapping from './InsertPersonalMapping';
 import Site from '@jsroot/common/site';
 
 class Filter extends Component {
@@ -97,7 +98,8 @@ class Filter extends Component {
 	}
 
 	insertPersonalMapping = () => {
-		console.log('Insert personal Mapping');
+		const params = this.props.personalMappingData.formData;
+		this.props.openPersonalMappingPopup(params);
 	}
 
 	onChange = (fieldName, fieldValue) => {
@@ -143,109 +145,116 @@ class Filter extends Component {
 	}
 	render() {
 		return (
-			<Form className='form-filter' tag='div'>
-				<Form.Row bsPrefix='form-row'>
-					<label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</label>
-					<div className="col-auto">
-						<Form.Control as="select" size="sm" className="shadow-none"
-							value={this.state.filter.chatType}
-							onChange={(e) => this.onChange('chatType', e.target.value)}
-						>
-							<option value="">{LangHelper.getResource('All')}</option>
-							{this.state.settings.chatTypes.map(this.renderChatTypes)}
-						</Form.Control>
-					</div>
-					<label className="col-auto col-form-label">{LangHelper.getResource('Name')}</label>
-					<div className="col-auto">
-						<Form.Control type="text" size="sm" className="shadow-none"
-							value={this.state.filter.name}
-							onChange={(e) => this.onChange('name', e.tarrget.value)}
-						/>
-					</div>
-					<label className="col-auto col-form-label">{LangHelper.getResource('GroupHeadline')}</label>
-					<div className="col-auto">
-						<Form.Control type="text" size="sm" className="shadow-none"
-							value={this.state.filter.groupHeadline}
-							onChange={(e) => this.onChange('groupHeadline', e.tarrget.value)}
-						/>
-					</div>
-					<label className="col-auto col-form-label">{LangHelper.getResource('Recipient')}</label>
-					<div className="col-auto">
-						<Form.Control type="text" size="sm" className="shadow-none"
-							value={this.state.filter.recipient}
-							onChange={(e) => this.onChange('recipient', e.tarrget.value)}
-						/>
-					</div>
-					<label className="col-auto col-form-label">{LangHelper.getResource('LestalkID')}</label>
-					<div className="col-auto">
-						<Form.Control type="text" size="sm" className="shadow-none"
-							value={this.state.filter.letstalkId}
-							onChange={(e) => this.onChange('letstalkId', e.tarrget.value)}
-						/>
-					</div>
-					<label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</label>
-					<div className='col-auto position-relative'>
-						<MultipleSelectField
-							width={150}
-							initialValue={this.state.filter.mappingStatuses}
-							data={this.state.settings.mappingStatuses}
-							keyField='id'
-							valueField='name'
-							statusField='checked'
-							isSummited={false}
-							isAllTextShown
-							onChange={value => this.onChange('mappingStatuses', value)}
-						/>
-					</div>
-				</Form.Row>
-				<Form.Row bsPrefix='form-row'>
-					<label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</label>
-					<div className='col-auto position-relative'>
-						<MultipleSelectField
-							width={150}
-							initialValue={this.state.filter.languages}
-							data={this.state.settings.languages}
-							keyField='id'
-							valueField='name'
-							statusField='checked'
-							isSummited={false}
-							isAllTextShown
-							onChange={value => this.onChange('languages', value)}
-						/>
-					</div>
-					<label className='col-auto col-form-label'>{LangHelper.getResource('Active')}</label>
-					<div className="col-auto">
-						<Form.Control as="select" size="sm" className="shadow-none"
-							value={this.state.filter.chatType}
-							onChange={value => this.onChange('active', value)}
-						>
-							<option value="">{LangHelper.getResource('All')}</option>
-							<option value="1">{LangHelper.getResource('Yes')}</option>
-							<option value="0">{LangHelper.getResource('No')}</option>
-						</Form.Control>
-					</div>
-					<label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</label>
-					<div className='col-auto position-relative'>
-						<MultipleSelectField
-							width={150}
-							initialValue={this.state.filter.botIds}
-							data={this.state.settings.bots}
-							keyField='id'
-							valueField='name'
-							statusField='checked'
-							isSummited={false}
-							isAllTextShown
-							onChange={value => this.onChange('botIds', value)}
-						/>
-					</div>
-					<div className='col-auto'>
-						<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-					</div>
-					<div className='col-auto'>
-						<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.insertPersonalMapping}>{LangHelper.getResource('InsertPersonalMapping')}</Button>
-					</div>
-				</Form.Row>
-			</Form>
+			<Fragment>
+				<Form className='form-filter' tag='div'>
+					<Form.Row bsPrefix='form-row'>
+						<label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</label>
+						<div className="col-auto">
+							<Form.Control as="select" size="sm" className="shadow-none"
+								value={this.state.filter.chatType}
+								onChange={(e) => this.onChange('chatType', e.target.value)}
+							>
+								<option value="">{LangHelper.getResource('All')}</option>
+								{this.state.settings.chatTypes.map(this.renderChatTypes)}
+							</Form.Control>
+						</div>
+						<label className="col-auto col-form-label">{LangHelper.getResource('Name')}</label>
+						<div className="col-auto">
+							<Form.Control type="text" size="sm" className="shadow-none"
+								value={this.state.filter.name}
+								onChange={(e) => this.onChange('name', e.tarrget.value)}
+							/>
+						</div>
+						<label className="col-auto col-form-label">{LangHelper.getResource('GroupHeadline')}</label>
+						<div className="col-auto">
+							<Form.Control type="text" size="sm" className="shadow-none"
+								value={this.state.filter.groupHeadline}
+								onChange={(e) => this.onChange('groupHeadline', e.tarrget.value)}
+							/>
+						</div>
+						<label className="col-auto col-form-label">{LangHelper.getResource('Recipient')}</label>
+						<div className="col-auto">
+							<Form.Control type="text" size="sm" className="shadow-none"
+								value={this.state.filter.recipient}
+								onChange={(e) => this.onChange('recipient', e.tarrget.value)}
+							/>
+						</div>
+						<label className="col-auto col-form-label">{LangHelper.getResource('LestalkID')}</label>
+						<div className="col-auto">
+							<Form.Control type="text" size="sm" className="shadow-none"
+								value={this.state.filter.letstalkId}
+								onChange={(e) => this.onChange('letstalkId', e.tarrget.value)}
+							/>
+						</div>
+						<label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</label>
+						<div className='col-auto position-relative'>
+							<MultipleSelectField
+								width={150}
+								initialValue={this.state.filter.mappingStatuses}
+								data={this.state.settings.mappingStatuses}
+								keyField='id'
+								valueField='name'
+								statusField='checked'
+								isSummited={false}
+								isAllTextShown
+								onChange={value => this.onChange('mappingStatuses', value)}
+							/>
+						</div>
+					</Form.Row>
+					<Form.Row bsPrefix='form-row'>
+						<label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</label>
+						<div className='col-auto position-relative'>
+							<MultipleSelectField
+								width={150}
+								initialValue={this.state.filter.languages}
+								data={this.state.settings.languages}
+								keyField='id'
+								valueField='name'
+								statusField='checked'
+								isSummited={false}
+								isAllTextShown
+								onChange={value => this.onChange('languages', value)}
+							/>
+						</div>
+						<label className='col-auto col-form-label'>{LangHelper.getResource('Active')}</label>
+						<div className="col-auto">
+							<Form.Control as="select" size="sm" className="shadow-none"
+								value={this.state.filter.chatType}
+								onChange={value => this.onChange('active', value)}
+							>
+								<option value="">{LangHelper.getResource('All')}</option>
+								<option value="1">{LangHelper.getResource('Yes')}</option>
+								<option value="0">{LangHelper.getResource('No')}</option>
+							</Form.Control>
+						</div>
+						<label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</label>
+						<div className='col-auto position-relative'>
+							<MultipleSelectField
+								width={150}
+								initialValue={this.state.filter.botIds}
+								data={this.state.settings.bots}
+								keyField='id'
+								valueField='name'
+								statusField='checked'
+								isSummited={false}
+								isAllTextShown
+								onChange={value => this.onChange('botIds', value)}
+							/>
+						</div>
+						<div className='col-auto'>
+							<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+						</div>
+						<div className='col-auto'>
+							<Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.insertPersonalMapping}>{LangHelper.getResource('InsertPersonalMapping')}</Button>
+						</div>
+					</Form.Row>
+				</Form>
+				{
+					this.props.personalMappingData.isShowed &&
+					<InsertPersonalMapping data={this.props.personalMappingData.formData}
+						onClose={this.props.closePersonalMappingPopup} />
+				}
+			</Fragment>
 		);
 	}
 }
@@ -253,9 +262,11 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-	const { settings } = state;
+	const { settings, personalMappingData, personalMappingResult } = state;
 	return {
-		settings
+		settings,
+		personalMappingData,
+		personalMappingResult
 	};
 };
 

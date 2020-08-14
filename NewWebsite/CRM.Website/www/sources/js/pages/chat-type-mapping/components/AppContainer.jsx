@@ -6,33 +6,30 @@ import Filter from './Filter';
 import DataGrid from './DataGrid';
 
 export class AppContainer extends Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.isHost = document.getElementById('is-host').checked;
-    }
+		this.isHost = document.getElementById('is-host').checked;
+	}
 
-    componentDidMount() {
-        // this.props.getNotificationTypes();
-    }
+	render() {
+		return (
+			<Fragment>
+				<Filter />
+				<DataGrid isHost={this.isHost} />
 
-    render() {
-        return (
-            <Fragment>
-                <Filter />
-                <DataGrid isHost={this.isHost} />
-            </Fragment>
-        );
-    }
+			</Fragment>
+		);
+	}
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams } = state;
-    return {
-        gridParams
-    };
+	const { gridParams } = state;
+	return {
+		gridParams
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

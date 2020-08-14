@@ -41,12 +41,25 @@
                 new BaseModel { Id = 3, Name = "Bot Removed" },
             };
 
+            var recipientTypes = new List<BaseModel>
+            {
+                new BaseModel { Id = 1, Name = "Pic Of Headline" }
+            };
+
+            var groupHeadline = new List<BaseModel>
+            {
+                new BaseModel { Id = 1, Name = "Headline 01" },
+                new BaseModel { Id = 2, Name = "Headline 02" }
+            };
+
             var result = new
             {
                 ChatTypes = chatType,
                 MappingStatuses = status,
                 Languages = lang,
-                Bots = bots
+                Bots = bots,
+                RecipientTypes = recipientTypes,
+                GroupHeadline = groupHeadline
             };
             return Json(result);
         }
@@ -92,6 +105,24 @@
         {
             var result = new CommandResult { Code = 0, Message = "Success" };
             return Json(result);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateMapping(object data)
+        {
+            var result = new CommandResult { Code = 0, Message = "Success" };
+            return Json(result);
+        }
+
+        public IActionResult GetRecipientByGroupHeadline(string headlineIds)
+        {
+            var recipients = new List<BaseModel>
+            {
+                new BaseModel { Id = 1, Name = "Recipient1" },
+                new BaseModel { Id = 2, Name = "Recipient1" }
+            };
+
+            return Json(recipients);
         }
     }
 }

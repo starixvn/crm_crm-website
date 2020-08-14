@@ -1,7 +1,7 @@
 import dataHandlerActions from './dataHandlerActions';
-import gridHandleActions from './gridHandleActions';
+import popupHandlerActions from './popupHandlerActions';
 
 export const ActionCreators = {
 	...dataHandlerActions,
-	...gridHandleActions
+	...popupHandlerActions
 };
