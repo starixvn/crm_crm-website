@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using CRM.Core.Enumerables;
-
-namespace CRM.Models.NotificationList
+﻿namespace CRM.Models.NotificationList
 {
+    using System;
+    using System.Collections.Generic;
+
     public class Notification
     {
         public int NotificationId { get; set; }
@@ -30,8 +29,8 @@ namespace CRM.Models.NotificationList
 
         public string Content { get; set; }
 
-        public Status Status { get; set; }
+        public string Status { get; set; }
 
-        public string StatusString => Status.ToString();
+        public string Reason { get; set; }
     }
 }

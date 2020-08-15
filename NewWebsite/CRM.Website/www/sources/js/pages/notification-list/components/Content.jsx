@@ -16,7 +16,7 @@ export default class Content extends Component {
                     <Modal.Title as='div'>{`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MesageID')}: ${data.messageId})`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>{`Name: Group ${data.groupHeadlines.map(gh => gh.name).join(', ')}`}</div>
+                    <div>{`Name: Group ${data.headlines.map(gh => gh.headlineName).join(', ')}`}</div>
                     <div className='notification-content'>{data.content}</div>
                 </Modal.Body>
                 <Modal.Footer>

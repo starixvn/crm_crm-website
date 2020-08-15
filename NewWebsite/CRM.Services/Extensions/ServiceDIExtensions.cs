@@ -1,5 +1,6 @@
 ﻿namespace CRM.Services.Extensions
 {
+    using CRM.Repositories;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceDIExtensions
@@ -13,6 +14,7 @@
             services.AddTransient<INotificationTypeService, NotificationTypeService>();
             services.AddTransient<IChatBotService, ChatBotService>();
             services.AddTransient<IHeadlineService, HeadlineService>();
+            services.AddTransient<INotificationListRepository, NotificationListRepository>();
         }
     }
 }

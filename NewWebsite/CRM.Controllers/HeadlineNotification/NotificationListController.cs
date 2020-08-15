@@ -24,21 +24,18 @@
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
-        private readonly IChatBotService chatBotService;
-        private readonly IHeadlineService headlineService;
+        private readonly INotificationListService notificationListService;
 
         public NotificationListController(
             INapSession napSession,
             INapSettings napSettings,
             IUserService userService,
-            IChatBotService chatBotService,
-            IHeadlineService headlineService)
+            INotificationListService notificationListService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
-            this.chatBotService = chatBotService;
-            this.headlineService = headlineService;
+            this.notificationListService = notificationListService;
         }
 
         public IActionResult Index()
@@ -60,24 +57,116 @@
 
         public async Task<IActionResult> GetGridData(GetNotificationListCriteria param)
         {
-            const int totalItems = 1520;
-            var notifications = new List<Notification> { };
-            for (var i = 0; i < totalItems; i++)
+            var notifications = (await notificationListService.GetNotificationList(param)).ToList();
+            var fakeData = new List<Notification>
             {
-                notifications.Add(new Notification
+                new Notification
                 {
-                    NotificationId = i + 1,
-                    MessageId = i + 1000,
+                    NotificationId = 1,
+                    MessageId = 1001,
                     Sender = "starixIT",
-                    NotificationTypeName = "Voiding Abnormal Bet Anouncement",
-                    SendDate = DateTime.Now.AddMinutes(i),
-                    Title = "Void Abnormal Bet Template",
-                    Content = "When users enter from the 2nd characters, the system shall list suggestions of top 10 likely recipients. Users are able to click on the suggested group headline.",
-                    Status = (Status)(i % 5)
-                });
-            }
+                    NotificationTypeId = 2,
+                    NotificationTypeName = "Voiding Abnornal Bet Announcement",
+                    SendDate = DateTime.Now,
+                    Headlines = new List<Headline>
+                    {
+                        new Headline
+                        {
+                            NotificationId = 1,
+                            HeadlineId = 1,
+                            HeadlineName = "Headline 1"
+                        },
+                        new Headline
+                        {
+                            NotificationId = 1,
+                            HeadlineId = 2,
+                            HeadlineName = "Headline 2"
+                        }
+                    },
+                    Recipients = new List<Recipient>
+                    {
+                        new Recipient
+                        {
+                            NotificationId = 1,
+                            RecipientId = 1,
+                            RecipientName = "Recipient 1",
+                            RoleId = 1,
+                            RoleName = "Role 1"
+                        },
+                        new Recipient
+                        {
+                            NotificationId = 1,
+                            RecipientId = 2,
+                            RecipientName = "Recipient 2",
+                            RoleId = 2,
+                            RoleName = "Role 2"
+                        }
+                    },
+                    Title = "Voiding Abnornal Bet Template",
+                    Content = "Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template",
+                    Status = "Sent"
+                },
 
-            return Json(new { totalItems = totalItems, data = notifications.Skip((param.PageIndex - 1) * param.PageSize).Take(param.PageSize)});
+                new Notification
+                {
+                    NotificationId = 2,
+                    MessageId = 1002,
+                    Sender = "starixIT",
+                    NotificationTypeId = 1,
+                    NotificationTypeName = "Voiding Abnornal Bet Announcement",
+                    SendDate = DateTime.Now,
+                    Headlines = new List<Headline>
+                    {
+                        new Headline
+                        {
+                            NotificationId = 1,
+                            HeadlineId = 1,
+                            HeadlineName = "Headline 1"
+                        },
+                        new Headline
+                        {
+                            NotificationId = 1,
+                            HeadlineId = 2,
+                            HeadlineName = "Headline 2"
+                        }
+                    },
+                    Recipients = new List<Recipient>
+                    {
+                        new Recipient
+                        {
+                            NotificationId = 1,
+                            RecipientId = 1,
+                            RecipientName = "Recipient 1",
+                            RoleId = 1,
+                            RoleName = "Role 1"
+                        },
+                        new Recipient
+                        {
+                            NotificationId = 1,
+                            RecipientId = 2,
+                            RecipientName = "Recipient 2",
+                            RoleId = 2,
+                            RoleName = "Role 2"
+                        }
+                    },
+                    Title = "Voiding Abnornal Bet Template",
+                    Content = "Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template",
+                    Status = "Error",
+                    Reason = "Something made it wrong"
+                }
+            };
+
+            notifications.AddRange(fakeData);
+            return Json(new { totalItems = param.TotalRows, data = notifications });
+        }
+
+        [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
+        public async Task<IActionResult> EditNotificationList(EditNotificationListCommand command)
+        {
+            command.UserId = napSession.UserId;
+            var result = await notificationListService.EditNotificationList(command);
+            return Json(result);
         }
     }
 }

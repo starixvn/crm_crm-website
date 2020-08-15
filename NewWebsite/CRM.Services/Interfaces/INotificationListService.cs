@@ -2,11 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CRM.Core.Models;
     using CRM.Criteria.NotificationList;
     using CRM.Models.NotificationList;
 
     public interface INotificationListService
     {
         Task<IEnumerable<Notification>> GetNotificationList(GetNotificationListCriteria criteria);
+
+        Task<CommandResult> EditNotificationList(EditNotificationListCommand command);
     }
 }

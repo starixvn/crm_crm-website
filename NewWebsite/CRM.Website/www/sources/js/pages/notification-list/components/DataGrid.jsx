@@ -61,7 +61,7 @@ export class DataGrid extends Component {
     }
 
     openContentPopup = item => {
-        if (item.statusString === LangHelper.getResource('Error')) {
+        if (item.status === LangHelper.getResource('Error')) {
             this.props.setErrorOrResolvedContentPopup({
                 show: true,
                 data: item
@@ -99,22 +99,22 @@ export class DataGrid extends Component {
             <Cell className='text-center'>{this.getHeadlines(item.headlines)}</Cell>
             <Cell className='text-center'>{this.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
-            <Cell className={`text-center status-font ${item.statusString.toLowerCase()}-color`}>{item.statusString}</Cell>
+            <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{item.status}</Cell>
             {
                 isHost &&
                 <Cell className='text-center'>
                     {
-                        this.isErrorOrResolved(item.statusString) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
+                        this.isErrorOrResolved(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
-                        this.isErrorOrResolved(item.statusString) && <div onClick={() => this.resendNotification(item)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                        this.isErrorOrResolved(item.status) && <div onClick={() => this.resendNotification(item)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
                     }
                 </Cell>
             }
             {
                 isHost &&
                 <Cell className='text-center'>
-                    { this.isErrorOrResolved(item.statusString) && <Form.Control className='checkbox-cell-style'
+                    { this.isErrorOrResolved(item.status) && <Form.Control className='checkbox-cell-style'
                         id={`resend-${item.notificationId}-${item.messageId}`}
                         type='checkbox'
                         checked={this.props.resendOptions.dataList[index] && this.props.resendOptions.dataList[index].isResent}

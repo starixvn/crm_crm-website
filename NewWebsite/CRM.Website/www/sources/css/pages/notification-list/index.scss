@@ -120,3 +120,8 @@
 td, th {
     word-break: break-word;
 }
+
+.error-occured-message {
+    margin: 20px 0 16px;
+    color: $error-color;
+}
