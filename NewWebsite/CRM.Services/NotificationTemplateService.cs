@@ -119,7 +119,7 @@
             var stringBuilder = new StringBuilder("<Contents>");
             foreach (var content in contents)
             {
-                stringBuilder.AppendFormat(XmlTemplate, content.LanguageId, HttpUtility.HtmlEncode("aaa\nbbb\nccc"));
+                stringBuilder.AppendFormat(XmlTemplate, content.LanguageId, HttpUtility.HtmlEncode(content.Content));
             }
 
             stringBuilder.Append("</Contents>");

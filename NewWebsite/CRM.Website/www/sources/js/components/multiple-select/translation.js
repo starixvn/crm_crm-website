@@ -18,5 +18,5 @@ export default  {
         All: '全部',
         SelectedItemCount: "已选  # 个项目",
         SelectOptions: "选择一个选项"
-    },
-}
+    }
+};

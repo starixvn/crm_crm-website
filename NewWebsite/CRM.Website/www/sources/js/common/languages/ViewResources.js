@@ -70,5 +70,5 @@
 	TitleRequired: 'Title is mandatory!',
 	To: 'To',
 	ToDateIsEarlierThanFromDate: 'ToDate is earlier than FromDate',
-	ViewDetail: 'View Detail',
+	ViewDetail: 'View Detail'
 };

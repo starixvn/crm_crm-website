@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SCROLLBAR_WIDTH } from '../constants'
+import { SCROLLBAR_WIDTH } from '../constants';
 
 const createTableSection = (extendedContainerProps, extendedTableProps) => {
     return class TableSection extends Component {
@@ -9,7 +9,7 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
             this.state = {
                 sortBy: null,
                 sortOrder: null
-            }
+            };
         }
 
         static propTypes = {
@@ -51,7 +51,7 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
 
             return {
                 width: tableWidth
-            }
+            };
         }
 
         _renderHeaderChildren() {
@@ -69,8 +69,8 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
                 sortOrder: sortOrder
             },
             () => {
-                onSort && onSort(sortBy, sortOrder)
-            })
+                onSort && onSort(sortBy, sortOrder);
+            });
         }
 
         render() {
@@ -91,7 +91,7 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
                 </div>
             );
         }
-    }
-}
+    };
+};
 
 export default createTableSection;

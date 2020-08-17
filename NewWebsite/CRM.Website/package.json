@@ -20,6 +20,8 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.3.5",
     "eslint": "^4.19.1",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-react": "^7.12.4",
     "expose-loader": "^0.7.3",
     "jasmine": "^2.4.1",
@@ -52,7 +54,10 @@
   },
   "scripts": {
     "build-dev": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.dev.conf.js",
-    "build-pro": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.pro.conf.js"
+    "build-pro": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.pro.conf.js",
+    "test": "jest --coverage --config ./jest.config.js",
+    "lint": "eslint ./www/sources/js/",
+    "lint-fix": "eslint --fix ./www/sources/js/"
   },
   "author": "",
   "license": "ISC",

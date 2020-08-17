@@ -29,7 +29,7 @@ const notificationTemplateSlice = createSlice({
             state.languages = action.payload;
         },
         setGridParams: (state, action) => {
-            state.setGridParams = action.payload;
+            state.gridParams = action.payload;
         },
         setGridData: (state, action) => {
             state.gridData = action.payload;

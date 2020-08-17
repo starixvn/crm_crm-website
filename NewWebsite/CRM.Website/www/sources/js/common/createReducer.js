@@ -6,6 +6,6 @@ const createReducer = (initialState, handlers) => {
             return state;
         }
     };
-}
+};
 
 export default createReducer;
