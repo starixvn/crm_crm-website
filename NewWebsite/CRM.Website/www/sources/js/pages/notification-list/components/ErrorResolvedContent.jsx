@@ -11,7 +11,7 @@ class ErrorResolvedContent extends Component {
         super(props);
 
         this.state = {
-            remark: props.data.resolvedRemark
+            remark: props.data.resolvedRemark ? props.data.resolvedRemark : ''
         }
     }
 
@@ -100,7 +100,7 @@ class ErrorResolvedContent extends Component {
                             <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.errorResolvedContent.resolvedBy}</div>
                         </Fragment> : <Fragment>
                             <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
-                            <textarea className='full-width' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark}></textarea>
+                            <textarea className='full-width' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark} />
                         </Fragment>
                     }
                 </Modal.Body>

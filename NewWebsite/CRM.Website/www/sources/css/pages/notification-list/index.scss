@@ -68,7 +68,7 @@
 }
 
 .margin-bottom-10 {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
 }
 
 .invalid-params-box {
@@ -102,7 +102,7 @@
 }
 
 .notification-id-input {
-    width: 75px !important;
+    width: 60px !important;
 }
 
 .width-70 {
@@ -114,7 +114,8 @@
 }
 
 .notification-concate {
-    width: 22px;
+    width: 20px;
+    text-align: center;
 }
 
 td, th {
@@ -131,4 +132,33 @@ td, th {
 
 .full-width {
     width: 100%;
+}
+
+.react-datepicker-wrapper {
+    width: 150px;
+}
+
+.width-150 {
+    width: 150px;
+}
+
+.multiple-select-default.multiple-select-label {
+    height: 32px;
+}
+
+.form-control.datetime-picker {
+    height: 32px;
+}
+
+input {
+    height: 32px !important;
+}
+
+.label-in-div {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.flex-box {
+    display: flex;
 }

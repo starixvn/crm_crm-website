@@ -59,10 +59,8 @@
         {
             if (param.FromDate.HasValue && param.ToDate.HasValue)
             {
-                const int maxHour = 23;
-                const int maxMinuteAndSecond = 59;
                 param.FromDate = param.FromDate.Value.AddHours(0).AddMinutes(0).AddSeconds(0);
-                param.ToDate = param.ToDate.Value.AddHours(maxHour).AddMinutes(maxMinuteAndSecond).AddSeconds(maxMinuteAndSecond);
+                param.ToDate = param.ToDate.Value.AddDays(1).AddMilliseconds(-1);
             }
 
             var notifications = (await notificationListService.GetNotificationListAsync(param)).ToList();
