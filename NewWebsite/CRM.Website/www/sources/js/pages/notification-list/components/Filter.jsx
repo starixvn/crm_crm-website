@@ -12,8 +12,6 @@ class Filter extends Component {
     constructor(props) {
         super(props);
         const now = new Date();
-        const minDate = new Date();
-        minDate.setMonth(minDate.getMonth() - 1);
 
         this.state = {
             filter: {
@@ -27,12 +25,11 @@ class Filter extends Component {
                 toDate: now,
                 headline: '',
                 recipient: '',
-                notificationIDFrom: '',
-                notificationIDTo: '',
+                notificationIdLower: '',
+                notificationIdUpper: '',
                 messageID: '',
                 content: ''
             },
-            minDate: minDate,
             maxDate: now,
             chatTypeOptions: [],
             statusOptions: []
@@ -79,6 +76,7 @@ class Filter extends Component {
                 }
             }), () => {
                 const params = this.getParams();
+                this.pretreatmentParams(params);
                 this.props.setGridParams(params);
                 this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
@@ -119,8 +117,8 @@ class Filter extends Component {
             headline: this.state.filter.headline,
             recipientName: this.state.filter.recipient,
             messageId: this.state.filter.messageID,
-            notificationIdUpper: this.state.filter.notificationIDFrom,
-            notificationIdLower: this.state.filter.notificationIDTo,
+            notificationIdUpper: this.state.filter.notificationIdLower,
+            notificationIdLower: this.state.filter.notificationIdUpper,
             content: this.state.filter.content,
             status: this.state.filter.statuses.value,
             pageIndex: this.props.gridParams.pageIndex,
@@ -132,24 +130,39 @@ class Filter extends Component {
         e.preventDefault();
         this.props.setInvalidParams({
             show: false,
-            isInvalidNotificationIDFrom: false,
-            isInvalidNotificationIDTo: false
+            isInvalidNotificationIdLower: false,
+            isInvalidNotificationIdUpper: false
         });
 
         const params = this.getParams();
         if (this.isValidateParams(params)) {
-            if (params.messageId !== '' || params.notificationIdFrom !== '') {
+            if (params.messageId !== '' || params.notificationIdLower !== '') {
                 params.fromDate = null;
                 params.toDate = null;
             }
-
+            
+            this.pretreatmentParams(params);
             this.props.setGridParams(params);
             this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
         }
     }
 
+    pretreatmentParams = params => {
+        if (params.headline === '') {
+            params.headline = null;
+        }
+
+        if (params.recipientName === '') {
+            params.recipientName = null;
+        }
+
+        if (params.content === '') {
+            params.content = null;
+        }
+    }
+
     isDisabledDateParam = () => {
-        return this.state.filter.messageID !== '' || this.state.filter.notificationIDFrom !== '' || this.state.filter.notificationIDTo !== '';
+        return this.state.filter.messageID !== '' || this.state.filter.notificationIdLower !== '' || this.state.filter.notificationIdUpper !== '';
     }
 
     isValidateParams = (params) => {
@@ -162,31 +175,31 @@ class Filter extends Component {
             return false;
         }
     
-        if (params.notificationIdFrom !== '') {
-            if (params.notificationIdTo === '') {
+        if (params.notificationIdLower !== '') {
+            if (params.notificationIdUpper === '') {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIDTo: true
+                    isInvalidNotificationIdUpper: true
                 })
                 
                 return false;
             }
         }
 
-        if (params.notificationIdTo !== '') {
-            if (params.notificationIdFrom === '') {
+        if (params.notificationIdUpper !== '') {
+            if (params.notificationIdLower === '') {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIDFrom: true
+                    isInvalidNotificationIdLower: true
                 })
                 
                 return false;
             }
         }
 
-        if (parseInt(params.notificationIdFrom) > parseInt(params.notificationIdTo)) {
+        if (parseInt(params.notificationIdLower) > parseInt(params.notificationIdUpper)) {
             this.props.setInvalidParams({
                 show: true,
                 message: `${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`
@@ -195,7 +208,7 @@ class Filter extends Component {
             return false;
         }
 
-        if (params.messageId === '' && params.notificationIdFrom === '') {
+        if (params.messageId === '' && params.notificationIdLower === '') {
             params.fromDate.setHours(0,0,0,0);
             params.toDate.setHours(0,0,0,0);
             
@@ -241,11 +254,11 @@ class Filter extends Component {
                     </div>
                     <label className='col-auto col-form-label width-70'>{LangHelper.getResource('From')}</label>
                     <div className='col-auto margin-right-50'>
-                        <DatePicker disabled={this.isDisabledDateParam()} minDate={this.state.minDate} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                        <DatePicker disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
                     </div>
                     <label className='col-auto col-form-label width-70'>{LangHelper.getResource('To')}</label>
                     <div className='col-auto margin-right-50'>
-                        <DatePicker disabled={this.isDisabledDateParam()} minDate={this.state.minDate} maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
+                        <DatePicker disabled={this.isDisabledDateParam()}  maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
                     </div>
                     <label className='col-auto col-form-label'>{LangHelper.getResource('GroupHeadline')}</label>
                     <div className='col-auto margin-right-50'>
@@ -272,15 +285,15 @@ class Filter extends Component {
                 <Form.Row bsPrefix='form-row'>
                     <label className='col-auto col-form-label width-120'>{LangHelper.getResource('NotificationID')}</label>
                     <div className='col-auto'>
-                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIDFrom ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIDFrom'
-                            value={this.state.filter.notificationIDFrom}
+                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
+                            value={this.state.filter.notificationIdLower}
                             onChange={this.handleChangeFilterControl}
                         />
                     </div>
                     <div className='col-auto notification-concate'>-</div>
                     <div className='col-auto margin-right-50'>
-                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIDTo ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIDTo'
-                            value={this.state.filter.notificationIDTo}
+                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
+                            value={this.state.filter.notificationIdUpper}
                             onChange={this.handleChangeFilterControl}
                         />
                     </div>

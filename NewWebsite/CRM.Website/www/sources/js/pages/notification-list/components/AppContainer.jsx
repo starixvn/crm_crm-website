@@ -6,6 +6,7 @@ import Filter from './Filter';
 import DataGrid from './DataGrid';
 import Content from './Content';
 import ErrorResolvedContent from './ErrorResolvedContent';
+import ResponseMessage from '@jsroot/components/ResponseMessage';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -17,6 +18,13 @@ export class AppContainer extends Component {
     render() {
         return (
             <Fragment>
+                {
+                    
+                    this.props.messageResult.show &&
+                    <ResponseMessage isSuccessful={this.props.messageResult.isSuccessful}
+                        message={this.props.messageResult.message || LangHelper.getResource('ResentNotificationSuccessfully')}
+                    />
+                }
                 {
                     this.props.invalidParams.show && <div className='invalid-params-box'><i className='fa fa-exclamation-triangle'></i>{this.props.invalidParams.message}</div>
                 }
@@ -49,7 +57,8 @@ const mapStateToProps = state => {
         setContentPopup,
         errorOrResolvedContentPopup,
         setErrorOrResolvedContentPopup,
-        invalidParams
+        invalidParams,
+        messageResult
     } = state;
 
     return {
@@ -57,7 +66,8 @@ const mapStateToProps = state => {
         setContentPopup,
         errorOrResolvedContentPopup,
         setErrorOrResolvedContentPopup,
-        invalidParams
+        invalidParams,
+        messageResult
     };
 };
 

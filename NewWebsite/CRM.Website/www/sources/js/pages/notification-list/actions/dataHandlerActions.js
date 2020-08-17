@@ -17,15 +17,20 @@ export const setGridData = data => {
     };
 };
 
-export const getGridData = (params, done) => {
+export const getGridData = (params, done) => async dispatch => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationList/GetGridData');
-    return dispatch => {
-        return axios.get(url, { params: params }).then(response => {
-            done && done(response.data.data);
-            dispatch(setGridData(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('NotificationList/GetGridData'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        done && done(response.data.data);
+        dispatch(setGridData(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 export const setContentPopup = data => {
@@ -77,6 +82,44 @@ export const getSettings = () => {
     };
 };
 
+export const setErrorResolvedContent = data => {
+    return {
+        type: types.ERROR_RESOLVED_CONTENT_DATA,
+        data
+    };
+};
+
+export const resendNotification = (params, isUpdateContent) => async dispatch => {
+    Site.blockUI();
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('NotificationList/EditNotificationList'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        if (isUpdateContent) {
+            dispatch(setErrorResolvedContent(response.data));
+        }
+        else {
+            dispatch(setMessageResult({
+                show: true,
+                isSuccessful: response.data.result.isSuccessful,
+                message: response.data.result.message
+            }));
+        }
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+};
+
+export const setMessageResult = data => {
+    return {
+        type: types.MESSAGE_RESULT_DATA,
+        data
+    };
+};
+
 const actions = {
     setGridParams,
     getGridData,
@@ -84,7 +127,9 @@ const actions = {
     setResendOptions,
     setErrorOrResolvedContentPopup,
     setInvalidParams,
-    getSettings
+    getSettings,
+    resendNotification,
+    setErrorResolvedContent
 };
 
 export default actions;

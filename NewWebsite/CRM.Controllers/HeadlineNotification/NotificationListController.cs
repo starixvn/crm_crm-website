@@ -1,7 +1,6 @@
 ﻿namespace CRM.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
@@ -9,7 +8,6 @@
     using CRM.Core.Filters;
     using CRM.Criteria.NotificationList;
     using CRM.Models;
-    using CRM.Models.NotificationList;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
@@ -55,118 +53,29 @@
             return Json(result);
         }
 
-        public async Task<IActionResult> GetGridData(GetNotificationListCriteria param)
+        [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
+        public async Task<IActionResult> GetGridData([FromBody]GetNotificationListCriteria param)
         {
-            var notifications = (await notificationListService.GetNotificationList(param)).ToList();
-            var fakeData = new List<Notification>
+            if (param.FromDate.HasValue && param.ToDate.HasValue)
             {
-                new Notification
-                {
-                    NotificationId = 1,
-                    MessageId = 1001,
-                    Sender = "starixIT",
-                    NotificationTypeId = 2,
-                    NotificationTypeName = "Voiding Abnornal Bet Announcement",
-                    SendDate = DateTime.Now,
-                    Headlines = new List<Headline>
-                    {
-                        new Headline
-                        {
-                            NotificationId = 1,
-                            HeadlineId = 1,
-                            HeadlineName = "Headline 1"
-                        },
-                        new Headline
-                        {
-                            NotificationId = 1,
-                            HeadlineId = 2,
-                            HeadlineName = "Headline 2"
-                        }
-                    },
-                    Recipients = new List<Recipient>
-                    {
-                        new Recipient
-                        {
-                            NotificationId = 1,
-                            RecipientId = 1,
-                            RecipientName = "Recipient 1",
-                            RoleId = 1,
-                            RoleName = "Role 1"
-                        },
-                        new Recipient
-                        {
-                            NotificationId = 1,
-                            RecipientId = 2,
-                            RecipientName = "Recipient 2",
-                            RoleId = 2,
-                            RoleName = "Role 2"
-                        }
-                    },
-                    Title = "Voiding Abnornal Bet Template",
-                    Content = "Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template",
-                    Status = "Sent"
-                },
+                const int maxHour = 23;
+                const int maxMinuteAndSecond = 59;
+                param.FromDate = param.FromDate.Value.AddHours(0).AddMinutes(0).AddSeconds(0);
+                param.ToDate = param.ToDate.Value.AddHours(maxHour).AddMinutes(maxMinuteAndSecond).AddSeconds(maxMinuteAndSecond);
+            }
 
-                new Notification
-                {
-                    NotificationId = 2,
-                    MessageId = 1002,
-                    Sender = "starixIT",
-                    NotificationTypeId = 1,
-                    NotificationTypeName = "Voiding Abnornal Bet Announcement",
-                    SendDate = DateTime.Now,
-                    Headlines = new List<Headline>
-                    {
-                        new Headline
-                        {
-                            NotificationId = 1,
-                            HeadlineId = 1,
-                            HeadlineName = "Headline 1"
-                        },
-                        new Headline
-                        {
-                            NotificationId = 1,
-                            HeadlineId = 2,
-                            HeadlineName = "Headline 2"
-                        }
-                    },
-                    Recipients = new List<Recipient>
-                    {
-                        new Recipient
-                        {
-                            NotificationId = 1,
-                            RecipientId = 1,
-                            RecipientName = "Recipient 1",
-                            RoleId = 1,
-                            RoleName = "Role 1"
-                        },
-                        new Recipient
-                        {
-                            NotificationId = 1,
-                            RecipientId = 2,
-                            RecipientName = "Recipient 2",
-                            RoleId = 2,
-                            RoleName = "Role 2"
-                        }
-                    },
-                    Title = "Voiding Abnornal Bet Template",
-                    Content = "Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template Voiding Abnornal Bet Template",
-                    Status = "Error",
-                    Reason = "Something made it wrong"
-                }
-            };
-
-            notifications.AddRange(fakeData);
+            var notifications = (await notificationListService.GetNotificationListAsync(param)).ToList();
             return Json(new { totalItems = param.TotalRows, data = notifications });
         }
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
-        public async Task<IActionResult> EditNotificationList(EditNotificationListCommand command)
+        public async Task<IActionResult> EditNotificationList([FromBody]EditNotificationListCommand command)
         {
             command.UserId = napSession.UserId;
-            var result = await notificationListService.EditNotificationList(command);
-            return Json(result);
+            var result = await notificationListService.EditNotificationListAsync(command);
+            return Json(new { resolvedBy = napSession.UserName, result });
         }
     }
 }

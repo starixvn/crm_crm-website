@@ -7,6 +7,6 @@
 
     public interface INotificationListRepository
     {
-        Task<IEnumerable<Notification>> GetNotifications(ICriteria criteria);
+        Task<IEnumerable<Notification>> GetNotificationsAsync(ICriteria criteria);
     }
 }

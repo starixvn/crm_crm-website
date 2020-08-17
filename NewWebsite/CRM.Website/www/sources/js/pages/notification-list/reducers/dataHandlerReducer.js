@@ -44,6 +44,18 @@ export const settings = createReducer({}, {
     }
 });
 
+export const errorResolvedContent = createReducer({}, {
+    [types.ERROR_RESOLVED_CONTENT_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const messageResult = createReducer({}, {
+    [types.MESSAGE_RESULT_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -51,7 +63,9 @@ const reducers = {
     errorOrResolvedContentPopup,
     resendOptions,
     invalidParams,
-    settings
+    settings,
+    errorResolvedContent,
+    messageResult
 };
 
 export default reducers;

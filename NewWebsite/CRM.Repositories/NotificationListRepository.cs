@@ -10,7 +10,7 @@
 
     public class NotificationListRepository : INotificationListRepository
     {
-        public async Task<IEnumerable<Notification>> GetNotifications(ICriteria criteria)
+        public async Task<IEnumerable<Notification>> GetNotificationsAsync(ICriteria criteria)
         {
             using (var objectDB = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {

@@ -8,8 +8,8 @@
 
     public interface INotificationListService
     {
-        Task<IEnumerable<Notification>> GetNotificationList(GetNotificationListCriteria criteria);
+        Task<IEnumerable<Notification>> GetNotificationListAsync(GetNotificationListCriteria criteria);
 
-        Task<CommandResult> EditNotificationList(EditNotificationListCommand command);
+        Task<CommandResult> EditNotificationListAsync(EditNotificationListCommand command);
     }
 }

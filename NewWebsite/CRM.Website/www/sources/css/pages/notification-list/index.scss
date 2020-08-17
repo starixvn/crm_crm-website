@@ -122,6 +122,13 @@ td, th {
 }
 
 .error-occured-message {
-    margin: 20px 0 16px;
     color: $error-color;
+}
+
+.error-resolved-row {
+    margin: 20px 0 16px;
+}
+
+.full-width {
+    width: 100%;
 }

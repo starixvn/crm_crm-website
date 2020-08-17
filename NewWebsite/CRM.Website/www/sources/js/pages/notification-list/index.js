@@ -23,6 +23,19 @@ const store = Store.createStore(reducer, {
     settings: {
         chatTypes: [],
         statuses: []
+    },
+    errorResolvedContent: {
+        resolvedBy: '',
+        result: {
+            code: 1,
+            message: '',
+            isSuccessful: false
+        }
+    },
+    messageResult: {
+        isSuccessful: false,
+        show: false,
+        message: ''
     }
 });
 

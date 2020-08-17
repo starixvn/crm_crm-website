@@ -3,7 +3,7 @@ export const handleNewResendOptions = (data, done) => {
         return {
             notificationId: item.notificationId,
             messageId: item.messageId,
-            status: item.statusString,
+            status: item.status,
             isResent: false
         }
     });

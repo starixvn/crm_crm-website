@@ -21,13 +21,13 @@
             this.baseService = baseService;
         }
 
-        public async Task<IEnumerable<Notification>> GetNotificationList(GetNotificationListCriteria criteria)
+        public async Task<IEnumerable<Notification>> GetNotificationListAsync(GetNotificationListCriteria criteria)
         {
-            var result = await notificationListRepository.GetNotifications(criteria);
+            var result = await notificationListRepository.GetNotificationsAsync(criteria);
             return result;
         }
 
-        public async Task<CommandResult> EditNotificationList(EditNotificationListCommand command)
+        public async Task<CommandResult> EditNotificationListAsync(EditNotificationListCommand command)
         {
             return await baseService.ExecuteNonQueryAsync(command);
         }

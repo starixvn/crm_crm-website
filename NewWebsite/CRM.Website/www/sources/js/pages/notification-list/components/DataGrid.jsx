@@ -75,10 +75,12 @@ export class DataGrid extends Component {
         }
     }
 
-    isErrorOrResolved = status => status === LangHelper.getResource('Error') || status === LangHelper.getResource('Resolved');
+    isErrorOrResolved = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase() || status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
 
-    resendNotification = item => {
-        console.log('resend', item)
+    resendNotification = notificationId => {
+        this.props.resendNotification({
+            notificationId
+        }, false);
     }
 
     renderRow = (item, index, isHost) => (
@@ -107,7 +109,7 @@ export class DataGrid extends Component {
                         this.isErrorOrResolved(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
-                        this.isErrorOrResolved(item.status) && <div onClick={() => this.resendNotification(item)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                        this.isErrorOrResolved(item.status) && <div onClick={() => this.resendNotification(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
                     }
                 </Cell>
             }
@@ -157,7 +159,7 @@ export class DataGrid extends Component {
         this.props.setResendOptions({
             isCheckedAll: checked,
             dataList
-        });
+        }, false);
     }
 
     resendNotificationAll = () => {
@@ -211,7 +213,8 @@ const mapStateToProps = state => {
         setErrorOrResolvedContentPopup,
         resendOptions,
         setResendOptions,
-        getGridData
+        getGridData,
+        resendNotification
     } = state;
 
     return {
@@ -221,7 +224,8 @@ const mapStateToProps = state => {
         setErrorOrResolvedContentPopup,
         resendOptions,
         setResendOptions,
-        getGridData
+        getGridData,
+        resendNotification
     };
 };
 
