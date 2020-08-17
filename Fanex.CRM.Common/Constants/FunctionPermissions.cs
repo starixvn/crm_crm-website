@@ -61,5 +61,9 @@
         public const string PICAssignment = "PICAssignment";
 
         public const string ChangesLog = "ChangesLog";
+        public const string NotificationList = "NotificationList";
+        public const string ChatTypeMapping = "ChatTypeMapping";
+        public const string NotificationTemplate = "NotificationTemplate";
+        public const string NotificationType = "NotificationType";
     }
 }

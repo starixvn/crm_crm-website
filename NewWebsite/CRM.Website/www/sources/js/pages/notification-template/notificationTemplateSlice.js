@@ -9,7 +9,7 @@ const notificationTemplateSlice = createSlice({
             notificationTypeId: '',
             notificationTemplateName: '',
             pageIndex: 1,
-            pageSize: 50
+            pageSize: 100
         },
         gridData: null,
         selectedTemplate: null,

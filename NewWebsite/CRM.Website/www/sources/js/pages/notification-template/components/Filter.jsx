@@ -18,7 +18,6 @@ class Filter extends Component {
     componentDidMount() {
         const params = this.getParams();
         this.props.setGridParams(params);
-        this.props.getGridData(params);
     }
 
     handleNotificationTypeChange = event => {
@@ -38,7 +37,7 @@ class Filter extends Component {
             notificationTypeId: parseInt(this.state.notificationTypeId, 10),
             notificationTemplateName: this.state.notificationTemplateName,
             pageIndex: 1,
-            pageSize: 50
+            pageSize: 100
         };
     }
 
@@ -62,11 +61,11 @@ class Filter extends Component {
     render() {
         const { isHost } = this.props;
         return (
-            <Form className="form-filter">
+            <Form className="form-filter" onSubmit={this.submitHandler}>
                 <div className="form-row">
                     <Form.Group>
-                        <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
-                        <Form.Control as="select" size="sm" className="shadow-none"
+                        <Form.Label htmlFor="filterNotificationTypeId">{LangHelper.getResource('NotificationType')}</Form.Label>
+                        <Form.Control as="select" size="sm" className="shadow-none" id="filterNotificationTypeId"
                             value={this.state.notificationTypeId}
                             onChange={this.handleNotificationTypeChange}
                         >
@@ -75,8 +74,9 @@ class Filter extends Component {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>{LangHelper.getResource('TemplateName')}</Form.Label>
+                        <Form.Label htmlFor="filterNotificationTemplateName">{LangHelper.getResource('TemplateName')}</Form.Label>
                         <Form.Control type="text" size="sm" className="shadow-none"
+                            id="filterNotificationTemplateName" autoComplete="off"
                             value={this.state.notificationTemplateName}
                             onChange={this.handleTemplateNameChange}
                         />

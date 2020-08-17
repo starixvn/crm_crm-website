@@ -50,7 +50,7 @@ class ConfirmPopup extends PureComponent {
                     <Button variant="primary" size="sm" onClick={this.props.onSubmit}>
                         {LangHelper.getResource('OK')}
                     </Button>
-                    <Button variant="secondary" size="sm" onClick={this.props.onClose}>
+                    <Button variant="primary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>

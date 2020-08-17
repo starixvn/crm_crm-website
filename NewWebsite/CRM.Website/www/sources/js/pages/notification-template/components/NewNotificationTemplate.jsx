@@ -79,13 +79,13 @@ class NewNotificationTemplate extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3" className="required" htmlFor="notificationTypeId">
                             {LangHelper.getResource('NotificationType')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 isInvalid={touched.notificationTypeId && errors.notificationTypeId}
-                                name="notificationTypeId"
+                                name="notificationTypeId" id="notificationTypeId"
                                 onChange={handleChange}
                                 value={values.notificationTypeId}
                             >
@@ -95,11 +95,12 @@ class NewNotificationTemplate extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3" className="required" htmlFor="notificationTemplateName">
                             {LangHelper.getResource('TemplateName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.notificationTemplateName} name="notificationTemplateName"
+                            <Form.Control type="text" size="sm" value={values.notificationTemplateName}
+                                name="notificationTemplateName" id="notificationTemplateName"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.notificationTemplateName && errors.notificationTemplateName}
                                 onChange={handleChange}
@@ -107,11 +108,12 @@ class NewNotificationTemplate extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3" className="required" htmlFor="title">
                             {LangHelper.getResource('Title')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.title} name="title"
+                            <Form.Control type="text" size="sm" value={values.title}
+                                name="title" id="title"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.title && errors.title}
                                 onChange={handleChange}
@@ -122,11 +124,12 @@ class NewNotificationTemplate extends Component {
                         this.props.languages.map(item => {
                             return (
                                 <Form.Group key={`language${item.settingId}`} as={Row}>
-                                    <Form.Label column sm="4" md="3" className="required">
+                                    <Form.Label column sm="4" md="3" className="required" htmlFor={'language_' + item.settingId}>
                                         {item.settingValue}
                                     </Form.Label>
                                     <Col sm="8" md="9">
-                                        <Form.Control as="textarea" value={values['language_' + item.settingId]} name={'language_' + item.settingId} rows="4"
+                                        <Form.Control as="textarea" value={values['language_' + item.settingId]}
+                                            name={'language_' + item.settingId} id={'language_' + item.settingId} rows="4"
                                             className="shadow-none form-control"
                                             isInvalid={touched['language_' + item.settingId] && errors['language_' + item.settingId]}
                                             onChange={handleChange}
@@ -202,11 +205,7 @@ class NewNotificationTemplate extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        createTemplate: ActionCreators.createTemplate
-    }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
     const { notificationTypes, languages, createTemplateResult } = state;

@@ -101,7 +101,7 @@
     <Compile Include="ChangesLogController.cs" />
     <Compile Include="LicenseeMappingController.cs" />
     <Compile Include="MultipleLogsController.cs" />
-    <Compile Include="NotificationTemplateController.cs" />
+    <Compile Include="HeadlineNotification\NotificationTemplateController.cs" />
     <Compile Include="PicManagementController.cs" />
     <Compile Include="PicOfHeadlineController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
