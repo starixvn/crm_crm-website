@@ -1,4 +1,6 @@
-﻿namespace CRM.Models.NotificationType
+﻿using System.Collections.Generic;
+
+namespace CRM.Models.NotificationType
 {
     public class NotificationType
     {
@@ -6,10 +8,12 @@
 
         public string NotificationTypeName { get; set; }
 
-        public string ChatType { get; set; }
-
-        public string RecipientType { get; set; }
+        public int SystemId { get; set; }
 
         public string SystemName { get; set; }
+
+        public IEnumerable<RecipientType> RecipientTypes { get; set; }
+
+        public IEnumerable<ChatTypes> ChatTypes { get; set; }
     }
 }

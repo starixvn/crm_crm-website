@@ -59,8 +59,8 @@ export class DataGrid extends Component {
         <Row key={item.notificationTypeId} >
             <Cell className="text-center">{index + this.startIndex}</Cell>
             <Cell>{item.notificationTypeName}</Cell>
-            <Cell>{item.recipientType}</Cell>
-            <Cell>{item.chatType}</Cell>
+            <Cell>{item.recipientTypes.map(x => x.recipientTypeName).join(', ')}</Cell>
+            <Cell>{item.chatTypes.map(x => x.chatTypeName).join(', ')}</Cell>
             <Cell>{item.systemName}</Cell>
             {
                 isHost &&

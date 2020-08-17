@@ -5,8 +5,8 @@
     public class CreateNotificationTypeCommand : NonQueryCommand
     {
         public string NotificationTypeName { get; set; }
-        public string ChatTypeId { get; set; }
-        public string RecipientTypeId { get; set; }
+        public string ChatTypeIds { get; set; }
+        public string RecipientTypeIds { get; set; }
         public int SystemId { get; set; }
         public int UserId { get; set; }
         public int ErrCode { get; set; }

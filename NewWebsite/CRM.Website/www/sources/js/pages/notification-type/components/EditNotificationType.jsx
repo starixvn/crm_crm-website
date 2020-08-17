@@ -127,9 +127,9 @@ class EditNotificationType extends Component {
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={this.props.editTypePopup.data.notificationTypeName} name="name"
+                        <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.name && errors.name}
+                                isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
                             />
                         </Col>
@@ -142,7 +142,7 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.popup.recipientTypes.value}
+                            initialValue={this.props.editTypePopup.data.systemId}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -174,15 +174,15 @@ class EditNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="system" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="systemId" className="required">
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 isInvalid={touched.system && errors.system}
-                                name="system"
+                                name="systemId"
                                 onChange={handleChange}
-                                value={values.system}
+                                value={values.systemId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.state.systemsOptions.map(this.renderSystemTypeOption)}
@@ -219,9 +219,10 @@ class EditNotificationType extends Component {
     render() {
         const notificationType = this.props.editTypePopup.data; 
         const initialValues = {
-            notificationTypeName:notificationType.notificationTypeName,
-            recipientTypeId: notificationType.recipientTypeId,
-            chatTypeId: notificationType.chatTypeIds,
+            notificationTypeId: notificationType.notificationTypeId,
+            notificationTypeName: notificationType.notificationTypeName,
+            recipientTypeId: notificationType.recipientTypes,
+            chatTypeId: notificationType.chatTypes,
             systemId: notificationType.systemId
         };
 
