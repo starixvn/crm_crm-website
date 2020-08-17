@@ -66,7 +66,8 @@
                 NotificationTypeName = model.NotificationTypeName,
                 ChatTypeIds = model.ChatTypeIds,
                 RecipientTypeIds = model.RecipientTypeIds,
-                SystemId = model.SystemId
+                SystemId = model.SystemId,
+                UserId = napSession.UserId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);

@@ -4,6 +4,7 @@
 
     public class EditNotificationTypeCommand : NonQueryCommand
     {
+        public int UserId { get; set; }
         public int NotificationTypeId { get; set; }
         public string NotificationTypeName { get; set; }
         public string ChatTypeIds { get; set; }
@@ -17,6 +18,7 @@
         public override bool IsValid() =>
             NotificationTypeId > 0
             && SystemId > 0
+            && UserId > 0
             && !string.IsNullOrWhiteSpace(NotificationTypeName);
     }
 }

@@ -8,6 +8,7 @@ import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
+import ResponseMessage from '@jsroot/components/ResponseMessage';
 
 class EditNotificationType extends Component {
     constructor(props) {
@@ -101,6 +102,23 @@ class EditNotificationType extends Component {
             this.setState(prevState => ({
                 popup: { ...prevState.popup, ...{ [name]: value } }
             }));
+        }
+
+        validate = values => {
+            const errors = {};
+            if (!values.notificationTypeName) {
+                errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
+            }
+    
+            // if (!values.recipientTypeId) {
+            //     errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
+            // }
+    
+            // if (!values.chatTypeId) {
+            //     errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
+            // }
+            
+            return errors;
         }
 
     renderForm = ({
@@ -204,8 +222,16 @@ class EditNotificationType extends Component {
     }
 
     handleSubmit = (values, { setSubmitting }) => {
+        const type = {
+            notificationTypeId: values.notificationTypeId,
+            notificationTypeName: values.notificationTypeName,
+            chatTypeIds: this.state.popup.chatTypes.value,
+            recipientTypeIds: this.state.popup.recipientTypes.value,
+            systemId: values.systemId
+        };
+
         setSubmitting(true);
-        this.props.editType(values).then(() => {
+        this.props.editType(type).then(() => {
             if (this.props.editTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
@@ -235,8 +261,8 @@ class EditNotificationType extends Component {
                     <Modal.Title as="div">{LangHelper.getResource('EditNotificationType')}</Modal.Title>
                 </Modal.Header>
                 <Formik
-                 initialValues={initialValues}
-                    validationSchema={this.props.editTypePopup.type}
+                    initialValues={initialValues}
+                    validate={this.validate}
                     render={this.renderForm}
                     onSubmit={this.handleSubmit}
                 />

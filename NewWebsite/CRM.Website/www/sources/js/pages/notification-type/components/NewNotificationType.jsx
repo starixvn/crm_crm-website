@@ -92,11 +92,11 @@ class NewNotificationType extends Component {
             errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        // if (!values.recipientTypeId) {
+        // if (!values.recipientTypeIds) {
         //     errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
         // }
 
-        // if (!values.chatTypeId) {
+        // if (!values.chatTypeIds) {
         //     errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
         // }
 
@@ -177,7 +177,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.popup.chatTypeId}
+                            initialValue={this.state.popup.chatTypeIds}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
@@ -222,8 +222,8 @@ class NewNotificationType extends Component {
     handleSubmit = (values, { setSubmitting }) => {
         const type = {
             notificationTypeName: values.notificationTypeName,
-            chatTypeId: this.state.popup.chatTypes.value,
-            recipientTypeId: this.state.popup.recipientTypes.value,
+            chatTypeIds: this.state.popup.chatTypes.value,
+            recipientTypeIds: this.state.popup.recipientTypes.value,
             systemId: values.systemId
         };
 
@@ -242,8 +242,8 @@ class NewNotificationType extends Component {
     render() {
         const initialValues = {
             notificationTypeName: '',
-            recipientTypeId: '',
-            chatTypeId: '',
+            recipientTypeIds: '',
+            chatTypeIds: '',
             systemId: ''
         }
         return (

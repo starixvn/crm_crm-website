@@ -9,7 +9,6 @@ namespace CRM.Controllers
     using CRM.Models;
     using CRM.Models.NotificationType;
     using CRM.Services;
-    using CRM.Services.Interfaces;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
@@ -78,11 +77,7 @@ namespace CRM.Controllers
         //[CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
         public async Task<IActionResult> Edit([FromBody]EditNotificationType model)
         {
-            CommandResult commandResult = null;
-            try {
-                 commandResult = await notificationTypeService.EditAsync(model);
-            }
-            catch { Exception ex; }
+            CommandResult commandResult = await notificationTypeService.EditAsync(model);
             
             return Json(commandResult);
         }
