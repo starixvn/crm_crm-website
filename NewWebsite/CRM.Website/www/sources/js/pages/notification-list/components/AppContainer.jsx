@@ -7,6 +7,7 @@ import DataGrid from './DataGrid';
 import Content from './Content';
 import ErrorResolvedContent from './ErrorResolvedContent';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import LangHelper from '@jsroot/common/langHelper';
 
 export class AppContainer extends Component {
     constructor(props) {
