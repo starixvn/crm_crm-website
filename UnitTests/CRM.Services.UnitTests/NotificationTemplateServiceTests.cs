@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Web;
     using AutoFixture;
     using CRM.Core.Models;
     using CRM.Core.Services;
@@ -70,9 +71,17 @@
             var fixture = new Fixture();
             var id = fixture.Create<int>();
             fixture.Customize<NotificationTemplate>(x => x.With(b => b.NotificationTemplateId, id));
-            fixture.Customize<NotificationTemplateContent>(x => x.With(b => b.NotificationTemplateId, id));
             var templates = fixture.Create<IEnumerable<NotificationTemplate>>();
-            var contents = fixture.Create<IEnumerable<NotificationTemplateContent>>();
+            var contents = new List<NotificationTemplateContent>
+            {
+                new NotificationTemplateContent
+                {
+                    NotificationTemplateId = id,
+                    LanguageId = 1,
+                    Language = "Content (EN)",
+                    Content = "content"
+                }
+            };
             var tuple = new ValueTuple<IEnumerable<NotificationTemplate>, IEnumerable<NotificationTemplateContent>>(templates, contents);
             var criteria = new GetNotificationTemplateCriteria();
             var service = GetService();
@@ -84,7 +93,15 @@
 
             // Assert
             Assert.Equal(templates.First(), actual);
-            Assert.Equal(contents, actual.Contents);
+            Assert.Equal(contents.Count, actual.Contents.Count());
+            Assert.Collection(actual.Contents,
+                item =>
+                {
+                    Assert.Equal(item.LanguageId, contents.First().LanguageId);
+                    Assert.Equal(item.Language, contents.First().Language);
+                    Assert.Equal(item.Content, HttpUtility.HtmlDecode(contents.First().Content));
+                }
+            );
 
             Assert.Equal(id, criteria.NotificationTemplateId);
         }

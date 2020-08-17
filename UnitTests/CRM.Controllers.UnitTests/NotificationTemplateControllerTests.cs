@@ -41,6 +41,27 @@
         }
 
         [Fact]
+        public async Task GetGridData_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var templates = fixture.Create<IEnumerable<NotificationTemplate>>();
+            var param = fixture.Create<GetGridDataParam>();
+            var controller = GetController();
+            templateService.GetAsync(param).Returns(templates);
+
+            // Act
+            var result = await controller.GetGridData(param);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var notificationTemplates = (IEnumerable<NotificationTemplate>)jsonResult.Value.GetType().GetProperty("data").GetValue(jsonResult.Value);
+            var totalItems = (int)jsonResult.Value.GetType().GetProperty("totalItems").GetValue(jsonResult.Value);
+            Assert.Equal(templates, notificationTemplates);
+            Assert.Equal(param.TotalRows, totalItems);
+        }
+
+        [Fact]
         public async Task GetById_WhenCalled_ReturnExpectedData()
         {
             // Arrange

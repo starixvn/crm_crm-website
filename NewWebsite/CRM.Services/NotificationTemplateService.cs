@@ -62,7 +62,12 @@
             var template = tuple.Item1.FirstOrDefault();
             if (template != null)
             {
-                template.Contents = tuple.Item2;
+                template.Contents = tuple.Item2.Select(x => new NotificationTemplateContent
+                {
+                    LanguageId = x.LanguageId,
+                    Language = x.Language,
+                    Content = HttpUtility.HtmlDecode(x.Content)
+                });
             }
 
             return template;
@@ -114,7 +119,7 @@
             var stringBuilder = new StringBuilder("<Contents>");
             foreach (var content in contents)
             {
-                stringBuilder.AppendFormat(XmlTemplate, content.LanguageId, HttpUtility.HtmlEncode(content.Content));
+                stringBuilder.AppendFormat(XmlTemplate, content.LanguageId, HttpUtility.HtmlEncode("aaa\nbbb\nccc"));
             }
 
             stringBuilder.Append("</Contents>");

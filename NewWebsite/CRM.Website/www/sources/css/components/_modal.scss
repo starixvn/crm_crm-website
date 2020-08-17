@@ -1,5 +1,7 @@
 ﻿.modal-dialog {
     .modal-content {
+        background-clip: unset;
+
         .modal-header {
             background: #466ab6;
             color: $white;

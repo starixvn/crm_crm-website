@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Accordion, Button, Card, Modal } from 'react-bootstrap';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
@@ -8,7 +8,7 @@ class ContentDetailPopup extends Component {
     render() {
         const template = this.props.selectedTemplate;
         return (
-            <Modal show className="notification-template-modal" dialogAs={DraggableModalDialog}
+            <Modal show className="notification-template-content-modal" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
@@ -19,18 +19,10 @@ class ContentDetailPopup extends Component {
                     {
                         template.contents.map(item => {
                             return (
-                                <Accordion key={item.languageId} defaultActiveKey="0" className="mb-3">
-                                    <Card>
-                                        <Card.Header>
-                                            <Accordion.Toggle as="div" eventKey="0">
-                                                {item.language}
-                                            </Accordion.Toggle>
-                                        </Card.Header>
-                                        <Accordion.Collapse eventKey="0">
-                                            <Card.Body>{item.content}</Card.Body>
-                                        </Accordion.Collapse>
-                                    </Card>
-                                </Accordion>
+                                <Fragment key={item.languageId}>
+                                    <div>{item.language}</div>
+                                    <div className="border p-1 mb-3 content">{item.content}</div>
+                                </Fragment>
                             );
                         })
                     }

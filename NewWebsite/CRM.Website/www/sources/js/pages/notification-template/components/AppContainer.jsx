@@ -56,7 +56,7 @@ export class AppContainer extends Component {
     handleDelete = () => {
         this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(data => {
             if (data.isSuccessful) {
-                data.message = LangHelper.getResource('DeleteNotificationTemplateSuccessfully')
+                data.message = LangHelper.getResource('DeleteNotificationTemplateSuccessfully');
                 setTimeout(() => {
                     this.handleCloseDeletePopup();
                     this.props.getGridData(this.props.gridParams);
