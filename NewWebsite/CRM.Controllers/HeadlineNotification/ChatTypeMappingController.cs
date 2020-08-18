@@ -114,6 +114,13 @@
             return Json(result);
         }
 
+        [HttpPost]
+        public IActionResult InsertPersonalMapping(object data)
+        {
+            var result = new CommandResult { Code = 0, Message = "Success" };
+            return Json(result);
+        }
+
         public IActionResult GetRecipientByGroupHeadline(string headlineIds)
         {
             var recipients = new List<BaseModel>

@@ -10,12 +10,12 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import { ChatTypeMapping } from '../../../common/constants';
 
-class InsertPersonalMapping extends Component {
+class EditGroupMappingPopup extends Component {
 	constructor(props) {
 		super(props);
 	}
 
-	renderOptions = item => <option key={item.Id} value={item.Id} >{item.name}</option>
+	renderOptions = (item, key) => <option key={key} value={item.Id} >{item.name}</option>
 
 	validate = values => {
 		const errors = {};
@@ -228,7 +228,7 @@ class InsertPersonalMapping extends Component {
 			chatTypeId: ChatTypeMapping.Personal,
 			recipientTypeId: '',
 			headlineIds: '',
-			recipients: '',
+			recipients: null,
 			languageId: '',
 			remark: ''
 		};
@@ -239,7 +239,7 @@ class InsertPersonalMapping extends Component {
 				onHide={this.props.onClose}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title as="div">{LangHelper.getResource('InsertNotificationTemplate')}</Modal.Title>
+					<Modal.Title as="div">{LangHelper.getResource('InsertPersonalMapping')}</Modal.Title>
 				</Modal.Header>
 				<Formik
 					initialValues={initialValues}
@@ -261,4 +261,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InsertPersonalMapping);
+export default connect(mapStateToProps, mapDispatchToProps)(EditGroupMappingPopup);

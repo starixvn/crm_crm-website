@@ -34,12 +34,21 @@ export const updateActiveStatusResult = createReducer({}, {
 	}
 });
 
+// Recipients
+
+export const recipients = createReducer({}, {
+	[types.RECIPIENT_DATA](state, action) {
+		return action.data;
+	}
+});
+
 const reducers = {
 	settings,
 	gridParams,
 	gridData,
 	updateActiveStatusPopup,
-	updateActiveStatusResult
+	updateActiveStatusResult,
+	recipients
 };
 
 export default reducers;

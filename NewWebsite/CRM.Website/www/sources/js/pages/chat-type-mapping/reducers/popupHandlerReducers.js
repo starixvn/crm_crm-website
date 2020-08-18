@@ -1,13 +1,25 @@
 ﻿import createReducer from '@jsroot/common/createReducer';
 import types from '../actions/types';
 
-export const personalMappingData = createReducer({}, {
-	[types.PERSONAL_MAPPING_POPUP_DATA](state, action) {
+export const insertPersonalMappingData = createReducer({}, {
+	[types.PERSONAL_MAPPING_INSERT_POPUP_DATA](state, action) {
 		return action.data;
 	}
 });
 
-export const personalMappingResult = createReducer({}, {
+export const insertPersonalMappingResult = createReducer({}, {
+	[types.PERSONAL_MAPPING_INSERT_RESULT](state, action) {
+		return action.data;
+	}
+});
+
+export const updatePersonalMappingData = createReducer({}, {
+	[types.PERSONAL_MAPPING_UPDATE_POPUP_DATA](state, action) {
+		return action.data;
+	}
+});
+
+export const updatePersonalMappingResult = createReducer({}, {
 	[types.PERSONAL_MAPPING_UPDATE_RESULT](state, action) {
 		return action.data;
 	}
@@ -26,8 +38,10 @@ export const groupMappingResult = createReducer({}, {
 });
 
 const reducers = {
-	personalMappingData,
-	personalMappingResult,
+	insertPersonalMappingData,
+	insertPersonalMappingResult,
+	updatePersonalMappingData,
+	updatePersonalMappingResult,
 	groupMappingData,
 	groupMappingResult
 };
