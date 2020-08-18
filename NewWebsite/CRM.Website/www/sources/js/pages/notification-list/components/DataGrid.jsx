@@ -18,7 +18,7 @@ export class DataGrid extends Component {
         params['pageSize'] = pageSize;
 
         this.props.setGridParams(params);
-        this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
     }
 
     buildHeader = isHost => {
@@ -77,10 +77,11 @@ export class DataGrid extends Component {
 
     isErrorOrResolved = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase() || status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
 
-    resendNotification = notificationId => {
-        this.props.resendNotification({
-            notificationId
-        }, false);
+    validateResend = notificationId => {
+        this.props.validateResend({
+            notificationIds: notificationId,
+            isSingle: true
+        });
     }
 
     renderRow = (item, index, isHost) => (
@@ -109,7 +110,7 @@ export class DataGrid extends Component {
                         this.isErrorOrResolved(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
-                        this.isErrorOrResolved(item.status) && <div onClick={() => this.resendNotification(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                        this.isErrorOrResolved(item.status) && <div onClick={() => this.validateResend(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
                     }
                 </Cell>
             }
@@ -164,7 +165,10 @@ export class DataGrid extends Component {
 
     resendNotificationAll = () => {
         const resendList = this.props.resendOptions.dataList.filter(item => this.isErrorOrResolved(item.status) && item.isResent);
-        console.log(resendList)
+        this.props.validateResend({
+            notificationIds: resendList.map(item => item.notificationId).join(','),
+            isSingle: false
+        })
     }
 
     render() {
@@ -214,7 +218,7 @@ const mapStateToProps = state => {
         resendOptions,
         setResendOptions,
         getGridData,
-        resendNotification
+        validateResend
     } = state;
 
     return {
@@ -225,7 +229,7 @@ const mapStateToProps = state => {
         resendOptions,
         setResendOptions,
         getGridData,
-        resendNotification
+        validateResend
     };
 };
 

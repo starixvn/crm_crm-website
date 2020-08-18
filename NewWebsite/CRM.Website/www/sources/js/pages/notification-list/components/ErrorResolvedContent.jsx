@@ -11,7 +11,8 @@ class ErrorResolvedContent extends Component {
         super(props);
 
         this.state = {
-            remark: props.data.resolvedRemark ? props.data.resolvedRemark : ''
+            remark: props.data.resolvedRemark ? props.data.resolvedRemark : '',
+            isResolved: false
         }
     }
 
@@ -49,11 +50,13 @@ class ErrorResolvedContent extends Component {
         return '';
     }
 
-    resendNotification = notificationId => {
-        this.props.resendNotification({
-            notificationId,
-            remark: this.state.remark
-        }, true)
+    editNotificationList = notificationId => {
+        this.setState({ isResolved: true }, () => 
+            this.props.editNotificationList({
+                notificationId,
+                remark: this.state.remark
+            })
+        );
     }
 
     handleChange = e => {
@@ -71,6 +74,9 @@ class ErrorResolvedContent extends Component {
         })
         
         close();
+        if (this.state.isResolved) {
+            this.props.getGridData({...this.props.gridParams});
+        }
     }
 
     render() {
@@ -106,7 +112,7 @@ class ErrorResolvedContent extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        !this.props.errorResolvedContent.result.isSuccessful && <Button onClick={() => this.resendNotification(data.notificationId)} variant='primary' size='sm'>{LangHelper.getResource('Resolved')}</Button>
+                        !this.props.errorResolvedContent.result.isSuccessful && <Button onClick={() => this.editNotificationList(data.notificationId)} variant='primary' size='sm'>{LangHelper.getResource('Resolved')}</Button>
                     }
                     <Button onClick={() => this.onClose(onClose)} variant='primary' size='sm'>{LangHelper.getResource('Close')}</Button>
                 </Modal.Footer>
@@ -120,14 +126,18 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         errorResolvedContent,
-        resendNotification,
-        setErrorResolvedContent
+        editNotificationList,
+        setErrorResolvedContent,
+        getGridData,
+        gridParams
     } = state;
 
     return {
         errorResolvedContent,
-        resendNotification,
-        setErrorResolvedContent
+        editNotificationList,
+        setErrorResolvedContent,
+        getGridData,
+        gridParams
     };
 };
 

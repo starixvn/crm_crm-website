@@ -36,6 +36,14 @@ const store = Store.createStore(reducer, {
         isSuccessful: false,
         show: false,
         message: ''
+    },
+    validateResendResult: {
+        show: false,
+        result: {
+            isSingle: false,
+            inActiveNotificationIds: [],
+            resendDataList: []
+        }
     }
 });
 

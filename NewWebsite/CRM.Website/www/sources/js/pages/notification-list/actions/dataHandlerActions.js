@@ -1,6 +1,7 @@
 import types from './types';
 import axios from 'axios';
 import Site from '@jsroot/common/site';
+import { convertDateToString } from '../../../common/functions';
 
 // Grid
 export const setGridParams = data => {
@@ -19,6 +20,27 @@ export const setGridData = data => {
 
 export const getGridData = (params, done) => async dispatch => {
     Site.blockUI();
+    if (params.messageId !== '' || params.notificationIdLower !== '') {
+        params.fromDate = null;
+        params.toDate = null;
+    }
+    else {
+        params.fromDate = convertDateToString(params.fromDate);
+        params.toDate = convertDateToString(params.toDate);
+    }
+
+    if (params.headline === '') {
+        params.headline = null;
+    }
+
+    if (params.recipientName === '') {
+        params.recipientName = null;
+    }
+
+    if (params.content === '') {
+        params.content = null;
+    }
+    
     await axios({
         method: 'post',
         url: Site.resolveClientUrl('NotificationList/GetGridData'),
@@ -89,7 +111,7 @@ export const setErrorResolvedContent = data => {
     };
 };
 
-export const resendNotification = (params, isUpdateContent) => async dispatch => {
+export const editNotificationList = params => async dispatch => {
     Site.blockUI();
     await axios({
         method: 'post',
@@ -100,22 +122,38 @@ export const resendNotification = (params, isUpdateContent) => async dispatch =>
             'RequestVerificationToken': Site.getXsrfToken()
         }
     }).then(response => {
-        if (isUpdateContent) {
-            dispatch(setErrorResolvedContent(response.data));
-        }
-        else {
-            dispatch(setMessageResult({
-                show: true,
-                isSuccessful: response.data.result.isSuccessful,
-                message: response.data.result.message
-            }));
-        }
+        dispatch(setErrorResolvedContent(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 export const setMessageResult = data => {
     return {
         type: types.MESSAGE_RESULT_DATA,
+        data
+    };
+};
+
+export const validateResend = params => async dispatch => {
+    Site.blockUI();
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('NotificationList/ValidateNotificationList'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setValidateResend({
+            show: true,
+            result: response.data
+        }));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+}
+
+export const setValidateResend = data => {
+    return {
+        type: types.VALIDATE_RESEND_DATA,
         data
     };
 };
@@ -128,8 +166,10 @@ const actions = {
     setErrorOrResolvedContentPopup,
     setInvalidParams,
     getSettings,
-    resendNotification,
-    setErrorResolvedContent
+    editNotificationList,
+    setErrorResolvedContent,
+    validateResend,
+    setValidateResend
 };
 
 export default actions;

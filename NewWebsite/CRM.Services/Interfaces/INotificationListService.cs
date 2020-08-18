@@ -11,5 +11,7 @@
         Task<IEnumerable<Notification>> GetNotificationListAsync(GetNotificationListCriteria criteria);
 
         Task<CommandResult> EditNotificationListAsync(EditNotificationListCommand command);
+
+        Task<ValidationNotificationList> ValidateNotificationListAsync(ValidateNotificationListCriteria criteria);
     }
 }

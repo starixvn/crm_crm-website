@@ -6,6 +6,7 @@ import Filter from './Filter';
 import DataGrid from './DataGrid';
 import Content from './Content';
 import ErrorResolvedContent from './ErrorResolvedContent';
+import ValidateResend from './ValidateResend';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 
@@ -45,6 +46,9 @@ export class AppContainer extends Component {
                         data={this.props.errorOrResolvedContentPopup.data}
                     />
                 }
+                {
+                    this.props.validateResendResult.show && <ValidateResend />
+                }
             </Fragment>
         );
     }
@@ -59,7 +63,8 @@ const mapStateToProps = state => {
         errorOrResolvedContentPopup,
         setErrorOrResolvedContentPopup,
         invalidParams,
-        messageResult
+        messageResult,
+        validateResendResult
     } = state;
 
     return {
@@ -68,7 +73,8 @@ const mapStateToProps = state => {
         errorOrResolvedContentPopup,
         setErrorOrResolvedContentPopup,
         invalidParams,
-        messageResult
+        messageResult,
+        validateResendResult
     };
 };
 

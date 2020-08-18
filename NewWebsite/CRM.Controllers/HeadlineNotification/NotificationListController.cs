@@ -8,6 +8,7 @@
     using CRM.Core.Filters;
     using CRM.Criteria.NotificationList;
     using CRM.Models;
+    using CRM.Models.NotificationList;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
@@ -23,17 +24,20 @@
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
         private readonly INotificationListService notificationListService;
+        private readonly INotificationTypeService notificationTypeService;
 
         public NotificationListController(
             INapSession napSession,
             INapSettings napSettings,
             IUserService userService,
-            INotificationListService notificationListService)
+            INotificationListService notificationListService,
+            INotificationTypeService notificationTypeService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
             this.notificationListService = notificationListService;
+            this.notificationTypeService = notificationTypeService;
         }
 
         public IActionResult Index()
@@ -46,7 +50,7 @@
         {
             var result = new
             {
-                ChatTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
+                NotificationTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
 
@@ -74,6 +78,16 @@
             command.UserId = napSession.UserId;
             var result = await notificationListService.EditNotificationListAsync(command);
             return Json(new { resolvedBy = napSession.UserName, result });
+        }
+
+        [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
+        public async Task<IActionResult> ValidateNotificationList([FromBody]ValidateNotificationListModel model)
+        {
+            var criteria = new ValidateNotificationListCriteria { NotificationIds = model.NotificationIds };
+            var result = await notificationListService.ValidateNotificationListAsync(criteria);
+            result.IsSingle = model.IsSingle;
+            return Json(result);
         }
     }
 }

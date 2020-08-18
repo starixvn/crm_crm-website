@@ -7,16 +7,16 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
+import { getNowGMTAdd8, convertDateToString } from '../../../common/functions';
 
 class Filter extends Component {
     constructor(props) {
         super(props);
-        const now = new Date();
-        now.setHours(0,0,0,0);
+        const now = getNowGMTAdd8();
 
         this.state = {
             filter: {
-                chatTypes: {
+                notificationTypes: {
                     value: ''
                 },
                 statuses: {
@@ -32,17 +32,17 @@ class Filter extends Component {
                 content: ''
             },
             maxDate: now,
-            chatTypeOptions: [],
+            notificationTypeOptions: [],
             statusOptions: []
         };
     }
     
     componentDidUpdate = (nextProps, prevState) => {
         if(nextProps.settings !== this.props.settings) {
-            // chat type
-            const chatTypeIds = [];
-            const chatTypeOptions = this.props.settings.chatTypes.map(x => {
-                chatTypeIds.push(x.id);
+            // notification type
+            const notificationTypeIds = [];
+            const notificationTypeOptions = this.props.settings.notificationTypes.map(x => {
+                notificationTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
@@ -62,13 +62,13 @@ class Filter extends Component {
             });
     
             this.setState(prevState => ({
-                chatTypeOptions,
+                notificationTypeOptions,
                 statusOptions,
                 filter: {
                     ...prevState.filter,
                     ...{
-                        chatTypes: {
-                            value: chatTypeIds.toString()
+                        notificationTypes: {
+                            value: notificationTypeIds.toString()
                         },
                         statuses: {
                             value: statuses.toString()
@@ -77,9 +77,8 @@ class Filter extends Component {
                 }
             }), () => {
                 const params = this.getParams();
-                this.pretreatmentParams(params);
                 this.props.setGridParams(params);
-                this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
+                this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
         }
     }
@@ -94,7 +93,7 @@ class Filter extends Component {
         }));
     }
 
-    handleChatTypeChange = value => this.handleFilterChange('chatTypes', value)
+    handleNotificationTypeChange = value => this.handleFilterChange('notificationTypes', value)
 
     handleFromDateChange = value => this.handleFilterChange('fromDate', value)
 
@@ -112,7 +111,7 @@ class Filter extends Component {
 
     getParams = () => {
         return {
-            notificationTypeIds: this.state.filter.chatTypes.value,
+            notificationTypeIds: this.state.filter.notificationTypes.value,
             fromDate: this.state.filter.fromDate,
             toDate: this.state.filter.toDate,
             headline: this.state.filter.headline,
@@ -137,28 +136,8 @@ class Filter extends Component {
 
         const params = this.getParams();
         if (this.isValidateParams(params)) {
-            if (params.messageId !== '' || params.notificationIdLower !== '') {
-                params.fromDate = null;
-                params.toDate = null;
-            }
-            
-            this.pretreatmentParams(params);
             this.props.setGridParams(params);
-            this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
-        }
-    }
-
-    pretreatmentParams = params => {
-        if (params.headline === '') {
-            params.headline = null;
-        }
-
-        if (params.recipientName === '') {
-            params.recipientName = null;
-        }
-
-        if (params.content === '') {
-            params.content = null;
+            this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
         }
     }
 
@@ -243,14 +222,14 @@ class Filter extends Component {
                     <div className='col-auto position-relative margin-right-50'>
                         <MultipleSelectField
                             width={150}
-                            initialValue={this.state.filter.chatTypes.value}
-                            data={this.state.chatTypeOptions}
+                            initialValue={this.state.filter.notificationTypes.value}
+                            data={this.state.notificationTypeOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
                             isSummited={false}
                             isAllTextShown
-                            onChange={this.handleChatTypeChange}
+                            onChange={this.handleNotificationTypeChange}
                         />
                     </div>
                     <label className='col-auto col-form-label width-70'>{LangHelper.getResource('From')}</label>

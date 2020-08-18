@@ -8,5 +8,7 @@
     public interface INotificationListRepository
     {
         Task<IEnumerable<Notification>> GetNotificationsAsync(ICriteria criteria);
+
+        Task<ValidationNotificationList> ValidateNotificationListAsync(ICriteria criteria);
     }
 }

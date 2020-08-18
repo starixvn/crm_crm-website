@@ -29,5 +29,24 @@
                 }
             }
         }
+
+        public async Task<ValidationNotificationList> ValidateNotificationListAsync(ICriteria criteria)
+        {
+            using (var objectDB = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            {
+                using (IMultiResultReader multi = await objectDB.QueryMultipleAsync(criteria))
+                {
+                    var inActiveNotificationIds = multi.Read<int>();
+                    var resendDataList = multi.Read<NotificationListResend>();
+                    var result = new ValidationNotificationList
+                    {
+                        InActiveNotificationIds = inActiveNotificationIds,
+                        ResendDataList = resendDataList
+                    };
+
+                    return result;
+                }
+            }
+        }
     }
 }

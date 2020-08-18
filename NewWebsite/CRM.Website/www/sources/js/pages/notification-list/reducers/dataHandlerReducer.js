@@ -56,6 +56,12 @@ export const messageResult = createReducer({}, {
     }
 });
 
+export const validateResendResult = createReducer({}, {
+    [types.VALIDATE_RESEND_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -65,7 +71,8 @@ const reducers = {
     invalidParams,
     settings,
     errorResolvedContent,
-    messageResult
+    messageResult,
+    validateResendResult
 };
 
 export default reducers;
