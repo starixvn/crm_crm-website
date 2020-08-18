@@ -40,14 +40,30 @@ class EditNotificationType extends Component {
     })
 
     componentDidMount () {
+            const listRecipientTypeChecked = [];
+             this.props.editTypePopup.data.recipientTypes.map(x => {
+                listRecipientTypeChecked.push(x.recipientTypeId);
+                return {
+                    id: x.recipientTypeId
+                };
+            });
+
+            const listChatTypeChecked = [];
+             this.props.editTypePopup.data.chatTypes.map(x => {
+                listChatTypeChecked.push(x.chatTypeId);
+                return {
+                    id: x.chatTypeId
+                };
+            });
+
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                recipientTypeIds.push(x.recipientTypeID);
+                recipientTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
-                    checked: true
+                    checked: listRecipientTypeChecked.includes(x.id) ? true: false
                 };
             });
 
@@ -58,7 +74,7 @@ class EditNotificationType extends Component {
                 return {
                     id: x.id,
                     name: x.name,
-                    checked: true
+                    checked: listChatTypeChecked.includes(x.id) ? true: false
                 };
             });
 
@@ -160,11 +176,11 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.props.editTypePopup.data.systemId}
+                            initialValue={this.props.editTypePopup.data}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
-                            statusField=''
+                            statusField='checked'
                             isSummited={false}
                             isAllTextShown
                             onChange={this.recipientTypeChange}
@@ -179,11 +195,11 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelectField
                             width={570}
-                            initialValue={this.state.popup.chatTypes.value}
+                            initialValue={this.props.editTypePopup.data}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
-                            statusField=''
+                            statusField='checked'
                             isSummited={false}
                             isAllTextShown
                             onChange={this.chatTypeChange}
