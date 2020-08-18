@@ -56,6 +56,7 @@
     "build-dev": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.dev.conf.js",
     "build-pro": "node node_modules/webpack/bin/webpack.js --config www/webpackconfig/build/webpack.pro.conf.js",
     "test": "jest --coverage --config ./jest.config.js",
+    "jest-update-snapshot": "jest --updateSnapshot",
     "lint": "eslint ./www/sources/js/",
     "lint-fix": "eslint --fix ./www/sources/js/"
   },
