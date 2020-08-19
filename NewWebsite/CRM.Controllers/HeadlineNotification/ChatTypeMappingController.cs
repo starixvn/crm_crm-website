@@ -108,7 +108,7 @@
         }
 
         [HttpPost]
-        public IActionResult UpdateMapping(object data)
+        public IActionResult GetMappingByConversationId(int conversationId)
         {
             var result = new CommandResult { Code = 0, Message = "Success" };
             return Json(result);

@@ -1,264 +1,305 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { Formik } from 'formik';
+import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
 import MultipleSelectField from './MultipleSelectField';
-import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import { ChatTypeMapping } from '../../../common/constants';
 
-class EditPersonalMappingPopup extends Component {
-	constructor(props) {
-		super(props);
-	}
+export class EditPersonalMappingPopup extends Component {
+    constructor(props) {
+        super(props);
 
-	renderOptions = (item, key) => <option key={key} value={item.Id} >{item.name}</option>
+        this.state = {
+            form: {
+                botId: '',
+                recipientType: '',
+                groupHeadlines: {
+                    value: '',
+                    isValid: false
+                },
+                recipients: {
+                    value: '',
+                    isValid: false
+                },
+                letstalkIds: [],
+                languageId: '',
+                remark: ''
+            },
+            isSubmitting: false,
+            validate: {
+                isShow: false,
+                errMsgs: []
+            }
+        };
+    }
 
-	validate = values => {
-		const errors = {};
-		if (!values.botId) {
-			errors.botId = LangHelper.getResource('BotRequired');
-		}
+    handleChange = (fieldName, fieldValue) => {
+        this.setState(prevState => ({
+            form: { ...prevState.form, ...{ [fieldName]: fieldValue } }
+        }));
+    };
 
-		if (!values.recipientType) {
-			errors.recipientType = LangHelper.getResource('RecipientTypeRequired');
-		}
+    handleGroupHeadlineChange = (data) => {
+        this.handleChange('groupHeadlines', data);
+        this.props.getRecipientByGroupHeadline(data.value);
+    };
 
-		if (!values.headlineIds || values.headlineIds.trim().length === 0) {
-			errors.headlineIds = LangHelper.getResource('GroupHeadlineRequired');
-		}
+    renderOptions = (item, key) => {
+        return (
+            <option key={item.id} value={item.id}>
+                {item.name}
+            </option>
+        );
+    }
 
-		if (!values.recipientIds || values.recipientIds.trim().length === 0) {
-			errors.recipientIds = LangHelper.getResource('RecipientRequired');
-		}
+    isValidParams = () => {
+        const data = this.state.form;
+        let isValid = true;
+        let errMsg = [];
 
-		if (!values.languageId || values.languageId.trim().length === 0) {
-			errors.languageId = LangHelper.getResource('LanguageRequired');
-		}
+        if (!data.botId) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('BotRequired'));
+        }
 
-		return errors;
-	}
+        if (!data.recipientType) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('RecipientTypeRequired'));
+        }
 
-	renderForm = ({
-		values,
-		errors,
-		touched,
-		handleChange,
-		handleSubmit,
-		setFieldValue,
-		isSubmitting
-	}) => {
-		return (
-			<Form noValidate onSubmit={handleSubmit}>
-				<Modal.Body>
-					<FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
-					{
-						this.props.personalMappingResult &&
-						<ResponseMessage isSuccessful={this.props.personalMappingResult.isSuccessful}
-							message={this.props.personalMappingResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
-						/>
-					}
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('BotName')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<Form.Control as="select" size="sm" className="shadow-none"
-								isInvalid={touched.botId && errors.botId}
-								name="botName"
-								onChange={handleChange}
-								value={values.botId}
-							>
-								{this.props.settings.bots.map(this.renderOptions)}
-							</Form.Control>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('Name')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<div>{values.name}</div>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('ChatType')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<div>{LangHelper.getResource('Personal')}</div>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('RecipientType')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<Form.Control as="select" size="sm" className="shadow-none"
-								isInvalid={touched.recipientTypeId && errors.recipientTypeId}
-								name="recipientTypeId"
-								onChange={handleChange}
-								value={values.recipientTypeId}
-							>
-								<option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-								{this.props.settings.recipientTypes.map(this.renderOptions)}
-							</Form.Control>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('GroupHeadline')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<Form.Control as="select" size="sm" className="shadow-none"
-								isInvalid={touched.headlineIds && errors.headlineIds}
-								name="headlineIds"
-								onChange={handleChange}
-								value={values.headlineIds}
-							>
-								<option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-								{this.props.settings.groupHeadline.map(this.renderOptions)}
-							</Form.Control>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('Recipient')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<MultipleSelectField
-								width={'100%'}
-								initialValue={''}
-								data={this.props.recipients || []}
-								keyField='id'
-								valueField='name'
-								statusField='checked'
-								isSummited={false}
-								isAllTextShown
-								onChange={handleChange}
-							/>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('LetstalkID')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<div></div>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('Language')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<Form.Control as="select" size="sm" className="shadow-none"
-								isInvalid={touched.languageId && errors.languageId}
-								name="languageId"
-								onChange={handleChange}
-								value={values.languageId}
-							>
-								<option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-								{this.props.settings.languages.map(this.renderOptions)}
-							</Form.Control>
-						</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-						<Form.Label column sm="4" md="3" className="required">
-							{LangHelper.getResource('Remark')}
-						</Form.Label>
-						<Col sm="8" md="9">
-							<Form.Control as="textarea" size="sm" className="shadow-none"
-								rows={5}
-								isInvalid={touched.remark && errors.remark}
-								name="remark"
-								onChange={handleChange}
-								value={values.remark}
-							>
-							</Form.Control>
-						</Col>
-					</Form.Group>
-				</Modal.Body>
+        if (!data.groupHeadlines.isValid) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
+        }
 
-				<Modal.Footer>
-					<Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-						{LangHelper.getResource('Submit')}
-					</Button>
-					<Button type="button" variant="primary" size="sm">
-						{LangHelper.getResource('Cancel')}
-					</Button>
-				</Modal.Footer>
-			</Form>
-		);
-	}
+        if (!data.recipients.isValid) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('RecipientRequired'));
+        }
 
-	handleSubmit = (values, { setSubmitting }) => {
-		console.log(values);
-		//setSubmitting(true);
-		//const template = {
-		//	notificationTypeId: values.notificationTypeId,
-		//	name: values.name,
-		//	title: values.title,
-		//	contents: []
-		//};
-		//this.props.languages.map(item => {
-		//	template.contents.push({
-		//		languageId: item.settingId,
-		//		content: values['language_' + item.settingId]
-		//	});
-		//});
+        if (!data.languageId) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('LanguageRequired'));
+        }
 
-		//this.props.createTemplate(template).then(() => {
-		//	if (this.props.createTemplateResult.isSuccessful) {
-		//		setTimeout(() => {
-		//			this.props.onSuccess();
-		//		}, 3000);
-		//	} else {
-		//		setSubmitting(false);
-		//	}
-		//});
-	}
+        this.setState({
+            isSubmitting: false,
+            validate: {
+                isShow: !isValid,
+                errMsgs: errMsg
+            }
+        });
+        return isValid;
+    }
 
-	render() {
-		const initialValues = {
-			botId: '',
-			chatTypeId: ChatTypeMapping.Personal,
-			recipientTypeId: '',
-			headlineIds: '',
-			recipients: null,
-			languageId: '',
-			remark: ''
-		};
+    getParams = () => {
+        return {
+            botId: this.state.form.botId,
+            chatType: ChatTypeMapping.Personal,
+            recipientTypeId: this.state.form.recipientType,
+            groupHeadlineIds: this.state.form.groupHeadlines.value,
+            recipientIds: this.state.form.recipients.value,
+            languageId: this.state.form.languageId,
+            remark: this.state.form.remark
+        };
+    }
 
-		return (
-			<Modal show className="new-notification-template"
-				backdrop="static" keyboard={false} size="md" centered
-				onHide={this.props.onClose}
-			>
-				<Modal.Header closeButton>
-					<Modal.Title as="div">{LangHelper.getResource('InsertPersonalMapping')}</Modal.Title>
-				</Modal.Header>
-				<Formik
-					initialValues={initialValues}
-					validate={this.validate}
-					render={this.renderForm}
-					onSubmit={this.handleSubmit}
-				/>
-			</Modal>
-		);
-	}
+    handleSubmit = (e) => {
+        this.setState({ isSubmitting: true });
+        e.preventDefault();
+        if (this.isValidParams()) {
+            const params = this.getParams();
+            this.props.updatePersonalMapping(params).then(() => {
+                if (this.props.updatePersonalMappingResult.isSuccessful) {
+                    setTimeout(() => {
+                        this.props.closeUpdatePersonalMappingPopup();
+                        this.props.getGridData(this.props.gridParams);
+                    }, 3000);
+                }
+                this.setState({ isSubmitting: false });
+            });
+        }
+    }
+
+    renderForm = () => {
+        return (
+            <Form onSubmit={this.handleSubmit}>
+                <Modal.Body>
+                    {
+                        this.state.validate.isShow &&
+                        <Alert variant="danger">
+                            <ul className="list-message-error">
+                                {
+                                    this.state.validate.errMsgs.map((msg, key) => {
+                                        return <li key={key}>{msg}</li>;
+                                    })
+                                }
+                            </ul>
+                        </Alert>
+                    }
+                    {
+                        this.props.personalMappingResult &&
+                        <ResponseMessage isSuccessful={this.props.updatePersonalMappingResult.isSuccessful}
+                            message={this.props.updatePersonalMappingResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
+                        />
+                    }
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('BotName')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <Form.Control as="select" size="sm" className="shadow-none"
+                                name='botId'
+                                onChange={e => this.handleChange('botId', e.target.value)}
+                                value={this.state.form.botId}
+                            >
+                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
+                                {this.props.settings.bots.map(this.renderOptions)}
+                            </Form.Control>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3">
+                            {LangHelper.getResource('Name')}
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3">
+                            {LangHelper.getResource('ChatType')}
+                        </Form.Label>
+                        <Form.Label column sm="8" md="9">
+                            {LangHelper.getResource('Personal')}
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('RecipientType')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <Form.Control as="select" size="sm" className="shadow-none"
+                                name="recipientTypeId"
+                                onChange={e => this.handleChange('recipientType', e.target.value)}
+                                value={this.state.form.recipientType}
+                            >
+                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
+                                {this.props.settings.recipientTypes.map(this.renderOptions)}
+                            </Form.Control>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('GroupHeadline')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <MultipleSelectField
+                                width={'100%'}
+                                name="headlineIds"
+                                initialValue={this.state.form.groupHeadlines.value}
+                                data={this.props.settings.groupHeadline}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                onChange={this.handleGroupHeadlineChange}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('Recipient')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <MultipleSelectField
+                                width={'100%'}
+                                initialValue={this.state.form.recipients.value}
+                                data={this.props.recipients || []}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                onChange={value => this.handleChange('recipients', value)}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('LetstalkID')}
+                        </Form.Label>
+                        <Col sm="8" md="9" />
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('Language')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <Form.Control as="select" size="sm" className="shadow-none"
+                                name="languageId"
+                                onChange={e => this.handleChange('languageId', e.target.value)}
+                                value={this.state.form.languageId}
+                            >
+                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
+                                {this.props.settings.languages.map(this.renderOptions)}
+                            </Form.Control>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" >
+                            {LangHelper.getResource('Remark')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <Form.Control as="textarea" size="sm" className="shadow-none"
+                                rows={5}
+                                name="remark"
+                                onChange={e => this.handleChange('remark', e.target.value)}
+                                value={this.state.form.remark}
+                            />
+                        </Col>
+                    </Form.Group>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button type="submit" variant="primary" size="sm" disabled={this.state.isSubmitting}>
+                        {LangHelper.getResource('Submit')}
+                    </Button>
+                    <Button type="button" variant="primary" size="sm" onClick={this.props.closeUpdatePersonalMappingPopup}>
+                        {LangHelper.getResource('Cancel')}
+                    </Button>
+                </Modal.Footer>
+            </Form>
+        );
+    }
+
+    render() {
+        return (
+            <Modal show className="mapping-popup"
+                backdrop="static" keyboard={false} size="md" centered
+                onHide={this.props.closeUpdatePersonalMappingPopup}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title as="div">{LangHelper.getResource('EditPersonalMapping')}</Modal.Title>
+                </Modal.Header>
+                {
+                    this.renderForm()
+                }
+            </Modal>
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-	const { settings } = state;
-	return {
-		settings
-	};
+    const { settings, recipients, gridParams, updatePersonalMappingData, updatePersonalMappingResult } = state;
+    return {
+        settings,
+        recipients,
+        gridParams,
+        updatePersonalMappingData,
+        updatePersonalMappingResult
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPersonalMappingPopup);

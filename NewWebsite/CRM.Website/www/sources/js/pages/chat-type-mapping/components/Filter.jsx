@@ -126,8 +126,8 @@ class Filter extends Component {
 
     isValidParams = () => {
         let isValid = true;
-        let errMsg
-        const filter = this.state.filter
+        let errMsg;
+        const filter = this.state.filter;
         if (filter.botIds.value === '') {
             isValid = false;
             errMsg = 'Please choose Bot Name';

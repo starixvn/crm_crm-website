@@ -17,7 +17,7 @@ export default class MultipleSelectField extends Component {
     isValid = value => value !== '';
 
     render() {
-        let defaultTexts = { SelectOptions: LangHelper.getResource('PleaseSelect'), All: LangHelper.getResource('PleaseSelect'), SelectedItemCount: '# selected' };
+        let defaultTexts = { SelectOptions: LangHelper.getResource('PleaseSelect'), All: LangHelper.getResource('All'), SelectedItemCount: '# selected' };
         return (
             <div style={{ width: this.props.width ? this.props.width : 'auto' }}
                 className={this.props.isSummited && !this.isValid(this.props.selectedValue) ? 'invalid multiple-select-field' : 'multiple-select-field'}

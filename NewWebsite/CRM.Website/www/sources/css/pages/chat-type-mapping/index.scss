@@ -3,6 +3,10 @@
 @import '../../components/multiple-select/style';
 @import '../../components/date-picker/style';
 @import '../../abstracts//variables';
+@import '../../components/forms';
+@import '../../components/icons';
+@import '../../components/messages';
+@import '../../components/modal';
 
 .table-title {
     border: 1px solid $border-table-grey;
@@ -47,4 +51,10 @@
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 520px;
+    }
 }

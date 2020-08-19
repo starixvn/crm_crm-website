@@ -76,7 +76,7 @@ export const updateActiveStatus = params => {
             dispatch(setUpateActivePopup({ isShow: false }))
         }).catch(Site.handleAxiosError);
     };
-}
+};
 
 export const setUpateActiveResult = data => {
     return {
@@ -112,8 +112,8 @@ export const getRecipientByGroupHeadline = headlineIds => {
 
     return dispatch => {
         dispatch(setRecipientData([]));
-    }
-}
+    };
+};
 
 const actions = {
     getSettings,

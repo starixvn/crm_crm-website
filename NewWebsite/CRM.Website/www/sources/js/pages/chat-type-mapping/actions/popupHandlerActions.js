@@ -47,7 +47,7 @@ export const insertPersonalMapping = params => {
 
 // Update Personal Mapping
 export const openUpdatePersonalMappingPopup = conversationId => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/GetPersonalMapping');
+    const url = Site.resolveClientUrl('ChatTypeMapping/GetMappingByConversationId');
     return dispatch => {
         return axios({
             method: 'post',
@@ -61,11 +61,11 @@ export const openUpdatePersonalMappingPopup = conversationId => {
             dispatch(setUpdatePersonalMappingData({ isShow: true, data: response.data }));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     };
-}
+};
 
 export const setUpdatePersonalMappingData = data => {
     return {
-        type: types.PERSONAL_MAPPING_UPDATE_DATA,
+        type: types.PERSONAL_MAPPING_UPDATE_POPUP_DATA,
         data: data
     };
 };
@@ -102,11 +102,11 @@ export const setUpdatePersonalMappingResult = data => {
         type: types.PERSONAL_MAPPING_UPDATE_RESULT,
         data: data
     };
-}
+};
 
 // Update Group Mapping
 export const openUpdateGroupMappingPopup = conversationId => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/GetGroupMapping');
+    const url = Site.resolveClientUrl('ChatTypeMapping/GetMappingByConversationId');
     return dispatch => {
         return axios({
             method: 'post',
@@ -160,7 +160,7 @@ export const updateGroupMapping = params => {
 
 export const setGroupMappingUpdateData = data => {
     return {
-        type: types.GROUP_MAPPING_UPDATE_DATA,
+        type: types.GROUP_MAPPING_POPUP_DATA,
         data: data
     };
 };

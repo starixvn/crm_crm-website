@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
 import MultipleSelectField from './MultipleSelectField';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
@@ -33,7 +33,7 @@ export class InsertPersonalMappingPopup extends Component {
                 isShow: false,
                 errMsgs: []
             }
-        }
+        };
     }
 
     handleChange = (fieldName, fieldValue) => {
@@ -57,7 +57,42 @@ export class InsertPersonalMappingPopup extends Component {
 
     isValidParams = () => {
         const data = this.state.form;
-        return data.botId && data.groupHeadlines.isValid && data.recipientType && data.languageId && data.recipients.isValid;
+        let isValid = true;
+        let errMsg = [];
+
+        if (!data.botId) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('BotRequired'));
+        }
+
+        if (!data.recipientType) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('RecipientTypeRequired'));
+        }
+
+        if (!data.groupHeadlines.isValid) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
+        }
+
+        if (!data.recipients.isValid) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('RecipientRequired'));
+        }
+
+        if (!data.languageId) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('LanguageRequired'));
+        }
+
+        this.setState({
+            isSubmitting: false,
+            validate: {
+                isShow: !isValid,
+                errMsgs: errMsg
+            }
+        });
+        return isValid;
     }
 
     getParams = () => {
@@ -69,7 +104,7 @@ export class InsertPersonalMappingPopup extends Component {
             recipientIds: this.state.form.recipients.value,
             languageId: this.state.form.languageId,
             remark: this.state.form.remark
-        }
+        };
     }
 
     handleSubmit = (e) => {
@@ -81,13 +116,11 @@ export class InsertPersonalMappingPopup extends Component {
                 if (this.props.insertPersonalMappingResult.isSuccessful) {
                     setTimeout(() => {
                         this.props.closeInsertPersonalMappingPopup();
-                        this.props.getGridData(this.props.gridParams)
+                        this.props.getGridData(this.props.gridParams);
                     }, 3000);
                 }
-                this.setState({ isSubmitting: false })
+                this.setState({ isSubmitting: false });
             });
-        } else {
-            console.log(this.state.validate);
         }
     }
 
@@ -95,6 +128,18 @@ export class InsertPersonalMappingPopup extends Component {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
+                    {
+                        this.state.validate.isShow &&
+                        <Alert variant="danger">
+                            <ul className="list-message-error">
+                                {
+                                    this.state.validate.errMsgs.map((msg, key) => {
+                                        return <li key={key}>{msg}</li>;
+                                    })
+                                }
+                            </ul>
+                        </Alert>
+                    }
                     {
                         this.props.personalMappingResult &&
                         <ResponseMessage isSuccessful={this.props.insertPersonalMappingResult.isSuccessful}
@@ -117,20 +162,17 @@ export class InsertPersonalMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3">
                             {LangHelper.getResource('Name')}
                         </Form.Label>
-                        <Col sm="8" md="9">
-
-                        </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
-                        <Col sm="8" md="9">
-                            <div>{LangHelper.getResource('Personal')}</div>
-                        </Col>
+                        <Form.Label column sm="8" md="9">
+                            {LangHelper.getResource('Personal')}
+                        </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
@@ -162,6 +204,8 @@ export class InsertPersonalMappingPopup extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
+                                isSearchable
+
                             />
                         </Col>
                     </Form.Group>
@@ -186,9 +230,7 @@ export class InsertPersonalMappingPopup extends Component {
                         <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('LetstalkID')}
                         </Form.Label>
-                        <Col sm="8" md="9">
-                            <div></div>
-                        </Col>
+                        <Col sm="8" md="9" />
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
@@ -206,7 +248,7 @@ export class InsertPersonalMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3" >
                             {LangHelper.getResource('Remark')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -215,8 +257,7 @@ export class InsertPersonalMappingPopup extends Component {
                                 name="remark"
                                 onChange={e => this.handleChange('remark', e.target.value)}
                                 value={this.state.form.remark}
-                            >
-                            </Form.Control>
+                            />
                         </Col>
                     </Form.Group>
                 </Modal.Body>
