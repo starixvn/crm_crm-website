@@ -179,6 +179,7 @@
             services.AddSingleton<ISecurityService, SecurityService>();
             services.AddSingleton<ISiteService, SiteService>();
 
+            services.AddSingleton<ILogger, Logger>();
             services.ResolveCoreDI();
             services.ResolveServiceDI();
         }
