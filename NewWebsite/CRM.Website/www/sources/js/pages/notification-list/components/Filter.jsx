@@ -217,9 +217,9 @@ class Filter extends Component {
     render() {
         return (
             <Form className='form-filter'>
-                <Form.Row bsPrefix='form-row' className='margin-bottom-10'>
-                    <label className='col-auto col-form-label width-120'>{LangHelper.getResource('NotificationType')}</label>
-                    <div className='col-auto position-relative margin-right-50'>
+                <Form.Row bsPrefix='form-row'>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <MultipleSelectField
                             width={150}
                             initialValue={this.state.filter.notificationTypes.value}
@@ -231,67 +231,56 @@ class Filter extends Component {
                             isAllTextShown
                             onChange={this.handleNotificationTypeChange}
                         />
-                    </div>
-                    <label className='col-auto col-form-label width-70'>{LangHelper.getResource('From')}</label>
-                    <div className='col-auto margin-right-50'>
-                        <DatePicker width={150} disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
-                    </div>
-                    <label className='col-auto col-form-label width-70'>{LangHelper.getResource('To')}</label>
-                    <div className='col-auto margin-right-50'>
-                        <DatePicker disabled={this.isDisabledDateParam()}  maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
-                    </div>
-                    <div className='flex-box'>
-                        <label className='label-in-div col-form-label'>{LangHelper.getResource('GroupHeadline')}</label>
-                        <div className='col-auto margin-right-50'>
-                            <Form.Control as='input' size='sm' className='shadow-none width-150' name='headline'
-                                value={this.state.filter.headline}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('From')}</Form.Label>
+                        <div className='react-datepicker-wrapper-container'>
+                            <DatePicker width={150} disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('To')}</Form.Label>
+                        <div className='react-datepicker-wrapper-container'>
+                            <DatePicker disabled={this.isDisabledDateParam()}  maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('GroupHeadline')}</Form.Label>
+                        <Form.Control as='input' size='sm' className='shadow-none width-150' name='headline'
+                            value={this.state.filter.headline}
+                            onChange={this.handleChangeFilterControl}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('Recipient')}</Form.Label>
+                        <Form.Control as='input' size='sm' className='shadow-none width-150' name='recipient'
+                            value={this.state.filter.recipient}
+                            onChange={this.handleChangeFilterControl}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none width-150' name='messageID'
+                            value={this.state.filter.messageID}
+                            onChange={this.handleChangeFilterControl}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('NotificationID')}</Form.Label>
+                        <div className="flex-box">
+                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
+                                value={this.state.filter.notificationIdLower}
+                                onChange={this.handleChangeFilterControl}
+                            />
+                            <div className='notification-concate'>_</div>
+                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
+                                value={this.state.filter.notificationIdUpper}
                                 onChange={this.handleChangeFilterControl}
                             />
                         </div>
-                    </div>
-                    <div className='flex-box'>
-                        <label className='label-in-div col-form-label'>{LangHelper.getResource('Recipient')}</label>
-                        <div className='col-auto margin-right-50'>
-                            <Form.Control as='input' size='sm' className='shadow-none width-150' name='recipient'
-                                value={this.state.filter.recipient}
-                                onChange={this.handleChangeFilterControl}
-                            />
-                        </div>
-                    </div>
-                    <div className='flex-box'>
-                        <label className='label-in-div col-form-label'>{LangHelper.getResource('MessageID')}</label>
-                        <div className='col-auto'>
-                            <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none width-150' name='messageID'
-                                value={this.state.filter.messageID}
-                                onChange={this.handleChangeFilterControl}
-                            />
-                        </div>
-                    </div>
-                </Form.Row>
-                <Form.Row bsPrefix='form-row'>
-                    <label className='col-auto col-form-label width-120'>{LangHelper.getResource('NotificationID')}</label>
-                    <div className='col-auto'>
-                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
-                            value={this.state.filter.notificationIdLower}
-                            onChange={this.handleChangeFilterControl}
-                        />
-                    </div>
-                    <div className='col-auto notification-concate'>_</div>
-                    <div className='col-auto margin-right-50'>
-                        <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
-                            value={this.state.filter.notificationIdUpper}
-                            onChange={this.handleChangeFilterControl}
-                        />
-                    </div>
-                    <label className='col-auto col-form-label width-70'>{LangHelper.getResource('Content')}</label>
-                    <div className='col-auto margin-right-50'>
-                        <Form.Control as='input' size='sm' className='shadow-none width-150' name='content'
-                            value={this.state.filter.content}
-                            onChange={this.handleChangeFilterControl}
-                        />
-                    </div>
-                    <label className='col-auto col-form-label width-70'>{LangHelper.getResource('Status')}</label>
-                    <div className='col-auto position-relative margin-right-50'>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('Status')}</Form.Label>
                         <MultipleSelectField
                             width={150}
                             initialValue={this.state.filter.statuses.value}
@@ -303,10 +292,10 @@ class Filter extends Component {
                             isAllTextShown
                             onChange={this.handleStatusChange}
                         />
-                    </div>
-                    <div className='col-auto'>
+                    </Form.Group>
+                    <Form.Group>
                         <Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-                    </div>
+                    </Form.Group>
                 </Form.Row>
             </Form>
         );

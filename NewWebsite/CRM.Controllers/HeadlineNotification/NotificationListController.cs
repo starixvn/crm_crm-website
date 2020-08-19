@@ -61,10 +61,9 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
         public async Task<IActionResult> GetGridData([FromBody]GetNotificationListCriteria param)
         {
-            if (param.FromDate.HasValue && param.ToDate.HasValue)
+            if (param.ToDate.HasValue)
             {
-                param.FromDate = param.FromDate.Value.AddHours(0).AddMinutes(0).AddSeconds(0);
-                param.ToDate = param.ToDate.Value.AddDays(1).AddMilliseconds(-1);
+                param.ToDate = param.ToDate.Value.AddDays(1).AddSeconds(-1);
             }
 
             var notifications = (await notificationListService.GetNotificationListAsync(param)).ToList();
