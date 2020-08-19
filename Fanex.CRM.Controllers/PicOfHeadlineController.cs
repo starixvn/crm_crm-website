@@ -275,7 +275,7 @@ namespace Fanex.CRM.Controllers
                             Position = d.Position,
                         }).OrderBy(a => a.DirectAccount)
                     }).OrderBy(v => v.Pic == null)
-                }).OrderBy(x => x.GroupHeadline);
+                }).OrderBy(x => x.GroupHeadlineId == 0).ThenBy(x => x.GroupHeadline);
 
             return result.ToList();
         }
