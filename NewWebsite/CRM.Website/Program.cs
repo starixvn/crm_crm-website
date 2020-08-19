@@ -24,7 +24,7 @@
 
                     config.AddEnvironmentVariables();
                 })
-                .UseStartup<Startup>().UseSentry();
+                .UseStartup<Startup>();
         }
     }
 }
