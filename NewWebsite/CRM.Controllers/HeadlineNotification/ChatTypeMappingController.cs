@@ -22,7 +22,6 @@
         public ChatTypeMappingController(ISettingService settingService,
             ICommonService commonService,
             IChatTypeMappingService chatTypeMappingService)
-            ICommonService commonService)
         {
             this.settingService = settingService;
             this.commonService = commonService;
