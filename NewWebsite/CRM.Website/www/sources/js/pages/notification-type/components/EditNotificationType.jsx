@@ -32,12 +32,6 @@ class EditNotificationType extends Component {
         };
     }
 
-    validationSchema = object().shape({
-        notificationType: string().required(LangHelper.getResource('NotificationTypeRequired')),
-        recipientType: string().required(LangHelper.getResource('RecipientTypeRequired')),
-        chatType: string().required(LangHelper.getResource('ChatTypeRequired')),
-        system: string().required(LangHelper.getResource('SystemRequired')),
-    })
 
     componentDidMount () {
             const listRecipientTypeChecked = [];
@@ -121,18 +115,19 @@ class EditNotificationType extends Component {
         }
 
         validate = values => {
+            const type = this.state.popup;
             const errors = {};
-            if (!values.notificationTypeName) {
+            if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
                 errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
             }
     
-            // if (!values.recipientTypeId) {
-            //     errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
-            // }
+            if (!type.recipientTypes.value) {
+                errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
+            }
     
-            // if (!values.chatTypeId) {
-            //     errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
-            // }
+            if (!type.chatTypes.value) {
+                errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
+            }
             
             return errors;
         }

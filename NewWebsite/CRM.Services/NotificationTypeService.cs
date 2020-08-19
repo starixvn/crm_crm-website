@@ -1,6 +1,5 @@
 ﻿namespace CRM.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using CRM.Core.Models;
@@ -86,7 +85,6 @@
 
         public async Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetGridDataParam param)
         {
-
             var criteria = new GetNotificationTypeCriteria
             {
                 RecipientTypeIds = param.RecipientTypeIds,

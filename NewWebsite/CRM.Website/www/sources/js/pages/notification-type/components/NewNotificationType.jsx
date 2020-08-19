@@ -16,10 +16,10 @@ class NewNotificationType extends Component {
 
         this.state = {
             popup: {
-                recipientType: {
+                recipientTypeIds: {
                     value: ''
                 },
-                chatType: {
+                chatTypeIds: {
                     value: ''
                 },
                 systemId: {
@@ -34,31 +34,25 @@ class NewNotificationType extends Component {
 
     componentDidMount () {
             // recipient type
-            const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                recipientTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
-                    checked: true
+                    checked: false
                 };
             });
 
             // chat type
-            const chatTypeIds = [];
             const chatTypesOptions = this.props.settings.chatTypes.map(x => {
-                chatTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
-                    checked: true
+                    checked: false
                 };
             });
 
             // system
-            const systemIds = [];
             const systemsOptions = this.props.settings.systems.map(x => {
-                systemIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name
@@ -70,47 +64,35 @@ class NewNotificationType extends Component {
                     chatTypesOptions,
                     systemsOptions,
                     popup: {
-                        ...prevState.popup,
-                        ...{
-                            recipientType: {
-                                value: recipientTypeIds.toString()
-                            },
-                            chatType: {
-                                value: chatTypeIds.toString()
-                            },
-                            systemId: {
-                                value: systemIds.toString()
-                            }
-                        }
-                    }
+                        ...prevState.popup
+                    },
             }));
     }
 
     validate = values => {
+        const type = this.state.popup;
         const errors = {};
-        if (!values.notificationTypeName) {
+        if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
             errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        // if (!values.recipientTypeIds) {
-        //     errors.recipientTypeId = LangHelper.getResource('RecipientTypeRequired');
-        // }
+        if (!type.recipientTypeIds.value) {
+            errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
+        }
 
-        // if (!values.chatTypeIds) {
-        //     errors.chatTypeId = LangHelper.getResource('ChatTypeRequired');
-        // }
+        if (!type.chatTypeIds.value) {
+            errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
+        }
 
         if (!values.systemId) {
             errors.systemId = LangHelper.getResource('SystemRequired');
         }
 
-
         return errors;
     }
 
-    recipientTypeChange = value => this.handlePopupChange('recipientTypes', value)
-    chatTypeChange = value => this.handlePopupChange('chatTypes', value)
-    systemChange = value => this.handlePopupChange('systemId', value)
+    recipientTypeChange = value => this.handlePopupChange('recipientTypeIds', value)
+    chatTypeChange = value => this.handlePopupChange('chatTypeIds', value)
 
     renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
@@ -152,17 +134,17 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="recipientTypeId" className="required">
-                            {LangHelper.getResource('RecipientType')}
+                        <Form.Label column sm="4" md="3" htmlFor="recipientTypeIds" className="required">
+                            {LangHelper.getResource('RecipientTypeIds')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField
+                            <MultipleSelectField value={this.state.popup.recipientTypeIds} name="recipientTypeIds" isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
                             width={570}
-                            initialValue={this.state.popup.recipientTypeId}
+                            initialValue={this.state.popup.recipientTypes}
                             data={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
-                            statusField=''
+                            statusField='checked'
                             isSummited={false}
                             isAllTextShown
                             onChange={this.recipientTypeChange}
@@ -171,17 +153,17 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" value={values.chatTypeId}  htmlFor="chatTypeId" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="chatTypeIds" className="required">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField
+                            <MultipleSelectField value={this.state.popup.chatTypeIds} name="chatTypeIds" isInvalid={touched.chatTypeIds && errors.chatTypeIds}
                             width={570}
                             initialValue={this.state.popup.chatTypeIds}
                             data={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
-                            statusField=''
+                            statusField='checked'
                             isSummited={false}
                             isAllTextShown
                             onChange={this.chatTypeChange}
@@ -222,8 +204,8 @@ class NewNotificationType extends Component {
     handleSubmit = (values, { setSubmitting }) => {
         const type = {
             notificationTypeName: values.notificationTypeName,
-            chatTypeIds: this.state.popup.chatTypes.value,
-            recipientTypeIds: this.state.popup.recipientTypes.value,
+            chatTypeIds: this.state.popup.chatTypeIds.value,
+            recipientTypeIds: this.state.popup.recipientTypeIds.value,
             systemId: values.systemId
         };
 
@@ -242,12 +224,12 @@ class NewNotificationType extends Component {
     render() {
         const initialValues = {
             notificationTypeName: '',
-            recipientTypeIds: '',
+            recipientTypeIds:'',
             chatTypeIds: '',
             systemId: ''
         }
         return (
-            <Modal show className="new-notification-Type"
+            <Modal show className="new-notification-type"
                 backdrop="static" keyboard={false} size="lg"
                 onHide={this.props.onClose}
             >

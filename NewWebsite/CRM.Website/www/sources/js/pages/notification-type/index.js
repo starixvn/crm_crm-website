@@ -7,11 +7,12 @@ import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
-    notificationTypes: [],
     createTypePopup: { show: false },
     createTypeResult: null,
     editTypePopup: { show: false },
     editTypeResult: null,
+    deleteTypePopup: { show: false },
+    deleteTypeResult: null,
     settings: {
         ChatTypes: [],
         Recipients: [],
