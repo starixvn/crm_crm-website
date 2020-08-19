@@ -9,6 +9,7 @@
     using CRM.Models.Auth;
     using CRM.Services;
     using Fanex.Data;
+    using Fanex.Logging;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Models;
     using Fanex.NAP.Client.Services;
@@ -26,6 +27,7 @@
         private readonly IAuthService authService;
         private readonly AppSettings appSettings;
         private readonly ExternalSiteHostUrl externalSiteHostUrl;
+        private readonly ILogger logger;
 
         public AuthController(
             IUserService userService,
@@ -33,7 +35,8 @@
             ISecurityService securityService,
             IAuthService authService,
             IOptionsSnapshot<AppSettings> appSettings,
-            IOptionsSnapshot<ExternalSiteHostUrl> externalSiteHostUrl)
+            IOptionsSnapshot<ExternalSiteHostUrl> externalSiteHostUrl,
+            ILogger logger)
         {
             this.userService = userService;
             this.napSession = napSession;
@@ -41,6 +44,7 @@
             this.authService = authService;
             this.appSettings = appSettings.Value;
             this.externalSiteHostUrl = externalSiteHostUrl.Value;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> SignIn(SignIn model)
@@ -50,14 +54,25 @@
                 return View();
             }
 
-            User user = await userService.GetAsync(model.Username);
-            if (user != null && IsValidPassword(user, model))
+            try
             {
-                int.TryParse(Cryptography.DecryptPassword(model.OnUserId.Replace(" ", "+")), out int onUserId);
-                await DoSignInAsync(user, onUserId);
+                User user = await userService.GetAsync(model.Username);
+                if (user != null && IsValidPassword(user, model))
+                {
+                    int.TryParse(Cryptography.DecryptPassword(model.OnUserId.Replace(" ", "+")), out int onUserId);
+                    await DoSignInAsync(user, onUserId);
+                }
+
+                logger.Info("sign in successful");
+
+                return new RedirectResult(externalSiteHostUrl.DefaultPageUrl);
+            }
+            catch(Exception ex)
+            {
+                logger.Error("error", ex);
             }
 
-            return new RedirectResult(externalSiteHostUrl.DefaultPageUrl);
+            return View();
         }
 
         public async Task<IActionResult> SingleSignOn(SingleSignOn model)
