@@ -6,6 +6,8 @@
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
+    using CRM.Criteria.ChatBot;
+    using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
     using CRM.Models;
     using CRM.Models.NotificationList;
@@ -25,19 +27,22 @@
         private readonly IUserService userService;
         private readonly INotificationListService notificationListService;
         private readonly INotificationTypeService notificationTypeService;
+        private readonly ICommonService commonService;
 
         public NotificationListController(
             INapSession napSession,
             INapSettings napSettings,
             IUserService userService,
             INotificationListService notificationListService,
-            INotificationTypeService notificationTypeService)
+            INotificationTypeService notificationTypeService,
+            ICommonService commonService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
             this.notificationListService = notificationListService;
             this.notificationTypeService = notificationTypeService;
+            this.commonService = commonService;
         }
 
         public IActionResult Index()
@@ -46,11 +51,15 @@
             return View(isHost);
         }
 
-        public IActionResult GetSettings()
+        public async Task<IActionResult> GetSettings()
         {
+            var recipientsCriteria = new GetRecipientsCriteria();
+            var headlinesCriteria = new GetHeadlinesCriteria();
             var result = new
             {
                 NotificationTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
+                Recipients = await commonService.GetRecipients(recipientsCriteria),
+                Headlines = await commonService.GetHeadlines(headlinesCriteria),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
 

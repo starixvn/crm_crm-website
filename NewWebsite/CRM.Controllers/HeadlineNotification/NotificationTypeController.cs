@@ -23,13 +23,13 @@ namespace CRM.Controllers
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
-        private readonly IChatBotService chatBotService;
+        private readonly ICommonService chatBotService;
 
         public NotificationTypeController(
             INotificationTypeService notificationTypeService,
             INapSession napSession,
             INapSettings napSettings,
-            IChatBotService chatBotService,
+            ICommonService chatBotService,
             IUserService userService)
         {
             this.notificationTypeService = notificationTypeService;

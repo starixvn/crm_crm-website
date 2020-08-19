@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class GetRecipientsByTypeCriteria : CriteriaBase
+    public class GetRecipientsCriteria : CriteriaBase
     {
         public string RecipientName { get; set; }
 

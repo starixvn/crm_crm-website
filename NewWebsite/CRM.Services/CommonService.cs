@@ -4,14 +4,15 @@
     using System.Threading.Tasks;
     using CRM.Core.Services;
     using CRM.Criteria.ChatBot;
+    using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;
 
-    public class ChatBotService : IChatBotService
+    public class CommonService : ICommonService
     {
         private readonly IBaseService baseService;
 
-        public ChatBotService(IBaseService baseService)
+        public CommonService(IBaseService baseService)
         {
             this.baseService = baseService;
         }
@@ -23,9 +24,8 @@
             return result;
         }
 
-        public async Task<IEnumerable<BaseModel>> GetRecipientsByType(int recipientType)
+        public async Task<IEnumerable<BaseModel>> GetRecipients(GetRecipientsCriteria criteria)
         {
-            var criteria = new GetRecipientsByTypeCriteria { RecipientType = recipientType };
             var result = await baseService.GetDataAsync<BaseModel>(criteria);
             return result;
         }
@@ -40,6 +40,12 @@
         public async Task<IEnumerable<BaseModel>> GetSystems()
         {
             var criteria = new GetSystemsCriteria();
+            var result = await baseService.GetDataAsync<BaseModel>(criteria);
+            return result;
+        }
+
+        public async Task<IEnumerable<BaseModel>> GetHeadlines(GetHeadlinesCriteria criteria)
+        {
             var result = await baseService.GetDataAsync<BaseModel>(criteria);
             return result;
         }

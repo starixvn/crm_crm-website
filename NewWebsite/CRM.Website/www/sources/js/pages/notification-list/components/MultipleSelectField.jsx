@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { FormFeedback } from 'reactstrap';
-// import Labels from '../../common/Labels';
 import MultipleSelect from '../../../components/multiple-select/index';
 
 export default class MultipleSelectField extends Component {
@@ -37,7 +35,6 @@ export default class MultipleSelectField extends Component {
                         onChange={(currentItem, selectedItemsKey) => this.onChange(selectedItemsKey)}
                     />
                 }
-                {/* {this.props.isSummited && !this.isValid(this.props.selectedValue) && <FormFeedback>This field is required.</FormFeedback>} */}
             </div>
         );
     }

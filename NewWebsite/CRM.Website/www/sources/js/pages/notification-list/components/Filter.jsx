@@ -7,7 +7,8 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
-import { getNowGMTAdd8, convertDateToString } from '../../../common/functions';
+import { getNowGMTAdd8 } from '../../../common/functions';
+import Select from 'react-select' ;
 
 class Filter extends Component {
     constructor(props) {
@@ -33,6 +34,8 @@ class Filter extends Component {
             },
             maxDate: now,
             notificationTypeOptions: [],
+            headlineOptions: [],
+            recipientOptions: [],
             statusOptions: []
         };
     }
@@ -49,7 +52,23 @@ class Filter extends Component {
                     checked: true
                 };
             });
-    
+
+            // recipient
+            const recipientOptions = this.props.settings.recipients.map(x => {
+                return {
+                    value: x.name,
+                    label: x.name
+                };
+            });
+
+            // headline
+            const headlineOptions = this.props.settings.headlines.map(x => {
+                return {
+                    value: x.name,
+                    label: x.name
+                };
+            });
+
             // status
             const statuses = [];
             const statusOptions = this.props.settings.statuses.map(x => {
@@ -63,6 +82,8 @@ class Filter extends Component {
     
             this.setState(prevState => ({
                 notificationTypeOptions,
+                headlineOptions,
+                recipientOptions,
                 statusOptions,
                 filter: {
                     ...prevState.filter,
@@ -252,6 +273,19 @@ class Filter extends Component {
                         />
                     </Form.Group>
                     <Form.Group>
+                        <Form.Label>{LangHelper.getResource('GroupHeadline')}</Form.Label>
+                        <Select
+                            className='basic-single'
+                            classNamePrefix='select'
+                            defaultValue={0}
+                            // isLoading={isLoading}
+                            isClearable={true}
+                            isSearchable={true}
+                            name='headline'
+                            options={this.state.headlineOptions}
+                        />
+                    </Form.Group>
+                    <Form.Group>
                         <Form.Label>{LangHelper.getResource('Recipient')}</Form.Label>
                         <Form.Control as='input' size='sm' className='shadow-none width-150' name='recipient'
                             value={this.state.filter.recipient}
@@ -267,7 +301,7 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationID')}</Form.Label>
-                        <div className="flex-box">
+                        <div className='flex-box'>
                             <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
                                 value={this.state.filter.notificationIdLower}
                                 onChange={this.handleChangeFilterControl}

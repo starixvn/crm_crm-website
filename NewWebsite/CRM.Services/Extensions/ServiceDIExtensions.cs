@@ -12,8 +12,7 @@
             services.AddTransient<INotificationListService, NotificationListService>();
             services.AddTransient<INotificationTemplateService, NotificationTemplateService>();
             services.AddTransient<INotificationTypeService, NotificationTypeService>();
-            services.AddTransient<IChatBotService, ChatBotService>();
-            services.AddTransient<IHeadlineService, HeadlineService>();
+            services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<INotificationListRepository, NotificationListRepository>();
             services.AddTransient<INotificationTypeRepository, NotificationTypeRepository>();
         }

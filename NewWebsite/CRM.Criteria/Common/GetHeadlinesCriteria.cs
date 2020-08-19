@@ -1,8 +1,8 @@
-﻿namespace CRM.Criteria.Headline
+﻿namespace CRM.Criteria.Common
 {
     using Fanex.Data.Repository;
 
-    public class GetAllCriteria : CriteriaBase
+    public class GetHeadlinesCriteria : CriteriaBase
     {
         public int? Limit { get; set; }
 

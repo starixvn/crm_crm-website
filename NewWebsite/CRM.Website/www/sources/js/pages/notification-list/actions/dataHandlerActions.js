@@ -94,14 +94,14 @@ export const setSettings = data => {
     };
 };
 
-export const getSettings = () => {
+export const getSettings = () => async dispatch => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationList/GetSettings');
-    return dispatch => {
-        return axios.get(url).then(response => {
-            dispatch(setSettings(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'get',
+        url: Site.resolveClientUrl('NotificationList/GetSettings')
+    }).then(response => {
+        dispatch(setSettings(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 export const setErrorResolvedContent = data => {

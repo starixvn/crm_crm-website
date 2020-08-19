@@ -22,6 +22,8 @@ const store = Store.createStore(reducer, {
     },
     settings: {
         notificationTypes: [],
+        headlines: [],
+        recipients: [],
         statuses: []
     },
     errorResolvedContent: {
