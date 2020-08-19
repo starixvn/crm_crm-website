@@ -15,6 +15,6 @@ export const MappingStatus = {
 };
 
 export const ChatTypeMapping = {
-    'Personal': 0,
+    'Personal': 2,
     'Group': 1
 };
