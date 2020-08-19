@@ -1504,7 +1504,7 @@
     <Content Include="Configurations\AppSettings\CN88Local.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\CN88UAT.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\dev.Web.Setting.config" />
-    <Content Include="Configurations\AppSettings\Local.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\Web.Setting.Local.config" />
     <Content Include="Configurations\AppSettings\Master.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\PRO.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UAT.Web.Setting.config" />
