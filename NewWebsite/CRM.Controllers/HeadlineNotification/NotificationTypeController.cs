@@ -23,28 +23,28 @@ namespace CRM.Controllers
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
-        private readonly ICommonService chatBotService;
+        private readonly ICommonService commonService;
 
         public NotificationTypeController(
             INotificationTypeService notificationTypeService,
             INapSession napSession,
             INapSettings napSettings,
-            ICommonService chatBotService,
-            IUserService userService)
+            IUserService userService,
+            ICommonService commonService)
         {
             this.notificationTypeService = notificationTypeService;
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
-            this.chatBotService = chatBotService;
+            this.commonService = commonService;
         }
         public async Task<IActionResult> GetSettings()
         {
             var result = new
             {
                 ChatTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
-                Systems = await chatBotService.GetSystems(),
-                Recipients = await chatBotService.GetRecipientTypes()
+                Systems = await commonService.GetSystems(),
+                Recipients = await commonService.GetRecipientTypes()
             };
 
             return Json(result);

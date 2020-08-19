@@ -17,7 +17,7 @@
         private INapSession napSession;
         private INapSettings napSettings;
         private IUserService userService;
-        private IChatBotService chatBotService;
+        private ICommonService commonService;
 
         [Fact]
         public async Task GetGridData_WhenCalled_ReturnExpectedData()
@@ -46,8 +46,8 @@
             napSession = Substitute.For<INapSession>();
             napSettings = Substitute.For<INapSettings>();
             userService = Substitute.For<IUserService>();
-            chatBotService = Substitute.For<IChatBotService>();
-            return new NotificationTypeController(notificationTypeService, napSession, napSettings, userService, chatBotService);
+            commonService = Substitute.For<ICommonService>();
+            return new NotificationTypeController(notificationTypeService, napSession, napSettings, userService, commonService);
         }
     }
 }
