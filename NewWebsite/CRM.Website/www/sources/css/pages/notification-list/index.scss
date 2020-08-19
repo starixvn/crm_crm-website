@@ -2,8 +2,9 @@
 @import '../../components/react-grid/react-grid';
 @import '../../components/multiple-select/style';
 @import '../../components/date-picker/style';
-@import '../../abstracts//variables';
+@import '../../abstracts/variables';
 @import '../../components/modal';
+@import '~react-select/scss/default';
 
 .table-title {
     border: 1px solid $border-table-grey;
@@ -102,7 +103,7 @@
 }
 
 .notification-id-input {
-    width: 60px !important;
+    width: 65px !important;
 }
 
 .width-70 {
@@ -114,7 +115,7 @@
 }
 
 .notification-concate {
-    width: 30px;
+    width: 20px;
     text-align: center;
 }
 
@@ -143,11 +144,11 @@ td, th {
 }
 
 .multiple-select-default.multiple-select-label {
-    height: 32px;
+    height: 26px;
 }
 
 input {
-    height: 34px !important;
+    height: 28px !important;
 }
 
 .label-in-div {
@@ -165,4 +166,17 @@ input {
 
 .datetime-picker {
     width: 150px !important;
+}
+
+.custom-select-with-search {
+    width: 150px;
+
+    .Select-input {
+        width: 125px;
+        overflow: hidden;
+
+        input {
+            padding: 0;
+        }
+    }
 }

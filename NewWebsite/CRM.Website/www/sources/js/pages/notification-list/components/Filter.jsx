@@ -8,7 +8,7 @@ import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
 import { getNowGMTAdd8 } from '../../../common/functions';
-import Select from 'react-select' ;
+import SelectWithSearch from 'react-select';
 
 class Filter extends Component {
     constructor(props) {
@@ -25,8 +25,8 @@ class Filter extends Component {
                 },
                 fromDate: now,
                 toDate: now,
-                headline: '',
-                recipient: '',
+                headline: null,
+                recipient: null,
                 notificationIdLower: '',
                 notificationIdUpper: '',
                 messageID: '',
@@ -120,6 +120,10 @@ class Filter extends Component {
 
     handleToDateChange = value => this.handleFilterChange('toDate', value)
 
+    handleHeadlineChange = value => this.handleFilterChange('headline', value)
+
+    handleRecipientChange = value => this.handleFilterChange('recipient', value)
+
     handleStatusChange = value => this.handleFilterChange('statuses', value)
 
     handleChangeFilterControl = e => {
@@ -135,8 +139,8 @@ class Filter extends Component {
             notificationTypeIds: this.state.filter.notificationTypes.value,
             fromDate: this.state.filter.fromDate,
             toDate: this.state.filter.toDate,
-            headline: this.state.filter.headline,
-            recipientName: this.state.filter.recipient,
+            headline: this.state.filter.headline ? this.state.filter.headline.value : null,
+            recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : null,
             messageId: this.state.filter.messageID,
             notificationIdUpper: this.state.filter.notificationIdLower,
             notificationIdLower: this.state.filter.notificationIdUpper,
@@ -267,29 +271,27 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('GroupHeadline')}</Form.Label>
-                        <Form.Control as='input' size='sm' className='shadow-none width-150' name='headline'
-                            value={this.state.filter.headline}
-                            onChange={this.handleChangeFilterControl}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>{LangHelper.getResource('GroupHeadline')}</Form.Label>
-                        <Select
-                            className='basic-single'
-                            classNamePrefix='select'
-                            defaultValue={0}
-                            // isLoading={isLoading}
-                            isClearable={true}
-                            isSearchable={true}
+                        <SelectWithSearch
+                            className='basic-single custom-select-with-search'
+                            isSearchable
+                            isClearable
                             name='headline'
+                            onChange={this.handleHeadlineChange}
                             options={this.state.headlineOptions}
+                            value={this.state.filter.headline}
+                            height={28}
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('Recipient')}</Form.Label>
-                        <Form.Control as='input' size='sm' className='shadow-none width-150' name='recipient'
+                        <SelectWithSearch
+                            className='basic-single custom-select-with-search'
+                            isSearchable
+                            isClearable
+                            name='recipient'
+                            onChange={this.handleRecipientChange}
+                            options={this.state.recipientOptions}
                             value={this.state.filter.recipient}
-                            onChange={this.handleChangeFilterControl}
                         />
                     </Form.Group>
                     <Form.Group>

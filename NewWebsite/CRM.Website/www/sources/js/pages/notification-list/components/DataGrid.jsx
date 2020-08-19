@@ -22,6 +22,9 @@ export class DataGrid extends Component {
     }
 
     buildHeader = isHost => {
+        const resendList = this.props.resendOptions.dataList.filter(item => this.isErrorOrResolved(item.status) && item.isResent);
+        const hasResend = resendList > 0;
+        
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
@@ -40,8 +43,12 @@ export class DataGrid extends Component {
                 }
                 {
                     isHost && <HeaderCell colWidth={10}>
-                        <div className='margin-bottom-10 link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div>
-                        <Form.Control className='checkbox-cell-style' type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
+                        {
+                            hasResend ? 
+                            <div className='margin-bottom-10 link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
+                            <div className='margin-bottom-10'>{LangHelper.getResource('Resend')}</div>
+                        }
+                        <Form.Control className='checkbox-cell-style' disabled={!hasResend} type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
                     </HeaderCell>
                 }
             </HeaderRow>
