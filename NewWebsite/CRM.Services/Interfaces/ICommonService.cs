@@ -17,6 +17,10 @@
 
         Task<IEnumerable<BaseModel>> GetSystems();
 
+        IEnumerable<BaseModel> GetChatTypes();
+
+        IEnumerable<BaseModel> GetMappingStatus();
+
         Task<IEnumerable<BaseModel>> GetHeadlines(GetHeadlinesCriteria criteria);
     }
 }

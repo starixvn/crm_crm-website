@@ -15,7 +15,7 @@ class Filter extends Component {
 
         this.state = {
             filter: {
-                chatType: '',
+                chatType: null,
                 name: '',
                 groupHeadline: '',
                 recipient: '',
@@ -71,7 +71,7 @@ class Filter extends Component {
 
             const state = {
                 filter: {
-                    chatType: '',
+                    chatType: null,
                     name: '',
                     groupHeadline: '',
                     recipient: '',
@@ -118,7 +118,7 @@ class Filter extends Component {
             letstalkId: this.state.filter.letstalkID,
             mappingStatuses: this.state.filter.mappingStatuses.value,
             languageIds: this.state.filter.languages.value,
-            active: this.state.filter.active,
+            isActive: this.state.filter.active,
             pageIndex: 1,
             pageSize: 100
         };

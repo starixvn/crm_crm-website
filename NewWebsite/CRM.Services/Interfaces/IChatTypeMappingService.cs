@@ -1,0 +1,13 @@
+﻿namespace CRM.Services.Interfaces
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using CRM.Criteria.ChatTypeMapping;
+    using CRM.Models.ChatTypeMapping;
+
+    public interface IChatTypeMappingService
+    {
+        Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria);
+    }
+}

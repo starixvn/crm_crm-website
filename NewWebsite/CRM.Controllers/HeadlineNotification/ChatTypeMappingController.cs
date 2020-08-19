@@ -1,34 +1,32 @@
 ﻿namespace CRM.Controllers.HeadlineNotification
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
-    using CRM.Core.Enumerables;
-    using CRM.Core.Extensions;
     using CRM.Core.Models;
-    using CRM.Core.Services;
+    using CRM.Criteria.ChatTypeMapping;
+    using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.Setting;
     using CRM.Services;
+    using CRM.Services.Interfaces;
     using CRM.ViewModels.ChatTypeMapping;
     using Microsoft.AspNetCore.Mvc;
 
     public class ChatTypeMappingController : Controller
     {
-        private readonly IBaseService baseService;
         private readonly ISettingService settingService;
         private readonly ICommonService commonService;
+        private readonly IChatTypeMappingService chatTypeMappingService;
 
-        public ChatTypeMappingController(
-            IBaseService baseService,
-            ISettingService settingService,
+        public ChatTypeMappingController(ISettingService settingService,
+            ICommonService commonService,
+            IChatTypeMappingService chatTypeMappingService)
             ICommonService commonService)
         {
-            this.baseService = baseService;
             this.settingService = settingService;
             this.commonService = commonService;
+            this.chatTypeMappingService = chatTypeMappingService;
         }
 
         public IActionResult Index()
@@ -38,30 +36,49 @@
 
         public async Task<IActionResult> GetSettings()
         {
-            var chatType = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
-            var status = Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
-
             var bots = commonService.GetConversationBots();
             var lang = settingService.GetAsync(new GetSettingParam { SettingName = SettingName.NotificationTemplateLanguage, IsActive = 1 });
             var recipientTypes = commonService.GetRecipientTypes();
+            var headlines = commonService.GetHeadlines(new GetHeadlinesCriteria { Username = string.Empty });
 
-            await Task.WhenAll(bots, lang, recipientTypes);
+            await Task.WhenAll(bots, lang, recipientTypes, headlines);
 
             var result = new
             {
-                ChatTypes = chatType,
-                MappingStatuses = status,
+                ChatTypes = commonService.GetChatTypes(),
+                MappingStatuses = commonService.GetMappingStatus(),
                 Languages = lang,
                 Bots = bots,
-                RecipientTypes = recipientTypes
+                RecipientTypes = recipientTypes,
+                GroupHeadline = headlines
             };
             return Json(result);
         }
 
         [HttpPost]
-        public IActionResult GetChatTypeMapping(ChatTypeFilterViewModel filter)
+        public async Task<IActionResult> GetChatTypeMapping(ChatTypeFilterViewModel filter)
         {
-            return Json(null);
+            var criteria = new GetChatTypeMappingCriteria
+            {
+                ChatTypeId = filter.ChatType,
+                ConversationGroupName = filter.Name,
+                Headline = filter.GroupHeadline,
+                RecipientName = filter.RecipientIds,
+                LetstalkId = filter.LetstalkId,
+                LanguageIds = filter.LanguageIds,
+                IsActive = filter.IsActive,
+                ConversationBotIds = filter.BotIds,
+                MappingStatus = filter.MappingStatuses,
+                PageIndex = filter.PageIndex,
+                PageSize = filter.PageSize
+            };
+
+            var data = await chatTypeMappingService.GetChatTypeMappingAsync(criteria);
+            return Json(new
+            {
+                data = data.Item1,
+                TotalItems = data.Item2
+            });
         }
 
         [HttpPost]

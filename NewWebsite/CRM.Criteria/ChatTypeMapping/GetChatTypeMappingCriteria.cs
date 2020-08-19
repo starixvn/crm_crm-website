@@ -4,6 +4,30 @@
 
     public class GetChatTypeMappingCriteria : CriteriaBase
     {
+        public int? ChatTypeId { get; set; }
+
+        public string ConversationGroupName { get; set; }
+
+        public string Headline { get; set; }
+
+        public string RecipientName { get; set; }
+
+        public string LetstalkId { get; set; }
+
+        public string LanguageIds { get; set; }
+
+        public bool? IsActive { get; set; }
+
+        public string ConversationBotIds { get; set; }
+
+        public string MappingStatus { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int TotalRows { get; set; }
+
         public override string GetSettingKey() => "Acc_CRM_ChatBot_ChatTypeMapping_Sel";
 
         public override bool IsValid() => true;

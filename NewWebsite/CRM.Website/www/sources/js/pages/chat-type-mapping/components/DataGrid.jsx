@@ -25,12 +25,12 @@ export class DataGrid extends Component {
         this.props.getGridData(params);
     }
 
-    onChangeActiveStaus = (conversationId, isChecked) => {
-        this.props.setUpateActivePopup({ isShowPopup: true, conversationId, isChecked });
+    onChangeActiveStaus = (conversationGroupId, isChecked) => {
+        this.props.setUpateActivePopup({ isShowPopup: true, conversationGroupId, isChecked });
     }
 
     updateActiveStatus = () => {
-        const params = { conversationId: this.props.updateActiveStatusPopup.conversationId, isActive: this.props.updateActiveStatusPopup.isChecked };
+        const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
         this.props.updateActiveStatus(params);
     }
 
@@ -39,11 +39,11 @@ export class DataGrid extends Component {
         this.props.getGridData(this.props.gridParams);
     }
 
-    handleEdit = (chatTypeId, conversationId) => {
+    handleEdit = (chatTypeId, data) => {
         if (parseInt(chatTypeId, 10) === ChatTypeMapping.Personal) {
-            this.props.openUpdatePersonalMappingPopup(conversationId);
+            this.props.openUpdatePersonalMappingPopup(data);
         } else {
-            this.props.openUpdateGroupMappingPopup(conversationId);
+            this.props.openUpdateGroupMappingPopup(data);
         }
     }
 
@@ -82,22 +82,22 @@ export class DataGrid extends Component {
         const { pageIndex, pageSize } = this.props.gridParams;
 
         this.startIndex = (pageIndex - 1) * pageSize + 1;
-        if (this.props.gridData.length > 0) {
-            return this.props.gridData.map((item, index) => this.renderRow(item, index, isHost));
+        if (this.props.gridData.data.length > 0) {
+            return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
         return [<Row key={`body${1}`} ><Cell className='text-center' colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
-    renderIsActiveCol = (isHost, conversationId, isActive, numOfRow) => {
+    renderIsActiveCol = (isHost, conversationGroupId, isActive, numOfRow) => {
         if (isHost) {
             return (
                 <Cell rowSpan={numOfRow} className='text-center'>
                     <Form.Control className='checkbox-cell-style'
-                        id={`active-chk-${conversationId}`}
+                        id={`active-chk-${conversationGroupId}`}
                         type='checkbox'
                         checked={isActive}
-                        onChange={(e) => this.onChangeActiveStaus(conversationId, e.target.checked)} />
+                        onChange={(e) => this.onChangeActiveStaus(conversationGroupId, e.target.checked)} />
                 </Cell>
             );
         }
@@ -106,34 +106,36 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
-        let groupConversation = this.props.gridData.filter(i => i.conversationId === item.conversationId);
+        let groupConversation = this.props.gridData.filter(i => i.conversationGroupId === item.conversationGroupId);
         const numOfRowSpan = groupConversation.length;
-        if (index === 0 || this.props.gridData[index - 1].conversationId !== item.conversationId) {
+        if (index === 0 || this.props.gridData[index - 1].conversationGroupId !== item.conversationGroupId) {
             return (
                 <Row key={index}>
                     <Cell rowSpan={numOfRowSpan} className='text-center'>{index + this.startIndex}</Cell>
                     <Cell rowSpan={numOfRowSpan}>{item.chatType}</Cell>
                     <Cell rowSpan={numOfRowSpan}>{item.botName}</Cell>
                     <Cell rowSpan={numOfRowSpan}>
-                        {item.name}
+                        {item.conversationGroupName}
                         {
                             item.chatTypeId === ChatTypeMapping.Group &&
-                            <span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.GroupId)} title='Coppy to clipboard' />
+                            <span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.LetstalkId)} title='Coppy to clipboard' />
                         }
                     </Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.recipientType}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.groupHeadline}</Cell>
-                    <Cell>{item.recipient}</Cell>
+                    <Cell rowSpan={numOfRowSpan}>{item.recipientTypeName}</Cell>
+                    <Cell rowSpan={numOfRowSpan}>{item.headlines.map(h => h.headlineName).join(', ')}</Cell>
+                    <Cell>{item.recipientName}</Cell>
                     <Cell>{item.letstalkId}</Cell>
                     <Cell rowSpan={numOfRowSpan}>{item.language}</Cell>
-                    <Cell rowSpan={numOfRowSpan} className='text-center'><span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatType === 'Group' ? item.mappingStatus : ''}</span></Cell>
-                    {this.renderIsActiveCol(isHost, item.conversationId, item.isActive, numOfRowSpan)}
+                    <Cell rowSpan={numOfRowSpan} className='text-center'>
+                        <span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatTypeId === ChatTypeMapping.Group ? item.mappingStatus : ''}</span>
+                    </Cell>
+                    {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive, numOfRowSpan)}
                     <Cell rowSpan={numOfRowSpan}>{item.remark}</Cell>
                     {
                         isHost &&
                         <Cell rowSpan={numOfRowSpan} className='text-center'>
                             <span className="fa fa-pencil icon-edit"
-                                onClick={() => this.handleEdit(item.chatType, item.conversationId)}
+                                onClick={() => this.handleEdit(item.chatTypeId, item)}
                             />
                         </Cell>
                     }
@@ -143,14 +145,14 @@ export class DataGrid extends Component {
 
         return (
             <Row key={index}>
-                <Cell>{item.recipient}</Cell>
+                <Cell>{item.recipientName}</Cell>
                 <Cell>{item.letstalkId}</Cell>
             </Row>
         );
     }
 
     render() {
-        if (!this.props.gridData) {
+        if (!this.props.gridData.data) {
             return null;
         }
 
@@ -165,7 +167,6 @@ export class DataGrid extends Component {
             PageList: PAGING_SIZES
         };
 
-        console.log(this.props.updatePersonalMappingData);
         return (
             <Fragment>
                 <div className='table-title'>{LangHelper.getResource('ChatTypeMapping')}</div>
@@ -188,7 +189,7 @@ export class DataGrid extends Component {
                         title={LangHelper.getResource('Confirmation')}
                         content={
                             <div>
-                                When a group is <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong>. The system will <strong>{this.props.updateActiveStatusPopup.isChecked ? '' : 'not'}</strong> send notifications to the group.
+                                When a group/personal is <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong>. The system will <strong>{this.props.updateActiveStatusPopup.isChecked ? '' : 'not'}</strong> send notifications to the group.
 								Do you want to proceed?
 							</div>
                         }

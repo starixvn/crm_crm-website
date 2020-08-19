@@ -1,4 +1,5 @@
-﻿using CRM.Core.Enumerables;
+﻿using System.Collections.Generic;
+using CRM.Core.Enumerables;
 using CRM.Core.Extensions;
 
 namespace CRM.Models.ChatTypeMapping
@@ -36,6 +37,8 @@ namespace CRM.Models.ChatTypeMapping
         public string LetstalkId { get; set; }
 
         public int MappingStatusId { get; set; }
+
+        public IList<ConversationHeadlineModel> Headlines { get; set; }
 
         public string MappingStatus
         {

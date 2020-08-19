@@ -1,7 +1,11 @@
 ﻿namespace CRM.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using CRM.Core.Enumerables;
+    using CRM.Core.Extensions;
     using CRM.Core.Services;
     using CRM.Criteria.ChatBot;
     using CRM.Criteria.Common;
@@ -48,6 +52,16 @@
         {
             var result = await baseService.GetDataAsync<BaseModel>(criteria);
             return result;
+        }
+
+        public IEnumerable<BaseModel> GetChatTypes()
+        {
+            return Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
+        }
+
+        public IEnumerable<BaseModel> GetMappingStatus()
+        {
+            return Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
         }
     }
 }
