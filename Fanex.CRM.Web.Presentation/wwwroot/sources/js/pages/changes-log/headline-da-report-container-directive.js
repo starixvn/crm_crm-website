@@ -149,7 +149,7 @@
                     <div class="detail-child-col col-title-detail">
                         <div class="padding-5px">${viewResources.PIC}</div>
                     </div>
-                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                    <div class="detail-child-col border-right-none col-value-larger">
                         <div class="padding-5px">${picsValue}</div>
                     </div>
                 </div>                            
@@ -186,7 +186,7 @@
                     <div class="detail-child-col col-title-detail">
                         <div class="padding-5px">${viewResources.PIC}</div>
                     </div>
-                    <div class="detail-child-col col-value-detail border-right-none col-value-lager${picsValue.backgroundChange}">
+                    <div class="detail-child-col border-right-none col-value-larger${picsValue.backgroundChange}">
                     ${picsValue.valueChange}
                     </div>
                 </div>                            
@@ -199,7 +199,7 @@
                     <div class="detail-child-col col-title-detail min-height-38px">
                         <div class="padding-5px">${viewResources.GroupHeadline}</div>
                     </div>
-                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                    <div class="detail-child-col border-right-none col-value-larger">
                         <div class="padding-5px">${data.NewDAInfo.GroupHeadline}</div>
                     </div>
                 </div>                            
@@ -233,7 +233,7 @@
                     <div class="detail-child-col col-title-detail min-height-38px">
                         <div class="padding-5px">${viewResources.IsGroupHeadline}</div>
                     </div>
-                    <div class="detail-child-col col-value-detail border-right-none col-value-lager">
+                    <div class="detail-child-col border-right-none col-value-larger">
                         <div class="padding-5px">Yes</div>
                     </div>
                 </div>                            

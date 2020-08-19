@@ -19,6 +19,9 @@
         [XmlElement(ElementName = "DirectAccount")]
         public List<BaseModel> DirectAccounts { get; set; }
 
+        [XmlElement(ElementName = "Headline")]
+        public List<BaseModel> Headlines { get; set; }
+
         [XmlAttribute("IsActive")]
         public bool IsActive { get; set; }
 
