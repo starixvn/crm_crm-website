@@ -56,6 +56,8 @@
 
             try
             {
+                logger.Info("begin sign in");
+
                 User user = await userService.GetAsync(model.Username);
                 if (user != null && IsValidPassword(user, model))
                 {
