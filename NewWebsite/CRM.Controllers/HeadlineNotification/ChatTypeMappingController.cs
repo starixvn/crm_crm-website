@@ -19,13 +19,16 @@
     {
         private readonly IBaseService baseService;
         private readonly ISettingService settingService;
-        private readonly IChatBotService chatbotService;
+        private readonly ICommonService commonService;
 
-        public ChatTypeMappingController(IBaseService baseService, ISettingService settingService, IChatBotService chatbotService)
+        public ChatTypeMappingController(
+            IBaseService baseService,
+            ISettingService settingService,
+            ICommonService commonService)
         {
             this.baseService = baseService;
             this.settingService = settingService;
-            this.chatbotService = chatbotService;
+            this.commonService = commonService;
         }
 
         public IActionResult Index()
@@ -38,9 +41,9 @@
             var chatType = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
             var status = Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
 
-            var bots = chatbotService.GetConversationBots();
+            var bots = commonService.GetConversationBots();
             var lang = settingService.GetAsync(new GetSettingParam { SettingName = SettingName.NotificationTemplateLanguage, IsActive = 1 });
-            var recipientTypes = chatbotService.GetRecipientTypes();
+            var recipientTypes = commonService.GetRecipientTypes();
 
             await Task.WhenAll(bots, lang, recipientTypes);
 
