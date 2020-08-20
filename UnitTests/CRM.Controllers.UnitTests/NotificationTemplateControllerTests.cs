@@ -46,7 +46,7 @@
             // Arrange
             var fixture = new Fixture();
             var templates = fixture.Create<IEnumerable<NotificationTemplate>>();
-            var param = fixture.Create<GetGridDataParam>();
+            var param = fixture.Create<GetNotificationTemplateParam>();
             var controller = GetController();
             templateService.GetAsync(param).Returns(templates);
 

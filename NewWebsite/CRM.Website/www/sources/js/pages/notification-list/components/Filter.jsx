@@ -329,7 +329,7 @@ class Filter extends Component {
                         />
                     </Form.Group>
                     <div>
-                        <Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+                        <Button variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
                     </div>
                 </Form.Row>
             </Form>

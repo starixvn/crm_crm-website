@@ -24,7 +24,7 @@
         {
             // Arrange
             var fixture = new Fixture();
-            var param = fixture.Create<GetGridDataParam>();
+            var param = fixture.Create<GetNotificationTemplateParam>();
             var totalRows = fixture.Create<int>();
             var expected = fixture.Create<IEnumerable<NotificationTemplate>>();
             var criteria = new GetNotificationTemplateCriteria();

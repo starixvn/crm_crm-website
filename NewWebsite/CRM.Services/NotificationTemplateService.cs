@@ -13,7 +13,7 @@
 
     public interface INotificationTemplateService
     {
-        Task<IEnumerable<NotificationTemplate>> GetAsync(GetGridDataParam param);
+        Task<IEnumerable<NotificationTemplate>> GetAsync(GetNotificationTemplateParam param);
 
         Task<NotificationTemplate> GetByIdAsync(int id);
 
@@ -37,7 +37,7 @@
             this.baseService = baseService;
         }
 
-        public async Task<IEnumerable<NotificationTemplate>> GetAsync(GetGridDataParam param)
+        public async Task<IEnumerable<NotificationTemplate>> GetAsync(GetNotificationTemplateParam param)
         {
             var criteria = new GetNotificationTemplateCriteria
             {
