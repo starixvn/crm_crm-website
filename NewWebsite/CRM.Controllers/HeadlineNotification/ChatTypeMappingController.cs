@@ -4,8 +4,8 @@
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Models;
-    using CRM.Criteria.ChatBot;
     using CRM.Criteria.ChatTypeMapping;
+    using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.Setting;
     using CRM.Services;
