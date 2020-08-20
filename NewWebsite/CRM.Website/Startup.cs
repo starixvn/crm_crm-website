@@ -113,9 +113,6 @@
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<ExternalSiteHostUrl>(options => Configuration.GetSection("ExternalSiteHostUrl").Bind(options));
 
-            services.AddHealthChecks()
-                .AddCheck<WhoAmIHealthCheck>("WhoAmIHealthCheck");
-
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -137,7 +134,6 @@
                 app.UseHsts();
             }
 
-            app.UseCustomHealthCheck();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();

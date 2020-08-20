@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Serilog;
 
     public static class Program
     {
@@ -24,7 +25,8 @@
 
                     config.AddEnvironmentVariables();
                 })
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
         }
     }
 }
