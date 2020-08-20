@@ -25,12 +25,13 @@
 
         public async Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria)
         {
-            var data = await baseService.FetchMultipleAsync<ChatTypeMappingModel, ConversationHeadlineModel>(criteria);
+            var data = await baseService.FetchMultipleAsync<ChatTypeMappingModel, ConversationRecipient, ConversationHeadlineModel>(criteria);
             if (data.Item1.Any())
             {
                 foreach (var item in data.Item1)
                 {
-                    item.Headlines = data.Item2.Where(headline => headline.ConversationGroupId == item.ConversationGroupId).ToList();
+                    item.Recipients = data.Item2.Where(recipient => recipient.ConversationGroupId == item.ConversationGroupId);
+                    item.Headlines = data.Item3.Where(headline => headline.ConversationGroupId == item.ConversationGroupId);
                 }
             }
 

@@ -36,9 +36,11 @@ namespace CRM.Models.ChatTypeMapping
 
         public string LetstalkId { get; set; }
 
-        public int MappingStatusId { get; set; }
+        public IEnumerable<ConversationRecipient> Recipients { get; set; }
 
-        public IList<ConversationHeadlineModel> Headlines { get; set; }
+        public IEnumerable<ConversationHeadlineModel> Headlines { get; set; }
+
+        public int MappingStatusId { get; set; }
 
         public string MappingStatus
         {
