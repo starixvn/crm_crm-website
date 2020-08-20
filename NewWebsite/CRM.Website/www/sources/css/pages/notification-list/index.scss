@@ -135,10 +135,6 @@ td, th {
     width: 150px !important;
 }
 
-.multiple-select-default.multiple-select-label {
-    height: 26px;
-}
-
 input {
     height: 28px !important;
 }
@@ -160,15 +156,56 @@ input {
     width: 150px !important;
 }
 
+// style select with search
 .custom-select-with-search {
     width: 150px;
 
-    .Select-input {
-        width: 125px;
-        overflow: hidden;
+    .Select-control {
+        height: 28px;
+        border-radius: 0;
+    
+        .Select-multi-value-wrapper {
+            height: 26px;
+    
+            .Select-input {
+                max-width: 125px;
+                overflow: hidden;
+        
+                input {
+                    padding: 0;
+                }
+            }
+    
+            .Select-placeholder {
+                line-height: 26px;
+            }
+    
+            .Select-value {
+                display: flex;
+                align-items: center;
+    
+                span {
+                    line-height: 28px;
+                }
+            }
+        }
 
-        input {
-            padding: 0;
+        .Select-arrow {
+            border-color: black transparent transparent;
+            border-width: 4px 4px 1.5px;
         }
     }
+}
+
+.is-open {
+    .Select-control {
+        .Select-arrow {
+            border-color: transparent transparent black !important;
+            border-width: 0 4px 4px !important;
+        }
+    }
+}
+
+.form-filter .form-row .form-group {
+    height: 28px;
 }

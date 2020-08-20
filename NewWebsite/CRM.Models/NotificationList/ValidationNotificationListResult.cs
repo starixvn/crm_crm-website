@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class ValidationNotificationList
+    public class ValidationNotificationListResult
     {
         public bool IsSingle { get; set; }
 

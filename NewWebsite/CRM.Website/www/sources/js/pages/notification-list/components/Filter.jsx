@@ -329,9 +329,9 @@ class Filter extends Component {
                             onChange={this.handleStatusChange}
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <div>
                         <Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-                    </Form.Group>
+                    </div>
                 </Form.Row>
             </Form>
         );

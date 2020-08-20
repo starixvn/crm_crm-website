@@ -30,7 +30,7 @@
             }
         }
 
-        public async Task<ValidationNotificationList> ValidateNotificationListAsync(ICriteria criteria)
+        public async Task<ValidationNotificationListResult> ValidateNotificationListAsync(ICriteria criteria)
         {
             using (var objectDB = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
@@ -38,7 +38,7 @@
                 {
                     var inActiveNotificationIds = multi.Read<int>();
                     var resendDataList = multi.Read<NotificationListResend>();
-                    var result = new ValidationNotificationList
+                    var result = new ValidationNotificationListResult
                     {
                         InActiveNotificationIds = inActiveNotificationIds,
                         ResendDataList = resendDataList

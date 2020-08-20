@@ -1,4 +1,4 @@
-﻿namespace CRM.Criteria.ChatBot
+﻿namespace CRM.Criteria.Common
 {
     using Fanex.Data.Repository;
 

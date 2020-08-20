@@ -7,7 +7,6 @@
     using CRM.Core.Enumerables;
     using CRM.Core.Extensions;
     using CRM.Core.Services;
-    using CRM.Criteria.ChatBot;
     using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;

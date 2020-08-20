@@ -17,7 +17,7 @@ class ValidateResend extends Component {
     }
 
     resendNotifications = dataList => {
-        console.log(dataList)
+        this.props.resendNotifications(dataList);
     }
 
     render() {
@@ -73,12 +73,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         validateResendResult,
-        setValidateResend
+        setValidateResend,
+        resendNotifications
     } = state;
 
     return {
         validateResendResult,
-        setValidateResend
+        setValidateResend,
+        resendNotifications
     };
 };
 

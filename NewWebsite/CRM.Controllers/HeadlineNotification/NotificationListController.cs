@@ -1,12 +1,13 @@
 ﻿namespace CRM.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
-    using CRM.Criteria.ChatBot;
+    using CRM.Core.Models;
     using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
     using CRM.Models;
@@ -53,13 +54,12 @@
 
         public async Task<IActionResult> GetSettings()
         {
-            var recipientsCriteria = new GetRecipientsCriteria();
-            var headlinesCriteria = new GetHeadlinesCriteria();
+            var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(new Models.NotificationType.GetGridDataParam());
             var result = new
             {
-                NotificationTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
-                Recipients = await commonService.GetRecipients(recipientsCriteria),
-                Headlines = await commonService.GetHeadlines(headlinesCriteria),
+                NotificationTypes = notificationTypes.Select(type => new BaseModel { Id = type.NotificationTypeId, Name = type.NotificationTypeName }),
+                Recipients = await commonService.GetRecipients(new GetRecipientsCriteria()),
+                Headlines = await commonService.GetHeadlines(new GetHeadlinesCriteria()),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
             };
 
@@ -75,7 +75,7 @@
                 param.ToDate = param.ToDate.Value.AddDays(1).AddSeconds(-1);
             }
 
-            var notifications = (await notificationListService.GetNotificationListAsync(param)).ToList();
+            var notifications = (await notificationListService.GetNotificationListAsync(param));
             return Json(new { totalItems = param.TotalRows, data = notifications });
         }
 
@@ -95,6 +95,14 @@
             var criteria = new ValidateNotificationListCriteria { NotificationIds = model.NotificationIds };
             var result = await notificationListService.ValidateNotificationListAsync(criteria);
             result.IsSingle = model.IsSingle;
+            return Json(result);
+        }
+
+        [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
+        public async Task<IActionResult> ResendNotificationList([FromBody]List<NotificationListResend> model)
+        {
+            var result = new CommandResult { Code = 0, Message = "Resend successfule" };
             return Json(result);
         }
     }

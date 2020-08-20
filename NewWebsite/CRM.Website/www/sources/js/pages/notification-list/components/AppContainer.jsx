@@ -28,7 +28,9 @@ export class AppContainer extends Component {
                     />
                 }
                 {
-                    this.props.invalidParams.show && <div className='invalid-params-box'><i className='fa fa-exclamation-triangle'></i>{this.props.invalidParams.message}</div>
+                    this.props.invalidParams.show && <ResponseMessage isSuccessful={false}
+                        message={this.props.invalidParams.message}
+                    />
                 }
                 <Filter />
                 <DataGrid isHost={this.isHost} />

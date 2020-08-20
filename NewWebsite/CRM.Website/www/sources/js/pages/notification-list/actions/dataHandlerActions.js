@@ -28,18 +28,6 @@ export const getGridData = (params, done) => async dispatch => {
         params.fromDate = convertDateToString(params.fromDate);
         params.toDate = convertDateToString(params.toDate);
     }
-
-    if (params.headline === '') {
-        params.headline = null;
-    }
-
-    if (params.recipientName === '') {
-        params.recipientName = null;
-    }
-
-    if (params.content === '') {
-        params.content = null;
-    }
     
     await axios({
         method: 'post',
@@ -158,6 +146,24 @@ export const setValidateResend = data => {
     };
 };
 
+export const resendNotifications = dataList => async dispatch => {
+    Site.blockUI();
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('NotificationList/ResendNotificationList'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setMessageResult({
+            show: true,
+            result: response.data
+        }));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+}
+
 const actions = {
     setGridParams,
     getGridData,
@@ -169,7 +175,8 @@ const actions = {
     editNotificationList,
     setErrorResolvedContent,
     validateResend,
-    setValidateResend
+    setValidateResend,
+    resendNotifications
 };
 
 export default actions;

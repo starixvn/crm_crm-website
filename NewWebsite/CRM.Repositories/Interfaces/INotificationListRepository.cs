@@ -9,6 +9,6 @@
     {
         Task<IEnumerable<Notification>> GetNotificationsAsync(ICriteria criteria);
 
-        Task<ValidationNotificationList> ValidateNotificationListAsync(ICriteria criteria);
+        Task<ValidationNotificationListResult> ValidateNotificationListAsync(ICriteria criteria);
     }
 }

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using CRM.Criteria.ChatBot;
     using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;

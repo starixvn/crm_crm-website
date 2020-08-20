@@ -32,7 +32,7 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        public async Task<ValidationNotificationList> ValidateNotificationListAsync(ValidateNotificationListCriteria criteria)
+        public async Task<ValidationNotificationListResult> ValidateNotificationListAsync(ValidateNotificationListCriteria criteria)
         {
             return await notificationListRepository.ValidateNotificationListAsync(criteria);
         }

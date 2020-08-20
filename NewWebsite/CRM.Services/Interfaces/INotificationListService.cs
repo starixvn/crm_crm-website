@@ -12,6 +12,6 @@
 
         Task<CommandResult> EditNotificationListAsync(EditNotificationListCommand command);
 
-        Task<ValidationNotificationList> ValidateNotificationListAsync(ValidateNotificationListCriteria criteria);
+        Task<ValidationNotificationListResult> ValidateNotificationListAsync(ValidateNotificationListCriteria criteria);
     }
 }
