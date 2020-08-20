@@ -6,6 +6,7 @@ namespace CRM.Controllers
     using System.Threading.Tasks;
     using CRM.Core.Enumerables;
     using CRM.Core.Models;
+    using CRM.Criteria.NotificationType;
     using CRM.Models;
     using CRM.Models.NotificationType;
     using CRM.Services;
@@ -60,7 +61,18 @@ namespace CRM.Controllers
         [HttpPost]
         public async Task<IActionResult> GetGridData([FromBody] GetGridDataParam param)
         {
-            IEnumerable<NotificationType> types = await notificationTypeService.GetNotificationTypeAsync(param);
+            var criteria = new GetNotificationTypeCriteria
+            {
+                RecipientTypeIds = param.RecipientTypeIds,
+                ChatTypeIds = param.ChatTypeIds,
+                SystemId = param.SystemId,
+                NotificationTypeName = param.NotificationTypeName,
+                PageIndex = param.PageIndex,
+                PageSize = param.PageSize
+            };
+            param.TotalRows = criteria.TotalRows;
+
+            IEnumerable<NotificationType> types = await notificationTypeService.GetNotificationTypeAsync(criteria);
 
             return Json(new { totalItems = param.TotalRows, data = types });
         }

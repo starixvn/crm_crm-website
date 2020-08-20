@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using CRM.Core.Models;
+    using CRM.Criteria.NotificationType;
     using CRM.Models.NotificationType;
 
     public interface INotificationTypeService
@@ -15,6 +16,6 @@
 
         Task<CommandResult> DeleteAsync(int id);
 
-        Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetGridDataParam param);
+        Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetNotificationTypeCriteria criteria);
     }
 }

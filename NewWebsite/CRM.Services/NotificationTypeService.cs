@@ -83,19 +83,9 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        public async Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetGridDataParam param)
+        public async Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetNotificationTypeCriteria criteria)
         {
-            var criteria = new GetNotificationTypeCriteria
-            {
-                RecipientTypeIds = param.RecipientTypeIds,
-                ChatTypeIds = param.ChatTypeIds,
-                SystemId = param.SystemId,
-                NotificationTypeName = param.NotificationTypeName,
-                PageIndex = param.PageIndex,
-                PageSize = param.PageSize
-            };
             var types = await notificationTypeRepository.GetNotificationTypes(criteria);
-            param.TotalRows = criteria.TotalRows;
 
             return types;
         }
