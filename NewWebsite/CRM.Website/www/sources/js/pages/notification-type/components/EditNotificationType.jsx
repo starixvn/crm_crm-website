@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { object, string } from 'yup';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelectField from './MultipleSelectField';
@@ -22,7 +21,7 @@ class EditNotificationType extends Component {
                 chatTypes: {
                     value: ''
                 },
-                system: {
+                systems: {
                     value: ''
                 }
             },
@@ -53,23 +52,32 @@ class EditNotificationType extends Component {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                recipientTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
                     checked: listRecipientTypeChecked.includes(x.id) ? true: false
                 };
             });
+            recipientTypesOptions.forEach(x => {
+                if( x.checked == true){ 
+                    recipientTypeIds.push(x.id);
+                }
+            });
+            
 
             // chat type
             const chatTypeIds = [];
             const chatTypesOptions = this.props.settings.chatTypes.map(x => {
-                chatTypeIds.push(x.id);
                 return {
                     id: x.id,
                     name: x.name,
                     checked: listChatTypeChecked.includes(x.id) ? true: false
                 };
+            });
+            chatTypesOptions.forEach(x => {
+                if( x.checked == true){ 
+                    chatTypeIds.push(x.id);
+                }
             });
 
             // system
@@ -104,7 +112,6 @@ class EditNotificationType extends Component {
     }
         recipientTypeChange = value => this.handlePopupChange('recipientTypes', value)
         chatTypeChange = value => this.handlePopupChange('chatTypes', value)
-        systemChange = value => this.handlePopupChange('system', value)
     
         renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
     
@@ -138,7 +145,6 @@ class EditNotificationType extends Component {
         touched,
         handleChange,
         handleSubmit,
-        setFieldValue,
         isSubmitting
     }) => {
         return (
@@ -264,7 +270,7 @@ class EditNotificationType extends Component {
         };
 
         return (
-            <Modal show className="new-notification-Type"
+            <Modal show className="new-notification-type"
                 backdrop="static" keyboard={false} size="lg"
                 onHide={this.props.onClose}
             >
