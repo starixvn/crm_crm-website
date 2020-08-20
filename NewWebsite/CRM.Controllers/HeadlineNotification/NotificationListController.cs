@@ -10,6 +10,7 @@
     using CRM.Core.Models;
     using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
+    using CRM.Criteria.NotificationType;
     using CRM.Models;
     using CRM.Models.NotificationList;
     using CRM.Services;
@@ -54,7 +55,7 @@
 
         public async Task<IActionResult> GetSettings()
         {
-            var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(new Models.NotificationType.GetGridDataParam());
+            var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(new GetNotificationTypeCriteria());
             var result = new
             {
                 NotificationTypes = notificationTypes.Select(type => new BaseModel { Id = type.NotificationTypeId, Name = type.NotificationTypeName }),

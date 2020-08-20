@@ -10,6 +10,7 @@
     using CRM.Core.Models;
     using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
+    using CRM.Criteria.NotificationType;
     using CRM.Models;
     using CRM.Models.NotificationList;
     using CRM.Models.NotificationType;
@@ -66,7 +67,7 @@
             };
 
             var expectedResult = controller.Json(expected);
-            notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetGridDataParam>()).Returns(notificationTypes);
+            notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetNotificationTypeCriteria>()).Returns(notificationTypes);
             commonService.GetRecipients(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
             commonService.GetHeadlines(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);
 

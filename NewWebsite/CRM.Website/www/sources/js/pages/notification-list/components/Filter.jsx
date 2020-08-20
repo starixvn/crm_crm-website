@@ -279,7 +279,6 @@ class Filter extends Component {
                             onChange={this.handleHeadlineChange}
                             options={this.state.headlineOptions}
                             value={this.state.filter.headline}
-                            height={28}
                         />
                     </Form.Group>
                     <Form.Group>
