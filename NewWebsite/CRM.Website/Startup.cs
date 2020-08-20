@@ -113,6 +113,8 @@
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<ExternalSiteHostUrl>(options => Configuration.GetSection("ExternalSiteHostUrl").Bind(options));
 
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
