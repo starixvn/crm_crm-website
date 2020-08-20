@@ -14,6 +14,7 @@ const store = Store.createStore(reducer, {
     deleteTypePopup: { show: false },
     deleteTypeResult: null,
     invalidParams: { show: false },
+    gridData: null,
     settings: {
         ChatTypes: [],
         Recipients: [],

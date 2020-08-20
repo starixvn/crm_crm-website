@@ -148,6 +148,7 @@ export const createType = data => {
 const actions = {
     setGridParams,
     getGridData,
+    setGridData,
     setCreateTypePopup,
     setCreateTypeResult,
     createType,

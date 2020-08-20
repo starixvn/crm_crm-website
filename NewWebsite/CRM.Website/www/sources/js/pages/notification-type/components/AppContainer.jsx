@@ -8,6 +8,7 @@ import NewNotificationType from './NewNotificationType';
 import EditNotificationType from './EditNotificationType';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
+import ResponseMessage from '@jsroot/components/ResponseMessage';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -54,12 +55,14 @@ export class AppContainer extends Component {
             this.props.setDeleteTypeResult(data);
         });
     }
-
     render() {
         return (
             <Fragment>
                 {
-                    this.props.invalidParams.show && <div className='invalid-params-box'><i className='fa fa-exclamation-triangle'></i>{this.props.invalidParams.message}</div>
+                    this.props.invalidParams.show &&
+                     <ResponseMessage isSuccessful={false}
+                            message={this.props.invalidParams.message}
+                        />
                 }
                 <Filter isHost={this.isHost} />
                 <DataGrid isHost={this.isHost} />

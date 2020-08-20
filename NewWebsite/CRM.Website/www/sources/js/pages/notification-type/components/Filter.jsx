@@ -124,15 +124,19 @@ class Filter extends Component {
     submitHandler = e => {
         e.preventDefault();
         const params = this.getParams();
-         this.props.setGridParams(params);
-         this.props.getGridData(params);
+        if (this.isValidateParams(params)) {
+            this.props.setGridParams(params);
+            this.props.getGridData(params);
+        }
+    }
 
+    isValidateParams = (params) => {
         if (params.recipientTypeId == '') {
             this.props.setInvalidParams({
                 show: true,
                 message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('RecipientType')}`
             });
-    
+            return false;
         }
 
         if (params.chatTypeId == '') {
@@ -140,7 +144,7 @@ class Filter extends Component {
                 show: true,
                 message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('ChatType')}`
             });
-    
+            return false;
         }
 
         if (params.systemId == '') {
@@ -148,8 +152,10 @@ class Filter extends Component {
                 show: true,
                 message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('System')}`
             });
-    
+            return false;
         }
+        
+        return true;
     }
 
     handleOpenCreatePopup = () => this.props.setCreateTypePopup({ show: true })
@@ -157,15 +163,15 @@ class Filter extends Component {
     render() {
         const { isHost } = this.props;
         return (
-            <form className="form-filter" onSubmit={this.submitHandler}>
+            <Form className="form-filter" onSubmit={this.submitHandler}>
                 <div className="form-row"> 
-                    <label className="col-auto col-form-label">{LangHelper.getResource('NotificationType')}</label>
-                    <div className="col-auto">
-                        <input type="text" className="form-control form-control-sm shadow-none"
+                    <Form.Group>
+                        <Form.Label htmlFor="NotificationType">{LangHelper.getResource('NotificationType')}</Form.Label>
+                        <Form.Control type="text" size="sm" className="shadow-none" autoComplete="off"
                             value={this.state.notificationTypeName}
                             onChange={this.handleNotificationTypeChange}
                         />
-                    </div>
+                    </Form.Group>
 
                     <label className="col-auto col-form-label">{LangHelper.getResource('RecipientType')}</label>
                     <div className="col-auto">
@@ -228,7 +234,7 @@ class Filter extends Component {
                         }
                     </div>
                 </div>
-            </form>
+            </Form>
         );
     }
 }
