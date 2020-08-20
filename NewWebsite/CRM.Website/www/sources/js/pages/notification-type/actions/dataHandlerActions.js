@@ -17,6 +17,22 @@ export const setGridData = data => {
     };
 };
 
+
+//create
+export const setCreateTypePopup = data => {
+    return {
+        type: types.CREATE_POPUP_DATA,
+        data: data
+    };
+};
+
+export const setCreateTypeResult = data => {
+    return {
+        type: types.CREATE_RESULT_DATA,
+        data: data
+    };
+};
+
 // edit
 export const setEditTypePopup = data => {
     return {
@@ -47,9 +63,18 @@ export const setDeleteTypeResult = data => {
     };
 };
 
+
+// Setting
 export const setSettings = data => {
     return {
         type: types.SETTINGS_DATA,
+        data
+    };
+};
+
+export const setInvalidParams = data => {
+    return {
+        type: types.INVALID_PARAMS_DATA,
         data
     };
 };
@@ -106,21 +131,6 @@ export const getGridData = params => {
     };
 };
 
-//create
-export const setCreateTypePopup = data => {
-    return {
-        type: types.CREATE_POPUP_DATA,
-        data: data
-    };
-};
-
-export const setCreateTypeResult = data => {
-    return {
-        type: types.CREATE_RESULT_DATA,
-        data: data
-    };
-};
-
 export const createType = data => {
     return async dispatch => axios({
         url: Site.resolveClientUrl('NotificationType/Create'),
@@ -147,7 +157,8 @@ const actions = {
     setDeleteTypePopup,
     setDeleteTypeResult,
     deleteType,
-    getSettings
+    getSettings,
+    setInvalidParams
 };
 
 export default actions;

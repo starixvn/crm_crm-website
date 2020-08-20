@@ -59,6 +59,12 @@ export const settings = createReducer({}, {
     }
 });
 
+export const invalidParams = createReducer({}, {
+    [types.INVALID_PARAMS_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -68,7 +74,8 @@ const reducers = {
     editTypeResult,
     deleteTypePopup,
     deleteTypeResult,
-    settings
+    settings,
+    invalidParams
 };
 
 export default reducers;

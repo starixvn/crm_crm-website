@@ -124,8 +124,32 @@ class Filter extends Component {
     submitHandler = e => {
         e.preventDefault();
         const params = this.getParams();
-        this.props.setGridParams(params);
-        this.props.getGridData(params);
+         this.props.setGridParams(params);
+         this.props.getGridData(params);
+
+        if (params.recipientTypeId == '') {
+            this.props.setInvalidParams({
+                show: true,
+                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('RecipientType')}`
+            });
+    
+        }
+
+        if (params.chatTypeId == '') {
+            this.props.setInvalidParams({
+                show: true,
+                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('ChatType')}`
+            });
+    
+        }
+
+        if (params.systemId == '') {
+            this.props.setInvalidParams({
+                show: true,
+                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('System')}`
+            });
+    
+        }
     }
 
     handleOpenCreatePopup = () => this.props.setCreateTypePopup({ show: true })
@@ -133,7 +157,7 @@ class Filter extends Component {
     render() {
         const { isHost } = this.props;
         return (
-            <form className="form-filter">
+            <form className="form-filter" onSubmit={this.submitHandler}>
                 <div className="form-row"> 
                     <label className="col-auto col-form-label">{LangHelper.getResource('NotificationType')}</label>
                     <div className="col-auto">
@@ -212,11 +236,13 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, settings, getSettings } = state;
+    const { gridParams, settings, getSettings, invalidParams, setInvalidParams } = state;
     return {
         gridParams,
         settings,
-        getSettings
+        getSettings,
+        invalidParams,
+        setInvalidParams
     };
 };
 

@@ -18,7 +18,8 @@ const types = {
     EDIT_RESULT_DATA,
     DELETE_POPUP_DATA,
     DELETE_RESULT_DATA,
-    SETTINGS_DATA
+    SETTINGS_DATA,
+    INVALID_PARAMS_DATA
 };
 
 export default types;

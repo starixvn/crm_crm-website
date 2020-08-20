@@ -58,6 +58,9 @@ export class AppContainer extends Component {
     render() {
         return (
             <Fragment>
+                {
+                    this.props.invalidParams.show && <div className='invalid-params-box'><i className='fa fa-exclamation-triangle'></i>{this.props.invalidParams.message}</div>
+                }
                 <Filter isHost={this.isHost} />
                 <DataGrid isHost={this.isHost} />
                 {
@@ -94,13 +97,14 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, createTypePopup, editTypePopup, deleteTypePopup, deleteTypeResult } = state;
+    const { gridParams, createTypePopup, editTypePopup, deleteTypePopup, deleteTypeResult, invalidParams } = state;
     return {
         gridParams,
         createTypePopup,
         editTypePopup,
         deleteTypePopup,
-        deleteTypeResult
+        deleteTypeResult,
+        invalidParams
     };
 };
 

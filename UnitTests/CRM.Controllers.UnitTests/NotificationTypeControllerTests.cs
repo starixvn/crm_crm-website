@@ -27,7 +27,7 @@
             var types = fixture.Create<IEnumerable<NotificationType>>();
             var param = fixture.Create<GetGridDataParam>();
             var controller = GetController();
-            notificationTypeService.GetNotificationTypeAsync(param).Returns(types);
+            //notificationTypeService.GetNotificationTypeAsync(param).Returns(types);
 
             // Act
             var result = await controller.GetGridData(param);

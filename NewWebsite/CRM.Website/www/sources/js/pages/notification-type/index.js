@@ -13,6 +13,7 @@ const store = Store.createStore(reducer, {
     editTypeResult: null,
     deleteTypePopup: { show: false },
     deleteTypeResult: null,
+    invalidParams: { show: false },
     settings: {
         ChatTypes: [],
         Recipients: [],

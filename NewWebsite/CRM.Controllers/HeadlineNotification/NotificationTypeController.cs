@@ -4,7 +4,9 @@ namespace CRM.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using CRM.Core.Constants;
     using CRM.Core.Enumerables;
+    using CRM.Core.Filters;
     using CRM.Core.Models;
     using CRM.Criteria.NotificationType;
     using CRM.Models;
@@ -16,8 +18,8 @@ namespace CRM.Controllers
     using Microsoft.AspNetCore.Mvc;
     using static Fanex.NAP.Core.Business.Constant;
 
-    //[CrmAuthorize]
-    //[CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Read)]
+    [CrmAuthorize]
+    [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Read)]
     public class NotificationTypeController : Controller
     {
         private readonly INotificationTypeService notificationTypeService;
@@ -78,7 +80,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        //[CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
         public async Task<IActionResult> Create([FromBody] CreateNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.CreateAsync(model);
@@ -86,7 +88,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        //[CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
         public async Task<IActionResult> Edit([FromBody]EditNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.EditAsync(model);
@@ -95,7 +97,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        //[CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
         public async Task<IActionResult> Delete(int id)
         {
             CommandResult commandResult = await notificationTypeService.DeleteAsync(id);
