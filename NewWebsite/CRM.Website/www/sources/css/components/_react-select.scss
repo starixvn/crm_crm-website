@@ -1,27 +1,27 @@
 @import '~react-select/scss/default';
 
-// style select with search
-.custom-select-with-search {
-    width: 150px;
+.Select {
+    height: 100%;
 
     .Select-control {
-        height: 28px;
+        height: 100%;
         border-radius: 0;
     
         .Select-multi-value-wrapper {
-            height: 26px;
-    
             .Select-input {
-                max-width: 125px;
+                height: 100%;
                 overflow: hidden;
         
                 input {
                     padding: 0;
+                    line-height: 2em;
+                    font-size: 13px;
                 }
             }
-    
+
             .Select-placeholder {
-                line-height: 26px;
+                font-size: 13px;
+                line-height:  2em;
             }
     
             .Select-value {
@@ -29,14 +29,14 @@
                 align-items: center;
     
                 span {
-                    line-height: 28px;
+                    line-height: 100%;
                 }
             }
         }
 
         .Select-arrow {
             border-color: black transparent transparent;
-            border-width: 4px 4px 1.5px;
+            border-width: 4px 4px 2.5px;
         }
     }
 }

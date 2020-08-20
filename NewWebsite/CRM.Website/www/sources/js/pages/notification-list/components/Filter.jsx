@@ -45,10 +45,10 @@ class Filter extends Component {
             // notification type
             const notificationTypeIds = [];
             const notificationTypeOptions = this.props.settings.notificationTypes.map(x => {
-                notificationTypeIds.push(x.id);
+                notificationTypeIds.push(x.notificationTypeId);
                 return {
-                    id: x.id,
-                    name: x.name,
+                    id: x.notificationTypeId,
+                    name: x.notificationTypeName,
                     checked: true
                 };
             });
@@ -245,22 +245,24 @@ class Filter extends Component {
                 <Form.Row bsPrefix='form-row'>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
-                        <MultipleSelectField
-                            width={150}
-                            initialValue={this.state.filter.notificationTypes.value}
-                            data={this.state.notificationTypeOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.handleNotificationTypeChange}
-                        />
+                        <div className='form-control-wrapper'>
+                            <MultipleSelectField
+                                width='100%'
+                                initialValue={this.state.filter.notificationTypes.value}
+                                data={this.state.notificationTypeOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                isAllTextShown
+                                onChange={this.handleNotificationTypeChange}
+                            />
+                        </div>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('From')}</Form.Label>
-                        <div className='react-datepicker-wrapper-container'>
-                            <DatePicker width={150} disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                        <div className='react-datepicker-wrapper-container form-control-wrapper'>
+                            <DatePicker disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
                         </div>
                     </Form.Group>
                     <Form.Group>
@@ -271,27 +273,31 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('GroupHeadline')}</Form.Label>
-                        <SelectWithSearch
-                            className='basic-single custom-select-with-search'
-                            isSearchable
-                            isClearable
-                            name='headline'
-                            onChange={this.handleHeadlineChange}
-                            options={this.state.headlineOptions}
-                            value={this.state.filter.headline}
-                        />
+                        <div className='form-control-wrapper'>
+                            <SelectWithSearch
+                                className='basic-single'
+                                isSearchable
+                                isClearable
+                                name='headline'
+                                onChange={this.handleHeadlineChange}
+                                options={this.state.headlineOptions}
+                                value={this.state.filter.headline}
+                            />
+                        </div>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('Recipient')}</Form.Label>
-                        <SelectWithSearch
-                            className='basic-single custom-select-with-search'
-                            isSearchable
-                            isClearable
-                            name='recipient'
-                            onChange={this.handleRecipientChange}
-                            options={this.state.recipientOptions}
-                            value={this.state.filter.recipient}
-                        />
+                        <div className='form-control-wrapper'>
+                            <SelectWithSearch
+                                className='basic-single'
+                                isSearchable
+                                isClearable
+                                name='recipient'
+                                onChange={this.handleRecipientChange}
+                                options={this.state.recipientOptions}
+                                value={this.state.filter.recipient}
+                            />
+                        </div>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
@@ -302,12 +308,12 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationID')}</Form.Label>
-                        <div className='flex-box'>
+                        <div className='notification-id-container'>
                             <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
                                 value={this.state.filter.notificationIdLower}
                                 onChange={this.handleChangeFilterControl}
                             />
-                            <div className='notification-concate'>_</div>
+                            <div className='notification-concate'>-</div>
                             <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
                                 value={this.state.filter.notificationIdUpper}
                                 onChange={this.handleChangeFilterControl}
@@ -316,17 +322,19 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('Status')}</Form.Label>
-                        <MultipleSelectField
-                            width={150}
-                            initialValue={this.state.filter.statuses.value}
-                            data={this.state.statusOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.handleStatusChange}
-                        />
+                        <div className='form-control-wrapper'>
+                            <MultipleSelectField
+                                width='100%'
+                                initialValue={this.state.filter.statuses.value}
+                                data={this.state.statusOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                isAllTextShown
+                                onChange={this.handleStatusChange}
+                            />
+                        </div>
                     </Form.Group>
                     <div>
                         <Button variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>

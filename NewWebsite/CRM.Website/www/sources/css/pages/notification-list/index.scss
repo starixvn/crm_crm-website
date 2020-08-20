@@ -91,27 +91,6 @@
     font-weight: bold;
 }
 
-.margin-right-50 {
-    margin-right: 50px;
-}
-
-.notification-id-input {
-    width: 65px !important;
-}
-
-.width-70 {
-    width: 70px;
-}
-
-.width-120 {
-    width: 120px;
-}
-
-.notification-concate {
-    width: 20px;
-    text-align: center;
-}
-
 td, th {
     word-break: break-word;
 }
@@ -128,33 +107,18 @@ td, th {
     width: 100%;
 }
 
-.react-datepicker-wrapper-container {
-    position: relative;
-}
-
-.width-150 {
-    width: 150px !important;
-}
-
-input {
-    height: 28px !important;
-}
-
-.label-in-div {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.flex-box {
+.notification-id-container {
     display: flex;
-}
+    height: 100%;
 
-.form-group {
-    justify-content: space-between;
-}
+    .notification-id-input {
+        width: 70px !important;
+    }
 
-.datetime-picker {
-    width: 150px !important;
+    .notification-concate {
+        width: 20px;
+        text-align: center;
+    }
 }
 
 .form-filter .form-row .form-group {

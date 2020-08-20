@@ -105,3 +105,23 @@ $indexNormal: 100;
         display: block;
     }
 }
+
+.multiple-select-field {
+    .multiple-select-container {
+        button {
+            outline: none;
+
+            .text-display {
+                font-size: 13px;
+            }
+        }
+
+        .multiple-select-default.multiple-select-options-container {
+            width: auto;
+            min-width: 100%;
+        }
+    }
+}
+.multiple-select-item {
+    font-size: 13px;
+}

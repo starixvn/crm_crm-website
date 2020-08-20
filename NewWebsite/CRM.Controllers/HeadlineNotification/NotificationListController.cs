@@ -11,7 +11,6 @@
     using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
     using CRM.Criteria.NotificationType;
-    using CRM.Models;
     using CRM.Models.NotificationList;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
@@ -55,10 +54,9 @@
 
         public async Task<IActionResult> GetSettings()
         {
-            var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(new GetNotificationTypeCriteria());
             var result = new
             {
-                NotificationTypes = notificationTypes.Select(type => new BaseModel { Id = type.NotificationTypeId, Name = type.NotificationTypeName }),
+                NotificationTypes = await notificationTypeService.GetNotificationTypeAsync(new GetNotificationTypeCriteria()),
                 Recipients = await commonService.GetRecipients(new GetRecipientsCriteria()),
                 Headlines = await commonService.GetHeadlines(new GetHeadlinesCriteria()),
                 Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
@@ -103,7 +101,7 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
         public async Task<IActionResult> ResendNotificationList([FromBody]List<NotificationListResend> model)
         {
-            var result = new CommandResult { Code = 0, Message = "Resend successfule" };
+            var result = new CommandResult { Code = 0, Message = "Resend successful" };
             return Json(result);
         }
     }

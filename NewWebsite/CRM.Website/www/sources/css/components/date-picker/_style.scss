@@ -131,6 +131,14 @@
 
 .date-picker-icon {
     position: absolute;
-    top: 9px;
-    right: 12px;
+    top: 7px;
+    right: 10px;
+}
+
+.react-datepicker-wrapper-container {
+    position: relative;
+
+    input {
+        width: 100% !important;
+    }
 }

@@ -18,7 +18,6 @@
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
-    using FluentAssertions;
     using Microsoft.AspNetCore.Mvc;
     using NSubstitute;
     using Xunit;
@@ -32,7 +31,7 @@
         private INotificationListService notificationListService;
         private INotificationTypeService notificationTypeService;
         private ICommonService commonService;
-        private Fixture fixture = new Fixture();
+        private readonly Fixture fixture = new Fixture();
 
         [Fact]
         public void Index_WhenCalled_ReturnExpectedViewResult()
@@ -55,18 +54,10 @@
         {
             // Arrange
             var controller = GetController();
-            var notificationTypes = fixture.Create<List<NotificationType>>();
+            var notificationTypes = fixture.Create<IEnumerable<NotificationType>>();
             var recipients = fixture.Create<List<BaseModel>>();
             var headlines = fixture.Create<List<BaseModel>>();
-            var expected = new
-            {
-                NotificationTypes = notificationTypes.Select(type => new BaseModel { Id = type.NotificationTypeId, Name = type.NotificationTypeName }),
-                Recipients = recipients,
-                Headlines = headlines,
-                Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
-            };
-
-            var expectedResult = controller.Json(expected);
+            var statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString());
             notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetNotificationTypeCriteria>()).Returns(notificationTypes);
             commonService.GetRecipients(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
             commonService.GetHeadlines(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);
@@ -75,7 +66,14 @@
             var result = await controller.GetSettings() as JsonResult;
 
             // Assert
-            result.Should().BeEquivalentTo(expectedResult);
+            var notificationTypesResult = (IEnumerable<NotificationType>)result.Value.GetType().GetProperty("NotificationTypes").GetValue(result.Value);
+            var recipientsResult = (IEnumerable<BaseModel>)result.Value.GetType().GetProperty("Recipients").GetValue(result.Value);
+            var headlinesResult = (IEnumerable<BaseModel>)result.Value.GetType().GetProperty("Headlines").GetValue(result.Value);
+            var statusesResult = (IEnumerable<string>)result.Value.GetType().GetProperty("Statuses").GetValue(result.Value);
+            Assert.Equal(notificationTypes, notificationTypesResult);
+            Assert.Equal(recipients, recipientsResult);
+            Assert.Equal(headlines, headlinesResult);
+            Assert.Equal(statuses, statusesResult);
         }
 
         [Fact]
@@ -89,14 +87,16 @@
             var expectedToDate = toDate.AddDays(1).AddSeconds(-1);
             var notificationList = fixture.Create<IEnumerable<Notification>>();
             notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
-            var expectedResult = controller.Json(new { totalItems = criteria.TotalRows, data = notificationList });
 
             // Act
-            var result = await controller.GetGridData(criteria);
+            var result = await controller.GetGridData(criteria) as JsonResult;
 
             // Assert
+            var totalItemsResult = (int)result.Value.GetType().GetProperty("totalItems").GetValue(result.Value);
+            var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
             Assert.Equal(expectedToDate, criteria.ToDate);
-            result.Should().BeEquivalentTo(expectedResult);
+            Assert.Equal(criteria.TotalRows, totalItemsResult);
+            Assert.Equal(notificationList, dataResult);
         }
 
         [Fact]
@@ -108,13 +108,15 @@
             criteria.ToDate = null;
             var notificationList = fixture.Create<IEnumerable<Notification>>();
             notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
-            var expectedResult = controller.Json(new { totalItems = criteria.TotalRows, data = notificationList });
 
             // Act
-            var result = await controller.GetGridData(criteria);
+            var result = await controller.GetGridData(criteria) as JsonResult;
 
             // Assert
-            result.Should().BeEquivalentTo(expectedResult);
+            var totalItemsResult = (int)result.Value.GetType().GetProperty("totalItems").GetValue(result.Value);
+            var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
+            Assert.Equal(criteria.TotalRows, totalItemsResult);
+            Assert.Equal(notificationList, dataResult);
         }
 
         [Fact]
@@ -125,31 +127,34 @@
             var command = fixture.Create<EditNotificationListCommand>();
             var commandResult = fixture.Create<CommandResult>();
             notificationListService.EditNotificationListAsync(command).Returns(commandResult);
-            var expectedResult = controller.Json(new { resolvedBy = napSession.UserName, result = commandResult });
 
             // Act
-            var result = await controller.EditNotificationList(command);
+            var result = await controller.EditNotificationList(command) as JsonResult;
 
             // Assert
-            result.Should().BeEquivalentTo(expectedResult);
+            var resolvedByResult = (string)result.Value.GetType().GetProperty("resolvedBy").GetValue(result.Value);
+            var actualCommandResult = (CommandResult)result.Value.GetType().GetProperty("result").GetValue(result.Value);
+            Assert.Equal(napSession.UserName, resolvedByResult);
+            Assert.Equal(commandResult, actualCommandResult);
         }
 
-        //[Fact]
-        //public async Task ValidateNotificationList_WhenCalled_ReturnExpectedResult()
-        //{
-        //    // Arrange
-        //    var controller = GetController();
-        //    var model = fixture.Create<ValidateNotificationListModel>();
-        //    var expected = fixture.Create<ValidationNotificationListResult>();
-        //    notificationListService.ValidateNotificationListAsync(Arg.Any<ValidateNotificationListCriteria>()).Returns(expected);
-        //    expected.IsSingle = model.IsSingle;
+        [Fact]
+        public async Task ValidateNotificationList_WhenCalled_ReturnExpectedResult()
+        {
+            // Arrange
+            var controller = GetController();
+            var model = fixture.Create<ValidateNotificationListModel>();
+            var expected = fixture.Create<ValidationNotificationListResult>();
+            notificationListService.ValidateNotificationListAsync(Arg.Any<ValidateNotificationListCriteria>()).Returns(expected);
+            expected.IsSingle = model.IsSingle;
 
-        //    // Act
-        //    var result = await controller.ValidateNotificationList(model);
+            // Act
+            var result = await controller.ValidateNotificationList(model) as JsonResult;
 
-        //    // Assert
-        //    result.Should().BeEquivalentTo(expected);
-        //}
+            // Assert
+            var valueResult = (ValidationNotificationListResult)result.Value;
+            Assert.Equal(expected, valueResult);
+        }
 
         #region Helpers
 
