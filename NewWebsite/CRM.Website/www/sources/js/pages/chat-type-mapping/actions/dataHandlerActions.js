@@ -35,22 +35,21 @@ export const setGridData = data => {
     };
 };
 
-export const getGridData = params => {
+export const getGridData = params => async dispatch => {
     Site.blockUI();
+    console.log(params);
     const url = Site.resolveClientUrl('ChatTypeMapping/GetChatTypeMapping');
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setGridData(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setGridData(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 // Update Active Status

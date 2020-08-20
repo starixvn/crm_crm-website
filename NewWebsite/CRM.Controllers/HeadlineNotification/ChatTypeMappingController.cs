@@ -1,6 +1,7 @@
 ﻿namespace CRM.Controllers.HeadlineNotification
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Models;
@@ -46,16 +47,16 @@
             {
                 ChatTypes = commonService.GetChatTypes(),
                 MappingStatuses = commonService.GetMappingStatus(),
-                Languages = lang,
-                Bots = bots,
-                RecipientTypes = recipientTypes,
-                GroupHeadline = headlines
+                Languages = (await lang).Select(l => new BaseModel { Id = l.SettingId, Name = l.SettingName }),
+                Bots = await bots,
+                RecipientTypes = await recipientTypes,
+                GroupHeadline = await headlines
             };
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetChatTypeMapping(ChatTypeFilterViewModel filter)
+        public async Task<IActionResult> GetChatTypeMapping([FromBody]ChatTypeFilterViewModel filter)
         {
             var criteria = new GetChatTypeMappingCriteria
             {

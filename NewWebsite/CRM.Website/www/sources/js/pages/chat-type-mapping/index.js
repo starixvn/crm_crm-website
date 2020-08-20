@@ -7,7 +7,7 @@ import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
-    gridData: null,
+    gridData: { data: null, totalItems: 0 },
     insertPersonalMappingData: { isShow: false },
     updatePersonalMappingData: { isShow: false, data: null },
     updateGroupMappingData: { isShow: false, data: null },

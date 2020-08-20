@@ -15,7 +15,7 @@ class Filter extends Component {
 
         this.state = {
             filter: {
-                chatType: null,
+                chatType: '',
                 name: '',
                 groupHeadline: '',
                 recipient: '',
@@ -71,7 +71,7 @@ class Filter extends Component {
 
             const state = {
                 filter: {
-                    chatType: null,
+                    chatType: '',
                     name: '',
                     groupHeadline: '',
                     recipient: '',
