@@ -1,12 +1,11 @@
 ﻿namespace CRM.Controllers.HeadlineNotification
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Models;
+    using CRM.Criteria.ChatBot;
     using CRM.Criteria.ChatTypeMapping;
-    using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.Setting;
     using CRM.Services;
@@ -39,18 +38,16 @@
             var bots = commonService.GetConversationBots();
             var lang = settingService.GetAsync(new GetSettingParam { SettingName = SettingName.NotificationTemplateLanguage, IsActive = 1 });
             var recipientTypes = commonService.GetRecipientTypes();
-            var headlines = commonService.GetHeadlines(new GetHeadlinesCriteria { Username = string.Empty });
 
-            await Task.WhenAll(bots, lang, recipientTypes, headlines);
+            await Task.WhenAll(bots, lang, recipientTypes);
 
             var result = new
             {
                 ChatTypes = commonService.GetChatTypes(),
                 MappingStatuses = commonService.GetMappingStatus(),
-                Languages = (await lang).Select(l => new BaseModel { Id = l.SettingId, Name = l.SettingName }),
+                Languages = (await lang).Select(l => new BaseModel { Id = l.SettingId, Name = l.SettingValue }),
                 Bots = await bots,
                 RecipientTypes = await recipientTypes,
-                GroupHeadline = await headlines
             };
             return Json(result);
         }
@@ -65,7 +62,7 @@
                 Headline = filter.GroupHeadline,
                 RecipientName = filter.RecipientIds,
                 LetstalkId = filter.LetstalkId,
-                LanguageIds = filter.LanguageIds,
+                LanguageId = filter.LanguageId,
                 IsActive = filter.IsActive,
                 ConversationBotIds = filter.BotIds,
                 MappingStatus = filter.MappingStatuses,
@@ -82,17 +79,10 @@
         }
 
         [HttpPost]
-        public IActionResult UpdateActiveStatus(int ConversationId, bool IsActive)
+        public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
-            var result = new CommandResult { Code = 0, Message = "Success" };
-            return Json(result);
-        }
-
-        [HttpPost]
-        public IActionResult GetMappingByConversationId(int conversationId)
-        {
-            var result = new CommandResult { Code = 0, Message = "Success" };
-            return Json(result);
+            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive);
+            return Json(commandResult);
         }
 
         [HttpPost]
@@ -102,15 +92,16 @@
             return Json(result);
         }
 
-        public IActionResult GetRecipientByGroupHeadline(string headlineIds)
+        public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
         {
-            var recipients = new List<BaseModel>
-            {
-                new BaseModel { Id = 1, Name = "Recipient1" },
-                new BaseModel { Id = 2, Name = "Recipient1" }
-            };
-
+            var recipients = await commonService.GetRecipients(new GetRecipientsCriteria { RecipientType = recipientTypeId });
             return Json(recipients);
+        }
+
+        public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
+        {
+            var headlines = await chatTypeMappingService.GetHeadlineByRecipient(recipientIds);
+            return Json(headlines);
         }
     }
 }

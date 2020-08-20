@@ -21,4 +21,8 @@
     <Folder Include="Headline\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
+  </ItemGroup>
+
 </Project>

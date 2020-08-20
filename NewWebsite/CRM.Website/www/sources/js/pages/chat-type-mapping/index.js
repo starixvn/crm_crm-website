@@ -11,7 +11,8 @@ const store = Store.createStore(reducer, {
     insertPersonalMappingData: { isShow: false },
     updatePersonalMappingData: { isShow: false, data: null },
     updateGroupMappingData: { isShow: false, data: null },
-    recipients: []
+    recipients: [],
+    groupHeadline: []
 });
 
 ReactDOM.render(

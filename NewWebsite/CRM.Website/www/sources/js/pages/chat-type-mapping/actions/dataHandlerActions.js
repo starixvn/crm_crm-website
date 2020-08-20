@@ -37,7 +37,6 @@ export const setGridData = data => {
 
 export const getGridData = params => async dispatch => {
     Site.blockUI();
-    console.log(params);
     const url = Site.resolveClientUrl('ChatTypeMapping/GetChatTypeMapping');
     await axios({
         method: 'post',
@@ -60,21 +59,19 @@ export const setUpateActivePopup = data => {
     };
 };
 
-export const updateActiveStatus = params => {
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'),
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setUpateActiveResult(response.data));
-            dispatch(setUpateActivePopup({ isShow: false }))
-        }).catch(Site.handleAxiosError);
-    };
+export const updateActiveStatus = params => async dispatch => {
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setUpateActiveResult(response.data));
+        dispatch(setUpateActivePopup({ isShow: false }));
+    }).catch(Site.handleAxiosError);
 };
 
 export const setUpateActiveResult = data => {
@@ -84,7 +81,7 @@ export const setUpateActiveResult = data => {
     };
 };
 
-// Get Recipient by HeadlineIds
+// Get Recipient by Recipient Type
 export const setRecipientData = data => {
     return {
         type: types.RECIPIENT_DATA,
@@ -92,13 +89,13 @@ export const setRecipientData = data => {
     };
 };
 
-export const getRecipientByGroupHeadline = headlineIds => {
-    if (headlineIds) {
+export const getRecipientByRecipientType = recipientTypeId => {
+    if (recipientTypeId) {
         return dispatch => {
             return axios({
                 method: 'post',
-                url: Site.resolveClientUrl('ChatTypeMapping/GetRecipientByGroupHeadline'),
-                data: { headlineIds: headlineIds },
+                url: Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType'),
+                data: { recipientTypeId: recipientTypeId },
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'RequestVerificationToken': Site.getXsrfToken()
@@ -114,13 +111,44 @@ export const getRecipientByGroupHeadline = headlineIds => {
     };
 };
 
+// Get Group Headline by Recipients
+export const setGroupHeadlineData = data => {
+    return {
+        type: types.GROUP_HEADLINE_DATA,
+        data: data
+    };
+};
+
+export const getGroupHeadlineByRecipient = recipientIds => {
+    if (recipientIds) {
+        return dispatch => {
+            return axios({
+                method: 'post',
+                url: Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient'),
+                data: { recipientIds: recipientIds },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'RequestVerificationToken': Site.getXsrfToken()
+                }
+            }).then(response => {
+                dispatch(setGroupHeadlineData(response.data));
+            }).catch(Site.handleAxiosError);
+        };
+    }
+
+    return dispatch => {
+        dispatch(setGroupHeadlineData([]));
+    };
+};
+
 const actions = {
     getSettings,
     getGridData,
     setGridParams,
     setUpateActivePopup,
     updateActiveStatus,
-    getRecipientByGroupHeadline
+    getRecipientByRecipientType,
+    getGroupHeadlineByRecipient
 };
 
 export default actions;

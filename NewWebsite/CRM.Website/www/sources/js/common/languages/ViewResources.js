@@ -33,6 +33,7 @@
     InsertNotificationTemplate: 'Insert Notification Template',
     InsertNotificationTemplateSuccessfully: 'Insert notification template successfully!',
     InsertPersonalMapping: 'Insert New Personal Chat Mapping',
+    InsertPersonalMappingBtn: 'Insert Personal Chat Mapping',
     LetstalkID: 'Letstalk ID',
     LanguageRequired: 'Language is mandatory!',
     MappingStatus: 'Mapping Status',

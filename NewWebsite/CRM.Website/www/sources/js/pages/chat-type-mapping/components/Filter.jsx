@@ -23,9 +23,7 @@ class Filter extends Component {
                 mappingStatuses: {
                     value: ''
                 },
-                languages: {
-                    value: ''
-                },
+                languageId: '',
                 botIds: {
                     value: ''
                 },
@@ -63,12 +61,6 @@ class Filter extends Component {
             });
 
             const languages = nextProps.settings.languages;
-            const selectedLanguages = [];
-            languages.map(v => {
-                v['checked'] = true;
-                selectedLanguages.push(v['id']);
-            });
-
             const state = {
                 filter: {
                     chatType: '',
@@ -80,10 +72,7 @@ class Filter extends Component {
                         value: selectedMappingStatuses.join(','),
                         isValid: true
                     },
-                    languages: {
-                        value: selectedLanguages.join(','),
-                        isValid: true
-                    },
+                    languages: '',
                     botIds: {
                         value: selectedbotIds.join(','),
                         isValid: true
@@ -117,7 +106,7 @@ class Filter extends Component {
             recipientIds: this.state.filter.recipient,
             letstalkId: this.state.filter.letstalkID,
             mappingStatuses: this.state.filter.mappingStatuses.value,
-            languageIds: this.state.filter.languages.value,
+            languageId: this.state.filter.languageId,
             isActive: this.state.filter.active,
             pageIndex: 1,
             pageSize: 100
@@ -131,11 +120,6 @@ class Filter extends Component {
         if (filter.botIds.value === '') {
             isValid = false;
             errMsg = 'Please choose Bot Name';
-        }
-
-        if (filter.languages.value === '') {
-            isValid = false;
-            errMsg = 'Please choose Language';
         }
 
         if (filter.mappingStatuses.value === '') {
@@ -162,7 +146,7 @@ class Filter extends Component {
         }
     }
 
-    renderChatTypes = (item, key) => {
+    renderOptions = (item, key) => {
         return (
             <option key={key} value={item.id}>
                 {item.name}
@@ -179,49 +163,52 @@ class Filter extends Component {
                     />
                 }
                 <Form className='form-filter' tag='div'>
-                    <Form.Row bsPrefix='form-row'>
-                        <label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</label>
-                        <div className="col-auto">
+                    <Form.Row className='form-row'>
+                        <Form.Group>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</Form.Label>
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 value={this.state.filter.chatType}
                                 onChange={(e) => this.onChange('chatType', e.target.value)}
                             >
                                 <option value="">{LangHelper.getResource('All')}</option>
-                                {this.state.settings.chatTypes.map(this.renderChatTypes)}
+                                {this.state.settings.chatTypes.map(this.renderOptions)}
                             </Form.Control>
-                        </div>
-                        <label className="col-auto col-form-label">{LangHelper.getResource('Name')}</label>
-                        <div className="col-auto">
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('Name')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.name}
                                 onChange={(e) => this.onChange('name', e.target.value)}
                             />
-                        </div>
-                        <label className="col-auto col-form-label">{LangHelper.getResource('GroupHeadline')}</label>
-                        <div className="col-auto">
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('GroupHeadline')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.groupHeadline}
                                 onChange={(e) => this.onChange('groupHeadline', e.target.value)}
                             />
-                        </div>
-                        <label className="col-auto col-form-label">{LangHelper.getResource('Recipient')}</label>
-                        <div className="col-auto">
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('Recipient')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.recipient}
                                 onChange={(e) => this.onChange('recipient', e.target.value)}
                             />
-                        </div>
-                        <label className="col-auto col-form-label">{LangHelper.getResource('LetstalkID')}</label>
-                        <div className="col-auto">
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('LetstalkID')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.letstalkID}
                                 onChange={(e) => this.onChange('letstalkID', e.target.value)}
                             />
-                        </div>
-                        <label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</label>
-                        <div className='col-auto position-relative'>
+                        </Form.Group>
+
+                    </Form.Row>
+                    <Form.Row className='form-row'>
+                        <Form.Group>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</Form.Label>
                             <MultipleSelectField
-                                width={150}
+                                width={154}
                                 initialValue={this.state.filter.mappingStatuses}
                                 data={this.state.settings.mappingStatuses}
                                 keyField='id'
@@ -231,25 +218,19 @@ class Filter extends Component {
                                 isAllTextShown
                                 onChange={value => this.onChange('mappingStatuses', value)}
                             />
-                        </div>
-                    </Form.Row>
-                    <Form.Row bsPrefix='form-row'>
-                        <label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</label>
-                        <div className='col-auto position-relative'>
-                            <MultipleSelectField
-                                width={150}
-                                initialValue={this.state.filter.languages}
-                                data={this.state.settings.languages}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
-                                isAllTextShown
-                                onChange={value => this.onChange('languages', value)}
-                            />
-                        </div>
-                        <label className='col-auto col-form-label'>{LangHelper.getResource('Active')}</label>
-                        <div className="col-auto">
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</Form.Label>
+                            <Form.Control as="select" size="sm" className="shadow-none"
+                                value={this.state.filter.languageId}
+                                onChange={(e) => this.onChange('languageId', e.target.value)}
+                            >
+                                <option value="">{LangHelper.getResource('All')}</option>
+                                {this.state.settings.languages.map(this.renderOptions)}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Active')}</Form.Label>
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 value={this.state.filter.active}
                                 onChange={e => this.onChange('active', e.target.value)}
@@ -258,11 +239,11 @@ class Filter extends Component {
                                 <option value="1">{LangHelper.getResource('Yes')}</option>
                                 <option value="0">{LangHelper.getResource('No')}</option>
                             </Form.Control>
-                        </div>
-                        <label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</label>
-                        <div className='col-auto position-relative'>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</Form.Label>
                             <MultipleSelectField
-                                width={150}
+                                width={154}
                                 initialValue={this.state.filter.botIds}
                                 data={this.state.settings.bots}
                                 keyField='id'
@@ -272,13 +253,16 @@ class Filter extends Component {
                                 isAllTextShown
                                 onChange={value => this.onChange('botIds', value)}
                             />
-                        </div>
-                        <div className='col-auto'>
-                            <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
-                        </div>
-                        <div className='col-auto'>
-                            <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>{LangHelper.getResource('InsertPersonalMapping')}</Button>
-                        </div>
+                        </Form.Group>
+                        <Form.Group>
+                            <div className='col-auto pd-0'>
+                                <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+                            </div>
+
+                            <div className='col-auto'>
+                                <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>{LangHelper.getResource('InsertPersonalMappingBtn')}</Button>
+                            </div>
+                        </Form.Group>
                     </Form.Row>
                 </Form>
                 {

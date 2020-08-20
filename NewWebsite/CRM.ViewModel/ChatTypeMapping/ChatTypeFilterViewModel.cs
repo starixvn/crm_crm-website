@@ -16,7 +16,7 @@
 
         public string MappingStatuses { get; set; }
 
-        public string LanguageIds { get; set; }
+        public int? LanguageId { get; set; }
 
         public bool? IsActive { get; set; }
 

@@ -42,9 +42,14 @@ export class InsertPersonalMappingPopup extends Component {
         }));
     };
 
-    handleGroupHeadlineChange = (data) => {
-        this.handleChange('groupHeadlines', data);
-        this.props.getRecipientByGroupHeadline(data.value);
+    handleRecipientTypeChange = value => {
+        this.handleChange('recipientType', value);
+        this.props.getRecipientByRecipientType(value);
+    }
+
+    handleRecipientChange = (data) => {
+        this.handleChange('recipients', data);
+        this.props.getGroupHeadlineByRecipient(data.value);
     };
 
     renderOptions = (item, key) => {
@@ -181,32 +186,12 @@ export class InsertPersonalMappingPopup extends Component {
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 name="recipientTypeId"
-                                onChange={e => this.handleChange('recipientType', e.target.value)}
+                                onChange={e => this.handleRecipientTypeChange(e.target.value)}
                                 value={this.state.form.recipientType}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.props.settings.recipientTypes.map(this.renderOptions)}
                             </Form.Control>
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
-                            {LangHelper.getResource('GroupHeadline')}
-                        </Form.Label>
-                        <Col sm="8" md="9">
-                            <MultipleSelectField
-                                width={'100%'}
-                                name="headlineIds"
-                                initialValue={this.state.form.groupHeadlines.value}
-                                data={this.props.settings.groupHeadline}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
-                                onChange={this.handleGroupHeadlineChange}
-                                isSearchable
-
-                            />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -222,7 +207,7 @@ export class InsertPersonalMappingPopup extends Component {
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
-                                onChange={value => this.handleChange('recipients', value)}
+                                onChange={this.handleRecipientChange}
                             />
                         </Col>
                     </Form.Group>
@@ -231,6 +216,26 @@ export class InsertPersonalMappingPopup extends Component {
                             {LangHelper.getResource('LetstalkID')}
                         </Form.Label>
                         <Col sm="8" md="9" />
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('GroupHeadline')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <MultipleSelectField
+                                width={'100%'}
+                                name="headlineIds"
+                                initialValue={this.state.form.groupHeadlines.value}
+                                data={this.props.groupHeadline}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                onChange={value => this.handleChange('groupHeadlines', value)}
+                                isSearchable
+
+                            />
+                        </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
@@ -294,10 +299,11 @@ export class InsertPersonalMappingPopup extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { settings, recipients, gridParams, insertPersonalMappingResult } = state;
+    const { settings, recipients, groupHeadline, gridParams, insertPersonalMappingResult } = state;
     return {
         settings,
         recipients,
+        groupHeadline,
         gridParams,
         insertPersonalMappingResult
     };

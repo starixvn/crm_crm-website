@@ -53,6 +53,10 @@
     cursor: pointer;
 }
 
+.pd-0 {
+    padding: 0;
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 520px;

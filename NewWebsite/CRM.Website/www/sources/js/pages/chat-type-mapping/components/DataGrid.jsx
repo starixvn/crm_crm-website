@@ -26,6 +26,7 @@ export class DataGrid extends Component {
     }
 
     onChangeActiveStaus = (conversationGroupId, isChecked) => {
+        console.log(conversationGroupId);
         this.props.setUpateActivePopup({ isShowPopup: true, conversationGroupId, isChecked });
     }
 
@@ -106,9 +107,9 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
-        let groupConversation = this.props.gridData.filter(i => i.conversationGroupId === item.conversationGroupId);
+        let groupConversation = this.props.gridData.data.filter(i => i.conversationGroupId === item.conversationGroupId);
         const numOfRowSpan = groupConversation.length;
-        if (index === 0 || this.props.gridData[index - 1].conversationGroupId !== item.conversationGroupId) {
+        if (index === 0 || this.props.gridData.data[index - 1].conversationGroupId !== item.conversationGroupId) {
             return (
                 <Row key={index}>
                     <Cell rowSpan={numOfRowSpan} className='text-center'>{index + this.startIndex}</Cell>
