@@ -8,8 +8,6 @@
 
     public interface INotificationTypeService
     {
-        Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param);
-
         Task<CommandResult> CreateAsync(CreateNotificationType model);
 
         Task<CommandResult> EditAsync(EditNotificationType model);

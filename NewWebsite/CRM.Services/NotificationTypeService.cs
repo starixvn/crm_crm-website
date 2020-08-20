@@ -25,24 +25,6 @@
             this.notificationTypeRepository = notificationTypeRepository;
         }
 
-        public async Task<IEnumerable<NotificationType>> GetAsync(GetGridDataParam param)
-        {
-
-            var criteria = new GetNotificationTypeCriteria
-            {
-                RecipientTypeIds = param.RecipientTypeIds,
-                ChatTypeIds = param.ChatTypeIds,
-                SystemId = param.SystemId,
-                NotificationTypeName = param.NotificationTypeName,
-                PageIndex = param.PageIndex,
-                PageSize = param.PageSize
-            };
-            var types = await baseService.GetDataAsync<NotificationType>(criteria);
-            param.TotalRows = criteria.TotalRows;
-
-            return types;
-        }
-
         public async Task<CommandResult> CreateAsync(CreateNotificationType model)
         {
             var command = new CreateNotificationTypeCommand
