@@ -1,6 +1,6 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Button, Card, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
@@ -20,7 +20,7 @@ class ContentDetailPopup extends Component {
                         template.contents.map(item => {
                             return (
                                 <Fragment key={item.languageId}>
-                                    <div>{item.language}</div>
+                                    <div>{LangHelper.getResource('Content')} ({item.language})</div>
                                     <div className="border p-1 mb-3 content">{item.content}</div>
                                 </Fragment>
                             );

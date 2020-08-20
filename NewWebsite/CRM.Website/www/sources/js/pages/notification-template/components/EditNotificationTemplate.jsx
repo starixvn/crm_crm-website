@@ -52,7 +52,7 @@ class EditNotificationTemplate extends Component {
 
         this.props.languages.map(item => {
             if (!values['language_' + item.settingId] || values['language_' + item.settingId].trim().length === 0) {
-                errors['language_' + item.settingId] = `${item.settingValue} is mandatory!`;
+                errors['language_' + item.settingId] = `${LangHelper.getResource('Content')} (${item.settingValue}) is mandatory!`;
             }
         });
 
@@ -125,7 +125,7 @@ class EditNotificationTemplate extends Component {
                             return (
                                 <Form.Group key={`language${item.settingId}`} as={Row}>
                                     <Form.Label column sm="4" md="3" className="required" htmlFor={'language_' + item.settingId}>
-                                        {item.settingValue}
+                                        {LangHelper.getResource('Content')} ({item.settingValue})
                                     </Form.Label>
                                     <Col sm="8" md="9">
                                         <Form.Control as="textarea" value={values['language_' + item.settingId]}

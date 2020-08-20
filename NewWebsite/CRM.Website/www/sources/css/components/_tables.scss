@@ -1,0 +1,10 @@
+﻿@import '../abstracts/variables';
+
+.table-title {
+    border: 1px solid $border-table-grey;
+    border-bottom-width: 0;
+    padding: 4px 5px;
+    background-color: $bg-table-title-grey;
+    font-weight: bold;
+    color: $blue-button;
+}
