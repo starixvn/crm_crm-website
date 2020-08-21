@@ -85,11 +85,9 @@ td, th {
 }
 
 .notification-id-container {
+    justify-content: space-between;
+    
     .notification-id-input {
-        width: 70px !important;
-    }
-
-    .notification-concate {
-        width: 20px;
+        width: 45% !important;
     }
 }

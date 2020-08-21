@@ -271,7 +271,7 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('To')}</Form.Label>
-                        <div className='react-datepicker-wrapper-container'>
+                        <div className='react-datepicker-wrapper-container form-control-wrapper'>
                             <DatePicker disabled={this.isDisabledDateParam()}
                                 maxDate={this.state.maxDate}
                                 selected={this.state.filter.toDate}
