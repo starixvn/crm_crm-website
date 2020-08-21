@@ -17,21 +17,11 @@
 }
 
 .notification-content {
-    border: 1px solid $border-table-grey;
-    margin-top: 13px;
-    padding: 13px;
-}
-
-.modal-footer {
-    border-top: none;
+    white-space: pre-line;
 }
 
 .status-font {
     font-weight: bold;
-}
-
-.table-title {
-    border-bottom: none;
 }
 
 .sending-color {
@@ -65,19 +55,6 @@
     margin-bottom: 10px !important;
 }
 
-.invalid-params-box {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid $error-color;
-    color: $error-color;
-    background-color: $white;
-
-    .fa-exclamation-triangle {
-        color: $error-color;
-        margin-right: 10px;
-    }
-}
-
 .invalid-input {
     border-color: $error-color;
 }
@@ -108,19 +85,11 @@ td, th {
 }
 
 .notification-id-container {
-    display: flex;
-    height: 100%;
-
     .notification-id-input {
         width: 70px !important;
     }
 
     .notification-concate {
         width: 20px;
-        text-align: center;
     }
-}
-
-.form-filter .form-row .form-group {
-    height: 28px;
 }

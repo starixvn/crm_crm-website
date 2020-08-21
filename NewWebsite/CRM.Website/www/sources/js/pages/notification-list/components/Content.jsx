@@ -17,7 +17,7 @@ export default class Content extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <div>{`Name: Group ${data.headlines.map(gh => gh.headlineName).join(', ')}`}</div>
-                    <div className='notification-content'>{data.content}</div>
+                    <div className='border p-2 mt-2 mb-3 notification-content'>{data.content}</div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={onClose} variant='primary' size='sm'>{LangHelper.getResource('Close')}</Button>

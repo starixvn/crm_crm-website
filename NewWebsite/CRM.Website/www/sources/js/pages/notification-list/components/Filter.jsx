@@ -39,9 +39,9 @@ class Filter extends Component {
             statusOptions: []
         };
     }
-    
+
     componentDidUpdate = (nextProps, prevState) => {
-        if(nextProps.settings !== this.props.settings) {
+        if (nextProps.settings !== this.props.settings) {
             // notification type
             const notificationTypeIds = [];
             const notificationTypeOptions = this.props.settings.notificationTypes.map(x => {
@@ -79,7 +79,7 @@ class Filter extends Component {
                     checked: true
                 };
             });
-    
+
             this.setState(prevState => ({
                 notificationTypeOptions,
                 headlineOptions,
@@ -99,7 +99,7 @@ class Filter extends Component {
             }), () => {
                 const params = this.getParams();
                 this.props.setGridParams(params);
-                this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
+                this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
         }
     }
@@ -162,7 +162,7 @@ class Filter extends Component {
         const params = this.getParams();
         if (this.isValidateParams(params)) {
             this.props.setGridParams(params);
-            this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
+            this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
         }
     }
 
@@ -179,7 +179,7 @@ class Filter extends Component {
 
             return false;
         }
-    
+
         if (params.notificationIdLower !== '') {
             if (params.notificationIdUpper === '') {
                 this.props.setInvalidParams({
@@ -187,7 +187,7 @@ class Filter extends Component {
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
                     isInvalidNotificationIdUpper: true
                 })
-                
+
                 return false;
             }
         }
@@ -199,7 +199,7 @@ class Filter extends Component {
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
                     isInvalidNotificationIdLower: true
                 })
-                
+
                 return false;
             }
         }
@@ -209,20 +209,20 @@ class Filter extends Component {
                 show: true,
                 message: `${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`
             })
-            
+
             return false;
         }
 
         if (params.messageId === '' && params.notificationIdLower === '') {
-            params.fromDate.setHours(0,0,0,0);
-            params.toDate.setHours(0,0,0,0);
-            
+            params.fromDate.setHours(0, 0, 0, 0);
+            params.toDate.setHours(0, 0, 0, 0);
+
             if (params.toDate - params.fromDate < 0) {
                 this.props.setInvalidParams({
                     show: true,
                     message: LangHelper.getResource('ToDateIsEarlierThanFromDate')
                 });
-    
+
                 return false;
             }
         }
@@ -262,13 +262,21 @@ class Filter extends Component {
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('From')}</Form.Label>
                         <div className='react-datepicker-wrapper-container form-control-wrapper'>
-                            <DatePicker disabled={this.isDisabledDateParam()} maxDate={this.state.maxDate} selected={this.state.filter.fromDate} onChange={this.handleFromDateChange} />
+                            <DatePicker disabled={this.isDisabledDateParam()}
+                                maxDate={this.state.maxDate}
+                                selected={this.state.filter.fromDate}
+                                onChange={this.handleFromDateChange}
+                            />
                         </div>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('To')}</Form.Label>
                         <div className='react-datepicker-wrapper-container'>
-                            <DatePicker disabled={this.isDisabledDateParam()}  maxDate={this.state.maxDate} selected={this.state.filter.toDate} onChange={this.handleToDateChange} />
+                            <DatePicker disabled={this.isDisabledDateParam()}
+                                maxDate={this.state.maxDate}
+                                selected={this.state.filter.toDate}
+                                onChange={this.handleToDateChange}
+                            />
                         </div>
                     </Form.Group>
                     <Form.Group>
@@ -308,13 +316,13 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationID')}</Form.Label>
-                        <div className='notification-id-container'>
-                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
+                        <div className='form-control-wrapper d-flex align-items-center notification-id-container'>
+                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input' : 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
                                 value={this.state.filter.notificationIdLower}
                                 onChange={this.handleChangeFilterControl}
                             />
-                            <div className='notification-concate'>-</div>
-                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input': 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
+                            <div className='notification-concate text-center'>-</div>
+                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input' : 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
                                 value={this.state.filter.notificationIdUpper}
                                 onChange={this.handleChangeFilterControl}
                             />
@@ -337,7 +345,9 @@ class Filter extends Component {
                         </div>
                     </Form.Group>
                     <div>
-                        <Button variant='primary' size='sm' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+                        <Button variant='primary' size='sm' onClick={this.submitHandler}>
+                            {LangHelper.getResource('Submit')}
+                        </Button>
                     </div>
                 </Form.Row>
             </Form>

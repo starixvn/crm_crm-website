@@ -1,6 +1,5 @@
 ﻿namespace CRM.Criteria.NotificationTemplate
 {
-    using Fanex.Data;
     using Fanex.Data.Repository;
 
     public class GetNotificationTemplateCriteria : CriteriaBase

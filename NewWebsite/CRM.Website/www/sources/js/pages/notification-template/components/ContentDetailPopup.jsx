@@ -21,7 +21,7 @@ const ContentDetailPopup = props => {
                         return (
                             <Fragment key={item.languageId}>
                                 <div>{LangHelper.getResource('Content')} ({item.language})</div>
-                                <div className="border p-1 mb-3 content">{item.content}</div>
+                                <div className="border p-2 mt-2 mb-3 content">{item.content}</div>
                             </Fragment>
                         );
                     })

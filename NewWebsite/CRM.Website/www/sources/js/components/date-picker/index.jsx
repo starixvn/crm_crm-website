@@ -13,14 +13,14 @@ export default class DatePickerField extends React.Component {
         return (
             <React.Fragment>
                 <DatePicker
-                    className={`form-control datetime-picker ${className}`}
+                    className={`form-control form-control-sm datetime-picker ${className}`}
                     dateFormat={this.props.showTimeSelect ? 'MMM dd, yyyy hh:mm aa' : 'MMM dd, yyyy'}
                     timeFormat='hh:mm aa'
                     timeIntervals={5}
                     ref={c => this._calendar = c}
                     {...rest}
                 />
-                <i className='date-picker-icon fa fa-calendar' onClick={this.openDatepicker}></i>
+                <i className='date-picker-icon fa fa-calendar' onClick={this.openDatepicker} />
             </React.Fragment>
         );
     }

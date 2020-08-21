@@ -1,9 +1,9 @@
 ﻿namespace CRM.Criteria.NotificationTemplate
 {
+    using CRM.Core.Models;
     using Fanex.Data;
-    using Fanex.Data.Repository;
 
-    public class EditNotificationTemplateCommand : NonQueryCommand
+    public class EditNotificationTemplateCommand : BaseNonQueryCommand
     {
         public int NotificationTemplateId { get; set; }
         public int NotificationTypeId { get; set; }
@@ -15,9 +15,6 @@
         public string ContentXml { get; set; }
 
         public int UserId { get; set; }
-
-        public int ErrCode { get; set; }
-        public string ErrMsg { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationTemplate_Upd";
 
