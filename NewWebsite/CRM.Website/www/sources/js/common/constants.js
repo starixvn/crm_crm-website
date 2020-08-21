@@ -1,4 +1,4 @@
-﻿export const PAGING_SIZES = [20, 50, 100, 500];
+﻿export const PAGING_SIZES = [100, 200, 300, 400, 500, 1000];
 
 export const defaultPageSize = 20;
 

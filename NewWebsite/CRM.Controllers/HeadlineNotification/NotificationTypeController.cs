@@ -55,9 +55,8 @@ namespace CRM.Controllers
 
         public IActionResult Index()
         {
-           // var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationType, Policy.Host);
-           //return View(isHost);
-           return View();
+           var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationType, Policy.Host);
+           return View(isHost);
         }
 
         [HttpPost]
@@ -92,7 +91,6 @@ namespace CRM.Controllers
         public async Task<IActionResult> Edit([FromBody]EditNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.EditAsync(model);
-            
             return Json(commandResult);
         }
 

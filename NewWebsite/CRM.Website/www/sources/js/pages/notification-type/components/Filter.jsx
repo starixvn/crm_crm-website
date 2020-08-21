@@ -69,8 +69,6 @@ class Filter extends Component {
                     chatTypesOptions,
                     systemsOptions,
                     filter: {
-                        ...prevState.filter,
-                        ...{
                             recipientTypes: {
                                 value: recipientTypeIds.toString()
                             },
@@ -80,13 +78,8 @@ class Filter extends Component {
                             systems: {
                                 value: systemIds.toString()
                             }
-                        }
                     }
-            }), () => {
-                const params = this.getParams();
-                this.props.setGridParams(params);
-                this.props.getGridData(params);
-            });
+                }));
         }
     }
 
@@ -124,38 +117,35 @@ class Filter extends Component {
     submitHandler = e => {
         e.preventDefault();
         const params = this.getParams();
-        if (this.isValidateParams(params)) {
-            this.props.setGridParams(params);
-            this.props.getGridData(params);
-        }
-    }
+        this.props.setInvalidParams({
+            show: false
+        });
 
-    isValidateParams = (params) => {
+        const error = [];
         if (params.recipientTypeId == '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('RecipientType')}`
-            });
-            return false;
+            error.push('Recipient Type');
         }
 
         if (params.chatTypeId == '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('ChatType')}`
-            });
-            return false;
+            error.push(' Chat Type');
         }
 
         if (params.systemId == '') {
+            error.push(' System');
+        }
+
+        if(error.length > 0)
+        {
             this.props.setInvalidParams({
                 show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${LangHelper.getResource('System')}`
+                message: `${LangHelper.getResource('PleaseChoose')} ${error.toString()}` 
             });
-            return false;
         }
-        
-        return true;
+        else
+        {
+            this.props.setGridParams(params);
+            this.props.getGridData(params);
+        }
     }
 
     handleOpenCreatePopup = () => this.props.setCreateTypePopup({ show: true })

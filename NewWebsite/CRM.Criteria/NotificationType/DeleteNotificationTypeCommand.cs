@@ -1,13 +1,11 @@
 ﻿namespace CRM.Criteria.NotificationType
 {
-    using Fanex.Data.Repository;
+    using CRM.Core.Models;
 
-    public class DeleteNotificationTypeCommand : NonQueryCommand
+    public class DeleteNotificationTypeCommand : BaseNonQueryCommand
     {
        public int NotificationTypeId { get; set; }
         public int UserId { get; set; }
-        public int ErrCode { get; set; }
-        public string ErrMsg { get; set; }
         
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Del";
 
