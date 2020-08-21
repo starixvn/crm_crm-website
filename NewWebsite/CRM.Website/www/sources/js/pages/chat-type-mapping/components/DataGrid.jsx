@@ -40,6 +40,10 @@ export class DataGrid extends Component {
         this.props.getGridData(this.props.gridParams);
     }
 
+    renderRecipients = recipient => <div className='recipient-item'>{`${recipient.recipientName} (${recipient.roleName})`}</div>;
+
+    renderLetstalkId = recipient => <div className='recipient-item'>{recipient.letstalkId}</div>
+
     handleEdit = (chatTypeId, data) => {
         if (parseInt(chatTypeId, 10) === ChatTypeMapping.Personal) {
             this.props.openUpdatePersonalMappingPopup(data);
@@ -90,10 +94,10 @@ export class DataGrid extends Component {
         return [<Row key={`body${1}`} ><Cell className='text-center' colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
-    renderIsActiveCol = (isHost, conversationGroupId, isActive, numOfRow) => {
+    renderIsActiveCol = (isHost, conversationGroupId, isActive) => {
         if (isHost) {
             return (
-                <Cell rowSpan={numOfRow} className='text-center'>
+                <Cell className='text-center'>
                     <Form.Control className='checkbox-cell-style'
                         id={`active-chk-${conversationGroupId}`}
                         type='checkbox'
@@ -107,47 +111,45 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
-        let groupConversation = this.props.gridData.data.filter(i => i.conversationGroupId === item.conversationGroupId);
-        const numOfRowSpan = groupConversation.length;
-        if (index === 0 || this.props.gridData.data[index - 1].conversationGroupId !== item.conversationGroupId) {
-            return (
-                <Row key={index}>
-                    <Cell rowSpan={numOfRowSpan} className='text-center'>{index + this.startIndex}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.chatType}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.botName}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>
-                        {item.conversationGroupName}
-                        {
-                            item.chatTypeId === ChatTypeMapping.Group &&
-                            <span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.LetstalkId)} title='Coppy to clipboard' />
-                        }
-                    </Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.recipientTypeName}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.headlines.map(h => h.headlineName).join(', ')}</Cell>
-                    <Cell>{item.recipientName}</Cell>
-                    <Cell>{item.letstalkId}</Cell>
-                    <Cell rowSpan={numOfRowSpan}>{item.language}</Cell>
-                    <Cell rowSpan={numOfRowSpan} className='text-center'>
-                        <span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatTypeId === ChatTypeMapping.Group ? item.mappingStatus : ''}</span>
-                    </Cell>
-                    {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive, numOfRowSpan)}
-                    <Cell rowSpan={numOfRowSpan}>{item.remark}</Cell>
-                    {
-                        isHost &&
-                        <Cell rowSpan={numOfRowSpan} className='text-center'>
-                            <span className="fa fa-pencil icon-edit"
-                                onClick={() => this.handleEdit(item.chatTypeId, item)}
-                            />
-                        </Cell>
-                    }
-                </Row>
-            );
-        }
-
+        console.log(item);
         return (
             <Row key={index}>
-                <Cell>{item.recipientName}</Cell>
-                <Cell>{item.letstalkId}</Cell>
+                <Cell className='text-center'>{index + this.startIndex}</Cell>
+                <Cell>{item.chatType}</Cell>
+                <Cell>{item.botName}</Cell>
+                <Cell>
+                    {item.conversationGroupName}
+                    {
+                        item.chatTypeId === ChatTypeMapping.Group &&
+                        <span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.LetstalkId)} title='Coppy to clipboard' />
+                    }
+                </Cell>
+                <Cell >{item.recipients[0].recipientTypeName}</Cell>
+                <Cell >{item.headlines.map(h => h.headlineName).join(', ')}</Cell>
+                <Cell className='recipient-merge-cell'>
+                    {
+                        item.recipients.map(this.renderRecipients)
+                    }
+                </Cell>
+                <Cell className='recipient-merge-cell'>
+                    {
+                        item.recipients.map(this.renderLetstalkId)
+                    }
+                </Cell>
+                <Cell >{item.language}</Cell>
+                <Cell className='text-center'>
+                    <span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatTypeId === ChatTypeMapping.Group ? item.mappingStatus : ''}</span>
+                </Cell>
+                {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive)}
+                <Cell >{item.remark}</Cell>
+                {
+                    isHost &&
+                    <Cell className='text-center'>
+                        <span className="fa fa-pencil icon-edit"
+                            onClick={() => this.handleEdit(item.chatTypeId, item)}
+                        />
+                    </Cell>
+                }
             </Row>
         );
     }

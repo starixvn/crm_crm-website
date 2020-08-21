@@ -57,6 +57,20 @@
     padding: 0;
 }
 
+.recipient-merge-cell {
+    padding: 0 !important;
+    vertical-align: unset !important;
+
+    .recipient-item {
+        padding: 4px 5px;
+        border-bottom: 1px solid #b7b7b7;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 520px;

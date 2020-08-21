@@ -25,13 +25,13 @@
 
         public async Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria)
         {
-            var data = await baseService.FetchMultipleAsync<ChatTypeMappingModel, ConversationRecipient, ConversationHeadlineModel>(criteria);
+            var data = await baseService.FetchMultipleAsync<ChatTypeMappingModel, ConversationHeadlineModel, ConversationRecipient>(criteria);
             if (data.Item1.Any())
             {
                 foreach (var item in data.Item1)
                 {
-                    item.Recipients = data.Item2.Where(recipient => recipient.ConversationGroupId == item.ConversationGroupId);
-                    item.Headlines = data.Item3.Where(headline => headline.ConversationGroupId == item.ConversationGroupId);
+                    item.Headlines = data.Item2.Where(headline => headline.ConversationGroupId == item.ConversationGroupId);
+                    item.Recipients = data.Item3.Where(recipient => recipient.ConversationGroupId == item.ConversationGroupId);
                 }
             }
 
@@ -52,7 +52,20 @@
 
         public async Task<IEnumerable<GroupHeadlineDirectAccountModel>> GetHeadlineByRecipient(string recipientIds)
         {
-            return await baseService.GetDataAsync<GroupHeadlineDirectAccountModel>(new GetGroupHeadlineByRecipientCriteria { RecipientIds = recipientIds });
+            var criteria = new GetGroupHeadlineByRecipientCriteria
+            {
+                RecipientIds = recipientIds,
+                IsGetDirectAccount = true
+            };
+            var tuple = await baseService.FetchMultipleAsync<GroupHeadlineDirectAccountModel, string>(criteria);
+            foreach (var item in tuple.Item1)
+            {
+                if (item.Id == 0)
+                {
+                    item.DirectAccounts = tuple.Item2;
+                }
+            }
+            return tuple.Item1;
         }
     }
 }

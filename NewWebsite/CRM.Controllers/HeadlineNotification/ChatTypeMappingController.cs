@@ -100,8 +100,15 @@
 
         public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
         {
-            var headlines = await chatTypeMappingService.GetHeadlineByRecipient(recipientIds);
-            return Json(headlines);
+            try
+            {
+                var headlines = await chatTypeMappingService.GetHeadlineByRecipient(recipientIds);
+                return Json(headlines);
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -24,22 +24,6 @@ namespace CRM.Models.ChatTypeMapping
 
         public string ConversationGroupName { get; set; }
 
-        public int RecipientTypeId { get; set; }
-
-        public string RecipientTypeName { get; set; }
-
-        public string GroupHeadline { get; set; }
-
-        public int RecipientId { get; set; }
-
-        public string RecipientName { get; set; }
-
-        public string LetstalkId { get; set; }
-
-        public IEnumerable<ConversationRecipient> Recipients { get; set; }
-
-        public IEnumerable<ConversationHeadlineModel> Headlines { get; set; }
-
         public int MappingStatusId { get; set; }
 
         public string MappingStatus
@@ -57,5 +41,9 @@ namespace CRM.Models.ChatTypeMapping
         public bool IsActive { get; set; }
 
         public string Remark { get; set; }
+
+        public IEnumerable<ConversationRecipient> Recipients { get; set; }
+
+        public IEnumerable<ConversationHeadlineModel> Headlines { get; set; }
     }
 }

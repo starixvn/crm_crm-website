@@ -2,12 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class GroupHeadlineDirectAccountModel
+    public class GroupHeadlineDirectAccountModel : BaseModel
     {
-        public int HeadlineId { get; set; }
-
-        public string HeadlineName { get; set; }
-
-        public IList<string> DirectAccounts { get; set; }
+        public IEnumerable<string> DirectAccounts { get; set; }
     }
 }

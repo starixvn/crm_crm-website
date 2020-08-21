@@ -90,17 +90,10 @@ export const setRecipientData = data => {
 };
 
 export const getRecipientByRecipientType = recipientTypeId => {
-    if (recipientTypeId) {
+    if (recipientTypeId > 0) {
+        const url = Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType');
         return dispatch => {
-            return axios({
-                method: 'post',
-                url: Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType'),
-                data: { recipientTypeId: recipientTypeId },
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'RequestVerificationToken': Site.getXsrfToken()
-                }
-            }).then(response => {
+            axios.get(url, { params: { recipientTypeId: recipientTypeId } }).then(response => {
                 dispatch(setRecipientData(response.data));
             }).catch(Site.handleAxiosError);
         };
@@ -121,16 +114,9 @@ export const setGroupHeadlineData = data => {
 
 export const getGroupHeadlineByRecipient = recipientIds => {
     if (recipientIds) {
+        const url = Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient');
         return dispatch => {
-            return axios({
-                method: 'post',
-                url: Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient'),
-                data: { recipientIds: recipientIds },
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'RequestVerificationToken': Site.getXsrfToken()
-                }
-            }).then(response => {
+            axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
                 dispatch(setGroupHeadlineData(response.data));
             }).catch(Site.handleAxiosError);
         };

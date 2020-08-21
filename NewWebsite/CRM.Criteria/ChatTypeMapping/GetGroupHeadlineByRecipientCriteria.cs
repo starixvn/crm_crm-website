@@ -6,7 +6,9 @@
     {
         public string RecipientIds { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_ChatBot_HeadlineByRecipient_Sel";
+        public bool IsGetDirectAccount { get; set; }
+
+        public override string GetSettingKey() => "Acc_CRM_HeadlineSel";
 
         public override bool IsValid() => !string.IsNullOrWhiteSpace(RecipientIds);
     }
