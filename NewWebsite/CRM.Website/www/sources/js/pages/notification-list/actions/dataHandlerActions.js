@@ -58,10 +58,6 @@ export const setErrorOrResolvedContentPopup = data => {
 };
 
 export const setResendOptions = data => {
-    return dispatch => dispatch(setResendOptionsData(data));
-};
-
-export const setResendOptionsData = data => {
     return {
         type: types.RESEND_OPTIONS_DATA,
         data

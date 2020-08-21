@@ -22,7 +22,7 @@ export class DataGrid extends Component {
     }
 
     buildHeader = isHost => {
-        const resendList = this.props.resendOptions.dataList.filter(item => this.isErrorOrResolved(item.status) && item.isResent);
+        const resendList = this.props.resendOptions.dataList.filter(item => this.isError(item.status) && item.isResent);
         const hasResend = resendList > 0;
         
         return (
@@ -82,7 +82,7 @@ export class DataGrid extends Component {
         }
     }
 
-    isErrorOrResolved = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase() || status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
+    isError = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase();
 
     validateResend = notificationId => {
         this.props.validateResend({
@@ -114,17 +114,17 @@ export class DataGrid extends Component {
                 isHost &&
                 <Cell className='text-center'>
                     {
-                        this.isErrorOrResolved(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
+                        this.isError(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
-                        this.isErrorOrResolved(item.status) && <div onClick={() => this.validateResend(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                        this.isError(item.status) && <div onClick={() => this.validateResend(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
                     }
                 </Cell>
             }
             {
                 isHost &&
                 <Cell className='text-center'>
-                    { this.isErrorOrResolved(item.status) && <Form.Control className='checkbox-cell-style'
+                    { this.isError(item.status) && <Form.Control className='checkbox-cell-style'
                         id={`resend-${item.notificationId}-${item.messageId}`}
                         type='checkbox'
                         checked={this.props.resendOptions.dataList[index] && this.props.resendOptions.dataList[index].isResent}
@@ -153,7 +153,7 @@ export class DataGrid extends Component {
     handleChangeResendCheckbox = (index) => {
         const dataList = [...this.props.resendOptions.dataList];
         dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
-        const notCheckedDataList = dataList.filter(item => this.isErrorOrResolved(item.status) && !item.isResent);
+        const notCheckedDataList = dataList.filter(item => this.isError(item.status) && !item.isResent);
         this.props.setResendOptions({
             isCheckedAll: notCheckedDataList.length <= 0,
             dataList
@@ -171,7 +171,7 @@ export class DataGrid extends Component {
     }
 
     resendNotificationAll = () => {
-        const resendList = this.props.resendOptions.dataList.filter(item => this.isErrorOrResolved(item.status) && item.isResent);
+        const resendList = this.props.resendOptions.dataList.filter(item => this.isError(item.status) && item.isResent);
         this.props.validateResend({
             notificationIds: resendList.map(item => item.notificationId).join(','),
             isSingle: false
