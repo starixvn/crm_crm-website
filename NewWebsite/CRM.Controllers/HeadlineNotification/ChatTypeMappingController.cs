@@ -3,7 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
-    using CRM.Core.Models;
+    using CRM.Core.Enumerables;
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Criteria.Common;
     using CRM.Models;
@@ -11,18 +11,31 @@
     using CRM.Services;
     using CRM.Services.Interfaces;
     using CRM.ViewModels.ChatTypeMapping;
+    using Fanex.NAP.Client.Configuration;
+    using Fanex.NAP.Client.Helpers.Web;
+    using Fanex.NAP.Client.Services;
     using Microsoft.AspNetCore.Mvc;
 
     public class ChatTypeMappingController : Controller
     {
+        private readonly INapSession napSession;
+        private readonly INapSettings napSettings;
+        private readonly IUserService userService;
         private readonly ISettingService settingService;
         private readonly ICommonService commonService;
         private readonly IChatTypeMappingService chatTypeMappingService;
 
-        public ChatTypeMappingController(ISettingService settingService,
+        public ChatTypeMappingController(
+            INapSession napSession,
+            INapSettings napSettings,
+            IUserService userService,
+            ISettingService settingService,
             ICommonService commonService,
             IChatTypeMappingService chatTypeMappingService)
         {
+            this.napSession = napSession;
+            this.napSettings = napSettings;
+            this.userService = userService;
             this.settingService = settingService;
             this.commonService = commonService;
             this.chatTypeMappingService = chatTypeMappingService;
@@ -86,9 +99,22 @@
         }
 
         [HttpPost]
-        public IActionResult InsertPersonalMapping(object data)
+        public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
         {
-            var result = new CommandResult { Code = 0, Message = "Success" };
+            var criteria = new InsertPersonalMappingCommand
+            {
+                ConversationBotId = data.BotId,
+                ConversationGroupName = data.Name,
+                ChatTypeId = (int)ChatType.Personal,
+                RecipientTypeId = data.RecipientTypeId,
+                HeadlineIds = data.GroupHeadlineIds,
+                RecipientId = data.RecipientId,
+                LetstalkId = data.LetstalkId,
+                LanguageId = data.LanguageId,
+                Remark = data.Remark,
+                UserId = napSession.UserId
+            };
+            var result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
             return Json(result);
         }
 
@@ -100,15 +126,8 @@
 
         public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
         {
-            try
-            {
-                var headlines = await chatTypeMappingService.GetHeadlineByRecipient(recipientIds);
-                return Json(headlines);
-            }
-            catch (System.Exception ex)
-            {
-                throw;
-            }
+            var headlines = await chatTypeMappingService.InsertPersonalMappingAsync(recipientIds);
+            return Json(headlines);
         }
     }
 }

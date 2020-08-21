@@ -5,9 +5,8 @@ import { Button, Col, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
-import MultipleSelectField from './MultipleSelectField';
+import MultipleSelect from '../../../components/multiple-select/index';
 import InsertPersonalMappingPopup from './InsertPersonalMappingPopup';
-import Site from '@jsroot/common/site';
 
 class Filter extends Component {
     constructor(props) {
@@ -68,15 +67,9 @@ class Filter extends Component {
                     groupHeadline: '',
                     recipient: '',
                     letstalkID: '',
-                    mappingStatuses: {
-                        value: selectedMappingStatuses.join(','),
-                        isValid: true
-                    },
+                    mappingStatuses: selectedMappingStatuses.toString(),
                     languages: '',
-                    botIds: {
-                        value: selectedbotIds.join(','),
-                        isValid: true
-                    },
+                    botIds: selectedbotIds.toString(),
                     active: ''
                 },
                 settings: {
@@ -100,12 +93,12 @@ class Filter extends Component {
     getParams = () => {
         return {
             chatType: this.state.filter.chatType,
-            botIds: this.state.filter.botIds.value,
+            botIds: this.state.filter.botIds,
             name: this.state.filter.name,
             groupHeadline: this.state.filter.groupHeadline,
             recipientIds: this.state.filter.recipient,
             letstalkId: this.state.filter.letstalkID,
-            mappingStatuses: this.state.filter.mappingStatuses.value,
+            mappingStatuses: this.state.filter.mappingStatuses,
             languageId: this.state.filter.languageId,
             isActive: this.state.filter.active,
             pageIndex: 1,
@@ -117,12 +110,12 @@ class Filter extends Component {
         let isValid = true;
         let errMsg;
         const filter = this.state.filter;
-        if (filter.botIds.value === '') {
+        if (filter.botIds === '') {
             isValid = false;
             errMsg = 'Please choose Bot Name';
         }
 
-        if (filter.mappingStatuses.value === '') {
+        if (filter.mappingStatuses === '') {
             isValid = false;
             errMsg = 'Please choose Status';
         }
@@ -141,6 +134,7 @@ class Filter extends Component {
         e.preventDefault();
         if (this.isValidParams()) {
             const params = this.getParams();
+            console.log(params);
             this.props.setGridParams(params);
             this.props.getGridData(params);
         }
@@ -207,16 +201,16 @@ class Filter extends Component {
                     <Form.Row className='form-row'>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</Form.Label>
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width={154}
                                 initialValue={this.state.filter.mappingStatuses}
-                                data={this.state.settings.mappingStatuses}
+                                dataSource={this.state.settings.mappingStatuses}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
                                 isAllTextShown
-                                onChange={value => this.onChange('mappingStatuses', value)}
+                                onChange={(currentItem, selectedItem) => this.onChange('mappingStatuses', selectedItem)}
                             />
                         </Form.Group>
                         <Form.Group>
@@ -242,16 +236,16 @@ class Filter extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</Form.Label>
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width={154}
                                 initialValue={this.state.filter.botIds}
-                                data={this.state.settings.bots}
+                                dataSource={this.state.settings.bots}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
                                 isAllTextShown
-                                onChange={value => this.onChange('botIds', value)}
+                                onChange={(currentItem, selectedItem) => this.onChange('botIds', selectedItem)}
                             />
                         </Form.Group>
                         <Form.Group>

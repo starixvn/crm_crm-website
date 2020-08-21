@@ -40,9 +40,9 @@ export class DataGrid extends Component {
         this.props.getGridData(this.props.gridParams);
     }
 
-    renderRecipients = recipient => <div className='recipient-item'>{`${recipient.recipientName} (${recipient.roleName})`}</div>;
+    renderRecipients = (recipient, key) => <div key={key} className='recipient-item'>{`${recipient.recipientName} (${recipient.roleName})`}</div>;
 
-    renderLetstalkId = recipient => <div className='recipient-item'>{recipient.letstalkId}</div>
+    renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item'>{recipient.letstalkId}</div>;
 
     handleEdit = (chatTypeId, data) => {
         if (parseInt(chatTypeId, 10) === ChatTypeMapping.Personal) {
@@ -111,7 +111,6 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
-        console.log(item);
         return (
             <Row key={index}>
                 <Cell className='text-center'>{index + this.startIndex}</Cell>

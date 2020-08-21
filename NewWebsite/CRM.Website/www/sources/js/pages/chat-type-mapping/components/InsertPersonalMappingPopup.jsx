@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
-import MultipleSelectField from './MultipleSelectField';
+import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
+import SelectWithSearch from 'react-select';
 import { ChatTypeMapping } from '../../../common/constants';
 
 export class InsertPersonalMappingPopup extends Component {
@@ -16,14 +17,8 @@ export class InsertPersonalMappingPopup extends Component {
             form: {
                 botId: '',
                 recipientType: '',
-                groupHeadlines: {
-                    value: '',
-                    isValid: false
-                },
-                recipients: {
-                    value: '',
-                    isValid: false
-                },
+                groupHeadlines: '',
+                recipient: null,
                 letstalkIds: [],
                 languageId: '',
                 remark: ''
@@ -42,14 +37,18 @@ export class InsertPersonalMappingPopup extends Component {
         }));
     };
 
+    handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {
+        this.handleChange('groupHeadlines', selectedItemsKey);
+    }
+
     handleRecipientTypeChange = value => {
         this.handleChange('recipientType', value);
         this.props.getRecipientByRecipientType(value);
     }
 
-    handleRecipientChange = (data) => {
-        this.handleChange('recipients', data);
-        this.props.getGroupHeadlineByRecipient(data.value);
+    handleRecipientChange = option => {
+        this.handleChange('recipient', option);
+        this.props.getGroupHeadlineByRecipient(option.value);
     };
 
     renderOptions = (item, key) => {
@@ -75,14 +74,14 @@ export class InsertPersonalMappingPopup extends Component {
             errMsg.push(LangHelper.getResource('RecipientTypeRequired'));
         }
 
-        if (!data.groupHeadlines.isValid) {
-            isValid = false;
-            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
-        }
-
-        if (!data.recipients.isValid) {
+        if (!data.recipient) {
             isValid = false;
             errMsg.push(LangHelper.getResource('RecipientRequired'));
+        }
+
+        if (!data.groupHeadlines) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
         }
 
         if (!data.languageId) {
@@ -103,10 +102,10 @@ export class InsertPersonalMappingPopup extends Component {
     getParams = () => {
         return {
             botId: this.state.form.botId,
-            chatType: ChatTypeMapping.Personal,
+            chatTypeId: ChatTypeMapping.Personal,
             recipientTypeId: this.state.form.recipientType,
-            groupHeadlineIds: this.state.form.groupHeadlines.value,
-            recipientIds: this.state.form.recipients.value,
+            groupHeadlineIds: this.state.form.groupHeadlines,
+            recipientId: this.state.form.recipient.value,
             languageId: this.state.form.languageId,
             remark: this.state.form.remark
         };
@@ -130,6 +129,7 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     renderForm = () => {
+        const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name }; });
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
@@ -199,15 +199,14 @@ export class InsertPersonalMappingPopup extends Component {
                             {LangHelper.getResource('Recipient')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField
-                                width={'100%'}
-                                initialValue={this.state.form.recipients.value}
-                                data={this.props.recipients || []}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
+                            <SelectWithSearch
+                                className='basic-single'
+                                isSearchable
+                                isClearable
+                                name='recipient'
                                 onChange={this.handleRecipientChange}
+                                options={recipientOptions}
+                                value={this.state.form.recipient}
                             />
                         </Col>
                     </Form.Group>
@@ -222,16 +221,15 @@ export class InsertPersonalMappingPopup extends Component {
                             {LangHelper.getResource('GroupHeadline')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
-                                initialValue={this.state.form.groupHeadlines.value}
-                                data={this.props.groupHeadline}
+                                dataSource={this.props.groupHeadline}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
-                                onChange={value => this.handleChange('groupHeadlines', value)}
+                                onChange={this.handleGroupHeadlineChange}
                                 isSearchable
 
                             />

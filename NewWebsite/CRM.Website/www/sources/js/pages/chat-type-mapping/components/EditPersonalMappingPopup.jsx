@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
-import MultipleSelectField from './MultipleSelectField';
+import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import { ChatTypeMapping } from '../../../common/constants';
@@ -194,11 +194,11 @@ export class EditPersonalMappingPopup extends Component {
                             {LangHelper.getResource('GroupHeadline')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
                                 initialValue={this.state.form.groupHeadlines.value}
-                                data={this.props.settings.groupHeadline}
+                                dataSource={this.props.settings.groupHeadline}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
