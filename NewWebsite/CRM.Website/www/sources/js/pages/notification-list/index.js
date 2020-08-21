@@ -18,6 +18,8 @@ const store = Store.createStore(reducer, {
     errorOrResolvedContentPopup: { show: false },
     resendOptions: {
         isCheckedAll: false,
+        isDisabledResend: true,
+        isHaveResendAll: false,
         dataList: []
     },
     settings: {

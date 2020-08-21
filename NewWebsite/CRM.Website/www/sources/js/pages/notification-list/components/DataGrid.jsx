@@ -22,9 +22,6 @@ export class DataGrid extends Component {
     }
 
     buildHeader = isHost => {
-        const resendList = this.props.resendOptions.dataList.filter(item => this.isError(item.status) && item.isResent);
-        const hasResend = resendList > 0;
-        
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
@@ -44,11 +41,13 @@ export class DataGrid extends Component {
                 {
                     isHost && <HeaderCell colWidth={10}>
                         {
-                            hasResend ? 
-                            <div className='margin-bottom-10 link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
-                            <div className='margin-bottom-10'>{LangHelper.getResource('Resend')}</div>
+                            !this.props.resendOptions.isDisabledResend ? 
+                            <div className='link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
+                            <div>{LangHelper.getResource('Resend')}</div>
                         }
-                        <Form.Control className='checkbox-cell-style' disabled={!hasResend} type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
+                        {
+                            this.props.resendOptions.isHaveResendAll && <Form.Control className='checkbox-cell-style margin-top-10' type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
+                        }
                     </HeaderCell>
                 }
             </HeaderRow>
@@ -153,9 +152,12 @@ export class DataGrid extends Component {
     handleChangeResendCheckbox = (index) => {
         const dataList = [...this.props.resendOptions.dataList];
         dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
+        const resendList = dataList.filter(item => this.isError(item.status) && item.isResent);
         const notCheckedDataList = dataList.filter(item => this.isError(item.status) && !item.isResent);
         this.props.setResendOptions({
             isCheckedAll: notCheckedDataList.length <= 0,
+            isDisabledResend: resendList.length <= 0,
+            isHaveResendAll: this.props.resendOptions.isHaveResendAll,
             dataList
         });
     }
@@ -166,6 +168,8 @@ export class DataGrid extends Component {
         dataList.forEach(item => item.isResent = checked);
         this.props.setResendOptions({
             isCheckedAll: checked,
+            isDisabledResend: !checked,
+            isHaveResendAll: this.props.resendOptions.isHaveResendAll,
             dataList
         }, false);
     }

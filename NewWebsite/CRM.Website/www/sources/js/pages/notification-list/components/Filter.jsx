@@ -145,6 +145,7 @@ class Filter extends Component {
 
     submitHandler = e => {
         e.preventDefault();
+        this.props.setMessageResult({ show: false });
         this.props.setInvalidParams({
             show: false,
             isInvalidNotificationIdLower: false,
@@ -354,7 +355,8 @@ const mapStateToProps = state => {
         invalidParams,
         setInvalidParams,
         settings,
-        getSettings
+        getSettings,
+        setMessageResult
     } = state;
 
     return {
@@ -363,7 +365,8 @@ const mapStateToProps = state => {
         invalidParams,
         setInvalidParams,
         settings,
-        getSettings
+        getSettings,
+        setMessageResult
     };
 };
 

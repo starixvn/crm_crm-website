@@ -17,11 +17,14 @@ class ValidateResend extends Component {
     }
 
     resendNotifications = dataList => {
+        this.onClose();
         this.props.resendNotifications(dataList);
     }
 
     render() {
         const { inActiveNotificationIds, isSingle, resendDataList } = this.props.validateResendResult.result;
+        const inActiveNotificationIdsString = inActiveNotificationIds.join(', ');
+        const resendIds = resendDataList.map(item => item.notificationId).join(', ');
         const isAllValidate = inActiveNotificationIds.length <= 0;
 
         return (
@@ -34,13 +37,13 @@ class ValidateResend extends Component {
                         isSingle ? 
                         <div>
                             {
-                                isAllValidate ? LangHelper.getResource('ComfirmResendNotification').replace('<notificationIds>', inActiveNotificationIds.join(', ')) : LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIds.join(', '))
+                                isAllValidate ? LangHelper.getResource('ComfirmResendNotification').replace('<notificationIds>', resendIds) : LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIdsString)
                             }
                         </div> : (
-                            isAllValidate ? <div>{LangHelper.getResource('ComfirmResendNotification').replace('<notificationIds>', inActiveNotificationIds.join(', '))}</div> :
+                            isAllValidate ? <div>{LangHelper.getResource('ComfirmResendNotification').replace('<notificationIds>', resendIds)}</div> :
                             <div>
-                                <div>{LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationIds>', inActiveNotificationIds.join(', '))}</div>
-                                <div>{LangHelper.getResource('TheSelectedNoficationsAreAbleToResend').replace('<notificationIds>', resendDataList.map(item => item.notificationId).join(', '))}</div>
+                                <div>{LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationIds>', inActiveNotificationIdsString)}</div>
+                                <div>{LangHelper.getResource('TheSelectedNoficationsAreAbleToResend').replace('<notificationIds>', resendIds)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
                         )

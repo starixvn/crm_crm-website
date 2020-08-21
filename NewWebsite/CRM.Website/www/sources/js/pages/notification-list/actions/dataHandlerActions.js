@@ -147,15 +147,17 @@ export const resendNotifications = dataList => async dispatch => {
     await axios({
         method: 'post',
         url: Site.resolveClientUrl('NotificationList/ResendNotificationList'),
-        data: params,
+        data: dataList,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'RequestVerificationToken': Site.getXsrfToken()
         }
     }).then(response => {
+        const { message, isSuccessful } = response.data;
         dispatch(setMessageResult({
             show: true,
-            result: response.data
+            message,
+            isSuccessful
         }));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 }
@@ -172,7 +174,8 @@ const actions = {
     setErrorResolvedContent,
     validateResend,
     setValidateResend,
-    resendNotifications
+    resendNotifications,
+    setMessageResult
 };
 
 export default actions;

@@ -1,5 +1,8 @@
+import LangHelper from '@jsroot/common/langHelper';
+
 export const handleNewResendOptions = (data, done) => {
-    let dataList = data.map(item => {
+    const resendList = data.filter(item => item.status === LangHelper.getResource('Error'));
+    const dataList = data.map(item => {
         return {
             notificationId: item.notificationId,
             messageId: item.messageId,
@@ -10,6 +13,8 @@ export const handleNewResendOptions = (data, done) => {
 
     done({
         isCheckedAll: false,
+        isDisabledResend: true,
+        isHaveResendAll: resendList.length > 0,
         dataList
     });
 };

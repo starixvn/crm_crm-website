@@ -27,11 +27,11 @@ export class AppContainer extends Component {
                         message={this.props.messageResult.message || LangHelper.getResource('ResentNotificationSuccessfully')}
                     />
                 }
-                {
+                {/* {
                     this.props.invalidParams.show && <ResponseMessage isSuccessful={false}
                         message={this.props.invalidParams.message}
                     />
-                }
+                } */}
                 <Filter />
                 <DataGrid isHost={this.isHost} />
                 {
