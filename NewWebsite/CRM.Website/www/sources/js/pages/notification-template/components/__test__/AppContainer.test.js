@@ -8,6 +8,10 @@ const mockStore = configureMockStore();
 const store = mockStore({});
 
 describe('AppContainer', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('render AppContainer', () => {
         // Act
         const wrapper = shallow(

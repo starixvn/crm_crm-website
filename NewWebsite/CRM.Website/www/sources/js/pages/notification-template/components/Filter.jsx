@@ -40,7 +40,7 @@ export const Filter = props => {
                     >
                         <option value="">{LangHelper.getResource('All')}</option>
                         {
-                            props.notificationTypes.map(item => {
+                            props.notificationTypes && props.notificationTypes.map(item => {
                                 return (
                                     <option key={item.notificationTypeId} value={item.notificationTypeId}>
                                         {item.notificationTypeName}

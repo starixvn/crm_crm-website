@@ -4,6 +4,10 @@ import { ContentDetailPopup } from '../ContentDetailPopup';
 import { shallow } from 'enzyme';
 
 describe('ContentDetailPopup', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('render popup', () => {
         // Arrange
         const props = {
@@ -44,7 +48,7 @@ describe('ContentDetailPopup', () => {
         const container = shallow(<ContentDetailPopup {...props} />);
 
         // Act
-        container.find(Button).simulate('click');
+        container.find(Button).props().onClick();
 
         // Assert
         expect(props.onClose).toHaveBeenCalled();
