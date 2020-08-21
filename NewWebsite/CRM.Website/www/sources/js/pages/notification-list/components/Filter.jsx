@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
-import MultipleSelectField from './MultipleSelectField';
 import DatePicker from '../../../components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
 import { getNowGMTAdd8 } from '../../../common/functions';
 import SelectWithSearch from 'react-select';
+import MultipleSelect from '../../../components/multiple-select/index';
 
 class Filter extends Component {
     constructor(props) {
@@ -17,12 +17,8 @@ class Filter extends Component {
 
         this.state = {
             filter: {
-                notificationTypes: {
-                    value: ''
-                },
-                statuses: {
-                    value: ''
-                },
+                notificationTypes: '',
+                statuses: '',
                 fromDate: now,
                 toDate: now,
                 headline: null,
@@ -88,12 +84,8 @@ class Filter extends Component {
                 filter: {
                     ...prevState.filter,
                     ...{
-                        notificationTypes: {
-                            value: notificationTypeIds.toString()
-                        },
-                        statuses: {
-                            value: statuses.toString()
-                        }
+                        notificationTypes: notificationTypeIds.toString(),
+                        statuses: statuses.toString()
                     }
                 }
             }), () => {
@@ -114,7 +106,7 @@ class Filter extends Component {
         }));
     }
 
-    handleNotificationTypeChange = value => this.handleFilterChange('notificationTypes', value)
+    handleNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('notificationTypes', selectedItemsKey)
 
     handleFromDateChange = value => this.handleFilterChange('fromDate', value)
 
@@ -124,7 +116,7 @@ class Filter extends Component {
 
     handleRecipientChange = value => this.handleFilterChange('recipient', value)
 
-    handleStatusChange = value => this.handleFilterChange('statuses', value)
+    handleStatusChange = (currentItem, selectedItemsKey) => this.handleFilterChange('statuses', selectedItemsKey)
 
     handleChangeFilterControl = e => {
         if (e.target.validity.valid) {
@@ -136,7 +128,7 @@ class Filter extends Component {
 
     getParams = () => {
         return {
-            notificationTypeIds: this.state.filter.notificationTypes.value,
+            notificationTypeIds: this.state.filter.notificationTypes,
             fromDate: this.state.filter.fromDate,
             toDate: this.state.filter.toDate,
             headline: this.state.filter.headline ? this.state.filter.headline.value : null,
@@ -145,7 +137,7 @@ class Filter extends Component {
             notificationIdUpper: this.state.filter.notificationIdLower,
             notificationIdLower: this.state.filter.notificationIdUpper,
             content: this.state.filter.content,
-            status: this.state.filter.statuses.value,
+            status: this.state.filter.statuses,
             pageIndex: this.props.gridParams.pageIndex,
             pageSize: this.props.gridParams.pageSize
         };
@@ -246,10 +238,10 @@ class Filter extends Component {
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <div className='form-control-wrapper'>
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width='100%'
-                                initialValue={this.state.filter.notificationTypes.value}
-                                data={this.state.notificationTypeOptions}
+                                initialValue={this.state.filter.notificationTypes}
+                                dataSource={this.state.notificationTypeOptions}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -331,10 +323,10 @@ class Filter extends Component {
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('Status')}</Form.Label>
                         <div className='form-control-wrapper'>
-                            <MultipleSelectField
+                            <MultipleSelect
                                 width='100%'
-                                initialValue={this.state.filter.statuses.value}
-                                data={this.state.statusOptions}
+                                initialValue={this.state.filter.statuses}
+                                dataSource={this.state.statusOptions}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
