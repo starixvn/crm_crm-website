@@ -10,6 +10,7 @@
     using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;
+    using CRM.Models.Common;
 
     public class CommonService : ICommonService
     {
@@ -27,9 +28,9 @@
             return result;
         }
 
-        public async Task<IEnumerable<BaseModel>> GetRecipients(GetRecipientsCriteria criteria)
+        public async Task<IEnumerable<RecipientModel>> GetRecipients(GetRecipientsCriteria criteria)
         {
-            var result = await baseService.GetDataAsync<BaseModel>(criteria);
+            var result = await baseService.GetDataAsync<RecipientModel>(criteria);
             return result;
         }
 

@@ -180,6 +180,7 @@
             services.AddSingleton<ILogger, Logger>();
             services.ResolveCoreDI();
             services.ResolveServiceDI();
+            services.ResolveLetstalkBotConfigDI();
         }
     }
 }

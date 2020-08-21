@@ -13,7 +13,7 @@
 
         Task<CommandResult> UpdateActiveStatusAsync(int conversationId, bool IsActive);
 
-        Task<IEnumerable<GroupHeadlineDirectAccountModel>> InsertPersonalMappingAsync(string recipientIds);
+        Task<IEnumerable<GroupHeadlineDirectAccountModel>> GetHeadlineByRecipientAsync(string recipientIds);
 
         Task<CommandResult> InsertPersonalMappingAsync(InsertPersonalMappingCommand criteria);
     }

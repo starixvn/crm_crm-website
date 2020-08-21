@@ -1,7 +1,11 @@
 ﻿namespace CRM.Services.Extensions
 {
+    using System;
     using CRM.Repositories;
     using CRM.Services.Interfaces;
+    using Fanex.Letstalk.Client.Configurations;
+    using Fanex.Letstalk.Client.Services;
+    using Fanex.Letstalk.Client.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceDIExtensions
@@ -17,6 +21,16 @@
             services.AddTransient<INotificationListRepository, NotificationListRepository>();
             services.AddTransient<INotificationTypeRepository, NotificationTypeRepository>();
             services.AddTransient<IChatTypeMappingService, ChatTypeMappingService>();
+        }
+
+        public static void ResolveLetstalkBotConfigDI(this IServiceCollection services)
+        {
+            services.AddTransient<LetstalkClientService>();
+
+            services.AddTransient<Func<int, ILetstalkClientService>>(serviceProvider => botId =>
+            {
+                return new LetstalkClientService(LetstalkBotConfigurations.Settings, botId);
+            });
         }
     }
 }

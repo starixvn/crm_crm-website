@@ -5,12 +5,13 @@
     using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;
+    using CRM.Models.Common;
 
     public interface ICommonService
     {
         Task<IEnumerable<ConversationBot>> GetConversationBots();
 
-        Task<IEnumerable<BaseModel>> GetRecipients(GetRecipientsCriteria criteria);
+        Task<IEnumerable<RecipientModel>> GetRecipients(GetRecipientsCriteria criteria);
 
         Task<IEnumerable<BaseModel>> GetRecipientTypes();
 

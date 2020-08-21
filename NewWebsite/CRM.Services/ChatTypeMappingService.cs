@@ -50,7 +50,7 @@
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
-        public async Task<IEnumerable<GroupHeadlineDirectAccountModel>> InsertPersonalMappingAsync(string recipientIds)
+        public async Task<IEnumerable<GroupHeadlineDirectAccountModel>> GetHeadlineByRecipientAsync(string recipientIds)
         {
             var criteria = new GetGroupHeadlineByRecipientCriteria
             {

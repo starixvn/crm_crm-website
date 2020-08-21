@@ -1,5 +1,6 @@
 ﻿namespace CRM.Controllers.HeadlineNotification
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
@@ -7,10 +8,12 @@
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Criteria.Common;
     using CRM.Models;
+    using CRM.Models.ChatTypeMapping;
     using CRM.Models.Setting;
     using CRM.Services;
     using CRM.Services.Interfaces;
     using CRM.ViewModels.ChatTypeMapping;
+    using Fanex.Letstalk.Client.Services.Interfaces;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
@@ -24,6 +27,7 @@
         private readonly ISettingService settingService;
         private readonly ICommonService commonService;
         private readonly IChatTypeMappingService chatTypeMappingService;
+        private readonly Func<int, ILetstalkClientService> letsttalkClient;
 
         public ChatTypeMappingController(
             INapSession napSession,
@@ -31,7 +35,8 @@
             IUserService userService,
             ISettingService settingService,
             ICommonService commonService,
-            IChatTypeMappingService chatTypeMappingService)
+            IChatTypeMappingService chatTypeMappingService,
+            Func<int, ILetstalkClientService> letsttalkClient)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
@@ -39,6 +44,7 @@
             this.settingService = settingService;
             this.commonService = commonService;
             this.chatTypeMappingService = chatTypeMappingService;
+            this.letsttalkClient = letsttalkClient;
         }
 
         public IActionResult Index()
@@ -126,8 +132,23 @@
 
         public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
         {
-            var headlines = await chatTypeMappingService.InsertPersonalMappingAsync(recipientIds);
+            var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
             return Json(headlines);
+        }
+
+        public async Task<IActionResult> ValidateLetstalkIDs(int botId, string letstalkId)
+        {
+            var botFriendList = await letsttalkClient(botId).GetBotContactList();
+            var contactDetail = await letsttalkClient(botId).GetProfileAsync(letstalkId.Trim());
+            var result = new LetsalkValidationModel
+            {
+                BotId = botId,
+                IsFriendWithBot = botFriendList.Contains(letstalkId),
+                DisplayName = contactDetail.Item2 ? contactDetail.Item1.DisplayName : string.Empty,
+                IsInvalid = contactDetail.Item2,
+                LetstalkId = contactDetail.Item1.UserId
+            };
+            return Json(result);
         }
     }
 }

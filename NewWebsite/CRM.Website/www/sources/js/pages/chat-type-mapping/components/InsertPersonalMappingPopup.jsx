@@ -129,6 +129,7 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     renderForm = () => {
+        console.log(this.props.recipients);
         const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name }; });
         return (
             <Form onSubmit={this.handleSubmit}>
