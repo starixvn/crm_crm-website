@@ -239,7 +239,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                width='100%'
                                 initialValue={this.state.filter.notificationTypes}
                                 dataSource={this.state.notificationTypeOptions}
                                 keyField='id'
@@ -324,7 +323,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('Status')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                width='100%'
                                 initialValue={this.state.filter.statuses}
                                 dataSource={this.state.statusOptions}
                                 keyField='id'
