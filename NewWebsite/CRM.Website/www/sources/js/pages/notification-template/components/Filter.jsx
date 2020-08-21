@@ -5,29 +5,29 @@ import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions';
 import LangHelper from '@jsroot/common/langHelper';
 
-const Filter = props => {
+export const Filter = props => {
     const [notificationTypeId, handleNotificationTypeChange] = useState('');
     const [notificationTemplateName, handleTemplateNameChange] = useState('');
 
-    function getParams() {
+    const getParams = () => {
         return {
             notificationTypeId: parseInt(notificationTypeId, 10),
             notificationTemplateName: notificationTemplateName,
             pageIndex: 1,
             pageSize: 100
         };
-    }
+    };
 
-    function submitHandler(event) {
+    const submitHandler = event => {
         event.preventDefault();
         const params = getParams();
         props.setGridParams(params);
         props.getGridData(params);
-    }
+    };
 
-    function handleOpenCreatePopup() {
+    const handleOpenCreatePopup = () => {
         props.setCreateTemplatePopup({ show: true });
-    }
+    };
 
     return (
         <Form className="form-filter" onSubmit={submitHandler}>

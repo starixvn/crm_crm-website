@@ -4,7 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
-const ContentDetailPopup = props => {
+export const ContentDetailPopup = props => {
     const template = props.selectedTemplate;
 
     return (

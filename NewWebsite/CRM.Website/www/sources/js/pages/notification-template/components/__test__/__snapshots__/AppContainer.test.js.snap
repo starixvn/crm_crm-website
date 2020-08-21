@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppContainer create notification template render popup 1`] = `ShallowWrapper {}`;
+
+exports[`AppContainer render AppContainer 1`] = `ShallowWrapper {}`;

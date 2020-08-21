@@ -13,8 +13,6 @@ import LangHelper from '@jsroot/common/langHelper';
 export class AppContainer extends Component {
     constructor(props) {
         super(props);
-
-        this.isHost = document.getElementById('IsHost').checked;
     }
 
     componentDidMount() {
@@ -70,8 +68,8 @@ export class AppContainer extends Component {
     render() {
         return (
             <Fragment>
-                <Filter isHost={this.isHost} />
-                <DataGrid isHost={this.isHost} />
+                <Filter isHost={this.props.isHost} />
+                <DataGrid isHost={this.props.isHost} />
                 {
                     this.props.createTemplatePopup.show &&
                     <NewNotificationTemplate
