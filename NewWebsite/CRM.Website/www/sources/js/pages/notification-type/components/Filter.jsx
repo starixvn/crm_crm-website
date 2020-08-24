@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
-import MultipleSelectField from './MultipleSelectField';
+import MultipleSelect from '../../../components/multiple-select/index';
 
 class Filter extends Component {
     constructor(props) {
@@ -87,9 +87,9 @@ class Filter extends Component {
         this.props.getSettings();
     }
 
-    recipientTypeChange = value => this.handleFilterChange('recipientTypes', value)
-    chatTypeChange = value => this.handleFilterChange('chatTypes', value)
-    systemChange = value => this.handleFilterChange('systems', value)
+    recipientTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('recipientTypes', selectedItemsKey)
+    chatTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('chatTypes', selectedItemsKey)
+    systemChange = (currentItem, selectedItemsKey) => this.handleFilterChange('systems', selectedItemsKey)
 
     handleNotificationTypeChange = event => {
         this.setState({
@@ -99,15 +99,15 @@ class Filter extends Component {
 
     handleFilterChange = (name, value) => {
         this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: value } }
+            filter: { ...prevState.filter, ...{ [name]: {value: value}} }
         }));
     }
 
     getParams = () => {
         return {
             notificationTypeName: this.state.notificationTypeName,
-            chatTypeId: this.state.filter.chatTypes.value,
-            recipientTypeId: this.state.filter.recipientTypes.value,
+            chatTypeIds: this.state.filter.chatTypes.value,
+            recipientTypeIds: this.state.filter.recipientTypes.value,
             systemId: this.state.filter.systems.value,
             pageIndex: 1,
             pageSize: 50
@@ -122,11 +122,11 @@ class Filter extends Component {
         });
 
         const error = [];
-        if (params.recipientTypeId == '') {
+        if (params.recipientTypeIds == '') {
             error.push('Recipient Type');
         }
 
-        if (params.chatTypeId == '') {
+        if (params.chatTypeIds == '') {
             error.push(' Chat Type');
         }
 
@@ -152,61 +152,60 @@ class Filter extends Component {
 
     render() {
         const { isHost } = this.props;
+
         return (
             <Form className="form-filter" onSubmit={this.submitHandler}>
-                <div className="form-row"> 
+                <Form.Row bsPrefix='form-row'> 
                     <Form.Group>
-                        <Form.Label htmlFor="NotificationType">{LangHelper.getResource('NotificationType')}</Form.Label>
+                        <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <Form.Control type="text" size="sm" className="shadow-none" autoComplete="off"
                             value={this.state.notificationTypeName}
                             onChange={this.handleNotificationTypeChange}
                         />
                     </Form.Group>
-
-                    <label className="col-auto col-form-label">{LangHelper.getResource('RecipientType')}</label>
-                    <div className="col-auto">
-                        <MultipleSelectField
-                            width={182}
-                            initialValue={this.state.filter.recipientTypes.value}
-                            data={this.state.recipientTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.recipientTypeChange}
-                        />
-                    </div>
-
-                    <label className="col-auto col-form-label">{LangHelper.getResource('ChatType')}</label>
-                    <div className="col-auto">
-                    <MultipleSelectField
-                            width={182}
-                            initialValue={this.state.filter.chatTypes.value}
-                            data={this.state.chatTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.chatTypeChange}
-                        />
-                    </div>
-
-                    <label className="col-auto col-form-label">{LangHelper.getResource('System')}</label>
-                    <div className="col-auto">
-                    <MultipleSelectField
-                            width={182}
-                            initialValue={this.state.filter.systems.value}
-                            data={this.state.systemsOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            isSummited={false}
-                            isAllTextShown
-                            onChange={this.systemChange}
-                        />
-                    </div>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('RecipientType')}</Form.Label>
+                        <div className='form-control-wrapper'>
+                            <MultipleSelect
+                                initialValue={this.state.filter.recipientTypes.value}
+                                dataSource={this.state.recipientTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={this.recipientTypeChange}
+                            />
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('ChatType')}</Form.Label>
+                        <div className='form-control-wrapper'>
+                            <MultipleSelect
+                                initialValue={this.state.filter.chatTypes.value}
+                                dataSource={this.state.chatTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={this.chatTypeChange}
+                            />
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                    <Form.Label>{LangHelper.getResource('System')}</Form.Label>
+                        <div className='form-control-wrapper'>
+                        <MultipleSelect
+                                initialValue={this.state.filter.systems.value}
+                                dataSource={this.state.systemsOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                isAllTextShown
+                                onChange={this.systemChange}
+                            />
+                        </div>
+                    </Form.Group>
 
                     <div className="col-auto">
                         <Button className="mr-2" variant="primary" size="sm"
@@ -223,7 +222,7 @@ class Filter extends Component {
                             </Button>
                         }
                     </div>
-                </div>
+                </Form.Row>
             </Form>
         );
     }

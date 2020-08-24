@@ -1,15 +1,10 @@
 namespace CRM.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
-    using CRM.Core.Enumerables;
     using CRM.Core.Filters;
     using CRM.Core.Models;
     using CRM.Criteria.NotificationType;
-    using CRM.Models;
     using CRM.Models.NotificationType;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
@@ -45,7 +40,7 @@ namespace CRM.Controllers
         {
             var result = new
             {
-                ChatTypes = Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = type.ToString() }),
+                ChatTypes = commonService.GetChatTypes(),
                 Systems = await commonService.GetSystems(),
                 Recipients = await commonService.GetRecipientTypes()
             };
@@ -71,11 +66,10 @@ namespace CRM.Controllers
                 PageIndex = param.PageIndex,
                 PageSize = param.PageSize
             };
-            param.TotalRows = criteria.TotalRows;
 
-            IEnumerable<NotificationType> types = await notificationTypeService.GetNotificationTypeAsync(criteria);
+            var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(criteria);
 
-            return Json(new { totalItems = param.TotalRows, data = types });
+            return Json(new { totalItems = criteria.TotalRows, data = notificationTypes});
         }
 
         [HttpPost]

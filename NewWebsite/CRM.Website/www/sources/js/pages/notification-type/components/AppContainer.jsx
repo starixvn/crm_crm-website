@@ -9,6 +9,7 @@ import EditNotificationType from './EditNotificationType';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import {Button, Modal } from 'react-bootstrap';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -48,14 +49,26 @@ export class AppContainer extends Component {
                 data.message = LangHelper.getResource('DeleteNotificationTypeSuccessfully')
                 setTimeout(() => {
                     this.handleCloseDeletePopup();
-                    this.props.getGridData(this.props.gridParams);
                 }, 3000);
             }
+            else{
+                if(data.code === 101 ){
+                    this.handleCloseDeletePopup();
+                }
+            }
 
+            this.props.getGridData(this.props.gridParams);
             this.props.setDeleteTypeResult(data);
         });
     }
+
     render() {
+        var showPopupNotExist = false
+        if(this.props.deleteTypeResult != null)
+        {
+            showPopupNotExist = this.props.deleteTypeResult.code === 101 ? true : false;
+        }
+
         return (
             <Fragment>
                 {
@@ -92,6 +105,23 @@ export class AppContainer extends Component {
                         onClose={this.handleCloseDeletePopup}
                     />
                 }
+                {
+                    showPopupNotExist &&
+                    <Modal show backdrop="static" size="lg" centered  onHide={this.handleCloseDeletePopup}>
+                    <Modal.Header closeButton>
+                        <Modal.Title as="div">{LangHelper.getResource('Confirmation')}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>The Notification Type does not exists, please check again!</div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" size="sm" onClick={this.handleCloseDeletePopup}>
+                            {LangHelper.getResource('OK')}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                }
+
             </Fragment>
         );
     }

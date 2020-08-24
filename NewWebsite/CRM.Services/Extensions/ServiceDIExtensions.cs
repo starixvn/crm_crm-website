@@ -19,7 +19,6 @@
             services.AddTransient<INotificationTypeService, NotificationTypeService>();
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<INotificationListRepository, NotificationListRepository>();
-            services.AddTransient<INotificationTypeRepository, NotificationTypeRepository>();
             services.AddTransient<IChatTypeMappingService, ChatTypeMappingService>();
         }
 

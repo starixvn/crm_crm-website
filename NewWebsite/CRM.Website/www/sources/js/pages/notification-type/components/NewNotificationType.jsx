@@ -6,7 +6,7 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
-import MultipleSelectField from './MultipleSelectField';
+import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 
 
@@ -70,17 +70,17 @@ class NewNotificationType extends Component {
     }
 
     validate = values => {
-        const type = this.state.popup;
+        const notificationType = this.state.popup;
         const errors = {};
         if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
             errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        if (!type.recipientTypeIds.value) {
+        if (!notificationType.recipientTypeIds.value) {
             errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
         }
 
-        if (!type.chatTypeIds.value) {
+        if (!notificationType.chatTypeIds.value) {
             errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
         }
 
@@ -91,14 +91,14 @@ class NewNotificationType extends Component {
         return errors;
     }
 
-    recipientTypeChange = value => this.handlePopupChange('recipientTypeIds', value)
-    chatTypeChange = value => this.handlePopupChange('chatTypeIds', value)
+    recipientTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('recipientTypeIds', selectedItemsKey)
+    chatTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('chatTypeIds', selectedItemsKey)
 
     renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
     handlePopupChange = (name, value) => {
         this.setState(prevState => ({
-            popup: { ...prevState.popup, ...{ [name]: value } }
+            popup: { ...prevState.popup, ...{ [name]: {value: value}}}
         }));
     }
 
@@ -109,7 +109,9 @@ class NewNotificationType extends Component {
         handleChange,
         handleSubmit,
         isSubmitting
+
     }) => {
+
         return (
             <Form noValidate onSubmit={handleSubmit}>
                 <Modal.Body>
@@ -135,17 +137,17 @@ class NewNotificationType extends Component {
 
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" htmlFor="recipientTypeIds" className="required">
-                            {LangHelper.getResource('RecipientTypeIds')}
+                            {LangHelper.getResource('RecipientType')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField value={this.state.popup.recipientTypeIds} name="recipientTypeIds" isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                            width={570}
-                            initialValue={this.state.popup.recipientTypes}
-                            data={this.state.recipientTypesOptions}
+                            <MultipleSelect
+                            isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
+                            initialValue={this.state.popup.recipientTypeIds}
+                            dataSource={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
-                            isSummited={false}
+                            selectedValue={!this.state.popup.recipientTypeIds.value ? true : false }
                             isAllTextShown
                             onChange={this.recipientTypeChange}
                             />
@@ -157,14 +159,14 @@ class NewNotificationType extends Component {
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <MultipleSelectField value={this.state.popup.chatTypeIds} name="chatTypeIds" isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                            width={570}
+                            <MultipleSelect
+                            isInvalid={touched.chatTypeIds && errors.chatTypeIds}
                             initialValue={this.state.popup.chatTypeIds}
-                            data={this.state.chatTypesOptions}
+                            dataSource={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
-                            isSummited={false}
+                            selectedValue={!this.state.popup.chatTypeIds.value ? true : false }
                             isAllTextShown
                             onChange={this.chatTypeChange}
                             />
@@ -182,7 +184,7 @@ class NewNotificationType extends Component {
                                 onChange={handleChange}
                                 value={values.systemId}
                             >
-                                <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
+                                <option value="" hidden>{LangHelper.getResource('SelectOptions')}</option>
                                 {this.state.systemsOptions.map(this.renderSystemTypeOption)}
                             </Form.Control>
                         </Col>
@@ -202,7 +204,7 @@ class NewNotificationType extends Component {
     }
 
     handleSubmit = (values, { setSubmitting }) => {
-        const type = {
+        const notificationType = {
             notificationTypeName: values.notificationTypeName,
             chatTypeIds: this.state.popup.chatTypeIds.value,
             recipientTypeIds: this.state.popup.recipientTypeIds.value,
@@ -210,7 +212,7 @@ class NewNotificationType extends Component {
         };
 
         setSubmitting(true);
-        this.props.createType(type).then(() => {
+        this.props.createType(notificationType).then(() => {
             if (this.props.createTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();

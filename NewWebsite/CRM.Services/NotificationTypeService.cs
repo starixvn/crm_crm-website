@@ -1,28 +1,27 @@
 ﻿namespace CRM.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using CRM.Core.Enumerables;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationType;
+    using CRM.Models;
     using CRM.Models.NotificationType;
-    using CRM.Repositories;
     using Fanex.NAP.Client.Helpers.Web;
 
     public class NotificationTypeService : INotificationTypeService
     {
         private readonly INapSession napSession;
         private readonly IBaseService baseService;
-        private readonly INotificationTypeRepository notificationTypeRepository;
 
         public NotificationTypeService(
             INapSession napSession,
-            IBaseService baseService,
-            INotificationTypeRepository notificationTypeRepository)
+            IBaseService baseService)
         {
             this.napSession = napSession;
             this.baseService = baseService;
-            this.notificationTypeRepository = notificationTypeRepository;
         }
 
         public async Task<CommandResult> CreateAsync(CreateNotificationType model)
@@ -67,9 +66,21 @@
 
         public async Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetNotificationTypeCriteria criteria)
         {
-            var types = await notificationTypeRepository.GetNotificationTypes(criteria);
+            var data = await baseService.FetchMultipleAsync<NotificationType, RecipientType, ChatTypes>(criteria);
+            if (data.Item1.Any())
+            {
+                foreach (var item in data.Item3)
+                {
+                   item.ChatTypeName = item.ChatTypeId == (int)ChatType.Group ? ChatType.Group.ToString() : ChatType.Personal.ToString();
+                }
+                foreach (var item in data.Item1)
+                {
+                    item.RecipientTypes = data.Item2.Where(recipientType => recipientType.NotificationTypeId == item.NotificationTypeId);
+                    item.ChatTypes = data.Item3.Where(chatType => chatType.NotificationTypeId == item.NotificationTypeId);
+                }
+            }
 
-            return types;
+            return data.Item1;
         }
     }
 }

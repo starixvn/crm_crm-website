@@ -61,6 +61,7 @@
     ResentNotificationSuccessfully: 'Resent notification successfully',
     Resolved: 'Resolved',
     ResolvedBy: 'Resolved by',
+    SelectOptions: 'Select options',
     SendDateTimeGMTA8: 'Send Date/Time (GMT+8)',
     Sender: 'Sender',
     SentAt: 'Sent At',
