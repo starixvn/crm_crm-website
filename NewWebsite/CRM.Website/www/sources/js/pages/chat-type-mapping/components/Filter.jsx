@@ -134,7 +134,6 @@ class Filter extends Component {
         e.preventDefault();
         if (this.isValidParams()) {
             const params = this.getParams();
-            console.log(params);
             this.props.setGridParams(params);
             this.props.getGridData(params);
         }
@@ -201,17 +200,19 @@ class Filter extends Component {
                     <Form.Row className='form-row'>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</Form.Label>
-                            <MultipleSelect
-                                width={154}
-                                initialValue={this.state.filter.mappingStatuses}
-                                dataSource={this.state.settings.mappingStatuses}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
-                                isAllTextShown
-                                onChange={(currentItem, selectedItem) => this.onChange('mappingStatuses', selectedItem)}
-                            />
+                            <div className='form-control-wrapper'>
+                                <MultipleSelect
+                                    width={154}
+                                    initialValue={this.state.filter.mappingStatuses}
+                                    dataSource={this.state.settings.mappingStatuses}
+                                    keyField='id'
+                                    valueField='name'
+                                    statusField='checked'
+                                    isSummited={false}
+                                    isAllTextShown
+                                    onChange={(currentItem, selectedItem) => this.onChange('mappingStatuses', selectedItem)}
+                                />
+                            </div>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</Form.Label>
@@ -236,17 +237,19 @@ class Filter extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</Form.Label>
-                            <MultipleSelect
-                                width={154}
-                                initialValue={this.state.filter.botIds}
-                                dataSource={this.state.settings.bots}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
-                                isAllTextShown
-                                onChange={(currentItem, selectedItem) => this.onChange('botIds', selectedItem)}
-                            />
+                            <div className='form-control-wrapper'>
+                                <MultipleSelect
+                                    width={154}
+                                    initialValue={this.state.filter.botIds}
+                                    dataSource={this.state.settings.bots}
+                                    keyField='id'
+                                    valueField='name'
+                                    statusField='checked'
+                                    isSummited={false}
+                                    isAllTextShown
+                                    onChange={(currentItem, selectedItem) => this.onChange('botIds', selectedItem)}
+                                />
+                            </div>
                         </Form.Group>
                         <Form.Group>
                             <div className='col-auto pd-0'>

@@ -19,11 +19,12 @@ export class InsertPersonalMappingPopup extends Component {
                 recipientType: '',
                 groupHeadlines: '',
                 recipient: null,
-                letstalkIds: [],
+                letstalkId: '',
                 languageId: '',
                 remark: ''
             },
             isSubmitting: false,
+            letstalkIds: '',
             validate: {
                 isShow: false,
                 errMsgs: []
@@ -48,8 +49,15 @@ export class InsertPersonalMappingPopup extends Component {
 
     handleRecipientChange = option => {
         this.handleChange('recipient', option);
+        this.setState({
+            letstalkIds: option.letstalkIds
+        });
         this.props.getGroupHeadlineByRecipient(option.value);
     };
+
+    handleLetstalkSelect = (e) => {
+        this.handleChange('letstalkId', e.target.value);
+    }
 
     renderOptions = (item, key) => {
         return (
@@ -57,6 +65,18 @@ export class InsertPersonalMappingPopup extends Component {
                 {item.name}
             </option>
         );
+    }
+
+    renderLetstalkIds = () => {
+        let result = null;
+        if (this.state.letstalkIds) {
+            const letstalkList = this.state.letstalkIds.split(',');
+            result = letstalkList.map((letstalkId, key) => {
+                return <Form.Check key={key} inline label={letstalkId} name='letstalkId' type="radio" id={`letstalkId-${key}`} value={letstalkId} onChange={this.handleLetstalkSelect} />;
+            });
+        }
+
+        return result;
     }
 
     isValidParams = () => {
@@ -77,6 +97,11 @@ export class InsertPersonalMappingPopup extends Component {
         if (!data.recipient) {
             isValid = false;
             errMsg.push(LangHelper.getResource('RecipientRequired'));
+        }
+
+        if (!data.letstalkId) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('LetstalkIdRequired'));
         }
 
         if (!data.groupHeadlines) {
@@ -102,8 +127,8 @@ export class InsertPersonalMappingPopup extends Component {
     getParams = () => {
         return {
             botId: this.state.form.botId,
-            chatTypeId: ChatTypeMapping.Personal,
             recipientTypeId: this.state.form.recipientType,
+            letstalkId: this.state.form.letstalkId,
             groupHeadlineIds: this.state.form.groupHeadlines,
             recipientId: this.state.form.recipient.value,
             languageId: this.state.form.languageId,
@@ -129,8 +154,7 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     renderForm = () => {
-        console.log(this.props.recipients);
-        const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name }; });
+        const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
@@ -215,7 +239,11 @@ export class InsertPersonalMappingPopup extends Component {
                         <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('LetstalkID')}
                         </Form.Label>
-                        <Col sm="8" md="9" />
+                        <Col sm="8" md="9" >
+                            {
+                                this.renderLetstalkIds(this.selectedLetstalkIds)
+                            }
+                        </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">

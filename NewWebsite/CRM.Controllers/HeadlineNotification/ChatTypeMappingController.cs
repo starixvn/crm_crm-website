@@ -5,10 +5,10 @@
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
+    using CRM.Core.Models;
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Criteria.Common;
     using CRM.Models;
-    using CRM.Models.ChatTypeMapping;
     using CRM.Models.Setting;
     using CRM.Services;
     using CRM.Services.Interfaces;
@@ -107,20 +107,31 @@
         [HttpPost]
         public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
         {
-            var criteria = new InsertPersonalMappingCommand
+            var result = new CommandResult();
+
+            if (await IsValidLetstalkId(data.BotId, data.LetstalkId))
             {
-                ConversationBotId = data.BotId,
-                ConversationGroupName = data.Name,
-                ChatTypeId = (int)ChatType.Personal,
-                RecipientTypeId = data.RecipientTypeId,
-                HeadlineIds = data.GroupHeadlineIds,
-                RecipientId = data.RecipientId,
-                LetstalkId = data.LetstalkId,
-                LanguageId = data.LanguageId,
-                Remark = data.Remark,
-                UserId = napSession.UserId
-            };
-            var result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
+                var criteria = new InsertPersonalMappingCommand
+                {
+                    ConversationBotId = data.BotId,
+                    ConversationGroupName = data.Name,
+                    ChatTypeId = (int)ChatType.Personal,
+                    RecipientTypeId = data.RecipientTypeId,
+                    HeadlineIds = data.GroupHeadlineIds,
+                    RecipientId = data.RecipientId,
+                    LetstalkId = data.LetstalkId,
+                    LanguageId = data.LanguageId,
+                    Remark = data.Remark,
+                    UserId = napSession.UserId
+                };
+                result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
+            }
+            else
+            {
+                result.Code = 1;
+                result.Message = "Invalid Letstalk ID";
+            }
+
             return Json(result);
         }
 
@@ -136,19 +147,17 @@
             return Json(headlines);
         }
 
-        public async Task<IActionResult> ValidateLetstalkIDs(int botId, string letstalkId)
+        private async Task<bool> IsValidLetstalkId(int botId, string letstalkId)
         {
-            var botFriendList = await letsttalkClient(botId).GetBotContactList();
-            var contactDetail = await letsttalkClient(botId).GetProfileAsync(letstalkId.Trim());
-            var result = new LetsalkValidationModel
+            try
             {
-                BotId = botId,
-                IsFriendWithBot = botFriendList.Contains(letstalkId),
-                DisplayName = contactDetail.Item2 ? contactDetail.Item1.DisplayName : string.Empty,
-                IsInvalid = contactDetail.Item2,
-                LetstalkId = contactDetail.Item1.UserId
-            };
-            return Json(result);
+                var contactDetail = await letsttalkClient(botId).GetProfileAsync(letstalkId.Trim());
+                return contactDetail.Item2;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

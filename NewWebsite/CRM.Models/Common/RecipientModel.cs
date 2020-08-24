@@ -2,6 +2,6 @@
 {
     public class RecipientModel : BaseModel
     {
-        public string LetstalkId { get; set; }
+        public string LetstalkIds { get; set; }
     }
 }

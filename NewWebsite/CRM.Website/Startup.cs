@@ -47,7 +47,6 @@
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connections = Configuration.GetSection("ConnectionStrings")
@@ -115,12 +114,12 @@
 
             services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
 
+            RegisterDI(services);
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            RegisterDI(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
