@@ -75,6 +75,7 @@
     TemplateNameRequired: 'Template Name is mandatory!',
     TheRecipientOfNotificationIdHasBeenInactive: '1. The recipient of <notificationIds> has been inactive!',
     TheSelectedNoficationsAreAbleToResend: '2. The selected nofications are able to resend: <notificationIds>',
+    ThereAreSomeChangesConfirmMessage: 'There are some changes. Are you sure you want to ignore these changes?',
     ThereIsNoData: 'There is no data',
     Title: 'Title',
     TitleRequired: 'Title is mandatory!',

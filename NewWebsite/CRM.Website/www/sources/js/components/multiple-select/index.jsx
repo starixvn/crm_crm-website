@@ -212,26 +212,24 @@ export default class MultipleSelect extends Component {
         const { maxDisplayItemCount } = this.props;
 
         return (
-            <div className={this.props.isInvalid && this.props.selectedValue ? 'invalid': ''}>
-                <div className="multiple-select-container" id={this.id} ref={element => this.wrapper = element}>
-                    {
-                        <MultipleSelectLabel
-                            language={this.props.language}
-                            selectedItems={this.selectedItems}
-                            dataSourceSize={this.state.dataSource.length}
-                            onToggle={this.onToggle}
-                            texts={this.props.texts}
-                            isAllTextShown={this.props.isAllTextShown}
-                            maxDisplayItemCount={maxDisplayItemCount} />
-                    }
-                    <div className="multiple-select-default multiple-select-options-container"
-                        style={{ display: this.state.showOptionList ? "block" : "none" }}>
-                        {this._renderSearchBox()}
-                        {this._renderOptionAll()}
-                        <MultipleSelectOptionList id={this.id}
-                            dataSource={this.state.dataSource}
-                            onChange={this.onChangeHandler} />
-                    </div>
+            <div className="multiple-select-container" id={this.id} ref={element => this.wrapper = element}>
+                {
+                    <MultipleSelectLabel
+                        language={this.props.language}
+                        selectedItems={this.selectedItems}
+                        dataSourceSize={this.state.dataSource.length}
+                        onToggle={this.onToggle}
+                        texts={this.props.texts}
+                        isAllTextShown={this.props.isAllTextShown}
+                        maxDisplayItemCount={maxDisplayItemCount} />
+                }
+                <div className="multiple-select-default multiple-select-options-container"
+                    style={{ display: this.state.showOptionList ? "block" : "none" }}>
+                    {this._renderSearchBox()}
+                    {this._renderOptionAll()}
+                    <MultipleSelectOptionList id={this.id}
+                        dataSource={this.state.dataSource}
+                        onChange={this.onChangeHandler} />
                 </div>
             </div>
         );

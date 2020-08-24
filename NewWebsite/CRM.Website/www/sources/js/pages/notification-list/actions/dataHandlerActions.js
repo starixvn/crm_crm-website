@@ -50,9 +50,9 @@ export const setContentPopup = data => {
     };
 };
 
-export const setErrorOrResolvedContentPopup = data => {
+export const setViewDetailPopup = data => {
     return {
-        type: types.ERROR_RESOLVED_CONTENT_POPUP_DATA,
+        type: types.VIEW_DETAIL_POPUP_DATA,
         data
     };
 };
@@ -88,7 +88,7 @@ export const getSettings = () => async dispatch => {
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
-export const setErrorResolvedContent = data => {
+export const setViewDetail = data => {
     return {
         type: types.ERROR_RESOLVED_CONTENT_DATA,
         data
@@ -106,7 +106,7 @@ export const editNotificationList = params => async dispatch => {
             'RequestVerificationToken': Site.getXsrfToken()
         }
     }).then(response => {
-        dispatch(setErrorResolvedContent(response.data));
+        dispatch(setViewDetail(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
@@ -154,36 +154,37 @@ export const resendNotifications = (dataList, done) => async dispatch => {
         }
     }).then(response => {
         const { message, isSuccessful } = response.data;
+        done && done();
         dispatch(setMessageResult({
             show: true,
             message,
             isSuccessful
         }));
-        Site.unblockUI()
-
-        if (isSuccessful) {
-            done && done();
-        }
-    }).catch(error => {
-        Site.handleAxiosError(error);
-        Site.unblockUI();
-    })
+    }).catch(Site.handleAxiosError).then()
 }
+
+export const setConfirmPopup = data => {
+    return {
+        type: types.CONFIRM_POPUP_DATA,
+        data
+    };
+};
 
 const actions = {
     setGridParams,
     getGridData,
     setContentPopup,
     setResendOptions,
-    setErrorOrResolvedContentPopup,
+    setViewDetailPopup,
     setInvalidParams,
     getSettings,
     editNotificationList,
-    setErrorResolvedContent,
+    setViewDetail,
     validateResend,
     setValidateResend,
     resendNotifications,
-    setMessageResult
+    setMessageResult,
+    setConfirmPopup
 };
 
 export default actions;

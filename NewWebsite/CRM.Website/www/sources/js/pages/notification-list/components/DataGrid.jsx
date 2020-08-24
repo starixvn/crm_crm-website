@@ -71,21 +71,21 @@ export class DataGrid extends Component {
     }
 
     openContentPopup = item => {
-        if (item.status === LangHelper.getResource('Error')) {
-            this.props.setErrorOrResolvedContentPopup({
-                show: true,
-                data: item
-            });
-        }
-        else {
-            this.props.setContentPopup({
-                show: true,
-                data: item
-            });
-        }
+        this.props.setContentPopup({
+            show: true,
+            data: item
+        });
+    }
+
+    openViewDetailPopup = item => {
+        this.props.setViewDetailPopup({
+            show: true,
+            data: item
+        });
     }
 
     isError = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase();
+    isResolved = status => status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
 
     validateResend = notificationId => {
         this.props.validateResend({
@@ -117,7 +117,7 @@ export class DataGrid extends Component {
                 isHost &&
                 <Cell className='text-center'>
                     {
-                        this.isError(item.status) && <div onClick={() => this.openContentPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
+                        (this.isError(item.status) || this.isResolved(item.status)) && <div onClick={() => this.openViewDetailPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
                         this.isError(item.status) && <div onClick={() => this.validateResend(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>

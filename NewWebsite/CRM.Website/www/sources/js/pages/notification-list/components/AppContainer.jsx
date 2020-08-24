@@ -5,10 +5,11 @@ import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
 import Content from './Content';
-import ErrorResolvedContent from './ErrorResolvedContent';
+import ViewDetail from './ViewDetail';
 import ValidateResend from './ValidateResend';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
+import Confirm from './Confirm';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -16,6 +17,8 @@ export class AppContainer extends Component {
 
         this.isHost = document.getElementById('is-host').checked;
     }
+
+    closeConfirmPopup = () => this.props.setConfirmPopup({ show: false })
 
     render() {
         return (
@@ -43,13 +46,22 @@ export class AppContainer extends Component {
                 }
                 {
                     this.props.errorOrResolvedContentPopup.show &&
-                    <ErrorResolvedContent
-                        onClose={() => this.props.setErrorOrResolvedContentPopup({ show: false })}
+                    <ViewDetail
+                        onClose={() => this.props.setViewDetailPopup({ show: false })}
                         data={this.props.errorOrResolvedContentPopup.data}
                     />
                 }
                 {
                     this.props.validateResendResult.show && <ValidateResend />
+                }
+                {
+                    this.props.confirmPopup.show && <Confirm
+                        onOk={() => {
+                            this.closeConfirmPopup();
+                            this.props.confirmPopup.onOk();
+                        }}
+                        onClose={this.closeConfirmPopup}
+                    />
                 }
             </Fragment>
         );
@@ -64,7 +76,8 @@ const mapStateToProps = state => {
         errorOrResolvedContentPopup,
         invalidParams,
         messageResult,
-        validateResendResult
+        validateResendResult,
+        confirmPopup
     } = state;
 
     return {
@@ -72,7 +85,8 @@ const mapStateToProps = state => {
         errorOrResolvedContentPopup,
         invalidParams,
         messageResult,
-        validateResendResult
+        validateResendResult,
+        confirmPopup
     };
 };
 

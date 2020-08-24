@@ -62,11 +62,11 @@ describe('notificationListActionsDataHandlerActions', () => {
     it('should create an action to set error or resolved content popup data', () => {
         const data = 'Test set error or resolved content popup data';
         const expectedAction = {
-            type: types.ERROR_RESOLVED_CONTENT_POPUP_DATA,
+            type: types.VIEW_DETAIL_POPUP_DATA,
             data
         };
 
-        expect(actions.setErrorOrResolvedContentPopup(data)).toEqual(expectedAction);
+        expect(actions.setViewDetailPopup(data)).toEqual(expectedAction);
     });
 
     it('should create an action to set resend options data', () => {
@@ -106,7 +106,7 @@ describe('notificationListActionsDataHandlerActions', () => {
             data
         };
 
-        expect(actions.setErrorResolvedContent(data)).toEqual(expectedAction);
+        expect(actions.setViewDetail(data)).toEqual(expectedAction);
     });
 
     it('should create an action to set message result data', () => {

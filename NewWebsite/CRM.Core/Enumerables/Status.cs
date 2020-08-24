@@ -6,6 +6,7 @@
         Error,
         Resolved,
         Sending,
-        Draft
+        Draft,
+        Duplicate
     }
 }

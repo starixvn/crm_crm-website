@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 
-class ErrorResolvedContent extends Component {
+class ViewDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             remark: props.data.resolvedRemark ? props.data.resolvedRemark : '',
+            oldRemark: props.data.resolvedRemark,
             isResolved: false
         }
     }
@@ -64,18 +65,29 @@ class ErrorResolvedContent extends Component {
     }
 
     onClose = close => {
-        this.props.setErrorResolvedContent({
-            resolvedBy: '',
-            result: {
-                code: 1,
-                message: '',
-                isSuccessful: false
-            }
-        })
-        
-        close();
         if (this.state.isResolved) {
+            this.props.setViewDetail({
+                resolvedBy: '',
+                result: {
+                    code: 1,
+                    message: '',
+                    isSuccessful: false
+                }
+            })
+            
+            close();
             this.props.getGridData({...this.props.gridParams});
+        }
+        else {
+            if (this.state.remark !== this.state.oldRemark) {
+                this.props.setConfirmPopup({
+                    show: true,
+                    onOk: close
+                });
+            }
+            else {
+                close();
+            }
         }
     }
 
@@ -83,7 +95,7 @@ class ErrorResolvedContent extends Component {
         const { data, onClose } = this.props;
 
         return (
-            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={onClose} >
+            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={() => this.onClose(onClose)} >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>{LangHelper.getResource('ErrorNotification')}</Modal.Title>
                 </Modal.Header>
@@ -101,9 +113,9 @@ class ErrorResolvedContent extends Component {
                         adjustedHeight={50}
                     />
                     {
-                        this.props.errorResolvedContent.result.isSuccessful ? <Fragment>
+                        this.props.viewDetail.result.isSuccessful ? <Fragment>
                             <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ': ' + LangHelper.getResource('ResendDone')}</div>
-                            <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.errorResolvedContent.resolvedBy}</div>
+                            <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.viewDetail.resolvedBy}</div>
                         </Fragment> : <Fragment>
                             <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
                             <textarea className='full-width' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark} />
@@ -112,9 +124,9 @@ class ErrorResolvedContent extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        !this.props.errorResolvedContent.result.isSuccessful && <Button onClick={() => this.editNotificationList(data.notificationId)} variant='primary' size='sm'>{LangHelper.getResource('Resolved')}</Button>
+                        !this.props.viewDetail.result.isSuccessful && <Button onClick={() => this.editNotificationList(data.notificationId)} variant='primary' size='sm'>{LangHelper.getResource('Resolved')}</Button>
                     }
-                    <Button onClick={() => this.onClose(onClose)} variant='primary' size='sm'>{LangHelper.getResource('Close')}</Button>
+                    <Button onClick={() => this.onClose(onClose)} variant='primary' size='sm'>{this.state.isResolved ? LangHelper.getResource('Close') : LangHelper.getResource('Cancel')}</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -125,14 +137,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        errorResolvedContent,
+        viewDetail,
         gridParams
     } = state;
 
     return {
-        errorResolvedContent,
+        viewDetail,
         gridParams
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorResolvedContent);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewDetail);

@@ -147,7 +147,7 @@ class Filter extends Component {
         }
     }
 
-    handleChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleChange = e => this.handleFilterChange(e.target.name, e.target.value)
 
     getParams = () => {
         return {
@@ -157,8 +157,8 @@ class Filter extends Component {
             headline: this.state.filter.headline ? this.state.filter.headline.value : '',
             recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : '',
             messageId: this.state.filter.messageID,
-            notificationIdUpper: this.state.filter.notificationIdLower,
-            notificationIdLower: this.state.filter.notificationIdUpper,
+            notificationIdLower: this.state.filter.notificationIdLower,
+            notificationIdUpper: this.state.filter.notificationIdUpper,
             content: this.state.filter.content,
             status: this.state.filter.statuses,
             pageIndex: this.props.gridParams.pageIndex,
@@ -197,7 +197,7 @@ class Filter extends Component {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdUpper: true
+                    isInvalidNotificationIdLower: true
                 })
 
                 return false;
@@ -209,7 +209,7 @@ class Filter extends Component {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdLower: true
+                    isInvalidNotificationIdUpper: true
                 })
 
                 return false;
@@ -321,7 +321,7 @@ class Filter extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
-                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none width-150' name='messageID'
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageID'
                             value={this.state.filter.messageID}
                             onChange={this.handleChangeFilterControl}
                         />
@@ -339,6 +339,13 @@ class Filter extends Component {
                                 onChange={this.handleChangeFilterControl}
                             />
                         </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>{LangHelper.getResource('Content')}</Form.Label>
+                        <Form.Control as='input' type='text' size='sm' className='shadow-none' name='content'
+                            value={this.state.filter.content}
+                            onChange={this.handleChange}
+                        />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('Status')}</Form.Label>

@@ -27,7 +27,7 @@ export const resendOptions = createReducer({}, {
 });
 
 export const errorOrResolvedContentPopup = createReducer({}, {
-    [types.ERROR_RESOLVED_CONTENT_POPUP_DATA](state, action) {
+    [types.VIEW_DETAIL_POPUP_DATA](state, action) {
         return action.data;
     }
 });
@@ -44,7 +44,7 @@ export const settings = createReducer({}, {
     }
 });
 
-export const errorResolvedContent = createReducer({}, {
+export const viewDetail = createReducer({}, {
     [types.ERROR_RESOLVED_CONTENT_DATA](state, action) {
         return action.data;
     }
@@ -62,6 +62,12 @@ export const validateResendResult = createReducer({}, {
     }
 });
 
+export const confirmPopup = createReducer({}, {
+    [types.CONFIRM_POPUP_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -70,9 +76,10 @@ const reducers = {
     resendOptions,
     invalidParams,
     settings,
-    errorResolvedContent,
+    viewDetail,
     messageResult,
-    validateResendResult
+    validateResendResult,
+    confirmPopup
 };
 
 export default reducers;

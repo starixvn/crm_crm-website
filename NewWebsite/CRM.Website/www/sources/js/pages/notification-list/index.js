@@ -28,7 +28,7 @@ const store = Store.createStore(reducer, {
         recipients: [],
         statuses: []
     },
-    errorResolvedContent: {
+    viewDetail: {
         resolvedBy: '',
         result: {
             code: 1,
@@ -48,6 +48,10 @@ const store = Store.createStore(reducer, {
             inActiveNotificationIds: [],
             resendDataList: []
         }
+    },
+    confirmPopup: {
+        show: false,
+        onOk: null
     }
 });
 
