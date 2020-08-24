@@ -70,17 +70,16 @@ class NewNotificationType extends Component {
     }
 
     validate = values => {
-        const notificationType = this.state.popup;
         const errors = {};
         if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
             errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        if (!notificationType.recipientTypeIds.value) {
+        if (!values.recipientTypeIds) {
             errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
         }
 
-        if (!notificationType.chatTypeIds.value) {
+        if (!values.chatTypeIds) {
             errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
         }
 
@@ -91,8 +90,7 @@ class NewNotificationType extends Component {
         return errors;
     }
 
-    recipientTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('recipientTypeIds', selectedItemsKey)
-    chatTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('chatTypeIds', selectedItemsKey)
+    multiSelectChange = (currentItem, selectedItemsKey) => this.handlePopupChange('', selectedItemsKey)
 
     renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
@@ -119,7 +117,7 @@ class NewNotificationType extends Component {
                     {
                         this.props.createTypeResult &&
                         <ResponseMessage isSuccessful={this.props.createTypeResult.isSuccessful}
-                            message={this.props.createTypeResult.message || LangHelper.getResource('CreateNewNotificationTypeSuccessfully')}
+                            message={this.props.createTypeResult.message || LangHelper.getResource('InsertNotificationTypeSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -149,7 +147,10 @@ class NewNotificationType extends Component {
                             statusField='checked'
                             selectedValue={!this.state.popup.recipientTypeIds.value ? true : false }
                             isAllTextShown
-                            onChange={this.recipientTypeChange}
+                            onChange={(currentItem, selectedItemsKey) => {
+                                this.multiSelectChange(currentItem, selectedItemsKey);
+                                handleChange('recipientTypeIds')(selectedItemsKey);
+                            }}
                             />
                          </Col>
                     </Form.Group>
@@ -168,7 +169,10 @@ class NewNotificationType extends Component {
                             statusField='checked'
                             selectedValue={!this.state.popup.chatTypeIds.value ? true : false }
                             isAllTextShown
-                            onChange={this.chatTypeChange}
+                            onChange={(currentItem, selectedItemsKey) => {
+                                this.multiSelectChange(currentItem, selectedItemsKey);
+                                handleChange('chatTypeIds')(selectedItemsKey);
+                            }}
                             />
                          </Col>
                     </Form.Group>
@@ -206,8 +210,8 @@ class NewNotificationType extends Component {
     handleSubmit = (values, { setSubmitting }) => {
         const notificationType = {
             notificationTypeName: values.notificationTypeName,
-            chatTypeIds: this.state.popup.chatTypeIds.value,
-            recipientTypeIds: this.state.popup.recipientTypeIds.value,
+            chatTypeIds: values.chatTypeIds,
+            recipientTypeIds: values.recipientTypeIds,
             systemId: values.systemId
         };
 
@@ -236,7 +240,7 @@ class NewNotificationType extends Component {
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('CreateNewNotificationType')}</Modal.Title>
+                    <Modal.Title as="div">{LangHelper.getResource('InsertNotificationType')}</Modal.Title>
                 </Modal.Header>
                 <Formik
                     initialValues={initialValues}

@@ -110,10 +110,8 @@ class EditNotificationType extends Component {
                     }
             }));
     }
+        multiSelectChange = (currentItem, selectedItemsKey) => this.handlePopupChange('', selectedItemsKey)
 
-        recipientTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('recipientTypeIds', selectedItemsKey)
-        chatTypeChange = (currentItem, selectedItemsKey) => this.handlePopupChange('chatTypeIds', selectedItemsKey)
-    
         renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
     
         handlePopupChange = (name, value) => {
@@ -123,17 +121,16 @@ class EditNotificationType extends Component {
         }
 
         validate = values => {
-            const notificationType = this.state.popup;
             const errors = {};
             if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
                 errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
             }
     
-            if (!notificationType.recipientTypeIds.value) {
+            if (!values.recipientTypeIds) {
                 errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
             }
     
-            if (!notificationType.chatTypeIds.value) {
+            if (!values.chatTypeIds) {
                 errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
             }
             
@@ -178,14 +175,17 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelect
                             isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                            initialValue={this.props.editTypePopup.data}
+                            initialValue={this.state.popup.recipientTypeIds}
                             dataSource={this.state.recipientTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
-                            selectedValue={!this.state.popup.recipientTypeIds.value ? true : false }
+                            selectedValue={!values.recipientTypeIds ? true : false }
                             isAllTextShown
-                            onChange={this.recipientTypeChange}
+                            onChange={(currentItem, selectedItemsKey) => {
+                                this.multiSelectChange(currentItem, selectedItemsKey);
+                                handleChange('recipientTypeIds')(selectedItemsKey);
+                            }}
                             />
                          </Col>
                     </Form.Group>
@@ -197,14 +197,17 @@ class EditNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelect
                             isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                            initialValue={this.props.editTypePopup.data}
+                            initialValue={this.state.popup.recipientTypeIds.value}
                             dataSource={this.state.chatTypesOptions}
                             keyField='id'
                             valueField='name'
                             statusField='checked'
-                            selectedValue={!this.state.popup.chatTypeIds.value ? true : false }
+                            selectedValue={!values.chatTypeIds ? true : false }
                             isAllTextShown
-                            onChange={this.chatTypeChange}
+                            onChange={(currentItem, selectedItemsKey) => {
+                                this.multiSelectChange(currentItem, selectedItemsKey);
+                                handleChange('chatTypeIds')(selectedItemsKey);
+                            }}
                             />
                          </Col>
                     </Form.Group>
@@ -243,8 +246,8 @@ class EditNotificationType extends Component {
         const notificationType = {
             notificationTypeId: values.notificationTypeId,
             notificationTypeName: values.notificationTypeName,
-            chatTypeIds: this.state.popup.chatTypeIds.value,
-            recipientTypeIds: this.state.popup.recipientTypeIds.value,
+            chatTypeIds: values.chatTypeIds,
+            recipientTypeIds: values.recipientTypeIds,
             systemId: values.systemId
         };
 
@@ -265,8 +268,8 @@ class EditNotificationType extends Component {
         const initialValues = {
             notificationTypeId: notificationType.notificationTypeId,
             notificationTypeName: notificationType.notificationTypeName,
-            recipientTypeIds: notificationType.recipientTypeIds,
-            chatTypeIds: notificationType.chatTypeIds,
+            recipientTypeIds: notificationType.recipientTypes.map(x => x.recipientTypeId).toString(),
+            chatTypeIds: notificationType.chatTypes.map(x => x.chatTypeId).toString(),
             systemId: notificationType.systemId
         };
 
