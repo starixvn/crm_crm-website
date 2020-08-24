@@ -1,6 +1,5 @@
 ﻿namespace CRM.Website
 {
-    using System.IO;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -18,10 +17,9 @@
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    var path = Directory.GetCurrentDirectory();
                     var env = builderContext.HostingEnvironment;
 
-                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.SetBasePath(env.ContentRootPath);
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
