@@ -16,9 +16,13 @@ export class DataGrid extends Component {
         const params = { ...this.props.gridParams };
         params['pageIndex'] = pageIndex;
         params['pageSize'] = pageSize;
+        this.getGridData(params);
+    }
 
+    getGridData = params => {
+        this.props.setInvalidParams({ show: false });
         this.props.setGridParams(params);
-        this.props.getGridData({...params}, data => handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
     }
 
     buildHeader = isHost => {
@@ -224,23 +228,13 @@ const mapStateToProps = state => {
     const {
         gridParams,
         gridData,
-        setContentPopup,
-        setErrorOrResolvedContentPopup,
-        resendOptions,
-        setResendOptions,
-        getGridData,
-        validateResend
+        resendOptions
     } = state;
 
     return {
         gridParams,
         gridData,
-        setContentPopup,
-        setErrorOrResolvedContentPopup,
-        resendOptions,
-        setResendOptions,
-        getGridData,
-        validateResend
+        resendOptions
     };
 };
 

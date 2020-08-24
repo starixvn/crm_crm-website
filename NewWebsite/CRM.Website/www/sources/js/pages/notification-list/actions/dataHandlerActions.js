@@ -142,7 +142,7 @@ export const setValidateResend = data => {
     };
 };
 
-export const resendNotifications = dataList => async dispatch => {
+export const resendNotifications = (dataList, done) => async dispatch => {
     Site.blockUI();
     await axios({
         method: 'post',
@@ -159,7 +159,15 @@ export const resendNotifications = dataList => async dispatch => {
             message,
             isSuccessful
         }));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+        Site.unblockUI()
+
+        if (isSuccessful) {
+            done && done();
+        }
+    }).catch(error => {
+        Site.handleAxiosError(error);
+        Site.unblockUI();
+    })
 }
 
 const actions = {

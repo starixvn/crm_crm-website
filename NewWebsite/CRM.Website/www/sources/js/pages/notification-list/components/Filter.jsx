@@ -29,6 +29,8 @@ class Filter extends Component {
                 content: ''
             },
             maxDate: now,
+            minToDate: now,
+            maxToDate: now,
             notificationTypeOptions: [],
             headlineOptions: [],
             recipientOptions: [],
@@ -108,7 +110,28 @@ class Filter extends Component {
 
     handleNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('notificationTypes', selectedItemsKey)
 
-    handleFromDateChange = value => this.handleFilterChange('fromDate', value)
+    handleFromDateChange = value => {
+        const toDate = new Date(value);
+        toDate.setMonth(toDate.getMonth() + 1);
+        toDate.setDate(toDate.getDate() - 1);
+        this.setState({ minToDate: value });
+        this.handleFilterChange('fromDate', value);
+        if (toDate - this.state.maxDate < 0) {
+            this.setState({ maxToDate: toDate }, () => this.changeToDateAfterFromDateChanged(value));
+        }
+        else {
+            this.changeToDateAfterFromDateChanged(value);
+        }
+    }
+
+    changeToDateAfterFromDateChanged = (value) => {
+        if (this.state.filter.toDate - value < 0) {
+            this.handleFilterChange('toDate', value);
+        }
+        else if (this.state.filter.toDate - this.state.maxToDate > 0) {
+            this.handleFilterChange('toDate', this.state.maxToDate);
+        }
+    }
 
     handleToDateChange = value => this.handleFilterChange('toDate', value)
 
@@ -131,8 +154,8 @@ class Filter extends Component {
             notificationTypeIds: this.state.filter.notificationTypes,
             fromDate: this.state.filter.fromDate,
             toDate: this.state.filter.toDate,
-            headline: this.state.filter.headline ? this.state.filter.headline.value : null,
-            recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : null,
+            headline: this.state.filter.headline ? this.state.filter.headline.value : '',
+            recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : '',
             messageId: this.state.filter.messageID,
             notificationIdUpper: this.state.filter.notificationIdLower,
             notificationIdLower: this.state.filter.notificationIdUpper,
@@ -146,11 +169,7 @@ class Filter extends Component {
     submitHandler = e => {
         e.preventDefault();
         this.props.setMessageResult({ show: false });
-        this.props.setInvalidParams({
-            show: false,
-            isInvalidNotificationIdLower: false,
-            isInvalidNotificationIdUpper: false
-        });
+        this.props.setInvalidParams({ show: false });
 
         const params = this.getParams();
         if (this.isValidateParams(params)) {
@@ -265,7 +284,8 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('To')}</Form.Label>
                         <div className='react-datepicker-wrapper-container form-control-wrapper'>
                             <DatePicker disabled={this.isDisabledDateParam()}
-                                maxDate={this.state.maxDate}
+                                minDate={this.state.minToDate}
+                                maxDate={this.state.maxToDate}
                                 selected={this.state.filter.toDate}
                                 onChange={this.handleToDateChange}
                             />
@@ -351,22 +371,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         gridParams,
-        setResendOptions,
         invalidParams,
-        setInvalidParams,
-        settings,
-        getSettings,
-        setMessageResult
+        settings
     } = state;
 
     return {
         gridParams,
-        setResendOptions,
         invalidParams,
-        setInvalidParams,
-        settings,
-        getSettings,
-        setMessageResult
+        settings
     };
 };
 

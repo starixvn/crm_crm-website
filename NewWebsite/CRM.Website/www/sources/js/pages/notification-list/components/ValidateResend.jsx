@@ -4,6 +4,8 @@ import LangHelper from '@jsroot/common/langHelper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
+import { handleNewResendOptions } from '../functions';
+import Site from '@jsroot/common/site';
 
 class ValidateResend extends Component {
     constructor(props) {
@@ -18,7 +20,17 @@ class ValidateResend extends Component {
 
     resendNotifications = dataList => {
         this.onClose();
-        this.props.resendNotifications(dataList);
+        this.props.setInvalidParams({ show: false })
+        this.props.resendNotifications(dataList, this.callBackSuccess);
+    }
+
+    callBackSuccess = () => {
+        Site.blockUI();
+        setTimeout(() => {
+            this.props.setMessageResult({ show: false });
+            const params = { ...this.props.gridParams };
+            this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
+        }, 2000);
     }
 
     render() {
@@ -76,14 +88,12 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         validateResendResult,
-        setValidateResend,
-        resendNotifications
+        gridParams
     } = state;
 
     return {
         validateResendResult,
-        setValidateResend,
-        resendNotifications
+        gridParams
     };
 };
 

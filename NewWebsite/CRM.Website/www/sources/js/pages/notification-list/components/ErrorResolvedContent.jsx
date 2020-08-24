@@ -126,17 +126,11 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         errorResolvedContent,
-        editNotificationList,
-        setErrorResolvedContent,
-        getGridData,
         gridParams
     } = state;
 
     return {
         errorResolvedContent,
-        editNotificationList,
-        setErrorResolvedContent,
-        getGridData,
         gridParams
     };
 };
