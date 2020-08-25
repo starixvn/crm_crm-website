@@ -9,7 +9,6 @@
     using CRM.Repositories;
     using CRM.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
-    using RestSharp;
 
     public static class ServiceDIExtensions
     {
@@ -29,7 +28,6 @@
         {
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<IJwtService, JwtService>();
-            services.AddTransient<IRestClient, RestClient>();
             services.AddTransient<RestClientService>();
             services.AddTransient<LetstalkService>();
             services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>
