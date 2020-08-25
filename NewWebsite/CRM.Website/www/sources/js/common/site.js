@@ -19,7 +19,7 @@ export default class Site {
     }
 
     static getXsrfToken() {
-        if (!_xsrfToken) {
+        if (!_xsrfToken && document.querySelector('input[name=__RequestVerificationToken]')) {
             _xsrfToken = document.querySelector('input[name=__RequestVerificationToken]').value;
         }
 
