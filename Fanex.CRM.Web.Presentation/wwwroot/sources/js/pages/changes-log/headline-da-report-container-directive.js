@@ -159,7 +159,7 @@
             let picsValue = changeValueToHtmlString(preExecutePics(data.OldDAInfo.Pics), preExecutePics(data.NewDAInfo.Pics));
 
             return `
-                <div class="container-detail border-bottom-none">
+                <div class="container-detail border-bottom-none min-height-38px">
                     <div class="detail-child-col col-title-detail">
                         <div class="padding-5px">${viewResources.GroupHeadline}</div>
                     </div>
@@ -180,7 +180,7 @@
             let picsValue = changeValueToHtmlString(preExecutePics(data.OldDAInfo.Pics), preExecutePics(data.NewDAInfo.Pics));
 
             return `
-                <div class="container-detail border-bottom-none">
+                <div class="container-detail border-bottom-none min-height-38px">
                     <div class="detail-child-col col-title-detail">
                         <div class="padding-5px">${viewResources.PIC}</div>
                     </div>
@@ -208,7 +208,7 @@
             let groupHeadlineValue = changeValueToHtmlString(preExecuteValue(data.OldDAInfo.GroupHeadline), data.NewDAInfo.GroupHeadline)
             let isGroupHeadlineValue = changeValueToHtmlString(convertBoolToDecicion(data.OldDAInfo.IsGroupHeadline), convertBoolToDecicion(data.NewDAInfo.IsGroupHeadline));
             return `
-                <div class="container-detail border-bottom-none">
+                <div class="container-detail border-bottom-none min-height-38px">
                     <div class="detail-child-col col-title-detail">
                         <div class="padding-5px">${viewResources.GroupHeadline}</div>
                     </div>
