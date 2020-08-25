@@ -65,7 +65,7 @@ namespace CRM.Repositories.UnitTests
                 ResendDataList = resendDataList
             };
 
-            multi.Read().Returns(inActiveNotificationIds);
+            //multi.Read().Returns(inActiveNotificationIds);
             multi.Read().Returns(resendDataList);
             objectDb.QueryMultipleAsync(criteria).Returns(multi);
 

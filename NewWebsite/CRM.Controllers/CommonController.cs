@@ -30,14 +30,14 @@
         [HttpPost]
         public async Task<IActionResult> GetHeadlines([FromBody]GetHeadlinesCriteria criteria)
         {
-            var headlines = await commonService.GetHeadlines(criteria);
+            var headlines = await commonService.GetHeadlineAsync(criteria);
             return Json(headlines);
         }
 
         [HttpPost]
         public async Task<IActionResult> GetRecipients([FromBody]GetRecipientsCriteria criteria)
         {
-            var headlines = await commonService.GetRecipients(criteria);
+            var headlines = await commonService.GetRecipientAsync(criteria);
             return Json(headlines);
         }
     }
