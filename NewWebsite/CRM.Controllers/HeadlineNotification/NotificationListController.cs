@@ -8,7 +8,6 @@
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
     using CRM.Core.Models;
-    using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
     using CRM.Criteria.NotificationType;
     using CRM.Models.NotificationList;

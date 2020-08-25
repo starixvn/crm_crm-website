@@ -6,6 +6,7 @@
 @import '../../components/modal';
 @import '../../components/tables';
 @import '../../components/react-select';
+@import '../../components/select-with-search';
 
 .link-click {
     cursor: pointer;
@@ -84,8 +85,13 @@ td, th {
     margin: 20px 0 16px;
 }
 
-.full-width {
+.view-detail-remark {
     width: 100%;
+    border-color:  $border-input-color;
+}
+
+.view-detail-remark:focus {
+    outline: none;
 }
 
 .notification-id-container {
@@ -93,5 +99,19 @@ td, th {
     
     .notification-id-input {
         width: 45% !important;
+    }
+}
+
+button:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+#multiple-select-notification-type {
+    .multiple-select-options-container {
+        min-width: 250px;
     }
 }

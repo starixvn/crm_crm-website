@@ -31,7 +31,7 @@ class ViewDetail extends Component {
         return [<Row key={data.notificationId}>
             <Cell>{this.getHeadlines(data.headlines)}</Cell>
             <Cell>{this.getRecipients(data.recipients)}</Cell>
-            <Cell>{data.reason}</Cell>
+            <Cell className='error-color'>{data.reason}</Cell>
         </Row>]
     }
 
@@ -118,7 +118,7 @@ class ViewDetail extends Component {
                             <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.viewDetail.resolvedBy}</div>
                         </Fragment> : <Fragment>
                             <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
-                            <textarea className='full-width' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark} />
+                            <textarea className='view-detail-remark' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark} />
                         </Fragment>
                     }
                 </Modal.Body>

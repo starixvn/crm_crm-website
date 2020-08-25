@@ -24,10 +24,10 @@ const store = Store.createStore(reducer, {
     },
     settings: {
         notificationTypes: [],
-        headlines: [],
-        recipients: [],
         statuses: []
     },
+    headlineOptions: [],
+    recipientOptions: [],
     viewDetail: {
         resolvedBy: '',
         result: {

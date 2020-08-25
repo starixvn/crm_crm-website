@@ -160,7 +160,7 @@ export const resendNotifications = (dataList, done) => async dispatch => {
             message,
             isSuccessful
         }));
-    }).catch(Site.handleAxiosError).then()
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 }
 
 export const setConfirmPopup = data => {
@@ -169,6 +169,66 @@ export const setConfirmPopup = data => {
         data
     };
 };
+
+export const getHeadlineOptions = searchText => async dispatch => {
+    const params = {
+        username: searchText,
+        limit: 10
+    };
+
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('Common/GetHeadlines'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        const options = response.data.map(item => {
+            return { value: item.name, label: item.name }
+        });
+
+        dispatch(setHeadlineOptions(options))
+    }).catch(Site.handleAxiosError);
+}
+
+export const getRecipientOptions = searchText => async dispatch => {
+    const params = {
+        recipientName: searchText,
+        limit: 10
+    };
+
+    await axios({
+        method: 'post',
+        url: Site.resolveClientUrl('Common/GetRecipients'),
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        const options = response.data.map(item => {
+            return { value: item.name, label: item.name }
+        });
+
+        dispatch(setRecipientOptions(options))
+    }).catch(Site.handleAxiosError);
+}
+
+export const setHeadlineOptions = data => {
+    return {
+        type: types.HEADLINE_OPTIONS_DATA,
+        data
+    };
+}
+
+export const setRecipientOptions = data => {
+    return {
+        type: types.RECIPIENT_OPTIONS_DATA,
+        data
+    };
+}
 
 const actions = {
     setGridParams,
@@ -184,7 +244,11 @@ const actions = {
     setValidateResend,
     resendNotifications,
     setMessageResult,
-    setConfirmPopup
+    setConfirmPopup,
+    getHeadlineOptions,
+    setHeadlineOptions,
+    getRecipientOptions,
+    setRecipientOptions
 };
 
 export default actions;

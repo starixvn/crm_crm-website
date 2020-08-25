@@ -15,9 +15,25 @@ export const convertDateToString = date => {
     ].join('/');
 }
 
+export const debounce = (func, wait) => {
+    let timeout;
+    return function (...theArgs) {
+        const context = this,
+        args = theArgs;
+
+        const later = () => {
+            func.apply(context, args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait || 500);
+    };
+}
+
 const functions = {
     getNowGMTAdd8,
-    convertDateToString
+    convertDateToString,
+    debounce
 }
 
 export default functions;

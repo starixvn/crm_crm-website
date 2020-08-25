@@ -68,6 +68,18 @@ export const confirmPopup = createReducer({}, {
     }
 });
 
+export const headlineOptions = createReducer({}, {
+    [types.HEADLINE_OPTIONS_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const recipientOptions = createReducer({}, {
+    [types.RECIPIENT_OPTIONS_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -79,7 +91,9 @@ const reducers = {
     viewDetail,
     messageResult,
     validateResendResult,
-    confirmPopup
+    confirmPopup,
+    headlineOptions,
+    recipientOptions
 };
 
 export default reducers;

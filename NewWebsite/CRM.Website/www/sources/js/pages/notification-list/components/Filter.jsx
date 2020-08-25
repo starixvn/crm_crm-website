@@ -6,7 +6,7 @@ import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import DatePicker from '../../../components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
-import { getNowGMTAdd8 } from '../../../common/functions';
+import { getNowGMTAdd8, debounce } from '../../../common/functions';
 import SelectWithSearch from 'react-select';
 import MultipleSelect from '../../../components/multiple-select/index';
 
@@ -32,7 +32,6 @@ class Filter extends Component {
             minToDate: now,
             maxToDate: now,
             notificationTypeOptions: [],
-            headlineOptions: [],
             recipientOptions: [],
             statusOptions: []
         };
@@ -51,22 +50,6 @@ class Filter extends Component {
                 };
             });
 
-            // recipient
-            const recipientOptions = this.props.settings.recipients.map(x => {
-                return {
-                    value: x.name,
-                    label: x.name
-                };
-            });
-
-            // headline
-            const headlineOptions = this.props.settings.headlines.map(x => {
-                return {
-                    value: x.name,
-                    label: x.name
-                };
-            });
-
             // status
             const statuses = [];
             const statusOptions = this.props.settings.statuses.map(x => {
@@ -80,8 +63,6 @@ class Filter extends Component {
 
             this.setState(prevState => ({
                 notificationTypeOptions,
-                headlineOptions,
-                recipientOptions,
                 statusOptions,
                 filter: {
                     ...prevState.filter,
@@ -197,7 +178,7 @@ class Filter extends Component {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdLower: true
+                    isInvalidNotificationIdUpper: true
                 })
 
                 return false;
@@ -209,7 +190,7 @@ class Filter extends Component {
                 this.props.setInvalidParams({
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdUpper: true
+                    isInvalidNotificationIdLower: true
                 })
 
                 return false;
@@ -251,6 +232,18 @@ class Filter extends Component {
         return true;
     }
 
+    debounceHandleHeadlineInputChange = debounce(searchText => {
+        if (searchText.length >= 2) {
+            this.props.getHeadlineOptions(searchText);
+        }
+    })
+
+    debounceHandleRecipientInputChange = debounce(searchText => {
+        if (searchText.length >= 2) {
+            this.props.getRecipientOptions();
+        }
+    })
+
     render() {
         return (
             <Form className='form-filter'>
@@ -259,6 +252,7 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
+                                id='notification-type'
                                 initialValue={this.state.filter.notificationTypes}
                                 dataSource={this.state.notificationTypeOptions}
                                 keyField='id'
@@ -296,11 +290,11 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <SelectWithSearch
                                 className='basic-single'
-                                isSearchable
-                                isClearable
                                 name='headline'
                                 onChange={this.handleHeadlineChange}
-                                options={this.state.headlineOptions}
+                                options={this.props.headlineOptions}
+                                onInputChange={this.debounceHandleHeadlineInputChange}
+                                placeholder={'Enter Headline'}
                                 value={this.state.filter.headline}
                             />
                         </div>
@@ -310,11 +304,11 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <SelectWithSearch
                                 className='basic-single'
-                                isSearchable
-                                isClearable
                                 name='recipient'
                                 onChange={this.handleRecipientChange}
-                                options={this.state.recipientOptions}
+                                options={this.props.recipientOptions}
+                                onInputChange={this.debounceHandleRecipientInputChange}
+                                placeholder={'Enter Recipient'}
                                 value={this.state.filter.recipient}
                             />
                         </div>
@@ -379,13 +373,17 @@ const mapStateToProps = state => {
     const {
         gridParams,
         invalidParams,
-        settings
+        settings,
+        headlineOptions,
+        recipientOptions
     } = state;
 
     return {
         gridParams,
         invalidParams,
-        settings
+        settings,
+        headlineOptions,
+        recipientOptions
     };
 };
 

@@ -1,0 +1,11 @@
+@import '../abstracts/variables';
+
+.select-with-search {
+    &-input {
+        width: 100% !important;
+    }
+
+    &-options {
+        display: none;
+    }
+}
