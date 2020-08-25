@@ -91,9 +91,7 @@
             let valueChange = isChange ? `
                 <div class="new-value"><div class="padding-5px">${newValue}</div></div>
                 <div class="old-value"><div class="padding-5px">${oldValue}</div></div>
-                ` : `
-                <div><div class="padding-5px">${newValue}</div></div>
-                <div><div class="padding-5px">${oldValue}</div></div>`;
+                ` : `<div class="padding-5px">${newValue}</div>`;
 
             return {
                 valueChange,
