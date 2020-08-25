@@ -150,6 +150,14 @@
             }
         }
 
+        function preExecuteValue(value) {
+            if (value) {
+                return value;
+            }
+
+            return '-';
+        }
+
         function getDetailValueUpdatePicStatus(data) {
             let directAccountValue = changeValueToHtmlString(preExcecuteArray(data.OldPicInfo.DirectAccounts), preExcecuteArray(data.NewPicInfo.DirectAccounts));
             let isActiveValue = changeValueToHtmlString(convertBoolToDecicion(data.OldPicInfo.IsActive), convertBoolToDecicion(data.NewPicInfo.IsActive));
@@ -193,6 +201,7 @@
             let newCommunicationTool = [];
             recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
             let newCommunicationToolValue = newCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
+            let remarkValue = preExecuteValue(data.NewPicInfo.Remark);
 
             return `
                 <div class="container-detail">
@@ -247,7 +256,7 @@
                     </div>
                     <div class="detail-child-col col-value-larger border-right-none">
                     <div>
-                        <div class="padding-5px">${data.NewPicInfo.Remark}</div>
+                        <div class="padding-5px">${remarkValue}</div>
                     </div>
                     </div>
                 </div>
@@ -268,7 +277,7 @@
             recursiveTool(data.OldPicInfo.CommunicationTools, oldCommunicationTool);
             let oldCommunicationToolValue = oldCommunicationTool.map(tool => preExecuteCommTools(tool)).join('');
             let communicationToolValue = changeValueToHtmlString(oldCommunicationToolValue, newCommunicationToolValue);
-            let remarkValue = changeValueToHtmlString(data.OldPicInfo.Remark, data.NewPicInfo.Remark);
+            let remarkValue = changeValueToHtmlString(preExecuteValue(data.OldPicInfo.Remark), preExecuteValue(data.NewPicInfo.Remark));
 
             return `
                 <div class="container-detail">
