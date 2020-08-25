@@ -7,12 +7,12 @@ import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
 
 const store = Store.createStore(reducer, {
-    createTypePopup: { show: false },
-    createTypeResult: null,
-    editTypePopup: { show: false },
-    editTypeResult: null,
-    deleteTypePopup: { show: false },
-    deleteTypeResult: null,
+    createNotificationTypePopup: { show: false },
+    createNotificationTypeResult: null,
+    editNotificationTypePopup: { show: false },
+    editNotificationTypeResult: null,
+    deleteNotificationTypePopup: { show: false },
+    deleteNotificationTypeResult: null,
     invalidParams: { show: false },
     gridData: null,
     settings: {
@@ -26,4 +26,4 @@ ReactDOM.render(
     <Provider store={store}>
         <AppContainer />
     </Provider>,
- document.getElementById('app-container'));
+    document.getElementById('app-container'));

@@ -21,11 +21,11 @@ export class DataGrid extends Component {
     }
 
     handleEdit = item => {
-        this.props.setEditTypePopup({ show: true, data: item});
+        this.props.setEditNotificationTypePopup({ show: true, data: item });
     }
 
     handleDelete = (id, name) => {
-        this.props.setDeleteTypePopup({ show: true, typeId: id, name: name });
+        this.props.setDeleteNotificationTypePopup({ show: true, notificationTypeId: id, name: name });
     }
 
     buildHeader = isHost => {
@@ -52,7 +52,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 :5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+        return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     renderRow = (item, index, isHost) => (
@@ -112,11 +112,15 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData , setEditTypePopup} = state;
+    const {
+        gridParams,
+        gridData,
+        setEditNotificationTypePopup
+    } = state;
     return {
         gridParams,
-        gridData, 
-        setEditTypePopup
+        gridData,
+        setEditNotificationTypePopup
     };
 };
 

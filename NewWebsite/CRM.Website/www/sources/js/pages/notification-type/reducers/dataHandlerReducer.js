@@ -15,39 +15,39 @@ export const gridData = createReducer({}, {
 });
 
 // Create
-export const createTypePopup = createReducer({}, {
+export const createNotificationTypePopup = createReducer({}, {
     [types.CREATE_POPUP_DATA](state, action) {
         return action.data;
     }
 });
 
-export const createTypeResult = createReducer({}, {
+export const createNotificationTypeResult = createReducer({}, {
     [types.CREATE_RESULT_DATA](state, action) {
         return action.data;
     }
 });
 
 // Edit
-export const editTypePopup = createReducer({}, {
+export const editNotificationTypePopup = createReducer({}, {
     [types.EDIT_POPUP_DATA](state, action) {
         return action.data;
     }
 });
 
-export const editTypeResult = createReducer({}, {
+export const editNotificationTypeResult = createReducer({}, {
     [types.EDIT_RESULT_DATA](state, action) {
         return action.data;
     }
 });
 
 // Delete
-export const deleteTypePopup = createReducer({}, {
+export const deleteNotificationTypePopup = createReducer({}, {
     [types.DELETE_POPUP_DATA](state, action) {
         return action.data;
     }
 });
 
-export const deleteTypeResult = createReducer({}, {
+export const deleteNotificationTypeResult = createReducer({}, {
     [types.DELETE_RESULT_DATA](state, action) {
         return action.data;
     }
@@ -68,12 +68,12 @@ export const invalidParams = createReducer({}, {
 const reducers = {
     gridParams,
     gridData,
-    createTypePopup,
-    createTypeResult,
-    editTypePopup,
-    editTypeResult,
-    deleteTypePopup,
-    deleteTypeResult,
+    createNotificationTypePopup,
+    createNotificationTypeResult,
+    editNotificationTypePopup,
+    editNotificationTypeResult,
+    deleteNotificationTypePopup,
+    deleteNotificationTypeResult,
     settings,
     invalidParams
 };

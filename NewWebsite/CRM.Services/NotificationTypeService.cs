@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Enumerables;
+    using CRM.Core.Extensions;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationType;
@@ -66,12 +67,12 @@
 
         public async Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetNotificationTypeCriteria criteria)
         {
-            var data = await baseService.FetchMultipleAsync<NotificationType, RecipientType, ChatTypes>(criteria);
+            var data = await baseService.FetchMultipleAsync<NotificationType, RecipientType, NotificationChatType>(criteria);
             if (data.Item1.Any())
             {
                 foreach (var item in data.Item3)
                 {
-                   item.ChatTypeName = item.ChatTypeId == (int)ChatType.Group ? ChatType.Group.ToString() : ChatType.Personal.ToString();
+                    item.ChatTypeName = EnumHelper.GetDesciption((ChatType)item.ChatTypeId);
                 }
                 foreach (var item in data.Item1)
                 {

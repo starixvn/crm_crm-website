@@ -14,6 +14,6 @@ namespace CRM.Models.NotificationType
 
         public IEnumerable<RecipientType> RecipientTypes { get; set; }
 
-        public IEnumerable<ChatTypes> ChatTypes { get; set; }
+        public IEnumerable<NotificationChatType> ChatTypes { get; set; }
     }
 }

@@ -15,64 +15,44 @@ class NewNotificationType extends Component {
         super(props);
 
         this.state = {
-            popup: {
-                recipientTypeIds: {
-                    value: ''
-                },
-                chatTypeIds: {
-                    value: ''
-                },
-                systemId: {
-                    value: ''
-                }
-            },
             recipientTypesOptions: [],
-            chatTypesOptions: [],
-            systemsOptions: []
+            chatTypesOptions: []
         };
     }
 
-    componentDidMount () {
-            // recipient type
-            const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                return {
-                    id: x.id,
-                    name: x.name,
-                    checked: false
-                };
-            });
+    componentDidMount() {
+        // recipient type
+        const recipientTypesOptions = this.props.settings.recipients.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: false
+            };
+        });
 
-            // chat type
-            const chatTypesOptions = this.props.settings.chatTypes.map(x => {
-                return {
-                    id: x.id,
-                    name: x.name,
-                    checked: false
-                };
-            });
+        // chat type
+        const chatTypesOptions = this.props.settings.chatTypes.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: false
+            };
+        });
 
-            // system
-            const systemsOptions = this.props.settings.systems.map(x => {
-                return {
-                    id: x.id,
-                    name: x.name
-                };
-            });
-
-            this.setState(prevState => ({
-                    recipientTypesOptions,
-                    chatTypesOptions,
-                    systemsOptions,
-                    popup: {
-                        ...prevState.popup
-                    },
-            }));
+        this.setState({
+            recipientTypesOptions,
+            chatTypesOptions
+        });
     }
 
     validate = values => {
         const errors = {};
         if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
             errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
+        }
+
+        if (values.notificationTypeName.length > 500) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameMaxLengthRequired');
         }
 
         if (!values.recipientTypeIds) {
@@ -90,15 +70,7 @@ class NewNotificationType extends Component {
         return errors;
     }
 
-    multiSelectChange = (currentItem, selectedItemsKey) => this.handlePopupChange('', selectedItemsKey)
-
-    renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
-
-    handlePopupChange = (name, value) => {
-        this.setState(prevState => ({
-            popup: { ...prevState.popup, ...{ [name]: {value: value}}}
-        }));
-    }
+    renderSystemOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
     renderForm = ({
         values,
@@ -115,9 +87,9 @@ class NewNotificationType extends Component {
                 <Modal.Body>
                     <FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
                     {
-                        this.props.createTypeResult &&
-                        <ResponseMessage isSuccessful={this.props.createTypeResult.isSuccessful}
-                            message={this.props.createTypeResult.message || LangHelper.getResource('InsertNotificationTypeSuccessfully')}
+                        this.props.createNotificationTypeResult &&
+                        <ResponseMessage isSuccessful={this.props.createNotificationTypeResult.isSuccessful}
+                            message={this.props.createNotificationTypeResult.message || LangHelper.getResource('InsertNotificationTypeSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -139,20 +111,17 @@ class NewNotificationType extends Component {
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
-                            isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                            initialValue={this.state.popup.recipientTypeIds}
-                            dataSource={this.state.recipientTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            selectedValue={!this.state.popup.recipientTypeIds.value ? true : false }
-                            isAllTextShown
-                            onChange={(currentItem, selectedItemsKey) => {
-                                this.multiSelectChange(currentItem, selectedItemsKey);
-                                handleChange('recipientTypeIds')(selectedItemsKey);
-                            }}
+                                isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
+                                dataSource={this.state.recipientTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={(currentItem, selectedItemsKey) => {
+                                    handleChange('recipientTypeIds')(selectedItemsKey);
+                                }}
                             />
-                         </Col>
+                        </Col>
                     </Form.Group>
 
                     <Form.Group as={Row}>
@@ -161,24 +130,21 @@ class NewNotificationType extends Component {
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
-                            isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                            initialValue={this.state.popup.chatTypeIds}
-                            dataSource={this.state.chatTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            selectedValue={!this.state.popup.chatTypeIds.value ? true : false }
-                            isAllTextShown
-                            onChange={(currentItem, selectedItemsKey) => {
-                                this.multiSelectChange(currentItem, selectedItemsKey);
-                                handleChange('chatTypeIds')(selectedItemsKey);
-                            }}
+                                isInvalid={touched.chatTypeIds && errors.chatTypeIds}
+                                dataSource={this.state.chatTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={(currentItem, selectedItemsKey) => {
+                                    handleChange('chatTypeIds')(selectedItemsKey);
+                                }}
                             />
-                         </Col>
+                        </Col>
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" value={values.systemId}  htmlFor="systemId" className="required">
+                        <Form.Label column sm="4" md="3" value={values.systemId} htmlFor="systemId" className="required">
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -189,7 +155,7 @@ class NewNotificationType extends Component {
                                 value={values.systemId}
                             >
                                 <option value="" hidden>{LangHelper.getResource('SelectOptions')}</option>
-                                {this.state.systemsOptions.map(this.renderSystemTypeOption)}
+                                {this.props.settings.systems.map(this.renderSystemOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -216,8 +182,8 @@ class NewNotificationType extends Component {
         };
 
         setSubmitting(true);
-        this.props.createType(notificationType).then(() => {
-            if (this.props.createTypeResult.isSuccessful) {
+        this.props.createNotificationType(notificationType).then(() => {
+            if (this.props.createNotificationTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
                 }, 1000);
@@ -230,7 +196,7 @@ class NewNotificationType extends Component {
     render() {
         const initialValues = {
             notificationTypeName: '',
-            recipientTypeIds:'',
+            recipientTypeIds: '',
             chatTypeIds: '',
             systemId: ''
         }
@@ -255,14 +221,14 @@ class NewNotificationType extends Component {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        createType: ActionCreators.createType
+        createNotificationType: ActionCreators.createNotificationType
     }, dispatch);
 };
 
 const mapStateToProps = state => {
-    const { createTypeResult, settings, getSettings } = state;
+    const { createNotificationTypeResult, settings, getSettings } = state;
     return {
-        createTypeResult,
+        createNotificationTypeResult,
         settings,
         getSettings
     };

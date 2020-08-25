@@ -15,127 +15,82 @@ class EditNotificationType extends Component {
 
         this.state = {
             popup: {
-                recipientTypeIds: {
-                    value: ''
-                },
-                chatTypeIds: {
-                    value: ''
-                },
-                systemId: {
-                    value: ''
-                }
+                recipientTypeIds: '',
+                chatTypeIds: ''
             },
             recipientTypesOptions: [],
-            chatTypesOptions: [],
-            systemsOptions: []
+            chatTypesOptions: []
         };
     }
 
+    componentDidMount() {
 
-    componentDidMount () {
-            const listRecipientTypeChecked = [];
-             this.props.editTypePopup.data.recipientTypes.map(x => {
-                listRecipientTypeChecked.push(x.recipientTypeId);
-                return {
-                    id: x.recipientTypeId
-                };
-            });
+        // recipient type
+        const recipientTypeIds = [];
+        this.props.editNotificationTypePopup.data.recipientTypes.map(x => {
+            recipientTypeIds.push(x.recipientTypeId);
+            return {
+                id: x.recipientTypeId
+            };
+        });
 
-            const listChatTypeChecked = [];
-             this.props.editTypePopup.data.chatTypes.map(x => {
-                listChatTypeChecked.push(x.chatTypeId);
-                return {
-                    id: x.chatTypeId
-                };
-            });
+        const recipientTypesOptions = this.props.settings.recipients.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: recipientTypeIds.includes(x.id) ? true : false
+            };
+        });
 
-            // recipient type
-            const recipientTypeIds = [];
-            const recipientTypesOptions = this.props.settings.recipients.map(x => {
-                return {
-                    id: x.id,
-                    name: x.name,
-                    checked: listRecipientTypeChecked.includes(x.id) ? true: false
-                };
-            });
-            recipientTypesOptions.forEach(x => {
-                if( x.checked == true){ 
-                    recipientTypeIds.push(x.id);
-                }
-            });
-            
+        // chat type
+        const chatTypeIds = [];
+        this.props.editNotificationTypePopup.data.chatTypes.map(x => {
+            chatTypeIds.push(x.chatTypeId);
+            return {
+                id: x.chatTypeId
+            };
+        });
 
-            // chat type
-            const chatTypeIds = [];
-            const chatTypesOptions = this.props.settings.chatTypes.map(x => {
-                return {
-                    id: x.id,
-                    name: x.name,
-                    checked: listChatTypeChecked.includes(x.id) ? true: false
-                };
-            });
-            chatTypesOptions.forEach(x => {
-                if( x.checked == true){ 
-                    chatTypeIds.push(x.id);
-                }
-            });
+        const chatTypesOptions = this.props.settings.chatTypes.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: chatTypeIds.includes(x.id) ? true : false
+            };
+        });
 
-            // system
-            const systemIds = [];
-            const systemsOptions = this.props.settings.systems.map(x => {
-                systemIds.push(x.id);
-                return {
-                    id: x.id,
-                    name: x.name
-                };
-            });
-
-            this.setState(prevState => ({
-                    recipientTypesOptions,
-                    chatTypesOptions,
-                    systemsOptions,
-                    popup: {
-                        ...prevState.popup,
-                        ...{
-                            recipientTypeIds: {
-                                value: recipientTypeIds.toString()
-                            },
-                            chatTypeIds: {
-                                value: chatTypeIds.toString()
-                            },
-                            systemId: {
-                                value: systemIds.toString()
-                            }
-                        }
-                    }
-            }));
+        this.setState({
+            recipientTypesOptions,
+            chatTypesOptions,
+            popup: {
+                recipientTypeIds: recipientTypeIds.toString(),
+                chatTypeIds: chatTypeIds.toString()
+            }
+        });
     }
-        multiSelectChange = (currentItem, selectedItemsKey) => this.handlePopupChange('', selectedItemsKey)
 
-        renderSystemTypeOption = item => <option key={item.id} value={item.id} >{item.name}</option>
-    
-        handlePopupChange = (name, value) => {
-            this.setState(prevState => ({
-                popup: { ...prevState.popup, ...{ [name]: {value: value}} }
-            }));
+    renderSystemOption = item => <option key={item.id} value={item.id} >{item.name}</option>
+
+    validate = values => {
+        const errors = {};
+        if (!values.notificationTypeName) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
         }
 
-        validate = values => {
-            const errors = {};
-            if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
-                errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
-            }
-    
-            if (!values.recipientTypeIds) {
-                errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
-            }
-    
-            if (!values.chatTypeIds) {
-                errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
-            }
-            
-            return errors;
+        if (values.notificationTypeName.length > 500) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameMaxLengthRequired');
         }
+
+        if (!values.recipientTypeIds) {
+            errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
+        }
+
+        if (!values.chatTypeIds) {
+            errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
+        }
+
+        return errors;
+    }
 
     renderForm = ({
         values,
@@ -150,9 +105,9 @@ class EditNotificationType extends Component {
                 <Modal.Body>
                     <FormikErrorMessage touched={touched} errors={errors} fieldNames={Object.keys(values)} />
                     {
-                        this.props.editTypeResult &&
-                        <ResponseMessage isSuccessful={this.props.editTypeResult.isSuccessful}
-                            message={this.props.editTypeResult.message || LangHelper.getResource('EditNotificationTypeSuccessfully')}
+                        this.props.editNotificationTypeResult &&
+                        <ResponseMessage isSuccessful={this.props.editNotificationTypeResult.isSuccessful}
+                            message={this.props.editNotificationTypeResult.message || LangHelper.getResource('EditNotificationTypeSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -160,7 +115,7 @@ class EditNotificationType extends Component {
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                        <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
+                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
@@ -174,20 +129,18 @@ class EditNotificationType extends Component {
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
-                            isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                            initialValue={this.state.popup.recipientTypeIds}
-                            dataSource={this.state.recipientTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            selectedValue={!values.recipientTypeIds ? true : false }
-                            isAllTextShown
-                            onChange={(currentItem, selectedItemsKey) => {
-                                this.multiSelectChange(currentItem, selectedItemsKey);
-                                handleChange('recipientTypeIds')(selectedItemsKey);
-                            }}
+                                isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
+                                initialValue={this.state.popup.recipientTypeIds}
+                                dataSource={this.state.recipientTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={(currentItem, selectedItemsKey) => {
+                                    handleChange('recipientTypeIds')(selectedItemsKey);
+                                }}
                             />
-                         </Col>
+                        </Col>
                     </Form.Group>
 
                     <Form.Group as={Row}>
@@ -196,20 +149,18 @@ class EditNotificationType extends Component {
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
-                            isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                            initialValue={this.state.popup.recipientTypeIds.value}
-                            dataSource={this.state.chatTypesOptions}
-                            keyField='id'
-                            valueField='name'
-                            statusField='checked'
-                            selectedValue={!values.chatTypeIds ? true : false }
-                            isAllTextShown
-                            onChange={(currentItem, selectedItemsKey) => {
-                                this.multiSelectChange(currentItem, selectedItemsKey);
-                                handleChange('chatTypeIds')(selectedItemsKey);
-                            }}
+                                isInvalid={touched.chatTypeIds && errors.chatTypeIds}
+                                initialValue={this.state.popup.recipientTypeIds.value}
+                                dataSource={this.state.chatTypesOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isAllTextShown
+                                onChange={(currentItem, selectedItemsKey) => {
+                                    handleChange('chatTypeIds')(selectedItemsKey);
+                                }}
                             />
-                         </Col>
+                        </Col>
                     </Form.Group>
 
                     <Form.Group as={Row}>
@@ -224,7 +175,7 @@ class EditNotificationType extends Component {
                                 value={values.systemId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.state.systemsOptions.map(this.renderSystemTypeOption)}
+                                {this.props.settings.systems.map(this.renderSystemOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -252,8 +203,8 @@ class EditNotificationType extends Component {
         };
 
         setSubmitting(true);
-        this.props.editType(notificationType).then(() => {
-            if (this.props.editTypeResult.isSuccessful) {
+        this.props.editNotificationType(notificationType).then(() => {
+            if (this.props.editNotificationTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
                 }, 1000);
@@ -264,7 +215,7 @@ class EditNotificationType extends Component {
     }
 
     render() {
-        const notificationType = this.props.editTypePopup.data; 
+        const notificationType = this.props.editNotificationTypePopup.data;
         const initialValues = {
             notificationTypeId: notificationType.notificationTypeId,
             notificationTypeName: notificationType.notificationTypeName,
@@ -294,15 +245,20 @@ class EditNotificationType extends Component {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        editType: ActionCreators.editType
+        editNotificationType: ActionCreators.editNotificationType
     }, dispatch);
 };
 
 const mapStateToProps = state => {
-    const { editTypeResult, editTypePopup, settings, getSettings} = state;
+    const {
+        editNotificationTypeResult,
+        editNotificationTypePopup,
+        settings,
+        getSettings
+    } = state;
     return {
-        editTypeResult,
-        editTypePopup,
+        editNotificationTypeResult,
+        editNotificationTypePopup,
         settings,
         getSettings
     };

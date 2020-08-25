@@ -9,7 +9,6 @@ import EditNotificationType from './EditNotificationType';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
-import {Button, Modal } from 'react-bootstrap';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -19,13 +18,13 @@ export class AppContainer extends Component {
     }
 
     handleCloseCreatePopup = () => {
-        this.props.setCreateTypePopup({ show: false });
-        this.props.setCreateTypeResult(null);
+        this.props.setCreateNotificationTypePopup({ show: false });
+        this.props.setCreateNotificationTypeResult(null);
     }
 
     handleCloseEditPopup = () => {
-        this.props.setEditTypePopup({ show: false });
-        this.props.setEditTypeResult(null);
+        this.props.setEditNotificationTypePopup({ show: false });
+        this.props.setEditNotificationTypeResult(null);
     }
 
     handleCreateSuccess = () => {
@@ -39,89 +38,63 @@ export class AppContainer extends Component {
     }
 
     handleCloseDeletePopup = () => {
-        this.props.setDeleteTypePopup({ show: false });
-        this.props.setDeleteTypeResult(null);
+        this.props.setDeleteNotificationTypePopup({ show: false });
+        this.props.setDeleteNotificationTypeResult(null);
     }
 
     handleDelete = () => {
-        this.props.deleteType(this.props.deleteTypePopup.typeId).then(data => {
+        this.props.deleteNotificationType(this.props.deleteNotificationTypePopup.notificationTypeId).then(data => {
             if (data.isSuccessful) {
                 data.message = LangHelper.getResource('DeleteNotificationTypeSuccessfully')
                 setTimeout(() => {
                     this.handleCloseDeletePopup();
+                    this.props.getGridData(this.props.gridParams);
                 }, 3000);
-            }
-            else{
-                if(data.code === 101 ){
-                    this.handleCloseDeletePopup();
-                }
             }
 
             this.props.getGridData(this.props.gridParams);
-            this.props.setDeleteTypeResult(data);
+            this.props.setDeleteNotificationTypeResult(data);
         });
     }
 
     render() {
-        var showPopupNotExist = false
-        if(this.props.deleteTypeResult != null)
-        {
-            showPopupNotExist = this.props.deleteTypeResult.code === 101 ? true : false;
-        }
 
         return (
             <Fragment>
                 {
                     this.props.invalidParams.show &&
-                     <ResponseMessage isSuccessful={false}
-                            message={this.props.invalidParams.message}
-                        />
+                    <ResponseMessage isSuccessful={false}
+                        message={this.props.invalidParams.message}
+                    />
                 }
                 <Filter isHost={this.isHost} />
                 <DataGrid isHost={this.isHost} />
                 {
-                    this.props.createTypePopup.show &&
+                    this.props.createNotificationTypePopup.show &&
                     <NewNotificationType
                         onClose={this.handleCloseCreatePopup}
                         onSuccess={this.handleCreateSuccess}
                     />
                 }
                 {
-                    this.props.editTypePopup.show &&
+                    this.props.editNotificationTypePopup.show &&
                     <EditNotificationType
                         onClose={this.handleCloseEditPopup}
                         onSuccess={this.handleEditSuccess}
                     />
                 }
                 {
-                    this.props.deleteTypePopup.show &&
+                    this.props.deleteNotificationTypePopup.show &&
                     <ConfirmPopup size="lg"
                         title={LangHelper.getResource('Confirmation')}
                         content={
-                            <div>Are you sure you want to delete <strong>{this.props.deleteTypePopup.name}</strong>?</div>
+                            <div>Are you sure you want to delete <strong>{this.props.deleteNotificationTypePopup.name}</strong>?</div>
                         }
-                        requestResponse={this.props.deleteTypeResult}
+                        requestResponse={this.props.deleteNotificationTypeResult}
                         onSubmit={this.handleDelete}
                         onClose={this.handleCloseDeletePopup}
                     />
                 }
-                {
-                    showPopupNotExist &&
-                    <Modal show backdrop="static" size="lg" centered  onHide={this.handleCloseDeletePopup}>
-                    <Modal.Header closeButton>
-                        <Modal.Title as="div">{LangHelper.getResource('Confirmation')}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div>The Notification Type does not exists, please check again!</div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" size="sm" onClick={this.handleCloseDeletePopup}>
-                            {LangHelper.getResource('OK')}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                }
-
             </Fragment>
         );
     }
@@ -130,13 +103,19 @@ export class AppContainer extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, createTypePopup, editTypePopup, deleteTypePopup, deleteTypeResult, invalidParams } = state;
+    const {
+        gridParams,
+        createNotificationTypePopup,
+        editNotificationTypePopup,
+        deleteNotificationTypePopup,
+        deleteNotificationTypeResult,
+        invalidParams } = state;
     return {
         gridParams,
-        createTypePopup,
-        editTypePopup,
-        deleteTypePopup,
-        deleteTypeResult,
+        createNotificationTypePopup,
+        editNotificationTypePopup,
+        deleteNotificationTypePopup,
+        deleteNotificationTypeResult,
         invalidParams
     };
 };

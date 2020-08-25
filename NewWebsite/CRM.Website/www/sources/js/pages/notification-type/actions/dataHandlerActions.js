@@ -19,14 +19,14 @@ export const setGridData = data => {
 
 
 //create
-export const setCreateTypePopup = data => {
+export const setCreateNotificationTypePopup = data => {
     return {
         type: types.CREATE_POPUP_DATA,
         data: data
     };
 };
 
-export const setCreateTypeResult = data => {
+export const setCreateNotificationTypeResult = data => {
     return {
         type: types.CREATE_RESULT_DATA,
         data: data
@@ -34,14 +34,14 @@ export const setCreateTypeResult = data => {
 };
 
 // edit
-export const setEditTypePopup = data => {
+export const setEditNotificationTypePopup = data => {
     return {
         type: types.EDIT_POPUP_DATA,
         data: data
     };
 };
 
-export const setEditTypeResult = data => {
+export const setEditNotificationTypeResult = data => {
     return {
         type: types.EDIT_RESULT_DATA,
         data: data
@@ -49,14 +49,14 @@ export const setEditTypeResult = data => {
 };
 
 // Delete
-export const setDeleteTypePopup = data => {
+export const setDeleteNotificationTypePopup = data => {
     return {
         type: types.DELETE_POPUP_DATA,
         data: data
     };
 };
 
-export const setDeleteTypeResult = data => {
+export const setDeleteNotificationTypeResult = data => {
     return {
         type: types.DELETE_RESULT_DATA,
         data: data
@@ -89,9 +89,9 @@ export const getSettings = () => {
     };
 };
 
-export const deleteType = typeId => {
+export const deleteNotificationType = notificationTypeId => {
     return async dispatch => axios({
-        url: Site.resolveClientUrl(`NotificationType/Delete/${typeId}`),
+        url: Site.resolveClientUrl(`NotificationType/Delete/${notificationTypeId}`),
         method: 'post',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -100,7 +100,7 @@ export const deleteType = typeId => {
     }).then(response => response.data).catch(Site.handleAxiosError);
 };
 
-export const editType = (data) => {
+export const editNotificationType = (data) => {
     return async dispatch => axios({
         url: Site.resolveClientUrl('NotificationType/Edit'),
         method: 'post',
@@ -110,7 +110,7 @@ export const editType = (data) => {
             'RequestVerificationToken': Site.getXsrfToken()
         }
     }).then(response => {
-        dispatch(setEditTypeResult(response.data));
+        dispatch(setEditNotificationTypeResult(response.data));
     }).catch(Site.handleAxiosError);
 };
 
@@ -131,7 +131,7 @@ export const getGridData = params => {
     };
 };
 
-export const createType = data => {
+export const createNotificationType = data => {
     return async dispatch => axios({
         url: Site.resolveClientUrl('NotificationType/Create'),
         method: 'post',
@@ -141,7 +141,7 @@ export const createType = data => {
             'RequestVerificationToken': Site.getXsrfToken()
         }
     }).then(response => {
-        dispatch(setCreateTypeResult(response.data));
+        dispatch(setCreateNotificationTypeResult(response.data));
     }).catch(Site.handleAxiosError);
 };
 
@@ -149,15 +149,15 @@ const actions = {
     setGridParams,
     getGridData,
     setGridData,
-    setCreateTypePopup,
-    setCreateTypeResult,
-    createType,
-    setEditTypePopup,
-    setEditTypeResult,
-    editType, 
-    setDeleteTypePopup,
-    setDeleteTypeResult,
-    deleteType,
+    setCreateNotificationTypePopup,
+    setCreateNotificationTypeResult,
+    createNotificationType,
+    setEditNotificationTypePopup,
+    setEditNotificationTypeResult,
+    editNotificationType,
+    setDeleteNotificationTypePopup,
+    setDeleteNotificationTypeResult,
+    deleteNotificationType,
     getSettings,
     setInvalidParams
 };

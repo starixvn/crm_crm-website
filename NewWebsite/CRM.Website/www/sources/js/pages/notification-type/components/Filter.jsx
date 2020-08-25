@@ -13,15 +13,9 @@ class Filter extends Component {
         this.state = {
             filter: {
                 notificationTypeName: '',
-                recipientTypes: {
-                    value: ''
-                },
-                chatTypes: {
-                    value: ''
-                },
-                systems: {
-                    value: ''
-                }
+                recipientTypes: '',
+                chatTypes: '',
+                systems: ''
             },
             recipientTypesOptions: [],
             chatTypesOptions: [],
@@ -69,15 +63,9 @@ class Filter extends Component {
                 chatTypesOptions,
                 systemsOptions,
                 filter: {
-                    recipientTypes: {
-                        value: recipientTypeIds.toString()
-                    },
-                    chatTypes: {
-                        value: chatTypeIds.toString()
-                    },
-                    systems: {
-                        value: systemIds.toString()
-                    }
+                    recipientTypes: recipientTypeIds.toString(),
+                    chatTypes: chatTypeIds.toString(),
+                    systems: systemIds.toString(),
                 }
             }));
         }
@@ -87,8 +75,8 @@ class Filter extends Component {
         this.props.getSettings();
     }
 
-    recipientTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('recipientTypes', selectedItemsKey)
-    chatTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('chatTypes', selectedItemsKey)
+    recipientNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('recipientTypes', selectedItemsKey)
+    chatNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('chatTypes', selectedItemsKey)
     systemChange = (currentItem, selectedItemsKey) => this.handleFilterChange('systems', selectedItemsKey)
 
     handleNotificationTypeChange = event => {
@@ -99,16 +87,16 @@ class Filter extends Component {
 
     handleFilterChange = (name, value) => {
         this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: { value: value } } }
+            filter: { ...prevState.filter, ...{ [name]: value } }
         }));
     }
 
     getParams = () => {
         return {
             notificationTypeName: this.state.notificationTypeName,
-            chatTypeIds: this.state.filter.chatTypes.value,
-            recipientTypeIds: this.state.filter.recipientTypes.value,
-            systemId: this.state.filter.systems.value,
+            chatTypeIds: this.state.filter.chatTypes,
+            recipientTypeIds: this.state.filter.recipientTypes,
+            systemId: this.state.filter.systems,
             pageIndex: 1,
             pageSize: 50
         };
@@ -123,21 +111,21 @@ class Filter extends Component {
 
         const error = [];
         if (params.recipientTypeIds == '') {
-            error.push('Recipient Type');
+            error.push(`${LangHelper.getResource('RecipientType')}`);
         }
 
         if (params.chatTypeIds == '') {
-            error.push(' Chat Type');
+            error.push(`${LangHelper.getResource('ChatType')}`);
         }
 
         if (params.systemId == '') {
-            error.push(' System');
+            error.push(`${LangHelper.getResource('System')}`);
         }
 
         if (error.length > 0) {
             this.props.setInvalidParams({
                 show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${error.toString()}`
+                message: `${LangHelper.getResource('PleaseChoose')} ${error.join(', ').toString()}`
             });
         }
         else {
@@ -146,7 +134,7 @@ class Filter extends Component {
         }
     }
 
-    handleOpenCreatePopup = () => this.props.setCreateTypePopup({ show: true })
+    handleOpenCreatePopup = () => this.props.setCreateNotificationTypePopup({ show: true })
 
     render() {
         const { isHost } = this.props;
@@ -165,13 +153,14 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('RecipientType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.recipientTypes.value}
+                                initialValue={this.state.filter.recipientTypes}
                                 dataSource={this.state.recipientTypesOptions}
+                                isInvalid={!this.state.filter.recipientTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isAllTextShown
-                                onChange={this.recipientTypeChange}
+                                onChange={this.recipientNotificationTypeChange}
                             />
                         </div>
                     </Form.Group>
@@ -179,13 +168,14 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('ChatType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.chatTypes.value}
+                                initialValue={this.state.filter.chatTypes}
                                 dataSource={this.state.chatTypesOptions}
+                                isInvalid={!this.state.filter.chatTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isAllTextShown
-                                onChange={this.chatTypeChange}
+                                onChange={this.chatNotificationTypeChange}
                             />
                         </div>
                     </Form.Group>
@@ -193,8 +183,9 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('System')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.systems.value}
+                                initialValue={this.state.filter.systems}
                                 dataSource={this.state.systemsOptions}
+                                isInvalid={!this.state.filter.systems}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -229,7 +220,13 @@ class Filter extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, settings, getSettings, invalidParams, setInvalidParams } = state;
+    const {
+        gridParams,
+        settings,
+        getSettings,
+        invalidParams,
+        setInvalidParams
+    } = state;
     return {
         gridParams,
         settings,

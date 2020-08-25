@@ -1,6 +1,6 @@
 ﻿namespace CRM.Models
 {
-    public class ChatTypes
+    public class NotificationChatType
     {
         public int NotificationTypeId { get; set; }
 
