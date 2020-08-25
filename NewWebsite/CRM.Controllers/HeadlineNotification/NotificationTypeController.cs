@@ -75,7 +75,7 @@ namespace CRM.Controllers
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
-        public async Task<IActionResult> Create([FromBody]CreateNotificationType model)
+        public async Task<IActionResult> Create([FromBody] CreateNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.CreateAsync(model);
             return Json(commandResult);
@@ -83,7 +83,7 @@ namespace CRM.Controllers
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
-        public async Task<IActionResult> Edit([FromBody]EditNotificationType model)
+        public async Task<IActionResult> Edit([FromBody] EditNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.EditAsync(model);
             return Json(commandResult);

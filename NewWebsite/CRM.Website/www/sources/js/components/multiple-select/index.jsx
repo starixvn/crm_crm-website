@@ -212,7 +212,7 @@ export default class MultipleSelect extends Component {
         const { maxDisplayItemCount } = this.props;
 
         return (
-            <div className={this.props.isInvalid ? 'invalid multiple-select-container': 'multiple-select-container'} id={this.id} ref={element => this.wrapper = element}>
+            <div className={this.props.isInvalid ? 'invalid multiple-select-container' : 'multiple-select-container'} id={this.id} ref={element => this.wrapper = element}>
                 {
                     <MultipleSelectLabel
                         language={this.props.language}
