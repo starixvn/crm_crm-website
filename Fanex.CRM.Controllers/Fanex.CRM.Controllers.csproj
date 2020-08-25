@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangesLogController.cs" />
+    <Compile Include="HeadlineNotification\ChatTypeMappingController.cs" />
     <Compile Include="HeadlineNotification\NotificationListController.cs" />
     <Compile Include="HeadlineNotification\NotificationTypeController.cs" />
     <Compile Include="LicenseeMappingController.cs" />

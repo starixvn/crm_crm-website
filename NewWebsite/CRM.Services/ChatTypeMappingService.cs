@@ -9,18 +9,14 @@
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Models.ChatTypeMapping;
     using CRM.Services.Interfaces;
-    using Fanex.NAP.Client.Helpers.Web;
 
     public class ChatTypeMappingService : IChatTypeMappingService
     {
         private readonly IBaseService baseService;
-        private readonly INapSession napSession;
 
-        public ChatTypeMappingService(IBaseService baseService,
-            INapSession napSession)
+        public ChatTypeMappingService(IBaseService baseService)
         {
             this.baseService = baseService;
-            this.napSession = napSession;
         }
 
         public async Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria)
@@ -38,13 +34,13 @@
             return new ValueTuple<IEnumerable<ChatTypeMappingModel>, int>(data.Item1, criteria.TotalRows);
         }
 
-        public async Task<CommandResult> UpdateActiveStatusAsync(int conversationId, bool IsActive)
+        public async Task<CommandResult> UpdateActiveStatusAsync(int conversationId, bool IsActive, int userId)
         {
             var criteria = new UpdateIsActiveStatusCommand
             {
                 ConversationGroupId = conversationId,
                 IsActive = IsActive,
-                UserId = napSession.UserId
+                UserId = userId
             };
 
             return await baseService.ExecuteNonQueryAsync(criteria);
@@ -69,6 +65,11 @@
         }
 
         public async Task<CommandResult> InsertPersonalMappingAsync(InsertPersonalMappingCommand criteria)
+        {
+            return await baseService.ExecuteNonQueryAsync(criteria);
+        }
+
+        public async Task<CommandResult> UpdateChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria)
         {
             return await baseService.ExecuteNonQueryAsync(criteria);
         }

@@ -57,7 +57,7 @@ export const openUpdatePersonalMappingPopup = (data) => {
 };
 
 export const updatePersonalMapping = params => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/UpdatePersonalMapping');
+    const url = Site.resolveClientUrl(`ChatTypeMapping/UpdatePersonalMapping`);
     return dispatch => {
         return axios({
             method: 'post',
@@ -139,12 +139,15 @@ const actions = {
     openInsertPersonalMappingPopup,
     closeInsertPersonalMappingPopup,
     insertPersonalMapping,
+    setInsertPersonalMappingResult,
     openUpdatePersonalMappingPopup,
     updatePersonalMapping,
+    setUpdatePersonalMappingResult,
     closeUpdatePersonalMappingPopup,
     openUpdateGroupMappingPopup,
     closeUpdateGroupMappingPopup,
-    updateGroupMapping
+    updateGroupMapping,
+    setGroupMappingResult
 };
 
 export default actions;

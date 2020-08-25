@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
-import { PAGING_SIZES, defaultPageSize, ChatTypeMapping } from '@jsroot/common/constants';
+import { PAGING_SIZES, ChatTypeMapping } from '@jsroot/common/constants';
 import Site from '@jsroot/common/site';
 import { Form } from 'react-bootstrap';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
@@ -26,18 +26,17 @@ export class DataGrid extends Component {
     }
 
     onChangeActiveStaus = (conversationGroupId, isChecked) => {
-        console.log(conversationGroupId);
         this.props.setUpateActivePopup({ isShowPopup: true, conversationGroupId, isChecked });
     }
 
     updateActiveStatus = () => {
         const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
-        this.props.updateActiveStatus(params);
+        this.props.updateActiveStatus(params);   
+        this.props.getGridData(this.props.gridParams);
     }
 
     onCloseConfirmPopupChangeActiveStaus = () => {
         this.props.setUpateActivePopup({ isShowPopup: false });
-        this.props.getGridData(this.props.gridParams);
     }
 
     renderRecipients = (recipient, key) => <div key={key} className='recipient-item'>{`${recipient.recipientName} (${recipient.roleName})`}</div>;

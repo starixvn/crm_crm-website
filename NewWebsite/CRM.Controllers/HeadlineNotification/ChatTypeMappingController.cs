@@ -100,45 +100,45 @@
         [HttpPost]
         public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
-            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive);
-            return Json(commandResult);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
-        {
             try
             {
-                var result = new CommandResult();
-                var contactDetail = await letstalkService(100020).GetProfileAsync(data.LetstalkId.Trim());
-                if (contactDetail.Item2)
-                {
-                    var criteria = new InsertPersonalMappingCommand
-                    {
-                        BotId = data.BotId,
-                        ConversationGroupName = contactDetail.Item1.DisplayName,
-                        ChatTypeId = (int)ChatType.Personal,
-                        RecipientTypeId = data.RecipientTypeId,
-                        HeadlineIds = data.GroupHeadlineIds,
-                        RecipientId = data.RecipientId,
-                        LetstalkId = data.LetstalkId,
-                        LanguageId = data.LanguageId,
-                        Remark = data.Remark,
-                        UserId = 8
-                    };
-                    result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
-                }
-                else
-                {
-                    result.Message = "The selected Letstalk ID does not existed";
-                }
-
-                return Json(result);
+                var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, 8);
+                return Json(commandResult);
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
+        {
+            var result = new CommandResult();
+            var contactDetail = await letstalkService(data.BotId).GetProfileAsync(data.LetstalkId.Trim());
+            if (contactDetail.Item2)
+            {
+                var criteria = new InsertPersonalMappingCommand
+                {
+                    BotId = data.BotId,
+                    ConversationGroupName = contactDetail.Item1.DisplayName,
+                    ChatTypeId = (int)ChatType.Personal,
+                    RecipientTypeId = data.RecipientTypeId,
+                    HeadlineIds = data.GroupHeadlineIds,
+                    RecipientId = data.RecipientId,
+                    LetstalkId = data.LetstalkId,
+                    LanguageId = data.LanguageId,
+                    Remark = data.Remark,
+                    UserId = 8
+                };
+                result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
+            }
+            else
+            {
+                result.Message = "The selected Letstalk ID does not existed";
+            }
+
+            return Json(result);
         }
 
         public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
@@ -151,6 +151,57 @@
         {
             var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
             return Json(headlines);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePersonalMapping([FromBody]PersonalMappingViewModel data)
+        {
+            var result = new CommandResult();
+            var contactDetail = await letstalkService(data.BotId).GetProfileAsync(data.LetstalkId.Trim());
+            if (contactDetail.Item2)
+            {
+                var criteria = new UpdateChatTypeMappingCommand
+                {
+                    ConversationGroupId = data.ConversationGroupId,
+                    BotId = data.BotId,
+                    ConversationGroupName = contactDetail.Item1.DisplayName,
+                    RecipientTypeId = data.RecipientTypeId,
+                    HeadlineIds = data.GroupHeadlineIds,
+                    RecipientIds = data.RecipientId.ToString(),
+                    LetstalkId = data.LetstalkId,
+                    LanguageId = data.LanguageId,
+                    Remark = data.Remark,
+                    UserId = 8
+                };
+                result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
+            }
+            else
+            {
+                result.Message = "The selected Letstalk ID does not existed";
+            }
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateGroupMapping([FromBody]PersonalMappingViewModel data)
+        {
+            var criteria = new UpdateChatTypeMappingCommand
+            {
+                ConversationGroupId = data.ConversationGroupId,
+                BotId = data.BotId,
+                ConversationGroupName = data.Name,
+                RecipientTypeId = data.RecipientTypeId,
+                HeadlineIds = data.GroupHeadlineIds,
+                RecipientIds = data.RecipientIds,
+                LetstalkId = data.LetstalkId,
+                LanguageId = data.LanguageId,
+                Remark = data.Remark,
+                UserId = 8
+            };
+            var result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
+
+            return Json(result);
         }
     }
 }

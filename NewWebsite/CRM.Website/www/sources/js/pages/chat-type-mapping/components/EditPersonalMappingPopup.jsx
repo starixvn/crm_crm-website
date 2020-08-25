@@ -14,40 +14,52 @@ export class EditPersonalMappingPopup extends Component {
 
         this.state = {
             form: {
-                botId: '',
-                name: '',
-                recipientType: '',
-                groupHeadlines: '',
-                recipient: null,
-                letstalkIds: '',
-                languageId: '',
-                remark: ''
+                botId: this.props.updatePersonalMappingData.data.botId,
+                name: this.props.updatePersonalMappingData.data.conversationGroupName,
+                conversationId: this.props.updatePersonalMappingData.data.conversationId,
+                recipientType: this.props.updatePersonalMappingData.data.recipients[0].recipientTypeId,
+                groupHeadlines: this.props.updatePersonalMappingData.data.headlines.map(v => v.headlineId).toString(),
+                recipient: {
+                    value: this.props.updatePersonalMappingData.data.recipients[0].recipientId
+                },
+                letstalkId: this.props.updatePersonalMappingData.data.conversationId,
+                languageId: this.props.updatePersonalMappingData.data.languageId,
+                remark: this.props.updatePersonalMappingData.data.remark
             },
             isSubmitting: false,
-            letstalkIds: '',
+            settings: {
+                letstalkIds: '',
+                recipientOptions: [],
+                headlineOptions: []
+            },
             validate: {
                 isShow: false,
                 errMsgs: []
             }
         };
+
+        this.conversationGroupId = this.props.updatePersonalMappingData.data.conversationGroupId;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.updatePersonalMappingData.data !== null) {
             const initData = nextProps.updatePersonalMappingData.data;
-            const recipientTypeId = initData.recipients[0].recipientTypeId;
             const recipientId = initData.recipients[0].recipientId;
-            const headlineIds = initData.headlines.map(headline => headline.headlineId).toString();
+            const headlineIds = initData.headlines.map(headline => headline.headlineId);
+            let letstalkIds = '';
+            if (nextProps.recipients.length > 0) {
+                const selectRecipient = nextProps.recipients.filter(r => r.id === recipientId);
+                letstalkIds = selectRecipient.length > 0 ? selectRecipient[0].letstalkIds : '';
+            }
+            const recipientOptions = nextProps.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
+            const headlineOptions = nextProps.groupHeadline;
+            headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => v === headline.id); });
+
             const state = {
-                form: {
-                    botId: initData.botId,
-                    name: initData.conversationGroupName,
-                    recipientType: recipientTypeId,
-                    groupHeadlines: headlineIds,
-                    recipient: recipientId,
-                    letstalkId: initData.conversationId,
-                    languageId: initData.languageId,
-                    remark: initData.remark
+                settings: {
+                    letstalkIds: letstalkIds,
+                    recipientOptions: recipientOptions,
+                    headlineOptions: headlineOptions
                 }
             };
             return state;
@@ -57,11 +69,12 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     componentDidMount() {
-        this.props.getRecipientByRecipientType(this.props.updatePersonalMappingData.data.recipients[0].recipientTypeId);
-        this.props.getGroupHeadlineByRecipient(this.props.updatePersonalMappingData.data.recipients[0].recipientId);
-    }
+        const initData = this.props.updatePersonalMappingData.data;
+        const recipientTypeId = initData.recipients[0].recipientTypeId;
+        const selectedRecipientId = initData.recipients[0].recipientId;
 
-    componentDidUpdate() {
+        this.props.getRecipientByRecipientType(recipientTypeId);
+        this.props.getGroupHeadlineByRecipient(selectedRecipientId);
     }
 
     handleChange = (fieldName, fieldValue) => {
@@ -88,7 +101,7 @@ export class EditPersonalMappingPopup extends Component {
     };
 
     handleLetstalkSelect = (e) => {
-        this.handleChange('letstalkId', e.target.value);
+        this.handleChange('conversationId', e.target.value);
     }
 
     renderOptions = (item, key) => {
@@ -101,13 +114,18 @@ export class EditPersonalMappingPopup extends Component {
 
     renderLetstalkIds = () => {
         let result = null;
-        if (this.state.letstalkIds) {
-            const letstalkList = this.state.letstalkIds.split(',');
+        if (this.state.settings.letstalkIds) {
+            const letstalkList = this.state.settings.letstalkIds.split(',');
             result = letstalkList.map((letstalkId, key) => {
-                return <Form.Check key={key} inline label={letstalkId} name='letstalkId' type="radio" id={`letstalkId-${key}`} value={letstalkId} onChange={this.handleLetstalkSelect} />;
+                return (
+                    <Form.Check key={key} inline label={letstalkId}
+                        name='conversationId' type="radio" id={`letstalkId-${key}`}
+                        value={letstalkId}
+                        onChange={this.handleLetstalkSelect}
+                        checked={this.state.form.conversationId === letstalkId} />
+                );
             });
         }
-
         return result;
     }
 
@@ -131,7 +149,7 @@ export class EditPersonalMappingPopup extends Component {
             errMsg.push(LangHelper.getResource('RecipientRequired'));
         }
 
-        if (!data.letstalkId) {
+        if (!data.conversationId) {
             isValid = false;
             errMsg.push(LangHelper.getResource('LetstalkIdRequired'));
         }
@@ -153,14 +171,16 @@ export class EditPersonalMappingPopup extends Component {
                 errMsgs: errMsg
             }
         });
+        
         return isValid;
     }
 
     getParams = () => {
         return {
+            conversationGroupId: this.conversationGroupId,
             botId: this.state.form.botId,
             recipientTypeId: this.state.form.recipientType,
-            letstalkId: this.state.form.letstalkId,
+            letstalkId: this.state.form.conversationId,
             groupHeadlineIds: this.state.form.groupHeadlines,
             recipientId: this.state.form.recipient.value,
             languageId: this.state.form.languageId,
@@ -173,11 +193,12 @@ export class EditPersonalMappingPopup extends Component {
         e.preventDefault();
         if (this.isValidParams()) {
             const params = this.getParams();
-            this.props.insertPersonalMapping(params).then(() => {
-                if (this.props.insertPersonalMappingResult.isSuccessful) {
+            this.props.updatePersonalMapping(params).then(() => {
+                if (this.props.updatePersonalMappingResult.isSuccessful) {
                     setTimeout(() => {
-                        this.props.closeInsertPersonalMappingPopup();
+                        this.props.closeUpdatePersonalMappingPopup();
                         this.props.getGridData(this.props.gridParams);
+                        this.props.setUpdatePersonalMappingResult(null);
                     }, 3000);
                 }
                 this.setState({ isSubmitting: false });
@@ -186,7 +207,6 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     renderForm = () => {
-        const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
@@ -265,8 +285,8 @@ export class EditPersonalMappingPopup extends Component {
                                 isClearable
                                 name='recipient'
                                 onChange={this.handleRecipientChange}
-                                options={recipientOptions}
-                                value={this.state.form.recipient}
+                                options={this.state.settings.recipientOptions}
+                                value={this.state.form.recipient.value}
                             />
                         </Col>
                     </Form.Group>
@@ -288,7 +308,7 @@ export class EditPersonalMappingPopup extends Component {
                             <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
-                                dataSource={this.props.groupHeadline}
+                                dataSource={this.state.settings.headlineOptions}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -343,7 +363,7 @@ export class EditPersonalMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="new-notification-template"
+            <Modal show className="chat-type-mapping-popup"
                 backdrop="static" keyboard={false} size="md" centered
                 onHide={this.props.closeUpdatePersonalMappingPopup}
             >
