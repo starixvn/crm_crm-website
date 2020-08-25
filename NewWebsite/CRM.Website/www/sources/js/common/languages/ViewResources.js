@@ -34,6 +34,7 @@
     InsertNotificationTemplateSuccessfully: 'Insert notification template successfully!',
     InsertPersonalMapping: 'Insert New Personal Chat Mapping',
     InsertPersonalMappingBtn: 'Insert Personal Chat Mapping',
+    InsertPersonalMappingSuccessfully: 'Insert personal chat mapping successfully!',
     LanguageRequired: 'Language is mandatory!',
     LetstalkID: 'Letstalk ID',
     LetstalkIdRequired: 'Letstalk ID is mandatory!',

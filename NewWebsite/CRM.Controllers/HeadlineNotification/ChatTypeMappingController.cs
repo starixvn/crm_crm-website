@@ -107,32 +107,38 @@
         [HttpPost]
         public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
         {
-            var result = new CommandResult();
-            var contactDetail = await letstalkService(100020).GetProfileAsync(data.LetstalkId.Trim());
-            if (contactDetail.Item2)
+            try
             {
-                var criteria = new InsertPersonalMappingCommand
+                var result = new CommandResult();
+                var contactDetail = await letstalkService(100020).GetProfileAsync(data.LetstalkId.Trim());
+                if (contactDetail.Item2)
                 {
-                    ConversationBotId = data.BotId,
-                    ConversationGroupName = contactDetail.Item1.DisplayName,
-                    ChatTypeId = (int)ChatType.Personal,
-                    RecipientTypeId = data.RecipientTypeId,
-                    HeadlineIds = data.GroupHeadlineIds,
-                    RecipientId = data.RecipientId,
-                    LetstalkId = data.LetstalkId,
-                    LanguageId = data.LanguageId,
-                    Remark = data.Remark,
-                    UserId = 8
-                };
-                result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
-            }
-            else
-            {
-                result.Code = 1;
-                result.Message = "The selected Letstalk ID does not existed";
-            }
+                    var criteria = new InsertPersonalMappingCommand
+                    {
+                        BotId = data.BotId,
+                        ConversationGroupName = contactDetail.Item1.DisplayName,
+                        ChatTypeId = (int)ChatType.Personal,
+                        RecipientTypeId = data.RecipientTypeId,
+                        HeadlineIds = data.GroupHeadlineIds,
+                        RecipientId = data.RecipientId,
+                        LetstalkId = data.LetstalkId,
+                        LanguageId = data.LanguageId,
+                        Remark = data.Remark,
+                        UserId = 8
+                    };
+                    result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
+                }
+                else
+                {
+                    result.Message = "The selected Letstalk ID does not existed";
+                }
 
-            return Json(result);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
@@ -145,19 +151,6 @@
         {
             var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
             return Json(headlines);
-        }
-
-        private async Task<bool> IsValidLetstalkId(int botId, string letstalkId)
-        {
-            try
-            {
-                var contactDetail = await letstalkService(100020).GetProfileAsync(letstalkId.Trim());
-                return contactDetail.Item2;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
         }
     }
 }

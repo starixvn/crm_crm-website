@@ -9,7 +9,9 @@ import reducer from './reducers/index';
 const store = Store.createStore(reducer, {
     gridData: { data: null, totalItems: 0 },
     insertPersonalMappingData: { isShow: false },
+    insertPersonalMappingResult: null,
     updatePersonalMappingData: { isShow: false, data: null },
+    updatePersonalMappingResult: null,
     updateGroupMappingData: { isShow: false, data: null },
     recipients: [],
     groupHeadline: []

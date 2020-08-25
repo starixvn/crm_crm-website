@@ -9,6 +9,7 @@ export const insertPersonalMappingData = createReducer({}, {
 
 export const insertPersonalMappingResult = createReducer({}, {
     [types.PERSONAL_MAPPING_INSERT_RESULT](state, action) {
+        console.log(action);
         return action.data;
     }
 });

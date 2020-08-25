@@ -46,37 +46,23 @@ export const insertPersonalMapping = params => {
 };
 
 // Update Personal Mapping
-export const openUpdatePersonalMappingPopup = conversationId => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/GetMappingByConversationId');
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: { conversationId: conversationId },
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setUpdatePersonalMappingData({ isShow: true, data: response.data }));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
-};
-
-export const setUpdatePersonalMappingData = data => {
+export const openUpdatePersonalMappingPopup = (data) => {
     return {
         type: types.PERSONAL_MAPPING_UPDATE_POPUP_DATA,
-        data: data
+        data: {
+            isShow: true,
+            data: data
+        }
     };
 };
 
-export const updatePersonalMapping = data => {
+export const updatePersonalMapping = params => {
     const url = Site.resolveClientUrl('ChatTypeMapping/UpdatePersonalMapping');
     return dispatch => {
         return axios({
             method: 'post',
             url: url,
-            data: data,
+            data: params,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'RequestVerificationToken': Site.getXsrfToken()
@@ -105,34 +91,25 @@ export const setUpdatePersonalMappingResult = data => {
 };
 
 // Update Group Mapping
-export const openUpdateGroupMappingPopup = conversationId => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/GetMappingByConversationId');
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: { conversationId: conversationId },
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setGroupMappingUpdateData({ isShow: true, data: response.data }));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+export const openUpdateGroupMappingPopup = data => {
+    return {
+        type: types.GROUP_MAPPING_POPUP_DATA,
+        data: {
+            isShow: true,
+            data: data
+        }
     };
 };
 
 export const closeUpdateGroupMappingPopup = () => {
-    const popupData = {
-        isShow: false,
-        data: null
-    };
-
     return {
         type: types.GROUP_MAPPING_POPUP_DATA,
-        data: popupData
+        data: {
+            isShow: false,
+            data: null
+        }
     };
-}
+};
 
 export const setGroupMappingResult = data => {
     return {
@@ -155,13 +132,6 @@ export const updateGroupMapping = params => {
         }).then(response => {
             dispatch(setGroupMappingResult(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
-};
-
-export const setGroupMappingUpdateData = data => {
-    return {
-        type: types.GROUP_MAPPING_POPUP_DATA,
-        data: data
     };
 };
 

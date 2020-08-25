@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services.Interfaces;
+    using Newtonsoft.Json;
     using RestSharp;
 
     public class RestClientService : IRestClientService
@@ -85,7 +86,7 @@
                 request.AddParameter(ContentType, encodedData, ParameterType.RequestBody);
             }
 
-            var response = await restClient.ExecuteAsync<T>(request);
+            var response = await restClient.ExecuteGetTaskAsync<T>(request);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -94,7 +95,7 @@
 
             try
             {
-                var errorResponseJson = SimpleJson.SerializeObject(response);
+                var errorResponseJson = JsonConvert.SerializeObject(response);
 
                 throw new InvalidOperationException(errorResponseJson);
             }

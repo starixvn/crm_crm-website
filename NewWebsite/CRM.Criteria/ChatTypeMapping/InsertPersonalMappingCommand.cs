@@ -4,7 +4,7 @@
 
     public class InsertPersonalMappingCommand : BaseNonQueryCommand
     {
-        public int ConversationBotId { get; set; }
+        public int BotId { get; set; }
 
         public string ConversationGroupName { get; set; }
 
@@ -30,7 +30,7 @@
             !string.IsNullOrWhiteSpace(HeadlineIds) &&
             !string.IsNullOrWhiteSpace(LetstalkId);
 
-        private bool isValidIntProps() => ConversationBotId > 0 &&
+        private bool isValidIntProps() => BotId > 0 &&
             ChatTypeId > 0 &&
             RecipientTypeId > 0 &&
             RecipientId > 0;

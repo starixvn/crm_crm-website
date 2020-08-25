@@ -7,7 +7,6 @@ import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
-import { ChatTypeMapping } from '../../../common/constants';
 
 export class InsertPersonalMappingPopup extends Component {
     constructor(props) {
@@ -155,6 +154,7 @@ export class InsertPersonalMappingPopup extends Component {
 
     renderForm = () => {
         const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
+        console.log(this.props.insertPersonalMappingResult);
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
@@ -171,9 +171,9 @@ export class InsertPersonalMappingPopup extends Component {
                         </Alert>
                     }
                     {
-                        this.props.personalMappingResult &&
+                        this.props.insertPersonalMappingResult &&
                         <ResponseMessage isSuccessful={this.props.insertPersonalMappingResult.isSuccessful}
-                            message={this.props.insertPersonalMappingResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
+                            message={this.props.insertPersonalMappingResult.message || LangHelper.getResource('InsertPersonalMappingSuccessfully')}
                         />
                     }
                     <Form.Group as={Row}>
