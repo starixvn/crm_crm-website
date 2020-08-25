@@ -58,7 +58,7 @@ export const Filter = props => {
                         onChange={event => handleTemplateNameChange(event.target.value)}
                     />
                 </Form.Group>
-                <div>
+                <Form.Group>
                     <Button className="mr-2" variant="primary" size="sm"
                         onClick={submitHandler}
                     >
@@ -72,7 +72,7 @@ export const Filter = props => {
                             {LangHelper.getResource('Insert')}
                         </Button>
                     }
-                </div>
+                </Form.Group>
             </Form.Row>
         </Form>
     );

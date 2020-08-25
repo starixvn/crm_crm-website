@@ -37,6 +37,10 @@ class Filter extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getSettings();
+    }
+
     componentDidUpdate = (nextProps, prevState) => {
         if (nextProps.settings !== this.props.settings) {
             // notification type
@@ -77,10 +81,6 @@ class Filter extends Component {
                 this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
         }
-    }
-
-    componentDidMount() {
-        this.props.getSettings();
     }
 
     handleFilterChange = (name, value) => {
@@ -179,7 +179,7 @@ class Filter extends Component {
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
                     isInvalidNotificationIdUpper: true
-                })
+                });
 
                 return false;
             }
@@ -191,7 +191,7 @@ class Filter extends Component {
                     show: true,
                     message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
                     isInvalidNotificationIdLower: true
-                })
+                });
 
                 return false;
             }
@@ -201,7 +201,7 @@ class Filter extends Component {
             this.props.setInvalidParams({
                 show: true,
                 message: `${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`
-            })
+            });
 
             return false;
         }
@@ -244,7 +244,7 @@ class Filter extends Component {
     debounceHandleRecipientInputChange = debounce(searchText => {
         if (searchText.length >= 2) {
             this.props.getRecipientOptions();
-        }        
+        }
         else {
             this.props.setRecipientOptions([]);
         }
@@ -362,11 +362,11 @@ class Filter extends Component {
                             />
                         </div>
                     </Form.Group>
-                    <div>
+                    <Form.Group>
                         <Button variant='primary' size='sm' onClick={this.submitHandler}>
                             {LangHelper.getResource('Submit')}
                         </Button>
-                    </div>
+                    </Form.Group>
                 </Form.Row>
             </Form>
         );

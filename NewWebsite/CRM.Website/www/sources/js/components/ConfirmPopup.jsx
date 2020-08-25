@@ -47,7 +47,9 @@ class ConfirmPopup extends PureComponent {
                     {content}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" size="sm" onClick={this.props.onSubmit}>
+                    <Button variant="primary" size="sm" onClick={this.props.onSubmit}
+                        disabled={requestResponse && requestResponse.isSuccessful}
+                    >
                         {LangHelper.getResource('OK')}
                     </Button>
                     <Button variant="primary" size="sm" onClick={this.props.onClose}>

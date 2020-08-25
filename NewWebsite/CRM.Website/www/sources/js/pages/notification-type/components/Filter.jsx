@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Button,Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -30,7 +30,7 @@ class Filter extends Component {
     }
 
     componentDidUpdate = (nextProps, prevState) => {
-        if(nextProps.settings !== this.props.settings) {
+        if (nextProps.settings !== this.props.settings) {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipients.map(x => {
@@ -65,21 +65,21 @@ class Filter extends Component {
             });
 
             this.setState(prevState => ({
-                    recipientTypesOptions,
-                    chatTypesOptions,
-                    systemsOptions,
-                    filter: {
-                            recipientTypes: {
-                                value: recipientTypeIds.toString()
-                            },
-                            chatTypes: {
-                                value: chatTypeIds.toString()
-                            },
-                            systems: {
-                                value: systemIds.toString()
-                            }
+                recipientTypesOptions,
+                chatTypesOptions,
+                systemsOptions,
+                filter: {
+                    recipientTypes: {
+                        value: recipientTypeIds.toString()
+                    },
+                    chatTypes: {
+                        value: chatTypeIds.toString()
+                    },
+                    systems: {
+                        value: systemIds.toString()
                     }
-                }));
+                }
+            }));
         }
     }
 
@@ -99,7 +99,7 @@ class Filter extends Component {
 
     handleFilterChange = (name, value) => {
         this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: {value: value}} }
+            filter: { ...prevState.filter, ...{ [name]: { value: value } } }
         }));
     }
 
@@ -134,15 +134,13 @@ class Filter extends Component {
             error.push(' System');
         }
 
-        if(error.length > 0)
-        {
+        if (error.length > 0) {
             this.props.setInvalidParams({
                 show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${error.toString()}` 
+                message: `${LangHelper.getResource('PleaseChoose')} ${error.toString()}`
             });
         }
-        else
-        {
+        else {
             this.props.setGridParams(params);
             this.props.getGridData(params);
         }
@@ -155,7 +153,7 @@ class Filter extends Component {
 
         return (
             <Form className="form-filter" onSubmit={this.submitHandler}>
-                <Form.Row bsPrefix='form-row'> 
+                <Form.Row bsPrefix='form-row'>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
                         <Form.Control type="text" size="sm" className="shadow-none" autoComplete="off"
@@ -192,9 +190,9 @@ class Filter extends Component {
                         </div>
                     </Form.Group>
                     <Form.Group>
-                    <Form.Label>{LangHelper.getResource('System')}</Form.Label>
+                        <Form.Label>{LangHelper.getResource('System')}</Form.Label>
                         <div className='form-control-wrapper'>
-                        <MultipleSelect
+                            <MultipleSelect
                                 initialValue={this.state.filter.systems.value}
                                 dataSource={this.state.systemsOptions}
                                 keyField='id'
@@ -207,21 +205,21 @@ class Filter extends Component {
                         </div>
                     </Form.Group>
 
-                    <div className="col-auto">
+                    <Form.Group>
                         <Button className="mr-2" variant="primary" size="sm"
                             onClick={this.submitHandler}
                         >
                             {LangHelper.getResource('Submit')}
                         </Button>
                         {
-                             isHost &&
+                            isHost &&
                             <Button variant="primary" size="sm"
                                 onClick={this.handleOpenCreatePopup}
                             >
                                 {LangHelper.getResource('Insert')}
                             </Button>
                         }
-                    </div>
+                    </Form.Group>
                 </Form.Row>
             </Form>
         );
