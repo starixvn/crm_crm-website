@@ -37,8 +37,8 @@
         [HttpPost]
         public async Task<IActionResult> GetRecipients([FromBody]GetRecipientsCriteria criteria)
         {
-            var headlines = await commonService.GetRecipientAsync(criteria);
-            return Json(headlines);
+            var recipients = await commonService.GetRecipientAsync(criteria);
+            return Json(recipients);
         }
     }
 }

@@ -1,8 +1,6 @@
 namespace CRM.Repositories.UnitTests
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Models;
@@ -33,14 +31,13 @@ namespace CRM.Repositories.UnitTests
             // Arrange
             var repository = new NotificationListRepository();
             var criteria = Substitute.For<ICriteria>();
-            criteria.GetSettingKey().Returns("CRM_HeadlineNotification_Test");
             var notifications = fixture.Create<IEnumerable<Notification>>();
             var recipients = fixture.Create<IEnumerable<Recipient>>();
             var headlines = fixture.Create<IEnumerable<Headline>>();
             var multi = Substitute.For<IMultiResultReader>();
-            multi.Read().Returns(notifications);
-            multi.Read().Returns(recipients);
-            multi.Read().Returns(headlines);
+            multi.Read<Notification>().Returns(notifications);
+            multi.Read<Recipient>().Returns(recipients);
+            multi.Read<Headline>().Returns(headlines);
             objectDb.QueryMultipleAsync(criteria).Returns(multi);
 
             // Action
@@ -57,23 +54,19 @@ namespace CRM.Repositories.UnitTests
             var repository = new NotificationListRepository();
             var criteria = Substitute.For<ICriteria>();
             var multi = Substitute.For<IMultiResultReader>();
-            //var inActiveNotificationIds = new List<object> { 1, 2, 3 };
+            var inActiveNotificationIds = fixture.Create<IEnumerable<int>>();
             var resendDataList = fixture.Create<IEnumerable<NotificationListResend>>();
-            var expected = new ValidationNotificationListResult
-            {
-                //InActiveNotificationIds = (List<int>)inActiveNotificationIds,
-                ResendDataList = resendDataList
-            };
 
-            //multi.Read().Returns(inActiveNotificationIds);
-            multi.Read().Returns(resendDataList);
+            multi.Read<int>().Returns(inActiveNotificationIds);
+            multi.Read<NotificationListResend>().Returns(resendDataList);
             objectDb.QueryMultipleAsync(criteria).Returns(multi);
 
             // Action
             var result = await repository.ValidateNotificationListAsync(criteria);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(inActiveNotificationIds, result.InActiveNotificationIds);
+            Assert.Equal(resendDataList, result.ResendDataList);
         }
     }
 }
