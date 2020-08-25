@@ -12,6 +12,7 @@
     using CRM.Criteria.NotificationList;
     using CRM.Criteria.NotificationType;
     using CRM.Models;
+    using CRM.Models.Common;
     using CRM.Models.NotificationList;
     using CRM.Models.NotificationType;
     using CRM.Services;
@@ -55,12 +56,12 @@
             // Arrange
             var controller = GetController();
             var notificationTypes = fixture.Create<IEnumerable<NotificationType>>();
-            var recipients = fixture.Create<List<BaseModel>>();
+            var recipients = fixture.Create<List<RecipientModel>>();
             var headlines = fixture.Create<List<BaseModel>>();
             var statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString());
             notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetNotificationTypeCriteria>()).Returns(notificationTypes);
-            commonService.GetRecipients(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
-            commonService.GetHeadlines(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);
+            commonService.GetRecipientAsync(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
+            commonService.GetHeadlineAsync(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);
 
             // Act
             var result = await controller.GetSettings() as JsonResult;

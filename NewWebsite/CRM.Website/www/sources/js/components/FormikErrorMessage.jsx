@@ -5,9 +5,9 @@ import { isEmpty } from 'lodash';
 
 class FormikErrorMessage extends PureComponent {
     static propTypes = {
-        touched: PropTypes.object,
         errors: PropTypes.object,
-        fieldNames: PropTypes.arrayOf(PropTypes.string)
+        fieldNames: PropTypes.arrayOf(PropTypes.string),
+        touched: PropTypes.object
     }
 
     static defaultProps = {

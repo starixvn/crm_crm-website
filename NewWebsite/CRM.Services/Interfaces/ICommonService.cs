@@ -9,18 +9,18 @@
 
     public interface ICommonService
     {
-        Task<IEnumerable<ConversationBot>> GetConversationBots();
+        Task<IEnumerable<ConversationBot>> GetConversationBotAsync();
 
-        Task<IEnumerable<RecipientModel>> GetRecipients(GetRecipientsCriteria criteria);
+        Task<IEnumerable<RecipientModel>> GetRecipientAsync(GetRecipientsCriteria criteria);
 
-        Task<IEnumerable<BaseModel>> GetRecipientTypes();
+        Task<IEnumerable<BaseModel>> GetRecipientTypeAsync();
 
-        Task<IEnumerable<BaseModel>> GetSystems();
+        Task<IEnumerable<BaseModel>> GetSystemAsync();
 
         IEnumerable<BaseModel> GetChatTypes();
 
         IEnumerable<BaseModel> GetMappingStatus();
 
-        Task<IEnumerable<BaseModel>> GetHeadlines(GetHeadlinesCriteria criteria);
+        Task<IEnumerable<BaseModel>> GetHeadlineAsync(GetHeadlinesCriteria criteria);
     }
 }

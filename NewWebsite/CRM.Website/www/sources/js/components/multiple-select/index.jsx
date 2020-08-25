@@ -22,31 +22,18 @@ function convertDataSourceToState({ keyField, valueField, statusField, dataSourc
 }
 
 export default class MultipleSelect extends Component {
-    constructor(props) {
-        super(props);
-        this.searchInputBox = null;
-        this.id = `multiple-select-${props.id || id++}`;
-
-        this.state = {
-            originalDataSource: null,
-            searchText: '',
-            showOptionList: false,
-            dataSource: []
-        }
-    }
-
     static propTypes = {
-        language: PropTypes.string,
         dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-        keyField: PropTypes.string,
-        valueField: PropTypes.string,
-        statusField: PropTypes.string,
-        maxDisplayItemCount: PropTypes.number,
-        onChange: PropTypes.func,
         hasAllOption: PropTypes.bool,
         hasSearchBox: PropTypes.bool,
         isAllTextShown: PropTypes.bool,
-        texts: PropTypes.object
+        keyField: PropTypes.string,
+        language: PropTypes.string,
+        maxDisplayItemCount: PropTypes.number,
+        onChange: PropTypes.func,
+        statusField: PropTypes.string,
+        texts: PropTypes.object,
+        valueField: PropTypes.string
     }
 
     static defaultProps = {
@@ -58,12 +45,25 @@ export default class MultipleSelect extends Component {
         hasSearchBox: false
     }
 
+    constructor(props) {
+        super(props);
+        this.searchInputBox = null;
+        this.id = `multiple-select-${props.id || id++}`;
+
+        this.state = {
+            originalDataSource: null,
+            searchText: '',
+            showOptionList: false,
+            dataSource: []
+        };
+    }
+
     static getDerivedStateFromProps(props, state) {
         if (props.dataSource !== state.originalDataSource) {
             return {
                 originalDataSource: props.dataSource,
                 dataSource: convertDataSourceToState(props)
-            }
+            };
         }
 
         return null;

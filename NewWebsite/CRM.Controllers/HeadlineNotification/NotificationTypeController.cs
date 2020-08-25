@@ -36,13 +36,14 @@ namespace CRM.Controllers
             this.userService = userService;
             this.commonService = commonService;
         }
+
         public async Task<IActionResult> GetSettings()
         {
             var result = new
             {
                 ChatTypes = commonService.GetChatTypes(),
-                Systems = await commonService.GetSystems(),
-                Recipients = await commonService.GetRecipientTypes()
+                Systems = await commonService.GetSystemAsync(),
+                Recipients = await commonService.GetRecipientTypeAsync()
             };
 
             return Json(result);
@@ -50,8 +51,8 @@ namespace CRM.Controllers
 
         public IActionResult Index()
         {
-           var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationType, Policy.Host);
-           return View(isHost);
+            var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationType, Policy.Host);
+            return View(isHost);
         }
 
         [HttpPost]
@@ -69,12 +70,12 @@ namespace CRM.Controllers
 
             var notificationTypes = await notificationTypeService.GetNotificationTypeAsync(criteria);
 
-            return Json(new { totalItems = criteria.TotalRows, data = notificationTypes});
+            return Json(new { totalItems = criteria.TotalRows, data = notificationTypes });
         }
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
-        public async Task<IActionResult> Create([FromBody] CreateNotificationType model)
+        public async Task<IActionResult> Create([FromBody]CreateNotificationType model)
         {
             CommandResult commandResult = await notificationTypeService.CreateAsync(model);
             return Json(commandResult);

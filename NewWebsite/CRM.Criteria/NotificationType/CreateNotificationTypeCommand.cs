@@ -11,6 +11,7 @@
         public int UserId { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Ins";
+
         public override bool IsValid() =>
 #pragma warning disable S1067 // Expressions should not be too complex
              UserId > 0

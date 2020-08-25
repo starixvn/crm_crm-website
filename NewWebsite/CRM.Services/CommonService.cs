@@ -21,47 +21,44 @@
             this.baseService = baseService;
         }
 
-        public async Task<IEnumerable<ConversationBot>> GetConversationBots()
+        public async Task<IEnumerable<ConversationBot>> GetConversationBotAsync()
         {
             var criteria = new GetConversationBotsCriteria();
-            var result = await baseService.GetDataAsync<ConversationBot>(criteria);
-            return result;
+            return await baseService.GetDataAsync<ConversationBot>(criteria);
         }
 
-        public async Task<IEnumerable<RecipientModel>> GetRecipients(GetRecipientsCriteria criteria)
+        public async Task<IEnumerable<RecipientModel>> GetRecipientAsync(GetRecipientsCriteria criteria)
         {
-            var result = await baseService.GetDataAsync<RecipientModel>(criteria);
-            return result;
+            return await baseService.GetDataAsync<RecipientModel>(criteria);
         }
 
-        public async Task<IEnumerable<BaseModel>> GetRecipientTypes()
+        public async Task<IEnumerable<BaseModel>> GetRecipientTypeAsync()
         {
             var criteria = new GetRecipientTypesCriteria();
-            var result = await baseService.GetDataAsync<BaseModel>(criteria);
-            return result;
+            return await baseService.GetDataAsync<BaseModel>(criteria);
         }
 
-        public async Task<IEnumerable<BaseModel>> GetSystems()
+        public async Task<IEnumerable<BaseModel>> GetSystemAsync()
         {
             var criteria = new GetSystemsCriteria();
-            var result = await baseService.GetDataAsync<BaseModel>(criteria);
-            return result;
+            return await baseService.GetDataAsync<BaseModel>(criteria);
         }
 
-        public async Task<IEnumerable<BaseModel>> GetHeadlines(GetHeadlinesCriteria criteria)
+        public async Task<IEnumerable<BaseModel>> GetHeadlineAsync(GetHeadlinesCriteria criteria)
         {
-            var result = await baseService.GetDataAsync<BaseModel>(criteria);
-            return result;
+            return await baseService.GetDataAsync<BaseModel>(criteria);
         }
 
         public IEnumerable<BaseModel> GetChatTypes()
         {
-            return Enum.GetValues(typeof(ChatType)).Cast<ChatType>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
+            return Enum.GetValues(typeof(ChatType)).Cast<ChatType>()
+                .Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
         }
 
         public IEnumerable<BaseModel> GetMappingStatus()
         {
-            return Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>().Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
+            return Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>()
+                .Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
         }
     }
 }

@@ -54,9 +54,9 @@
 
         public async Task<IActionResult> GetSettings()
         {
-            var bots = commonService.GetConversationBots();
+            var bots = commonService.GetConversationBotAsync();
             var lang = settingService.GetAsync(new GetSettingParam { SettingName = SettingName.NotificationTemplateLanguage, IsActive = 1 });
-            var recipientTypes = commonService.GetRecipientTypes();
+            var recipientTypes = commonService.GetRecipientTypeAsync();
 
             await Task.WhenAll(bots, lang, recipientTypes);
 
@@ -137,7 +137,7 @@
 
         public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
         {
-            var recipients = await commonService.GetRecipients(new GetRecipientsCriteria { RecipientType = recipientTypeId });
+            var recipients = await commonService.GetRecipientAsync(new GetRecipientsCriteria { RecipientType = recipientTypeId });
             return Json(recipients);
         }
 
