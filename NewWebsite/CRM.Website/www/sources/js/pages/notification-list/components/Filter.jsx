@@ -236,11 +236,17 @@ class Filter extends Component {
         if (searchText.length >= 2) {
             this.props.getHeadlineOptions(searchText);
         }
+        else {
+            this.props.setHeadlineOptions([]);
+        }
     })
 
     debounceHandleRecipientInputChange = debounce(searchText => {
         if (searchText.length >= 2) {
             this.props.getRecipientOptions();
+        }        
+        else {
+            this.props.setRecipientOptions([]);
         }
     })
 
