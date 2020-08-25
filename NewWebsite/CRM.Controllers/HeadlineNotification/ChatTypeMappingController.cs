@@ -8,12 +8,12 @@
     using CRM.Core.Models;
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Criteria.Common;
+    using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Models;
     using CRM.Models.Setting;
     using CRM.Services;
     using CRM.Services.Interfaces;
     using CRM.ViewModels.ChatTypeMapping;
-    using Fanex.Letstalk.Client.Services.Interfaces;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
@@ -27,7 +27,7 @@
         private readonly ISettingService settingService;
         private readonly ICommonService commonService;
         private readonly IChatTypeMappingService chatTypeMappingService;
-        private readonly Func<int, ILetstalkClientService> letsttalkClient;
+        private readonly Func<int, ILetstalkService> letstalkService;
 
         public ChatTypeMappingController(
             INapSession napSession,
@@ -36,7 +36,7 @@
             ISettingService settingService,
             ICommonService commonService,
             IChatTypeMappingService chatTypeMappingService,
-            Func<int, ILetstalkClientService> letsttalkClient)
+            Func<int, ILetstalkService> letstalkService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
@@ -44,7 +44,7 @@
             this.settingService = settingService;
             this.commonService = commonService;
             this.chatTypeMappingService = chatTypeMappingService;
-            this.letsttalkClient = letsttalkClient;
+            this.letstalkService = letstalkService;
         }
 
         public IActionResult Index()
@@ -108,13 +108,13 @@
         public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
         {
             var result = new CommandResult();
-
-            if (await IsValidLetstalkId(data.BotId, data.LetstalkId))
+            var contactDetail = await letstalkService(100020).GetProfileAsync(data.LetstalkId.Trim());
+            if (contactDetail.Item2)
             {
                 var criteria = new InsertPersonalMappingCommand
                 {
                     ConversationBotId = data.BotId,
-                    ConversationGroupName = data.Name,
+                    ConversationGroupName = contactDetail.Item1.DisplayName,
                     ChatTypeId = (int)ChatType.Personal,
                     RecipientTypeId = data.RecipientTypeId,
                     HeadlineIds = data.GroupHeadlineIds,
@@ -122,14 +122,14 @@
                     LetstalkId = data.LetstalkId,
                     LanguageId = data.LanguageId,
                     Remark = data.Remark,
-                    UserId = napSession.UserId
+                    UserId = 8
                 };
                 result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
             }
             else
             {
                 result.Code = 1;
-                result.Message = "Invalid Letstalk ID";
+                result.Message = "The selected Letstalk ID does not existed";
             }
 
             return Json(result);
@@ -151,7 +151,7 @@
         {
             try
             {
-                var contactDetail = await letsttalkClient(botId).GetProfileAsync(letstalkId.Trim());
+                var contactDetail = await letstalkService(100020).GetProfileAsync(letstalkId.Trim());
                 return contactDetail.Item2;
             }
             catch (Exception ex)

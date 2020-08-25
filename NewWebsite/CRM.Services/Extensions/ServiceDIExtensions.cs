@@ -1,12 +1,15 @@
 ﻿namespace CRM.Services.Extensions
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using CRM.Letstalk.Client.Configurations;
+    using CRM.Letstalk.Client.Services;
+    using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Repositories;
     using CRM.Services.Interfaces;
-    using Fanex.Letstalk.Client.Configurations;
-    using Fanex.Letstalk.Client.Services;
-    using Fanex.Letstalk.Client.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
+    using RestSharp;
 
     public static class ServiceDIExtensions
     {
@@ -22,13 +25,16 @@
             services.AddTransient<IChatTypeMappingService, ChatTypeMappingService>();
         }
 
-        public static void ResolveLetstalkBotConfigDI(this IServiceCollection services)
+        public static void ResolveLetstalkBotConfigDI(this IServiceCollection services, IList<BotConfig> botConfigs)
         {
-            services.AddTransient<LetstalkClientService>();
-
-            services.AddTransient<Func<int, ILetstalkClientService>>(serviceProvider => botId =>
+            services.AddTransient<ICryptographyService, CryptographyService>();
+            services.AddTransient<IJwtService, JwtService>();
+            services.AddTransient<IRestClient, RestClient>();
+            services.AddTransient<RestClientService>();
+            services.AddTransient<LetstalkService>();
+            services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>
             {
-                return new LetstalkClientService(LetstalkBotConfigurations.Settings, botId);
+                return new LetstalkService(new CryptographyService(), botConfigs.FirstOrDefault(config => config.BotAccountId == botId));
             });
         }
     }

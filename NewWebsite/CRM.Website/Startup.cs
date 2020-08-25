@@ -7,6 +7,7 @@
     using CRM.Core.Extensions;
     using CRM.Core.Middlewares;
     using CRM.Core.Models;
+    using CRM.Letstalk.Client.Configurations;
     using CRM.Services.Extensions;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
@@ -111,6 +112,8 @@
 
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<ExternalSiteHostUrl>(options => Configuration.GetSection("ExternalSiteHostUrl").Bind(options));
+            var botConfigs = Configuration.GetSection("LetstalkBotConfigurations");
+            services.Configure<List<BotConfig>>(options => botConfigs.Bind(options));
 
             services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
 
@@ -119,7 +122,7 @@
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            RegisterDI(services);
+            RegisterDI(services, botConfigs.Get<List<BotConfig>>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -156,7 +159,7 @@
             });
         }
 
-        private void RegisterDI(IServiceCollection services)
+        private void RegisterDI(IServiceCollection services, List<BotConfig> botConfigs)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -177,9 +180,10 @@
             services.AddSingleton<ISiteService, SiteService>();
 
             services.AddSingleton<ILogger, Logger>();
+            services.AddSingleton<List<BotConfig>>();
             services.ResolveCoreDI();
             services.ResolveServiceDI();
-            services.ResolveLetstalkBotConfigDI();
+            services.ResolveLetstalkBotConfigDI(botConfigs);
         }
     }
 }

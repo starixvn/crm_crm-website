@@ -1,0 +1,11 @@
+﻿namespace CRM.Letstalk.Client.Models.Results
+{
+    public class BaseResult
+    {
+        public int Status { get; set; }
+
+        public bool IsSuccess => Status == 1;
+
+        public string Message { get; set; }
+    }
+}
