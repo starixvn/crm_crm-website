@@ -25,8 +25,8 @@
     </Function>
     <Function Name="ChatBot">
         <Setting Key="Acc_CRM_ChatBot_Bot_Sel" SpName="Acc_CRM_ChatBot_Bot_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
-            <Mapping DataField="ConversationBotId" ObjectProperty="Id" />
-            <Mapping DataField="ConversationBotName" ObjectProperty="Name" />
+            <Mapping DataField="BotId" ObjectProperty="Id" />
+            <Mapping DataField="BotName" ObjectProperty="Name" />
         </Setting>
         <Setting Key="Acc_CRM_ChatBot_Recipient_Sel" SpName="Acc_CRM_ChatBot_Recipient_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
             <Mapping DataField="RecipientId" ObjectProperty="Id" />

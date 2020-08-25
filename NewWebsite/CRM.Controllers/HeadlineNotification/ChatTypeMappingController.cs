@@ -83,7 +83,7 @@
                 LetstalkId = filter.LetstalkId,
                 LanguageId = filter.LanguageId,
                 IsActive = filter.IsActive,
-                ConversationBotIds = filter.BotIds,
+                BotIds = filter.BotIds,
                 MappingStatus = filter.MappingStatuses,
                 PageIndex = filter.PageIndex,
                 PageSize = filter.PageSize

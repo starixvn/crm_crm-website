@@ -18,7 +18,7 @@
 
         public bool? IsActive { get; set; }
 
-        public string ConversationBotIds { get; set; }
+        public string BotIds { get; set; }
 
         public string MappingStatus { get; set; }
 
@@ -30,6 +30,6 @@
 
         public override string GetSettingKey() => "Acc_CRM_ChatBot_ChatTypeMapping_Sel";
 
-        public override bool IsValid() => true;
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(BotIds) && !string.IsNullOrWhiteSpace(MappingStatus);
     }
 }
