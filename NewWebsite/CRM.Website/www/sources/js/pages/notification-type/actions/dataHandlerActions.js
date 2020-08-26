@@ -1,6 +1,7 @@
 import types from './types';
 import axios from 'axios';
 import Site from '@jsroot/common/site';
+import DataService from '@jsroot/common/dataService';
 
 // Grid
 export const setGridParams = value => {
@@ -63,7 +64,6 @@ export const setDeleteNotificationTypeResult = data => {
     };
 };
 
-
 // Setting
 export const setSettings = data => {
     return {
@@ -79,70 +79,41 @@ export const setInvalidParams = data => {
     };
 };
 
-export const getSettings = () => {
+export const getSettings = () => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationType/GetSettings');
-    return dispatch => {
-        return axios.get(url).then(response => {
-            dispatch(setSettings(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await DataService.getDataAsync(url).then(response => {
+        dispatch(setSettings(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
-export const deleteNotificationType = notificationTypeId => {
-    return async dispatch => axios({
-        url: Site.resolveClientUrl(`NotificationType/Delete/${notificationTypeId}`),
-        method: 'post',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => response.data).catch(Site.handleAxiosError);
+const deleteNotificationType = notificationTypeId => async dispatch => {
+    const url = Site.resolveClientUrl(`NotificationType/Delete/${notificationTypeId}`);
+    return await DataService.postDataAsync(url).then(response => response.data);
 };
 
-export const editNotificationType = (data) => {
-    return async dispatch => axios({
-        url: Site.resolveClientUrl('NotificationType/Edit'),
-        method: 'post',
-        data: data,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
-        dispatch(setEditNotificationTypeResult(response.data));
-    }).catch(Site.handleAxiosError);
-};
-
-export const getGridData = params => {
+export const editNotificationType = data => async dispatch => {
     Site.blockUI();
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: Site.resolveClientUrl('NotificationType/GetGridData'),
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setGridData(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    const url = Site.resolveClientUrl('NotificationType/Edit');
+    await DataService.postDataAsync(url, data).then(response => {
+        dispatch(setEditNotificationTypeResult(response.data));
+    }).then(() => Site.unblockUI());
 };
 
-export const createNotificationType = data => {
-    return async dispatch => axios({
-        url: Site.resolveClientUrl('NotificationType/Create'),
-        method: 'post',
-        data: data,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+export const getGridData = params => async dispatch => {
+    Site.blockUI();
+    const url = Site.resolveClientUrl('NotificationType/GetGridData');
+    await DataService.postDataAsync(url, params).then(response => {
+        dispatch(setGridData(response.data));
+    }).then(() => Site.unblockUI());
+};
+
+export const createNotificationType = data => async dispatch => {
+    Site.blockUI();
+    const url = Site.resolveClientUrl('NotificationType/Create');
+    await DataService.postDataAsync(url, data).then(response => {
         dispatch(setCreateNotificationTypeResult(response.data));
-    }).catch(Site.handleAxiosError);
+    }).then(() => Site.unblockUI());
 };
 
 const actions = {
