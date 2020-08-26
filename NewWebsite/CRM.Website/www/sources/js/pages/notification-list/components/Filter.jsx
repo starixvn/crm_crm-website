@@ -70,10 +70,8 @@ class Filter extends Component {
                 statusOptions,
                 filter: {
                     ...prevState.filter,
-                    ...{
-                        notificationTypes: notificationTypeIds.toString(),
-                        statuses: statuses.toString()
-                    }
+                    notificationTypes: notificationTypeIds.toString(),
+                    statuses: statuses.toString()
                 }
             }), () => {
                 const params = this.getParams();
@@ -85,7 +83,10 @@ class Filter extends Component {
 
     handleFilterChange = (name, value) => {
         this.setState(prevState => ({
-            filter: { ...prevState.filter, ...{ [name]: value } }
+            filter: {
+                ...prevState.filter,
+                [name]: value
+            }
         }));
     }
 
@@ -259,7 +260,6 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <MultipleSelect
                                 id='notification-type'
-                                initialValue={this.state.filter.notificationTypes}
                                 dataSource={this.state.notificationTypeOptions}
                                 keyField='id'
                                 valueField='name'
@@ -351,7 +351,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('Status')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.statuses}
                                 dataSource={this.state.statusOptions}
                                 keyField='id'
                                 valueField='name'

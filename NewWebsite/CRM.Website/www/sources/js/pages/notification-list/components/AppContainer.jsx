@@ -9,7 +9,7 @@ import ViewDetail from './ViewDetail';
 import ValidateResend from './ValidateResend';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
-import Confirm from './Confirm';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -55,8 +55,14 @@ export class AppContainer extends Component {
                     this.props.validateResendResult.show && <ValidateResend />
                 }
                 {
-                    this.props.confirmPopup.show && <Confirm
-                        onOk={() => {
+                    this.props.confirmPopup.show &&
+                    <ConfirmPopup
+                        size='lg'
+                        title={LangHelper.getResource('Confirmation')}
+                        content={
+                            <div>{LangHelper.getResource('ThereAreSomeChangesConfirmMessage')}</div>
+                        }
+                        onSubmit={() => {
                             this.closeConfirmPopup();
                             this.props.confirmPopup.onOk();
                         }}

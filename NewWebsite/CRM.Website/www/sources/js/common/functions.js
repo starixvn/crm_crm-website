@@ -9,8 +9,8 @@ export const convertDateToString = date => {
     var dd = date.getDate();
   
     return [
-        (month > 9 ? '' : '0') + month,
-        (dd > 9 ? '' : '0') + dd,
+        month,
+        dd,
         date.getFullYear()
     ].join('/');
 }
