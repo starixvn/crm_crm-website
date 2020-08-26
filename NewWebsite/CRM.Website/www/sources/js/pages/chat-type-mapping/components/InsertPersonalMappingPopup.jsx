@@ -1,10 +1,11 @@
-﻿import React, { Component, useRef } from 'react';
+﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
 
@@ -136,8 +137,10 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     handleSubmit = (e) => {
+        this.props.setInsertPersonalMappingResult(null);
         this.setState({ isSubmitting: true });
         e.preventDefault();
+
         if (this.isValidParams()) {
             const params = this.getParams();
             this.props.insertPersonalMapping(params).then(() => {
@@ -145,7 +148,6 @@ export class InsertPersonalMappingPopup extends Component {
                     setTimeout(() => {
                         this.props.closeInsertPersonalMappingPopup();
                         this.props.getGridData(this.props.gridParams);
-                        this.props.setInsertPersonalMappingResult(null);
                     }, 3000);
                 }
                 this.setState({ isSubmitting: false });
@@ -155,7 +157,6 @@ export class InsertPersonalMappingPopup extends Component {
 
     renderForm = () => {
         const recipientOptions = this.props.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
-        console.log(this.props.insertPersonalMappingResult);
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Modal.Body>
@@ -194,7 +195,7 @@ export class InsertPersonalMappingPopup extends Component {
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3">
-                            {LangHelper.getResource('Name')}
+                            {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -309,7 +310,7 @@ export class InsertPersonalMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="new-notification-template"
+            <Modal show className="insert-personal" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="md" centered
                 onHide={this.props.closeInsertPersonalMappingPopup}
             >

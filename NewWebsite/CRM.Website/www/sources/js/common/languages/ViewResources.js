@@ -38,6 +38,7 @@
     LanguageRequired: 'Language is mandatory!',
     LetstalkID: 'Letstalk ID',
     LetstalkIdRequired: 'Letstalk ID is mandatory!',
+    LetstalkName: 'Letstalk Name',
     MappingStatus: 'Mapping Status',
     MessageID: 'Message ID',
     NotificationID: 'Notification ID',
@@ -82,6 +83,8 @@
     TitleRequired: 'Title is mandatory!',
     To: 'To',
     ToDateIsEarlierThanFromDate: 'ToDate is earlier than FromDate',
+    UpdatePersonalMappingSuccess: 'Update personal chat mapping successfully!',
+    UpdateGroupMappingSuccess: 'Update personal chat mapping successfully!',
     ValidateResend: 'Validate resend',
     ViewDetail: 'View Detail'
 };

@@ -5,8 +5,8 @@ import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
-import { ChatTypeMapping } from '../../../common/constants';
 
 export class EditGroupMappingPopup extends Component {
     constructor(props) {
@@ -14,26 +14,69 @@ export class EditGroupMappingPopup extends Component {
 
         this.state = {
             form: {
-                botId: '',
-                recipientType: '',
-                groupHeadlines: {
-                    value: '',
-                    isValid: false
+                bot: {
+                    id: this.props.updateGroupMappingData.data.botId,
+                    name: this.props.updateGroupMappingData.data.botName
                 },
-                recipients: {
-                    value: '',
-                    isValid: false
+                name: this.props.updateGroupMappingData.data.conversationGroupName,
+                conversationId: this.props.updateGroupMappingData.data.conversationId,
+                recipientTypeId: this.props.updateGroupMappingData.data.recipients.length > 0 ? this.props.updateGroupMappingData.data.recipients[0].recipientTypeId : '',
+                recipientIds: this.props.updateGroupMappingData.data.recipients.map(r => r.recipientId).toString(),
+                groupHeadlines: this.props.updateGroupMappingData.data.headlines.map(v => v.headlineId).toString(),
+                mappingStatus: {
+                    id: this.props.updateGroupMappingData.data.mappingStatusId,
+                    name: this.props.updateGroupMappingData.data.mappingStatus
                 },
-                letstalkIds: [],
-                languageId: '',
-                remark: ''
+                languageId: this.props.updateGroupMappingData.data.languageId,
+                remark: this.props.updateGroupMappingData.data.remark || ''
             },
             isSubmitting: false,
+            settings: {
+                displayLetstalkIds: [],
+                recipientOptions: [],
+                headlineOptions: []
+            },
             validate: {
                 isShow: false,
                 errMsgs: []
             }
         };
+
+        this.conversationGroupId = this.props.updateGroupMappingData.data.conversationGroupId;
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.updateGroupMappingData.data !== null) {
+            const selectedRecipientIds = prevState.form.recipientIds.split(',');
+            const recipientOptions = nextProps.recipients;
+            nextProps.recipients.map(item => {
+                item['checked'] = selectedRecipientIds.some(v => parseInt(v, 10) === item.id);
+            });
+
+            const headlineIds = prevState.form.groupHeadlines.split(',');
+            const headlineOptions = nextProps.groupHeadline;
+            headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => parseInt(v, 10) === headline.id); });
+            const state = {
+                settings: {
+                    recipientOptions: recipientOptions,
+                    headlineOptions: headlineOptions
+                }
+            };
+            return state;
+        }
+
+        return null;
+    }
+
+    componentDidMount() {
+        const initData = this.props.updateGroupMappingData.data;
+        const recipientTypeId = initData.recipients.length > 0 ? initData.recipients[0].recipientTypeId : '';
+        const selectedRecipientIds = initData.recipients.map(r => r.recipientId).toString();
+
+        if (recipientTypeId) {
+            this.props.getRecipientByRecipientType(recipientTypeId);
+            this.props.getGroupHeadlineByRecipient(selectedRecipientIds);
+        }
     }
 
     handleChange = (fieldName, fieldValue) => {
@@ -42,10 +85,23 @@ export class EditGroupMappingPopup extends Component {
         }));
     };
 
-    handleGroupHeadlineChange = (data) => {
-        this.handleChange('groupHeadlines', data);
-        this.props.getRecipientByGroupHeadline(data.value);
+    handleRecipientTypeChange = value => {
+        console.log(value);
+        this.handleChange('recipientTypeId', value);
+        this.handleChange('recipientIds', '');
+        this.handleChange('groupHeadlines', '');
+        this.props.getRecipientByRecipientType(value);
+    }
+
+    handleRecipientChange = (currentItem, selectedItemsKey) => {
+        this.handleChange('recipientIds', selectedItemsKey);
+        this.handleChange('groupHeadlines', '');
+        this.props.getGroupHeadlineByRecipient(selectedItemsKey);
     };
+
+    handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {
+        this.handleChange('groupHeadlines', selectedItemsKey);
+    }
 
     renderOptions = (item, key) => {
         return (
@@ -55,29 +111,29 @@ export class EditGroupMappingPopup extends Component {
         );
     }
 
+    renderLetstalkIds = () => {
+        let result = null;
+        return result;
+    }
+
     isValidParams = () => {
         const data = this.state.form;
         let isValid = true;
         let errMsg = [];
 
-        if (!data.botId) {
-            isValid = false;
-            errMsg.push(LangHelper.getResource('BotRequired'));
-        }
-
-        if (!data.recipientType) {
+        if (!data.recipientTypeId) {
             isValid = false;
             errMsg.push(LangHelper.getResource('RecipientTypeRequired'));
         }
 
-        if (!data.groupHeadlines.isValid) {
-            isValid = false;
-            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
-        }
-
-        if (!data.recipients.isValid) {
+        if (!data.recipientIds) {
             isValid = false;
             errMsg.push(LangHelper.getResource('RecipientRequired'));
+        }
+
+        if (!data.groupHeadlines) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
         }
 
         if (!data.languageId) {
@@ -92,16 +148,19 @@ export class EditGroupMappingPopup extends Component {
                 errMsgs: errMsg
             }
         });
+
         return isValid;
     }
 
     getParams = () => {
         return {
-            botId: this.state.form.botId,
-            chatType: ChatTypeMapping.Personal,
-            recipientTypeId: this.state.form.recipientType,
-            groupHeadlineIds: this.state.form.groupHeadlines.value,
-            recipientIds: this.state.form.recipients.value,
+            conversationGroupId: this.conversationGroupId,
+            botId: this.state.form.bot.id,
+            name: this.state.form.name,
+            recipientTypeId: this.state.form.recipientTypeId,
+            letstalkId: this.state.form.conversationId,
+            groupHeadlineIds: this.state.form.groupHeadlines,
+            recipientIds: this.state.form.recipientIds,
             languageId: this.state.form.languageId,
             remark: this.state.form.remark
         };
@@ -109,13 +168,14 @@ export class EditGroupMappingPopup extends Component {
 
     handleSubmit = (e) => {
         this.setState({ isSubmitting: true });
+        this.props.setGroupMappingResult(null);
         e.preventDefault();
         if (this.isValidParams()) {
             const params = this.getParams();
-            this.props.insertPersonalMapping(params).then(() => {
-                if (this.props.insertPersonalMappingResult.isSuccessful) {
+            this.props.updateGroupMapping(params).then(() => {
+                if (this.props.updateGroupMappingResult.isSuccessful) {
                     setTimeout(() => {
-                        this.props.closeInsertPersonalMappingPopup();
+                        this.props.closeUpdateGroupMappingPopup();
                         this.props.getGridData(this.props.gridParams);
                     }, 3000);
                 }
@@ -141,29 +201,25 @@ export class EditGroupMappingPopup extends Component {
                         </Alert>
                     }
                     {
-                        this.props.personalMappingResult &&
-                        <ResponseMessage isSuccessful={this.props.insertPersonalMappingResult.isSuccessful}
-                            message={this.props.insertPersonalMappingResult.message || LangHelper.getResource('InsertNotificationTemplateSuccessfully')}
+                        this.props.updateGroupMappingResult &&
+                        <ResponseMessage isSuccessful={this.props.updateGroupMappingResult.isSuccessful}
+                            message={this.props.updateGroupMappingResult.message || LangHelper.getResource('UpdateGroupMappingSuccess')}
                         />
                     }
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('BotName')}
                         </Form.Label>
-                        <Col sm="8" md="9">
-                            <Form.Control as="select" size="sm" className="shadow-none"
-                                name='botId'
-                                onChange={e => this.handleChange('botId', e.target.value)}
-                                value={this.state.form.botId}
-                            >
-                                <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.props.settings.bots.map(this.renderOptions)}
-                            </Form.Control>
-                        </Col>
+                        <Form.Label column sm="8" md="9">
+                            {this.state.form.bot.name}
+                        </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3">
-                            {LangHelper.getResource('Name')}
+                            {LangHelper.getResource('LetstalkName')}
+                        </Form.Label>
+                        <Form.Label column sm="8" md="9">
+                            {this.state.form.name}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -171,7 +227,7 @@ export class EditGroupMappingPopup extends Component {
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Form.Label column sm="8" md="9">
-                            {LangHelper.getResource('Personal')}
+                            {LangHelper.getResource('Group')}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -181,12 +237,41 @@ export class EditGroupMappingPopup extends Component {
                         <Col sm="8" md="9">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 name="recipientTypeId"
-                                onChange={e => this.handleChange('recipientType', e.target.value)}
-                                value={this.state.form.recipientType}
+                                onChange={e => this.handleRecipientTypeChange(e.target.value)}
+                                value={this.state.form.recipientTypeId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.props.settings.recipientTypes.map(this.renderOptions)}
                             </Form.Control>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('Recipient')}
+                        </Form.Label>
+                        <Col sm="8" md="9">
+                            <MultipleSelect
+                                width={'100%'}
+                                name="headlineIds"
+                                dataSource={this.state.settings.recipientOptions}
+                                keyField='id'
+                                valueField='name'
+                                statusField='checked'
+                                isSummited={false}
+                                onChange={this.handleRecipientChange}
+                                isSearchable
+
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3" className="required">
+                            {LangHelper.getResource('LetstalkID')}
+                        </Form.Label>
+                        <Col sm="8" md="9" >
+                            {
+                                this.renderLetstalkIds()
+                            }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -197,38 +282,16 @@ export class EditGroupMappingPopup extends Component {
                             <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
-                                initialValue={this.state.form.groupHeadlines.value}
-                                dataSource={this.props.settings.groupHeadline}
+                                dataSource={this.state.settings.headlineOptions}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
+                                isSearchable
+
                             />
                         </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
-                            {LangHelper.getResource('Recipient')}
-                        </Form.Label>
-                        <Col sm="8" md="9">
-                            <MultipleSelectField
-                                width={'100%'}
-                                initialValue={this.state.form.recipients.value}
-                                data={this.props.recipients || []}
-                                keyField='id'
-                                valueField='name'
-                                statusField='checked'
-                                isSummited={false}
-                                onChange={value => this.handleChange('recipients', value)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
-                            {LangHelper.getResource('LetstalkID')}
-                        </Form.Label>
-                        <Col sm="8" md="9" />
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
@@ -274,12 +337,12 @@ export class EditGroupMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="new-notification-template"
+            <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="md" centered
                 onHide={this.props.closeUpdateGroupMappingPopup}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('InsertPersonalMapping')}</Modal.Title>
+                    <Modal.Title as="div">{LangHelper.getResource('EditGroupMapping')}</Modal.Title>
                 </Modal.Header>
                 {
                     this.renderForm()
@@ -292,13 +355,14 @@ export class EditGroupMappingPopup extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { settings, recipients, gridParams, groupMappingData, groupMappingResult } = state;
+    const { settings, recipients, gridParams, groupHeadline, updateGroupMappingData, updateGroupMappingResult } = state;
     return {
         settings,
         recipients,
+        groupHeadline,
         gridParams,
-        groupMappingData,
-        groupMappingResult
+        updateGroupMappingData,
+        updateGroupMappingResult
     };
 };
 

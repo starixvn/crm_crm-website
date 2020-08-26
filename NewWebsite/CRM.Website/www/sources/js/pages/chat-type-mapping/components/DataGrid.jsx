@@ -31,7 +31,7 @@ export class DataGrid extends Component {
 
     updateActiveStatus = () => {
         const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
-        this.props.updateActiveStatus(params);   
+        this.props.updateActiveStatus(params);
         this.props.getGridData(this.props.gridParams);
     }
 
@@ -66,7 +66,7 @@ export class DataGrid extends Component {
                 <HeaderCell colWidth={10}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('ChatType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('BotName')}</HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('Name')}</HeaderCell>
+                <HeaderCell colWidth={30}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>

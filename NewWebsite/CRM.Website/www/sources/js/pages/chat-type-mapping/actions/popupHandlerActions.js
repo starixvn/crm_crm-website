@@ -3,20 +3,11 @@ import axios from 'axios';
 import Site from '@jsroot/common/site';
 
 // Insert Personal Mapping Popup
-export const openInsertPersonalMappingPopup = () => {
+const setInsertPersonalMappingPopup = isShow => {
     return {
         type: types.PERSONAL_MAPPING_INSERT_POPUP_DATA,
         data: {
-            isShow: true
-        }
-    };
-};
-
-export const closeInsertPersonalMappingPopup = () => {
-    return {
-        type: types.PERSONAL_MAPPING_INSERT_POPUP_DATA,
-        data: {
-            isShow: false
+            isShow: isShow
         }
     };
 };
@@ -25,6 +16,19 @@ export const setInsertPersonalMappingResult = data => {
     return {
         type: types.PERSONAL_MAPPING_INSERT_RESULT,
         data: data
+    };
+};
+
+export const openInsertPersonalMappingPopup = () => {
+    return dispatch => {
+        dispatch(setInsertPersonalMappingPopup(true));
+    };
+};
+
+export const closeInsertPersonalMappingPopup = () => {
+    return dispatch => {
+        dispatch(setInsertPersonalMappingPopup(false));
+        dispatch(setInsertPersonalMappingResult(null));
     };
 };
 
@@ -46,13 +50,33 @@ export const insertPersonalMapping = params => {
 };
 
 // Update Personal Mapping
-export const openUpdatePersonalMappingPopup = (data) => {
+const setUpdatePersonalMappingData = (isShow, data) => {
     return {
         type: types.PERSONAL_MAPPING_UPDATE_POPUP_DATA,
         data: {
-            isShow: true,
+            isShow: isShow,
             data: data
         }
+    };
+};
+
+export const setUpdatePersonalMappingResult = data => {
+    return {
+        type: types.PERSONAL_MAPPING_UPDATE_RESULT,
+        data: data
+    };
+};
+
+export const openUpdatePersonalMappingPopup = (data) => {
+    return dispatch => {
+        dispatch(setUpdatePersonalMappingData(true, data));
+    };
+};
+
+export const closeUpdatePersonalMappingPopup = () => {
+    return dispatch => {
+        dispatch(setUpdatePersonalMappingData(false, null));
+        dispatch(setUpdatePersonalMappingResult(null));
     };
 };
 
@@ -73,40 +97,13 @@ export const updatePersonalMapping = params => {
     };
 };
 
-export const closeUpdatePersonalMappingPopup = () => {
-    return {
-        type: types.PERSONAL_MAPPING_UPDATE_POPUP_DATA,
-        data: {
-            isShow: false,
-            data: null
-        }
-    };
-};
-
-export const setUpdatePersonalMappingResult = data => {
-    return {
-        type: types.PERSONAL_MAPPING_UPDATE_RESULT,
-        data: data
-    };
-};
-
 // Update Group Mapping
-export const openUpdateGroupMappingPopup = data => {
+const setUpdateGroupMappingData = (isShow, data) => {
     return {
         type: types.GROUP_MAPPING_POPUP_DATA,
         data: {
-            isShow: true,
+            isShow: isShow,
             data: data
-        }
-    };
-};
-
-export const closeUpdateGroupMappingPopup = () => {
-    return {
-        type: types.GROUP_MAPPING_POPUP_DATA,
-        data: {
-            isShow: false,
-            data: null
         }
     };
 };
@@ -115,6 +112,19 @@ export const setGroupMappingResult = data => {
     return {
         type: types.GROUP_MAPPING_UPDATE_RESULT,
         data: data
+    };
+};
+
+export const openUpdateGroupMappingPopup = data => {
+    return dispatch => {
+        dispatch(setUpdateGroupMappingData(true, data));
+    };
+};
+
+export const closeUpdateGroupMappingPopup = () => {
+    return dispatch => {
+        dispatch(setUpdateGroupMappingData(false, null));
+        dispatch(setGroupMappingResult(null));
     };
 };
 
@@ -130,6 +140,7 @@ export const updateGroupMapping = params => {
                 'RequestVerificationToken': Site.getXsrfToken()
             }
         }).then(response => {
+            console.log(response.data);
             dispatch(setGroupMappingResult(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     };
@@ -142,8 +153,8 @@ const actions = {
     setInsertPersonalMappingResult,
     openUpdatePersonalMappingPopup,
     updatePersonalMapping,
-    setUpdatePersonalMappingResult,
     closeUpdatePersonalMappingPopup,
+    setUpdatePersonalMappingResult,
     openUpdateGroupMappingPopup,
     closeUpdateGroupMappingPopup,
     updateGroupMapping,

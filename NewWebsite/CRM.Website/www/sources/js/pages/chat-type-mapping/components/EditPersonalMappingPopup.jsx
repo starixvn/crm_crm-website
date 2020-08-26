@@ -5,6 +5,7 @@ import { ActionCreators } from '../actions/index';
 import { Button, Col, Form, Modal, Row, Alert } from 'react-bootstrap';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
 
@@ -43,9 +44,8 @@ export class EditPersonalMappingPopup extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.updatePersonalMappingData.data !== null) {
-            const initData = nextProps.updatePersonalMappingData.data;
-            const recipientId = initData.recipients[0].recipientId;
-            const headlineIds = initData.headlines.map(headline => headline.headlineId);
+            const recipientId = prevState.form.recipientType;
+            const headlineIds = prevState.form.groupHeadlines.split(',');
             let letstalkIds = '';
             if (nextProps.recipients.length > 0) {
                 const selectRecipient = nextProps.recipients.filter(r => r.id === recipientId);
@@ -89,13 +89,18 @@ export class EditPersonalMappingPopup extends Component {
 
     handleRecipientTypeChange = value => {
         this.handleChange('recipientType', value);
+        this.handleChange('recipient', { value: '' });
+        this.handleChange('groupHeadlines', '');
         this.props.getRecipientByRecipientType(value);
     }
 
     handleRecipientChange = option => {
         this.handleChange('recipient', option);
+        this.handleChange('groupHeadlines', '');
         this.setState({
-            letstalkIds: option.letstalkIds
+            settings: {
+                letstalkIds: option.letstalkIds
+            }
         });
         this.props.getGroupHeadlineByRecipient(option.value);
     };
@@ -171,7 +176,7 @@ export class EditPersonalMappingPopup extends Component {
                 errMsgs: errMsg
             }
         });
-        
+
         return isValid;
     }
 
@@ -189,8 +194,10 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     handleSubmit = (e) => {
+        this.props.setUpdatePersonalMappingResult(null);
         this.setState({ isSubmitting: true });
         e.preventDefault();
+
         if (this.isValidParams()) {
             const params = this.getParams();
             this.props.updatePersonalMapping(params).then(() => {
@@ -198,7 +205,6 @@ export class EditPersonalMappingPopup extends Component {
                     setTimeout(() => {
                         this.props.closeUpdatePersonalMappingPopup();
                         this.props.getGridData(this.props.gridParams);
-                        this.props.setUpdatePersonalMappingResult(null);
                     }, 3000);
                 }
                 this.setState({ isSubmitting: false });
@@ -225,7 +231,7 @@ export class EditPersonalMappingPopup extends Component {
                     {
                         this.props.updatePersonalMappingResult &&
                         <ResponseMessage isSuccessful={this.props.updatePersonalMappingResult.isSuccessful}
-                            message={this.props.updatePersonalMappingResult.message || LangHelper.getResource('InsertPersonalMappingSuccessfully')}
+                            message={this.props.updatePersonalMappingResult.message || LangHelper.getResource('UpdatePersonalMappingSuccess')}
                         />
                     }
                     <Form.Group as={Row}>
@@ -245,7 +251,7 @@ export class EditPersonalMappingPopup extends Component {
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3">
-                            {LangHelper.getResource('Name')}
+                            {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
                         <Form.Label column sm="8" md="9">
                             {this.state.form.name}
@@ -363,7 +369,7 @@ export class EditPersonalMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="chat-type-mapping-popup"
+            <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="md" centered
                 onHide={this.props.closeUpdatePersonalMappingPopup}
             >

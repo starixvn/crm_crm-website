@@ -13,6 +13,7 @@ const store = Store.createStore(reducer, {
     updatePersonalMappingData: { isShow: false, data: null },
     updatePersonalMappingResult: null,
     updateGroupMappingData: { isShow: false, data: null },
+    updateGroupMappingResult: null,
     recipients: [],
     groupHeadline: []
 });
