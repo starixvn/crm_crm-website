@@ -93,11 +93,11 @@ class NewNotificationType extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="notificationTypeName" className="required">
+                        <Form.Label column sm="4" md="3" htmlFor="name" className="required">
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
+                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName" id="name"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
@@ -106,7 +106,7 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="recipientTypeIds" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('RecipientType')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -125,7 +125,7 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="chatTypeIds" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Col sm="8" md="9">
@@ -144,7 +144,7 @@ class NewNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" value={values.systemId} htmlFor="systemId" className="required">
+                        <Form.Label column sm="4" md="3" value={values.systemId} className="required">
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">

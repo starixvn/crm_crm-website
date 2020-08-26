@@ -14,10 +14,6 @@ class EditNotificationType extends Component {
         super(props);
 
         this.state = {
-            popup: {
-                recipientTypeIds: '',
-                chatTypeIds: ''
-            },
             recipientTypesOptions: [],
             chatTypesOptions: []
         };
@@ -62,10 +58,6 @@ class EditNotificationType extends Component {
         this.setState({
             recipientTypesOptions,
             chatTypesOptions,
-            popup: {
-                recipientTypeIds: recipientTypeIds.toString(),
-                chatTypeIds: chatTypeIds.toString()
-            }
         });
     }
 
@@ -115,7 +107,7 @@ class EditNotificationType extends Component {
                             {LangHelper.getResource('NotificationTypeName')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName"
+                            <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName" id="name"
                                 className="shadow-none" autoComplete="off"
                                 isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
@@ -124,13 +116,12 @@ class EditNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="recipientTypeIds" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('RecipientType')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
                                 isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                                initialValue={this.state.popup.recipientTypeIds}
                                 dataSource={this.state.recipientTypesOptions}
                                 keyField='id'
                                 valueField='name'
@@ -144,13 +135,12 @@ class EditNotificationType extends Component {
                     </Form.Group>
 
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="chatType" className="required">
+                        <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
                                 isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                                initialValue={this.state.popup.recipientTypeIds.value}
                                 dataSource={this.state.chatTypesOptions}
                                 keyField='id'
                                 valueField='name'
@@ -168,7 +158,7 @@ class EditNotificationType extends Component {
                             {LangHelper.getResource('System')}
                         </Form.Label>
                         <Col sm="8" md="9">
-                            <Form.Control as="select" size="sm" className="shadow-none"
+                            <Form.Control as="select" size="sm" className="shadow-none" id="systemId"
                                 isInvalid={touched.system && errors.system}
                                 name="systemId"
                                 onChange={handleChange}

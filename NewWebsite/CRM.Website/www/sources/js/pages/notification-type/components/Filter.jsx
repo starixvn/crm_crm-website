@@ -23,6 +23,10 @@ class Filter extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getSettings();
+    }
+
     componentDidUpdate = (nextProps, prevState) => {
         if (nextProps.settings !== this.props.settings) {
             // recipient type
@@ -69,10 +73,6 @@ class Filter extends Component {
                 }
             }));
         }
-    }
-
-    componentDidMount() {
-        this.props.getSettings();
     }
 
     recipientNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('recipientTypes', selectedItemsKey)
@@ -143,8 +143,8 @@ class Filter extends Component {
             <Form className="form-filter" onSubmit={this.submitHandler}>
                 <Form.Row bsPrefix='form-row'>
                     <Form.Group>
-                        <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
-                        <Form.Control type="text" size="sm" className="shadow-none" autoComplete="off"
+                        <Form.Label htmlFor="notificationTypeName">{LangHelper.getResource('NotificationType')}</Form.Label>
+                        <Form.Control type="text" size="sm" className="shadow-none" autoComplete="off" id="notificationTypeName"
                             value={this.state.notificationTypeName}
                             onChange={this.handleNotificationTypeChange}
                         />
@@ -153,7 +153,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('RecipientType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.recipientTypes}
                                 dataSource={this.state.recipientTypesOptions}
                                 isInvalid={!this.state.filter.recipientTypes}
                                 keyField='id'
@@ -168,7 +167,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('ChatType')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.chatTypes}
                                 dataSource={this.state.chatTypesOptions}
                                 isInvalid={!this.state.filter.chatTypes}
                                 keyField='id'
@@ -183,7 +181,6 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('System')}</Form.Label>
                         <div className='form-control-wrapper'>
                             <MultipleSelect
-                                initialValue={this.state.filter.systems}
                                 dataSource={this.state.systemsOptions}
                                 isInvalid={!this.state.filter.systems}
                                 keyField='id'
