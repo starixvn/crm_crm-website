@@ -100,7 +100,7 @@ export default class MultipleSelect extends Component {
     }
 
     onToggle = () => {
-        this.setState((prevState) => { return { showOptionList: !prevState.showOptionList } },
+        this.setState((prevState) => { return { showOptionList: !prevState.showOptionList }; },
             () => {
                 if (this.searchInputBox && this.state.showOptionList) {
                     this.searchInputBox.focus();
@@ -202,8 +202,9 @@ export default class MultipleSelect extends Component {
                 value={this.state.searchText} type="text" placeholder="Search data"
                 style={{
                     width: "100%", border: "1px solid #ccc", padding: "5px 10px",
-                    boxSizing: "border-box",
-                }} />
+                    boxSizing: "border-box"
+                }}
+            />
             <button onClick={this.onClearSearch} style={clearButtonStyle}>X</button>
         </div>);
     }
@@ -212,24 +213,27 @@ export default class MultipleSelect extends Component {
         const { maxDisplayItemCount } = this.props;
 
         return (
-            <div className={this.props.isInvalid ? 'invalid multiple-select-container' : 'multiple-select-container'} id={this.id} ref={element => this.wrapper = element}>
-                {
-                    <MultipleSelectLabel
-                        language={this.props.language}
-                        selectedItems={this.selectedItems}
-                        dataSourceSize={this.state.dataSource.length}
-                        onToggle={this.onToggle}
-                        texts={this.props.texts}
-                        isAllTextShown={this.props.isAllTextShown}
-                        maxDisplayItemCount={maxDisplayItemCount} />
-                }
+            <div className={`multiple-select-container ${this.props.isInvalid ? 'invalid' : ''}`}
+                id={this.id} ref={element => this.wrapper = element}
+            >
+                <MultipleSelectLabel
+                    language={this.props.language}
+                    selectedItems={this.selectedItems}
+                    dataSourceSize={this.state.dataSource.length}
+                    onToggle={this.onToggle}
+                    texts={this.props.texts}
+                    isAllTextShown={this.props.isAllTextShown}
+                    maxDisplayItemCount={maxDisplayItemCount}
+                />
                 <div className="multiple-select-default multiple-select-options-container"
-                    style={{ display: this.state.showOptionList ? "block" : "none" }}>
+                    style={{ display: this.state.showOptionList ? "block" : "none" }}
+                >
                     {this._renderSearchBox()}
                     {this._renderOptionAll()}
                     <MultipleSelectOptionList id={this.id}
                         dataSource={this.state.dataSource}
-                        onChange={this.onChangeHandler} />
+                        onChange={this.onChangeHandler}
+                    />
                 </div>
             </div>
         );

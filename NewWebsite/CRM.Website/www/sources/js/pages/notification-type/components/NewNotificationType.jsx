@@ -173,7 +173,7 @@ class NewNotificationType extends Component {
             recipientTypeIds: '',
             chatTypeIds: '',
             systemId: ''
-        }
+        };
         return (
             <Modal show className="new-notification-type"
                 backdrop="static" keyboard={false} size="lg" centered

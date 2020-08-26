@@ -5,10 +5,6 @@ import Translation from './translation'
 const MAX_SELECTED_ITEM_FOR_DISPLAY = 3;
 
 export default class MultipleSelectLabel extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     static propTypes = {
         language: PropTypes.string,
         selectedItems: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -20,6 +16,10 @@ export default class MultipleSelectLabel extends Component {
         maxDisplayItemCount: MAX_SELECTED_ITEM_FOR_DISPLAY
     }
 
+    constructor(props) {
+        super(props);
+    }
+
     get selectedItemsString() {
         const { selectedItems, maxDisplayItemCount } = this.props;
         const selectedValues = selectedItems.map(item => item.value);
@@ -28,7 +28,7 @@ export default class MultipleSelectLabel extends Component {
         let displayText = texts.SelectOptions;
         const selectedItemCount = selectedValues.length;
 
-        if(this.props.isAllTextShown && selectedItemCount === this.props.dataSourceSize){
+        if (this.props.isAllTextShown && selectedItemCount === this.props.dataSourceSize) {
             displayText = texts.All;
         }
         else if (selectedItemCount > maxDisplayItemCount) {
@@ -44,10 +44,11 @@ export default class MultipleSelectLabel extends Component {
     render() {
         return (
             <button type="button" className="multiple-select-default multiple-select-label"
-                onClick={this.props.onToggle}>
+                onClick={this.props.onToggle}
+            >
                 <span className="text-display">{this.selectedItemsString}</span>
-                <b className="caret"></b>
+                <b className="caret" />
             </button>
-        )
+        );
     }
 }

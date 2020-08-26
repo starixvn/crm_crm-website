@@ -6,6 +6,7 @@ import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/reac
 import LangHelper from '@jsroot/common/langHelper';
 import { Form } from 'react-bootstrap';
 import { handleNewResendOptions } from '../functions';
+import { PAGING_SIZES } from '@jsroot/common/constants';
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} className="no-data" ><Cell className='text-center' colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+        return [<Row key={`body${1}`} className="no-data" ><Cell colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     openContentPopup = item => {
@@ -139,7 +140,7 @@ export class DataGrid extends Component {
 
     getHeadlines = headlines => {
         if (headlines && headlines.length > 0) {
-            return headlines.map(headline => headline.headlineName).join(', ')
+            return headlines.map(headline => headline.headlineName).join(', ');
         }
         
         return '';
@@ -183,7 +184,7 @@ export class DataGrid extends Component {
         this.props.validateResend({
             notificationIds: resendList.map(item => item.notificationId).join(','),
             isSingle: false
-        })
+        });
     }
 
     render() {
@@ -199,7 +200,7 @@ export class DataGrid extends Component {
             PageIndex: pageIndex,
             PageSize: pageSize,
             TotalItem: totalItems,
-            PageList: [100, 200, 300, 400, 500, 1000]
+            PageList: PAGING_SIZES
         };
 
         return (

@@ -6,15 +6,6 @@ import Translation from './translation'
 const DEFAULT_CHECKED = false;
 
 export default class OptionAll extends Component {
-    constructor(props) {
-        super(props);
-
-        this.itemData = {
-            key: 'All',
-            value: Translation[this.props.language].All
-        }
-    }
-
     static propTypes = {
         language: PropTypes.string,
         onChange: PropTypes.func,
@@ -25,6 +16,15 @@ export default class OptionAll extends Component {
     static defaultProps = {
         language: 'en-US',
         checked: DEFAULT_CHECKED
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.itemData = {
+            key: 'All',
+            value: Translation[this.props.language].All
+        };
     }
 
     changeHandler = ({ checked }) => {
@@ -40,8 +40,9 @@ export default class OptionAll extends Component {
                 <Option
                     id={`${id}-optionItemAll`}
                     itemData={this.itemData}
-                    onChange={this.changeHandler} />
+                    onChange={this.changeHandler}
+                />
             </ul>
-        )
+        );
     }
 }

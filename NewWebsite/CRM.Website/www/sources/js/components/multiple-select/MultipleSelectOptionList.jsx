@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 import Option from './Option'
 
 export default class MultipleSelectOptionList extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     static propTypes = {
         dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         onChange: PropTypes.func
     }
 
+    constructor(props) {
+        super(props);
+    }
+
     _renderOptionList() {
         const { dataSource, onChange, id } = this.props;
         if(!dataSource || !dataSource.length){
-            return <span>No information</span>
+            return <span>No information</span>;
         }
 
         const optionList = dataSource.map((item, index) => {
@@ -25,8 +25,9 @@ export default class MultipleSelectOptionList extends Component {
                     id={`${id}-optionItem-${index}`}
                     key={`${id}optionItem${index}`}
                     itemData={item}
-                    onChange={onChange} />
-            )
+                    onChange={onChange}
+                />
+            );
         });
 
         return optionList;
@@ -37,6 +38,6 @@ export default class MultipleSelectOptionList extends Component {
             <ul className="multiple-select-options">
                 {this._renderOptionList()}
             </ul>
-        )
+        );
     }
 }

@@ -69,7 +69,7 @@ class Filter extends Component {
                 filter: {
                     recipientTypes: recipientTypeIds.toString(),
                     chatTypes: chatTypeIds.toString(),
-                    systems: systemIds.toString(),
+                    systems: systemIds.toString()
                 }
             }));
         }
@@ -110,15 +110,15 @@ class Filter extends Component {
         });
 
         const error = [];
-        if (params.recipientTypeIds == '') {
+        if (params.recipientTypeIds === '') {
             error.push(`${LangHelper.getResource('RecipientType')}`);
         }
 
-        if (params.chatTypeIds == '') {
+        if (params.chatTypeIds === '') {
             error.push(`${LangHelper.getResource('ChatType')}`);
         }
 
-        if (params.systemId == '') {
+        if (params.systemId === '') {
             error.push(`${LangHelper.getResource('System')}`);
         }
 

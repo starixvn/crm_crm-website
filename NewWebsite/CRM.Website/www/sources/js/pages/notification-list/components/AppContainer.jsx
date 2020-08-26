@@ -24,14 +24,14 @@ export class AppContainer extends Component {
         return (
             <Fragment>
                 {
-                    
                     this.props.messageResult.show &&
                     <ResponseMessage isSuccessful={this.props.messageResult.isSuccessful}
                         message={this.props.messageResult.message || LangHelper.getResource('ResentNotificationSuccessfully')}
                     />
                 }
                 {
-                    this.props.invalidParams.show && <ResponseMessage isSuccessful={false}
+                    this.props.invalidParams.show &&
+                    <ResponseMessage isSuccessful={false}
                         message={this.props.invalidParams.message}
                     />
                 }

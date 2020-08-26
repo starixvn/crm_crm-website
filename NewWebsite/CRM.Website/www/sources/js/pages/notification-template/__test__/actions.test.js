@@ -1,18 +1,15 @@
-﻿import axios from 'axios';
-import configureMockStore from 'redux-mock-store';
+﻿import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Site from '@jsroot/common/site';
+import DataService from '@jsroot/common/dataService';
 import { ActionCreators } from '../actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-jest.mock('axios');
-
 describe('actionCreators', () => {
     beforeAll(() => {
         Site.resolveClientUrl = jest.fn((url) => url);
-        Site.handleAxiosError = jest.fn();
     });
 
     afterEach(() => {
@@ -21,52 +18,30 @@ describe('actionCreators', () => {
 
     describe('getNotificationTypes', () => {
         it('should handle setNotificationTypes when fetching notification types has been done', async () => {
-            const data = [{ id: 1, name: 'void abnormal bet' }];
-            axios.get.mockImplementationOnce(() => Promise.resolve(data));
-            const expectedActions = [
-                { type: ActionCreators.setNotificationTypes.type }
-            ];
+            const response = { data: [{ id: 1, name: 'void abnormal bet' }] };
+            const promise = Promise.resolve(response);
+            DataService.getDataAsync = jest.fn(() => promise);
+            const expectedActions = [{ type: ActionCreators.setNotificationTypes.type, payload: response.data }];
             const store = mockStore({ notificationTypes: [] });
 
             await store.dispatch(ActionCreators.getNotificationTypes()).then(() => {
-                expect(axios.get).toHaveBeenCalledWith('Common/GetNotificationTypes');
+                expect(DataService.getDataAsync).toHaveBeenCalledWith('Common/GetNotificationTypes');
                 expect(store.getActions()).toEqual(expectedActions);
-            });
-        });
-
-        it('should handle error on failure', async () => {
-            const error = { error: 'some error' };
-            axios.get.mockRejectedValueOnce(error);
-            const store = mockStore({ notificationTypes: [] });
-
-            await store.dispatch(ActionCreators.getNotificationTypes()).catch(() => {
-                expect(Site.handleAxiosError).toHaveBeenCalledWith(error);
             });
         });
     });
 
     describe('getLanguages', () => {
         it('should handle setLanguages when fetching languages has been done', async () => {
-            const data = [{ id: 1, name: 'en' }];
-            axios.get.mockImplementationOnce(() => Promise.resolve(data));
-            const expectedActions = [
-                { type: ActionCreators.setLanguages.type }
-            ];
+            const response = { data: [{ id: 1, name: 'en' }] };
+            const promise = Promise.resolve(response);
+            DataService.getDataAsync = jest.fn(() => promise);
+            const expectedActions = [{ type: ActionCreators.setLanguages.type, payload: response.data }];
             const store = mockStore({ languages: [] });
 
             await store.dispatch(ActionCreators.getLanguages()).then(() => {
-                expect(axios.get).toHaveBeenCalledWith('NotificationTemplate/GetLanguages');
+                expect(DataService.getDataAsync).toHaveBeenCalledWith('NotificationTemplate/GetLanguages');
                 expect(store.getActions()).toEqual(expectedActions);
-            });
-        });
-
-        it('should handle error on failure', async () => {
-            const error = { error: 'some error' };
-            axios.get.mockRejectedValueOnce(error);
-            const store = mockStore({ notificationTypes: [] });
-
-            await store.dispatch(ActionCreators.getNotificationTypes()).catch(() => {
-                expect(Site.handleAxiosError).toHaveBeenCalledWith(error);
             });
         });
     });
@@ -74,45 +49,62 @@ describe('actionCreators', () => {
     describe('getGridData', () => {
         it('should handle setGridData when fetching notification template has been done', async () => {
             const expectedParams = { notificationTypeId: 1 };
-            const expectedData = {
-                totalItems: 1,
-                data: [{ id: 1, name: 'abnormal bet' }]
-            };
-            const expectedActions = [
-                { type: ActionCreators.setGridData.type, payload: expectedData.data }
-            ];
+            const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
+            const expectedActions = [{ type: ActionCreators.setGridData.type, payload: response.data }];
             const store = mockStore({ gridData: null });
-            jest.mock('axios', () => jest.fn());
             Site.blockUI = jest.fn();
             Site.unblockUI = jest.fn();
-            let getXsrfToken = jest.fn(() => { return 'token'; });
-            Site.getXsrfToken = getXsrfToken.bind(Site);
-            axios.mockResolvedValueOnce(expectedData);
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
 
             await store.dispatch(ActionCreators.getGridData(expectedParams)).then(() => {
-                expect(axios).toHaveBeenCalledWith(
-                    {
-                        url: 'NotificationTemplate/GetGridData',
-                        method: 'post',
-                        data: expectedParams,
-                        headers: { 'RequestVerificationToken': 'token', 'X-Requested-With': 'XMLHttpRequest' }
-                    });
+                expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/GetGridData', expectedParams);
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+        });
+    });
+
+    describe('getTemplateById', () => {
+        it('should handle setSelectedTemplate when fetching template has been done', async () => {
+            const response = { data: { id: 1, name: 'abnormal bet' } };
+            const promise = Promise.resolve(response);
+            DataService.getDataAsync = jest.fn(() => promise);
+            const expectedActions = [{ type: ActionCreators.setSelectedTemplate.type, payload: response.data }];
+            const store = mockStore({ selectedTemplate: null });
+
+            await store.dispatch(ActionCreators.getTemplateById(1)).then(() => {
+                expect(DataService.getDataAsync).toHaveBeenCalledWith('NotificationTemplate/GetById/1');
                 expect(store.getActions()).toEqual(expectedActions);
             });
         });
 
-        it('should handle error on failure', async () => {
-            const error = { error: 'some error' };
+        it('should call callback function', async () => {
+            const response = { data: { id: 1, name: 'abnormal bet' } };
+            const promise = Promise.resolve(response);
+            DataService.getDataAsync = jest.fn(() => promise);
+            const callbackFunc = jest.fn();
+            const store = mockStore({ selectedTemplate: null });
+
+            await store.dispatch(ActionCreators.getTemplateById(1, callbackFunc)).then(() => {
+                expect(callbackFunc).toHaveBeenCalled();
+            });
+        });
+    });
+
+    describe('createTemplate', () => {
+        it('should handle setCreateTemplateResult when create successfully', async () => {
+            const expectedParams = { notificationTypeId: 1 };
+            const response = { data: { isSuccessful: true, message: '' } };
+            const expectedActions = [{ type: ActionCreators.setCreateTemplateResult.type, payload: response.data }];
+            const store = mockStore({ createTemplateResult: null });
             Site.blockUI = jest.fn();
             Site.unblockUI = jest.fn();
-            let getXsrfToken = jest.fn(() => { return 'token'; });
-            Site.getXsrfToken = getXsrfToken.bind(Site);
-            jest.mock('axios', () => jest.fn());
-            axios.mockRejectedValueOnce(error);
-            const store = mockStore({ gridData: null });
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
 
-            await store.dispatch(ActionCreators.getGridData({})).catch(() => {
-                expect(Site.handleAxiosError).toHaveBeenCalledWith(error);
+            await store.dispatch(ActionCreators.createTemplate(expectedParams)).then(() => {
+                expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/Create', expectedParams);
+                expect(store.getActions()).toEqual(expectedActions);
             });
         });
     });

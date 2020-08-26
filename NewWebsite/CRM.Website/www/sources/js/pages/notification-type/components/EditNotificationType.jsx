@@ -20,7 +20,6 @@ class EditNotificationType extends Component {
     }
 
     componentDidMount() {
-
         const data = this.props.editNotificationTypePopup.data;
         const recipientTypesOptions = this.props.settings.recipientTypes.map(x => {
             return {
@@ -40,11 +39,11 @@ class EditNotificationType extends Component {
 
         this.setState({
             recipientTypesOptions,
-            chatTypesOptions,
+            chatTypesOptions
         });
     }
 
-    renderSystemOption = item => <option key={item.id} value={item.id} >{item.name}</option>
+    renderSystemOption = item => <option key={item.id} value={item.id}>{item.name}</option>
 
     validate = values => {
         const errors = {};
