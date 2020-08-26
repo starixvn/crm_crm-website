@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
+    using CRM.Core.Filters;
     using CRM.Core.Models;
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Criteria.Common;
@@ -18,7 +19,10 @@
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
     using Microsoft.AspNetCore.Mvc;
+    using static Fanex.NAP.Core.Business.Constant;
 
+    [CrmAuthorize]
+    [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
     public class ChatTypeMappingController : Controller
     {
         private readonly INapSession napSession;
@@ -49,7 +53,8 @@
 
         public IActionResult Index()
         {
-            return View();
+            var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationTemplate, Policy.Host);
+            return View(isHost);
         }
 
         public async Task<IActionResult> GetSettings()
@@ -149,8 +154,15 @@
 
         public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
         {
-            var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
-            return Json(headlines);
+            try
+            {
+                var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
+                return Json(headlines);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         [HttpPost]

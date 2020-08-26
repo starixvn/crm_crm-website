@@ -6,7 +6,7 @@
     {
         public string RecipientIds { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_GetHeadlineSelByRecipient";
+        public override string GetSettingKey() => "Acc_CRM_GetHeadlineByRecipient";
 
         public override bool IsValid() => !string.IsNullOrWhiteSpace(RecipientIds);
     }
