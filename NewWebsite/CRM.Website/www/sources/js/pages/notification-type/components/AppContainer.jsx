@@ -52,7 +52,6 @@ export class AppContainer extends Component {
                 }, 3000);
             }
 
-            this.props.getGridData(this.props.gridParams);
             this.props.setDeleteNotificationTypeResult(data);
         });
     }

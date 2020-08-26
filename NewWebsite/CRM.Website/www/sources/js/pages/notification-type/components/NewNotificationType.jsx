@@ -13,46 +13,20 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 class NewNotificationType extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            recipientTypesOptions: [],
-            chatTypesOptions: []
-        };
-    }
-
-    componentDidMount() {
-        // recipient type
-        const recipientTypesOptions = this.props.settings.recipients.map(x => {
-            return {
-                id: x.id,
-                name: x.name,
-                checked: false
-            };
-        });
-
-        // chat type
-        const chatTypesOptions = this.props.settings.chatTypes.map(x => {
-            return {
-                id: x.id,
-                name: x.name,
-                checked: false
-            };
-        });
-
-        this.setState({
-            recipientTypesOptions,
-            chatTypesOptions
-        });
     }
 
     validate = values => {
         const errors = {};
-        if (!values.notificationTypeName || values.notificationTypeName.length > 500) {
-            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
-        }
 
-        if (values.notificationTypeName.length > 500) {
-            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameMaxLengthRequired');
+        if (!values.notificationTypeName || values.notificationTypeName.trim().length === 0) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
+        } else {
+            if (values.notificationTypeName.trim().length > 500) {
+                errors.notificationTypeName = LangHelper.formatString(
+                    LangHelper.getResource('FieldMaxLength'),
+                    LangHelper.getResource('NotificationTypeName'),
+                    500);
+            }
         }
 
         if (!values.recipientTypeIds) {
@@ -112,7 +86,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelect
                                 isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
-                                dataSource={this.state.recipientTypesOptions}
+                                dataSource={this.props.settings.recipientTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -131,7 +105,7 @@ class NewNotificationType extends Component {
                         <Col sm="8" md="9">
                             <MultipleSelect
                                 isInvalid={touched.chatTypeIds && errors.chatTypeIds}
-                                dataSource={this.state.chatTypesOptions}
+                                dataSource={this.props.settings.chatTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -186,7 +160,7 @@ class NewNotificationType extends Component {
             if (this.props.createNotificationTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
-                }, 1000);
+                }, 3000);
             } else {
                 setSubmitting(false);
             }
@@ -202,7 +176,7 @@ class NewNotificationType extends Component {
         }
         return (
             <Modal show className="new-notification-type"
-                backdrop="static" keyboard={false} size="lg"
+                backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>

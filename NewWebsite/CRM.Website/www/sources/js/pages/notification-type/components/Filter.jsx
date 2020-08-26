@@ -31,7 +31,7 @@ class Filter extends Component {
         if (nextProps.settings !== this.props.settings) {
             // recipient type
             const recipientTypeIds = [];
-            const recipientTypesOptions = this.props.settings.recipients.map(x => {
+            const recipientTypesOptions = this.props.settings.recipientTypes.map(x => {
                 recipientTypeIds.push(x.id);
                 return {
                     id: x.id,

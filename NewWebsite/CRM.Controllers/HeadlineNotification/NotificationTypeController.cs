@@ -43,7 +43,7 @@ namespace CRM.Controllers
             {
                 ChatTypes = commonService.GetChatTypes(),
                 Systems = await commonService.GetSystemAsync(),
-                Recipients = await commonService.GetRecipientTypeAsync()
+                RecipientTypes = await commonService.GetRecipientTypeAsync()
             };
 
             return Json(result);

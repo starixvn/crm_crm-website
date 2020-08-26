@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -93,18 +93,21 @@ export class DataGrid extends Component {
         };
 
         return (
-            <Table
-                minWidth={960}
-                maxWidth={document.getElementById('app-container').clientWidth}
-                autoWidth
-                header={this.buildHeader(isHost)}
-                body={this.buildBody(isHost)}
-                isPaging
-                pageOption={pagingOption}
-                onPaging={this.onPaging}
-                containerPadding={0}
-                adjustedHeight={50}
-            />
+            <Fragment>
+                <div className='table-title'>{LangHelper.getResource('NotificationType')}</div>
+                <Table
+                    minWidth={960}
+                    maxWidth={document.getElementById('app-container').clientWidth}
+                    autoWidth
+                    header={this.buildHeader(isHost)}
+                    body={this.buildBody(isHost)}
+                    isPaging
+                    pageOption={pagingOption}
+                    onPaging={this.onPaging}
+                    containerPadding={0}
+                    adjustedHeight={50}
+                />
+            </Fragment>
         );
     }
 }

@@ -17,7 +17,7 @@ const store = Store.createStore(reducer, {
     gridData: null,
     settings: {
         ChatTypes: [],
-        Recipients: [],
+        RecipientTypes: [],
         Systems: []
     }
 });

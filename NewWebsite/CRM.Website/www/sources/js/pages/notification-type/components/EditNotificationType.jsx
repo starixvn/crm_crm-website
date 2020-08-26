@@ -21,29 +21,12 @@ class EditNotificationType extends Component {
 
     componentDidMount() {
 
-        // recipient type
-        const recipientTypeIds = [];
-        this.props.editNotificationTypePopup.data.recipientTypes.map(x => {
-            recipientTypeIds.push(x.recipientTypeId);
-            return {
-                id: x.recipientTypeId
-            };
-        });
-
-        const recipientTypesOptions = this.props.settings.recipients.map(x => {
+        const data = this.props.editNotificationTypePopup.data;
+        const recipientTypesOptions = this.props.settings.recipientTypes.map(x => {
             return {
                 id: x.id,
                 name: x.name,
-                checked: recipientTypeIds.includes(x.id) ? true : false
-            };
-        });
-
-        // chat type
-        const chatTypeIds = [];
-        this.props.editNotificationTypePopup.data.chatTypes.map(x => {
-            chatTypeIds.push(x.chatTypeId);
-            return {
-                id: x.chatTypeId
+                checked: data.recipientTypes.some(y => y.recipientTypeId === x.id) ? true : false
             };
         });
 
@@ -51,7 +34,7 @@ class EditNotificationType extends Component {
             return {
                 id: x.id,
                 name: x.name,
-                checked: chatTypeIds.includes(x.id) ? true : false
+                checked: data.chatTypes.some(y => y.chatTypeId === x.id) ? true : false
             };
         });
 
@@ -65,12 +48,16 @@ class EditNotificationType extends Component {
 
     validate = values => {
         const errors = {};
-        if (!values.notificationTypeName) {
-            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
-        }
 
-        if (values.notificationTypeName.length > 500) {
-            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameMaxLengthRequired');
+        if (!values.notificationTypeName || values.notificationTypeName.trim().length === 0) {
+            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
+        } else {
+            if (values.notificationTypeName.trim().length > 500) {
+                errors.notificationTypeName = LangHelper.formatString(
+                    LangHelper.getResource('FieldMaxLength'),
+                    LangHelper.getResource('NotificationTypeName'),
+                    500);
+            }
         }
 
         if (!values.recipientTypeIds) {
@@ -197,7 +184,7 @@ class EditNotificationType extends Component {
             if (this.props.editNotificationTypeResult.isSuccessful) {
                 setTimeout(() => {
                     this.props.onSuccess();
-                }, 1000);
+                }, 3000);
             } else {
                 setSubmitting(false);
             }
@@ -216,7 +203,7 @@ class EditNotificationType extends Component {
 
         return (
             <Modal show className="new-notification-type"
-                backdrop="static" keyboard={false} size="lg"
+                backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
                 <Modal.Header closeButton>

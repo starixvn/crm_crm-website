@@ -48,7 +48,6 @@
     NotificationType: 'Notification Type',
     NotificationTypeName: 'Notification Type Name',
     NotificationTypeNameRequired: 'Notification Type Name is mandatory!',
-    NotificationTypeNameMaxLengthRequired: 'Notification Type Name must be less than 500 characters',
     NotificationTypeRequired: 'Notification Type is mandatory!',
     OK: 'OK',
     PleaseChoose: 'Please Choose',
