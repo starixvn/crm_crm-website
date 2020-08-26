@@ -149,12 +149,9 @@
     <AdditionalFiles Include="..\SonarQube\crm\CSharp\SonarLint.xml">
       <Link>SonarLint.xml</Link>
     </AdditionalFiles>
-    <Content Include="Resources\Labels.zh-TW.resx" />
-    <Content Include="Resources\Labels.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Fanex.CRM.User.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
