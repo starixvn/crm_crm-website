@@ -26,7 +26,7 @@ export const resendOptions = createReducer({}, {
     }
 });
 
-export const errorOrResolvedContentPopup = createReducer({}, {
+export const viewDetailPopup = createReducer({}, {
     [types.VIEW_DETAIL_POPUP_DATA](state, action) {
         return action.data;
     }
@@ -45,7 +45,7 @@ export const settings = createReducer({}, {
 });
 
 export const viewDetail = createReducer({}, {
-    [types.ERROR_RESOLVED_CONTENT_DATA](state, action) {
+    [types.VIEW_DETAIL_DATA](state, action) {
         return action.data;
     }
 });
@@ -84,7 +84,7 @@ const reducers = {
     gridParams,
     gridData,
     contentPopup,
-    errorOrResolvedContentPopup,
+    viewDetailPopup,
     resendOptions,
     invalidParams,
     settings,

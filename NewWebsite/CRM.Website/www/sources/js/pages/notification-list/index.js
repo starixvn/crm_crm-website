@@ -15,7 +15,7 @@ const store = Store.createStore(reducer, {
         show: false
     },
     contentPopup: { show: false },
-    errorOrResolvedContentPopup: { show: false },
+    viewDetailPopup: { show: false },
     resendOptions: {
         isCheckedAll: false,
         isDisabledResend: true,

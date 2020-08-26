@@ -1,8 +1,8 @@
 import types from './types';
-import axios from 'axios';
 import Site from '@jsroot/common/site';
 import { convertDateToString } from '@jsroot/common/functions';
 import { EndTimeString } from '@jsroot/common/constants';
+import DataService from '@jsroot/common/dataService';
 
 // Grid
 export const setGridParams = data => {
@@ -30,18 +30,11 @@ export const getGridData = (params, done) => async dispatch => {
         params.toDate = `${convertDateToString(params.toDate)} ${EndTimeString}`;
     }
     
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('NotificationList/GetGridData'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('NotificationList/GetGridData');
+    await DataService.postDataAsync(url, params).then(response => {
         done && done(response.data.data);
         dispatch(setGridData(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).then(() => Site.unblockUI());
 };
 
 export const setContentPopup = data => {
@@ -81,34 +74,25 @@ export const setSettings = data => {
 
 export const getSettings = () => async dispatch => {
     Site.blockUI();
-    await axios({
-        method: 'get',
-        url: Site.resolveClientUrl('NotificationList/GetSettings')
-    }).then(response => {
+    const url = Site.resolveClientUrl('NotificationList/GetSettings');
+    await DataService.getDataAsync(url).then(response => {
         dispatch(setSettings(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 export const setViewDetail = data => {
     return {
-        type: types.ERROR_RESOLVED_CONTENT_DATA,
+        type: types.VIEW_DETAIL_DATA,
         data
     };
 };
 
 export const editNotificationList = params => async dispatch => {
     Site.blockUI();
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('NotificationList/EditNotificationList'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('NotificationList/EditNotificationList');
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setViewDetail(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).then(() => Site.unblockUI());
 };
 
 export const setMessageResult = data => {
@@ -120,20 +104,13 @@ export const setMessageResult = data => {
 
 export const validateResend = params => async dispatch => {
     Site.blockUI();
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('NotificationList/ValidateNotificationList'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('NotificationList/ValidateNotificationList');
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setValidateResend({
             show: true,
             result: response.data
         }));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).then(() => Site.unblockUI());
 }
 
 export const setValidateResend = data => {
@@ -145,15 +122,8 @@ export const setValidateResend = data => {
 
 export const resendNotifications = (dataList, done) => async dispatch => {
     Site.blockUI();
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('NotificationList/ResendNotificationList'),
-        data: dataList,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('NotificationList/ResendNotificationList');
+    await DataService.postDataAsync(url, dataList).then(response => {
         const { message, isSuccessful } = response.data;
         done && done();
         dispatch(setMessageResult({
@@ -161,7 +131,7 @@ export const resendNotifications = (dataList, done) => async dispatch => {
             message,
             isSuccessful
         }));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).then(() => Site.unblockUI());
 }
 
 export const setConfirmPopup = data => {
@@ -177,21 +147,14 @@ export const getHeadlineOptions = searchText => async dispatch => {
         limit: 10
     };
 
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('Common/GetHeadlines'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('Common/GetHeadlines');
+    await DataService.postDataAsync(url, params).then(response => {
         const options = response.data.map(item => {
             return { value: item.name, label: item.name }
         });
 
         dispatch(setHeadlineOptions(options))
-    }).catch(Site.handleAxiosError);
+    });
 }
 
 export const getRecipientOptions = searchText => async dispatch => {
@@ -200,21 +163,14 @@ export const getRecipientOptions = searchText => async dispatch => {
         limit: 10
     };
 
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('Common/GetRecipients'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    const url = Site.resolveClientUrl('Common/GetRecipients');
+    await DataService.postDataAsync(url, params).then(response => {
         const options = response.data.map(item => {
             return { value: item.name, label: item.name }
         });
 
         dispatch(setRecipientOptions(options))
-    }).catch(Site.handleAxiosError);
+    });
 }
 
 export const setHeadlineOptions = data => {

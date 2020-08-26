@@ -45,10 +45,10 @@ export class AppContainer extends Component {
                     />
                 }
                 {
-                    this.props.errorOrResolvedContentPopup.show &&
+                    this.props.viewDetailPopup.show &&
                     <ViewDetail
                         onClose={() => this.props.setViewDetailPopup({ show: false })}
-                        data={this.props.errorOrResolvedContentPopup.data}
+                        data={this.props.viewDetailPopup.data}
                     />
                 }
                 {
@@ -79,7 +79,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         contentPopup,
-        errorOrResolvedContentPopup,
+        viewDetailPopup,
         invalidParams,
         messageResult,
         validateResendResult,
@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 
     return {
         contentPopup,
-        errorOrResolvedContentPopup,
+        viewDetailPopup,
         invalidParams,
         messageResult,
         validateResendResult,
