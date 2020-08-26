@@ -3,6 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
+    using CRM.Core.Constants;
+    using CRM.Core.Models;
+    using CRM.Criteria.Common;
+    using CRM.Criteria.NotificationType;
+    using CRM.Models;
     using CRM.Models.NotificationType;
     using CRM.Services;
     using Fanex.NAP.Client.Configuration;
@@ -11,6 +16,8 @@
     using Microsoft.AspNetCore.Mvc;
     using NSubstitute;
     using Xunit;
+    using static Fanex.NAP.Core.Business.Constant;
+
     public class NotificationTypeControllerTests
     {
         private INotificationTypeService notificationTypeService;
@@ -18,26 +25,79 @@
         private INapSettings napSettings;
         private IUserService userService;
         private ICommonService commonService;
+        private readonly Fixture fixture = new Fixture();
 
         [Fact]
-        public async Task GetGridData_WhenCalled_ReturnExpectedData()
+        public void Index_WhenCalled_ReturnExpectedViewResult()
+        {
+            // Arrange
+            var controller = GetController();
+            userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationType, Policy.Host).Returns(true);
+
+            // Act
+            var result = controller.Index();
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var viewModel = Assert.IsType<bool>(viewResult.Model);
+            Assert.True(viewModel);
+        }
+
+        [Fact]
+        public async Task Create_WhenCalled_ReturnExpectedData()
         {
             // Arrange
             var fixture = new Fixture();
-            var types = fixture.Create<IEnumerable<NotificationType>>();
-            var param = fixture.Create<GetGridDataParam>();
+            var expected = fixture.Create<CommandResult>();
+            var model = fixture.Create<CreateNotificationType>();
             var controller = GetController();
-            //notificationTypeService.GetNotificationTypeAsync(param).Returns(types);
+            notificationTypeService.CreateAsync(model).Returns(expected);
 
             // Act
-            var result = await controller.GetGridData(param);
+            var result = await controller.Create(model);
 
             // Assert
             var jsonResult = Assert.IsType<JsonResult>(result);
-            var notificationTypes = (IEnumerable<NotificationType>)jsonResult.Value.GetType().GetProperty("data").GetValue(jsonResult.Value);
-            var totalItems = (int)jsonResult.Value.GetType().GetProperty("totalItems").GetValue(jsonResult.Value);
-            Assert.Equal(types, notificationTypes);
-            Assert.Equal(param.TotalRows, totalItems);
+            var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
+            Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task Edit_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var model = fixture.Create<EditNotificationType>();
+            var controller = GetController();
+            notificationTypeService.EditAsync(model).Returns(expected);
+
+            // Act
+            var result = await controller.Edit(model);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
+            Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task Delete_WhenCalled_ReturnExpectedData()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var id = fixture.Create<int>();
+            var controller = GetController();
+            notificationTypeService.DeleteAsync(id).Returns(expected);
+
+            // Act
+            var result = await controller.Delete(id);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            var commandResult = Assert.IsAssignableFrom<CommandResult>(jsonResult.Value);
+            Assert.Equal(expected, commandResult);
         }
 
         private NotificationTypeController GetController()
