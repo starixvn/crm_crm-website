@@ -37,13 +37,20 @@ export const updateGroupMappingResult = createReducer({}, {
     }
 });
 
+export const letstalkVerification = createReducer({}, {
+    [types.GROUP_MAPPING_LETSTALK_VERIFICATION_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     insertPersonalMappingData,
     insertPersonalMappingResult,
     updatePersonalMappingData,
     updatePersonalMappingResult,
     updateGroupMappingData,
-    updateGroupMappingResult
+    updateGroupMappingResult,
+    letstalkVerification
 };
 
 export default reducers;

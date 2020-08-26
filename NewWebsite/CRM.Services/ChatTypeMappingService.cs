@@ -50,8 +50,7 @@
         {
             var criteria = new GetGroupHeadlineByRecipientCriteria
             {
-                RecipientIds = recipientIds,
-                IsGetDirectAccount = true
+                RecipientIds = recipientIds
             };
             var tuple = await baseService.FetchMultipleAsync<GroupHeadlineDirectAccountModel, string>(criteria);
             foreach (var item in tuple.Item1)

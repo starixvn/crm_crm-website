@@ -7,6 +7,7 @@ import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
+import Site from '@jsroot/common/site';
 
 export class EditGroupMappingPopup extends Component {
     constructor(props) {
@@ -56,12 +57,14 @@ export class EditGroupMappingPopup extends Component {
             const headlineIds = prevState.form.groupHeadlines.split(',');
             const headlineOptions = nextProps.groupHeadline;
             headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => parseInt(v, 10) === headline.id); });
+
             const state = {
                 settings: {
                     recipientOptions: recipientOptions,
                     headlineOptions: headlineOptions
                 }
             };
+
             return state;
         }
 
@@ -76,6 +79,7 @@ export class EditGroupMappingPopup extends Component {
         if (recipientTypeId) {
             this.props.getRecipientByRecipientType(recipientTypeId);
             this.props.getGroupHeadlineByRecipient(selectedRecipientIds);
+            this.verifyLetstalk(selectedRecipientIds);
         }
     }
 
@@ -86,7 +90,6 @@ export class EditGroupMappingPopup extends Component {
     };
 
     handleRecipientTypeChange = value => {
-        console.log(value);
         this.handleChange('recipientTypeId', value);
         this.handleChange('recipientIds', '');
         this.handleChange('groupHeadlines', '');
@@ -96,8 +99,30 @@ export class EditGroupMappingPopup extends Component {
     handleRecipientChange = (currentItem, selectedItemsKey) => {
         this.handleChange('recipientIds', selectedItemsKey);
         this.handleChange('groupHeadlines', '');
+        this.verifyLetstalk(selectedItemsKey.split(','));
         this.props.getGroupHeadlineByRecipient(selectedItemsKey);
     };
+
+    verifyLetstalk = (recipientIds) => {
+        const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
+        const params = {
+            botId: this.state.form.bot.id,
+            groupConversationId: this.state.form.conversationId,
+            recipients: selectedOptions.map((item, key) => {
+                return {
+                    recipientId: item.id,
+                    recipientName: item.name,
+                    letstalks: item.letstalkIds.split(',').map((l, k) => {
+                        return {
+                            letstalkId: l
+                        };
+                    })
+                };
+            })
+        };
+
+        this.props.verifyLetstalkInGroup(params);
+    }
 
     handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {
         this.handleChange('groupHeadlines', selectedItemsKey);
@@ -111,9 +136,21 @@ export class EditGroupMappingPopup extends Component {
         );
     }
 
-    renderLetstalkIds = () => {
-        let result = null;
-        return result;
+    renderLetstalkIdVerification = (item, key) => {
+        return (
+            <div className='letstalk-group-mapping'>
+                <div className='recipient-name common-letstalk-display'>{item.recipientName}</div>
+                <div className='letstalk-wrapper'>
+                    {
+                        item.letstalks.length > 0 &&
+                        item.letstalks.map((v, k) => {
+                            return <div className='letstalk-name common-letstalk-display'>{v.letstalkId}<span className={v.isGroupMember ? 'fa fa-check icon' : ''} /></div>;
+                        })
+                    }
+                </div>
+
+            </div>
+        );
     }
 
     isValidParams = () => {
@@ -207,7 +244,7 @@ export class EditGroupMappingPopup extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3">
                             {LangHelper.getResource('BotName')}
                         </Form.Label>
                         <Form.Label column sm="8" md="9">
@@ -265,12 +302,13 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="4" md="3">
                             {LangHelper.getResource('LetstalkID')}
                         </Form.Label>
-                        <Col sm="8" md="9" >
+                        <Col sm="8" md="9" className="mrg-top-3">
                             {
-                                this.renderLetstalkIds()
+                                this.props.letstalkVerification.length > 0 &&
+                                this.props.letstalkVerification.map(this.renderLetstalkIdVerification)
                             }
                         </Col>
                     </Form.Group>
@@ -292,6 +330,14 @@ export class EditGroupMappingPopup extends Component {
 
                             />
                         </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="4" md="3">
+                            {LangHelper.getResource('MappingStatus')}
+                        </Form.Label>
+                        <Form.Label column sm="8" md="9" className={Site.mappingStatusClass(this.state.form.mappingStatus.id)}>
+                            {this.state.form.mappingStatus.name}
+                        </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
@@ -355,14 +401,15 @@ export class EditGroupMappingPopup extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { settings, recipients, gridParams, groupHeadline, updateGroupMappingData, updateGroupMappingResult } = state;
+    const { settings, recipients, gridParams, groupHeadline, updateGroupMappingData, updateGroupMappingResult, letstalkVerification } = state;
     return {
         settings,
         recipients,
         groupHeadline,
         gridParams,
         updateGroupMappingData,
-        updateGroupMappingResult
+        updateGroupMappingResult,
+        letstalkVerification
     };
 };
 

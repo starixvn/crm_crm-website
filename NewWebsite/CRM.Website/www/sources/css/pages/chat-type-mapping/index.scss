@@ -71,6 +71,42 @@
     }
 }
 
+.mrg-top-3 {
+    margin-top: 3px;
+}
+
+.letstalk-group-mapping {
+    border-bottom: 1px solid #b7b7b7;
+
+    .letstalk-wrapper {
+        display: inline-block;
+        width: calc(100% - 150px);
+    }
+
+    .common-letstalk-display {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .recipient-name {
+        vertical-align: top;
+        padding-right: 10px;
+        font-weight: 600;
+        width: 150px;
+    }
+
+    .letstalk-name {
+        width: 100px;
+    }
+
+    .icon {
+        color: #05b15b;
+        padding-left: 10px;
+    }
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 520px;

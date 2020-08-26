@@ -108,6 +108,13 @@ const setUpdateGroupMappingData = (isShow, data) => {
     };
 };
 
+const setLetstalkVerifationData = data => {
+    return {
+        type: types.GROUP_MAPPING_LETSTALK_VERIFICATION_DATA,
+        data: data
+    };
+};
+
 export const setGroupMappingResult = data => {
     return {
         type: types.GROUP_MAPPING_UPDATE_RESULT,
@@ -128,6 +135,23 @@ export const closeUpdateGroupMappingPopup = () => {
     };
 };
 
+export const verifyLetstalkInGroup = params => {
+    const url = Site.resolveClientUrl('ChatTypeMapping/VerifyLetstalkInGroup');
+    return dispatch => {
+        return axios({
+            method: 'post',
+            url: url,
+            data: params,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'RequestVerificationToken': Site.getXsrfToken()
+            }
+        }).then(response => {
+            dispatch(setLetstalkVerifationData(response.data));
+        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    };
+};
+
 export const updateGroupMapping = params => {
     const url = Site.resolveClientUrl('ChatTypeMapping/UpdateGroupMapping');
     return dispatch => {
@@ -140,7 +164,6 @@ export const updateGroupMapping = params => {
                 'RequestVerificationToken': Site.getXsrfToken()
             }
         }).then(response => {
-            console.log(response.data);
             dispatch(setGroupMappingResult(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     };
@@ -158,7 +181,8 @@ const actions = {
     openUpdateGroupMappingPopup,
     closeUpdateGroupMappingPopup,
     updateGroupMapping,
-    setGroupMappingResult
+    setGroupMappingResult,
+    verifyLetstalkInGroup
 };
 
 export default actions;

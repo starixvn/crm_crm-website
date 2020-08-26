@@ -15,7 +15,8 @@ const store = Store.createStore(reducer, {
     updateGroupMappingData: { isShow: false, data: null },
     updateGroupMappingResult: null,
     recipients: [],
-    groupHeadline: []
+    groupHeadline: [],
+    letstalkVerification: []
 });
 
 ReactDOM.render(

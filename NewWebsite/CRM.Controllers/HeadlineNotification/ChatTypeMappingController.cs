@@ -203,5 +203,28 @@
 
             return Json(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> VerifyLetstalkInGroup([FromBody]LetstalkVerification data)
+        {
+            data.GroupConversationId = "KQrsF8lVV1vrcLDPHJKYQ_Eq8Zh5kd0A7x9Gb4nsC1yZeCnMDkfq9IPKobj3UQmK";
+            if (data.BotId > 0 && !string.IsNullOrWhiteSpace(data.GroupConversationId))
+            {
+                var botFriends = await letstalkService(data.BotId).GetBotContactList();
+                var roomData = await letstalkService(data.BotId).GetChatRoomData(data.GroupConversationId);
+                foreach (var recipient in data.Recipients)
+                {
+                    foreach (var letstalk in recipient.Letstalks)
+                    {
+                        letstalk.IsGroupMember = roomData.Members.Contains(letstalk.LetstalkId.Trim());
+                        letstalk.IsBotFriend = botFriends.Contains(letstalk.LetstalkId.Trim());
+                    }
+                }
+
+                return Json(data.Recipients);
+            }
+
+            return Json(null);
+        }
     }
 }

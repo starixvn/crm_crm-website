@@ -49,6 +49,10 @@
         <Setting Key="Acc_CRM_ChatBot_ChatTypeMapping_Sel" SpName="Acc_CRM_ChatBot_ChatTypeMapping_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
         <Setting Key="Acc_CRM_ChatBot_ChatTypeMapping_Ins" SpName="Acc_CRM_ChatBot_ChatTypeMapping_Ins_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
         <Setting Key="Acc_CRM_ChatBot_ChatTypeMapping_Upd" SpName="Acc_CRM_ChatBot_ChatTypeMapping_Upd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
+        <Setting Key="Acc_CRM_GetHeadlineSelByRecipient" SpName="Acc_CRM_GetHeadlineSelByRecipient_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet">
+            <Mapping DataField="HeadlineID" ObjectProperty="Id" />
+            <Mapping DataField="HeadlineName" ObjectProperty="Name" />
+        </Setting>
         <Setting Key="Acc_CRM_ChatBot_ChatTypeMappingStatus_Upd" SpName="Acc_CRM_ChatBot_ChatTypeMappingStatus_Upd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
     </Function>
 </Functions>
