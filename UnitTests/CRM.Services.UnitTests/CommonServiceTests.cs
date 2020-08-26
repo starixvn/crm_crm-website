@@ -14,6 +14,7 @@
     using CRM.Models.Common;
     using NSubstitute;
     using Xunit;
+    using Newtonsoft.Json;
 
     public class CommonServiceTests
     {
@@ -109,7 +110,22 @@
             var result = service.GetChatTypes();
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
+        }
+
+        [Fact]
+        public void GetMappingStatus_WhenCalled_ReturnsExpectedResult()
+        {
+            // Arrange
+            var service = GetService();
+            var expected = Enum.GetValues(typeof(MappingStatus)).Cast<MappingStatus>()
+                .Select(type => new BaseModel { Id = (int)type, Name = EnumHelper.GetDesciption(type) });
+
+            // Action
+            var result = service.GetMappingStatus();
+
+            // Assert
+            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
         }
 
         private CommonService GetService()
