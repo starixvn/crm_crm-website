@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
@@ -9,7 +10,17 @@ import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 
-class NewNotificationTemplate extends Component {
+export class NewNotificationTemplate extends Component {
+    static propTypes = {
+        languages: PropTypes.arrayOf(PropTypes.object),
+        notificationTypes: PropTypes.arrayOf(PropTypes.object)
+    }
+
+    static defaultProps = {
+        languages: [],
+        notificationTypes: []
+    }
+
     constructor(props) {
         super(props);
     }
@@ -197,9 +208,10 @@ class NewNotificationTemplate extends Component {
                 <Formik
                     initialValues={initialValues}
                     validate={this.validate}
-                    render={this.renderForm}
                     onSubmit={this.handleSubmit}
-                />
+                >
+                    {this.renderForm}
+                </Formik>
             </Modal>
         );
     }

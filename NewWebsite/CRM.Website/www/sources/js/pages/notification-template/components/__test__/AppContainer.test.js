@@ -12,7 +12,7 @@ describe('AppContainer', () => {
         jest.clearAllMocks();
     });
 
-    it('render AppContainer', () => {
+    it('renders component correctly', () => {
         // Act
         const wrapper = shallow(
             <Provider store={store}>

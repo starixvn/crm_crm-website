@@ -2,4 +2,4 @@
 
 exports[`AppContainer create notification template render popup 1`] = `ShallowWrapper {}`;
 
-exports[`AppContainer render AppContainer 1`] = `ShallowWrapper {}`;
+exports[`AppContainer renders component correctly 1`] = `ShallowWrapper {}`;

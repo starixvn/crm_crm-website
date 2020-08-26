@@ -11,7 +11,7 @@ describe('ContentDetailPopup', () => {
     it('render popup', () => {
         // Arrange
         const props = {
-            selectedTemplate: { title: 'notification template', contents: [] }
+            template: { title: 'notification template', contents: [] }
         };
 
         // Act
@@ -24,7 +24,7 @@ describe('ContentDetailPopup', () => {
     it('render child element', () => {
         // Arrange
         const props = {
-            selectedTemplate: {
+            template: {
                 title: 'notification template',
                 contents: [{ languageId: 1, language: 'EN', content: 'content' }]
             }
@@ -42,7 +42,7 @@ describe('ContentDetailPopup', () => {
     it('simulates close button', () => {
         // Arrange
         const props = {
-            selectedTemplate: { title: 'notification template', contents: [] },
+            template: { title: 'notification template', contents: [] },
             onClose: jest.fn()
         };
         const container = shallow(<ContentDetailPopup {...props} />);

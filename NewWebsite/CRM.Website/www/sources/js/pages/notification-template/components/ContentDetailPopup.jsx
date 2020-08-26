@@ -5,7 +5,7 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
 export const ContentDetailPopup = props => {
-    const template = props.selectedTemplate;
+    const template = props.template;
 
     return (
         <Modal show className="notification-template-content-modal" dialogAs={DraggableModalDialog}
@@ -38,7 +38,7 @@ export const ContentDetailPopup = props => {
 
 const mapStateToProps = state => {
     const { selectedTemplate } = state;
-    return { selectedTemplate };
+    return { template: selectedTemplate };
 };
 
 export default connect(mapStateToProps)(ContentDetailPopup);

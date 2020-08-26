@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
@@ -9,7 +10,31 @@ import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 
-class EditNotificationTemplate extends Component {
+export class EditNotificationTemplate extends Component {
+    static propTypes = {
+        languages: PropTypes.arrayOf(PropTypes.object),
+        notificationTypes: PropTypes.arrayOf(PropTypes.object),
+        template: PropTypes.shape({
+            notificationTemplateId: PropTypes.number,
+            notificationTypeId: PropTypes.number,
+            notificationTemplateName: PropTypes.string,
+            title: PropTypes.string,
+            contents: PropTypes.arrayOf(PropTypes.object)
+        }).isRequired
+    }
+
+    static defaultProps = {
+        languages: [],
+        notificationTypes: [],
+        template: {
+            notificationTemplateId: 0,
+            notificationTypeId: 0,
+            notificationTemplateName: '',
+            title: '',
+            contents: []
+        }
+    }
+
     constructor(props) {
         super(props);
     }
@@ -179,7 +204,7 @@ class EditNotificationTemplate extends Component {
     }
 
     render() {
-        const template = this.props.selectedTemplate;
+        const template = this.props.template;
         const initialValues = {
             notificationTemplateId: template.notificationTemplateId,
             notificationTypeId: template.notificationTypeId,
@@ -205,9 +230,10 @@ class EditNotificationTemplate extends Component {
                 <Formik
                     initialValues={initialValues}
                     validate={this.validate}
-                    render={this.renderForm}
                     onSubmit={this.handleSubmit}
-                />
+                >
+                    {this.renderForm}
+                </Formik>
             </Modal>
         );
     }
@@ -219,7 +245,7 @@ const mapStateToProps = state => {
     const { editTemplateResult, selectedTemplate, notificationTypes, languages } = state;
     return {
         editTemplateResult,
-        selectedTemplate,
+        template: selectedTemplate,
         notificationTypes,
         languages
     };

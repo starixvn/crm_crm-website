@@ -8,7 +8,7 @@ describe('Filter', () => {
         jest.clearAllMocks();
     });
 
-    it('render filter component', () => {
+    it('renders component correctly', () => {
         // Act
         const container = shallow(<Filter />);
 
@@ -16,7 +16,7 @@ describe('Filter', () => {
         expect(container).toMatchSnapshot();
     });
 
-    it('simulates submit button', () => {
+    it('should get grid data when click submit button', () => {
         // Arrange
         const param = {
             notificationTypeId: NaN,
@@ -38,7 +38,7 @@ describe('Filter', () => {
         expect(props.getGridData).toHaveBeenCalledWith(param);
     });
 
-    it('simulates insert button', () => {
+    it('should show create popup when click insert button', () => {
         // Arrange
         const props = {
             isHost: true,
