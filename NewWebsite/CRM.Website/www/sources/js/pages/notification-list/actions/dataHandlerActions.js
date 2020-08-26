@@ -1,7 +1,8 @@
 import types from './types';
 import axios from 'axios';
 import Site from '@jsroot/common/site';
-import { convertDateToString } from '../../../common/functions';
+import { convertDateToString } from '@jsroot/common/functions';
+import { EndTimeString } from '@jsroot/common/constants';
 
 // Grid
 export const setGridParams = data => {
@@ -26,7 +27,7 @@ export const getGridData = (params, done) => async dispatch => {
     }
     else {
         params.fromDate = convertDateToString(params.fromDate);
-        params.toDate = convertDateToString(params.toDate);
+        params.toDate = `${convertDateToString(params.toDate)} ${EndTimeString}`;
     }
     
     await axios({

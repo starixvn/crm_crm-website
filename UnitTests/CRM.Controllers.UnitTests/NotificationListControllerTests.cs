@@ -78,35 +78,11 @@
         }
 
         [Fact]
-        public async Task GetGridData_ToDateHasValue_ReturnExpectedResult()
-        {
-            // Arrange
-            var controller = GetController();
-            var toDate = fixture.Create<DateTime>();
-            var criteria = fixture.Create<GetNotificationListCriteria>();
-            criteria.ToDate = toDate;
-            var expectedToDate = toDate.AddDays(1).AddSeconds(-1);
-            var notificationList = fixture.Create<IEnumerable<Notification>>();
-            notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
-
-            // Act
-            var result = await controller.GetGridData(criteria) as JsonResult;
-
-            // Assert
-            var totalItemsResult = (int)result.Value.GetType().GetProperty("totalItems").GetValue(result.Value);
-            var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
-            Assert.Equal(expectedToDate, criteria.ToDate);
-            Assert.Equal(criteria.TotalRows, totalItemsResult);
-            Assert.Equal(notificationList, dataResult);
-        }
-
-        [Fact]
-        public async Task GetGridData_ToDateNotHasValue_ReturnExpectedResult()
+        public async Task GetGridData_WhenCalled_ReturnExpectedResult()
         {
             // Arrange
             var controller = GetController();
             var criteria = fixture.Create<GetNotificationListCriteria>();
-            criteria.ToDate = null;
             var notificationList = fixture.Create<IEnumerable<Notification>>();
             notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
 

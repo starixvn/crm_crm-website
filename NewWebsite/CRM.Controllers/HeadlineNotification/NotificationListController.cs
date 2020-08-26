@@ -69,11 +69,6 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
         public async Task<IActionResult> GetGridData([FromBody]GetNotificationListCriteria param)
         {
-            if (param.ToDate.HasValue)
-            {
-                param.ToDate = param.ToDate.Value.AddDays(1).AddSeconds(-1);
-            }
-
             var notifications = (await notificationListService.GetNotificationListAsync(param));
             return Json(new { totalItems = param.TotalRows, data = notifications });
         }

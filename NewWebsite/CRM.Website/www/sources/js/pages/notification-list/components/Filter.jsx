@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
-import DatePicker from '../../../components/date-picker/index';
+import DatePicker from '@jsroot/components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
-import { getNowGMTAdd8, debounce } from '../../../common/functions';
+import { getNowGMTAdd8, debounce } from '@jsroot/common/functions';
 import SelectWithSearch from 'react-select';
-import MultipleSelect from '../../../components/multiple-select/index';
+import MultipleSelect from '@jsroot/components/multiple-select/index';
 
 class Filter extends Component {
     constructor(props) {

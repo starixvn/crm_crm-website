@@ -18,3 +18,5 @@ export const ChatTypeMapping = {
     'Personal': 2,
     'Group': 1
 };
+
+export const EndTimeString = '23:59:59';
