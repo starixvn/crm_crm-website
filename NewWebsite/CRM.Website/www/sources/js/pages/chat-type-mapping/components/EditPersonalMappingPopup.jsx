@@ -43,7 +43,7 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.updatePersonalMappingData.data !== null) {    
+        if (nextProps.updatePersonalMappingData.data !== null) {
             const recipientId = prevState.form.recipient.value;
             const headlineIds = prevState.form.groupHeadlines.split(',');
             let letstalkIds = '';
@@ -190,7 +190,7 @@ export class EditPersonalMappingPopup extends Component {
             recipientTypeId: this.state.form.recipientType,
             letstalkId: this.state.form.conversationId,
             groupHeadlineIds: this.state.form.groupHeadlines,
-            recipientId: this.state.form.recipient.value,
+            recipientIds: this.state.form.recipient.value,
             languageId: this.state.form.languageId,
             remark: this.state.form.remark
         };

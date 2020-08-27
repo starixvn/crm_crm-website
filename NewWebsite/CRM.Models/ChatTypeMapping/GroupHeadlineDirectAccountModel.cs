@@ -4,6 +4,6 @@
 
     public class GroupHeadlineDirectAccountModel : BaseModel
     {
-        public IEnumerable<string> DirectAccounts { get; set; }
+        public IEnumerable<string> SubData { get; set; }
     }
 }

@@ -134,7 +134,7 @@ export class InsertPersonalMappingPopup extends Component {
             recipientTypeId: this.state.form.recipientType,
             letstalkId: this.state.form.letstalkId,
             groupHeadlineIds: this.state.form.groupHeadlines,
-            recipientId: this.state.form.recipient.value,
+            recipientIds: this.state.form.recipient.value,
             languageId: this.state.form.languageId,
             remark: this.state.form.remark
         };

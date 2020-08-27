@@ -8,3 +8,12 @@
     font-weight: bold;
     color: $blue-button;
 }
+
+.pointer-event-none {
+    pointer-events: none;
+    color: #9a9595;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed !important;
+}

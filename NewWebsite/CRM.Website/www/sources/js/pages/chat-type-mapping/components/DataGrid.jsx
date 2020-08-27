@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
-import { PAGING_SIZES, ChatTypeMapping } from '@jsroot/common/constants';
+import { PAGING_SIZES, ChatTypeMapping, MappingStatus } from '@jsroot/common/constants';
 import Site from '@jsroot/common/site';
 import { Form } from 'react-bootstrap';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
@@ -31,8 +31,9 @@ export class DataGrid extends Component {
 
     updateActiveStatus = () => {
         const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
-        this.props.updateActiveStatus(params);
-        this.props.getGridData(this.props.gridParams);
+        this.props.updateActiveStatus(params).then(() => {
+            this.props.getGridData(this.props.gridParams);
+        });
     }
 
     onCloseConfirmPopupChangeActiveStaus = () => {
@@ -70,20 +71,20 @@ export class DataGrid extends Component {
     buildHeader = isHost => {
         return (
             <HeaderRow style={{ height: 40 }}>
-                <HeaderCell colWidth={8}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
+                <HeaderCell colWidth={10}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('ChatType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('BotName')}</HeaderCell>
                 <HeaderCell colWidth={25}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
-                <HeaderCell colWidth={15}>{LangHelper.getResource('Language')}</HeaderCell>
-                <HeaderCell colWidth={18}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
-                <HeaderCell colWidth={8}>{LangHelper.getResource('Active')}</HeaderCell>
+                <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
+                <HeaderCell colWidth={20}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
+                <HeaderCell colWidth={12}>{LangHelper.getResource('Language')}</HeaderCell>
+                <HeaderCell colWidth={20}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
+                <HeaderCell colWidth={10}>{LangHelper.getResource('Active')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('Remark')}</HeaderCell>
                 {
-                    isHost && <HeaderCell colWidth={8}>{LangHelper.getResource('Action')}</HeaderCell>
+                    isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
                 }
             </HeaderRow>
         );
@@ -100,7 +101,9 @@ export class DataGrid extends Component {
         return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
-    renderIsActiveCol = (isHost, conversationGroupId, isActive) => {
+    renderIsActiveCol = (isHost, conversationGroupId, isActive, chatTypeId, mappingStatusId) => {
+        const isDisabled = (chatTypeId === ChatTypeMapping.Group) && (mappingStatusId === MappingStatus.NotMapped);
+
         if (isHost) {
             return (
                 <Cell className='text-center'>
@@ -108,7 +111,9 @@ export class DataGrid extends Component {
                         id={`active-chk-${conversationGroupId}`}
                         type='checkbox'
                         checked={isActive}
-                        onChange={(e) => this.onChangeActiveStaus(conversationGroupId, e.target.checked)} />
+                        onChange={(e) => this.onChangeActiveStaus(conversationGroupId, e.target.checked)}
+                        disabled={isDisabled}
+                    />
                 </Cell>
             );
         }
@@ -117,7 +122,7 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
-        console.log(item);
+        const isBotRemovedStatus = (item.chatTypeId === ChatTypeMapping.Group) && (item.mappingStatusId === MappingStatus.BotRemoved);
         return (
             <Row key={index}>
                 <Cell className='text-center'>{index + this.startIndex}</Cell>
@@ -146,14 +151,17 @@ export class DataGrid extends Component {
                 <Cell className='text-center'>
                     <span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatTypeId === ChatTypeMapping.Group ? item.mappingStatus : ''}</span>
                 </Cell>
-                {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive)}
+                {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive, item.chatTypeId, item.mappingStatusId)}
                 <Cell >{item.remark}</Cell>
                 {
                     isHost &&
                     <Cell className='text-center'>
-                        <span className="fa fa-pencil icon-edit"
-                            onClick={() => this.handleEdit(item.chatTypeId, item)}
-                        />
+                        <div className={isBotRemovedStatus ? 'cursor-not-allowed' : ''}>
+                            <span className={`fa fa-pencil icon-edit ${isBotRemovedStatus ? 'pointer-event-none' : ''}`}
+                                onClick={() => this.handleEdit(item.chatTypeId, item)}
+                            />
+                        </div>
+
                     </Cell>
                 }
             </Row>

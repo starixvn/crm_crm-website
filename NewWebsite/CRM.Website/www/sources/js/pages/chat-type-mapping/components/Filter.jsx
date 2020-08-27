@@ -23,9 +23,7 @@ class Filter extends Component {
                     value: ''
                 },
                 languageId: '',
-                botIds: {
-                    value: ''
-                },
+                botId: '',
                 active: ''
             },
             settings: {
@@ -45,11 +43,6 @@ class Filter extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if (prevState.settings.bots.length === 0 && nextProps.settings.bots) {
             const bots = nextProps.settings.bots;
-            const selectedbotIds = [];
-            bots.map(v => {
-                v['checked'] = true;
-                selectedbotIds.push(v['id']);
-            });
 
             const chatTypes = nextProps.settings.chatTypes;
             const mappingStatuses = nextProps.settings.mappingStatuses;
@@ -69,7 +62,7 @@ class Filter extends Component {
                     letstalkID: '',
                     mappingStatuses: selectedMappingStatuses.toString(),
                     languages: '',
-                    botIds: selectedbotIds.toString(),
+                    botId: '',
                     active: ''
                 },
                 settings: {
@@ -93,7 +86,7 @@ class Filter extends Component {
     getParams = () => {
         return {
             chatType: this.state.filter.chatType,
-            botIds: this.state.filter.botIds,
+            botId: this.state.filter.botId,
             name: this.state.filter.name,
             groupHeadline: this.state.filter.groupHeadline,
             recipientIds: this.state.filter.recipient,
@@ -110,10 +103,6 @@ class Filter extends Component {
         let isValid = true;
         let errMsg;
         const filter = this.state.filter;
-        if (filter.botIds === '') {
-            isValid = false;
-            errMsg = 'Please choose Bot Name';
-        }
 
         if (filter.mappingStatuses === '') {
             isValid = false;
@@ -237,19 +226,13 @@ class Filter extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('BotName')}</Form.Label>
-                            <div className='form-control-wrapper'>
-                                <MultipleSelect
-                                    width={154}
-                                    initialValue={this.state.filter.botIds}
-                                    dataSource={this.state.settings.bots}
-                                    keyField='id'
-                                    valueField='name'
-                                    statusField='checked'
-                                    isSummited={false}
-                                    isAllTextShown
-                                    onChange={(currentItem, selectedItem) => this.onChange('botIds', selectedItem)}
-                                />
-                            </div>
+                            <Form.Control as="select" size="sm" className="shadow-none"
+                                value={this.state.filter.botId}
+                                onChange={e => this.onChange('botId', e.target.value)}
+                            >
+                                <option value="">{LangHelper.getResource('All')}</option>
+                                {this.state.settings.bots.map(this.renderOptions)}
+                            </Form.Control>
                         </Form.Group>
                         <Form.Group>
                             <div className='col-auto pd-0'>

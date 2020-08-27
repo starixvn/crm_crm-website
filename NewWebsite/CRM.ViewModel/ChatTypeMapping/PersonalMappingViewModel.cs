@@ -14,8 +14,6 @@
 
         public string LetstalkId { get; set; }
 
-        public int RecipientId { get; set; }
-
         public string RecipientIds { get; set; }
 
         public int LanguageId { get; set; }
