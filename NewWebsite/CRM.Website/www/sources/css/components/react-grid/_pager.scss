@@ -1,12 +1,13 @@
 ﻿$colorLightGray: #ccc;
 $colorDisabledPgButton: #d1dae1;
 $bgPaging: #EFF3F8;
-$colorBorderPaging: #d1dae1;
+$colorBorderPaging: #b7b7b7;
 
 .page-container {
-    padding: 3px;
+    padding: 4px 5px;
     background-color: $bgPaging;
     border: 1px solid $colorBorderPaging;
+    border-top-width: 0;
 
     .fa {
         font-size: 14px;
