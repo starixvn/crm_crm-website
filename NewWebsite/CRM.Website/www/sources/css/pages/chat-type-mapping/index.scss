@@ -47,11 +47,13 @@
 
 .recipient-merge-cell {
     padding: 0 !important;
-    vertical-align: unset !important;
 
     .recipient-item {
-        padding: 4px 5px;
+        padding: 8px;
         border-bottom: 1px solid #b7b7b7;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:last-child {
             border-bottom: none;

@@ -227,5 +227,11 @@
 
             return Json(null);
         }
+
+        public async Task<string> GetLetstalkDisplayName(int botId, string letstalkId)
+        {
+            var contactDetail = await letstalkService(botId).GetProfileAsync(letstalkId.Trim());
+            return contactDetail.Item2 ? contactDetail.Item1.DisplayName : string.Empty;
+        }
     }
 }

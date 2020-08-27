@@ -155,7 +155,7 @@ class Filter extends Component {
                         message={this.state.validation.errMsg}
                     />
                 }
-                <Form className='form-filter' tag='div'>
+                <Form className='form-filter' onSubmit={this.submitHandler}>
                     <Form.Row className='form-row'>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</Form.Label>
@@ -253,12 +253,16 @@ class Filter extends Component {
                         </Form.Group>
                         <Form.Group>
                             <div className='col-auto pd-0'>
-                                <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
+                                <Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>
+                                    {LangHelper.getResource('Submit')}
+                                </Button>
                             </div>
                             {
                                 this.props.isHost &&
                                 <div className='col-auto'>
-                                    <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>{LangHelper.getResource('InsertPersonalMappingBtn')}</Button>
+                                    <Button className='mr-2' variant='primary' size='sm' onClick={this.props.openInsertPersonalMappingPopup}>
+                                        {LangHelper.getResource('InsertPersonalMappingBtn')}
+                                    </Button>
                                 </div>
                             }
                         </Form.Group>

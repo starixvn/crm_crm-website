@@ -163,6 +163,25 @@ export const updateGroupMapping = params => async dispatch => {
     }).catch(Site.handleAxiosError);
 };
 
+const setLetstalkDisplayName = name => {
+    return {
+        type: types.LETSTALK_DISPLAY_NAME,
+        data: name
+    };
+};
+export const getLetstalkDisplayName = (botId, letstalkId) => async dispatch => {
+    if (botId && letstalkId) {
+        const url = Site.resolveClientUrl('ChatTypeMapping/GetLetstalkDisplayName');
+        const params = { botId: botId, letstalkId: letstalkId };
+        await axios.get(url, { params: params }).then(response => {
+            dispatch(setLetstalkDisplayName(response.data));
+        }).catch(Site.handleAxiosError);
+    } else {
+        dispatch(setLetstalkDisplayName(''));
+    }
+   
+};
+
 const actions = {
     openInsertPersonalMappingPopup,
     closeInsertPersonalMappingPopup,
@@ -176,7 +195,8 @@ const actions = {
     closeUpdateGroupMappingPopup,
     updateGroupMapping,
     setGroupMappingResult,
-    verifyLetstalkInGroup
+    verifyLetstalkInGroup,
+    getLetstalkDisplayName
 };
 
 export default actions;

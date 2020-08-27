@@ -16,6 +16,7 @@ export class InsertPersonalMappingPopup extends Component {
         this.state = {
             form: {
                 botId: '',
+                displayName: '',
                 recipientType: '',
                 groupHeadlines: '',
                 recipient: null,
@@ -57,6 +58,9 @@ export class InsertPersonalMappingPopup extends Component {
 
     handleLetstalkSelect = (e) => {
         this.handleChange('letstalkId', e.target.value);
+        this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
+            this.handleChange('displayName', this.props.letstalkName);
+        });
     }
 
     renderOptions = (item, key) => {
@@ -151,7 +155,7 @@ export class InsertPersonalMappingPopup extends Component {
                     }, 3000);
                 } else {
                     this.setState({ isSubmitting: false });
-                } 
+                }
             });
         }
     }
@@ -198,6 +202,10 @@ export class InsertPersonalMappingPopup extends Component {
                         <Form.Label column sm="4" md="3">
                             {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
+                        <Form.Label column sm="8" md="9">
+                            {this.state.form.displayName}
+                        </Form.Label>
+
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3">
@@ -329,13 +337,14 @@ export class InsertPersonalMappingPopup extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { settings, recipients, groupHeadline, gridParams, insertPersonalMappingResult } = state;
+    const { settings, recipients, groupHeadline, gridParams, insertPersonalMappingResult, letstalkName } = state;
     return {
         settings,
         recipients,
         groupHeadline,
         gridParams,
-        insertPersonalMappingResult
+        insertPersonalMappingResult,
+        letstalkName
     };
 };
 

@@ -1,4 +1,4 @@
-﻿import React, { Component, useRef } from 'react';
+﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -54,7 +54,7 @@ export class EditPersonalMappingPopup extends Component {
             const recipientOptions = nextProps.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
             const headlineOptions = nextProps.groupHeadline;
             headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => v === headline.id); });
-
+            console.log(nextProps.groupHeadline);
             const state = {
                 settings: {
                     letstalkIds: letstalkIds,
@@ -107,6 +107,9 @@ export class EditPersonalMappingPopup extends Component {
 
     handleLetstalkSelect = (e) => {
         this.handleChange('conversationId', e.target.value);
+        this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
+            this.handleChange('name', this.props.letstalkName);
+        });
     }
 
     renderOptions = (item, key) => {
@@ -388,12 +391,13 @@ export class EditPersonalMappingPopup extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { settings, recipients, groupHeadline, gridParams, updatePersonalMappingData, updatePersonalMappingResult } = state;
+    const { settings, recipients, groupHeadline, gridParams, updatePersonalMappingData, updatePersonalMappingResult, letstalkName } = state;
     return {
         settings,
         recipients,
         groupHeadline,
         gridParams,
+        letstalkName,
         updatePersonalMappingData,
         updatePersonalMappingResult
     };

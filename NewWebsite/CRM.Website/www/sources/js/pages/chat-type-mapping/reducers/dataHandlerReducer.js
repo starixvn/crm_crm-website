@@ -48,6 +48,12 @@ export const groupHeadline = createReducer({}, {
     }
 });
 
+export const letstalkName = createReducer({}, {
+    [types.LETSTALK_DISPLAY_NAME](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     settings,
     gridParams,
@@ -55,7 +61,8 @@ const reducers = {
     updateActiveStatusPopup,
     updateActiveStatusResult,
     recipients,
-    groupHeadline
+    groupHeadline,
+    letstalkName
 };
 
 export default reducers;

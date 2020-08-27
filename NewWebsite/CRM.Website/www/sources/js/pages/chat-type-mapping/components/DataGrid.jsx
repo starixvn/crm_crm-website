@@ -39,9 +39,15 @@ export class DataGrid extends Component {
         this.props.setUpateActivePopup({ isShowPopup: false });
     }
 
-    renderRecipients = (recipient, key) => <div key={key} className='recipient-item'>{`${recipient.recipientName} (${recipient.roleName})`}</div>;
+    renderRecipients = (recipient, key) => {
+        return (
+            <div key={key} className='recipient-item' title={`${recipient.recipientName} (${recipient.roleName})`}>
+                {`${recipient.recipientName} (${recipient.roleName})`}
+            </div>
+        );
+    }
 
-    renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item'>{recipient.letstalkId}</div>;
+    renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item' title={recipient.letstalkId}>{recipient.letstalkId}</div>;
 
     handleEdit = (chatTypeId, data) => {
         if (parseInt(chatTypeId, 10) === ChatTypeMapping.Personal) {
@@ -65,19 +71,19 @@ export class DataGrid extends Component {
         return (
             <HeaderRow style={{ height: 40 }}>
                 <HeaderCell colWidth={8}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
-                <HeaderCell colWidth={12}>{LangHelper.getResource('ChatType')}</HeaderCell>
-                <HeaderCell colWidth={25}>{LangHelper.getResource('BotName')}</HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
+                <HeaderCell colWidth={15}>{LangHelper.getResource('ChatType')}</HeaderCell>
+                <HeaderCell colWidth={20}>{LangHelper.getResource('BotName')}</HeaderCell>
+                <HeaderCell colWidth={25}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={15}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
+                <HeaderCell colWidth={30}>{LangHelper.getResource('Recipient')}</HeaderCell>
+                <HeaderCell colWidth={30}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('Language')}</HeaderCell>
-                <HeaderCell colWidth={20}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('Active')}</HeaderCell>
-                <HeaderCell colWidth={20}>{LangHelper.getResource('Remark')}</HeaderCell>
+                <HeaderCell colWidth={18}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
+                <HeaderCell colWidth={8}>{LangHelper.getResource('Active')}</HeaderCell>
+                <HeaderCell colWidth={15}>{LangHelper.getResource('Remark')}</HeaderCell>
                 {
-                    isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
+                    isHost && <HeaderCell colWidth={8}>{LangHelper.getResource('Action')}</HeaderCell>
                 }
             </HeaderRow>
         );
@@ -91,7 +97,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} ><Cell className='text-center' colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+        return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     renderIsActiveCol = (isHost, conversationGroupId, isActive) => {
@@ -111,6 +117,7 @@ export class DataGrid extends Component {
     }
 
     renderRow = (item, index, isHost) => {
+        console.log(item);
         return (
             <Row key={index}>
                 <Cell className='text-center'>{index + this.startIndex}</Cell>
