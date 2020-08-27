@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewDetail render component correctly 1`] = `ShallowWrapper {}`;
+
+exports[`ViewDetail render expected component when view detail result is successful 1`] = `ShallowWrapper {}`;

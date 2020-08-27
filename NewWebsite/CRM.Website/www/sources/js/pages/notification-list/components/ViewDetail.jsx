@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 
-class ViewDetail extends Component {
+export class ViewDetail extends Component {
     constructor(props) {
         super(props);
 
