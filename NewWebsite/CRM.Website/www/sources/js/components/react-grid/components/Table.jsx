@@ -15,10 +15,10 @@ function scrollToTop(element, scrollDuration) {
             if (element.scrollTop !== 0) {
                 element.scrollTop += scrollStep;
             } else {
-                clearInterval(scrollInterval)
-            };
+                clearInterval(scrollInterval);
+            }
         }, 15);
-    })  
+    });
 }
 
 function debounce(func, wait) {
@@ -37,36 +37,6 @@ function debounce(func, wait) {
 }
 
 class Table extends Component {
-    constructor(props) {
-        super(props);
-
-        this.bodyWrapper = null;
-        this.footerWrapper = null;
-
-        const headerContainerProps = { className: 'header-content', isHeader: true };
-        this.Header = createTableSection(headerContainerProps);
-
-        const bodyContainerProps = { className: 'body-content', getRef: element => this.bodyWrapper = element };
-        this.Body = createTableSection(bodyContainerProps);
-
-        const footerContainerProps = { className: 'footer-content', getRef: element => this.footerWrapper = element };
-        this.Footer = createTableSection(footerContainerProps);
-
-        const { maxWidth, bodyHeight, adjustedHeight } = this.props;
-        const maxWidthValue = maxWidth || clientWidth;
-
-        this.diffWidth = clientWidth - maxWidthValue;
-        this.adjustedHeight = adjustedHeight;
-
-        this.debounceResizing = debounce(this._handleResize);
-
-        this.state = {
-            maxWidth: maxWidthValue,
-            contentHeight: bodyHeight,
-            columnsWidth: this._getColumnsWidth(props.header)
-        };
-    }
-
     static propTypes = {
         onSort: PropTypes.func,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -97,6 +67,36 @@ class Table extends Component {
         autoHeight: true,
         containerPadding: 30,
         shouldResetScrollPosition: true
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.bodyWrapper = null;
+        this.footerWrapper = null;
+
+        const headerContainerProps = { className: 'header-content', isHeader: true };
+        this.Header = createTableSection(headerContainerProps);
+
+        const bodyContainerProps = { className: 'body-content', getRef: element => this.bodyWrapper = element };
+        this.Body = createTableSection(bodyContainerProps);
+
+        const footerContainerProps = { className: 'footer-content', getRef: element => this.footerWrapper = element };
+        this.Footer = createTableSection(footerContainerProps);
+
+        const { maxWidth, bodyHeight, adjustedHeight } = this.props;
+        const maxWidthValue = maxWidth || clientWidth;
+
+        this.diffWidth = clientWidth - maxWidthValue;
+        this.adjustedHeight = adjustedHeight;
+
+        this.debounceResizing = debounce(this._handleResize);
+
+        this.state = {
+            maxWidth: maxWidthValue,
+            contentHeight: bodyHeight,
+            columnsWidth: this._getColumnsWidth(props.header)
+        };
     }
 
     _getColumnsWidth(headerRows) {
@@ -225,7 +225,7 @@ class Table extends Component {
 
         return newColumnsWidth;
     }
-    
+
     render() {
         const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging, containerPadding } = this.props;
         const maxWidth = this.state.maxWidth - containerPadding;
@@ -272,7 +272,7 @@ class Table extends Component {
                 </div>
                 {
                     isPaging && pageOption &&
-                    <Pager pageOption={pageOption} onPaging={onPaging} />
+                    <Pager pageOption={pageOption} onPaging={onPaging} {...sectionProps} />
                 }
             </div>
         );

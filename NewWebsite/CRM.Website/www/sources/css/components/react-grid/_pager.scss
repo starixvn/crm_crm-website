@@ -38,6 +38,7 @@ $colorBorderPaging: #d1dae1;
         padding: 2px;
         text-align: center;
         margin: 0;
+        outline: unset;
 
         &,
         &:focus {
@@ -72,6 +73,7 @@ $colorBorderPaging: #d1dae1;
         min-width: 65px;
         border: 1px solid #e2d6d6;
         margin-left: 5px;
+        outline: unset;
     }
 
     .page-info {

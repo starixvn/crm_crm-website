@@ -6,6 +6,14 @@
 @import '../../components/modal';
 @import '../../components/tables';
 
+.form-filter {
+    .form-row {
+        .form-group {
+            width: 350px;
+        }
+    }
+}
+
 .notification-template-modal {
     .modal-body {
         textarea {

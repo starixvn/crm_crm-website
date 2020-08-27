@@ -4,14 +4,6 @@ import { SCROLLBAR_WIDTH } from '../constants';
 
 const createTableSection = (extendedContainerProps, extendedTableProps) => {
     return class TableSection extends Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                sortBy: null,
-                sortOrder: null
-            };
-        }
-
         static propTypes = {
             onSort: PropTypes.func,
             tableClass: PropTypes.string,
@@ -27,6 +19,14 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
             tableClass: "table",
             autoWidth: true
         };
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                sortBy: null,
+                sortOrder: null
+            };
+        }
 
         get containerWidth() {
             const { autoWidth, maxWidth, width } = this.props;
@@ -59,7 +59,7 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
             const { sortBy, sortOrder } = this.state;
 
             // register onSort event
-            return React.Children.map(children, child => React.cloneElement(child, { onSort: this.onSort, sortBy, sortOrder}));
+            return React.Children.map(children, child => React.cloneElement(child, { onSort: this.onSort, sortBy, sortOrder }));
         }
 
         onSort = (sortBy, sortOrder) => {
@@ -68,9 +68,9 @@ const createTableSection = (extendedContainerProps, extendedTableProps) => {
                 sortBy: sortBy,
                 sortOrder: sortOrder
             },
-            () => {
-                onSort && onSort(sortBy, sortOrder);
-            });
+                () => {
+                    onSort && onSort(sortBy, sortOrder);
+                });
         }
 
         render() {

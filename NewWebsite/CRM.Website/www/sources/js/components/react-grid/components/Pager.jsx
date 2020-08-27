@@ -2,14 +2,6 @@
 import PropTypes from 'prop-types';
 
 export default class Pager extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            inputValue: this.props.pageOption.PageIndex
-        };
-    }
-
     static propTypes = {
         pageOption: PropTypes.shape({
             PageIndex: PropTypes.number,
@@ -32,6 +24,14 @@ export default class Pager extends Component {
         isShowPagingInfo: true,
         isAllowInputPageIndex: true
     };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            inputValue: this.props.pageOption.PageIndex
+        };
+    }
 
     componentDidUpdate(prevProps) {
         const pageIndex = this.props.pageOption.PageIndex;
@@ -118,17 +118,15 @@ export default class Pager extends Component {
     }
 
     render() {
-        const { isShowPagingInfo, isAllowInputPageIndex, pageOption } = this.props;
-        const { PageIndex, PageSize, TotalItem, PageList } = pageOption;
+        const { isShowPagingInfo, isAllowInputPageIndex, pageOption, minWidth, maxWidth } = this.props;
+        const { PageIndex, PageSize, TotalItem } = pageOption;
         const { inputValue } = this.state;
-
+        const isShow = TotalItem > 0;
         const isDisable = isNaN(parseInt(inputValue));
-
-        const isShow = TotalItem > PageList[0];
         const totalPage = Math.ceil(TotalItem / PageSize);
 
         return (
-            <div className="page-container" style={{ display: `${isShow ? 'block' : 'none'}` }}>
+            <div className="page-container" style={{ minWidth, maxWidth, display: `${isShow ? 'block' : 'none'}` }}>
                 Page size {this._renderPageSizeSelection(isDisable, PageIndex, PageSize)}
                 {this._renderPageIcon('fa-angle-double-left', PageIndex === 1, () => this.goToPage(1, PageSize))}
                 {this._renderPageIcon('fa-angle-left', isDisable || PageIndex <= 1 || PageIndex > totalPage, () => this.goToPage(PageIndex - 1, PageSize))}
