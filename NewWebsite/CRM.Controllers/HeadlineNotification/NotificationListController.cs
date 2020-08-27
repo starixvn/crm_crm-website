@@ -59,7 +59,7 @@
                 NotificationTypes = await notificationTypeService.GetNotificationTypeAsync(new GetNotificationTypeCriteria()),
                 Recipients = await commonService.GetRecipientAsync(new GetRecipientsCriteria()),
                 Headlines = await commonService.GetHeadlineAsync(new GetHeadlinesCriteria()),
-                Statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString())
+                Statuses = Enum.GetValues(typeof(NotificationStatus)).Cast<NotificationStatus>().Select(status => status.ToString())
             };
 
             return Json(result);

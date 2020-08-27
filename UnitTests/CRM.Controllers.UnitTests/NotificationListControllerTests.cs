@@ -58,7 +58,7 @@
             var notificationTypes = fixture.Create<IEnumerable<NotificationType>>();
             var recipients = fixture.Create<List<RecipientModel>>();
             var headlines = fixture.Create<List<BaseModel>>();
-            var statuses = Enum.GetValues(typeof(Status)).Cast<Status>().Select(status => status.ToString());
+            var statuses = Enum.GetValues(typeof(NotificationStatus)).Cast<NotificationStatus>().Select(status => status.ToString());
             notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetNotificationTypeCriteria>()).Returns(notificationTypes);
             commonService.GetRecipientAsync(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
             commonService.GetHeadlineAsync(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);

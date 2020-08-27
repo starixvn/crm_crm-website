@@ -1,6 +1,6 @@
 ﻿namespace CRM.Core.Enumerables
 {
-    public enum Status
+    public enum NotificationStatus
     {
         Sent,
         Error,
