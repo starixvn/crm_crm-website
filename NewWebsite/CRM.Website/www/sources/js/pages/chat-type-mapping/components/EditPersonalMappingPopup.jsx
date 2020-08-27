@@ -43,8 +43,8 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.updatePersonalMappingData.data !== null) {
-            const recipientId = prevState.form.recipientType;
+        if (nextProps.updatePersonalMappingData.data !== null) {    
+            const recipientId = prevState.form.recipient.value;
             const headlineIds = prevState.form.groupHeadlines.split(',');
             let letstalkIds = '';
             if (nextProps.recipients.length > 0) {
@@ -170,7 +170,7 @@ export class EditPersonalMappingPopup extends Component {
         }
 
         this.setState({
-            isSubmitting: false,
+            isSubmitting: isValid,
             validate: {
                 isShow: !isValid,
                 errMsgs: errMsg
@@ -206,8 +206,9 @@ export class EditPersonalMappingPopup extends Component {
                         this.props.closeUpdatePersonalMappingPopup();
                         this.props.getGridData(this.props.gridParams);
                     }, 3000);
+                } else {
+                    this.setState({ isSubmitting: false });
                 }
-                this.setState({ isSubmitting: false });
             });
         }
     }

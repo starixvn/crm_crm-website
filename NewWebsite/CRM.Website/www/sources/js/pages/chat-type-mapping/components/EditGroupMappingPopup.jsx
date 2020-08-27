@@ -186,7 +186,7 @@ export class EditGroupMappingPopup extends Component {
         }
 
         this.setState({
-            isSubmitting: false,
+            isSubmitting: isValid,
             validate: {
                 isShow: !isValid,
                 errMsgs: errMsg
@@ -222,8 +222,9 @@ export class EditGroupMappingPopup extends Component {
                         this.props.closeUpdateGroupMappingPopup();
                         this.props.getGridData(this.props.gridParams);
                     }, 3000);
+                } else {
+                    this.setState({ isSubmitting: false });
                 }
-                this.setState({ isSubmitting: false });
             });
         }
     }

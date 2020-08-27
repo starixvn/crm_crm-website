@@ -33,7 +33,6 @@ export const closeInsertPersonalMappingPopup = () => {
 };
 
 export const insertPersonalMapping = params => async dispatch => {
-    Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/InsertPersonalMapping');
     await axios({
         method: 'post',
@@ -45,7 +44,7 @@ export const insertPersonalMapping = params => async dispatch => {
         }
     }).then(response => {
         dispatch(setInsertPersonalMappingResult(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).catch(Site.handleAxiosError);
 };
 
 // Update Personal Mapping
@@ -80,7 +79,6 @@ export const closeUpdatePersonalMappingPopup = () => {
 };
 
 export const updatePersonalMapping = params => async dispatch => {
-    Site.blockUI();
     const url = Site.resolveClientUrl(`ChatTypeMapping/UpdatePersonalMapping`);
     await axios({
         method: 'post',
@@ -92,7 +90,7 @@ export const updatePersonalMapping = params => async dispatch => {
         }
     }).then(response => {
         dispatch(setUpdatePersonalMappingResult(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).catch(Site.handleAxiosError);
 };
 
 // Update Group Mapping
@@ -151,7 +149,6 @@ export const verifyLetstalkInGroup = params => {
 };
 
 export const updateGroupMapping = params => async dispatch => {
-    Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/UpdateGroupMapping');
     await axios({
         method: 'post',
@@ -163,7 +160,7 @@ export const updateGroupMapping = params => async dispatch => {
         }
     }).then(response => {
         dispatch(setGroupMappingResult(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    }).catch(Site.handleAxiosError);
 };
 
 const actions = {

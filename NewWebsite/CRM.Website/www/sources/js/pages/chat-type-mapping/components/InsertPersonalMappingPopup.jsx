@@ -115,7 +115,7 @@ export class InsertPersonalMappingPopup extends Component {
         }
 
         this.setState({
-            isSubmitting: false,
+            isSubmitting: isValid,
             validate: {
                 isShow: !isValid,
                 errMsgs: errMsg
@@ -149,8 +149,9 @@ export class InsertPersonalMappingPopup extends Component {
                         this.props.closeInsertPersonalMappingPopup();
                         this.props.getGridData(this.props.gridParams);
                     }, 3000);
-                }
-                this.setState({ isSubmitting: false });
+                } else {
+                    this.setState({ isSubmitting: false });
+                } 
             });
         }
     }
