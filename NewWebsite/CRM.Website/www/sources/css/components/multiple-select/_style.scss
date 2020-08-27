@@ -82,7 +82,6 @@ $indexNormal: 100;
         align-items: center;
         padding: 5px 8px;
         font-size: 13px;
-        text-indent: 4px;
         user-select: none;
 
         input[type=checkbox] + label {
@@ -91,7 +90,7 @@ $indexNormal: 100;
 
         label {
             margin-bottom: 0;
-            padding-left: 5px;
+            padding-left: 10px;
         }
     }
 

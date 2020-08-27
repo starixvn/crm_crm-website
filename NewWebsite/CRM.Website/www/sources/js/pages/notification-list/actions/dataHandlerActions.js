@@ -144,7 +144,8 @@ export const setConfirmPopup = data => {
 export const getHeadlineOptions = searchText => async dispatch => {
     const params = {
         username: searchText,
-        limit: 10
+        limit: 10,
+        excludeNotAssignedGroup: true
     };
 
     const url = Site.resolveClientUrl('Common/GetHeadlines');

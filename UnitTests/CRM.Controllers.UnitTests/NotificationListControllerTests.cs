@@ -56,24 +56,16 @@
             // Arrange
             var controller = GetController();
             var notificationTypes = fixture.Create<IEnumerable<NotificationType>>();
-            var recipients = fixture.Create<List<RecipientModel>>();
-            var headlines = fixture.Create<List<BaseModel>>();
             var statuses = Enum.GetValues(typeof(NotificationStatus)).Cast<NotificationStatus>().Select(status => status.ToString());
             notificationTypeService.GetNotificationTypeAsync(Arg.Any<GetNotificationTypeCriteria>()).Returns(notificationTypes);
-            commonService.GetRecipientAsync(Arg.Any<GetRecipientsCriteria>()).Returns(recipients);
-            commonService.GetHeadlineAsync(Arg.Any<GetHeadlinesCriteria>()).Returns(headlines);
 
             // Act
             var result = await controller.GetSettings() as JsonResult;
 
             // Assert
             var notificationTypesResult = (IEnumerable<NotificationType>)result.Value.GetType().GetProperty("NotificationTypes").GetValue(result.Value);
-            var recipientsResult = (IEnumerable<BaseModel>)result.Value.GetType().GetProperty("Recipients").GetValue(result.Value);
-            var headlinesResult = (IEnumerable<BaseModel>)result.Value.GetType().GetProperty("Headlines").GetValue(result.Value);
             var statusesResult = (IEnumerable<string>)result.Value.GetType().GetProperty("Statuses").GetValue(result.Value);
             Assert.Equal(notificationTypes, notificationTypesResult);
-            Assert.Equal(recipients, recipientsResult);
-            Assert.Equal(headlines, headlinesResult);
             Assert.Equal(statuses, statusesResult);
         }
 

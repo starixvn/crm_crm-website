@@ -10,10 +10,6 @@
 
         public bool? ExcludeNotAssignedGroup { get; set; }
 
-        public string RecipientIds { get; set; } = string.Empty;
-
-        public bool IsGetDirectAccount { get; set; } = true;
-
         public override string GetSettingKey() => "Acc_CRM_HeadlineSel";
 
         public override bool IsValid() => true;
