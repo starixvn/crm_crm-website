@@ -1,7 +1,7 @@
 import dataHandlerActions from '../dataHandlerActions';
 import ActionCreators from '../index';
 
-describe('notificationListActionsIndex', () => {
+describe('index', () => {
     it('should be imported action from data handler actions', () => {
         const expected = {
             ...dataHandlerActions
@@ -9,4 +9,4 @@ describe('notificationListActionsIndex', () => {
 
         expect(ActionCreators).toEqual(ActionCreators);
     })
-})
+});

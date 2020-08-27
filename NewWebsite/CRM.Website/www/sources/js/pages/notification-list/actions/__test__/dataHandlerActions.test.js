@@ -10,7 +10,7 @@ import { convertDateToString } from '@jsroot/common/functions';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('notificationListActionsDataHandlerActions', () => {
+describe('dataHandlerActions', () => {
     beforeAll(() => {
         Site.resolveClientUrl = jest.fn(url => url);
     });
@@ -248,7 +248,7 @@ describe('notificationListActionsDataHandlerActions', () => {
     
     it('should handle setHeadlineOptions when fetch headline options has been done', async () => {
         const searchText = 'searchText';
-        const expectedParams = { username: searchText, limit: 10 };
+        const expectedParams = { username: searchText, limit: 10, excludeNotAssignedGroup: true };
         const response = { data: [ { name: 'name' } ] };
         const options = response.data.map(item => {
             return { value: item.name, label: item.name }

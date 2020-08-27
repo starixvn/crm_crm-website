@@ -5,7 +5,6 @@ export const handleNewResendOptions = (data, done) => {
     const dataList = data.map(item => {
         return {
             notificationId: item.notificationId,
-            messageId: item.messageId,
             status: item.status,
             isResent: false
         }

@@ -19,7 +19,7 @@ export const setGridData = data => {
     };
 };
 
-export const getGridData = (params, done) => async dispatch => {
+export const getGridData = (params, callback) => async dispatch => {
     Site.blockUI();
     if (params.messageId !== '' || params.notificationIdLower !== '') {
         params.fromDate = null;
@@ -32,7 +32,10 @@ export const getGridData = (params, done) => async dispatch => {
     
     const url = Site.resolveClientUrl('NotificationList/GetGridData');
     await DataService.postDataAsync(url, params).then(response => {
-        done && done(response.data.data);
+        if (typeof callback === 'function') {
+            callback(response.data.data);
+        }
+        
         dispatch(setGridData(response.data));
     }).then(() => Site.unblockUI());
 };
@@ -120,12 +123,15 @@ export const setValidateResend = data => {
     };
 };
 
-export const resendNotifications = (dataList, done) => async dispatch => {
+export const resendNotifications = (dataList, callback) => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/ResendNotificationList');
     await DataService.postDataAsync(url, dataList).then(response => {
         const { message, isSuccessful } = response.data;
-        done && done();
+        if (typeof callback === 'function') {
+            callback();
+        }
+        
         dispatch(setMessageResult({
             show: true,
             message,

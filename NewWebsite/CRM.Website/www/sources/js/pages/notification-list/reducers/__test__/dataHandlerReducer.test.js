@@ -15,7 +15,7 @@ import {
 } from '../dataHandlerReducer';
 import types from '../../actions/types';
 
-describe('notification list reducer', () => {
+describe('dataHandlerReducer.test', () => {
     it('should handle gridParams', () => {
         const action = {
             type: types.GRID_PARAMS,
