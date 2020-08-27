@@ -26,8 +26,10 @@
     using Fanex.NAP.Client.Web;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.Configuration;
@@ -38,6 +40,7 @@
     using ONEbook.UM.Services;
     using ONEbook.UM.Transport;
     using Sentry;
+    using StackExchange.Redis;
 
     public class Startup
     {
@@ -117,6 +120,10 @@
 
             services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
 
+            var redisConfig = Configuration.GetSection("RedisConfig").Get<RedisConfig>();
+            ConfigDataProtection(services, redisConfig);
+            ConfigRedisCache(services, redisConfig);
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -134,6 +141,10 @@
             }
             else
             {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
                 app.UseMiddleware<ErrorHandler>();
                 app.UseHsts();
             }
@@ -184,6 +195,38 @@
             services.ResolveCoreDI();
             services.ResolveServiceDI();
             services.ResolveLetstalkBotConfigDI(botConfigs);
+        }
+
+        private static void ConfigDataProtection(IServiceCollection services, RedisConfig redisConfig)
+        {
+            var configRedix = new ConfigurationOptions
+            {
+                EndPoints =
+                {
+                    { redisConfig.Server, redisConfig.Port }
+                },
+                Password = redisConfig.Password
+            };
+            var redis = ConnectionMultiplexer.Connect(configRedix);
+            services.AddDataProtection()
+                .PersistKeysToStackExchangeRedis(redis, redisConfig.Password)
+                .SetApplicationName(redisConfig.ApplicationName);
+        }
+
+        private static void ConfigRedisCache(IServiceCollection services, RedisConfig redisConfig)
+        {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.ConfigurationOptions = new ConfigurationOptions
+                {
+                    EndPoints =
+                    {
+                        { redisConfig.Server, redisConfig.Port }
+                    },
+                    Password = redisConfig.Password,
+                };
+                options.InstanceName = redisConfig.ApplicationName;
+            });
         }
     }
 }
