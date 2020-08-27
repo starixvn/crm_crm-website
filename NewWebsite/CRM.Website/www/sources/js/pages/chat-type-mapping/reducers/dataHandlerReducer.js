@@ -54,6 +54,12 @@ export const letstalkName = createReducer({}, {
     }
 });
 
+export const dirtyFormConfirmation = createReducer({}, {
+    [types.DIRTY_FORM_CONFIRMATION](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     settings,
     gridParams,
@@ -62,7 +68,8 @@ const reducers = {
     updateActiveStatusResult,
     recipients,
     groupHeadline,
-    letstalkName
+    letstalkName,
+    dirtyFormConfirmation
 };
 
 export default reducers;

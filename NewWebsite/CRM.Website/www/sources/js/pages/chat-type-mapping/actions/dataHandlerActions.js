@@ -124,6 +124,16 @@ export const getGroupHeadlineByRecipient = recipientIds => async dispatch => {
     };
 };
 
+//Check dirty form
+export const setDirtyFormState = isShow => {
+    return {
+        type: types.DIRTY_FORM_CONFIRMATION,
+        data: {
+            isShow: isShow
+        }
+    };
+};
+
 const actions = {
     getSettings,
     getGridData,
@@ -131,7 +141,8 @@ const actions = {
     setUpateActivePopup,
     updateActiveStatus,
     getRecipientByRecipientType,
-    getGroupHeadlineByRecipient
+    getGroupHeadlineByRecipient,
+    setDirtyFormState
 };
 
 export default actions;

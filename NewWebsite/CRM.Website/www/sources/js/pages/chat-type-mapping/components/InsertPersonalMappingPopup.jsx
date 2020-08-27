@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -8,6 +8,7 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 
 export class InsertPersonalMappingPopup extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export class InsertPersonalMappingPopup extends Component {
                 displayName: '',
                 recipientType: '',
                 groupHeadlines: '',
-                recipient: null,
+                recipient: '',
                 letstalkId: '',
                 languageId: '',
                 remark: ''
@@ -29,6 +30,9 @@ export class InsertPersonalMappingPopup extends Component {
             validate: {
                 isShow: false,
                 errMsgs: []
+            },
+            dirtyFormConfirmation: {
+                isShow: false
             }
         };
     }
@@ -158,6 +162,33 @@ export class InsertPersonalMappingPopup extends Component {
                 }
             });
         }
+    }
+
+    isDirtyForm = () => {
+        const form = this.state.form;
+        return form.botId !== '' ||
+            form.recipientType !== '' ||
+            form.letstalkId !== '' ||
+            form.groupHeadlines !== '' ||
+            form.recipient !== '' ||
+            form.languageId !== '' ||
+            form.remark !== '';
+    }
+
+    onCloseInsertPopup = () => {
+        if (this.isDirtyForm()) {
+            this.setState({
+                dirtyFormConfirmation: { isShow: true }
+            });
+        } else {
+            this.props.closeInsertPersonalMappingPopup();
+        }
+    }
+
+    closeConfirmDirtyForm = () => {
+        this.setState({
+            dirtyFormConfirmation: { isShow: false }
+        });
     }
 
     renderForm = () => {
@@ -309,7 +340,7 @@ export class InsertPersonalMappingPopup extends Component {
                     <Button type="submit" variant="primary" size="sm" disabled={this.state.isSubmitting}>
                         {LangHelper.getResource('Submit')}
                     </Button>
-                    <Button type="button" variant="primary" size="sm" onClick={this.props.closeInsertPersonalMappingPopup}>
+                    <Button type="button" variant="primary" size="sm" onClick={this.onCloseInsertPopup}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
@@ -319,17 +350,33 @@ export class InsertPersonalMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="insert-personal" dialogAs={DraggableModalDialog}
-                backdrop="static" keyboard={false} size="md" centered
-                onHide={this.props.closeInsertPersonalMappingPopup}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('InsertPersonalMapping')}</Modal.Title>
-                </Modal.Header>
+            <Fragment>
+                <Modal show className="insert-personal" dialogAs={DraggableModalDialog}
+                    backdrop="static" keyboard={false} size="md" centered
+                    onHide={this.onCloseInsertPopup}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title as="div">{LangHelper.getResource('InsertPersonalMapping')}</Modal.Title>
+                    </Modal.Header>
+                    {
+                        this.renderForm()
+                    }
+
+                </Modal>
                 {
-                    this.renderForm()
+                    this.state.dirtyFormConfirmation.isShow &&
+                    <ConfirmPopup
+                        size='lg'
+                        title={LangHelper.getResource('Confirmation')}
+                        content={
+                            <div>There are some changes. Are you sure you want to ignore these changes?</div>
+                        }
+                        onSubmit={this.props.closeInsertPersonalMappingPopup}
+                        onClose={this.closeConfirmDirtyForm}
+                    />
                 }
-            </Modal>
+            </Fragment>
+
         );
     }
 }

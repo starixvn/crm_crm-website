@@ -228,7 +228,6 @@ export class DataGrid extends Component {
                     this.props.updateGroupMappingData.isShow &&
                     <EditGroupMappingPopup />
                 }
-
             </Fragment>
         );
     }
@@ -237,14 +236,15 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData, updateActiveStatusPopup, updateActiveStatusResult, updatePersonalMappingData, updateGroupMappingData } = state;
+    const { gridParams, gridData, updateActiveStatusPopup, updateActiveStatusResult, updatePersonalMappingData, updateGroupMappingData, dirtyFormConfirmation } = state;
     return {
         gridParams,
         gridData,
         updateActiveStatusPopup,
         updateActiveStatusResult,
         updatePersonalMappingData,
-        updateGroupMappingData
+        updateGroupMappingData,
+        dirtyFormConfirmation
     };
 };
 
