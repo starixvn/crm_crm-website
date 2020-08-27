@@ -7,18 +7,7 @@
 @import '../../components/messages';
 @import '../../components/modal';
 @import '../../components/react-select';
-
-.table-title {
-    border: 1px solid $border-table-grey;
-    padding-left: 5px;
-    background-color: $bg-table-title-grey;
-    font-weight: bold;
-    color: $blue-button;
-}
-
-.table-title {
-    border-bottom: none;
-}
+@import '../../components/tables';
 
 .checkbox-cell-style {
     width: 13px;

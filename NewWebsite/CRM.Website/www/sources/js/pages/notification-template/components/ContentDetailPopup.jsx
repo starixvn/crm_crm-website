@@ -20,7 +20,7 @@ export const ContentDetailPopup = props => {
                     template.contents.map(item => {
                         return (
                             <Fragment key={item.languageId}>
-                                <div>{LangHelper.getResource('Content')} ({item.language})</div>
+                                <div className="font-weight-bold">{LangHelper.getResource('Content')} ({item.language})</div>
                                 <div className="border p-2 mt-2 mb-3 content">{item.content}</div>
                             </Fragment>
                         );
