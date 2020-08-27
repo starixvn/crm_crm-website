@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using CRM.Core.Models
+@using Microsoft.Extensions.Options
+@inject IOptionsSnapshot<AppSettings> appSettings
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -37,6 +40,8 @@
     </div>
 
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
+    <input type="hidden" id="ClientTimezone" value="@appSettings.Value.ClientTimezone" />
+    <input type="hidden" id="ServerTimezone" value="@appSettings.Value.ServerTimezone" />
     @Html.AntiForgeryToken()
     <environment include="Development">
         <script src="~/js/dev/lib/react-vendor.chunk.js"></script>
