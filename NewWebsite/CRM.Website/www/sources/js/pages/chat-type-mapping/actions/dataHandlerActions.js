@@ -70,7 +70,6 @@ export const updateActiveStatus = params => async dispatch => {
         }
     }).then(response => {
         dispatch(setUpateActiveResult(response.data));
-        dispatch(setUpateActivePopup({ isShow: false }));
     }).catch(Site.handleAxiosError);
 };
 

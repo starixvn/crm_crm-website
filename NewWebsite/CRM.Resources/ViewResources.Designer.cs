@@ -113,5 +113,14 @@ namespace CRM.Resources {
                 return ResourceManager.GetString("Status", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Chat Type Mapping successfully!.
+        /// </summary>
+        public static string UpdateActiveStatusSuccess {
+            get {
+                return ResourceManager.GetString("UpdateActiveStatusSuccess", resourceCulture);
+            }
+        }
     }
 }

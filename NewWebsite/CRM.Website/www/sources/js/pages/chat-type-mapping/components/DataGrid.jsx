@@ -32,7 +32,12 @@ export class DataGrid extends Component {
     updateActiveStatus = () => {
         const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
         this.props.updateActiveStatus(params).then(() => {
-            this.props.getGridData(this.props.gridParams);
+            if (this.props.updateActiveStatusResult) {
+                setTimeout(() => {
+                    this.onCloseConfirmPopupChangeActiveStaus();
+                    this.props.getGridData(this.props.gridParams);
+                }, 3000);
+            }
         });
     }
 
@@ -206,8 +211,8 @@ export class DataGrid extends Component {
                         title={LangHelper.getResource('Confirmation')}
                         content={
                             <div>
-                                When a group/personal is <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong>. The system will <strong>{this.props.updateActiveStatusPopup.isChecked ? '' : 'not'}</strong> send notifications to the group.
-								Do you want to proceed?
+                                The Personal/Group shall be <strong>{!this.props.updateActiveStatusPopup.isChecked ? 'not ' : ''}</strong>received notification anymore.
+                                Are you sure you want to <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong> it?
 							</div>
                         }
                         requestResponse={this.props.updateActiveStatusResult}
@@ -232,11 +237,12 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData, updateActiveStatusPopup, updatePersonalMappingData, updateGroupMappingData } = state;
+    const { gridParams, gridData, updateActiveStatusPopup, updateActiveStatusResult, updatePersonalMappingData, updateGroupMappingData } = state;
     return {
         gridParams,
         gridData,
         updateActiveStatusPopup,
+        updateActiveStatusResult,
         updatePersonalMappingData,
         updateGroupMappingData
     };
