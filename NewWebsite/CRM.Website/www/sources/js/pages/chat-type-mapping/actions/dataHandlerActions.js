@@ -112,14 +112,12 @@ export const setGroupHeadlineData = data => {
     };
 };
 
-export const getGroupHeadlineByRecipient = recipientIds => {
+export const getGroupHeadlineByRecipient = recipientIds => async dispatch => {
     if (recipientIds) {
         const url = Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient');
-        return dispatch => {
-            axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
-                dispatch(setGroupHeadlineData(response.data));
-            }).catch(Site.handleAxiosError);
-        };
+        await axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
+            dispatch(setGroupHeadlineData(response.data));
+        }).catch(Site.handleAxiosError);
     }
 
     return dispatch => {

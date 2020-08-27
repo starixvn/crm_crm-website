@@ -41,3 +41,15 @@ body {
         margin: -10px 0 0 -70px;
     }
 }
+
+.copied-confirm {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    background-color: #000;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: bold;
+}

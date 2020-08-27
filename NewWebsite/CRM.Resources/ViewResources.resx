@@ -120,6 +120,9 @@
   <data name="ChatTypeMapping" xml:space="preserve">
     <value>Chat Type Mapping</value>
   </data>
+  <data name="LetstalkInvalidMessage" xml:space="preserve">
+    <value>{0} does not exist in Letstalk application.</value>
+  </data>
   <data name="NotificationList" xml:space="preserve">
     <value>Notification List</value>
   </data>

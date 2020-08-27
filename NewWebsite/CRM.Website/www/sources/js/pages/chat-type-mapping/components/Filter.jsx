@@ -255,10 +255,12 @@ class Filter extends Component {
                             <div className='col-auto pd-0'>
                                 <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.submitHandler}>{LangHelper.getResource('Submit')}</Button>
                             </div>
-
-                            <div className='col-auto'>
-                                <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>{LangHelper.getResource('InsertPersonalMappingBtn')}</Button>
-                            </div>
+                            {
+                                this.props.isHost &&
+                                <div className='col-auto'>
+                                    <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>{LangHelper.getResource('InsertPersonalMappingBtn')}</Button>
+                                </div>
+                            }
                         </Form.Group>
                     </Form.Row>
                 </Form>

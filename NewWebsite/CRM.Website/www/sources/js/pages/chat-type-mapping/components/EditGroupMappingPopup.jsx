@@ -78,8 +78,9 @@ export class EditGroupMappingPopup extends Component {
 
         if (recipientTypeId) {
             this.props.getRecipientByRecipientType(recipientTypeId);
-            this.props.getGroupHeadlineByRecipient(selectedRecipientIds);
-            this.verifyLetstalk(selectedRecipientIds);
+            this.props.getGroupHeadlineByRecipient(selectedRecipientIds).then(() => {
+                this.verifyLetstalk(selectedRecipientIds.split(','));
+            });
         }
     }
 
@@ -104,24 +105,26 @@ export class EditGroupMappingPopup extends Component {
     };
 
     verifyLetstalk = (recipientIds) => {
-        const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
-        const params = {
-            botId: this.state.form.bot.id,
-            groupConversationId: this.state.form.conversationId,
-            recipients: selectedOptions.map((item, key) => {
-                return {
-                    recipientId: item.id,
-                    recipientName: item.name,
-                    letstalks: item.letstalkIds.split(',').map((l, k) => {
-                        return {
-                            letstalkId: l
-                        };
-                    })
-                };
-            })
-        };
+        if (recipientIds) {
+            const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
+            const params = {
+                botId: this.state.form.bot.id,
+                groupConversationId: this.state.form.conversationId,
+                recipients: selectedOptions.map((item, key) => {
+                    return {
+                        recipientId: item.id,
+                        recipientName: item.name,
+                        letstalks: item.letstalkIds.split(',').map((l, k) => {
+                            return {
+                                letstalkId: l
+                            };
+                        })
+                    };
+                })
+            };
 
-        this.props.verifyLetstalkInGroup(params);
+            this.props.verifyLetstalkInGroup(params);
+        }
     }
 
     handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {
@@ -138,17 +141,21 @@ export class EditGroupMappingPopup extends Component {
 
     renderLetstalkIdVerification = (item, key) => {
         return (
-            <div className='letstalk-group-mapping'>
-                <div className='recipient-name common-letstalk-display'>{item.recipientName}</div>
+            <div className='letstalk-group-mapping' key={key}>
+                <div className='recipient-name common-letstalk-display' title={item.recipientName}>{item.recipientName}</div>
                 <div className='letstalk-wrapper'>
                     {
                         item.letstalks.length > 0 &&
                         item.letstalks.map((v, k) => {
-                            return <div className='letstalk-name common-letstalk-display'>{v.letstalkId}<span className={v.isGroupMember ? 'fa fa-check icon' : ''} /></div>;
+                            return (
+                                <div key={k} className='letstalk-name common-letstalk-display' title={v.letstalkId}>
+                                    {v.letstalkId}
+                                    <span className={v.isGroupMember ? 'fa fa-check icon' : ''} />
+                                </div>
+                             );
                         })
                     }
                 </div>
-
             </div>
         );
     }

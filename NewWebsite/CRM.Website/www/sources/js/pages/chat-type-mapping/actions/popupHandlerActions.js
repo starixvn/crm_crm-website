@@ -32,21 +32,20 @@ export const closeInsertPersonalMappingPopup = () => {
     };
 };
 
-export const insertPersonalMapping = params => {
+export const insertPersonalMapping = params => async dispatch => {
+    Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/InsertPersonalMapping');
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setInsertPersonalMappingResult(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setInsertPersonalMappingResult(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 // Update Personal Mapping
@@ -80,21 +79,20 @@ export const closeUpdatePersonalMappingPopup = () => {
     };
 };
 
-export const updatePersonalMapping = params => {
+export const updatePersonalMapping = params => async dispatch => {
+    Site.blockUI();
     const url = Site.resolveClientUrl(`ChatTypeMapping/UpdatePersonalMapping`);
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setUpdatePersonalMappingResult(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setUpdatePersonalMappingResult(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 // Update Group Mapping
@@ -148,25 +146,24 @@ export const verifyLetstalkInGroup = params => {
             }
         }).then(response => {
             dispatch(setLetstalkVerifationData(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+        }).catch(Site.handleAxiosError);
     };
 };
 
-export const updateGroupMapping = params => {
+export const updateGroupMapping = params => async dispatch => {
+    Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/UpdateGroupMapping');
-    return dispatch => {
-        return axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
-            dispatch(setGroupMappingResult(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios({
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'RequestVerificationToken': Site.getXsrfToken()
+        }
+    }).then(response => {
+        dispatch(setGroupMappingResult(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 const actions = {

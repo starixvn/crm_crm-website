@@ -51,21 +51,22 @@ export class DataGrid extends Component {
         }
     }
 
-    copyGroupIdToClipboard = groupId => {
-        //const input = document.createElement('input');
-        //input.value = groupId;
-        //document.body.appendChild(input);
-        //input.select();
-        //document.execCommand('copy');
-        //input.remove();
+    copyGroupIdToClipboard = conversationId => {
+        const input = document.createElement('input');
+        input.value = conversationId;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+        Site.displayCopiedToClipboard();
     }
 
     buildHeader = isHost => {
         return (
             <HeaderRow style={{ height: 40 }}>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
-                <HeaderCell colWidth={15}>{LangHelper.getResource('ChatType')}</HeaderCell>
-                <HeaderCell colWidth={20}>{LangHelper.getResource('BotName')}</HeaderCell>
+                <HeaderCell colWidth={8}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
+                <HeaderCell colWidth={12}>{LangHelper.getResource('ChatType')}</HeaderCell>
+                <HeaderCell colWidth={25}>{LangHelper.getResource('BotName')}</HeaderCell>
                 <HeaderCell colWidth={30}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
@@ -119,7 +120,7 @@ export class DataGrid extends Component {
                     {item.conversationGroupName}
                     {
                         item.chatTypeId === ChatTypeMapping.Group &&
-                        <span className="icon-copy fa fa-copy" onClick={this.copyGroupIdToClipboard(item.LetstalkId)} title='Coppy to clipboard' />
+                        <span className="icon-copy fa fa-copy" onClick={() => this.copyGroupIdToClipboard(item.conversationId)} title='Copy to clipboard' />
                     }
                 </Cell>
                 <Cell >{item.recipients[0].recipientTypeName}</Cell>

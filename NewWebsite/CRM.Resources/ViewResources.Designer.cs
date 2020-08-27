@@ -70,6 +70,15 @@ namespace CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} does not exist in Letstalk application..
+        /// </summary>
+        public static string LetstalkInvalidMessage {
+            get {
+                return ResourceManager.GetString("LetstalkInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification List.
         /// </summary>
         public static string NotificationList {

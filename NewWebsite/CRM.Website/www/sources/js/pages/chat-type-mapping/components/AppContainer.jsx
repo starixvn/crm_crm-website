@@ -15,7 +15,7 @@ export class AppContainer extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Filter />
+                <Filter isHost={this.isHost}/>
 				<DataGrid isHost={this.isHost} />
 
 			</Fragment>

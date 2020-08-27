@@ -71,4 +71,14 @@ export default class Site {
                 return '';
         }
     }
+
+    static displayCopiedToClipboard() {
+        const div = document.createElement('div');
+        div.className = "copied-confirm";
+        div.innerHTML = `Coppied to clipboard!`;
+        document.body.appendChild(div);
+        setTimeout(() => {
+            div.remove();
+        }, 1000);
+    }
 }

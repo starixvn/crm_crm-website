@@ -12,6 +12,7 @@
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Models;
     using CRM.Models.Setting;
+    using CRM.Resources;
     using CRM.Services;
     using CRM.Services.Interfaces;
     using CRM.ViewModels.ChatTypeMapping;
@@ -22,7 +23,7 @@
     using static Fanex.NAP.Core.Business.Constant;
 
     [CrmAuthorize]
-    [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
+    [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Read)]
     public class ChatTypeMappingController : Controller
     {
         private readonly INapSession napSession;
@@ -53,7 +54,7 @@
 
         public IActionResult Index()
         {
-            var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationTemplate, Policy.Host);
+            var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.ChatTypeMapping, Policy.Host);
             return View(isHost);
         }
 
@@ -103,20 +104,15 @@
         }
 
         [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Host)]
         public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
-            try
-            {
-                var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, 8);
-                return Json(commandResult);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, 8);
+            return Json(commandResult);
         }
 
         [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Host)]
         public async Task<IActionResult> InsertPersonalMapping([FromBody]PersonalMappingViewModel data)
         {
             var result = new CommandResult();
@@ -140,32 +136,14 @@
             }
             else
             {
-                result.Message = "The selected Letstalk ID does not existed";
+                result.Message = string.Format(ViewResources.LetstalkInvalidMessage, data.LetstalkId);
             }
 
             return Json(result);
         }
 
-        public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
-        {
-            var recipients = await commonService.GetRecipientAsync(new GetRecipientsCriteria { RecipientType = recipientTypeId });
-            return Json(recipients);
-        }
-
-        public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
-        {
-            try
-            {
-                var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
-                return Json(headlines);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
         [HttpPost]
+        [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Host)]
         public async Task<IActionResult> UpdatePersonalMapping([FromBody]PersonalMappingViewModel data)
         {
             var result = new CommandResult();
@@ -189,10 +167,22 @@
             }
             else
             {
-                result.Message = "The selected Letstalk ID does not existed";
+                result.Message = string.Format(ViewResources.LetstalkInvalidMessage, data.LetstalkId);
             }
 
             return Json(result);
+        }
+
+        public async Task<IActionResult> GetRecipientByType(int recipientTypeId)
+        {
+            var recipients = await commonService.GetRecipientAsync(new GetRecipientsCriteria { RecipientType = recipientTypeId });
+            return Json(recipients);
+        }
+
+        public async Task<IActionResult> GetGroupHeadlineByRecipient(string recipientIds)
+        {
+            var headlines = await chatTypeMappingService.GetHeadlineByRecipientAsync(recipientIds);
+            return Json(headlines);
         }
 
         [HttpPost]
@@ -219,7 +209,6 @@
         [HttpPost]
         public async Task<IActionResult> VerifyLetstalkInGroup([FromBody]LetstalkVerification data)
         {
-            data.GroupConversationId = "KQrsF8lVV1vrcLDPHJKYQ_Eq8Zh5kd0A7x9Gb4nsC1yZeCnMDkfq9IPKobj3UQmK";
             if (data.BotId > 0 && !string.IsNullOrWhiteSpace(data.GroupConversationId))
             {
                 var botFriends = await letstalkService(data.BotId).GetBotContactList();

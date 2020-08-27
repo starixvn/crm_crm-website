@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
     <ProjectReference Include="..\CRM.Models\CRM.Models.csproj" />
+    <ProjectReference Include="..\CRM.Resources\CRM.Resources.csproj" />
     <ProjectReference Include="..\CRM.Services\CRM.Services.csproj" />
     <ProjectReference Include="..\CRM.ViewModel\CRM.ViewModels.csproj" />
   </ItemGroup>
