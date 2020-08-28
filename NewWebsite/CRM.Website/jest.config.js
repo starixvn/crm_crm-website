@@ -1,12 +1,14 @@
-﻿const { defaults } = require('jest-config');
-module.exports = {
+﻿module.exports = {
     setupFilesAfterEnv: ['<rootDir>/www/sources/js/setupTests/setupEnzyme.js'],
-    moduleFileExtensions: [...defaults.moduleFileExtensions, 'js', 'jsx'],
+    moduleFileExtensions: ['js', 'jsx'],
     moduleNameMapper: {
         '^@jsroot(.*)$': '<rootDir>/www/sources/js$1'
     },
+    collectCoverage: true,
     collectCoverageFrom: [
-        '**/www/sources/js/**/*.{js,jsx}',
-        '!**/node_modules/**'
+        '<rootDir>/www/sources/js/**/*.{js,jsx}'
+    ],
+    coveragePathIgnorePatterns: [
+        '<rootDir>/node_modules/'
     ]
 };
