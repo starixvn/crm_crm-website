@@ -13,6 +13,11 @@ module.exports = merge(baseConfigs,
     {
         mode: 'production',
         watch: false,
+        devtool: false,
+        performance: {
+            maxEntrypointSize: 512000,
+            maxAssetSize: 512000
+        },
         plugins: [
             new CleanWebpackPlugin([`${jsRootPath}/`], {
                 root: process.cwd()

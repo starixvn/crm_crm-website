@@ -44,15 +44,17 @@
     <input type="hidden" id="ServerTimezone" value="@appSettings.Value.ServerTimezone" />
     @Html.AntiForgeryToken()
     <environment include="Development">
-        <script src="~/js/dev/lib/react-vendor.chunk.js"></script>
-        <script src="~/js/dev/lib/lang-en-US.chunk.js"></script>
         <script src="~/js/dev/main.chunk.js"></script>
+        <script src="~/js/dev/lib/lang-en-US.chunk.js"></script>
+        <script src="~/js/dev/lib/react-vendor.chunk.js"></script>
+        <script src="~/js/dev/lib/react-bootstrap-vendor.chunk.js"></script>
     </environment>
     <environment exclude="Development">
         @Html.Raw(Fanex.Logging.LogManager.RenderJavascriptLogger())
-        <script src="~/js/pro/lib/react-vendor.chunk.js"></script>
-        <script src="~/js/pro/lib/lang-en-US.chunk.js"></script>
         <script src="~/js/pro/main.chunk.js"></script>
+        <script src="~/js/pro/lib/lang-en-US.chunk.js"></script>
+        <script src="~/js/pro/lib/react-vendor.chunk.js"></script>
+        <script src="~/js/pro/lib/react-bootstrap-vendor.chunk.js"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>

@@ -83,6 +83,12 @@ function generateConfig(environment) {
                         test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
                         minChunks: 2,
                         priority: -10
+                    },
+                    reactBootstrapVendor: {
+                        name: 'react-bootstrap-vendor',
+                        test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
+                        minChunks: 2,
+                        priority: -10
                     }
                 }
             }
