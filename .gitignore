@@ -45,3 +45,5 @@ node_modules
 /NewWebsite/CRM.Website/wwwroot/css/dev
 /NewWebsite/CRM.Website/wwwroot/js/dev
 /NewWebsite/CRM.Website/coverage
+/CoverageReports
+*.cobertura.xml
