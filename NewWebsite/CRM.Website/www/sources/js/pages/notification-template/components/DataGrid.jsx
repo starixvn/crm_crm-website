@@ -100,7 +100,7 @@ export class DataGrid extends Component {
             <Fragment>
                 <div className='table-title'>{LangHelper.getResource('NotificationTemplate')}</div>
                 <Table
-                    minWidth={960}
+                    minWidth={720}
                     maxWidth={document.getElementById('app-container').clientWidth}
                     autoWidth
                     header={this.buildHeader(isHost)}
@@ -109,7 +109,7 @@ export class DataGrid extends Component {
                     pageOption={pagingOption}
                     onPaging={this.onPaging}
                     containerPadding={0}
-                    adjustedHeight={50}
+                    adjustedHeight={10}
                 />
             </Fragment>
         );
