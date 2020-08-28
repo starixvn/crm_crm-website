@@ -118,7 +118,7 @@ export class ViewDetail extends Component {
                             <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.viewDetail.resolvedBy}</div>
                         </Fragment> : <Fragment>
                             <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
-                            <textarea className='view-detail-remark' rows='3' onChange={this.handleChange} name='remark' value={this.state.remark} />
+                            <textarea className='view-detail-remark' rows='3' onChange={e => this.handleChange(e)} name='remark' value={this.state.remark} />
                         </Fragment>
                     }
                 </Modal.Body>

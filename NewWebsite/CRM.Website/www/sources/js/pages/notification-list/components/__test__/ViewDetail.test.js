@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { ViewDetail } from '../ViewDetail';
 import { shallow } from 'enzyme';
 import { Button, Modal } from 'react-bootstrap';
@@ -233,5 +233,239 @@ describe('ViewDetail', () => {
         getRecipients_Test(undefined, '');
         getRecipients_Test([], '');
         getRecipients_Test(recipients, recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>));
+    });
+
+    describe('handleChange', () => {
+        it('handleChange called when textarea change', () => {
+            // Arrange
+            const event = {
+                target: { name: 'remark', value: 'the-value' },
+            };
+    
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                }
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().handleChange = jest.fn();
+    
+            // Action
+            viewDetail.find('textarea').simulate('change', event);
+    
+            // Assert
+            expect(viewDetail.instance().handleChange).toHaveBeenCalled();
+        });
+
+        it('handleChange called setState correctly', () => {
+            // Arrange
+            const event = {
+                target: { name: 'remark', value: 'the-value' },
+            };
+    
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                }
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+    
+            // Action
+            viewDetail.find('textarea').props().onChange(event);
+    
+            // Assert
+            expect(viewDetail.state('remark')).toBe('the-value');
+        });
+    });
+
+    describe('onClose', () => {
+        it('onClose called with isResolved is true executes correctly', () => {
+            // Arrange
+            const state = {
+                isResolved: true
+            };
+    
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                },
+                gridParams: {},
+                setViewDetail: jest.fn(),
+                getGridData: jest.fn(),
+                onClose: jest.fn()
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().setState(state);
+    
+            // Action
+            viewDetail.find(Modal).props().onHide();
+    
+            // Assert
+            expect(props.setViewDetail).toHaveBeenCalledWith({
+                resolvedBy: '',
+                result: {
+                    code: 1,
+                    message: '',
+                    isSuccessful: false
+                }
+            });
+            expect(props.onClose).toHaveBeenCalledTimes(1);
+            expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams})
+        });
+
+        it('onClose called with isResolved is false and remark not change executes correctly', () => {
+            // Arrange
+            const state = {
+                isResolved: false,
+                remark: '',
+                oldRemark: ''
+            };
+    
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                },
+                gridParams: {},
+                onClose: jest.fn()
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().setState(state);
+    
+            // Action
+            viewDetail.find(Modal).props().onHide();
+    
+            // Assert
+            expect(props.onClose).toHaveBeenCalledTimes(1);
+        });
+
+        it('onClose called with isResolved is false and remark change executes correctly', () => {
+            // Arrange
+            const state = {
+                isResolved: false,
+                remark: 'new',
+                oldRemark: 'old'
+            };
+    
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                },
+                gridParams: {},
+                setConfirmPopup: jest.fn(),
+                onClose: jest.fn()
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().setState(state);
+    
+            // Action
+            viewDetail.find(Modal).props().onHide();
+    
+            // Assert
+            expect(props.setConfirmPopup).toHaveBeenCalledWith({
+                show: true,
+                onOk: props.onClose
+            });
+        });
+
+        it('onClose called when click close button', () => {
+            // Arrange
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                }
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().onClose = jest.fn();
+    
+            // Action
+            viewDetail.find(Button).at(1).simulate('click');
+    
+            // Assert
+            expect(viewDetail.instance().onClose).toHaveBeenCalledTimes(1);
+        });
+
+        it('onClose called when trigger hide event', () => {
+            // Arrange
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                }
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().onClose = jest.fn();
+    
+            // Action
+            viewDetail.simulate('hide');
+    
+            // Assert
+            expect(viewDetail.instance().onClose).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('editNotificationList', () => {
+        it('editNotificationList called when click resolved button', () => {
+            // Arrange
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {
+                        isSuccessful: false
+                    }
+                }
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().editNotificationList = jest.fn();
+    
+            // Action
+            viewDetail.find(Modal.Footer).find(Button).at(0).simulate('click');
+    
+            // Assert
+            expect(viewDetail.instance().editNotificationList).toHaveBeenCalled();
+        });
+
+        it('editNotificationList called and state change correctly', () => {
+            // Arrange
+            const notificationId = 1;
+            const state = {
+                isResolved: false,
+                remark: 'remark'
+            };
+
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                },
+                editNotificationList: jest.fn()
+            };
+    
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.setState(state);
+    
+            // Action
+            viewDetail.instance().editNotificationList(notificationId);
+    
+            // Assert
+            expect(viewDetail.state('isResolved')).toBeTrue;
+            expect(props.editNotificationList).toHaveBeenCalledWith({
+                notificationId,
+                remark: viewDetail.state('remark')
+            })
+        });
     });
 });
