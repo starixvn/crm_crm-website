@@ -35,6 +35,12 @@ export class InsertPersonalMappingPopup extends Component {
                 isShow: false
             }
         };
+
+        this.initState = null;
+    }
+
+    componentDidMount() {
+        this.initSate = Object.assign({}, this.state.form);
     }
 
     handleChange = (fieldName, fieldValue) => {
@@ -165,14 +171,7 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     isDirtyForm = () => {
-        const form = this.state.form;
-        return form.botId !== '' ||
-            form.recipientType !== '' ||
-            form.letstalkId !== '' ||
-            form.groupHeadlines !== '' ||
-            form.recipient !== '' ||
-            form.languageId !== '' ||
-            form.remark !== '';
+        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
     }
 
     onCloseInsertPopup = () => {
@@ -369,14 +368,13 @@ export class InsertPersonalMappingPopup extends Component {
                         size='lg'
                         title={LangHelper.getResource('Confirmation')}
                         content={
-                            <div>There are some changes. Are you sure you want to ignore these changes?</div>
+                            <div>{LangHelper.getResource('ConfirmDirtyMessage')}</div>
                         }
                         onSubmit={this.props.closeInsertPersonalMappingPopup}
                         onClose={this.closeConfirmDirtyForm}
                     />
                 }
             </Fragment>
-
         );
     }
 }

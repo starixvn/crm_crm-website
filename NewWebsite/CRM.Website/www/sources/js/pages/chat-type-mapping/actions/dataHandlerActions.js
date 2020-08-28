@@ -140,6 +140,7 @@ const actions = {
     setGridParams,
     setUpateActivePopup,
     updateActiveStatus,
+    setUpateActiveResult,
     getRecipientByRecipientType,
     getGroupHeadlineByRecipient,
     setDirtyFormState

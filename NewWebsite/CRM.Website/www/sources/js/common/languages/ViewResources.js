@@ -9,6 +9,7 @@
     ChatTypeRequired: 'Chat Type is mandatory!',
     Close: 'Close',
     Confirmation: 'Confirmation',
+    ConfirmDirtyMessage: 'There are some changes. Are you sure you want to ignore these changes?',
     ComfirmResendNotification: 'Are you sure you want to resend selected Notification: <notificationIds>?',
     ComfirmResendListAndIgnoreNotification: 'Are you sure you want to resend notification list #2 and ignore notification list #1?',
     Content: 'Content',

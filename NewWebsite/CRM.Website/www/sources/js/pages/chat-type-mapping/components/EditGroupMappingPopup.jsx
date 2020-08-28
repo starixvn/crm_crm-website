@@ -1,4 +1,4 @@
-﻿import React, { Component, useRef } from 'react';
+﻿import React, { Component, useRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -8,6 +8,7 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import Site from '@jsroot/common/site';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 
 export class EditGroupMappingPopup extends Component {
     constructor(props) {
@@ -40,10 +41,12 @@ export class EditGroupMappingPopup extends Component {
             validate: {
                 isShow: false,
                 errMsgs: []
-            }
+            },
+            isShowConfirmDirtyForm: false
         };
 
         this.conversationGroupId = this.props.updateGroupMappingData.data.conversationGroupId;
+        this.initSate = null;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -72,6 +75,7 @@ export class EditGroupMappingPopup extends Component {
     }
 
     componentDidMount() {
+        this.initSate = Object.assign({}, this.state.form);
         const initData = this.props.updateGroupMappingData.data;
         const recipientTypeId = initData.recipients.length > 0 ? initData.recipients[0].recipientTypeId : '';
         const selectedRecipientIds = initData.recipients.map(r => r.recipientId).toString();
@@ -194,6 +198,24 @@ export class EditGroupMappingPopup extends Component {
         });
 
         return isValid;
+    }
+
+    isDirtyForm = () => {
+        return JSON.stringify(this.initSate) !== JSON.stringify(this.state.form);
+    }
+
+    onClosePopup = () => {
+        if (this.isDirtyForm()) {
+            this.setState({ isShowConfirmDirtyForm: true });
+        } else {
+            this.props.closeUpdateGroupMappingPopup();
+        }
+    }
+
+    closeConfirmDirtyForm = () => {
+        this.setState({
+            isShowConfirmDirtyForm: false
+        });
     }
 
     getParams = () => {
@@ -376,12 +398,11 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                 </Modal.Body>
-
                 <Modal.Footer>
                     <Button type="submit" variant="primary" size="sm" disabled={this.state.isSubmitting}>
                         {LangHelper.getResource('Submit')}
                     </Button>
-                    <Button type="button" variant="primary" size="sm" onClick={this.props.closeUpdateGroupMappingPopup}>
+                    <Button type="button" variant="primary" size="sm" onClick={this.onClosePopup}>
                         {LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
@@ -391,17 +412,31 @@ export class EditGroupMappingPopup extends Component {
 
     render() {
         return (
-            <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
-                backdrop="static" keyboard={false} size="lg" centered
-                onHide={this.props.closeUpdateGroupMappingPopup}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title as="div">{LangHelper.getResource('EditGroupMapping')}</Modal.Title>
-                </Modal.Header>
+            <Fragment>
+                <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
+                    backdrop="static" keyboard={false} size="lg" centered
+                    onHide={this.onClosePopup}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title as="div">{LangHelper.getResource('EditGroupMapping')}</Modal.Title>
+                    </Modal.Header>
+                    {
+                        this.renderForm()
+                    }
+                </Modal>
                 {
-                    this.renderForm()
+                    this.state.isShowConfirmDirtyForm &&
+                    <ConfirmPopup
+                        size='lg'
+                        title={LangHelper.getResource('Confirmation')}
+                        content={
+                            <div>{LangHelper.getResource('ConfirmDirtyMessage')}</div>
+                        }
+                        onSubmit={this.props.closeUpdateGroupMappingPopup}
+                        onClose={this.closeConfirmDirtyForm}
+                    />
                 }
-            </Modal>
+            </Fragment>
         );
     }
 }

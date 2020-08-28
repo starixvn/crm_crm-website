@@ -4,7 +4,7 @@ namespace CRM.Core.Enumerables
 {
     public enum MappingStatus
     {
-        [Description("Bot Remove")]
+        [Description("Bot Removed")]
         BotRemoved = 0,
 
         [Description("Not Mapped")]

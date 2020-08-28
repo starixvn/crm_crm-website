@@ -35,6 +35,7 @@ export class DataGrid extends Component {
             if (this.props.updateActiveStatusResult) {
                 setTimeout(() => {
                     this.onCloseConfirmPopupChangeActiveStaus();
+                    this.props.setUpateActiveResult(null);
                     this.props.getGridData(this.props.gridParams);
                 }, 3000);
             }
@@ -83,7 +84,7 @@ export class DataGrid extends Component {
                 <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={20}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
+                <HeaderCell colWidth={15}>{LangHelper.getResource('LetstalkID')}</HeaderCell>
                 <HeaderCell colWidth={12}>{LangHelper.getResource('Language')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('MappingStatus')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('Active')}</HeaderCell>
@@ -135,10 +136,6 @@ export class DataGrid extends Component {
                 <Cell>{item.botName}</Cell>
                 <Cell>
                     {item.conversationGroupName}
-                    {
-                        item.chatTypeId === ChatTypeMapping.Group &&
-                        <span className="icon-copy fa fa-copy" onClick={() => this.copyGroupIdToClipboard(item.conversationId)} title={item.conversationId} />
-                    }
                 </Cell>
                 <Cell >{item.recipients[0].recipientTypeName}</Cell>
                 <Cell >{item.headlines.map(h => h.headlineName).join(', ')}</Cell>
@@ -147,9 +144,11 @@ export class DataGrid extends Component {
                         item.recipients.map(this.renderRecipients)
                     }
                 </Cell>
-                <Cell className='recipient-merge-cell'>
+                <Cell className={item.chatTypeId === ChatTypeMapping.Personal ? '' : 'text-center'}>
                     {
-                        item.recipients.map(this.renderLetstalkId)
+                        item.chatTypeId === ChatTypeMapping.Personal ?
+                            item.conversationId :
+                            <span className="icon-copy fa fa-copy" onClick={() => this.copyGroupIdToClipboard(item.conversationId)} title={item.conversationId} />
                     }
                 </Cell>
                 <Cell >{item.language}</Cell>
