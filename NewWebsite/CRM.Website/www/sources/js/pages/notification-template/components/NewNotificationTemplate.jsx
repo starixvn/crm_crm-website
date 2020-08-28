@@ -153,7 +153,7 @@ export class NewNotificationTemplate extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-                        {LangHelper.getResource('Submit')}
+                        {LangHelper.getResource('Save')}
                     </Button>
                     <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
                         {LangHelper.getResource('Cancel')}

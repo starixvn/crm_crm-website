@@ -1,4 +1,4 @@
-﻿namespace CRM.Controllers.HeadlineNotification
+﻿namespace CRM.Controllers
 {
     using System;
     using System.Linq;

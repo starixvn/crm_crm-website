@@ -7,14 +7,16 @@
     using AutoFixture;
     using CRM.Core.Enumerables;
     using CRM.Core.Extensions;
+    using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.Common;
     using CRM.Models;
     using CRM.Models.ChatBot;
     using CRM.Models.Common;
+    using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
     using NSubstitute;
     using Xunit;
-    using Newtonsoft.Json;
 
     public class CommonServiceTests
     {
@@ -131,7 +133,8 @@
         private CommonService GetService()
         {
             baseService = Substitute.For<IBaseService>();
-            return new CommonService(baseService);
+            var settings = Substitute.For<IOptionsSnapshot<AppSettings>>();
+            return new CommonService(baseService, settings);
         }
     }
 }
