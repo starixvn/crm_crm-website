@@ -10,6 +10,10 @@ export default class Option extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isExpandedSubData: false
+        };
     }
 
     onChange = (event) => {
@@ -25,9 +29,26 @@ export default class Option extends Component {
         onChange && onChange(newItemData);
     }
 
+    onClickExpandIcon = () => {
+        this.setState(prevState => ({
+            isExpandedSubData: !prevState.isExpandedSubData
+        }));
+    }
+
+    renderSubData = subDataList => {
+        return (
+            <ul className='sub-data'>
+                {
+                    this.state.isExpandedSubData &&
+                    subDataList.map((item, key) => <li key={`sub-${key}`}>{item}</li>)
+                }
+            </ul>
+        );
+    };
+
     render() {
         const { itemData, id } = this.props;
-
+        const isHasSubData = itemData.subData && itemData.subData.length > 0;
         return (
             <li className="multiple-select-item">
                 <input
@@ -40,6 +61,14 @@ export default class Option extends Component {
                 <label className="option-label" htmlFor={id}>
                     {itemData.value}
                 </label>
+                {
+                    isHasSubData &&
+                    <span className={`expand-icon fa ${this.state.isExpandedSubData ? 'fa-caret-down' : 'fa-caret-right'}`} onClick={this.onClickExpandIcon} />
+                }
+                {
+                    isHasSubData &&
+                    this.renderSubData(itemData.subData)
+                }
             </li>
         );
     }

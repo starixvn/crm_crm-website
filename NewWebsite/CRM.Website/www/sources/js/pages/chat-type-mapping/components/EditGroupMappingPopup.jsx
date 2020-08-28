@@ -152,7 +152,7 @@ export class EditGroupMappingPopup extends Component {
                                     {v.letstalkId}
                                     <span className={v.isGroupMember ? 'fa fa-check icon' : ''} />
                                 </div>
-                             );
+                            );
                         })
                     }
                 </div>

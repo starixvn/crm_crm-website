@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Option from './Option'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Option from './Option';
 
 export default class MultipleSelectOptionList extends Component {
     static propTypes = {
@@ -15,7 +15,7 @@ export default class MultipleSelectOptionList extends Component {
 
     _renderOptionList() {
         const { dataSource, onChange, id } = this.props;
-        if(!dataSource || !dataSource.length){
+        if (!dataSource || !dataSource.length) {
             return <span>No information</span>;
         }
 

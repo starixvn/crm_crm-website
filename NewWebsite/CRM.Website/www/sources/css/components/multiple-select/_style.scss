@@ -2,6 +2,7 @@
 $border-label: 1px solid #9e9e9e;
 $box-sizing: border-box;
 $indexNormal: 100;
+$sub-menu-border: 1px solid #b7b7b7;
 
 .multiple-select {
     &-container {
@@ -83,6 +84,7 @@ $indexNormal: 100;
         padding: 5px 8px;
         font-size: 13px;
         user-select: none;
+        position: relative;
 
         input[type=checkbox] + label {
             cursor: pointer;
@@ -91,6 +93,52 @@ $indexNormal: 100;
         label {
             margin-bottom: 0;
             padding-left: 10px;
+        }
+
+        ul.sub-data {
+            position: absolute;
+            list-style: none;
+            top: 25px;
+
+            &:before {
+                content: "";
+                display: block;
+                width: 0;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 25px;
+                border-left: $sub-menu-border;
+            }
+
+            li {
+                padding: 0 15px;
+                line-height: 2em;
+                position: relative;
+                left: -15px;
+
+                &:before {
+                    content: "";
+                    display: block;
+                    width: 10px;
+                    border-top: $sub-menu-border;
+                    position: absolute;
+                    top: 13px;
+                    left: 0;
+                }
+
+                &:last-child:before {
+                    background: white;
+                    height: auto;
+                    bottom: 0;
+                }
+            }
+        }
+
+        .expand-icon {
+            cursor: pointer;
+            padding-left: 5px;
+            font-size: 14px;
         }
     }
 
