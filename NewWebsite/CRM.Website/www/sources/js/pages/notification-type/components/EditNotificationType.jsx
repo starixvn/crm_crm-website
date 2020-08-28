@@ -211,7 +211,6 @@ class EditNotificationType extends Component {
                 <Formik
                     initialValues={initialValues}
                     validate={this.validate}
-                    render={this.renderForm}
                     onSubmit={this.handleSubmit}
                 >
                     {this.renderForm}

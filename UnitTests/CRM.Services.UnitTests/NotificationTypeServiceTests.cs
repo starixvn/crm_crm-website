@@ -1,10 +1,13 @@
 ﻿namespace CRM.Services.UnitTests
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationType;
+    using CRM.Models;
     using CRM.Models.NotificationType;
     using Fanex.NAP.Client.Helpers.Web;
     using NSubstitute;
@@ -43,7 +46,6 @@
         public async Task EditAsync_WhenCalled_ReturnExpectedCommandResult()
         {
             // Arrange
-            var fixture = new Fixture();
             var model = fixture.Create<EditNotificationType>();
             var expected = fixture.Create<CommandResult>();
             var criteria = new EditNotificationTypeCommand();
@@ -68,7 +70,6 @@
         public async Task DeleteAsync_WhenCalled_ReturnExpectedCommandResult()
         {
             // Arrange
-            var fixture = new Fixture();
             var id = fixture.Create<int>();
             var expected = fixture.Create<CommandResult>();
             var criteria = new DeleteNotificationTypeCommand();
@@ -83,6 +84,32 @@
 
             Assert.Equal(id, criteria.NotificationTypeId);
             Assert.Equal(napSession.UserId, criteria.UserId);
+        }
+
+        [Fact]
+        public async Task GetNotificationTypeAsync_WhenCalled_ReturnExpected()
+        {
+            // Arrange
+            var criteria = new GetNotificationTypeCriteria();
+            var notificationType = fixture.Create<IEnumerable<NotificationType>>();
+            var recipientType = fixture.Create<IEnumerable<RecipientType>>();
+            var chatType = fixture.Create<IEnumerable<NotificationChatType>>();
+            var expected = new ValueTuple<IEnumerable<NotificationType>, IEnumerable<RecipientType>, IEnumerable<NotificationChatType>>(notificationType, recipientType, chatType);
+            var service = GetService();
+            baseService.FetchMultipleAsync<NotificationType, RecipientType, NotificationChatType>(Arg.Do<GetNotificationTypeCriteria>(x => criteria = x)).Returns(expected);
+
+            // Act
+            var result = await service.GetNotificationTypeAsync(criteria);
+
+            // Assert
+            Assert.Equal(expected.Item1, result);
+
+            Assert.Equal(criteria.RecipientTypeIds, criteria.RecipientTypeIds);
+            Assert.Equal(criteria.ChatTypeIds, criteria.ChatTypeIds);
+            Assert.Equal(criteria.SystemId, criteria.SystemId);
+            Assert.Equal(criteria.NotificationTypeName, criteria.NotificationTypeName);
+            Assert.Equal(criteria.PageIndex, criteria.PageIndex);
+            Assert.Equal(criteria.PageSize, criteria.PageSize);
         }
 
         #region Helpers

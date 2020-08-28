@@ -154,7 +154,6 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <MultipleSelect
                                 dataSource={this.state.recipientTypesOptions}
-                                isInvalid={!this.state.filter.recipientTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -168,7 +167,6 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <MultipleSelect
                                 dataSource={this.state.chatTypesOptions}
-                                isInvalid={!this.state.filter.chatTypes}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
@@ -182,7 +180,6 @@ class Filter extends Component {
                         <div className='form-control-wrapper'>
                             <MultipleSelect
                                 dataSource={this.state.systemsOptions}
-                                isInvalid={!this.state.filter.systems}
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'

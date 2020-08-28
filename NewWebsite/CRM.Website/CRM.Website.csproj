@@ -79,4 +79,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="www\sources\js\pages\notification-type\actions\_test_\" />
+  </ItemGroup>
 </Project>
