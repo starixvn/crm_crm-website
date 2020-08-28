@@ -184,14 +184,10 @@ class Filter extends Component {
                                 onChange={(e) => this.onChange('letstalkID', e.target.value)}
                             />
                         </Form.Group>
-
-                    </Form.Row>
-                    <Form.Row className='form-row'>
                         <Form.Group>
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</Form.Label>
                             <div className='form-control-wrapper'>
                                 <MultipleSelect
-                                    width={154}
                                     initialValue={this.state.filter.mappingStatuses}
                                     dataSource={this.state.settings.mappingStatuses}
                                     keyField='id'

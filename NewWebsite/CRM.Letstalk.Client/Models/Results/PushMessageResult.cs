@@ -7,5 +7,8 @@
     {
         [JsonProperty(PropertyName = "failList")]
         public List<string> FailList { get; set; }
+
+        [JsonProperty(PropertyName = "blockList")]
+        public List<string> BlockList { get; set; }
     }
 }

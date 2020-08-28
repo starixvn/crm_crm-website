@@ -252,34 +252,34 @@ export class EditGroupMappingPopup extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3">
+                        <Form.Label column sm="3" md="2">
                             {LangHelper.getResource('BotName')}
                         </Form.Label>
-                        <Form.Label column sm="8" md="9">
+                        <Form.Label column sm="9" md="10">
                             {this.state.form.bot.name}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3">
+                        <Form.Label column sm="3" md="2">
                             {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
-                        <Form.Label column sm="8" md="9">
+                        <Form.Label column sm="9" md="10">
                             {this.state.form.name}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3">
+                        <Form.Label column sm="3" md="2">
                             {LangHelper.getResource('ChatType')}
                         </Form.Label>
-                        <Form.Label column sm="8" md="9">
+                        <Form.Label column sm="9" md="10">
                             {LangHelper.getResource('Group')}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="3" md="2" className="required">
                             {LangHelper.getResource('RecipientType')}
                         </Form.Label>
-                        <Col sm="8" md="9">
+                        <Col sm="9" md="10">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 name="recipientTypeId"
                                 onChange={e => this.handleRecipientTypeChange(e.target.value)}
@@ -291,10 +291,10 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="3" md="2" className="required">
                             {LangHelper.getResource('Recipient')}
                         </Form.Label>
-                        <Col sm="8" md="9">
+                        <Col sm="9" md="10">
                             <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
@@ -310,10 +310,10 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3">
+                        <Form.Label column sm="3" md="2">
                             {LangHelper.getResource('LetstalkID')}
                         </Form.Label>
-                        <Col sm="8" md="9" className="mrg-top-3">
+                        <Col sm="9" md="10" className="mrg-top-3">
                             {
                                 this.props.letstalkVerification.length > 0 &&
                                 this.props.letstalkVerification.map(this.renderLetstalkIdVerification)
@@ -321,10 +321,10 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="3" md="2" className="required">
                             {LangHelper.getResource('GroupHeadline')}
                         </Form.Label>
-                        <Col sm="8" md="9">
+                        <Col sm="9" md="10">
                             <MultipleSelect
                                 width={'100%'}
                                 name="headlineIds"
@@ -340,18 +340,18 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3">
+                        <Form.Label column sm="3" md="2">
                             {LangHelper.getResource('MappingStatus')}
                         </Form.Label>
-                        <Form.Label column sm="8" md="9" className={Site.mappingStatusClass(this.state.form.mappingStatus.id)}>
+                        <Form.Label column sm="9" md="10" className={Site.mappingStatusClass(this.state.form.mappingStatus.id)}>
                             {this.state.form.mappingStatus.name}
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
+                        <Form.Label column sm="3" md="2" className="required">
                             {LangHelper.getResource('Language')}
                         </Form.Label>
-                        <Col sm="8" md="9">
+                        <Col sm="9" md="10">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 name="languageId"
                                 onChange={e => this.handleChange('languageId', e.target.value)}
@@ -363,10 +363,10 @@ export class EditGroupMappingPopup extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" >
+                        <Form.Label column sm="3" md="2" >
                             {LangHelper.getResource('Remark')}
                         </Form.Label>
-                        <Col sm="8" md="9">
+                        <Col sm="9" md="10">
                             <Form.Control as="textarea" size="sm" className="shadow-none"
                                 rows={5}
                                 name="remark"
@@ -392,7 +392,7 @@ export class EditGroupMappingPopup extends Component {
     render() {
         return (
             <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
-                backdrop="static" keyboard={false} size="md" centered
+                backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.closeUpdateGroupMappingPopup}
             >
                 <Modal.Header closeButton>

@@ -137,7 +137,7 @@ export class DataGrid extends Component {
                     {item.conversationGroupName}
                     {
                         item.chatTypeId === ChatTypeMapping.Group &&
-                        <span className="icon-copy fa fa-copy" onClick={() => this.copyGroupIdToClipboard(item.conversationId)} title='Copy to clipboard' />
+                        <span className="icon-copy fa fa-copy" onClick={() => this.copyGroupIdToClipboard(item.conversationId)} title={item.conversationId} />
                     }
                 </Cell>
                 <Cell >{item.recipients[0].recipientTypeName}</Cell>

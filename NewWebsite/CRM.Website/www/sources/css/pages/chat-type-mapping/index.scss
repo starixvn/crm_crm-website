@@ -70,7 +70,7 @@
 
     .letstalk-wrapper {
         display: inline-block;
-        width: calc(100% - 150px);
+        width: calc(100% - 200px);
     }
 
     .common-letstalk-display {
@@ -84,21 +84,15 @@
         vertical-align: top;
         padding-right: 10px;
         font-weight: 600;
-        width: 150px;
+        width: 200px;
     }
 
     .letstalk-name {
-        width: 100px;
+        width: 120px;
     }
 
     .icon {
         color: #05b15b;
         padding-left: 10px;
-    }
-}
-
-@media (min-width: 576px) {
-    .modal-dialog {
-        max-width: 520px;
     }
 }
