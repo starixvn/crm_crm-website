@@ -19,9 +19,7 @@ class Filter extends Component {
                 groupHeadline: '',
                 recipient: '',
                 letstalkID: '',
-                mappingStatuses: {
-                    value: ''
-                },
+                mappingStatuses: '',
                 languageId: '',
                 botId: '',
                 active: ''
@@ -37,44 +35,33 @@ class Filter extends Component {
                 errMsg: ''
             }
         };
-        this.props.getSettings();
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.settings.bots.length === 0 && nextProps.settings.bots) {
-            const bots = nextProps.settings.bots;
+    componentDidMount() {
+        this.props.getSettings().then(() => {
+            const bots = this.props.settings.bots;
 
-            const chatTypes = nextProps.settings.chatTypes;
-            const mappingStatuses = nextProps.settings.mappingStatuses;
+            const chatTypes = this.props.settings.chatTypes;
+            const mappingStatuses = this.props.settings.mappingStatuses;
             const selectedMappingStatuses = [];
             mappingStatuses.map(v => {
                 v['checked'] = true;
                 selectedMappingStatuses.push(v['id']);
             });
 
-            const languages = nextProps.settings.languages;
-            const state = {
-                filter: {
-                    chatType: '',
-                    name: '',
-                    groupHeadline: '',
-                    recipient: '',
-                    letstalkID: '',
-                    mappingStatuses: selectedMappingStatuses.toString(),
-                    languages: '',
-                    botId: '',
-                    active: ''
-                },
-                settings: {
-                    chatTypes: chatTypes,
-                    mappingStatuses: mappingStatuses,
-                    languages: languages,
-                    bots: bots
-                }
+            const languages = this.props.settings.languages;
+            const settings = {
+                chatTypes: chatTypes,
+                mappingStatuses: mappingStatuses,
+                languages: languages,
+                bots: bots
             };
-            return state;
-        }
-        return null;
+
+            this.setState(prevState => ({
+                filter: { ...prevState.filter, ...{ mappingStatuses: selectedMappingStatuses.toString() } },
+                settings: settings
+            }));
+        });
     }
 
     onChange = (fieldName, fieldValue) => {

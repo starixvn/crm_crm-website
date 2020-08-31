@@ -10,14 +10,12 @@ export const setSettings = data => {
     };
 };
 
-export const getSettings = () => {
+export const getSettings = () => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/GetSettings');
-    return dispatch => {
-        axios.get(url).then(response => {
-            dispatch(setSettings(response.data));
-        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    };
+    await axios.get(url).then(response => {
+        dispatch(setSettings(response.data));
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 // Grid
