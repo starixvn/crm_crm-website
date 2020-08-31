@@ -41,7 +41,7 @@
         }
 
         [Fact]
-        public async Task GetGridData_WhenCalled_ReturnExpectedData()
+        public async Task GetNotificationTemplate_WhenCalled_ReturnExpectedData()
         {
             // Arrange
             var fixture = new Fixture();
@@ -51,7 +51,7 @@
             templateService.GetAsync(param).Returns(templates);
 
             // Act
-            var result = await controller.GetGridData(param);
+            var result = await controller.GetNotificationTemplate(param);
 
             // Assert
             var jsonResult = Assert.IsType<JsonResult>(result);

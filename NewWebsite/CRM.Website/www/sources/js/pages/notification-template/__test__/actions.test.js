@@ -68,7 +68,7 @@ describe('actionCreators', () => {
             await store.dispatch(ActionCreators.getGridData(expectedParams));
 
             // Assert
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/GetGridData', expectedParams);
+            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/GetNotificationTemplate', expectedParams);
             expect(store.getActions()).toEqual(expectedActions);
         });
     });

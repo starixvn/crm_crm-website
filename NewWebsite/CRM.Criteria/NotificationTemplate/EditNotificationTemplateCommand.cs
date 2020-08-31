@@ -19,13 +19,8 @@
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationTemplate_Upd";
 
         public override bool IsValid() =>
-#pragma warning disable S1067 // Expressions should not be too complex
             UserId > 0
             && NotificationTemplateId > 0
-            && NotificationTypeId > 0
-            && !string.IsNullOrWhiteSpace(NotificationTemplateName)
-            && !string.IsNullOrWhiteSpace(Title)
-            && !string.IsNullOrWhiteSpace(ContentXml);
-#pragma warning restore S1067 // Expressions should not be too complex
+            && NotificationTypeId > 0;
     }
 }

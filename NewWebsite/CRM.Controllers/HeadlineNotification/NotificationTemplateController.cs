@@ -45,7 +45,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetGridData([FromBody]GetNotificationTemplateParam param)
+        public async Task<IActionResult> GetNotificationTemplate([FromBody]GetNotificationTemplateParam param)
         {
             IEnumerable<NotificationTemplate> templates = await templateService.GetAsync(param);
             return Json(new { totalItems = param.TotalRows, data = templates });

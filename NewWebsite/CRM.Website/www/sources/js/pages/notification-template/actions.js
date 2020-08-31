@@ -31,7 +31,7 @@ const getLanguages = () => async dispatch => {
 
 const getGridData = params => async dispatch => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationTemplate/GetGridData');
+    const url = Site.resolveClientUrl('NotificationTemplate/GetNotificationTemplate');
     await DataService.postDataAsync(url, params).then(response => {
         dispatch(setGridData(response.data));
     }).then(() => Site.unblockUI());
