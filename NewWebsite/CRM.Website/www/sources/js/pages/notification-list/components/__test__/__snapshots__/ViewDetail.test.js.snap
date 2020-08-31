@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ViewDetail redux connect fdsa 1`] = `ShallowWrapper {}`;
-
-exports[`ViewDetail redux connect render correct wrapper component 1`] = `ShallowWrapper {}`;
-
 exports[`ViewDetail render component correctly 1`] = `ShallowWrapper {}`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppContainer component with redux component render correctly 1`] = `ShallowWrapper {}`;
+
+exports[`AppContainer render component correctly 1`] = `ShallowWrapper {}`;
