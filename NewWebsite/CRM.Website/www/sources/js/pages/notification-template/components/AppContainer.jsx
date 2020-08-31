@@ -1,4 +1,5 @@
 ﻿import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
@@ -11,6 +12,26 @@ import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 
 export class AppContainer extends Component {
+    static propTypes = {
+        contentDetailPopup: PropTypes.shape({ show: PropTypes.bool }).isRequired,
+        createTemplatePopup: PropTypes.shape({ show: PropTypes.bool }).isRequired,
+        deleteTemplatePopup: PropTypes.shape({ show: PropTypes.bool }).isRequired,
+        editTemplatePopup: PropTypes.shape({ show: PropTypes.bool }).isRequired,
+        getLanguages: PropTypes.func,
+        getNotificationTypes: PropTypes.func,
+        isHost: PropTypes.bool.isRequired
+    };
+
+    static defaultProps = {
+        contentDetailPopup: { show: false },
+        createTemplatePopup: { show: false },
+        deleteTemplatePopup: { show: false },
+        editTemplatePopup: { show: false },
+        getLanguages: function () { },
+        getNotificationTypes: function () { },
+        isHost: false
+    };
+
     constructor(props) {
         super(props);
     }

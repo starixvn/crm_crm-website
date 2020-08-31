@@ -1,24 +1,15 @@
 ﻿import React from 'react';
 import { AppContainer } from '../AppContainer';
-import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-const mockStore = configureMockStore();
-const store = mockStore({});
-
 describe('AppContainer', () => {
-    afterEach(() => {
+    afterAll(() => {
         jest.clearAllMocks();
     });
 
     it('renders component correctly', () => {
         // Act
-        const wrapper = shallow(
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
-        );
+        const wrapper = shallow(<AppContainer />);
 
         // Assert
         expect(wrapper).toMatchSnapshot();
@@ -32,11 +23,7 @@ describe('AppContainer', () => {
             };
 
             // Act
-            const container = shallow(
-                <Provider store={store}>
-                    <AppContainer {...props} />
-                </Provider>
-            );
+            const container = shallow(<AppContainer {...props} />);
 
             // Assert
             expect(container).toMatchSnapshot();

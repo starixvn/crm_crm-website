@@ -1,4 +1,5 @@
 ﻿import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
@@ -34,6 +35,26 @@ export const ContentDetailPopup = props => {
             </Modal.Footer>
         </Modal>
     );
+};
+
+ContentDetailPopup.propTypes = {
+    template: PropTypes.shape({
+        notificationTemplateId: PropTypes.number,
+        notificationTypeId: PropTypes.number,
+        notificationTemplateName: PropTypes.string,
+        title: PropTypes.string,
+        contents: PropTypes.arrayOf(PropTypes.object)
+    }).isRequired
+};
+
+ContentDetailPopup.defaultProps = {
+    template: {
+        notificationTemplateId: 0,
+        notificationTypeId: 0,
+        notificationTemplateName: '',
+        title: '',
+        contents: []
+    }
 };
 
 const mapStateToProps = state => {

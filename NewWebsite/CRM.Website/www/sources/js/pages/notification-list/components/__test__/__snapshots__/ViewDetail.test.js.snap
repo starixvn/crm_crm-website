@@ -5,5 +5,3 @@ exports[`ViewDetail redux connect fdsa 1`] = `ShallowWrapper {}`;
 exports[`ViewDetail redux connect render correct wrapper component 1`] = `ShallowWrapper {}`;
 
 exports[`ViewDetail render component correctly 1`] = `ShallowWrapper {}`;
-
-exports[`ViewDetail render expected component when view detail result is successful 1`] = `ShallowWrapper {}`;
