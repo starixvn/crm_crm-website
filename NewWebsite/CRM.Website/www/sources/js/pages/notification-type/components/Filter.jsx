@@ -24,11 +24,11 @@ class Filter extends Component {
     }
 
     componentDidMount() {
-        this.props.getSettings();
+        this.props.getSettings().then
     }
 
-    componentDidUpdate = (nextProps, prevState) => {
-        if (nextProps.settings !== this.props.settings) {
+    componentDidMount = () => {
+        this.props.getSettings().then(() => {
             // recipient type
             const recipientTypeIds = [];
             const recipientTypesOptions = this.props.settings.recipientTypes.map(x => {
@@ -72,7 +72,7 @@ class Filter extends Component {
                     systems: systemIds.toString()
                 }
             }));
-        }
+        });
     }
 
     recipientNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('recipientTypes', selectedItemsKey)

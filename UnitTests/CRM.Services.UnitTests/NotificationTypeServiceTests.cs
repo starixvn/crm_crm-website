@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
+    using CRM.Core.Enumerables;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationType;
@@ -90,6 +91,7 @@
         public async Task GetNotificationTypeAsync_WhenCalled_ReturnExpected()
         {
             // Arrange
+            fixture.Customize<NotificationChatType>(x => x.With(b => b.ChatTypeId, (int)ChatType.Group));
             var criteria = new GetNotificationTypeCriteria();
             var notificationType = fixture.Create<IEnumerable<NotificationType>>();
             var recipientType = fixture.Create<IEnumerable<RecipientType>>();

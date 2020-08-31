@@ -1,6 +1,6 @@
 ﻿namespace CRM.Models.NotificationType
 {
-    public class GetGridDataParam
+    public class GetNotificationTypeParam
     {
         public string NotificationTypeName { get; set; }
 

@@ -13,8 +13,6 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 export class AppContainer extends Component {
     constructor(props) {
         super(props);
-
-        this.isHost = document.getElementById('IsHost').checked;
     }
 
     handleCloseCreatePopup = () => {
@@ -65,8 +63,8 @@ export class AppContainer extends Component {
                         message={this.props.invalidParams.message}
                     />
                 }
-                <Filter isHost={this.isHost} />
-                <DataGrid isHost={this.isHost} />
+                <Filter isHost={this.props.isHost} />
+                <DataGrid isHost={this.props.isHost} />
                 {
                     this.props.createNotificationTypePopup.show &&
                     <NewNotificationType

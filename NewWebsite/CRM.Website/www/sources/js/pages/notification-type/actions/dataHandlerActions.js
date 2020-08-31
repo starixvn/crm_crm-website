@@ -87,7 +87,7 @@ export const getSettings = () => async dispatch => {
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
-const deleteNotificationType = notificationTypeId => async dispatch => {
+ export const deleteNotificationType = notificationTypeId => async dispatch => {
     const url = Site.resolveClientUrl(`NotificationType/Delete/${notificationTypeId}`);
     return await DataService.postDataAsync(url).then(response => response.data);
 };
@@ -102,7 +102,7 @@ export const editNotificationType = data => async dispatch => {
 
 export const getGridData = params => async dispatch => {
     Site.blockUI();
-    const url = Site.resolveClientUrl('NotificationType/GetGridData');
+    const url = Site.resolveClientUrl('NotificationType/GetNotificationType');
     await DataService.postDataAsync(url, params).then(response => {
         dispatch(setGridData(response.data));
     }).then(() => Site.unblockUI());

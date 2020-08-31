@@ -127,8 +127,68 @@ describe('notificationTypeActionsDataHandlerActions', () => {
         DataService.getDataAsync = jest.fn(() => promise);
 
         await store.dispatch(actions.getSettings()).then(() => {
-            expect(DataService.getDataAsync).toHaveBeenCalledWith('NotificationType/Delete');
+            expect(DataService.getDataAsync).toHaveBeenCalledWith('NotificationType/GetSettings');
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
+
+    it('should return response when request has been done', async () => { 
+        const store = mockStore({});
+        const response = { data: { isSuccessful: true, message: '' } };
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+        const actual = await store.dispatch(actions.deleteNotificationType(1));
+
+        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/Delete/1');
+        expect(actual).toEqual(response.data);
+    });
+
+    it('should handle setEditNotificationTypeResult when request has been done', async () => {
+        const expectedParams = { notificationTypeId: 1};
+        const response = { data: { isSuccessful: true, message: '' } };
+        const expectedActions = [{ type: types.EDIT_RESULT_DATA, data: response.data}];
+        const store = mockStore({ editNotificationTypeResult: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.editNotificationType(expectedParams));
+
+        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/Edit', expectedParams);
+        expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should handle setGridData when fetching notification type have been done', async () => {
+        const expectedParams = { notificationTypeId: 1 };
+        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'voiding bet' }] } };
+        const expectedActions = [{ type: types.GRID_DATA, data: response.data }];
+        const store = mockStore({ gridData: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.getGridData(expectedParams));
+
+        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/GetNotificationType', expectedParams);
+        expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should handle setCreateNotificationTypeResult when request has been done', async () => {
+        const expectedParams = { notificationTypeId: 1 };
+        const response = { data: { isSuccessful: true, message: '' } };
+        const expectedActions = [{ type: types.CREATE_RESULT_DATA, data: response.data}];
+        const store = mockStore({ createNotificationTypeResult: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.createNotificationType(expectedParams));
+
+        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/Create', expectedParams);
+        expect(store.getActions()).toEqual(expectedActions);
+    });
+
 });

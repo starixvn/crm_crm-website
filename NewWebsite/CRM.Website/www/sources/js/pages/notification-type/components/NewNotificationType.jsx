@@ -128,7 +128,7 @@ class NewNotificationType extends Component {
                                 onChange={handleChange}
                                 value={values.systemId}
                             >
-                                <option value="" hidden>{LangHelper.getResource('SelectOptions')}</option>
+                                <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
                                 {this.props.settings.systems.map(this.renderSystemOption)}
                             </Form.Control>
                         </Col>

@@ -21,9 +21,10 @@ const store = Store.createStore(reducer, {
         Systems: []
     }
 });
+const isHost = document.getElementById('IsHost').checked;
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppContainer />
+        <AppContainer isHost={isHost} />
     </Provider>,
     document.getElementById('app-container'));

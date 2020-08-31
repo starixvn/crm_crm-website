@@ -56,7 +56,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetGridData([FromBody] GetGridDataParam param)
+        public async Task<IActionResult> GetNotificationType([FromBody] GetNotificationTypeParam param)
         {
             var criteria = new GetNotificationTypeCriteria
             {

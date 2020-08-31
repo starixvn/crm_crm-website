@@ -71,13 +71,13 @@
         {
             // Arrange
             var notificationTypes = fixture.Create<IEnumerable<NotificationType>>();
-            var param = fixture.Create<GetGridDataParam>();
+            var param = fixture.Create<GetNotificationTypeParam>();
             var criteria = new GetNotificationTypeCriteria();
             var controller = GetController();
             notificationTypeService.GetNotificationTypeAsync(Arg.Do<GetNotificationTypeCriteria>(x => criteria = x)).Returns(notificationTypes);
 
             // Act
-            var result = await controller.GetGridData(param);
+            var result = await controller.GetNotificationType(param);
 
             // Assert
             var jsonResult = Assert.IsType<JsonResult>(result);
