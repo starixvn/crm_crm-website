@@ -9,6 +9,7 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import Site from '@jsroot/common/site';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
+import Loading from '@jsroot/components/Loading';
 
 export class EditGroupMappingPopup extends Component {
     constructor(props) {
@@ -42,7 +43,8 @@ export class EditGroupMappingPopup extends Component {
                 isShow: false,
                 errMsgs: []
             },
-            isShowConfirmDirtyForm: false
+            isShowConfirmDirtyForm: false,
+            isLoading: false
         };
 
         this.conversationGroupId = this.props.updateGroupMappingData.data.conversationGroupId;
@@ -110,6 +112,7 @@ export class EditGroupMappingPopup extends Component {
 
     verifyLetstalk = (recipientIds) => {
         if (recipientIds) {
+            this.setState({ isLoading: true });
             const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
             const params = {
                 botId: this.state.form.bot.id,
@@ -127,7 +130,9 @@ export class EditGroupMappingPopup extends Component {
                 })
             };
 
-            this.props.verifyLetstalkInGroup(params);
+            this.props.verifyLetstalkInGroup(params).then(() => {
+                this.setState({ isLoading: false });
+            });
         }
     }
 
@@ -337,7 +342,11 @@ export class EditGroupMappingPopup extends Component {
                         </Form.Label>
                         <Col sm="9" md="10" className="mrg-top-3">
                             {
-                                this.props.letstalkVerification.length > 0 &&
+                                this.state.isLoading &&
+                                <Loading />
+                            }
+                            {
+                                this.props.letstalkVerification.length > 0 && !this.state.isLoading &&
                                 this.props.letstalkVerification.map(this.renderLetstalkIdVerification)
                             }
                         </Col>

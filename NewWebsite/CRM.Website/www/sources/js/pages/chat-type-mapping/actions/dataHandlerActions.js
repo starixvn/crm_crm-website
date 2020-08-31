@@ -60,6 +60,7 @@ export const setUpateActivePopup = data => {
 };
 
 export const updateActiveStatus = params => async dispatch => {
+    Site.blockUI();
     await axios({
         method: 'post',
         url: Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'),
@@ -70,7 +71,7 @@ export const updateActiveStatus = params => async dispatch => {
         }
     }).then(response => {
         dispatch(setUpateActiveResult(response.data));
-    }).catch(Site.handleAxiosError);
+    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 export const setUpateActiveResult = data => {
@@ -90,11 +91,12 @@ export const setRecipientData = data => {
 
 export const getRecipientByRecipientType = recipientTypeId => {
     if (recipientTypeId > 0) {
+        Site.blockUI();
         const url = Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType');
         return dispatch => {
             axios.get(url, { params: { recipientTypeId: recipientTypeId } }).then(response => {
                 dispatch(setRecipientData(response.data));
-            }).catch(Site.handleAxiosError);
+            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
         };
     }
 
@@ -113,10 +115,11 @@ export const setGroupHeadlineData = data => {
 
 export const getGroupHeadlineByRecipient = recipientIds => async dispatch => {
     if (recipientIds) {
+        Site.blockUI();
         const url = Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient');
         await axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
             dispatch(setGroupHeadlineData(response.data));
-        }).catch(Site.handleAxiosError);
+        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
 
     return dispatch => {

@@ -17,7 +17,7 @@ class ResponseMessage extends PureComponent {
         const { isSuccessful, message } = this.props;
         return (
             <Alert variant={isSuccessful ? 'success' : 'danger'} className="d-flex">
-                <div><i className={`fa ${isSuccessful ? 'fa-check' : 'fa-exclamation-triangle'}`}></i></div>
+                <div><i className={`fa ${isSuccessful ? 'fa-check' : 'fa-exclamation-triangle'}`} /></div>
                 <div className="ml-2">{message}</div>
             </Alert>
         );

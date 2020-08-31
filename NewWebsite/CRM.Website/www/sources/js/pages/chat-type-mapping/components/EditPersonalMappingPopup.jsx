@@ -9,6 +9,7 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
+import Loading from '@jsroot/components/Loading';
 
 export class EditPersonalMappingPopup extends Component {
     constructor(props) {
@@ -38,7 +39,8 @@ export class EditPersonalMappingPopup extends Component {
                 isShow: false,
                 errMsgs: []
             },
-            isShowConfirmDirtyForm: false
+            isShowConfirmDirtyForm: false,
+            isLoading: false
         };
 
         this.conversationGroupId = this.props.updatePersonalMappingData.data.conversationGroupId;
@@ -56,7 +58,7 @@ export class EditPersonalMappingPopup extends Component {
             }
             const recipientOptions = nextProps.recipients.map(item => { return { value: item.id, label: item.name, letstalkIds: item.letstalkIds }; });
             const headlineOptions = nextProps.groupHeadline;
-            headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => v === headline.id); });
+            headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => parseInt(v, 10) === parseInt(headline.id, 10)); });
             const state = {
                 settings: {
                     letstalkIds: letstalkIds,
@@ -109,9 +111,11 @@ export class EditPersonalMappingPopup extends Component {
     };
 
     handleLetstalkSelect = (e) => {
+        this.setState({ isLoading: true });
         this.handleChange('conversationId', e.target.value);
         this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
             this.handleChange('name', this.props.letstalkName);
+            this.setState({ isLoading: false });
         });
     }
 
@@ -279,7 +283,14 @@ export class EditPersonalMappingPopup extends Component {
                             {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
                         <Form.Label column sm="9" md="10">
-                            {this.state.form.name}
+                            {
+                                this.state.isLoading &&
+                                <Loading />
+                            }
+                            {
+                                !this.state.isLoading &&
+                                this.state.form.name
+                            }
                         </Form.Label>
                     </Form.Group>
                     <Form.Group as={Row}>

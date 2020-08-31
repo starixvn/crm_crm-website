@@ -9,6 +9,7 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 import SelectWithSearch from 'react-select';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
+import Loading from '@jsroot/components/Loading';
 
 export class InsertPersonalMappingPopup extends Component {
     constructor(props) {
@@ -31,9 +32,10 @@ export class InsertPersonalMappingPopup extends Component {
                 isShow: false,
                 errMsgs: []
             },
+            isLoading: false,
             dirtyFormConfirmation: {
                 isShow: false
-            }
+            },
         };
 
         this.initState = null;
@@ -67,9 +69,11 @@ export class InsertPersonalMappingPopup extends Component {
     };
 
     handleLetstalkSelect = (e) => {
+        this.setState({ isLoading: true });
         this.handleChange('letstalkId', e.target.value);
         this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
             this.handleChange('displayName', this.props.letstalkName);
+            this.setState({ isLoading: false });
         });
     }
 
@@ -233,9 +237,15 @@ export class InsertPersonalMappingPopup extends Component {
                             {LangHelper.getResource('LetstalkName')}
                         </Form.Label>
                         <Form.Label column sm="9" md="10">
-                            {this.state.form.displayName}
+                            {
+                                this.state.isLoading &&
+                                <Loading />
+                            }
+                            {
+                                !this.state.isLoading &&
+                                this.state.form.displayName
+                            }
                         </Form.Label>
-
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="3" md="2">
