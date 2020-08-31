@@ -70,11 +70,13 @@
         }
 
         [Fact]
-        public async Task GetGridData_WhenCalled_ReturnExpectedResult()
+        public async Task GetGridData_FromDateAndToDateIsNull_ReturnExpectedResult()
         {
             // Arrange
             var controller = GetController();
             var criteria = fixture.Create<GetNotificationListCriteria>();
+            criteria.FromDate = null;
+            criteria.ToDate = null;
             var notificationList = fixture.Create<IEnumerable<Notification>>();
             notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
 
@@ -86,6 +88,29 @@
             var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
             Assert.Equal(criteria.TotalRows, totalItemsResult);
             Assert.Equal(notificationList, dataResult);
+        }
+
+        [Fact]
+        public async Task GetGridData_WhenCalled_ReturnExpectedResult()
+        {
+            // Arrange
+            var controller = GetController();
+            var criteria = fixture.Create<GetNotificationListCriteria>();
+            var expectedFromDate = criteria.FromDate.Value;
+            var expectedToDate = criteria.ToDate.Value;
+            var notificationList = fixture.Create<IEnumerable<Notification>>();
+            notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
+
+            // Act
+            var result = await controller.GetGridData(criteria) as JsonResult;
+
+            // Assert
+            var totalItemsResult = (int)result.Value.GetType().GetProperty("totalItems").GetValue(result.Value);
+            var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
+            Assert.Equal(criteria.TotalRows, totalItemsResult);
+            Assert.Equal(notificationList, dataResult);
+            Assert.Equal(commonService.ConvertToServerDateTime(expectedFromDate), criteria.FromDate.Value);
+            Assert.Equal(commonService.ConvertToServerDateTime(expectedToDate), criteria.ToDate.Value);
         }
 
         [Fact]
