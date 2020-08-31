@@ -23,10 +23,6 @@ class Filter extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.getSettings().then
-    }
-
     componentDidMount = () => {
         this.props.getSettings().then(() => {
             // recipient type
