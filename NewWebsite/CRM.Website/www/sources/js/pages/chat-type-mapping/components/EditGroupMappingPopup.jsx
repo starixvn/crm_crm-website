@@ -422,7 +422,7 @@ export class EditGroupMappingPopup extends Component {
     render() {
         return (
             <Fragment>
-                <Modal show className="chat-type-mapping-popup" dialogAs={DraggableModalDialog}
+                <Modal show className="chat-type-mapping-modal" dialogAs={DraggableModalDialog}
                     backdrop="static" keyboard={false} size="lg" centered
                     onHide={this.onClosePopup}
                 >
