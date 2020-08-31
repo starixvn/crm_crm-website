@@ -81,4 +81,19 @@ export default class Site {
             div.remove();
         }, 1000);
     }
+
+    static debounce(func, wait) {
+        let timeout;
+        return function (...theArgs) {
+            const context = this,
+                args = theArgs;
+    
+            const later = () => {
+                func.apply(context, args);
+            };
+    
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait || 500);
+        };
+    };
 }

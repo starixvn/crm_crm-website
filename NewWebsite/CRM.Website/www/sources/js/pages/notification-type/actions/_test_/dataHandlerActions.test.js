@@ -4,8 +4,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Site from '@jsroot/common/site';
 import DataService from '@jsroot/common/dataService';
-import { EndTimeString } from '@jsroot/common/constants';
-import { convertDateToString } from '@jsroot/common/functions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

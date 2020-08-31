@@ -7,9 +7,9 @@ import DateTimeService from '@jsroot/common/dateTimeService';
 import LangHelper from '@jsroot/common/langHelper';
 import DatePicker from '@jsroot/components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
-import { debounce } from '@jsroot/common/functions';
 import SelectWithSearch from 'react-select';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
+import Site from '@jsroot/common/site';
 
 class Filter extends Component {
     constructor(props) {
@@ -131,8 +131,8 @@ class Filter extends Component {
     getParams = () => {
         return {
             notificationTypeIds: this.state.filter.notificationTypes,
-            fromDate: this.state.filter.fromDate,
-            toDate: this.state.filter.toDate,
+            fromDate: DateTimeService.startOfDay(this.state.filter.fromDate),
+            toDate: DateTimeService.endOfDay(this.state.filter.toDate),
             headline: this.state.filter.headline ? this.state.filter.headline.value : '',
             recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : '',
             messageId: this.state.filter.messageID,
@@ -205,9 +205,6 @@ class Filter extends Component {
         }
 
         if (params.messageId === '' && params.notificationIdLower === '') {
-            params.fromDate.setHours(0, 0, 0, 0);
-            params.toDate.setHours(0, 0, 0, 0);
-
             if (params.toDate - params.fromDate < 0) {
                 this.props.setInvalidParams({
                     show: true,
@@ -230,7 +227,7 @@ class Filter extends Component {
         return true;
     }
 
-    debounceHandleHeadlineInputChange = debounce(searchText => {
+    debounceHandleHeadlineInputChange = Site.debounce(searchText => {
         if (searchText.length >= 2) {
             this.props.getHeadlineOptions(searchText);
         }
@@ -239,7 +236,7 @@ class Filter extends Component {
         }
     })
 
-    debounceHandleRecipientInputChange = debounce(searchText => {
+    debounceHandleRecipientInputChange = Site.debounce(searchText => {
         if (searchText.length >= 2) {
             this.props.getRecipientOptions();
         }

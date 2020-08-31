@@ -1,7 +1,5 @@
 import types from './types';
 import Site from '@jsroot/common/site';
-import { convertDateToString } from '@jsroot/common/functions';
-import { EndTimeString } from '@jsroot/common/constants';
 import DataService from '@jsroot/common/dataService';
 
 // Grid
@@ -24,10 +22,6 @@ export const getGridData = (params, callback) => async dispatch => {
     if (params.messageId !== '' || params.notificationIdLower !== '') {
         params.fromDate = null;
         params.toDate = null;
-    }
-    else {
-        params.fromDate = convertDateToString(params.fromDate);
-        params.toDate = `${convertDateToString(params.toDate)} ${EndTimeString}`;
     }
     
     const url = Site.resolveClientUrl('NotificationList/GetGridData');
