@@ -32,10 +32,12 @@ export default class DateTimeService {
     }
 
     static toClientDateTime(date) {
-        return moment(date).utc().utcOffset(ClientTimezone);
+        date = moment(date, LongDateTimeFormat);
+        return moment.utc(date).utcOffset(ClientTimezone);
     }
 
     static toServerDateTime(date) {
+        date = moment(date, LongDateTimeFormat);
         return moment(date).utc().utcOffset(ServerTimezone);
     }
 

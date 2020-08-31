@@ -1,9 +1,3 @@
-export const getNowGMTAdd8 = () => {
-    const now = new Date();
-    now.setHours(now.getHours() - 8 - now.getTimezoneOffset() / 60);
-    return now;
-};
-
 export const convertDateToString = date => {
     var month = date.getMonth() + 1;
     var dd = date.getDate();
@@ -29,11 +23,3 @@ export const debounce = (func, wait) => {
         timeout = setTimeout(later, wait || 500);
     };
 };
-
-const functions = {
-    getNowGMTAdd8,
-    convertDateToString,
-    debounce
-};
-
-export default functions;

@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
+import DateTimeService from '@jsroot/common/dateTimeService';
 import LangHelper from '@jsroot/common/langHelper';
 import DatePicker from '@jsroot/components/date-picker/index';
 import { handleNewResendOptions } from '../functions';
-import { getNowGMTAdd8, debounce } from '@jsroot/common/functions';
+import { debounce } from '@jsroot/common/functions';
 import SelectWithSearch from 'react-select';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 
 class Filter extends Component {
     constructor(props) {
         super(props);
-        const now = getNowGMTAdd8();
+        const now = new Date(DateTimeService.toShortDateFormat(DateTimeService.toClientDateTime(new Date())));
 
         this.state = {
             filter: {
