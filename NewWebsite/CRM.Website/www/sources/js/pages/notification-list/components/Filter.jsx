@@ -204,17 +204,6 @@ class Filter extends Component {
             return false;
         }
 
-        if (params.messageId === '' && params.notificationIdLower === '') {
-            if (params.toDate - params.fromDate < 0) {
-                this.props.setInvalidParams({
-                    show: true,
-                    message: LangHelper.getResource('ToDateIsEarlierThanFromDate')
-                });
-
-                return false;
-            }
-        }
-
         if (params.status === '') {
             this.props.setInvalidParams({
                 show: true,

@@ -8,7 +8,6 @@
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
     using CRM.Core.Models;
-    using CRM.Criteria.Common;
     using CRM.Criteria.NotificationList;
     using CRM.Criteria.NotificationType;
     using CRM.Models.NotificationList;
@@ -74,7 +73,7 @@
             }
 
             var notifications = await notificationListService.GetNotificationListAsync(param);
-            foreach(var notification in notifications)
+            foreach (var notification in notifications)
             {
                 notification.SendDate = commonService.ConvertToClientDateTime(notification.SendDate);
             }

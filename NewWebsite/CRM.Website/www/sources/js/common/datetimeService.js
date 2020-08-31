@@ -12,7 +12,7 @@ export default class DateTimeService {
     }
 
     static endOfDay(date) {
-        return moment(date).startOf('day');
+        return moment(date).endOf('day');
     }
 
     static firstDayOfWeek(date) {
