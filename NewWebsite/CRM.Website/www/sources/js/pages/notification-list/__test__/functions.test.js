@@ -11,7 +11,7 @@ describe('function', () => {
                 notificationId: item.notificationId,
                 status: item.status,
                 isResent: false
-            }
+            };
         });
 
         const expectedParams = {

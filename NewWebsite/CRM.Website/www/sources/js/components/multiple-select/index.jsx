@@ -16,7 +16,7 @@ function convertDataSourceToState({ keyField, valueField, statusField, dataSourc
             [KEY_NAME]: item[keyField],
             [VALUE_NAME]: item[valueField],
             [STATUS_NAME]: item[statusField],
-            subData: item.subData ?? [],
+            subData: item.subData ? item.subData : [],
             visible: true
         };
     });

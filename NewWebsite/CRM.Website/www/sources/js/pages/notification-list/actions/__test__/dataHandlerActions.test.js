@@ -251,7 +251,7 @@ describe('dataHandlerActions', () => {
         const expectedParams = { username: searchText, limit: 10, excludeNotAssignedGroup: true };
         const response = { data: [ { name: 'name' } ] };
         const options = response.data.map(item => {
-            return { value: item.name, label: item.name }
+            return { value: item.name, label: item.name };
         });
 
         const expectedActions = [{ type: types.HEADLINE_OPTIONS_DATA, data: options }];
@@ -272,7 +272,7 @@ describe('dataHandlerActions', () => {
         const expectedParams = { recipientName: searchText, limit: 10 };
         const response = { data: [ { name: 'name' } ] };
         const options = response.data.map(item => {
-            return { value: item.name, label: item.name }
+            return { value: item.name, label: item.name };
         });
 
         const expectedActions = [{ type: types.RECIPIENT_OPTIONS_DATA, data: options }];

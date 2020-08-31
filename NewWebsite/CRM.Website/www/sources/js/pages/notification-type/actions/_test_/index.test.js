@@ -8,5 +8,5 @@ describe('notificationTypeActionsIndex', () => {
         };
 
         expect(ActionCreators).toEqual(ActionCreators);
-    })
-})
+    });
+});

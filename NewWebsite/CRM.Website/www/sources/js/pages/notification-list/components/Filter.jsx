@@ -38,11 +38,7 @@ class Filter extends Component {
     }
 
     componentDidMount() {
-        this.props.getSettings();
-    }
-
-    componentDidUpdate = (nextProps, prevState) => {
-        if (nextProps.settings !== this.props.settings) {
+        this.props.getSettings().then(() => {
             // notification type
             const notificationTypeIds = [];
             const notificationTypeOptions = this.props.settings.notificationTypes.map(x => {
@@ -78,7 +74,7 @@ class Filter extends Component {
                 this.props.setGridParams(params);
                 this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
             });
-        }
+        });
     }
 
     handleFilterChange = (name, value) => {

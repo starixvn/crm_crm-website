@@ -1,8 +1,10 @@
+import LanguageHelper from '../../common/langHelper';
+
 export default  {
     "en-US": {
         All: 'All',
         SelectedItemCount: "# selected",
-        SelectOptions: "Select options"
+        SelectOptions: LanguageHelper.getResource('PleaseSelect')
     },
     "zh-TW": {
         All: '全部',

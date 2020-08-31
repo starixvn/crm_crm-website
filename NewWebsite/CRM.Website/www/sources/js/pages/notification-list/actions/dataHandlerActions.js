@@ -114,7 +114,7 @@ export const validateResend = params => async dispatch => {
             result: response.data
         }));
     }).then(() => Site.unblockUI());
-}
+};
 
 export const setValidateResend = data => {
     return {
@@ -138,7 +138,7 @@ export const resendNotifications = (dataList, callback) => async dispatch => {
             isSuccessful
         }));
     }).then(() => Site.unblockUI());
-}
+};
 
 export const setConfirmPopup = data => {
     return {
@@ -157,12 +157,12 @@ export const getHeadlineOptions = searchText => async dispatch => {
     const url = Site.resolveClientUrl('Common/GetHeadlines');
     await DataService.postDataAsync(url, params).then(response => {
         const options = response.data.map(item => {
-            return { value: item.name, label: item.name }
+            return { value: item.name, label: item.name };
         });
 
-        dispatch(setHeadlineOptions(options))
+        dispatch(setHeadlineOptions(options));
     });
-}
+};
 
 export const getRecipientOptions = searchText => async dispatch => {
     const params = {
@@ -173,26 +173,26 @@ export const getRecipientOptions = searchText => async dispatch => {
     const url = Site.resolveClientUrl('Common/GetRecipients');
     await DataService.postDataAsync(url, params).then(response => {
         const options = response.data.map(item => {
-            return { value: item.name, label: item.name }
+            return { value: item.name, label: item.name };
         });
 
-        dispatch(setRecipientOptions(options))
+        dispatch(setRecipientOptions(options));
     });
-}
+};
 
 export const setHeadlineOptions = data => {
     return {
         type: types.HEADLINE_OPTIONS_DATA,
         data
     };
-}
+};
 
 export const setRecipientOptions = data => {
     return {
         type: types.RECIPIENT_OPTIONS_DATA,
         data
     };
-}
+};
 
 const actions = {
     setGridParams,

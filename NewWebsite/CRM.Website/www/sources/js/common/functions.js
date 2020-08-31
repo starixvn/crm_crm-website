@@ -1,6 +1,6 @@
 export const getNowGMTAdd8 = () => {
     const now = new Date();
-    now.setHours(now.getHours() - 8 - (now.getTimezoneOffset() / 60));
+    now.setHours(now.getHours() - 8 - now.getTimezoneOffset() / 60);
     return now;
 };
 

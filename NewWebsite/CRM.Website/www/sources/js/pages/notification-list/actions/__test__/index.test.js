@@ -8,5 +8,5 @@ describe('index', () => {
         };
 
         expect(ActionCreators).toEqual(ActionCreators);
-    })
+    });
 });

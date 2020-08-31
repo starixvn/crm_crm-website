@@ -7,7 +7,7 @@ export const handleNewResendOptions = (data, done) => {
             notificationId: item.notificationId,
             status: item.status,
             isResent: false
-        }
+        };
     });
 
     done({
@@ -20,6 +20,6 @@ export const handleNewResendOptions = (data, done) => {
 
 const functions = {
     handleNewResendOptions
-}
+};
 
 export default functions;

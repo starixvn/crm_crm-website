@@ -240,7 +240,7 @@ describe('ViewDetail', () => {
         it('handleChange called when textarea change', () => {
             // Arrange
             const event = {
-                target: { name: 'remark', value: 'the-value' },
+                target: { name: 'remark', value: 'the-value' }
             };
     
             const props = {
@@ -263,7 +263,7 @@ describe('ViewDetail', () => {
         it('handleChange called setState correctly', () => {
             // Arrange
             const event = {
-                target: { name: 'remark', value: 'the-value' },
+                target: { name: 'remark', value: 'the-value' }
             };
     
             const props = {
@@ -317,7 +317,7 @@ describe('ViewDetail', () => {
                 }
             });
             expect(props.onClose).toHaveBeenCalledTimes(1);
-            expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams})
+            expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams});
         });
 
         it('onClose called with isResolved is false and remark not change executes correctly', () => {
@@ -466,7 +466,7 @@ describe('ViewDetail', () => {
             expect(props.editNotificationList).toHaveBeenCalledWith({
                 notificationId,
                 remark: viewDetail.state('remark')
-            })
+            });
         });
     });
 
