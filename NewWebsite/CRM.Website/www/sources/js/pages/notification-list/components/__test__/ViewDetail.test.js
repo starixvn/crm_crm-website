@@ -1,9 +1,10 @@
 import React from 'react';
-import { ViewDetail } from '../ViewDetail';
+import ViewDetailWrapper, { ViewDetail } from '../ViewDetail';
 import { shallow } from 'enzyme';
 import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
+import configureMockStore from 'redux-mock-store';
 
 describe('ViewDetail', () => {
     it('render component correctly', () => {
@@ -466,6 +467,26 @@ describe('ViewDetail', () => {
                 notificationId,
                 remark: viewDetail.state('remark')
             })
+        });
+    });
+
+    describe('redux connect', () => {
+        const mockStore = configureMockStore();
+        const initialState = {
+            viewDetail: {
+                result: {}
+            },
+            gridParams: {
+                notificationTypeId: 1
+            }
+        };
+
+        const store = mockStore(initialState);
+        const wrapper = shallow(<ViewDetailWrapper store={store} />);
+
+        it('component has correct props', () => {
+            expect(wrapper.props().children.props.viewDetail).toEqual(initialState.viewDetail);
+            expect(wrapper.props().children.props.gridParams).toEqual(initialState.gridParams);
         });
     });
 });
