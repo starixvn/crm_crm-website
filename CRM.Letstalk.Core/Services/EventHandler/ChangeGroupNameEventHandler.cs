@@ -13,12 +13,15 @@
     {
         private readonly IBaseService baseService;
         private readonly Func<int, ILetstalkService> letstalkService;
+        private readonly IWriteLogService writeLogService;
 
         public ChangeGroupNameEventHandler(IBaseService baseService,
-            Func<int, ILetstalkService> letstalkService)
+            Func<int, ILetstalkService> letstalkService,
+            IWriteLogService writeLogService)
         {
             this.baseService = baseService;
             this.letstalkService = letstalkService;
+            this.writeLogService = writeLogService;
         }
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
@@ -26,11 +29,16 @@
             var roomData = await letstalkService(botConfig.BotAccountId).GetChatRoomData(hookEvent.Source.GroupId);
             var command = new UpdateGroupNameCommand
             {
-                ConversationGroupId = hookEvent.Source.GroupId,
+                ConversationId = hookEvent.Source.GroupId,
                 DisplayName = roomData.Title
             };
 
-            await baseService.ExecuteNonQueryAsync(command);
+            var result = await baseService.ExecuteNonQueryAsync(command);
+
+            if (!result.IsSuccessful)
+            {
+                await writeLogService.WriteErrorLogAsync(new Exception(result.Message));
+            }
         }
     }
 }

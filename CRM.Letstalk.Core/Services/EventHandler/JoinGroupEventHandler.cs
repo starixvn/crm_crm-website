@@ -13,12 +13,15 @@
     {
         private readonly IBaseService baseService;
         private readonly Func<int, ILetstalkService> letstalkService;
+        private readonly IWriteLogService writeLogService;
 
         public JoinGroupEventHandler(IBaseService baseService, Func<int,
-            ILetstalkService> letstalkService)
+            ILetstalkService> letstalkService,
+            IWriteLogService writeLogService)
         {
             this.baseService = baseService;
             this.letstalkService = letstalkService;
+            this.writeLogService = writeLogService;
         }
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
@@ -28,12 +31,17 @@
             var command = new AddBotToGroupCommand
             {
                 GroupName = displayName,
-                ConversationGroupId = hookEvent.Source.GroupId,
+                ConversationId = hookEvent.Source.GroupId,
                 BotId = botConfig.BotAccountId,
                 BotName = botConfig.BotUserId
             };
 
-            await baseService.ExecuteNonQueryAsync(command);
+            var result = await baseService.ExecuteNonQueryAsync(command);
+
+            if (!result.IsSuccessful)
+            {
+                await writeLogService.WriteErrorLogAsync(new Exception(result.Message));
+            }
         }
 
         private async Task<string> GetChatRoomDisplayName(BotConfig botConfig, string groupId)

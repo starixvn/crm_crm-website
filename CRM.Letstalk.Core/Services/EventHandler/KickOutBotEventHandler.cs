@@ -1,5 +1,6 @@
 ﻿namespace CRM.Letstalk.Core.Services.EventHandler
 {
+    using System;
     using System.Threading.Tasks;
     using CRM.Core.Services;
     using CRM.Letstalk.Client.Configurations;
@@ -10,21 +11,28 @@
     public class KickOutBotEventHandler : IEventHandler
     {
         private readonly IBaseService baseService;
+        private readonly IWriteLogService writeLogService;
 
-        public KickOutBotEventHandler(IBaseService baseService)
+        public KickOutBotEventHandler(IBaseService baseService, IWriteLogService writeLogService)
         {
             this.baseService = baseService;
+            this.writeLogService = writeLogService;
         }
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
         {
             var command = new RemoveBotFromGroupCommand
             {
-                ConversationGroupId = hookEvent.Source.GroupId,
+                ConversationId = hookEvent.Source.GroupId,
                 BotId = botConfig.BotAccountId,
             };
 
-            await baseService.ExecuteNonQueryAsync(command);
+            var result = await baseService.ExecuteNonQueryAsync(command);
+
+            if (!result.IsSuccessful)
+            {
+                await writeLogService.WriteErrorLogAsync(new Exception(result.Message));
+            }
         }
     }
 }

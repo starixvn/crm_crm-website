@@ -61,7 +61,6 @@
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
             services.ResolveCoreDI();
-            services.AddTransient<ILogger, Logger>();
             services.ResolveLetstalkServices(Configuration);
             services.ResolveWebhookServices(Configuration);
         }
