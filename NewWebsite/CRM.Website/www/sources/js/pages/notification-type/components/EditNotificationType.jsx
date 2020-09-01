@@ -9,7 +9,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 
-class EditNotificationType extends Component {
+export class EditNotificationType extends Component {
     constructor(props) {
         super(props);
 

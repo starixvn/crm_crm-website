@@ -10,7 +10,7 @@ import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 
 
-class NewNotificationType extends Component {
+export class NewNotificationType extends Component {
     constructor(props) {
         super(props);
     }

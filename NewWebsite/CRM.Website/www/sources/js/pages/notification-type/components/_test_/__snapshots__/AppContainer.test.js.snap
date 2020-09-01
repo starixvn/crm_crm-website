@@ -2,4 +2,8 @@
 
 exports[`AppContainer create notification type render popup 1`] = `ShallowWrapper {}`;
 
+exports[`AppContainer delete notification type render popup 1`] = `ShallowWrapper {}`;
+
+exports[`AppContainer edit notification type render popup 1`] = `ShallowWrapper {}`;
+
 exports[`AppContainer renders component correctly 1`] = `ShallowWrapper {}`;

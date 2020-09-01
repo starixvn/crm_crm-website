@@ -6,7 +6,7 @@ import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 
-class Filter extends Component {
+export class Filter extends Component {
     constructor(props) {
         super(props);
 

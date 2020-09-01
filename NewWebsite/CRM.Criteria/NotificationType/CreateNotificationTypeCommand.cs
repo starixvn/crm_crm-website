@@ -13,12 +13,7 @@
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Ins";
 
         public override bool IsValid() =>
-#pragma warning disable S1067 // Expressions should not be too complex
              UserId > 0
-             && SystemId > 0
-            && !string.IsNullOrWhiteSpace(ChatTypeIds)
-            && !string.IsNullOrWhiteSpace(RecipientTypeIds)
-            && !string.IsNullOrWhiteSpace(NotificationTypeName);
-#pragma warning restore S1067 // Expressions should not be too complex
+             && SystemId > 0;
     }
 }
