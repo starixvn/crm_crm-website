@@ -13,7 +13,9 @@ export default class Content extends Component {
         return (
             <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={onClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title as='div'>{`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MesageID')}: ${data.messageId})`}</Modal.Title>
+                    <Modal.Title as='div'>
+                        {`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MesageID')}: ${data.messageId})`}
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>{`Name: Group ${data.headlines.map(gh => gh.headlineName).join(', ')}`}</div>

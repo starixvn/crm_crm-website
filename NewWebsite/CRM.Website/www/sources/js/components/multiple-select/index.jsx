@@ -4,13 +4,13 @@ import MultipleSelectLabel from './MultipleSelectLabel';
 import MultipleSelectOptionList from './MultipleSelectOptionList';
 import OptionAll from './OptionAll';
 
-const KEY_NAME = "key";
-const VALUE_NAME = "value";
-const STATUS_NAME = "checked";
+const KEY_NAME = 'key';
+const VALUE_NAME = 'value';
+const STATUS_NAME = 'checked';
 
 let id = 1;
 
-function convertDataSourceToState({ keyField, valueField, statusField, dataSource }) {
+const convertDataSourceToState = ({ keyField, valueField, statusField, dataSource }) => {
     return dataSource.map(item => {
         return {
             [KEY_NAME]: item[keyField],
@@ -82,7 +82,7 @@ export default class MultipleSelect extends Component {
         return this.state.dataSource.filter(item => item.checked);
     }
 
-    onChangeHandler = (item) => {
+    onChangeHandler = item => {
         const { keyField, valueField, statusField } = this.props;
 
         const selectedItem = {
@@ -109,7 +109,7 @@ export default class MultipleSelect extends Component {
             });
     }
 
-    checkAllHandler = (checked) => {
+    checkAllHandler = checked => {
         const dataSource = this.state.dataSource.slice(0);
         dataSource.forEach(item => item.checked = checked);
         this.setState({
@@ -119,8 +119,8 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    onChangeSearchText = (value) => {
-        this.setState((prevState) => {
+    onChangeSearchText = value => {
+        this.setState(() => {
             const dataSource = this.state.dataSource.slice(0);
             if (value.length > 1) {
                 dataSource.forEach(item => item.visible = item[VALUE_NAME].toLowerCase().indexOf(value.toLowerCase()) !== -1);
@@ -157,14 +157,14 @@ export default class MultipleSelect extends Component {
             }
         }
 
-        return selectedItemKey.join(",");
+        return selectedItemKey.join(',');
     }
 
     _close = () => {
         this.setState({ showOptionList: false });
     }
 
-    _handleDocumentClick = (event) => {
+    _handleDocumentClick = event => {
         const clickOutside = this.wrapper && !this.wrapper.contains(event.target);
         if (clickOutside && this.state.showOptionList) {
             this._close();
@@ -187,23 +187,23 @@ export default class MultipleSelect extends Component {
         }
 
         const clearButtonStyle = {
-            position: "absolute",
-            right: "5px",
-            width: "20px",
-            height: "20px",
+            position: 'absolute',
+            right: '5px',
+            width: '20px',
+            height: '20px',
             border: 0,
-            margin: "5px",
-            backgroundColor: "transparent",
-            cursor: "pointer"
+            margin: '5px',
+            backgroundColor: 'transparent',
+            cursor: 'pointer'
         };
 
-        return (<div style={{ width: "100%" }}>
-            <input autoFocus onChange={(e) => this.onChangeSearchText(e.target.value)}
+        return (<div style={{ width: '100%' }}>
+            <input autoFocus onChange={e => this.onChangeSearchText(e.target.value)}
                 ref={element => this.searchInputBox = element}
-                value={this.state.searchText} type="text" placeholder="Search data"
+                value={this.state.searchText} type='text' placeholder='Search data'
                 style={{
-                    width: "100%", border: "1px solid #ccc", padding: "5px 10px",
-                    boxSizing: "border-box"
+                    width: '100%', border: '1px solid #ccc', padding: '5px 10px',
+                    boxSizing: 'border-box'
                 }}
             />
             <button onClick={this.onClearSearch} style={clearButtonStyle}>X</button>
@@ -226,8 +226,8 @@ export default class MultipleSelect extends Component {
                     isAllTextShown={this.props.isAllTextShown}
                     maxDisplayItemCount={maxDisplayItemCount}
                 />
-                <div className="multiple-select-default multiple-select-options-container"
-                    style={{ display: this.state.showOptionList ? "block" : "none" }}
+                <div className='multiple-select-default multiple-select-options-container'
+                    style={{ display: this.state.showOptionList ? 'block' : 'none' }}
                 >
                     {this._renderSearchBox()}
                     {this._renderOptionAll()}

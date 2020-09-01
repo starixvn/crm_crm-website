@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Translation from './translation'
+import Translation from './translation';
 
 const MAX_SELECTED_ITEM_FOR_DISPLAY = 3;
 
@@ -35,7 +35,7 @@ export default class MultipleSelectLabel extends Component {
             displayText = texts.SelectedItemCount.replace('#', selectedItemCount);
         }
         else if (selectedItemCount >= 1) {
-            displayText = selectedValues.join(", ");
+            displayText = selectedValues.join(', ');
         }
 
         return displayText;
@@ -43,11 +43,11 @@ export default class MultipleSelectLabel extends Component {
 
     render() {
         return (
-            <button type="button" className="multiple-select-default multiple-select-label"
+            <button type='button' className='multiple-select-default multiple-select-label'
                 onClick={this.props.onToggle}
             >
-                <span className="text-display">{this.selectedItemsString}</span>
-                <b className="caret" />
+                <span className='text-display'>{this.selectedItemsString}</span>
+                <b className='caret' />
             </button>
         );
     }

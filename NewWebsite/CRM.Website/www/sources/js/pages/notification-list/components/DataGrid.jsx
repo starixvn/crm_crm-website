@@ -46,12 +46,18 @@ export class DataGrid extends Component {
                 {
                     isHost && <HeaderCell colWidth={10}>
                         {
-                            !this.props.resendOptions.isDisabledResend ? 
+                            !this.props.resendOptions.isDisabledResend ?
                             <div className='link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
                             <div>{LangHelper.getResource('Resend')}</div>
                         }
                         {
-                            this.props.resendOptions.isHaveResendAll && <Form.Control className='checkbox-cell-style margin-top-10' type='checkbox' onChange={this.handleChangeResendAllCheckbox} checked={this.props.resendOptions.isCheckedAll} />
+                            this.props.resendOptions.isHaveResendAll &&
+                            <Form.Control
+                                className='checkbox-cell-style margin-top-10'
+                                type='checkbox'
+                                onChange={this.handleChangeResendAllCheckbox}
+                                checked={this.props.resendOptions.isCheckedAll}
+                            />
                         }
                     </HeaderCell>
                 }
@@ -121,7 +127,11 @@ export class DataGrid extends Component {
                         (this.isError(item.status) || this.isResolved(item.status)) && <div onClick={() => this.openViewDetailPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
-                        this.isError(item.status) && <div onClick={() => this.validateResend(item.notificationId)} className='action-style link-click'>{LangHelper.getResource('Resend')}</div>
+                        this.isError(item.status) &&
+                        <div
+                            onClick={() => this.validateResend(item.notificationId)}
+                            className='action-style link-click'
+                        >{LangHelper.getResource('Resend')}</div>
                     }
                 </Cell>
             }
@@ -142,19 +152,19 @@ export class DataGrid extends Component {
         if (headlines && headlines.length > 0) {
             return headlines.map(headline => headline.headlineName).join(', ');
         }
-        
+
         return '';
     }
 
     getRecipients = recipients => {
         if (recipients && recipients.length > 0) {
-            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>)
+            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>);
         }
-        
+
         return '';
     }
 
-    handleChangeResendCheckbox = (index) => {
+    handleChangeResendCheckbox = index => {
         const dataList = [...this.props.resendOptions.dataList];
         dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
         const resendList = dataList.filter(item => this.isError(item.status) && item.isResent);

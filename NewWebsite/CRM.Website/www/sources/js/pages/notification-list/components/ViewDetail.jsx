@@ -14,7 +14,7 @@ export class ViewDetail extends Component {
             remark: props.data.resolvedRemark ? props.data.resolvedRemark : '',
             oldRemark: props.data.resolvedRemark,
             isResolved: false
-        }
+        };
     }
 
     buildHeader = () => {
@@ -27,38 +27,36 @@ export class ViewDetail extends Component {
         );
     }
 
-    buildBody = data => {
-        return [<Row key={data.notificationId}>
+    buildBody = data =>
+        [<Row key={data.notificationId}>
             <Cell>{this.getHeadlines(data.headlines)}</Cell>
             <Cell>{this.getRecipients(data.recipients)}</Cell>
             <Cell className='error-color'>{data.reason}</Cell>
         </Row>]
-    }
 
     getHeadlines = headlines => {
         if (headlines && headlines.length > 0) {
-            return headlines.map(headline => headline.headlineName).join(', ')
+            return headlines.map(headline => headline.headlineName).join(', ');
         }
-        
+
         return '';
     }
 
     getRecipients = recipients => {
         if (recipients && recipients.length > 0) {
-            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>)
+            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>);
         }
-        
+
         return '';
     }
 
-    editNotificationList = notificationId => {
-        this.setState({ isResolved: true }, () => 
+    editNotificationList = notificationId =>
+        this.setState({ isResolved: true }, () =>
             this.props.editNotificationList({
                 notificationId,
                 remark: this.state.remark
             })
-        );
-    }
+        )
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value});
@@ -73,8 +71,8 @@ export class ViewDetail extends Component {
                     message: '',
                     isSuccessful: false
                 }
-            })
-            
+            });
+
             close();
             this.props.getGridData({...this.props.gridParams});
         }
@@ -124,9 +122,18 @@ export class ViewDetail extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        !this.props.viewDetail.result.isSuccessful && <Button onClick={() => this.editNotificationList(data.notificationId)} variant='primary' size='sm'>{LangHelper.getResource('Resolved')}</Button>
+                        !this.props.viewDetail.result.isSuccessful &&
+                            <Button
+                                onClick={() => this.editNotificationList(data.notificationId)}
+                                variant='primary' size='sm'
+                            >{LangHelper.getResource('Resolved')}</Button>
                     }
-                    <Button onClick={() => this.onClose(onClose)} variant='primary' size='sm'>{this.state.isResolved ? LangHelper.getResource('Close') : LangHelper.getResource('Cancel')}</Button>
+                    <Button
+                        onClick={() => this.onClose(onClose)}
+                        variant='primary' size='sm'
+                    >
+                        {this.state.isResolved ? LangHelper.getResource('Close') : LangHelper.getResource('Cancel')}
+                    </Button>
                 </Modal.Footer>
             </Modal>
         );

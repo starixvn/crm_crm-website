@@ -16,7 +16,7 @@ export default class Option extends Component {
         };
     }
 
-    onChange = (event) => {
+    onChange = event => {
         event.stopPropagation();
 
         const { itemData, onChange } = this.props;

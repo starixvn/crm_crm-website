@@ -8,15 +8,7 @@ import ValidateResend from '../ValidateResend';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import { shallow } from 'enzyme';
-import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
-import {
-    Table,
-    HeaderRow,
-    HeaderCell,
-    Row,
-    Cell,
-} from '@jsroot/components/react-grid/index';
 import configureMockStore from 'redux-mock-store';
 
 describe('AppContainer', () => {

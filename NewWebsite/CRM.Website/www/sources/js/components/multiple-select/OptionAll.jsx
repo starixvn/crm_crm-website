@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Option from './Option'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Option from './Option';
 import Translation from './translation';
 
 const DEFAULT_CHECKED = false;

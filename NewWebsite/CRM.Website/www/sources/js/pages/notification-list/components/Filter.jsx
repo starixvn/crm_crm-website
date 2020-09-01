@@ -103,7 +103,7 @@ class Filter extends Component {
         }
     }
 
-    changeToDateAfterFromDateChanged = (value) => {
+    changeToDateAfterFromDateChanged = value => {
         if (this.state.filter.toDate - value < 0) {
             this.handleFilterChange('toDate', value);
         }
@@ -157,11 +157,11 @@ class Filter extends Component {
         }
     }
 
-    isDisabledDateParam = () => {
-        return this.state.filter.messageID !== '' || this.state.filter.notificationIdLower !== '' || this.state.filter.notificationIdUpper !== '';
-    }
+    isDisabledDateParam = () =>
+        this.state.filter.messageID !== '' || this.state.filter.notificationIdLower
+        !== '' || this.state.filter.notificationIdUpper !== ''
 
-    isValidateParams = (params) => {
+    isValidateParams = params => {
         if (params.notificationTypeIds === '') {
             this.props.setInvalidParams({
                 show: true,
@@ -171,31 +171,27 @@ class Filter extends Component {
             return false;
         }
 
-        if (params.notificationIdLower !== '') {
-            if (params.notificationIdUpper === '') {
-                this.props.setInvalidParams({
-                    show: true,
-                    message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdUpper: true
-                });
+        if (params.notificationIdLower !== '' && params.notificationIdUpper === '') {
+            this.props.setInvalidParams({
+                show: true,
+                message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
+                isInvalidNotificationIdUpper: true
+            });
 
-                return false;
-            }
+            return false;
         }
 
-        if (params.notificationIdUpper !== '') {
-            if (params.notificationIdLower === '') {
-                this.props.setInvalidParams({
-                    show: true,
-                    message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                    isInvalidNotificationIdLower: true
-                });
+        if (params.notificationIdUpper !== '' && params.notificationIdLower === '') {
+            this.props.setInvalidParams({
+                show: true,
+                message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
+                isInvalidNotificationIdLower: true
+            });
 
-                return false;
-            }
+            return false;
         }
 
-        if (parseInt(params.notificationIdLower) > parseInt(params.notificationIdUpper)) {
+        if (parseInt(params.notificationIdLower, 10) > parseInt(params.notificationIdUpper, 10)) {
             this.props.setInvalidParams({
                 show: true,
                 message: `${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`
@@ -312,12 +308,20 @@ class Filter extends Component {
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationID')}</Form.Label>
                         <div className='form-control-wrapper d-flex align-items-center notification-id-container'>
-                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ? 'invalid-input' : 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdLower'
+                            <Form.Control
+                                className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdLower ?
+                                    'invalid-input' : 'valid-input'} notification-id-input`}
+                                as='input' type='text' pattern='[0-9]*' size='sm'
+                                name='notificationIdLower'
                                 value={this.state.filter.notificationIdLower}
                                 onChange={this.handleChangeFilterControl}
                             />
                             <div className='notification-concate text-center'>-</div>
-                            <Form.Control className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ? 'invalid-input' : 'valid-input'} notification-id-input`} as='input' type='text' pattern='[0-9]*' size='sm' name='notificationIdUpper'
+                            <Form.Control
+                                className={`shadow-none ${this.props.invalidParams.isInvalidNotificationIdUpper ?
+                                    'invalid-input' : 'valid-input'} notification-id-input`}
+                                as='input' type='text' pattern='[0-9]*' size='sm'
+                                name='notificationIdUpper'
                                 value={this.state.filter.notificationIdUpper}
                                 onChange={this.handleChangeFilterControl}
                             />
