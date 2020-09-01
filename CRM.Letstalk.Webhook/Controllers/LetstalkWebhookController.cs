@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using CRM.Core.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Core.Models;
     using CRM.Letstalk.Core.Services.Interfaces;
@@ -14,31 +13,21 @@
     {
         private readonly IWebhookReceiver webhookReceiver;
         private readonly Func<int, ILetstalkService> letstalkService;
-        private readonly IWriteLogService writeLogService;
         private readonly List<WebhookConfiguration> webhookConfigurations;
 
         public LetstalkWebhookController(IWebhookReceiver webhookReceiver,
             Func<int, ILetstalkService> letstalkService,
-            IWriteLogService writeLogService,
             List<WebhookConfiguration> webhookConfigurations)
         {
             this.webhookReceiver = webhookReceiver;
             this.letstalkService = letstalkService;
-            this.writeLogService = writeLogService;
             this.webhookConfigurations = webhookConfigurations;
         }
 
         [Route("api/webhook/{id}")]
         public async Task WebhookReceiver(int id)
         {
-            try
-            {
-                await webhookReceiver.ReceiveAsync(Request, id);
-            }
-            catch (Exception ex)
-            {
-                await writeLogService.WriteErrorLogAsync(ex);
-            }
+            await webhookReceiver.ReceiveAsync(Request, id);
         }
 
         [Route("api/setwebhook/{id}")]
