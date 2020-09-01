@@ -64,7 +64,7 @@
             services.Configure<List<BotConfig>>(options => botConfigSections.Bind(options));
             var botConfigs = botConfigSections.Get<List<BotConfig>>();
             services.AddSingleton(botConfigs);
-            services.AddSingleton<IRestClient, RestClient>();
+            services.AddTransient<IRestClient, RestClient>();
             services.AddTransient<RestClientService>();
             services.AddTransient<LetstalkService>();
             services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>

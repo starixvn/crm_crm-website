@@ -11,7 +11,7 @@
     public class ReceiveMessageEventHandler : IEventHandler
     {
         private readonly Func<int, ILetstalkService> letstalkService;
-        private const string ReplayChat = "We are not support interactive with bot service.";
+        private const string ReplayChat = "Hello, I am Bot.";
 
         public ReceiveMessageEventHandler(Func<int, ILetstalkService> letstalkService)
         {
