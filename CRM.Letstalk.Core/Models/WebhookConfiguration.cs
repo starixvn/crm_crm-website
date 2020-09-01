@@ -6,6 +6,6 @@
 
         public bool IsAllowedSet { get; set; }
 
-        public string WebhookUrl { get; set; }
+        public string WebhookBaseUrl { get; set; }
     }
 }

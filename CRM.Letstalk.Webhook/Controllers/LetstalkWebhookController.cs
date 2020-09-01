@@ -36,7 +36,8 @@
             var botConfigs = webhookConfigurations.FirstOrDefault(config => config.BotId == id);
             if (botConfigs != null && botConfigs.IsAllowedSet)
             {
-                var result = await letstalkService(id).SetWebhookAsync(botConfigs.WebhookUrl);
+                var webhookUrl = $"{botConfigs.WebhookBaseUrl}api/webhook/{id}";
+                var result = await letstalkService(id).SetWebhookAsync(webhookUrl);
                 return Ok(result);
             }
 
