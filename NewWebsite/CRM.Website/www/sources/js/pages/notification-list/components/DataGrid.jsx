@@ -5,7 +5,7 @@ import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
 import { Form } from 'react-bootstrap';
-import { handleNewResendOptions } from '../functions';
+import { handleNewResendOptions, getHeadlines, getRecipients } from '../functions';
 import { PAGING_SIZES } from '@jsroot/common/constants';
 
 export class DataGrid extends Component {
@@ -101,7 +101,7 @@ export class DataGrid extends Component {
         });
     }
 
-    renderRow = (item, index, isHost) => (
+    renderRow = (item, index, isHost) =>
         <Row key={index} >
             <Cell className='text-center'>{index + this.startIndex}</Cell>
             <Cell className='text-center'>
@@ -116,15 +116,19 @@ export class DataGrid extends Component {
                 <div>{item.sendDateString}</div>
                 <div>{item.sendTimeString}</div>
             </Cell>
-            <Cell className='text-center'>{this.getHeadlines(item.headlines)}</Cell>
-            <Cell className='text-center'>{this.getRecipients(item.recipients)}</Cell>
+            <Cell className='text-center'>{getHeadlines(item.headlines)}</Cell>
+            <Cell className='text-center'>{getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
             <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{item.status}</Cell>
             {
                 isHost &&
                 <Cell className='text-center'>
                     {
-                        (this.isError(item.status) || this.isResolved(item.status)) && <div onClick={() => this.openViewDetailPopup(item)} className='action-style link-click'>{LangHelper.getResource('ViewDetail')}</div>
+                        (this.isError(item.status) || this.isResolved(item.status)) &&
+                            <div
+                                onClick={() => this.openViewDetailPopup(item)}
+                                className='action-style link-click'
+                            >{LangHelper.getResource('ViewDetail')}</div>
                     }
                     {
                         this.isError(item.status) &&
@@ -146,23 +150,6 @@ export class DataGrid extends Component {
                 </Cell>
             }
         </Row>
-    )
-
-    getHeadlines = headlines => {
-        if (headlines && headlines.length > 0) {
-            return headlines.map(headline => headline.headlineName).join(', ');
-        }
-
-        return '';
-    }
-
-    getRecipients = recipients => {
-        if (recipients && recipients.length > 0) {
-            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>);
-        }
-
-        return '';
-    }
 
     handleChangeResendCheckbox = index => {
         const dataList = [...this.props.resendOptions.dataList];

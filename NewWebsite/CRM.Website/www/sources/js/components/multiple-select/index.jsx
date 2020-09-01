@@ -20,7 +20,7 @@ const convertDataSourceToState = ({ keyField, valueField, statusField, dataSourc
             visible: true
         };
     });
-}
+};
 
 export default class MultipleSelect extends Component {
     static propTypes = {

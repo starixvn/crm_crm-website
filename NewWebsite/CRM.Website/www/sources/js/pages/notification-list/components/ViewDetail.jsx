@@ -5,50 +5,36 @@ import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/reac
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
+import { getHeadlines, getRecipients } from '../functions';
 
 export class ViewDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            remark: props.data.resolvedRemark ? props.data.resolvedRemark : '',
-            oldRemark: props.data.resolvedRemark,
             isResolved: false
         };
     }
+    
+    componentDidMount = () =>
+        this.setState({
+            remark: this.props.data.resolvedRemark ?? '',
+            oldRemark: this.props.data.resolvedRemark ?? '',
+        })
 
-    buildHeader = () => {
-        return (
-            <HeaderRow>
-                <HeaderCell colWidth={25}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                <HeaderCell colWidth={25}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={50}>{LangHelper.getResource('Reason')}</HeaderCell>
-            </HeaderRow>
-        );
-    }
+    buildHeader = () =>
+        <HeaderRow>
+            <HeaderCell colWidth={25}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
+            <HeaderCell colWidth={25}>{LangHelper.getResource('Recipient')}</HeaderCell>
+            <HeaderCell colWidth={50}>{LangHelper.getResource('Reason')}</HeaderCell>
+        </HeaderRow>
 
     buildBody = data =>
         [<Row key={data.notificationId}>
-            <Cell>{this.getHeadlines(data.headlines)}</Cell>
-            <Cell>{this.getRecipients(data.recipients)}</Cell>
+            <Cell>{getHeadlines(data.headlines)}</Cell>
+            <Cell>{getRecipients(data.recipients)}</Cell>
             <Cell className='error-color'>{data.reason}</Cell>
         </Row>]
-
-    getHeadlines = headlines => {
-        if (headlines && headlines.length > 0) {
-            return headlines.map(headline => headline.headlineName).join(', ');
-        }
-
-        return '';
-    }
-
-    getRecipients = recipients => {
-        if (recipients && recipients.length > 0) {
-            return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>);
-        }
-
-        return '';
-    }
 
     editNotificationList = notificationId =>
         this.setState({ isResolved: true }, () =>

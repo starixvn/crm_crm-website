@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { connect } from 'react-redux';
@@ -45,20 +45,24 @@ class ValidateResend extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        isSingle && (isAllValidate ?
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
-                            LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIdsString)
-                        )
+                        isSingle && isAllValidate &&
+                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds)
                     }
                     {
-                        !isSingle && (isAllValidate ?
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
+                        isSingle && !isAllValidate &&
+                            LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIdsString)
+                    }
+                    {
+                        !isSingle && isAllValidate &&
+                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds)
+                    }
+                    {
+                        !isSingle && !isAllValidate &&
                             <div>
                                 <div>{LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace(notificationIdsReplace, inActiveNotificationIdsString)}</div>
                                 <div>{LangHelper.getResource('TheSelectedNoficationsAreAbleToResend').replace(notificationIdsReplace, resendIds)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
-                        )
                     }
                 </Modal.Body>
                 {

@@ -5,6 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import configureMockStore from 'redux-mock-store';
+import { getHeadlines, getRecipients } from '../../functions';
 
 describe('ViewDetail', () => {
     it('render component correctly', () => {
@@ -169,8 +170,8 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
         const viewDetailInstance = viewDetail.instance();
         const expectedBody = [<Row key={props.data.notificationId}>
-            <Cell>{viewDetailInstance.getHeadlines(props.data.headlines)}</Cell>
-            <Cell>{viewDetailInstance.getRecipients(props.data.recipients)}</Cell>
+            <Cell>{getHeadlines(props.data.headlines)}</Cell>
+            <Cell>{getRecipients(props.data.recipients)}</Cell>
             <Cell className='error-color'>{props.data.reason}</Cell>
         </Row>];
 
@@ -179,61 +180,6 @@ describe('ViewDetail', () => {
 
         // Assert
         expect(header).toEqual(expectedBody);
-    });
-    
-    describe('getHeadlines', () => {
-        function getHeadlines_Test(headlines, expected) {
-            it('getHeadlines_Test', () => {
-                // Arrange
-                const props = {
-                    data: {},
-                    viewDetail: {
-                        result: {}
-                    }
-                };
-        
-                const viewDetail = shallow(<ViewDetail {...props} />);
-                
-                // Action
-                const result = viewDetail.instance().getHeadlines(headlines);
-        
-                // Assert
-                expect(result).toEqual(expected);
-            });
-        }
-    
-        getHeadlines_Test(null, '');
-        getHeadlines_Test(undefined, '');
-        getHeadlines_Test([], '');
-        getHeadlines_Test([ { headlineName: 'name1' }, { headlineName: 'name2' } ], 'name1, name2');
-    });
-    
-    describe('getRecipients', () => {
-        const recipients = [ { recipientName: 'recipient1', roleName: 'role1' }, { recipientName: 'recipient2', roleName: 'role2' } ];
-        function getRecipients_Test(recipients, expected) {
-            it('getRecipients_Test', () => {
-                // Arrange
-                const props = {
-                    data: {},
-                    viewDetail: {
-                        result: {}
-                    }
-                };
-        
-                const viewDetail = shallow(<ViewDetail {...props} />);
-                
-                // Action
-                const result = viewDetail.instance().getRecipients(recipients);
-        
-                // Assert
-                expect(result).toEqual(expected);
-            });
-        }
-    
-        getRecipients_Test(null, '');
-        getRecipients_Test(undefined, '');
-        getRecipients_Test([], '');
-        getRecipients_Test(recipients, recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>));
     });
 
     describe('handleChange', () => {
