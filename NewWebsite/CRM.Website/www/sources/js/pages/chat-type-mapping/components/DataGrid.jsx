@@ -137,10 +137,11 @@ export class DataGrid extends Component {
                 <Cell>
                     {item.conversationGroupName}
                 </Cell>
-                <Cell >{item.recipients[0].recipientTypeName}</Cell>
-                <Cell >{item.headlines.map(h => h.headlineName).join(', ')}</Cell>
+                <Cell >{item.recipients.length > 0 ? item.recipients[0].recipientTypeName : ''}</Cell>
+                <Cell >{item.headlines.length > 0 ? item.headlines.map(h => h.headlineName).join(', ') : ''}</Cell>
                 <Cell className='recipient-merge-cell'>
                     {
+                        item.recipients.length > 0 &&
                         item.recipients.map(this.renderRecipients)
                     }
                 </Cell>
