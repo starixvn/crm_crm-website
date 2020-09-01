@@ -13,6 +13,7 @@
     using CRM.Letstalk.Core.Services.Interfaces;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using RestSharp;
 
     public static class DIResolver
     {
@@ -63,7 +64,7 @@
             services.Configure<List<BotConfig>>(options => botConfigSections.Bind(options));
             var botConfigs = botConfigSections.Get<List<BotConfig>>();
             services.AddSingleton(botConfigs);
-
+            services.AddSingleton<IRestClient, RestClient>();
             services.AddTransient<RestClientService>();
             services.AddTransient<LetstalkService>();
             services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>

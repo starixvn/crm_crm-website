@@ -86,7 +86,7 @@
                 request.AddParameter(ContentType, encodedData, ParameterType.RequestBody);
             }
 
-            var response = await restClient.ExecuteGetTaskAsync<T>(request);
+            var response = await restClient.ExecuteTaskAsync<T>(request);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
