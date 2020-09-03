@@ -12,7 +12,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class ChatTypeServiceTests
+    public class ChatTypeMappingServiceTests
     {
         private IBaseService baseService;
 

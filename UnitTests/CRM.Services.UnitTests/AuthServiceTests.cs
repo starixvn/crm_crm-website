@@ -1,6 +1,10 @@
 namespace CRM.Services.UnitTests
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Threading.Tasks;
+    using AutoFixture;
     using CRM.Core.Enumerables;
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
@@ -113,6 +117,38 @@ namespace CRM.Services.UnitTests
 
             // Assert
             Assert.Equal(RecheckInStatus.Success, actual);
+        }
+
+        [Fact]
+        public void HashText_WhenInputEmptyString_ReturnEmptyString()
+        {
+            var service = GetAuthService();
+
+            var actual = service.HashText(string.Empty);
+
+            Assert.Equal(string.Empty, actual);
+        }
+
+        [Fact]
+        public void HashText_WhenInputText_ReturnExpectedHash()
+        {
+            var fixture = new Fixture();
+            var input = fixture.Create<string>();
+            var expected = Hash(input);
+
+            var service = GetAuthService();
+            var actual = service.HashText(input);
+
+            Assert.Equal(expected, actual);
+        }
+
+        private string Hash(string plain)
+        {
+            byte[] textBuffer = Encoding.UTF8.GetBytes(plain);
+            byte[] hashBuffer = new SHA256Managed().ComputeHash(textBuffer);
+            string hash = BitConverter.ToString(hashBuffer);
+
+            return hash.Replace("-", string.Empty).ToLowerInvariant();
         }
 
         #region Helpers
