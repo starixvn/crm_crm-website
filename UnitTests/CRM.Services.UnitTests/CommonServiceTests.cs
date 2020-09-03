@@ -11,7 +11,6 @@
     using CRM.Core.Services;
     using CRM.Criteria.Common;
     using CRM.Models;
-    using CRM.Models.ChatBot;
     using CRM.Models.Common;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
@@ -28,8 +27,8 @@
         {
             // Arrange
             var service = GetService();
-            var expected = fixture.Create<IEnumerable<ConversationBot>>();
-            baseService.GetDataAsync<ConversationBot>(Arg.Any<GetConversationBotsCriteria>()).Returns(expected);
+            var expected = fixture.Create<IEnumerable<BaseModel>>();
+            baseService.GetDataAsync<BaseModel>(Arg.Any<GetConversationBotsCriteria>()).Returns(expected);
 
             // Action
             var result = await service.GetConversationBotAsync();

@@ -5,12 +5,11 @@
     using System.Threading.Tasks;
     using CRM.Criteria.Common;
     using CRM.Models;
-    using CRM.Models.ChatBot;
     using CRM.Models.Common;
 
     public interface ICommonService
     {
-        Task<IEnumerable<ConversationBot>> GetConversationBotAsync();
+        Task<IEnumerable<BaseModel>> GetConversationBotAsync();
 
         Task<IEnumerable<RecipientModel>> GetRecipientAsync(GetRecipientsCriteria criteria);
 

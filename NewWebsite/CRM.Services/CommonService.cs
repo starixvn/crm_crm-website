@@ -10,7 +10,6 @@
     using CRM.Core.Services;
     using CRM.Criteria.Common;
     using CRM.Models;
-    using CRM.Models.ChatBot;
     using CRM.Models.Common;
     using Microsoft.Extensions.Options;
 
@@ -27,10 +26,10 @@
             this.appSettings = appSettings.Value;
         }
 
-        public async Task<IEnumerable<ConversationBot>> GetConversationBotAsync()
+        public async Task<IEnumerable<BaseModel>> GetConversationBotAsync()
         {
             var criteria = new GetConversationBotsCriteria();
-            return await baseService.GetDataAsync<ConversationBot>(criteria);
+            return await baseService.GetDataAsync<BaseModel>(criteria);
         }
 
         public async Task<IEnumerable<RecipientModel>> GetRecipientAsync(GetRecipientsCriteria criteria)
