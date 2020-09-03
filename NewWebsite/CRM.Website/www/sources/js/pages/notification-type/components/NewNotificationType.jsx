@@ -9,7 +9,6 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 
-
 export class NewNotificationType extends Component {
     constructor(props) {
         super(props);
