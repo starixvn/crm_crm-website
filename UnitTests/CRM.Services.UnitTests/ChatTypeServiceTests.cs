@@ -58,6 +58,60 @@
             Assert.Equal(result, actual);
         }
 
+        [Fact]
+        public async Task GetHeadlineByRecipientAsync_WhenCalled_ReturnExpectedCommandResult()
+        {
+            // Arrange
+            var groupHeadlines = new List<GroupHeadlineDirectAccountModel>
+            {
+                new GroupHeadlineDirectAccountModel  { Id = 0, Name = "Not Assigned Group" },
+                new GroupHeadlineDirectAccountModel  { Id = 1, Name = "HL01" },
+                new GroupHeadlineDirectAccountModel  { Id = 2, Name = "HL02" },
+            };
+            var notAssignedGroupDirectAccounts = new List<string> { "DR1", "DR2" };
+            var service = GetService();
+            baseService.FetchMultipleAsync<GroupHeadlineDirectAccountModel, string>(Arg.Any<GetGroupHeadlineByRecipientCriteria>())
+                .Returns(new ValueTuple<IEnumerable<GroupHeadlineDirectAccountModel>, IEnumerable<string>>(groupHeadlines, notAssignedGroupDirectAccounts));
+            // Act
+
+            var actual = await service.GetHeadlineByRecipientAsync("1,2,3,4");
+            groupHeadlines.FirstOrDefault(g => g.Id == 0).SubData = notAssignedGroupDirectAccounts;
+            // Assert
+            Assert.Equal(groupHeadlines, actual);
+        }
+
+        [Fact]
+        public async Task InsertPersonalMappingAsync_WhenCalled_ReturnExpectedCommandResult()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var result = fixture.Create<CommandResult>();
+
+            var service = GetService();
+            baseService.ExecuteNonQueryAsync(Arg.Any<InsertPersonalMappingCommand>()).Returns(result);
+            // Act
+            var actual = await service.InsertPersonalMappingAsync(fixture.Create<InsertPersonalMappingCommand>());
+
+            // Assert
+            Assert.Equal(result, actual);
+        }
+
+        [Fact]
+        public async Task UpdateChatTypeMappingAsync_WhenCalled_ReturnExpectedCommandResult()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var result = fixture.Create<CommandResult>();
+
+            var service = GetService();
+            baseService.ExecuteNonQueryAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(result);
+            // Act
+            var actual = await service.UpdateChatTypeMappingAsync(fixture.Create<UpdateChatTypeMappingCommand>());
+
+            // Assert
+            Assert.Equal(result, actual);
+        }
+
         #region Helpers
 
         private ChatTypeMappingService GetService()
