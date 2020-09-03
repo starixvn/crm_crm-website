@@ -619,7 +619,7 @@
         private static string GetDescription(int messageId, string requestIds)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
-            stringBuilder.AppendFormat("<span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
+            stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.Append("<br />Announcement sent to affected Licensees and informed our related department found abnormal tickets of members for the match.");
             stringBuilder.Append("<br /><br />Please refer to the system email subject \"Voided Bets Report\" for those affected customers &amp; tickets for reference.");
             return stringBuilder.ToString();
@@ -628,7 +628,7 @@
         private static string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
-            stringBuilder.AppendFormat("<span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
+            stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.AppendFormat("<br />Date: {0}", matchInfo.EventDate.ToString("dd-MMM-yyyy"));
             stringBuilder.AppendFormat("<br />Sport: {0}", matchInfo.SportName);
             stringBuilder.AppendFormat("<br />Event Start Time: {0}", matchInfo.KickOffTime);
