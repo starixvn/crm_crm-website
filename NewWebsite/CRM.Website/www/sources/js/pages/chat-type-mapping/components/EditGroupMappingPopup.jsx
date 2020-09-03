@@ -121,7 +121,7 @@ export class EditGroupMappingPopup extends Component {
                     return {
                         recipientId: item.id,
                         recipientName: item.name,
-                        letstalks: item.letstalkIds.split(',').map((l, k) => {
+                        letstalks: !item.letstalkIds ? [] : item.letstalkIds.split(',').map((l, k) => {
                             return {
                                 letstalkId: l
                             };
