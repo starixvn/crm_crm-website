@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
-  <Function Name="System Setting">
-    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>
-  <Function Name="System Setting">
-    <Setting Key="Acc_CRM_SystemSettingSel" SpName="Acc_CRM_SystemSettingSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SystemSettingUpd" SpName="Acc_CRM_SystemSettingUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>
-  <Function Name="Feedback">
-    <Setting Key="Acc_CRM_CustomerSearch" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_VoidingMessageSel" SpName="Acc_CRM_VoidingMessageSel_xtest" DbName="DBACC.bodb02.bodbAdminNet" />
-    <Setting Key="Acc_CRM_VoidingMessageIns" SpName="Acc_CRM_VoidingMessageIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_VoidingMessageBatchUpd" SpName="Acc_CRM_VoidingMessageBatchUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_FailMessageSel" SpName="Acc_CRM_FailMessageSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_AutoFeedbackInfoIns" SpName="Acc_CRM_AutoFeedbackInfoIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_AutoFeedbackInfoUpd" SpName="Acc_CRM_AutoFeedbackInfoUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_MessageAbnormalTicketsSel" SpName="Acc_CRM_MessageAbnormalTicketsSel" DbName="DBMSG.bodb_Message.bodbAdminNet" />
-    <Setting Key="Acc_CRM_AbnormalTicketsSel" SpName="Acc_CRM_AbnormalTicketsSel_xtest" DbName="DBACC.bodb02.bodbAdminNet" />
-    <Setting Key="Acc_CRM_GroupHeadlineSel" SpName="Acc_CRM_GroupHeadlineSel" DbName="DBACC.bodb02.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SystemSettingMappingSel" SpName="Acc_CRM_SystemSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_GuestFeedbackIns_Multiple" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>
+    <Function Name="System Setting">
+        <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    </Function>
+    <Function Name="System Setting">
+        <Setting Key="Acc_CRM_SystemSettingSel" SpName="Acc_CRM_SystemSettingSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_SystemSettingUpd" SpName="Acc_CRM_SystemSettingUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    </Function>
+    <Function Name="Feedback">
+        <Setting Key="Acc_CRM_CustomerSearch" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_VoidingMessageSel" SpName="Acc_CRM_VoidingMessageSel_xtest" DbName="DBACC.bodb02.bodbAdminNet" />
+        <Setting Key="Acc_CRM_VoidingMessageIns" SpName="Acc_CRM_VoidingMessageIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_VoidingMessageBatchUpd" SpName="Acc_CRM_VoidingMessageBatchUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_FailMessageSel" SpName="Acc_CRM_FailMessageSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_AutoFeedbackInfoIns" SpName="Acc_CRM_AutoFeedbackInfoIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_AutoFeedbackInfoUpd" SpName="Acc_CRM_AutoFeedbackInfoUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_MessageAbnormalTicketsSel" SpName="Acc_CRM_MessageAbnormalTicketsSel" DbName="DBMSG.bodb_Message.bodbAdminNet" />
+        <Setting Key="Acc_CRM_AbnormalTicketsSel" SpName="Acc_CRM_AbnormalTicketsSel_xtest" DbName="DBACC.bodb02.bodbAdminNet" />
+        <Setting Key="Acc_CRM_GroupHeadlineSel" SpName="Acc_CRM_GroupHeadlineSel" DbName="DBACC.bodb02.bodbAdminNet" />
+        <Setting Key="Acc_CRM_SystemSettingMappingSel" SpName="Acc_CRM_SystemSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Acc_CRM_GuestFeedbackIns_Multiple" SpName="Acc_CRM_GuestFeedbackIns_Multiple_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    </Function>
 </Functions>

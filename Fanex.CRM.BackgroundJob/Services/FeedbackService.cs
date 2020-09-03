@@ -56,15 +56,15 @@
 
             IEnumerable<VoidingMessage> voidingMessages = await messageService.GetVoidingMessageAsync();
             voidingMessages = await messageService.StoreVoidingMessageAsync(voidingMessages, setting.BatchSize);
-            IEnumerable<int> messageIds = voidingMessages.Select(x => x.MessageId).Distinct().ToList();
-            IEnumerable<int> failMessageIds = await messageService.GetFailMessageAsync();
-            messageIds = messageIds.Concat(failMessageIds).Distinct().ToList();
-            if (!messageIds.Any())
+            IEnumerable<VoidingMessage> failMessages = await messageService.GetFailMessageAsync();
+            voidingMessages = voidingMessages.Concat(failMessages).Distinct().ToList();
+            if (!voidingMessages.Any())
             {
                 await UpdateSystemSettingAsync();
                 return;
             }
 
+            IEnumerable<int> messageIds = voidingMessages.Select(x => x.MessageId).Distinct().ToList();
             IEnumerable<Message> messages = await messageService.GetMessageInfoAsync(messageIds);
             ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(voidingMessages, setting);
             if (!ticketInfo.Item1.Any())
@@ -99,7 +99,6 @@
                 if (credits.Any())
                 {
                     await CreateFeedbackForCreditSiteAsync(
-                        voidingMessages,
                         message,
                         matchInfo,
                         credits,
@@ -112,7 +111,6 @@
                 {
                     GetLicenseeManager(deposits, siteSettingMappings);
                     await CreateFeedbackForDepositSiteAsync(
-                        voidingMessages,
                         licenseeInfo,
                         message,
                         matchInfo,
@@ -202,7 +200,6 @@
         }
 
         private async Task CreateFeedbackForCreditSiteAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
             Message message,
             MatchInfo matchInfo,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -239,8 +236,7 @@
                 AutoField = string.Empty,
                 AutoField1 = string.Empty,
                 AutoField2 = string.Format("Date Time & Tool: {0}/{1}/", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt")),
-                AutoField3 = $"{Environment.NewLine}System ID: ",
-                Description = GetDescription(matchInfo)
+                AutoField3 = $"{Environment.NewLine}System ID: "
             };
             logService.LogInformation("End mapping common setting for MessageId: " + message.MessageId);
 
@@ -252,7 +248,6 @@
                 criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
 
                 await CreateFeedbackByBatchAsync(
-                    voidingMessages,
                     headline,
                     relatedCustomerIds,
                     message,
@@ -266,7 +261,6 @@
 
 #pragma warning disable S107 // Methods should not have too many parameters
         private async Task CreateFeedbackByBatchAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
             Message message,
@@ -288,7 +282,7 @@
                     headline.HeadlineId,
                     string.Join(",", batch)));
 
-                var transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
+                IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
                 criteria.ProductXml = GetProductXml(matchInfo, transactions, settings, settingMappings);
                 criteria.Solution = GetSolution(message, transactions);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
@@ -299,8 +293,9 @@
                     message.MessageId,
                     headline.HeadlineId,
                     string.Join(",", batch)));
-                IEnumerable<int> requestIds = voidingMessages.Where(x => x.MessageId == message.MessageId)
-                    .Select(x => x.RequestId).Distinct().ToList();
+                IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
+                criteria.RequestIds = string.Join(",", requestIds);
+                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds, matchInfo);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
@@ -340,7 +335,6 @@
         }
 
         private async Task CreateFeedbackForDepositSiteAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
             CustomerInfo licenseeInfo,
             Message message,
             MatchInfo matchInfo,
@@ -378,7 +372,6 @@
                 RoleId = licenseeInfo.RoleId,
                 CountryId = licenseeInfo.CountryId,
                 Subject = "Special Notification",
-                Description = GetDescription(),
                 Solution = GetSolution(message),
                 LicenseeType = licenseeInfo.LicenseeType,
                 TitleId = licenseeInfo.TitleId,
@@ -387,7 +380,6 @@
             logService.LogInformation("End mapping setting for MessageId: " + message.MessageId);
 
             await CreateFeedbackByBatchAsync(
-                voidingMessages,
                 licenseeInfo,
                 message,
                 transactionInfos,
@@ -397,7 +389,6 @@
         }
 
         private async Task CreateFeedbackByBatchAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
             CustomerInfo licenseeInfo,
             Message message,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -419,8 +410,9 @@
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
                 criteria.MessageId = message.MessageId;
                 criteria.ListOrigCustIds = string.Join(",", custIds);
-                IEnumerable<int> requestIds = voidingMessages.Where(x => x.MessageId == message.MessageId)
-                    .Select(x => x.RequestId).Distinct().ToList();
+                IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
+                criteria.RequestIds = string.Join(",", requestIds);
+                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
@@ -624,17 +616,19 @@
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription()
+        private static string GetDescription(int messageId, string requestIds)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
+            stringBuilder.AppendFormat("<span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.Append("<br />Announcement sent to affected Licensees and informed our related department found abnormal tickets of members for the match.");
             stringBuilder.Append("<br /><br />Please refer to the system email subject \"Voided Bets Report\" for those affected customers &amp; tickets for reference.");
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription(MatchInfo matchInfo)
+        private static string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
+            stringBuilder.AppendFormat("<span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.AppendFormat("<br />Date: {0}", matchInfo.EventDate.ToString("dd-MMM-yyyy"));
             stringBuilder.AppendFormat("<br />Sport: {0}", matchInfo.SportName);
             stringBuilder.AppendFormat("<br />Event Start Time: {0}", matchInfo.KickOffTime);
@@ -684,7 +678,7 @@
         {
             IEnumerable<TransactionInfo> transactions = transactionInfos.GroupBy(x => new { x.MessageId, x.CustId }).Select(x => x.First());
 
-            const string XmlTemplate = "<r msgid='{0}' custid='{1}' hl='{2}' related='{3}' event='{4}' />";
+            const string XmlTemplate = "<r msgid='{0}' reqid='{1}' custid='{2}' hl='{3}' related='{4}' event='{5}' />";
             var stringBuilder = new StringBuilder(Constants.BeginRootTag);
             foreach (var transaction in transactions)
             {
@@ -708,6 +702,7 @@
 
                 stringBuilder.AppendFormat(XmlTemplate,
                     transaction.MessageId,
+                    transaction.RequestId,
                     transaction.CustId,
                     headlineId,
                     relatedCustId,
