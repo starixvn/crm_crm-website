@@ -257,7 +257,7 @@ describe('DataGrid', () => {
 
                 // Assert
                 expect(props.validateResend).toHaveBeenCalledWith({
-                    notificationIds: '',
+                    notificationIds: '1',
                     isSingle: false
                 });
             });

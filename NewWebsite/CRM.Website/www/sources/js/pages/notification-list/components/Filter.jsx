@@ -11,7 +11,7 @@ import SelectWithSearch from 'react-select';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 import Site from '@jsroot/common/site';
 
-class Filter extends Component {
+export class Filter extends Component {
     constructor(props) {
         super(props);
         const now = new Date(DateTimeService.toShortDateFormat(DateTimeService.toClientDateTime(new Date())));
@@ -33,7 +33,6 @@ class Filter extends Component {
             minToDate: now,
             maxToDate: now,
             notificationTypeOptions: [],
-            recipientOptions: [],
             statusOptions: []
         };
     }
@@ -52,9 +51,7 @@ class Filter extends Component {
             });
 
             // status
-            const statuses = [];
             const statusOptions = this.props.settings.statuses.map(x => {
-                statuses.push(x);
                 return {
                     id: x,
                     name: x,
@@ -68,7 +65,7 @@ class Filter extends Component {
                 filter: {
                     ...prevState.filter,
                     notificationTypes: notificationTypeIds.toString(),
-                    statuses: statuses.toString()
+                    statuses: this.props.settings.statuses.toString()
                 }
             }), () => {
                 const params = this.getParams();
@@ -245,7 +242,7 @@ class Filter extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 isAllTextShown
-                                onChange={this.handleNotificationTypeChange}
+                                onChange={(currentItem, selectedItemsKey) => this.handleNotificationTypeChange(currentItem, selectedItemsKey)}
                             />
                         </div>
                     </Form.Group>
@@ -255,7 +252,7 @@ class Filter extends Component {
                             <DatePicker disabled={this.isDisabledDateParam()}
                                 maxDate={this.state.maxDate}
                                 selected={this.state.filter.fromDate}
-                                onChange={this.handleFromDateChange}
+                                onChange={value => this.handleFromDateChange(value)}
                             />
                         </div>
                     </Form.Group>
@@ -266,7 +263,7 @@ class Filter extends Component {
                                 minDate={this.state.minToDate}
                                 maxDate={this.state.maxToDate}
                                 selected={this.state.filter.toDate}
-                                onChange={this.handleToDateChange}
+                                onChange={value => this.handleToDateChange(value)}
                             />
                         </div>
                     </Form.Group>
@@ -276,9 +273,9 @@ class Filter extends Component {
                             <SelectWithSearch
                                 className='basic-single'
                                 name='headline'
-                                onChange={this.handleHeadlineChange}
+                                onChange={value => this.handleHeadlineChange(value)}
                                 options={this.props.headlineOptions}
-                                onInputChange={this.debounceHandleHeadlineInputChange}
+                                onInputChange={searchText => this.debounceHandleHeadlineInputChange(searchText)}
                                 placeholder={'Enter Headline'}
                                 value={this.state.filter.headline}
                             />
@@ -290,9 +287,9 @@ class Filter extends Component {
                             <SelectWithSearch
                                 className='basic-single'
                                 name='recipient'
-                                onChange={this.handleRecipientChange}
+                                onChange={value => this.handleRecipientChange(value)}
                                 options={this.props.recipientOptions}
-                                onInputChange={this.debounceHandleRecipientInputChange}
+                                onInputChange={searchText => this.debounceHandleRecipientInputChange(searchText)}
                                 placeholder={'Enter Recipient'}
                                 value={this.state.filter.recipient}
                             />
@@ -302,7 +299,7 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
                         <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageID'
                             value={this.state.filter.messageID}
-                            onChange={this.handleChangeFilterControl}
+                            onChange={e => this.handleChangeFilterControl(e)}
                         />
                     </Form.Group>
                     <Form.Group>
@@ -314,7 +311,7 @@ class Filter extends Component {
                                 as='input' type='text' pattern='[0-9]*' size='sm'
                                 name='notificationIdLower'
                                 value={this.state.filter.notificationIdLower}
-                                onChange={this.handleChangeFilterControl}
+                                onChange={e => this.handleChangeFilterControl(e)}
                             />
                             <div className='notification-concate text-center'>-</div>
                             <Form.Control
@@ -323,7 +320,7 @@ class Filter extends Component {
                                 as='input' type='text' pattern='[0-9]*' size='sm'
                                 name='notificationIdUpper'
                                 value={this.state.filter.notificationIdUpper}
-                                onChange={this.handleChangeFilterControl}
+                                onChange={e => this.handleChangeFilterControl(e)}
                             />
                         </div>
                     </Form.Group>
@@ -331,7 +328,7 @@ class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('Content')}</Form.Label>
                         <Form.Control as='input' type='text' size='sm' className='shadow-none' name='content'
                             value={this.state.filter.content}
-                            onChange={this.handleChange}
+                            onChange={e => this.handleChange(e)}
                         />
                     </Form.Group>
                     <Form.Group>
@@ -344,12 +341,12 @@ class Filter extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 isAllTextShown
-                                onChange={this.handleStatusChange}
+                                onChange={(currentItem, selectedItemsKey) => this.handleStatusChange(currentItem, selectedItemsKey)}
                             />
                         </div>
                     </Form.Group>
                     <Form.Group>
-                        <Button variant='primary' size='sm' onClick={this.submitHandler}>
+                        <Button variant='primary' size='sm' onClick={e => this.submitHandler(e)}>
                             {LangHelper.getResource('Submit')}
                         </Button>
                     </Form.Group>
