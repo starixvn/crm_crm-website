@@ -107,7 +107,7 @@
         [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Host)]
         public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
-            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, 8);
+            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, napSession.UserId);
             if (commandResult.IsSuccessful)
             {
                 commandResult.Message = ViewResources.UpdateActiveStatusSuccess;
@@ -134,7 +134,7 @@
                     LetstalkId = data.LetstalkId,
                     LanguageId = data.LanguageId,
                     Remark = data.Remark,
-                    UserId = 8
+                    UserId = napSession.UserId
                 };
                 result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
             }
@@ -165,7 +165,7 @@
                     LetstalkId = data.LetstalkId,
                     LanguageId = data.LanguageId,
                     Remark = data.Remark,
-                    UserId = 8
+                    UserId = napSession.UserId
                 };
                 result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
             }
@@ -203,7 +203,7 @@
                 LetstalkId = data.LetstalkId,
                 LanguageId = data.LanguageId,
                 Remark = data.Remark,
-                UserId = 8
+                UserId = napSession.UserId
             };
             var result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
 

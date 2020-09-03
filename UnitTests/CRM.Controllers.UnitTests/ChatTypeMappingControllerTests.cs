@@ -162,6 +162,44 @@
             Assert.False(commandResult.IsSuccessful);
         }
 
+        [Fact]
+        public async Task UpdatePersonalMapping_WhenInvalidLetstalkId_ReturnExpectedCommandResult()
+        {
+            var fixture = new Fixture();
+            var letstalkResult = new ValueTuple<Contact, bool>(new Contact(), false);
+            var controller = GetController();
+            var invalidLetstalk = fixture.Create<string>();
+            letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(letstalkResult);
+
+            var actual = await controller.UpdatePersonalMapping(new PersonalMappingViewModel { BotId = 100020, LetstalkId = invalidLetstalk });
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var commandResult = (CommandResult)jsonResult.Value;
+            Assert.False(commandResult.IsSuccessful);
+            Assert.Equal(string.Format(ViewResources.LetstalkInvalidMessage, invalidLetstalk), commandResult.Message);
+        }
+
+        [Fact]
+        public async Task UpdatePersonalMapping_WhenValidLetstalkId_ReturnExpectedCommandResult()
+        {
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var letstalkResult = new ValueTuple<Contact, bool>(new Contact(), true);
+            var viewModal = fixture.Create<PersonalMappingViewModel>();
+            viewModal.RecipientIds = "1";
+
+            var controller = GetController();
+
+            letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(letstalkResult);
+            chatTypeMappingService.UpdateChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
+
+            var actual = await controller.UpdatePersonalMapping(viewModal);
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var commandResult = (CommandResult)jsonResult.Value;
+            Assert.Equal(expected, commandResult);
+        }
+
         #region helper
 
         private ChatTypeMappingController GetController()
