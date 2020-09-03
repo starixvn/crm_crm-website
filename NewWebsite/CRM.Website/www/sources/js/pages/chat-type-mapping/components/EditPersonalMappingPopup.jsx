@@ -20,10 +20,10 @@ export class EditPersonalMappingPopup extends Component {
                 botId: this.props.updatePersonalMappingData.data.botId,
                 name: this.props.updatePersonalMappingData.data.conversationGroupName,
                 conversationId: this.props.updatePersonalMappingData.data.conversationId,
-                recipientType: this.props.updatePersonalMappingData.data.recipients[0].recipientTypeId,
+                recipientType: this.props.updatePersonalMappingData.data.recipients.length > 0 ? this.props.updatePersonalMappingData.data.recipients[0].recipientTypeId : '',
                 groupHeadlines: this.props.updatePersonalMappingData.data.headlines.map(v => v.headlineId).toString(),
                 recipient: {
-                    value: this.props.updatePersonalMappingData.data.recipients[0].recipientId
+                    value: this.props.updatePersonalMappingData.data.recipients.length > 0 ? this.props.updatePersonalMappingData.data.recipients[0].recipientId : ''
                 },
                 letstalkId: this.props.updatePersonalMappingData.data.conversationId,
                 languageId: this.props.updatePersonalMappingData.data.languageId,
@@ -73,10 +73,10 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     componentDidMount() {
-        this.initSate = Object.assign({}, this.state.form);
+        this.initState = Object.assign({}, this.state.form);
         const initData = this.props.updatePersonalMappingData.data;
-        const recipientTypeId = initData.recipients[0].recipientTypeId;
-        const selectedRecipientId = initData.recipients[0].recipientId;
+        const recipientTypeId = initData.recipients.length > 0 ? initData.recipients[0].recipientTypeId : '';
+        const selectedRecipientId = initData.recipients.length > 0 ? initData.recipients[0].recipientId : '';
 
         this.props.getRecipientByRecipientType(recipientTypeId);
         this.props.getGroupHeadlineByRecipient(selectedRecipientId);
@@ -191,7 +191,7 @@ export class EditPersonalMappingPopup extends Component {
     }
 
     isDirtyForm = () => {
-        return JSON.stringify(this.initSate) !== JSON.stringify(this.state.form);
+        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
     }
 
     onClosePopup = () => {

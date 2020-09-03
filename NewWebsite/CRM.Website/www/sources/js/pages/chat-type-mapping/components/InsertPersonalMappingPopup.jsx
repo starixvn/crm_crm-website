@@ -35,14 +35,14 @@ export class InsertPersonalMappingPopup extends Component {
             isLoading: false,
             dirtyFormConfirmation: {
                 isShow: false
-            },
+            }
         };
 
         this.initState = null;
     }
 
     componentDidMount() {
-        this.initSate = Object.assign({}, this.state.form);
+        this.initState = Object.assign({}, this.state.form);
     }
 
     handleChange = (fieldName, fieldValue) => {

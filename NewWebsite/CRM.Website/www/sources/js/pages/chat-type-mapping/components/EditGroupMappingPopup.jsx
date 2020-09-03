@@ -48,7 +48,7 @@ export class EditGroupMappingPopup extends Component {
         };
 
         this.conversationGroupId = this.props.updateGroupMappingData.data.conversationGroupId;
-        this.initSate = null;
+        this.initState = null;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -77,7 +77,7 @@ export class EditGroupMappingPopup extends Component {
     }
 
     componentDidMount() {
-        this.initSate = Object.assign({}, this.state.form);
+        this.initState = Object.assign({}, this.state.form);
         const initData = this.props.updateGroupMappingData.data;
         const recipientTypeId = initData.recipients.length > 0 ? initData.recipients[0].recipientTypeId : '';
         const selectedRecipientIds = initData.recipients.map(r => r.recipientId).toString();
@@ -206,7 +206,7 @@ export class EditGroupMappingPopup extends Component {
     }
 
     isDirtyForm = () => {
-        return JSON.stringify(this.initSate) !== JSON.stringify(this.state.form);
+        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
     }
 
     onClosePopup = () => {
