@@ -676,8 +676,9 @@
             IEnumerable<GroupHeadline> headlines,
             CustomerInfo licenseeInfo)
         {
-            IEnumerable<TransactionInfo> transactions = transactionInfos.GroupBy(x => new { x.MessageId, x.CustId }).Select(x => x.First());
-
+            IEnumerable<TransactionInfo> transactions = transactionInfos
+                .GroupBy(x => new { x.MessageId, x.RequestId, x.CustId })
+                .Select(x => x.First());
             const string XmlTemplate = "<r msgid='{0}' reqid='{1}' custid='{2}' hl='{3}' related='{4}' event='{5}' />";
             var stringBuilder = new StringBuilder(Constants.BeginRootTag);
             foreach (var transaction in transactions)
