@@ -52,7 +52,7 @@ describe('NewNotificationType', () => {
                 chatTypes: [],
                 systems:[]
             },
-            getSettings: {},
+            getSettings: {}
         };
 
         const wrapper = mount(<NewNotificationType {...props} />);
@@ -95,7 +95,7 @@ describe('NewNotificationType', () => {
             onSubmit: jest.fn()
         };
 
-        const container = mount(<NewNotificationType {...props }/>)
+        const container = mount(<NewNotificationType {...props}/>);
 
         //Act
         container.find(Form).simulate('submit');
@@ -117,7 +117,7 @@ describe('NewNotificationType', () => {
                 chatTypes: [],
                 systems:[]
             },
-            getSettings: {},
+            getSettings: {}
         };
 
         const container = mount(<NewNotificationType {...props} />);

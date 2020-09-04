@@ -7,6 +7,6 @@
         Resolved,
         Sending,
         Draft,
-        Duplicate
+        Duplicated
     }
 }

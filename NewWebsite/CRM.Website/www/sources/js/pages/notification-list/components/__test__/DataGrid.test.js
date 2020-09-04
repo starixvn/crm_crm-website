@@ -18,7 +18,7 @@ describe('DataGrid', () => {
         };
 
         const store = mockStore(initialState);
-        const wrapper = shallow(<DataGridWrapper store={store} />)
+        const wrapper = shallow(<DataGridWrapper store={store} />);
 
         it('component render correctly', () => {
             expect(wrapper).toMatchSnapshot();
@@ -54,7 +54,7 @@ describe('DataGrid', () => {
             };
     
             // Action
-            const dataGrid = shallow(<DataGrid {...props} />)
+            const dataGrid = shallow(<DataGrid {...props} />);
 
             // Assert
             expect(dataGrid).toBeNull;
@@ -83,7 +83,7 @@ describe('DataGrid', () => {
             };
 
             // Action
-            const dataGrid = shallow(<DataGrid {...props} />)
+            const dataGrid = shallow(<DataGrid {...props} />);
 
             // Assert
             expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">${LangHelper.getResource('NotificationList')}</div>`);
@@ -116,7 +116,7 @@ describe('DataGrid', () => {
             };
 
             // Action
-            const dataGrid = shallow(<DataGrid {...props} />)
+            const dataGrid = shallow(<DataGrid {...props} />);
 
             // Assert
             expect(dataGrid.find(Table).length).toBe(1);
@@ -125,7 +125,7 @@ describe('DataGrid', () => {
             expect(dataGrid.find(Table).props().isPaging).toBeTrue;
             expect(dataGrid.find(Table).props().pageOption).toEqual(pagingOption);
             expect(dataGrid.find(Table).props().containerPadding).toBe(0);
-            expect(dataGrid.find(Table).props().adjustedHeight).toBe(50);
+            expect(dataGrid.find(Table).props().adjustedHeight).toBe(20);
         });
     });
 
@@ -156,7 +156,7 @@ describe('DataGrid', () => {
                 pageSize: expectedPageSize
             };
 
-            const dataGrid = shallow(<DataGrid {...props} />)
+            const dataGrid = shallow(<DataGrid {...props} />);
             functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
 
             // Action
@@ -317,7 +317,7 @@ describe('DataGrid', () => {
             testBuildBodyNoData(false);
 
             function renderRow(item, index, isHost) {
-                return <div key={index}>{isHost? item.notificationId : item.status}</div>
+                return <div key={index}>{isHost? item.notificationId : item.status}</div>;
             }
 
             function testBuildBodyHasData(isHost) {
@@ -338,10 +338,10 @@ describe('DataGrid', () => {
                         },
                         resendOptions: {}
                     };
-                    const startIndex = (props.pageIndex - 1) * props.pageSize + 1;;
+                    const startIndex = (props.pageIndex - 1) * props.pageSize + 1;
         
                     const dataGrid = shallow(<DataGrid {...props} />);
-                    dataGrid.instance().renderRow = jest.fn(renderRow)
+                    dataGrid.instance().renderRow = jest.fn(renderRow);
                     const expectedBody = props.gridData.data.map((item, index) => renderRow(item, index, isHost));
         
                     // Action
@@ -416,10 +416,11 @@ describe('DataGrid', () => {
                                     id={`resend-${item.notificationId}-${item.messageId}`}
                                     type='checkbox'
                                     checked={props.resendOptions.dataList[index] && props.resendOptions.dataList[index].isResent}
-                                    onChange={() => dataGrid.instance().handleChangeResendCheckbox(index)} />}
+                                    onChange={() => dataGrid.instance().handleChangeResendCheckbox(index)}
+                                                                              />}
                             </Cell>
                         }
-                    </Row>
+                    </Row>;
 
                     // Action
                     const result = dataGrid.instance().renderRow(item, index, isHost);

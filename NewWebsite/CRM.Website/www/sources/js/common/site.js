@@ -95,5 +95,5 @@ export default class Site {
             clearTimeout(timeout);
             timeout = setTimeout(later, wait || 500);
         };
-    };
+    }
 }

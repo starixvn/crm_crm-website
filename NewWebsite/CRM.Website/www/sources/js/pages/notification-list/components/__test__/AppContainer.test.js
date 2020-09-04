@@ -33,7 +33,7 @@ describe('AppContainer', () => {
             invalidParams: {},
             messageResult: {},
             validateResendResult: {},
-            confirmPopup: {},
+            confirmPopup: {}
         };
 
         const store = mockStore(initialState);
@@ -72,7 +72,7 @@ describe('AppContainer', () => {
             invalidParams: {},
             messageResult: {},
             validateResendResult: {},
-            confirmPopup: {},
+            confirmPopup: {}
         };
 
         const appContainer = shallow(<AppContainer {...props} />);
@@ -111,10 +111,10 @@ describe('AppContainer', () => {
                     messageResult: {
                         show: true,
                         isSuccessful: true,
-                        message: message || LangHelper.getResource('ResentNotificationSuccessfully'),
+                        message: message || LangHelper.getResource('ResentNotificationSuccessfully')
                     },
                     validateResendResult: {},
-                    confirmPopup: {},
+                    confirmPopup: {}
                 };
     
                 const appContainer = shallow(<AppContainer {...props} />);
@@ -164,10 +164,10 @@ describe('AppContainer', () => {
                     messageResult: {},
                     invalidParams: {
                         show: true,
-                        message: message === undefined ? '' : message,
+                        message: message === undefined ? '' : message
                     },
                     validateResendResult: {},
-                    confirmPopup: {},
+                    confirmPopup: {}
                 };
     
                 const appContainer = shallow(<AppContainer {...props} />);
@@ -234,7 +234,7 @@ describe('AppContainer', () => {
                     invalidParams: {},
                     messageResult: {},
                     validateResendResult: {},
-                    confirmPopup: {},
+                    confirmPopup: {}
                 };
     
                 // Action

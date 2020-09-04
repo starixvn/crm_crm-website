@@ -37,7 +37,6 @@ export class ValidateResend extends Component {
         const inActiveNotificationIdsString = inActiveNotificationIds.join(', ');
         const resendIds = resendDataList.map(item => item.notificationId).join(', ');
         const isAllValidate = inActiveNotificationIds.length <= 0;
-        const notificationIdsReplace = '<notificationIds>';
 
         return (
             <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={() => this.onClose()} >
@@ -47,16 +46,16 @@ export class ValidateResend extends Component {
                 <Modal.Body>
                     {
                         isSingle && (isAllValidate ?
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
-                            LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIdsString)
+                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), resendIds) :
+                            LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)
                         )
                     }
                     {
                         !isSingle && (isAllValidate ?
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
+                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), resendIds) :
                             <div>
-                                <div>{LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace(notificationIdsReplace, inActiveNotificationIdsString)}</div>
-                                <div>{LangHelper.getResource('TheSelectedNoficationsAreAbleToResend').replace(notificationIdsReplace, resendIds)}</div>
+                                <div>{LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)}</div>
+                                <div>{LangHelper.formatString(LangHelper.getResource('TheSelectedNoficationsAreAbleToResend'), resendIds)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
                         )

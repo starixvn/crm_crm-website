@@ -25,7 +25,7 @@ export const getHeadlines = headlines => {
     }
 
     return '';
-}
+};
 
 export const getRecipients = recipients => {
     if (recipients && recipients.length > 0) {
@@ -33,7 +33,7 @@ export const getRecipients = recipients => {
     }
 
     return '';
-}
+};
 
 const functions = {
     handleNewResendOptions,

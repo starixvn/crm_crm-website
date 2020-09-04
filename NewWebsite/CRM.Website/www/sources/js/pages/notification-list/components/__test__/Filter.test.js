@@ -240,7 +240,7 @@ describe('Filter', () => {
                 filter: {
                     toDate: new Date('09/03/2020')
                 }
-            }
+            };
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -269,7 +269,7 @@ describe('Filter', () => {
                     toDate: new Date('09/03/2020')
                 },
                 maxToDate: new Date('09/02/2020')
-            }
+            };
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -298,7 +298,7 @@ describe('Filter', () => {
                     toDate: new Date('09/03/2020')
                 },
                 maxToDate: new Date('09/03/2020')
-            }
+            };
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -523,7 +523,7 @@ describe('Filter', () => {
                     notificationIdLower: 'notificationIdLower',
                     notificationIdUpper: 'notificationIdUpper',
                     content: 'content',
-                    status: 'statuses',
+                    status: 'statuses'
                 }
             };
 
@@ -577,7 +577,7 @@ describe('Filter', () => {
                     notificationIdLower: 'notificationIdLower',
                     notificationIdUpper: 'notificationIdUpper',
                     content: 'content',
-                    status: 'statuses',
+                    status: 'statuses'
                 }
             };
 
@@ -641,7 +641,7 @@ describe('Filter', () => {
                 setResendOptions: jest.fn()
             };
 
-            const filter = shallow(<Filter {...props} />)
+            const filter = shallow(<Filter {...props} />);
             filter.instance().isValidateParams =jest.fn();
             filter.instance().isValidateParams.mockReturnValueOnce(true);
             filter.instance().getParams = jest.fn();
@@ -678,7 +678,7 @@ describe('Filter', () => {
                 getGridData: jest.fn()
             };
 
-            const filter = shallow(<Filter {...props} />)
+            const filter = shallow(<Filter {...props} />);
             filter.instance().isValidateParams =jest.fn();
             filter.instance().isValidateParams.mockReturnValueOnce(false);
 
@@ -701,7 +701,7 @@ describe('Filter', () => {
                 filter: {
                     notificationIdUpper: 'value'
                 }
-            }
+            };
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -729,7 +729,7 @@ describe('Filter', () => {
                     notificationIdLower: '',
                     notificationIdUpper: ''
                 }
-            }
+            };
             const props = {
                 gridParams: {},
                 invalidParams: {},
