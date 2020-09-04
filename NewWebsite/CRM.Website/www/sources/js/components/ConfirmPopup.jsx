@@ -1,6 +1,7 @@
 ﻿import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Button, Modal } from 'react-bootstrap';
+import DraggableModalDialog from './DraggableModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
 class ConfirmPopup extends PureComponent {
@@ -29,7 +30,7 @@ class ConfirmPopup extends PureComponent {
     render() {
         const { size, title, content, requestResponse } = this.props;
         return (
-            <Modal show backdrop="static"
+            <Modal show backdrop="static" dialogAs={DraggableModalDialog} className="confirmation-modal"
                 keyboard={false} size={size} centered
                 onHide={this.props.onClose}
             >

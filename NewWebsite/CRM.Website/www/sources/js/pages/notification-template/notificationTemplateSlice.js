@@ -18,7 +18,6 @@ const notificationTemplateSlice = createSlice({
         editTemplatePopup: { show: false },
         editTemplateResult: null,
         deleteTemplatePopup: { show: false },
-        deleteTemplateResult: null,
         contentDetailPopup: { show: false }
     },
     reducers: {
@@ -52,9 +51,6 @@ const notificationTemplateSlice = createSlice({
         setDeleteTemplatePopup: (state, action) => {
             state.deleteTemplatePopup = action.payload;
         },
-        setDeleteTemplateResult: (state, action) => {
-            state.deleteTemplateResult = action.payload;
-        },
         setContentDetailPopup: (state, action) => {
             state.contentDetailPopup = action.payload;
         }
@@ -74,7 +70,6 @@ export const {
     setEditTemplatePopup,
     setEditTemplateResult,
     setDeleteTemplatePopup,
-    setDeleteTemplateResult,
     setContentDetailPopup
 } = actions;
 

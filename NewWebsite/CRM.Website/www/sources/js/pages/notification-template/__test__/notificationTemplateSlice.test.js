@@ -9,7 +9,6 @@
     setEditTemplatePopup,
     setEditTemplateResult,
     setDeleteTemplatePopup,
-    setDeleteTemplateResult,
     setContentDetailPopup
 } from '../notificationTemplateSlice';
 
@@ -31,7 +30,6 @@ describe('notificationTemplate reducer', () => {
             editTemplatePopup: { show: false },
             editTemplateResult: null,
             deleteTemplatePopup: { show: false },
-            deleteTemplateResult: null,
             contentDetailPopup: { show: false }
         });
     });
@@ -153,17 +151,6 @@ describe('notificationTemplate reducer', () => {
             })
         ).toEqual({
             deleteTemplatePopup: { show: false }
-        });
-    });
-
-    it('should handle setDeleteTemplateResult', () => {
-        expect(
-            notificationTemplate({}, {
-                type: setDeleteTemplateResult.type,
-                payload: { isSuccessful: false, message: '' }
-            })
-        ).toEqual({
-            deleteTemplateResult: { isSuccessful: false, message: '' }
         });
     });
 

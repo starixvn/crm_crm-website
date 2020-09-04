@@ -1,5 +1,6 @@
 ﻿import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
@@ -69,20 +70,18 @@ export class AppContainer extends Component {
 
     handleCloseDeletePopup = () => {
         this.props.setDeleteTemplatePopup({ show: false });
-        this.props.setDeleteTemplateResult(null);
     }
 
     handleDelete = () => {
         this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(data => {
             if (data.isSuccessful) {
-                data.message = LangHelper.getResource('DeleteNotificationTemplateSuccessfully');
-                setTimeout(() => {
-                    this.handleCloseDeletePopup();
-                    this.props.getGridData(this.props.gridParams);
-                }, 3000);
+                toast.success(LangHelper.getResource('DeleteNotificationTemplateSuccessfully'));
+                this.handleCloseDeletePopup();
+                this.props.getGridData(this.props.gridParams);
             }
-
-            this.props.setDeleteTemplateResult(data);
+            else {
+                toast.error(data.message);
+            }
         });
     }
 
@@ -112,7 +111,6 @@ export class AppContainer extends Component {
                         content={
                             <div>Are you sure you want to delete <strong>{this.props.deleteTemplatePopup.name}</strong>?</div>
                         }
-                        requestResponse={this.props.deleteTemplateResult}
                         onSubmit={this.handleDelete}
                         onClose={this.handleCloseDeletePopup}
                     />

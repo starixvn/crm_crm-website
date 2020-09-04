@@ -11,7 +11,6 @@ import {
     setEditTemplatePopup,
     setEditTemplateResult,
     setDeleteTemplatePopup,
-    setDeleteTemplateResult,
     setContentDetailPopup
 } from './notificationTemplateSlice';
 
@@ -77,7 +76,6 @@ export const ActionCreators = {
     setEditTemplatePopup,
     setEditTemplateResult,
     setDeleteTemplatePopup,
-    setDeleteTemplateResult,
     setContentDetailPopup,
     getNotificationTypes,
     getLanguages,
