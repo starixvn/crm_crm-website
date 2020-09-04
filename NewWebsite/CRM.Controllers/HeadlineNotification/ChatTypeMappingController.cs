@@ -108,10 +108,7 @@
         public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
             var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, napSession.UserId);
-            if (commandResult.IsSuccessful)
-            {
-                commandResult.Message = ViewResources.UpdateActiveStatusSuccess;
-            }
+
             return Json(commandResult);
         }
 

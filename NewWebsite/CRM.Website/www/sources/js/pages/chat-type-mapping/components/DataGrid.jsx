@@ -1,6 +1,7 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { toast } from 'react-toastify';
 import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
@@ -32,12 +33,12 @@ export class DataGrid extends Component {
     updateActiveStatus = () => {
         const params = { conversationGroupId: this.props.updateActiveStatusPopup.conversationGroupId, isActive: this.props.updateActiveStatusPopup.isChecked };
         this.props.updateActiveStatus(params).then(() => {
+            this.onCloseConfirmPopupChangeActiveStaus();
             if (this.props.updateActiveStatusResult) {
-                setTimeout(() => {
-                    this.onCloseConfirmPopupChangeActiveStaus();
-                    this.props.setUpateActiveResult(null);
-                    this.props.getGridData(this.props.gridParams);
-                }, 3000);
+                toast.success(LangHelper.getResource('UpdateChatTypeMappingSuccessfully'));
+                this.props.getGridData(this.props.gridParams);
+            } else {
+                toast.error(this.props.updateActiveStatusResult.message);
             }
         });
     }
@@ -215,7 +216,6 @@ export class DataGrid extends Component {
                                 Are you sure you want to <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong> it?
 							</div>
                         }
-                        requestResponse={this.props.updateActiveStatusResult}
                         onSubmit={this.updateActiveStatus}
                         onClose={this.onCloseConfirmPopupChangeActiveStaus}
                     />

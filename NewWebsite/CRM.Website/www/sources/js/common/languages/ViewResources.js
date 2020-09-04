@@ -85,7 +85,8 @@
     To: 'To',
     ToDateIsEarlierThanFromDate: 'ToDate is earlier than FromDate',
     UpdatePersonalMappingSuccess: 'Update personal chat mapping successfully!',
-    UpdateGroupMappingSuccess: 'Update personal chat mapping successfully!',
+    UpdateGroupMappingSuccess: 'Update group chat mapping successfully!',
+    UpdateChatTypeMappingSuccessfully: 'Update chat type mapping successfully!',
     ValidateResend: 'Validate resend',
     ViewDetail: 'View Detail'
 };

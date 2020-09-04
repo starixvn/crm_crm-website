@@ -12,7 +12,7 @@ export default class Option extends Component {
         super(props);
 
         this.state = {
-            isExpandedSubData: false
+            isExpandedSubData: true
         };
     }
 

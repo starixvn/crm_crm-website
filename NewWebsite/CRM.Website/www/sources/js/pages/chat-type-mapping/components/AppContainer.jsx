@@ -4,32 +4,33 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import Filter from './Filter';
 import DataGrid from './DataGrid';
+import Layout from '../../../components/Layout';
 
 export class AppContainer extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.isHost = document.getElementById('is-host').checked;
-	}
+        this.isHost = document.getElementById('is-host').checked;
+    }
 
-	render() {
-		return (
-			<Fragment>
-                <Filter isHost={this.isHost}/>
-				<DataGrid isHost={this.isHost} />
+    render() {
+        return (
+            <Layout>
+                <Filter isHost={this.isHost} />
+                <DataGrid isHost={this.isHost} />
 
-			</Fragment>
-		);
-	}
+            </Layout>
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-	const { gridParams } = state;
-	return {
-		gridParams
-	};
+    const { gridParams } = state;
+    return {
+        gridParams
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

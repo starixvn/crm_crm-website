@@ -123,8 +123,8 @@
             var actual = await controller.UpdateActiveStatus(new ActiveStatusModel { ConversationGroupId = 1, IsActive = true });
 
             var jsonResult = Assert.IsType<JsonResult>(actual);
-            var message = (string)jsonResult.Value.GetType().GetProperty("Message").GetValue(jsonResult.Value);
-            Assert.Equal(ViewResources.UpdateActiveStatusSuccess, message);
+            var result = (CommandResult)jsonResult.Value;
+            Assert.Equal(expected, result);
         }
 
         [Fact]

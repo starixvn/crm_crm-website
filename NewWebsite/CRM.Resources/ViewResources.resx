@@ -135,7 +135,4 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="UpdateActiveStatusSuccess" xml:space="preserve">
-    <value>Update Chat Type Mapping successfully!</value>
-  </data>
 </root>

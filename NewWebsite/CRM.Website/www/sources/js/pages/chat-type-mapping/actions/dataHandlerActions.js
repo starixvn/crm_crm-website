@@ -50,6 +50,13 @@ export const getGridData = params => async dispatch => {
 };
 
 // Update Active Status
+const setUpateActiveResult = data => {
+    return {
+        type: types.ACTIVE_RESULT_DATA,
+        data: data
+    };
+};
+
 export const setUpateActivePopup = data => {
     return {
         type: types.ACTIVE_POPUP_DATA,
@@ -70,13 +77,6 @@ export const updateActiveStatus = params => async dispatch => {
     }).then(response => {
         dispatch(setUpateActiveResult(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-};
-
-export const setUpateActiveResult = data => {
-    return {
-        type: types.ACTIVE_RESULT_DATA,
-        data: data
-    };
 };
 
 // Get Recipient by Recipient Type
@@ -141,7 +141,6 @@ const actions = {
     setGridParams,
     setUpateActivePopup,
     updateActiveStatus,
-    setUpateActiveResult,
     getRecipientByRecipientType,
     getGroupHeadlineByRecipient,
     setDirtyFormState

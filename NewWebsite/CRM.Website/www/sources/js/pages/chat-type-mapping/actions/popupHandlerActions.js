@@ -128,6 +128,7 @@ export const closeUpdateGroupMappingPopup = () => {
     return dispatch => {
         dispatch(setUpdateGroupMappingData(false, null));
         dispatch(setGroupMappingResult(null));
+        dispatch(setLetstalkVerifationData([]));
     };
 };
 
@@ -179,7 +180,6 @@ export const getLetstalkDisplayName = (botId, letstalkId) => async dispatch => {
     } else {
         dispatch(setLetstalkDisplayName(''));
     }
-   
 };
 
 const actions = {
