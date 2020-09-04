@@ -8,10 +8,13 @@
     using CRM.Core.Constants;
     using CRM.Core.Models;
     using CRM.Criteria.ChatTypeMapping;
+    using CRM.Criteria.Common;
     using CRM.Letstalk.Client.Models;
+    using CRM.Letstalk.Client.Models.Results;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Models;
     using CRM.Models.ChatTypeMapping;
+    using CRM.Models.Common;
     using CRM.Models.Setting;
     using CRM.Resources;
     using CRM.Services;
@@ -198,6 +201,144 @@
             var jsonResult = Assert.IsType<JsonResult>(actual);
             var commandResult = (CommandResult)jsonResult.Value;
             Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task GetRecipientByType_WhenCalled_ReturnExpectedRecipients()
+        {
+            var fixture = new Fixture();
+
+            var expected = fixture.Create<IEnumerable<RecipientModel>>();
+
+            var controller = GetController();
+            commonService.GetRecipientAsync(Arg.Any<GetRecipientsCriteria>()).Returns(expected);
+
+            var actual = await controller.GetRecipientByType(1);
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var result = (IEnumerable<RecipientModel>)jsonResult.Value;
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public async Task GetGroupHeadlineByRecipient_WhenCalled_ReturnExpectedHeadlineList()
+        {
+            var fixture = new Fixture();
+
+            var expected = fixture.Create<IEnumerable<GroupHeadlineDirectAccountModel>>();
+
+            var controller = GetController();
+            chatTypeMappingService.GetHeadlineByRecipientAsync(Arg.Any<string>()).Returns(expected);
+
+            var actual = await controller.GetGroupHeadlineByRecipient("1,2,3,4,5");
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var result = (IEnumerable<GroupHeadlineDirectAccountModel>)jsonResult.Value;
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public async Task UpdateGroupMapping_WhenValidLetstalkId_ReturnExpectedCommandResult()
+        {
+            var fixture = new Fixture();
+            var expected = fixture.Create<CommandResult>();
+            var viewModal = fixture.Create<PersonalMappingViewModel>();
+
+            var controller = GetController();
+
+            chatTypeMappingService.UpdateChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
+
+            var actual = await controller.UpdateGroupMapping(viewModal);
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var commandResult = (CommandResult)jsonResult.Value;
+            Assert.Equal(expected, commandResult);
+        }
+
+        [Fact]
+        public async Task VerifyLetstalkInGroup_WhenNoBotId_ReturnNullJsonResult()
+        {
+            var controller = GetController();
+            var actual = await controller.VerifyLetstalkInGroup(new LetstalkVerification { BotId = 0 });
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            Assert.Null(jsonResult.Value);
+        }
+
+        [Fact]
+        public async Task VerifyLetstalkInGroup_WhenNoGroupId_ReturnNullJsonResult()
+        {
+            var controller = GetController();
+            var actual = await controller.VerifyLetstalkInGroup(new LetstalkVerification { BotId = 10, GroupConversationId = string.Empty });
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            Assert.Null(jsonResult.Value);
+        }
+
+        [Fact]
+        public async Task VerifyLetstalkInGroup_WhenValidBotIdAndGroupId_ReturnExpectedJsonResult()
+        {
+            var fixture = new Fixture();
+            var botFriends = fixture.Create<IList<string>>();
+            var roomData = fixture.Create<RoomData>();
+            LetstalkVerification inputData = new LetstalkVerification
+            {
+                BotId = 100020,
+                GroupConversationId = "TestingGroupID",
+                Recipients = new List<RecipientLetstalk>
+                {
+                    new RecipientLetstalk
+                    {
+                        RecipientId =1,
+                        RecipientName = "TestName",
+                        Letstalks = new List<LetstalkInGroup>
+                        {
+                            new LetstalkInGroup { LetstalkId = roomData.Members[0]},
+                            new LetstalkInGroup { LetstalkId = botFriends[1]},
+                            new LetstalkInGroup { LetstalkId = "test"},
+                        }
+                    }
+                }
+            };
+
+            var expected = JsonConvert.DeserializeObject<List<RecipientLetstalk>>(JsonConvert.SerializeObject(inputData.Recipients));
+            expected.FirstOrDefault().Letstalks[0].IsGroupMember = true;
+            expected.FirstOrDefault().Letstalks[1].IsBotFriend = true;
+            var controller = GetController();
+
+            letstalkService(Arg.Any<int>()).GetBotContactList().Returns(botFriends);
+            letstalkService(Arg.Any<int>()).GetChatRoomData(Arg.Any<string>()).Returns(roomData);
+
+            var actual = await controller.VerifyLetstalkInGroup(inputData);
+
+            var jsonResult = Assert.IsType<JsonResult>(actual);
+            var result = (List<RecipientLetstalk>)jsonResult.Value;
+            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
+        }
+
+        [Fact]
+        public async Task GetLetstalkDisplayName_WhenInvalidLetstalkId_ReturnEmptyString()
+        {
+            var contactDetail = new ValueTuple<Contact, bool>(new Contact(), false);
+            var controller = GetController();
+            letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(contactDetail);
+            var actual = await controller.GetLetstalkDisplayName(1, "abc");
+            Assert.Equal(string.Empty, actual);
+        }
+
+        [Fact]
+        public async Task GetLetstalkDisplayName_WhenValidLetstalkId_ReturnExpectedName()
+        {
+            var fixture = new Fixture();
+            var expectedName = fixture.Create<string>();
+            var contactDetail = new ValueTuple<Contact, bool>(new Contact { DisplayName = expectedName }, true);
+
+            var controller = GetController();
+            letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(contactDetail);
+
+            var actual = await controller.GetLetstalkDisplayName(1, "abc");
+
+            Assert.Equal(expectedName, actual);
         }
 
         #region helper
