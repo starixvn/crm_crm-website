@@ -125,7 +125,7 @@ export class DataGrid extends Component {
             );
         }
 
-        return <Cell rowSpan={numOfRow} className='text-center'>{isActive ? <span className="fa fa-check badge-green" /> : ''}</Cell>;
+        return <Cell className='text-center'>{isActive ? <span className="fa fa-check badge-green" /> : ''}</Cell>;
     }
 
     renderRow = (item, index, isHost) => {
