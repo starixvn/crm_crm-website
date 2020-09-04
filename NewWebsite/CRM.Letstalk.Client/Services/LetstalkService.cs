@@ -142,20 +142,13 @@
 
             var payload = new Payload();
             var formattedMessage = JsonConvert.SerializeObject(message, DefaultJsonSerializeSetting);
-
             payload.HashContentKey = cryptographyService.Hash(formattedMessage);
             payload.HashContent = cryptographyService.Encrypt(formattedMessage, botConfig.ChatKey, payload.HashContentKey);
 
-            if (message.ExpiredTime.HasValue)
-            {
-                payload.DueDate = new DateTimeOffset(message.ExpiredTime.Value).ToUnixTimeMilliseconds();
-            }
-            else
-            {
-                payload.DueDate = expiredTime.HasValue
+            long? dueDate = expiredTime.HasValue
                         ? new DateTimeOffset(expiredTime.Value).ToUnixTimeMilliseconds()
                         : DateTimeOffset.Now.AddHours(defaultExpiredTimeInHour).ToUnixTimeMilliseconds();
-            }
+            payload.DueDate = message.ExpiredTime.HasValue ? new DateTimeOffset(message.ExpiredTime.Value).ToUnixTimeMilliseconds() : dueDate;
 
             return await PushAsync(accountIds, payload);
         }

@@ -15,7 +15,7 @@ class Loading extends PureComponent {
     renderChildCircle = () => {
         const numOfChildCircle = 12;
         const childs = [];
-        for (var i = 1; i <= numOfChildCircle; i++) {
+        for (let i = 1; i <= numOfChildCircle; i++) {
             childs.push(<div key={`loading-${i}`} className={`sk-circle${i} sk-circle`} />);
         }
 
