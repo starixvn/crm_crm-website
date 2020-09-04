@@ -21,7 +21,9 @@ class SweetModalDialog extends Component {
         size: 'sm',
         title: '',
         contents: <Fragment />,
-        onClose: function () { }
+        onClose: function () {
+            // nothing
+        }
     }
 
     constructor(props) {

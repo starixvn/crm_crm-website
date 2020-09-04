@@ -29,8 +29,12 @@ export class AppContainer extends Component {
         createTemplatePopup: { show: false },
         deleteTemplatePopup: { show: false },
         editTemplatePopup: { show: false },
-        getLanguages: function () { },
-        getNotificationTypes: function () { },
+        getLanguages: function () {
+            // nothing
+        },
+        getNotificationTypes: function () {
+            // nothing
+        },
         isHost: false
     };
 
@@ -59,14 +63,14 @@ export class AppContainer extends Component {
         this.props.setEditTemplateResult(null);
     }
 
-    handleCloseViewContentPopup = () => {
-        this.props.setContentDetailPopup({ show: false });
-        this.props.setSelectedTemplate(null);
-    }
-
     handleEditSuccess = () => {
         this.handleCloseEditPopup();
         this.props.getGridData(this.props.gridParams);
+    }
+
+    handleCloseViewContentPopup = () => {
+        this.props.setContentDetailPopup({ show: false });
+        this.props.setSelectedTemplate(null);
     }
 
     handleCloseDeletePopup = () => {
