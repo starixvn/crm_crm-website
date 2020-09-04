@@ -6,6 +6,7 @@ import DataGrid from '../DataGrid';
 import NewNotificationTemplate from '../NewNotificationTemplate';
 import EditNotificationTemplate from '../EditNotificationTemplate';
 import ContentDetailModalDialog from '../ContentDetailModalDialog';
+import SweetModalDialog from '@jsroot/components/SweetModalDialog';
 
 describe('AppContainer', () => {
     afterAll(() => {
@@ -54,8 +55,7 @@ describe('AppContainer', () => {
             // Arrange
             const props = {
                 setCreateTemplatePopup: jest.fn(),
-                setCreateTemplateResult: jest.fn(),
-                createTemplatePopup: { show: true }
+                setCreateTemplateResult: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
 
@@ -105,8 +105,7 @@ describe('AppContainer', () => {
             const props = {
                 setEditTemplatePopup: jest.fn(),
                 setEditTemplateResult: jest.fn(),
-                setSelectedTemplate: jest.fn(),
-                editTemplatePopup: { show: true }
+                setSelectedTemplate: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
 
@@ -137,6 +136,38 @@ describe('AppContainer', () => {
         });
     });
 
+    describe('delete notification template', () => {
+        it('render component correctly', () => {
+            // Arrange
+            const props = {
+                deleteTemplatePopup: { show: true, name: 'voiding abnormal bet' }
+            };
+
+            // Act
+            const container = shallow(<AppContainer {...props} />);
+
+            // Assert
+            expect(container).toMatchSnapshot();
+            expect(container.find(SweetModalDialog).length).toBe(1);
+            expect(container.find(SweetModalDialog).props().contents)
+                .toEqual(<div>Are you sure you want to delete <strong>voiding abnormal bet</strong>?</div>);
+        });
+
+        it('should calls exactly functions when close popup', () => {
+            // Arrange
+            const props = {
+                setDeleteTemplatePopup: jest.fn()
+            };
+            const container = shallow(<AppContainer {...props} />).instance();
+
+            // Act
+            container.handleCloseDeletePopup();
+
+            // Assert
+            expect(props.setDeleteTemplatePopup).toHaveBeenCalledWith({ show: false });
+        });
+    });
+
     describe('view content', () => {
         it('render component correctly', () => {
             // Arrange
@@ -156,8 +187,7 @@ describe('AppContainer', () => {
             // Arrange
             const props = {
                 setContentDetailPopup: jest.fn(),
-                setSelectedTemplate: jest.fn(),
-                contentDetailPopup: { show: true }
+                setSelectedTemplate: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
 

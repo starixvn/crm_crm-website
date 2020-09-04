@@ -2,6 +2,8 @@
 
 exports[`AppContainer create notification template render component correctly 1`] = `ShallowWrapper {}`;
 
+exports[`AppContainer delete notification template render component correctly 1`] = `ShallowWrapper {}`;
+
 exports[`AppContainer edit notification template render component correctly 1`] = `ShallowWrapper {}`;
 
 exports[`AppContainer renders component correctly 1`] = `ShallowWrapper {}`;
