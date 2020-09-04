@@ -208,12 +208,12 @@ const mapStateToProps = state => {
     const {
         gridParams,
         settings,
-        getSettings,
+        getSettings
     } = state;
     return {
         gridParams,
         settings,
-        getSettings,
+        getSettings
     };
 };
 

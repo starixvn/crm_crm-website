@@ -8,7 +8,6 @@ import NewNotificationType from './NewNotificationType';
 import EditNotificationType from './EditNotificationType';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
-import ResponseMessage from '@jsroot/components/ResponseMessage';
 import { toast } from 'react-toastify';
 
 export class AppContainer extends Component {
@@ -38,7 +37,6 @@ export class AppContainer extends Component {
 
     handleCloseDeletePopup = () => {
         this.props.setDeleteNotificationTypePopup({ show: false });
-        //this.props.setDeleteNotificationTypeResult(null);
     }
 
     handleDelete = () => {
@@ -96,13 +94,13 @@ const mapStateToProps = state => {
         gridParams,
         createNotificationTypePopup,
         editNotificationTypePopup,
-        deleteNotificationTypePopup,
+        deleteNotificationTypePopup
     } = state;
     return {
         gridParams,
         createNotificationTypePopup,
         editNotificationTypePopup,
-        deleteNotificationTypePopup,
+        deleteNotificationTypePopup
     };
 };
 
