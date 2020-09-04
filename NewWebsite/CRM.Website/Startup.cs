@@ -205,12 +205,13 @@
                 {
                     { redisConfig.Server, redisConfig.Port }
                 },
-                Password = redisConfig.Password
+                Password = redisConfig.Password,
+                DefaultDatabase = redisConfig.DefaultDatabase
             };
             var redis = ConnectionMultiplexer.Connect(configRedix);
             services.AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis, redisConfig.Password)
-                .SetApplicationName(redisConfig.ApplicationName);
+                .SetApplicationName(redisConfig.ApplicationName + ":DataProtection:Keys");
         }
 
         private static void ConfigRedisCache(IServiceCollection services, RedisConfig redisConfig)
@@ -224,8 +225,9 @@
                         { redisConfig.Server, redisConfig.Port }
                     },
                     Password = redisConfig.Password,
+                    DefaultDatabase = redisConfig.DefaultDatabase
                 };
-                options.InstanceName = redisConfig.ApplicationName;
+                options.InstanceName = redisConfig.ApplicationName + ":Session:";
             });
         }
     }
