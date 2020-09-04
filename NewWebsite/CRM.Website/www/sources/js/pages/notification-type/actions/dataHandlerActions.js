@@ -57,24 +57,10 @@ export const setDeleteNotificationTypePopup = data => {
     };
 };
 
-export const setDeleteNotificationTypeResult = data => {
-    return {
-        type: types.DELETE_RESULT_DATA,
-        data: data
-    };
-};
-
 // Setting
 export const setSettings = data => {
     return {
         type: types.SETTINGS_DATA,
-        data
-    };
-};
-
-export const setInvalidParams = data => {
-    return {
-        type: types.INVALID_PARAMS_DATA,
         data
     };
 };
@@ -127,10 +113,8 @@ const actions = {
     setEditNotificationTypeResult,
     editNotificationType,
     setDeleteNotificationTypePopup,
-    setDeleteNotificationTypeResult,
     deleteNotificationType,
     getSettings,
-    setInvalidParams
 };
 
 export default actions;

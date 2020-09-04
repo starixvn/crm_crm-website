@@ -47,20 +47,8 @@ export const deleteNotificationTypePopup = createReducer({}, {
     }
 });
 
-export const deleteNotificationTypeResult = createReducer({}, {
-    [types.DELETE_RESULT_DATA](state, action) {
-        return action.data;
-    }
-});
-
 export const settings = createReducer({}, {
     [types.SETTINGS_DATA](state, action) {
-        return action.data;
-    }
-});
-
-export const invalidParams = createReducer({}, {
-    [types.INVALID_PARAMS_DATA](state, action) {
         return action.data;
     }
 });
@@ -73,9 +61,7 @@ const reducers = {
     editNotificationTypePopup,
     editNotificationTypeResult,
     deleteNotificationTypePopup,
-    deleteNotificationTypeResult,
     settings,
-    invalidParams
 };
 
 export default reducers;

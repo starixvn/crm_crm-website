@@ -87,16 +87,6 @@ describe('notificationTypeActionsDataHandlerActions', () => {
         expect(actions.setDeleteNotificationTypePopup(data)).toEqual(expectedAction);
     });
 
-    it('should create an action to set notification type delete result data', () => {
-        const data = 'Test set popup delete result data';
-        const expectedAction = {
-            type: types.DELETE_RESULT_DATA,
-            data: data
-        };
-
-        expect(actions.setDeleteNotificationTypeResult(data)).toEqual(expectedAction);
-    });
-
     it('should create an action to set setting data', () => {
         const data = 'Test set setting data';
         const expectedAction = {
@@ -105,16 +95,6 @@ describe('notificationTypeActionsDataHandlerActions', () => {
         };
 
         expect(actions.setSettings(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set invalid param', () => {
-        const data = 'Test set invalid param';
-        const expectedAction = {
-            type: types.INVALID_PARAMS_DATA,
-            data
-        };
-
-        expect(actions.setInvalidParams(data)).toEqual(expectedAction);
     });
 
     it('should handle setSettings when fetching settings has been done', async () => {

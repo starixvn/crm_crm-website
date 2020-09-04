@@ -6,9 +6,7 @@ import {
     editNotificationTypePopup,
     editNotificationTypeResult,
     deleteNotificationTypePopup,
-    deleteNotificationTypeResult,
     settings,
-    invalidParams
 } from '../dataHandlerReducer';
 import types from '../../actions/types';
 
@@ -82,17 +80,7 @@ describe('dataHandlerReducer.test', () => {
         const result = deleteNotificationTypePopup({}, action);
         expect(result).toEqual(action.data);
     });
-    
-    it('should handle deleteNotificationTypeResult', () => {
-        const action = {
-            type: types.DELETE_RESULT_DATA,
-            data: {}
-        };
 
-        const result = deleteNotificationTypeResult({}, action);
-        expect(result).toEqual(action.data);
-    });
-    
     it('should handle settings', () => {
         const action = {
             type: types.SETTINGS_DATA,
@@ -100,16 +88,6 @@ describe('dataHandlerReducer.test', () => {
         };
 
         const result = settings({}, action);
-        expect(result).toEqual(action.data);
-    });
-    
-    it('should handle invalidParams', () => {
-        const action = {
-            type: types.INVALID_PARAMS_DATA,
-            data: {}
-        };
-
-        const result = invalidParams({}, action);
         expect(result).toEqual(action.data);
     });
 });

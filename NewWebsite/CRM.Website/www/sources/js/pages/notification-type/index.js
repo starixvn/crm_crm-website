@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
+import Layout from '@jsroot/components/Layout';
 import Store from '@jsroot/common/store';
 import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
@@ -12,8 +12,6 @@ const store = Store.createStore(reducer, {
     editNotificationTypePopup: { show: false },
     editNotificationTypeResult: null,
     deleteNotificationTypePopup: { show: false },
-    deleteNotificationTypeResult: null,
-    invalidParams: { show: false },
     gridData: null,
     settings: {
         ChatTypes: [],
@@ -25,6 +23,8 @@ const isHost = document.getElementById('IsHost').checked;
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppContainer isHost={isHost} />
+        <Layout>
+            <AppContainer isHost={isHost} />
+        </Layout>
     </Provider>,
     document.getElementById('app-container'));

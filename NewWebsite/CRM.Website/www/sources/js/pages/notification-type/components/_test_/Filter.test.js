@@ -18,7 +18,6 @@ describe('Filter', () => {
             gridParams: {},
             settings: {},
             getSettings: {},
-            invalidParams: {},
         };
 
         const store = mockStore(initialState);
@@ -33,9 +32,7 @@ describe('Filter', () => {
 
         it('component has correct props', () => {
             expect(wrapper.props().children.props.gridParams).toEqual(initialState.gridParams);
-            expect(wrapper.props().children.props.invalidParams).toEqual(initialState.invalidParams);
             expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
-            expect(wrapper.props().children.props.invalidParams).toEqual(initialState.invalidParams);
         });
 
         it('component has correct initialState', () => {
@@ -55,7 +52,6 @@ describe('Filter', () => {
             const props = {
                 gridParams: {},
                 settings: {},
-                invalidParams: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
 
@@ -71,7 +67,6 @@ describe('Filter', () => {
             const props = {
                 gridParams: {},
                 settings: {},
-                invalidParams: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
 
@@ -104,7 +99,6 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -123,7 +117,6 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -143,7 +136,6 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -163,7 +155,6 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -186,7 +177,6 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -219,7 +209,6 @@ describe('Filter', () => {
                         pageSize: 100
                     },
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -259,7 +248,6 @@ describe('Filter', () => {
                         pageSize: 100
                     },
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                 };
 
@@ -294,9 +282,7 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setInvalidParams: jest.fn(),
                     setGridParams: jest.fn(),
                     getGridData: jest.fn(),
                 };
@@ -310,7 +296,6 @@ describe('Filter', () => {
 
                 // Assert
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setInvalidParams).toHaveBeenCalledWith({ show: false });
                 expect(props.setGridParams).toHaveBeenCalledWith(params);
                 expect(props.getGridData).toHaveBeenCalledTimes(1);
             });
@@ -324,9 +309,7 @@ describe('Filter', () => {
                 const props = {
                     gridParams: {},
                     settings: {},
-                    invalidParams: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setInvalidParams: jest.fn(),
                     setGridParams: jest.fn(),
                     getGridData: jest.fn(),
                 };
@@ -338,7 +321,6 @@ describe('Filter', () => {
 
                 // Assert
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setInvalidParams).toHaveBeenCalledWith({ show: false });
                 expect(props.setGridParams).toHaveBeenCalledTimes(0);
                 expect(props.getGridData).toHaveBeenCalledTimes(0);
             });

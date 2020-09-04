@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
+import { toast } from 'react-toastify';
 
 export class Filter extends Component {
     constructor(props) {
@@ -101,9 +102,6 @@ export class Filter extends Component {
     submitHandler = e => {
         e.preventDefault();
         const params = this.getParams();
-        this.props.setInvalidParams({
-            show: false
-        });
 
         const error = [];
         if (params.recipientTypeIds === '') {
@@ -119,10 +117,7 @@ export class Filter extends Component {
         }
 
         if (error.length > 0) {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} ${error.join(', ').toString()}`
-            });
+            toast.error(`${LangHelper.getResource('PleaseChoose')} ${error.join(', ').toString()}`);
         }
         else {
             this.props.setGridParams(params);
@@ -214,13 +209,11 @@ const mapStateToProps = state => {
         gridParams,
         settings,
         getSettings,
-        invalidParams,
     } = state;
     return {
         gridParams,
         settings,
         getSettings,
-        invalidParams,
     };
 };
 

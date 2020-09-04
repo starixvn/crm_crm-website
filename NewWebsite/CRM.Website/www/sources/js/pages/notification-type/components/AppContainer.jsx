@@ -9,6 +9,7 @@ import EditNotificationType from './EditNotificationType';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import { toast } from 'react-toastify';
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -37,32 +38,25 @@ export class AppContainer extends Component {
 
     handleCloseDeletePopup = () => {
         this.props.setDeleteNotificationTypePopup({ show: false });
-        this.props.setDeleteNotificationTypeResult(null);
+        //this.props.setDeleteNotificationTypeResult(null);
     }
 
     handleDelete = () => {
         this.props.deleteNotificationType(this.props.deleteNotificationTypePopup.notificationTypeId).then(data => {
             if (data.isSuccessful) {
-                data.message = LangHelper.getResource('DeleteNotificationTypeSuccessfully');
-                setTimeout(() => {
-                    this.handleCloseDeletePopup();
-                    this.props.getGridData(this.props.gridParams);
-                }, 3000);
+            toast.success(LangHelper.getResource('DeleteNotificationTypeSuccessfully'));
+                this.handleCloseDeletePopup();
+                this.props.getGridData(this.props.gridParams);
             }
-
-            this.props.setDeleteNotificationTypeResult(data);
+            else {
+                toast.error(data.message);
+            }
         });
     }
 
     render() {
         return (
             <Fragment>
-                {
-                    this.props.invalidParams.show &&
-                    <ResponseMessage isSuccessful={false}
-                        message={this.props.invalidParams.message}
-                    />
-                }
                 <Filter isHost={this.props.isHost} />
                 <DataGrid isHost={this.props.isHost} />
                 {
@@ -86,7 +80,6 @@ export class AppContainer extends Component {
                         content={
                             <div>Are you sure you want to delete <strong>{this.props.deleteNotificationTypePopup.name}</strong>?</div>
                         }
-                        requestResponse={this.props.deleteNotificationTypeResult}
                         onSubmit={this.handleDelete}
                         onClose={this.handleCloseDeletePopup}
                     />
@@ -104,15 +97,12 @@ const mapStateToProps = state => {
         createNotificationTypePopup,
         editNotificationTypePopup,
         deleteNotificationTypePopup,
-        deleteNotificationTypeResult,
-        invalidParams } = state;
+    } = state;
     return {
         gridParams,
         createNotificationTypePopup,
         editNotificationTypePopup,
         deleteNotificationTypePopup,
-        deleteNotificationTypeResult,
-        invalidParams
     };
 };
 

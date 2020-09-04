@@ -133,49 +133,6 @@ describe('AppContainer', () => {
 
             // Assert
             expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({ show: false });
-            expect(props.setDeleteNotificationTypeResult).toHaveBeenCalledWith(null);
-        });
-    });
-
-    describe('messageResult is showed', () => {
-        it('render correctly component ReponseMessage', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                createNotificationTypePopup: {},
-                editNotificationTypePopup: {},
-                deleteNotificationTypePopup: {},
-                invalidParams: { show: true }
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ResponseMessage).length).toBe(1);
-        });
-
-        it('component render correctly message', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                createNotificationTypePopup: {},
-                editNotificationTypePopup: {},
-                deleteNotificationTypePopup: {},
-                invalidParams: {
-                    show: true,
-                    isSuccessful: false,
-                    message: ' ' }
-            };
-
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Action
-            const responseMessage = appContainer.find(ResponseMessage);
-
-            // Assert
-            expect(responseMessage.props().isSuccessful).toBe(props.invalidParams.isSuccessful);
-            expect(responseMessage.props().message).toBe(props.invalidParams.message);
         });
     });
 
@@ -186,7 +143,6 @@ describe('AppContainer', () => {
             createNotificationTypePopup: {},
             editNotificationTypePopup: {},
             deleteNotificationTypePopup: {},
-            invalidParams: {}
         };
 
         // Action
@@ -203,7 +159,6 @@ describe('AppContainer', () => {
             createNotificationTypePopup: {},
             editNotificationTypePopup: {},
             deleteNotificationTypePopup: {},
-            invalidParams: {}
         };
 
         // Action
@@ -221,7 +176,6 @@ describe('AppContainer', () => {
                 createNotificationTypePopup: {},
                 editNotificationTypePopup: {},
                 deleteNotificationTypePopup: { show: true},
-                invalidParams: {}
             };
 
             // Action
