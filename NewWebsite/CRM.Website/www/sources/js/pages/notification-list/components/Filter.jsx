@@ -220,7 +220,7 @@ export class Filter extends Component {
 
     debounceHandleRecipientInputChange = Site.debounce(searchText => {
         if (searchText.length >= 2) {
-            this.props.getRecipientOptions();
+            this.props.getRecipientOptions(searchText);
         }
         else {
             this.props.setRecipientOptions([]);

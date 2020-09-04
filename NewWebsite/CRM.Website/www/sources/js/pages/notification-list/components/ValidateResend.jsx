@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { handleNewResendOptions } from '../functions';
+import { DisplayMessageTime } from '@jsroot/common/constants';
 
-class ValidateResend extends Component {
+export class ValidateResend extends Component {
     constructor(props) {
         super(props);
     }
@@ -39,47 +40,43 @@ class ValidateResend extends Component {
         const notificationIdsReplace = '<notificationIds>';
 
         return (
-            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={this.onClose} >
+            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={() => this.onClose()} >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>{LangHelper.getResource('ValidateResend')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        isSingle && isAllValidate &&
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds)
-                    }
-                    {
-                        isSingle && !isAllValidate &&
+                        isSingle && (isAllValidate ?
+                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
                             LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace('<notificationId>', inActiveNotificationIdsString)
+                        )
                     }
                     {
-                        !isSingle && isAllValidate &&
-                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds)
-                    }
-                    {
-                        !isSingle && !isAllValidate &&
+                        !isSingle && (isAllValidate ?
+                            LangHelper.getResource('ComfirmResendNotification').replace(notificationIdsReplace, resendIds) :
                             <div>
                                 <div>{LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive').replace(notificationIdsReplace, inActiveNotificationIdsString)}</div>
                                 <div>{LangHelper.getResource('TheSelectedNoficationsAreAbleToResend').replace(notificationIdsReplace, resendIds)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
+                        )
                     }
                 </Modal.Body>
                 {
-                    isSingle && inActiveNotificationIds.length > 0 && <Modal.Footer>
-                        <Button onClick={this.onClose} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
-                    </Modal.Footer>
-                }
-                {
-                    isSingle && inActiveNotificationIds.length <= 0 && <Modal.Footer>
-                        <Button onClick={() => this.resendNotifications(resendDataList)} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
-                        <Button onClick={this.onClose} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
-                    </Modal.Footer>
+                    isSingle && (inActiveNotificationIds.length > 0 ?
+                        <Modal.Footer>
+                            <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
+                        </Modal.Footer> :
+                        <Modal.Footer>
+                            <Button onClick={() => this.resendNotifications(resendDataList)} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
+                            <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
+                        </Modal.Footer>
+                    )
                 }
                 {
                     !isSingle && <Modal.Footer>
                         <Button onClick={() => this.resendNotifications(resendDataList)} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
-                        <Button onClick={this.onClose} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
+                        <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
                     </Modal.Footer>
                 }
             </Modal>

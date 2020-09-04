@@ -5,7 +5,6 @@ import LangHelper from '@jsroot/common/langHelper';
 import configureMockStore from 'redux-mock-store';
 import DateTimeService from '@jsroot/common/dateTimeService';
 import functions, { handleNewResendOptions } from '../../functions';
-import { TimeOut } from '@jsroot/common/constants';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 import DatePicker from '@jsroot/components/date-picker/index';
 import SelectWithSearch from 'react-select';
@@ -936,6 +935,8 @@ describe('Filter', () => {
     });
 
     describe('debounceHandleHeadlineInputChange', () => {
+        jest.useFakeTimers();
+
         it('searchText valid', () => {
             // Arrange
             const searchText = 'text with length > 2';
@@ -953,11 +954,10 @@ describe('Filter', () => {
 
             // Action
             filter.instance().debounceHandleHeadlineInputChange(searchText);
+            jest.runAllTimers();
 
             // Assert
-            setTimeout(() => {
-                expect(props.getHeadlineOptions).toHaveBeenCalledWith(searchText);
-            }, TimeOut);
+            expect(props.getHeadlineOptions).toHaveBeenCalledWith(searchText);
         });
         
         it('searchText invalid', () => {
@@ -977,15 +977,16 @@ describe('Filter', () => {
 
             // Action
             filter.instance().debounceHandleHeadlineInputChange(searchText);
+            jest.runAllTimers();
 
             // Assert
-            setTimeout(() => {
-                expect(props.setHeadlineOptions).toHaveBeenCalledWith([]);
-            }, TimeOut);
+            expect(props.setHeadlineOptions).toHaveBeenCalledWith([]);
         });
     });
 
     describe('debounceHandleRecipientInputChange', () => {
+        jest.useFakeTimers();
+
         it('searchText valid', () => {
             // Arrange
             const searchText = 'text with length > 2';
@@ -1003,11 +1004,10 @@ describe('Filter', () => {
 
             // Action
             filter.instance().debounceHandleRecipientInputChange(searchText);
+            jest.runAllTimers();
 
             // Assert
-            setTimeout(() => {
-                expect(props.getRecipientOptions).toHaveBeenCalledWith(searchText);
-            }, TimeOut);
+            expect(props.getRecipientOptions).toHaveBeenCalledWith(searchText);
         });
         
         it('searchText invalid', () => {
@@ -1027,11 +1027,10 @@ describe('Filter', () => {
 
             // Action
             filter.instance().debounceHandleRecipientInputChange(searchText);
+            jest.runAllTimers();
 
             // Assert
-            setTimeout(() => {
-                expect(props.setRecipientOptions).toHaveBeenCalledWith([]);
-            }, TimeOut);
+            expect(props.setRecipientOptions).toHaveBeenCalledWith([]);
         });
     });
 

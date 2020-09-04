@@ -1,4 +1,4 @@
-﻿import { MappingStatus, TimeOut } from './constants';
+﻿import { MappingStatus } from './constants';
 const _rootUrl = document.getElementById('RootUrl') ? document.getElementById('RootUrl').value : '/';
 let _xsrfToken = null;
 
@@ -93,7 +93,7 @@ export default class Site {
             };
     
             clearTimeout(timeout);
-            timeout = setTimeout(later, wait || TimeOut);
+            timeout = setTimeout(later, wait || 500);
         };
     };
 }

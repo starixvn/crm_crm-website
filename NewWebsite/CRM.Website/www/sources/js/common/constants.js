@@ -18,5 +18,3 @@ export const ChatTypeMapping = {
     'Personal': 2,
     'Group': 1
 };
-
-export const TimeOut = 500;
