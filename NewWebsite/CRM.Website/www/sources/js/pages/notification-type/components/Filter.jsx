@@ -58,7 +58,7 @@ export class Filter extends Component {
                 };
             });
 
-            this.setState(prevState => ({
+            this.setState({
                 recipientTypesOptions,
                 chatTypesOptions,
                 systemsOptions,
@@ -67,7 +67,7 @@ export class Filter extends Component {
                     chatTypes: chatTypeIds.toString(),
                     systems: systemIds.toString()
                 }
-            }));
+            });
         });
     }
 
@@ -94,7 +94,7 @@ export class Filter extends Component {
             recipientTypeIds: this.state.filter.recipientTypes,
             systemId: this.state.filter.systems,
             pageIndex: 1,
-            pageSize: 50
+            pageSize: 100
         };
     }
 
@@ -215,14 +215,12 @@ const mapStateToProps = state => {
         settings,
         getSettings,
         invalidParams,
-        setInvalidParams
     } = state;
     return {
         gridParams,
         settings,
         getSettings,
         invalidParams,
-        setInvalidParams
     };
 };
 
