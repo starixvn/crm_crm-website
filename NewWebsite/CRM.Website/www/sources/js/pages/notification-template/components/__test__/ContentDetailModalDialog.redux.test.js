@@ -11,7 +11,7 @@ describe('connect ', () => {
             mapStateToProps = mapStateToPropsFunc;
             return connectMock;
         });
-        require('../ContentDetailPopup').default;
+        require('../ContentDetailModalDialog').default;
     });
 
     afterAll(() => {

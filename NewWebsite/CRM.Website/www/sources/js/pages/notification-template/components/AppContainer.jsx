@@ -1,4 +1,5 @@
 ﻿import React, { Component, Fragment } from 'react';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
@@ -8,8 +9,8 @@ import Filter from './Filter';
 import DataGrid from './DataGrid';
 import NewNotificationTemplate from './NewNotificationTemplate';
 import EditNotificationTemplate from './EditNotificationTemplate';
-import ContentDetailPopup from './ContentDetailPopup';
-import ConfirmPopup from '@jsroot/components/ConfirmPopup';
+import ContentDetailModalDialog from './ContentDetailModalDialog';
+import SweetModalDialog from '@jsroot/components/SweetModalDialog';
 import LangHelper from '@jsroot/common/langHelper';
 
 export class AppContainer extends Component {
@@ -106,18 +107,25 @@ export class AppContainer extends Component {
                 }
                 {
                     this.props.deleteTemplatePopup.show &&
-                    <ConfirmPopup size="lg"
+                    <SweetModalDialog size="lg"
                         title={LangHelper.getResource('Confirmation')}
-                        content={
+                        contents={
                             <div>Are you sure you want to delete <strong>{this.props.deleteTemplatePopup.name}</strong>?</div>
                         }
-                        onSubmit={this.handleDelete}
+                        buttons={[
+                            <Button variant="primary" size="sm" onClick={this.handleDelete}>
+                                {LangHelper.getResource('OK')}
+                            </Button>,
+                            <Button variant="primary" size="sm" onClick={this.handleCloseDeletePopup}>
+                                {LangHelper.getResource('Cancel')}
+                            </Button>
+                        ]}
                         onClose={this.handleCloseDeletePopup}
                     />
                 }
                 {
                     this.props.contentDetailPopup.show &&
-                    <ContentDetailPopup onClose={this.handleCloseViewContentPopup} />
+                    <ContentDetailModalDialog onClose={this.handleCloseViewContentPopup} />
                 }
             </Fragment>
         );
