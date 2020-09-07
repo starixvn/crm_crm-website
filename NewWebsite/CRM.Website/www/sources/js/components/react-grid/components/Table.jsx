@@ -125,16 +125,17 @@ class Table extends Component {
 
     _getNextColspanCells(cells, fromCellIndex, toCellIndex) {
         const colspanCells = [];
-        for (let i = fromCellIndex; i <= toCellIndex; i++) {
+        let toCellInternalIndex = toCellIndex;
+        for (let i = fromCellIndex; i <= toCellInternalIndex; i++) {
             const cell = cells[i];
             const hasNext = i < cells.length;
             if (!cell && hasNext) {
-                toCellIndex += 1;
+                toCellInternalIndex += 1;
                 continue;
             }
 
             if (cell.props.colSpan) {
-                toCellIndex -= 1;
+                toCellInternalIndex -= 1;
             }
 
             colspanCells.push(cell);

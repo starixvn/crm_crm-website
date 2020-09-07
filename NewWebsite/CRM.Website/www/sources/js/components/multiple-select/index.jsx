@@ -47,8 +47,7 @@ export default class MultipleSelect extends Component {
     constructor(props) {
         super(props);
         this.searchInputBox = null;
-        this.id = `multiple-select-${props.id || 2}`;
-
+        this.id = props.id ? `multiple-select-${props.id}` : `multiple-select-random-${Math.floor(Math.random() * 10)}`;
         this.state = {
             originalDataSource: null,
             searchText: '',

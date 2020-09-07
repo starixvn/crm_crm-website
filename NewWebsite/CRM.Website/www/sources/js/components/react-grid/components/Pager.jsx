@@ -47,7 +47,7 @@ export default class Pager extends Component {
     onKeyUpHandle = (e, totalPage) => {
         const code = e.keyCode ? e.keyCode : e.which;
         if (code === 13) {
-            const value = parseInt(this.state.inputValue);
+            const value = parseInt(this.state.inputValue, 10);
             if (value > 0 && value <= totalPage) {
                 this.goToPage(value, this.props.pageOption.PageSize);
             }
@@ -122,7 +122,7 @@ export default class Pager extends Component {
         const { PageIndex, PageSize, TotalItem } = pageOption;
         const { inputValue } = this.state;
         const isShow = TotalItem > 0;
-        const isDisable = isNaN(parseInt(inputValue));
+        const isDisable = isNaN(parseInt(inputValue, 10));
         const totalPage = Math.ceil(TotalItem / PageSize);
 
         return (
