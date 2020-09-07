@@ -8,6 +8,7 @@ const KEY_NAME = 'key';
 const VALUE_NAME = 'value';
 const STATUS_NAME = 'checked';
 
+let id = 1;
 const convertDataSourceToState = ({ keyField, valueField, statusField, dataSource }) => {
     return dataSource.map(item => {
         return {
@@ -47,13 +48,15 @@ export default class MultipleSelect extends Component {
     constructor(props) {
         super(props);
         this.searchInputBox = null;
-        this.id = props.id ? `multiple-select-${props.id}` : `multiple-select-random-${Math.floor(Math.random() * 10)}`;
+
         this.state = {
             originalDataSource: null,
             searchText: '',
             showOptionList: false,
             dataSource: []
         };
+
+        this.id = `multiple-select-${props.id || (id += 1)}`;
     }
 
     static getDerivedStateFromProps(props, state) {
