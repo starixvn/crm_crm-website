@@ -56,7 +56,11 @@ export default class MultipleSelect extends Component {
             dataSource: []
         };
 
-        this.id = `multiple-select-${props.id || (id += 1)}`;
+        if (!props.id) {
+            id += 1;
+        }
+
+        this.id = `multiple-select-${props.id || id}`;
     }
 
     static getDerivedStateFromProps(props, state) {
