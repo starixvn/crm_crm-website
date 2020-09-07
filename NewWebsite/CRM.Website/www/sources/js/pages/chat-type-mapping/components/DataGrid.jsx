@@ -77,7 +77,7 @@ export class DataGrid extends Component {
 
     buildHeader = isHost => {
         return (
-            <HeaderRow style={{ height: 40 }}>
+            <HeaderRow>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('ChatType')}</HeaderCell>
                 <HeaderCell colWidth={20}>{LangHelper.getResource('BotName')}</HeaderCell>
