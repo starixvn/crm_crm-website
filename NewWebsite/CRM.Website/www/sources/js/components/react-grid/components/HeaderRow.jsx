@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class HeaderRow extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     static propTypes = {
         onSort: PropTypes.func
     }
@@ -14,13 +10,14 @@ export default class HeaderRow extends Component {
         onSort: null
     }
 
+    constructor(props) {
+        super(props);
+    }
+
     _renderChildren() {
         const { onSort, children, sortBy, sortOrder } = this.props;
 
-        // register onSort event
-        return React.Children.map(children, child => {
-            return child && React.cloneElement(child, { onSort: onSort, sortOrder: sortBy === child.props.sortBy ? sortOrder : null });
-        });
+        return React.Children.map(children, child => child && React.cloneElement(child, { onSort: onSort, sortOrder: sortBy === child.props.sortBy ? sortOrder : null }));
     }
 
     render() {
