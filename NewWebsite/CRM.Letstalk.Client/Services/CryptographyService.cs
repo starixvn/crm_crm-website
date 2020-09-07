@@ -111,7 +111,7 @@
             byte[] bytes = new byte[NumberChars / numStep];
             for (int i = 0; i < NumberChars; i += numStep)
             {
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, numStep), fromBase);
+                bytes[i / numStep] = Convert.ToByte(hex.Substring(i, numStep), fromBase);
             }
 
             return bytes;
