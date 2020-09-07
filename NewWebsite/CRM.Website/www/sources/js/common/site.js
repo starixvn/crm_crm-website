@@ -87,11 +87,11 @@ export default class Site {
         return function (...theArgs) {
             const context = this,
                 args = theArgs;
-    
+
             const later = () => {
                 func.apply(context, args);
             };
-    
+
             clearTimeout(timeout);
             timeout = setTimeout(later, wait || 500);
         };
