@@ -48,7 +48,7 @@
         public async Task<IActionResult> GetWebhook(int id)
         {
             var botConfigs = webhookConfigurations.FirstOrDefault(config => config.BotId == id);
-            if (botConfigs != null)
+            if (botConfigs != null && botConfigs.IsAllowedGet)
             {
                 var result = await letstalkService(id).GetWebhookAsync();
                 return Ok(result);
