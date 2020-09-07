@@ -22,6 +22,8 @@
 
         Task<RoomData> GetChatRoomData(string roomToken);
 
+        Task<string> GetWebhookAsync();
+
         Task<BaseResult> SetWebhookAsync(string url);
 
         Task<BaseResult> SetAvatarAsync(string image);

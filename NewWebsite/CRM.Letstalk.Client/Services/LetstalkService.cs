@@ -244,5 +244,17 @@
                 await LeaveChatRoom(rooms[i]);
             }
         }
+
+        public async Task<string> GetWebhookAsync()
+        {
+            var result = await restClientService.ExecuteGetAsync<WebhookResult>($"bot/get_webhook/{botConfig.BotAccountId}");
+
+            if (result.IsSuccess)
+            {
+                return result.Url;
+            }
+
+            return string.Empty;
+        }
     }
 }
