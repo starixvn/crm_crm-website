@@ -1,6 +1,7 @@
 import types from './types';
 import Site from '@jsroot/common/site';
 import DataService from '@jsroot/common/dataService';
+import { toast } from 'react-toastify';
 
 // Grid
 export const setGridParams = data => {
@@ -117,7 +118,7 @@ export const setValidateResend = data => {
     };
 };
 
-export const resendNotifications = (dataList, callback) => async dispatch => {
+export const resendNotifications = (dataList, callback) => async () => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/ResendNotificationList');
     await DataService.postDataAsync(url, dataList).then(response => {
@@ -125,12 +126,13 @@ export const resendNotifications = (dataList, callback) => async dispatch => {
         if (typeof callback === 'function') {
             callback();
         }
-        
-        dispatch(setMessageResult({
-            show: true,
-            message,
-            isSuccessful
-        }));
+
+        if (isSuccessful) {
+            toast.success(message);
+        }
+        else {
+            toast.error(message);
+        }
     }).then(() => Site.unblockUI());
 };
 

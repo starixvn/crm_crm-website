@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { handleNewResendOptions } from '../functions';
-import { DisplayMessageTime } from '@jsroot/common/constants';
 
 export class ValidateResend extends Component {
     constructor(props) {
@@ -20,16 +19,12 @@ export class ValidateResend extends Component {
 
     resendNotifications = dataList => {
         this.onClose();
-        this.props.setInvalidParams({ show: false });
         this.props.resendNotifications(dataList, this.callBackSuccess);
     }
 
     callBackSuccess = () => {
         const params = { ...this.props.gridParams };
         this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
-        setTimeout(() => {
-            this.props.setMessageResult({ show: false });
-        }, 2000);
     }
 
     render() {

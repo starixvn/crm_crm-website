@@ -124,8 +124,6 @@ describe('DataGrid', () => {
             expect(dataGrid.find(Table).props().autoWidth).toBeTrue;
             expect(dataGrid.find(Table).props().isPaging).toBeTrue;
             expect(dataGrid.find(Table).props().pageOption).toEqual(pagingOption);
-            expect(dataGrid.find(Table).props().containerPadding).toBe(0);
-            expect(dataGrid.find(Table).props().adjustedHeight).toBe(20);
         });
     });
 

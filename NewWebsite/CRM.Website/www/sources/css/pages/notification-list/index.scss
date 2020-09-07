@@ -45,8 +45,12 @@
     color: $resolved-color !important;
 }
 
-.duplicate-color {
-    color: $duplicate-color !important;
+.duplicated-color {
+    color: $duplicated-color !important;
+}
+
+.botblocked-color {
+    color: $bot-blocked-color !important;
 }
 
 .checkbox-cell-style {

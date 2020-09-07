@@ -7,6 +7,7 @@
         Resolved,
         Sending,
         Draft,
-        Duplicated
+        Duplicated,
+        BotBlocked
     }
 }

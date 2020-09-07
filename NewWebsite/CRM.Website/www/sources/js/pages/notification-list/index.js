@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
+import Layout from '@jsroot/components/Layout';
 import Store from '@jsroot/common/store';
 import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
@@ -11,9 +11,7 @@ const store = Store.createStore(reducer, {
         pageIndex: 1,
         pageSize: 100
     },
-    invalidParams: {
-        show: false
-    },
+    invalidParams: {},
     contentPopup: { show: false },
     viewDetailPopup: { show: false },
     resendOptions: {
@@ -57,6 +55,8 @@ const store = Store.createStore(reducer, {
 
 ReactDOM.render(
 	<Provider store={store}>
-		<AppContainer />
+        <Layout>
+            <AppContainer />
+        </Layout>
 	</Provider>,
 	document.getElementById('app-container'));

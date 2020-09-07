@@ -10,6 +10,7 @@ import { handleNewResendOptions } from '../functions';
 import SelectWithSearch from 'react-select';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 import Site from '@jsroot/common/site';
+import { toast } from 'react-toastify';
 
 export class Filter extends Component {
     constructor(props) {
@@ -144,9 +145,7 @@ export class Filter extends Component {
 
     submitHandler = e => {
         e.preventDefault();
-        this.props.setMessageResult({ show: false });
-        this.props.setInvalidParams({ show: false });
-
+        this.props.setInvalidParams({});
         const params = this.getParams();
         if (this.isValidateParams(params)) {
             this.props.setGridParams(params);
@@ -160,49 +159,29 @@ export class Filter extends Component {
 
     isValidateParams = params => {
         if (params.notificationTypeIds === '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} a ${LangHelper.getResource('NotificationType')}`
-            });
-
+            toast.error(`${LangHelper.getResource('PleaseChoose')} a ${LangHelper.getResource('NotificationType')}`);
             return false;
         }
 
         if (params.notificationIdLower !== '' && params.notificationIdUpper === '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                isInvalidNotificationIdUpper: true
-            });
-
+            this.props.setInvalidParams({ isInvalidNotificationIdUpper: true });
+            toast.error(`${LangHelper.getResource('NotificationIDMustHaveBoth')}`);
             return false;
         }
 
         if (params.notificationIdUpper !== '' && params.notificationIdLower === '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('NotificationIDMustHaveBoth')}`,
-                isInvalidNotificationIdLower: true
-            });
-
+            this.props.setInvalidParams({ isInvalidNotificationIdLower: true });
+            toast.error(`${LangHelper.getResource('NotificationIDMustHaveBoth')}`);
             return false;
         }
 
         if (parseInt(params.notificationIdLower, 10) > parseInt(params.notificationIdUpper, 10)) {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`
-            });
-
+            toast.error(`${LangHelper.getResource('NotificationIDFromNotGreaterThanTo')}`);
             return false;
         }
 
         if (params.status === '') {
-            this.props.setInvalidParams({
-                show: true,
-                message: `${LangHelper.getResource('PleaseChoose')} a ${LangHelper.getResource('Status')}`
-            });
-
+            toast.error(`${LangHelper.getResource('PleaseChoose')} a ${LangHelper.getResource('Status')}`);
             return false;
         }
 
@@ -276,7 +255,6 @@ export class Filter extends Component {
                                 onChange={value => this.handleHeadlineChange(value)}
                                 options={this.props.headlineOptions}
                                 onInputChange={searchText => this.debounceHandleHeadlineInputChange(searchText)}
-                                placeholder={'Enter Headline'}
                                 value={this.state.filter.headline}
                             />
                         </div>
@@ -290,7 +268,6 @@ export class Filter extends Component {
                                 onChange={value => this.handleRecipientChange(value)}
                                 options={this.props.recipientOptions}
                                 onInputChange={searchText => this.debounceHandleRecipientInputChange(searchText)}
-                                placeholder={'Enter Recipient'}
                                 value={this.state.filter.recipient}
                             />
                         </div>

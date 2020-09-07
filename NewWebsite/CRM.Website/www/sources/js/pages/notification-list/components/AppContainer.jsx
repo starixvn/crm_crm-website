@@ -29,12 +29,6 @@ export class AppContainer extends Component {
                         message={this.props.messageResult.message || LangHelper.getResource('ResentNotificationSuccessfully')}
                     />
                 }
-                {
-                    this.props.invalidParams.show &&
-                    <ResponseMessage isSuccessful={false}
-                        message={this.props.invalidParams.message}
-                    />
-                }
                 <Filter />
                 <DataGrid isHost={this.isHost} />
                 {
@@ -80,7 +74,6 @@ const mapStateToProps = state => {
     const {
         contentPopup,
         viewDetailPopup,
-        invalidParams,
         messageResult,
         validateResendResult,
         confirmPopup
@@ -89,7 +82,6 @@ const mapStateToProps = state => {
     return {
         contentPopup,
         viewDetailPopup,
-        invalidParams,
         messageResult,
         validateResendResult,
         confirmPopup
