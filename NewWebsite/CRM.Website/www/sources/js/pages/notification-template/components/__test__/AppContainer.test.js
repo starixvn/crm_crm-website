@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { toast } from 'react-toastify';
 import { shallow } from 'enzyme';
 import { AppContainer } from '../AppContainer';
 import Filter from '../Filter';
@@ -7,6 +8,8 @@ import NewNotificationTemplate from '../NewNotificationTemplate';
 import EditNotificationTemplate from '../EditNotificationTemplate';
 import ContentDetailModalDialog from '../ContentDetailModalDialog';
 import SweetModalDialog from '@jsroot/components/SweetModalDialog';
+
+jest.mock('react-toastify');
 
 describe('AppContainer', () => {
     afterAll(() => {
@@ -165,6 +168,25 @@ describe('AppContainer', () => {
 
             // Assert
             expect(props.setDeleteTemplatePopup).toHaveBeenCalledWith({ show: false });
+        });
+
+        it('should calls exactly functions when delete successful', () => {
+            // Arrange
+            const promise = Promise.resolve({ data: { isSuccessful: true } });
+            const props = {
+                deleteTemplatePopup: { templateId: 1 },
+                deleteTemplate: jest.fn(() => promise),
+                getGridData: jest.fn(),
+                gridParams: {}
+            };
+            const container = shallow(<AppContainer {...props} />).instance();
+            container.handleCloseDeletePopup = jest.fn();
+
+            // Act
+            container.handleDelete();
+
+            // Assert
+            expect(props.deleteTemplate).toHaveBeenCalledWith(1);
         });
     });
 

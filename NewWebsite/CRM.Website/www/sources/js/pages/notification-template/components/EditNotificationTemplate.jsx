@@ -9,6 +9,7 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
+import { renderNotificationTypeOption, validateFormik } from '../common.functions';
 
 export class EditNotificationTemplate extends Component {
     static propTypes = {
@@ -37,51 +38,6 @@ export class EditNotificationTemplate extends Component {
 
     constructor(props) {
         super(props);
-    }
-
-    renderNotificationTypeOption = item => {
-        return (
-            <option key={item.notificationTypeId} value={item.notificationTypeId}>
-                {item.notificationTypeName}
-            </option>
-        );
-    }
-
-    validate = values => {
-        const errors = {};
-        if (!values.notificationTypeId) {
-            errors.notificationTypeId = LangHelper.getResource('NotificationTypeRequired');
-        }
-
-        if (!values.notificationTemplateName || values.notificationTemplateName.trim().length === 0) {
-            errors.notificationTemplateName = LangHelper.getResource('TemplateNameRequired');
-        } else {
-            if (values.notificationTemplateName.trim().length > 1000) {
-                errors.notificationTemplateName = LangHelper.formatString(
-                    LangHelper.getResource('FieldMaxLength'),
-                    LangHelper.getResource('TemplateName'),
-                    1000);
-            }
-        }
-
-        if (!values.title || values.title.trim().length === 0) {
-            errors.title = LangHelper.getResource('TitleRequired');
-        } else {
-            if (values.title.trim().length > 2000) {
-                errors.title = LangHelper.formatString(
-                    LangHelper.getResource('FieldMaxLength'),
-                    LangHelper.getResource('Title'),
-                    2000);
-            }
-        }
-
-        this.props.languages.map(item => {
-            if (!values['language_' + item.settingId] || values['language_' + item.settingId].trim().length === 0) {
-                errors['language_' + item.settingId] = `${LangHelper.getResource('Content')} (${item.settingValue}) is mandatory!`;
-            }
-        });
-
-        return errors;
     }
 
     renderForm = ({
@@ -115,7 +71,7 @@ export class EditNotificationTemplate extends Component {
                                 value={values.notificationTypeId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.props.notificationTypes.map(this.renderNotificationTypeOption)}
+                                {this.props.notificationTypes.map(renderNotificationTypeOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -229,7 +185,7 @@ export class EditNotificationTemplate extends Component {
                 </Modal.Header>
                 <Formik
                     initialValues={initialValues}
-                    validate={this.validate}
+                    validate={values => validateFormik(values, this.props.languages)}
                     onSubmit={this.handleSubmit}
                 >
                     {this.renderForm}

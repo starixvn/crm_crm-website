@@ -2,9 +2,14 @@
 import { Button } from 'react-bootstrap';
 import { EditNotificationTemplate } from '../EditNotificationTemplate';
 import { shallow, mount } from 'enzyme';
+import LangHelper from '@jsroot/common/langHelper';
 
 describe('EditNotificationTemplate', () => {
-    afterEach(() => {
+    beforeAll(() => {
+        LangHelper.getResource = jest.fn((key) => key);
+    });
+
+    afterAll(() => {
         jest.clearAllMocks();
     });
 
@@ -28,5 +33,8 @@ describe('EditNotificationTemplate', () => {
 
         // Assert
         expect(props.onClose).toHaveBeenCalled();
+    });
+
+    describe('methods', () => {
     });
 });
