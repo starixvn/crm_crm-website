@@ -117,13 +117,11 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         gridParams,
-        gridData,
-        setEditNotificationTypePopup
+        gridData
     } = state;
     return {
         gridParams,
-        gridData,
-        setEditNotificationTypePopup
+        gridData
     };
 };
 

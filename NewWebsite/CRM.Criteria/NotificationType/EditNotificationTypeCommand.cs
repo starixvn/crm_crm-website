@@ -13,7 +13,12 @@
 
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Upd";
 
-        public override bool IsValid() =>
+        private bool IsValidString() => !string.IsNullOrWhiteSpace(NotificationTypeName) &&
+            !string.IsNullOrWhiteSpace(ChatTypeIds) &&
+            !string.IsNullOrWhiteSpace(RecipientTypeIds);
+
+        public override bool IsValid() => 
+            IsValidString() &&
             NotificationTypeId > 0
             && SystemId > 0
             && UserId > 0;

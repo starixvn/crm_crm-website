@@ -5,7 +5,6 @@ import { shallow, mount } from 'enzyme';
 import MultipleSelect from '../../../../components/multiple-select/index';
 import configureMockStore from 'redux-mock-store';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
-import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import { Formik } from 'formik';
 import LangHelper from '@jsroot/common/langHelper';
 
@@ -17,46 +16,47 @@ describe('NewNotificationType', () => {
         jest.clearAllMocks();
     });
 
-    it('renders component correctly', () => {
-        // Act
-        const container = shallow(<NewNotificationType />);
-
-        // Assert
-        expect(container).toMatchSnapshot();
-    });
-
     it('render component correctly', () => {
+        // Arrange
         const props = {
             createNotificationTypeResult: {},
             settings: {},
             getSettings: {}
         };
 
+        //Act
         const container = shallow(<NewNotificationType {...props} />);
 
+        //Asert
         expect(container).toMatchSnapshot();
     });
 
     it('renders Modal, Formik components', () => {
+        //Act
         const wrapper = shallow(<NewNotificationType />);
 
+        //Assert
         expect(wrapper.find(Modal)).toHaveLength(1);
         expect(wrapper.find(Formik)).toHaveLength(1);
     });
 
     it('renders MultipleSelect components', () => {
+        // Arrange
         const props = {
             createNotificationTypeResult: {},
             settings: {
                 recipientTypes: [],
+
                 chatTypes: [],
-                systems:[]
+                systems: []
             },
             getSettings: {}
         };
 
+        //Act
         const wrapper = mount(<NewNotificationType {...props} />);
 
+        //Assert
         expect(wrapper.find(MultipleSelect)).toHaveLength(2);
     });
 
@@ -67,7 +67,7 @@ describe('NewNotificationType', () => {
             settings: {
                 recipientTypes: [],
                 chatTypes: [],
-                systems:[]
+                systems: []
             },
             getSettings: {},
             onClose: jest.fn()
@@ -82,40 +82,18 @@ describe('NewNotificationType', () => {
         expect(props.onClose).toHaveBeenCalled();
     });
 
-    it('should submit when click save button', () =>{
-        //Arrange
-        const props = {
-            createNotificationTypeResult: {},
-            settings: {
-                recipientTypes: [],
-                chatTypes: [],
-                systems:[]
-            },
-            getSettings: {},
-            onSubmit: jest.fn()
-        };
-
-        const container = mount(<NewNotificationType {...props}/>);
-
-        //Act
-        container.find(Form).simulate('submit');
-
-        //Assert
-        expect(props.onSubmit).toHaveBeenCalledTimes(0);
-    });
-
     it('component render correctly message', () => {
         // Arrange
         const props = {
             createNotificationTypeResult: {
-                    show: true,
-                    isSuccessful: false,
-                    message: '' || LangHelper.getResource('InsertNotificationTypeSuccessfully')
+                show: true,
+                isSuccessful: false,
+                message: '' || LangHelper.getResource('InsertNotificationTypeSuccessfully')
             },
             settings: {
                 recipientTypes: [],
                 chatTypes: [],
-                systems:[]
+                systems: []
             },
             getSettings: {}
         };

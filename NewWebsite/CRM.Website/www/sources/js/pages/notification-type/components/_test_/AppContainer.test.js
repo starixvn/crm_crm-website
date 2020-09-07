@@ -192,6 +192,42 @@ describe('AppContainer', () => {
             // Assert
             expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({ show: false });
         });
+
+        it('should call deleteNotificationType when run handleDelete', () => {
+            // Arrange
+            const props = {
+                deleteNotificationType: jest.fn(() => Promise.resolve({ data:{}})),
+                deleteNotificationTypePopup: {},
+                getGridData: jest.fn()
+            };
+
+            const container = new AppContainer(props);
+
+            // Act
+            container.handleDelete();
+
+            // Assert
+            expect(props.deleteNotificationType).toHaveBeenCalledTimes(1);
+        });
+
+        // it('should call handleCloseDeletePopup, getGridData when delete success', () => {
+        //     // Arrange
+        //     const props = {
+        //         deleteNotificationType: jest.fn(() => Promise.resolve({ data:{ isSuccessful: true}})),
+        //         deleteNotificationTypePopup: {},
+        //         getGridData: jest.fn()
+        //     };
+
+        //     const container = new AppContainer(props);
+        //     container.handleCloseDeletePopup = jest.fn();
+
+        //     // Act
+        //     container.handleDelete();
+
+        //     // Assert
+        //     //expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+        //     expect(container.handleCloseDeletePopup).toHaveBeenCalled();
+        // });
     });
 
     it('render correctly component Filter', () => {

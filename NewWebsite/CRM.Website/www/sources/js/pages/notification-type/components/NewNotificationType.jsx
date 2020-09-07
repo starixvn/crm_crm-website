@@ -8,6 +8,7 @@ import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 export class NewNotificationType extends Component {
     constructor(props) {
@@ -174,7 +175,7 @@ export class NewNotificationType extends Component {
             systemId: ''
         };
         return (
-            <Modal show className="new-notification-type"
+            <Modal show className="new-notification-type" dialogAs={DraggableModalDialog}
                 backdrop="static" keyboard={false} size="lg" centered
                 onHide={this.props.onClose}
             >
