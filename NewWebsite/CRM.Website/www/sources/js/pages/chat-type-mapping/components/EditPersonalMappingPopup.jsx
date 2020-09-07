@@ -110,7 +110,7 @@ export class EditPersonalMappingPopup extends Component {
         this.props.getGroupHeadlineByRecipient(option.value);
     };
 
-    handleLetstalkSelect = (e) => {
+    handleLetstalkSelect = e => {
         this.setState({ isLoading: true });
         this.handleChange('conversationId', e.target.value);
         this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
@@ -121,7 +121,7 @@ export class EditPersonalMappingPopup extends Component {
 
     renderOptions = (item, key) => {
         return (
-            <option key={item.id} value={item.id}>
+            <option key={`${key}-${item.id}`} value={item.id}>
                 {item.name}
             </option>
         );
@@ -146,8 +146,8 @@ export class EditPersonalMappingPopup extends Component {
 
     isValidParams = () => {
         const data = this.state.form;
+        const errMsg = [];
         let isValid = true;
-        let errMsg = [];
 
         if (!data.botId) {
             isValid = false;
@@ -190,9 +190,7 @@ export class EditPersonalMappingPopup extends Component {
         return isValid;
     }
 
-    isDirtyForm = () => {
-        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
-    }
+    isDirtyForm = () => JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
 
     onClosePopup = () => {
         if (this.isDirtyForm()) {
@@ -221,7 +219,7 @@ export class EditPersonalMappingPopup extends Component {
         };
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         this.props.setUpdatePersonalMappingResult(null);
         this.setState({ isSubmitting: true });
         e.preventDefault();
@@ -250,9 +248,7 @@ export class EditPersonalMappingPopup extends Component {
                         <Alert variant="danger">
                             <ul className="list-message-error">
                                 {
-                                    this.state.validate.errMsgs.map((msg, key) => {
-                                        return <li key={key}>{msg}</li>;
-                                    })
+                                    this.state.validate.errMsgs.map((msg, key) => <li key={key}>{msg}</li>)
                                 }
                             </ul>
                         </Alert>

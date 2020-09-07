@@ -1,4 +1,4 @@
-﻿import React, { Component, useRef, Fragment } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -110,18 +110,18 @@ export class EditGroupMappingPopup extends Component {
         this.props.getGroupHeadlineByRecipient(selectedItemsKey);
     };
 
-    verifyLetstalk = (recipientIds) => {
+    verifyLetstalk = recipientIds => {
         if (recipientIds) {
             this.setState({ isLoading: true });
             const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
             const params = {
                 botId: this.state.form.bot.id,
                 groupConversationId: this.state.form.conversationId,
-                recipients: selectedOptions.map((item, key) => {
+                recipients: selectedOptions.map(item => {
                     return {
                         recipientId: item.id,
                         recipientName: item.name,
-                        letstalks: !item.letstalkIds ? [] : item.letstalkIds.split(',').map((l, k) => {
+                        letstalks: !item.letstalkIds ? [] : item.letstalkIds.split(',').map(l => {
                             return {
                                 letstalkId: l
                             };
@@ -142,7 +142,7 @@ export class EditGroupMappingPopup extends Component {
 
     renderOptions = (item, key) => {
         return (
-            <option key={item.id} value={item.id}>
+            <option key={`${key}-${item.id}`} value={item.id}>
                 {item.name}
             </option>
         );
@@ -171,8 +171,8 @@ export class EditGroupMappingPopup extends Component {
 
     isValidParams = () => {
         const data = this.state.form;
+        const errMsg = [];
         let isValid = true;
-        let errMsg = [];
 
         if (!data.recipientTypeId) {
             isValid = false;
@@ -205,9 +205,7 @@ export class EditGroupMappingPopup extends Component {
         return isValid;
     }
 
-    isDirtyForm = () => {
-        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
-    }
+    isDirtyForm = () => JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
 
     onClosePopup = () => {
         if (this.isDirtyForm()) {
@@ -237,7 +235,7 @@ export class EditGroupMappingPopup extends Component {
         };
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         this.setState({ isSubmitting: true });
         this.props.setGroupMappingResult(null);
         e.preventDefault();
@@ -265,9 +263,7 @@ export class EditGroupMappingPopup extends Component {
                         <Alert variant="danger">
                             <ul className="list-message-error">
                                 {
-                                    this.state.validate.errMsgs.map((msg, key) => {
-                                        return <li key={key}>{msg}</li>;
-                                    })
+                                    this.state.validate.errMsgs.map((msg, key) => <li key={key}>{msg}</li>)
                                 }
                             </ul>
                         </Alert>

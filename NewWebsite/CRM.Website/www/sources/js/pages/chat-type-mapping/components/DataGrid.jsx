@@ -57,11 +57,11 @@ export class DataGrid extends Component {
 
     renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item' title={recipient.letstalkId}>{recipient.letstalkId}</div>;
 
-    handleEdit = (chatTypeId, data) => {
-        if (parseInt(chatTypeId, 10) === ChatTypeMapping.Personal) {
-            this.props.openUpdatePersonalMappingPopup(data);
+    handleEdit = (chatMapping) => {
+        if (parseInt(chatMapping.chatTypeId, 10) === ChatTypeMapping.Personal) {
+            this.props.openUpdatePersonalMappingPopup(chatMapping);
         } else {
-            this.props.openUpdateGroupMappingPopup(data);
+            this.props.openUpdateGroupMappingPopup(chatMapping);
         }
     }
 
@@ -118,7 +118,7 @@ export class DataGrid extends Component {
                         id={`active-chk-${conversationGroupId}`}
                         type='checkbox'
                         checked={isActive}
-                        onChange={(e) => this.onChangeActiveStaus(conversationGroupId, e.target.checked)}
+                        onChange={e => this.onChangeActiveStaus(conversationGroupId, e.target.checked)}
                         disabled={isDisabled}
                     />
                 </Cell>
@@ -126,6 +126,18 @@ export class DataGrid extends Component {
         }
 
         return <Cell className='text-center'>{isActive ? <span className="fa fa-check badge-green" /> : ''}</Cell>;
+    }
+
+    renderEditIcon = (isBotRemovedStatus, chatMapping) => {
+        return (
+            <Cell className='text-center'>
+                <div className={isBotRemovedStatus ? 'cursor-not-allowed' : ''}>
+                    <span className={`fa fa-pencil icon-edit ${isBotRemovedStatus ? 'pointer-event-none' : ''}`}
+                        onClick={() => this.handleEdit(chatMapping)}
+                    />
+                </div>
+            </Cell>
+        );
     }
 
     renderRow = (item, index, isHost) => {
@@ -161,14 +173,7 @@ export class DataGrid extends Component {
                 <Cell >{item.remark}</Cell>
                 {
                     isHost &&
-                    <Cell className='text-center'>
-                        <div className={isBotRemovedStatus ? 'cursor-not-allowed' : ''}>
-                            <span className={`fa fa-pencil icon-edit ${isBotRemovedStatus ? 'pointer-event-none' : ''}`}
-                                onClick={() => this.handleEdit(item.chatTypeId, item)}
-                            />
-                        </div>
-
-                    </Cell>
+                    this.renderEditIcon(isBotRemovedStatus, item)
                 }
             </Row>
         );
@@ -214,7 +219,7 @@ export class DataGrid extends Component {
                             <div>
                                 The Personal/Group shall be <strong>{!this.props.updateActiveStatusPopup.isChecked ? 'not ' : ''}</strong>received notification anymore.
                                 Are you sure you want to <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong> it?
-							</div>
+						    </div>
                         }
                         onSubmit={this.updateActiveStatus}
                         onClose={this.onCloseConfirmPopupChangeActiveStaus}

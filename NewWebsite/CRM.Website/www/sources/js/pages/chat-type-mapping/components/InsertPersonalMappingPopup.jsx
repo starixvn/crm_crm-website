@@ -68,7 +68,7 @@ export class InsertPersonalMappingPopup extends Component {
         this.props.getGroupHeadlineByRecipient(option.value);
     };
 
-    handleLetstalkSelect = (e) => {
+    handleLetstalkSelect = e => {
         this.setState({ isLoading: true });
         this.handleChange('letstalkId', e.target.value);
         this.props.getLetstalkDisplayName(this.state.form.botId, e.target.value).then(() => {
@@ -79,7 +79,7 @@ export class InsertPersonalMappingPopup extends Component {
 
     renderOptions = (item, key) => {
         return (
-            <option key={item.id} value={item.id}>
+            <option key={`${key}-${item.id}`} value={item.id}>
                 {item.name}
             </option>
         );
@@ -89,9 +89,14 @@ export class InsertPersonalMappingPopup extends Component {
         let result = null;
         if (this.state.letstalkIds) {
             const letstalkList = this.state.letstalkIds.split(',');
-            result = letstalkList.map((letstalkId, key) => {
-                return <Form.Check key={key} inline label={letstalkId} name='letstalkId' type="radio" id={`letstalkId-${key}`} value={letstalkId} onChange={this.handleLetstalkSelect} />;
-            });
+            result = letstalkList.map((letstalkId, key) => (
+                <Form.Check key={key}
+                    inline label={letstalkId}
+                    name='letstalkId'
+                    type="radio"
+                    id={`letstalkId-${key}`}
+                    value={letstalkId} onChange={this.handleLetstalkSelect} />
+            ));
         }
 
         return result;
@@ -99,8 +104,8 @@ export class InsertPersonalMappingPopup extends Component {
 
     isValidParams = () => {
         const data = this.state.form;
+        const errMsg = [];
         let isValid = true;
-        let errMsg = [];
 
         if (!data.botId) {
             isValid = false;
@@ -154,7 +159,7 @@ export class InsertPersonalMappingPopup extends Component {
         };
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         this.props.setInsertPersonalMappingResult(null);
         this.setState({ isSubmitting: true });
         e.preventDefault();
@@ -174,9 +179,7 @@ export class InsertPersonalMappingPopup extends Component {
         }
     }
 
-    isDirtyForm = () => {
-        return JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
-    }
+    isDirtyForm = () => JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
 
     onCloseInsertPopup = () => {
         if (this.isDirtyForm()) {
@@ -204,9 +207,7 @@ export class InsertPersonalMappingPopup extends Component {
                         <Alert variant="danger">
                             <ul className="list-message-error">
                                 {
-                                    this.state.validate.errMsgs.map((msg, key) => {
-                                        return <li key={key}>{msg}</li>;
-                                    })
+                                    this.state.validate.errMsgs.map((msg, key) => <li key={key}>{msg}</li>)
                                 }
                             </ul>
                         </Alert>

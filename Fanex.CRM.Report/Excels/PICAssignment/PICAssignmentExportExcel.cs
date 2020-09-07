@@ -207,6 +207,12 @@
 
         private static void RenderUnmergeColumns(ExportExcelInfo exportExcelInfo, IList<IRow> rows, IEnumerable<PicOfDirectAccount> pics)
         {
+            var suspendedColor = new
+            {
+                Red = (byte)248,
+                Green = (byte)222,
+                Blue = (byte)215
+            };
             var directAccounts = new List<DirectAccountInfo>();
             var openStyle = NpoiExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
@@ -222,10 +228,10 @@
             closedStyle.WrapText = true;
 
             HSSFPalette palette = exportExcelInfo.ExcelFile.GetCustomPalette();
-            HSSFColor color = palette.FindColor(248, 222, 215);
+            HSSFColor color = palette.FindColor(suspendedColor.Red, suspendedColor.Green, suspendedColor.Blue);
             if (color == null)
             {
-                palette.SetColorAtIndex(Lavender.Index, 248, 222, 215);
+                palette.SetColorAtIndex(Lavender.Index, suspendedColor.Red, suspendedColor.Green, suspendedColor.Blue);
                 color = palette.GetColor(Lavender.Index);
             }
             var suspendedStyle = NpoiExtensions.GetTextStyle(

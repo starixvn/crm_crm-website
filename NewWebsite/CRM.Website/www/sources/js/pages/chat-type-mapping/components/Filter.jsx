@@ -1,7 +1,7 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
@@ -39,9 +39,6 @@ class Filter extends Component {
 
     componentDidMount() {
         this.props.getSettings().then(() => {
-            const bots = this.props.settings.bots;
-
-            const chatTypes = this.props.settings.chatTypes;
             const mappingStatuses = this.props.settings.mappingStatuses;
             const selectedMappingStatuses = [];
             mappingStatuses.map(v => {
@@ -49,12 +46,11 @@ class Filter extends Component {
                 selectedMappingStatuses.push(v['id']);
             });
 
-            const languages = this.props.settings.languages;
             const settings = {
-                chatTypes: chatTypes,
+                chatTypes: this.props.settings.chatTypes,
                 mappingStatuses: mappingStatuses,
-                languages: languages,
-                bots: bots
+                languages: this.props.settings.languages,
+                bots: this.props.settings.bots
             };
 
             this.setState(prevState => ({
@@ -137,7 +133,7 @@ class Filter extends Component {
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('ChatType')}</Form.Label>
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 value={this.state.filter.chatType}
-                                onChange={(e) => this.onChange('chatType', e.target.value)}
+                                onChange={e => this.onChange('chatType', e.target.value)}
                             >
                                 <option value="">{LangHelper.getResource('All')}</option>
                                 {this.state.settings.chatTypes.map(this.renderOptions)}
@@ -147,28 +143,28 @@ class Filter extends Component {
                             <Form.Label className="col-auto col-form-label">{LangHelper.getResource('Name')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.name}
-                                onChange={(e) => this.onChange('name', e.target.value)}
+                                onChange={e => this.onChange('name', e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className="col-auto col-form-label">{LangHelper.getResource('GroupHeadline')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.groupHeadline}
-                                onChange={(e) => this.onChange('groupHeadline', e.target.value)}
+                                onChange={e => this.onChange('groupHeadline', e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className="col-auto col-form-label">{LangHelper.getResource('Recipient')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.recipient}
-                                onChange={(e) => this.onChange('recipient', e.target.value)}
+                                onChange={e => this.onChange('recipient', e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label className="col-auto col-form-label">{LangHelper.getResource('LetstalkID')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.letstalkID}
-                                onChange={(e) => this.onChange('letstalkID', e.target.value)}
+                                onChange={e => this.onChange('letstalkID', e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
@@ -190,7 +186,7 @@ class Filter extends Component {
                             <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Language')}</Form.Label>
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 value={this.state.filter.languageId}
-                                onChange={(e) => this.onChange('languageId', e.target.value)}
+                                onChange={e => this.onChange('languageId', e.target.value)}
                             >
                                 <option value="">{LangHelper.getResource('All')}</option>
                                 {this.state.settings.languages.map(this.renderOptions)}

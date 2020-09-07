@@ -104,11 +104,14 @@
 
         private static byte[] ConvertHexStringToByte(string hex)
         {
+            const int numStep = 2;
+            const int fromBase = 16;
+
             int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
+            byte[] bytes = new byte[NumberChars / numStep];
+            for (int i = 0; i < NumberChars; i += numStep)
             {
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, numStep), fromBase);
             }
 
             return bytes;

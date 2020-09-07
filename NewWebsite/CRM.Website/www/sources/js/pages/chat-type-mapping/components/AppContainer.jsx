@@ -1,4 +1,4 @@
-﻿import React, { Component, Fragment } from 'react';
+﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
@@ -18,7 +18,6 @@ export class AppContainer extends Component {
             <Layout>
                 <Filter isHost={this.isHost} />
                 <DataGrid isHost={this.isHost} />
-
             </Layout>
         );
     }
