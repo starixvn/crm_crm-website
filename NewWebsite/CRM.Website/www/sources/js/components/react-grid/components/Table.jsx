@@ -99,6 +99,50 @@ class Table extends Component {
         };
     }
 
+    componentDidMount() {
+        this._handleResize();
+        window.addEventListener('resize', this.debounceResizing);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.header !== prevProps.header) {
+            this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
+        }
+
+        if (this.props.shouldResetScrollPosition && prevProps.body !== this.props.body) {
+            scrollToTop(this.bodyWrapper, 200);
+        }
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.debounceResizing);
+    }
+
+    get columnWidthSum() {
+        const columnsWidth = this.state.columnsWidth;
+        return !columnsWidth || !columnsWidth.length || columnsWidth.find(x => typeof x !== "number") ?
+            null : columnsWidth.reduce((prev, current) => prev + current, 0);
+    }
+
+    _getNextColspanCells(cells, fromCellIndex, toCellIndex) {
+        const colspanCells = [];
+        for (let i = fromCellIndex; i <= toCellIndex; i++) {
+            const cell = cells[i];
+            const hasNext = i < cells.length;
+            if (!cell && hasNext) {
+                toCellIndex += 1;
+                continue;
+            }
+
+            if (cell.props.colSpan) {
+                toCellIndex -= 1;
+            }
+
+            colspanCells.push(cell);
+        }
+
+        return colspanCells;
+    }
+
     _getColumnsWidth(headerRows) {
         const headerIsArray = Array.isArray(headerRows);
         if (headerIsArray && headerRows.length === 0) {
@@ -143,51 +187,6 @@ class Table extends Component {
         getWidthByCells(cellList, currentRowIndex);
 
         return columnsWidth;
-    }
-
-    _getNextColspanCells(cells, fromCellIndex, toCellIndex) {
-        const colspanCells = [];
-        for (let i = fromCellIndex; i <= toCellIndex; i++) {
-            const cell = cells[i];
-            const hasNext = i < cells.length;
-            if (!cell && hasNext) {
-                toCellIndex += 1;
-                continue;
-            }
-
-            if (cell.props.colSpan) {
-                toCellIndex -= 1;
-            }
-
-            colspanCells.push(cell);
-        }
-
-        return colspanCells;
-    }
-
-    get columnWidthSum() {
-        const columnsWidth = this.state.columnsWidth;
-        return !columnsWidth || !columnsWidth.length || columnsWidth.find(x => typeof x !== "number") ?
-            null : columnsWidth.reduce((prev, current) => prev + current, 0);
-    }
-
-    componentDidMount() {
-        this._handleResize();
-        window.addEventListener('resize', this.debounceResizing);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.debounceResizing);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.header !== prevProps.header) {
-            this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
-        }
-
-        if (this.props.shouldResetScrollPosition && prevProps.body !== this.props.body) {
-            scrollToTop(this.bodyWrapper, 200);
-        }
     }
 
     _handleResize = event => {
