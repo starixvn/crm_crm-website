@@ -57,7 +57,7 @@ export class DataGrid extends Component {
 
     renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item' title={recipient.letstalkId}>{recipient.letstalkId}</div>;
 
-    handleEdit = (chatMapping) => {
+    handleEdit = chatMapping => {
         if (parseInt(chatMapping.chatTypeId, 10) === ChatTypeMapping.Personal) {
             this.props.openUpdatePersonalMappingPopup(chatMapping);
         } else {
@@ -219,7 +219,7 @@ export class DataGrid extends Component {
                             <div>
                                 The Personal/Group shall be <strong>{!this.props.updateActiveStatusPopup.isChecked ? 'not ' : ''}</strong>received notification anymore.
                                 Are you sure you want to <strong>{this.props.updateActiveStatusPopup.isChecked ? 'actived' : 'deactived'}</strong> it?
-						    </div>
+                            </div>
                         }
                         onSubmit={this.updateActiveStatus}
                         onClose={this.onCloseConfirmPopupChangeActiveStaus}
