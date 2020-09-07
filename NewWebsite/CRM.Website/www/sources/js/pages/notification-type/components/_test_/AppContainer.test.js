@@ -100,7 +100,7 @@ describe('AppContainer', () => {
             // Act
             container.handleCreateSuccess();
 
-            // Assert       
+            // Assert
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
             expect(container.handleCloseCreatePopup).toHaveBeenCalled();
 
@@ -196,7 +196,7 @@ describe('AppContainer', () => {
         it('should call deleteNotificationType when run handleDelete', () => {
             // Arrange
             const props = {
-                deleteNotificationType: jest.fn(() => Promise.resolve({ data:{}})),
+                deleteNotificationType: jest.fn(() => Promise.resolve({ data: {} })),
                 deleteNotificationTypePopup: {},
                 getGridData: jest.fn()
             };

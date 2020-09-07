@@ -91,4 +91,145 @@ describe('EditNotificationType', () => {
         expect(responseMessage.props().isSuccessful).toBe(props.editNotificationTypeResult.isSuccessful);
         expect(responseMessage.props().message).toBe(props.editNotificationTypeResult.message);
     });
+
+    describe('validate', () => {
+        it('validate returns true', () => {
+            // Arrange
+            const values = {
+                notificationTypeName: 'notificationTypeName',
+                recipientTypeIds: '1',
+                chatTypeIds: '1',
+                systemId: '1'
+            };
+
+            const props = {
+                editNotificationTypeResult: {},
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                getSettings: {}
+            };
+
+            const filter = shallow(<EditNotificationType {...props} />);
+
+            // Action
+            const result = filter.instance().validate(values);
+
+            // Assert
+            expect(result).toBeTrue;
+        });
+
+        it('invalid notificationTypeName', () => {
+            // Arrange
+            const values = {
+                notificationTypeName: '',
+                recipientTypeIds: '1',
+                chatTypeIds: '1',
+                systemId: '1'
+            };
+
+            const props = {
+                editNotificationTypeResult: {},
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                getSettings: {}
+            };
+
+            const filter = shallow(<EditNotificationType {...props} />);
+
+            // Action
+            const result = filter.instance().validate(values);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(result.notificationTypeName).toBe(`${LangHelper.getResource('NotificationTypeNameRequired')}`);
+        });
+
+        it('invalid recipientTypeIds', () => {
+            // Arrange
+            const values = {
+                notificationTypeName: 'test',
+                recipientTypeIds: '',
+                chatTypeIds: '1',
+                systemId: '1'
+            };
+
+            const props = {
+                editNotificationTypeResult: {},
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                getSettings: {}
+            };
+
+            const filter = shallow(<EditNotificationType {...props} />);
+
+            // Action
+            const result = filter.instance().validate(values);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(result.recipientTypeIds).toBe(`${LangHelper.getResource('RecipientTypeRequired')}`);
+        });
+
+        it('invalid chatTypeIds', () => {
+            // Arrange
+            const values = {
+                notificationTypeName: 'test',
+                recipientTypeIds: '1',
+                chatTypeIds: '',
+                systemId: '1'
+            };
+
+            const props = {
+                editNotificationTypeResult: {},
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                getSettings: {}
+            };
+
+            const filter = shallow(<EditNotificationType {...props} />);
+
+            // Action
+            const result = filter.instance().validate(values);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(result.chatTypeIds).toBe(`${LangHelper.getResource('ChatTypeRequired')}`);
+        });
+    });
 });
