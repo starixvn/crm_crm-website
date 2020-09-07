@@ -1,10 +1,9 @@
 ﻿import React from 'react';
-import { AppContainer } from '../AppContainer';
+import AppContainerWrapper, { AppContainer } from '../AppContainer';
 import Filter from '../Filter';
 import DataGrid from '../DataGrid';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
-import ResponseMessage from '@jsroot/components/ResponseMessage';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import { shallow } from 'enzyme';
@@ -27,6 +26,32 @@ describe('AppContainer', () => {
 
         // Assert
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('component has correct props', () => {
+        const initialState = {
+            gridParams: {},
+            createNotificationTypePopup: {},
+            editNotificationTypePopup: {},
+            deleteNotificationTypePopup: {}
+        };
+
+        const store = mockStore(initialState);
+
+        const wrapper = shallow(<AppContainerWrapper store={store} />)
+
+        expect(wrapper.props().children.props.gridParams).toEqual(
+            initialState.gridParams
+        );
+        expect(wrapper.props().children.props.createNotificationTypePopup).toEqual(
+            initialState.createNotificationTypePopup
+        );
+        expect(wrapper.props().children.props.editNotificationTypePopup).toEqual(
+            initialState.editNotificationTypePopup
+        );
+        expect(wrapper.props().children.props.deleteNotificationTypePopup).toEqual(
+            initialState.deleteNotificationTypePopup
+        );
     });
 
     describe('create notification type', () => {
@@ -62,6 +87,24 @@ describe('AppContainer', () => {
             // Assert
             expect(props.setCreateNotificationTypePopup).toHaveBeenCalledWith({ show: false });
             expect(props.setCreateNotificationTypeResult).toHaveBeenCalledWith(null);
+        });
+
+        it('should call correct when create notification type success', () => {
+            // Arrange
+            const props = {
+                getGridData: jest.fn()
+            };
+            const container = new AppContainer(props);
+            container.handleCloseCreatePopup = jest.fn();
+
+            // Act
+            container.handleCreateSuccess();
+
+            // Assert       
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(container.handleCloseCreatePopup).toHaveBeenCalled();
+
+
         });
     });
 
@@ -99,6 +142,22 @@ describe('AppContainer', () => {
             expect(props.setEditNotificationTypePopup).toHaveBeenCalledWith({ show: false });
             expect(props.setEditNotificationTypeResult).toHaveBeenCalledWith(null);
         });
+
+        it('should call correct when edit notification type success', () => {
+            // Arrange
+            const props = {
+                getGridData: jest.fn()
+            };
+            const container = new AppContainer(props);
+            container.handleCloseEditPopup = jest.fn();
+
+            // Act
+            container.handleEditSuccess();
+
+            // Assert       
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(container.handleCloseEditPopup).toHaveBeenCalled();
+        });
     });
 
     describe('delete notification type', () => {
@@ -119,11 +178,10 @@ describe('AppContainer', () => {
             expect(container).toMatchSnapshot();
         });
 
-        it('should call setDeleteNotificationTypePopup, setDeleteNotificationTypeResult when close popup', () => {
+        it('should call setDeleteNotificationTypePopup when close popup', () => {
             // Arrange
             const props = {
                 setDeleteNotificationTypePopup: jest.fn(),
-                setDeleteNotificationTypeResult: jest.fn(),
                 deleteNotificationTypePopup: { show: true }
             };
             const container = new AppContainer(props);
@@ -175,7 +233,7 @@ describe('AppContainer', () => {
                 gridParams: {},
                 createNotificationTypePopup: {},
                 editNotificationTypePopup: {},
-                deleteNotificationTypePopup: { show: true},
+                deleteNotificationTypePopup: { show: true },
             };
 
             // Action

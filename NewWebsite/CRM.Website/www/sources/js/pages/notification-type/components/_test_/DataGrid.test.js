@@ -3,7 +3,8 @@ import DataGridWrapper, { DataGrid } from '../DataGrid';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import LangHelper from '@jsroot/common/langHelper';
-import { HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
+import { PAGING_SIZES } from '@jsroot/common/constants';
 
 describe('DataGrid', () => {
 
@@ -54,53 +55,242 @@ describe('DataGrid', () => {
             expect(dataGrid).toBeNull;
         });
 
-        it('title correct', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                gridData: {
-                    data: []
-                },
-            };
+        describe('buildHeader', () => {
 
-            // Action
-            const dataGrid = shallow(<DataGrid {...props} />);
+            it('title correct', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {
+                        data: []
+                    },
+                };
 
-            // Assert
-            expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">${LangHelper.getResource('NotificationType')}</div>`);
+                // Action
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Assert
+                expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">${LangHelper.getResource('NotificationType')}</div>`);
+            });
+
+            it('contains table having correct props', () => {
+                // Arrange
+                const props = {
+                    gridParams: {
+                        pageIndex: 1,
+                        pageSize: 100
+                    },
+                    gridData: {
+                        totalItems: 100,
+                        data: [
+                            {
+                                recipientTypes: [],
+                                chatTypes: []
+                            }
+                        ]
+                    }
+                };
+
+                const pagingOption = {
+                    PageIndex: props.gridParams.pageIndex,
+                    PageSize: props.gridParams.pageSize,
+                    TotalItem: props.gridData.totalItems,
+                    PageList: PAGING_SIZES
+                };
+
+                // Action
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Assert
+                expect(dataGrid.find(Table).length).toBe(1);
+                expect(dataGrid.find(Table).props().minWidth).toBe(960);
+                expect(dataGrid.find(Table).props().autoWidth).toBeTrue;
+                expect(dataGrid.find(Table).props().isPaging).toBeTrue;
+                expect(dataGrid.find(Table).props().pageOption).toEqual(pagingOption);
+                expect(dataGrid.find(Table).props().containerPadding).toBe(0);
+                expect(dataGrid.find(Table).props().adjustedHeight).toBe(50);
+            });
         });
 
-        it('handleEdit', () => {
-            // Arrange
-            const props = {
-                setEditNotificationTypePopup: jest.fn()
-            };
+        describe('handle Edit', () => {
+            it('handleEdit', () => {
+                // Arrange
+                const props = {
+                    setEditNotificationTypePopup: jest.fn()
+                };
 
-            const dataGrid = shallow(<DataGrid {...props} />);
+                const dataGrid = shallow(<DataGrid {...props} />);
 
-            // Action
-            dataGrid.instance().handleEdit();
+                // Action
+                dataGrid.instance().handleEdit();
 
-            // Assert
-            expect(props.setEditNotificationTypePopup).toHaveBeenCalledTimes(1);
+                // Assert
+                expect(props.setEditNotificationTypePopup).toHaveBeenCalledTimes(1);
+            });
+
+            it('should call handleEdit when click edit notification type', () => {
+                // Arrange
+                const item = {
+                    recipientTypes: [],
+                    chatTypes: []
+                };
+                const props = {
+                    gridParams: {},
+                    gridData: {
+                        data: [
+                            {
+                                recipientTypes: [],
+                                chatTypes: []
+                            }
+                        ]
+                    },
+                    isHost: true
+                };
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().handleEdit = jest.fn();
+                const row = shallow(dataGrid.instance().renderRow(item, 1, true));
+
+                // Action
+                row.find(Cell).at(5).find('span').at(0).simulate('click');
+
+                // Assert
+                expect(dataGrid.instance().handleEdit).toHaveBeenCalledWith(item);
+            });
+
+            it('should call setEditNotificationTypePopup when edit notification type', () => {
+                // Arrange
+                const item = {
+                    recipientTypes: [],
+                    chatTypes: []
+                };
+                const props = {
+                    gridParams: {},
+                    gridData: {
+                        data: [
+                            {
+                                recipientTypes: [],
+                                chatTypes: []
+                            }
+                        ]
+                    },
+                    setEditNotificationTypePopup: jest.fn()
+                };
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                dataGrid.instance().handleEdit(item);
+
+                // Assert
+                expect(props.setEditNotificationTypePopup).toHaveBeenCalledWith({ show: true, data: item });
+            });
         });
 
-        it('handleDelete', () => {
-            // Arrange
-            const props = {
-                setDeleteNotificationTypePopup: jest.fn()
-            };
+        describe('handle Delete', () => {
+            it('handleDelete', () => {
+                // Arrange
+                const props = {
+                    setDeleteNotificationTypePopup: jest.fn()
+                };
 
-            const dataGrid = shallow(<DataGrid {...props} />);
+                const dataGrid = shallow(<DataGrid {...props} />);
 
-            // Action
-            dataGrid.instance().handleDelete();
+                // Action
+                dataGrid.instance().handleDelete();
 
-            // Assert
-            expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledTimes(1);
+                // Assert
+                expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledTimes(1);
+            });
+
+            it('should call handleDelete when click delete notification type', () => {
+                // Arrange
+                const item = {
+                    notificationTypeId: 1,
+                    notificationTypeName: 'notification type name',
+                    recipientTypes: [],
+                    chatTypes: []
+                };
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    isHost: true
+                };
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().handleDelete = jest.fn();
+                const row = shallow(dataGrid.instance().renderRow(item, 1, true));
+
+                // Action
+                row.find(Cell).at(5).find('span').at(1).simulate('click');
+
+                // Assert
+                expect(dataGrid.instance().handleDelete).toHaveBeenCalledWith(item.notificationTypeId, item.notificationTypeName);
+            });
+
+            it('should call setDeleteNotificationTypePopup when delete notification type', () => {
+                // Arrange
+                const item = {
+                    id: 1,
+                    name: 'notification type name',
+                    recipientTypes: [],
+                    chatTypes: []
+                };
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    setDeleteNotificationTypePopup: jest.fn()
+                };
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                dataGrid.instance().handleDelete(item.id, item.name);
+
+                // Assert
+                expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({
+                    show: true,
+                    notificationTypeId: item.id,
+                    name: item.name
+                });
+
+            });
         });
 
         describe('buildHeader', () => {
+            it('onPaging', () => {
+                // Arrange
+                const expectedPageIndex = 1;
+                const expectedPageSize = 100;
+                const props = {
+                    gridParams: {},
+                    gridData: {
+                        data: [
+                            {
+                                recipientTypes: [],
+                                chatTypes: []
+                            }
+                        ]
+                    },
+                    setGridParams: jest.fn(),
+                    getGridData: jest.fn()
+                };
+
+                const expectedParams = {
+                    pageIndex: expectedPageIndex,
+                    pageSize: expectedPageSize
+                };
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                dataGrid.find(Table).props().onPaging(expectedPageIndex, expectedPageSize);
+
+                // Assert
+                expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
+                expect(props.getGridData).toHaveBeenCalledTimes(1);
+            });
+
             it('buildHeader render correct header', () => {
                 // Arrange
                 const props = {
@@ -130,24 +320,111 @@ describe('DataGrid', () => {
             });
         });
 
-        it('buildBody', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                gridData: {
-                    data: []
-                },
-            };
-            const isHost = true;
+        describe('buildBody', () => {
+            it('build body no data', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {
+                        data: []
+                    },
+                };
+                const isHost = true;
 
-            const dataGrid = shallow(<DataGrid {...props} />);
-            const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+                const dataGrid = shallow(<DataGrid {...props} />);
+                const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
 
-            // Action
-            const body = dataGrid.instance().buildBody(isHost);
+                // Action
+                const body = dataGrid.instance().buildBody(isHost);
 
-            // Assert
-            expect(body).toEqual(expectedBody);
+                // Assert
+                expect(body).toEqual(expectedBody);
+            });
+
+            function renderRow(item, index, isHost) {
+                return <div key={index}>{isHost}</div>;
+            }
+
+            function BodyHasData(isHost) {
+                it('build body has data', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        gridData: {
+                            data: [
+                                {
+                                    recipientTypes: [],
+                                    chatTypes: []
+                                }
+                            ]
+                        }
+                    };
+
+                    const dataGrid = shallow(<DataGrid {...props} />);
+                    dataGrid.instance().renderRow = jest.fn(renderRow);
+                    const expectedBody = props.gridData.data.map((item, index) => renderRow(item, index, isHost));
+
+                    // Action
+                    const body = dataGrid.instance().buildBody(isHost);
+
+                    // Assert
+                    expect(body).toEqual(expectedBody);
+                });
+            }
+
+            BodyHasData(true);
+            BodyHasData(false);
+        });
+
+        describe('renderRow', () => {
+            function RenderRow(item, index, isHost) {
+                it('render correctly row', () => {
+                    // Arrange
+                    const startIndex = 1;
+                    const props = {
+                        gridParams: {},
+                        gridData: {
+                            data: [
+                                {
+                                    recipientTypes: [],
+                                    chatTypes: []
+                                }
+                            ]
+                        }
+                    };
+
+                    const dataGrid = shallow(<DataGrid {...props} />);
+                    dataGrid.instance().startIndex = startIndex;
+                    const expectedRow =
+                        <Row key={item.notificationTypeId} >
+                            <Cell className="text-center">{index + startIndex}</Cell>
+                            <Cell>{item.notificationTypeName}</Cell>
+                            <Cell>{item.recipientTypes.map(x => x.recipientTypeName).join(', ')}</Cell>
+                            <Cell>{item.chatTypes.map(x => x.chatTypeName).join(', ')}</Cell>
+                            <Cell>{item.systemName}</Cell>
+                            {
+                                isHost &&
+                                <Cell className="text-center">
+                                    <span className="rounded-circle fa fa-pencil icon-edit"
+                                        onClick={() => this.handleEdit(item)}
+                                    />
+                                    <span className="rounded-circle fa fa-trash icon-delete"
+                                        onClick={() => this.handleDelete(item.notificationTypeId, item.notificationTypeName)}
+                                    />
+                                </Cell>
+                            }
+                        </Row>
+
+                    // Action
+                    const result = dataGrid.instance().renderRow(item, index, isHost);
+
+                    // Assert
+                    expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedRow));
+                });
+            }
+
+            RenderRow({ recipientTypes: [], chatTypes: [] }, 1, true);
+            RenderRow({ recipientTypes: [], chatTypes: [] }, 1, false);
         });
     });
 });
