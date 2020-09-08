@@ -7,7 +7,9 @@ import configureMockStore from 'redux-mock-store';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import { shallow } from 'enzyme';
+import { toast } from 'react-toastify';
 
+jest.mock('react-toastify');
 const mockStore = configureMockStore();
 const store = mockStore({});
 
@@ -161,21 +163,23 @@ describe('AppContainer', () => {
     });
 
     describe('delete notification type', () => {
-        it('render popup', () => {
+        it('render component correctly', () => {
             // Arrange
             const props = {
-                deleteNotificationTypePopup: { show: true }
+                deleteNotificationTypePopup: { show: true, name: 'test123' },
+                gridParams: {},
+                createNotificationTypePopup: {},
+                editNotificationTypePopup: {}
             };
 
             // Act
-            const container = shallow(
-                <Provider store={store}>
-                    <AppContainer {...props} />
-                </Provider>
-            );
+            const container = shallow(<AppContainer {...props} />);
 
             // Assert
             expect(container).toMatchSnapshot();
+            expect(container.find(ConfirmPopup).length).toBe(1);
+            expect(container.find(ConfirmPopup).props().content)
+                .toEqual(<div>Are you sure you want to delete <strong>test123</strong>?</div>);
         });
 
         it('should call setDeleteNotificationTypePopup when close popup', () => {
@@ -193,41 +197,55 @@ describe('AppContainer', () => {
             expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({ show: false });
         });
 
-        it('should call deleteNotificationType when run handleDelete', () => {
+        it('should calls exactly functions when delete successful', async() => {
             // Arrange
+            const promise = Promise.resolve({isSuccessful: true, message: '' });
             const props = {
-                deleteNotificationType: jest.fn(() => Promise.resolve({ data: {} })),
-                deleteNotificationTypePopup: {},
-                getGridData: jest.fn()
+                deleteNotificationTypePopup: { notificationTypeId: 1 },
+                deleteNotificationType: jest.fn(() => promise),
+                getGridData: jest.fn(),
+                gridParams: {},
+                createNotificationTypePopup: {},
+                editNotificationTypePopup: {}
             };
-
-            const container = new AppContainer(props);
+            const container = shallow(<AppContainer {...props} />).instance();
+            container.handleCloseDeletePopup = jest.fn();
 
             // Act
             container.handleDelete();
+            await promise;
 
             // Assert
-            expect(props.deleteNotificationType).toHaveBeenCalledTimes(1);
+            expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
+            expect(toast.success).toHaveBeenCalledWith('DeleteNotificationTypeSuccessfully');
+            expect(container.handleCloseDeletePopup).toHaveBeenCalled();
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+
         });
 
-        // it('should call handleCloseDeletePopup, getGridData when delete success', () => {
-        //     // Arrange
-        //     const props = {
-        //         deleteNotificationType: jest.fn(() => Promise.resolve({ data:{ isSuccessful: true}})),
-        //         deleteNotificationTypePopup: {},
-        //         getGridData: jest.fn()
-        //     };
+         
+        it('should calls toast.error when delete unsuccessful', async () => {
+            // Arrange
+            const promise = Promise.resolve({isSuccessful: false, message: 'unsuccessful' });
+            const props = {
+                deleteNotificationTypePopup: { notificationTypeId: 1 },
+                deleteNotificationType: jest.fn(() => promise),
+                getGridData: jest.fn(),
+                gridParams: {},
+                createNotificationTypePopup: {},
+                editNotificationTypePopup: {}
+            };
+            const container = shallow(<AppContainer {...props} />).instance();
+            container.handleCloseDeletePopup = jest.fn();
 
-        //     const container = new AppContainer(props);
-        //     container.handleCloseDeletePopup = jest.fn();
+            // Act
+            container.handleDelete();
+            await promise;
 
-        //     // Act
-        //     container.handleDelete();
-
-        //     // Assert
-        //     //expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
-        //     expect(container.handleCloseDeletePopup).toHaveBeenCalled();
-        // });
+            // Assert
+            expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
+            expect(toast.error).toHaveBeenCalledWith('unsuccessful');
+        });
     });
 
     it('render correctly component Filter', () => {

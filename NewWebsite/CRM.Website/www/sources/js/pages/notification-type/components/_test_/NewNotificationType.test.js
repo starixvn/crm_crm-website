@@ -46,7 +46,6 @@ describe('NewNotificationType', () => {
             createNotificationTypeResult: {},
             settings: {
                 recipientTypes: [],
-
                 chatTypes: [],
                 systems: []
             },
@@ -201,6 +200,70 @@ describe('NewNotificationType', () => {
             // Assert
             expect(result).toBeFalse;
             expect(result.systemId).toBe(`${LangHelper.getResource('SystemRequired')}`);
+        });
+
+        it('return expected errors when notificationTypeName is over 500 characters', () => {
+            // Arrange
+            let name = '';
+            for (let i = 0; i < 501; i++) {
+                name += 'a';
+            }
+            const values = { notificationTypeName: name};
+            const expected = {
+                notificationTypeName: 'over characters'
+            };
+            LangHelper.formatString = jest.fn(() => 'over characters');
+            const container = new NewNotificationType();
+
+            // Act
+            const errors = container.validate(values);
+
+            // Assert
+            expect(errors.notificationTypeName).toEqual(expected.notificationTypeName);
+
+            expect(LangHelper.formatString).toHaveBeenCalledWith('FieldMaxLength', 'NotificationTypeName', 500);
+        });
+    });
+
+    describe('renderSystemOption', () => {
+        it('should render option correctly', () => {
+            // Arrange
+            const systems = {
+                id: 1,
+                name: 'system 1'
+            };
+
+            const container = new NewNotificationType();
+            // Act
+            const option = container.renderSystemOption(systems);
+            
+            // Assert
+            expect(option).toEqual(<option key={1} value={1}>system 1</option>);
+        });
+    });
+
+    describe('handleSubmit',() => {
+        it('submit success', async ()=> {
+            //Arrange
+            const props = {
+                createNotificationType: jest.fn(() => Promise.resolve({})),
+                handleSubmit: jest.fn()
+            }
+
+            const values = {
+                notificationTypeName: 'test',
+                chatTypeIds: '1',
+                recipientTypeIds: '1',
+                systemId: '1'
+            }
+
+            const container = shallow(<NewNotificationType {...props} />).instance();
+
+            //Act
+            //container.handleSubmit(values, true);
+
+            //Assert
+            //expect(props.createNotificationType).toHaveBeenCalledTimes(1);
         });
     });
 });

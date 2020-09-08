@@ -231,5 +231,44 @@ describe('EditNotificationType', () => {
             expect(result).toBeFalse;
             expect(result.chatTypeIds).toBe(`${LangHelper.getResource('ChatTypeRequired')}`);
         });
+
+        it('return expected errors when notificationTypeName is over 500 characters', () => {
+            // Arrange
+            let name = '';
+            for (let i = 0; i < 501; i++) {
+                name += 'a';
+            }
+            const values = { notificationTypeName: name };
+            const expected = {
+                notificationTypeName: 'over characters'
+            };
+            LangHelper.formatString = jest.fn(() => 'over characters');
+            const container = new EditNotificationType();
+
+            // Act
+            const errors = container.validate(values);
+
+            // Assert
+            expect(errors.notificationTypeName).toEqual(expected.notificationTypeName);
+
+            expect(LangHelper.formatString).toHaveBeenCalledWith('FieldMaxLength', 'NotificationTypeName', 500);
+        });
+    });
+
+    describe('renderSystemOption', () => {
+        it('should render option correctly', () => {
+            // Arrange
+            const systems = {
+                id: 1,
+                name: 'system 1'
+            };
+
+            const container = new EditNotificationType();
+            // Act
+            const option = container.renderSystemOption(systems);
+
+            // Assert
+            expect(option).toEqual(<option key={1} value={1}>system 1</option>);
+        });
     });
 });
