@@ -327,7 +327,7 @@ export class EditGroupMappingPopup extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleRecipientChange}
-                                isSearchable
+                                hasSearchBox
 
                             />
                         </Col>
@@ -361,7 +361,7 @@ export class EditGroupMappingPopup extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
-                                isSearchable
+                                hasSearchBox
 
                             />
                         </Col>

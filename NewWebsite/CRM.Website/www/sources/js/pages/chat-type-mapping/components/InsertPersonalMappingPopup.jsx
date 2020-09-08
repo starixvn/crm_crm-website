@@ -311,7 +311,7 @@ export class InsertPersonalMappingPopup extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
-                                isSearchable
+                                hasSearchBox
 
                             />
                         </Col>

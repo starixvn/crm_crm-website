@@ -352,8 +352,7 @@ export class EditPersonalMappingPopup extends Component {
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
-                                isSearchable
-
+                                hasSearchBox
                             />
                         </Col>
                     </Form.Group>

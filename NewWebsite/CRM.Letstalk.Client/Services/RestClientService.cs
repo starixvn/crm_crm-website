@@ -93,23 +93,9 @@
                 return response.Data;
             }
 
-            try
-            {
-                var errorResponseJson = JsonConvert.SerializeObject(response);
+            var errorResponseJson = JsonConvert.SerializeObject(response);
 
-                throw new InvalidOperationException(errorResponseJson);
-            }
-            catch (Exception exception)
-            {
-                throw new InvalidOperationException(
-                    string.Join(
-                    "\r\n",
-                    $"Content: {response.Content}",
-                    $"Status Code: {response.StatusCode}",
-                    $"Response Status: {response.ResponseStatus}",
-                    $"Error Message: {response.ErrorMessage}"),
-                    exception);
-            }
+            throw new InvalidOperationException(errorResponseJson);
         }
 
         private static void ValidateEndPoint(string endPoint)
