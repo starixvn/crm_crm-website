@@ -157,7 +157,7 @@ describe('actionCreators', () => {
 
             // Assert
             expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/Delete/1');
-            expect(actual).toEqual(response.data);
+            expect(actual).toEqual(response);
         });
     });
 });

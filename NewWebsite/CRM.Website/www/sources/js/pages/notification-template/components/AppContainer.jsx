@@ -78,7 +78,8 @@ export class AppContainer extends Component {
     }
 
     handleDelete = () => {
-        this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(data => {
+        this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(response => {
+            const data = response.data;
             if (data.isSuccessful) {
                 toast.success(LangHelper.getResource('DeleteNotificationTemplateSuccessfully'));
                 this.handleCloseDeletePopup();

@@ -62,7 +62,7 @@ const editTemplate = (data) => async dispatch => {
 
 const deleteTemplate = templateId => async dispatch => {
     const url = Site.resolveClientUrl(`NotificationTemplate/Delete/${templateId}`);
-    return await DataService.postDataAsync(url).then(response => response.data);
+    return await DataService.postDataAsync(url).then(response => response);
 };
 
 export const ActionCreators = {

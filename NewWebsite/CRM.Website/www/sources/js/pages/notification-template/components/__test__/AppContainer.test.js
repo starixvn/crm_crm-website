@@ -170,9 +170,10 @@ describe('AppContainer', () => {
             expect(props.setDeleteTemplatePopup).toHaveBeenCalledWith({ show: false });
         });
 
-        it('should calls exactly functions when delete successful', () => {
+        it('should calls exactly functions when delete successful', async () => {
             // Arrange
-            const promise = Promise.resolve({ data: { isSuccessful: true } });
+            const response = { data: { isSuccessful: true, message: '' } };
+            const promise = Promise.resolve(response);
             const props = {
                 deleteTemplatePopup: { templateId: 1 },
                 deleteTemplate: jest.fn(() => promise),
@@ -184,9 +185,32 @@ describe('AppContainer', () => {
 
             // Act
             container.handleDelete();
+            await promise;
 
             // Assert
             expect(props.deleteTemplate).toHaveBeenCalledWith(1);
+            expect(toast.success).toHaveBeenCalledWith('DeleteNotificationTemplateSuccessfully');
+            expect(container.handleCloseDeletePopup).toHaveBeenCalled();
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+        });
+
+        it('should calls toast.error when delete unsuccessful', async () => {
+            // Arrange
+            const response = { data: { isSuccessful: false, message: 'delete unsuccessful' } };
+            const promise = Promise.resolve(response);
+            const props = {
+                deleteTemplatePopup: { templateId: 1 },
+                deleteTemplate: jest.fn(() => promise)
+            };
+            const container = shallow(<AppContainer {...props} />).instance();
+
+            // Act
+            container.handleDelete();
+            await promise;
+
+            // Assert
+            expect(props.deleteTemplate).toHaveBeenCalledWith(1);
+            expect(toast.error).toHaveBeenCalledWith('delete unsuccessful');
         });
     });
 
