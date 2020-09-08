@@ -8,12 +8,6 @@ exports[`AppContainer render Content has Content child 1`] = `ShallowWrapper {}`
 
 exports[`AppContainer render ViewDetail has ViewDetail child 1`] = `ShallowWrapper {}`;
 
-exports[`AppContainer render component correctly 1`] = `ShallowWrapper {}`;
-
 exports[`AppContainer render has ValidateResend 1`] = `ShallowWrapper {}`;
 
-exports[`AppContainer render has ViewDetail child 1`] = `ShallowWrapper {}`;
-
 exports[`AppContainer render has regular child 1`] = `ShallowWrapper {}`;
-
-exports[`AppContainer render renders component correctly 1`] = `ShallowWrapper {}`;

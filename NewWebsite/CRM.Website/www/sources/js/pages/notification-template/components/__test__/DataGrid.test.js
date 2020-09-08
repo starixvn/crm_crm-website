@@ -174,49 +174,48 @@ describe('DataGrid', () => {
             });
         });
 
-        //describe('buildHeader', () => {
-        //    const props = {
-        //        gridParams: { pageSize: 100, pageIndex: 1 },
-        //        gridData: {
-        //            totalItems: 1,
-        //            data: []
-        //        }
-        //    };
-        //    it('should render header correctly when isHost = false', () => {
-        //        // Arrange
-        //        const container = shallow(<DataGrid {...props} />).instance();
-        //        const expected = <HeaderRow>
-        //            <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
-        //            <HeaderCell colWidth={20}>NotificationType</HeaderCell>
-        //            <HeaderCell colWidth={20}>TemplateName</HeaderCell>
-        //            <HeaderCell colWidth={100}>Title/Content</HeaderCell>
-        //        </HeaderRow>;
-        //        console.log(expected);
+        describe('buildHeader', () => {
+            const props = {
+                gridParams: { pageSize: 100, pageIndex: 1 },
+                gridData: {
+                    totalItems: 1,
+                    data: []
+                }
+            };
+            //it('should render header correctly when isHost = false', () => {
+            //    // Arrange
+            //    const container = shallow(<DataGrid {...props} />).instance();
+            //    const expected = JSON.stringify(<HeaderRow>
+            //        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
+            //        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
+            //        <HeaderCell colWidth={20}>TemplateName</HeaderCell>
+            //        <HeaderCell colWidth={100}>Title/Content</HeaderCell>
+            //    </HeaderRow>);
 
-        //        // Act
-        //        const header = container.buildHeader(false);
+            //    // Act
+            //    const header = container.buildHeader(false);
 
-        //        // Assert
-        //        expect(header).toEqual(expected);
-        //    });
+            //    // Assert
+            //    expect(JSON.stringify(header)).toEqual(expected);
+            //});
 
-        //    it('should render header correctly when isHost = true', () => {
-        //        // Arrange
-        //        const container = shallow(<DataGrid {...props} />).instance();
-        //        const expected = <HeaderRow>
-        //            <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
-        //            <HeaderCell colWidth={20}>NotificationType</HeaderCell>
-        //            <HeaderCell colWidth={20}>TemplateName</HeaderCell>
-        //            <HeaderCell colWidth={100}>Title/Content</HeaderCell>
-        //            <HeaderCell colWidth={10}>Action</HeaderCell>
-        //        </HeaderRow>;
+            //it('should render header correctly when isHost = true', () => {
+            //    // Arrange
+            //    const container = shallow(<DataGrid {...props} />).instance();
+            //    const expected = JSON.stringify(<HeaderRow>
+            //        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
+            //        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
+            //        <HeaderCell colWidth={20}>TemplateName</HeaderCell>
+            //        <HeaderCell colWidth={100}>Title/Content</HeaderCell>
+            //        <HeaderCell colWidth={10}>Action</HeaderCell>
+            //    </HeaderRow>);
 
-        //        // Act
-        //        const header = container.buildHeader(true);
+            //    // Act
+            //    const header = container.buildHeader(true);
 
-        //        // Assert
-        //        expect(header).toEqual(expected);
-        //    });
-        //});
+            //    // Assert
+            //    expect(JSON.stringify(header)).toEqual(expected);
+            //});
+        });
     });
 });
