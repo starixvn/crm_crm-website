@@ -18,13 +18,14 @@ describe('AppContainer', () => {
     });
 
     afterEach(() => {
-        const isHost = document.getElementById('container');
+        const isHost = document.getElementById('is-host');
         if (isHost) {
             document.body.removeChild(isHost);
         }
     });
 
     describe('component with redux', () => {
+        // Arrange
         const mockStore = configureMockStore();
         const initialState = {
             contentPopup: {},
@@ -34,8 +35,11 @@ describe('AppContainer', () => {
         };
 
         const store = mockStore(initialState);
+        
+        // Action
         const wrapper = shallow(<AppContainerWrapper store={store} />);
 
+        // Assert
         it('component render correctly', () => {
             expect(wrapper).toMatchSnapshot();
         });
@@ -56,39 +60,29 @@ describe('AppContainer', () => {
         });
     });
 
-    it('render component correctly', () => {
-        const props = {
-            contentPopup: {},
-            viewDetailPopup: {},
-            invalidParams: {},
-            validateResendResult: {},
-            confirmPopup: {}
-        };
+    describe('closeConfirmPopup', () => {
+        it('runs correctly', () => {
+            // Arrange
+            const props = {
+                contentPopup: {},
+                viewDetailPopup: {},
+                invalidParams: {},
+                validateResendResult: {},
+                confirmPopup: {},
+                setConfirmPopup: jest.fn()
+            };
 
-        const appContainer = shallow(<AppContainer {...props} />);
-
-        expect(appContainer).toMatchSnapshot();
+            const appContainer = shallow(<AppContainer {...props} />);
+            // Action
+            appContainer.instance().closeConfirmPopup();
+    
+            // Assert
+            expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+        });
     });
 
-    it('render correctly component Filter', () => {
-        // Arrange
-        const props = {
-            contentPopup: {},
-            viewDetailPopup: {},
-            invalidParams: {},
-            validateResendResult: {},
-            confirmPopup: {}
-        };
-
-        // Action
-        const appContainer = shallow(<AppContainer {...props} />);
-
-        // Assert
-        expect(appContainer.find(Filter).length).toBe(1);
-    });
-
-    describe('DataGrid', () => {
-        it('render correctly component DataGrid', () => {
+    describe('render', () => {
+        it('has regular child', () => {
             // Arrange
             const props = {
                 contentPopup: {},
@@ -102,15 +96,19 @@ describe('AppContainer', () => {
             const appContainer = shallow(<AppContainer {...props} />);
 
             // Assert
-            expect(appContainer.find(DataGrid).length).toBe(1);
+            expect(appContainer).toMatchSnapshot();
+            expect(appContainer.find(Filter).length).toBe(1);
+            expect(appContainer.find(DataGrid).props().isHost).toEqual(document.getElementById('is-host').checked);
         });
 
-        function testDataGridWithIsHost(isHost) {
-            it('render correctly component DataGrid with isHost', () => {
+        describe('Content', () => {
+            it('has Content child', () => {
                 // Arrange
-                document.getElementById('is-host').checked = isHost;
                 const props = {
-                    contentPopup: {},
+                    contentPopup: {
+                        show: true,
+                        data: {}
+                    },
                     viewDetailPopup: {},
                     invalidParams: {},
                     validateResendResult: {},
@@ -121,269 +119,209 @@ describe('AppContainer', () => {
                 const appContainer = shallow(<AppContainer {...props} />);
     
                 // Assert
-                expect(appContainer.find(DataGrid).length).toBe(1);
-                expect(appContainer.find(DataGrid).props().isHost).toBe(isHost);
+                expect(appContainer).toMatchSnapshot();
+                expect(appContainer.find(Content).props().data).toEqual(props.contentPopup.data)
             });
-        }
+    
+            it('runs onClose', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {
+                        show: true,
+                        data: {}
+                    },
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {},
+                    setContentPopup: jest.fn()
+                };
+    
+                const appContainer = shallow(<AppContainer {...props} />);
+    
+                // Action
+                appContainer.find(Content).simulate('close');
+    
+                // Assert
+                expect(props.setContentPopup).toHaveBeenCalledWith({ show: false });
+            });
+        });
 
-        testDataGridWithIsHost(true);
-        testDataGridWithIsHost(false);
-    });
+        describe('ViewDetail', () => {
+            it('has ViewDetail child', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {
+                        show: true,
+                        data: {}
+                    },
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {}
+                };
+        
+                // Action
+                const appContainer = shallow(<AppContainer {...props} />);
+        
+                // Assert
+                expect(appContainer).toMatchSnapshot();
+                expect(appContainer.find(ViewDetail).props().data).toEqual(props.viewDetailPopup.data);
+            });
 
-    describe('contentPopup is showed', () => {
-        it('render correctly component Content', () => {
+            it('runs onClose', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {
+                        show: true,
+                        data: {}
+                    },
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {},
+                    setViewDetailPopup: jest.fn()
+                };
+
+                const appContainer = shallow(<AppContainer {...props} />);
+        
+                // Action
+                appContainer.find(ViewDetail).simulate('close');
+        
+                // Assert
+                expect(props.setViewDetailPopup).toHaveBeenCalledWith({ show: false });
+            });
+        });
+
+        it('has ValidateResend', () => {
             // Arrange
             const props = {
-                contentPopup: {
-                    show: true
-                },
+                contentPopup: {},
                 viewDetailPopup: {},
                 invalidParams: {},
-                validateResendResult: {},
+                validateResendResult: {
+                    show: true
+                },
                 confirmPopup: {}
             };
-
+    
             // Action
             const appContainer = shallow(<AppContainer {...props} />);
-
+    
             // Assert
-            expect(appContainer.find(Content).length).toBe(1);
+            expect(appContainer).toMatchSnapshot();
+            expect(appContainer.find(ValidateResend).length).toBe(1);
         });
 
-        it('Content have correct props', () => {
-            // Arrange
-            const props = {
-                contentPopup: {
-                    show: true,
-                    data: {}
-                },
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {}
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(Content).props().data).toEqual(props.contentPopup.data);
-        });
-
-        it('Content closes correctly', () => {
-            // Arrange
-            const props = {
-                contentPopup: {
-                    show: true,
-                    data: {}
-                },
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {},
-                setContentPopup: jest.fn()
-            };
-
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Action
-            appContainer.find(Content).props().onClose();
-
-            // Assert
-            expect(props.setContentPopup).toHaveBeenCalledWith({ show: false });
-        });
-    });
-
-    describe('viewDetailPopup is showed', () => {
-        it('render correctly component ViewDetail', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {
-                    show: true
-                },
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {}
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ViewDetail).length).toBe(1);
-        });
-
-        it('ViewDetail have correct props', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {
-                    show: true,
-                    data: {}
-                },
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {}
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ViewDetail).props().data).toEqual(props.viewDetailPopup.data);
-        });
-
-        it('ViewDetail closes correctly', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {
-                    show: true,
-                    data: {}
-                },
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {},
-                setViewDetailPopup: jest.fn()
-            };
-
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Action
-            appContainer.find(ViewDetail).props().onClose();
-
-            // Assert
-            expect(props.setViewDetailPopup).toHaveBeenCalledWith({ show: false });
-        });
-    });
-
-    it('validateResendResult is showed', () => {
-        // Arrange
-        const props = {
-            contentPopup: {},
-            viewDetailPopup: {},
-            invalidParams: {},
-            validateResendResult: {
-                show: true
-            },
-            confirmPopup: {}
-        };
-
-        // Action
-        const appContainer = shallow(<AppContainer {...props} />);
-
-        // Assert
-        expect(appContainer.find(ValidateResend).length).toBe(1);
-    });
-
-    describe('confirmPopup is showed', () => {
-        LangHelper.getResource = jest.fn(value => value);
-
-        it('render correctly component ConfirmPopup', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {
-                    show: true
-                }
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ConfirmPopup).length).toBe(1);
-        });
-
-        it('ConfirmPopup have correct props', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {
-                    show: true
-                }
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
-            expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
-        });
-
-        it('ConfirmPopup have correct content', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {
-                    show: true
-                }
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-            const content = appContainer.find(ConfirmPopup).props().content;
-
-            // Assert
-            expect(content.type).toBe('div');
-            expect(content.props.children).toEqual('ThereAreSomeChangesConfirmMessage');
-        });
-
-        it('ConfirmPopup closes correctly', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {
-                    show: true
-                },
-                setConfirmPopup: jest.fn()
-            };
-
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Action
-            appContainer.find(ConfirmPopup).props().onClose();
-
-            // Assert
-            expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
-        });
-
-        it('ConfirmPopup submits correctly', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {
-                    show: true,
-                    onOk: jest.fn()
-                },
-                setConfirmPopup: jest.fn()
-            };
-
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Action
-            appContainer.find(ConfirmPopup).props().onSubmit();
-
-            // Assert
-            expect(props.confirmPopup.onOk).toHaveBeenCalledTimes(1);
-            expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+        describe('ConfirmPopup', () => {
+            LangHelper.getResource = jest.fn(value => value);
+    
+            it('has ConfirmPopup child', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {
+                        show: true
+                    }
+                };
+    
+                // Action
+                const appContainer = shallow(<AppContainer {...props} />);
+    
+                // Assert
+                expect(appContainer).toMatchSnapshot();
+                expect(appContainer.find(ConfirmPopup).length).toBe(1);
+            });
+    
+            it('has correct props', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {
+                        show: true
+                    }
+                };
+    
+                // Action
+                const appContainer = shallow(<AppContainer {...props} />);
+    
+                // Assert
+                expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
+                expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
+            });
+    
+            it('has correct content', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {
+                        show: true
+                    }
+                };
+    
+                // Action
+                const appContainer = shallow(<AppContainer {...props} />);
+                const content = appContainer.find(ConfirmPopup).props().content;
+    
+                // Assert
+                expect(content.type).toBe('div');
+                expect(content.props.children).toEqual('ThereAreSomeChangesConfirmMessage');
+            });
+    
+            it('runs onClose', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {
+                        show: true
+                    },
+                    setConfirmPopup: jest.fn()
+                };
+    
+                const appContainer = shallow(<AppContainer {...props} />);
+    
+                // Action
+                appContainer.find(ConfirmPopup).simulate('close');
+    
+                // Assert
+                expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+            });
+    
+            it('runs onSubmit', () => {
+                // Arrange
+                const props = {
+                    contentPopup: {},
+                    viewDetailPopup: {},
+                    invalidParams: {},
+                    validateResendResult: {},
+                    confirmPopup: {
+                        show: true,
+                        onOk: jest.fn()
+                    },
+                    setConfirmPopup: jest.fn()
+                };
+    
+                const appContainer = shallow(<AppContainer {...props} />);
+    
+                // Action
+                appContainer.find(ConfirmPopup).simulate('submit');
+    
+                // Assert
+                expect(props.confirmPopup.onOk).toHaveBeenCalled();
+                expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+            });
         });
     });
 });

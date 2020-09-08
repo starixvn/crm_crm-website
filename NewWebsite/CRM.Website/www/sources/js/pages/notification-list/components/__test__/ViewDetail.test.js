@@ -264,7 +264,7 @@ describe('ViewDetail', () => {
                     isSuccessful: false
                 }
             });
-            expect(props.onClose).toHaveBeenCalledTimes(1);
+            expect(props.onClose).toHaveBeenCalled();
             expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams});
         });
 
@@ -292,7 +292,7 @@ describe('ViewDetail', () => {
             viewDetail.find(Modal).props().onHide();
     
             // Assert
-            expect(props.onClose).toHaveBeenCalledTimes(1);
+            expect(props.onClose).toHaveBeenCalled();
         });
 
         it('onClose called with isResolved is false and remark change executes correctly', () => {
@@ -342,7 +342,7 @@ describe('ViewDetail', () => {
             viewDetail.find(Button).at(1).simulate('click');
     
             // Assert
-            expect(viewDetail.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(viewDetail.instance().onClose).toHaveBeenCalled();
         });
 
         it('onClose called when trigger hide event', () => {
@@ -361,7 +361,7 @@ describe('ViewDetail', () => {
             viewDetail.simulate('hide');
     
             // Assert
-            expect(viewDetail.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(viewDetail.instance().onClose).toHaveBeenCalled();
         });
     });
 

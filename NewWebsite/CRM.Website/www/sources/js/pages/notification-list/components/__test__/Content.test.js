@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 
 describe('Content', () => {
-    it('render component correctly', () => {
+    it('renders component correctly', () => {
         // Arrange
         const props = {
             data: {
@@ -13,14 +13,14 @@ describe('Content', () => {
             }
         };
 
-        // Act
+        // Action
         const content = shallow(<Content {...props} />);
 
         // Assert
         expect(content).toMatchSnapshot();
     });
     
-    it('render child element', () => {
+    it('renders child element', () => {
         // Arrange
         LangHelper.getResource = jest.fn(value => value);
         const props = {
@@ -34,7 +34,7 @@ describe('Content', () => {
 
         const expectedTilte = `NotificationID: ${props.data.notificationId} (MessageID: ${props.data.messageId})`;
 
-        // Act
+        // Action
         const content = shallow(<Content {...props} />);
 
         // Assert
@@ -57,8 +57,8 @@ describe('Content', () => {
 
         const container = shallow(<Content {...props} />);
 
-        // Act
-        container.find(Button).props().onClick();
+        // Action
+        container.find(Button).simulate('click');
 
         // Assert
         expect(props.onClose).toHaveBeenCalled();

@@ -69,6 +69,6 @@ describe('index', () => {
         require('../index');
 
         // Assert
-        expect(ReactDOM.render).toHaveBeenCalledTimes(1);
+        expect(ReactDOM.render).toHaveBeenCalled();
     });
 });

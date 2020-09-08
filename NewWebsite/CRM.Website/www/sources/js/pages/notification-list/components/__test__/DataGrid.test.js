@@ -12,17 +12,21 @@ describe('DataGrid', () => {
     LangHelper.getResource = jest.fn(value => value);
 
     describe('component with redux', () => {
+        // Arrange
         const mockStore = configureMockStore();
         const initialState = {
             gridParams: {},
             gridData: {},
             resendOptions: {}
         };
-
+        
         const store = mockStore(initialState);
+
+        // Action
         const wrapper = shallow(<DataGridWrapper store={store} />);
 
-        it('component render correctly', () => {
+        // Assert
+        it('component renders correctly', () => {
             expect(wrapper).toMatchSnapshot();
         });
 
@@ -47,7 +51,7 @@ describe('DataGrid', () => {
     });
 
     function testGridDataNull(gridData) {
-        it('render null when gridData empty', () => {
+        it('renders null when gridData empty', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -68,8 +72,8 @@ describe('DataGrid', () => {
     testGridDataNull({});
     testGridDataNull({ data: [] });
 
-    describe('render correctly child component', () => {
-        it('correct title div', () => {
+    describe('renders correctly child component', () => {
+        it('has correct title div', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -130,7 +134,7 @@ describe('DataGrid', () => {
     });
 
     describe('function component runs correctly', () => {
-        it('Table onPaging', () => {
+        it('runs onPaging', () => {
             // Arrange
             const expectedPageIndex = 1;
             const expectedPageSize = 100;
@@ -163,128 +167,181 @@ describe('DataGrid', () => {
             
             // Assert
             expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
-            expect(props.getGridData).toHaveBeenCalledTimes(1);
-            expect(props.setResendOptions).toHaveBeenCalledTimes(1);
+            expect(props.getGridData).toHaveBeenCalled();
+            expect(props.setResendOptions).toHaveBeenCalled();
         });
 
         describe('buildHeader', () => {
-            function testBuildHeader(params) {
-                it('buildHeader render correct header', () => {
-                    // Arrange
-                    const props = {
-                        gridParams: {},
-                        gridData: {},
-                        resendOptions: {
-                            isDisabledResend: params.isDisabledResend,
-                            isHaveResendAll: params.isHaveResendAll,
-                            isCheckedAll: params.isCheckedAll
-                        }
-                    };
-        
-                    const dataGrid = shallow(<DataGrid {...props} />);
-                    const expectedHeader = <HeaderRow>
-                        <HeaderCell colWidth={5}>{'SymbolNo'}</HeaderCell>
-                        <HeaderCell colWidth={15}>
-                            <div>{'NotificationID'}</div>
-                            <div>{'MessageID'}</div>
-                        </HeaderCell>
-                        <HeaderCell colWidth={30}>{'Sender'}/{'NotificationType'}</HeaderCell>
-                        <HeaderCell colWidth={10}>{'SendDateTimeGMTA8'}</HeaderCell>
-                        <HeaderCell colWidth={10}>{'GroupHeadline'}</HeaderCell>
-                        <HeaderCell colWidth={10}>{'Recipient'}</HeaderCell>
-                        <HeaderCell colWidth={30}>{'Title'}/{'Content'}</HeaderCell>
-                        <HeaderCell colWidth={10}>{'Status'}</HeaderCell>
-                        {
-                            params.isHost && <HeaderCell colWidth={10}>{'Action'}</HeaderCell>
-                        }
-                        {
-                            params.isHost && <HeaderCell colWidth={10}>
-                                {
-                                    !params.isDisabledResend ?
-                                    <div className='link-click' onClick={dataGrid.instance().resendNotificationAll}>{'Resend'}</div> :
-                                    <div>{'Resend'}</div>
-                                }
-                                {
-                                    params.isHaveResendAll &&
-                                    <Form.Control
-                                        className='checkbox-cell-style margin-top-10'
-                                        type='checkbox'
-                                        onChange={dataGrid.instance().handleChangeResendAllCheckbox}
-                                        checked={params.isCheckedAll}
-                                    />
-                                }
-                            </HeaderCell>
-                        }
-                    </HeaderRow>;
-        
-                    // Action
-                    const header = dataGrid.instance().buildHeader(params.isHost);
-                    
-                    // Assert
-                    expect(header).toEqual(expectedHeader);
-                });
-            }
-
-            testBuildHeader({
-                isHost: true,
-                isDisabledResend: false,
-                isHaveResendAll: true,
-                isCheckedAll: true
+            it('renders regular header', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+    
+                // Action
+                const header = shallow(dataGrid.instance().buildHeader());
+                
+                // Assert
+                expect(header.find(HeaderCell).at(0).props().colWidth).toBe(5);
+                expect(header.find(HeaderCell).at(0).html()).toContain('SymbolNo');
+                expect(header.find(HeaderCell).at(1).props().colWidth).toBe(15);
+                expect(header.find(HeaderCell).at(1).find('div').at(0).html()).toContain('NotificationID');
+                expect(header.find(HeaderCell).at(1).find('div').at(1).html()).toContain('MessageID');
+                expect(header.find(HeaderCell).at(2).props().colWidth).toBe(30);
+                expect(header.find(HeaderCell).at(2).html()).toContain('Sender');
+                expect(header.find(HeaderCell).at(2).html()).toContain('NotificationType');
+                expect(header.find(HeaderCell).at(3).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(3).html()).toContain('SendDateTimeGMTA8');
+                expect(header.find(HeaderCell).at(4).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(4).html()).toContain('GroupHeadline');
+                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(5).html()).toContain('Recipient');
+                expect(header.find(HeaderCell).at(6).props().colWidth).toBe(30);
+                expect(header.find(HeaderCell).at(6).html()).toContain('Title');
+                expect(header.find(HeaderCell).at(6).html()).toContain('Content');
+                expect(header.find(HeaderCell).at(7).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(7).html()).toContain('Status');
             });
 
-            it('resendNotificationAll call validateResend', () => {
+            it('has action column', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+    
+                // Action
+                const header = shallow(dataGrid.instance().buildHeader(true));
+                
+                // Assert
+                expect(header.find(HeaderCell).at(8).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(8).html()).toContain('Action');
+            });
+            
+            it('has resend column', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+    
+                // Action
+                const header = shallow(dataGrid.instance().buildHeader(true));
+                
+                // Assert
+                expect(header.find(HeaderCell).at(9).props().colWidth).toBe(10);
+            });
+            
+            it('has disable resend', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
                     gridData: {},
                     resendOptions: {
-                        dataList: [
-                            {
-                                status: 'Error',
-                                isResent: true,
-                                notificationId: 1
-                            }
-                        ]
-                    },
-                    validateResend: jest.fn()
+                        isDisabledResend: true
+                    }
                 };
+    
                 const dataGrid = shallow(<DataGrid {...props} />);
-
+    
                 // Action
-                dataGrid.instance().resendNotificationAll();
-
+                const header = shallow(dataGrid.instance().buildHeader(true));
+                
                 // Assert
-                expect(props.validateResend).toHaveBeenCalledWith({
-                    notificationIds: '1',
-                    isSingle: false
-                });
+                expect(header.find(HeaderCell).at(9).find('div').html()).toEqual('<div>Resend</div>');
             });
-
-            it('handleChangeResendAllCheckbox', () => {
+            
+            it('has enable resend', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
                     gridData: {},
                     resendOptions: {
-                        isCheckedAll: true,
-                        isDisabledResend: false,
-                        isHaveResendAll: true,
-                        dataList: [
-                            {
-                                isResent: true
-                            }
-                        ]
-                    },
-                    setResendOptions: jest.fn()
+                        isDisabledResend: false
+                    }
                 };
-
+    
                 const dataGrid = shallow(<DataGrid {...props} />);
-
+    
                 // Action
-                dataGrid.instance().handleChangeResendAllCheckbox();
+                const header = shallow(dataGrid.instance().buildHeader(true));
+                
+                // Assert
+                expect(header.find(HeaderCell).at(9).find('div').html()).toContain('Resend');
+                expect(header.find(HeaderCell).at(9).find('div').html()).toContain('class="link-click"');
+            });
+            
+            it('has enable resend simulating onClick', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {
+                        isDisabledResend: false
+                    }
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().resendNotificationAll = jest.fn();
+                const header = shallow(dataGrid.instance().buildHeader(true));
+    
+                // Action
+                header.find(HeaderCell).at(9).find('div').simulate('click');
 
                 // Assert
-                expect(props.setResendOptions).toHaveBeenCalledTimes(1);
+                expect(dataGrid.instance().resendNotificationAll).toHaveBeenCalled();
+            });
+            
+            it('has resend all check box', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {
+                        isHaveResendAll: true
+                    }
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+    
+                // Action
+                const header = shallow(dataGrid.instance().buildHeader(true));
+
+                // Assert
+                expect(header.find(HeaderCell).at(9).find(Form.Control).props().className).toBe('checkbox-cell-style margin-top-10');
+                expect(header.find(HeaderCell).at(9).find(Form.Control).props().type).toBe('checkbox');
+                expect(header.find(HeaderCell).at(9).find(Form.Control).props().checked).toEqual(props.resendOptions.isCheckedAll);
+            });
+            
+            it('has resend all check box changing', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {
+                        isHaveResendAll: true
+                    }
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().handleChangeResendAllCheckbox = jest.fn();
+                const header = shallow(dataGrid.instance().buildHeader(true));
+    
+                // Action
+                header.find(HeaderCell).at(9).find(Form.Control).simulate('change');
+
+                // Assert
+                expect(dataGrid.instance().handleChangeResendAllCheckbox).toHaveBeenCalled();
             });
         });
 

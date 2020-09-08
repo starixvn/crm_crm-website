@@ -127,7 +127,7 @@ describe('ValidateResend', () => {
             validateResend.find(Modal).simulate('hide');
 
             // Assert
-            expect(validateResend.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(validateResend.instance().onClose).toHaveBeenCalled();
         });
 
         it('Single Modal.Footer click button OK calls onClose', () => {
@@ -150,7 +150,7 @@ describe('ValidateResend', () => {
             validateResend.find(Button).simulate('click');
 
             // Assert
-            expect(validateResend.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(validateResend.instance().onClose).toHaveBeenCalled();
         });
 
         it('Single Modal.Footer click button OK calls resendNotifications', () => {
@@ -196,7 +196,7 @@ describe('ValidateResend', () => {
             validateResend.find(Button).at(1).simulate('click');
 
             // Assert
-            expect(validateResend.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(validateResend.instance().onClose).toHaveBeenCalled();
         });
 
         it('Multiple Modal.Footer click button OK calls resendNotifications', () => {
@@ -242,7 +242,7 @@ describe('ValidateResend', () => {
             validateResend.find(Button).at(1).simulate('click');
 
             // Assert
-            expect(validateResend.instance().onClose).toHaveBeenCalledTimes(1);
+            expect(validateResend.instance().onClose).toHaveBeenCalled();
         });
     });
 });

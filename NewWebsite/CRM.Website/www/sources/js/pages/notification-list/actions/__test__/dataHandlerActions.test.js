@@ -86,7 +86,7 @@ describe('dataHandlerActions', () => {
         await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
             expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/GetGridData', expectedParams);
             expect(store.getActions()).toEqual(expectedActions);
-            expect(expectedDone).toHaveBeenCalledTimes(1);
+            expect(expectedDone).toHaveBeenCalled();
         });
     });
 

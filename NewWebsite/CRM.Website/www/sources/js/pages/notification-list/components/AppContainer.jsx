@@ -7,7 +7,6 @@ import DataGrid from './DataGrid';
 import Content from './Content';
 import ViewDetail from './ViewDetail';
 import ValidateResend from './ValidateResend';
-import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 
