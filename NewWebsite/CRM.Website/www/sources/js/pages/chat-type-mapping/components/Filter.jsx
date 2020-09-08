@@ -199,8 +199,8 @@ class Filter extends Component {
                                 onChange={e => this.onChange('active', e.target.value)}
                             >
                                 <option value="">{LangHelper.getResource('All')}</option>
-                                <option value={true}>{LangHelper.getResource('Yes')}</option>
-                                <option value={false}>{LangHelper.getResource('No')}</option>
+                                <option value="true">{LangHelper.getResource('Yes')}</option>
+                                <option value="false">{LangHelper.getResource('No')}</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
