@@ -51,6 +51,58 @@ describe('ValidateResend', () => {
                 expect(props.setValidateResend).toHaveBeenCalledWith({ show: false });
             });
         });
+
+        it('resendNotifications runs correctly', () => {
+            // Arrange
+            const dataList = [];
+            const props = {
+                validateResendResult: {
+                    result: {
+                        inActiveNotificationIds: [],
+                        isSingle: true,
+                        resendDataList: []
+                    }
+                },
+                gridParams: {},
+                resendNotifications: jest.fn()
+            };
+
+            const validateResend = shallow(<ValidateResend {...props} />);
+            validateResend.instance().onClose = jest.fn()
+
+            // Action
+            validateResend.instance().resendNotifications(dataList);
+
+            // Assert
+            expect(validateResend.instance().onClose).toHaveBeenCalled();
+            expect(props.resendNotifications).toHaveBeenCalledWith(dataList, validateResend.instance().callBackSuccess);
+        });
+
+        it('callBackSuccess runs correctly', () => {
+            const props = {
+                validateResendResult: {
+                    result: {
+                        inActiveNotificationIds: [],
+                        isSingle: true,
+                        resendDataList: []
+                    }
+                },
+                gridParams: {
+                    value: 'value'
+                },
+                getGridData: jest.fn((params, callback) => callback([])),
+                setResendOptions: jest.fn()
+            };
+
+            functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
+            const validateResend = shallow(<ValidateResend {...props} />);
+
+            // Action
+            validateResend.instance().callBackSuccess();
+
+            // Assert
+            expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams}, expect.any(Function));
+        });
     });
 
     describe('events fire correctly', () => {

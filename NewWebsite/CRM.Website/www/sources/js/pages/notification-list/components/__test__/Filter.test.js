@@ -9,6 +9,7 @@ import MultipleSelect from '@jsroot/components/multiple-select/index';
 import DatePicker from '@jsroot/components/date-picker/index';
 import SelectWithSearch from 'react-select';
 import { Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 describe('Filter', () => {
     describe('component with redux', () => {
@@ -85,6 +86,12 @@ describe('Filter', () => {
 
     it('componentDidMount runs correctly', async () => {
         // Arrange
+        functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
+        const promise = Promise.resolve({});
+        const params = {
+            value: 'value'
+        };
+
         const props = {
             gridParams: {},
             invalidParams: {},
@@ -99,14 +106,21 @@ describe('Filter', () => {
             },
             headlineOptions: {},
             recipientOptions: {},
-            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            getSettings: jest.fn(() => promise),
+            setGridParams: jest.fn(),
+            getGridData: jest.fn((params, callback) => callback([]))
         };
 
         // Action
         const filter = shallow(<Filter {...props} />);
+        filter.instance().getParams = jest.fn().mockReturnValue(params);
 
         // Assert
-        expect(props.getSettings).toHaveBeenCalledTimes(1);
+        expect(props.getSettings).toHaveBeenCalled();
+        promise.then(() => {
+            expect(props.setGridParams).toHaveBeenCalledWith(params);
+            expect(props.getGridData).toHaveBeenCalledWith({ ...params }, expect.any(Function));
+        });
     });
 
     describe('handleFilterChange', () => {
@@ -619,6 +633,46 @@ describe('Filter', () => {
         });
     });
 
+    describe('submitHandler', () => {
+        it('valid params', () => {
+            // Arrange
+            const params = {
+                value: 'value'
+            };
+
+            const event = {
+                preventDefault: jest.fn()
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({})),
+                setInvalidParams: jest.fn(),
+                setGridParams: jest.fn(),
+                getGridData: jest.fn((params, callback) => callback([])),
+                setResendOptions: jest.fn()
+            };
+
+            functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
+            const filter = shallow(<Filter {...props} />);
+            filter.instance().isValidateParams = jest.fn().mockReturnValue(true);
+            filter.instance().getParams = jest.fn().mockReturnValue(params);
+
+            // Action
+            filter.instance().submitHandler(event);
+
+            // Assert
+            expect(event.preventDefault).toHaveBeenCalled();
+            expect(props.setInvalidParams).toHaveBeenCalledWith({});
+            expect(props.setGridParams).toHaveBeenCalledWith(params);
+            expect(props.getGridData).toHaveBeenCalledWith({ ...params }, expect.any(Function));
+        });
+    });
+
     describe('isDisabledDateParam', () => {
         it('isDisabledDateParam returns true', () => {
             // Arrange
@@ -701,6 +755,187 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeTrue;
+        });
+
+        it('notification type id empty', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: ''
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
+        });
+
+        it('notification id upper empty', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: 'notificationTypeIds',
+                notificationIdLower: '1',
+                notificationIdUpper: ''
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({})),
+                setInvalidParams: jest.fn()
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(value);
+            expect(props.setInvalidParams).toHaveBeenCalledWith({ isInvalidNotificationIdUpper: true });
+        });
+
+        it('notification type id empty', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: ''
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
+        });
+
+        it('notification id lower empty', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: 'notificationTypeIds',
+                notificationIdLower: '',
+                notificationIdUpper: '1'
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({})),
+                setInvalidParams: jest.fn()
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(value);
+            expect(props.setInvalidParams).toHaveBeenCalledWith({ isInvalidNotificationIdLower: true });
+        });
+
+        it('notification id lower greater than upper', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: 'notificationTypeIds',
+                notificationIdLower: '2',
+                notificationIdUpper: '1'
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(value);
+        });
+
+        it('status empty', () => {
+            // Arrange
+            const value = 'value';
+            const params = {
+                notificationTypeIds: 'notificationTypeIds',
+                notificationIdLower: '1',
+                notificationIdUpper: '2',
+                status: ''
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            LangHelper.getResource = jest.fn().mockReturnValue(value);
+            toast.error = jest.fn();
+
+            // Action
+            const result = filter.instance().isValidateParams(params);
+
+            // Assert
+            expect(result).toBeFalse;
+            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
         });
     });
 

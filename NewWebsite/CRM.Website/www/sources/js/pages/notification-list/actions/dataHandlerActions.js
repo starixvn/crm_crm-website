@@ -118,7 +118,7 @@ export const setValidateResend = data => {
     };
 };
 
-export const resendNotifications = (dataList, callback) => async () => {
+export const resendNotifications = async (dataList, callback) => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/ResendNotificationList');
     await DataService.postDataAsync(url, dataList).then(response => {
