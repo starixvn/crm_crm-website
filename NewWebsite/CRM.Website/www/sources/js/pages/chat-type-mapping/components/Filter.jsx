@@ -215,14 +215,14 @@ class Filter extends Component {
                         </Form.Group>
                         <Form.Group>
                             <div className='col-auto pd-0'>
-                                <Button className='mr-2' variant='primary' size='sm' onClick={this.submitHandler}>
+                                <Button className='mr-2' variant='primary' size='sm' type='submit'>
                                     {LangHelper.getResource('Submit')}
                                 </Button>
                             </div>
                             {
                                 this.props.isHost &&
                                 <div className='col-auto'>
-                                    <Button className='mr-2' variant='primary' size='sm' type='submit'>
+                                    <Button className='mr-2' variant='primary' size='sm' type='button' onClick={this.props.openInsertPersonalMappingPopup}>
                                         {LangHelper.getResource('InsertPersonalMappingBtn')}
                                     </Button>
                                 </div>
