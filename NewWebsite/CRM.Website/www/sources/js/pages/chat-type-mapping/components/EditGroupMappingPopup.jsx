@@ -30,7 +30,7 @@ export class EditGroupMappingPopup extends Component {
                     id: this.props.updateGroupMappingData.data.mappingStatusId,
                     name: this.props.updateGroupMappingData.data.mappingStatus
                 },
-                languageId: this.props.updateGroupMappingData.data.languageId,
+                languageId: this.props.updateGroupMappingData.data.languageId || '',
                 remark: this.props.updateGroupMappingData.data.remark || ''
             },
             isSubmitting: false,
