@@ -92,13 +92,6 @@ export const editNotificationList = params => async dispatch => {
     }).then(() => Site.unblockUI());
 };
 
-export const setMessageResult = data => {
-    return {
-        type: types.MESSAGE_RESULT_DATA,
-        data
-    };
-};
-
 export const validateResend = params => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/ValidateNotificationList');
@@ -183,7 +176,6 @@ const actions = {
     setViewDetail,
     validateResend,
     setValidateResend,
-    setMessageResult,
     setConfirmPopup,
     getHeadlineOptions,
     setHeadlineOptions,

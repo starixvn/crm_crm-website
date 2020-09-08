@@ -21,7 +21,6 @@ export class DataGrid extends Component {
     }
 
     getGridData = params => {
-        this.props.setInvalidParams({ show: false });
         this.props.setGridParams(params);
         this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
     }

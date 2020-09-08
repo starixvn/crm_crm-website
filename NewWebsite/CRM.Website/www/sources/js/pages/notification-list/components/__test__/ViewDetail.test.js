@@ -8,6 +8,8 @@ import configureMockStore from 'redux-mock-store';
 import { getHeadlines, getRecipients } from '../../functions';
 
 describe('ViewDetail', () => {
+    LangHelper.getResource = jest.fn(value => value);
+
     it('render component correctly', () => {
         // Arrange
         const props = {
@@ -45,11 +47,11 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
 
         // Assert
-        expect(viewDetail.find(Modal.Title).html()).toContain(LangHelper.getResource('ErrorNotification'));
-        expect(viewDetail.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>${`${LangHelper.getResource('NotificationID')}: ${props.data.notificationId}`}</div>`);
-        expect(viewDetail.find(Modal.Body).find('div').at(1).html()).toEqual(`<div>${`${LangHelper.getResource('NotificationTemplate')}: ${props.data.title}`}</div>`);
-        expect(viewDetail.find(Modal.Body).find('div').at(2).html()).toEqual(`<div>${`${LangHelper.getResource('SentAt')}: ${props.data.sendDateString} ${props.data.sendTimeString}`}</div>`);
-        expect(viewDetail.find(Modal.Body).find('div').at(3).html()).toEqual(`<div class="error-occured-message error-resolved-row">${LangHelper.getResource('ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient')}</div>`);
+        expect(viewDetail.find(Modal.Title).html()).toContain('ErrorNotification');
+        expect(viewDetail.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>${`NotificationID: ${props.data.notificationId}`}</div>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(1).html()).toEqual(`<div>${`NotificationTemplate: ${props.data.title}`}</div>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(2).html()).toEqual(`<div>${`SentAt: ${props.data.sendDateString} ${props.data.sendTimeString}`}</div>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(3).html()).toEqual('<div class="error-occured-message error-resolved-row">ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient</div>');
         expect(viewDetail.find(Modal.Body).find(Table).length).toBe(1);
     });
 
@@ -75,10 +77,10 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
 
         // Assert
-        expect(viewDetail.find(Modal.Body).find('div').at(4).html()).toEqual(`<div class="error-resolved-row">${LangHelper.getResource('Remark') + ': ' + LangHelper.getResource('ResendDone')}</div>`);
-        expect(viewDetail.find(Modal.Body).find('div').at(5).html()).toEqual(`<div>${LangHelper.getResource('ResolvedBy') + ': ' + props.viewDetail.resolvedBy}</div>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(4).html()).toEqual('<div class="error-resolved-row">Remark: ResendDone</div>');
+        expect(viewDetail.find(Modal.Body).find('div').at(5).html()).toEqual(`<div>ResolvedBy: ${props.viewDetail.resolvedBy}</div>`);
         expect(viewDetail.find(Modal.Footer).find(Button).length).toBe(1);
-        expect(viewDetail.find(Modal.Footer).find(Button).at(0).html()).toContain(LangHelper.getResource('Cancel'));
+        expect(viewDetail.find(Modal.Footer).find(Button).at(0).html()).toContain('Cancel');
     });
 
     it('render child element when view dettail result is not successful', () => {
@@ -103,11 +105,11 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
 
         // Assert
-        expect(viewDetail.find(Modal.Body).find('div').at(4).html()).toEqual(`<div class="error-resolved-row">${LangHelper.getResource('Remark') + ':'}</div>`);
-        expect(viewDetail.find(Modal.Body).find('textarea').html()).toEqual(`<textarea class="view-detail-remark" rows="3" name="remark"></textarea>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(4).html()).toEqual('<div class="error-resolved-row">Remark:</div>');
+        expect(viewDetail.find(Modal.Body).find('textarea').html()).toEqual('<textarea class="view-detail-remark" rows="3" name="remark"></textarea>');
         expect(viewDetail.find(Modal.Footer).find(Button).length).toBe(2);
-        expect(viewDetail.find(Modal.Footer).find(Button).at(0).html()).toContain(LangHelper.getResource('Resolved'));
-        expect(viewDetail.find(Modal.Footer).find(Button).at(1).html()).toContain(LangHelper.getResource('Cancel'));
+        expect(viewDetail.find(Modal.Footer).find(Button).at(0).html()).toContain('Resolved');
+        expect(viewDetail.find(Modal.Footer).find(Button).at(1).html()).toContain('Cancel');
     });
 
     it('render Table component with expected props', () => {
@@ -132,9 +134,9 @@ describe('ViewDetail', () => {
     it('buildHeader', () => {
         // Arrange
         const expectedHeader = <HeaderRow>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('Recipient')}</HeaderCell>
-            <HeaderCell colWidth={50}>{LangHelper.getResource('Reason')}</HeaderCell>
+            <HeaderCell colWidth={25}>{'GroupHeadline'}</HeaderCell>
+            <HeaderCell colWidth={25}>{'Recipient'}</HeaderCell>
+            <HeaderCell colWidth={50}>{'Reason'}</HeaderCell>
         </HeaderRow>;
 
         const props = {

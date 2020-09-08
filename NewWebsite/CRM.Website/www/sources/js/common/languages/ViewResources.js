@@ -77,7 +77,7 @@
     TemplateName: 'Template Name',
     TemplateNameRequired: 'Template Name is mandatory!',
     TheRecipientOfNotificationIdHasBeenInactive: '1. The recipient of {0} has been inactive!',
-    TheSelectedNoficationsAreAbleToResend: '2. The selected nofications are able to resend: {0}',
+    TheSelectedNotificationsAreAbleToResend: '2. The selected notifications are able to resend: {0}',
     ThereAreSomeChangesConfirmMessage: 'There are some changes. Are you sure you want to ignore these changes?',
     ThereIsNoData: 'There is no data',
     Title: 'Title',

@@ -14,7 +14,7 @@ export default class Content extends Component {
             <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={onClose} >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>
-                        {`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MesageID')}: ${data.messageId})`}
+                        {`${LangHelper.getResource('NotificationID')}: ${data.notificationId} (${LangHelper.getResource('MessageID')}: ${data.messageId})`}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

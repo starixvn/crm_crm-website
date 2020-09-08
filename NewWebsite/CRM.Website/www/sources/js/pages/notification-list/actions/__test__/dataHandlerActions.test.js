@@ -180,16 +180,6 @@ describe('dataHandlerActions', () => {
 
         expect(actions.setViewDetail(data)).toEqual(expectedAction);
     });
-
-    it('should create an action to set message result data', () => {
-        const data = 'Test set message result data';
-        const expectedAction = {
-            type: types.MESSAGE_RESULT_DATA,
-            data
-        };
-
-        expect(actions.setMessageResult(data)).toEqual(expectedAction);
-    });
     
     it('should handle setValidateResend when validate resend has been done', async () => {
         const expectedParams = { notificationIds: '1,2' };

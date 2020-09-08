@@ -6,7 +6,6 @@ import Content from '../Content';
 import ViewDetail from '../ViewDetail';
 import ValidateResend from '../ValidateResend';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
-import ResponseMessage from '@jsroot/components/ResponseMessage';
 import { shallow } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
 import configureMockStore from 'redux-mock-store';
@@ -62,7 +61,6 @@ describe('AppContainer', () => {
             contentPopup: {},
             viewDetailPopup: {},
             invalidParams: {},
-            messageResult: {},
             validateResendResult: {},
             confirmPopup: {}
         };
@@ -78,7 +76,6 @@ describe('AppContainer', () => {
             contentPopup: {},
             viewDetailPopup: {},
             invalidParams: {},
-            messageResult: {},
             validateResendResult: {},
             confirmPopup: {}
         };
@@ -97,7 +94,6 @@ describe('AppContainer', () => {
                 contentPopup: {},
                 viewDetailPopup: {},
                 invalidParams: {},
-                messageResult: {},
                 validateResendResult: {},
                 confirmPopup: {}
             };
@@ -117,7 +113,6 @@ describe('AppContainer', () => {
                     contentPopup: {},
                     viewDetailPopup: {},
                     invalidParams: {},
-                    messageResult: {},
                     validateResendResult: {},
                     confirmPopup: {}
                 };
@@ -143,7 +138,6 @@ describe('AppContainer', () => {
                     show: true
                 },
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {}
@@ -164,7 +158,6 @@ describe('AppContainer', () => {
                     data: {}
                 },
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {}
@@ -185,7 +178,6 @@ describe('AppContainer', () => {
                     data: {}
                 },
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {},
@@ -210,7 +202,6 @@ describe('AppContainer', () => {
                 viewDetailPopup: {
                     show: true
                 },
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {}
@@ -231,7 +222,6 @@ describe('AppContainer', () => {
                     show: true,
                     data: {}
                 },
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {}
@@ -252,7 +242,6 @@ describe('AppContainer', () => {
                     show: true,
                     data: {}
                 },
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {},
@@ -274,7 +263,6 @@ describe('AppContainer', () => {
         const props = {
             contentPopup: {},
             viewDetailPopup: {},
-            messageResult: {},
             invalidParams: {},
             validateResendResult: {
                 show: true
@@ -290,12 +278,13 @@ describe('AppContainer', () => {
     });
 
     describe('confirmPopup is showed', () => {
+        LangHelper.getResource = jest.fn(value => value);
+
         it('render correctly component ConfirmPopup', () => {
             // Arrange
             const props = {
                 contentPopup: {},
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {
@@ -315,7 +304,6 @@ describe('AppContainer', () => {
             const props = {
                 contentPopup: {},
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {
@@ -328,7 +316,7 @@ describe('AppContainer', () => {
 
             // Assert
             expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
-            expect(appContainer.find(ConfirmPopup).props().title).toEqual(LangHelper.getResource('Confirmation'));
+            expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
         });
 
         it('ConfirmPopup have correct content', () => {
@@ -336,7 +324,6 @@ describe('AppContainer', () => {
             const props = {
                 contentPopup: {},
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {
@@ -350,7 +337,7 @@ describe('AppContainer', () => {
 
             // Assert
             expect(content.type).toBe('div');
-            expect(content.props.children).toEqual(LangHelper.getResource('ThereAreSomeChangesConfirmMessage'));
+            expect(content.props.children).toEqual('ThereAreSomeChangesConfirmMessage');
         });
 
         it('ConfirmPopup closes correctly', () => {
@@ -358,7 +345,6 @@ describe('AppContainer', () => {
             const props = {
                 contentPopup: {},
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {
@@ -381,7 +367,6 @@ describe('AppContainer', () => {
             const props = {
                 contentPopup: {},
                 viewDetailPopup: {},
-                messageResult: {},
                 invalidParams: {},
                 validateResendResult: {},
                 confirmPopup: {

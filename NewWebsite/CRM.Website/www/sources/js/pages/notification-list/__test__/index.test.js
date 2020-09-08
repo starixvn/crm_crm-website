@@ -28,9 +28,7 @@ describe('index', () => {
                 pageIndex: 1,
                 pageSize: 100
             },
-            invalidParams: {
-                show: false
-            },
+            invalidParams: {},
             contentPopup: { show: false },
             viewDetailPopup: { show: false },
             resendOptions: {
@@ -52,11 +50,6 @@ describe('index', () => {
                     message: '',
                     isSuccessful: false
                 }
-            },
-            messageResult: {
-                isSuccessful: false,
-                show: false,
-                message: ''
             },
             validateResendResult: {
                 show: false,

@@ -7,7 +7,6 @@ import {
     invalidParams,
     settings,
     viewDetail,
-    messageResult,
     validateResendResult,
     confirmPopup,
     headlineOptions,
@@ -93,16 +92,6 @@ describe('dataHandlerReducer.test', () => {
         };
 
         const result = viewDetail({}, action);
-        expect(result).toEqual(action.data);
-    });
-    
-    it('should handle messageResult', () => {
-        const action = {
-            type: types.MESSAGE_RESULT_DATA,
-            data: {}
-        };
-
-        const result = messageResult({}, action);
         expect(result).toEqual(action.data);
     });
     

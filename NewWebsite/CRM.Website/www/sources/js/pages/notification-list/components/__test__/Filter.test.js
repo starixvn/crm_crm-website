@@ -730,6 +730,8 @@ describe('Filter', () => {
     });
 
     describe('isValidateParams', () => {
+        LangHelper.getResource = jest.fn(value => value);
+
         it('isValidateParams returns true', () => {
             // Arrange
             const params = {
@@ -759,7 +761,6 @@ describe('Filter', () => {
 
         it('notification type id empty', () => {
             // Arrange
-            const value = 'value';
             const params = {
                 notificationTypeIds: ''
             };
@@ -774,7 +775,6 @@ describe('Filter', () => {
             };
     
             const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
             toast.error = jest.fn();
 
             // Action
@@ -782,12 +782,11 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
+            expect(toast.error).toHaveBeenCalledWith('PleaseChoose a NotificationType');
         });
 
         it('notification id upper empty', () => {
             // Arrange
-            const value = 'value';
             const params = {
                 notificationTypeIds: 'notificationTypeIds',
                 notificationIdLower: '1',
@@ -805,7 +804,6 @@ describe('Filter', () => {
             };
     
             const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
             toast.error = jest.fn();
 
             // Action
@@ -813,41 +811,12 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(value);
+            expect(toast.error).toHaveBeenCalledWith('NotificationIDMustHaveBoth');
             expect(props.setInvalidParams).toHaveBeenCalledWith({ isInvalidNotificationIdUpper: true });
-        });
-
-        it('notification type id empty', () => {
-            // Arrange
-            const value = 'value';
-            const params = {
-                notificationTypeIds: ''
-            };
-
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({}))
-            };
-    
-            const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
-            toast.error = jest.fn();
-
-            // Action
-            const result = filter.instance().isValidateParams(params);
-
-            // Assert
-            expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
         });
 
         it('notification id lower empty', () => {
             // Arrange
-            const value = 'value';
             const params = {
                 notificationTypeIds: 'notificationTypeIds',
                 notificationIdLower: '',
@@ -865,7 +834,6 @@ describe('Filter', () => {
             };
     
             const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
             toast.error = jest.fn();
 
             // Action
@@ -873,13 +841,12 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(value);
+            expect(toast.error).toHaveBeenCalledWith('NotificationIDMustHaveBoth');
             expect(props.setInvalidParams).toHaveBeenCalledWith({ isInvalidNotificationIdLower: true });
         });
 
         it('notification id lower greater than upper', () => {
             // Arrange
-            const value = 'value';
             const params = {
                 notificationTypeIds: 'notificationTypeIds',
                 notificationIdLower: '2',
@@ -896,7 +863,6 @@ describe('Filter', () => {
             };
     
             const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
             toast.error = jest.fn();
 
             // Action
@@ -904,12 +870,11 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(value);
+            expect(toast.error).toHaveBeenCalledWith('NotificationIDFromNotGreaterThanTo');
         });
 
         it('status empty', () => {
             // Arrange
-            const value = 'value';
             const params = {
                 notificationTypeIds: 'notificationTypeIds',
                 notificationIdLower: '1',
@@ -927,7 +892,6 @@ describe('Filter', () => {
             };
     
             const filter = shallow(<Filter {...props} />);
-            LangHelper.getResource = jest.fn().mockReturnValue(value);
             toast.error = jest.fn();
 
             // Action
@@ -935,7 +899,7 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toBeFalse;
-            expect(toast.error).toHaveBeenCalledWith(`${value} a ${value}`);
+            expect(toast.error).toHaveBeenCalledWith('PleaseChoose a Status');
         });
     });
 

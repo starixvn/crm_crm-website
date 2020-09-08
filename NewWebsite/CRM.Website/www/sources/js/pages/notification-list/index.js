@@ -35,11 +35,6 @@ const store = Store.createStore(reducer, {
             isSuccessful: false
         }
     },
-    messageResult: {
-        isSuccessful: false,
-        show: false,
-        message: ''
-    },
     validateResendResult: {
         show: false,
         result: {

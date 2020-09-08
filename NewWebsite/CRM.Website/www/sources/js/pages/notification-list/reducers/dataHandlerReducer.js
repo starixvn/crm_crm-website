@@ -50,12 +50,6 @@ export const viewDetail = createReducer({}, {
     }
 });
 
-export const messageResult = createReducer({}, {
-    [types.MESSAGE_RESULT_DATA](state, action) {
-        return action.data;
-    }
-});
-
 export const validateResendResult = createReducer({}, {
     [types.VALIDATE_RESEND_DATA](state, action) {
         return action.data;
@@ -89,7 +83,6 @@ const reducers = {
     invalidParams,
     settings,
     viewDetail,
-    messageResult,
     validateResendResult,
     confirmPopup,
     headlineOptions,

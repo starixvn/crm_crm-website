@@ -9,6 +9,8 @@ import { Form } from 'react-bootstrap';
 import functions, { handleNewResendOptions, getHeadlines, getRecipients } from '../../functions';
 
 describe('DataGrid', () => {
+    LangHelper.getResource = jest.fn(value => value);
+
     describe('component with redux', () => {
         const mockStore = configureMockStore();
         const initialState = {
@@ -86,7 +88,7 @@ describe('DataGrid', () => {
             const dataGrid = shallow(<DataGrid {...props} />);
 
             // Assert
-            expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">${LangHelper.getResource('NotificationList')}</div>`);
+            expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">NotificationList</div>`);
         });
 
         it('contains Table having correct props', () => {
@@ -143,7 +145,6 @@ describe('DataGrid', () => {
                     ]
                 },
                 resendOptions: {},
-                setInvalidParams: jest.fn(),
                 setGridParams: jest.fn(),
                 getGridData: jest.fn((params, callback) => callback([])),
                 setResendOptions: jest.fn()
@@ -161,7 +162,6 @@ describe('DataGrid', () => {
             dataGrid.find(Table).props().onPaging(expectedPageIndex, expectedPageSize);
             
             // Assert
-            expect(props.setInvalidParams).toHaveBeenCalledWith({ show: false });
             expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
             expect(props.getGridData).toHaveBeenCalledTimes(1);
             expect(props.setResendOptions).toHaveBeenCalledTimes(1);
@@ -183,26 +183,26 @@ describe('DataGrid', () => {
         
                     const dataGrid = shallow(<DataGrid {...props} />);
                     const expectedHeader = <HeaderRow>
-                        <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
+                        <HeaderCell colWidth={5}>{'SymbolNo'}</HeaderCell>
                         <HeaderCell colWidth={15}>
-                            <div>{LangHelper.getResource('NotificationID')}</div>
-                            <div>{LangHelper.getResource('MessageID')}</div>
+                            <div>{'NotificationID'}</div>
+                            <div>{'MessageID'}</div>
                         </HeaderCell>
-                        <HeaderCell colWidth={30}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
-                        <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
-                        <HeaderCell colWidth={10}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                        <HeaderCell colWidth={10}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                        <HeaderCell colWidth={30}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
-                        <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
+                        <HeaderCell colWidth={30}>{'Sender'}/{'NotificationType'}</HeaderCell>
+                        <HeaderCell colWidth={10}>{'SendDateTimeGMTA8'}</HeaderCell>
+                        <HeaderCell colWidth={10}>{'GroupHeadline'}</HeaderCell>
+                        <HeaderCell colWidth={10}>{'Recipient'}</HeaderCell>
+                        <HeaderCell colWidth={30}>{'Title'}/{'Content'}</HeaderCell>
+                        <HeaderCell colWidth={10}>{'Status'}</HeaderCell>
                         {
-                            params.isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
+                            params.isHost && <HeaderCell colWidth={10}>{'Action'}</HeaderCell>
                         }
                         {
                             params.isHost && <HeaderCell colWidth={10}>
                                 {
                                     !params.isDisabledResend ?
-                                    <div className='link-click' onClick={dataGrid.instance().resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
-                                    <div>{LangHelper.getResource('Resend')}</div>
+                                    <div className='link-click' onClick={dataGrid.instance().resendNotificationAll}>{'Resend'}</div> :
+                                    <div>{'Resend'}</div>
                                 }
                                 {
                                     params.isHaveResendAll &&
@@ -301,7 +301,7 @@ describe('DataGrid', () => {
                     };
         
                     const dataGrid = shallow(<DataGrid {...props} />);
-                    const expectedBody = [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+                    const expectedBody = [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 10 : 8}>{'ThereIsNoData'}</Cell></Row>];
         
                     // Action
                     const body = dataGrid.instance().buildBody(isHost);
@@ -396,14 +396,14 @@ describe('DataGrid', () => {
                                         <div
                                             onClick={() => dataGrid.instance()(item)}
                                             className='action-style link-click'
-                                        >{LangHelper.getResource('ViewDetail')}</div>
+                                        >{'ViewDetail'}</div>
                                 }
                                 {
                                     dataGrid.instance().isError(item.status) &&
                                     <div
                                         onClick={() => dataGrid.instance().validateResend(item.notificationId)}
                                         className='action-style link-click'
-                                    >{LangHelper.getResource('Resend')}</div>
+                                    >{'Resend'}</div>
                                 }
                             </Cell>
                         }

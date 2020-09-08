@@ -22,6 +22,7 @@ describe('Content', () => {
     
     it('render child element', () => {
         // Arrange
+        LangHelper.getResource = jest.fn(value => value);
         const props = {
             data: {
                 notificationId: 1,
@@ -31,7 +32,7 @@ describe('Content', () => {
             }
         };
 
-        const expectedTilte = `${LangHelper.getResource('NotificationID')}: ${props.data.notificationId} (${LangHelper.getResource('MesageID')}: ${props.data.messageId})`;
+        const expectedTilte = `NotificationID: ${props.data.notificationId} (MessageID: ${props.data.messageId})`;
 
         // Act
         const content = shallow(<Content {...props} />);

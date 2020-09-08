@@ -1,9 +1,8 @@
 import React from 'react';
 import ValidateResendWrapper, { ValidateResend } from '../ValidateResend';
 import { shallow } from 'enzyme';
-import LangHelper from '@jsroot/common/langHelper';
 import configureMockStore from 'redux-mock-store';
-import functions, { handleNewResendOptions, resendNotifications } from '../../functions';
+import functions, { handleNewResendOptions } from '../../functions';
 import { Modal, Button } from 'react-bootstrap';
 
 describe('ValidateResend', () => {

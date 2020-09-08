@@ -23,12 +23,6 @@ export class AppContainer extends Component {
     render() {
         return (
             <Fragment>
-                {
-                    this.props.messageResult.show &&
-                    <ResponseMessage isSuccessful={this.props.messageResult.isSuccessful}
-                        message={this.props.messageResult.message || LangHelper.getResource('ResentNotificationSuccessfully')}
-                    />
-                }
                 <Filter />
                 <DataGrid isHost={this.isHost} />
                 {
@@ -74,7 +68,6 @@ const mapStateToProps = state => {
     const {
         contentPopup,
         viewDetailPopup,
-        messageResult,
         validateResendResult,
         confirmPopup
     } = state;
@@ -82,7 +75,6 @@ const mapStateToProps = state => {
     return {
         contentPopup,
         viewDetailPopup,
-        messageResult,
         validateResendResult,
         confirmPopup
     };
