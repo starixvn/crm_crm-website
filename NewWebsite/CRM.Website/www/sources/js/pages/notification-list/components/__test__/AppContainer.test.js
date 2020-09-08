@@ -30,8 +30,6 @@ describe('AppContainer', () => {
         const initialState = {
             contentPopup: {},
             viewDetailPopup: {},
-            invalidParams: {},
-            messageResult: {},
             validateResendResult: {},
             confirmPopup: {}
         };
@@ -49,12 +47,6 @@ describe('AppContainer', () => {
             );
             expect(wrapper.props().children.props.viewDetailPopup).toEqual(
                 initialState.viewDetailPopup
-            );
-            expect(wrapper.props().children.props.invalidParams).toEqual(
-                initialState.invalidParams
-            );
-            expect(wrapper.props().children.props.messageResult).toEqual(
-                initialState.messageResult
             );
             expect(wrapper.props().children.props.validateResendResult).toEqual(
                 initialState.validateResendResult
@@ -78,113 +70,6 @@ describe('AppContainer', () => {
         const appContainer = shallow(<AppContainer {...props} />);
 
         expect(appContainer).toMatchSnapshot();
-    });
-
-    describe('messageResult is showed', () => {
-        it('render correctly component ReponseMessage', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                messageResult: {
-                    show: true
-                },
-                validateResendResult: {},
-                confirmPopup: {}
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ResponseMessage).length).toBe(1);
-        });
-
-        function testMessageResult(message) {
-            it('component render correctly message', () => {
-                // Arrange
-                const props = {
-                    contentPopup: {},
-                    viewDetailPopup: {},
-                    invalidParams: {},
-                    messageResult: {
-                        show: true,
-                        isSuccessful: true,
-                        message: message || LangHelper.getResource('ResentNotificationSuccessfully')
-                    },
-                    validateResendResult: {},
-                    confirmPopup: {}
-                };
-    
-                const appContainer = shallow(<AppContainer {...props} />);
-    
-                // Action
-                const responseMessage = appContainer.find(ResponseMessage);
-    
-                // Assert
-                expect(responseMessage.props().isSuccessful).toBe(props.messageResult.isSuccessful);
-                expect(responseMessage.props().message).toBe(props.messageResult.message);
-            });
-        }
-
-        testMessageResult();
-        testMessageResult(null);
-        testMessageResult('');
-        testMessageResult('some message');
-    });
-
-    describe('invalidParams is showed', () => {
-        it('render correctly component ReponseMessage', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                messageResult: {},
-                invalidParams: {
-                    show: true
-                },
-                validateResendResult: {},
-                confirmPopup: {}
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ResponseMessage).length).toBe(1);
-        });
-
-        function testMessageResult(message) {
-            it('component render correctly message', () => {
-                // Arrange
-                const props = {
-                    contentPopup: {},
-                    viewDetailPopup: {},
-                    messageResult: {},
-                    invalidParams: {
-                        show: true,
-                        message: message === undefined ? '' : message
-                    },
-                    validateResendResult: {},
-                    confirmPopup: {}
-                };
-    
-                const appContainer = shallow(<AppContainer {...props} />);
-    
-                // Action
-                const responseMessage = appContainer.find(ResponseMessage);
-    
-                // Assert
-                expect(responseMessage.props().isSuccessful).toBe(false);
-                expect(responseMessage.props().message).toBe(props.invalidParams.message);
-            });
-        }
-
-        testMessageResult();
-        testMessageResult(null);
-        testMessageResult('');
-        testMessageResult('some message');
     });
 
     it('render correctly component Filter', () => {

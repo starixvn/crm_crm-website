@@ -215,24 +215,6 @@ describe('dataHandlerActions', () => {
 
         expect(actions.setValidateResend(data)).toEqual(expectedAction);
     });
-    
-    it('should handle setMessageResult when resend notification list has been done', async () => {
-        const expectedParams = [1, 2];
-        const expectedDone = jest.fn();
-        const response = { data: { isSuccessful: true, message: 'message' } };
-        const expectedActions = [{ type: types.MESSAGE_RESULT_DATA, data: { show: true, ...response.data} }];
-        const store = mockStore({ messageResult: null });
-        Site.blockUI = jest.fn();
-        Site.unblockUI = jest.fn();
-        const promise = Promise.resolve(response);
-        DataService.postDataAsync = jest.fn(() => promise);
-
-        await store.dispatch(actions.resendNotifications(expectedParams, expectedDone)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/ResendNotificationList', expectedParams);
-            expect(store.getActions()).toEqual(expectedActions);
-            expect(expectedDone).toHaveBeenCalledTimes(1);
-        });
-    });
 
     it('should create an action to set confirm popup data', () => {
         const data = 'Test set confirm popup data';
