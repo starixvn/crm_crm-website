@@ -74,7 +74,7 @@ export default class Site {
 
     static displayCopiedToClipboard() {
         const div = document.createElement('div');
-        div.className = "copied-confirm";
+        div.className = 'copied-confirm';
         div.innerHTML = `Coppied to clipboard!`;
         document.body.appendChild(div);
         setTimeout(() => {

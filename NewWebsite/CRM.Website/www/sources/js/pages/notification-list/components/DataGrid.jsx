@@ -214,7 +214,7 @@ export class DataGrid extends Component {
                     isPaging
                     pageOption={pagingOption}
                     onPaging={this.onPaging}
-                    containerPadding={0} 
+                    containerPadding={0}
                     shouldResetScrollPosition={this.props.resendOptions.shouldResetScrollPosition}
                 />
             </Fragment>

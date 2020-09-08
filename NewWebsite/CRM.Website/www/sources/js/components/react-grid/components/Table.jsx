@@ -2,39 +2,12 @@ import React, { Component } from 'react';
 import RowLayout from './RowLayout';
 import PropTypes from 'prop-types';
 import createTableSection from './tableSection';
-import { DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, SCROLLBAR_WIDTH } from '../constants';
+import { DEFAULT_COLUMN_WIDTH, SCROLLBAR_WIDTH } from '../constants';
 import Pager from './Pager';
+import { scrollToTop } from '../functions';
+import Site from '@jsroot/common/site';
 
 const clientWidth = document.body.clientWidth;
-
-function scrollToTop(element, scrollDuration) {
-    const scrollStep = -element.scrollTop / (scrollDuration / 15);
-    requestAnimationFrame(() => {
-        let scrollInterval = null;
-        scrollInterval = setInterval(() => {
-            if (element.scrollTop !== 0) {
-                element.scrollTop += scrollStep;
-            } else {
-                clearInterval(scrollInterval);
-            }
-        }, 15);
-    });
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function () {
-        const context = this,
-            args = arguments;
-
-        const later = function () {
-            func.apply(context, args);
-        };
-
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait || DEFAULT_MILLISECOND_FOR_WAITING);
-    };
-}
 
 class Table extends Component {
     static propTypes = {
@@ -86,11 +59,11 @@ class Table extends Component {
 
         const { maxWidth, bodyHeight, adjustedHeight } = this.props;
         const maxWidthValue = maxWidth || clientWidth;
-
+``
         this.diffWidth = clientWidth - maxWidthValue;
         this.adjustedHeight = adjustedHeight;
 
-        this.debounceResizing = debounce(this._handleResize);
+        this.debounceResizing = Site.debounce(this._handleResize);
 
         this.state = {
             maxWidth: maxWidthValue,
@@ -119,7 +92,7 @@ class Table extends Component {
 
     get columnWidthSum() {
         const columnsWidth = this.state.columnsWidth;
-        return !columnsWidth || !columnsWidth.length || columnsWidth.find(x => typeof x !== "number") ?
+        return !columnsWidth || !columnsWidth.length || columnsWidth.find(x => typeof x !== 'number') ?
             null : columnsWidth.reduce((prev, current) => prev + current, 0);
     }
 
@@ -129,16 +102,16 @@ class Table extends Component {
         for (let i = fromCellIndex; i <= toCellInternalIndex; i++) {
             const cell = cells[i];
             const hasNext = i < cells.length;
-            if (!cell && hasNext) {
+            if (!(!cell && hasNext)) {
+                if (cell.props.colSpan) {
+                    toCellInternalIndex -= 1;
+                }
+    
+                colspanCells.push(cell);
+            }
+            else {
                 toCellInternalIndex += 1;
-                continue;
             }
-
-            if (cell.props.colSpan) {
-                toCellInternalIndex -= 1;
-            }
-
-            colspanCells.push(cell);
         }
 
         return colspanCells;
@@ -152,14 +125,17 @@ class Table extends Component {
 
         const columnsWidth = [];
         const currentNextCellIndexByRow = {};
+        const currentRowIndex = 0;
+        const cellList = headerIsArray ? headerRows[currentRowIndex].props.children : headerRows.props.children;
+        this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, cellList, currentRowIndex);
 
-        const getWidthByCells = (cells, currentRowIndex) => {
-            for (let i = 0; i < cells.length; i++) {
-                const cell = cells[i];
-                if (!cell) {
-                    continue;
-                }
+        return columnsWidth;
+    }
 
+    _getWidthByCells = (columnsWidth, currentNextCellIndexByRow, cells, currentRowIndex) => {
+        for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            if (cell) {
                 const cellProps = cell.props;
                 const colspan = Number(cellProps.colSpan);
 
@@ -168,27 +144,22 @@ class Table extends Component {
                     if (currentNextCellIndexByRow[nextRowIndex] === undefined) {
                         currentNextCellIndexByRow[nextRowIndex] = 0;
                     }
+
                     const fromNextCellIndex = currentNextCellIndexByRow[nextRowIndex];
                     const toNextCellIndex = fromNextCellIndex + colspan - 1;
                     const nextCells = headerRows[nextRowIndex].props.children;
 
                     const nextColspanCells = this._getNextColspanCells(nextCells, fromNextCellIndex, toNextCellIndex);
                     currentNextCellIndexByRow[nextRowIndex] += nextColspanCells.length;
-                    getWidthByCells(nextColspanCells, nextRowIndex);
+                    this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, nextColspanCells, nextRowIndex);
                 }
                 else {
                     const cellWidth = cellProps.colWidth ? cellProps.colWidth : DEFAULT_COLUMN_WIDTH;
                     columnsWidth.push(cellWidth);
                 }
             }
-        };
-
-        const currentRowIndex = 0;
-        const cellList = headerIsArray ? headerRows[currentRowIndex].props.children : headerRows.props.children;
-        getWidthByCells(cellList, currentRowIndex);
-
-        return columnsWidth;
-    }
+        }
+    };
 
     _handleResize = event => {
         event && event.preventDefault();
@@ -219,9 +190,8 @@ class Table extends Component {
         let sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
         sumOfColumnWidth = sumOfColumnWidth - containerPadding - SCROLLBAR_WIDTH;
 
-        const newColumnsWidth = this.columnWidthSum && this.state.columnsWidth.map(cellWidth => {
-            return sumOfColumnWidth / this.columnWidthSum * cellWidth;
-        });
+        const newColumnsWidth = this.columnWidthSum && this.state.columnsWidth.map(cellWidth =>
+            sumOfColumnWidth / this.columnWidthSum * cellWidth);
 
         return newColumnsWidth;
     }
@@ -230,7 +200,6 @@ class Table extends Component {
         const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging, containerPadding } = this.props;
         const maxWidth = this.state.maxWidth - containerPadding;
         const actualWidth = width - containerPadding;
-
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== actualWidth ?
             this._getUpdatedColumnLayout() :
             this.state.columnsWidth;
@@ -241,16 +210,12 @@ class Table extends Component {
 
         const sectionProps = { width: actualWidth, autoWidth, minWidth, maxWidth };
         const headerSectionProps = { onSort: this.props.onSort, width: actualWidth, autoWidth, minWidth, maxWidth };
-
         const rowLayout = <RowLayout columnLayout={newColumnLayout} />;
-
-        const Header = this.Header;
-        const Body = this.Body;
-        const Footer = this.Footer;
+        const { Header, Body, Footer } = this;
 
         return (
             <div>
-                <div className="table-container" style={{ maxWidth }}>
+                <div className='table-container' style={{ maxWidth }}>
                     <Header {...headerSectionProps}>
                         {rowLayout}
                         {header}
