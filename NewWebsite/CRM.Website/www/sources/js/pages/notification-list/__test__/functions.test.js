@@ -1,6 +1,9 @@
 import LangHelper from '@jsroot/common/langHelper';
-import { handleNewResendOptions, getHeadlines, getRecipients } from '../functions';
+import Site from '@jsroot/common/site';
+import DataService from '@jsroot/common/dataService';
+import { handleNewResendOptions, getHeadlines, getRecipients, resendNotifications } from '../functions';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 describe('function', () => {
     it('handleNewResendOptions should be call callback function with correct params', () => {
@@ -60,5 +63,90 @@ describe('function', () => {
         getRecipients_Test(undefined, '');
         getRecipients_Test([], '');
         getRecipients_Test(recipients, recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>));
+    });
+
+    describe('resendNotifications', () => {
+        it('post async', async () => {
+            // Arrange
+            const dataList = [1, 2];
+            const response = { data: {} };
+            Site.blockUI = jest.fn();
+            Site.unblockUI = jest.fn();
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
+
+            // Action
+            await resendNotifications(dataList);
+
+            // Assert
+            promise.then(() => {
+                expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/ResendNotificationList', dataList);
+            });
+        });
+        
+        it('calls function callback', async () => {
+            // Arrange
+            const dataList = [1, 2];
+            const response = { data: {} };
+            Site.blockUI = jest.fn();
+            Site.unblockUI = jest.fn();
+            const callback = jest.fn();
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
+
+            // Action
+            await resendNotifications(dataList, callback);
+
+            // Assert
+            promise.then(() => {
+                expect(callback).toHaveBeenCalled();
+            });
+        });
+        
+        it('response is successfull', async () => {
+            // Arrange
+            const dataList = [1, 2];
+            const response = { data: {
+                message: 'message',
+                isSuccessful: true
+            } };
+            Site.blockUI = jest.fn();
+            Site.unblockUI = jest.fn();
+            const callback = jest.fn();
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
+            toast.success = jest.fn();
+
+            // Action
+            await resendNotifications(dataList, callback);
+
+            // Assert
+            promise.then(() => {
+                expect(toast.success).toHaveBeenCalledWith(response.message);
+            });
+        });
+        
+        it('response is successfull', async () => {
+            // Arrange
+            const dataList = [1, 2];
+            const response = { data: {
+                message: 'message',
+                isSuccessful: false
+            } };
+            Site.blockUI = jest.fn();
+            Site.unblockUI = jest.fn();
+            const callback = jest.fn();
+            const promise = Promise.resolve(response);
+            DataService.postDataAsync = jest.fn(() => promise);
+            toast.error = jest.fn();
+
+            // Action
+            await resendNotifications(dataList, callback);
+
+            // Assert
+            promise.then(() => {
+                expect(toast.error).toHaveBeenCalledWith(response.message);
+            });
+        });
     });
 });

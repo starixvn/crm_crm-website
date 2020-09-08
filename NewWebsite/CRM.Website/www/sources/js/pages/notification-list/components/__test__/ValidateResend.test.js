@@ -3,7 +3,7 @@ import ValidateResendWrapper, { ValidateResend } from '../ValidateResend';
 import { shallow } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
 import configureMockStore from 'redux-mock-store';
-import functions, { handleNewResendOptions } from '../../functions';
+import functions, { handleNewResendOptions, resendNotifications } from '../../functions';
 import { Modal, Button } from 'react-bootstrap';
 
 describe('ValidateResend', () => {
@@ -54,6 +54,7 @@ describe('ValidateResend', () => {
 
         it('resendNotifications runs correctly', () => {
             // Arrange
+            const promise = Promise.resolve({});
             const dataList = [];
             const props = {
                 validateResendResult: {
@@ -63,19 +64,21 @@ describe('ValidateResend', () => {
                         resendDataList: []
                     }
                 },
-                gridParams: {},
-                resendNotifications: jest.fn()
+                gridParams: {}
             };
 
             const validateResend = shallow(<ValidateResend {...props} />);
-            validateResend.instance().onClose = jest.fn()
+            validateResend.instance().onClose = jest.fn();
+            functions.resendNotifications = jest.fn(() => promise);
 
             // Action
             validateResend.instance().resendNotifications(dataList);
 
             // Assert
             expect(validateResend.instance().onClose).toHaveBeenCalled();
-            expect(props.resendNotifications).toHaveBeenCalledWith(dataList, validateResend.instance().callBackSuccess);
+            promise.then(() => {
+                expect(functions.resendNotifications).toHaveBeenCalledWith(dataList, validateResend.instance().callBackSuccess);
+            });
         });
 
         it('callBackSuccess runs correctly', () => {

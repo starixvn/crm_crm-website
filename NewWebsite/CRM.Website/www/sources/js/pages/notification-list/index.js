@@ -18,6 +18,7 @@ const store = Store.createStore(reducer, {
         isCheckedAll: false,
         isDisabledResend: true,
         isHaveResendAll: false,
+        shouldResetScrollPosition: true,
         dataList: []
     },
     settings: {

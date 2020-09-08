@@ -160,6 +160,7 @@ export class DataGrid extends Component {
             isCheckedAll: notCheckedDataList.length <= 0,
             isDisabledResend: resendList.length <= 0,
             isHaveResendAll: this.props.resendOptions.isHaveResendAll,
+            shouldResetScrollPosition: false,
             dataList
         });
     }
@@ -172,6 +173,7 @@ export class DataGrid extends Component {
             isCheckedAll: checked,
             isDisabledResend: !checked,
             isHaveResendAll: this.props.resendOptions.isHaveResendAll,
+            shouldResetScrollPosition: false,
             dataList
         }, false);
     }
@@ -212,7 +214,8 @@ export class DataGrid extends Component {
                     isPaging
                     pageOption={pagingOption}
                     onPaging={this.onPaging}
-                    containerPadding={0}
+                    containerPadding={0} 
+                    shouldResetScrollPosition={this.props.resendOptions.shouldResetScrollPosition}
                 />
             </Fragment>
         );

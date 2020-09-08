@@ -4,7 +4,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
-import { handleNewResendOptions } from '../functions';
+import { handleNewResendOptions, resendNotifications } from '../functions';
 
 export class ValidateResend extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export class ValidateResend extends Component {
 
     resendNotifications = dataList => {
         this.onClose();
-        this.props.resendNotifications(dataList, this.callBackSuccess);
+        resendNotifications(dataList, this.callBackSuccess);
     }
 
     callBackSuccess = () => {

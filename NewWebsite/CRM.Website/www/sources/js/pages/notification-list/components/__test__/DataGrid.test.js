@@ -635,6 +635,7 @@ describe('DataGrid', () => {
                         isCheckedAll: false,
                         isDisabledResend: true,
                         isHaveResendAll: true,
+                        shouldResetScrollPosition: false,
                         dataList
                     });
                 });
