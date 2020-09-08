@@ -222,7 +222,7 @@ class Filter extends Component {
                             {
                                 this.props.isHost &&
                                 <div className='col-auto'>
-                                    <Button className='mr-2' variant='primary' size='sm' onClick={this.props.openInsertPersonalMappingPopup}>
+                                    <Button className='mr-2' variant='primary' size='sm' type='submit'>
                                         {LangHelper.getResource('InsertPersonalMappingBtn')}
                                     </Button>
                                 </div>
