@@ -59,7 +59,7 @@ class Table extends Component {
 
         const { maxWidth, bodyHeight, adjustedHeight } = this.props;
         const maxWidthValue = maxWidth || clientWidth;
-``
+
         this.diffWidth = clientWidth - maxWidthValue;
         this.adjustedHeight = adjustedHeight;
 
@@ -106,7 +106,7 @@ class Table extends Component {
                 if (cell.props.colSpan) {
                     toCellInternalIndex -= 1;
                 }
-    
+
                 colspanCells.push(cell);
             }
             else {
@@ -136,30 +136,34 @@ class Table extends Component {
         for (let i = 0; i < cells.length; i++) {
             const cell = cells[i];
             if (cell) {
-                const cellProps = cell.props;
-                const colspan = Number(cellProps.colSpan);
-
-                if (colspan && colspan > 1) {
-                    const nextRowIndex = currentRowIndex + 1;
-                    if (currentNextCellIndexByRow[nextRowIndex] === undefined) {
-                        currentNextCellIndexByRow[nextRowIndex] = 0;
-                    }
-
-                    const fromNextCellIndex = currentNextCellIndexByRow[nextRowIndex];
-                    const toNextCellIndex = fromNextCellIndex + colspan - 1;
-                    const nextCells = headerRows[nextRowIndex].props.children;
-
-                    const nextColspanCells = this._getNextColspanCells(nextCells, fromNextCellIndex, toNextCellIndex);
-                    currentNextCellIndexByRow[nextRowIndex] += nextColspanCells.length;
-                    this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, nextColspanCells, nextRowIndex);
-                }
-                else {
-                    const cellWidth = cellProps.colWidth ? cellProps.colWidth : DEFAULT_COLUMN_WIDTH;
-                    columnsWidth.push(cellWidth);
-                }
+                this._handleWidthOneCell(columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex);
             }
         }
-    };
+    }
+
+    _handleWidthOneCell = (columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex) => {
+        const cellProps = cell.props;
+        const colspan = Number(cellProps.colSpan);
+
+        if (colspan && colspan > 1) {
+            const nextRowIndex = currentRowIndex + 1;
+            if (currentNextCellIndexByRow[nextRowIndex] === undefined) {
+                currentNextCellIndexByRow[nextRowIndex] = 0;
+            }
+
+            const fromNextCellIndex = currentNextCellIndexByRow[nextRowIndex];
+            const toNextCellIndex = fromNextCellIndex + colspan - 1;
+            const nextCells = headerRows[nextRowIndex].props.children;
+
+            const nextColspanCells = this._getNextColspanCells(nextCells, fromNextCellIndex, toNextCellIndex);
+            currentNextCellIndexByRow[nextRowIndex] += nextColspanCells.length;
+            this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, nextColspanCells, nextRowIndex);
+        }
+        else {
+            const cellWidth = cellProps.colWidth ? cellProps.colWidth : DEFAULT_COLUMN_WIDTH;
+            columnsWidth.push(cellWidth);
+        }
+    }
 
     _handleResize = event => {
         event && event.preventDefault();
