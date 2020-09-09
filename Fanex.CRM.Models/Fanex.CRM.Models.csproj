@@ -74,6 +74,7 @@
     <Compile Include="VerifyCustomer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.CRM.Models.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

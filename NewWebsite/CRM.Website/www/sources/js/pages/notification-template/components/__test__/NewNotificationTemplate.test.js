@@ -36,5 +36,8 @@ describe('NewNotificationTemplate', () => {
     });
 
     describe('methods', () => {
+        describe('handleSubmit', () => {
+            
+        });
     });
 });
