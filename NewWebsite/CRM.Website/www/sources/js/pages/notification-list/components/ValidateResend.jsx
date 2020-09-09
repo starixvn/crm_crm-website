@@ -57,7 +57,7 @@ export class ValidateResend extends Component {
                     }
                 </Modal.Body>
                 {
-                    isSingle && (inActiveNotificationIds.length > 0 ?
+                    (isSingle && inActiveNotificationIds.length > 0) ?
                         <Modal.Footer>
                             <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
                         </Modal.Footer> :
@@ -65,13 +65,6 @@ export class ValidateResend extends Component {
                             <Button onClick={() => this.resendNotifications(resendDataList)} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
                             <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
                         </Modal.Footer>
-                    )
-                }
-                {
-                    !isSingle && <Modal.Footer>
-                        <Button onClick={() => this.resendNotifications(resendDataList)} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
-                        <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('Cancel')}</Button>
-                    </Modal.Footer>
                 }
             </Modal>
         );

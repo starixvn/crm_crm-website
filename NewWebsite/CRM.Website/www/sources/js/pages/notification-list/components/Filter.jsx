@@ -55,7 +55,7 @@ export class Filter extends Component {
             const statusOptions = this.props.settings.statuses.map(x => {
                 return {
                     id: x,
-                    name: x,
+                    name: LangHelper.getResource(x),
                     checked: true
                 };
             });

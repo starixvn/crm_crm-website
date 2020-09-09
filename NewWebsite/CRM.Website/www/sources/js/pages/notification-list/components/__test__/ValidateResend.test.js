@@ -4,8 +4,11 @@ import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import functions, { handleNewResendOptions } from '../../functions';
 import { Modal, Button } from 'react-bootstrap';
+import LangHelper from '@jsroot/common/langHelper';
 
 describe('ValidateResend', () => {
+    LangHelper.getResource = jest.fn(value => value);
+
     describe('component with redux', () => {
         const mockStore = configureMockStore();
         const initialState = {
@@ -243,6 +246,177 @@ describe('ValidateResend', () => {
 
             // Assert
             expect(validateResend.instance().onClose).toHaveBeenCalled();
+        });
+    });
+
+    describe('render', () => {
+        LangHelper.formatString = jest.fn(value => value);
+
+        it('has regular children', () => {
+            // Arrange
+            const props = {
+                validateResendResult: {
+                    result: {
+                        inActiveNotificationIds: [],
+                        resendDataList: [],
+                    }
+                },
+                gridParams: {}
+            };
+
+            // Action
+            const validateResend = shallow(<ValidateResend {...props} />);
+
+            // Assert
+            expect(validateResend.find(Modal).props().show).toBeTrue;
+            expect(validateResend.find(Modal).props().backdrop).toBe('static');
+            expect(validateResend.find(Modal).props().keyboard).toBeFalse;
+            expect(validateResend.find(Modal).props().size).toBe('lg');
+            expect(validateResend.find(Modal).props().centered).toBeTrue;
+            expect(validateResend.find(Modal.Header).props().closeButton).toBeTrue;
+            expect(validateResend.find(Modal.Title).props().as).toBe('div');
+            expect(validateResend.find(Modal.Title).html()).toContain('ValidateResend');
+        });
+
+        describe('has Modal.Body', () => {
+            describe('isSingle', () => {
+                it('has not invalid notification ids', () => {
+                    // Arrange
+                    const props = {
+                        validateResendResult: {
+                            result: {
+                                inActiveNotificationIds: [],
+                                resendDataList: [ 1 ],
+                                isSingle: true
+                            }
+                        },
+                        gridParams: {}
+                    };
+        
+                    // Action
+                    const validateResend = shallow(<ValidateResend {...props} />);
+    
+                    // Assert
+                    expect(validateResend.find(Modal.Body).html()).toContain('ComfirmResendNotification');
+                });
+                
+                it('has invalid notification ids', () => {
+                    // Arrange
+                    const props = {
+                        validateResendResult: {
+                            result: {
+                                inActiveNotificationIds: [ 1 ],
+                                resendDataList: [],
+                                isSingle: true
+                            }
+                        },
+                        gridParams: {}
+                    };
+        
+                    // Action
+                    const validateResend = shallow(<ValidateResend {...props} />);
+    
+                    // Assert
+                    expect(validateResend.find(Modal.Body).html()).toContain('TheRecipientOfNotificationIdHasBeenInactive');
+                });
+            });
+
+            describe('not isSingle', () => {
+                it('has not invalid notification ids', () => {
+                    // Arrange
+                    const props = {
+                        validateResendResult: {
+                            result: {
+                                inActiveNotificationIds: [],
+                                resendDataList: [ 1 ],
+                                isSingle: false
+                            }
+                        },
+                        gridParams: {}
+                    };
+        
+                    // Action
+                    const validateResend = shallow(<ValidateResend {...props} />);
+    
+                    // Assert
+                    expect(validateResend.find(Modal.Body).html()).toContain('ComfirmResendNotification');
+                });
+                
+                it('has invalid notification ids', () => {
+                    // Arrange
+                    const props = {
+                        validateResendResult: {
+                            result: {
+                                inActiveNotificationIds: [ 1 ],
+                                resendDataList: [],
+                                isSingle: false
+                            }
+                        },
+                        gridParams: {}
+                    };
+        
+                    // Action
+                    const validateResend = shallow(<ValidateResend {...props} />);
+    
+                    // Assert
+                    expect(validateResend.find(Modal.Body).find('div').length).toBe(4);
+                    expect(validateResend.find(Modal.Body).find('div').at(1).html())
+                        .toContain('TheRecipientOfNotificationIdHasBeenInactive');
+                    expect(validateResend.find(Modal.Body).find('div').at(2).html())
+                        .toContain('TheSelectedNotificationsAreAbleToResend');
+                    expect(validateResend.find(Modal.Body).find('div').at(3).html())
+                        .toContain('ComfirmResendListAndIgnoreNotification');
+                });
+            });
+        });
+
+        describe('has Modal.Footer', () => {
+            it('has only OK button', () => {
+                // Arrange
+                const props = {
+                    validateResendResult: {
+                        result: {
+                            inActiveNotificationIds: [ 1 ],
+                            resendDataList: [],
+                            isSingle: true
+                        }
+                    },
+                    gridParams: {}
+                };
+    
+                // Action
+                const validateResend = shallow(<ValidateResend {...props} />);
+
+                // Assert
+                expect(validateResend.find(Modal.Footer).find(Button).html()).toContain('OK');
+                expect(validateResend.find(Modal.Footer).find(Button).props().variant).toBe('primary');
+                expect(validateResend.find(Modal.Footer).find(Button).props().size).toBe('sm');
+            });
+            
+            it('has OK and Cancel button', () => {
+                // Arrange
+                const props = {
+                    validateResendResult: {
+                        result: {
+                            inActiveNotificationIds: [],
+                            resendDataList: [ 1 ],
+                            isSingle: true
+                        }
+                    },
+                    gridParams: {}
+                };
+    
+                // Action
+                const validateResend = shallow(<ValidateResend {...props} />);
+
+                // Assert
+                expect(validateResend.find(Modal.Footer).find(Button).at(0).html()).toContain('OK');
+                expect(validateResend.find(Modal.Footer).find(Button).at(0).props().variant).toBe('primary');
+                expect(validateResend.find(Modal.Footer).find(Button).at(0).props().size).toBe('sm');
+                expect(validateResend.find(Modal.Footer).find(Button).at(1).html()).toContain('Cancel');
+                expect(validateResend.find(Modal.Footer).find(Button).at(1).props().variant).toBe('primary');
+                expect(validateResend.find(Modal.Footer).find(Button).at(1).props().size).toBe('sm');
+            });
         });
     });
 });
