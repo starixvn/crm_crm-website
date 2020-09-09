@@ -14,6 +14,7 @@ const mockStore = configureMockStore();
 const store = mockStore({});
 
 describe('AppContainer', () => {
+    LangHelper.getResource = jest.fn(value => value);
     afterEach(() => {
         jest.clearAllMocks();
     });
@@ -197,9 +198,9 @@ describe('AppContainer', () => {
             expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({ show: false });
         });
 
-        it('should calls exactly functions when delete successful', async() => {
+        it('should calls exactly functions when delete successful', async () => {
             // Arrange
-            const promise = Promise.resolve({isSuccessful: true, message: '' });
+            const promise = Promise.resolve({ isSuccessful: true, message: '' });
             const props = {
                 deleteNotificationTypePopup: { notificationTypeId: 1 },
                 deleteNotificationType: jest.fn(() => promise),
@@ -223,10 +224,9 @@ describe('AppContainer', () => {
 
         });
 
-         
         it('should calls toast.error when delete unsuccessful', async () => {
             // Arrange
-            const promise = Promise.resolve({isSuccessful: false, message: 'unsuccessful' });
+            const promise = Promise.resolve({ isSuccessful: false, message: 'unsuccessful' });
             const props = {
                 deleteNotificationTypePopup: { notificationTypeId: 1 },
                 deleteNotificationType: jest.fn(() => promise),
@@ -236,7 +236,6 @@ describe('AppContainer', () => {
                 editNotificationTypePopup: {}
             };
             const container = shallow(<AppContainer {...props} />).instance();
-            container.handleCloseDeletePopup = jest.fn();
 
             // Act
             container.handleDelete();
@@ -296,7 +295,7 @@ describe('AppContainer', () => {
             // Assert
             expect(appContainer.find(ConfirmPopup).length).toBe(1);
             expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
-            expect(appContainer.find(ConfirmPopup).props().title).toEqual(LangHelper.getResource('Confirmation'));
+            expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
         });
     });
 });

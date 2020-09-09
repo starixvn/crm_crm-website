@@ -11,6 +11,7 @@ describe('DataGrid', () => {
     describe('component with redux', () => {
 
         beforeEach(() => {
+            LangHelper.getResource = jest.fn(value => value);
             const appContainer = document.createElement('div');
             appContainer.setAttribute('id', 'app-container');
             document.body.appendChild(appContainer);
@@ -70,7 +71,7 @@ describe('DataGrid', () => {
                 const dataGrid = shallow(<DataGrid {...props} />);
 
                 // Assert
-                expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">${LangHelper.getResource('NotificationType')}</div>`);
+                expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">NotificationType</div>`);
             });
 
             it('contains table having correct props', () => {
@@ -302,13 +303,13 @@ describe('DataGrid', () => {
                 const dataGrid = shallow(<DataGrid {...props} />);
                 const expectedHeader =
                     <HeaderRow>
-                        <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
-                        <HeaderCell colWidth={20}>{LangHelper.getResource('NotificationType')}</HeaderCell>
-                        <HeaderCell colWidth={20}>{LangHelper.getResource('RecipientType')}</HeaderCell>
-                        <HeaderCell colWidth={20}>{LangHelper.getResource('ChatType')}</HeaderCell>
-                        <HeaderCell colWidth={20}>{LangHelper.getResource('System')}</HeaderCell>
+                        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
+                        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
+                        <HeaderCell colWidth={20}>RecipientType</HeaderCell>
+                        <HeaderCell colWidth={20}>ChatType</HeaderCell>
+                        <HeaderCell colWidth={20}>System</HeaderCell>
                         {
-                            isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
+                            isHost && <HeaderCell colWidth={10}>{'Action'}</HeaderCell>
                         }
                     </HeaderRow>;
 
@@ -332,7 +333,7 @@ describe('DataGrid', () => {
                 const isHost = true;
 
                 const dataGrid = shallow(<DataGrid {...props} />);
-                const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+                const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>ThereIsNoData</Cell></Row>];
 
                 // Action
                 const body = dataGrid.instance().buildBody(isHost);
@@ -345,7 +346,7 @@ describe('DataGrid', () => {
                 return <div key={index}>{isHost}</div>;
             }
 
-            function BodyHasData(isHost) {
+            function testBodyHasData(isHost) {
                 it('build body has data', () => {
                     // Arrange
                     const props = {
@@ -372,8 +373,8 @@ describe('DataGrid', () => {
                 });
             }
 
-            BodyHasData(true);
-            BodyHasData(false);
+            testBodyHasData(true);
+            testBodyHasData(false);
         });
 
         describe('renderRow', () => {

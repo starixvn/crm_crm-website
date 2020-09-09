@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { NewNotificationType } from '../NewNotificationType';
+import NewNotificationTypeWrapper, { NewNotificationType } from '../NewNotificationType';
 import { shallow, mount } from 'enzyme';
 import MultipleSelect from '../../../../components/multiple-select/index';
 import configureMockStore from 'redux-mock-store';
@@ -9,26 +9,37 @@ import { Formik } from 'formik';
 import LangHelper from '@jsroot/common/langHelper';
 
 const mockStore = configureMockStore();
-const store = mockStore({});
 
 describe('NewNotificationType', () => {
+    beforeAll(() => {
+        LangHelper.getResource = jest.fn((key) => key);
+    });
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    it('render component correctly', () => {
-        // Arrange
-        const props = {
+    describe('redux connect', () => {
+        //Arrange
+        const initialState = {
             createNotificationTypeResult: {},
             settings: {},
             getSettings: {}
         };
+        const store = mockStore(initialState);
 
         //Act
-        const container = shallow(<NewNotificationType {...props} />);
+        const wrapper = shallow(<NewNotificationTypeWrapper store={store} />);
 
-        //Asert
-        expect(container).toMatchSnapshot();
+        //Assert
+        it('component render correctly', () => {
+            expect(wrapper).toMatchSnapshot();
+        });
+
+        it('component has correct props', () => {
+            expect(wrapper.props().children.props.createNotificationTypeResult).toEqual(initialState.createNotificationTypeResult);
+            expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
+            expect(wrapper.props().children.props.getSettings).toEqual(initialState.getSettings);
+        });
     });
 
     it('renders Modal, Formik components', () => {
@@ -87,7 +98,7 @@ describe('NewNotificationType', () => {
             createNotificationTypeResult: {
                 show: true,
                 isSuccessful: false,
-                message: '' || LangHelper.getResource('InsertNotificationTypeSuccessfully')
+                message: '' || 'InsertNotificationTypeSuccessfully'
             },
             settings: {
                 recipientTypes: [],
@@ -107,28 +118,29 @@ describe('NewNotificationType', () => {
         expect(responseMessage.props().message).toBe(props.createNotificationTypeResult.message);
     });
 
-    describe('handleSubmit',() => {
-        it('submit success', async ()=> {
+    describe('handleSubmit', () => {
+        it('handleSubmit run correctly when submit success', () => {
             //Arrange
+            const secondParam = {
+                setSubmitting: jest.fn()
+            };
             const props = {
-                createNotificationType: jest.fn(() => Promise.resolve({})),
-                handleSubmit: jest.fn()
+                createNotificationType: jest.fn(() => Promise.resolve())
             }
-
             const values = {
-                notificationTypeName: 'test',
-                chatTypeIds: '1',
-                recipientTypeIds: '1',
-                systemId: '1'
+                notificationTypeName: '',
+                chatTypeIds: '',
+                recipientTypeIds: '',
+                systemId: ''
             }
-
             const container = shallow(<NewNotificationType {...props} />).instance();
 
             //Act
-            //container.handleSubmit(values, true);
+            container.handleSubmit(values, secondParam);
 
-            //Assert
-            //expect(props.createNotificationType).toHaveBeenCalledTimes(1);
+            // Assert
+            expect(secondParam.setSubmitting).toHaveBeenCalledTimes(1);
+            expect(props.createNotificationType).toHaveBeenCalledTimes(1);
         });
     });
 });
