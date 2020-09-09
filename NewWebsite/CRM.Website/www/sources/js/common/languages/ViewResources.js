@@ -53,6 +53,7 @@
     NotificationTypeRequired: 'Notification Type is required!',
     OK: 'OK',
     PleaseChoose: 'Please Choose',
+    PleaseChooseStatus: 'Please Choose Status',
     PleaseSelect: 'Please select ...',
     Reason: 'Reason',
     Recipient: 'Recipient',

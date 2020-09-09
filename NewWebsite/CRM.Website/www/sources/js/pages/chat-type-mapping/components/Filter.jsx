@@ -7,6 +7,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import MultipleSelect from '../../../components/multiple-select/index';
 import InsertPersonalMappingPopup from './InsertPersonalMappingPopup';
+import { toast } from 'react-toastify';
 
 class Filter extends Component {
     constructor(props) {
@@ -82,25 +83,7 @@ class Filter extends Component {
         };
     }
 
-    isValidParams = () => {
-        let isValid = true;
-        let errMsg;
-        const filter = this.state.filter;
-
-        if (filter.mappingStatuses === '') {
-            isValid = false;
-            errMsg = 'Please choose Status';
-        }
-
-        this.setState({
-            validation: {
-                isValid: isValid,
-                errMsg: errMsg
-            }
-        });
-
-        return isValid;
-    }
+    isValidParams = () => this.state.filter.mappingStatuses !== '';
 
     submitHandler = e => {
         e.preventDefault();
@@ -108,16 +91,13 @@ class Filter extends Component {
             const params = this.getParams();
             this.props.setGridParams(params);
             this.props.getGridData(params);
+        } else {
+            toast.error(LangHelper.getResource('PleaseChooseStatus'));
         }
     }
 
-    renderOptions = (item, key) => {
-        return (
-            <option key={key} value={item.id}>
-                {item.name}
-            </option>
-        );
-    }
+    renderOptions = (item, key) => <option key={key} value={item.id}>{item.name}</option>;
+
     render() {
         return (
             <Fragment>
