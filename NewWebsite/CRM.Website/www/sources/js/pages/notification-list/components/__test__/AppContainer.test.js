@@ -82,7 +82,7 @@ describe('AppContainer', () => {
     });
 
     describe('render', () => {
-        it('has regular child', () => {
+        it('has regular children', () => {
             // Arrange
             const props = {
                 contentPopup: {},

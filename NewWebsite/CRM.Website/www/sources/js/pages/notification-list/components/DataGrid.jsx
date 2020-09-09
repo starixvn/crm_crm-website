@@ -5,7 +5,7 @@ import { ActionCreators } from '../actions/index';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
 import { Form } from 'react-bootstrap';
-import { handleNewResendOptions, getHeadlines, getRecipients } from '../functions';
+import functions from '../functions';
 import { PAGING_SIZES } from '@jsroot/common/constants';
 
 export class DataGrid extends Component {
@@ -22,7 +22,7 @@ export class DataGrid extends Component {
 
     getGridData = params => {
         this.props.setGridParams(params);
-        this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.getGridData(params, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
     }
 
     buildHeader = isHost => {
@@ -115,8 +115,8 @@ export class DataGrid extends Component {
                 <div>{item.sendDateString}</div>
                 <div>{item.sendTimeString}</div>
             </Cell>
-            <Cell className='text-center'>{getHeadlines(item.headlines)}</Cell>
-            <Cell className='text-center'>{getRecipients(item.recipients)}</Cell>
+            <Cell className='text-center'>{functions.getHeadlines(item.headlines)}</Cell>
+            <Cell className='text-center'>{functions.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
             <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{item.status}</Cell>
             {
@@ -174,7 +174,7 @@ export class DataGrid extends Component {
             isHaveResendAll: this.props.resendOptions.isHaveResendAll,
             shouldResetScrollPosition: false,
             dataList
-        }, false);
+        });
     }
 
     resendNotificationAll = () => {

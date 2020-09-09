@@ -12,6 +12,8 @@ import { Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 describe('Filter', () => {
+    LangHelper.getResource = jest.fn(value => value);
+
     describe('component with redux', () => {
         // Arrange
         const mockStore = configureMockStore();
@@ -44,7 +46,9 @@ describe('Filter', () => {
 
     it('component has correct initialState', () => {
         // Arrange
-        const now = new Date(DateTimeService.toShortDateFormat(DateTimeService.toClientDateTime(new Date())));
+        const date = '09/09/2020';
+        DateTimeService.toShortDateFormat = jest.fn(() => date);
+        const now = new Date(date);
         const initialState = {
             filter: {
                 notificationTypes: '',
@@ -74,7 +78,7 @@ describe('Filter', () => {
             },
             headlineOptions: {},
             recipientOptions: {},
-            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            getSettings: jest.fn(() => Promise.resolve({}))
         };
 
         // Action
@@ -87,6 +91,8 @@ describe('Filter', () => {
     it('componentDidMount runs correctly', async () => {
         // Arrange
         functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
+        const notificationTypeId = 1;
+        const status = 'Error';
         const promise = Promise.resolve({});
         const params = {
             value: 'value'
@@ -98,11 +104,11 @@ describe('Filter', () => {
             settings: {
                 notificationTypes: [
                     {
-                        notificationTypeId: 1,
+                        notificationTypeId: notificationTypeId,
                         notificationTypeName: 'name1'
                     }
                 ],
-                statuses: ['Error']
+                statuses: [status]
             },
             headlineOptions: {},
             recipientOptions: {},
@@ -111,6 +117,22 @@ describe('Filter', () => {
             getGridData: jest.fn((params, callback) => callback([]))
         };
 
+        const notificationTypeOptions = props.settings.notificationTypes.map(x => {
+            return {
+                id: x.notificationTypeId,
+                name: x.notificationTypeName,
+                checked: true
+            };
+        });
+
+        const statusOptions = props.settings.statuses.map(x => {
+            return {
+                id: x,
+                name: x,
+                checked: true
+            };
+        });
+
         // Action
         const filter = shallow(<Filter {...props} />);
         filter.instance().getParams = jest.fn().mockReturnValue(params);
@@ -118,55 +140,56 @@ describe('Filter', () => {
         // Assert
         expect(props.getSettings).toHaveBeenCalled();
         promise.then(() => {
+            expect(filter.instance().state.notificationTypeOptions).toEqual(notificationTypeOptions);
+            expect(filter.instance().state.statusOptions).toEqual(statusOptions);
+            expect(filter.instance().state.filter.notificationTypes).toEqual(notificationTypeId.toString());
+            expect(filter.instance().state.filter.statuses).toEqual(status.toString());
             expect(props.setGridParams).toHaveBeenCalledWith(params);
             expect(props.getGridData).toHaveBeenCalledWith({ ...params }, expect.any(Function));
         });
     });
 
-    describe('handleFilterChange', () => {
-        it('handleFilterChange runs correctly', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
-    
-            const filter = shallow(<Filter {...props} />);
+    it('handleFilterChange runs correctly', () => {
+        // Arrange
+        const value = 'value';
+        const props = {
+            gridParams: {},
+            invalidParams: {},
+            settings: {},
+            headlineOptions: {},
+            recipientOptions: {},
+            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+        };
 
-            // Action
-            filter.instance().handleFilterChange('name', 'value');
+        const filter = shallow(<Filter {...props} />);
 
-            // Assert
-            expect(filter.instance().state.filter.name).toBe('value');
-        });
+        // Action
+        filter.instance().handleFilterChange('name', value);
+
+        // Assert
+        expect(filter.instance().state.filter.name).toBe(value);
     });
 
-    describe('handleNotificationTypeChange', () => {
-        it('handleNotificationTypeChange call handleFilterChange', () => {
-            // Arrange
-            const expected = 'selectedItemsKey';
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
-    
-            const filter = shallow(<Filter {...props} />);
-            filter.instance().handleFilterChange = jest.fn();
+    it('handleNotificationTypeChange call handleFilterChange', () => {
+        // Arrange
+        const expected = 'selectedItemsKey';
+        const props = {
+            gridParams: {},
+            invalidParams: {},
+            settings: {},
+            headlineOptions: {},
+            recipientOptions: {},
+            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+        };
 
-            // Action
-            filter.instance().handleNotificationTypeChange(null, expected);
+        const filter = shallow(<Filter {...props} />);
+        filter.instance().handleFilterChange = jest.fn();
 
-            // Assert
-            expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('notificationTypes', expected);
-        });
+        // Action
+        filter.instance().handleNotificationTypeChange(null, expected);
+
+        // Assert
+        expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('notificationTypes', expected);
     });
 
     describe('handleFromDateChange', () => {
@@ -730,8 +753,6 @@ describe('Filter', () => {
     });
 
     describe('isValidateParams', () => {
-        LangHelper.getResource = jest.fn(value => value);
-
         it('isValidateParams returns true', () => {
             // Arrange
             const params = {
@@ -1003,7 +1024,219 @@ describe('Filter', () => {
         });
     });
 
-    describe('component render correctly', () => {
+    describe('render', () => {
+        it('has regular children', () => {           
+            // Arrange
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            };
+
+            const initialState = {
+                notificationTypeOptions: [ 1 ],
+                statusOptions: [ 'Error' ],
+                maxDate: new Date(),
+                minToDate: new Date(),
+                maxToDate: new Date(),
+                filter: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    headline: {
+                        value: 'headline',
+                    },
+                    recipient: {
+                        value: 'recipient'
+                    },
+                    messageID: 1,
+                    notificationIdLower: 1,
+                    notificationIdUpper: 1,
+                    content: 'content'
+                }
+            };
+    
+            // Action
+            const filter = shallow(<Filter {...props} />);
+            filter.instance().setState(initialState);
+            filter.instance().isDisabledDateParam = jest.fn().mockReturnValue(false);
+
+            // Assert
+            expect(filter.find(Form).props().className).toBe('form-filter');
+            expect(filter.find(Form.Row).props().bsPrefix).toBe('form-row');
+            expect(filter.find(Form.Group).at(0).find(Form.Label).html()).toContain('NotificationType');
+            expect(filter.find(Form.Group).at(0).find('div').props().className).toBe('form-control-wrapper');
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().id).toBe('notification-type');
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().dataSource)
+                .toEqual(initialState.notificationTypeOptions);
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().keyField).toBe('id');
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().statusField).toBe('checked');
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().isSummited).toBeFalse;
+            expect(filter.find(Form.Group).at(0).find('div').find(MultipleSelect).props().isAllTextShown).toBeTrue;
+            expect(filter.find(Form.Group).at(1).find(Form.Label).html()).toContain('From');
+            expect(filter.find(Form.Group).at(1).find('div').props().className)
+                .toBe('react-datepicker-wrapper-container form-control-wrapper');
+            expect(filter.find(Form.Group).at(1).find('div').find(DatePicker).props().disabled).toBeFalse;
+            expect(filter.find(Form.Group).at(1).find('div').find(DatePicker).props().maxDate).toEqual(initialState.maxDate);
+            expect(filter.find(Form.Group).at(1).find('div').find(DatePicker).props().selected).toEqual(initialState.filter.fromDate);
+            expect(filter.find(Form.Group).at(2).find(Form.Label).html()).toContain('To');
+            expect(filter.find(Form.Group).at(2).find('div').props().className)
+                .toBe('react-datepicker-wrapper-container form-control-wrapper');
+            expect(filter.find(Form.Group).at(2).find('div').find(DatePicker).props().disabled).toBeFalse;
+            expect(filter.find(Form.Group).at(2).find('div').find(DatePicker).props().minDate).toEqual(initialState.minToDate);
+            expect(filter.find(Form.Group).at(2).find('div').find(DatePicker).props().maxDate).toEqual(initialState.maxToDate);
+            expect(filter.find(Form.Group).at(2).find('div').find(DatePicker).props().selected).toEqual(initialState.filter.toDate);
+            expect(filter.find(Form.Group).at(3).find(Form.Label).html()).toContain('GroupHeadline');
+            expect(filter.find(Form.Group).at(3).find('div').props().className).toBe('form-control-wrapper');
+            expect(filter.find(Form.Group).at(3).find('div').find(SelectWithSearch).props().className).toBe('basic-single');
+            expect(filter.find(Form.Group).at(3).find('div').find(SelectWithSearch).props().name).toBe('headline');
+            expect(filter.find(Form.Group).at(3).find('div').find(SelectWithSearch).props().options).toEqual(props.headlineOptions);
+            expect(filter.find(Form.Group).at(3).find('div').find(SelectWithSearch).props().value).toEqual(initialState.filter.headline);
+            expect(filter.find(Form.Group).at(4).find(Form.Label).html()).toContain('Recipient');
+            expect(filter.find(Form.Group).at(4).find('div').props().className).toBe('form-control-wrapper');
+            expect(filter.find(Form.Group).at(4).find('div').find(SelectWithSearch).props().className).toBe('basic-single');
+            expect(filter.find(Form.Group).at(4).find('div').find(SelectWithSearch).props().name).toBe('recipient');
+            expect(filter.find(Form.Group).at(4).find('div').find(SelectWithSearch).props().options).toEqual(props.recipientOptions);
+            expect(filter.find(Form.Group).at(4).find('div').find(SelectWithSearch).props().value).toEqual(initialState.filter.recipient);
+            expect(filter.find(Form.Group).at(5).find(Form.Label).html()).toContain('MessageID');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().as).toBe('input');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().type).toBe('text');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().pattern).toBe('[0-9]*');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().className).toBe('shadow-none');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().name).toBe('messageID');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().value).toBe(initialState.filter.messageID);
+            expect(filter.find(Form.Group).at(6).find(Form.Label).html()).toContain('NotificationID');
+            expect(filter.find(Form.Group).at(6).find('div').at(0).props().className)
+                .toBe('form-control-wrapper d-flex align-items-center notification-id-container');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().as).toBe('input');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().type).toBe('text');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().pattern).toBe('[0-9]*');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().size).toBe('sm');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().name).toBe('notificationIdLower');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().value)
+                .toEqual(initialState.filter.notificationIdLower);
+            expect(filter.find(Form.Group).at(6).find('div').at(1).html())
+                .toEqual('<div class="notification-concate text-center">-</div>');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().as).toBe('input');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().type).toBe('text');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().pattern).toBe('[0-9]*');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().size).toBe('sm');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().name).toBe('notificationIdUpper');
+            expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().value)
+                .toEqual(initialState.filter.notificationIdUpper)
+            expect(filter.find(Form.Group).at(7).find(Form.Label).html()).toContain('Content');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().as).toBe('input');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().type).toBe('text');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().size).toBe('sm');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().className).toBe('shadow-none');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().name).toBe('content');
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().value)
+                .toEqual(initialState.filter.content);
+            expect(filter.find(Form.Group).at(8).find(Form.Label).html()).toContain('Status');
+            expect(filter.find(Form.Group).at(8).find('div').props().className).toBe('form-control-wrapper');
+            expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().dataSource)
+                .toEqual(initialState.statusOptions);
+            expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().keyField).toBe('id');
+            expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().statusField).toBe('checked');
+            expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().isSummited).toBeFalse;
+            expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().isAllTextShown).toBeTrue;
+            expect(filter.find(Form.Group).at(9).find(Button).html()).toContain('Submit');
+            expect(filter.find(Form.Group).at(9).find(Button).props().variant).toBe('primary');
+            expect(filter.find(Form.Group).at(9).find(Button).props().size).toBe('sm');
+        });
+
+        describe('has Form.Group 6', () => {  
+            describe('has Form.Control 0', () => {
+                it('has correct valid className', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        invalidParams: {
+                            isInvalidNotificationIdLower: false
+                        },
+                        settings: {},
+                        headlineOptions: {},
+                        recipientOptions: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+            
+                    // Action
+                    const filter = shallow(<Filter {...props} />);
+        
+                    // Assert
+                    expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().className)
+                        .toBe('shadow-none valid-input notification-id-input');
+                });
+
+                it('has correct invalid className', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        invalidParams: {
+                            isInvalidNotificationIdLower: true
+                        },
+                        settings: {},
+                        headlineOptions: {},
+                        recipientOptions: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+            
+                    // Action
+                    const filter = shallow(<Filter {...props} />);
+        
+                    // Assert
+                    expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().className)
+                        .toBe('shadow-none invalid-input notification-id-input');
+                });
+            });
+            
+            describe('has Form.Control 1', () => {
+                it('has correct valid className', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        invalidParams: {
+                            isInvalidNotificationIdUpper: false
+                        },
+                        settings: {},
+                        headlineOptions: {},
+                        recipientOptions: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+            
+                    // Action
+                    const filter = shallow(<Filter {...props} />);
+        
+                    // Assert
+                    expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().className)
+                        .toBe('shadow-none valid-input notification-id-input');
+                });
+
+                it('has correct invalid className', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        invalidParams: {
+                            isInvalidNotificationIdUpper: true
+                        },
+                        settings: {},
+                        headlineOptions: {},
+                        recipientOptions: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+            
+                    // Action
+                    const filter = shallow(<Filter {...props} />);
+        
+                    // Assert
+                    expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().className)
+                        .toBe('shadow-none invalid-input notification-id-input');
+                });
+            });
+        });
+
         it('notification types MultipleSelect change correctly', () => {            
             // Arrange
             const currentItem = 'currentItem';
