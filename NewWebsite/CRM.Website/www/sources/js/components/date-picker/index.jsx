@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import DatePicker from 'react-datepicker';
+import { Form } from 'react-bootstrap';
 
 export default class DatePickerField extends React.Component {
     constructor(props) {
@@ -9,7 +10,11 @@ export default class DatePickerField extends React.Component {
     openDatepicker = () => this._calendar.setOpen(true);
 
     render() {
-        const { className, ...rest } = this.props;
+        const { className, disabled, ...rest } = this.props;
+        const ExampleCustomInput = ({ value, onClick }) => (
+            <Form.Control as='input' readOnly disabled={disabled} onClick={onClick} value={value} />
+        );
+
         return (
             <React.Fragment>
                 <DatePicker
@@ -18,6 +23,7 @@ export default class DatePickerField extends React.Component {
                     timeFormat='hh:mm aa'
                     timeIntervals={5}
                     ref={c => this._calendar = c}
+                    customInput={<ExampleCustomInput />}
                     {...rest}
                 />
                 <i className='date-picker-icon fa fa-calendar' onClick={this.openDatepicker} />

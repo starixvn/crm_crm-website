@@ -142,3 +142,15 @@
         width: 100% !important;
     }
 }
+
+.react-datepicker__input-container {
+    input:read-only {
+        background-color: $white;
+    }
+}
+
+.react-datepicker__input-container {
+    .form-control:disabled {
+        background-color: $bg-table-title-grey;
+    }
+}
