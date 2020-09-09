@@ -296,28 +296,42 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    gridData: {}
                 };
-                const isHost = true;
 
                 const dataGrid = shallow(<DataGrid {...props} />);
-                const expectedHeader =
-                    <HeaderRow>
-                        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
-                        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
-                        <HeaderCell colWidth={20}>RecipientType</HeaderCell>
-                        <HeaderCell colWidth={20}>ChatType</HeaderCell>
-                        <HeaderCell colWidth={20}>System</HeaderCell>
-                        {
-                            isHost && <HeaderCell colWidth={10}>{'Action'}</HeaderCell>
-                        }
-                    </HeaderRow>;
 
                 // Action
-                const header = dataGrid.instance().buildHeader(isHost);
+                const header = shallow(dataGrid.instance().buildHeader());
 
                 // Assert
-                expect(header).toEqual(expectedHeader);
+                expect(header.find(HeaderCell).at(0).props().colWidth).toBe(5);
+                expect(header.find(HeaderCell).at(0).html()).toContain('SymbolNo');
+                expect(header.find(HeaderCell).at(1).props().colWidth).toBe(20);
+                expect(header.find(HeaderCell).at(1).html()).toContain('NotificationType');
+                expect(header.find(HeaderCell).at(2).props().colWidth).toBe(20);
+                expect(header.find(HeaderCell).at(2).html()).toContain('RecipientType');
+                expect(header.find(HeaderCell).at(3).props().colWidth).toBe(20);
+                expect(header.find(HeaderCell).at(3).html()).toContain('ChatType');
+                expect(header.find(HeaderCell).at(4).props().colWidth).toBe(20);
+                expect(header.find(HeaderCell).at(4).html()).toContain('System');
+            });
+
+            it('should show action when isHost true', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    gridData: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+    
+                // Action
+                const header = shallow(dataGrid.instance().buildHeader(true));
+                
+                // Assert
+                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(5).html()).toContain('Action');
             });
         });
 

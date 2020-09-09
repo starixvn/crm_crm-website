@@ -39,7 +39,6 @@ describe('EditNotificationType', () => {
             expect(wrapper.props().children.props.editNotificationTypePopup).toEqual(initialState.editNotificationTypePopup);
             expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
             expect(wrapper.props().children.props.getSettings).toEqual(initialState.getSettings);
-
         });
     });
 
@@ -99,6 +98,49 @@ describe('EditNotificationType', () => {
         // Assert
         expect(responseMessage.props().isSuccessful).toBe(props.editNotificationTypeResult.isSuccessful);
         expect(responseMessage.props().message).toBe(props.editNotificationTypeResult.message);
+    });
+
+    it('componentDidMount runs correctly', async () => {
+        // Arrange
+        const props = {
+            editNotificationTypeResult: {},
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            gridParams: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: [],
+            },
+            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+        };
+
+        const recipientTypesOptions = props.settings.recipientTypes.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: props.editNotificationTypePopup.recipientTypes.some(y => y.recipientTypeId === x.id) ? true : false
+            };
+        });
+
+        const chatTypesOptions = props.settings.chatTypes.map(x => {
+            return {
+                id: x.id,
+                name: x.name,
+                checked: true
+            };
+        });
+
+        // Action
+        const filter = shallow(<EditNotificationType {...props} />);
+
+        // Assert
+        expect(filter.instance().state.recipientTypesOptions).toEqual(recipientTypesOptions);
+        expect(filter.instance().state.chatTypesOptions).toEqual(chatTypesOptions);
     });
 
     describe('handleSubmit', () => {
