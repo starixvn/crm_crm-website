@@ -9,42 +9,12 @@ import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
+import { renderSystemOption, validateFormik } from '../common.functions';
 
 export class NewNotificationType extends Component {
     constructor(props) {
         super(props);
     }
-
-    validate = values => {
-        const errors = {};
-
-        if (!values.notificationTypeName || values.notificationTypeName.trim().length === 0) {
-            errors.notificationTypeName = LangHelper.getResource('NotificationTypeNameRequired');
-        } else {
-            if (values.notificationTypeName.trim().length > 500) {
-                errors.notificationTypeName = LangHelper.formatString(
-                    LangHelper.getResource('FieldMaxLength'),
-                    LangHelper.getResource('NotificationTypeName'),
-                    500);
-            }
-        }
-
-        if (!values.recipientTypeIds) {
-            errors.recipientTypeIds = LangHelper.getResource('RecipientTypeRequired');
-        }
-
-        if (!values.chatTypeIds) {
-            errors.chatTypeIds = LangHelper.getResource('ChatTypeRequired');
-        }
-
-        if (!values.systemId) {
-            errors.systemId = LangHelper.getResource('SystemRequired');
-        }
-
-        return errors;
-    }
-
-    renderSystemOption = item => <option key={item.id} value={item.id} >{item.name}</option>
 
     renderForm = ({
         values,
@@ -129,7 +99,7 @@ export class NewNotificationType extends Component {
                                 value={values.systemId}
                             >
                                 <option value="" hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.props.settings.systems.map(this.renderSystemOption)}
+                                {this.props.settings.systems.map(renderSystemOption)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -184,7 +154,7 @@ export class NewNotificationType extends Component {
                 </Modal.Header>
                 <Formik
                     initialValues={initialValues}
-                    validate={this.validate}
+                    validate={values => validateFormik(values)}
                     onSubmit={this.handleSubmit}
                 >
                     {this.renderForm}
