@@ -156,7 +156,7 @@
         public async Task<BaseResult> PushRoomAsync(string chatroomToken, string message, DateTime? expiredTime = null)
         {
             var result = await restClientService.ExecutePostAsync<BaseResult>(
-               $"bot/push_chatroom/{botConfig}",
+               $"bot/push_chatroom/{botConfig.BotAccountId}",
                new Dictionary<string, object>
                {
                     { "receiver", chatroomToken },

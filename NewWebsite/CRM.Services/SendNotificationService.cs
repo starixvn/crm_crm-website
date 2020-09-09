@@ -17,7 +17,7 @@
         private readonly IBaseService baseService;
         private readonly IWriteLogService writeLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
-        private const int ItemEachBatch = 10;
+        private const int ItemEachBatch = 2;
 
         public SendNotificationService(IBaseService baseService,
             IWriteLogService writeLogService,
@@ -141,7 +141,18 @@
 
         private async Task<IEnumerable<NotificationMessage>> GetNotificationToSend()
         {
-            return await baseService.GetDataAsync<NotificationMessage>(new GetNotificationToSendCriteria());
+            const string content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+            var fakeData = new List<NotificationMessage>
+            {
+                new NotificationMessage {NotifcationId = 2, BotId = 100020, ChatTypeId = 1, Content = content,
+                    LetstalkConversationId = "3W2udQKHWMAa6igDias-EL7r-bj8iLdsLXU7K0Fq26Fh0X5VFI9bstzPDnZfF2lk"},
+                new NotificationMessage {NotifcationId = 4, BotId = 100020, ChatTypeId = 2, Content = content,
+                    LetstalkConversationId = "t381023"}
+            };
+
+            return fakeData;
+            //return await baseService.GetDataAsync<NotificationMessage>(new GetNotificationToSendCriteria());
         }
     }
 }
