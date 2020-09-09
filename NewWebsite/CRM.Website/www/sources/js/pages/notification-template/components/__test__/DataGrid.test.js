@@ -86,7 +86,7 @@ describe('DataGrid', () => {
 
     describe('methods', () => {
         describe('onPaging', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const props = {
                     gridParams: { pageSize: 100, pageIndex: 1 },
@@ -110,7 +110,7 @@ describe('DataGrid', () => {
         });
 
         describe('handleEdit', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const props = {
                     gridParams: { pageSize: 100, pageIndex: 1 },
@@ -132,7 +132,7 @@ describe('DataGrid', () => {
         });
 
         describe('handleViewContent', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const props = {
                     gridParams: { pageSize: 100, pageIndex: 1 },
@@ -154,7 +154,7 @@ describe('DataGrid', () => {
         });
 
         describe('handleDelete', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const props = {
                     gridParams: { pageSize: 100, pageIndex: 1 },
@@ -175,47 +175,111 @@ describe('DataGrid', () => {
         });
 
         describe('buildHeader', () => {
-            const props = {
-                gridParams: { pageSize: 100, pageIndex: 1 },
-                gridData: {
-                    totalItems: 1,
-                    data: []
-                }
-            };
-            //it('should render header correctly when isHost = false', () => {
-            //    // Arrange
-            //    const container = shallow(<DataGrid {...props} />).instance();
-            //    const expected = JSON.stringify(<HeaderRow>
-            //        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
-            //        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
-            //        <HeaderCell colWidth={20}>TemplateName</HeaderCell>
-            //        <HeaderCell colWidth={100}>Title/Content</HeaderCell>
-            //    </HeaderRow>);
+            it('should render expected header when isHost = false', () => {
+                // Arrange
+                const container = shallow(<DataGrid />).instance();
 
-            //    // Act
-            //    const header = container.buildHeader(false);
+                // Act
+                const header = shallow(container.buildHeader(false));
 
-            //    // Assert
-            //    expect(JSON.stringify(header)).toEqual(expected);
-            //});
+                // Assert
+                expect(header.find(HeaderCell).length).toBe(4);
+            });
 
-            //it('should render header correctly when isHost = true', () => {
-            //    // Arrange
-            //    const container = shallow(<DataGrid {...props} />).instance();
-            //    const expected = JSON.stringify(<HeaderRow>
-            //        <HeaderCell colWidth={5}>SymbolNo</HeaderCell>
-            //        <HeaderCell colWidth={20}>NotificationType</HeaderCell>
-            //        <HeaderCell colWidth={20}>TemplateName</HeaderCell>
-            //        <HeaderCell colWidth={100}>Title/Content</HeaderCell>
-            //        <HeaderCell colWidth={10}>Action</HeaderCell>
-            //    </HeaderRow>);
+            it('should render expected header when isHost = true', () => {
+                // Arrange
+                // Arrange
+                const container = shallow(<DataGrid />).instance();
 
-            //    // Act
-            //    const header = container.buildHeader(true);
+                // Act
+                const header = shallow(container.buildHeader(true));
 
-            //    // Assert
-            //    expect(JSON.stringify(header)).toEqual(expected);
-            //});
+                // Assert
+                expect(header.find(HeaderCell).length).toBe(5);
+            });
+        });
+
+        describe('buildBody', () => {
+            it('should render no data when gridData is empty', () => {
+                // Arrange
+                const props = {
+                    gridParams: { pageSize: 100, pageIndex: 1 },
+                    gridData: {
+                        totalItems: 1,
+                        data: []
+                    }
+                };
+                const container = shallow(<DataGrid {...props} />).instance();
+
+                // Act
+                const actual = container.buildBody(true);
+
+                // Assert
+                expect(actual).toEqual([<Row key={`body${1}`} className="no-data"><Cell colSpan="5">ThereIsNoData</Cell></Row>]);
+            });
+
+            it('should render expected rows when gridData has data', () => {
+                // Arrange
+                const props = {
+                    gridParams: { pageSize: 100, pageIndex: 1 },
+                    gridData: {
+                        totalItems: 1,
+                        data: [{ notificationTemplateId: 1 }]
+                    }
+                };
+                const container = shallow(<DataGrid {...props} />).instance();
+                container.renderRow = jest.fn(() => <div />);
+
+                // Act
+                const actual = container.buildBody(true);
+
+                // Assert
+                expect(actual).toEqual([<div />]);
+            });
+        });
+
+        describe('renderRow', () => {
+            it('should render expected row when isHost = false', () => {
+                // Arrange
+                const item = {
+                    notificationTemplateId: 1, notificationTypeName: 'type',
+                    notificationTemplateName: 'name', title: 'title'
+                };
+                const container = shallow(<DataGrid />).instance();
+
+                // Act
+                const row = shallow(container.renderRow(item, 1, false));
+
+                // Assert
+                expect(row.find(Cell).length).toBe(4);
+                //expect(row).toEqual(<Row key={1}>
+                //    <Cell className="text-center">{1}</Cell>
+                //    <Cell>type</Cell>
+                //    <Cell>name</Cell>
+                //    <Cell><a href="#" onClick={() => container.handleViewContent(1)}>title</a></Cell>
+                //</Row>);
+            });
+
+            it('should render expected row when isHost = true', () => {
+                // Arrange
+                const item = {
+                    notificationTemplateId: 1, notificationTypeName: 'type',
+                    notificationTemplateName: 'name', title: 'title'
+                };
+                const container = shallow(<DataGrid />).instance();
+
+                // Act
+                const row = shallow(container.renderRow(item, 1, true));
+
+                // Assert
+                expect(row.find(Cell).length).toBe(5);
+                //expect(row).toEqual(<Row key={1}>
+                //    <Cell className="text-center">{1}</Cell>
+                //    <Cell>type</Cell>
+                //    <Cell>name</Cell>
+                //    <Cell><a href="#" onClick={() => container.handleViewContent(1)}>title</a></Cell>
+                //</Row>);
+            });
         });
     });
 });
