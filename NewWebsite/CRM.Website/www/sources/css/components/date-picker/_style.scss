@@ -146,11 +146,13 @@
 .react-datepicker__input-container {
     input:read-only {
         background-color: $white;
+        cursor: pointer;
     }
 }
 
 .react-datepicker__input-container {
     .form-control:disabled {
         background-color: $bg-table-title-grey;
+        cursor: context-menu;
     }
 }
