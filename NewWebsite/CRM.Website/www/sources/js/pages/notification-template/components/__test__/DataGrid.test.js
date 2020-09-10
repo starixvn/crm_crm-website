@@ -239,14 +239,12 @@ describe('DataGrid', () => {
         });
 
         describe('renderRow', () => {
+            const item = {
+                notificationTemplateId: 1, notificationTypeName: 'type',
+                notificationTemplateName: 'name', title: 'title'
+            };
+            const container = shallow(<DataGrid />).instance();
             it('should render expected row when isHost = false', () => {
-                // Arrange
-                const item = {
-                    notificationTemplateId: 1, notificationTypeName: 'type',
-                    notificationTemplateName: 'name', title: 'title'
-                };
-                const container = shallow(<DataGrid />).instance();
-
                 // Act
                 const row = shallow(container.renderRow(item, 1, false));
 
@@ -261,13 +259,6 @@ describe('DataGrid', () => {
             });
 
             it('should render expected row when isHost = true', () => {
-                // Arrange
-                const item = {
-                    notificationTemplateId: 1, notificationTypeName: 'type',
-                    notificationTemplateName: 'name', title: 'title'
-                };
-                const container = shallow(<DataGrid />).instance();
-
                 // Act
                 const row = shallow(container.renderRow(item, 1, true));
 
@@ -279,6 +270,42 @@ describe('DataGrid', () => {
                 //    <Cell>name</Cell>
                 //    <Cell><a href="#" onClick={() => container.handleViewContent(1)}>title</a></Cell>
                 //</Row>);
+            });
+
+            it('should call handleViewContent when click on title', () => {
+                // Arrange
+                container.handleViewContent = jest.fn();
+                const row = shallow(container.renderRow(item, 1, false));
+
+                // Act
+                row.find(Cell).at(3).find('a').props().onClick();
+
+                // Assert
+                expect(container.handleViewContent).toHaveBeenCalledWith(1);
+            });
+
+            it('should call handleEdit when click on edit icon', () => {
+                // Arrange
+                container.handleEdit = jest.fn();
+                const row = shallow(container.renderRow(item, 1, true));
+
+                // Act
+                row.find(Cell).at(4).find('span').at(0).props().onClick();
+
+                // Assert
+                expect(container.handleEdit).toHaveBeenCalledWith(1);
+            });
+
+            it('should call handleDelete when click on delete icon', () => {
+                // Arrange
+                container.handleDelete = jest.fn();
+                const row = shallow(container.renderRow(item, 1, true));
+
+                // Act
+                row.find(Cell).at(4).find('span').at(1).props().onClick();
+
+                // Assert
+                expect(container.handleDelete).toHaveBeenCalledWith(1, 'name');
             });
         });
     });
