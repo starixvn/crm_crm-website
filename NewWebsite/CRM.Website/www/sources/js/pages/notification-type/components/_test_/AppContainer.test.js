@@ -8,13 +8,18 @@ import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import LangHelper from '@jsroot/common/langHelper';
 import { shallow } from 'enzyme';
 import { toast } from 'react-toastify';
+import NewNotificationTypeWrapper from '../NewNotificationType';
+import EditNotificationTypeWrapper from '../EditNotificationType';
 
 jest.mock('react-toastify');
 const mockStore = configureMockStore();
 const store = mockStore({});
 
 describe('AppContainer', () => {
-    LangHelper.getResource = jest.fn(value => value);
+    beforeEach(() => {
+        LangHelper.getResource = jest.fn(value => value);
+    });
+
     afterEach(() => {
         jest.clearAllMocks();
     });
@@ -57,25 +62,44 @@ describe('AppContainer', () => {
         );
     });
 
+    it('renders default component correctly', () => {
+        // Arrange
+        const props = {
+            isHost: false,
+            createNotificationTypePopup: {},
+            editNotificationTypePopup: {},
+            deleteNotificationTypePopup: {}
+        };
+
+        // Act
+        const container = shallow(<AppContainer {...props} />);
+
+        // Assert
+        expect(container.find(Filter).length).toBe(1);
+        expect(container.find(Filter).props().isHost).toBe(props.isHost);
+        expect(container.find(DataGrid).length).toBe(1);
+        expect(container.find(DataGrid).props().isHost).toBe(props.isHost);
+        expect(container.find(NewNotificationTypeWrapper).length).toBe(0);
+        expect(container.find(EditNotificationTypeWrapper).length).toBe(0);
+    });
+
     describe('create notification type', () => {
-        it('render popup', () => {
+        it('render component NewNotificationType correctly', () => {
             // Arrange
             const props = {
-                createNotificationTypePopup: { show: true }
+                createNotificationTypePopup: { show: true },
+                editNotificationTypePopup: {},
+                deleteNotificationTypePopup: {}
             };
 
-            // Act
-            const container = shallow(
-                <Provider store={store}>
-                    <AppContainer {...props} />
-                </Provider>
-            );
+            const container = shallow(<AppContainer {...props} />);
 
             // Assert
             expect(container).toMatchSnapshot();
+            expect(container.find(NewNotificationTypeWrapper).length).toBe(1);
         });
 
-        it('should call setCreateNotificationTypePopup, setCreateNotificationTypeResult when close popup', () => {
+        it('should call correct functions when close popup', () => {
             // Arrange
             const props = {
                 setCreateNotificationTypePopup: jest.fn(),
@@ -92,7 +116,7 @@ describe('AppContainer', () => {
             expect(props.setCreateNotificationTypeResult).toHaveBeenCalledWith(null);
         });
 
-        it('should call correct when create notification type success', () => {
+        it('should call correct functions when create notification type success', () => {
             // Arrange
             const props = {
                 getGridData: jest.fn()
@@ -106,30 +130,27 @@ describe('AppContainer', () => {
             // Assert
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
             expect(container.handleCloseCreatePopup).toHaveBeenCalled();
-
-
         });
     });
 
     describe('edit notification type', () => {
-        it('render popup', () => {
+        it('render component EditNotificationType correctly', () => {
             // Arrange
             const props = {
-                editNotificationTypePopup: { show: true }
+                createNotificationTypePopup: {},
+                editNotificationTypePopup: { show: true },
+                deleteNotificationTypePopup: {}
             };
 
             // Act
-            const container = shallow(
-                <Provider store={store}>
-                    <AppContainer {...props} />
-                </Provider>
-            );
+            const container = shallow(<AppContainer {...props} />);
 
             // Assert
             expect(container).toMatchSnapshot();
+            expect(container.find(EditNotificationTypeWrapper).length).toBe(1);
         });
 
-        it('should call setEditNotificationTypePopup, setEditNotificationTypeResult when close popup', () => {
+        it('should call correct functions when close popup', () => {
             // Arrange
             const props = {
                 setEditNotificationTypePopup: jest.fn(),
@@ -146,7 +167,7 @@ describe('AppContainer', () => {
             expect(props.setEditNotificationTypeResult).toHaveBeenCalledWith(null);
         });
 
-        it('should call correct when edit notification type success', () => {
+        it('should call correct functions when edit notification type successful', () => {
             // Arrange
             const props = {
                 getGridData: jest.fn()
@@ -157,14 +178,14 @@ describe('AppContainer', () => {
             // Act
             container.handleEditSuccess();
 
-            // Assert       
+            // Assert
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
             expect(container.handleCloseEditPopup).toHaveBeenCalled();
         });
     });
 
     describe('delete notification type', () => {
-        it('render component correctly', () => {
+        it('render component DeleteNotificationType correctly', () => {
             // Arrange
             const props = {
                 deleteNotificationTypePopup: { show: true, name: 'test123' },
@@ -179,11 +200,13 @@ describe('AppContainer', () => {
             // Assert
             expect(container).toMatchSnapshot();
             expect(container.find(ConfirmPopup).length).toBe(1);
+            expect(container.find(ConfirmPopup).props().size).toEqual('lg');
+            expect(container.find(ConfirmPopup).props().title).toEqual('Confirmation');
             expect(container.find(ConfirmPopup).props().content)
                 .toEqual(<div>Are you sure you want to delete <strong>test123</strong>?</div>);
         });
 
-        it('should call setDeleteNotificationTypePopup when close popup', () => {
+        it('should call correct functions when close popup', () => {
             // Arrange
             const props = {
                 setDeleteNotificationTypePopup: jest.fn(),
@@ -198,7 +221,7 @@ describe('AppContainer', () => {
             expect(props.setDeleteNotificationTypePopup).toHaveBeenCalledWith({ show: false });
         });
 
-        it('should calls exactly functions when delete successful', async () => {
+        it('should calls correct functions when delete successful', async () => {
             // Arrange
             const promise = Promise.resolve({ isSuccessful: true, message: '' });
             const props = {
@@ -244,58 +267,6 @@ describe('AppContainer', () => {
             // Assert
             expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
             expect(toast.error).toHaveBeenCalledWith('unsuccessful');
-        });
-    });
-
-    it('render correctly component Filter', () => {
-        // Arrange
-        const props = {
-            gridParams: {},
-            createNotificationTypePopup: {},
-            editNotificationTypePopup: {},
-            deleteNotificationTypePopup: {},
-        };
-
-        // Action
-        const appContainer = shallow(<AppContainer {...props} />);
-
-        // Assert
-        expect(appContainer.find(Filter).length).toBe(1);
-    });
-
-    it('render correctly component DataGrid', () => {
-        // Arrange
-        const props = {
-            gridParams: {},
-            createNotificationTypePopup: {},
-            editNotificationTypePopup: {},
-            deleteNotificationTypePopup: {},
-        };
-
-        // Action
-        const appContainer = shallow(<AppContainer {...props} />);
-
-        // Assert
-        expect(appContainer.find(DataGrid).length).toBe(1);
-    });
-
-    describe('confirmPopup is showed', () => {
-        it('render correctly component ConfirmPopup', () => {
-            // Arrange
-            const props = {
-                gridParams: {},
-                createNotificationTypePopup: {},
-                editNotificationTypePopup: {},
-                deleteNotificationTypePopup: { show: true },
-            };
-
-            // Action
-            const appContainer = shallow(<AppContainer {...props} />);
-
-            // Assert
-            expect(appContainer.find(ConfirmPopup).length).toBe(1);
-            expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
-            expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
         });
     });
 });

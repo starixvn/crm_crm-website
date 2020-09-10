@@ -20,6 +20,7 @@ describe('NewNotificationType', () => {
     });
 
     describe('redux connect', () => {
+        it('component has correct props', () => {
         //Arrange
         const initialState = {
             createNotificationTypeResult: {},
@@ -32,27 +33,13 @@ describe('NewNotificationType', () => {
         const wrapper = shallow(<NewNotificationTypeWrapper store={store} />);
 
         //Assert
-        it('component render correctly', () => {
-            expect(wrapper).toMatchSnapshot();
-        });
-
-        it('component has correct props', () => {
             expect(wrapper.props().children.props.createNotificationTypeResult).toEqual(initialState.createNotificationTypeResult);
             expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
             expect(wrapper.props().children.props.getSettings).toEqual(initialState.getSettings);
         });
     });
 
-    it('renders Modal, Formik components', () => {
-        //Act
-        const wrapper = shallow(<NewNotificationType />);
-
-        //Assert
-        expect(wrapper.find(Modal)).toHaveLength(1);
-        expect(wrapper.find(Formik)).toHaveLength(1);
-    });
-
-    it('renders MultipleSelect components', () => {
+    it('renders default component correctly', () => {
         // Arrange
         const props = {
             createNotificationTypeResult: {},
@@ -68,6 +55,10 @@ describe('NewNotificationType', () => {
         const wrapper = mount(<NewNotificationType {...props} />);
 
         //Assert
+        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find(Form)).toHaveLength(1);
+        expect(wrapper.find(Modal.Body)).toHaveLength(1);
+        expect(wrapper.find(Modal.Footer)).toHaveLength(1);
         expect(wrapper.find(MultipleSelect)).toHaveLength(2);
     });
 
@@ -141,6 +132,7 @@ describe('NewNotificationType', () => {
 
             //Act
             container.handleSubmit(values, secondParam);
+
             await promise;
             jest.runAllTimers()
 
@@ -149,6 +141,7 @@ describe('NewNotificationType', () => {
             expect(props.createNotificationType).toHaveBeenCalledTimes(1);
             expect(props.onSuccess).toHaveBeenCalled();
         });
+
         it('handleSubmit run correctly when submit unsuccess', async () => {
             //Arrange
             const promise = Promise.resolve({});
@@ -180,4 +173,26 @@ describe('NewNotificationType', () => {
             expect(secondParam.setSubmitting.mock.calls[1][0]).toBe(false);
         });
     });
+
+    // it('test',() => {
+    //     const props = {
+    //         createNotificationTypeResult: {},
+    //         settings: {
+    //             recipientTypes: [],
+    //             chatTypes: [],
+    //             systems: []
+    //         },
+    //         getSettings: {},
+    //         validateFormik: jest.fn()
+    //     };
+
+    //     const container = mount(<NewNotificationType {...props} />);
+
+    //     expect(props.validateFormik).toHaveBeenCalled();
+        // Act
+        //container.find('Formik').validateFormik;
+
+        // Assert
+        //expect(props.validateFormik).toHaveBeenCalled();
+    //});
 });

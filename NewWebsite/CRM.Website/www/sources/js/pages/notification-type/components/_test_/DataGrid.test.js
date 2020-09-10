@@ -3,13 +3,12 @@ import DataGridWrapper, { DataGrid } from '../DataGrid';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import LangHelper from '@jsroot/common/langHelper';
-import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
+import { Table, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import { PAGING_SIZES } from '@jsroot/common/constants';
 
 describe('DataGrid', () => {
 
     describe('component with redux', () => {
-
         beforeEach(() => {
             LangHelper.getResource = jest.fn(value => value);
             const appContainer = document.createElement('div');
@@ -42,7 +41,7 @@ describe('DataGrid', () => {
             expect(wrapper.props().children.props.gridData).toEqual(initialState.gridData);
         });
 
-        it('render null when gridData empty', () => {
+        it('render null when gridData invalid', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -58,7 +57,7 @@ describe('DataGrid', () => {
 
         describe('buildHeader', () => {
 
-            it('title correct', () => {
+            it('render title correctly', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
@@ -74,7 +73,7 @@ describe('DataGrid', () => {
                 expect(dataGrid.find('div').html()).toEqual(`<div class="table-title">NotificationType</div>`);
             });
 
-            it('contains table having correct props', () => {
+            it('table props should be mapped correctly', () => {
                 // Arrange
                 const props = {
                     gridParams: {
@@ -114,7 +113,7 @@ describe('DataGrid', () => {
         });
 
         describe('handle Edit', () => {
-            it('handleEdit', () => {
+            it('should call correct functions  ', () => {
                 // Arrange
                 const props = {
                     setEditNotificationTypePopup: jest.fn()
@@ -129,7 +128,7 @@ describe('DataGrid', () => {
                 expect(props.setEditNotificationTypePopup).toHaveBeenCalledTimes(1);
             });
 
-            it('should call handleEdit when click edit notification type', () => {
+            it('should call handleEdit when click icon edit notification type', () => {
                 // Arrange
                 const item = {
                     recipientTypes: [],
@@ -259,7 +258,8 @@ describe('DataGrid', () => {
         });
 
         describe('buildHeader', () => {
-            it('onPaging', () => {
+            describe('onPaging', () => {
+            it('should call correct functions', () => {
                 // Arrange
                 const expectedPageIndex = 1;
                 const expectedPageSize = 100;
@@ -316,8 +316,9 @@ describe('DataGrid', () => {
                 expect(header.find(HeaderCell).at(4).props().colWidth).toBe(20);
                 expect(header.find(HeaderCell).at(4).html()).toContain('System');
             });
+        });
 
-            it('should show action when isHost true', () => {
+            it('should show action when isHost = true', () => {
                 // Arrange
                 const dataGrid = shallow(<DataGrid />).instance();
 
@@ -330,7 +331,7 @@ describe('DataGrid', () => {
                 expect(header.find(HeaderCell).at(5).html()).toContain('Action');
             });
 
-            it('should render expected header when isHost true', () => {
+            it('should render expected header when isHost = false', () => {
                 // Arrange
                 const container = shallow(<DataGrid />).instance();
 
@@ -343,7 +344,7 @@ describe('DataGrid', () => {
         });
 
         describe('buildBody', () => {
-            it('build body no data', () => {
+            it('should render no data when gridData is empty', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
@@ -354,7 +355,7 @@ describe('DataGrid', () => {
                 const isHost = true;
 
                 const dataGrid = shallow(<DataGrid {...props} />);
-                const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>ThereIsNoData</Cell></Row>];
+                const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={6}>ThereIsNoData</Cell></Row>];
 
                 // Action
                 const body = dataGrid.instance().buildBody(isHost);
@@ -368,7 +369,7 @@ describe('DataGrid', () => {
             }
 
             function testBodyHasData(isHost) {
-                it('build body has data', () => {
+                it('should render no data when gridData has data', () => {
                     // Arrange
                     const props = {
                         gridParams: {},
@@ -399,7 +400,7 @@ describe('DataGrid', () => {
         });
 
         describe('renderRow', () => {
-            it('render correctly row', () => {
+            it('should render expected row when isHost = true', () => {
                 // Arrange
                 const index = 1;
                 const startIndex = 1;
@@ -421,6 +422,7 @@ describe('DataGrid', () => {
                 const row = shallow(dataGrid.instance().renderRow(item, index, true));
 
                 // Assert
+                expect(row.find(Cell).length).toBe(6);
                 expect(row.find(Cell).at(0).props().className).toBe('text-center');
                 expect(row.find(Cell).at(0).html()).toContain(index + startIndex);
                 expect(row.find(Cell).at(1).html()).toContain(item.notificationTypeName);
@@ -430,6 +432,37 @@ describe('DataGrid', () => {
                 expect(row.find(Cell).at(5).props().className).toBe('text-center');
                 expect(row.find(Cell).at(5).find('span').at(0).props().className).toBe('rounded-circle fa fa-pencil icon-edit');
                 expect(row.find(Cell).at(5).find('span').at(1).props().className).toBe('rounded-circle fa fa-trash icon-delete');
+            });
+
+            it('should render expected row when isHost = false', () => {
+                // Arrange
+                const index = 1;
+                const startIndex = 1;
+                const props = {
+                    gridParams: {},
+                    gridData: {}
+                };
+                const item = {
+                    notificationTypeName: 'test',
+                    recipientTypes: [{ recipientTypeName: 'name1' }, { recipientTypeName: 'name2' }],
+                    chatTypes: [{ chatTypeName: 'name3' }, { chatTypeName: 'name4' }],
+                    systemName: 'test'
+                }
+
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().startIndex = startIndex;
+
+                // Action
+                const row = shallow(dataGrid.instance().renderRow(item, index, false));
+
+                // Assert
+                expect(row.find(Cell).length).toBe(5);
+                expect(row.find(Cell).at(0).props().className).toBe('text-center');
+                expect(row.find(Cell).at(0).html()).toContain(index + startIndex);
+                expect(row.find(Cell).at(1).html()).toContain(item.notificationTypeName);
+                expect(row.find(Cell).at(2).html()).toContain(item.recipientTypes.map(x => x.recipientTypeName).join(', '));
+                expect(row.find(Cell).at(3).html()).toContain(item.chatTypes.map(x => x.chatTypeName).join(', '));
+                expect(row.find(Cell).at(4).html()).toContain(item.systemName);
             });
         });
     });

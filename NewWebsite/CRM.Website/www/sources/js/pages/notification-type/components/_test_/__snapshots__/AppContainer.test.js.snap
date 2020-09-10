@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AppContainer create notification type render component NewNotificationType correctly 1`] = `ShallowWrapper {}`;
+
 exports[`AppContainer create notification type render popup 1`] = `ShallowWrapper {}`;
 
+exports[`AppContainer delete notification type render component DeleteNotificationType correctly 1`] = `ShallowWrapper {}`;
+
 exports[`AppContainer delete notification type render component correctly 1`] = `ShallowWrapper {}`;
+
+exports[`AppContainer edit notification type render component EditNotificationType correctly 1`] = `ShallowWrapper {}`;
 
 exports[`AppContainer edit notification type render popup 1`] = `ShallowWrapper {}`;
 

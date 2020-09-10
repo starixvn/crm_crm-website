@@ -3,3 +3,5 @@
 exports[`NewNotificationType redux connect component render correctly 1`] = `ShallowWrapper {}`;
 
 exports[`NewNotificationType render component correctly 1`] = `ShallowWrapper {}`;
+
+exports[`NewNotificationType renders default component correctly 1`] = `ReactWrapper {}`;
