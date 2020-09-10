@@ -39,7 +39,5 @@
         Task<BaseResult> SetPermissionAddBotToGroup(bool isAllowed);
 
         Task<BaseResult> LeaveChatRoom(string roomToken);
-
-        Task LeaveAllRoom();
     }
 }

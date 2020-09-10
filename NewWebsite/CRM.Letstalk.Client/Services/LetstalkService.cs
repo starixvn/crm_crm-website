@@ -24,15 +24,13 @@
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        public LetstalkService(ICryptographyService cryptographyService, BotConfig botConfig)
+        public LetstalkService(ICryptographyService cryptographyService,
+            IRestClientService restClientService,
+            BotConfig botConfig)
         {
-            this.botConfig = botConfig;
             this.cryptographyService = cryptographyService;
-
-            restClientService = new RestClientService(
-                RestClientService.CreateDefaultClient(botConfig.ApiEndpoint, botConfig.ProxyAddress, botConfig.ByPassProxyLocal, botConfig.IsUseProxy),
-                new JwtService(),
-                botConfig);
+            this.restClientService = restClientService;
+            this.botConfig = botConfig;
         }
 
         public async Task<BaseResult> ChangeDisplayNameAsync(string botName)
@@ -78,7 +76,7 @@
 
             var result = await restClientService.ExecuteGetAsync<ProfileResult>($"bot/get_profile/{botConfig.BotAccountId}/user/{accountId}");
 
-            if (result.IsSuccess)
+            if (result != null && result.IsSuccess)
             {
                 return (new Contact
                 {
@@ -155,6 +153,9 @@
 
         public async Task<BaseResult> PushRoomAsync(string chatroomToken, string message, DateTime? expiredTime = null)
         {
+            ValidateInputParam(nameof(chatroomToken), chatroomToken);
+            ValidateInputParam(nameof(message), message);
+
             var result = await restClientService.ExecutePostAsync<BaseResult>(
                $"bot/push_chatroom/{botConfig.BotAccountId}",
                new Dictionary<string, object>
@@ -163,7 +164,7 @@
                     { "msg", message }
                });
 
-            return result;
+            return result ?? new BaseResult();
         }
 
         public async Task<BaseResult> SetAvatarAsync(string image)
@@ -234,15 +235,6 @@
             }
 
             return new List<string>();
-        }
-
-        public async Task LeaveAllRoom()
-        {
-            var rooms = await GetChatRoomList();
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                await LeaveChatRoom(rooms[i]);
-            }
         }
 
         public async Task<string> GetWebhookAsync()

@@ -24,7 +24,7 @@
             services.AddTransient<IChatTypeMappingService, ChatTypeMappingService>();
         }
 
-        public static void ResolveLetstalkBotConfigDI(this IServiceCollection services, IList<BotConfig> botConfigs)
+        public static void ResolveLetstalkServiceDI(this IServiceCollection services, IList<BotConfig> botConfigs)
         {
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<IJwtService, JwtService>();
@@ -32,7 +32,19 @@
             services.AddTransient<LetstalkService>();
             services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>
             {
-                return new LetstalkService(new CryptographyService(), botConfigs.FirstOrDefault(config => config.BotAccountId == botId));
+                var botConfig = botConfigs.FirstOrDefault(config => config.BotAccountId == botId);
+
+                if (botConfig == null)
+                {
+                    throw new ArgumentNullException("Bot not found", new Exception($"The bot ID: {botId} does not existed in configuration"));
+                }
+
+                var restClientService = new RestClientService(
+                RestClientService.CreateDefaultClient(botConfig.ApiEndpoint, botConfig.ProxyAddress, botConfig.ByPassProxyLocal, botConfig.IsUseProxy),
+                new JwtService(),
+                botConfig);
+
+                return new LetstalkService(serviceProvider.GetRequiredService<ICryptographyService>(), restClientService, botConfig);
             });
         }
     }

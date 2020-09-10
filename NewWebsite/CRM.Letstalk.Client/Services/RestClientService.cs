@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services.Interfaces;
-    using Newtonsoft.Json;
     using RestSharp;
 
     public class RestClientService : IRestClientService
@@ -93,9 +92,7 @@
                 return response.Data;
             }
 
-            var errorResponseJson = JsonConvert.SerializeObject(response);
-
-            throw new InvalidOperationException(errorResponseJson);
+            throw response.ErrorException;
         }
 
         private static void ValidateEndPoint(string endPoint)

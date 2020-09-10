@@ -194,7 +194,7 @@
             services.AddSingleton<List<BotConfig>>();
             services.ResolveCoreDI();
             services.ResolveServiceDI();
-            services.ResolveLetstalkBotConfigDI(botConfigs);
+            services.ResolveLetstalkServiceDI(botConfigs);
         }
 
         private static void ConfigDataProtection(IServiceCollection services, RedisConfig redisConfig)

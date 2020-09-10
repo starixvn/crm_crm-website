@@ -65,13 +65,20 @@
             var botConfigs = botConfigSections.Get<List<BotConfig>>();
             services.AddSingleton(botConfigs);
             services.AddTransient<IRestClient, RestClient>();
+
             services.AddTransient<RestClientService>();
             services.AddTransient<LetstalkService>();
             services.AddTransient<Func<int, ILetstalkService>>(serviceProvider => botId =>
             {
                 CheckArgumentHelper.CheckValidBot(botConfigs, botId);
 
-                return new LetstalkService(new CryptographyService(), botConfigs.FirstOrDefault(config => config.BotAccountId == botId));
+                var botConfig = botConfigs.FirstOrDefault(config => config.BotAccountId == botId);
+                var restClientService = new RestClientService(
+                RestClientService.CreateDefaultClient(botConfig.ApiEndpoint, botConfig.ProxyAddress, botConfig.ByPassProxyLocal, botConfig.IsUseProxy),
+                new JwtService(),
+                botConfig);
+
+                return new LetstalkService(serviceProvider.GetRequiredService<ICryptographyService>(), restClientService, botConfig);
             });
         }
     }
