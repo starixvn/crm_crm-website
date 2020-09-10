@@ -47,12 +47,22 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
 
         // Assert
+        expect(viewDetail.find(Modal).props().show).toBeTrue;
+        expect(viewDetail.find(Modal).props().backdrop).toBe('static');
+        expect(viewDetail.find(Modal).props().keyboard).toBeFalse;
+        expect(viewDetail.find(Modal).props().size).toBe('lg');
+        expect(viewDetail.find(Modal).props().centered).toBeTrue;
+        expect(viewDetail.find(Modal.Header).props().closeButton).toBeTrue;
+        expect(viewDetail.find(Modal.Title).props().as).toBe('div');
         expect(viewDetail.find(Modal.Title).html()).toContain('ErrorNotification');
         expect(viewDetail.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>${`NotificationID: ${props.data.notificationId}`}</div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(1).html()).toEqual(`<div>${`NotificationTemplate: ${props.data.title}`}</div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(2).html()).toEqual(`<div>${`SentAt: ${props.data.sendDateString} ${props.data.sendTimeString}`}</div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(3).html()).toEqual('<div class="error-occured-message error-resolved-row">ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient</div>');
-        expect(viewDetail.find(Modal.Body).find(Table).length).toBe(1);
+        expect(viewDetail.find(Table).props().minWidth).toBe(500);
+        expect(viewDetail.find(Table).props().maxWidth).toBe(772);
+        expect(viewDetail.find(Table).props().containerPadding).toBe(0);
+        expect(viewDetail.find(Table).props().adjustedHeight).toBe(50);
     });
 
     it('render child element when view dettail result is successful', () => {
