@@ -10,6 +10,7 @@ const mockStore = configureMockStore();
 
 describe('EditNotificationType', () => {
     beforeAll(() => {
+        jest.useFakeTimers();
         LangHelper.getResource = jest.fn((key) => key);
     });
     afterEach(() => {
@@ -144,8 +145,9 @@ describe('EditNotificationType', () => {
     });
 
     describe('handleSubmit', () => {
-        it('handleSubmit run correctly when submit success ', () => {
+        it('handleSubmit run correctly when submit success', async () => {
             //Arrange
+            const promise = Promise.resolve({});
             const secondParam = {
                 setSubmitting: jest.fn()
             };
@@ -161,18 +163,68 @@ describe('EditNotificationType', () => {
                     chatTypes: [],
                     systems: []
                 },
-                editNotificationType: jest.fn(() => Promise.resolve({})),
-                editNotificationTypeResult: { isSuccesful: true }
+                editNotificationType: jest.fn(() => promise),
+                editNotificationTypeResult: { isSuccessful: true, message: '' },
+                onSuccess: jest.fn()
             }
-            const values = { value: 'value' }
+            const values = {
+                notificationTypeName: '',
+                chatTypeIds: '',
+                recipientTypeIds: '',
+                systemId: ''
+            }
             const container = shallow(<EditNotificationType {...props} />).instance();
 
             //Act
             container.handleSubmit(values, secondParam);
+            await promise;
+            jest.runAllTimers()
 
             // Assert
-            expect(secondParam.setSubmitting).toHaveBeenCalled();
-            expect(props.editNotificationType).toHaveBeenCalled();
+            expect(secondParam.setSubmitting).toHaveBeenCalledTimes(1);
+            expect(props.editNotificationType).toHaveBeenCalledTimes(1);
+            expect(props.onSuccess).toHaveBeenCalled();
+        });
+        it('handleSubmit run correctly when submit unsuccess', async () => {
+            //Arrange
+            const promise = Promise.resolve({});
+            const secondParam = {
+                setSubmitting: jest.fn()
+            };
+            const props = {
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                editNotificationType: jest.fn(() => promise),
+                editNotificationTypeResult: { isSuccessful: false, message: '' },
+                onSuccess: jest.fn()
+            }
+            const values = {
+                notificationTypeName: '',
+                chatTypeIds: '',
+                recipientTypeIds: '',
+                systemId: ''
+            }
+            const container = shallow(<EditNotificationType {...props} />).instance();
+
+            //Act
+            container.handleSubmit(values, secondParam);
+            await promise;
+            jest.runAllTimers()
+
+            // Assert
+            expect(secondParam.setSubmitting).toHaveBeenCalledTimes(2);
+            expect(props.editNotificationType).toHaveBeenCalledTimes(1);
+            expect(secondParam.setSubmitting.mock.calls[0][0]).toBe(true);
+            expect(secondParam.setSubmitting.mock.calls[1][0]).toBe(false);
         });
     });
 });

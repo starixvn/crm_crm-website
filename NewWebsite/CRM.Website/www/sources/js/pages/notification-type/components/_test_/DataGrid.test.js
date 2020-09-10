@@ -319,19 +319,26 @@ describe('DataGrid', () => {
 
             it('should show action when isHost true', () => {
                 // Arrange
-                const props = {
-                    gridParams: {},
-                    gridData: {}
-                };
-    
-                const dataGrid = shallow(<DataGrid {...props} />);
-    
+                const dataGrid = shallow(<DataGrid />).instance();
+
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
-                
+                const header = shallow(dataGrid.buildHeader(true));
+
                 // Assert
+                expect(header.find(HeaderCell).length).toBe(6);
                 expect(header.find(HeaderCell).at(5).props().colWidth).toBe(10);
                 expect(header.find(HeaderCell).at(5).html()).toContain('Action');
+            });
+
+            it('should render expected header when isHost true', () => {
+                // Arrange
+                const container = shallow(<DataGrid />).instance();
+
+                // Act
+                const header = shallow(container.buildHeader(false));
+
+                // Assert
+                expect(header.find(HeaderCell).length).toBe(5);
             });
         });
 
@@ -392,54 +399,38 @@ describe('DataGrid', () => {
         });
 
         describe('renderRow', () => {
-            function RenderRow(item, index, isHost) {
-                it('render correctly row', () => {
-                    // Arrange
-                    const startIndex = 1;
-                    const props = {
-                        gridParams: {},
-                        gridData: {
-                            data: [
-                                {
-                                    recipientTypes: [],
-                                    chatTypes: []
-                                }
-                            ]
-                        }
-                    };
+            it('render correctly row', () => {
+                // Arrange
+                const index = 1;
+                const startIndex = 1;
+                const props = {
+                    gridParams: {},
+                    gridData: {}
+                };
+                const item = {
+                    notificationTypeName: 'test',
+                    recipientTypes: [{ recipientTypeName: 'name1' }, { recipientTypeName: 'name2' }],
+                    chatTypes: [{ chatTypeName: 'name3' }, { chatTypeName: 'name4' }],
+                    systemName: 'test'
+                }
 
-                    const dataGrid = shallow(<DataGrid {...props} />);
-                    dataGrid.instance().startIndex = startIndex;
-                    const expectedRow =
-                        <Row key={item.notificationTypeId} >
-                            <Cell className="text-center">{index + startIndex}</Cell>
-                            <Cell>{item.notificationTypeName}</Cell>
-                            <Cell>{item.recipientTypes.map(x => x.recipientTypeName).join(', ')}</Cell>
-                            <Cell>{item.chatTypes.map(x => x.chatTypeName).join(', ')}</Cell>
-                            <Cell>{item.systemName}</Cell>
-                            {
-                                isHost &&
-                                <Cell className="text-center">
-                                    <span className="rounded-circle fa fa-pencil icon-edit"
-                                        onClick={() => this.handleEdit(item)}
-                                    />
-                                    <span className="rounded-circle fa fa-trash icon-delete"
-                                        onClick={() => this.handleDelete(item.notificationTypeId, item.notificationTypeName)}
-                                    />
-                                </Cell>
-                            }
-                        </Row>
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().startIndex = startIndex;
 
-                    // Action
-                    const result = dataGrid.instance().renderRow(item, index, isHost);
+                // Action
+                const row = shallow(dataGrid.instance().renderRow(item, index, true));
 
-                    // Assert
-                    expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedRow));
-                });
-            }
-
-            RenderRow({ recipientTypes: [], chatTypes: [] }, 1, true);
-            RenderRow({ recipientTypes: [], chatTypes: [] }, 1, false);
+                // Assert
+                expect(row.find(Cell).at(0).props().className).toBe('text-center');
+                expect(row.find(Cell).at(0).html()).toContain(index + startIndex);
+                expect(row.find(Cell).at(1).html()).toContain(item.notificationTypeName);
+                expect(row.find(Cell).at(2).html()).toContain(item.recipientTypes.map(x => x.recipientTypeName).join(', '));
+                expect(row.find(Cell).at(3).html()).toContain(item.chatTypes.map(x => x.chatTypeName).join(', '));
+                expect(row.find(Cell).at(4).html()).toContain(item.systemName);
+                expect(row.find(Cell).at(5).props().className).toBe('text-center');
+                expect(row.find(Cell).at(5).find('span').at(0).props().className).toBe('rounded-circle fa fa-pencil icon-edit');
+                expect(row.find(Cell).at(5).find('span').at(1).props().className).toBe('rounded-circle fa fa-trash icon-delete');
+            });
         });
     });
 });

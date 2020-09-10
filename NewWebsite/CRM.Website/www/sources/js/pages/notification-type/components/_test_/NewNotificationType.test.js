@@ -12,6 +12,7 @@ const mockStore = configureMockStore();
 
 describe('NewNotificationType', () => {
     beforeAll(() => {
+        jest.useFakeTimers();
         LangHelper.getResource = jest.fn((key) => key);
     });
     afterEach(() => {
@@ -119,13 +120,16 @@ describe('NewNotificationType', () => {
     });
 
     describe('handleSubmit', () => {
-        it('handleSubmit run correctly when submit success', () => {
+        it('handleSubmit run correctly when submit success', async () => {
             //Arrange
+            const promise = Promise.resolve({});
             const secondParam = {
                 setSubmitting: jest.fn()
             };
             const props = {
-                createNotificationType: jest.fn(() => Promise.resolve())
+                createNotificationType: jest.fn(() => promise),
+                createNotificationTypeResult: { isSuccessful: true, message: '' },
+                onSuccess: jest.fn()
             }
             const values = {
                 notificationTypeName: '',
@@ -137,10 +141,43 @@ describe('NewNotificationType', () => {
 
             //Act
             container.handleSubmit(values, secondParam);
+            await promise;
+            jest.runAllTimers()
 
             // Assert
             expect(secondParam.setSubmitting).toHaveBeenCalledTimes(1);
             expect(props.createNotificationType).toHaveBeenCalledTimes(1);
+            expect(props.onSuccess).toHaveBeenCalled();
+        });
+        it('handleSubmit run correctly when submit unsuccess', async () => {
+            //Arrange
+            const promise = Promise.resolve({});
+            const secondParam = {
+                setSubmitting: jest.fn()
+            };
+            const props = {
+                createNotificationType: jest.fn(() => promise),
+                createNotificationTypeResult: { isSuccessful: false, message: '' },
+                onSuccess: jest.fn()
+            }
+            const values = {
+                notificationTypeName: '',
+                chatTypeIds: '',
+                recipientTypeIds: '',
+                systemId: ''
+            }
+            const container = shallow(<NewNotificationType {...props} />).instance();
+
+            //Act
+            container.handleSubmit(values, secondParam);
+            await promise;
+            jest.runAllTimers()
+
+            // Assert
+            expect(secondParam.setSubmitting).toHaveBeenCalledTimes(2);
+            expect(props.createNotificationType).toHaveBeenCalledTimes(1);
+            expect(secondParam.setSubmitting.mock.calls[0][0]).toBe(true);
+            expect(secondParam.setSubmitting.mock.calls[1][0]).toBe(false);
         });
     });
 });
