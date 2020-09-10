@@ -117,11 +117,11 @@
             sendResult.ErrMsg = result.IsSuccess ? string.Empty : "Error occured on Chatbot service";
         }
 
-        private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentStatus)
+        private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentResults)
         {
             var command = new UpdateNotificationStatusCommand
             {
-                SentStatus = XMLHelper.SerializeList(sentStatus)
+                SentStatus = sentResults.ToXML().ToString()
             };
 
             await baseService.ExecuteNonQueryAsync(command);

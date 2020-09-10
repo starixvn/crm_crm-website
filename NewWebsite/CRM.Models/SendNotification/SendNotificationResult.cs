@@ -1,5 +1,8 @@
 ﻿namespace CRM.Models.SendNotification
 {
+    using CRM.Core.Extensions.XML;
+
+    [XMLName("Result")]
     public class SendNotificationResult
     {
         public int NotificationId { get; set; }
