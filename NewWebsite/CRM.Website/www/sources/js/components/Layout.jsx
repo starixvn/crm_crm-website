@@ -7,7 +7,7 @@ export default class Layout extends PureComponent {
             <Fragment>
                 <ToastContainer
                     limit={1}
-                    position="top-center"
+                    position='top-center'
                     autoClose={3000}
                     hideProgressBar={false}
                     transition={Slide}

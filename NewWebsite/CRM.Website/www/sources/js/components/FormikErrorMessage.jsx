@@ -20,15 +20,15 @@ class FormikErrorMessage extends PureComponent {
         super(props);
     }
 
-    validateFormikField = (touched, errors, fieldName) => touched[fieldName] && errors[fieldName] ? false : true
+    validateFormikField = (touched, errors, fieldName) => !(touched[fieldName] && errors[fieldName])
 
     render() {
         const { errors, touched, fieldNames } = this.props;
         return (
             !isEmpty(errors)
             && !isEmpty(touched)
-            && <Alert variant="danger">
-                <ul className="list-message-error">
+            && <Alert variant='danger'>
+                <ul className='list-message-error'>
                     {
                         fieldNames.map(field => {
                             const isValid = this.validateFormikField(touched, errors, field);

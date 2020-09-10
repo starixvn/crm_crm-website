@@ -80,7 +80,7 @@ describe('function', () => {
 
             // Assert
             promise.then(() => {
-                expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/ResendNotificationList', dataList);
+                expect(DataService.postDataAsync).toHaveBeenCalledWith('/NotificationList/ResendNotificationList', dataList);
             });
         });
         
@@ -106,10 +106,14 @@ describe('function', () => {
         it('response is successfull', async () => {
             // Arrange
             const dataList = [1, 2];
-            const response = { data: {
-                message: 'message',
-                isSuccessful: true
-            } };
+            const response = {
+                data:
+                {
+                    message: 'message',
+                    isSuccessful: true
+                }
+            };
+            
             Site.blockUI = jest.fn();
             Site.unblockUI = jest.fn();
             const callback = jest.fn();

@@ -25,7 +25,7 @@ class Loading extends PureComponent {
     render() {
         const { width, height } = this.props;
         return (
-            <div className="sk-fading-circle" style={{ width: width, height: height }}>
+            <div className='sk-fading-circle' style={{ width: width, height: height }}>
                 {
                     this.renderChildCircle()
                 }
