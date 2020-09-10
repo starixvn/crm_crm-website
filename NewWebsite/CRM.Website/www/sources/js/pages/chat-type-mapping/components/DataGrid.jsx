@@ -217,7 +217,7 @@ export class DataGrid extends Component {
                         title={LangHelper.getResource('Confirmation')}
                         content={
                             <div>
-                                The Personal/Group shall be {!this.props.updateActiveStatusPopup.isChecked ? 'not ' : ''}received notification anymore.
+                                The Personal/Group shall be {!this.props.updateActiveStatusPopup.isChecked ? 'not ' : ''}received notification{!this.props.updateActiveStatusPopup.isChecked ? ' anymore ' : ''}.
                                 Are you sure you want to {this.props.updateActiveStatusPopup.isChecked ? 'active' : 'deactive'} it?
                             </div>
                         }
