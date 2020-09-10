@@ -92,7 +92,7 @@ class Filter extends Component {
             this.props.setGridParams(params);
             this.props.getGridData(params);
         } else {
-            toast.error(LangHelper.getResource('PleaseChooseStatus'));
+            toast.error(LangHelper.getResource('PleaseChooseMappingStatus'));
         }
     }
 
@@ -120,7 +120,7 @@ class Filter extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('Name')}</Form.Label>
+                            <Form.Label className="col-auto col-form-label">{LangHelper.getResource('LetstalkName')}</Form.Label>
                             <Form.Control type="text" size="sm" className="shadow-none"
                                 value={this.state.filter.name}
                                 onChange={e => this.onChange('name', e.target.value)}
@@ -148,7 +148,7 @@ class Filter extends Component {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('Status')}</Form.Label>
+                            <Form.Label className='col-auto col-form-label'>{LangHelper.getResource('MappingStatus')}</Form.Label>
                             <div className='form-control-wrapper'>
                                 <MultipleSelect
                                     initialValue={this.state.filter.mappingStatuses}

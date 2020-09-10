@@ -107,6 +107,8 @@
                 sendResult.ErrCode = (int)NotificationStatus.Error;
                 sendResult.ErrMsg = "Error occured on Chatbot service";
             }
+
+            await WriteLogMessage(notification, sendResult);
         }
 
         private async Task SendToGroup(NotificationMessage notification, SendNotificationResult sendResult)
@@ -115,6 +117,7 @@
             sendResult.IsSuccess = result.IsSuccess;
             sendResult.ErrCode = result.IsSuccess ? 0 : (int)NotificationStatus.Error;
             sendResult.ErrMsg = result.IsSuccess ? string.Empty : "Error occured on Chatbot service";
+            await WriteLogMessage(notification, sendResult);
         }
 
         private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentResults)
@@ -142,6 +145,21 @@
         private async Task<IEnumerable<NotificationMessage>> GetNotificationToSend()
         {
             return await baseService.GetDataAsync<NotificationMessage>(new GetNotificationToSendCriteria());
+        }
+
+        private async Task WriteLogMessage(NotificationMessage notification, SendNotificationResult result)
+        {
+            var command = new WriteLogMessageCommand
+            {
+                ReferenceId = notification.NotifcationId,
+                BotId = notification.BotId,
+                Content = notification.Content,
+                LetstalkId = notification.LetstalkConversationId,
+                IsSuccess = result.IsSuccess,
+                ErrorMessage = result.ErrMsg
+            };
+
+            await baseService.ExecuteNonQueryAsync(command);
         }
     }
 }
