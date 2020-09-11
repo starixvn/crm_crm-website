@@ -12,6 +12,8 @@
 
         public string Content { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         public bool IsSuccess { get; set; }
 
         public string ErrorMessage { get; set; }

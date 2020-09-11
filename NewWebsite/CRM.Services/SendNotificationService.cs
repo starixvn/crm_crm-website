@@ -4,10 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Extensions.XML;
     using CRM.Core.Services;
     using CRM.Criteria.SendNotification;
+    using CRM.Letstalk.Client.Models.Results;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Models.SendNotification;
     using CRM.Services.Interfaces;
@@ -34,8 +36,28 @@
 
             if (notifications.Any())
             {
-                await SendNotification(notifications);
+                await UpdateBotRemovedStatus(notifications.Where(noti => noti.BotId == 0 && noti.ChatType == ChatType.Group));
+
+                await SendNotification(notifications.Where(noti => noti.BotId > 0));
             }
+        }
+
+        private async Task UpdateBotRemovedStatus(IEnumerable<NotificationMessage> notifications)
+        {
+            var results = new List<SendNotificationResult>();
+            foreach (var notification in notifications)
+            {
+                var result = new SendNotificationResult
+                {
+                    NotificationId = notification.NotifcationId,
+                    ConversationGroupId = notification.ConversationGroupId,
+                    Status = NotificationRecipientStatus.Error,
+                    Message = NotificationRecipientErrorMessage.BotRemovedMsg
+                };
+                results.Add(result);
+            }
+
+            await UpdateRecipientStatus(results);
         }
 
         private async Task SendNotification(IEnumerable<NotificationMessage> notifications)
@@ -68,7 +90,6 @@
             var sendResult = new SendNotificationResult
             {
                 NotificationId = notification.NotifcationId,
-                RecipientId = notification.RecipientId,
                 ConversationGroupId = notification.ConversationGroupId,
             };
             try
@@ -85,8 +106,8 @@
             catch (Exception exception)
             {
                 await writeLogService.WriteErrorLogAsync(exception);
-                sendResult.ErrCode = (int)NotificationStatus.Error;
-                sendResult.ErrMsg = exception.Message;
+                sendResult.Status = NotificationRecipientStatus.Retry;
+                sendResult.Message = NotificationRecipientErrorMessage.BotServiceErrorMsg;
             }
 
             return sendResult;
@@ -95,29 +116,26 @@
         private async Task SendToPersonal(NotificationMessage notification, SendNotificationResult sendResult)
         {
             var result = await letstalkService(notification.BotId).PushAsync(notification.LetstalkConversationId, notification.Content);
-            sendResult.IsSuccess = result.IsSuccess;
             if (result.BlockList.Any())
             {
-                sendResult.ErrCode = (int)NotificationStatus.BotBlocked;
-                sendResult.ErrMsg = "The User has been block the bot";
+                sendResult.Status = NotificationRecipientStatus.BotBlocked;
             }
 
             if (result.FailList.Any())
             {
-                sendResult.ErrCode = (int)NotificationStatus.Error;
-                sendResult.ErrMsg = "Error occured on Chatbot service";
+                sendResult.Status = NotificationRecipientStatus.Error;
+                sendResult.Message = NotificationRecipientErrorMessage.LetstalkIdInvalidMsg;
             }
 
-            await WriteLogMessage(notification, sendResult);
+            await WriteLogMessage(notification, result, result.BlockList.Any());
         }
 
         private async Task SendToGroup(NotificationMessage notification, SendNotificationResult sendResult)
         {
             var result = await letstalkService(notification.BotId).PushRoomAsync(notification.LetstalkConversationId, notification.Content);
-            sendResult.IsSuccess = result.IsSuccess;
-            sendResult.ErrCode = result.IsSuccess ? 0 : (int)NotificationStatus.Error;
-            sendResult.ErrMsg = result.IsSuccess ? string.Empty : "Error occured on Chatbot service";
-            await WriteLogMessage(notification, sendResult);
+            sendResult.Status = result.IsSuccess ? NotificationRecipientStatus.Sent : NotificationRecipientStatus.Retry;
+            sendResult.Message = result.IsSuccess ? string.Empty : NotificationRecipientErrorMessage.BotServiceErrorMsg;
+            await WriteLogMessage(notification, result);
         }
 
         private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentResults)
@@ -147,7 +165,7 @@
             return await baseService.GetDataAsync<NotificationMessage>(new GetNotificationToSendCriteria());
         }
 
-        private async Task WriteLogMessage(NotificationMessage notification, SendNotificationResult result)
+        private async Task WriteLogMessage(NotificationMessage notification, BaseResult result, bool isBlocked = false)
         {
             var command = new WriteLogMessageCommand
             {
@@ -156,7 +174,8 @@
                 Content = notification.Content,
                 LetstalkId = notification.LetstalkConversationId,
                 IsSuccess = result.IsSuccess,
-                ErrorMessage = result.ErrMsg
+                IsBlocked = isBlocked,
+                ErrorMessage = result.Message
             };
 
             await baseService.ExecuteNonQueryAsync(command);

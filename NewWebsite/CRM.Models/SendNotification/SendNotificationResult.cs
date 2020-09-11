@@ -2,19 +2,15 @@
 {
     using CRM.Core.Extensions.XML;
 
-    [XMLName("Result")]
+    [XMLName("r")]
     public class SendNotificationResult
     {
         public int NotificationId { get; set; }
 
-        public int RecipientId { get; set; }
-
         public int ConversationGroupId { get; set; }
 
-        public string ErrMsg { get; set; }
+        public string Message { get; set; }
 
-        public int ErrCode { get; set; }
-
-        public bool IsSuccess { get; set; }
+        public string Status { get; set; }
     }
 }
