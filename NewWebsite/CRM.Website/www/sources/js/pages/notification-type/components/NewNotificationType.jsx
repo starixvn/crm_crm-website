@@ -22,8 +22,8 @@ export class NewNotificationType extends Component {
         touched,
         handleChange,
         handleSubmit,
-        isSubmitting
-
+        isSubmitting,
+        setFieldValue
     }) => {
 
         return (
@@ -62,7 +62,7 @@ export class NewNotificationType extends Component {
                                 statusField='checked'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
-                                    handleChange('recipientTypeIds')(selectedItemsKey);
+                                    setFieldValue('recipientTypeIds', selectedItemsKey);
                                 }}
                             />
                         </Col>
@@ -81,7 +81,7 @@ export class NewNotificationType extends Component {
                                 statusField='checked'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
-                                    handleChange('chatTypeIds')(selectedItemsKey);
+                                    setFieldValue('chatTypeIds', selectedItemsKey);
                                 }}
                             />
                         </Col>

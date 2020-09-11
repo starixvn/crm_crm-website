@@ -51,7 +51,8 @@ export class EditNotificationType extends Component {
         touched,
         handleChange,
         handleSubmit,
-        isSubmitting
+        isSubmitting,
+        setFieldValue
     }) => {
         return (
             <Form noValidate onSubmit={handleSubmit}>
@@ -89,7 +90,7 @@ export class EditNotificationType extends Component {
                                 statusField='checked'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
-                                    handleChange('recipientTypeIds')(selectedItemsKey);
+                                    setFieldValue('recipientTypeIds', selectedItemsKey);
                                 }}
                             />
                         </Col>
@@ -108,7 +109,7 @@ export class EditNotificationType extends Component {
                                 statusField='checked'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
-                                    handleChange('chatTypeIds')(selectedItemsKey);
+                                    setFieldValue('chatTypeIds', selectedItemsKey);
                                 }}
                             />
                         </Col>

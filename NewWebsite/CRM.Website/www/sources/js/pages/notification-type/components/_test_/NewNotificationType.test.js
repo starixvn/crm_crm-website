@@ -1,12 +1,12 @@
 ﻿import React from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import NewNotificationTypeWrapper, { NewNotificationType } from '../NewNotificationType';
 import { shallow, mount } from 'enzyme';
 import MultipleSelect from '../../../../components/multiple-select/index';
 import configureMockStore from 'redux-mock-store';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
-import { Formik } from 'formik';
 import LangHelper from '@jsroot/common/langHelper';
+import { Formik } from 'formik';
 
 const mockStore = configureMockStore();
 
@@ -21,18 +21,18 @@ describe('NewNotificationType', () => {
 
     describe('redux connect', () => {
         it('component has correct props', () => {
-        //Arrange
-        const initialState = {
-            createNotificationTypeResult: {},
-            settings: {},
-            getSettings: {}
-        };
-        const store = mockStore(initialState);
+            //Arrange
+            const initialState = {
+                createNotificationTypeResult: {},
+                settings: {},
+                getSettings: {}
+            };
+            const store = mockStore(initialState);
 
-        //Act
-        const wrapper = shallow(<NewNotificationTypeWrapper store={store} />);
+            //Act
+            const wrapper = shallow(<NewNotificationTypeWrapper store={store} />);
 
-        //Assert
+            //Assert
             expect(wrapper.props().children.props.createNotificationTypeResult).toEqual(initialState.createNotificationTypeResult);
             expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
             expect(wrapper.props().children.props.getSettings).toEqual(initialState.getSettings);
@@ -174,25 +174,41 @@ describe('NewNotificationType', () => {
         });
     });
 
-    // it('test',() => {
-    //     const props = {
-    //         createNotificationTypeResult: {},
-    //         settings: {
-    //             recipientTypes: [],
-    //             chatTypes: [],
-    //             systems: []
-    //         },
-    //         getSettings: {},
-    //         validateFormik: jest.fn()
-    //     };
+    describe('handle onChange MultipleSelect', () => {
+        // Arrange
+        const props = {
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: []
+            }
+        };
+        const param = {
+            values: {},
+            errors: {},
+            touched: {},
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn()
+        };
+        const container = shallow(<NewNotificationType {...props} />);
+        const form = shallow(container.instance().renderForm(param));
 
-    //     const container = mount(<NewNotificationType {...props} />);
+        it('should call correct functions when change recipientTypeIds', () => {
+            //Act
+            form.find(MultipleSelect).at(0).props().onChange();
 
-    //     expect(props.validateFormik).toHaveBeenCalled();
-        // Act
-        //container.find('Formik').validateFormik;
+            //Assert
+            expect(param.setFieldValue).toHaveBeenCalled();
+        });
 
-        // Assert
-        //expect(props.validateFormik).toHaveBeenCalled();
-    //});
+        it('should call correct functions when change chatTypeIds', () => {
+            //Act
+            form.find(MultipleSelect).at(1).props().onChange();
+
+            //Assert
+            expect(param.setFieldValue).toHaveBeenCalled();
+        });
+    });
 });

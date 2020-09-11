@@ -5,6 +5,7 @@ import { shallow, mount } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import configureMockStore from 'redux-mock-store';
+import MultipleSelect from '../../../../components/multiple-select/index';
 
 const mockStore = configureMockStore();
 
@@ -70,7 +71,7 @@ describe('EditNotificationType', () => {
         expect(props.onClose).toHaveBeenCalled();
     });
 
-    it('component render correctly message', () => {
+    it('component render message correctly', () => {
         // Arrange
         const props = {
             editNotificationTypePopup: {
@@ -185,6 +186,7 @@ describe('EditNotificationType', () => {
             expect(props.editNotificationType).toHaveBeenCalledTimes(1);
             expect(props.onSuccess).toHaveBeenCalled();
         });
+
         it('handleSubmit run correctly when submit unsuccess', async () => {
             //Arrange
             const promise = Promise.resolve({});
@@ -225,6 +227,50 @@ describe('EditNotificationType', () => {
             expect(props.editNotificationType).toHaveBeenCalledTimes(1);
             expect(secondParam.setSubmitting.mock.calls[0][0]).toBe(true);
             expect(secondParam.setSubmitting.mock.calls[1][0]).toBe(false);
+        });
+    });
+
+    describe('handle onChange MultipleSelect', () => {
+        // Arrange
+        const props = {
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            settings: {
+                recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+            }
+        };
+        const param = {
+            values: {},
+            errors: {},
+            touched: {},
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn()
+        };
+        const container = shallow(<EditNotificationType {...props} />);
+        const form = shallow(container.instance().renderForm(param));
+
+        it('should call correct functions when change recipientTypeIds', () => {
+            //Act
+            form.find(MultipleSelect).at(0).props().onChange();
+
+            //Assert
+            expect(param.setFieldValue).toHaveBeenCalled();
+        });
+
+        it('should call correct functions when change chatTypeIds', () => {
+            //Act
+            form.find(MultipleSelect).at(1).props().onChange();
+
+            //Assert
+            expect(param.setFieldValue).toHaveBeenCalled();
         });
     });
 });
