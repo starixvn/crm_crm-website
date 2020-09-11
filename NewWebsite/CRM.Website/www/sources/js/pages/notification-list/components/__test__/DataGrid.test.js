@@ -597,7 +597,7 @@ describe('DataGrid', () => {
                     headlines: [ 1 ],
                     recipients: [ 1 ],
                     title: 'title',
-                    status: 'status',
+                    status: 'status'
                 };
 
                 const index = 1;
@@ -640,7 +640,8 @@ describe('DataGrid', () => {
             it('has Cell 1 has related div when item status is duplicate', () => {
                 // Arrange
                 const item = {
-                    status: 'Duplicate'
+                    status: 'Duplicate',
+                    relatedNotificationIds: '1, 2, 3'
                 };
 
                 const index = 1;
@@ -659,7 +660,7 @@ describe('DataGrid', () => {
                 const row = shallow(dataGrid.instance().renderRow(item, index, false));
 
                 // Assert
-                expect(row.find(Cell).at(1).find('div').at(2).html()).toEqual(`<div>(Related: ${item.related})</div>`);
+                expect(row.find(Cell).at(1).find('div').at(2).html()).toEqual(`<div>(Related: ${item.relatedNotificationIds})</div>`);
             });
             
             it('has Cell 6 clicking', () => {
@@ -682,7 +683,7 @@ describe('DataGrid', () => {
                 const row = shallow(dataGrid.instance().renderRow(item, index, false));
 
                 // Action
-                row.find(Cell).at(6).simulate('click')
+                row.find(Cell).at(6).simulate('click');
 
                 // Assert
                 expect(dataGrid.instance().openContentPopup).toHaveBeenCalledWith(item);

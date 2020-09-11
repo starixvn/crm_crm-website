@@ -120,7 +120,7 @@ describe('AppContainer', () => {
     
                 // Assert
                 expect(appContainer).toMatchSnapshot();
-                expect(appContainer.find(Content).props().data).toEqual(props.contentPopup.data)
+                expect(appContainer.find(Content).props().data).toEqual(props.contentPopup.data);
             });
     
             it('runs onClose', () => {

@@ -1046,7 +1046,7 @@ describe('Filter', () => {
                     fromDate: new Date(),
                     toDate: new Date(),
                     headline: {
-                        value: 'headline',
+                        value: 'headline'
                     },
                     recipient: {
                         value: 'recipient'
@@ -1125,7 +1125,7 @@ describe('Filter', () => {
             expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().size).toBe('sm');
             expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().name).toBe('notificationIdUpper');
             expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().value)
-                .toEqual(initialState.filter.notificationIdUpper)
+                .toEqual(initialState.filter.notificationIdUpper);
             expect(filter.find(Form.Group).at(7).find(Form.Label).html()).toContain('Content');
             expect(filter.find(Form.Group).at(7).find(Form.Control).props().as).toBe('input');
             expect(filter.find(Form.Group).at(7).find(Form.Control).props().type).toBe('text');

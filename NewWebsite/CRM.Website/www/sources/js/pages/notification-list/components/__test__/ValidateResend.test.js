@@ -258,7 +258,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: [],
+                        resendDataList: []
                     }
                 },
                 gridParams: {}

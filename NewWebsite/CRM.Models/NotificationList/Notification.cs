@@ -35,6 +35,6 @@
 
         public string Reason { get; set; }
 
-        public int Related { get; set; }
+        public string RelatedNotificationIds { get; set; }
     }
 }
