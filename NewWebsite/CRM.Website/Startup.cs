@@ -40,6 +40,7 @@
     using ONEbook.UM.Services;
     using ONEbook.UM.Transport;
     using Sentry;
+    using Serilog;
     using StackExchange.Redis;
 
     public class Startup
@@ -124,6 +125,11 @@
             ConfigDataProtection(services, redisConfig);
             ConfigRedisCache(services, redisConfig);
 
+            services.AddLogging((builder) =>
+            {
+                builder.AddSerilog(dispose: true);
+            });
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -190,7 +196,7 @@
             services.AddSingleton<ISecurityService, SecurityService>();
             services.AddSingleton<ISiteService, SiteService>();
 
-            services.AddSingleton<ILogger, Logger>();
+            services.AddSingleton<Fanex.Logging.ILogger, Logger>();
             services.AddSingleton<List<BotConfig>>();
             services.ResolveCoreDI();
             services.ResolveServiceDI();
