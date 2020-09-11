@@ -211,4 +211,27 @@ describe('NewNotificationType', () => {
             expect(param.setFieldValue).toHaveBeenCalled();
         });
     });
+
+    it('should call correct functions when validate', () => {
+        // Arrange
+        const props = {
+            createNotificationTypeResult: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: []
+            },
+            getSettings: {},
+            validateFormik: jest.fn()
+        };
+        const values = {};
+        const container = shallow(<NewNotificationType {...props} />);
+        const form = mount(container.instance().render());
+
+        //Act
+        form.find(Formik).props().validate(values);
+
+        //Assert
+        expect(props.validateFormik).toHaveBeenCalledTimes(0);
+    });
 });

@@ -6,6 +6,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import configureMockStore from 'redux-mock-store';
 import MultipleSelect from '../../../../components/multiple-select/index';
+import { Formik } from 'formik';
 
 const mockStore = configureMockStore();
 
@@ -120,7 +121,6 @@ describe('EditNotificationType', () => {
             },
             getSettings: jest.fn(() => Promise.resolve({ data: {} }))
         };
-
         const recipientTypesOptions = props.settings.recipientTypes.map(x => {
             return {
                 id: x.id,
@@ -128,12 +128,11 @@ describe('EditNotificationType', () => {
                 checked: props.editNotificationTypePopup.recipientTypes.some(y => y.recipientTypeId === x.id) ? true : false
             };
         });
-
         const chatTypesOptions = props.settings.chatTypes.map(x => {
             return {
                 id: x.id,
                 name: x.name,
-                checked: true
+                checked: props.editNotificationTypePopup.chatTypeIds.some(y => y.recipientTypeId === x.id) ? true : false
             };
         });
 
@@ -241,8 +240,8 @@ describe('EditNotificationType', () => {
             },
             settings: {
                 recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
+                chatTypes: [],
+                systems: []
             }
         };
         const param = {
@@ -271,6 +270,77 @@ describe('EditNotificationType', () => {
 
             //Assert
             expect(param.setFieldValue).toHaveBeenCalled();
+        });
+    });
+
+    describe('Formik', () => {
+        it('should call correct functions when validate', () => {
+            // Arrange
+            const props = {
+                editNotificationTypePopup: {
+                    data: {
+                        recipientTypes: [],
+                        chatTypes: []
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                },
+                validateFormik: jest.fn()
+            };
+            const values = {};
+            const container = shallow(<EditNotificationType {...props} />);
+            const form = mount(container.instance().render());
+
+            //Act
+            form.find(Formik).props().validate(values);
+
+            //Assert
+            expect(props.validateFormik).toHaveBeenCalledTimes(0);
+        });
+
+        it('initialValues correctly', () => {
+            // Arrange
+            const props = {
+                editNotificationTypePopup: {
+                    data: {
+                        notificationTypeId: 1,
+                        notificationTypeName: 'test',
+                        systemId: 1,
+                        recipientTypes: [
+                            {
+                                recipientTypeId: 1
+                            }
+                        ],
+                        chatTypes: [
+                            {
+                                chatTypeId: 1
+                            }
+                        ]
+                    }
+                },
+                settings: {
+                    recipientTypes: [],
+                    chatTypes: [],
+                    systems: []
+                }
+            };
+            const values = {
+                notificationTypeId: props.editNotificationTypePopup.data.notificationTypeId,
+                notificationTypeName: props.editNotificationTypePopup.data.notificationTypeName,
+                recipientTypeIds: props.editNotificationTypePopup.data.recipientTypes.map(x => x.recipientTypeId).toString(),
+                chatTypeIds: props.editNotificationTypePopup.data.chatTypes.map(x => x.chatTypeId).toString(),
+                systemId: props.editNotificationTypePopup.data.systemId
+            };
+            const container = shallow(<EditNotificationType {...props} />);
+
+            // Act
+            const form = mount(container.instance().render());
+
+            //Assert
+            expect(form.find(Formik).props().initialValues).toEqual(values);
         });
     });
 });

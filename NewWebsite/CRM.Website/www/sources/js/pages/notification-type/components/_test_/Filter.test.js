@@ -129,7 +129,27 @@ describe('Filter', () => {
             });
         });
 
-        describe('handle change', () => {
+        describe('methods', () => {
+            it('should calls setState when change notification type', () => {
+                // Arrange
+                const props = {
+                    gridParams: {},
+                    settings: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
+                const expected = {
+                    notificationTypeName: 'test'
+                };
+                const container = shallow(<Filter {...props}/>);
+
+                // Act
+                container.instance().handleNotificationTypeChange({ target: { value: 'test' } });
+
+                // Assert
+                expect(container.state().notificationTypeName).toEqual(expected.notificationTypeName);
+            });
+
+
             it('handleFilterChange runs correctly', () => {
                 // Arrange
                 const props = {
@@ -204,29 +224,6 @@ describe('Filter', () => {
                 expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('systems', expected);
             });
 
-            it('handle NotificationTypeName change runs correctly', () => {
-                // Arrange
-                const event = {
-                    notificationTypeName: 'test'
-                };
-
-                const props = {
-                    gridParams: {},
-                    settings: {},
-                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-                };
-
-                const filter = shallow(<Filter {...props} />);
-                filter.instance().handleNotificationTypeChange = jest.fn();
-
-                // Action
-                filter.instance().handleNotificationTypeChange(event);
-                filter.setState(event);
-                // Assert
-                expect(filter.instance().handleNotificationTypeChange).toHaveBeenCalledWith(event);
-                expect(filter.instance().state.notificationTypeName).toEqual(event.notificationTypeName);
-            });
-
             it('should call handleOpenCreatePopup when click insert button', () => {
                 // Arrange
                 const props = {
@@ -242,140 +239,140 @@ describe('Filter', () => {
                 // Assert
                 expect(props.setCreateNotificationTypePopup).toHaveBeenCalledWith({ show: true });
             });
-        });
 
-        describe('getParams', () => {
-            it('getParams with valid filter', () => {
-                // Arrange
-                const state = {
-                    filter: {
-                        notificationTypeName: 'test',
-                        recipientTypeIds: '1,2',
-                        chatTypeIds: '1,2',
-                        systemId: '1,2',
-                    }
-                };
-
-                const props = {
-                    gridParams: {
+            describe('getParams', () => {
+                it('getParams with valid filter', () => {
+                    // Arrange
+                    const state = {
+                        filter: {
+                            notificationTypeName: 'test',
+                            recipientTypeIds: '1,2',
+                            chatTypeIds: '1,2',
+                            systemId: '1,2',
+                        }
+                    };
+    
+                    const props = {
+                        gridParams: {
+                            pageIndex: 1,
+                            pageSize: 100
+                        },
+                        settings: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+    
+                    const expected = {
+                        notificationTypeName: state.notificationTypeName,
+                        chatTypeIds: state.filter.chatTypes,
+                        recipientTypeIds: state.filter.recipientTypes,
+                        systemId: state.filter.systems,
                         pageIndex: 1,
                         pageSize: 100
-                    },
-                    settings: {},
-                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-                };
-
-                const expected = {
-                    notificationTypeName: state.notificationTypeName,
-                    chatTypeIds: state.filter.chatTypes,
-                    recipientTypeIds: state.filter.recipientTypes,
-                    systemId: state.filter.systems,
-                    pageIndex: 1,
-                    pageSize: 100
-                };
-
-                const filter = shallow(<Filter {...props} />);
-                filter.instance().setState(state);
-
-                // Action
-                const result = filter.instance().getParams();
-
-                // Assert
-                expect(result).toEqual(expected);
-            });
-
-            it('getParams with invalid filter', () => {
-                // Arrange
-                const state = {
-                    filter: {
-                        notificationTypeName: 'test',
-                        recipientTypeIds: null,
-                        chatTypeIds: null,
-                        systemId: null,
-                    }
-                };
-
-                const props = {
-                    gridParams: {
+                    };
+    
+                    const filter = shallow(<Filter {...props} />);
+                    filter.instance().setState(state);
+    
+                    // Action
+                    const result = filter.instance().getParams();
+    
+                    // Assert
+                    expect(result).toEqual(expected);
+                });
+    
+                it('getParams with invalid filter', () => {
+                    // Arrange
+                    const state = {
+                        filter: {
+                            notificationTypeName: 'test',
+                            recipientTypeIds: null,
+                            chatTypeIds: null,
+                            systemId: null,
+                        }
+                    };
+    
+                    const props = {
+                        gridParams: {
+                            pageIndex: 1,
+                            pageSize: 100
+                        },
+                        settings: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                    };
+    
+                    const expected = {
+                        notificationTypeName: state.notificationTypeName,
+                        chatTypeIds: state.filter.chatTypes,
+                        recipientTypeIds: state.filter.recipientTypes,
+                        systemId: state.filter.systems,
                         pageIndex: 1,
                         pageSize: 100
-                    },
-                    settings: {},
-                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-                };
-
-                const expected = {
-                    notificationTypeName: state.notificationTypeName,
-                    chatTypeIds: state.filter.chatTypes,
-                    recipientTypeIds: state.filter.recipientTypes,
-                    systemId: state.filter.systems,
-                    pageIndex: 1,
-                    pageSize: 100
-                };
-
-                const filter = shallow(<Filter {...props} />);
-                filter.instance().setState(state);
-
-                // Action
-                const result = filter.instance().getParams();
-
-                // Assert
-                expect(result).toEqual(expected);
+                    };
+    
+                    const filter = shallow(<Filter {...props} />);
+                    filter.instance().setState(state);
+    
+                    // Action
+                    const result = filter.instance().getParams();
+    
+                    // Assert
+                    expect(result).toEqual(expected);
+                });
             });
-        });
-
-        describe('submitHandler', () => {
-            it('submitHandler runs with valid params', () => {
-                // Arrange
-                const params = { value: 'value' };
-                const event = {
-                    preventDefault: jest.fn()
-                };
-
-                const props = {
-                    gridParams: {},
-                    settings: {},
-                    getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setGridParams: jest.fn(),
-                    getGridData: jest.fn(),
-                };
-
-                const filter = shallow(<Filter {...props} />)
-                filter.instance().getParams = jest.fn();
-                filter.instance().getParams.mockReturnValueOnce(params);
-
-                // Action
-                filter.instance().submitHandler(event);
-
-                // Assert
-                expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setGridParams).toHaveBeenCalledWith(params);
-                expect(props.getGridData).toHaveBeenCalledTimes(1);
-            });
-
-            it('submitHandler runs with invalid params', () => {
-                // Arrange
-                const event = {
-                    preventDefault: jest.fn()
-                };
-
-                const props = {
-                    gridParams: {},
-                    settings: {},
-                    getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setGridParams: jest.fn(),
-                    getGridData: jest.fn(),
-                };
-
-                const filter = shallow(<Filter {...props} />)
-
-                // Action
-                filter.instance().submitHandler(event);
-
-                // Assert
-                expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setGridParams).toHaveBeenCalledTimes(0);
-                expect(props.getGridData).toHaveBeenCalledTimes(0);
+    
+            describe('submitHandler', () => {
+                it('submitHandler runs with valid params', () => {
+                    // Arrange
+                    const params = { value: 'value' };
+                    const event = {
+                        preventDefault: jest.fn()
+                    };
+    
+                    const props = {
+                        gridParams: {},
+                        settings: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} })),
+                        setGridParams: jest.fn(),
+                        getGridData: jest.fn(),
+                    };
+    
+                    const filter = shallow(<Filter {...props} />)
+                    filter.instance().getParams = jest.fn();
+                    filter.instance().getParams.mockReturnValueOnce(params);
+    
+                    // Action
+                    filter.instance().submitHandler(event);
+    
+                    // Assert
+                    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+                    expect(props.setGridParams).toHaveBeenCalledWith(params);
+                    expect(props.getGridData).toHaveBeenCalledTimes(1);
+                });
+    
+                it('submitHandler runs with invalid params', () => {
+                    // Arrange
+                    const event = {
+                        preventDefault: jest.fn()
+                    };
+    
+                    const props = {
+                        gridParams: {},
+                        settings: {},
+                        getSettings: jest.fn(() => Promise.resolve({ data: {} })),
+                        setGridParams: jest.fn(),
+                        getGridData: jest.fn(),
+                    };
+    
+                    const filter = shallow(<Filter {...props} />)
+    
+                    // Action
+                    filter.instance().submitHandler(event);
+    
+                    // Assert
+                    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+                    expect(props.setGridParams).toHaveBeenCalledTimes(0);
+                    expect(props.getGridData).toHaveBeenCalledTimes(0);
+                });
             });
         });
     });
