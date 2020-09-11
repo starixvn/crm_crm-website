@@ -92,6 +92,7 @@ export class DataGrid extends Component {
 
     isError = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase();
     isResolved = status => status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
+    isDuplicated = status => status.toLowerCase() === LangHelper.getResource('Duplicated').toLowerCase();
 
     validateResend = notificationId => {
         this.props.validateResend({
@@ -105,7 +106,10 @@ export class DataGrid extends Component {
             <Cell className='text-center'>{index + this.startIndex}</Cell>
             <Cell className='text-center'>
                 <div>{item.notificationId}</div>
-                <div>{item.messageId}</div>
+                <div>{`(Msg: ${item.messageId})`}</div>
+                {
+                    this.isDuplicated(item.status) && <div>{`(Related: ${item.related})`}</div>
+                }
             </Cell>
             <Cell>
                 <div>{item.sender}</div>

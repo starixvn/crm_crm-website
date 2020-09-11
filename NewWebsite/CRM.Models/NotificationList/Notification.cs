@@ -34,5 +34,7 @@
         public string ResolvedRemark { get; set; }
 
         public string Reason { get; set; }
+
+        public int Related { get; set; }
     }
 }

@@ -492,6 +492,40 @@ describe('DataGrid', () => {
             });
         });
 
+        describe('isDuplicated', () => {
+            it('isDuplicated returns true', () => {
+                // Arrange
+                const props = {
+                    gridData: {},
+                    gridParams: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                const result = dataGrid.instance().isDuplicated('Duplicated');
+
+                expect(result).toBeTrue;
+            });
+
+            it('isDuplicated returns false', () => {
+                // Arrange
+                const props = {
+                    gridData: {},
+                    gridParams: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                const result = dataGrid.instance().isDuplicated('string not equal "Duplicated"');
+
+                expect(result).toBeFalse;
+            });
+        });
+
         describe('isResolved', () => {
             it('isResolved returns true', () => {
                 // Arrange
@@ -589,7 +623,7 @@ describe('DataGrid', () => {
                 expect(row.find(Cell).at(0).html()).toContain(index + startIndex);
                 expect(row.find(Cell).at(1).props().className).toBe('text-center');
                 expect(row.find(Cell).at(1).find('div').at(0).html()).toEqual(`<div>${item.notificationId}</div>`);
-                expect(row.find(Cell).at(1).find('div').at(1).html()).toEqual(`<div>${item.messageId}</div>`);
+                expect(row.find(Cell).at(1).find('div').at(1).html()).toEqual(`<div>(Msg: ${item.messageId})</div>`);
                 expect(row.find(Cell).at(2).find('div').at(0).html()).toEqual(`<div>${item.sender}</div>`);
                 expect(row.find(Cell).at(2).find('div').at(1).html()).toEqual(`<div>${item.notificationTypeName}</div>`);
                 expect(row.find(Cell).at(3).props().className).toBe('text-center');
@@ -601,6 +635,31 @@ describe('DataGrid', () => {
                 expect(row.find(Cell).at(5).html()).toContain(recipients);
                 expect(row.find(Cell).at(6).props().className).toBe('link-click');
                 expect(row.find(Cell).at(6).html()).toContain(item.title);
+            });
+            
+            it('has Cell 1 has related div when item status is duplicate', () => {
+                // Arrange
+                const item = {
+                    status: 'Duplicate'
+                };
+
+                const index = 1;
+                const props = {
+                    gridParams: {},
+                    gridData: {},
+                    resendOptions: {
+                        dataList: []
+                    }
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+                dataGrid.instance().isDuplicated = jest.fn(() => true);
+
+                // Action
+                const row = shallow(dataGrid.instance().renderRow(item, index, false));
+
+                // Assert
+                expect(row.find(Cell).at(1).find('div').at(2).html()).toEqual(`<div>(Related: ${item.related})</div>`);
             });
             
             it('has Cell 6 clicking', () => {

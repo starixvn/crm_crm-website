@@ -2,11 +2,12 @@
 {
     public enum NotificationStatus
     {
+        Planned,
+        Sending,
         Sent,
         Error,
-        Resolved,
-        Sending,
         Draft,
+        Resolved,
         Duplicated,
         BotBlocked
     }

@@ -10,7 +10,7 @@ export default class DatePickerField extends React.Component {
     openDatepicker = () => this._calendar.setOpen(true);
 
     render() {
-        const { className, disabled, ...rest } = this.props;
+        const { className, ...rest } = this.props;
 
         return (
             <React.Fragment>

@@ -55,6 +55,7 @@
     NotificationTypeNameRequired: 'Notification Type Name is required!',
     NotificationTypeRequired: 'Notification Type is required!',
     OK: 'OK',
+    Planned: 'Planned',
     PleaseChoose: 'Please Choose',
     PleaseChooseMappingStatus: 'Please Choose Mapping Status',
     PleaseSelect: 'Please select ...',
