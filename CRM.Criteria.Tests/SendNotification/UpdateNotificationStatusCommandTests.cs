@@ -10,7 +10,7 @@
         {
             // Arrange
             var criteria = new UpdateNotificationStatusCommand();
-            var expected = "Acc_CRM_ChatBot_NotificationStatus_Upd";
+            var expected = "Acc_CRM_ChatBot_SendNotification_Status_Upd";
 
             // Act
             var actual = criteria.GetSettingKey();
@@ -23,7 +23,7 @@
         public void IsValid_WhenParamIsNullOrWhiteSpace_ReturnFalse()
         {
             // Arrange
-            var criteria = new UpdateNotificationStatusCommand { SentStatus = string.Empty };
+            var criteria = new UpdateNotificationStatusCommand { XmlData = string.Empty };
 
             // Act
             var actual = criteria.IsValid();
@@ -36,7 +36,7 @@
         public void IsValid_WhenParamIsNotNullOrWhiteSpace_ReturnTrue()
         {
             // Arrange
-            var criteria = new UpdateNotificationStatusCommand { SentStatus = "XML" };
+            var criteria = new UpdateNotificationStatusCommand { XmlData = "XML" };
 
             // Act
             var actual = criteria.IsValid();

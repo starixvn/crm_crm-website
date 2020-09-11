@@ -34,8 +34,11 @@ export default class MultipleSelectOptionList extends Component {
     }
 
     render() {
+        const dataSource = this.props.dataSource;
+        const maxLengthOfSubData = dataSource.length > 0 ? Math.max(...dataSource.map(item => item.subData && item.subData.length)) : 0;
+        const minHeight = maxLengthOfSubData === 0 || maxLengthOfSubData > 6 ? 0 : maxLengthOfSubData * 40;
         return (
-            <ul className="multiple-select-options">
+            <ul className="multiple-select-options" style={{ minHeight: minHeight }}>
                 {this._renderOptionList()}
             </ul>
         );

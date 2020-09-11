@@ -4,10 +4,10 @@
 
     public class UpdateNotificationStatusCommand : BaseNonQueryCommand
     {
-        public string SentStatus { get; set; }
+        public string XmlData { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationStatus_Upd";
+        public override string GetSettingKey() => "Acc_CRM_ChatBot_SendNotification_Status_Upd";
 
-        public override bool IsValid() => !string.IsNullOrWhiteSpace(SentStatus);
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(XmlData);
     }
 }

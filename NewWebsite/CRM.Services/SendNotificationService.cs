@@ -19,7 +19,7 @@
         private readonly IBaseService baseService;
         private readonly IWriteLogService writeLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
-        private const int ItemEachBatch = 2;
+        private const int ItemEachBatch = 10;
 
         public SendNotificationService(IBaseService baseService,
             IWriteLogService writeLogService,
@@ -49,10 +49,10 @@
             {
                 var result = new SendNotificationResult
                 {
-                    NotificationId = notification.NotifcationId,
+                    NotificationId = notification.NotificationId,
                     ConversationGroupId = notification.ConversationGroupId,
                     Status = NotificationRecipientStatus.Error,
-                    Message = NotificationRecipientErrorMessage.BotRemovedMsg
+                    ErrMsg = NotificationRecipientErrorMessage.BotRemovedMsg
                 };
                 results.Add(result);
             }
@@ -89,7 +89,7 @@
         {
             var sendResult = new SendNotificationResult
             {
-                NotificationId = notification.NotifcationId,
+                NotificationId = notification.NotificationId,
                 ConversationGroupId = notification.ConversationGroupId,
             };
             try
@@ -106,8 +106,8 @@
             catch (Exception exception)
             {
                 await writeLogService.WriteErrorLogAsync(exception);
-                sendResult.Status = NotificationRecipientStatus.Retry;
-                sendResult.Message = NotificationRecipientErrorMessage.BotServiceErrorMsg;
+                sendResult.Status = NotificationRecipientStatus.Retrying;
+                sendResult.ErrMsg = NotificationRecipientErrorMessage.BotServiceErrorMsg;
             }
 
             return sendResult;
@@ -115,7 +115,7 @@
 
         private async Task SendToPersonal(NotificationMessage notification, SendNotificationResult sendResult)
         {
-            var result = await letstalkService(notification.BotId).PushAsync(notification.LetstalkConversationId, notification.Content);
+            var result = await letstalkService(notification.BotId).PushAsync(notification.ConversationId, notification.Content);
             if (result.BlockList.Any())
             {
                 sendResult.Status = NotificationRecipientStatus.BotBlocked;
@@ -124,7 +124,7 @@
             if (result.FailList.Any())
             {
                 sendResult.Status = NotificationRecipientStatus.Error;
-                sendResult.Message = NotificationRecipientErrorMessage.LetstalkIdInvalidMsg;
+                sendResult.ErrMsg = NotificationRecipientErrorMessage.LetstalkIdInvalidMsg;
             }
 
             await WriteLogMessage(notification, result, result.BlockList.Any());
@@ -132,20 +132,23 @@
 
         private async Task SendToGroup(NotificationMessage notification, SendNotificationResult sendResult)
         {
-            var result = await letstalkService(notification.BotId).PushRoomAsync(notification.LetstalkConversationId, notification.Content);
-            sendResult.Status = result.IsSuccess ? NotificationRecipientStatus.Sent : NotificationRecipientStatus.Retry;
-            sendResult.Message = result.IsSuccess ? string.Empty : NotificationRecipientErrorMessage.BotServiceErrorMsg;
+            var result = await letstalkService(notification.BotId).PushRoomAsync(notification.ConversationId, notification.Content);
+            sendResult.Status = result.IsSuccess ? NotificationRecipientStatus.Sent : NotificationRecipientStatus.Retrying;
+            sendResult.ErrMsg = result.IsSuccess ? string.Empty : NotificationRecipientErrorMessage.BotServiceErrorMsg;
             await WriteLogMessage(notification, result);
         }
 
         private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentResults)
         {
-            var command = new UpdateNotificationStatusCommand
+            if (sentResults.Any())
             {
-                SentStatus = sentResults.ToXML().ToString()
-            };
+                var command = new UpdateNotificationStatusCommand
+                {
+                    XmlData = sentResults.ToXML().ToString()
+                };
 
-            await baseService.ExecuteNonQueryAsync(command);
+                await baseService.ExecuteNonQueryAsync(command);
+            }
         }
 
         private static List<List<NotificationMessage>> DivideBatchToSend(IEnumerable<NotificationMessage> notifications)
@@ -169,13 +172,13 @@
         {
             var command = new WriteLogMessageCommand
             {
-                ReferenceId = notification.NotifcationId,
+                NotificationId = notification.NotificationId,
                 BotId = notification.BotId,
                 Content = notification.Content,
-                LetstalkId = notification.LetstalkConversationId,
+                ConversationId = notification.ConversationId,
                 IsSuccess = result.IsSuccess,
-                IsBlocked = isBlocked,
-                ErrorMessage = result.Message
+                IsBotBlocked = isBlocked,
+                ErrMsg = result.Message,
             };
 
             await baseService.ExecuteNonQueryAsync(command);

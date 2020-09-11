@@ -1,28 +1,28 @@
 ﻿namespace CRM.Criteria.SendNotification
 {
-    using CRM.Core.Models;
+    using Fanex.Data.Repository;
 
-    public class WriteLogMessageCommand : BaseNonQueryCommand
+    public class WriteLogMessageCommand : NonQueryCommand
     {
-        public int ReferenceId { get; set; }
+        public int NotificationId { get; set; }
 
         public int BotId { get; set; }
 
-        public string LetstalkId { get; set; }
+        public string ConversationId { get; set; }
 
         public string Content { get; set; }
 
-        public bool IsBlocked { get; set; }
+        public bool IsBotBlocked { get; set; }
 
         public bool IsSuccess { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string ErrMsg { get; set; }
 
-        public override string GetSettingKey() => "Acc_CRM_ChatBot_LogMessage_Ins";
+        public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationMsgLog_Ins";
 
         public override bool IsValid() => BotId > 0 &&
-            ReferenceId > 0 &&
-            !string.IsNullOrWhiteSpace(LetstalkId) &&
+            NotificationId > 0 &&
+            !string.IsNullOrWhiteSpace(ConversationId) &&
             !string.IsNullOrWhiteSpace(Content);
     }
 }

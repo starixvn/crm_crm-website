@@ -26,6 +26,7 @@
 
         public static void ResolveLetstalkServiceDI(this IServiceCollection services, IList<BotConfig> botConfigs)
         {
+            services.AddTransient<ISendNotificationService, SendNotificationService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<RestClientService>();

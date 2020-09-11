@@ -9,7 +9,7 @@
 
         public int ConversationGroupId { get; set; }
 
-        public string Message { get; set; }
+        public string ErrMsg { get; set; }
 
         public string Status { get; set; }
     }

@@ -10,7 +10,7 @@
         {
             // Arrange
             var criteria = new GetNotificationToSendCriteria();
-            var expected = "Acc_CRM_ChatBot_NotificationToSend_Sel";
+            var expected = "Acc_CRM_ChatBot_SendNotification";
 
             // Act
             var actual = criteria.GetSettingKey();
