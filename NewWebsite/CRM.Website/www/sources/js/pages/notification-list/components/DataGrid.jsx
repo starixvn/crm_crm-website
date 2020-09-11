@@ -108,7 +108,7 @@ export class DataGrid extends Component {
                 <div>{item.notificationId}</div>
                 <div>{`(Msg: ${item.messageId})`}</div>
                 {
-                    this.isDuplicated(item.status) && <div>{`(Related: ${item.relatedNotificationIds})`}</div>
+                    this.isDuplicated(item.status) && <div>{`(Related ID: ${item.relatedNotificationIds})`}</div>
                 }
             </Cell>
             <Cell>

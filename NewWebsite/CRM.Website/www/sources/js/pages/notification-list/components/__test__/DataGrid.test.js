@@ -660,7 +660,7 @@ describe('DataGrid', () => {
                 const row = shallow(dataGrid.instance().renderRow(item, index, false));
 
                 // Assert
-                expect(row.find(Cell).at(1).find('div').at(2).html()).toEqual(`<div>(Related: ${item.relatedNotificationIds})</div>`);
+                expect(row.find(Cell).at(1).find('div').at(2).html()).toEqual(`<div>(Related ID: ${item.relatedNotificationIds})</div>`);
             });
             
             it('has Cell 6 clicking', () => {
