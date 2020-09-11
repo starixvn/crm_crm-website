@@ -174,7 +174,6 @@ export class Filter extends Component {
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
-                                isSummited={false}
                                 isAllTextShown
                                 onChange={this.systemChange}
                             />

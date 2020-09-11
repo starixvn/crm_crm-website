@@ -1,9 +1,8 @@
 
 import React from 'react';
 import FilterWrapper, { Filter } from '../Filter';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import { Button } from 'react-bootstrap';
 
 describe('Filter', () => {
 
@@ -64,33 +63,70 @@ describe('Filter', () => {
 
         it('componentDidMount runs correctly', async () => {
             // Arrange
+            const id = 1;
+            const promise = Promise.resolve({ data: {} });
             const props = {
                 gridParams: {},
-                settings: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                settings: {
+                    recipientTypes: [
+                        {
+                            id: id,
+                            name: 'name1'
+                        }
+                    ],
+                    chatTypes: [
+                        {
+                            id: id,
+                            name: 'name1'
+                        }
+                    ],
+                    systems: [
+                        {
+                            id: id,
+                            name: 'name1'
+                        }
+                    ]
+                },
+                getSettings: jest.fn(() => promise),
+                recipientTypesOptions: [],
+                chatTypesOptions: [],
+                systemsOptions: []
             };
+            const recipientTypesOptions = props.settings.recipientTypes.map(x => {
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
+            const chatTypesOptions = props.settings.chatTypes.map(x => {
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
+            const systemsOptions = props.settings.systems.map(x => {
+                return {
+                    id: x.id,
+                    name: x.name,
+                    checked: true
+                };
+            });
 
             // Action
-            shallow(<Filter {...props} />);
+            const filter = mount(<Filter {...props} />);
 
             // Assert
             expect(props.getSettings).toHaveBeenCalledTimes(1);
-        });
-
-        it('should show create popup when click insert button', () => {
-            // Arrange
-            const props = {
-                isHost: true,
-                setCreateNotificationTypePopup: jest.fn(),
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
-            const container = shallow(<Filter {...props} />);
-
-            // Act
-            container.find(Button).at(1).props().onClick();
-
-            // Assert
-            expect(props.setCreateNotificationTypePopup).toHaveBeenCalledWith({ show: true });
+            promise.then(() => {
+                expect(filter.instance().state.recipientTypesOptions).toEqual(recipientTypesOptions);
+                expect(filter.instance().state.chatTypesOptions).toEqual(chatTypesOptions);
+                expect(filter.instance().state.systemsOptions).toEqual(systemsOptions);
+                expect(filter.instance().state.filter.recipientTypeIds).toEqual(id.toString());
+                expect(filter.instance().state.filter.chatTypeIds).toEqual(id.toString());
+                expect(filter.instance().state.filter.systems).toEqual(id.toString());
+            });
         });
 
         describe('handle change', () => {
@@ -111,7 +147,7 @@ describe('Filter', () => {
                 expect(filter.instance().state.filter.name).toBe('value');
             });
 
-            it('handleRecipientTypesChange call handleFilterChange', () => {
+            it('should call handleFilterChange when change recipient type', () => {
                 // Arrange
                 const expected = 'selectedItemsKey';
                 const props = {
@@ -130,7 +166,7 @@ describe('Filter', () => {
                 expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('recipientTypes', expected);
             });
 
-            it('chatNotificationTypeChange call handleFilterChange', () => {
+            it('should call handleFilterChange when change chat type', () => {
                 // Arrange
                 const expected = 'selectedItemsKey';
                 const props = {
@@ -149,7 +185,7 @@ describe('Filter', () => {
                 expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('chatTypes', expected);
             });
 
-            it('systemChange call handleFilterChange', () => {
+            it('should call handleFilterChange when change system', () => {
                 // Arrange
                 const expected = 'selectedItemsKey';
                 const props = {
@@ -185,9 +221,26 @@ describe('Filter', () => {
 
                 // Action
                 filter.instance().handleNotificationTypeChange(event);
-
+                filter.setState(event);
                 // Assert
                 expect(filter.instance().handleNotificationTypeChange).toHaveBeenCalledWith(event);
+                expect(filter.instance().state.notificationTypeName).toEqual(event.notificationTypeName);
+            });
+
+            it('should call handleOpenCreatePopup when click insert button', () => {
+                // Arrange
+                const props = {
+                    isHost: true,
+                    setCreateNotificationTypePopup: jest.fn(),
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
+                const container = shallow(<Filter {...props} />);
+
+                // Act
+                container.instance().handleOpenCreatePopup()
+
+                // Assert
+                expect(props.setCreateNotificationTypePopup).toHaveBeenCalledWith({ show: true });
             });
         });
 
@@ -272,7 +325,7 @@ describe('Filter', () => {
         });
 
         describe('submitHandler', () => {
-            it('submitHandler runs with params correct', () => {
+            it('submitHandler runs with valid params', () => {
                 // Arrange
                 const params = { value: 'value' };
                 const event = {
