@@ -116,6 +116,13 @@
         private async Task SendToPersonal(NotificationMessage notification, SendNotificationResult sendResult)
         {
             var result = await letstalkService(notification.BotId).PushAsync(notification.ConversationId, notification.Content);
+
+            if (result.IsSuccess && !result.BlockList.Any())
+            {
+                sendResult.Status = NotificationRecipientStatus.Sent;
+                sendResult.ErrMsg = string.Empty;
+            }
+
             if (result.BlockList.Any())
             {
                 sendResult.Status = NotificationRecipientStatus.BotBlocked;

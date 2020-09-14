@@ -16,10 +16,10 @@
 
             if (source == null || !source.Any())
             {
-                return new XElement("Root");
+                return new XElement("root");
             }
 
-            return new XElement("Root", source.Select(lambda).ToArray());
+            return new XElement("root", source.Select(lambda).ToArray());
         }
 
         private static XName GetElementName(Type t)
