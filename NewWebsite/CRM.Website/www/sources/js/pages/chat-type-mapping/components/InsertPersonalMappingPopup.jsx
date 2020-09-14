@@ -51,6 +51,15 @@ export class InsertPersonalMappingPopup extends Component {
         }));
     };
 
+    handleBotChange = (value) => {
+        this.setState({ isLoading: true });
+        this.handleChange('botId', value);
+        this.props.getLetstalkDisplayName(value, this.state.form.letstalkId).then(() => {
+            this.handleChange('displayName', this.props.letstalkName);
+            this.setState({ isLoading: false });
+        });
+    }
+
     handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {
         this.handleChange('groupHeadlines', selectedItemsKey);
     }
@@ -62,6 +71,8 @@ export class InsertPersonalMappingPopup extends Component {
 
     handleRecipientChange = option => {
         this.handleChange('recipient', option);
+        this.handleChange('letstalkId', '');
+        this.handleChange('displayName', '');
         this.setState({
             letstalkIds: option.letstalkIds
         });
@@ -95,7 +106,9 @@ export class InsertPersonalMappingPopup extends Component {
                     name='letstalkId'
                     type="radio"
                     id={`letstalkId-${key}`}
-                    value={letstalkId} onChange={this.handleLetstalkSelect} />
+                    value={letstalkId}
+                    checked={this.state.form.letstalkId === letstalkId}
+                    onChange={this.handleLetstalkSelect} />
             ));
         }
 
@@ -225,7 +238,7 @@ export class InsertPersonalMappingPopup extends Component {
                         <Col sm="9" md="10">
                             <Form.Control as="select" size="sm" className="shadow-none"
                                 name='botId'
-                                onChange={e => this.handleChange('botId', e.target.value)}
+                                onChange={e => this.handleBotChange(e.target.value)}
                                 value={this.state.form.botId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
