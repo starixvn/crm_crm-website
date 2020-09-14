@@ -80,9 +80,9 @@ export class AppContainer extends Component {
     handleDelete = () => {
         this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(response => {
             const data = response.data;
+            this.handleCloseDeletePopup();
             if (data.isSuccessful) {
                 toast.success(LangHelper.getResource('DeleteNotificationTemplateSuccessfully'));
-                this.handleCloseDeletePopup();
                 this.props.getGridData(this.props.gridParams);
             }
             else {
