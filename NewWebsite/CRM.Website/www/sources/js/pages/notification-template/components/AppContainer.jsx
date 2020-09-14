@@ -81,9 +81,9 @@ export class AppContainer extends Component {
         this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(response => {
             const data = response.data;
             this.handleCloseDeletePopup();
+            this.props.getGridData(this.props.gridParams);
             if (data.isSuccessful) {
                 toast.success(LangHelper.getResource('DeleteNotificationTemplateSuccessfully'));
-                this.props.getGridData(this.props.gridParams);
             }
             else {
                 toast.error(data.message);
