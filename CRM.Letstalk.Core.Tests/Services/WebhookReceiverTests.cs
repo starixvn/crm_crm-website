@@ -20,19 +20,21 @@
     {
         private readonly IWebhookReceiver webhookReceiver;
         private readonly IJwtService jwtService;
-        private readonly Func<string, IEventHandler> eventHandler;
+        private readonly IEventHandler eventHandler;
         private readonly List<BotConfig> botConfigs;
 
         public WebhookReceiverTests()
         {
             jwtService = Substitute.For<IJwtService>();
-            eventHandler = Substitute.For<Func<string, IEventHandler>>();
-            eventHandler(Arg.Any<string>()).Returns(Substitute.For<IEventHandler>());
+            eventHandler = Substitute.For<IEventHandler>();
+            var func = Substitute.For<Func<string, IEventHandler>>();
+            func(Arg.Any<string>()).Returns(eventHandler);
+
             botConfigs = new List<BotConfig>
             {
                 new BotConfig { BotAccountId = 1000, SecureKey = "SecureKey" }
             };
-            webhookReceiver = new WebhookReceiver(jwtService, eventHandler, botConfigs);
+            webhookReceiver = new WebhookReceiver(jwtService, func, botConfigs);
         }
 
         [Fact]

@@ -27,6 +27,7 @@
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
         {
             var roomData = await letstalkService(botConfig.BotAccountId).GetChatRoomData(hookEvent.Source.GroupId);
+
             var command = new UpdateGroupNameCommand
             {
                 ConversationId = hookEvent.Source.GroupId,
