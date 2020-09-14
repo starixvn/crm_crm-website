@@ -118,7 +118,7 @@ describe('DataGrid', () => {
                         totalItems: 1,
                         data: []
                     },
-                    getTemplateById: jest.fn(),
+                    getTemplateById: jest.fn((params, callback) => callback()),
                     setEditTemplatePopup: jest.fn()
                 };
                 const container = shallow(<DataGrid {...props} />).instance();
@@ -140,7 +140,7 @@ describe('DataGrid', () => {
                         totalItems: 1,
                         data: []
                     },
-                    getTemplateById: jest.fn(),
+                    getTemplateById: jest.fn((params, callback) => callback()),
                     setContentDetailPopup: jest.fn()
                 };
                 const container = shallow(<DataGrid {...props} />).instance();

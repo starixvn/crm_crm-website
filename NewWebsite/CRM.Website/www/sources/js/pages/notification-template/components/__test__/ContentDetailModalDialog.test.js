@@ -9,7 +9,7 @@ describe('ContentDetailModalDialog', () => {
         jest.clearAllMocks();
     });
 
-    it('renders component correctly', () => {
+    it('should render correctly', () => {
         // Act
         const container = shallow(<ContentDetailModalDialog />);
 

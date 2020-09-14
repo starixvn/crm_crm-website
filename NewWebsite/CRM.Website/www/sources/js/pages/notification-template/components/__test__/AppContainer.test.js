@@ -16,31 +16,18 @@ describe('AppContainer', () => {
         jest.clearAllMocks();
     });
 
-    it('renders component correctly', () => {
+    it('should render correctly', () => {
         // Act
         const container = shallow(<AppContainer />);
 
         // Assert
         expect(container).toMatchSnapshot();
-    });
-
-    it('renders default component correctly', () => {
-        // Arrange
-        const props = { isHost: false };
-
-        // Act
-        const container = shallow(<AppContainer {...props} />);
-
-        // Assert
         expect(container.find(Filter).length).toBe(1);
-        expect(container.find(Filter).props().isHost).toBe(props.isHost);
-
         expect(container.find(DataGrid).length).toBe(1);
-        expect(container.find(DataGrid).props().isHost).toBe(props.isHost);
     });
 
     describe('create notification template', () => {
-        it('render component correctly', () => {
+        it('should render correctly', () => {
             // Arrange
             const props = {
                 createTemplatePopup: { show: true }
@@ -54,7 +41,7 @@ describe('AppContainer', () => {
             expect(container.find(NewNotificationTemplate).length).toBe(1);
         });
 
-        it('should calls exactly functions when close popup', () => {
+        it('should call exactly functions when close popup', () => {
             // Arrange
             const props = {
                 setCreateTemplatePopup: jest.fn(),
@@ -70,7 +57,7 @@ describe('AppContainer', () => {
             expect(props.setCreateTemplateResult).toHaveBeenCalledWith(null);
         });
 
-        it('should calls exactly functions when create template successful', () => {
+        it('should call exactly functions when create template successful', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -89,7 +76,7 @@ describe('AppContainer', () => {
     });
 
     describe('edit notification template', () => {
-        it('render component correctly', () => {
+        it('should render correctly', () => {
             // Arrange
             const props = {
                 editTemplatePopup: { show: true }
@@ -103,7 +90,7 @@ describe('AppContainer', () => {
             expect(container.find(EditNotificationTemplate).length).toBe(1);
         });
 
-        it('should calls exactly functions when close popup', () => {
+        it('should call exactly functions when close popup', () => {
             // Arrange
             const props = {
                 setEditTemplatePopup: jest.fn(),
@@ -121,7 +108,7 @@ describe('AppContainer', () => {
             expect(props.setSelectedTemplate).toHaveBeenCalledWith(null);
         });
 
-        it('should calls exactly functions when edit template successful', () => {
+        it('should call exactly functions when edit template successful', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -140,7 +127,7 @@ describe('AppContainer', () => {
     });
 
     describe('delete notification template', () => {
-        it('render component correctly', () => {
+        it('should render correctly', () => {
             // Arrange
             const props = {
                 deleteTemplatePopup: { show: true, name: 'voiding abnormal bet' }
@@ -156,7 +143,7 @@ describe('AppContainer', () => {
                 .toEqual(<div>Are you sure you want to delete <strong>voiding abnormal bet</strong>?</div>);
         });
 
-        it('should calls exactly functions when close popup', () => {
+        it('should call exactly functions when close popup', () => {
             // Arrange
             const props = {
                 setDeleteTemplatePopup: jest.fn()
@@ -170,7 +157,7 @@ describe('AppContainer', () => {
             expect(props.setDeleteTemplatePopup).toHaveBeenCalledWith({ show: false });
         });
 
-        it('should calls exactly functions when delete successful', async () => {
+        it('should call exactly functions when delete successful', async () => {
             // Arrange
             const response = { data: { isSuccessful: true, message: '' } };
             const promise = Promise.resolve(response);
@@ -194,15 +181,18 @@ describe('AppContainer', () => {
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
         });
 
-        it('should calls toast.error when delete unsuccessful', async () => {
+        it('should call exactly functions when delete unsuccessful', async () => {
             // Arrange
             const response = { data: { isSuccessful: false, message: 'delete unsuccessful' } };
             const promise = Promise.resolve(response);
             const props = {
                 deleteTemplatePopup: { templateId: 1 },
-                deleteTemplate: jest.fn(() => promise)
+                deleteTemplate: jest.fn(() => promise),
+                getGridData: jest.fn(),
+                gridParams: {}
             };
             const container = shallow(<AppContainer {...props} />).instance();
+            container.handleCloseDeletePopup = jest.fn();
 
             // Act
             container.handleDelete();
@@ -211,6 +201,7 @@ describe('AppContainer', () => {
             // Assert
             expect(props.deleteTemplate).toHaveBeenCalledWith(1);
             expect(toast.error).toHaveBeenCalledWith('delete unsuccessful');
+            expect(container.handleCloseDeletePopup).toHaveBeenCalled();
         });
     });
 

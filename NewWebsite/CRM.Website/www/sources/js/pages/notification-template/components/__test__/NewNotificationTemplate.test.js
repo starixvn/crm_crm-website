@@ -1,8 +1,9 @@
 ﻿import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Formik } from 'formik';
 import { NewNotificationTemplate } from '../NewNotificationTemplate';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
+import * as commonFunctions from '../../common.functions';
 
 describe('NewNotificationTemplate', () => {
     beforeAll(() => {
@@ -14,26 +15,12 @@ describe('NewNotificationTemplate', () => {
         jest.clearAllMocks();
     });
 
-    it('renders component correctly', () => {
+    it('should render correctly', () => {
         // Act
         const container = shallow(<NewNotificationTemplate />);
 
         // Assert
         expect(container).toMatchSnapshot();
-    });
-
-    it('should close popup when click close button', () => {
-        // Arrange
-        const props = {
-            onClose: jest.fn()
-        };
-        const container = mount(<NewNotificationTemplate {...props} />);
-
-        // Act
-        container.find(Button).at(1).props().onClick();
-
-        // Assert
-        expect(props.onClose).toHaveBeenCalled();
     });
 
     describe('methods', () => {
@@ -106,6 +93,53 @@ describe('NewNotificationTemplate', () => {
                 expect(formikBag.setSubmitting.mock.calls.length).toBe(2);
                 expect(formikBag.setSubmitting.mock.calls[0][0]).toBe(true);
                 expect(formikBag.setSubmitting.mock.calls[1][0]).toBe(false);
+            });
+        });
+
+        describe('renderForm', () => {
+            const formikProps = {
+                values: {},
+                errors: {},
+                touched: {}
+            };
+
+            it('should render correctly when languages do not have data', () => {
+                // Arrange
+                const container = shallow(<NewNotificationTemplate />).instance();
+
+                // Act
+                const form = shallow(container.renderForm(formikProps));
+
+                // Assert
+                expect(form).toMatchSnapshot();
+            });
+
+            it('should render correctly when languages have data', () => {
+                // Arrange
+                const props = {
+                    languages: [{ settingId: 1, settingValue: 'EN' }]
+                };
+                const container = shallow(<NewNotificationTemplate {...props} />).instance();
+
+                // Act
+                const form = shallow(container.renderForm(formikProps));
+
+                // Assert
+                expect(form).toMatchSnapshot();
+            });
+
+            it('should show response message', () => {
+                // Arrange
+                const props = {
+                    createTemplateResult: { isSuccessful: false, message: 'unsuccessful' }
+                };
+                const container = shallow(<NewNotificationTemplate {...props} />).instance();
+
+                // Act
+                const form = shallow(container.renderForm(formikProps));
+
+                // Assert
+                expect(form).toMatchSnapshot();
             });
         });
     });

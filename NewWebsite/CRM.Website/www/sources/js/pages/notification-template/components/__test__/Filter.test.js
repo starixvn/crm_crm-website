@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import { Button, Form } from 'react-bootstrap';
 import { Filter } from '../Filter';
 import { shallow } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
@@ -12,7 +11,7 @@ describe('Filter', () => {
         jest.clearAllMocks();
     });
 
-    it('renders component correctly', () => {
+    it('should render correctly', () => {
         // Act
         const container = shallow(<Filter />);
 
@@ -22,7 +21,7 @@ describe('Filter', () => {
 
     describe('methods', () => {
         describe('handleNotificationTypeChange', () => {
-            it('should calls setState when change notification type', () => {
+            it('should call setState when change notification type', () => {
                 // Arrange
                 const expected = {
                     notificationTypeId: '1',
@@ -39,7 +38,7 @@ describe('Filter', () => {
         });
 
         describe('handleTemplateNameChange', () => {
-            it('should calls setState when change template name', () => {
+            it('should call setState when change template name', () => {
                 // Arrange
                 const expected = {
                     notificationTypeId: '',
@@ -56,7 +55,7 @@ describe('Filter', () => {
         });
 
         describe('getParams', () => {
-            it('return expected params', () => {
+            it('should return expected params', () => {
                 // Arrange
                 const expected = {
                     notificationTypeId: NaN,
@@ -75,7 +74,7 @@ describe('Filter', () => {
         });
 
         describe('handleSubmit', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const expectedParams = {
                     notificationTypeId: NaN,
@@ -100,7 +99,7 @@ describe('Filter', () => {
         });
 
         describe('handleOpenCreatePopup', () => {
-            it('should calls exactly functions', () => {
+            it('should call exactly functions', () => {
                 // Arrange
                 const props = {
                     isHost: true,
