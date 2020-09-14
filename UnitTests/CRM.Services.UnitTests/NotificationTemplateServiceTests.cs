@@ -158,19 +158,20 @@
         {
             // Arrange
             var fixture = new Fixture();
-            var id = fixture.Create<int>();
+            var model = fixture.Create<DeleteNotificationTemplate>();
             var expected = fixture.Create<CommandResult>();
             var criteria = new DeleteNotificationTemplateCommand();
             var service = GetService();
             baseService.ExecuteNonQueryAsync(Arg.Do<DeleteNotificationTemplateCommand>(x => criteria = x)).Returns(expected);
 
             // Act
-            var actual = await service.DeleteAsync(id);
+            var actual = await service.DeleteAsync(model);
 
             // Assert
             Assert.Equal(expected, actual);
 
-            Assert.Equal(id, criteria.NotificationTemplateId);
+            Assert.Equal(model.NotificationTemplateId, criteria.NotificationTemplateId);
+            Assert.Equal(model.NotificationTemplateId, criteria.NotificationTemplateId);
             Assert.Equal(napSession.UserId, criteria.UserId);
         }
 

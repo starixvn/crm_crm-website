@@ -147,16 +147,17 @@ describe('actionCreators', () => {
     describe('deleteTemplate', () => {
         it('should return response when request has been done', async () => {
             // Arrange
+            const expectedParams = { id: 1, name: 'void abnormal bet' };
             const store = mockStore({});
             const response = { data: { isSuccessful: true, message: '' } };
             const promise = Promise.resolve(response);
             DataService.postDataAsync = jest.fn(() => promise);
 
             // Act
-            const actual = await store.dispatch(ActionCreators.deleteTemplate(1));
+            const actual = await store.dispatch(ActionCreators.deleteTemplate(expectedParams));
 
             // Assert
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/Delete/1');
+            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationTemplate/Delete', expectedParams);
             expect(actual).toEqual(response);
         });
     });

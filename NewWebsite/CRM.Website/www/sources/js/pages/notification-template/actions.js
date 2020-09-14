@@ -53,16 +53,16 @@ const createTemplate = data => async dispatch => {
     });
 };
 
-const editTemplate = (data) => async dispatch => {
+const editTemplate = data => async dispatch => {
     const url = Site.resolveClientUrl('NotificationTemplate/Edit');
     await DataService.postDataAsync(url, data).then(response => {
         dispatch(setEditTemplateResult(response.data));
     });
 };
 
-const deleteTemplate = templateId => async dispatch => {
-    const url = Site.resolveClientUrl(`NotificationTemplate/Delete/${templateId}`);
-    return await DataService.postDataAsync(url).then(response => response);
+const deleteTemplate = params => async () => {
+    const url = Site.resolveClientUrl(`NotificationTemplate/Delete`);
+    return await DataService.postDataAsync(url, params).then(response => response);
 };
 
 export const ActionCreators = {

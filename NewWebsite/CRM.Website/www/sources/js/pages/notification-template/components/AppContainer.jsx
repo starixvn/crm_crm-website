@@ -78,7 +78,9 @@ export class AppContainer extends Component {
     }
 
     handleDelete = () => {
-        this.props.deleteTemplate(this.props.deleteTemplatePopup.templateId).then(response => {
+        const { templateId, name } = this.props.deleteTemplatePopup;
+        const params = { notificationTemplateId: templateId, notificationTemplateName: name };
+        this.props.deleteTemplate(params).then(response => {
             const data = response.data;
             this.handleCloseDeletePopup();
             this.props.getGridData(this.props.gridParams);

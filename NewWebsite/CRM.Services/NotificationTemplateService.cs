@@ -21,7 +21,7 @@
 
         Task<CommandResult> EditAsync(EditNotificationTemplate model);
 
-        Task<CommandResult> DeleteAsync(int id);
+        Task<CommandResult> DeleteAsync(DeleteNotificationTemplate model);
     }
 
     public class NotificationTemplateService : INotificationTemplateService
@@ -102,11 +102,12 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        public async Task<CommandResult> DeleteAsync(int id)
+        public async Task<CommandResult> DeleteAsync(DeleteNotificationTemplate model)
         {
             var command = new DeleteNotificationTemplateCommand
             {
-                NotificationTemplateId = id,
+                NotificationTemplateId = model.NotificationTemplateId,
+                NotificationTemplateName = model.NotificationTemplateName,
                 UserId = napSession.UserId
             };
 

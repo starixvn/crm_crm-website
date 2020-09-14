@@ -84,9 +84,9 @@
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Host)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody]DeleteNotificationTemplate model)
         {
-            CommandResult commandResult = await templateService.DeleteAsync(id);
+            CommandResult commandResult = await templateService.DeleteAsync(model);
             return Json(commandResult);
         }
 

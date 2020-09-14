@@ -162,7 +162,7 @@ describe('AppContainer', () => {
             const response = { data: { isSuccessful: true, message: '' } };
             const promise = Promise.resolve(response);
             const props = {
-                deleteTemplatePopup: { templateId: 1 },
+                deleteTemplatePopup: { templateId: 1, name: 'void abnormal bet' },
                 deleteTemplate: jest.fn(() => promise),
                 getGridData: jest.fn(),
                 gridParams: {}
@@ -175,7 +175,7 @@ describe('AppContainer', () => {
             await promise;
 
             // Assert
-            expect(props.deleteTemplate).toHaveBeenCalledWith(1);
+            expect(props.deleteTemplate).toHaveBeenCalledWith({ notificationTemplateId: 1, notificationTemplateName: 'void abnormal bet' });
             expect(toast.success).toHaveBeenCalledWith('DeleteNotificationTemplateSuccessfully');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
@@ -186,7 +186,7 @@ describe('AppContainer', () => {
             const response = { data: { isSuccessful: false, message: 'delete unsuccessful' } };
             const promise = Promise.resolve(response);
             const props = {
-                deleteTemplatePopup: { templateId: 1 },
+                deleteTemplatePopup: { templateId: 1, name: 'void abnormal bet' },
                 deleteTemplate: jest.fn(() => promise),
                 getGridData: jest.fn(),
                 gridParams: {}
@@ -199,7 +199,7 @@ describe('AppContainer', () => {
             await promise;
 
             // Assert
-            expect(props.deleteTemplate).toHaveBeenCalledWith(1);
+            expect(props.deleteTemplate).toHaveBeenCalledWith({ notificationTemplateId: 1, notificationTemplateName: 'void abnormal bet' });
             expect(toast.error).toHaveBeenCalledWith('delete unsuccessful');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
         });

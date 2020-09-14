@@ -120,15 +120,17 @@ describe('common functions', () => {
                 title: 'void abnormal bet'
             };
             const expected = {
-                language_1: 'Content (EN) is mandatory!'
+                language_1: 'required'
             };
-            const languages = [{ settingId: 1, settingValue: 'EN' }]
+            const languages = [{ settingId: 1, settingValue: 'EN' }];
+            LangHelper.formatString = jest.fn(() => 'required');
 
             // Act
             const errors = commonFuns.validateFormik(values, languages);
 
             // Assert
             expect(errors).toEqual(expected);
+            expect(LangHelper.formatString).toHaveBeenCalledWith('FieldRequired', 'Content (EN)');
         });
     });
 });
