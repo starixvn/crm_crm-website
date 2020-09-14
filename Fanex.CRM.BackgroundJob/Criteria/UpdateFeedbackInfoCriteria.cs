@@ -5,6 +5,7 @@
     public class UpdateFeedbackInfoCriteria : NonQueryCommand
     {
         public int MessageId { get; set; }
+        public string RequestIds { get; set; }
         public string CustIds { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }

@@ -54,18 +54,19 @@
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
 
-            IEnumerable<int> messageIds = await messageService.GetVoidingMessageAsync();
-            messageIds = await messageService.StoreVoidingMessageAsync(messageIds, setting.BatchSize);
-            IEnumerable<int> failMessageIds = await messageService.GetFailMessageAsync();
-            messageIds = messageIds.Concat(failMessageIds).Distinct().ToList();
-            if (!messageIds.Any())
+            IEnumerable<VoidingMessage> voidingMessages = await messageService.GetVoidingMessageAsync();
+            voidingMessages = await messageService.StoreVoidingMessageAsync(voidingMessages, setting.BatchSize);
+            IEnumerable<VoidingMessage> failMessages = await messageService.GetFailMessageAsync();
+            voidingMessages = voidingMessages.Concat(failMessages).Distinct().ToList();
+            if (!voidingMessages.Any())
             {
                 await UpdateSystemSettingAsync();
                 return;
             }
 
+            IEnumerable<int> messageIds = voidingMessages.Select(x => x.MessageId).Distinct().ToList();
             IEnumerable<Message> messages = await messageService.GetMessageInfoAsync(messageIds);
-            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(messageIds, setting);
+            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(voidingMessages, setting);
             if (!ticketInfo.Item1.Any())
             {
                 await UpdateSystemSettingAsync();
@@ -82,6 +83,7 @@
             IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
 
             ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+                voidingMessages,
                 ticketInfo.Item1,
                 ticketInfo.Item2,
                 siteSettingMappings,
@@ -122,30 +124,41 @@
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
-            IEnumerable<int> messageIds,
+            IEnumerable<VoidingMessage> voidingMessages,
             AbnormalBetSystemSetting setting)
         {
+            const string XmlTemplate = "<r MsgID='{0}' ReqID='{1}' />";
+            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
+            foreach (var message in voidingMessages)
+            {
+                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
+            }
+            stringBuilder.Append(Constants.EndRootTag);
             var criteria = new GetAbnormalTicketInfoCriteria
             {
-                MessageIds = string.Join(",", messageIds),
+                MessageIds = stringBuilder.ToString(),
                 ConfigUAT = setting.ConfigUAT,
                 ConfigPRO = setting.ConfigPRO
             };
             var ticketInfo = await baseService.FetchMultipleAsync<MatchInfo, TransactionInfo>(criteria);
 
-            await CheckMessageDoNotHaveTicketInfoAsync(ticketInfo.Item1, ticketInfo.Item2);
+            await CheckMessageDoNotHaveTicketInfoAsync(voidingMessages, ticketInfo.Item1, ticketInfo.Item2);
 
             IEnumerable<MatchInfo> matchInfos = ticketInfo.Item1.Where(x => ticketInfo.Item2.Any(y => x.MessageId == y.MessageId)).ToList();
             return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, ticketInfo.Item2);
         }
 
-        private async Task CheckMessageDoNotHaveTicketInfoAsync(IEnumerable<MatchInfo> matchInfos, IEnumerable<TransactionInfo> transactionInfos)
+        private async Task CheckMessageDoNotHaveTicketInfoAsync(
+            IEnumerable<VoidingMessage> voidingMessages,
+            IEnumerable<MatchInfo> matchInfos,
+            IEnumerable<TransactionInfo> transactionInfos)
         {
             var messageIds = matchInfos.Where(x => !transactionInfos.Any(y => x.MessageId == y.MessageId))
                 .Select(x => x.MessageId).ToList();
             if (messageIds.Any())
             {
-                await messageService.UpdateStatusVoidingMessageAsync(messageIds);
+                IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
+                await messageService.UpdateStatusVoidingMessageAsync(messages);
                 logService.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
             }
         }
@@ -223,8 +236,7 @@
                 AutoField = string.Empty,
                 AutoField1 = string.Empty,
                 AutoField2 = string.Format("Date Time & Tool: {0}/{1}/", feedbackDate.ToString("yyyyMMdd"), feedbackDate.ToString("hh:mmtt")),
-                AutoField3 = $"{Environment.NewLine}System ID: ",
-                Description = GetDescription(matchInfo)
+                AutoField3 = $"{Environment.NewLine}System ID: "
             };
             logService.LogInformation("End mapping common setting for MessageId: " + message.MessageId);
 
@@ -235,7 +247,15 @@
                 IEnumerable<int> relatedCustomerIds = headlines.Where(x => x.HeadlineId == headline.HeadlineId).Select(x => x.CustId);
                 criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
 
-                await CreateFeedbackByBatchAsync(headline, relatedCustomerIds, message, matchInfo, transactionInfos, settings, settingMappings, criteria);
+                await CreateFeedbackByBatchAsync(
+                    headline,
+                    relatedCustomerIds,
+                    message,
+                    matchInfo,
+                    transactionInfos,
+                    settings,
+                    settingMappings,
+                    criteria);
             }
         }
 
@@ -262,7 +282,7 @@
                     headline.HeadlineId,
                     string.Join(",", batch)));
 
-                var transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
+                IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
                 criteria.ProductXml = GetProductXml(matchInfo, transactions, settings, settingMappings);
                 criteria.Solution = GetSolution(message, transactions);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
@@ -273,6 +293,9 @@
                     message.MessageId,
                     headline.HeadlineId,
                     string.Join(",", batch)));
+                IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
+                criteria.RequestIds = string.Join(",", requestIds);
+                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds, matchInfo);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
@@ -294,7 +317,7 @@
                             message.MessageId,
                             headline.HeadlineId,
                             string.Join(",", batch)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
+                        await UpdateFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
@@ -305,7 +328,7 @@
                         message.MessageId,
                         headline.HeadlineId,
                         string.Join(",", batch)));
-                    await UpdateFeedbackInfoAsync(message.MessageId, batch, CreateFeedbackJobStatus.Fail, ex.Message);
+                    await UpdateFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, ex.Message);
                     await logService.ErrorAsync(ex);
                 }
             }
@@ -349,7 +372,6 @@
                 RoleId = licenseeInfo.RoleId,
                 CountryId = licenseeInfo.CountryId,
                 Subject = "Special Notification",
-                Description = GetDescription(),
                 Solution = GetSolution(message),
                 LicenseeType = licenseeInfo.LicenseeType,
                 TitleId = licenseeInfo.TitleId,
@@ -357,7 +379,13 @@
             };
             logService.LogInformation("End mapping setting for MessageId: " + message.MessageId);
 
-            await CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
+            await CreateFeedbackByBatchAsync(
+                licenseeInfo,
+                message,
+                transactionInfos,
+                feedbackDate,
+                communicationTool,
+                criteria);
         }
 
         private async Task CreateFeedbackByBatchAsync(
@@ -382,6 +410,9 @@
                 criteria.AutoField = GetAutoField(feedbackDate, communicationTool, licenseeManagers);
                 criteria.MessageId = message.MessageId;
                 criteria.ListOrigCustIds = string.Join(",", custIds);
+                IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
+                criteria.RequestIds = string.Join(",", requestIds);
+                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
@@ -407,7 +438,7 @@
                             licenseeInfo.CustId,
                             string.Join(",", batch),
                             string.Join(",", custIds)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
+                        await UpdateFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
@@ -419,7 +450,7 @@
                         licenseeInfo.CustId,
                         string.Join(",", batch),
                         string.Join(",", custIds)));
-                    await UpdateFeedbackInfoAsync(message.MessageId, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
+                    await UpdateFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
                     await logService.ErrorAsync(ex);
                 }
             }
@@ -585,17 +616,19 @@
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription()
+        private static string GetDescription(int messageId, string requestIds)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
+            stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.Append("<br />Announcement sent to affected Licensees and informed our related department found abnormal tickets of members for the match.");
             stringBuilder.Append("<br /><br />Please refer to the system email subject \"Voided Bets Report\" for those affected customers &amp; tickets for reference.");
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription(MatchInfo matchInfo)
+        private static string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
+            stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
             stringBuilder.AppendFormat("<br />Date: {0}", matchInfo.EventDate.ToString("dd-MMM-yyyy"));
             stringBuilder.AppendFormat("<br />Sport: {0}", matchInfo.SportName);
             stringBuilder.AppendFormat("<br />Event Start Time: {0}", matchInfo.KickOffTime);
@@ -627,27 +660,27 @@
 
         private async Task UpdateSystemSettingAsync()
         {
-            logService.LogInformation("Begin update JobStatus, LastRuntime.");
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
-            logService.LogInformation("End update JobStatus, LastRuntime.");
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+            IEnumerable<VoidingMessage> voidingMessages,
             IEnumerable<MatchInfo> matchInfos,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SiteSettingMapping> siteSettingMappings,
             IEnumerable<GroupHeadline> headlines,
             CustomerInfo licenseeInfo)
         {
-            IEnumerable<TransactionInfo> transactions = transactionInfos.GroupBy(x => new { x.MessageId, x.CustId }).Select(x => x.First());
-
-            const string XmlTemplate = "<r msgid='{0}' custid='{1}' hl='{2}' related='{3}' event='{4}' />";
-            var stringBuilder = new StringBuilder("<ROOT>");
+            IEnumerable<TransactionInfo> transactions = transactionInfos
+                .GroupBy(x => new { x.MessageId, x.RequestId, x.CustId })
+                .Select(x => x.First());
+            const string XmlTemplate = "<r msgid='{0}' reqid='{1}' custid='{2}' hl='{3}' related='{4}' event='{5}' />";
+            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
             foreach (var transaction in transactions)
             {
                 var matchInfo = matchInfos.First(x => x.MessageId == transaction.MessageId);
@@ -670,13 +703,14 @@
 
                 stringBuilder.AppendFormat(XmlTemplate,
                     transaction.MessageId,
+                    transaction.RequestId,
                     transaction.CustId,
                     headlineId,
                     relatedCustId,
                     string.Format("{0} -vs- {1}", HttpUtility.HtmlEncode(matchInfo.HomeName), HttpUtility.HtmlEncode(matchInfo.AwayName)));
             }
 
-            stringBuilder.Append("</ROOT>");
+            stringBuilder.Append(Constants.EndRootTag);
 
             var criteria = new StoreFeedbackInfoCriteria
             {
@@ -687,7 +721,8 @@
             var messageIds = matchInfos.Where(x => !feedbackInfos.Any(y => y.MessageId == x.MessageId)).Select(x => x.MessageId).ToList();
             if (messageIds.Any())
             {
-                await messageService.UpdateStatusVoidingMessageAsync(messageIds);
+                IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
+                await messageService.UpdateStatusVoidingMessageAsync(messages);
                 logService.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
             }
 
@@ -696,11 +731,17 @@
             return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, transactionInfos);
         }
 
-        private async Task UpdateFeedbackInfoAsync(int messageId, IEnumerable<int> custIds, string status, string description)
+        private async Task UpdateFeedbackInfoAsync(
+            int messageId,
+            IEnumerable<int> requestIds,
+            IEnumerable<int> custIds,
+            string status,
+            string description)
         {
             var criteria = new UpdateFeedbackInfoCriteria
             {
                 MessageId = messageId,
+                RequestIds = string.Join(",", requestIds),
                 CustIds = string.Join(",", custIds),
                 Status = status,
                 Description = description

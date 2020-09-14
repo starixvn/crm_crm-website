@@ -54,6 +54,7 @@
         public bool IsReviewed { get; set; }
 
         public int MessageId { get; set; }
+        public string RequestIds { get; set; }
         public string ListOrigCustIds { get; set; }
 
         public int ErrCode { get; set; }

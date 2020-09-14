@@ -3,6 +3,7 @@
     public class TransactionInfo
     {
         public int MessageId { get; set; }
+        public int RequestId { get; set; }
         public long TransId { get; set; }
         public int CustId { get; set; }
         public string Username { get; set; }
