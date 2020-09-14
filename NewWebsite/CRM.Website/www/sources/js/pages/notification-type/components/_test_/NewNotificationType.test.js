@@ -7,8 +7,8 @@ import configureMockStore from 'redux-mock-store';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import { Formik } from 'formik';
-import functions from '../../common.functions';
 
+const commonFunction = require('../../common.functions');
 const mockStore = configureMockStore();
 
 describe('NewNotificationType', () => {
@@ -214,7 +214,6 @@ describe('NewNotificationType', () => {
     describe('validate', () => {
         it('should call correct functions when validate', () => {
             // Arrange
-            const promise = Promise.resolve({});
             const props = {
                 createNotificationTypeResult: {},
                 settings: {
@@ -226,19 +225,15 @@ describe('NewNotificationType', () => {
             };
             const values = {};
             const container = shallow(<NewNotificationType {...props} />);
-            const form = mount(container.instance().render());
-            functions.validateFormik = jest.fn(() => promise);
+            commonFunction.validateFormik = jest.fn();
 
             // Act
-            form.find(Formik).props().validate(values);
+            container.find(Formik).props().validate(values);
 
             // Assert
-            promise.then(() => {
-                expect(functions.validateFormik).toHaveBeenCalledTimes(1);
-            });
+            expect(commonFunction.validateFormik).toHaveBeenCalledTimes(1);
         });
     });
-
 
     describe('isInvalid', () => {
         it('isInvalid Notification Type Name correctly', () => {

@@ -7,8 +7,8 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 import configureMockStore from 'redux-mock-store';
 import MultipleSelect from '../../../../components/multiple-select/index';
 import { Formik } from 'formik';
-import functions from '../../common.functions';
 
+const commonFunction = require('../../common.functions');
 const mockStore = configureMockStore();
 
 describe('EditNotificationType', () => {
@@ -288,6 +288,7 @@ describe('EditNotificationType', () => {
         it('should call correct functions when change recipientTypeIds', () => {
             //Act
             form.find(MultipleSelect).at(0).props().onChange();
+
             //Assert
             expect(param.setFieldValue).toHaveBeenCalled();
         });
@@ -304,7 +305,6 @@ describe('EditNotificationType', () => {
     describe('validate', () => {
         it('should call correct functions when validate', () => {
             // Arrange
-            const promise = Promise.resolve({});
             const props = {
                 editNotificationTypePopup: {
                     data: {
@@ -320,15 +320,13 @@ describe('EditNotificationType', () => {
             };
             const values = {};
             const container = shallow(<EditNotificationType {...props} />);
-            functions.validateFormik = jest.fn(() => promise);
+            commonFunction.validateFormik = jest.fn();
 
             // Act
             container.find(Formik).props().validate(values);
 
             // Assert
-            promise.then(() => {
-                expect(functions.validateFormik).toHaveBeenCalled(1);
-            });
+            expect(commonFunction.validateFormik).toHaveBeenCalledTimes(1);
         });
     });
 

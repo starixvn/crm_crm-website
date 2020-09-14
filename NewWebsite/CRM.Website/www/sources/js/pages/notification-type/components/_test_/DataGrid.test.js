@@ -259,64 +259,64 @@ describe('DataGrid', () => {
 
         describe('buildHeader', () => {
             describe('onPaging', () => {
-            it('should call correct functions', () => {
-                // Arrange
-                const expectedPageIndex = 1;
-                const expectedPageSize = 100;
-                const props = {
-                    gridParams: {},
-                    gridData: {
-                        data: [
-                            {
-                                recipientTypes: [],
-                                chatTypes: []
-                            }
-                        ]
-                    },
-                    setGridParams: jest.fn(),
-                    getGridData: jest.fn()
-                };
+                it('should call correct functions', () => {
+                    // Arrange
+                    const expectedPageIndex = 1;
+                    const expectedPageSize = 100;
+                    const props = {
+                        gridParams: {},
+                        gridData: {
+                            data: [
+                                {
+                                    recipientTypes: [],
+                                    chatTypes: []
+                                }
+                            ]
+                        },
+                        setGridParams: jest.fn(),
+                        getGridData: jest.fn()
+                    };
 
-                const expectedParams = {
-                    pageIndex: expectedPageIndex,
-                    pageSize: expectedPageSize
-                };
+                    const expectedParams = {
+                        pageIndex: expectedPageIndex,
+                        pageSize: expectedPageSize
+                    };
 
-                const dataGrid = shallow(<DataGrid {...props} />);
+                    const dataGrid = shallow(<DataGrid {...props} />);
 
-                // Action
-                dataGrid.find(Table).props().onPaging(expectedPageIndex, expectedPageSize);
+                    // Action
+                    dataGrid.find(Table).props().onPaging(expectedPageIndex, expectedPageSize);
 
-                // Assert
-                expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
-                expect(props.getGridData).toHaveBeenCalledTimes(1);
+                    // Assert
+                    expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
+                    expect(props.getGridData).toHaveBeenCalledTimes(1);
+                });
+
+                it('buildHeader render correct header', () => {
+                    // Arrange
+                    const props = {
+                        gridParams: {},
+                        gridData: {}
+                    };
+
+                    const dataGrid = shallow(<DataGrid {...props} />);
+
+                    // Action
+                    const header = shallow(dataGrid.instance().buildHeader());
+
+                    // Assert
+                    expect(header.find(HeaderCell).at(0).props().colWidth).toBe(5);
+                    expect(header.find(HeaderCell).at(0).html()).toContain('SymbolNo');
+                    expect(header.find(HeaderCell).at(1).props().colWidth).toBe(20);
+                    expect(header.find(HeaderCell).at(1).html()).toContain('NotificationType');
+                    expect(header.find(HeaderCell).at(2).props().colWidth).toBe(20);
+                    expect(header.find(HeaderCell).at(2).html()).toContain('RecipientType');
+                    expect(header.find(HeaderCell).at(3).props().colWidth).toBe(20);
+                    expect(header.find(HeaderCell).at(3).html()).toContain('ChatType');
+                    expect(header.find(HeaderCell).at(4).props().colWidth).toBe(20);
+                    expect(header.find(HeaderCell).at(4).html()).toContain('System');
+                });
             });
-
-            it('buildHeader render correct header', () => {
-                // Arrange
-                const props = {
-                    gridParams: {},
-                    gridData: {}
-                };
-
-                const dataGrid = shallow(<DataGrid {...props} />);
-
-                // Action
-                const header = shallow(dataGrid.instance().buildHeader());
-
-                // Assert
-                expect(header.find(HeaderCell).at(0).props().colWidth).toBe(5);
-                expect(header.find(HeaderCell).at(0).html()).toContain('SymbolNo');
-                expect(header.find(HeaderCell).at(1).props().colWidth).toBe(20);
-                expect(header.find(HeaderCell).at(1).html()).toContain('NotificationType');
-                expect(header.find(HeaderCell).at(2).props().colWidth).toBe(20);
-                expect(header.find(HeaderCell).at(2).html()).toContain('RecipientType');
-                expect(header.find(HeaderCell).at(3).props().colWidth).toBe(20);
-                expect(header.find(HeaderCell).at(3).html()).toContain('ChatType');
-                expect(header.find(HeaderCell).at(4).props().colWidth).toBe(20);
-                expect(header.find(HeaderCell).at(4).html()).toContain('System');
-            });
-        });
 
             it('should show action when isHost = true', () => {
                 // Arrange

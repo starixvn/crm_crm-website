@@ -259,6 +259,7 @@ describe('AppContainer', () => {
                 editNotificationTypePopup: {}
             };
             const container = shallow(<AppContainer {...props} />).instance();
+            container.handleCloseDeletePopup = jest.fn();
 
             // Act
             container.handleDelete();
@@ -267,6 +268,8 @@ describe('AppContainer', () => {
             // Assert
             expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
             expect(toast.error).toHaveBeenCalledWith('unsuccessful');
+            expect(container.handleCloseDeletePopup).toHaveBeenCalled();
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
         });
     });
 });
