@@ -5,6 +5,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Criteria;
+    using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
 
     public interface IMessageService
@@ -18,6 +19,8 @@
         Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<int> messageIds);
 
         Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
+
+        Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync();
     }
 
     public class MessageService : IMessageService
@@ -92,6 +95,12 @@
                 MessageIds = stringBuilder.ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
+        }
+
+        public async Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync()
+        {
+            var criteria = new GetVoidingMessageForChatBotCriteria();
+            return await baseService.GetDataAsync<VoidingMessage>(criteria);
         }
     }
 }

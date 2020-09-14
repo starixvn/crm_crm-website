@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
+    using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
 
     public interface ISystemSettingService
@@ -14,6 +15,8 @@
         Task<CommandResult> UpdateSystemSettingAsync(IEnumerable<SystemSettingItem> settings);
 
         Task<CommandResult> UpdateJobStatusAsync(string status);
+
+        Task<AbnormalBetSystemSetting> GetChatBotSystemSettingAsync();
     }
 
     public class SystemSettingService : ISystemSettingService
@@ -54,6 +57,12 @@
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = status }
             };
             return await UpdateSystemSettingAsync(settings);
+        }
+
+        public async Task<AbnormalBetSystemSetting> GetChatBotSystemSettingAsync()
+        {
+            var criteria = new GetChatBotSystemSettingCriteria();
+            return await baseService.GetDataEntityAsync<AbnormalBetSystemSetting>(criteria);
         }
     }
 }
