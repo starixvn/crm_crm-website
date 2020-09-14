@@ -140,7 +140,7 @@ describe('Filter', () => {
                 const expected = {
                     notificationTypeName: 'test'
                 };
-                const container = shallow(<Filter {...props}/>);
+                const container = shallow(<Filter {...props} />);
 
                 // Act
                 container.instance().handleNotificationTypeChange({ target: { value: 'test' } });
@@ -251,7 +251,7 @@ describe('Filter', () => {
                             systemId: '1,2',
                         }
                     };
-    
+
                     const props = {
                         gridParams: {
                             pageIndex: 1,
@@ -260,7 +260,7 @@ describe('Filter', () => {
                         settings: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-    
+
                     const expected = {
                         notificationTypeName: state.notificationTypeName,
                         chatTypeIds: state.filter.chatTypes,
@@ -269,17 +269,17 @@ describe('Filter', () => {
                         pageIndex: 1,
                         pageSize: 100
                     };
-    
+
                     const filter = shallow(<Filter {...props} />);
                     filter.instance().setState(state);
-    
+
                     // Action
                     const result = filter.instance().getParams();
-    
+
                     // Assert
                     expect(result).toEqual(expected);
                 });
-    
+
                 it('getParams with invalid filter', () => {
                     // Arrange
                     const state = {
@@ -290,7 +290,7 @@ describe('Filter', () => {
                             systemId: null,
                         }
                     };
-    
+
                     const props = {
                         gridParams: {
                             pageIndex: 1,
@@ -299,7 +299,7 @@ describe('Filter', () => {
                         settings: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-    
+
                     const expected = {
                         notificationTypeName: state.notificationTypeName,
                         chatTypeIds: state.filter.chatTypes,
@@ -308,18 +308,18 @@ describe('Filter', () => {
                         pageIndex: 1,
                         pageSize: 100
                     };
-    
+
                     const filter = shallow(<Filter {...props} />);
                     filter.instance().setState(state);
-    
+
                     // Action
                     const result = filter.instance().getParams();
-    
+
                     // Assert
                     expect(result).toEqual(expected);
                 });
             });
-    
+
             describe('submitHandler', () => {
                 it('submitHandler runs with valid params', () => {
                     // Arrange
@@ -327,7 +327,7 @@ describe('Filter', () => {
                     const event = {
                         preventDefault: jest.fn()
                     };
-    
+
                     const props = {
                         gridParams: {},
                         settings: {},
@@ -335,26 +335,26 @@ describe('Filter', () => {
                         setGridParams: jest.fn(),
                         getGridData: jest.fn(),
                     };
-    
+
                     const filter = shallow(<Filter {...props} />)
                     filter.instance().getParams = jest.fn();
                     filter.instance().getParams.mockReturnValueOnce(params);
-    
+
                     // Action
                     filter.instance().submitHandler(event);
-    
+
                     // Assert
                     expect(event.preventDefault).toHaveBeenCalledTimes(1);
                     expect(props.setGridParams).toHaveBeenCalledWith(params);
                     expect(props.getGridData).toHaveBeenCalledTimes(1);
                 });
-    
+
                 it('submitHandler runs with invalid params', () => {
                     // Arrange
                     const event = {
                         preventDefault: jest.fn()
                     };
-    
+
                     const props = {
                         gridParams: {},
                         settings: {},
@@ -362,12 +362,12 @@ describe('Filter', () => {
                         setGridParams: jest.fn(),
                         getGridData: jest.fn(),
                     };
-    
+
                     const filter = shallow(<Filter {...props} />)
-    
+
                     // Action
                     filter.instance().submitHandler(event);
-    
+
                     // Assert
                     expect(event.preventDefault).toHaveBeenCalledTimes(1);
                     expect(props.setGridParams).toHaveBeenCalledTimes(0);

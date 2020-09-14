@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import EditNotificationTypeWrapper, { EditNotificationType } from '../EditNotificationType';
 import { shallow, mount } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
@@ -7,6 +7,7 @@ import ResponseMessage from '@jsroot/components/ResponseMessage';
 import configureMockStore from 'redux-mock-store';
 import MultipleSelect from '../../../../components/multiple-select/index';
 import { Formik } from 'formik';
+import functions from '../../common.functions';
 
 const mockStore = configureMockStore();
 
@@ -20,7 +21,7 @@ describe('EditNotificationType', () => {
     });
 
     describe('redux connect', () => {
-        //Arrange
+        // Arrange
         const initialState = {
             editNotificationTypeResult: {},
             editNotificationTypePopup: {},
@@ -29,10 +30,10 @@ describe('EditNotificationType', () => {
         };
         const store = mockStore(initialState);
 
-        //Act
+        // Act
         const wrapper = shallow(<EditNotificationTypeWrapper store={store} />);
 
-        //Assert
+        // Assert
         it('component render correctly', () => {
             expect(wrapper).toMatchSnapshot();
         });
@@ -109,44 +110,72 @@ describe('EditNotificationType', () => {
             editNotificationTypeResult: {},
             editNotificationTypePopup: {
                 data: {
-                    recipientTypes: [],
-                    chatTypes: []
+                    notificationTypeId: 1,
+                    recipientTypes: [
+                        {
+                            recipientTypeId: 1
+                        }
+                    ],
+                    chatTypes: [
+                        {
+                            chatTypeId: 3
+                        }
+                    ]
                 }
+
             },
             gridParams: {},
             settings: {
-                recipientTypes: [],
-                chatTypes: [],
+                recipientTypes: [
+                    {
+                        id: 1,
+                        name: 'recipient 1'
+                    },
+                    {
+                        id: 2,
+                        name: 'recipient 2'
+                    }
+                ],
+                chatTypes: [
+                    {
+                        id: 3,
+                        name: 'chat 1'
+                    },
+                    {
+                        id: 4,
+                        name: 'chat 2'
+                    }
+                ],
                 systems: [],
-            },
-            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            }
         };
         const recipientTypesOptions = props.settings.recipientTypes.map(x => {
             return {
                 id: x.id,
                 name: x.name,
-                checked: props.editNotificationTypePopup.recipientTypes.some(y => y.recipientTypeId === x.id) ? true : false
+                checked: props.editNotificationTypePopup.data.recipientTypes.some(y => y.recipientTypeId === x.id) ? true : false
             };
         });
         const chatTypesOptions = props.settings.chatTypes.map(x => {
             return {
                 id: x.id,
                 name: x.name,
-                checked: props.editNotificationTypePopup.chatTypeIds.some(y => y.recipientTypeId === x.id) ? true : false
+                checked: props.editNotificationTypePopup.data.chatTypes.some(y => y.chatTypeId === x.id) ? true : false
             };
         });
 
         // Action
-        const filter = shallow(<EditNotificationType {...props} />);
+        const container = shallow(<EditNotificationType {...props} />);
+        container.instance().componentDidMount();
 
         // Assert
-        expect(filter.instance().state.recipientTypesOptions).toEqual(recipientTypesOptions);
-        expect(filter.instance().state.chatTypesOptions).toEqual(chatTypesOptions);
+        expect(container.instance().state.recipientTypesOptions).toEqual(recipientTypesOptions);
+        expect(container.instance().state.chatTypesOptions).toEqual(chatTypesOptions);
     });
 
     describe('handleSubmit', () => {
         it('handleSubmit run correctly when submit success', async () => {
-            //Arrange
+            // Arrange
             const promise = Promise.resolve({});
             const secondParam = {
                 setSubmitting: jest.fn()
@@ -175,7 +204,7 @@ describe('EditNotificationType', () => {
             }
             const container = shallow(<EditNotificationType {...props} />).instance();
 
-            //Act
+            // Act
             container.handleSubmit(values, secondParam);
             await promise;
             jest.runAllTimers()
@@ -187,7 +216,7 @@ describe('EditNotificationType', () => {
         });
 
         it('handleSubmit run correctly when submit unsuccess', async () => {
-            //Arrange
+            // Arrange
             const promise = Promise.resolve({});
             const secondParam = {
                 setSubmitting: jest.fn()
@@ -216,7 +245,7 @@ describe('EditNotificationType', () => {
             }
             const container = shallow(<EditNotificationType {...props} />).instance();
 
-            //Act
+            // Act
             container.handleSubmit(values, secondParam);
             await promise;
             jest.runAllTimers()
@@ -259,23 +288,23 @@ describe('EditNotificationType', () => {
         it('should call correct functions when change recipientTypeIds', () => {
             //Act
             form.find(MultipleSelect).at(0).props().onChange();
-
             //Assert
             expect(param.setFieldValue).toHaveBeenCalled();
         });
 
         it('should call correct functions when change chatTypeIds', () => {
-            //Act
+            // Act
             form.find(MultipleSelect).at(1).props().onChange();
 
-            //Assert
+            // Assert
             expect(param.setFieldValue).toHaveBeenCalled();
         });
     });
 
-    describe('Formik', () => {
+    describe('validate', () => {
         it('should call correct functions when validate', () => {
             // Arrange
+            const promise = Promise.resolve({});
             const props = {
                 editNotificationTypePopup: {
                     data: {
@@ -287,20 +316,23 @@ describe('EditNotificationType', () => {
                     recipientTypes: [],
                     chatTypes: [],
                     systems: []
-                },
-                validateFormik: jest.fn()
+                }
             };
             const values = {};
             const container = shallow(<EditNotificationType {...props} />);
-            const form = mount(container.instance().render());
+            functions.validateFormik = jest.fn(() => promise);
 
-            //Act
-            form.find(Formik).props().validate(values);
+            // Act
+            container.find(Formik).props().validate(values);
 
-            //Assert
-            expect(props.validateFormik).toHaveBeenCalledTimes(0);
+            // Assert
+            promise.then(() => {
+                expect(functions.validateFormik).toHaveBeenCalled(1);
+            });
         });
+    });
 
+    describe('initialValues', () => {
         it('initialValues correctly', () => {
             // Arrange
             const props = {
@@ -339,8 +371,171 @@ describe('EditNotificationType', () => {
             // Act
             const form = mount(container.instance().render());
 
-            //Assert
+            // Assert
             expect(form.find(Formik).props().initialValues).toEqual(values);
         });
     });
 });
+
+describe('isInvalid', () => {
+    it('isInvalid Notification Type Name correctly', () => {
+        // Arrange
+        const props = {
+            editNotificationTypeResult: {},
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            gridParams: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: [],
+            }
+        };
+        const param = {
+            values: {},
+            errors: {
+                notificationTypeName: 'test'
+            },
+            touched: {
+                notificationTypeName: true
+            },
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn(),
+            isInvalid: jest.fn()
+        };
+        const container = shallow(<EditNotificationType {...props} />);
+
+        // Act
+        const form = shallow(container.instance().renderForm(param));
+
+        // Assert
+        expect(form.find(Form.Control).at(0).props().isInvalid).toEqual(param.errors.notificationTypeName);
+    });
+
+    it('isInvalid Recipient Type correctly', () => {
+        // Arrange
+        const props = {
+            editNotificationTypeResult: {},
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            gridParams: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: [],
+            }
+        };
+        const param = {
+            values: {},
+            errors: {
+                recipientTypeIds: 'test'
+            },
+            touched: {
+                recipientTypeIds: true
+            },
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn(),
+            isInvalid: jest.fn()
+        };
+        const container = shallow(<EditNotificationType {...props} />);
+
+        // Act
+        const form = shallow(container.instance().renderForm(param));
+
+        // Assert
+        expect(form.find(MultipleSelect).at(0).props().isInvalid).toEqual(param.errors.recipientTypeIds);
+    });
+
+    it('isInvalid Chat Type correctly', () => {
+        // Arrange
+        const props = {
+            editNotificationTypeResult: {},
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            gridParams: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: [],
+            }
+        };
+        const param = {
+            values: {},
+            errors: {
+                chatTypeIds: 'test'
+            },
+            touched: {
+                chatTypeIds: true
+            },
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn(),
+            isInvalid: jest.fn()
+        };
+        const container = shallow(<EditNotificationType {...props} />);
+
+        // Act
+        const form = shallow(container.instance().renderForm(param));
+
+        // Assert
+        expect(form.find(MultipleSelect).at(1).props().isInvalid).toEqual(param.errors.chatTypeIds);
+    });
+
+    it('isInvalid System correctly', () => {
+        // Arrange
+        const props = {
+            editNotificationTypeResult: {},
+            editNotificationTypePopup: {
+                data: {
+                    recipientTypes: [],
+                    chatTypes: []
+                }
+            },
+            gridParams: {},
+            settings: {
+                recipientTypes: [],
+                chatTypes: [],
+                systems: [],
+            }
+        };
+        const param = {
+            values: {},
+            errors: {
+                system: 'test'
+            },
+            touched: {
+                system: true
+            },
+            handleChange: jest.fn(),
+            handleSubmit: jest.fn(),
+            isSubmitting: jest.fn(),
+            setFieldValue: jest.fn(),
+            isInvalid: jest.fn()
+        };
+        const container = shallow(<EditNotificationType {...props} />);
+
+        // Act
+        const form = shallow(container.instance().renderForm(param));
+
+        // Assert
+        expect(form.find(Form.Control).at(1).props().isInvalid).toEqual(param.errors.system);
+    });
+});
+
