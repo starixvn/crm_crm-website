@@ -28,6 +28,7 @@
     ErrorNotification: 'Error Notification',
     ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient: 'Error occured while sending the notification to the following recipient',
     FieldMaxLength: '{0} must not over {1} characters long!',
+    FieldRequired: '{0} is required!',
     From: 'From',
     GroupHeadline: 'Group Headline',
     GroupHeadlineRequired: 'Group Headline is required!',

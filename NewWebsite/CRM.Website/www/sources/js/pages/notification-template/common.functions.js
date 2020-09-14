@@ -39,7 +39,9 @@ export const validateFormik = (values, languages = []) => {
 
     languages.map(item => {
         if (!values['language_' + item.settingId] || values['language_' + item.settingId].trim().length === 0) {
-            errors['language_' + item.settingId] = `${LangHelper.getResource('Content')} (${item.settingValue}) is mandatory!`;
+            errors['language_' + item.settingId] = LangHelper.formatString(
+                LangHelper.getResource('FieldRequired'),
+                `${LangHelper.getResource('Content')} (${item.settingValue})`);
         }
     });
 
