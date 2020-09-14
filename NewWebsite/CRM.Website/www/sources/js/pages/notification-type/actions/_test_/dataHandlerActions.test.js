@@ -115,12 +115,14 @@ describe('notificationTypeActionsDataHandlerActions', () => {
     it('should return response when request has been done', async () => { 
         const store = mockStore({});
         const response = { data: { isSuccessful: true, message: '' } };
+        const params = { id: 1, name: 'voiding bet' };
         const promise = Promise.resolve(response);
         DataService.postDataAsync = jest.fn(() => promise);
-        const actual = await store.dispatch(actions.deleteNotificationType(1));
+        const actual = await store.dispatch(actions.deleteNotificationType(params));
 
-        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/Delete/1');
+        expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/Delete', params);
         expect(actual).toEqual(response.data);
+        
     });
 
     it('should handle setEditNotificationTypeResult when request has been done', async () => {

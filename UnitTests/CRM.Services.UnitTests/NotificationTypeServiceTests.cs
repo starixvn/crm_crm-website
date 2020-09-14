@@ -71,19 +71,20 @@
         public async Task DeleteAsync_WhenCalled_ReturnExpectedCommandResult()
         {
             // Arrange
-            var id = fixture.Create<int>();
             var expected = fixture.Create<CommandResult>();
             var criteria = new DeleteNotificationTypeCommand();
+            var model = fixture.Create<DeleteNotificationType>();
             var service = GetService();
             baseService.ExecuteNonQueryAsync(Arg.Do<DeleteNotificationTypeCommand>(x => criteria = x)).Returns(expected);
 
             // Act
-            var actual = await service.DeleteAsync(id);
+            var actual = await service.DeleteAsync(model);
 
             // Assert
             Assert.Equal(expected, actual);
 
-            Assert.Equal(id, criteria.NotificationTypeId);
+            Assert.Equal(model.NotificationTypeId, criteria.NotificationTypeId);
+            Assert.Equal(model.NotificationTypeName, criteria.NotificationTypeName);
             Assert.Equal(napSession.UserId, criteria.UserId);
         }
 

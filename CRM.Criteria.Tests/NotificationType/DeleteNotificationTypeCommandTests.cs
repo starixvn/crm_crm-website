@@ -20,15 +20,16 @@
         }
 
         [Theory]
-        [InlineData(0, 0)]
-        [InlineData(1, 0)]
-        [InlineData(0, 1)]
-        public void IsValid_ParamsAreInvalid_ReturnFalse(int notificationTypeId, int userId)
+        [InlineData(0, 0, "")]
+        [InlineData(1, 0, "")]
+        [InlineData(0, 1, "")]
+        public void IsValid_ParamsAreInvalid_ReturnFalse(int notificationTypeId, int userId, string notificationTypeName)
         {
             // Arrange
             var criteria = new DeleteNotificationTypeCommand
             {
                 NotificationTypeId = notificationTypeId,
+                NotificationTypeName = notificationTypeName,
                 UserId = userId
             };
             // Act
@@ -45,6 +46,7 @@
             var criteria = new DeleteNotificationTypeCommand
             {
                 NotificationTypeId = 1,
+                NotificationTypeName = " test",
                 UserId = 8
             };
             // Act

@@ -225,7 +225,7 @@ describe('AppContainer', () => {
             // Arrange
             const promise = Promise.resolve({ isSuccessful: true, message: '' });
             const props = {
-                deleteNotificationTypePopup: { notificationTypeId: 1 },
+                deleteNotificationTypePopup: { notificationTypeId: 1, name: 'voiding bet'},
                 deleteNotificationType: jest.fn(() => promise),
                 getGridData: jest.fn(),
                 gridParams: {},
@@ -240,7 +240,7 @@ describe('AppContainer', () => {
             await promise;
 
             // Assert
-            expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
+            expect(props.deleteNotificationType).toHaveBeenCalledWith({ notificationTypeId: 1, notificationTypeName: 'voiding bet'});
             expect(toast.success).toHaveBeenCalledWith('DeleteNotificationTypeSuccessfully');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
@@ -251,7 +251,7 @@ describe('AppContainer', () => {
             // Arrange
             const promise = Promise.resolve({ isSuccessful: false, message: 'unsuccessful' });
             const props = {
-                deleteNotificationTypePopup: { notificationTypeId: 1 },
+                deleteNotificationTypePopup: { notificationTypeId: 1, name: 'voiding bet' },
                 deleteNotificationType: jest.fn(() => promise),
                 getGridData: jest.fn(),
                 gridParams: {},
@@ -266,7 +266,7 @@ describe('AppContainer', () => {
             await promise;
 
             // Assert
-            expect(props.deleteNotificationType).toHaveBeenCalledWith(1);
+            expect(props.deleteNotificationType).toHaveBeenCalledWith({notificationTypeId: 1, notificationTypeName: 'voiding bet'});
             expect(toast.error).toHaveBeenCalledWith('unsuccessful');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
             expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);

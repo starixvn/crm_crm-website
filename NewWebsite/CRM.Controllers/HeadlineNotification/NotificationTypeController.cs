@@ -91,9 +91,9 @@ namespace CRM.Controllers
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationType, Policy = Policy.Host)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody] DeleteNotificationType model)
         {
-            CommandResult commandResult = await notificationTypeService.DeleteAsync(id);
+            CommandResult commandResult = await notificationTypeService.DeleteAsync(model);
             return Json(commandResult);
         }
     }

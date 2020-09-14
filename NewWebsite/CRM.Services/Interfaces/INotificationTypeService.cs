@@ -12,7 +12,7 @@
 
         Task<CommandResult> EditAsync(EditNotificationType model);
 
-        Task<CommandResult> DeleteAsync(int id);
+        Task<CommandResult> DeleteAsync(DeleteNotificationType model);
 
         Task<IEnumerable<NotificationType>> GetNotificationTypeAsync(GetNotificationTypeCriteria criteria);
     }

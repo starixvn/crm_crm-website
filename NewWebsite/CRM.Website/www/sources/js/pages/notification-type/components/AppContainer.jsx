@@ -40,7 +40,9 @@ export class AppContainer extends Component {
     }
 
     handleDelete = () => {
-        this.props.deleteNotificationType(this.props.deleteNotificationTypePopup.notificationTypeId).then(data => {
+        const { notificationTypeId, name } = this.props.deleteNotificationTypePopup;
+        const params = { notificationTypeId: notificationTypeId, notificationTypeName: name };
+        this.props.deleteNotificationType(params).then(data => {
             this.handleCloseDeletePopup();
             this.props.getGridData(this.props.gridParams);
             if (data.isSuccessful) {

@@ -73,9 +73,9 @@ export const getSettings = () => async dispatch => {
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
- export const deleteNotificationType = notificationTypeId => async dispatch => {
-    const url = Site.resolveClientUrl(`NotificationType/Delete/${notificationTypeId}`);
-    return await DataService.postDataAsync(url).then(response => response.data);
+ export const deleteNotificationType = data => async dispatch => {
+    const url = Site.resolveClientUrl(`NotificationType/Delete`);
+    return await DataService.postDataAsync(url, data).then(response => response.data);
 };
 
 export const editNotificationType = data => async dispatch => {

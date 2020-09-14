@@ -128,12 +128,13 @@
         {
             // Arrange
             var expected = fixture.Create<CommandResult>();
+            var model = fixture.Create<DeleteNotificationType>();
             var id = fixture.Create<int>();
             var controller = GetController();
-            notificationTypeService.DeleteAsync(id).Returns(expected);
+            notificationTypeService.DeleteAsync(model).Returns(expected);
 
             // Act
-            var result = await controller.Delete(id);
+            var result = await controller.Delete(model);
 
             // Assert
             var jsonResult = Assert.IsType<JsonResult>(result);

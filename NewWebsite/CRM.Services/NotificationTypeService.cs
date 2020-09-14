@@ -54,11 +54,12 @@
             return await baseService.ExecuteNonQueryAsync(command);
         }
 
-        public async Task<CommandResult> DeleteAsync(int id)
+        public async Task<CommandResult> DeleteAsync(DeleteNotificationType model)
         {
             var command = new DeleteNotificationTypeCommand
             {
-                NotificationTypeId = id,
+                NotificationTypeId = model.NotificationTypeId,
+                NotificationTypeName = model.NotificationTypeName,
                 UserId = napSession.UserId
             };
 
