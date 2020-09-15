@@ -1,18 +1,18 @@
-﻿namespace CRM.Services
+﻿namespace CRM.Letstalk.Services.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Extensions.XML;
     using CRM.Core.Services;
-    using CRM.Criteria.SendNotification;
     using CRM.Letstalk.Client.Models.Results;
     using CRM.Letstalk.Client.Services.Interfaces;
-    using CRM.Models.SendNotification;
-    using CRM.Services.Interfaces;
+    using CRM.Letstalk.Services.Constants;
+    using CRM.Letstalk.Services.Criteria;
+    using CRM.Letstalk.Services.Models.SendNotification;
+    using CRM.Letstalk.Services.Services.Interfaces;
 
     public class SendNotificationService : ISendNotificationService
     {
@@ -51,8 +51,8 @@
                 {
                     NotificationId = notification.NotificationId,
                     ConversationGroupId = notification.ConversationGroupId,
-                    Status = NotificationRecipientStatus.Error,
-                    ErrMsg = NotificationRecipientErrorMessage.BotRemovedMsg
+                    Status = SendNotificationStatus.Error,
+                    ErrMsg = SendNotificationErrMsg.BotRemovedMsg
                 };
                 results.Add(result);
             }
@@ -106,8 +106,8 @@
             catch (Exception exception)
             {
                 await writeLogService.WriteErrorLogAsync(exception);
-                sendResult.Status = NotificationRecipientStatus.Retrying;
-                sendResult.ErrMsg = NotificationRecipientErrorMessage.BotServiceErrorMsg;
+                sendResult.Status = SendNotificationStatus.Retrying;
+                sendResult.ErrMsg = SendNotificationErrMsg.BotServiceErrorMsg;
             }
 
             return sendResult;
@@ -119,19 +119,19 @@
 
             if (result.IsSuccess && !result.BlockList.Any())
             {
-                sendResult.Status = NotificationRecipientStatus.Sent;
+                sendResult.Status = SendNotificationStatus.Sent;
                 sendResult.ErrMsg = string.Empty;
             }
 
             if (result.BlockList.Any())
             {
-                sendResult.Status = NotificationRecipientStatus.BotBlocked;
+                sendResult.Status = SendNotificationStatus.BotBlocked;
             }
 
             if (result.FailList.Any())
             {
-                sendResult.Status = NotificationRecipientStatus.Error;
-                sendResult.ErrMsg = NotificationRecipientErrorMessage.LetstalkIdInvalidMsg;
+                sendResult.Status = SendNotificationStatus.Error;
+                sendResult.ErrMsg = SendNotificationErrMsg.LetstalkIdInvalidMsg;
             }
 
             await WriteLogMessage(notification, result, result.BlockList.Any());
@@ -140,8 +140,8 @@
         private async Task SendToGroup(NotificationMessage notification, SendNotificationResult sendResult)
         {
             var result = await letstalkService(notification.BotId).PushRoomAsync(notification.ConversationId, notification.Content);
-            sendResult.Status = result.IsSuccess ? NotificationRecipientStatus.Sent : NotificationRecipientStatus.Retrying;
-            sendResult.ErrMsg = result.IsSuccess ? string.Empty : NotificationRecipientErrorMessage.BotServiceErrorMsg;
+            sendResult.Status = result.IsSuccess ? SendNotificationStatus.Sent : SendNotificationStatus.Retrying;
+            sendResult.ErrMsg = result.IsSuccess ? string.Empty : SendNotificationErrMsg.BotServiceErrorMsg;
             await WriteLogMessage(notification, result);
         }
 

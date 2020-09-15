@@ -1,4 +1,4 @@
-﻿namespace CRM.Models.SendNotification
+﻿namespace CRM.Letstalk.Services.Models.SendNotification
 {
     using CRM.Core.Extensions.XML;
 

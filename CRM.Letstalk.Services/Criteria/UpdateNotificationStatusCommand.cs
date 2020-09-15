@@ -1,4 +1,4 @@
-﻿namespace CRM.Criteria.SendNotification
+﻿namespace CRM.Letstalk.Services.Criteria
 {
     using CRM.Core.Models;
 

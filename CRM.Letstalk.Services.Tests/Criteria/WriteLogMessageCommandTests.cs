@@ -1,6 +1,6 @@
-﻿namespace CRM.Criteria.Tests.SendNotification
+﻿namespace CRM.Letstalk.Services.Tests.Criteria
 {
-    using CRM.Criteria.SendNotification;
+    using CRM.Letstalk.Services.Criteria;
     using Xunit;
 
     public class WriteLogMessageCommandTests

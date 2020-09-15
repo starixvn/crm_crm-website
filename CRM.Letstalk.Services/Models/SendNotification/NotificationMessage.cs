@@ -1,20 +1,20 @@
-﻿using CRM.Core.Enumerables;
-
-namespace CRM.Models.SendNotification
+﻿namespace CRM.Letstalk.Services.Models.SendNotification
 {
-    public class NotifcationRecipient
+    using CRM.Core.Enumerables;
+
+    public class NotificationMessage
     {
         public int NotificationId { get; set; }
 
-        public int ConversationGroupId { get; set; }
+        public string Content { get; set; }
 
-        public int RecipientId { get; set; }
+        public int ConversationGroupId { get; set; }
 
         public int ChatTypeId { get; set; }
 
         public int BotId { get; set; }
 
-        public string LetstalkConversationId { get; set; }
+        public string ConversationId { get; set; }
 
         public ChatType ChatType
         {
