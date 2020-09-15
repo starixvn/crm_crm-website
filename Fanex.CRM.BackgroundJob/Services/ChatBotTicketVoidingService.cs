@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
     using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Models.ChatBot;
@@ -91,12 +92,21 @@
             {
                 Messages = ParseToXml(voidingMessages)
             };
-            return await baseService.GetDataAsync<Message>(criteria);
+            var messages = await baseService.GetDataAsync<Message>(criteria);
+            foreach (Message message in messages)
+            {
+                message.Content_en = message.Content_en?.Trim().Replace("@@", string.Empty);
+                message.Content_cs = message.Content_cs?.Trim().Replace("@@", string.Empty);
+                message.Content_th = message.Content_th?.Trim().Replace("@@", string.Empty);
+                message.Content_vn = message.Content_vn?.Trim().Replace("@@", string.Empty);
+            }
+
+            return messages;
         }
 
         public async Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<VoidingMessage> voidingMessages)
         {
-            var criteria = new GetChatBotVoidingMessageCriteria
+            var criteria = new GetChatBotTicketVoidingInfoCriteria
             {
                 Messages = ParseToXml(voidingMessages)
             };
@@ -120,11 +130,13 @@
                     ticketInfo.Mrecommend,
                     ticketInfo.Srecommend,
                     ticketInfo.IsTest,
-                    message.Content_en,
-                    message.Content_cs,
-                    message.Content_th,
-                    message.Content_vn);
+                    HttpUtility.HtmlEncode(message.Content_en),
+                    HttpUtility.HtmlEncode(message.Content_cs),
+                    HttpUtility.HtmlEncode(message.Content_th),
+                    HttpUtility.HtmlEncode(message.Content_vn));
             }
+
+            stringBuilder.Append(Constants.Constants.EndRootTag.ToLowerInvariant());
             var criteria = new ImportChatBotTicketVoidingInfoCommand
             {
                 XmlData = stringBuilder.ToString()
