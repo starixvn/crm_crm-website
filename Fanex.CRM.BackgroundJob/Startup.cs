@@ -18,6 +18,7 @@
     using Fanex.Logging.Extensions.AspNetCore;
     using Fanex.Logging.Extensions.Database;
     using Fanex.Logging.Sentry;
+    using global::CRM.Letstalk.Services.Extentions;
     using Hangfire;
     using Hangfire.Storage.MySql;
     using Microsoft.AspNetCore.Authentication.Cookies;
@@ -111,7 +112,7 @@
             services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
 
             RegisterDI(services);
-
+            services.ResolveLetstalkServiceDI(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

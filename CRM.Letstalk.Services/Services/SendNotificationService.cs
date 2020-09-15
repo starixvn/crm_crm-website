@@ -13,21 +13,24 @@
     using CRM.Letstalk.Services.Criteria;
     using CRM.Letstalk.Services.Models.SendNotification;
     using CRM.Letstalk.Services.Services.Interfaces;
+    using Microsoft.Extensions.Configuration;
 
     public class SendNotificationService : ISendNotificationService
     {
         private readonly IBaseService baseService;
         private readonly IWriteLogService writeLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
-        private const int ItemEachBatch = 10;
+        private readonly int ItemEachBatch;
 
         public SendNotificationService(IBaseService baseService,
             IWriteLogService writeLogService,
+            IConfiguration configuration,
             Func<int, ILetstalkService> letstalkService)
         {
             this.baseService = baseService;
             this.writeLogService = writeLogService;
             this.letstalkService = letstalkService;
+            ItemEachBatch = configuration.GetValue<int?>("SendNotificationItemEachBatch") ?? 10;
         }
 
         public async Task SendNotificationToLetstalk()
@@ -158,7 +161,7 @@
             }
         }
 
-        private static List<List<NotificationMessage>> DivideBatchToSend(IEnumerable<NotificationMessage> notifications)
+        private List<List<NotificationMessage>> DivideBatchToSend(IEnumerable<NotificationMessage> notifications)
         {
             var batches = new List<List<NotificationMessage>>();
             int totalBatch = (int)Math.Ceiling((double)notifications.Count() / ItemEachBatch);

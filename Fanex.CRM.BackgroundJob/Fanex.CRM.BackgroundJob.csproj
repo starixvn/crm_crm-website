@@ -90,4 +90,8 @@
     </PackageReference>
     <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRM.Letstalk.Services\CRM.Letstalk.Services.csproj" />
+  </ItemGroup>
 </Project>

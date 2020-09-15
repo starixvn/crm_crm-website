@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Letstalk.Services.Services.Interfaces;
     using Hangfire;
     using Microsoft.Extensions.Options;
     using ONEbook.UM.Services;
@@ -14,6 +15,7 @@
         Task CreateFeedbackForVoidingAbnormalBet();
 
         Task PullMessageForChatBotAsync();
+        Task ScanAndSenLetstalkNotification();
     }
 
     public class BackgroundService : IBackgroundService
@@ -25,6 +27,7 @@
         private readonly IFeedbackService feedbackService;
         private readonly IChatBotTicketVoidingService chatBotTicketVoidingService;
         private readonly ICRMLogService logService;
+        private readonly ISendNotificationService sendNotificationService;
 
         public BackgroundService(
             IOptionsSnapshot<AppSettings> appSettings,
@@ -33,7 +36,8 @@
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,
             IChatBotTicketVoidingService chatBotTicketVoidingService,
-            ICRMLogService logService)
+            ICRMLogService logService,
+            ISendNotificationService sendNotificationService)
         {
             this.appSettings = appSettings.Value;
             this.maintenanceService = maintenanceService;
@@ -42,6 +46,7 @@
             this.feedbackService = feedbackService;
             this.chatBotTicketVoidingService = chatBotTicketVoidingService;
             this.logService = logService;
+            this.sendNotificationService = sendNotificationService;
         }
 
         [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -124,6 +129,29 @@
             }
         }
 
+        [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
+        [Queue(QueuePriority.Critical)]
+        public async Task ScanAndSenLetstalkNotification()
+        {
+            bool isUM = await CheckUM();
+            if (isUM)
+            {
+                logService.LogInformation("UM time.");
+                return;
+            }
+
+            try
+            {
+                await sendNotificationService.SendNotificationToLetstalk();
+            }
+            catch (Exception ex)
+            {
+                logService.LogInformation(ex.Message);
+                await logService.ErrorAsync(ex);
+            }
+        }
+
+        
         private async Task<bool> CheckUM()
         {
             var maintanceTime = await maintenanceService.GetUnderMaintenanceTimeAsync();

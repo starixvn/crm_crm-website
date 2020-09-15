@@ -57,6 +57,15 @@
                    hangfireJobSettings.FirstOrDefault(j => j.JobName.Equals(HangfireJobName.PullMessageForChatBot))?.CronExpression,
                    TimeZoneInfo.Local, QueuePriority.Critical);
             }
+            
+             if (IsEnabledJob(HangfireJobName.ScanAndSendLetstalkNotification))
+            {
+                recurringJob.AddOrUpdate<IBackgroundService>("Scan and send Letstalk Notification",
+                  job => job.ScanAndSenLetstalkNotification(),
+                  Cron.Minutely,
+                  TimeZoneInfo.Local, QueuePriority.Critical);
+            }
+
         }
 
         private static void RemoveCurrentHangfireServer()

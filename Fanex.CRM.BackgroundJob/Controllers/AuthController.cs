@@ -24,6 +24,7 @@
 
         public IActionResult Login()
         {
+            sendNotificationService.SendNotificationToLetstalk();
             return View();
         }
 
