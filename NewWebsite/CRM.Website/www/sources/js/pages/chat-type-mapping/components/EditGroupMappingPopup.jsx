@@ -62,7 +62,6 @@ export class EditGroupMappingPopup extends Component {
             const headlineIds = prevState.form.groupHeadlines.split(',');
             const headlineOptions = nextProps.groupHeadline;
             headlineOptions.map(headline => { headline['checked'] = headlineIds.some(v => parseInt(v, 10) === headline.id); });
-
             const state = {
                 settings: {
                     recipientOptions: recipientOptions,
@@ -84,9 +83,8 @@ export class EditGroupMappingPopup extends Component {
 
         if (recipientTypeId) {
             this.props.getRecipientByRecipientType(recipientTypeId).then(() => {
-                this.props.getGroupHeadlineByRecipient(selectedRecipientIds).then(() => {
-                    this.verifyLetstalk(selectedRecipientIds.split(','));
-                });
+                this.props.getGroupHeadlineByRecipient(selectedRecipientIds);
+                this.verifyLetstalk(selectedRecipientIds.split(','));
             });
         }
     }
@@ -101,8 +99,8 @@ export class EditGroupMappingPopup extends Component {
         this.handleChange('recipientTypeId', value);
         this.handleChange('recipientIds', '');
         this.handleChange('groupHeadlines', '');
+        this.props.getGroupHeadlineByRecipient('');
         this.verifyLetstalk([]);
-
         this.props.getRecipientByRecipientType(value);
     }
 

@@ -116,11 +116,9 @@ export const getGroupHeadlineByRecipient = recipientIds => async dispatch => {
         await axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
             dispatch(setGroupHeadlineData(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-    }
-
-    return dispatch => {
+    } else {
         dispatch(setGroupHeadlineData([]));
-    };
+    }
 };
 
 //Check dirty form

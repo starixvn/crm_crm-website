@@ -1,6 +1,7 @@
 ﻿import types from './types';
 import axios from 'axios';
 import Site from '@jsroot/common/site';
+import { setGroupHeadlineData } from './dataHandlerActions';
 
 // Insert Personal Mapping Popup
 const setInsertPersonalMappingPopup = isShow => {
@@ -29,6 +30,7 @@ export const closeInsertPersonalMappingPopup = () => {
     return dispatch => {
         dispatch(setInsertPersonalMappingPopup(false));
         dispatch(setInsertPersonalMappingResult(null));
+        dispatch(setGroupHeadlineData([]));
     };
 };
 

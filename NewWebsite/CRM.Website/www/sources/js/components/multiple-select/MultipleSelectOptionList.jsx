@@ -33,10 +33,23 @@ export default class MultipleSelectOptionList extends Component {
         return optionList;
     }
 
+    _calculateMinHeightOptionList = maxLengOfSubData => {
+        let minHeight = 0;
+        if (maxLengOfSubData && maxLengOfSubData > 0 && maxLengOfSubData < 5) {
+            minHeight = maxLengthOfSubData * 40;
+        }
+
+        if (maxLengOfSubData > 5) {
+            minHeight = 150;
+        }
+
+        return minHeight;
+    }
+
     render() {
         const dataSource = this.props.dataSource;
-        const maxLengthOfSubData = dataSource.length > 0 ? Math.max(...dataSource.map(item => item.subData && item.subData.length)) : 0;
-        const minHeight = maxLengthOfSubData === 0 || maxLengthOfSubData > 6 ? 0 : maxLengthOfSubData * 40;
+        const maxLengthOfSubData = dataSource.length > 0 ? Math.max(...dataSource.filter(item => item.subData).map(i => i.subData.length)) : 0;
+        const minHeight = this._calculateMinHeightOptionList(maxLengthOfSubData);
         return (
             <ul className="multiple-select-options" style={{ minHeight: minHeight }}>
                 {this._renderOptionList()}
