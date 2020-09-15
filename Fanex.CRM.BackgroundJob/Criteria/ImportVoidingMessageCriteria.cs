@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class StoreVoidingMessageCriteria : CriteriaBase
+    public class ImportVoidingMessageCriteria : CriteriaBase
     {
         public string MessageIds { get; set; }
         public int BatchSize { get; set; }

@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class StoreFeedbackInfoCriteria : CriteriaBase
+    public class ImportFeedbackInfoCriteria : CriteriaBase
     {
         public string Xml { get; set; }
 

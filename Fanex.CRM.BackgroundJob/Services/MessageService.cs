@@ -12,7 +12,7 @@
     {
         Task<IEnumerable<VoidingMessage>> GetVoidingMessageAsync();
 
-        Task<IEnumerable<VoidingMessage>> StoreVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages, int batchSize);
+        Task<IEnumerable<VoidingMessage>> ImportVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages, int batchSize);
 
         Task<IEnumerable<VoidingMessage>> GetFailMessageAsync();
 
@@ -21,6 +21,8 @@
         Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
 
         Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync();
+
+        Task<IEnumerable<VoidingMessage>> ImportVoidingMessageForChatBotAsync(IEnumerable<VoidingMessage> voidingMessages);
     }
 
     public class MessageService : IMessageService
@@ -38,19 +40,19 @@
             return await baseService.GetDataAsync<VoidingMessage>(criteria);
         }
 
-        public async Task<IEnumerable<VoidingMessage>> StoreVoidingMessageAsync(
+        public async Task<IEnumerable<VoidingMessage>> ImportVoidingMessageAsync(
             IEnumerable<VoidingMessage> voidingMessages,
             int batchSize)
         {
             const string XmlTemplate = "<r MsgID='{0}' ReqID='{1}' />";
             var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag);
-            foreach(var message in voidingMessages)
+            foreach (var message in voidingMessages)
             {
                 stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
             }
             stringBuilder.Append(Constants.Constants.EndRootTag);
 
-            var criteria = new StoreVoidingMessageCriteria
+            var criteria = new ImportVoidingMessageCriteria
             {
                 MessageIds = stringBuilder.ToString(),
                 BatchSize = batchSize
@@ -100,6 +102,23 @@
         public async Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync()
         {
             var criteria = new GetVoidingMessageForChatBotCriteria();
+            return await baseService.GetDataAsync<VoidingMessage>(criteria);
+        }
+
+        public async Task<IEnumerable<VoidingMessage>> ImportVoidingMessageForChatBotAsync(IEnumerable<VoidingMessage> voidingMessages)
+        {
+            const string XmlTemplate = "<r MessageID='{0}' RequestID='{1}' />";
+            var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag.ToLowerInvariant());
+            foreach (var message in voidingMessages)
+            {
+                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
+            }
+            stringBuilder.Append(Constants.Constants.EndRootTag.ToLowerInvariant());
+
+            var criteria = new ImportVoidingMessageForChatBotCriteria
+            {
+                MessageIds = stringBuilder.ToString()
+            };
             return await baseService.GetDataAsync<VoidingMessage>(criteria);
         }
     }

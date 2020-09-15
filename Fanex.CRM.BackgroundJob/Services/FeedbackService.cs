@@ -55,7 +55,7 @@
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
 
             IEnumerable<VoidingMessage> voidingMessages = await messageService.GetVoidingMessageAsync();
-            voidingMessages = await messageService.StoreVoidingMessageAsync(voidingMessages, setting.BatchSize);
+            voidingMessages = await messageService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
             IEnumerable<VoidingMessage> failMessages = await messageService.GetFailMessageAsync();
             voidingMessages = voidingMessages.Concat(failMessages).Distinct().ToList();
             if (!voidingMessages.Any())
@@ -82,7 +82,7 @@
             CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
             IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
 
-            ticketInfo = await StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+            ticketInfo = await ImportFeedbackInfoAsync(
                 voidingMessages,
                 ticketInfo.Item1,
                 ticketInfo.Item2,
@@ -668,7 +668,7 @@
             await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
         }
 
-        private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> StoreInfoAndGetCustomerNeedToCreateFeedbackAsync(
+        private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> ImportFeedbackInfoAsync(
             IEnumerable<VoidingMessage> voidingMessages,
             IEnumerable<MatchInfo> matchInfos,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -712,7 +712,7 @@
 
             stringBuilder.Append(Constants.EndRootTag);
 
-            var criteria = new StoreFeedbackInfoCriteria
+            var criteria = new ImportFeedbackInfoCriteria
             {
                 Xml = stringBuilder.ToString()
             };
