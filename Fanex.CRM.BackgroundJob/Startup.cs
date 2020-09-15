@@ -175,6 +175,7 @@
             services.AddScoped<ISystemSettingService, SystemSettingService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<ITicketVoidingService, TicketVoidingService>();
             services.AddScoped<IBackgroundService, BackgroundService>();
         }
 
