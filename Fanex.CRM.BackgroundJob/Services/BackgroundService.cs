@@ -6,13 +6,14 @@
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;
     using Hangfire;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using ONEbook.UM.Services;
 
     public interface IBackgroundService
     {
         Task CreateFeedbackForVoidingAbnormalBet();
+
+        Task PullMessageForChatBotAsync();
     }
 
     public class BackgroundService : IBackgroundService
@@ -22,8 +23,8 @@
         private readonly IJobRunningChecker jobRunningChecker;
         private readonly ISystemSettingService systemSettingService;
         private readonly IFeedbackService feedbackService;
+        private readonly IChatBotTicketVoidingService chatBotTicketVoidingService;
         private readonly ICRMLogService logService;
-        private readonly ILogger mlogger;
 
         public BackgroundService(
             IOptionsSnapshot<AppSettings> appSettings,
@@ -31,16 +32,16 @@
             IJobRunningChecker jobRunningChecker,
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,
-            ICRMLogService logService,
-            ILogger<BackgroundService> mlogger)
+            IChatBotTicketVoidingService chatBotTicketVoidingService,
+            ICRMLogService logService)
         {
             this.appSettings = appSettings.Value;
             this.maintenanceService = maintenanceService;
             this.jobRunningChecker = jobRunningChecker;
             this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
+            this.chatBotTicketVoidingService = chatBotTicketVoidingService;
             this.logService = logService;
-            this.mlogger = mlogger;
         }
 
         [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -50,7 +51,7 @@
             bool isUM = await CheckUM();
             if (isUM)
             {
-                mlogger.LogInformation("UM time.");
+                logService.LogInformation("UM time.");
                 return;
             }
 
@@ -59,7 +60,7 @@
                 AbnormalBetSystemSetting setting = await systemSettingService.GetAbnormalBetSettingAsync();
                 if (!setting.ServiceFlag)
                 {
-                    mlogger.LogInformation("Service is shutdown.");
+                    logService.LogInformation("Service is shutdown.");
                     return;
                 }
 
@@ -77,7 +78,7 @@
                     isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
                     if (!isRunning && setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
                     {
-                        mlogger.LogInformation("Rerun service.");
+                        logService.LogInformation("Rerun service.");
                         var settingJobStatus = new List<SystemSettingItem>
                         {
                             new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
@@ -89,8 +90,36 @@
             }
             catch (Exception ex)
             {
-                mlogger.LogInformation(ex.Message);
+                logService.LogInformation(ex.Message);
                 await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                await logService.ErrorAsync(ex);
+            }
+        }
+
+        [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
+        [Queue(QueuePriority.Critical)]
+        public async Task PullMessageForChatBotAsync()
+        {
+            bool isUM = await CheckUM();
+            if (isUM)
+            {
+                logService.LogInformation("UM time.");
+                return;
+            }
+
+            try
+            {
+                AbnormalBetSystemSetting setting = await systemSettingService.GetChatBotSystemSettingAsync();
+                if (!setting.ServiceFlag)
+                {
+                    logService.LogInformation("Chat Bot Service is shutdown.");
+                    return;
+                }
+
+                await chatBotTicketVoidingService.ExecuteJobAsync(setting);
+            }
+            catch (Exception ex)
+            {
                 await logService.ErrorAsync(ex);
             }
         }

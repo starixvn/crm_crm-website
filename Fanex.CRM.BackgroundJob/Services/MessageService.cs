@@ -5,7 +5,6 @@
     using System.Text;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Criteria;
-    using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
 
     public interface IMessageService
@@ -19,10 +18,6 @@
         Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<int> messageIds);
 
         Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
-
-        Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync();
-
-        Task<IEnumerable<VoidingMessage>> ImportVoidingMessageForChatBotAsync(IEnumerable<VoidingMessage> voidingMessages);
     }
 
     public class MessageService : IMessageService
@@ -97,29 +92,6 @@
                 MessageIds = stringBuilder.ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
-        }
-
-        public async Task<IEnumerable<VoidingMessage>> GetVoidingMessageForChatBotAsync()
-        {
-            var criteria = new GetVoidingMessageForChatBotCriteria();
-            return await baseService.GetDataAsync<VoidingMessage>(criteria);
-        }
-
-        public async Task<IEnumerable<VoidingMessage>> ImportVoidingMessageForChatBotAsync(IEnumerable<VoidingMessage> voidingMessages)
-        {
-            const string XmlTemplate = "<r MessageID='{0}' RequestID='{1}' />";
-            var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag.ToLowerInvariant());
-            foreach (var message in voidingMessages)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
-            }
-            stringBuilder.Append(Constants.Constants.EndRootTag.ToLowerInvariant());
-
-            var criteria = new ImportVoidingMessageForChatBotCriteria
-            {
-                MessageIds = stringBuilder.ToString()
-            };
-            return await baseService.GetDataAsync<VoidingMessage>(criteria);
         }
     }
 }

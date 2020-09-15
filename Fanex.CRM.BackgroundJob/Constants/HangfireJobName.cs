@@ -3,5 +3,6 @@
     public static class HangfireJobName
     {
         public const string CreateFeedbackForVoidingAbnormalBet = "CreateFeedbackForVoidingAbnormalBet";
+        public const string PullMessageForChatBot = "PullMessageForChatBot";
     }
 }

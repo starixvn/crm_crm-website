@@ -49,6 +49,14 @@
                    Cron.Minutely,
                    TimeZoneInfo.Local, QueuePriority.Critical);
             }
+
+            if (IsEnabledJob(HangfireJobName.PullMessageForChatBot))
+            {
+                recurringJob.AddOrUpdate<IBackgroundService>("Pull Message For Chat Bot",
+                   job => job.PullMessageForChatBotAsync(),
+                   hangfireJobSettings.FirstOrDefault(j => j.JobName.Equals(HangfireJobName.PullMessageForChatBot))?.CronExpression,
+                   TimeZoneInfo.Local, QueuePriority.Critical);
+            }
         }
 
         private static void RemoveCurrentHangfireServer()
