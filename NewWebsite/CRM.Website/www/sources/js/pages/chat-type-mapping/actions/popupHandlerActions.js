@@ -77,6 +77,7 @@ export const closeUpdatePersonalMappingPopup = () => {
     return dispatch => {
         dispatch(setUpdatePersonalMappingData(false, null));
         dispatch(setUpdatePersonalMappingResult(null));
+        dispatch(setGroupHeadlineData([]));
     };
 };
 
