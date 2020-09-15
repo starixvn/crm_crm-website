@@ -132,10 +132,10 @@ export const closeUpdateGroupMappingPopup = () => {
     };
 };
 
-export const verifyLetstalkInGroup = params => {
-    const url = Site.resolveClientUrl('ChatTypeMapping/VerifyLetstalkInGroup');
-    return dispatch => {
-        return axios({
+export const verifyLetstalkInGroup = params => async dispatch => {
+    if (params.botId > 0 && params.groupConversationId !== '' && params.recipients.length > 0) {
+        const url = Site.resolveClientUrl('ChatTypeMapping/VerifyLetstalkInGroup');
+        await axios({
             method: 'post',
             url: url,
             data: params,
@@ -146,7 +146,9 @@ export const verifyLetstalkInGroup = params => {
         }).then(response => {
             dispatch(setLetstalkVerifationData(response.data));
         }).catch(Site.handleAxiosError);
-    };
+    } else {
+        dispatch(setLetstalkVerifationData([]));
+    }
 };
 
 export const updateGroupMapping = params => async dispatch => {

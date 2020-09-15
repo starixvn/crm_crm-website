@@ -83,9 +83,10 @@ export class EditGroupMappingPopup extends Component {
         const selectedRecipientIds = initData.recipients.map(r => r.recipientId).toString();
 
         if (recipientTypeId) {
-            this.props.getRecipientByRecipientType(recipientTypeId);
-            this.props.getGroupHeadlineByRecipient(selectedRecipientIds).then(() => {
-                this.verifyLetstalk(selectedRecipientIds.split(','));
+            this.props.getRecipientByRecipientType(recipientTypeId).then(() => {
+                this.props.getGroupHeadlineByRecipient(selectedRecipientIds).then(() => {
+                    this.verifyLetstalk(selectedRecipientIds.split(','));
+                });
             });
         }
     }
@@ -100,6 +101,8 @@ export class EditGroupMappingPopup extends Component {
         this.handleChange('recipientTypeId', value);
         this.handleChange('recipientIds', '');
         this.handleChange('groupHeadlines', '');
+        this.verifyLetstalk([]);
+
         this.props.getRecipientByRecipientType(value);
     }
 
@@ -111,29 +114,27 @@ export class EditGroupMappingPopup extends Component {
     };
 
     verifyLetstalk = recipientIds => {
-        if (recipientIds) {
-            this.setState({ isLoading: true });
-            const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
-            const params = {
-                botId: this.state.form.bot.id,
-                groupConversationId: this.state.form.conversationId,
-                recipients: selectedOptions.map(item => {
-                    return {
-                        recipientId: item.id,
-                        recipientName: item.name,
-                        letstalks: !item.letstalkIds ? [] : item.letstalkIds.split(',').map(l => {
-                            return {
-                                letstalkId: l
-                            };
-                        })
-                    };
-                })
-            };
+        this.setState({ isLoading: true });
+        const selectedOptions = this.state.settings.recipientOptions.filter(r => recipientIds.some(id => parseInt(id, 10) === r.id));
+        const params = {
+            botId: this.state.form.bot.id,
+            groupConversationId: this.state.form.conversationId,
+            recipients: selectedOptions.map(item => {
+                return {
+                    recipientId: item.id,
+                    recipientName: item.name,
+                    letstalks: !item.letstalkIds ? [] : item.letstalkIds.split(',').map(l => {
+                        return {
+                            letstalkId: l
+                        };
+                    })
+                };
+            })
+        };
 
-            this.props.verifyLetstalkInGroup(params).then(() => {
-                this.setState({ isLoading: false });
-            });
-        }
+        this.props.verifyLetstalkInGroup(params).then(() => {
+            this.setState({ isLoading: false });
+        });
     }
 
     handleGroupHeadlineChange = (currentItem, selectedItemsKey) => {

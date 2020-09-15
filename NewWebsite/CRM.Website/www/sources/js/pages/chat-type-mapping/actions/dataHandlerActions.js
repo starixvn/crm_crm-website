@@ -87,15 +87,13 @@ export const setRecipientData = data => {
     };
 };
 
-export const getRecipientByRecipientType = recipientTypeId => {
+export const getRecipientByRecipientType = recipientTypeId => async dispatch => {
     if (recipientTypeId > 0) {
         Site.blockUI();
         const url = Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType');
-        return dispatch => {
-            axios.get(url, { params: { recipientTypeId: recipientTypeId } }).then(response => {
-                dispatch(setRecipientData(response.data));
-            }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
-        };
+        await axios.get(url, { params: { recipientTypeId: recipientTypeId } }).then(response => {
+            dispatch(setRecipientData(response.data));
+        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
 
     return dispatch => {

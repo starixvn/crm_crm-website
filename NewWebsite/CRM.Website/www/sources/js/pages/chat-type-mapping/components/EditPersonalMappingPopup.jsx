@@ -96,12 +96,16 @@ export class EditPersonalMappingPopup extends Component {
         this.handleChange('recipientType', value);
         this.handleChange('recipient', { value: '' });
         this.handleChange('groupHeadlines', '');
+        this.handleChange('conversationId', '');
+        this.handleChange('name', '');
         this.props.getRecipientByRecipientType(value);
     }
 
     handleRecipientChange = option => {
         this.handleChange('recipient', option);
         this.handleChange('groupHeadlines', '');
+        this.handleChange('conversationId', '');
+        this.handleChange('name', '');
         this.setState({
             settings: {
                 letstalkIds: option.letstalkIds
