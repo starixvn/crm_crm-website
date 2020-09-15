@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGrid component render correctly 1`] = `ShallowWrapper {}`;
+
+exports[`DataGrid component render correctly component render correctly 1`] = `ShallowWrapper {}`;
+
+exports[`DataGrid component with redux component render correctly 1`] = `ShallowWrapper {}`;

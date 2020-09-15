@@ -1,15 +1,13 @@
 ﻿import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import NewNotificationTypeWrapper, { NewNotificationType } from '../NewNotificationType';
+import { NewNotificationType } from '../NewNotificationType';
 import { shallow, mount } from 'enzyme';
 import MultipleSelect from '../../../../components/multiple-select/index';
-import configureMockStore from 'redux-mock-store';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import { Formik } from 'formik';
 
 const commonFunction = require('../../common.functions');
-const mockStore = configureMockStore();
 
 describe('NewNotificationType', () => {
     beforeAll(() => {
@@ -20,40 +18,9 @@ describe('NewNotificationType', () => {
         jest.clearAllMocks();
     });
 
-    describe('redux connect', () => {
-        it('component has correct props', () => {
-            // Arrange
-            const initialState = {
-                createNotificationTypeResult: {},
-                settings: {},
-                getSettings: {}
-            };
-            const store = mockStore(initialState);
-
-            // Act
-            const wrapper = shallow(<NewNotificationTypeWrapper store={store} />);
-
-            // Assert
-            expect(wrapper.props().children.props.createNotificationTypeResult).toEqual(initialState.createNotificationTypeResult);
-            expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
-            expect(wrapper.props().children.props.getSettings).toEqual(initialState.getSettings);
-        });
-    });
-
     it('renders default component correctly', () => {
-        // Arrange
-        const props = {
-            createNotificationTypeResult: {},
-            settings: {
-                recipientTypes: [],
-                chatTypes: [],
-                systems: []
-            },
-            getSettings: {}
-        };
-
         // Act
-        const wrapper = mount(<NewNotificationType {...props} />);
+        const wrapper = mount(<NewNotificationType/>);
 
         // Assert
         expect(wrapper).toMatchSnapshot();
@@ -66,13 +33,6 @@ describe('NewNotificationType', () => {
     it('should close popup when click close button', () => {
         // Arrange
         const props = {
-            createNotificationTypeResult: {},
-            settings: {
-                recipientTypes: [],
-                chatTypes: [],
-                systems: []
-            },
-            getSettings: {},
             onClose: jest.fn()
         };
         const container = mount(<NewNotificationType {...props} />);
@@ -92,12 +52,6 @@ describe('NewNotificationType', () => {
                 isSuccessful: false,
                 message: '' || 'InsertNotificationTypeSuccessfully'
             },
-            settings: {
-                recipientTypes: [],
-                chatTypes: [],
-                systems: []
-            },
-            getSettings: {}
         };
         const container = mount(<NewNotificationType {...props} />);
 
@@ -175,13 +129,6 @@ describe('NewNotificationType', () => {
 
     describe('handle onChange MultipleSelect', () => {
         // Arrange
-        const props = {
-            settings: {
-                recipientTypes: [],
-                chatTypes: [],
-                systems: []
-            }
-        };
         const param = {
             values: {},
             errors: {},
@@ -191,7 +138,7 @@ describe('NewNotificationType', () => {
             isSubmitting: jest.fn(),
             setFieldValue: jest.fn()
         };
-        const container = shallow(<NewNotificationType {...props} />);
+        const container = shallow(<NewNotificationType />);
         const form = shallow(container.instance().renderForm(param));
 
         it('should call correct functions when change recipientTypeIds', () => {
@@ -214,17 +161,8 @@ describe('NewNotificationType', () => {
     describe('validate', () => {
         it('should call correct functions when validate', () => {
             // Arrange
-            const props = {
-                createNotificationTypeResult: {},
-                settings: {
-                    recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
-                },
-                getSettings: {}
-            };
             const values = {};
-            const container = shallow(<NewNotificationType {...props} />);
+            const container = shallow(<NewNotificationType />);
             commonFunction.validateFormik = jest.fn();
 
             // Act
@@ -238,13 +176,6 @@ describe('NewNotificationType', () => {
     describe('isInvalid', () => {
         it('isInvalid Notification Type Name correctly', () => {
             // Arrange
-            const props = {
-                settings: {
-                    recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
-                }
-            };
             const param = {
                 values: {},
                 errors: {
@@ -258,7 +189,7 @@ describe('NewNotificationType', () => {
                 isSubmitting: jest.fn(),
                 setFieldValue: jest.fn()
             };
-            const container = shallow(<NewNotificationType {...props} />);
+            const container = shallow(<NewNotificationType />);
 
             // Act
             const form = shallow(container.instance().renderForm(param));
@@ -269,13 +200,6 @@ describe('NewNotificationType', () => {
 
         it('isInvalid Recipient Type correctly', () => {
             // Arrange
-            const props = {
-                settings: {
-                    recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
-                }
-            };
             const param = {
                 values: {},
                 errors: {
@@ -289,7 +213,7 @@ describe('NewNotificationType', () => {
                 isSubmitting: jest.fn(),
                 setFieldValue: jest.fn()
             };
-            const container = shallow(<NewNotificationType {...props} />);
+            const container = shallow(<NewNotificationType />);
 
             // Act
             const form = shallow(container.instance().renderForm(param));
@@ -300,13 +224,6 @@ describe('NewNotificationType', () => {
 
         it('isInvalid Chat Type correctly', () => {
             // Arrange
-            const props = {
-                settings: {
-                    recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
-                }
-            };
             const param = {
                 values: {},
                 errors: {
@@ -320,7 +237,7 @@ describe('NewNotificationType', () => {
                 isSubmitting: jest.fn(),
                 setFieldValue: jest.fn()
             };
-            const container = shallow(<NewNotificationType {...props} />);
+            const container = shallow(<NewNotificationType />);
 
             // Act
             const form = shallow(container.instance().renderForm(param));
@@ -331,13 +248,6 @@ describe('NewNotificationType', () => {
 
         it('isValid System correctly', () => {
             // Arrange
-            const props = {
-                settings: {
-                    recipientTypes: [],
-                    chatTypes: [],
-                    systems: []
-                }
-            };
             const param = {
                 values: {},
                 errors: {
@@ -351,7 +261,7 @@ describe('NewNotificationType', () => {
                 isSubmitting: jest.fn(),
                 setFieldValue: jest.fn()
             };
-            const container = shallow(<NewNotificationType {...props} />);
+            const container = shallow(<NewNotificationType />);
 
             //Act
             const form = shallow(container.instance().renderForm(param));

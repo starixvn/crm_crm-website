@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`EditNotificationType component render correctly 1`] = `ShallowWrapper {}`;
+
 exports[`EditNotificationType redux connect component render correctly 1`] = `ShallowWrapper {}`;

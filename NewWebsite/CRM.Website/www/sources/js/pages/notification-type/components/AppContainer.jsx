@@ -11,6 +11,13 @@ import LangHelper from '@jsroot/common/langHelper';
 import { toast } from 'react-toastify';
 
 export class AppContainer extends Component {
+    static defaultProps = {
+        createNotificationTypePopup: { show: false},
+        editNotificationTypePopup: { show: false},
+        deleteNotificationTypePopup: { show: false },
+        isHost: false
+    };
+
     constructor(props) {
         super(props);
     }

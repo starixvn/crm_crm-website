@@ -12,6 +12,17 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import { renderSystemOption, validateFormik } from '../common.functions';
 
 export class NewNotificationType extends Component {
+
+    static defaultProps = {
+        createNotificationTypeResult: {},
+        settings: {
+            recipientTypes: [],
+            chatTypes: [],
+            systems: []
+        },
+        getSettings: {}
+    };
+   
     constructor(props) {
         super(props);
     }
@@ -164,11 +175,7 @@ export class NewNotificationType extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        createNotificationType: ActionCreators.createNotificationType
-    }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
     const { createNotificationTypeResult, settings, getSettings } = state;

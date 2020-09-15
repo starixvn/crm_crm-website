@@ -12,6 +12,22 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 import { renderSystemOption, validateFormik } from '../common.functions';
 
 export class EditNotificationType extends Component {
+    static defaultProps = {
+        editNotificationTypePopup: {
+            data: {
+                recipientTypes: [],
+                chatTypes: []
+            }
+        },
+        settings: {
+            recipientTypes: [],
+            chatTypes: [],
+            systems: [],
+        },
+        editNotificationTypeResult: {},
+        getSettings: {}
+    };
+
     constructor(props) {
         super(props);
 
@@ -196,11 +212,7 @@ export class EditNotificationType extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        editNotificationType: ActionCreators.editNotificationType
-    }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
     const {
