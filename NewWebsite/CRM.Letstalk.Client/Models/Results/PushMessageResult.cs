@@ -6,9 +6,9 @@
     public class PushMessageResult : BaseResult
     {
         [JsonProperty(PropertyName = "failList")]
-        public List<string> FailList { get; set; }
+        public List<string> FailList { get; set; } = new List<string>();
 
         [JsonProperty(PropertyName = "blockList")]
-        public List<string> BlockList { get; set; }
+        public List<string> BlockList { get; set; } = new List<string>();
     }
 }

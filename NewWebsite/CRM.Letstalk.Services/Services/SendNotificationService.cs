@@ -48,20 +48,23 @@
 
         private async Task UpdateBotRemovedStatus(IEnumerable<NotificationMessage> notifications)
         {
-            var results = new List<SendNotificationResult>();
-            foreach (var notification in notifications)
+            if (notifications.Any())
             {
-                var result = new SendNotificationResult
+                var results = new List<SendNotificationResult>();
+                foreach (var notification in notifications)
                 {
-                    NotificationId = notification.NotificationId,
-                    ConversationGroupId = notification.ConversationGroupId,
-                    Status = SendNotificationStatus.Error,
-                    ErrMsg = SendNotificationErrMsg.BotRemovedMsg
-                };
-                results.Add(result);
-            }
+                    var result = new SendNotificationResult
+                    {
+                        NotificationId = notification.NotificationId,
+                        ConversationGroupId = notification.ConversationGroupId,
+                        Status = SendNotificationStatus.Error,
+                        ErrMsg = SendNotificationErrMsg.BotRemovedMsg
+                    };
+                    results.Add(result);
+                }
 
-            await UpdateRecipientStatus(results);
+                await UpdateRecipientStatus(results);
+            }
         }
 
         private async Task SendNotification(IEnumerable<NotificationMessage> notifications)
@@ -109,9 +112,9 @@
             }
             catch (Exception exception)
             {
-                await logService.ErrorAsync(exception);
                 sendResult.Status = SendNotificationStatus.Retrying;
                 sendResult.ErrMsg = SendNotificationErrMsg.BotServiceErrorMsg;
+                await logService.ErrorAsync(exception);
             }
 
             return sendResult;
@@ -151,15 +154,12 @@
 
         private async Task UpdateRecipientStatus(IEnumerable<SendNotificationResult> sentResults)
         {
-            if (sentResults.Any())
+            var command = new UpdateNotificationStatusCommand
             {
-                var command = new UpdateNotificationStatusCommand
-                {
-                    XmlData = sentResults.ToXML().ToString()
-                };
+                XmlData = sentResults.ToXML().ToString()
+            };
 
-                await baseService.ExecuteNonQueryAsync(command);
-            }
+            await baseService.ExecuteNonQueryAsync(command);
         }
 
         private List<List<NotificationMessage>> DivideBatchToSend(IEnumerable<NotificationMessage> notifications)
