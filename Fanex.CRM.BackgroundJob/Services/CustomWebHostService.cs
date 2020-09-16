@@ -57,8 +57,8 @@
                    hangfireJobSettings.FirstOrDefault(j => j.JobName.Equals(HangfireJobName.PullMessageForChatBot))?.CronExpression,
                    TimeZoneInfo.Local, QueuePriority.Critical);
             }
-            
-             if (IsEnabledJob(HangfireJobName.ScanAndSendLetstalkNotification))
+
+            if (IsEnabledJob(HangfireJobName.ScanAndSendLetstalkNotification))
             {
                 recurringJob.AddOrUpdate<IBackgroundService>("Scan and send Letstalk Notification",
                   job => job.ScanAndSenLetstalkNotification(),
@@ -66,6 +66,14 @@
                   TimeZoneInfo.Local, QueuePriority.Critical);
             }
 
+            if (IsEnabledJob(HangfireJobName.MonitorLetstalkService))
+            {
+                var cronExpression = GetCronExpression(HangfireJobName.MonitorLetstalkService);
+                recurringJob.AddOrUpdate<IBackgroundService>("Monitor Letstalk Service",
+                  job => job.MonitorLetstalkService(),
+                  cronExpression,
+                  TimeZoneInfo.Local, QueuePriority.Default);
+            }
         }
 
         private static void RemoveCurrentHangfireServer()
@@ -84,6 +92,12 @@
             var settings = hangfireJobSettings.FirstOrDefault(job => job.JobName.Equals(jobName, StringComparison.OrdinalIgnoreCase));
 
             return settings != null && settings.IsEnabled;
+        }
+
+        private string GetCronExpression(string jobName)
+        {
+            var settings = hangfireJobSettings.FirstOrDefault(job => job.JobName.Equals(jobName, StringComparison.OrdinalIgnoreCase));
+            return settings != null ? settings.CronExpression : string.Empty;
         }
     }
 }

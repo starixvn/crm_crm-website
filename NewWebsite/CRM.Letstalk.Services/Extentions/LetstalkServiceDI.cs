@@ -8,6 +8,7 @@
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
+    using CRM.Letstalk.Services.Models;
     using CRM.Letstalk.Services.Services;
     using CRM.Letstalk.Services.Services.Interfaces;
     using Microsoft.Extensions.Configuration;
@@ -21,6 +22,12 @@
             services.Configure<List<BotConfig>>(options => botConfigSection.Bind(options));
             var botConfigs = botConfigSection.Get<List<BotConfig>>();
             services.AddSingleton(botConfigs);
+
+            var monitorSettingsSection = configuration.GetSection("MonitorSettings");
+            services.Configure<MonitorSettings>(options => monitorSettingsSection.Bind(options));
+            var monitorSettings = monitorSettingsSection.Get<MonitorSettings>();
+            services.AddSingleton(monitorSettings);
+
             services.AddTransient<IBaseRepository, BaseRepository>();
             services.AddTransient<IBaseService, BaseService>();
             services.AddTransient<IWriteLogService, WriteLogService>();

@@ -15,6 +15,8 @@
         Task PullMessageForChatBotAsync();
 
         Task ScanAndSenLetstalkNotification();
+
+        Task MonitorLetstalkService();
     }
 
     public class BackgroundService : IBackgroundService
@@ -26,6 +28,7 @@
         private readonly IChatBotTicketVoidingService chatBotTicketVoidingService;
         private readonly ICRMLogService logService;
         private readonly ISendNotificationService sendNotificationService;
+        private readonly IMonitorService monitorService;
 
         public BackgroundService(
             IMaintenanceService maintenanceService,
@@ -34,7 +37,8 @@
             IAutoFeedbackService feedbackService,
             IChatBotTicketVoidingService chatBotTicketVoidingService,
             ICRMLogService logService,
-            ISendNotificationService sendNotificationService)
+            ISendNotificationService sendNotificationService,
+            IMonitorService monitorService)
         {
             this.maintenanceService = maintenanceService;
             this.jobRunningChecker = jobRunningChecker;
@@ -43,6 +47,7 @@
             this.chatBotTicketVoidingService = chatBotTicketVoidingService;
             this.logService = logService;
             this.sendNotificationService = sendNotificationService;
+            this.monitorService = monitorService;
         }
 
         [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -123,6 +128,13 @@
                 logService.LogInformation(ex.Message);
                 await logService.ErrorAsync(ex);
             }
+        }
+
+        [AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
+        [Queue(QueuePriority.Default)]
+        public async Task MonitorLetstalkService()
+        {
+            await monitorService.MonitorLetstalkService();
         }
 
         private async Task<bool> CheckUM()
