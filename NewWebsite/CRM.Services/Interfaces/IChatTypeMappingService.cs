@@ -11,12 +11,12 @@
     {
         Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria);
 
-        Task<CommandResult> UpdateActiveStatusAsync(int conversationId, bool IsActive, int userId);
+        Task<CommandResult> EditActiveStatusAsync(int conversationId, bool IsActive, int userId);
 
         Task<IEnumerable<GroupHeadlineDirectAccountModel>> GetHeadlineByRecipientAsync(string recipientIds);
 
-        Task<CommandResult> InsertPersonalMappingAsync(InsertPersonalMappingCommand criteria);
+        Task<CommandResult> CreatePersonalMappingAsync(InsertPersonalMappingCommand criteria);
 
-        Task<CommandResult> UpdateChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria);
+        Task<CommandResult> EditChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria);
     }
 }

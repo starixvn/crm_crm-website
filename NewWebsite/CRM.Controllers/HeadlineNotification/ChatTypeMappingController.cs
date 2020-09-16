@@ -107,7 +107,7 @@
         [CrmPermission(FunctionKey = FunctionKey.ChatTypeMapping, Policy = Policy.Host)]
         public async Task<IActionResult> UpdateActiveStatus([FromBody]ActiveStatusModel groupInfo)
         {
-            var commandResult = await chatTypeMappingService.UpdateActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, napSession.UserId);
+            var commandResult = await chatTypeMappingService.EditActiveStatusAsync(groupInfo.ConversationGroupId, groupInfo.IsActive, napSession.UserId);
 
             return Json(commandResult);
         }
@@ -133,7 +133,7 @@
                     Remark = data.Remark,
                     UserId = napSession.UserId
                 };
-                result = await chatTypeMappingService.InsertPersonalMappingAsync(criteria);
+                result = await chatTypeMappingService.CreatePersonalMappingAsync(criteria);
             }
             else
             {
@@ -164,7 +164,7 @@
                     Remark = data.Remark,
                     UserId = napSession.UserId
                 };
-                result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
+                result = await chatTypeMappingService.EditChatTypeMappingAsync(criteria);
             }
             else
             {
@@ -202,7 +202,7 @@
                 Remark = data.Remark,
                 UserId = napSession.UserId
             };
-            var result = await chatTypeMappingService.UpdateChatTypeMappingAsync(criteria);
+            var result = await chatTypeMappingService.EditChatTypeMappingAsync(criteria);
 
             return Json(result);
         }

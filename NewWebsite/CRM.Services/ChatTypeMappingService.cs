@@ -34,7 +34,7 @@
             return new ValueTuple<IEnumerable<ChatTypeMappingModel>, int>(data.Item1, criteria.TotalRows);
         }
 
-        public async Task<CommandResult> UpdateActiveStatusAsync(int conversationId, bool IsActive, int userId)
+        public async Task<CommandResult> EditActiveStatusAsync(int conversationId, bool IsActive, int userId)
         {
             var criteria = new UpdateIsActiveStatusCommand
             {
@@ -63,12 +63,12 @@
             return tuple.Item1;
         }
 
-        public async Task<CommandResult> InsertPersonalMappingAsync(InsertPersonalMappingCommand criteria)
+        public async Task<CommandResult> CreatePersonalMappingAsync(InsertPersonalMappingCommand criteria)
         {
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
-        public async Task<CommandResult> UpdateChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria)
+        public async Task<CommandResult> EditChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria)
         {
             return await baseService.ExecuteNonQueryAsync(criteria);
         }

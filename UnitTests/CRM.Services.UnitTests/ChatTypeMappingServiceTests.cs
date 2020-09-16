@@ -52,7 +52,7 @@
             var service = GetService();
             baseService.ExecuteNonQueryAsync(Arg.Any<UpdateIsActiveStatusCommand>()).Returns(result);
             // Act
-            var actual = await service.UpdateActiveStatusAsync(1, true, 10);
+            var actual = await service.EditActiveStatusAsync(1, true, 10);
 
             // Assert
             Assert.Equal(result, actual);
@@ -90,7 +90,7 @@
             var service = GetService();
             baseService.ExecuteNonQueryAsync(Arg.Any<InsertPersonalMappingCommand>()).Returns(result);
             // Act
-            var actual = await service.InsertPersonalMappingAsync(fixture.Create<InsertPersonalMappingCommand>());
+            var actual = await service.CreatePersonalMappingAsync(fixture.Create<InsertPersonalMappingCommand>());
 
             // Assert
             Assert.Equal(result, actual);
@@ -106,7 +106,7 @@
             var service = GetService();
             baseService.ExecuteNonQueryAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(result);
             // Act
-            var actual = await service.UpdateChatTypeMappingAsync(fixture.Create<UpdateChatTypeMappingCommand>());
+            var actual = await service.EditChatTypeMappingAsync(fixture.Create<UpdateChatTypeMappingCommand>());
 
             // Assert
             Assert.Equal(result, actual);

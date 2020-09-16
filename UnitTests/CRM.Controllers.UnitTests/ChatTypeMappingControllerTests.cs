@@ -118,7 +118,7 @@
             var expected = new CommandResult { Code = 0 };
             var controller = GetController();
 
-            chatTypeMappingService.UpdateActiveStatusAsync(Arg.Any<int>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(expected);
+            chatTypeMappingService.EditActiveStatusAsync(Arg.Any<int>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(expected);
 
             var actual = await controller.UpdateActiveStatus(new ActiveStatusModel { ConversationGroupId = 1, IsActive = true });
 
@@ -156,7 +156,7 @@
             var controller = GetController();
 
             letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(letstalkResult);
-            chatTypeMappingService.InsertPersonalMappingAsync(Arg.Any<InsertPersonalMappingCommand>()).Returns(expected);
+            chatTypeMappingService.CreatePersonalMappingAsync(Arg.Any<InsertPersonalMappingCommand>()).Returns(expected);
 
             var actual = await controller.InsertPersonalMapping(viewModal);
 
@@ -194,7 +194,7 @@
             var controller = GetController();
 
             letstalkService(Arg.Any<int>()).GetProfileAsync(Arg.Any<string>()).Returns(letstalkResult);
-            chatTypeMappingService.UpdateChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
+            chatTypeMappingService.EditChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
 
             var actual = await controller.UpdatePersonalMapping(viewModal);
 
@@ -246,7 +246,7 @@
 
             var controller = GetController();
 
-            chatTypeMappingService.UpdateChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
+            chatTypeMappingService.EditChatTypeMappingAsync(Arg.Any<UpdateChatTypeMappingCommand>()).Returns(expected);
 
             var actual = await controller.UpdateGroupMapping(viewModal);
 
