@@ -19,6 +19,8 @@
     using Fanex.Logging.Sentry;
     using global::CRM.Core.Extensions;
     using global::CRM.Letstalk.Services.Extentions;
+    using global::CRM.Letstalk.Services.Services;
+    using global::CRM.Letstalk.Services.Services.Interfaces;
     using Hangfire;
     using Hangfire.Storage.MySql;
     using Microsoft.AspNetCore.Authentication.Cookies;
@@ -110,6 +112,7 @@
             services.Configure<RedisConfig>(options => Configuration.GetSection("RedisConfig").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
             services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
+
             services.ResolveCoreDI();
 
             RegisterDI(services);
@@ -175,6 +178,8 @@
             services.AddScoped<IAutoFeedbackService, AutoFeedbackService>();
             services.AddScoped<IChatBotTicketVoidingService, ChatBotTicketVoidingService>();
             services.AddScoped<IBackgroundService, BackgroundService>();
+            services.AddScoped<ISendNotificationService, SendNotificationService>();
+            services.AddScoped<IMonitorService, MonitorService>();
         }
 
         private static void RegisterHangfire(IServiceCollection services, string connectionString)

@@ -7,8 +7,6 @@
     using CRM.Letstalk.Client.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Services.Models;
-    using CRM.Letstalk.Services.Services;
-    using CRM.Letstalk.Services.Services.Interfaces;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -26,7 +24,6 @@
             var monitorSettings = monitorSettingsSection.Get<MonitorSettings>();
             services.AddSingleton(monitorSettings);
 
-            services.AddTransient<ISendNotificationService, SendNotificationService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<RestClientService>();
