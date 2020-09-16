@@ -21,6 +21,7 @@
         private readonly IWriteLogService writeLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
         private readonly int ItemEachBatch;
+        private const int DefaultItemEacgBatch = 10;
 
         public SendNotificationService(IBaseService baseService,
             IWriteLogService writeLogService,
@@ -30,7 +31,7 @@
             this.baseService = baseService;
             this.writeLogService = writeLogService;
             this.letstalkService = letstalkService;
-            ItemEachBatch = configuration.GetValue<int?>("SendNotificationItemEachBatch") ?? 10;
+            ItemEachBatch = configuration.GetValue<int?>("SendNotificationItemEachBatch") ?? DefaultItemEacgBatch;
         }
 
         public async Task SendNotificationToLetstalk()

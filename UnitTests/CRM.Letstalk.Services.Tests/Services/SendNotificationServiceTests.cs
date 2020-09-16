@@ -10,6 +10,7 @@
     using CRM.Letstalk.Services.Criteria;
     using CRM.Letstalk.Services.Models.SendNotification;
     using CRM.Letstalk.Services.Services;
+    using Microsoft.Extensions.Configuration;
     using NSubstitute;
     using Xunit;
 
@@ -17,6 +18,7 @@
     {
         private readonly SendNotificationService service;
         private readonly IBaseService baseService;
+        private readonly IConfiguration configuration;
         private readonly IWriteLogService writeLogService;
         private readonly ILetstalkService letstalkService;
 
@@ -24,11 +26,11 @@
         {
             var func = Substitute.For<Func<int, ILetstalkService>>();
             letstalkService = Substitute.For<ILetstalkService>();
+            configuration = Substitute.For<IConfiguration>();
             func(Arg.Any<int>()).Returns(letstalkService);
             baseService = Substitute.For<IBaseService>();
             writeLogService = Substitute.For<IWriteLogService>();
-
-            service = new SendNotificationService(baseService, writeLogService, func);
+            service = new SendNotificationService(baseService, writeLogService, configuration, func);
         }
 
         [Fact]
@@ -55,8 +57,8 @@
 
             var results = new List<SendNotificationResult>
             {
-                new SendNotificationResult {ConversationGroupId = 1, NotificationId = 1, Status = NotificationRecipientStatus.Error, ErrMsg = SendNotificationErrMsg.BotRemovedMsg},
-                new SendNotificationResult {ConversationGroupId = 2, NotificationId = 2, Status = NotificationRecipientStatus.Error, ErrMsg = SendNotificationErrMsg.BotRemovedMsg}
+                new SendNotificationResult {ConversationGroupId = 1, NotificationId = 1, Status = SendNotificationStatus.Error, ErrMsg = SendNotificationErrMsg.BotRemovedMsg},
+                new SendNotificationResult {ConversationGroupId = 2, NotificationId = 2, Status = SendNotificationStatus.Error, ErrMsg = SendNotificationErrMsg.BotRemovedMsg}
             };
             var command = new UpdateNotificationStatusCommand { XmlData = results.ToXML().ToString() };
             await service.SendNotificationToLetstalk();
