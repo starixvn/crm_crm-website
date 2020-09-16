@@ -1,6 +1,6 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Models
 {
-    public class AppSettings
+    public class AppJobSettings
     {
         public short TimeSpan { get; set; }
         public byte RetryRuntime { get; set; }

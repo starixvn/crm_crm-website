@@ -72,7 +72,7 @@
                 recurringJob.AddOrUpdate<IBackgroundService>("Monitor Letstalk Service",
                   job => job.MonitorLetstalkService(),
                   cronExpression,
-                  TimeZoneInfo.Local, QueuePriority.Default);
+                  TimeZoneInfo.Local);
             }
         }
 

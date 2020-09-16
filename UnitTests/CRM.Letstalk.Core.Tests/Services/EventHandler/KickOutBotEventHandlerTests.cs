@@ -15,14 +15,14 @@
     {
         private readonly KickOutBotEventHandler kickOutBotEventHandler;
         private readonly IBaseService baseService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
 
         public KickOutBotEventHandlerTests()
         {
             baseService = Substitute.For<IBaseService>();
-            writeLogService = Substitute.For<IWriteLogService>();
+            logService = Substitute.For<ICRMLogService>();
 
-            kickOutBotEventHandler = new KickOutBotEventHandler(baseService, writeLogService);
+            kickOutBotEventHandler = new KickOutBotEventHandler(baseService, logService);
         }
 
         [Fact]
@@ -45,7 +45,7 @@
 
             await kickOutBotEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.Received().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.Received().ErrorAsync(Arg.Any<Exception>());
         }
 
         [Fact]
@@ -69,7 +69,7 @@
 
             await kickOutBotEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.DidNotReceive().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.DidNotReceive().ErrorAsync(Arg.Any<Exception>());
         }
     }
 }

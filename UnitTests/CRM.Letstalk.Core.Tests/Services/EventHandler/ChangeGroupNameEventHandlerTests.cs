@@ -17,7 +17,7 @@
     {
         private readonly ChangeGroupNameEventHandler changeGroupNameEventHandler;
         private readonly IBaseService baseService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
         private readonly ILetstalkService letstalkService;
 
         public ChangeGroupNameEventHandlerTests()
@@ -26,9 +26,9 @@
             letstalkService = Substitute.For<ILetstalkService>();
             func(Arg.Any<int>()).Returns(letstalkService);
             baseService = Substitute.For<IBaseService>();
-            writeLogService = Substitute.For<IWriteLogService>();
+            logService = Substitute.For<ICRMLogService>();
 
-            changeGroupNameEventHandler = new ChangeGroupNameEventHandler(baseService, func, writeLogService);
+            changeGroupNameEventHandler = new ChangeGroupNameEventHandler(baseService, func, logService);
         }
 
         [Fact]
@@ -59,7 +59,7 @@
 
             await changeGroupNameEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.Received().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.Received().ErrorAsync(Arg.Any<Exception>());
         }
 
         [Fact]
@@ -90,7 +90,7 @@
 
             await changeGroupNameEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.DidNotReceive().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.DidNotReceive().ErrorAsync(Arg.Any<Exception>());
         }
     }
 }

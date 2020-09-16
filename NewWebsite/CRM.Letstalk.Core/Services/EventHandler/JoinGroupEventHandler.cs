@@ -13,15 +13,15 @@
     {
         private readonly IBaseService baseService;
         private readonly Func<int, ILetstalkService> letstalkService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
 
         public JoinGroupEventHandler(IBaseService baseService, Func<int,
             ILetstalkService> letstalkService,
-            IWriteLogService writeLogService)
+            ICRMLogService logService)
         {
             this.baseService = baseService;
             this.letstalkService = letstalkService;
-            this.writeLogService = writeLogService;
+            this.logService = logService;
         }
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
@@ -40,7 +40,7 @@
 
             if (!result.IsSuccessful)
             {
-                await writeLogService.WriteErrorLogAsync(new Exception(result.Message));
+                await logService.ErrorAsync(new Exception(result.Message));
             }
         }
 

@@ -11,13 +11,13 @@
     using Fanex.CRM.BackgroundJob.Services;
     using Fanex.Data;
     using Fanex.Data.MySql;
-    using Fanex.Data.Repository;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.AspNetCore;
     using Fanex.Logging.Extensions.Database;
     using Fanex.Logging.Sentry;
+    using global::CRM.Core.Extensions;
     using global::CRM.Letstalk.Services.Extentions;
     using Hangfire;
     using Hangfire.Storage.MySql;
@@ -106,10 +106,11 @@
 
             RegisterHangfire(services, connections.FirstOrDefault(x => x.Key.Equals("Hangfire")).Value.ConnectionString);
 
-            services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
+            services.Configure<AppJobSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<RedisConfig>(options => Configuration.GetSection("RedisConfig").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
             services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
+            services.ResolveCoreDI();
 
             RegisterDI(services);
             services.ResolveLetstalkServiceDI(Configuration);
@@ -162,16 +163,11 @@
             services.AddSingleton<IMaintenanceService, MaintenanceService>();
 
             services.AddSingleton<IRedisRepository, RedisRepository>();
-            services.AddScoped<IDynamicRepository, DynamicRepository>();
-            services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
-            services.AddScoped<ILogger, Logger>();
-            services.AddScoped<ICRMLogService, CRMLogService>();
             services.AddTransient<ICacheService, CacheService>();
             services.AddTransient<IJobRunningChecker, JobRunningChecker>();
-            services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
             services.AddScoped<IMessageService, MessageService>();

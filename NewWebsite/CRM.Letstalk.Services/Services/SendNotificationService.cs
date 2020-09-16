@@ -18,18 +18,18 @@
     public class SendNotificationService : ISendNotificationService
     {
         private readonly IBaseService baseService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
         private readonly Func<int, ILetstalkService> letstalkService;
         private readonly int ItemEachBatch;
         private const int DefaultItemEacgBatch = 10;
 
         public SendNotificationService(IBaseService baseService,
-            IWriteLogService writeLogService,
+            ICRMLogService logService,
             IConfiguration configuration,
             Func<int, ILetstalkService> letstalkService)
         {
             this.baseService = baseService;
-            this.writeLogService = writeLogService;
+            this.logService = logService;
             this.letstalkService = letstalkService;
             ItemEachBatch = configuration.GetValue<int?>("SendNotificationItemEachBatch") ?? DefaultItemEacgBatch;
         }
@@ -109,7 +109,7 @@
             }
             catch (Exception exception)
             {
-                await writeLogService.WriteErrorLogAsync(exception);
+                await logService.ErrorAsync(exception);
                 sendResult.Status = SendNotificationStatus.Retrying;
                 sendResult.ErrMsg = SendNotificationErrMsg.BotServiceErrorMsg;
             }

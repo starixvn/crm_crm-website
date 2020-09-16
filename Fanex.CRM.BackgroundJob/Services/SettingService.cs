@@ -6,6 +6,7 @@
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Services;
 
     public interface ISettingService
     {

@@ -8,6 +8,8 @@
     using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Models.ChatBot;
+    using global::CRM.Core.Models;
+    using global::CRM.Core.Services;
 
     public interface IChatBotTicketVoidingService
     {

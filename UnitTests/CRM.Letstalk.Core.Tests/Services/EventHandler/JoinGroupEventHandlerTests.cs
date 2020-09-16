@@ -17,7 +17,7 @@
     {
         private readonly JoinGroupEventHandler joinGroupEventHandler;
         private readonly IBaseService baseService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
         private readonly ILetstalkService letstalkService;
 
         public JoinGroupEventHandlerTests()
@@ -26,9 +26,9 @@
             letstalkService = Substitute.For<ILetstalkService>();
             func(Arg.Any<int>()).Returns(letstalkService);
             baseService = Substitute.For<IBaseService>();
-            writeLogService = Substitute.For<IWriteLogService>();
+            logService = Substitute.For<ICRMLogService>();
 
-            joinGroupEventHandler = new JoinGroupEventHandler(baseService, func, writeLogService);
+            joinGroupEventHandler = new JoinGroupEventHandler(baseService, func, logService);
         }
 
         [Fact]
@@ -59,7 +59,7 @@
 
             await joinGroupEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.Received().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.Received().ErrorAsync(Arg.Any<Exception>());
         }
 
         [Fact]
@@ -90,7 +90,7 @@
 
             await joinGroupEventHandler.EventHandleAsync(hookEvent, botConfig);
 
-            await writeLogService.DidNotReceive().WriteErrorLogAsync(Arg.Any<Exception>());
+            await logService.DidNotReceive().ErrorAsync(Arg.Any<Exception>());
         }
     }
 }

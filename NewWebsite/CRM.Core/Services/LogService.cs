@@ -1,8 +1,8 @@
-﻿namespace Fanex.CRM.BackgroundJob.Services
+﻿namespace CRM.Core.Services
 {
     using System;
     using System.Threading.Tasks;
-    using Fanex.CRM.BackgroundJob.Models;
+    using CRM.Core.Models;
     using Fanex.Data.Repository;
     using Fanex.Logging.Extensions;
     using Fanex.Logging.Extensions.Database;
@@ -21,10 +21,10 @@
     public class CRMLogService : ICRMLogService
     {
         private readonly ILogger filelogger;
-        private readonly Logging.ILogger logger;
+        private readonly Fanex.Logging.ILogger logger;
 
         public CRMLogService(
-            Logging.ILogger logger,
+            Fanex.Logging.ILogger logger,
             ILogger<CRMLogService> filelogger)
         {
             this.logger = logger;

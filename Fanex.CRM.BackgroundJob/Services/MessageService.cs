@@ -6,6 +6,8 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Models;
+    using global::CRM.Core.Services;
 
     public interface IMessageService
     {

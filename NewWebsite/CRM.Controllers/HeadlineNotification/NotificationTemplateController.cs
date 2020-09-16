@@ -1,6 +1,5 @@
 ﻿namespace CRM.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
@@ -13,14 +12,12 @@
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using static Fanex.NAP.Core.Business.Constant;
 
     [CrmAuthorize]
     [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Read)]
     public class NotificationTemplateController : Controller
     {
-        private readonly ILogger<NotificationTemplateController> logger;
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
         private readonly IUserService userService;
@@ -32,31 +29,25 @@
             INapSettings napSettings,
             IUserService userService,
             INotificationTemplateService templateService,
-            ISettingService settingService,
-            ILogger<NotificationTemplateController> logger)
+            ISettingService settingService)
         {
             this.napSession = napSession;
             this.napSettings = napSettings;
             this.userService = userService;
             this.templateService = templateService;
             this.settingService = settingService;
-            this.logger = logger;
         }
 
         public IActionResult Index()
         {
-            logger.LogInformation("notification template index - begin at {0}", DateTime.Now);
             var isHost = userService.IsHavingPermission(napSession.UserId, napSettings.SiteId, FunctionKey.NotificationTemplate, Policy.Host);
-            logger.LogInformation("notification template index - end at {0}", DateTime.Now);
             return View(isHost);
         }
 
         [HttpPost]
         public async Task<IActionResult> GetNotificationTemplate([FromBody]GetNotificationTemplateParam param)
         {
-            logger.LogInformation("get notification template - begin at {0}", DateTime.Now);
             IEnumerable<NotificationTemplate> templates = await templateService.GetAsync(param);
-            logger.LogInformation("get notification template - end at {0}", DateTime.Now);
             return Json(new { totalItems = param.TotalRows, data = templates });
         }
 

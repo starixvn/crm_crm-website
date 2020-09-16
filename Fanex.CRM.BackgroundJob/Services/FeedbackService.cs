@@ -10,6 +10,8 @@
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Repositories;
+    using global::CRM.Core.Models;
+    using global::CRM.Core.Services;
     using Microsoft.Extensions.Options;
 
     public interface IFeedbackService
@@ -19,7 +21,7 @@
 
     public class FeedbackService : IFeedbackService
     {
-        private readonly AppSettings appSettings;
+        private readonly AppJobSettings appSettings;
         private readonly ICustomerRepository customerRepository;
         private readonly IBaseService baseService;
         private readonly ISettingService settingService;
@@ -28,7 +30,7 @@
         private readonly ICRMLogService logService;
 
         public FeedbackService(
-            IOptionsSnapshot<AppSettings> appSettings,
+            IOptionsSnapshot<AppJobSettings> appSettings,
             ICustomerRepository customerRepository,
             IBaseService baseService,
             ISettingService settingService,
@@ -260,6 +262,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,

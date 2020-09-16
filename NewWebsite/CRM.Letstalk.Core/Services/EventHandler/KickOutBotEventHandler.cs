@@ -11,12 +11,12 @@
     public class KickOutBotEventHandler : IEventHandler
     {
         private readonly IBaseService baseService;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
 
-        public KickOutBotEventHandler(IBaseService baseService, IWriteLogService writeLogService)
+        public KickOutBotEventHandler(IBaseService baseService, ICRMLogService logService)
         {
             this.baseService = baseService;
-            this.writeLogService = writeLogService;
+            this.logService = logService;
         }
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
@@ -31,7 +31,7 @@
 
             if (!result.IsSuccessful)
             {
-                await writeLogService.WriteErrorLogAsync(new Exception(result.Message));
+                await logService.ErrorAsync(new Exception(result.Message));
             }
         }
     }

@@ -19,7 +19,7 @@
         private readonly SendNotificationService service;
         private readonly IBaseService baseService;
         private readonly IConfiguration configuration;
-        private readonly IWriteLogService writeLogService;
+        private readonly ICRMLogService logService;
         private readonly ILetstalkService letstalkService;
 
         public SendNotificationServiceTests()
@@ -29,8 +29,8 @@
             configuration = Substitute.For<IConfiguration>();
             func(Arg.Any<int>()).Returns(letstalkService);
             baseService = Substitute.For<IBaseService>();
-            writeLogService = Substitute.For<IWriteLogService>();
-            service = new SendNotificationService(baseService, writeLogService, configuration, func);
+            logService = Substitute.For<ICRMLogService>();
+            service = new SendNotificationService(baseService, logService, configuration, func);
         }
 
         [Fact]
@@ -41,7 +41,7 @@
             await service.SendNotificationToLetstalk();
 
             baseService.Received(1);
-            writeLogService.DidNotReceive();
+            logService.DidNotReceive();
             letstalkService.DidNotReceive();
         }
 

@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using CRM.Core.Repositories;
-    using CRM.Core.Services;
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
@@ -28,9 +26,6 @@
             var monitorSettings = monitorSettingsSection.Get<MonitorSettings>();
             services.AddSingleton(monitorSettings);
 
-            services.AddTransient<IBaseRepository, BaseRepository>();
-            services.AddTransient<IBaseService, BaseService>();
-            services.AddTransient<IWriteLogService, WriteLogService>();
             services.AddTransient<ISendNotificationService, SendNotificationService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<IJwtService, JwtService>();

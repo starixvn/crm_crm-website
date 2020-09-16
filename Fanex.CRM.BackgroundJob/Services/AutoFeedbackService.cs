@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Services;
     using Microsoft.Extensions.Options;
 
     public interface IAutoFeedbackService
@@ -14,14 +15,14 @@
 
     public class AutoFeedbackService : IAutoFeedbackService
     {
-        private readonly AppSettings appSettings;
+        private readonly AppJobSettings appSettings;
         private readonly IJobRunningChecker jobRunningChecker;
         private readonly ISystemSettingService systemSettingService;
         private readonly IFeedbackService feedbackService;
         private readonly ICRMLogService logService;
 
         public AutoFeedbackService(
-            IOptionsSnapshot<AppSettings> appSettings,
+            IOptionsSnapshot<AppJobSettings> appSettings,
             IJobRunningChecker jobRunningChecker,
             ISystemSettingService systemSettingService,
             IFeedbackService feedbackService,

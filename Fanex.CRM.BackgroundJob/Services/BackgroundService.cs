@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Services;
     using global::CRM.Letstalk.Services.Services.Interfaces;
     using Hangfire;
     using ONEbook.UM.Services;

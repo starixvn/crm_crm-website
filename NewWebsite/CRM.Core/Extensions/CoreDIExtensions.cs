@@ -10,11 +10,11 @@
     {
         public static void ResolveCoreDI(this IServiceCollection services)
         {
-            services.AddTransient<IDynamicRepository, DynamicRepository>();
-            services.AddTransient<IBaseRepository, BaseRepository>();
-            services.AddTransient<IBaseService, BaseService>();
-            services.AddTransient<ILogger, Logger>();
-            services.AddTransient<IWriteLogService, WriteLogService>();
+            services.AddSingleton<IDynamicRepository, DynamicRepository>();
+            services.AddSingleton<IBaseRepository, BaseRepository>();
+            services.AddSingleton<IBaseService, BaseService>();
+            services.AddScoped<ILogger, Logger>();
+            services.AddScoped<ICRMLogService, CRMLogService>();
         }
     }
 }
