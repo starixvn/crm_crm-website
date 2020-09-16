@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fanex.CRM.User.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

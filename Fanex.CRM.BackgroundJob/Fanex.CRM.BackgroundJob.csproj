@@ -92,6 +92,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CRM.Letstalk.Services\CRM.Letstalk.Services.csproj" />
+    <ProjectReference Include="..\NewWebsite\CRM.Letstalk.Services\CRM.Letstalk.Services.csproj" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using CRM.Core.Constants;
+    using CRM.Core.Extensions.XML;
     using CRM.Core.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Services.Constants;
