@@ -43,10 +43,10 @@
         {
             IEnumerable<VoidingMessage> voidingMessages = await GetVoidingMessageAsync();
             voidingMessages = await ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
-            if (voidingMessages.Any())
+            IEnumerable<Message> messages = await GetMessageInfoAsync(voidingMessages);
+            IEnumerable<ChatBotVoidingTicketInfo> ticketInfos = await GetTicketVoidingInfoAsync(voidingMessages);
+            if (ticketInfos.Any())
             {
-                IEnumerable<Message> messages = await GetMessageInfoAsync(voidingMessages);
-                IEnumerable<ChatBotVoidingTicketInfo> ticketInfos = await GetTicketVoidingInfoAsync(voidingMessages);
                 CommandResult commandResult = await ImportTicketVoidingAsync(messages, ticketInfos);
                 if (commandResult.IsSuccessful)
                 {
@@ -56,6 +56,10 @@
                 {
                     logService.LogInformation(commandResult.Message);
                 }
+            }
+            else
+            {
+                await UpdateVoidingMessageAsync(voidingMessages);
             }
         }
 
