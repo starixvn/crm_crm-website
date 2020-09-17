@@ -10,16 +10,16 @@
 
     public static class XMLIO
     {
-        public static XElement ToXML<T>(this IEnumerable<T> source)
+        public static XElement ToXML<T>(this IEnumerable<T> source, string rootName)
         {
             var lambda = GetElement<T>(typeof(T));
 
             if (source == null || !source.Any())
             {
-                return new XElement("root");
+                return new XElement(rootName);
             }
 
-            return new XElement("root", source.Select(lambda).ToArray());
+            return new XElement(rootName, source.Select(lambda).ToArray());
         }
 
         private static XName GetElementName(Type t)

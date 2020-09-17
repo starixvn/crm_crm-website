@@ -156,7 +156,7 @@
         {
             var command = new UpdateNotificationStatusCommand
             {
-                XmlData = sentResults.ToXML().ToString()
+                XmlData = sentResults.ToXML("root").ToString()
             };
 
             await baseService.ExecuteNonQueryAsync(command);

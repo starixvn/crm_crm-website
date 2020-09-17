@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Web;
+    using CRM.Core.Extensions.XML;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationTemplate;
@@ -81,7 +81,7 @@
                 NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
                 UserId = napSession.UserId,
-                ContentXml = model.Contents.Any() ? ParseContentToXml(model.Contents) : string.Empty
+                ContentXml = model.Contents.Any() ? model.Contents.ToXML("Contents").ToString() : string.Empty
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -95,7 +95,7 @@
                 NotificationTypeId = model.NotificationTypeId,
                 NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
-                ContentXml = model.Contents.Any() ? ParseContentToXml(model.Contents) : string.Empty,
+                ContentXml = model.Contents.Any() ? model.Contents.ToXML("Contents").ToString() : string.Empty,
                 UserId = napSession.UserId
             };
 
@@ -112,19 +112,6 @@
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
-        }
-
-        private static string ParseContentToXml(IEnumerable<NotificationTemplateContent> contents)
-        {
-            const string XmlTemplate = "<Content LanguageId='{0}' Value='{1}' />";
-            var stringBuilder = new StringBuilder("<Contents>");
-            foreach (var content in contents)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, content.LanguageId, HttpUtility.HtmlEncode(content.Content));
-            }
-
-            stringBuilder.Append("</Contents>");
-            return stringBuilder.ToString();
         }
     }
 }
