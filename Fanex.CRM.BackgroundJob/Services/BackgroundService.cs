@@ -101,10 +101,7 @@
                     return;
                 }
 
-                await Task.WhenAll(
-                    chatBotTicketVoidingService.ExecuteJobAsync(setting)
-                );
-
+                await chatBotTicketVoidingService.ExecuteJobAsync(setting);
                 await sendNotificationService.SendNotificationToLetstalk();
             }
             catch (Exception ex)

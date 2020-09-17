@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Extensions.XML;
     using global::CRM.Core.Models;
     using global::CRM.Core.Services;
 
@@ -41,17 +41,9 @@
             IEnumerable<VoidingMessage> voidingMessages,
             int batchSize)
         {
-            const string XmlTemplate = "<r MsgID='{0}' ReqID='{1}' />";
-            var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag);
-            foreach (var message in voidingMessages)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
-            }
-            stringBuilder.Append(Constants.Constants.EndRootTag);
-
             var criteria = new ImportVoidingMessageCriteria
             {
-                MessageIds = stringBuilder.ToString(),
+                MessageIds = voidingMessages.ToXML("ROOT").ToString(),
                 BatchSize = batchSize
             };
             return await baseService.GetDataAsync<VoidingMessage>(criteria);
@@ -82,16 +74,9 @@
 
         public async Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages)
         {
-            const string XmlTemplate = "<r MsgID='{0}' ReqID='{1}' />";
-            var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag);
-            foreach (var message in voidingMessages)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
-            }
-            stringBuilder.Append(Constants.Constants.EndRootTag);
             var criteria = new UpdateStatusVoidingMessageCriteria
             {
-                MessageIds = stringBuilder.ToString()
+                MessageIds = voidingMessages.ToXML("ROOT").ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
         }

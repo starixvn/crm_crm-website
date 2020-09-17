@@ -1,12 +1,12 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Services
 {
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
+    using global::CRM.Core.Extensions.XML;
     using global::CRM.Core.Models;
     using global::CRM.Core.Services;
 
@@ -38,16 +38,9 @@
 
         public async Task<CommandResult> UpdateSystemSettingAsync(IEnumerable<SystemSettingItem> settings)
         {
-            var xml = new StringBuilder("<ROOT>");
-            foreach (SystemSettingItem setting in settings)
-            {
-                xml.AppendFormat("<r Name='{0}' Value='{1}' />", setting.SettingName, setting.Value);
-            }
-            xml.Append("</ROOT>");
-
             var criteria = new UpdateSystemSettingCriteria
             {
-                Settings = xml.ToString()
+                Settings = settings.ToXML("ROOT").ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
         }

@@ -8,6 +8,7 @@
     using Fanex.CRM.BackgroundJob.Criteria.ChatBot;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Models.ChatBot;
+    using global::CRM.Core.Extensions.XML;
     using global::CRM.Core.Models;
     using global::CRM.Core.Services;
 
@@ -15,15 +16,15 @@
     {
         Task ExecuteJobAsync(AbnormalBetSystemSetting setting);
 
-        Task<IEnumerable<VoidingMessage>> GetVoidingMessageAsync();
+        Task<IEnumerable<ChatBotVoidingMessage>> GetVoidingMessageAsync();
 
-        Task<IEnumerable<VoidingMessage>> ImportVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages, int batchSize);
+        Task<IEnumerable<ChatBotVoidingMessage>> ImportVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages, int batchSize);
 
-        Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
+        Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
-        Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<VoidingMessage> voidingMessages);
+        Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
-        Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<VoidingMessage> voidingMessages);
+        Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
         Task<CommandResult> ImportTicketVoidingAsync(IEnumerable<Message> messages, IEnumerable<ChatBotVoidingTicketInfo> ticketInfos);
     }
@@ -43,7 +44,7 @@
 
         public async Task ExecuteJobAsync(AbnormalBetSystemSetting setting)
         {
-            IEnumerable<VoidingMessage> voidingMessages = await GetVoidingMessageAsync();
+            IEnumerable<ChatBotVoidingMessage> voidingMessages = await GetVoidingMessageAsync();
             voidingMessages = await ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
             IEnumerable<Message> messages = await GetMessageInfoAsync(voidingMessages);
             IEnumerable<ChatBotVoidingTicketInfo> ticketInfos = await GetTicketVoidingInfoAsync(voidingMessages);
@@ -65,38 +66,38 @@
             }
         }
 
-        public async Task<IEnumerable<VoidingMessage>> GetVoidingMessageAsync()
+        public async Task<IEnumerable<ChatBotVoidingMessage>> GetVoidingMessageAsync()
         {
             var criteria = new GetChatBotVoidingMessageCriteria();
-            return await baseService.GetDataAsync<VoidingMessage>(criteria);
+            return await baseService.GetDataAsync<ChatBotVoidingMessage>(criteria);
         }
 
-        public async Task<IEnumerable<VoidingMessage>> ImportVoidingMessageAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
+        public async Task<IEnumerable<ChatBotVoidingMessage>> ImportVoidingMessageAsync(
+            IEnumerable<ChatBotVoidingMessage> voidingMessages,
             int batchSize)
         {
             var criteria = new ImportChatBotVoidingMessageCriteria
             {
-                Messages = ParseToXml(voidingMessages),
+                Messages = voidingMessages.ToXML("root").ToString(),
                 BatchSize = batchSize
             };
-            return await baseService.GetDataAsync<VoidingMessage>(criteria);
+            return await baseService.GetDataAsync<ChatBotVoidingMessage>(criteria);
         }
 
-        public async Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages)
+        public async Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages)
         {
             var criteria = new UpdateChatBotVoidingMessageCommand
             {
-                Messages = ParseToXml(voidingMessages)
+                Messages = voidingMessages.ToXML("root").ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
-        public async Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<VoidingMessage> voidingMessages)
+        public async Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages)
         {
             var criteria = new GetChatBotMessageInfoCriteria
             {
-                Messages = ParseToXml(voidingMessages)
+                Messages = voidingMessages.ToXML("root").ToString()
             };
             var messages = await baseService.GetDataAsync<Message>(criteria);
             foreach (Message message in messages)
@@ -110,11 +111,11 @@
             return messages;
         }
 
-        public async Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<VoidingMessage> voidingMessages)
+        public async Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages)
         {
             var criteria = new GetChatBotTicketVoidingInfoCriteria
             {
-                Messages = ParseToXml(voidingMessages)
+                Messages = voidingMessages.ToXML("root").ToString()
             };
             return await baseService.GetDataAsync<ChatBotVoidingTicketInfo>(criteria);
         }
@@ -148,19 +149,6 @@
                 XmlData = stringBuilder.ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
-        }
-
-        private static string ParseToXml(IEnumerable<VoidingMessage> voidingMessages)
-        {
-            const string XmlTemplate = "<r MessageID='{0}' RequestID='{1}' />";
-            var stringBuilder = new StringBuilder(Constants.Constants.BeginRootTag.ToLowerInvariant());
-            foreach (var message in voidingMessages)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
-            }
-
-            stringBuilder.Append(Constants.Constants.EndRootTag.ToLowerInvariant());
-            return stringBuilder.ToString();
         }
     }
 }

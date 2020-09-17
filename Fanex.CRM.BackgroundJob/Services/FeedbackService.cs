@@ -262,7 +262,6 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         private async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
