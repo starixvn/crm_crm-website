@@ -19,7 +19,7 @@
 
         Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<int> messageIds);
 
-        Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
+        Task<CommandResult> EditStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages);
     }
 
     public class MessageService : IMessageService
@@ -72,9 +72,9 @@
             return messages;
         }
 
-        public async Task<CommandResult> UpdateStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages)
+        public async Task<CommandResult> EditStatusVoidingMessageAsync(IEnumerable<VoidingMessage> voidingMessages)
         {
-            var criteria = new UpdateStatusVoidingMessageCriteria
+            var criteria = new EditStatusVoidingMessageCommand
             {
                 MessageIds = voidingMessages.ToXML("ROOT").ToString()
             };

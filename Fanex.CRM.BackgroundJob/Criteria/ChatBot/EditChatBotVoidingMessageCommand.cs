@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class UpdateChatBotVoidingMessageCommand : NonQueryCommand
+    public class EditChatBotVoidingMessageCommand : NonQueryCommand
     {
         public string Messages { get; set; }
 

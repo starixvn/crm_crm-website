@@ -14,9 +14,9 @@
     {
         Task<AbnormalBetSystemSetting> GetAbnormalBetSettingAsync();
 
-        Task<CommandResult> UpdateSystemSettingAsync(IEnumerable<SystemSettingItem> settings);
+        Task<CommandResult> EditSystemSettingAsync(IEnumerable<SystemSettingItem> settings);
 
-        Task<CommandResult> UpdateJobStatusAsync(string status);
+        Task<CommandResult> EditJobStatusAsync(string status);
 
         Task<AbnormalBetSystemSetting> GetChatBotSystemSettingAsync();
     }
@@ -36,22 +36,22 @@
             return await baseService.GetDataEntityAsync<AbnormalBetSystemSetting>(criteria);
         }
 
-        public async Task<CommandResult> UpdateSystemSettingAsync(IEnumerable<SystemSettingItem> settings)
+        public async Task<CommandResult> EditSystemSettingAsync(IEnumerable<SystemSettingItem> settings)
         {
-            var criteria = new UpdateSystemSettingCriteria
+            var criteria = new EditSystemSettingCommand
             {
                 Settings = settings.ToXML("ROOT").ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
-        public async Task<CommandResult> UpdateJobStatusAsync(string status)
+        public async Task<CommandResult> EditJobStatusAsync(string status)
         {
             var settings = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = status }
             };
-            return await UpdateSystemSettingAsync(settings);
+            return await EditSystemSettingAsync(settings);
         }
 
         public async Task<AbnormalBetSystemSetting> GetChatBotSystemSettingAsync()

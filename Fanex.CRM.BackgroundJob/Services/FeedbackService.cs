@@ -54,7 +54,7 @@
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Running },
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
-            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+            await systemSettingService.EditSystemSettingAsync(settingJobStatus);
 
             IEnumerable<VoidingMessage> voidingMessages = await messageService.GetVoidingMessageAsync();
             voidingMessages = await messageService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
@@ -62,7 +62,7 @@
             voidingMessages = voidingMessages.Concat(failMessages).Distinct().ToList();
             if (!voidingMessages.Any())
             {
-                await UpdateSystemSettingAsync();
+                await EditSystemSettingAsync();
                 return;
             }
 
@@ -71,7 +71,7 @@
             ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(voidingMessages, setting);
             if (!ticketInfo.Item1.Any())
             {
-                await UpdateSystemSettingAsync();
+                await EditSystemSettingAsync();
                 return;
             }
 
@@ -122,7 +122,7 @@
                 }
             }
 
-            await UpdateSystemSettingAsync();
+            await EditSystemSettingAsync();
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
@@ -160,7 +160,7 @@
             if (messageIds.Any())
             {
                 IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
-                await messageService.UpdateStatusVoidingMessageAsync(messages);
+                await messageService.EditStatusVoidingMessageAsync(messages);
                 logService.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
             }
         }
@@ -220,7 +220,7 @@
                 && x.SettingId == Constants.ExtentionNA);
             var category = GetCategorySubCategory(settings);
 
-            var criteria = new CreateMutipleFeedbackCriteria
+            var criteria = new CreateMutipleFeedbackCommand
             {
                 CreatorId = appSettings.CreatorId,
                 UserId = appSettings.CreatorId,
@@ -270,7 +270,7 @@
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings,
-            CreateMutipleFeedbackCriteria criteria)
+            CreateMutipleFeedbackCommand criteria)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
@@ -356,7 +356,7 @@
                 && x.SettingId == Constants.ExtentionNA);
             var category = GetCategorySubCategory(settings);
 
-            var criteria = new CreateFeedbackCriteria
+            var criteria = new CreateFeedbackCommand
             {
                 CreatorId = appSettings.CreatorId,
                 UserId = appSettings.CreatorId,
@@ -396,7 +396,7 @@
             IEnumerable<TransactionInfo> transactionInfos,
             DateTime feedbackDate,
             string communicationTool,
-            CreateFeedbackCriteria criteria)
+            CreateFeedbackCommand criteria)
         {
             IList<int> licenseeManagerIds = transactionInfos.Select(x => x.LicenseeManagerId).Distinct().ToList();
             int itemEachBatch = appSettings.NoOfRelatedCustomerPerFeedback;
@@ -660,14 +660,14 @@
             return stringBuilder.ToString();
         }
 
-        private async Task UpdateSystemSettingAsync()
+        private async Task EditSystemSettingAsync()
         {
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
-            await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+            await systemSettingService.EditSystemSettingAsync(settingJobStatus);
         }
 
         private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> ImportFeedbackInfoAsync(
@@ -724,7 +724,7 @@
             if (messageIds.Any())
             {
                 IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
-                await messageService.UpdateStatusVoidingMessageAsync(messages);
+                await messageService.EditStatusVoidingMessageAsync(messages);
                 logService.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
             }
 
@@ -740,7 +740,7 @@
             string status,
             string description)
         {
-            var criteria = new UpdateFeedbackInfoCriteria
+            var criteria = new EditFeedbackInfoCommand
             {
                 MessageId = messageId,
                 RequestIds = string.Join(",", requestIds),

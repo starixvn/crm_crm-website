@@ -20,7 +20,7 @@
         }
 
         [Fact]
-        public void IsValid_WhenCalled_ReturnExpectedSettingKey()
+        public void IsValid_WhenCalled_ReturnTrue()
         {
             // Arrange
             var criteria = new GetNotificationTemplateCriteria();

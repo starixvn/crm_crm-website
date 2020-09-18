@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class UpdateStatusVoidingMessageCriteria : NonQueryCommand
+    public class EditStatusVoidingMessageCommand : NonQueryCommand
     {
         public string MessageIds { get; set; }
 

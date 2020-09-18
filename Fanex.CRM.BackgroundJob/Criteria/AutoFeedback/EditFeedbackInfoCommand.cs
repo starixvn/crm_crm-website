@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class UpdateFeedbackInfoCriteria : NonQueryCommand
+    public class EditFeedbackInfoCommand : NonQueryCommand
     {
         public int MessageId { get; set; }
         public string RequestIds { get; set; }

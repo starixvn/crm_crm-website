@@ -20,7 +20,7 @@
 
         Task<IEnumerable<ChatBotVoidingMessage>> ImportVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages, int batchSize);
 
-        Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
+        Task<CommandResult> EditVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
         Task<IEnumerable<Message>> GetMessageInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
@@ -53,7 +53,7 @@
                 CommandResult commandResult = await ImportTicketVoidingAsync(messages, ticketInfos);
                 if (commandResult.IsSuccessful)
                 {
-                    await UpdateVoidingMessageAsync(voidingMessages);
+                    await EditVoidingMessageAsync(voidingMessages);
                 }
                 else
                 {
@@ -62,7 +62,7 @@
             }
             else
             {
-                await UpdateVoidingMessageAsync(voidingMessages);
+                await EditVoidingMessageAsync(voidingMessages);
             }
         }
 
@@ -84,9 +84,9 @@
             return await baseService.GetDataAsync<ChatBotVoidingMessage>(criteria);
         }
 
-        public async Task<CommandResult> UpdateVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages)
+        public async Task<CommandResult> EditVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages)
         {
-            var criteria = new UpdateChatBotVoidingMessageCommand
+            var criteria = new EditChatBotVoidingMessageCommand
             {
                 Messages = voidingMessages.ToXML("root").ToString()
             };

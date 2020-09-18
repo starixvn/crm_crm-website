@@ -57,7 +57,7 @@
                             new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
                             new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
                         };
-                    await systemSettingService.UpdateSystemSettingAsync(settingJobStatus);
+                    await systemSettingService.EditSystemSettingAsync(settingJobStatus);
                 }
             }
         }

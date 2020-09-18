@@ -4,7 +4,7 @@
     using Fanex.Data;
     using Fanex.Data.Repository;
 
-    public class CreateFeedbackCriteria : NonQueryCommand
+    public class CreateFeedbackCommand : NonQueryCommand
     {
         public int CreatorId { get; set; }
         public int UserId { get; set; }
