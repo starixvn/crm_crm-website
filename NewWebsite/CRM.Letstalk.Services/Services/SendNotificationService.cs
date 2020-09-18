@@ -114,6 +114,7 @@
             {
                 sendResult.Status = SendNotificationStatus.Retrying;
                 sendResult.ErrMsg = SendNotificationErrMsg.BotServiceErrorMsg;
+                await WriteLogMessage(notification, new BaseResult { Status = 0, Message = exception.Message });
                 await logService.ErrorAsync(exception);
             }
 
@@ -130,15 +131,16 @@
                 sendResult.ErrMsg = string.Empty;
             }
 
-            if (result.BlockList.Any())
-            {
-                sendResult.Status = SendNotificationStatus.BotBlocked;
-            }
-
             if (result.FailList.Any())
             {
                 sendResult.Status = SendNotificationStatus.Error;
                 sendResult.ErrMsg = SendNotificationErrMsg.LetstalkIdInvalidMsg;
+            }
+
+            if (result.BlockList.Any())
+            {
+                sendResult.Status = SendNotificationStatus.BotBlocked;
+                sendResult.ErrMsg = string.Empty;
             }
 
             await WriteLogMessage(notification, result, result.BlockList.Any());
