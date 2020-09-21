@@ -201,7 +201,7 @@ describe('DataGrid', () => {
                 expect(header.find(HeaderCell).at(3).html()).toContain('SendDateTimeGMTA8');
                 expect(header.find(HeaderCell).at(4).props().colWidth).toBe(10);
                 expect(header.find(HeaderCell).at(4).html()).toContain('GroupHeadline');
-                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(15);
                 expect(header.find(HeaderCell).at(5).html()).toContain('Recipient');
                 expect(header.find(HeaderCell).at(6).props().colWidth).toBe(30);
                 expect(header.find(HeaderCell).at(6).html()).toContain('Title');

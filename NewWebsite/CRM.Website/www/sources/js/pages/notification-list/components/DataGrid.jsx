@@ -36,7 +36,7 @@ export class DataGrid extends Component {
                 <HeaderCell colWidth={30}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('Recipient')}</HeaderCell>
+                <HeaderCell colWidth={15}>{LangHelper.getResource('Recipient')}</HeaderCell>
                 <HeaderCell colWidth={30}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
                 {
@@ -122,7 +122,7 @@ export class DataGrid extends Component {
             <Cell className='text-center'>{functions.getHeadlines(item.headlines)}</Cell>
             <Cell className='text-center'>{functions.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
-            <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{item.status}</Cell>
+            <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{LangHelper.getResource(item.status)}</Cell>
             {
                 isHost &&
                 <Cell className='text-center'>

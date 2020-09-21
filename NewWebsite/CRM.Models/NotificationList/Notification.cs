@@ -19,7 +19,7 @@
 
         public string SendDateString => SendDate.ToString("MMM dd, yyyy");
 
-        public string SendTimeString => SendDate.ToString("HH:mm:ss tt");
+        public string SendTimeString => SendDate.ToString("hh:mm:ss tt");
 
         public IEnumerable<Headline> Headlines { get; set; }
 

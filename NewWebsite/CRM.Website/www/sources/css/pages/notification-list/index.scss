@@ -123,3 +123,15 @@ input:focus {
         min-width: 250px;
     }
 }
+
+.react-datepicker-wrapper-container {
+    height: 28px;
+
+    .react-datepicker__input-container {
+        height: 100%;
+
+        input {
+            height: 100%;
+        }
+    }
+}

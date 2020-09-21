@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { handleNewResendOptions, resendNotifications } from '../functions';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 export class ValidateResend extends Component {
     constructor(props) {
@@ -34,7 +35,10 @@ export class ValidateResend extends Component {
         const isAllValidate = inActiveNotificationIds.length <= 0;
 
         return (
-            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={() => this.onClose()} >
+            <Modal show backdrop='static' keyboard={false} size='lg' centered
+                onHide={() => this.onClose()}
+                dialogAs={DraggableModalDialog}
+            >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>{LangHelper.getResource('ValidateResend')}</Modal.Title>
                 </Modal.Header>

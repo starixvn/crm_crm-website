@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
 import { getHeadlines, getRecipients } from '../functions';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 export class ViewDetail extends Component {
     constructor(props) {
@@ -79,14 +80,26 @@ export class ViewDetail extends Component {
         const { data, onClose } = this.props;
 
         return (
-            <Modal show backdrop='static' keyboard={false} size='lg' centered onHide={() => this.onClose(onClose)} >
+            <Modal show backdrop='static' keyboard={false} size='lg' centered
+                onHide={() => this.onClose(onClose)}
+                dialogAs={DraggableModalDialog}
+            >
                 <Modal.Header closeButton>
                     <Modal.Title as='div'>{LangHelper.getResource('ErrorNotification')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>{`${LangHelper.getResource('NotificationID')}: ${data.notificationId}`}</div>
-                    <div>{`${LangHelper.getResource('NotificationTemplate')}: ${data.title}`}</div>
-                    <div>{`${LangHelper.getResource('SentAt')}: ${data.sendDateString} ${data.sendTimeString}`}</div>
+                    <div>
+                        {`${LangHelper.getResource('NotificationID')}: `}
+                        <b>{data.notificationId}</b>
+                    </div>
+                    <div>
+                        {`${LangHelper.getResource('NotificationTemplate')}: `}
+                        <b>{data.title}</b>
+                    </div>
+                    <div>
+                        {`${LangHelper.getResource('SentAt')}: `}
+                    <b>{`${data.sendDateString} ${data.sendTimeString}`}</b>
+                    </div>
                     <div className='error-occured-message error-resolved-row'>{LangHelper.getResource('ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient')}</div>
                     <Table
                         minWidth={500}

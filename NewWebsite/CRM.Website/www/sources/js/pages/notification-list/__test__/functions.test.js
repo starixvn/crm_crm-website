@@ -49,8 +49,8 @@ describe('function', () => {
     
     describe('getRecipients', () => {
         const recipients = [ { recipientName: 'recipient1', roleName: 'role1' }, { recipientName: 'recipient2', roleName: 'role2' } ];
-        function getRecipients_Test(recipients, expected) {
-            it('getRecipients_Test', () => {
+        function getRecipientsTest(recipients, expected) {
+            it('getRecipientsTest', () => {
                 // Action
                 const result = getRecipients(recipients);
         
@@ -59,10 +59,10 @@ describe('function', () => {
             });
         }
     
-        getRecipients_Test(null, '');
-        getRecipients_Test(undefined, '');
-        getRecipients_Test([], '');
-        getRecipients_Test(recipients, recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>));
+        getRecipientsTest(null, '');
+        getRecipientsTest(undefined, '');
+        getRecipientsTest([], '');
+        getRecipientsTest(recipients, recipients.map(recipient => `${recipient.recipientName} (${recipient.roleName})`).join(', '));
     });
 
     describe('resendNotifications', () => {

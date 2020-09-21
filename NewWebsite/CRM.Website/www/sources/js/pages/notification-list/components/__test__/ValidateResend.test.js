@@ -5,6 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import functions, { handleNewResendOptions } from '../../functions';
 import { Modal, Button } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
+import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 describe('ValidateResend', () => {
     LangHelper.getResource = jest.fn(value => value);
@@ -276,6 +277,7 @@ describe('ValidateResend', () => {
             expect(validateResend.find(Modal.Header).props().closeButton).toBeTrue;
             expect(validateResend.find(Modal.Title).props().as).toBe('div');
             expect(validateResend.find(Modal.Title).html()).toContain('ValidateResend');
+            expect(validateResend.find(Modal).props().dialogAs).toEqual(DraggableModalDialog);
         });
 
         describe('has Modal.Body', () => {
