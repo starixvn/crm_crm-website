@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using global::CRM.Core.Services;
@@ -24,12 +23,16 @@
 
         public async Task<IEnumerable<SettingItem>> GetAllSettingAsync()
         {
-            var criteria = new GetAllSettingCriteria { UserRole = Constants.UserRole };
-            var settings = (await baseService.GetDataAsync<SettingItem>(criteria)).Where(x => x.IsActive);
-            IEnumerable<SettingItem> relations = await GetAllSettingRelationAsync();
-            foreach (SettingItem setting in settings)
+            var criteria = new GetAllSettingCriteria();
+            var settings = await baseService.GetDataAsync<SettingItem>(criteria);
+            if (settings.Any())
             {
-                setting.ParentIds = relations.Where(x => x.SettingId == setting.SettingId).Select(x => x.ParentId);
+                settings = settings.Where(x => x.IsActive);
+                IEnumerable<SettingItem> relations = await GetAllSettingRelationAsync();
+                foreach (SettingItem setting in settings)
+                {
+                    setting.ParentIds = relations.Where(x => x.SettingId == setting.SettingId).Select(x => x.ParentId);
+                }
             }
 
             return settings;
@@ -37,7 +40,7 @@
 
         private async Task<IEnumerable<SettingItem>> GetAllSettingRelationAsync()
         {
-            var criteria = new GetAllSettingRelationCriteria { UserRole = Constants.UserRole };
+            var criteria = new GetAllSettingRelationCriteria();
             return await baseService.GetDataAsync<SettingItem>(criteria);
         }
     }

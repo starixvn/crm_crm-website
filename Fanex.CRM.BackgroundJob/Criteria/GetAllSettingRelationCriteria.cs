@@ -1,10 +1,11 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Criteria
 {
+    using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.Data.Repository;
 
     public class GetAllSettingRelationCriteria : CriteriaBase
     {
-        public int UserRole { get; set; }
+        public int UserRole { get; } = Constants.UserRole;
 
         public override string GetSettingKey() => "Acc_CRM_SettingRelationSel";
 
