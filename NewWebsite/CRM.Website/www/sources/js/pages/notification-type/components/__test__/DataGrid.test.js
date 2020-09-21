@@ -262,7 +262,7 @@ describe('DataGrid', () => {
             expect(dataGrid.find(Table).props().isPaging).toBeTrue;
             expect(dataGrid.find(Table).props().pageOption).toEqual(pagingOption);
             expect(dataGrid.find(Table).props().containerPadding).toBe(0);
-            expect(dataGrid.find(Table).props().adjustedHeight).toBe(50);
+            expect(dataGrid.find(Table).props().adjustedHeight).toBe(10);
         });
 
         it('should show action when isHost = true', () => {

@@ -22,7 +22,7 @@ export class EditNotificationType extends Component {
         settings: {
             recipientTypes: [],
             chatTypes: [],
-            systems: [],
+            systems: []
         },
         editNotificationTypeResult: {},
         getSettings: {}

@@ -22,7 +22,7 @@ export class NewNotificationType extends Component {
         },
         getSettings: {}
     };
-   
+
     constructor(props) {
         super(props);
     }
