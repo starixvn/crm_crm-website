@@ -22,7 +22,7 @@ export default class Content extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>{`Letstalk Group ${data.headlines.map(gh => gh.headlineName).join(', ')}`}</div>
+                    <div>{`${LangHelper.getResource('LetstalkName')}: ${data.letstalkName}`}</div>
                     <div className='border p-2 mt-2 mb-3 notification-content'>{data.content}</div>
                 </Modal.Body>
                 <Modal.Footer>

@@ -47,7 +47,7 @@ describe('Content', () => {
             data: {
                 notificationId: 1,
                 messageId: 1,
-                headlines: [ {headlineName: 'name'} ],
+                letstalkName: 'letstalkName',
                 content: 'content'
             }
         };
@@ -67,7 +67,7 @@ describe('Content', () => {
         expect(content.find(Modal.Header).props().closeButton).toBeTrue;
         expect(content.find(Modal.Title).props().as).toBe('div');
         expect(content.find(Modal.Title).html()).toContain(expectedTilte);
-        expect(content.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>Letstalk Group ${props.data.headlines.map(gh => gh.headlineName).join(', ')}</div>`);
+        expect(content.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>LetstalkName: letstalkName</div>`);
         expect(content.find(Modal.Body).find('div').at(1).html()).toEqual(`<div class="border p-2 mt-2 mb-3 notification-content">${props.data.content}</div>`);
         expect(content.find(Button).props().variant).toBe('primary');
         expect(content.find(Button).props().size).toBe('sm');

@@ -35,6 +35,8 @@
 
         public string Reason { get; set; }
 
+        public string LetstalkName { get; set; }
+
         public string RelatedNotificationIds { get; set; }
     }
 }

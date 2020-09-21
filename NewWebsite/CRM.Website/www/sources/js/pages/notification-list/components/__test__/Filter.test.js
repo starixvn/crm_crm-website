@@ -144,8 +144,6 @@ describe('Filter', () => {
             expect(filter.instance().state.statusOptions).toEqual(statusOptions);
             expect(filter.instance().state.filter.notificationTypes).toEqual(notificationTypeId.toString());
             expect(filter.instance().state.filter.statuses).toEqual(status.toString());
-            expect(props.setGridParams).toHaveBeenCalledWith(params);
-            expect(props.getGridData).toHaveBeenCalledWith({ ...params }, expect.any(Function));
         });
     });
 

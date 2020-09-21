@@ -25,13 +25,15 @@ export class ViewDetail extends Component {
 
     buildHeader = () =>
         <HeaderRow>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('Recipient')}</HeaderCell>
-            <HeaderCell colWidth={50}>{LangHelper.getResource('Reason')}</HeaderCell>
+            <HeaderCell colWidth={20}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
+            <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
+            <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
+            <HeaderCell colWidth={40}>{LangHelper.getResource('Reason')}</HeaderCell>
         </HeaderRow>
 
     buildBody = data =>
         [<Row key={data.notificationId}>
+            <Cell>{data.letstalkName}</Cell>
             <Cell>{getHeadlines(data.headlines)}</Cell>
             <Cell>{getRecipients(data.recipients)}</Cell>
             <Cell className='error-color'>{data.reason}</Cell>

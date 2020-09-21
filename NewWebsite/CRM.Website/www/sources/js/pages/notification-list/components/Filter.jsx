@@ -68,11 +68,7 @@ export class Filter extends Component {
                     notificationTypes: notificationTypeIds.toString(),
                     statuses: this.props.settings.statuses.toString()
                 }
-            }), () => {
-                const params = this.getParams();
-                this.props.setGridParams(params);
-                this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
-            });
+            }));
         });
     }
 

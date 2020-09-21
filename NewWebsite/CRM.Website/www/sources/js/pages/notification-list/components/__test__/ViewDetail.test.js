@@ -146,9 +146,10 @@ describe('ViewDetail', () => {
     it('buildHeader', () => {
         // Arrange
         const expectedHeader = <HeaderRow>
-            <HeaderCell colWidth={25}>{'GroupHeadline'}</HeaderCell>
-            <HeaderCell colWidth={25}>{'Recipient'}</HeaderCell>
-            <HeaderCell colWidth={50}>{'Reason'}</HeaderCell>
+            <HeaderCell colWidth={20}>{'LetstalkName'}</HeaderCell>
+            <HeaderCell colWidth={20}>{'GroupHeadline'}</HeaderCell>
+            <HeaderCell colWidth={20}>{'Recipient'}</HeaderCell>
+            <HeaderCell colWidth={40}>{'Reason'}</HeaderCell>
         </HeaderRow>;
 
         const props = {
@@ -174,7 +175,8 @@ describe('ViewDetail', () => {
                 notificationId: 1,
                 headlines: [],
                 recipients: [],
-                reason: ''
+                reason: '',
+                letstalkName: 'letstalkName'
             },
             viewDetail: {
                 result: {}
@@ -184,16 +186,17 @@ describe('ViewDetail', () => {
         const viewDetail = shallow(<ViewDetail {...props} />);
         const viewDetailInstance = viewDetail.instance();
         const expectedBody = [<Row key={props.data.notificationId}>
+            <Cell>{props.data.letstalkName}</Cell>
             <Cell>{getHeadlines(props.data.headlines)}</Cell>
             <Cell>{getRecipients(props.data.recipients)}</Cell>
             <Cell className='error-color'>{props.data.reason}</Cell>
         </Row>];
 
         // Action
-        const header = viewDetailInstance.buildBody(props.data);
+        const body = viewDetailInstance.buildBody(props.data);
 
         // Assert
-        expect(header).toEqual(expectedBody);
+        expect(body).toEqual(expectedBody);
     });
 
     describe('handleChange', () => {
