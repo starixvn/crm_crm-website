@@ -55,15 +55,15 @@
         [Queue(QueuePriority.Critical)]
         public async Task CreateFeedbackForVoidingAbnormalBet()
         {
-            bool isUM = await CheckUM();
-            if (isUM)
-            {
-                logService.LogInformation("UM time.");
-                return;
-            }
-
             try
             {
+                bool isUM = await CheckUM();
+                if (isUM)
+                {
+                    logService.LogInformation("UM time.");
+                    return;
+                }
+
                 AbnormalBetSystemSetting setting = await systemSettingService.GetAbnormalBetSettingAsync();
                 if (!setting.ServiceFlag)
                 {
@@ -75,7 +75,6 @@
             }
             catch (Exception ex)
             {
-                logService.LogInformation(ex.Message);
                 await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
                 await logService.ErrorAsync(ex);
             }
@@ -85,15 +84,15 @@
         [Queue(QueuePriority.Critical)]
         public async Task PullMessageForChatBotAsync()
         {
-            bool isUM = await CheckUM();
-            if (isUM)
-            {
-                logService.LogInformation("UM time.");
-                return;
-            }
-
             try
             {
+                bool isUM = await CheckUM();
+                if (isUM)
+                {
+                    logService.LogInformation("UM time.");
+                    return;
+                }
+
                 AbnormalBetSystemSetting setting = await systemSettingService.GetChatBotSystemSettingAsync();
                 if (!setting.ServiceFlag)
                 {
@@ -114,20 +113,19 @@
         [Queue(QueuePriority.Critical)]
         public async Task ScanAndSenLetstalkNotification()
         {
-            bool isUM = await CheckUM();
-            if (isUM)
-            {
-                logService.LogInformation("UM time.");
-                return;
-            }
-
             try
             {
+                bool isUM = await CheckUM();
+                if (isUM)
+                {
+                    logService.LogInformation("UM time.");
+                    return;
+                }
+
                 await sendNotificationService.SendNotificationToLetstalk();
             }
             catch (Exception ex)
             {
-                logService.LogInformation(ex.Message);
                 await logService.ErrorAsync(ex);
             }
         }
