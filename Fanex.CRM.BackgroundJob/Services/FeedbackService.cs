@@ -685,7 +685,7 @@
             var stringBuilder = new StringBuilder(Constants.BeginRootTag);
             foreach (var transaction in transactions)
             {
-                var matchInfo = matchInfos.First(x => x.MessageId == transaction.MessageId);
+                var matchInfo = matchInfos.FirstOrDefault(x => x.MessageId == transaction.MessageId);
                 var headlineId = 0;
                 var relatedCustId = 0;
 
@@ -709,7 +709,7 @@
                     transaction.CustId,
                     headlineId,
                     relatedCustId,
-                    string.Format("{0} -vs- {1}", HttpUtility.HtmlEncode(matchInfo.HomeName), HttpUtility.HtmlEncode(matchInfo.AwayName)));
+                    string.Format("{0} -vs- {1}", HttpUtility.HtmlEncode(matchInfo?.HomeName), HttpUtility.HtmlEncode(matchInfo?.AwayName)));
             }
 
             stringBuilder.Append(Constants.EndRootTag);
