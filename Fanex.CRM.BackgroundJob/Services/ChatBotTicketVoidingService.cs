@@ -14,8 +14,6 @@
 
     public interface IChatBotTicketVoidingService
     {
-        Task ExecuteJobAsync(AbnormalBetSystemSetting setting);
-
         Task<IEnumerable<ChatBotVoidingMessage>> GetVoidingMessageAsync();
 
         Task<IEnumerable<ChatBotVoidingMessage>> ImportVoidingMessageAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages, int batchSize);
@@ -40,30 +38,6 @@
         {
             this.baseService = baseService;
             this.logService = logService;
-        }
-
-        public async Task ExecuteJobAsync(AbnormalBetSystemSetting setting)
-        {
-            IEnumerable<ChatBotVoidingMessage> voidingMessages = await GetVoidingMessageAsync();
-            voidingMessages = await ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
-            IEnumerable<Message> messages = await GetMessageInfoAsync(voidingMessages);
-            IEnumerable<ChatBotVoidingTicketInfo> ticketInfos = await GetTicketVoidingInfoAsync(voidingMessages);
-            if (ticketInfos.Any())
-            {
-                CommandResult commandResult = await ImportTicketVoidingAsync(messages, ticketInfos);
-                if (commandResult.IsSuccessful)
-                {
-                    await EditVoidingMessageAsync(voidingMessages);
-                }
-                else
-                {
-                    logService.LogInformation(commandResult.Message);
-                }
-            }
-            else
-            {
-                await EditVoidingMessageAsync(voidingMessages);
-            }
         }
 
         public async Task<IEnumerable<ChatBotVoidingMessage>> GetVoidingMessageAsync()

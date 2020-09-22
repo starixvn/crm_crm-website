@@ -26,7 +26,7 @@
         private readonly IJobRunningChecker jobRunningChecker;
         private readonly ISystemSettingService systemSettingService;
         private readonly IAutoFeedbackService feedbackService;
-        private readonly IChatBotTicketVoidingService chatBotTicketVoidingService;
+        private readonly IChatBotJobService chatBotJobService;
         private readonly ICRMLogService logService;
         private readonly ISendNotificationService sendNotificationService;
         private readonly IMonitorService monitorService;
@@ -36,7 +36,7 @@
             IJobRunningChecker jobRunningChecker,
             ISystemSettingService systemSettingService,
             IAutoFeedbackService feedbackService,
-            IChatBotTicketVoidingService chatBotTicketVoidingService,
+            IChatBotJobService chatBotJobService,
             ICRMLogService logService,
             ISendNotificationService sendNotificationService,
             IMonitorService monitorService)
@@ -45,7 +45,7 @@
             this.jobRunningChecker = jobRunningChecker;
             this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
-            this.chatBotTicketVoidingService = chatBotTicketVoidingService;
+            this.chatBotJobService = chatBotJobService;
             this.logService = logService;
             this.sendNotificationService = sendNotificationService;
             this.monitorService = monitorService;
@@ -100,7 +100,7 @@
                     return;
                 }
 
-                await chatBotTicketVoidingService.ExecuteJobAsync(setting);
+                await chatBotJobService.PullMessageAsync(setting);
                 await sendNotificationService.SendNotificationToLetstalk();
             }
             catch (Exception ex)

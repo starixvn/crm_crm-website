@@ -161,7 +161,7 @@
             app.UseCookiePolicy();
             app.UseSession();
             app.UseAuthentication();
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            ////app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             NapClientManager
               .UseConfig(app.ApplicationServices.GetService<INapSettings>())

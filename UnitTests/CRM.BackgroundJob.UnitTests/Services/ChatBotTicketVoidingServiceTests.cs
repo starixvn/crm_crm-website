@@ -22,29 +22,6 @@
         private IBaseService baseService;
         private ICRMLogService logService;
 
-        ////[Fact]
-        ////public async Task ExecuteJobAsync_TicketInfosAreNotExist_ExpectedCallEditVoidingMessageAsync()
-        ////{
-        ////    // Arrange
-        ////    var fixture = new Fixture();
-        ////    var setting = fixture.Create<AbnormalBetSystemSetting>();
-        ////    var messages = fixture.Create<IEnumerable<Message>>();
-        ////    var voidingMessages = fixture.Create<IEnumerable<ChatBotVoidingMessage>>();
-        ////    baseService = Substitute.For<IBaseService>();
-        ////    logService = Substitute.For<ICRMLogService>();
-        ////    var service = Substitute.For<ChatBotTicketVoidingService>(baseService, logService);
-        ////    service.GetVoidingMessageAsync().Returns(voidingMessages);
-        ////    service.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize).Returns(voidingMessages);
-        ////    service.GetMessageInfoAsync(voidingMessages).Returns(messages);
-        ////    service.GetTicketVoidingInfoAsync(voidingMessages).Returns(new List<ChatBotVoidingTicketInfo>());
-
-        ////    // Act
-        ////    await service.ExecuteJobAsync(setting);
-
-        ////    // Assert
-        ////    await service.Received().EditVoidingMessageAsync(Arg.Any<IEnumerable<ChatBotVoidingMessage>>());
-        ////}
-
         [Fact]
         public async Task GetVoidingMessageAsync_WhenCalled_ReturnExpectedMessages()
         {

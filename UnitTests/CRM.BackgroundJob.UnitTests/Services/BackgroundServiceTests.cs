@@ -19,7 +19,7 @@
         private IJobRunningChecker jobRunningChecker;
         private ISystemSettingService systemSettingService;
         private IAutoFeedbackService feedbackService;
-        private IChatBotTicketVoidingService chatBotTicketVoidingService;
+        private IChatBotJobService chatBotJobService;
         private ICRMLogService logService;
         private ISendNotificationService sendNotificationService;
         private IMonitorService monitorService;
@@ -158,7 +158,7 @@
             await service.PullMessageForChatBotAsync();
 
             // Assert
-            await chatBotTicketVoidingService.Received().ExecuteJobAsync(setting);
+            await chatBotJobService.Received().PullMessageAsync(setting);
             await sendNotificationService.Received().SendNotificationToLetstalk();
         }
 
@@ -235,7 +235,7 @@
             jobRunningChecker = Substitute.For<IJobRunningChecker>();
             systemSettingService = Substitute.For<ISystemSettingService>();
             feedbackService = Substitute.For<IAutoFeedbackService>();
-            chatBotTicketVoidingService = Substitute.For<IChatBotTicketVoidingService>();
+            chatBotJobService = Substitute.For<IChatBotJobService>();
             logService = Substitute.For<ICRMLogService>();
             sendNotificationService = Substitute.For<ISendNotificationService>();
             monitorService = Substitute.For<IMonitorService>();
@@ -245,7 +245,7 @@
                 jobRunningChecker,
                 systemSettingService,
                 feedbackService,
-                chatBotTicketVoidingService,
+                chatBotJobService,
                 logService,
                 sendNotificationService,
                 monitorService);
