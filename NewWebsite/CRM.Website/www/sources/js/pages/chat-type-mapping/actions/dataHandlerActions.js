@@ -1,6 +1,6 @@
 import types from './types';
-import axios from 'axios';
 import Site from '@jsroot/common/site';
+import DataService from '@jsroot/common/dataService';
 
 // Settings
 export const setSettings = data => {
@@ -13,7 +13,7 @@ export const setSettings = data => {
 export const getSettings = () => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/GetSettings');
-    await axios.get(url).then(response => {
+    await DataService.getDataAsync(url).then(response => {
         dispatch(setSettings(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
@@ -36,15 +36,7 @@ export const setGridData = data => {
 export const getGridData = params => async dispatch => {
     Site.blockUI();
     const url = Site.resolveClientUrl('ChatTypeMapping/GetChatTypeMapping');
-    await axios({
-        method: 'post',
-        url: url,
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setGridData(response.data));
     }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
@@ -66,17 +58,10 @@ export const setUpateActivePopup = data => {
 
 export const updateActiveStatus = params => async dispatch => {
     Site.blockUI();
-    await axios({
-        method: 'post',
-        url: Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'),
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
-        dispatch(setUpateActiveResult(response.data));
-    }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
+    await DataService.postDataAsync(Site.resolveClientUrl('ChatTypeMapping/UpdateActiveStatus'), params)
+        .then(response => {
+            dispatch(setUpateActiveResult(response.data));
+        }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
 };
 
 // Get Recipient by Recipient Type
@@ -91,7 +76,7 @@ export const getRecipientByRecipientType = recipientTypeId => async dispatch => 
     if (recipientTypeId > 0) {
         Site.blockUI();
         const url = Site.resolveClientUrl('ChatTypeMapping/GetRecipientByType');
-        await axios.get(url, { params: { recipientTypeId: recipientTypeId } }).then(response => {
+        await DataService.getDataAsync(url, { recipientTypeId: recipientTypeId }).then(response => {
             dispatch(setRecipientData(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     }
@@ -113,22 +98,12 @@ export const getGroupHeadlineByRecipient = recipientIds => async dispatch => {
     if (recipientIds) {
         Site.blockUI();
         const url = Site.resolveClientUrl('ChatTypeMapping/GetGroupHeadlineByRecipient');
-        await axios.get(url, { params: { recipientIds: recipientIds } }).then(response => {
+        await DataService.getDataAsync(url, { recipientIds: recipientIds }).then(response => {
             dispatch(setGroupHeadlineData(response.data));
         }).catch(Site.handleAxiosError).then(() => Site.unblockUI());
     } else {
         dispatch(setGroupHeadlineData([]));
     }
-};
-
-//Check dirty form
-export const setDirtyFormState = isShow => {
-    return {
-        type: types.DIRTY_FORM_CONFIRMATION,
-        data: {
-            isShow: isShow
-        }
-    };
 };
 
 const actions = {
@@ -139,7 +114,6 @@ const actions = {
     updateActiveStatus,
     getRecipientByRecipientType,
     getGroupHeadlineByRecipient,
-    setDirtyFormState
 };
 
 export default actions;

@@ -23,7 +23,7 @@ class Filter extends Component {
                 mappingStatuses: '',
                 languageId: '',
                 botId: '',
-                active: true
+                active: ''
             },
             settings: {
                 chatTypes: [],

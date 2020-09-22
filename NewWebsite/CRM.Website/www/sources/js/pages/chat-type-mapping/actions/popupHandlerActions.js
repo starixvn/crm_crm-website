@@ -1,7 +1,7 @@
 ﻿import types from './types';
-import axios from 'axios';
 import Site from '@jsroot/common/site';
 import { setGroupHeadlineData } from './dataHandlerActions';
+import DataService from '@jsroot/common/dataService';
 
 // Insert Personal Mapping Popup
 const setInsertPersonalMappingPopup = isShow => {
@@ -36,15 +36,7 @@ export const closeInsertPersonalMappingPopup = () => {
 
 export const insertPersonalMapping = params => async dispatch => {
     const url = Site.resolveClientUrl('ChatTypeMapping/InsertPersonalMapping');
-    await axios({
-        method: 'post',
-        url: url,
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setInsertPersonalMappingResult(response.data));
     }).catch(Site.handleAxiosError);
 };
@@ -83,15 +75,7 @@ export const closeUpdatePersonalMappingPopup = () => {
 
 export const updatePersonalMapping = params => async dispatch => {
     const url = Site.resolveClientUrl(`ChatTypeMapping/UpdatePersonalMapping`);
-    await axios({
-        method: 'post',
-        url: url,
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setUpdatePersonalMappingResult(response.data));
     }).catch(Site.handleAxiosError);
 };
@@ -138,15 +122,7 @@ export const closeUpdateGroupMappingPopup = () => {
 export const verifyLetstalkInGroup = params => async dispatch => {
     if (params.botId > 0 && params.groupConversationId !== '' && params.recipients.length > 0) {
         const url = Site.resolveClientUrl('ChatTypeMapping/VerifyLetstalkInGroup');
-        await axios({
-            method: 'post',
-            url: url,
-            data: params,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'RequestVerificationToken': Site.getXsrfToken()
-            }
-        }).then(response => {
+        await DataService.postDataAsync(url, params).then(response => {
             dispatch(setLetstalkVerifationData(response.data));
         }).catch(Site.handleAxiosError);
     } else {
@@ -156,15 +132,7 @@ export const verifyLetstalkInGroup = params => async dispatch => {
 
 export const updateGroupMapping = params => async dispatch => {
     const url = Site.resolveClientUrl('ChatTypeMapping/UpdateGroupMapping');
-    await axios({
-        method: 'post',
-        url: url,
-        data: params,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'RequestVerificationToken': Site.getXsrfToken()
-        }
-    }).then(response => {
+    await DataService.postDataAsync(url, params).then(response => {
         dispatch(setGroupMappingResult(response.data));
     }).catch(Site.handleAxiosError);
 };
@@ -179,7 +147,7 @@ export const getLetstalkDisplayName = (botId, letstalkId) => async dispatch => {
     if (botId && letstalkId) {
         const url = Site.resolveClientUrl('ChatTypeMapping/GetLetstalkDisplayName');
         const params = { botId: botId, letstalkId: letstalkId };
-        await axios.get(url, { params: params }).then(response => {
+        await DataService.getDataAsync(url, params).then(response => {
             dispatch(setLetstalkDisplayName(response.data));
         }).catch(Site.handleAxiosError);
     } else {
