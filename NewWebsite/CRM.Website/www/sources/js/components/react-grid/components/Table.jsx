@@ -127,21 +127,21 @@ class Table extends Component {
         const currentNextCellIndexByRow = {};
         const currentRowIndex = 0;
         const cellList = headerIsArray ? headerRows[currentRowIndex].props.children : headerRows.props.children;
-        this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, cellList, currentRowIndex);
+        this._getWidthByCells(headerRows, columnsWidth, currentNextCellIndexByRow, cellList, currentRowIndex);
 
         return columnsWidth;
     }
 
-    _getWidthByCells = (columnsWidth, currentNextCellIndexByRow, cells, currentRowIndex) => {
+    _getWidthByCells = (headerRows, columnsWidth, currentNextCellIndexByRow, cells, currentRowIndex) => {
         for (let i = 0; i < cells.length; i++) {
             const cell = cells[i];
             if (cell) {
-                this._handleWidthOneCell(columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex);
+                this._handleWidthOneCell(headerRows, columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex);
             }
         }
     }
 
-    _handleWidthOneCell = (columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex) => {
+    _handleWidthOneCell = (headerRows, columnsWidth, currentNextCellIndexByRow, cell, currentRowIndex) => {
         const cellProps = cell.props;
         const colspan = Number(cellProps.colSpan);
 
@@ -157,7 +157,7 @@ class Table extends Component {
 
             const nextColspanCells = this._getNextColspanCells(nextCells, fromNextCellIndex, toNextCellIndex);
             currentNextCellIndexByRow[nextRowIndex] += nextColspanCells.length;
-            this._getWidthByCells(columnsWidth, currentNextCellIndexByRow, nextColspanCells, nextRowIndex);
+            this._getWidthByCells(headerRows, columnsWidth, currentNextCellIndexByRow, nextColspanCells, nextRowIndex);
         }
         else {
             const cellWidth = cellProps.colWidth ? cellProps.colWidth : DEFAULT_COLUMN_WIDTH;
