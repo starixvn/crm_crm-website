@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Constants;
-    using Fanex.CRM.BackgroundJob.Models;
     using global::CRM.Core.Services;
     using global::CRM.Letstalk.Services.Services.Interfaces;
     using Hangfire;
@@ -23,8 +22,6 @@
     public class BackgroundService : IBackgroundService
     {
         private readonly IMaintenanceService maintenanceService;
-        private readonly IJobRunningChecker jobRunningChecker;
-        private readonly ISystemSettingService systemSettingService;
         private readonly IAutoFeedbackService feedbackService;
         private readonly IChatBotJobService chatBotJobService;
         private readonly ICRMLogService logService;
@@ -33,8 +30,6 @@
 
         public BackgroundService(
             IMaintenanceService maintenanceService,
-            IJobRunningChecker jobRunningChecker,
-            ISystemSettingService systemSettingService,
             IAutoFeedbackService feedbackService,
             IChatBotJobService chatBotJobService,
             ICRMLogService logService,
@@ -42,8 +37,6 @@
             IMonitorService monitorService)
         {
             this.maintenanceService = maintenanceService;
-            this.jobRunningChecker = jobRunningChecker;
-            this.systemSettingService = systemSettingService;
             this.feedbackService = feedbackService;
             this.chatBotJobService = chatBotJobService;
             this.logService = logService;
@@ -64,18 +57,10 @@
                     return;
                 }
 
-                AbnormalBetSystemSetting setting = await systemSettingService.GetAbnormalBetSettingAsync();
-                if (!setting.ServiceFlag)
-                {
-                    logService.LogInformation("Service is shutdown.");
-                    return;
-                }
-
-                await feedbackService.ExecuteJobAsync(setting);
+                await feedbackService.ExecuteJobAsync();
             }
             catch (Exception ex)
             {
-                await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
                 await logService.ErrorAsync(ex);
             }
         }
@@ -93,15 +78,7 @@
                     return;
                 }
 
-                AbnormalBetSystemSetting setting = await systemSettingService.GetChatBotSystemSettingAsync();
-                if (!setting.ServiceFlag)
-                {
-                    logService.LogInformation("Chat Bot Service is shutdown.");
-                    return;
-                }
-
-                await chatBotJobService.PullMessageAsync(setting);
-                await sendNotificationService.SendNotificationToLetstalk();
+                await chatBotJobService.PullMessageAndSendNotificationAsync();
             }
             catch (Exception ex)
             {

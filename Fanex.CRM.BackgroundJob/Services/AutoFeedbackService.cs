@@ -10,7 +10,7 @@
 
     public interface IAutoFeedbackService
     {
-        Task ExecuteJobAsync(AbnormalBetSystemSetting setting);
+        Task ExecuteJobAsync();
     }
 
     public class AutoFeedbackService : IAutoFeedbackService
@@ -35,30 +35,45 @@
             this.logService = logService;
         }
 
-        public async Task ExecuteJobAsync(AbnormalBetSystemSetting setting)
+        public async Task ExecuteJobAsync()
         {
-            var isRunning = setting.JobStatus.Equals(JobStatus.Running, StringComparison.OrdinalIgnoreCase);
-            if (!isRunning)
+            try
             {
-                await Task.WhenAll(
-                    jobRunningChecker.MarkRunning(JobName.CreateFeedbackForVoidingAbnormalBet),
-                    feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting)
-                );
-                await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
-            }
-            else
-            {
-                isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
-                if (!isRunning && setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
+                AbnormalBetSystemSetting setting = await systemSettingService.GetAbnormalBetSettingAsync();
+                if (!setting.ServiceFlag)
                 {
-                    logService.LogInformation("Rerun service.");
-                    var settingJobStatus = new List<SystemSettingItem>
+                    logService.LogInformation("Service is shutdown.");
+                    return;
+                }
+
+                var isRunning = setting.JobStatus.Equals(JobStatus.Running, StringComparison.OrdinalIgnoreCase);
+                if (!isRunning)
+                {
+                    await Task.WhenAll(
+                        jobRunningChecker.MarkRunning(JobName.CreateFeedbackForVoidingAbnormalBet),
+                        feedbackService.CreateFeedbackForVoidingAbnormalBetAsync(setting)
+                    );
+                    await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                }
+                else
+                {
+                    isRunning = await jobRunningChecker.IsRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                    if (!isRunning && setting.LastRuntime.AddMinutes(appSettings.RetryRuntime) < DateTime.Now)
+                    {
+                        logService.LogInformation("Rerun service.");
+                        var settingJobStatus = new List<SystemSettingItem>
                         {
                             new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
                             new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
                         };
-                    await systemSettingService.EditSystemSettingAsync(settingJobStatus);
+                        await systemSettingService.EditSystemSettingAsync(settingJobStatus);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                await jobRunningChecker.ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
+                await logService.ErrorAsync(ex);
             }
         }
     }

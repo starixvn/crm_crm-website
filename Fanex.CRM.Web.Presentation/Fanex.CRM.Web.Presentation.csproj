@@ -1054,7 +1054,6 @@
     <Content Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
     <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
-    <Content Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
     <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
     <Content Include="Areas\Report\WagerReport\Index.cshtml">

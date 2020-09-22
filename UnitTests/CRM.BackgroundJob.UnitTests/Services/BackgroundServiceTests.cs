@@ -5,8 +5,6 @@
     using AutoFixture;
     using CRM.Core.Services;
     using CRM.Letstalk.Services.Services.Interfaces;
-    using Fanex.CRM.BackgroundJob.Constants;
-    using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Services;
     using NSubstitute;
     using ONEbook.UM.Models;
@@ -16,8 +14,6 @@
     public class BackgroundServiceTests
     {
         private IMaintenanceService maintenanceService;
-        private IJobRunningChecker jobRunningChecker;
-        private ISystemSettingService systemSettingService;
         private IAutoFeedbackService feedbackService;
         private IChatBotJobService chatBotJobService;
         private ICRMLogService logService;
@@ -39,7 +35,6 @@
             await service.CreateFeedbackForVoidingAbnormalBet();
 
             // Assert
-            await jobRunningChecker.Received().ClearRunning(JobName.CreateFeedbackForVoidingAbnormalBet);
             await logService.Received().ErrorAsync(exception);
         }
 
@@ -59,37 +54,18 @@
         }
 
         [Fact]
-        public async Task CreateFeedbackForVoidingAbnormalBet_ServiceIsShutdown_ExpectedWriteLog()
+        public async Task CreateFeedbackForVoidingAbnormalBet_WhenCalled_ExpectedCreateFeedback()
         {
             // Arrange
             var underMaintenanceTime = new UnderMaintenanceTime { IsUnderMaintenanceTime = false };
-            var setting = new AbnormalBetSystemSetting { ServiceFlag = false };
             var service = GetService();
             maintenanceService.GetUnderMaintenanceTimeAsync().Returns(underMaintenanceTime);
-            systemSettingService.GetAbnormalBetSettingAsync().Returns(setting);
 
             // Act
             await service.CreateFeedbackForVoidingAbnormalBet();
 
             // Assert
-            logService.Received().LogInformation("Service is shutdown.");
-        }
-
-        [Fact]
-        public async Task CreateFeedbackForVoidingAbnormalBet_ServiceIsRunning_ExpectedCreateFeedback()
-        {
-            // Arrange
-            var underMaintenanceTime = new UnderMaintenanceTime { IsUnderMaintenanceTime = false };
-            var setting = new AbnormalBetSystemSetting { ServiceFlag = true };
-            var service = GetService();
-            maintenanceService.GetUnderMaintenanceTimeAsync().Returns(underMaintenanceTime);
-            systemSettingService.GetAbnormalBetSettingAsync().Returns(setting);
-
-            // Act
-            await service.CreateFeedbackForVoidingAbnormalBet();
-
-            // Assert
-            await feedbackService.Received().ExecuteJobAsync(setting);
+            await feedbackService.Received().ExecuteJobAsync();
         }
 
         #endregion CreateFeedbackForVoidingAbnormalBet
@@ -128,38 +104,18 @@
         }
 
         [Fact]
-        public async Task PullMessageForChatBotAsync_ServiceIsShutdown_ExpectedWriteLog()
+        public async Task PullMessageForChatBotAsync_WhenCalled_ExpectedPullMessageAndSendNotification()
         {
             // Arrange
             var underMaintenanceTime = new UnderMaintenanceTime { IsUnderMaintenanceTime = false };
-            var setting = new AbnormalBetSystemSetting { ServiceFlag = false };
             var service = GetService();
             maintenanceService.GetUnderMaintenanceTimeAsync().Returns(underMaintenanceTime);
-            systemSettingService.GetChatBotSystemSettingAsync().Returns(setting);
 
             // Act
             await service.PullMessageForChatBotAsync();
 
             // Assert
-            logService.Received().LogInformation("Chat Bot Service is shutdown.");
-        }
-
-        [Fact]
-        public async Task PullMessageForChatBotAsync_ServiceIsRunning_ExpectedPullMessageAndSendNotification()
-        {
-            // Arrange
-            var underMaintenanceTime = new UnderMaintenanceTime { IsUnderMaintenanceTime = false };
-            var setting = new AbnormalBetSystemSetting { ServiceFlag = true };
-            var service = GetService();
-            maintenanceService.GetUnderMaintenanceTimeAsync().Returns(underMaintenanceTime);
-            systemSettingService.GetChatBotSystemSettingAsync().Returns(setting);
-
-            // Act
-            await service.PullMessageForChatBotAsync();
-
-            // Assert
-            await chatBotJobService.Received().PullMessageAsync(setting);
-            await sendNotificationService.Received().SendNotificationToLetstalk();
+            await chatBotJobService.Received().PullMessageAndSendNotificationAsync();
         }
 
         #endregion PullMessageForChatBotAsync
@@ -215,7 +171,7 @@
         #endregion ScanAndSenLetstalkNotification
 
         [Fact]
-        public async Task MonitorLetstalkService_ExpectedCallMonitorLetstalkService()
+        public async Task MonitorLetstalkService_WhenCalled_ExpectedCallMonitorLetstalkService()
         {
             // Arrange
             var service = GetService();
@@ -232,8 +188,6 @@
         private BackgroundService GetService()
         {
             maintenanceService = Substitute.For<IMaintenanceService>();
-            jobRunningChecker = Substitute.For<IJobRunningChecker>();
-            systemSettingService = Substitute.For<ISystemSettingService>();
             feedbackService = Substitute.For<IAutoFeedbackService>();
             chatBotJobService = Substitute.For<IChatBotJobService>();
             logService = Substitute.For<ICRMLogService>();
@@ -242,8 +196,6 @@
 
             return new BackgroundService(
                 maintenanceService,
-                jobRunningChecker,
-                systemSettingService,
                 feedbackService,
                 chatBotJobService,
                 logService,

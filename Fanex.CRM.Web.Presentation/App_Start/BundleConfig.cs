@@ -538,10 +538,6 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
                 "~/Areas/Report/StatisticReport/Scripts/Directives/*.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/Report/StatisticReportStyles",
-                "~/Areas/Report/StatisticReport/Styles/StatisticReport.less");
         }
 
         private static void RegisterBundles_ResultMessage(ref BundleCollection bundles)
