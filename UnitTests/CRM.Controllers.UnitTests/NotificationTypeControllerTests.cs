@@ -27,7 +27,7 @@
         private readonly Fixture fixture = new Fixture();
 
         [Fact]
-        public async Task GetSettings_WhenCalled_ReturnExpectedViewResult()
+        public async Task GetSettings_WhenCalled_ReturnExpectedResult()
         {
             //Arrange
             var controller = GetController();
@@ -129,7 +129,6 @@
             // Arrange
             var expected = fixture.Create<CommandResult>();
             var model = fixture.Create<DeleteNotificationType>();
-            var id = fixture.Create<int>();
             var controller = GetController();
             notificationTypeService.DeleteAsync(model).Returns(expected);
 
