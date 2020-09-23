@@ -177,7 +177,9 @@
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IFeedbackTicketVoidingService, FeedbackTicketVoidingService>();
             services.AddScoped<IAutoFeedbackService, AutoFeedbackService>();
             services.AddScoped<IChatBotTicketVoidingService, ChatBotTicketVoidingService>();
             services.AddScoped<IChatBotJobService, ChatBotJobService>();

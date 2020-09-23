@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using global::CRM.Core.Services;
@@ -10,6 +11,10 @@
     public interface ISettingService
     {
         Task<IEnumerable<SettingItem>> GetAllSettingAsync();
+
+        Task<IEnumerable<SystemSettingMapping>> GetSystemSettingMappingAsync(string[] settingNames);
+
+        Task<IEnumerable<SiteSettingMapping>> GetSiteSettingMappingAsync();
     }
 
     public class SettingService : ISettingService
@@ -36,6 +41,24 @@
             }
 
             return settings;
+        }
+
+        public async Task<IEnumerable<SystemSettingMapping>> GetSystemSettingMappingAsync(string[] settingNames)
+        {
+            var criteria = new GetSystemSettingMappingCriteria
+            {
+                Settings = string.Join(",", settingNames)
+            };
+            return await baseService.GetDataAsync<SystemSettingMapping>(criteria);
+        }
+
+        public async Task<IEnumerable<SiteSettingMapping>> GetSiteSettingMappingAsync()
+        {
+            var criteria = new GetSystemSettingMappingCriteria
+            {
+                Settings = SettingName.Site
+            };
+            return await baseService.GetDataAsync<SiteSettingMapping>(criteria);
         }
 
         private async Task<IEnumerable<SettingItem>> GetAllSettingRelationAsync()

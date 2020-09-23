@@ -5,11 +5,9 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Web;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
-    using Fanex.CRM.BackgroundJob.Repositories;
     using global::CRM.Core.Models;
     using global::CRM.Core.Services;
     using Microsoft.Extensions.Options;
@@ -22,29 +20,34 @@
     public class FeedbackService : IFeedbackService
     {
         private readonly AppJobSettings appSettings;
-        private readonly ICustomerRepository customerRepository;
         private readonly IBaseService baseService;
         private readonly ISettingService settingService;
         private readonly ISystemSettingService systemSettingService;
         private readonly IMessageService messageService;
+        private readonly ICustomerService customerService;
         private readonly ICRMLogService logService;
+        private readonly IFeedbackTicketVoidingService ticketVoidingService;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public FeedbackService(
             IOptionsSnapshot<AppJobSettings> appSettings,
-            ICustomerRepository customerRepository,
             IBaseService baseService,
             ISettingService settingService,
             ISystemSettingService systemSettingService,
             IMessageService messageService,
-            ICRMLogService logService)
+            ICustomerService customerService,
+            ICRMLogService logService,
+            IFeedbackTicketVoidingService ticketVoidingService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             this.appSettings = appSettings.Value;
-            this.customerRepository = customerRepository;
             this.baseService = baseService;
             this.settingService = settingService;
             this.systemSettingService = systemSettingService;
             this.messageService = messageService;
+            this.customerService = customerService;
             this.logService = logService;
+            this.ticketVoidingService = ticketVoidingService;
         }
 
         public async Task CreateFeedbackForVoidingAbnormalBetAsync(AbnormalBetSystemSetting setting)
@@ -68,7 +71,7 @@
 
             IEnumerable<int> messageIds = voidingMessages.Select(x => x.MessageId).Distinct().ToList();
             IEnumerable<Message> messages = await messageService.GetMessageInfoAsync(messageIds);
-            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await GetTicketInfoAsync(voidingMessages, setting);
+            ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>> ticketInfo = await ticketVoidingService.GetTicketVoidingInfoAsync(voidingMessages, setting);
             if (!ticketInfo.Item1.Any())
             {
                 await EditSystemSettingAsync();
@@ -79,12 +82,13 @@
 
             var settingNames = new[] { SettingName.SubProduct, SettingName.Bettype };
             IEnumerable<SettingItem> settings = await settingService.GetAllSettingAsync();
-            IEnumerable<SystemSettingMapping> settingMappings = await GetSystemSettingMappingAsync(settingNames);
-            IEnumerable<SiteSettingMapping> siteSettingMappings = await GetSiteSettingMappingAsync();
-            CustomerInfo licenseeInfo = await GetLicenseeInfoAsync();
-            IEnumerable<GroupHeadline> headlines = await GetGroupHeadlineAsync(ticketInfo.Item2);
+            IEnumerable<SystemSettingMapping> settingMappings = await settingService.GetSystemSettingMappingAsync(settingNames);
+            IEnumerable<SiteSettingMapping> siteSettingMappings = await settingService.GetSiteSettingMappingAsync();
+            CustomerInfo licenseeInfo = await customerService.GetCustomerInfoAsync(appSettings.LicenseeUsername, true);
+            var custIds = ticketInfo.Item2.Where(x => !x.IsDeposit).Select(x => x.CustId).Distinct();
+            IEnumerable<GroupHeadline> headlines = await customerService.GetGroupHeadlineAsync(custIds);
 
-            ticketInfo = await ImportFeedbackInfoAsync(
+            ticketInfo = await ticketVoidingService.ImportTicketVoidingInfoAsync(
                 voidingMessages,
                 ticketInfo.Item1,
                 ticketInfo.Item2,
@@ -123,82 +127,6 @@
             }
 
             await EditSystemSettingAsync();
-        }
-
-        private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> GetTicketInfoAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
-            AbnormalBetSystemSetting setting)
-        {
-            const string XmlTemplate = "<r MsgID='{0}' ReqID='{1}' />";
-            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
-            foreach (var message in voidingMessages)
-            {
-                stringBuilder.AppendFormat(XmlTemplate, message.MessageId, message.RequestId);
-            }
-            stringBuilder.Append(Constants.EndRootTag);
-            var criteria = new GetAbnormalTicketInfoCriteria
-            {
-                MessageIds = stringBuilder.ToString(),
-                ConfigUAT = setting.ConfigUAT,
-                ConfigPRO = setting.ConfigPRO
-            };
-            var ticketInfo = await baseService.FetchMultipleAsync<MatchInfo, TransactionInfo>(criteria);
-
-            await CheckMessageDoNotHaveTicketInfoAsync(voidingMessages, ticketInfo.Item1, ticketInfo.Item2);
-
-            IEnumerable<MatchInfo> matchInfos = ticketInfo.Item1.Where(x => ticketInfo.Item2.Any(y => x.MessageId == y.MessageId)).ToList();
-            return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, ticketInfo.Item2);
-        }
-
-        private async Task CheckMessageDoNotHaveTicketInfoAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
-            IEnumerable<MatchInfo> matchInfos,
-            IEnumerable<TransactionInfo> transactionInfos)
-        {
-            var messageIds = matchInfos.Where(x => !transactionInfos.Any(y => x.MessageId == y.MessageId))
-                .Select(x => x.MessageId).ToList();
-            if (messageIds.Any())
-            {
-                IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
-                await messageService.EditStatusVoidingMessageAsync(messages);
-                logService.LogInformation(string.Format("Don't have ticket info: {0}", string.Join(",", messageIds)));
-            }
-        }
-
-        private async Task<IEnumerable<GroupHeadline>> GetGroupHeadlineAsync(IEnumerable<TransactionInfo> transactionInfos)
-        {
-            var custIds = string.Join(",", transactionInfos.Where(x => !x.IsDeposit).Select(x => x.CustId).Distinct());
-            var criteria = new GetGroupHeadlineCriteria { CustIds = custIds };
-            return await baseService.GetDataAsync<GroupHeadline>(criteria);
-        }
-
-        private async Task<IEnumerable<SystemSettingMapping>> GetSystemSettingMappingAsync(string[] settingNames)
-        {
-            var criteria = new GetSystemSettingMappingCriteria
-            {
-                Settings = string.Join(",", settingNames)
-            };
-            return await baseService.GetDataAsync<SystemSettingMapping>(criteria);
-        }
-
-        private async Task<IEnumerable<SiteSettingMapping>> GetSiteSettingMappingAsync()
-        {
-            var criteria = new GetSystemSettingMappingCriteria
-            {
-                Settings = "Site"
-            };
-            return await baseService.GetDataAsync<SiteSettingMapping>(criteria);
-        }
-
-        private async Task<CustomerInfo> GetLicenseeInfoAsync()
-        {
-            var criteria = new GetCustomerInfoByUsernameCriteria
-            {
-                UserRole = Constants.UserRole,
-                Username = appSettings.LicenseeUsername,
-                IsGuest = true
-            };
-            return await customerRepository.GetCustomerInfoByUsernameAsync(criteria);
         }
 
         private async Task CreateFeedbackForCreditSiteAsync(
@@ -319,7 +247,7 @@
                             message.MessageId,
                             headline.HeadlineId,
                             string.Join(",", batch)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
+                        await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
@@ -330,7 +258,7 @@
                         message.MessageId,
                         headline.HeadlineId,
                         string.Join(",", batch)));
-                    await UpdateFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, ex.Message);
+                    await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, requestIds, batch, CreateFeedbackJobStatus.Fail, ex.Message);
                     await logService.ErrorAsync(ex);
                 }
             }
@@ -440,7 +368,7 @@
                             licenseeInfo.CustId,
                             string.Join(",", batch),
                             string.Join(",", custIds)));
-                        await UpdateFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
+                        await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, commandResult.Message);
                         await logService.ErrorAsync(commandResult, criteria);
                     }
                 }
@@ -452,7 +380,7 @@
                         licenseeInfo.CustId,
                         string.Join(",", batch),
                         string.Join(",", custIds)));
-                    await UpdateFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
+                    await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, requestIds, custIds, CreateFeedbackJobStatus.Fail, ex.Message);
                     await logService.ErrorAsync(ex);
                 }
             }
@@ -668,87 +596,6 @@
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
             await systemSettingService.EditSystemSettingAsync(settingJobStatus);
-        }
-
-        private async Task<ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>> ImportFeedbackInfoAsync(
-            IEnumerable<VoidingMessage> voidingMessages,
-            IEnumerable<MatchInfo> matchInfos,
-            IEnumerable<TransactionInfo> transactionInfos,
-            IEnumerable<SiteSettingMapping> siteSettingMappings,
-            IEnumerable<GroupHeadline> headlines,
-            CustomerInfo licenseeInfo)
-        {
-            IEnumerable<TransactionInfo> transactions = transactionInfos
-                .GroupBy(x => new { x.MessageId, x.RequestId, x.CustId })
-                .Select(x => x.First());
-            const string XmlTemplate = "<r msgid='{0}' reqid='{1}' custid='{2}' hl='{3}' related='{4}' event='{5}' />";
-            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
-            foreach (var transaction in transactions)
-            {
-                var matchInfo = matchInfos.FirstOrDefault(x => x.MessageId == transaction.MessageId);
-                var headlineId = 0;
-                var relatedCustId = 0;
-
-                if (transaction.IsDeposit)
-                {
-                    SiteSettingMapping licenseeManager = siteSettingMappings.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.SettingSource)
-                        && x.SettingSource.Equals(transaction.Site, StringComparison.OrdinalIgnoreCase));
-                    headlineId = licenseeInfo.CustId;
-                    relatedCustId = licenseeManager != null ? licenseeManager.LicenseeManagerId : 0;
-                }
-                else
-                {
-                    GroupHeadline headline = headlines.FirstOrDefault(x => x.CustId == transaction.CustId);
-                    headlineId = headline != null ? headline.HeadlineId : 0;
-                    relatedCustId = transaction.CustId;
-                }
-
-                stringBuilder.AppendFormat(XmlTemplate,
-                    transaction.MessageId,
-                    transaction.RequestId,
-                    transaction.CustId,
-                    headlineId,
-                    relatedCustId,
-                    string.Format("{0} -vs- {1}", HttpUtility.HtmlEncode(matchInfo?.HomeName), HttpUtility.HtmlEncode(matchInfo?.AwayName)));
-            }
-
-            stringBuilder.Append(Constants.EndRootTag);
-
-            var criteria = new ImportFeedbackInfoCriteria
-            {
-                Xml = stringBuilder.ToString()
-            };
-            var feedbackInfos = await baseService.GetDataAsync<AutoFeedbackInfo>(criteria);
-
-            var messageIds = matchInfos.Where(x => !feedbackInfos.Any(y => y.MessageId == x.MessageId)).Select(x => x.MessageId).ToList();
-            if (messageIds.Any())
-            {
-                IEnumerable<VoidingMessage> messages = voidingMessages.Where(x => messageIds.Any(y => x.MessageId == y));
-                await messageService.EditStatusVoidingMessageAsync(messages);
-                logService.LogInformation(string.Format("Don't have ticket info or created: {0}", string.Join(",", messageIds)));
-            }
-
-            matchInfos = matchInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId));
-            transactionInfos = transactionInfos.Where(x => feedbackInfos.Any(y => y.MessageId == x.MessageId && y.CustId == x.CustId));
-            return new ValueTuple<IEnumerable<MatchInfo>, IEnumerable<TransactionInfo>>(matchInfos, transactionInfos);
-        }
-
-        private async Task UpdateFeedbackInfoAsync(
-            int messageId,
-            IEnumerable<int> requestIds,
-            IEnumerable<int> custIds,
-            string status,
-            string description)
-        {
-            var criteria = new EditFeedbackInfoCommand
-            {
-                MessageId = messageId,
-                RequestIds = string.Join(",", requestIds),
-                CustIds = string.Join(",", custIds),
-                Status = status,
-                Description = description
-            };
-            await baseService.ExecuteNonQueryAsync(criteria);
         }
     }
 }
