@@ -47,7 +47,7 @@
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Redis = ConnectionMultiplexer.Connect(configuration.GetSection("RedisConfig:Host").Value);
+            Redis = ConnectionMultiplexer.Connect(Configuration.GetSection("RedisConfig:ConnectionString").Value);
         }
 
         public IConfiguration Configuration { get; }
