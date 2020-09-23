@@ -24,7 +24,7 @@
     using global::CRM.Letstalk.Services.Services;
     using global::CRM.Letstalk.Services.Services.Interfaces;
     using Hangfire;
-    using Hangfire.Storage.MySql;
+    using Hangfire.Redis;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -38,12 +38,16 @@
     using ONEbook.UM.Services;
     using ONEbook.UM.Transport;
     using Sentry;
+    using StackExchange.Redis;
 
     public class Startup
     {
+        private readonly ConnectionMultiplexer Redis;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Redis = ConnectionMultiplexer.Connect(configuration.GetSection("RedisConfig:Host").Value);
         }
 
         public IConfiguration Configuration { get; }
@@ -108,7 +112,7 @@
                 options.IdleTimeout = TimeSpan.FromMinutes(int.Parse(Configuration.GetSection("AuthSettings:SessionTimeout").Value));
             });
 
-            RegisterHangfire(services, connections.FirstOrDefault(x => x.Key.Equals("Hangfire")).Value.ConnectionString);
+            RegisterHangfire(services, Redis, Configuration);
 
             services.Configure<AppJobSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
@@ -184,20 +188,17 @@
             services.AddScoped<IMonitorService, MonitorService>();
         }
 
-        private static void RegisterHangfire(IServiceCollection services, string connectionString)
+        private static void RegisterHangfire(IServiceCollection services, ConnectionMultiplexer redis, IConfiguration configuration)
         {
-            var connection = Cryptography.DecryptConnectionString(connectionString);
-            var options = new MySqlStorageOptions
+            services.AddHangfire(x =>
             {
-                QueuePollInterval = TimeSpan.FromSeconds(2),
-                JobExpirationCheckInterval = TimeSpan.FromHours(1),
-                CountersAggregateInterval = TimeSpan.FromMinutes(5),
-                PrepareSchemaIfNecessary = true,
-                DashboardJobListLimit = 50000,
-                TransactionTimeout = TimeSpan.FromMinutes(2),
-                TablesPrefix = "CRMHangfire_"
-            };
-            services.AddHangfire(x => x.UseStorage(new MySqlStorage(connection, options)));
+                x.UseRedisStorage(redis, new RedisStorageOptions
+                {
+                    Db = int.Parse(configuration.GetSection("RedisConfig:Db").Value),
+                    Prefix = "CRMHangfire_"
+                }
+                );
+            });
         }
     }
 }
