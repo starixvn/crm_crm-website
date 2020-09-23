@@ -834,9 +834,6 @@
     <Content Include="Configurations\Web.UAT.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Configurations\Web.UATSIT.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Configurations\_Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_Web.config.txt</LastGenOutput>
@@ -1509,7 +1506,7 @@
     <Content Include="Configurations\AppSettings\PRO.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UAT.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UATSandBox.Web.Setting.config" />
-    <Content Include="Configurations\AppSettings\UATSIT.Web.Setting.config" />
+    <Content Include="Configurations\AppSettings\SIT.Web.Setting.config" />
     <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
     <Content Include="Configurations\ConnectionStrings\CN88PRO.ConnectionStrings.config" />
     <Content Include="Configurations\AppSettings\CN88PRO.Web.Setting.config" />
