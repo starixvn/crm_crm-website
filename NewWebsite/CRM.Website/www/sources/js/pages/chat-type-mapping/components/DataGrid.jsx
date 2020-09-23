@@ -55,8 +55,6 @@ export class DataGrid extends Component {
         );
     }
 
-    renderLetstalkId = (recipient, key) => <div key={key} className='recipient-item' title={recipient.letstalkId}>{recipient.letstalkId}</div>;
-
     handleEdit = chatMapping => {
         if (parseInt(chatMapping.chatTypeId, 10) === ChatTypeMapping.Personal) {
             this.props.openUpdatePersonalMappingPopup(chatMapping);
@@ -108,24 +106,26 @@ export class DataGrid extends Component {
         return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 13 : 12}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
-    renderIsActiveCol = (isHost, conversationGroupId, isActive, chatTypeId, mappingStatusId) => {
-        const isDisabled = (chatTypeId === ChatTypeMapping.Group) && (mappingStatusId === MappingStatus.NotMapped);
-
+    renderIsActiveCol = (isHost, item) => {
         if (isHost) {
+            const isPersonalCheckDisabled = item.chatTypeId === ChatTypeMapping.Personal && (item.conversationId === '' || !item.recipients.length || !item.headlines.length);
+            const isGroupCheckDisabled = item.chatTypeId === ChatTypeMapping.Group && item.mappingStatusId === MappingStatus.NotMapped;
+            const isDisabled = isGroupCheckDisabled || isPersonalCheckDisabled;
+
             return (
                 <Cell className='text-center'>
                     <Form.Control className='checkbox-cell-style'
-                        id={`active-chk-${conversationGroupId}`}
+                        id={`active-chk-${item.conversationGroupId}`}
                         type='checkbox'
-                        checked={isActive}
-                        onChange={e => this.onChangeActiveStaus(conversationGroupId, e.target.checked)}
+                        checked={item.isActive}
+                        onChange={e => this.onChangeActiveStaus(item.conversationGroupId, e.target.checked)}
                         disabled={isDisabled}
                     />
                 </Cell>
             );
         }
 
-        return <Cell className='text-center'>{isActive ? <span className="fa fa-check badge-green" /> : ''}</Cell>;
+        return <Cell className='text-center'>{item.isActive ? <span className="fa fa-check badge-green" /> : ''}</Cell>;
     }
 
     renderEditIcon = (isBotRemovedStatus, chatMapping) => {
@@ -169,7 +169,7 @@ export class DataGrid extends Component {
                 <Cell className='text-center'>
                     <span className={Site.mappingStatusClass(item.mappingStatusId)}>{item.chatTypeId === ChatTypeMapping.Group ? item.mappingStatus : ''}</span>
                 </Cell>
-                {this.renderIsActiveCol(isHost, item.conversationGroupId, item.isActive, item.chatTypeId, item.mappingStatusId)}
+                {this.renderIsActiveCol(isHost, item)}
                 <Cell >{item.remark}</Cell>
                 {
                     isHost &&
