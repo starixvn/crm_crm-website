@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Services
 {
     using System.Threading.Tasks;
+    using Fanex.Caching;
 
     public interface IJobRunningChecker
     {

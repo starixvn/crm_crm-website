@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.Caching;
+    using Fanex.Caching.Redis;
     using Fanex.CRM.BackgroundJob.Constants;
     using Fanex.CRM.BackgroundJob.Filters;
     using Fanex.CRM.BackgroundJob.Models;
@@ -109,14 +111,14 @@
             RegisterHangfire(services, connections.FirstOrDefault(x => x.Key.Equals("Hangfire")).Value.ConnectionString);
 
             services.Configure<AppJobSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
-            services.Configure<RedisConfig>(options => Configuration.GetSection("RedisConfig").Bind(options));
             services.Configure<HangfireAuthentication>(options => Configuration.GetSection("HangfireSettings:Authentication").Bind(options));
             services.Configure<List<HangfireJobSetting>>(options => Configuration.GetSection("HangfireSettings:JobSettings").Bind(options));
 
+            services.AddRedisCache(Configuration.GetSection("RedisConfig"));
             services.ResolveCoreDI();
-
             RegisterDI(services);
             services.ResolveLetstalkServiceDI(Configuration);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -165,11 +167,10 @@
             services.AddSingleton<IUMRestClient, UMRestClient>();
             services.AddSingleton<IMaintenanceService, MaintenanceService>();
 
-            services.AddSingleton<IRedisRepository, RedisRepository>();
+            services.AddTransient<ICacheService, CacheService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddTransient<IRecurringJobManager, RecurringJobManager>();
-            services.AddTransient<ICacheService, CacheService>();
             services.AddTransient<IJobRunningChecker, JobRunningChecker>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ISystemSettingService, SystemSettingService>();
