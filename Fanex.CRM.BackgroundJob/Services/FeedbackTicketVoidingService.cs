@@ -116,7 +116,6 @@
             }
 
             stringBuilder.Append(Constants.EndRootTag);
-
             var criteria = new ImportFeedbackInfoCriteria
             {
                 Xml = stringBuilder.ToString()

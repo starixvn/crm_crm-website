@@ -403,7 +403,7 @@
             }
         }
 
-        private static string GetCommunicationTool(IEnumerable<SettingItem> settings)
+        protected internal virtual string GetCommunicationTool(IEnumerable<SettingItem> settings)
         {
             var communication = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.CommunicationTool, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Skype", StringComparison.OrdinalIgnoreCase));
@@ -411,7 +411,7 @@
             return communication != null ? communication.SettingId.ToString() : Constants.CommunicationNA.ToString();
         }
 
-        private string GetProductXml(
+        protected internal virtual string GetProductXml(
             MatchInfo matchInfo,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
@@ -422,7 +422,7 @@
             SettingItem sportsbook = GetSportsbookProduct(settings);
             IList<SettingItem> subProducts = GetSubProduct(sportsbook.SettingId, matchInfo, settings, settingMappings);
             IList<SettingItem> bettypes = GetBettype(subProducts.Select(x => x.SettingId), transactionInfos, settings, settingMappings);
-            var stringBuilder = new StringBuilder("<ROOT>");
+            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
 
             foreach (SettingItem subProduct in subProducts)
             {
@@ -441,10 +441,10 @@
             }
 
             logService.LogInformation("End mapping product, sub-product, bet type.");
-            return stringBuilder.Append("</ROOT>").ToString();
+            return stringBuilder.Append(Constants.EndRootTag).ToString();
         }
 
-        private static SettingItem GetSportsbookProduct(IEnumerable<SettingItem> settings)
+        protected internal virtual SettingItem GetSportsbookProduct(IEnumerable<SettingItem> settings)
         {
             var product = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.Product, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Sportsbook", StringComparison.OrdinalIgnoreCase));
@@ -497,7 +497,7 @@
                 };
         }
 
-        private static Tuple<int, int, string> GetCategorySubCategory(IEnumerable<SettingItem> settings)
+        protected internal virtual Tuple<int, int, string> GetCategorySubCategory(IEnumerable<SettingItem> settings)
         {
             var category = settings.FirstOrDefault(x => x.SettingName.Equals(SettingName.MainCategory, StringComparison.OrdinalIgnoreCase)
                 && x.SettingValue.Equals("Special Notification", StringComparison.OrdinalIgnoreCase));
@@ -520,20 +520,20 @@
                     subCategoryId));
         }
 
-        private static string GetRelatedCustomerXml(int headlineId, IEnumerable<TransactionInfo> transactionInfos)
+        protected internal virtual string GetRelatedCustomerXml(int headlineId, IEnumerable<TransactionInfo> transactionInfos)
         {
             const string XmlTemplate = "<Row CustId='{0}' RelatedCustId='{1}' Username='{2}' />";
-            var stringBuilder = new StringBuilder("<ROOT>");
+            var stringBuilder = new StringBuilder(Constants.BeginRootTag);
             var transactions = transactionInfos.GroupBy(x => x.CustId).Select(x => x.First());
             foreach (var transaction in transactions)
             {
                 stringBuilder.AppendFormat(XmlTemplate, headlineId, transaction.CustId, transaction.Username);
             }
 
-            return stringBuilder.Append("</ROOT>").ToString();
+            return stringBuilder.Append(Constants.EndRootTag).ToString();
         }
 
-        private static string GetAutoField(
+        protected internal virtual string GetAutoField(
             DateTime feedbackDate,
             string communicationTool,
             IEnumerable<string> licenseeManagers)
@@ -546,7 +546,7 @@
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription(int messageId, string requestIds)
+        protected internal virtual string GetDescription(int messageId, string requestIds)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
             stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
@@ -555,7 +555,7 @@
             return stringBuilder.ToString();
         }
 
-        private static string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
+        protected internal virtual string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
             stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
@@ -567,14 +567,14 @@
             return stringBuilder.ToString();
         }
 
-        private static string GetSolution(Message message)
+        protected internal virtual string GetSolution(Message message)
         {
             var stringBuilder = new StringBuilder(message.Content_en);
             stringBuilder.Append("<br /><br />").Append(message.Content_cs);
             return stringBuilder.ToString();
         }
 
-        private static string GetSolution(Message message, IEnumerable<TransactionInfo> transactionInfos)
+        protected internal virtual string GetSolution(Message message, IEnumerable<TransactionInfo> transactionInfos)
         {
             var stringBuilder = new StringBuilder(message.Content_en);
             stringBuilder.Append("<br /><br />").Append(message.Content_cs);
@@ -588,14 +588,14 @@
             return stringBuilder.ToString();
         }
 
-        private async Task EditSystemSettingAsync()
+        protected internal virtual async Task<CommandResult> EditSystemSettingAsync()
         {
             var settingJobStatus = new List<SystemSettingItem>
             {
                 new SystemSettingItem { SettingName = SystemSettingName.JobStatus, Value = JobStatus.Completed },
                 new SystemSettingItem { SettingName = SystemSettingName.LastRuntime, Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff tt") }
             };
-            await systemSettingService.EditSystemSettingAsync(settingJobStatus);
+            return await systemSettingService.EditSystemSettingAsync(settingJobStatus);
         }
     }
 }

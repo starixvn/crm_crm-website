@@ -1561,6 +1561,7 @@
     </Content>
     <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
+    <None Include="Configurations\Web.SIT.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.eot" />
