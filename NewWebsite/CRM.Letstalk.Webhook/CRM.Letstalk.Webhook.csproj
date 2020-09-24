@@ -10,6 +10,7 @@
     <None Remove="App_Data\Development\SpNames.xml" />
     <None Remove="App_Data\Local\SpNames.xml" />
     <None Remove="App_Data\Production\SpNames.xml" />
+    <None Remove="App_Data\SIT\SpNames.xml" />
     <None Remove="App_Data\SpNames.xml" />
     <None Remove="App_Data\UAT\SpNames.xml" />
   </ItemGroup>
@@ -23,6 +24,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\Production\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\SIT\SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\SpNames.xml">
