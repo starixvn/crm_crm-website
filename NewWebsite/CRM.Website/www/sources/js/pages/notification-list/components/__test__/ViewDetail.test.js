@@ -10,6 +10,19 @@ import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 describe('ViewDetail', () => {
     LangHelper.getResource = jest.fn(value => value);
+    
+    beforeEach(() => {
+        const appContainer = document.createElement('div');
+        appContainer.setAttribute('id', 'view-detail-modal-body');
+        document.body.appendChild(appContainer);
+    });
+
+    afterEach(() => {
+        const appContainer = document.getElementById('view-detail-modal-body');
+        if (appContainer) {
+            document.body.removeChild(appContainer);
+        }
+    });
 
     it('render component correctly', () => {
         // Arrange
@@ -57,14 +70,12 @@ describe('ViewDetail', () => {
         expect(viewDetail.find(Modal.Header).props().closeButton).toBeTrue;
         expect(viewDetail.find(Modal.Title).props().as).toBe('div');
         expect(viewDetail.find(Modal.Title).html()).toContain('ErrorNotification');
-        expect(viewDetail.find(Modal.Body).find('div').at(0).html()).toEqual(`<div>${`NotificationID: <b>${props.data.notificationId}`}</b></div>`);
+        expect(viewDetail.find(Modal.Body).find('div').at(0).html()).toEqual(`<div id="view-detail-modal-body">${`NotificationID: <b>${props.data.notificationId}`}</b></div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(1).html()).toEqual(`<div>${`NotificationTemplate: <b>${props.data.title}`}</b></div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(2).html()).toEqual(`<div>${`SentAt: <b>${props.data.sendDateString} ${props.data.sendTimeString}`}</b></div>`);
         expect(viewDetail.find(Modal.Body).find('div').at(3).html()).toEqual('<div class="error-occured-message error-resolved-row">ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient</div>');
-        expect(viewDetail.find(Table).props().minWidth).toBe(500);
-        expect(viewDetail.find(Table).props().maxWidth).toBe(772);
+        expect(viewDetail.find(Table).props().width).toBe(document.getElementById('view-detail-modal-body').clientWidth - 1);
         expect(viewDetail.find(Table).props().containerPadding).toBe(0);
-        expect(viewDetail.find(Table).props().adjustedHeight).toBe(50);
     });
 
     it('render child element when view dettail result is successful', () => {
@@ -126,6 +137,10 @@ describe('ViewDetail', () => {
 
     it('render Table component with expected props', () => {
         // Arrange
+        const state = {
+            modalWidth: 10
+        };
+
         const props = {
             data: {},
             viewDetail: {
@@ -135,21 +150,24 @@ describe('ViewDetail', () => {
 
         // Action
         const viewDetail = shallow(<ViewDetail {...props} />);
+        viewDetail.setState(state);
 
         // Assert
-        expect(viewDetail.find(Table).props().minWidth).toBe(500);
-        expect(viewDetail.find(Table).props().maxWidth).toBe(772);
+        expect(viewDetail.find(Table).props().width).toBe(state.modalWidth - 1);
         expect(viewDetail.find(Table).props().containerPadding).toBe(0);
-        expect(viewDetail.find(Table).props().adjustedHeight).toBe(50);
     });
 
     it('buildHeader', () => {
         // Arrange
+        const state = {
+            modalWidth: 10
+        };
+
         const expectedHeader = <HeaderRow>
-            <HeaderCell colWidth={20}>{'LetstalkName'}</HeaderCell>
-            <HeaderCell colWidth={20}>{'GroupHeadline'}</HeaderCell>
-            <HeaderCell colWidth={20}>{'Recipient'}</HeaderCell>
-            <HeaderCell colWidth={40}>{'Reason'}</HeaderCell>
+            <HeaderCell colWidth={0.2 * state.modalWidth}>{'LetstalkName'}</HeaderCell>
+            <HeaderCell colWidth={0.2 * state.modalWidth}>{'GroupHeadline'}</HeaderCell>
+            <HeaderCell colWidth={0.2 * state.modalWidth}>{'Recipient'}</HeaderCell>
+            <HeaderCell colWidth={0.4 * state.modalWidth}>{'Reason'}</HeaderCell>
         </HeaderRow>;
 
         const props = {
@@ -160,6 +178,7 @@ describe('ViewDetail', () => {
         };
 
         const viewDetail = shallow(<ViewDetail {...props} />);
+        viewDetail.setState(state);
         
         // Action
         const header = viewDetail.instance().buildHeader();

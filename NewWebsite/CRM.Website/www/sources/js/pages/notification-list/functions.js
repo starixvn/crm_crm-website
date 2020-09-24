@@ -32,7 +32,7 @@ export const getHeadlines = headlines => {
 
 export const getRecipients = recipients => {
     if (recipients && recipients.length > 0) {
-        return recipients.map(recipient => `${recipient.recipientName} (${recipient.roleName})`).join(', ');
+        return recipients.map((recipient, index) => <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>);
     }
 
     return '';

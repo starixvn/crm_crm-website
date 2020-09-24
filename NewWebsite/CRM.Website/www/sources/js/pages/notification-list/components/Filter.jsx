@@ -204,7 +204,7 @@ export class Filter extends Component {
 
     render() {
         return (
-            <Form className='form-filter'>
+            <Form className='form-filter' onSubmit={e => this.submitHandler(e)}>
                 <Form.Row bsPrefix='form-row'>
                     <Form.Group>
                         <Form.Label>{LangHelper.getResource('NotificationType')}</Form.Label>
@@ -319,7 +319,7 @@ export class Filter extends Component {
                         </div>
                     </Form.Group>
                     <Form.Group>
-                        <Button variant='primary' size='sm' onClick={e => this.submitHandler(e)}>
+                        <Button variant='primary' size='sm' type='submit'>
                             {LangHelper.getResource('Submit')}
                         </Button>
                     </Form.Group>

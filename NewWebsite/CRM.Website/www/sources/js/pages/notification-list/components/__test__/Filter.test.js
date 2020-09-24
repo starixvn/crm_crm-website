@@ -1522,7 +1522,7 @@ describe('Filter', () => {
             expect(filter.instance().handleStatusChange).toHaveBeenCalledWith(currentItem, selectedItemsKey);
         });
         
-        it('submit Button click correctly', () => {            
+        it('has Form running onSubmit correctly', () => {            
             // Arrange
             const event = {
                 preventDefault: jest.fn()
@@ -1541,7 +1541,7 @@ describe('Filter', () => {
             filter.instance().submitHandler = jest.fn();
 
             // Action
-            filter.find(Button).simulate('click', event);
+            filter.find(Form).simulate('submit', event);
 
             // Assert
             expect(filter.instance().submitHandler).toHaveBeenCalledWith(event);

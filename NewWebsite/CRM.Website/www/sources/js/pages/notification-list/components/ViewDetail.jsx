@@ -13,7 +13,8 @@ export class ViewDetail extends Component {
         super(props);
 
         this.state = {
-            isResolved: false
+            isResolved: false,
+            modalWidth: 0
         };
     }
     
@@ -21,15 +22,17 @@ export class ViewDetail extends Component {
         this.setState({
             remark: this.props.data.resolvedRemark ?? '',
             oldRemark: this.props.data.resolvedRemark ?? '',
+            modalWidth: document.getElementById('view-detail-modal-body').clientWidth
         })
 
-    buildHeader = () =>
-        <HeaderRow>
-            <HeaderCell colWidth={20}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
-            <HeaderCell colWidth={20}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-            <HeaderCell colWidth={20}>{LangHelper.getResource('Recipient')}</HeaderCell>
-            <HeaderCell colWidth={40}>{LangHelper.getResource('Reason')}</HeaderCell>
-        </HeaderRow>
+    buildHeader = () => {
+        return <HeaderRow>
+            <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
+            <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
+            <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('Recipient')}</HeaderCell>
+            <HeaderCell colWidth={0.4 * this.state.modalWidth}>{LangHelper.getResource('Reason')}</HeaderCell>
+        </HeaderRow>;
+    }
 
     buildBody = data =>
         [<Row key={data.notificationId}>
@@ -90,7 +93,7 @@ export class ViewDetail extends Component {
                     <Modal.Title as='div'>{LangHelper.getResource('ErrorNotification')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>
+                    <div id='view-detail-modal-body'>
                         {`${LangHelper.getResource('NotificationID')}: `}
                         <b>{data.notificationId}</b>
                     </div>
@@ -104,12 +107,11 @@ export class ViewDetail extends Component {
                     </div>
                     <div className='error-occured-message error-resolved-row'>{LangHelper.getResource('ErrorOccuredWhileSendingTheNotificationToTheFollowingRecipient')}</div>
                     <Table
-                        minWidth={500}
-                        maxWidth={772}
+                        width={this.state.modalWidth - 1}
+                        autoWidth={false}
                         header={this.buildHeader()}
                         body={this.buildBody(data)}
                         containerPadding={0}
-                        adjustedHeight={50}
                     />
                     {
                         this.props.viewDetail.result.isSuccessful ? <Fragment>

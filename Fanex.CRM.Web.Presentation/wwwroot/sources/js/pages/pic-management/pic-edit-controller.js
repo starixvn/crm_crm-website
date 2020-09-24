@@ -62,7 +62,7 @@
                             if (selectedComms.length > 0) {
                                 return { selectedComm: selectedComms[0], Value: tool.Value };
                             }
-                
+
                             return { selectedComm: vm.initialSelectedComm, Value: tool.Value }
                         });
 
@@ -126,7 +126,10 @@
                 Username: vm.username,
                 Role: vm.selectedRole.Id,
                 Remark: vm.remark,
-                CommunicationTools: communicationToolItems.map(commItem => { return { Type: commItem.selectedComm.Id, Value: commItem.Value} }),
+                CommunicationTools: communicationToolItems.map(commItem => {
+                    const values = commItem.Value.split(',').map(value => value.trim()).filter(value => value !== '').toString();
+                    return { Type: commItem.selectedComm.Id, Value: values }
+                }),
                 Language: vm.selectedLanguages.map(lang => lang.Id).join(','),
                 Country: vm.selectedCountry.Id
             };

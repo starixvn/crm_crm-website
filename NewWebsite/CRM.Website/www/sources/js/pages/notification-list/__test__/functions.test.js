@@ -62,7 +62,8 @@ describe('function', () => {
         getRecipientsTest(null, '');
         getRecipientsTest(undefined, '');
         getRecipientsTest([], '');
-        getRecipientsTest(recipients, recipients.map(recipient => `${recipient.recipientName} (${recipient.roleName})`).join(', '));
+        getRecipientsTest(recipients, recipients.map((recipient, index) =>
+            <div key={index}>{`${recipient.recipientName} (${recipient.roleName})`}</div>));
     });
 
     describe('resendNotifications', () => {
