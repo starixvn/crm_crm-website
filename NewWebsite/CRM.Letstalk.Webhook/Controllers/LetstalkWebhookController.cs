@@ -7,7 +7,6 @@
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Core.Models;
     using CRM.Letstalk.Core.Services.Interfaces;
-    using Fanex.Logging;
     using Microsoft.AspNetCore.Mvc;
 
     public class LetstalkWebhookController : ControllerBase
@@ -15,23 +14,19 @@
         private readonly IWebhookReceiver webhookReceiver;
         private readonly Func<int, ILetstalkService> letstalkService;
         private readonly List<WebhookConfiguration> webhookConfigurations;
-        private readonly ILogger logger;
 
         public LetstalkWebhookController(IWebhookReceiver webhookReceiver,
             Func<int, ILetstalkService> letstalkService,
-            List<WebhookConfiguration> webhookConfigurations,
-            ILogger logger)
+            List<WebhookConfiguration> webhookConfigurations)
         {
             this.webhookReceiver = webhookReceiver;
             this.letstalkService = letstalkService;
             this.webhookConfigurations = webhookConfigurations;
-            this.logger = logger;
         }
 
         [Route("api/webhook/{id}")]
         public async Task WebhookReceiver(int id)
         {
-            await logger.DebugAsync("Receive request from Letstalk service SIT");
             await webhookReceiver.ReceiveAsync(Request, id);
         }
 
