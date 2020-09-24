@@ -84,26 +84,22 @@ export class Filter extends Component {
     handleNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('notificationTypes', selectedItemsKey)
 
     handleFromDateChange = value => {
-        const toDate = new Date(value);
-        toDate.setMonth(toDate.getMonth() + 1);
-        toDate.setDate(toDate.getDate() - 1);
+        let maxToDate = new Date(value);
+        maxToDate.setMonth(maxToDate.getMonth() + 1);
         this.setState({ minToDate: value });
         this.handleFilterChange('fromDate', value);
-        if (toDate - this.state.maxDate < 0) {
-            this.setState({ maxToDate: toDate }, () => this.changeToDateAfterFromDateChanged(value));
+        if (maxToDate - this.state.maxDate > 0) {
+            maxToDate = this.state.maxDate;
         }
-        else {
-            this.changeToDateAfterFromDateChanged(value);
-        }
-    }
 
-    changeToDateAfterFromDateChanged = value => {
-        if (this.state.filter.toDate - value < 0) {
+        if (this.state.filter.toDate - maxToDate > 0) {
+            this.handleFilterChange('toDate', maxToDate);
+        }
+        else if (this.state.filter.toDate - value < 0) {
             this.handleFilterChange('toDate', value);
         }
-        else if (this.state.filter.toDate - this.state.maxToDate > 0) {
-            this.handleFilterChange('toDate', this.state.maxToDate);
-        }
+
+        this.setState({ maxToDate });
     }
 
     handleToDateChange = value => this.handleFilterChange('toDate', value)

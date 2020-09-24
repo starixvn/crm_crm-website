@@ -8,6 +8,6 @@
 
         public IEnumerable<int> InActiveNotificationIds { get; set; }
 
-        public IEnumerable<NotificationListResend> ResendDataList { get; set; }
+        public IEnumerable<int> ResendIds { get; set; }
     }
 }

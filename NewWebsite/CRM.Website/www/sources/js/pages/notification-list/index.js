@@ -40,7 +40,7 @@ const store = Store.createStore(reducer, {
         result: {
             isSingle: false,
             inActiveNotificationIds: [],
-            resendDataList: []
+            resendIds: []
         }
     },
     confirmPopup: {

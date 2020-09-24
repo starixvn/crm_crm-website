@@ -42,6 +42,7 @@
             <Mapping DataField="HeadlineID" ObjectProperty="Id" />
             <Mapping DataField="HeadlineName" ObjectProperty="Name" />
         </Setting>
+        <Setting Key="Acc_CRM_Chatbot_ResendNotification" SpName="Acc_CRM_Chatbot_ResendNotification" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Chat Type Mapping">
         <Setting Key="Acc_CRM_ChatBot_ChatTypeMapping_Sel" SpName="Acc_CRM_ChatBot_ChatTypeMapping_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>

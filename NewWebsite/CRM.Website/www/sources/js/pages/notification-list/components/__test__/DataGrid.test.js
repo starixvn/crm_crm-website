@@ -245,26 +245,7 @@ describe('DataGrid', () => {
                 expect(header.find(HeaderCell).at(9).props().colWidth).toBe(10);
             });
             
-            it('has disable resend', () => {
-                // Arrange
-                const props = {
-                    gridParams: {},
-                    gridData: {},
-                    resendOptions: {
-                        isDisabledResend: true
-                    }
-                };
-    
-                const dataGrid = shallow(<DataGrid {...props} />);
-    
-                // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
-                
-                // Assert
-                expect(header.find(HeaderCell).at(9).find('div').html()).toEqual('<div>Resend</div>');
-            });
-            
-            it('has enable resend', () => {
+            it('has button resend', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
@@ -280,8 +261,9 @@ describe('DataGrid', () => {
                 const header = shallow(dataGrid.instance().buildHeader(true));
                 
                 // Assert
-                expect(header.find(HeaderCell).at(9).find('div').html()).toContain('Resend');
-                expect(header.find(HeaderCell).at(9).find('div').html()).toContain('class="link-click"');
+                expect(header.find(HeaderCell).at(9).find('input').props().type).toBe('button');
+                expect(header.find(HeaderCell).at(9).find('input').props().value).toBe('Resend');
+                expect(header.find(HeaderCell).at(9).find('input').props().disabled).toBeFalse;
             });
             
             it('has enable resend simulating onClick', () => {
@@ -299,7 +281,7 @@ describe('DataGrid', () => {
                 const header = shallow(dataGrid.instance().buildHeader(true));
     
                 // Action
-                header.find(HeaderCell).at(9).find('div').simulate('click');
+                header.find(HeaderCell).at(9).find('input').simulate('click');
 
                 // Assert
                 expect(dataGrid.instance().resendNotificationAll).toHaveBeenCalled();

@@ -44,11 +44,12 @@ export class DataGrid extends Component {
                 }
                 {
                     isHost && <HeaderCell colWidth={10}>
-                        {
-                            !this.props.resendOptions.isDisabledResend ?
-                            <div className='link-click' onClick={this.resendNotificationAll}>{LangHelper.getResource('Resend')}</div> :
-                            <div>{LangHelper.getResource('Resend')}</div>
-                        }
+                        <input
+                            type='button'
+                            value={LangHelper.getResource('Resend')}
+                            disabled={this.props.resendOptions.isDisabledResend}
+                            onClick={this.resendNotificationAll}
+                        />
                         {
                             this.props.resendOptions.isHaveResendAll &&
                             <Form.Control

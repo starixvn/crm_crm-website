@@ -56,7 +56,7 @@ describe('index', () => {
                 result: {
                     isSingle: false,
                     inActiveNotificationIds: [],
-                    resendDataList: []
+                    resendIds: []
                 }
             },
             confirmPopup: {

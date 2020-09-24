@@ -113,15 +113,14 @@ export class ViewDetail extends Component {
                         body={this.buildBody(data)}
                         containerPadding={0}
                     />
-                    {
-                        this.props.viewDetail.result.isSuccessful ? <Fragment>
-                            <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ': ' + LangHelper.getResource('ResendDone')}</div>
-                            <div>{LangHelper.getResource('ResolvedBy') + ': ' + this.props.viewDetail.resolvedBy}</div>
-                        </Fragment> : <Fragment>
-                            <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
-                            <textarea className='view-detail-remark' rows='3' onChange={e => this.handleChange(e)} name='remark' value={this.state.remark} />
-                        </Fragment>
-                    }
+                    <Fragment>
+                        <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
+                        {
+                            this.props.viewDetail.result.isSuccessful ?
+                                <textarea className='view-detail-remark' rows='3' disabled value={this.state.remark} /> :
+                                <textarea className='view-detail-remark' rows='3' onChange={e => this.handleChange(e)} name='remark' value={this.state.remark} />
+                        }
+                    </Fragment>
                 </Modal.Body>
                 <Modal.Footer>
                     {

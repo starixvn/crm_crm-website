@@ -67,8 +67,7 @@
     RecipientTypeRequired: 'Recipient Type is required!',
     Remark: 'Remark',
     Resend: 'Resend',
-    ResendDone: 'Resend done',
-    ResentNotificationSuccessfully: 'Resent notification successfully',
+    ResentSuccessfully: 'Resent successfully!',
     Resolved: 'Resolved',
     ResolvedBy: 'Resolved by',
     SelectOptions: 'Select options',
@@ -95,6 +94,5 @@
     UpdatePersonalMappingSuccess: 'Update personal chat mapping successfully!',
     UpdateGroupMappingSuccess: 'Update group chat mapping successfully!',
     UpdateChatTypeMappingSuccessfully: 'Update chat type mapping successfully!',
-    ValidateResend: 'Validate resend',
     ViewDetail: 'View Detail'
 };

@@ -38,7 +38,7 @@ describe('ValidateResend', () => {
                     validateResendResult: {
                         result: {
                             inActiveNotificationIds: [],
-                            resendDataList: []
+                            resendIds: []
                         }
                     },
                     gridParams: {},
@@ -64,7 +64,7 @@ describe('ValidateResend', () => {
                     result: {
                         inActiveNotificationIds: [],
                         isSingle: true,
-                        resendDataList: []
+                        resendIds: []
                     }
                 },
                 gridParams: {}
@@ -90,7 +90,7 @@ describe('ValidateResend', () => {
                     result: {
                         inActiveNotificationIds: [],
                         isSingle: true,
-                        resendDataList: []
+                        resendIds: []
                     }
                 },
                 gridParams: {
@@ -118,7 +118,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: []
+                        resendIds: []
                     }
                 },
                 gridParams: {}
@@ -140,7 +140,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [ 'value' ],
-                        resendDataList: [],
+                        resendIds: [],
                         isSingle: true
                     }
                 },
@@ -163,7 +163,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: [ 'value' ],
+                        resendIds: [ { notificationId: 1 } ],
                         isSingle: true
                     }
                 },
@@ -177,7 +177,8 @@ describe('ValidateResend', () => {
             validateResend.find(Button).at(0).simulate('click');
 
             // Assert
-            expect(validateResend.instance().resendNotifications).toHaveBeenCalledWith(props.validateResendResult.result.resendDataList);
+            expect(validateResend.instance().resendNotifications)
+                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.map(item => item.notificationId).toString());
         });
 
         it('Single Modal.Footer click button Cancel calls onClose', () => {
@@ -186,7 +187,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: [ 'value' ],
+                        resendIds: [ 'value' ],
                         isSingle: true
                     }
                 },
@@ -209,7 +210,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: [ 'value' ],
+                        resendIds: [ { notificationId: 1 } ],
                         isSingle: false
                     }
                 },
@@ -223,7 +224,8 @@ describe('ValidateResend', () => {
             validateResend.find(Button).at(0).simulate('click');
 
             // Assert
-            expect(validateResend.instance().resendNotifications).toHaveBeenCalledWith(props.validateResendResult.result.resendDataList);
+            expect(validateResend.instance().resendNotifications)
+                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.map(item => item.notificationId).toString());
         });
 
         it('Multiple Modal.Footer click button Cancel calls onClose', () => {
@@ -232,7 +234,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: [ 'value' ],
+                        resendIds: [ 'value' ],
                         isSingle: false
                     }
                 },
@@ -259,7 +261,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendDataList: []
+                        resendIds: []
                     }
                 },
                 gridParams: {}
@@ -276,7 +278,7 @@ describe('ValidateResend', () => {
             expect(validateResend.find(Modal).props().centered).toBeTrue;
             expect(validateResend.find(Modal.Header).props().closeButton).toBeTrue;
             expect(validateResend.find(Modal.Title).props().as).toBe('div');
-            expect(validateResend.find(Modal.Title).html()).toContain('ValidateResend');
+            expect(validateResend.find(Modal.Title).html()).toContain('Confirmation');
             expect(validateResend.find(Modal).props().dialogAs).toEqual(DraggableModalDialog);
         });
 
@@ -288,7 +290,7 @@ describe('ValidateResend', () => {
                         validateResendResult: {
                             result: {
                                 inActiveNotificationIds: [],
-                                resendDataList: [ 1 ],
+                                resendIds: [ 1 ],
                                 isSingle: true
                             }
                         },
@@ -308,7 +310,7 @@ describe('ValidateResend', () => {
                         validateResendResult: {
                             result: {
                                 inActiveNotificationIds: [ 1 ],
-                                resendDataList: [],
+                                resendIds: [],
                                 isSingle: true
                             }
                         },
@@ -330,7 +332,7 @@ describe('ValidateResend', () => {
                         validateResendResult: {
                             result: {
                                 inActiveNotificationIds: [],
-                                resendDataList: [ 1 ],
+                                resendIds: [ 1 ],
                                 isSingle: false
                             }
                         },
@@ -350,7 +352,7 @@ describe('ValidateResend', () => {
                         validateResendResult: {
                             result: {
                                 inActiveNotificationIds: [ 1 ],
-                                resendDataList: [],
+                                resendIds: [],
                                 isSingle: false
                             }
                         },
@@ -379,7 +381,7 @@ describe('ValidateResend', () => {
                     validateResendResult: {
                         result: {
                             inActiveNotificationIds: [ 1 ],
-                            resendDataList: [],
+                            resendIds: [],
                             isSingle: true
                         }
                     },
@@ -401,7 +403,7 @@ describe('ValidateResend', () => {
                     validateResendResult: {
                         result: {
                             inActiveNotificationIds: [],
-                            resendDataList: [ 1 ],
+                            resendIds: [ 1 ],
                             isSingle: true
                         }
                     },

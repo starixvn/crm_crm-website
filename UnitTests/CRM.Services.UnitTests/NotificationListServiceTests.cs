@@ -1,19 +1,19 @@
 ﻿namespace CRM.Services.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.NotificationList;
+    using CRM.Models;
     using CRM.Models.NotificationList;
-    using CRM.Repositories;
     using NSubstitute;
     using Xunit;
 
     public class NotificationListServiceTests
     {
-        private INotificationListRepository notificationListRepository;
         private IBaseService baseService;
         private readonly IFixture fixture = new Fixture();
 
@@ -23,14 +23,14 @@
             // Arrange
             var service = GetService();
             var criteria = fixture.Create<GetNotificationListCriteria>();
-            var expected = fixture.Create<IEnumerable<Notification>>();
-            notificationListRepository.GetNotificationsAsync(criteria).Returns(expected);
+            var expected = fixture.Create<ValueTuple<IEnumerable<Notification>, IEnumerable<Recipient>, IEnumerable<Headline>>>();
+            baseService.FetchMultipleAsync<Notification, Recipient, Headline>(criteria).Returns(expected);
 
             // Act
             var result = await service.GetNotificationListAsync(criteria);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected.Item1, result);
         }
 
         [Fact]
@@ -55,23 +55,23 @@
             // Arrange
             var service = GetService();
             var criteria = fixture.Create<ValidateNotificationListCriteria>();
-            var expected = fixture.Create<ValidationNotificationListResult>();
-            notificationListRepository.ValidateNotificationListAsync(criteria).Returns(expected);
+            var expected = fixture.Create<ValueTuple<IEnumerable<int>, IEnumerable<int>>>();
+            baseService.FetchMultipleAsync<int, int>(criteria).Returns(expected);
 
             // Act
             var result = await service.ValidateNotificationListAsync(criteria);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected.Item1, result.InActiveNotificationIds);
+            Assert.Equal(expected.Item2, result.ResendIds);
         }
 
         #region Helpers
 
         private NotificationListService GetService()
         {
-            notificationListRepository = Substitute.For<INotificationListRepository>();
             baseService = Substitute.For<IBaseService>();
-            var service = new NotificationListService(notificationListRepository, baseService);
+            var service = new NotificationListService(baseService);
 
             return service;
         }

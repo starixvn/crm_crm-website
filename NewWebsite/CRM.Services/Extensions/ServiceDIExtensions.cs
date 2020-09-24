@@ -6,7 +6,6 @@
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
-    using CRM.Repositories;
     using CRM.Services.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -20,7 +19,6 @@
             services.AddTransient<INotificationTemplateService, NotificationTemplateService>();
             services.AddTransient<INotificationTypeService, NotificationTypeService>();
             services.AddTransient<ICommonService, CommonService>();
-            services.AddTransient<INotificationListRepository, NotificationListRepository>();
             services.AddTransient<IChatTypeMappingService, ChatTypeMappingService>();
         }
 

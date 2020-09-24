@@ -38,17 +38,17 @@ export const getRecipients = recipients => {
     return '';
 };
 
-export const resendNotifications = async (dataList, callback) => {
+export const resendNotifications = async (params, callback) => {
     Site.blockUI();
     const url = Site.resolveClientUrl('NotificationList/ResendNotificationList');
-    await DataService.postDataAsync(url, dataList).then(response => {
+    await DataService.postDataAsync(url, params).then(response => {
         const { message, isSuccessful } = response.data;
         if (typeof callback === 'function') {
             callback();
         }
 
         if (isSuccessful) {
-            toast.success(message);
+            toast.success(LangHelper.getResource('ResentSuccessfully'));
         }
         else {
             toast.error(message);

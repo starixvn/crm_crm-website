@@ -1,13 +1,11 @@
 ﻿namespace CRM.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using CRM.Core.Constants;
     using CRM.Core.Enumerables;
     using CRM.Core.Filters;
-    using CRM.Core.Models;
     using CRM.Criteria.NotificationList;
     using CRM.Criteria.NotificationType;
     using CRM.Models.NotificationList;
@@ -102,9 +100,10 @@
 
         [HttpPost]
         [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
-        public async Task<IActionResult> ResendNotificationList([FromBody]List<NotificationListResend> model)
+        public async Task<IActionResult> ResendNotificationList([FromBody]ResendNotificationsCommand command)
         {
-            var result = new CommandResult { Code = 0, Message = "Resend successful" };
+            command.UserId = napSession.UserId;
+            var result = await notificationListService.ResendNotificationsAsync(command);
             return Json(result);
         }
     }
