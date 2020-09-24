@@ -194,10 +194,8 @@
             {
                 x.UseRedisStorage(redis, new RedisStorageOptions
                 {
-                    Db = int.Parse(configuration.GetSection("RedisConfig:Db").Value),
                     Prefix = "CRMHangfire_"
-                }
-                );
+                });
             });
         }
     }
