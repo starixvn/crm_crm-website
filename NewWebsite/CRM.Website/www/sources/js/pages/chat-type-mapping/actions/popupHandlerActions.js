@@ -1,6 +1,6 @@
 ﻿import types from './types';
 import Site from '@jsroot/common/site';
-import { setGroupHeadlineData } from './dataHandlerActions';
+import { setGroupHeadlineData, setRecipientData } from './dataHandlerActions';
 import DataService from '@jsroot/common/dataService';
 
 // Insert Personal Mapping Popup
@@ -30,6 +30,7 @@ export const closeInsertPersonalMappingPopup = () => {
     return dispatch => {
         dispatch(setInsertPersonalMappingPopup(false));
         dispatch(setInsertPersonalMappingResult(null));
+        dispatch(setRecipientData([]));
         dispatch(setGroupHeadlineData([]));
     };
 };
@@ -69,6 +70,7 @@ export const closeUpdatePersonalMappingPopup = () => {
     return dispatch => {
         dispatch(setUpdatePersonalMappingData(false, null));
         dispatch(setUpdatePersonalMappingResult(null));
+        dispatch(setRecipientData([]));
         dispatch(setGroupHeadlineData([]));
     };
 };

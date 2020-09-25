@@ -39,6 +39,7 @@ describe('popupHandlerActions', () => {
             const expectedActions = [
                 { type: types.PERSONAL_MAPPING_INSERT_POPUP_DATA, data: { isShow: false } },
                 { type: types.PERSONAL_MAPPING_INSERT_RESULT, data: null },
+                { type: types.RECIPIENT_DATA, data: [] },
                 { type: types.GROUP_HEADLINE_DATA, data: [] }
             ];
             store.dispatch(actions.closeInsertPersonalMappingPopup());
@@ -86,6 +87,7 @@ describe('popupHandlerActions', () => {
             const expectedActions = [
                 { type: types.PERSONAL_MAPPING_UPDATE_POPUP_DATA, data: { isShow: false, data: null } },
                 { type: types.PERSONAL_MAPPING_UPDATE_RESULT, data: null },
+                { type: types.RECIPIENT_DATA, data: [] }
                 { type: types.GROUP_HEADLINE_DATA, data: [] }
             ];
             store.dispatch(actions.closeUpdatePersonalMappingPopup());
