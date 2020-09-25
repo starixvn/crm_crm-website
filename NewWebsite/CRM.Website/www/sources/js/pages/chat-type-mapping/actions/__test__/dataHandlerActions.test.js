@@ -37,44 +37,10 @@ describe('dataHandlerActions', () => {
         expect(actions.setGridData(data)).toEqual(expectedAction);
     });
 
-    it('should params change when fetching grid data with params have messageId or notificationIdLower', async () => {
-        const expectedParams = { messageId: 1, notificationIdLower: '', fromDate: '08/21/2020', toDate: '08/21/2020' };
-        const expectedDone = jest.fn();
-        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
-        const store = mockStore({ gridData: null });
-        Site.blockUI = jest.fn();
-        Site.unblockUI = jest.fn();
-        const promise = Promise.resolve(response);
-        DataService.postDataAsync = jest.fn(() => promise);
-
-        await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
-            expect(expectedParams.fromDate).toBeNull();
-            expect(expectedParams.toDate).toBeNull();
-        });
-    });
-
-    // it('should params change when fetching grid data with params not have messageId and notificationIdLower', async () => {
-    //     const now = new Date();
-    //     const nowString = convertDateToString(now);
-    //     const expectedParams = { messageId: '', notificationIdLower: '', fromDate: now, toDate: now};
-    //     const expectedDone = jest.fn();
-    //     const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
-    //     const store = mockStore({ gridData: null });
-    //     Site.blockUI = jest.fn();
-    //     Site.unblockUI = jest.fn();
-    //     const promise = Promise.resolve(response);
-    //     DataService.postDataAsync = jest.fn(() => promise);
-
-    //     await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
-    //         expect(expectedParams.fromDate).toEqual(nowString);
-    //         expect(expectedParams.toDate).toEqual(`${nowString} ${EndTimeString}`);
-    //     });
-    // });
-
     it('should handle setGridData when fetching grid data has been done', async () => {
-        const expectedParams = { messageId: null, notificationIdLower: null, fromDate: '08/21/2020', toDate: '08/21/2020' };
+        const expectedParams = { chatType: '', letstalkName: '', groupHeadline: '', recipient: '', letstalkId: '', mappingStatuses: '' };
         const expectedDone = jest.fn();
-        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
+        const response = { data: { totalItems: 1, data: [{ id: 1, chatTypeId: 1 }] } };
         const expectedActions = [{ type: types.GRID_DATA, data: response.data }];
         const store = mockStore({ gridData: null });
         Site.blockUI = jest.fn();
@@ -83,65 +49,14 @@ describe('dataHandlerActions', () => {
         DataService.postDataAsync = jest.fn(() => promise);
 
         await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/GetGridData', expectedParams);
+            expect(DataService.postDataAsync).toHaveBeenCalledWith('ChatTypeMapping/GetChatTypeMapping', expectedParams);
             expect(store.getActions()).toEqual(expectedActions);
-            expect(expectedDone).toHaveBeenCalled();
         });
-    });
-
-    it('should create an action to set content popup data', () => {
-        const data = 'Test set content popup data';
-        const expectedAction = {
-            type: types.CONTENT_POPUP_DATA,
-            data
-        };
-
-        expect(actions.setContentPopup(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set error or resolved content popup data', () => {
-        const data = 'Test set error or resolved content popup data';
-        const expectedAction = {
-            type: types.VIEW_DETAIL_POPUP_DATA,
-            data
-        };
-
-        expect(actions.setViewDetailPopup(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set resend options data', () => {
-        const data = 'Test set resend options data';
-        const expectedAction = {
-            type: types.RESEND_OPTIONS_DATA,
-            data
-        };
-
-        expect(actions.setResendOptions(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set invalid params data', () => {
-        const data = 'Test set invalid params data';
-        const expectedAction = {
-            type: types.INVALID_PARAMS_DATA,
-            data
-        };
-
-        expect(actions.setInvalidParams(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set settings data', () => {
-        const data = 'Test set settings data';
-        const expectedAction = {
-            type: types.SETTINGS_DATA,
-            data
-        };
-
-        expect(actions.setSettings(data)).toEqual(expectedAction);
     });
 
     it('should handle setSettings when fetching settings has been done', async () => {
         const response = { data: {} };
-        const expectedActions = [{ type: types.SETTINGS_DATA, data: response.data }];
+        const expectedActions = [{ type: types.SETTING_DATA, data: response.data }];
         const store = mockStore({ settings: null });
         Site.blockUI = jest.fn();
         Site.unblockUI = jest.fn();
@@ -149,132 +64,124 @@ describe('dataHandlerActions', () => {
         DataService.getDataAsync = jest.fn(() => promise);
 
         await store.dispatch(actions.getSettings()).then(() => {
-            expect(DataService.getDataAsync).toHaveBeenCalledWith('NotificationList/GetSettings');
+            expect(DataService.getDataAsync).toHaveBeenCalledWith('ChatTypeMapping/GetSettings');
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should handle setViewDetail when edit notification has been done', async () => {
-        const expectedParams = { remark: 'remark' };
-        const response = { data: {} };
-        const expectedActions = [{ type: types.VIEW_DETAIL_DATA, data: response.data }];
-        const store = mockStore({ viewDetail: null });
+    it('should create an action to set settings data', () => {
+        const data = 'Test set settings data';
+        const expectedAction = {
+            type: types.SETTING_DATA,
+            data
+        };
+
+        expect(actions.setSettings(data)).toEqual(expectedAction);
+    });
+
+    it('should create an action to set UpdateActivePopup', () => {
+        const data = 'Test set updateActivePopup data';
+        const expectedAction = {
+            type: types.ACTIVE_POPUP_DATA,
+            data
+        };
+
+        expect(actions.setUpateActivePopup(data)).toEqual(expectedAction);
+    });
+
+    it('should handle setUpateActivePopup when update Active Status has been done', async () => {
+        const response = { data: { isSuccessful: false } };
+        const expectedParams = { conversationGroupId: 1, isActive: false };
+        const expectedActions = [{ type: types.ACTIVE_RESULT_DATA, data: response.data }];
+        const store = mockStore({ updateActiveStatusResult: null });
         Site.blockUI = jest.fn();
         Site.unblockUI = jest.fn();
         const promise = Promise.resolve(response);
         DataService.postDataAsync = jest.fn(() => promise);
 
-        await store.dispatch(actions.editNotificationList(expectedParams)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/EditNotificationList', expectedParams);
+        await store.dispatch(actions.updateActiveStatus(expectedParams)).then(() => {
+            expect(DataService.postDataAsync).toHaveBeenCalledWith('ChatTypeMapping/UpdateActiveStatus', expectedParams);
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should create an action to set error resolved content data', () => {
-        const data = 'Test set error resolved content data';
+    it('should create an action to set Recipient Data', () => {
+        const data = 'Test set Recipient data';
         const expectedAction = {
-            type: types.VIEW_DETAIL_DATA,
+            type: types.RECIPIENT_DATA,
             data
         };
 
-        expect(actions.setViewDetail(data)).toEqual(expectedAction);
+        expect(actions.setRecipientData(data)).toEqual(expectedAction);
     });
 
-    it('should handle setValidateResend when validate resend has been done', async () => {
-        const expectedParams = { notificationIds: '1,2' };
-        const response = { data: {} };
-        const expectedActions = [{ type: types.VALIDATE_RESEND_DATA, data: { show: true, result: response.data } }];
-        const store = mockStore({ validateResendResult: null });
+    it('should handle setRecipientData when getRecipientByRecipientType and not call API when recipientTypeId equals zero', () => {
+        const recipientTypeId = 0;
+        const expectedActions = [{ type: types.RECIPIENT_DATA, data: [] }];
+        const store = mockStore({ recipients: null });
         Site.blockUI = jest.fn();
         Site.unblockUI = jest.fn();
-        const promise = Promise.resolve(response);
-        DataService.postDataAsync = jest.fn(() => promise);
 
-        await store.dispatch(actions.validateResend(expectedParams)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/ValidateNotificationList', expectedParams);
+        store.dispatch(actions.getRecipientByRecipientType(recipientTypeId)).then(() => {
+            expect(DataService.getDataAsync).not.toHaveBeenCalled();
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should create an action to set validate resend data', () => {
-        const data = 'Test set validate resend data';
-        const expectedAction = {
-            type: types.VALIDATE_RESEND_DATA,
-            data
-        };
-
-        expect(actions.setValidateResend(data)).toEqual(expectedAction);
-    });
-
-    it('should create an action to set confirm popup data', () => {
-        const data = 'Test set confirm popup data';
-        const expectedAction = {
-            type: types.CONFIRM_POPUP_DATA,
-            data
-        };
-
-        expect(actions.setConfirmPopup(data)).toEqual(expectedAction);
-    });
-
-    it('should handle setHeadlineOptions when fetch headline options has been done', async () => {
-        const searchText = 'searchText';
-        const expectedParams = { username: searchText, limit: 10, excludeNotAssignedGroup: true };
-        const response = { data: [{ name: 'name' }] };
-        const options = response.data.map(item => {
-            return { value: item.name, label: item.name };
-        });
-
-        const expectedActions = [{ type: types.HEADLINE_OPTIONS_DATA, data: options }];
-        const store = mockStore({ headlineOptions: null });
+    it('should handle setRecipientData when getRecipientByRecipientType and call API when recipientTypeId biger than zero', async () => {
+        const recipientTypeId = 100;
+        const response = { data: [{ id: 1, name: 'recipient 1' }] };
+        const expectedActions = [{ type: types.RECIPIENT_DATA, data: response.data }];
+        const store = mockStore({ recipients: null });
         Site.blockUI = jest.fn();
         Site.unblockUI = jest.fn();
-        const promise = Promise.resolve(response);
-        DataService.postDataAsync = jest.fn(() => promise);
 
-        await store.dispatch(actions.getHeadlineOptions(searchText)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('Common/GetHeadlines', expectedParams);
+        const promise = Promise.resolve(response);
+        DataService.getDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.getRecipientByRecipientType(recipientTypeId)).then(() => {
+            expect(DataService.getDataAsync).toHaveBeenCalledWith('ChatTypeMapping/GetRecipientByType', { recipientTypeId: recipientTypeId });
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should handle setRecipientOptions when fetch recipient options has been done', async () => {
-        const searchText = 'searchText';
-        const expectedParams = { recipientName: searchText, limit: 10 };
-        const response = { data: [{ name: 'name' }] };
-        const options = response.data.map(item => {
-            return { value: item.name, label: item.name };
-        });
+    it('should create an action to set Group healine Data', () => {
+        const data = 'Test set group headline data';
+        const expectedAction = {
+            type: types.GROUP_HEADLINE_DATA,
+            data
+        };
 
-        const expectedActions = [{ type: types.RECIPIENT_OPTIONS_DATA, data: options }];
-        const store = mockStore({ recipientOptions: null });
+        expect(actions.setGroupHeadlineData(data)).toEqual(expectedAction);
+    });
+
+    it('should handle setGroupHeadlineData when getGroupHeadlineByRecipient and not call API when recipientIds is empty', () => {
+        const recipientIds = '';
+        const expectedActions = [{ type: types.GROUP_HEADLINE_DATA, data: [] }];
+        const store = mockStore({ groupHeadline: null });
         Site.blockUI = jest.fn();
         Site.unblockUI = jest.fn();
-        const promise = Promise.resolve(response);
-        DataService.postDataAsync = jest.fn(() => promise);
 
-        await store.dispatch(actions.getRecipientOptions(searchText)).then(() => {
-            expect(DataService.postDataAsync).toHaveBeenCalledWith('Common/GetRecipients', expectedParams);
+        store.dispatch(actions.getGroupHeadlineByRecipient(recipientIds)).then(() => {
+            expect(DataService.getDataAsync).not.toHaveBeenCalled();
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should create an action to set headline options data', () => {
-        const data = 'Test set headline options data';
-        const expectedAction = {
-            type: types.HEADLINE_OPTIONS_DATA,
-            data
-        };
+    it('should handle setGroupHeadlineData when getGroupHeadlineByRecipient and call API when recipientIds is not empty', async () => {
+        const recipientIds = '1,2,3';
+        const response = { data: [{ id: 1, name: 'headline 1' }] };
+        const expectedActions = [{ type: types.GROUP_HEADLINE_DATA, data: response.data }];
+        const store = mockStore({ groupHeadline: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
 
-        expect(actions.setHeadlineOptions(data)).toEqual(expectedAction);
-    });
+        const promise = Promise.resolve(response);
+        DataService.getDataAsync = jest.fn(() => promise);
 
-    it('should create an action to set recipient options data', () => {
-        const data = 'Test set recipient options data';
-        const expectedAction = {
-            type: types.RECIPIENT_OPTIONS_DATA,
-            data
-        };
-
-        expect(actions.setRecipientOptions(data)).toEqual(expectedAction);
+        await store.dispatch(actions.getGroupHeadlineByRecipient(recipientIds)).then(() => {
+            expect(DataService.getDataAsync).toHaveBeenCalledWith('ChatTypeMapping/GetGroupHeadlineByRecipient', { recipientIds: recipientIds });
+            expect(store.getActions()).toEqual(expectedActions);
+        });
     });
 });

@@ -1,14 +1,12 @@
 import createReducer from '@jsroot/common/createReducer';
 import types from '../actions/types';
 
-// Setting
 export const settings = createReducer({}, {
     [types.SETTING_DATA](state, action) {
         return action.data;
     }
 });
 
-// Grid
 export const gridParams = createReducer({}, {
     [types.GRID_PARAMS](state, action) {
         return action.data;
@@ -21,7 +19,6 @@ export const gridData = createReducer({}, {
     }
 });
 
-//Update status active
 export const updateActiveStatusPopup = createReducer({}, {
     [types.ACTIVE_POPUP_DATA](state, action) {
         return action.data;
@@ -34,28 +31,14 @@ export const updateActiveStatusResult = createReducer({}, {
     }
 });
 
-// Recipients
 export const recipients = createReducer({}, {
     [types.RECIPIENT_DATA](state, action) {
         return action.data;
     }
 });
 
-// Recipients
 export const groupHeadline = createReducer({}, {
     [types.GROUP_HEADLINE_DATA](state, action) {
-        return action.data;
-    }
-});
-
-export const letstalkName = createReducer({}, {
-    [types.LETSTALK_DISPLAY_NAME](state, action) {
-        return action.data;
-    }
-});
-
-export const dirtyFormConfirmation = createReducer({}, {
-    [types.DIRTY_FORM_CONFIRMATION](state, action) {
         return action.data;
     }
 });
@@ -67,9 +50,7 @@ const reducers = {
     updateActiveStatusPopup,
     updateActiveStatusResult,
     recipients,
-    groupHeadline,
-    letstalkName,
-    dirtyFormConfirmation
+    groupHeadline
 };
 
 export default reducers;

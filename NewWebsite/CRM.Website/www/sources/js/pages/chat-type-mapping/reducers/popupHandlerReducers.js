@@ -43,6 +43,12 @@ export const letstalkVerification = createReducer({}, {
     }
 });
 
+export const letstalkName = createReducer({}, {
+    [types.LETSTALK_DISPLAY_NAME](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     insertPersonalMappingData,
     insertPersonalMappingResult,
@@ -50,7 +56,8 @@ const reducers = {
     updatePersonalMappingResult,
     updateGroupMappingData,
     updateGroupMappingResult,
-    letstalkVerification
+    letstalkVerification,
+    letstalkName
 };
 
 export default reducers;
