@@ -10,6 +10,7 @@
     using CRM.Core.Models;
     using CRM.Core.Services;
     using Fanex.CRM.BackgroundJob.Constants;
+    using Fanex.CRM.BackgroundJob.Criteria;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Services;
     using Microsoft.Extensions.Options;
@@ -27,6 +28,139 @@
         private ICRMLogService logService;
         private IFeedbackTicketVoidingService ticketVoidingService;
         private readonly IFixture fixture = new Fixture();
+
+        #region CreateFeedbackByBatchAsync
+
+        [Fact]
+        public async Task CreateFeedbackByBatchAsync_CreateSuccessful_ExpectedWriteLog()
+        {
+            // Arrange
+            var licenseeInfo = new CustomerInfo { CustId = 1 };
+            var message = new Message { RequestId = 1 };
+            var feedbackDate = fixture.Create<DateTime>();
+            var communicationTool = fixture.Create<string>();
+            var criteria = fixture.Create<CreateFeedbackCommand>();
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo { RequestId = 1, CustId = 1, LicenseeManagerId = 1, LicenseeManager = "starixIT" }
+            };
+            var commandResult = new CommandResult { Code = 0 };
+            var service = MockService();
+            baseService.ExecuteNonQueryAsync(criteria).Returns(commandResult);
+            service.Protected("GetAutoField", feedbackDate, communicationTool, Arg.Any<IList<string>>()).Returns("auto field");
+
+            // Act
+            await service.Public_CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
+
+            // Assert
+            Assert.Equal("1", criteria.RelatedCustId);
+            Assert.Equal("auto field", criteria.AutoField);
+            Assert.Equal(message.MessageId, criteria.MessageId);
+            Assert.Equal("1", criteria.ListOrigCustIds);
+            Assert.Equal("1", criteria.RequestIds);
+            logService.Received(2).LogInformation(Arg.Any<string>());
+        }
+
+        [Fact]
+        public async Task CreateFeedbackByBatchAsync_CreateUnsuccessful_ExpectedWriteLogAndUpdateStatus()
+        {
+            // Arrange
+            var licenseeInfo = new CustomerInfo { CustId = 1 };
+            var message = new Message { RequestId = 1 };
+            var feedbackDate = fixture.Create<DateTime>();
+            var communicationTool = fixture.Create<string>();
+            var criteria = fixture.Create<CreateFeedbackCommand>();
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo { RequestId = 1, CustId = 1, LicenseeManagerId = 1, LicenseeManager = "starixIT" }
+            };
+            var commandResult = new CommandResult();
+            var service = MockService();
+            baseService.ExecuteNonQueryAsync(criteria).Returns(commandResult);
+            service.Protected("GetAutoField", feedbackDate, communicationTool, Arg.Any<IList<string>>()).Returns("auto field");
+
+            // Act
+            await service.Public_CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
+
+            // Assert
+            logService.Received(2).LogInformation(Arg.Any<string>());
+            await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>(), CreateFeedbackJobStatus.Fail, commandResult.Message);
+            await logService.ErrorAsync(commandResult, criteria);
+        }
+
+        [Fact]
+        public async Task CreateFeedbackByBatchAsync_Exception_ExpectedWriteLogAndUpdateStatus()
+        {
+            // Arrange
+            var exception = fixture.Create<Exception>();
+            var licenseeInfo = new CustomerInfo { CustId = 1 };
+            var message = new Message { RequestId = 1 };
+            var feedbackDate = fixture.Create<DateTime>();
+            var communicationTool = fixture.Create<string>();
+            var criteria = fixture.Create<CreateFeedbackCommand>();
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo { RequestId = 1, CustId = 1, LicenseeManagerId = 1, LicenseeManager = "starixIT" }
+            };
+            var service = MockService();
+            baseService.When(x => x.ExecuteNonQueryAsync(criteria)).Throw(exception);
+            service.Protected("GetAutoField", feedbackDate, communicationTool, Arg.Any<IList<string>>()).Returns("auto field");
+
+            // Act
+            await service.Public_CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
+
+            // Assert
+            logService.Received(2).LogInformation(Arg.Any<string>());
+            await ticketVoidingService.EditFeedbackInfoAsync(message.MessageId, Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>(), CreateFeedbackJobStatus.Fail, exception.Message);
+            await logService.ErrorAsync(exception);
+        }
+
+        #endregion CreateFeedbackByBatchAsync
+
+        #region GetLicenseeManager
+
+        [Fact]
+        public void GetLicenseeManager_ExistedMapping_ReturnExpectedLicenseeManager()
+        {
+            // Arrange
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo { Site = "Site" }
+            };
+            var siteSettingMappings = new List<SiteSettingMapping>
+            {
+                new SiteSettingMapping { SettingSource = "Site", LicenseeManagerId = 1, LicenseeManager = "starixIT" }
+            };
+            var service = MockService();
+
+            // Act
+            service.Public_GetLicenseeManager(transactionInfos, siteSettingMappings);
+
+            // Assert
+            Assert.Equal(1, transactionInfos.First().LicenseeManagerId);
+            Assert.Equal("starixIT", transactionInfos.First().LicenseeManager);
+        }
+
+        [Fact]
+        public void GetLicenseeManager_NotExistedMapping_ReturnExpectedLicenseeManager()
+        {
+            // Arrange
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo()
+            };
+            var siteSettingMappings = new List<SiteSettingMapping>();
+            var service = MockService();
+
+            // Act
+            service.Public_GetLicenseeManager(transactionInfos, siteSettingMappings);
+
+            // Assert
+            Assert.Equal(0, transactionInfos.First().LicenseeManagerId);
+            Assert.Null(transactionInfos.First().LicenseeManager);
+        }
+
+        #endregion GetLicenseeManager
 
         #region GetCommunicationTool
 
@@ -63,6 +197,91 @@
 
         #endregion GetCommunicationTool
 
+        #region GetProductXml
+
+        [Fact]
+        public void GetProductXml_NotExistedSubProduct_ReturnExpectedXml()
+        {
+            // Arrange
+            var matchInfo = fixture.Create<MatchInfo>();
+            var transactionInfos = fixture.Create<IEnumerable<TransactionInfo>>();
+            var settings = fixture.Create<IEnumerable<SettingItem>>();
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var sportsbook = fixture.Create<SettingItem>();
+            var subProducts = new List<SettingItem>();
+            var service = MockService();
+            service.Protected("GetSportsbookProduct", settings).Returns(sportsbook);
+            service.Protected("GetSubProduct", sportsbook.SettingId, matchInfo, settings, settingMappings).Returns(subProducts);
+
+            // Act
+            var actual = service.Public_GetProductXml(matchInfo, transactionInfos, settings, settingMappings);
+
+            // Assert
+            Assert.Equal("<ROOT></ROOT>", actual);
+            Received.InOrder(() =>
+            {
+                logService.LogInformation("Begin mapping product, sub-product, bet type.");
+                logService.LogInformation("End mapping product, sub-product, bet type.");
+            });
+        }
+
+        [Fact]
+        public void GetProductXml_NotExistedBettype_ReturnExpectedXml()
+        {
+            // Arrange
+            var matchInfo = fixture.Create<MatchInfo>();
+            var transactionInfos = fixture.Create<IEnumerable<TransactionInfo>>();
+            var settings = fixture.Create<IEnumerable<SettingItem>>();
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var sportsbook = new SettingItem { SettingId = 1 };
+            var subProducts = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1 }
+            };
+            var bettypes = new List<SettingItem>();
+            var service = MockService();
+            service.Protected("GetSportsbookProduct", settings).Returns(sportsbook);
+            service.Protected("GetSubProduct", sportsbook.SettingId, matchInfo, settings, settingMappings).Returns(subProducts);
+            service.Protected("GetBettype", Arg.Any<IEnumerable<int>>(), transactionInfos, settings, settingMappings).Returns(bettypes);
+
+            // Act
+            var actual = service.Public_GetProductXml(matchInfo, transactionInfos, settings, settingMappings);
+
+            // Assert
+            Assert.Equal("<ROOT><Product ProductID='1' SubProductID='1' BetTypeID='9144' /></ROOT>", actual);
+        }
+
+        [Fact]
+        public void GetProductXml_ExistedBettype_ReturnExpectedXml()
+        {
+            // Arrange
+            var matchInfo = fixture.Create<MatchInfo>();
+            var transactionInfos = fixture.Create<IEnumerable<TransactionInfo>>();
+            var settings = fixture.Create<IEnumerable<SettingItem>>();
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var sportsbook = new SettingItem { SettingId = 1 };
+            var subProducts = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1 }
+            };
+            var bettypes = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1, ParentIds = new List<int> { 1 } }
+            };
+            var service = MockService();
+            service.Protected("GetSportsbookProduct", settings).Returns(sportsbook);
+            service.Protected("GetSubProduct", sportsbook.SettingId, matchInfo, settings, settingMappings).Returns(subProducts);
+            service.Protected("GetBettype", Arg.Any<IEnumerable<int>>(), transactionInfos, settings, settingMappings).Returns(bettypes);
+
+            // Act
+            var actual = service.Public_GetProductXml(matchInfo, transactionInfos, settings, settingMappings);
+
+            // Assert
+            Assert.Equal("<ROOT><Product ProductID='1' SubProductID='1' BetTypeID='1' /></ROOT>", actual);
+        }
+
+        #endregion GetProductXml
+
         #region GetSportsbookProduct
 
         [Fact]
@@ -97,6 +316,107 @@
         }
 
         #endregion GetSportsbookProduct
+
+        #region GetSubProduct
+
+        [Fact]
+        public void GetSubProduct_NotExistedMapping_ReturnDefaultSubProduct()
+        {
+            // Arrange
+            var productId = 1;
+            var matchInfo = fixture.Create<MatchInfo>();
+            var settings = fixture.Create<IEnumerable<SettingItem>>();
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var service = MockService();
+
+            // Act
+            var actual = service.Public_GetSubProduct(productId, matchInfo, settings, settingMappings);
+
+            // Assert
+            Assert.Single(actual);
+            Assert.Equal(Constants.SubProductNA, actual.First().SettingId);
+
+            Assert.Single(actual.First().ParentIds);
+            Assert.Equal(Constants.ProductNA, actual.First().ParentIds.First());
+        }
+
+        [Fact]
+        public void GetBettype_ExistedMapping_ReturnExpectedSubProducts()
+        {
+            // Arrange
+            var productId = 1;
+            var matchInfo = new MatchInfo { SportName = "sport" };
+            var settings = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1, SettingName = "SubProduct", ParentIds = new List<int> { 1 } }
+            };
+            var settingMappings = new List<SystemSettingMapping>
+            {
+                new SystemSettingMapping { SettingId = 1, SettingName = "SubProduct", SettingSource = "sport" }
+            };
+            var service = MockService();
+
+            // Act
+            var actual = service.Public_GetSubProduct(productId, matchInfo, settings, settingMappings);
+
+            // Assert
+            Assert.Single(actual);
+            Assert.Equal(settings.First(), actual.First());
+        }
+
+        #endregion GetSubProduct
+
+        #region GetBettype
+
+        [Fact]
+        public void GetBettype_NotExistedMapping_ReturnDefaultBettype()
+        {
+            // Arrange
+            var subProducts = fixture.Create<IEnumerable<int>>();
+            var transactionInfos = fixture.Create<IEnumerable<TransactionInfo>>();
+            var settings = fixture.Create<IEnumerable<SettingItem>>();
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var service = MockService();
+
+            // Act
+            var actual = service.Public_GetBettype(subProducts, transactionInfos, settings, settingMappings);
+
+            // Assert
+            Assert.Single(actual);
+            Assert.Equal(Constants.BettypeNA, actual.First().SettingId);
+
+            Assert.Single(actual.First().ParentIds);
+            Assert.Equal(Constants.SubProductNA, actual.First().ParentIds.First());
+        }
+
+        [Fact]
+        public void GetBettype_ExistedMapping_ReturnExpectedBettypes()
+        {
+            // Arrange
+            var subProducts = new List<int> { 1 };
+            var settings = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1, SettingName = "Bettype", ParentIds = new List<int> { 1 } }
+            };
+            var settingMappings = new List<SystemSettingMapping>
+            {
+                new SystemSettingMapping { SettingId = 1, SettingName = "Bettype", SettingSource = "Bettype" }
+            };
+            var transactionInfos = new List<TransactionInfo>
+            {
+                new TransactionInfo { Bettype = "Bettype" }
+            };
+            var service = MockService();
+
+            // Act
+            var actual = service.Public_GetBettype(subProducts, transactionInfos, settings, settingMappings);
+
+            // Assert
+            Assert.Single(actual);
+            Assert.Equal(settings.First(), actual.First());
+        }
+
+        #endregion GetBettype
 
         #region GetCategorySubCategory
 
@@ -304,7 +624,11 @@
 
         private FeedbackServiceTestable MockService()
         {
-            appSettings = new AppJobSettings { LicenseeUsername = "starixIT" };
+            appSettings = new AppJobSettings
+            {
+                LicenseeUsername = "starixIT",
+                NoOfRelatedCustomerPerFeedback = 2
+            };
             var appJobSettings = Substitute.For<IOptionsSnapshot<AppJobSettings>>();
             appJobSettings.Value.Returns(appSettings);
             baseService = Substitute.For<IBaseService>();

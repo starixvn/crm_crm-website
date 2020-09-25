@@ -129,7 +129,7 @@
             await EditSystemSettingAsync();
         }
 
-        private async Task CreateFeedbackForCreditSiteAsync(
+        protected internal virtual async Task CreateFeedbackForCreditSiteAsync(
             Message message,
             MatchInfo matchInfo,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -190,7 +190,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-        private async Task CreateFeedbackByBatchAsync(
+        protected internal virtual async Task CreateFeedbackByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
             Message message,
@@ -264,7 +264,7 @@
             }
         }
 
-        private async Task CreateFeedbackForDepositSiteAsync(
+        protected internal virtual async Task CreateFeedbackForDepositSiteAsync(
             CustomerInfo licenseeInfo,
             Message message,
             MatchInfo matchInfo,
@@ -318,7 +318,7 @@
                 criteria);
         }
 
-        private async Task CreateFeedbackByBatchAsync(
+        protected internal virtual async Task CreateFeedbackByBatchAsync(
             CustomerInfo licenseeInfo,
             Message message,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -386,7 +386,7 @@
             }
         }
 
-        private static void GetLicenseeManager(
+        protected internal virtual void GetLicenseeManager(
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SiteSettingMapping> siteSettingMappings)
         {
@@ -452,20 +452,20 @@
             return product ?? new SettingItem { SettingId = Constants.ProductNA };
         }
 
-        private static IList<SettingItem> GetSubProduct(
+        protected internal virtual IList<SettingItem> GetSubProduct(
             int productId,
             MatchInfo matchInfo,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
             var sport = matchInfo.SportName;
-            IList<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
-                && !string.IsNullOrWhiteSpace(x.SettingSource)
-                && x.SettingSource.Equals(sport, StringComparison.OrdinalIgnoreCase)).ToList();
-            IList<SettingItem> subProducts = settings.Where(x => x.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
-                && x.ParentIds.Any(y => y == productId)
+            IList<SystemSettingMapping> mappings = settingMappings.Where(mapping => mapping.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrWhiteSpace(mapping.SettingSource)
+                && mapping.SettingSource.Equals(sport, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<SettingItem> subProducts = settings.Where(sub => sub.SettingName.Equals(SettingName.SubProduct, StringComparison.OrdinalIgnoreCase)
+                && sub.ParentIds.Any(parent => parent == productId)
                 && mappings != null
-                && mappings.Any(y => y.SettingId == x.SettingId)).ToList();
+                && mappings.Any(mapping => mapping.SettingId == sub.SettingId)).ToList();
 
             return subProducts != null && subProducts.Any()
                 ? subProducts.GroupBy(x => x.SettingId).Select(x => x.First()).ToList()
@@ -475,19 +475,19 @@
                 };
         }
 
-        private static IList<SettingItem> GetBettype(
+        protected internal virtual IList<SettingItem> GetBettype(
             IEnumerable<int> subProducts,
             IEnumerable<TransactionInfo> transactionInfos,
             IEnumerable<SettingItem> settings,
             IEnumerable<SystemSettingMapping> settingMappings)
         {
-            IList<SystemSettingMapping> mappings = settingMappings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
-                && !string.IsNullOrWhiteSpace(x.SettingSource)
-                && transactionInfos.Any(y => y.Bettype.Equals(x.SettingSource, StringComparison.OrdinalIgnoreCase))).ToList();
-            IList<SettingItem> bettypes = settings.Where(x => x.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
-                && subProducts.Any(y => x.ParentIds.Any(z => z == y))
+            IList<SystemSettingMapping> mappings = settingMappings.Where(mapping => mapping.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrWhiteSpace(mapping.SettingSource)
+                && transactionInfos.Any(tran => tran.Bettype.Equals(mapping.SettingSource, StringComparison.OrdinalIgnoreCase))).ToList();
+            IList<SettingItem> bettypes = settings.Where(bettype => bettype.SettingName.Equals(SettingName.Bettype, StringComparison.OrdinalIgnoreCase)
+                && subProducts.Any(sub => bettype.ParentIds.Any(parent => parent == sub))
                 && mappings != null
-                && mappings.Any(y => y.SettingId == x.SettingId)).ToList();
+                && mappings.Any(mapping => mapping.SettingId == bettype.SettingId)).ToList();
 
             return bettypes != null && bettypes.Any()
                 ? bettypes.GroupBy(x => x.SettingId).Select(x => x.First()).ToList()
