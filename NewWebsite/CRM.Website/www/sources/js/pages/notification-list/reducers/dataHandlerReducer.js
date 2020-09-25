@@ -74,6 +74,18 @@ export const recipientOptions = createReducer({}, {
     }
 });
 
+export const autoRefresh = createReducer({}, {
+    [types.AUTO_REFRESH_DATA](state, action) {
+        return action.data;
+    }
+});
+
+export const isRefresh = createReducer({}, {
+    [types.IS_REFRESH_DATA](state, action) {
+        return action.data;
+    }
+});
+
 const reducers = {
     gridParams,
     gridData,
@@ -86,7 +98,9 @@ const reducers = {
     validateResendResult,
     confirmPopup,
     headlineOptions,
-    recipientOptions
+    recipientOptions,
+    autoRefresh,
+    isRefresh
 };
 
 export default reducers;

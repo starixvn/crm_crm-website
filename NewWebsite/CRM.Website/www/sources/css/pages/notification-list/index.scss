@@ -135,3 +135,47 @@ input:focus {
         }
     }
 }
+
+.auto-refresh {
+    width: 110px;
+    margin-right: 10px;
+    position: relative;
+    color: $black;
+    font-weight: normal;
+
+    &-value {
+        height: 28px;
+        background-color: $white;
+        border: 1px solid #ced4da;
+        cursor: pointer;
+
+        div {
+            text-align: center;
+            width: 90px;
+        }
+
+        span {
+            text-align: center;
+            width: 20px;
+        }
+    }
+
+    &-dropdown {
+        position: absolute;
+        z-index: 1000;
+        background-color: $white;
+        border: 1px solid #ced4da;
+        list-style-type: none;
+        width: 100%;
+        padding: 0;
+
+        li {
+            cursor: pointer;
+            padding: 5px 0 5px 5px;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+    }
+}

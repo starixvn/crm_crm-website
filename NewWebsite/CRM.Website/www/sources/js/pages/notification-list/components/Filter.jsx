@@ -27,7 +27,7 @@ export class Filter extends Component {
                 recipient: null,
                 notificationIdLower: '',
                 notificationIdUpper: '',
-                messageID: '',
+                messageId: '',
                 content: ''
             },
             maxDate: now,
@@ -72,51 +72,76 @@ export class Filter extends Component {
         });
     }
 
-    handleFilterChange = (name, value) => {
+    handleFilterChange = (name, value) =>
         this.setState(prevState => ({
             filter: {
                 ...prevState.filter,
                 [name]: value
             }
-        }));
-    }
+        }))
 
-    handleNotificationTypeChange = (currentItem, selectedItemsKey) => this.handleFilterChange('notificationTypes', selectedItemsKey)
+    handleFilterChangeProps = (name, value) =>
+        this.props.setGridParams({
+            ...this.props.gridParams,
+            [name]: value
+        })
+
+    handleNotificationTypeChange = (currentItem, selectedItemsKey) => {
+        this.handleFilterChange('notificationTypes', selectedItemsKey);
+        this.handleFilterChangeProps('notificationTypeIds', selectedItemsKey);
+    }
 
     handleFromDateChange = value => {
         let maxToDate = new Date(value);
         maxToDate.setMonth(maxToDate.getMonth() + 1);
         this.setState({ minToDate: value });
         this.handleFilterChange('fromDate', value);
+        this.handleFilterChangeProps('fromDate', DateTimeService.startOfDay(value));
         if (maxToDate - this.state.maxDate > 0) {
             maxToDate = this.state.maxDate;
         }
 
         if (this.state.filter.toDate - maxToDate > 0) {
-            this.handleFilterChange('toDate', maxToDate);
+            this.handleToDateChange(maxToDate);
         }
         else if (this.state.filter.toDate - value < 0) {
-            this.handleFilterChange('toDate', value);
+            this.handleToDateChange(value);
         }
 
         this.setState({ maxToDate });
     }
 
-    handleToDateChange = value => this.handleFilterChange('toDate', value)
+    handleToDateChange = value => {
+        this.handleFilterChange('toDate', value);
+        this.handleFilterChangeProps('toDate', DateTimeService.startOfDay(value));
+    }
 
-    handleHeadlineChange = value => this.handleFilterChange('headline', value)
+    handleHeadlineChange = value => {
+        this.handleFilterChange('headline', value);
+        this.handleFilterChangeProps('headline', value ? value.value : '');
+    }
 
-    handleRecipientChange = value => this.handleFilterChange('recipient', value)
+    handleRecipientChange = value => {
+        this.handleFilterChange('recipient', value);
+        this.handleFilterChangeProps('recipientName', value ? value.value : '');
+    }
 
-    handleStatusChange = (currentItem, selectedItemsKey) => this.handleFilterChange('statuses', selectedItemsKey)
+    handleStatusChange = (currentItem, selectedItemsKey) => {
+        this.handleFilterChange('statuses', selectedItemsKey);
+        this.handleFilterChangeProps('status', selectedItemsKey);
+    }
 
     handleChangeFilterControl = e => {
         if (e.target.validity.valid) {
             this.handleFilterChange(e.target.name, e.target.value);
+            this.handleFilterChangeProps(e.target.name, e.target.value);
         }
     }
 
-    handleChange = e => this.handleFilterChange(e.target.name, e.target.value)
+    handleChange = e => {
+        this.handleFilterChange(e.target.name, e.target.value);
+        this.handleFilterChangeProps(e.target.name, e.target.value);
+    }
 
     getParams = () => {
         return {
@@ -125,7 +150,7 @@ export class Filter extends Component {
             toDate: DateTimeService.endOfDay(this.state.filter.toDate),
             headline: this.state.filter.headline ? this.state.filter.headline.value : '',
             recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : '',
-            messageId: this.state.filter.messageID,
+            messageId: this.state.filter.messageId,
             notificationIdLower: this.state.filter.notificationIdLower,
             notificationIdUpper: this.state.filter.notificationIdUpper,
             content: this.state.filter.content,
@@ -142,11 +167,16 @@ export class Filter extends Component {
         if (this.isValidateParams(params)) {
             this.props.setGridParams(params);
             this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
+            this.props.setAutoRefresh({
+                ...this.props.autoRefresh,
+                isSubmit: true,
+                countDown: this.props.autoRefresh.value
+            });
         }
     }
 
     isDisabledDateParam = () =>
-        this.state.filter.messageID !== '' || this.state.filter.notificationIdLower
+        this.state.filter.messageId !== '' || this.state.filter.notificationIdLower
         !== '' || this.state.filter.notificationIdUpper !== ''
 
     isValidateParams = params => {
@@ -211,7 +241,7 @@ export class Filter extends Component {
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
-                                isSummited={false}
+                                isSubmited={false}
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => this.handleNotificationTypeChange(currentItem, selectedItemsKey)}
                             />
@@ -265,9 +295,9 @@ export class Filter extends Component {
                         </div>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
-                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageID'
-                            value={this.state.filter.messageID}
+                        <Form.Label>{LangHelper.getResource('MessageId')}</Form.Label>
+                        <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageId'
+                            value={this.state.filter.messageId}
                             onChange={e => this.handleChangeFilterControl(e)}
                         />
                     </Form.Group>
@@ -308,7 +338,7 @@ export class Filter extends Component {
                                 keyField='id'
                                 valueField='name'
                                 statusField='checked'
-                                isSummited={false}
+                                isSubmited={false}
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => this.handleStatusChange(currentItem, selectedItemsKey)}
                             />
@@ -333,7 +363,8 @@ const mapStateToProps = state => {
         invalidParams,
         settings,
         headlineOptions,
-        recipientOptions
+        recipientOptions,
+        autoRefresh
     } = state;
 
     return {
@@ -341,7 +372,8 @@ const mapStateToProps = state => {
         invalidParams,
         settings,
         headlineOptions,
-        recipientOptions
+        recipientOptions,
+        autoRefresh
     };
 };
 

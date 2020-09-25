@@ -164,6 +164,20 @@ export const setRecipientOptions = data => {
     };
 };
 
+export const setAutoRefresh = data => {
+    return {
+        type: types.AUTO_REFRESH_DATA,
+        data
+    };
+};
+
+export const setIsRefresh = data => {
+    return {
+        type: types.IS_REFRESH_DATA,
+        data
+    };
+};
+
 const actions = {
     setGridParams,
     getGridData,
@@ -180,7 +194,9 @@ const actions = {
     getHeadlineOptions,
     setHeadlineOptions,
     getRecipientOptions,
-    setRecipientOptions
+    setRecipientOptions,
+    setAutoRefresh,
+    setIsRefresh
 };
 
 export default actions;

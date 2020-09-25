@@ -55,6 +55,7 @@
     NotificationTypeName: 'Notification Type Name',
     NotificationTypeNameRequired: 'Notification Type Name is required!',
     NotificationTypeRequired: 'Notification Type is required!',
+    NotRefresh: 'Not refresh',
     OK: 'OK',
     Planned: 'Planned',
     PleaseChoose: 'Please Choose',

@@ -7,6 +7,7 @@ import LangHelper from '@jsroot/common/langHelper';
 import { Form } from 'react-bootstrap';
 import functions from '../functions';
 import { PAGING_SIZES } from '@jsroot/common/constants';
+import AutoRefresh from './AutoRefresh';
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -15,14 +16,14 @@ export class DataGrid extends Component {
 
     onPaging = (pageIndex, pageSize) => {
         const params = { ...this.props.gridParams };
-        params['pageIndex'] = pageIndex;
-        params['pageSize'] = pageSize;
+        params.pageIndex = pageIndex;
+        params.pageSize = pageSize;
         this.getGridData(params);
     }
 
     getGridData = params => {
         this.props.setGridParams(params);
-        this.props.getGridData(params, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.getGridData({ ...params }, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
     }
 
     buildHeader = isHost => {
@@ -74,7 +75,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} className="no-data" ><Cell colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+        return [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     openContentPopup = item => {
@@ -82,6 +83,8 @@ export class DataGrid extends Component {
             show: true,
             data: item
         });
+
+        this.setIsRefresh(false);
     }
 
     openViewDetailPopup = item => {
@@ -89,13 +92,27 @@ export class DataGrid extends Component {
             show: true,
             data: item
         });
+
+        this.setIsRefresh(false);
     }
+
+    setIsRefresh = isRefresh => {
+        this.setNotShouldResetScrollPosition();
+        this.props.setIsRefresh(isRefresh);
+    }
+
+    setNotShouldResetScrollPosition = () =>
+        this.props.setResendOptions({
+            ...this.props.resendOptions,
+            shouldResetScrollPosition: false
+        })
 
     isError = status => status.toLowerCase() === LangHelper.getResource('Error').toLowerCase();
     isResolved = status => status.toLowerCase() === LangHelper.getResource('Resolved').toLowerCase();
     isDuplicated = status => status.toLowerCase() === LangHelper.getResource('Duplicated').toLowerCase();
 
     validateResend = notificationId => {
+        this.setIsRefresh(false);
         this.props.validateResend({
             notificationIds: notificationId,
             isSingle: true
@@ -121,7 +138,7 @@ export class DataGrid extends Component {
                 <div>{item.sendTimeString}</div>
             </Cell>
             <Cell className='text-center'>{functions.getHeadlines(item.headlines)}</Cell>
-            <Cell className='text-center'>{functions.getRecipients(item.recipients)}</Cell>
+            <Cell>{functions.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>
             <Cell className={`text-center status-font ${item.status.toLowerCase()}-color`}>{LangHelper.getResource(item.status)}</Cell>
             {
@@ -158,11 +175,12 @@ export class DataGrid extends Component {
     handleChangeResendCheckbox = index => {
         const dataList = [...this.props.resendOptions.dataList];
         dataList[index].isResent = !this.props.resendOptions.dataList[index].isResent;
-        const resendList = dataList.filter(item => this.isError(item.status) && item.isResent);
+        const isDisabledResend = dataList.filter(item => this.isError(item.status) && item.isResent).length <= 0;
         const notCheckedDataList = dataList.filter(item => this.isError(item.status) && !item.isResent);
+        this.setIsRefresh(isDisabledResend);
         this.props.setResendOptions({
             isCheckedAll: notCheckedDataList.length <= 0,
-            isDisabledResend: resendList.length <= 0,
+            isDisabledResend,
             isHaveResendAll: this.props.resendOptions.isHaveResendAll,
             shouldResetScrollPosition: false,
             dataList
@@ -173,6 +191,7 @@ export class DataGrid extends Component {
         const checked = !this.props.resendOptions.isCheckedAll;
         const dataList = [...this.props.resendOptions.dataList];
         dataList.forEach(item => item.isResent = checked);
+        this.setIsRefresh(!checked);
         this.props.setResendOptions({
             isCheckedAll: checked,
             isDisabledResend: !checked,
@@ -208,7 +227,10 @@ export class DataGrid extends Component {
 
         return (
             <Fragment>
-                <div className='table-title'>{LangHelper.getResource('NotificationList')}</div>
+                <div className='d-flex table-title justify-content-between align-items-center'>
+                    <div className=''>{LangHelper.getResource('NotificationList')}</div>
+                    <AutoRefresh />
+                </div>
                 <Table
                     minWidth={960}
                     maxWidth={document.getElementById('app-container').clientWidth}
@@ -232,13 +254,15 @@ const mapStateToProps = state => {
     const {
         gridParams,
         gridData,
-        resendOptions
+        resendOptions,
+        isRefresh
     } = state;
 
     return {
         gridParams,
         gridData,
-        resendOptions
+        resendOptions,
+        isRefresh
     };
 };
 

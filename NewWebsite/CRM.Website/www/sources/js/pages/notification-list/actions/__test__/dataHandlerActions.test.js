@@ -1,10 +1,9 @@
-import * as actions from '../dataHandlerActions';
+import  actions from '../dataHandlerActions';
 import types from '../types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Site from '@jsroot/common/site';
 import DataService from '@jsroot/common/dataService';
-import { toast } from 'react-toastify';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -53,24 +52,6 @@ describe('dataHandlerActions', () => {
             expect(expectedParams.toDate).toBeNull();
         });
     });
-    
-    // it('should params change when fetching grid data with params not have messageId and notificationIdLower', async () => {
-    //     const now = new Date();
-    //     const nowString = convertDateToString(now);
-    //     const expectedParams = { messageId: '', notificationIdLower: '', fromDate: now, toDate: now};
-    //     const expectedDone = jest.fn();
-    //     const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
-    //     const store = mockStore({ gridData: null });
-    //     Site.blockUI = jest.fn();
-    //     Site.unblockUI = jest.fn();
-    //     const promise = Promise.resolve(response);
-    //     DataService.postDataAsync = jest.fn(() => promise);
-
-    //     await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
-    //         expect(expectedParams.fromDate).toEqual(nowString);
-    //         expect(expectedParams.toDate).toEqual(`${nowString} ${EndTimeString}`);
-    //     });
-    // });
     
     it('should handle setGridData when fetching grid data has been done', async () => {
         const expectedParams = { messageId: null, notificationIdLower: null, fromDate: '08/21/2020', toDate: '08/21/2020'};

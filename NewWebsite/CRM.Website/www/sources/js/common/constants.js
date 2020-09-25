@@ -18,3 +18,5 @@ export const ChatTypeMapping = {
     'Personal': 2,
     'Group': 1
 };
+
+export const AUTO_REFRESH_TIMES = [90, 120, 150, 180];

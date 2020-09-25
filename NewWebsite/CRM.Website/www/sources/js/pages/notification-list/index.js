@@ -5,6 +5,7 @@ import Layout from '@jsroot/components/Layout';
 import Store from '@jsroot/common/store';
 import AppContainer from './components/AppContainer';
 import reducer from './reducers/index';
+import { AUTO_REFRESH_TIMES } from '@jsroot/common/constants';
 
 const store = Store.createStore(reducer, {
     gridParams: {
@@ -46,7 +47,13 @@ const store = Store.createStore(reducer, {
     confirmPopup: {
         show: false,
         onOk: null
-    }
+    },
+    autoRefresh: {
+        value: AUTO_REFRESH_TIMES[0],
+        countDown: AUTO_REFRESH_TIMES[0],
+        isSubmit: false
+    },
+    isRefresh: true
 });
 
 ReactDOM.render(

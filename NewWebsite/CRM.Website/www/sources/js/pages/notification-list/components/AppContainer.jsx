@@ -19,6 +19,16 @@ export class AppContainer extends Component {
 
     closeConfirmPopup = () => this.props.setConfirmPopup({ show: false })
 
+    handleCloseContent = () => {
+        this.props.setContentPopup({ show: false });
+        this.props.setIsRefresh(true);
+    }
+
+    handleCloseViewDetail = () => {
+        this.props.setViewDetailPopup({ show: false });
+        this.props.setIsRefresh(true);
+    }
+
     render() {
         return (
             <Fragment>
@@ -27,14 +37,14 @@ export class AppContainer extends Component {
                 {
                     this.props.contentPopup.show &&
                     <Content
-                        onClose={() => this.props.setContentPopup({ show: false })}
+                        onClose={this.handleCloseContent}
                         data={this.props.contentPopup.data}
                     />
                 }
                 {
                     this.props.viewDetailPopup.show &&
                     <ViewDetail
-                        onClose={() => this.props.setViewDetailPopup({ show: false })}
+                        onClose={this.handleCloseViewDetail}
                         data={this.props.viewDetailPopup.data}
                     />
                 }

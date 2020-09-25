@@ -613,7 +613,6 @@ describe('DataGrid', () => {
                 expect(row.find(Cell).at(3).find('div').at(1).html()).toEqual(`<div>${item.sendTimeString}</div>`);
                 expect(row.find(Cell).at(4).props().className).toBe('text-center');
                 expect(row.find(Cell).at(4).html()).toContain(headlines);
-                expect(row.find(Cell).at(5).props().className).toBe('text-center');
                 expect(row.find(Cell).at(5).html()).toContain(recipients);
                 expect(row.find(Cell).at(6).props().className).toBe('link-click');
                 expect(row.find(Cell).at(6).html()).toContain(item.title);

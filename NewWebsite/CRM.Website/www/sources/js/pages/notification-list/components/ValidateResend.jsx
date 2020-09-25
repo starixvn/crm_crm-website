@@ -13,6 +13,10 @@ export class ValidateResend extends Component {
     }
 
     onClose = () => {
+        if (this.props.resendOptions.dataList.filter(item => LangHelper.getResource('Error') === item.status && item.isResent).length <= 0) {
+            this.props.setIsRefresh(true);
+        }
+ 
         this.props.setValidateResend({
             show: false
         });
@@ -25,6 +29,7 @@ export class ValidateResend extends Component {
 
     callBackSuccess = () => {
         const params = { ...this.props.gridParams };
+        this.props.setIsRefresh(true);
         this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
     }
 
@@ -86,12 +91,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         validateResendResult,
-        gridParams
+        gridParams,
+        resendOptions
     } = state;
 
     return {
         validateResendResult,
-        gridParams
+        gridParams,
+        resendOptions
     };
 };
 
