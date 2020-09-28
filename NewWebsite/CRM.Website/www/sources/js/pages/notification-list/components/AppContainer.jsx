@@ -21,12 +21,18 @@ export class AppContainer extends Component {
 
     handleCloseContent = () => {
         this.props.setContentPopup({ show: false });
-        this.props.setIsRefresh(true);
+        this.setIsRefresh();
     }
 
     handleCloseViewDetail = () => {
         this.props.setViewDetailPopup({ show: false });
-        this.props.setIsRefresh(true);
+        this.setIsRefresh();
+    }
+
+    setIsRefresh = () => {
+        if (this.props.autoRefresh.value > 0) {
+            this.props.setIsRefresh(true);
+        }
     }
 
     render() {
@@ -78,14 +84,16 @@ const mapStateToProps = state => {
         contentPopup,
         viewDetailPopup,
         validateResendResult,
-        confirmPopup
+        confirmPopup,
+        autoRefresh
     } = state;
 
     return {
         contentPopup,
         viewDetailPopup,
         validateResendResult,
-        confirmPopup
+        confirmPopup,
+        autoRefresh
     };
 };
 
