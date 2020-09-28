@@ -5,7 +5,7 @@ import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/reac
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
-import { getHeadlines, getRecipients } from '../functions';
+import functions from '../functions';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 export class ViewDetail extends Component {
@@ -37,8 +37,8 @@ export class ViewDetail extends Component {
     buildBody = data =>
         [<Row key={data.notificationId}>
             <Cell>{data.letstalkName}</Cell>
-            <Cell>{getHeadlines(data.headlines)}</Cell>
-            <Cell>{getRecipients(data.recipients)}</Cell>
+            <Cell>{functions.getHeadlines(data.headlines)}</Cell>
+            <Cell>{functions.getRecipients(data.recipients)}</Cell>
             <Cell className='error-color'>{data.reason}</Cell>
         </Row>]
 
@@ -66,7 +66,11 @@ export class ViewDetail extends Component {
             });
 
             close();
-            this.props.getGridData({...this.props.gridParams});
+            this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
+            this.props.setAutoRefresh({
+                ...this.props.autoRefresh,
+                countDown: this.props.autoRefresh.value
+            });
         }
         else {
             if (this.state.remark !== this.state.oldRemark) {
@@ -147,12 +151,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         viewDetail,
-        gridParams
+        gridParams,
+        autoRefresh
     } = state;
 
     return {
         viewDetail,
-        gridParams
+        gridParams,
+        autoRefresh
     };
 };
 

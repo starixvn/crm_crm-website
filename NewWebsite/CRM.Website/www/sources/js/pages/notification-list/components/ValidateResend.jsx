@@ -4,8 +4,8 @@ import LangHelper from '@jsroot/common/langHelper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions/index';
-import { handleNewResendOptions, resendNotifications } from '../functions';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
+import functions from '../functions';
 
 export class ValidateResend extends Component {
     constructor(props) {
@@ -24,13 +24,17 @@ export class ValidateResend extends Component {
 
     resendNotifications = notificationIds => {
         this.onClose();
-        resendNotifications({ notificationIds }, this.callBackSuccess);
+        functions.resendNotifications({ notificationIds }, this.callBackSuccess);
     }
 
     callBackSuccess = () => {
         const params = { ...this.props.gridParams };
         this.props.setIsRefresh(true);
-        this.props.getGridData(params, data => handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
+        this.props.setAutoRefresh({
+            ...this.props.autoRefresh,
+            countDown: this.props.autoRefresh.value
+        });
     }
 
     render() {
@@ -92,13 +96,15 @@ const mapStateToProps = state => {
     const {
         validateResendResult,
         gridParams,
-        resendOptions
+        resendOptions,
+        autoRefresh
     } = state;
 
     return {
         validateResendResult,
         gridParams,
-        resendOptions
+        resendOptions,
+        autoRefresh
     };
 };
 
