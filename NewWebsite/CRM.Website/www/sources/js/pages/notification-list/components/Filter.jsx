@@ -295,7 +295,7 @@ export class Filter extends Component {
                         </div>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>{LangHelper.getResource('MessageId')}</Form.Label>
+                        <Form.Label>{LangHelper.getResource('MessageID')}</Form.Label>
                         <Form.Control as='input' type='text' pattern='[0-9]*' size='sm' className='shadow-none' name='messageId'
                             value={this.state.filter.messageId}
                             onChange={e => this.handleChangeFilterControl(e)}
