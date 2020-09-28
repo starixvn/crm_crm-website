@@ -31,7 +31,8 @@ describe('AppContainer', () => {
             contentPopup: {},
             viewDetailPopup: {},
             validateResendResult: {},
-            confirmPopup: {}
+            confirmPopup: {},
+            autoRefresh: {}
         };
 
         const store = mockStore(initialState);
@@ -57,6 +58,9 @@ describe('AppContainer', () => {
             expect(wrapper.props().children.props.confirmPopup).toEqual(
                 initialState.confirmPopup
             );
+            expect(wrapper.props().children.props.autoRefresh).toEqual(
+                initialState.autoRefresh
+            );
         });
     });
 
@@ -78,6 +82,98 @@ describe('AppContainer', () => {
     
             // Assert
             expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+        });
+    });
+
+    it('handleCloseContent runs correctly', () => {
+        // Arrange
+        const props = {
+            contentPopup: {},
+            viewDetailPopup: {},
+            invalidParams: {},
+            validateResendResult: {},
+            confirmPopup: {},
+            setContentPopup: jest.fn()
+        };
+
+        const appContainer = shallow(<AppContainer {...props} />);
+        appContainer.instance().setIsRefresh = jest.fn();
+
+        // Action
+        appContainer.instance().handleCloseContent();
+
+        // Assert
+        expect(props.setContentPopup).toHaveBeenCalledWith({ show: false });
+        expect(appContainer.instance().setIsRefresh).toHaveBeenCalled();
+    });
+
+    it('handleCloseViewDetail runs correctly', () => {
+        // Arrange
+        const props = {
+            contentPopup: {},
+            viewDetailPopup: {},
+            invalidParams: {},
+            validateResendResult: {},
+            confirmPopup: {},
+            setViewDetailPopup: jest.fn()
+        };
+
+        const appContainer = shallow(<AppContainer {...props} />);
+        appContainer.instance().setIsRefresh = jest.fn();
+
+        // Action
+        appContainer.instance().handleCloseViewDetail();
+
+        // Assert
+        expect(props.setViewDetailPopup).toHaveBeenCalledWith({ show: false });
+        expect(appContainer.instance().setIsRefresh).toHaveBeenCalled();
+    });
+
+    describe('setIsRefresh runs correctly', () => {
+        it('autoRefresh value greater than zero', () => {
+            // Arrange
+            const props = {
+                contentPopup: {},
+                viewDetailPopup: {},
+                invalidParams: {},
+                validateResendResult: {},
+                confirmPopup: {},
+                autoRefresh: {
+                    value: 10
+                },
+                setIsRefresh: jest.fn()
+            };
+    
+            const appContainer = shallow(<AppContainer {...props} />);
+    
+            // Action
+            appContainer.instance().setIsRefresh();
+    
+            // Assert
+            expect(props.setIsRefresh).toHaveBeenCalledWith(true);
+        });
+        
+        it('autoRefresh value less or equal zero', () => {
+            // Arrange
+            const props = {
+                contentPopup: {},
+                viewDetailPopup: {},
+                invalidParams: {},
+                validateResendResult: {},
+                confirmPopup: {},
+                autoRefresh: {
+                    value: 0
+                },
+                setIsRefresh: jest.fn()
+            };
+    
+            const appContainer = shallow(<AppContainer {...props} />);
+    
+            // Action
+            appContainer.instance().setIsRefresh();
+    
+            // Assert
+            expect(props.setIsRefresh).toHaveBeenCalledTimes(0);
         });
     });
 
@@ -138,12 +234,13 @@ describe('AppContainer', () => {
                 };
     
                 const appContainer = shallow(<AppContainer {...props} />);
+                appContainer.instance().handleCloseContent = jest.fn();
     
                 // Action
                 appContainer.find(Content).simulate('close');
     
                 // Assert
-                expect(props.setContentPopup).toHaveBeenCalledWith({ show: false });
+                expect(appContainer.instance().handleCloseContent).toHaveBeenCalled();
             });
         });
 
@@ -179,17 +276,17 @@ describe('AppContainer', () => {
                     },
                     invalidParams: {},
                     validateResendResult: {},
-                    confirmPopup: {},
-                    setViewDetailPopup: jest.fn()
+                    confirmPopup: {}
                 };
 
                 const appContainer = shallow(<AppContainer {...props} />);
+                appContainer.instance().handleCloseViewDetail = jest.fn();
         
                 // Action
                 appContainer.find(ViewDetail).simulate('close');
         
                 // Assert
-                expect(props.setViewDetailPopup).toHaveBeenCalledWith({ show: false });
+                expect(appContainer.instance().handleCloseViewDetail).toHaveBeenCalled();
             });
         });
 
@@ -213,28 +310,8 @@ describe('AppContainer', () => {
             expect(appContainer.find(ValidateResend).length).toBe(1);
         });
 
-        describe('ConfirmPopup', () => {
+        describe('has ConfirmPopup child', () => {
             LangHelper.getResource = jest.fn(value => value);
-    
-            it('has ConfirmPopup child', () => {
-                // Arrange
-                const props = {
-                    contentPopup: {},
-                    viewDetailPopup: {},
-                    invalidParams: {},
-                    validateResendResult: {},
-                    confirmPopup: {
-                        show: true
-                    }
-                };
-    
-                // Action
-                const appContainer = shallow(<AppContainer {...props} />);
-    
-                // Assert
-                expect(appContainer).toMatchSnapshot();
-                expect(appContainer.find(ConfirmPopup).length).toBe(1);
-            });
     
             it('has correct props', () => {
                 // Arrange
@@ -250,31 +327,12 @@ describe('AppContainer', () => {
     
                 // Action
                 const appContainer = shallow(<AppContainer {...props} />);
+                const content = shallow(appContainer.find(ConfirmPopup).props().content);
     
                 // Assert
-                expect(appContainer.find(ConfirmPopup).props().size).toEqual('lg');
-                expect(appContainer.find(ConfirmPopup).props().title).toEqual('Confirmation');
-            });
-    
-            it('has correct content', () => {
-                // Arrange
-                const props = {
-                    contentPopup: {},
-                    viewDetailPopup: {},
-                    invalidParams: {},
-                    validateResendResult: {},
-                    confirmPopup: {
-                        show: true
-                    }
-                };
-    
-                // Action
-                const appContainer = shallow(<AppContainer {...props} />);
-                const content = appContainer.find(ConfirmPopup).props().content;
-    
-                // Assert
-                expect(content.type).toBe('div');
-                expect(content.props.children).toEqual('ThereAreSomeChangesConfirmMessage');
+                expect(appContainer.find(ConfirmPopup).props().size).toBe('lg');
+                expect(appContainer.find(ConfirmPopup).props().title).toBe('Confirmation');
+                expect(content.find('div').html()).toBe('<div>ThereAreSomeChangesConfirmMessage</div>');
             });
     
             it('runs onClose', () => {
@@ -286,17 +344,17 @@ describe('AppContainer', () => {
                     validateResendResult: {},
                     confirmPopup: {
                         show: true
-                    },
-                    setConfirmPopup: jest.fn()
+                    }
                 };
     
                 const appContainer = shallow(<AppContainer {...props} />);
+                appContainer.instance().closeConfirmPopup = jest.fn();
     
                 // Action
                 appContainer.find(ConfirmPopup).simulate('close');
     
                 // Assert
-                expect(props.setConfirmPopup).toHaveBeenCalledWith({ show: false });
+                expect(appContainer.instance().closeConfirmPopup).toHaveBeenCalled();
             });
     
             it('runs onSubmit', () => {

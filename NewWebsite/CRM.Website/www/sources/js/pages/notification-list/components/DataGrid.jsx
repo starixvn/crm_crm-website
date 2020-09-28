@@ -36,6 +36,7 @@ export class DataGrid extends Component {
                 </HeaderCell>
                 <HeaderCell colWidth={30}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
+                <HeaderCell colWidth={10}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
                 <HeaderCell colWidth={10}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
                 <HeaderCell colWidth={15}>{LangHelper.getResource('Recipient')}</HeaderCell>
                 <HeaderCell colWidth={30}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
@@ -137,6 +138,7 @@ export class DataGrid extends Component {
                 <div>{item.sendDateString}</div>
                 <div>{item.sendTimeString}</div>
             </Cell>
+            <Cell>{item.letstalkName}</Cell>
             <Cell className='text-center'>{functions.getHeadlines(item.headlines)}</Cell>
             <Cell>{functions.getRecipients(item.recipients)}</Cell>
             <Cell className='link-click' onClick={() => this.openContentPopup(item)}>{item.title}</Cell>

@@ -43,14 +43,14 @@ export class AppContainer extends Component {
                 {
                     this.props.contentPopup.show &&
                     <Content
-                        onClose={this.handleCloseContent}
+                        onClose={() => this.handleCloseContent()}
                         data={this.props.contentPopup.data}
                     />
                 }
                 {
                     this.props.viewDetailPopup.show &&
                     <ViewDetail
-                        onClose={this.handleCloseViewDetail}
+                        onClose={() => this.handleCloseViewDetail()}
                         data={this.props.viewDetailPopup.data}
                     />
                 }
@@ -69,7 +69,7 @@ export class AppContainer extends Component {
                             this.closeConfirmPopup();
                             this.props.confirmPopup.onOk();
                         }}
-                        onClose={this.closeConfirmPopup}
+                        onClose={() => this.closeConfirmPopup()}
                     />
                 }
             </Fragment>
