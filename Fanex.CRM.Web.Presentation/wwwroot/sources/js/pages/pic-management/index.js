@@ -18,3 +18,4 @@ import './pic-insert-controller';
 import './pic-edit-controller';
 import './pic-change-confirm-controller';
 import './pic-change-state-controller';
+import './validate-edit-pic-confirm-controller';

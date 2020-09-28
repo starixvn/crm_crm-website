@@ -77,6 +77,7 @@
     <Compile Include="LicenseeMapping\UpdateLicenseeMappingCriteria.cs" />
     <Compile Include="PicAndHeadline\AssignPicCriteria.cs" />
     <Compile Include="PicAndHeadline\ChangePicStateCriteria.cs" />
+    <Compile Include="PicAndHeadline\ValidateEditPicCriteria.cs" />
     <Compile Include="PicAndHeadline\EditPicCriteria.cs" />
     <Compile Include="PicAndHeadline\GetActionTypeCriteria.cs" />
     <Compile Include="PicAndHeadline\GetAssignmentCriteria.cs" />

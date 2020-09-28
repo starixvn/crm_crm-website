@@ -1,0 +1,17 @@
+﻿@using Fanex.CRM.Resources
+
+<div id="template-validate-edit-pic-confirm" style="display: none">
+    <div class="modal-header" movable-modal>
+        @Labels.Confirmation
+        <span class="icon-close fa fa-times" ng-click="validateEditPicConfirmCtrl.close()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row margin-bottom-16">{{validateEditPicConfirmCtrl.message}}</div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="validateEditPicConfirmCtrl.confirm()">
+                @Html.Raw(Labels.OK)
+            </button>
+            <button class="btn" ng-click="validateEditPicConfirmCtrl.close()">@Labels.Cancel</button>
+        </div>
+    </div>
+</div>

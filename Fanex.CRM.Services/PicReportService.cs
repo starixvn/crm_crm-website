@@ -83,5 +83,11 @@ namespace Fanex.CRM.Services
 
             return result;
         }
+
+        public string ValidateEditPic(ValidateEditPicCriteria criteria)
+        {
+            var result = baseService.GetDataEntity<string>(criteria);
+            return result;
+        }
     }
 }

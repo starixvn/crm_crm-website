@@ -92,5 +92,12 @@ namespace Fanex.CRM.Controllers
             var result = _picReportService.EditPic(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult ValidateEditPic(ValidateEditPicCriteria criteria)
+        {
+            var result = _picReportService.ValidateEditPic(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

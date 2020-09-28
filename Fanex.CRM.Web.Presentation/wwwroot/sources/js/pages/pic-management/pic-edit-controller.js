@@ -1,8 +1,9 @@
 ﻿(function () {
     "use strict";
-    angular.module('pic-management-application').controller('picEditController', ['$scope', '$window', '$picManagementFactory', '$uibModalInstance', '$uibModal', 'picItem', function ($scope, $window, $picManagementFactory, $uibModalInstance, $uibModal, picItem) {
+    angular.module('pic-management-application').controller('picEditController', ['$rootScope', '$scope', '$window', '$picManagementFactory', '$uibModalInstance', '$uibModal', 'picItem', function ($rootScope, $scope, $window, $picManagementFactory, $uibModalInstance, $uibModal, picItem) {
         let vm = this;
         vm.isDiabled = false;
+        $rootScope.validateMessage = '';
         vm.username = picItem.Username;
         vm.roles = [];
         vm.selectedRole = { Id: 0, Value: viewResources.Selected };
@@ -137,17 +138,52 @@
             let message = vm.validateParams(criteria);
             if (message === '') {
                 vm.messageResultOptions = new MessageResult('', false, false);
-
-                $picManagementFactory.editPic(criteria)
-                    .then(function (data) {
-                        vm.showInsertResult(data.Result);
-                    }, function () {
-                        vm.isDiabled = false;
-                    });
+                $picManagementFactory.validateEditPic({
+                    PicId: criteria.PicId,
+                    CommunicationTools: criteria.CommunicationTools
+                }).then(function (data) {
+                    $rootScope.validateMessage = data.Result;
+                    if (data.Result) {
+                        const modalValidateInstance = $uibModal.open({
+                            template: angular.element('#template-validate-edit-pic-confirm').html(),
+                            controller: 'validateEditPicConfirmController',
+                            controllerAs: 'validateEditPicConfirmCtrl',
+                            backdrop: 'static',
+                            backdropClass: 'validate-edit-pic-confirm-modal-backdrop',
+                            keyboard: false,
+                            size: 'lg',
+                            windowClass: 'validate-edit-pic-confirm-modal',
+                            appendTo: $window.parent.$('body'),
+                        });
+    
+                        modalValidateInstance.result.then(function (isConfirmed) {
+                            if (isConfirmed) {
+                                vm.editPic(criteria);
+                            }
+                            else {
+                                vm.isDiabled = false;
+                            }
+                        });
+                    }
+                    else {
+                        vm.editPic(criteria);
+                    }
+                }, function () {
+                    vm.isDiabled = false;
+                });
             } else {
                 vm.isDiabled = false;
                 vm.messageResultOptions = new MessageResult(message, true, false)
             }
+        };
+
+        vm.editPic = function (criteria) {
+            $picManagementFactory.editPic(criteria)
+                .then(function (data) {
+                    vm.showInsertResult(data.Result);
+                }, function () {
+                    vm.isDiabled = false;
+                });
         };
 
         vm.validateParams = function (params) {

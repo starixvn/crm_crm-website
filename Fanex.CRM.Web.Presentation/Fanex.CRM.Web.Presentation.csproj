@@ -1551,6 +1551,7 @@
     <Content Include="Areas\PicAndHeadline\PicManagement\_ChangeState.cshtml" />
     <Content Include="Areas\PicAndHeadline\ChangesLog\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_SetDefaultPIC.cshtml" />
+    <Content Include="Areas\PicAndHeadline\PicManagement\_ValidateEditConfirm.cshtml" />
     <None Include="Configurations\Web.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
     <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">

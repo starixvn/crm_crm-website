@@ -6,7 +6,7 @@
         vm.isDiabled = false;
         vm.messageResultOptions = new MessageResult('', false, false);
         vm.SuccessfullMessage = picItem.IsActive ? "Deactive PIC successfully!" : "Active PIC successfully!";
-        vm.ComfirmContent = picItem.IsActive ? "Are you sure you want to deactivate PIC " + picItem.Username + "? The PIC assignment shall be removed." : "Are you sure you want to active PIC " + picItem.Username + "?";
+        vm.ComfirmContent = picItem.IsActive ? "Are you sure you want to deactivate PIC " + picItem.Username + "? The PIC assignment shall be removed, and the Recipient " + picItem.Username + " shall be removed from Chat Type Mapping if it exists." : "Are you sure you want to active PIC " + picItem.Username + "?";
 
         vm.changeState = function () {
             vm.isDiabled = true;

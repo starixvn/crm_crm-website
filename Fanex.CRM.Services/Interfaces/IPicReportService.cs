@@ -13,5 +13,7 @@ namespace Fanex.CRM.Services
         CommandResult EditPic(EditPicCriteria criteria);
 
         CommandResult ChangePicState(ChangePicStateCriteria criteria);
+
+        string ValidateEditPic(ValidateEditPicCriteria criteria);
     }
 }
