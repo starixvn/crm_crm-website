@@ -1,7 +1,6 @@
 ﻿namespace Fanex.CRM.BackgroundJob.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Models.ChatBot;
@@ -46,22 +45,14 @@
             voidingMessages = await ticketVoidingService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize);
             IEnumerable<Message> messages = await ticketVoidingService.GetMessageInfoAsync(voidingMessages);
             IEnumerable<ChatBotVoidingTicketInfo> ticketInfos = await ticketVoidingService.GetTicketVoidingInfoAsync(voidingMessages);
-            if (ticketInfos.Any())
+            CommandResult commandResult = await ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos, voidingMessages);
+            if (commandResult.IsSuccessful)
             {
-                CommandResult commandResult = await ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos);
-                if (commandResult.IsSuccessful)
-                {
-                    await ticketVoidingService.EditVoidingMessageAsync(voidingMessages);
-                    await sendNotificationService.SendNotificationToLetstalk();
-                }
-                else
-                {
-                    logService.LogInformation(commandResult.Message);
-                }
+                await sendNotificationService.SendNotificationToLetstalk();
             }
             else
             {
-                await ticketVoidingService.EditVoidingMessageAsync(voidingMessages);
+                logService.LogInformation(commandResult.Message);
             }
         }
     }

@@ -20,27 +20,8 @@
             Assert.Equal(expected, actual);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void IsValid_ParamIsInvalid_ReturnFalse(string xmlData)
-        {
-            // Arrange
-            var criteria = new ImportChatBotTicketVoidingInfoCommand
-            {
-                XmlData = xmlData
-            };
-
-            // Act
-            var actual = criteria.IsValid();
-
-            // Assert
-            Assert.False(actual);
-        }
-
         [Fact]
-        public void IsValid_ParamIsValid_ReturnTrue()
+        public void IsValid_WhenCalled_ReturnTrue()
         {
             // Arrange
             var fixture = new Fixture();

@@ -29,6 +29,36 @@
         private IFeedbackTicketVoidingService ticketVoidingService;
         private readonly IFixture fixture = new Fixture();
 
+        [Fact]
+        public async Task CreateFeedbackForDepositSiteAsync_WhenCalled_ExpectedCallCreateFeedbackByBatchAsync()
+        {
+            // Arrange
+            var licenseeInfo = fixture.Create<CustomerInfo>();
+            var message = fixture.Create<Message>();
+            var matchInfo = fixture.Create<MatchInfo>();
+            var transactionInfos = fixture.Create<IEnumerable<TransactionInfo>>();
+            var settings = new List<SettingItem>
+            {
+                new SettingItem { SettingId = 1, SettingName = "Status", SettingValue = "Closed" },
+                new SettingItem { SettingId = 2, SettingName = "Response", SettingValue = "Neutral" },
+                new SettingItem { SettingId = 2022, SettingName = "Station" }
+            };
+            var settingMappings = fixture.Create<IEnumerable<SystemSettingMapping>>();
+            var service = MockService();
+
+            // Act
+            await service.Public_CreateFeedbackForDepositSiteAsync(
+                licenseeInfo,
+                message,
+                matchInfo,
+                transactionInfos,
+                settings,
+                settingMappings);
+
+            // Assert
+            Assert.True(true);
+        }
+
         #region CreateFeedbackByBatchAsync
 
         [Fact]
@@ -626,8 +656,10 @@
         {
             appSettings = new AppJobSettings
             {
+                CreatorId = 8,
                 LicenseeUsername = "starixIT",
-                NoOfRelatedCustomerPerFeedback = 2
+                NoOfRelatedCustomerPerFeedback = 2,
+                TimeSpan = 12
             };
             var appJobSettings = Substitute.For<IOptionsSnapshot<AppJobSettings>>();
             appJobSettings.Value.Returns(appSettings);

@@ -24,20 +24,19 @@
 
         Task<IEnumerable<ChatBotVoidingTicketInfo>> GetTicketVoidingInfoAsync(IEnumerable<ChatBotVoidingMessage> voidingMessages);
 
-        Task<CommandResult> ImportTicketVoidingAsync(IEnumerable<Message> messages, IEnumerable<ChatBotVoidingTicketInfo> ticketInfos);
+        Task<CommandResult> ImportTicketVoidingAsync(
+            IEnumerable<Message> messages,
+            IEnumerable<ChatBotVoidingTicketInfo> ticketInfos,
+            IEnumerable<ChatBotVoidingMessage> voidingMessages);
     }
 
     public class ChatBotTicketVoidingService : IChatBotTicketVoidingService
     {
         private readonly IBaseService baseService;
-        private readonly ICRMLogService logService;
 
-        public ChatBotTicketVoidingService(
-            IBaseService baseService,
-            ICRMLogService logService)
+        public ChatBotTicketVoidingService(IBaseService baseService)
         {
             this.baseService = baseService;
-            this.logService = logService;
         }
 
         public async Task<IEnumerable<ChatBotVoidingMessage>> GetVoidingMessageAsync()
@@ -94,7 +93,10 @@
             return await baseService.GetDataAsync<ChatBotVoidingTicketInfo>(criteria);
         }
 
-        public async Task<CommandResult> ImportTicketVoidingAsync(IEnumerable<Message> messages, IEnumerable<ChatBotVoidingTicketInfo> ticketInfos)
+        public async Task<CommandResult> ImportTicketVoidingAsync(
+            IEnumerable<Message> messages,
+            IEnumerable<ChatBotVoidingTicketInfo> ticketInfos,
+            IEnumerable<ChatBotVoidingMessage> voidingMessages)
         {
             const string XmlTemplate = "<r MessageId='{0}' Username='{1}' CustId='{2}' " +
                 "Recommend='{3}' Mrecommend='{4}' Srecommend='{5}' IsTest='{6}' " +
@@ -120,7 +122,8 @@
             stringBuilder.Append(Constants.Constants.EndRootTag.ToLowerInvariant());
             var criteria = new ImportChatBotTicketVoidingInfoCommand
             {
-                XmlData = stringBuilder.ToString()
+                XmlData = stringBuilder.ToString(),
+                Messages = voidingMessages.ToXML("root").ToString()
             };
             return await baseService.ExecuteNonQueryAsync(criteria);
         }

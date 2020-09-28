@@ -294,7 +294,7 @@
                 Username = licenseeInfo.Username,
                 StationId = station != null ? station.SettingId.ToString() : string.Empty,
                 CommunicationId = communicationTool,
-                CategoryXml = category.Item3,
+                CategoryXml = category != null ? category.Item3 : string.Empty,
                 ProductXml = GetProductXml(matchInfo, transactionInfos, settings, settingMappings),
                 StatusId = status != null ? status.SettingId : 0,
                 LanguageId = licenseeInfo.LanguageId,

@@ -20,7 +20,6 @@
     public class ChatBotTicketVoidingServiceTests
     {
         private IBaseService baseService;
-        private ICRMLogService logService;
 
         [Fact]
         public async Task GetVoidingMessageAsync_WhenCalled_ReturnExpectedMessages()
@@ -129,6 +128,7 @@
                 "Recommend='{3}' Mrecommend='{4}' Srecommend='{5}' IsTest='{6}' " +
                 "Content_en='{7}' Content_cs='{8}' Content_th='{9}' Content_vn='{10}' />";
             var fixture = new Fixture();
+            var voidingMessages = fixture.Create<IEnumerable<ChatBotVoidingMessage>>();
             var messages = new List<Message>
             {
                 fixture.Create<Message>()
@@ -160,11 +160,12 @@
             baseService.ExecuteNonQueryAsync(Arg.Do<ImportChatBotTicketVoidingInfoCommand>(x => criteria = x)).Returns(expected);
 
             // Act
-            var actual = await service.ImportTicketVoidingAsync(messages, ticketInfos);
+            var actual = await service.ImportTicketVoidingAsync(messages, ticketInfos, voidingMessages);
 
             // Assert
             Assert.Equal(expected, actual);
             Assert.Equal(stringBuilder.ToString(), criteria.XmlData);
+            Assert.Equal(voidingMessages.ToXML("root").ToString(), criteria.Messages);
         }
 
         #region Helpers
@@ -172,8 +173,7 @@
         private ChatBotTicketVoidingService GetService()
         {
             baseService = Substitute.For<IBaseService>();
-            logService = Substitute.For<ICRMLogService>();
-            return new ChatBotTicketVoidingService(baseService, logService);
+            return new ChatBotTicketVoidingService(baseService);
         }
 
         #endregion Helpers

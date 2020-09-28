@@ -36,25 +36,6 @@
         }
 
         [Fact]
-        public async Task PullMessageAndSendNotificationAsync_TicketInfosAreEmpty_ExpectedCallEditVoidingMessageAsync()
-        {
-            // Arrange
-            var setting = new AbnormalBetSystemSetting { ServiceFlag = true };
-            var voidingMessages = fixture.Create<IEnumerable<ChatBotVoidingMessage>>();
-            var service = GetService();
-            systemSettingService.GetChatBotSystemSettingAsync().Returns(setting);
-            ticketVoidingService.GetVoidingMessageAsync().Returns(voidingMessages);
-            ticketVoidingService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize).Returns(voidingMessages);
-            ticketVoidingService.GetTicketVoidingInfoAsync(voidingMessages).Returns(new List<ChatBotVoidingTicketInfo>());
-
-            // Act
-            await service.PullMessageAndSendNotificationAsync();
-
-            // Assert
-            await ticketVoidingService.Received().EditVoidingMessageAsync(voidingMessages);
-        }
-
-        [Fact]
         public async Task PullMessageAndSendNotificationAsync_ImportTicketInfosUnsuccessful_ExpectedWriteLog()
         {
             // Arrange
@@ -69,7 +50,7 @@
             ticketVoidingService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize).Returns(voidingMessages);
             ticketVoidingService.GetMessageInfoAsync(voidingMessages).Returns(messages);
             ticketVoidingService.GetTicketVoidingInfoAsync(voidingMessages).Returns(ticketInfos);
-            ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos).Returns(commandResult);
+            ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos, voidingMessages).Returns(commandResult);
 
             // Act
             await service.PullMessageAndSendNotificationAsync();
@@ -93,13 +74,13 @@
             ticketVoidingService.ImportVoidingMessageAsync(voidingMessages, setting.BatchSize).Returns(voidingMessages);
             ticketVoidingService.GetMessageInfoAsync(voidingMessages).Returns(messages);
             ticketVoidingService.GetTicketVoidingInfoAsync(voidingMessages).Returns(ticketInfos);
-            ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos).Returns(commandResult);
+            ticketVoidingService.ImportTicketVoidingAsync(messages, ticketInfos, voidingMessages).Returns(commandResult);
 
             // Act
             await service.PullMessageAndSendNotificationAsync();
 
             // Assert
-            await ticketVoidingService.Received().EditVoidingMessageAsync(voidingMessages);
+            await sendNotificationService.Received().SendNotificationToLetstalk();
         }
 
         #region Helpers
