@@ -44,6 +44,38 @@
         {
         }
 
+        public async Task Public_CreateFeedbackForCreditSiteAsync(
+            Message message,
+            MatchInfo matchInfo,
+            IEnumerable<TransactionInfo> transactionInfos,
+            IEnumerable<GroupHeadline> headlines,
+            IEnumerable<SettingItem> settings,
+            IEnumerable<SystemSettingMapping> settingMappings)
+        {
+            await base.CreateFeedbackForCreditSiteAsync(message, matchInfo, transactionInfos, headlines, settings, settingMappings);
+        }
+
+        public async Task Public_CreateFeedbackForCreditSiteByBatchAsync(
+            GroupHeadline headline,
+            IEnumerable<int> relatedCustomerIds,
+            Message message,
+            MatchInfo matchInfo,
+            IEnumerable<TransactionInfo> transactionInfos,
+            IEnumerable<SettingItem> settings,
+            IEnumerable<SystemSettingMapping> settingMappings,
+            CreateMutipleFeedbackCommand criteria)
+        {
+            await base.CreateFeedbackForCreditSiteByBatchAsync(
+                headline,
+                relatedCustomerIds,
+                message,
+                matchInfo,
+                transactionInfos,
+                settings,
+                settingMappings,
+                criteria);
+        }
+
         public async Task Public_CreateFeedbackForDepositSiteAsync(
             CustomerInfo licenseeInfo,
             Message message,
@@ -55,7 +87,7 @@
             await base.CreateFeedbackForDepositSiteAsync(licenseeInfo, message, matchInfo, transactionInfos, settings, settingMappings);
         }
 
-        public async Task Public_CreateFeedbackByBatchAsync(
+        public async Task Public_CreateFeedbackForDepositByBatchAsync(
             CustomerInfo licenseeInfo,
             Message message,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -63,7 +95,7 @@
             string communicationTool,
             CreateFeedbackCommand criteria)
         {
-            await base.CreateFeedbackByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
+            await base.CreateFeedbackForDepositByBatchAsync(licenseeInfo, message, transactionInfos, feedbackDate, communicationTool, criteria);
         }
 
         public void Public_GetLicenseeManager(
@@ -128,14 +160,14 @@
             return base.GetAutoField(feedbackDate, communicationTool, licenseeManagers);
         }
 
-        public string Public_GetDescription(int messageId, string requestIds)
+        public string Public_GetDescriptionForDepositeSite(int messageId, string requestIds)
         {
-            return base.GetDescription(messageId, requestIds);
+            return base.GetDescriptionForDepositeSite(messageId, requestIds);
         }
 
-        public string Public_GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
+        public string Public_GetDescriptionForCreditSite(int messageId, string requestIds, MatchInfo matchInfo)
         {
-            return base.GetDescription(messageId, requestIds, matchInfo);
+            return base.GetDescriptionForCreditSite(messageId, requestIds, matchInfo);
         }
 
         public string Public_GetSolution(Message message)
@@ -143,9 +175,9 @@
             return base.GetSolution(message);
         }
 
-        public string Public_GetSolution(Message message, IEnumerable<TransactionInfo> transactionInfos)
+        public string Public_GetSolutionForCreditSite(Message message, IEnumerable<TransactionInfo> transactionInfos)
         {
-            return base.GetSolution(message, transactionInfos);
+            return base.GetSolutionForCreditSite(message, transactionInfos);
         }
 
         public async Task<CommandResult> Public_EditSystemSettingAsync()

@@ -177,7 +177,7 @@
                 IEnumerable<int> relatedCustomerIds = headlines.Where(x => x.HeadlineId == headline.HeadlineId).Select(x => x.CustId);
                 criteria.CustomerXml = string.Format("<ROOT><Cust CustId='{0}' Username='{1}' /></ROOT>", headline.HeadlineId, headline.HeadlineName);
 
-                await CreateFeedbackByBatchAsync(
+                await CreateFeedbackForCreditSiteByBatchAsync(
                     headline,
                     relatedCustomerIds,
                     message,
@@ -190,7 +190,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-        protected internal virtual async Task CreateFeedbackByBatchAsync(
+        protected internal virtual async Task CreateFeedbackForCreditSiteByBatchAsync(
             GroupHeadline headline,
             IEnumerable<int> relatedCustomerIds,
             Message message,
@@ -214,7 +214,7 @@
 
                 IEnumerable<TransactionInfo> transactions = transactionInfos.Where(x => batch.Any(y => y == x.CustId));
                 criteria.ProductXml = GetProductXml(matchInfo, transactions, settings, settingMappings);
-                criteria.Solution = GetSolution(message, transactions);
+                criteria.Solution = GetSolutionForCreditSite(message, transactions);
                 criteria.RelatedCustomerXml = GetRelatedCustomerXml(headline.HeadlineId, transactions);
                 criteria.MessageId = message.MessageId;
                 criteria.ListOrigCustIds = string.Join(",", batch);
@@ -225,7 +225,7 @@
                     string.Join(",", batch)));
                 IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
                 criteria.RequestIds = string.Join(",", requestIds);
-                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds, matchInfo);
+                criteria.Description = GetDescriptionForCreditSite(message.MessageId, criteria.RequestIds, matchInfo);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}",
@@ -309,7 +309,7 @@
             };
             logService.LogInformation("End mapping setting for MessageId: " + message.MessageId);
 
-            await CreateFeedbackByBatchAsync(
+            await CreateFeedbackForDepositByBatchAsync(
                 licenseeInfo,
                 message,
                 transactionInfos,
@@ -318,7 +318,7 @@
                 criteria);
         }
 
-        protected internal virtual async Task CreateFeedbackByBatchAsync(
+        protected internal virtual async Task CreateFeedbackForDepositByBatchAsync(
             CustomerInfo licenseeInfo,
             Message message,
             IEnumerable<TransactionInfo> transactionInfos,
@@ -342,7 +342,7 @@
                 criteria.ListOrigCustIds = string.Join(",", custIds);
                 IEnumerable<int> requestIds = transactions.Select(x => x.RequestId).Distinct().ToList();
                 criteria.RequestIds = string.Join(",", requestIds);
-                criteria.Description = GetDescription(message.MessageId, criteria.RequestIds);
+                criteria.Description = GetDescriptionForDepositeSite(message.MessageId, criteria.RequestIds);
                 try
                 {
                     logService.LogInformation(string.Format("Begin create feedback for MessageId: {0}\n\rHeadlineId: {1}\n\rRelatedCustIds: {2}\n\rCustIds: {3}",
@@ -546,7 +546,7 @@
             return stringBuilder.ToString();
         }
 
-        protected internal virtual string GetDescription(int messageId, string requestIds)
+        protected internal virtual string GetDescriptionForDepositeSite(int messageId, string requestIds)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
             stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
@@ -555,7 +555,7 @@
             return stringBuilder.ToString();
         }
 
-        protected internal virtual string GetDescription(int messageId, string requestIds, MatchInfo matchInfo)
+        protected internal virtual string GetDescriptionForCreditSite(int messageId, string requestIds, MatchInfo matchInfo)
         {
             var stringBuilder = new StringBuilder("<span style=\"color: rgb(255, 0, 0);\">This is an auto-generated entry.</span>");
             stringBuilder.AppendFormat("<br /><span style=\"color: rgb(255, 0, 0);\">Msg ID: {0}, Request No.: {1}</span>", messageId, requestIds);
@@ -574,7 +574,7 @@
             return stringBuilder.ToString();
         }
 
-        protected internal virtual string GetSolution(Message message, IEnumerable<TransactionInfo> transactionInfos)
+        protected internal virtual string GetSolutionForCreditSite(Message message, IEnumerable<TransactionInfo> transactionInfos)
         {
             var stringBuilder = new StringBuilder(message.Content_en);
             stringBuilder.Append("<br /><br />").Append(message.Content_cs);
