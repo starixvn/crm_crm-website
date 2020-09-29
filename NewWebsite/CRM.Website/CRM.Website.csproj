@@ -75,7 +75,4 @@
     <ProjectReference Include="..\CRM.Resources\CRM.Resources.csproj" />
     <ProjectReference Include="..\CRM.Services\CRM.Services.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="www\sources\js\pages\chat-type-mapping\components\__test__\" />
-  </ItemGroup>
 </Project>

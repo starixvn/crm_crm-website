@@ -4,12 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Button, Form } from 'react-bootstrap';
 import { ActionCreators } from '../actions/index';
 import LangHelper from '@jsroot/common/langHelper';
-import ResponseMessage from '@jsroot/components/ResponseMessage';
 import MultipleSelect from '../../../components/multiple-select/index';
 import InsertPersonalMappingPopup from './InsertPersonalMappingPopup';
 import { toast } from 'react-toastify';
 
-class Filter extends Component {
+export class Filter extends Component {
     constructor(props) {
         super(props);
 
@@ -30,10 +29,6 @@ class Filter extends Component {
                 mappingStatuses: [],
                 languages: [],
                 bots: []
-            },
-            validation: {
-                isValid: true,
-                errMsg: ''
             }
         };
     }
@@ -101,12 +96,6 @@ class Filter extends Component {
     render() {
         return (
             <Fragment>
-                {
-                    !this.state.validation.isValid &&
-                    <ResponseMessage isSuccessful={false}
-                        message={this.state.validation.errMsg}
-                    />
-                }
                 <Form className='form-filter' onSubmit={this.submitHandler}>
                     <Form.Row className='form-row'>
                         <Form.Group>
