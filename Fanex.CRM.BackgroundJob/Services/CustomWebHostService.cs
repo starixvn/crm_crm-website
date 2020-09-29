@@ -22,7 +22,7 @@
 
         public CustomWebHostService(IWebHost host) : base(host)
         {
-            hangfireJobSettings = host.Services.GetService<IOptionsMonitor<List<HangfireJobSetting>>>().CurrentValue;
+            hangfireJobSettings = host.Services.GetService<IOptions<List<HangfireJobSetting>>>().Value;
             recurringJob = host.Services.GetService<IRecurringJobManager>();
             jobRunningChecker = host.Services.GetService<IJobRunningChecker>();
         }
@@ -40,7 +40,7 @@
             base.OnStopping();
         }
 
-        public void RunHangfireJobs()
+        protected internal virtual void RunHangfireJobs()
         {
             if (IsEnabledJob(HangfireJobName.CreateFeedbackForVoidingAbnormalBet))
             {
@@ -52,9 +52,10 @@
 
             if (IsEnabledJob(HangfireJobName.PullMessageForChatBot))
             {
+                var cronExpression = GetCronExpression(HangfireJobName.PullMessageForChatBot);
                 recurringJob.AddOrUpdate<IBackgroundService>("Pull Message For Chat Bot",
                    job => job.PullMessageForChatBotAsync(),
-                   hangfireJobSettings.FirstOrDefault(j => j.JobName.Equals(HangfireJobName.PullMessageForChatBot))?.CronExpression,
+                   cronExpression,
                    TimeZoneInfo.Local, QueuePriority.Critical);
             }
 
@@ -76,7 +77,7 @@
             }
         }
 
-        private static void RemoveCurrentHangfireServer()
+        protected internal virtual void RemoveCurrentHangfireServer()
         {
             IMonitoringApi monitoringApi = JobStorage.Current.GetMonitoringApi();
             var serverToRemove = monitoringApi.Servers()
@@ -87,14 +88,14 @@
             }
         }
 
-        public bool IsEnabledJob(string jobName)
+        protected internal virtual bool IsEnabledJob(string jobName)
         {
             var settings = hangfireJobSettings.FirstOrDefault(job => job.JobName.Equals(jobName, StringComparison.OrdinalIgnoreCase));
 
             return settings != null && settings.IsEnabled;
         }
 
-        private string GetCronExpression(string jobName)
+        protected internal virtual string GetCronExpression(string jobName)
         {
             var settings = hangfireJobSettings.FirstOrDefault(job => job.JobName.Equals(jobName, StringComparison.OrdinalIgnoreCase));
             return settings != null ? settings.CronExpression : string.Empty;

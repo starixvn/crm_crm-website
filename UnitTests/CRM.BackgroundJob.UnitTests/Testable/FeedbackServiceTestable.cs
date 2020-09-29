@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
     using CRM.Core.Models;
     using CRM.Core.Services;
@@ -11,17 +9,6 @@
     using Fanex.CRM.BackgroundJob.Models;
     using Fanex.CRM.BackgroundJob.Services;
     using Microsoft.Extensions.Options;
-
-    public static class Reflect
-    {
-        public static object Protected(this object target, string name, params object[] args)
-        {
-            var type = target.GetType();
-            var method = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                             .Single(x => x.Name == name);
-            return method.Invoke(target, args);
-        }
-    }
 
     public class FeedbackServiceTestable : FeedbackService
     {
