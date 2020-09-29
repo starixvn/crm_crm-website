@@ -6,7 +6,6 @@
     setCreateNotificationTypeResult,
     setEditNotificationTypePopup,
     setEditNotificationTypeResult,
-    editNotificationType,
     setDeleteNotificationTypePopup
 } from '../notificationTypeSlice';
 
@@ -67,10 +66,10 @@ describe('notificationType reducer', () => {
         expect(
             notificationType({}, {
                 type: setSettings.type,
-                payload: [{  ChatTypes: [], RecipientTypes: [],  Systems: [] }]
+                payload: [{ ChatTypes: [], RecipientTypes: [], Systems: [] }]
             })
         ).toEqual({
-            settings: [{  ChatTypes: [], RecipientTypes: [],  Systems: [] }]
+            settings: [{ ChatTypes: [], RecipientTypes: [], Systems: [] }]
         });
     });
 

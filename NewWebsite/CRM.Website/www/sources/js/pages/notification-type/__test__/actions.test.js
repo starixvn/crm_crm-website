@@ -94,7 +94,7 @@ describe('actionCreators', () => {
     describe('editNotificationType', () => {
         it('should handle setEditNotificationTypeResult when request has been done', async () => {
             // Arrange
-            const expectedParams = { notificationTypeId: 1};
+            const expectedParams = { notificationTypeId: 1 };
             const response = { data: { isSuccessful: true, message: '' } };
             const expectedActions = [{ type: ActionCreators.setEditNotificationTypeResult.type, payload: response.data }];
             const store = mockStore({ editNotificationTypeResult: null });
@@ -113,7 +113,7 @@ describe('actionCreators', () => {
     describe('deleteNotificationType', () => {
         it('should return response when request has been done', async () => {
             // Arrange
-            const expectedParams =  { data: { notificationTypeId: 1, notificationTypeName: 'test'  } };
+            const expectedParams = { data: { notificationTypeId: 1, notificationTypeName: 'test' } };
             const store = mockStore({});
             const response = { data: { isSuccessful: true, message: '' } };
             const promise = Promise.resolve(response);
