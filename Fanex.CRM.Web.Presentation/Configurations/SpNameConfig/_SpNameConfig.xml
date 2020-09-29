@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" ?>
 <Root>
-    <SpNameConfig Environment="LOCAL, UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PICAssignment" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PICAssignmentDel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PicIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PicUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PicStatusUpd" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="LOCAL, UAT" SpName="Acc_CRM_PicUpdValidation" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
