@@ -2,7 +2,7 @@
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions/index';
+import { ActionCreators } from '../actions';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import { toast } from 'react-toastify';

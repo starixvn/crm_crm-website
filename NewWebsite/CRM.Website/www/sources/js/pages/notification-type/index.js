@@ -1,24 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import Layout from '@jsroot/components/Layout';
-import Store from '@jsroot/common/store';
 import AppContainer from './components/AppContainer';
-import reducer from './reducers/index';
+import notificationTypeReducer from './notificationTypeSlice';
 
-const store = Store.createStore(reducer, {
-    createNotificationTypePopup: { show: false },
-    createNotificationTypeResult: null,
-    editNotificationTypePopup: { show: false },
-    editNotificationTypeResult: null,
-    deleteNotificationTypePopup: { show: false },
-    gridData: null,
-    settings: {
-        ChatTypes: [],
-        RecipientTypes: [],
-        Systems: []
-    }
+const store = configureStore({
+    reducer: notificationTypeReducer
 });
+
 const isHost = document.getElementById('IsHost').checked;
 
 ReactDOM.render(
