@@ -33,6 +33,8 @@
 
         public string ResolvedRemark { get; set; }
 
+        public string ResolvedBy { get; set; }
+
         public string Reason { get; set; }
 
         public string LetstalkName { get; set; }

@@ -57,7 +57,7 @@ export class AutoRefresh extends Component {
             this.props.setAutoRefresh({
                 ...this.props.autoRefresh,
                 countDown: this.props.autoRefresh.countDown - 1
-            })
+            });
         }
     }, 1000)
 
@@ -85,7 +85,7 @@ export class AutoRefresh extends Component {
         return <div className='d-flex align-items-center' ref={this.autoRefresh}>
             <div className='auto-refresh'>
                 <div className='d-flex justify-content-between align-items-center auto-refresh-value'
-                    onClick={this.toggleAutoFreshDropdown}
+                    onClick={() => this.toggleAutoFreshDropdown()}
                 >
                     <div>
                         {this.props.autoRefresh.value !== 0 ?
@@ -106,7 +106,7 @@ export class AutoRefresh extends Component {
                 }
                 
             </div>
-            <span className='fa fa-refresh link-click' onClick={this.handleRefresh}/>
+            <span className='fa fa-refresh link-click' onClick={() => this.handleRefresh()}/>
         </div>;
     }
 }

@@ -56,14 +56,7 @@ export class ViewDetail extends Component {
 
     onClose = close => {
         if (this.state.isResolved) {
-            this.props.setViewDetail({
-                resolvedBy: '',
-                result: {
-                    code: 1,
-                    message: '',
-                    isSuccessful: false
-                }
-            });
+            this.props.setViewDetail({ resolvedBy: '' });
 
             close();
             this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
@@ -87,6 +80,11 @@ export class ViewDetail extends Component {
 
     render() {
         const { data, onClose } = this.props;
+        const isResolved = this.state.isResolved || data.status === LangHelper.getResource('Resolved');
+        const resolvedBy = this.props.viewDetail.resolvedBy || data.resolvedBy
+        const title =  isResolved ?
+            LangHelper.getResource('ResolvedNotification') :
+            LangHelper.getResource('ErrorNotification');
 
         return (
             <Modal show backdrop='static' keyboard={false} size='lg' centered
@@ -94,7 +92,7 @@ export class ViewDetail extends Component {
                 dialogAs={DraggableModalDialog}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as='div'>{LangHelper.getResource('ErrorNotification')}</Modal.Title>
+                    <Modal.Title as='div'>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div id='view-detail-modal-body'>
@@ -118,27 +116,29 @@ export class ViewDetail extends Component {
                         containerPadding={0}
                     />
                     <Fragment>
-                        <div className='error-resolved-row'>{LangHelper.getResource('Remark') + ':'}</div>
+                        <div className='error-resolved-row'>{`${LangHelper.getResource('Remark')}: `}{isResolved && this.state.remark}</div>
                         {
-                            this.props.viewDetail.result.isSuccessful ?
-                                <textarea className='view-detail-remark' rows='3' disabled value={this.state.remark} /> :
+                            !isResolved &&
                                 <textarea className='view-detail-remark' rows='3' onChange={e => this.handleChange(e)} name='remark' value={this.state.remark} />
                         }
                     </Fragment>
+                    {
+                        isResolved && <div>{`${LangHelper.getResource('ResolvedBy')}: ${resolvedBy}`}</div>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        !this.props.viewDetail.result.isSuccessful &&
+                        !isResolved &&
                             <Button
                                 onClick={() => this.editNotificationList(data.notificationId)}
                                 variant='primary' size='sm'
-                            >{LangHelper.getResource('Resolved')}</Button>
+                            >{LangHelper.getResource('Resolve')}</Button>
                     }
                     <Button
                         onClick={() => this.onClose(onClose)}
                         variant='primary' size='sm'
                     >
-                        {this.state.isResolved ? LangHelper.getResource('Close') : LangHelper.getResource('Cancel')}
+                        {isResolved ? LangHelper.getResource('Close') : LangHelper.getResource('Cancel')}
                     </Button>
                 </Modal.Footer>
             </Modal>

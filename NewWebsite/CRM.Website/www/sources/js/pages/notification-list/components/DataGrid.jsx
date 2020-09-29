@@ -230,7 +230,7 @@ export class DataGrid extends Component {
         return (
             <Fragment>
                 <div className='d-flex table-title justify-content-between align-items-center'>
-                    <div className=''>{LangHelper.getResource('NotificationList')}</div>
+                    <div>{LangHelper.getResource('NotificationList')}</div>
                     <AutoRefresh />
                 </div>
                 <Table
