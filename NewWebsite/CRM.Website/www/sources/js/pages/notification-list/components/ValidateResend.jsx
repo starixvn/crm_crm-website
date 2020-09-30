@@ -18,7 +18,7 @@ export class ValidateResend extends Component {
             ).length <= 0) {
             this.props.setIsRefresh(true);
         }
- 
+
         this.props.setValidateResend({
             show: false
         });

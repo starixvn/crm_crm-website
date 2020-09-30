@@ -12,7 +12,7 @@ export class AutoRefresh extends Component {
 
         this.state = {
             isOpenDropdown: false
-        }
+        };
 
         this.autoRefresh = React.createRef();
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -25,7 +25,7 @@ export class AutoRefresh extends Component {
 
     componentWillUnmount = () => {
         clearInterval(this.countDownFunc);
-        document.removeEventListener('mousedown', this.handleClickOutside)
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     handleClickOutside(event) {
@@ -34,7 +34,7 @@ export class AutoRefresh extends Component {
         }
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate = prevProps => {
         if (prevProps.autoRefresh.value !== this.props.autoRefresh.value) {
             this.props.setAutoRefresh({
                 ...this.props.autoRefresh,
@@ -47,7 +47,7 @@ export class AutoRefresh extends Component {
                 ...this.props.autoRefresh,
                 countDown: this.props.autoRefresh.value
             });
-            
+
             this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
         }
     }
@@ -104,7 +104,7 @@ export class AutoRefresh extends Component {
                             <li onClick={() => this.handleAutoRefreshChange(0)} value={0}>{LangHelper.getResource('NotRefresh')}</li>
                         </ul>
                 }
-                
+
             </div>
             <span className='fa fa-refresh link-click' onClick={() => this.handleRefresh()}/>
         </div>;
