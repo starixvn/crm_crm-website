@@ -12,14 +12,11 @@
 
         public IEnumerable<PicCommunicationTool> CommunicationTools { get; set; }
 
-        public string Message { get; set; }
-
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
             param.Add("PicId", PicId);
             param.Add("CommunicationTools", SerializerHelper.SerializeList(CommunicationTools));
-            param.Add("Message", string.Empty);
             return param;
         }
 

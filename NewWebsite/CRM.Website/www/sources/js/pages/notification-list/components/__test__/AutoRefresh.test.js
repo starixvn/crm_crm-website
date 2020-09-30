@@ -286,7 +286,29 @@ describe('AutoRefresh', () => {
             expect(props.getGridData).toHaveBeenCalledTimes(0);
         });
         
-        it('should call setAutoRefresh and getGridData when autoRefresh countDown equal zero and isRefresh true', () => {
+        it('should not call setAutoRefresh and getGridData when autoRefresh value not greater than zero', () => {
+            // Arrange
+            const props = {
+                autoRefresh: {
+                    value: 0,
+                    countDown: 0
+                },
+                isRefresh: true,
+                setAutoRefresh: jest.fn(),
+                getGridData: jest.fn()
+            };
+
+            const autoRefresh = shallow(<AutoRefresh {...props} />);
+
+            // Action
+            autoRefresh.instance().componentDidUpdate(props);
+
+            // Assert
+            expect(props.setAutoRefresh).toHaveBeenCalledTimes(0);
+            expect(props.getGridData).toHaveBeenCalledTimes(0);
+        });
+        
+        it('should call setAutoRefresh and getGridData when autoRefresh countDown equal zero, isRefresh true and autoRefresh value greater than zero', () => {
             // Arrange
             const props = {
                 autoRefresh: {

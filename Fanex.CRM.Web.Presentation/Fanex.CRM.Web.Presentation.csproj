@@ -500,6 +500,7 @@
     <Content Include="wwwroot\sources\js\pages\changes-log\index.js" />
     <Content Include="wwwroot\sources\js\pages\changes-log\register-directive.js" />
     <Content Include="wwwroot\sources\js\pages\changes-log\headline-da-report-container-directive.js" />
+    <Content Include="wwwroot\sources\js\pages\pic-management\validate-edit-pic-confirm-controller.js" />
     <Content Include="wwwroot\sources\js\shared\focus-directive.js" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.css" />
     <Content Include="wwwroot\sources\libs\MultiSelect\fanex.multiSelect.js" />
