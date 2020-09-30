@@ -51,7 +51,7 @@ export class InsertPersonalMappingPopup extends Component {
         }));
     };
 
-    handleBotChange = (value) => {
+    handleBotChange = value => {
         this.setState({ isLoading: true });
         this.handleChange('botId', value);
         this.props.getLetstalkDisplayName(value, this.state.form.letstalkId).then(() => {

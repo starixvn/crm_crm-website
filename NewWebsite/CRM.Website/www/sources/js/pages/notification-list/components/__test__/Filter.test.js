@@ -202,7 +202,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().changeToDateAfterFromDateChanged = jest.fn();
             filter.instance().handleFilterChange = jest.fn();
@@ -231,7 +231,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.setState({ maxDate });
 
@@ -255,7 +255,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.setState({ maxDate, maxToDate });
 
@@ -284,7 +284,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.setState(state);
             filter.instance().handleFilterChange = jest.fn();
@@ -313,7 +313,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.setState(state);
             filter.instance().handleFilterChange = jest.fn();
@@ -342,7 +342,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.setState(state);
             filter.instance().handleFilterChange = jest.fn();
@@ -367,7 +367,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -391,7 +391,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -415,7 +415,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -439,7 +439,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -471,7 +471,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -481,7 +481,7 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith(event.target.name, event.target.value);
         });
-        
+
         it('handleChangeFilterControl invalid event runs correctly', () => {
             // Arrange
             const event = {
@@ -499,7 +499,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -528,7 +528,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
 
@@ -588,7 +588,7 @@ describe('Filter', () => {
                 pageIndex: props.gridParams.pageIndex,
                 pageSize: props.gridParams.pageSize
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().setState(state);
 
@@ -598,7 +598,7 @@ describe('Filter', () => {
             // Assert
             expect(result).toEqual(expected);
         });
-        
+
         it('getParams with invalid headline and recipient returns correctly', () => {
             // Arrange
             const state = {
@@ -642,7 +642,7 @@ describe('Filter', () => {
                 pageIndex: props.gridParams.pageIndex,
                 pageSize: props.gridParams.pageSize
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().setState(state);
 
@@ -710,7 +710,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().setState(state);
 
@@ -720,7 +720,7 @@ describe('Filter', () => {
             // Assert
             expect(result).toBeTrue;
         });
-        
+
         it('isDisabledDateParam returns false', () => {
             // Arrange
             const state = {
@@ -738,7 +738,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().setState(state);
 
@@ -768,7 +768,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
 
             // Action
@@ -792,7 +792,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({}))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             toast.error = jest.fn();
 
@@ -821,7 +821,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({})),
                 setInvalidParams: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             toast.error = jest.fn();
 
@@ -851,7 +851,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({})),
                 setInvalidParams: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             toast.error = jest.fn();
 
@@ -880,7 +880,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({}))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             toast.error = jest.fn();
 
@@ -909,7 +909,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({}))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             toast.error = jest.fn();
 
@@ -937,7 +937,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({ data: {} })),
                 getHeadlineOptions: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
 
             // Action
@@ -947,7 +947,7 @@ describe('Filter', () => {
             // Assert
             expect(props.getHeadlineOptions).toHaveBeenCalledWith(searchText);
         });
-        
+
         it('searchText invalid', () => {
             // Arrange
             const searchText = '';
@@ -960,7 +960,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({ data: {} })),
                 setHeadlineOptions: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
 
             // Action
@@ -987,7 +987,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({ data: {} })),
                 getRecipientOptions: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
 
             // Action
@@ -997,7 +997,7 @@ describe('Filter', () => {
             // Assert
             expect(props.getRecipientOptions).toHaveBeenCalledWith(searchText);
         });
-        
+
         it('searchText invalid', () => {
             // Arrange
             const searchText = '';
@@ -1010,7 +1010,7 @@ describe('Filter', () => {
                 getSettings: jest.fn(() => Promise.resolve({ data: {} })),
                 setRecipientOptions: jest.fn()
             };
-    
+
             const filter = shallow(<Filter {...props} />);
 
             // Action
@@ -1023,7 +1023,7 @@ describe('Filter', () => {
     });
 
     describe('render', () => {
-        it('has regular children', () => {           
+        it('has regular children', () => {
             // Arrange
             const props = {
                 gridParams: {},
@@ -1035,8 +1035,8 @@ describe('Filter', () => {
             };
 
             const initialState = {
-                notificationTypeOptions: [ 1 ],
-                statusOptions: [ 'Error' ],
+                notificationTypeOptions: [1],
+                statusOptions: ['Error'],
                 maxDate: new Date(),
                 minToDate: new Date(),
                 maxToDate: new Date(),
@@ -1055,7 +1055,7 @@ describe('Filter', () => {
                     content: 'content'
                 }
             };
-    
+
             // Action
             const filter = shallow(<Filter {...props} />);
             filter.instance().setState(initialState);
@@ -1145,7 +1145,7 @@ describe('Filter', () => {
             expect(filter.find(Form.Group).at(9).find(Button).props().size).toBe('sm');
         });
 
-        describe('has Form.Group 6', () => {  
+        describe('has Form.Group 6', () => {
             describe('has Form.Control 0', () => {
                 it('has correct valid className', () => {
                     // Arrange
@@ -1159,10 +1159,10 @@ describe('Filter', () => {
                         recipientOptions: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-            
+
                     // Action
                     const filter = shallow(<Filter {...props} />);
-        
+
                     // Assert
                     expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().className)
                         .toBe('shadow-none valid-input notification-id-input');
@@ -1180,16 +1180,16 @@ describe('Filter', () => {
                         recipientOptions: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-            
+
                     // Action
                     const filter = shallow(<Filter {...props} />);
-        
+
                     // Assert
                     expect(filter.find(Form.Group).at(6).find(Form.Control).at(0).props().className)
                         .toBe('shadow-none invalid-input notification-id-input');
                 });
             });
-            
+
             describe('has Form.Control 1', () => {
                 it('has correct valid className', () => {
                     // Arrange
@@ -1203,10 +1203,10 @@ describe('Filter', () => {
                         recipientOptions: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-            
+
                     // Action
                     const filter = shallow(<Filter {...props} />);
-        
+
                     // Assert
                     expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().className)
                         .toBe('shadow-none valid-input notification-id-input');
@@ -1224,10 +1224,10 @@ describe('Filter', () => {
                         recipientOptions: {},
                         getSettings: jest.fn(() => Promise.resolve({ data: {} }))
                     };
-            
+
                     // Action
                     const filter = shallow(<Filter {...props} />);
-        
+
                     // Assert
                     expect(filter.find(Form.Group).at(6).find(Form.Control).at(1).props().className)
                         .toBe('shadow-none invalid-input notification-id-input');
@@ -1235,7 +1235,7 @@ describe('Filter', () => {
             });
         });
 
-        it('notification types MultipleSelect change correctly', () => {            
+        it('notification types MultipleSelect change correctly', () => {
             // Arrange
             const currentItem = 'currentItem';
             const selectedItemsKey = 'selectedItemsKey';
@@ -1247,7 +1247,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleNotificationTypeChange = jest.fn();
 
@@ -1257,8 +1257,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleNotificationTypeChange).toHaveBeenCalledWith(currentItem, selectedItemsKey);
         });
-        
-        it('fromDate DatePicker change correctly', () => {            
+
+        it('fromDate DatePicker change correctly', () => {
             // Arrange
             const value = 'value';
             const props = {
@@ -1269,7 +1269,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFromDateChange = jest.fn();
 
@@ -1279,8 +1279,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleFromDateChange).toHaveBeenCalledWith(value);
         });
-        
-        it('toDate DatePicker change correctly', () => {            
+
+        it('toDate DatePicker change correctly', () => {
             // Arrange
             const value = 'value';
             const props = {
@@ -1291,7 +1291,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleToDateChange = jest.fn();
 
@@ -1301,7 +1301,7 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleToDateChange).toHaveBeenCalledWith(value);
         });
-        
+
         it('headline SelectWithSearch change correctly', () => {
             // Arrange
             const value = 'value';
@@ -1313,7 +1313,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleHeadlineChange = jest.fn();
 
@@ -1323,8 +1323,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleHeadlineChange).toHaveBeenCalledWith(value);
         });
-        
-        it('headline SelectWithSearch inputChange correctly', () => {            
+
+        it('headline SelectWithSearch inputChange correctly', () => {
             // Arrange
             const searchText = 'searchText';
             const props = {
@@ -1335,7 +1335,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().debounceHandleHeadlineInputChange = jest.fn();
 
@@ -1345,7 +1345,7 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().debounceHandleHeadlineInputChange).toHaveBeenCalledWith(searchText);
         });
-        
+
         it('recipient SelectWithSearch change correctly', () => {
             // Arrange
             const value = 'value';
@@ -1357,7 +1357,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleRecipientChange = jest.fn();
 
@@ -1367,8 +1367,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleRecipientChange).toHaveBeenCalledWith(value);
         });
-        
-        it('recipient SelectWithSearch inputChange correctly', () => {            
+
+        it('recipient SelectWithSearch inputChange correctly', () => {
             // Arrange
             const searchText = 'searchText';
             const props = {
@@ -1379,7 +1379,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().debounceHandleRecipientInputChange = jest.fn();
 
@@ -1389,15 +1389,15 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().debounceHandleRecipientInputChange).toHaveBeenCalledWith(searchText);
         });
-        
-        it('messageID Form.Control change correctly', () => {            
+
+        it('messageID Form.Control change correctly', () => {
             // Arrange
             const event = {
                 target: {
                     validity: {}
                 }
             };
-            
+
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -1406,7 +1406,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleChangeFilterControl = jest.fn();
 
@@ -1416,15 +1416,15 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleChangeFilterControl).toHaveBeenCalledWith(event);
         });
-        
-        it('notificationIdLower Form.Control change correctly', () => {            
+
+        it('notificationIdLower Form.Control change correctly', () => {
             // Arrange
             const event = {
                 target: {
                     validity: {}
                 }
             };
-            
+
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -1433,7 +1433,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleChangeFilterControl = jest.fn();
 
@@ -1443,15 +1443,15 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleChangeFilterControl).toHaveBeenCalledWith(event);
         });
-        
-        it('notificationIdUpper Form.Control change correctly', () => {            
+
+        it('notificationIdUpper Form.Control change correctly', () => {
             // Arrange
             const event = {
                 target: {
                     validity: {}
                 }
             };
-            
+
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -1460,7 +1460,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleChangeFilterControl = jest.fn();
 
@@ -1470,8 +1470,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleChangeFilterControl).toHaveBeenCalledWith(event);
         });
-        
-        it('content Form.Control change correctly', () => {            
+
+        it('content Form.Control change correctly', () => {
             // Arrange
             const event = {
                 target: {
@@ -1479,7 +1479,7 @@ describe('Filter', () => {
                     value: 'value'
                 }
             };
-            
+
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -1488,7 +1488,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleChange = jest.fn();
 
@@ -1498,8 +1498,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleChange).toHaveBeenCalledWith(event);
         });
-        
-        it('status MultipleSelect change correctly', () => {            
+
+        it('status MultipleSelect change correctly', () => {
             // Arrange
             const currentItem = 'currentItem';
             const selectedItemsKey = 'selectedItemsKey';
@@ -1511,7 +1511,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleStatusChange = jest.fn();
 
@@ -1521,8 +1521,8 @@ describe('Filter', () => {
             // Assert
             expect(filter.instance().handleStatusChange).toHaveBeenCalledWith(currentItem, selectedItemsKey);
         });
-        
-        it('has Form running onSubmit correctly', () => {            
+
+        it('has Form running onSubmit correctly', () => {
             // Arrange
             const event = {
                 preventDefault: jest.fn()
@@ -1536,7 +1536,7 @@ describe('Filter', () => {
                 recipientOptions: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
-    
+
             const filter = shallow(<Filter {...props} />);
             filter.instance().submitHandler = jest.fn();
 

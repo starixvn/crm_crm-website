@@ -3,6 +3,10 @@ import FilterWrapper, { Filter } from '../Filter';
 import { shallow } from 'enzyme';
 import LangHelper from '@jsroot/common/langHelper';
 import configureMockStore from 'redux-mock-store';
+import { Button, Form } from 'react-bootstrap';
+import MultipleSelect from '@jsroot/components/multiple-select/index';
+import InsertPersonalMappingPopup from '../InsertPersonalMappingPopup';
+import { toast } from 'react-toastify';
 
 describe('Filter', () => {
     LangHelper.getResource = jest.fn(value => value);
@@ -11,7 +15,9 @@ describe('Filter', () => {
         // Arrange
         const mockStore = configureMockStore();
         const initialState = {
-            settings: {},
+            settings: {
+                mappingStatuses: [{ id: 1, name: 'Text' }]
+            },
             insertPersonalMappingData: {},
             insertPersonalMappingResult: {}
         };
@@ -58,7 +64,7 @@ describe('Filter', () => {
         const props = {
             settings: {
                 chatTypes: [],
-                mappingStatuses: [],
+                mappingStatuses: [{ id: 1, name: 'Text' }],
                 languages: [],
                 bots: []
             },
@@ -231,6 +237,31 @@ describe('Filter', () => {
 
             expect(result).toBeFalse;
         });
+
+        it('isValidParams with invalid mappingStatus call toast', () => {
+            // Arrange
+            const event = {
+                preventDefault: jest.fn()
+            };
+            const props = {
+                gridParams: {
+                    pageIndex: 1,
+                    pageSize: 100
+                },
+                insertPersonalMappingData: {},
+                insertPersonalMappingResult: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+
+            const filter = shallow(<Filter {...props} />);
+            toast.error = jest.fn();
+            filter.instance().isValidParams = jest.fn().mockReturnValue(false);
+            filter.instance().submitHandler = jest.fn();
+
+            filter.find(Form).simulate('submit', event);
+
+            expect(toast.error).toHaveBeenCalled();
+        });
     });
 
     describe('submitHandler', () => {
@@ -265,5 +296,117 @@ describe('Filter', () => {
             expect(props.setGridParams).toHaveBeenCalledWith(params);
             expect(props.getGridData).toHaveBeenCalledWith({ ...params });
         });
+    });
+
+    describe('handle form group change', () => {
+        it('handle form fields onChage event', () => {
+            const event = {
+                target: {
+                    value: 'value'
+                }
+            };
+
+            // Arrange
+            const state = {
+                filter: {
+                    chatType: '',
+                    name: '',
+                    groupHeadline: '',
+                    recipient: '',
+                    letstalkID: '',
+                    mappingStatuses: '1,2,3',
+                    languageId: '',
+                    botId: '',
+                    active: ''
+                }
+            };
+
+            const props = {
+                isHost: true,
+                gridParams: {},
+                insertPersonalMappingData: {},
+                insertPersonalMappingResult: {},
+                getSettings: jest.fn(() => Promise.resolve({})),
+                setGridParams: jest.fn(),
+                getGridData: jest.fn((params) => Promise.resolve([]))
+            };
+
+            const filter = shallow(<Filter {...props} />);
+            filter.instance().setState(state);
+            filter.instance().onChange = jest.fn();
+
+            filter.find(Form.Group).at(0).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('chatType', event.target.value);
+
+            filter.find(Form.Group).at(1).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('name', event.target.value);
+
+            filter.find(Form.Group).at(2).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('groupHeadline', event.target.value);
+
+            filter.find(Form.Group).at(3).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('recipient', event.target.value);
+
+            filter.find(Form.Group).at(4).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('letstalkID', event.target.value);
+
+            filter.find(Form.Group).at(5).find(MultipleSelect).simulate('change', 'currentItem', event.target.value);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('mappingStatuses', event.target.value);
+
+            filter.find(Form.Group).at(6).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('languageId', event.target.value);
+
+            filter.find(Form.Group).at(7).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('active', event.target.value);
+
+            filter.find(Form.Group).at(8).find(Form.Control).simulate('change', event);
+            expect(filter.instance().onChange).toHaveBeenCalledWith('botId', event.target.value);
+        });
+    });
+
+    describe('Insert personal mapping', () => {
+        it('If not have isHost permission will not show Insert Personal Chat Mapping button', () => {
+            const props = {
+                gridParams: {},
+                insertPersonalMappingData: {},
+                insertPersonalMappingResult: {},
+                getSettings: jest.fn(() => Promise.resolve({}))
+            };
+
+            const filter = shallow(<Filter {...props} />);
+            expect(filter.find(Form.Group).find(Button).length).toBe(1);
+            expect(filter.find(Form.Group).find(Button).at(0).html()).not.toContain('InsertPersonalMappingBtn');
+        });
+
+        it('If have host permission will show Insert Personal Chat Mapping button and should call props openInsertPersonalMappingPopup when click', () => {
+            const props = {
+                isHost: true,
+                gridParams: {},
+                insertPersonalMappingData: {},
+                insertPersonalMappingResult: {},
+                getSettings: jest.fn(() => Promise.resolve({})),
+                openInsertPersonalMappingPopup: jest.fn()
+            };
+
+            const filter = shallow(<Filter {...props} />);
+            expect(filter.find(Form.Group).find(Button).length).toBe(2);
+            expect(filter.find(Form.Group).find(Button).at(1).html()).toContain('InsertPersonalMappingBtn');
+            filter.find(Button).at(1).simulate('click');
+            expect(props.openInsertPersonalMappingPopup).toHaveBeenCalled();
+        });
+    });
+
+    describe('InsertPersonalMappingPopup', () => {
+        const props = {
+            isHost: true,
+            gridParams: {},
+            insertPersonalMappingData: { isShow: true },
+            insertPersonalMappingResult: {},
+            getSettings: jest.fn(() => Promise.resolve({})),
+            openInsertPersonalMappingPopup: jest.fn()
+        };
+
+        const filter = shallow(<Filter {...props} />);
+        expect(filter.find(InsertPersonalMappingPopup).length).toBe(1);
     });
 });
